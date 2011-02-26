@@ -10,7 +10,6 @@ downloads
 eggs
 parts
 src/*.egg-info
-src/project/settings.py
 src/project/media/cms_page_media
 src/project/media/upload
 src/project/media/admin
