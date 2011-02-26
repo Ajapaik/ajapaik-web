@@ -3,6 +3,12 @@ gettext = lambda s: s
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
+STATICFILES_DIRS = (
+    '/home/kristjan/rephoto/src/project/media',
+    
+)
+STATIC_URL = '/media/static/'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -34,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.sitemaps',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'south',
     'sorl.thumbnail',
     'filebrowser',
@@ -62,6 +69,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.request",
     "django.core.context_processors.media",
+    "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
 )
 
@@ -93,7 +101,7 @@ MEDIA_BUNDLES = (
         'url': MEDIA_URL + 'js/',
         'minify': False,
         'files': (
-            'jquery-1.4.1.min.js',
+            'jquery-1.5.1.js',
             'init.js',
         )
     },
