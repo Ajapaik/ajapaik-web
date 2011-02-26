@@ -75,6 +75,6 @@ class Action(models.Model):
     
     related_type = models.ForeignKey(ContentType)
     related_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('related_type', 'related_id')
+    related_object = generic.GenericForeignKey('related_type', 'related_id')
     
     params = json.JSONField(null=True, blank=True)
