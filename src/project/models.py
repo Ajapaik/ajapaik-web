@@ -115,6 +115,8 @@ class Guess(models.Model):
     user = models.ForeignKey(Profile)
     photo = models.ForeignKey(Photo)
 
+    created = models.DateTimeField(auto_now_add=True)
+
 class Action(models.Model):
     type = models.CharField(max_length=255)
     
