@@ -1,0 +1,17 @@
+Metadata-Version: 1.0
+Name: django-media-bundler
+Version: 0.3
+Summary: Django application that bundles your Javascript/CSS, and sprites your icons.
+Home-page: http://github.com/rnk/django-media-bundler/
+Author: Reid Kleckner
+Author-email: rnk@mit.edu
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Framework :: Django
