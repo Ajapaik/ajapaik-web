@@ -7,6 +7,8 @@ from django.contrib.contenttypes import generic
 #from filebrowser.fields import FileBrowseField
 from django_extensions.db.fields import json
 
+from sorl.thumbnail import ImageField
+
 import math
 
 # Create profile automatically
@@ -17,7 +19,7 @@ models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 class Photo(models.Model):
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
+    image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
     
     date = models.DateField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
@@ -122,15 +124,17 @@ class Guess(models.Model):
 class Action(models.Model):
     type = models.CharField(max_length=255)
     
-    related_type = models.ForeignKey(ContentType)
-    related_id = models.PositiveIntegerField()
+    related_type = models.ForeignKey(ContentType, null=True, blank=True)
+    related_id = models.PositiveIntegerField(null=True, blank=True)
     related_object = generic.GenericForeignKey('related_type', 'related_id')
     
     params = json.JSONField(null=True, blank=True)
 
     @classmethod
     def log(cls, type, params=None, related_object=None, request=None):
-        obj = cls(type=type, related_object=related_object, params=params)
+        obj = cls(type=type, params=params)
+        if related_object:
+            obj.related_object = related_object
         obj.save()
         return obj
         
