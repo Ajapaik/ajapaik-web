@@ -28,6 +28,10 @@ class Photo(models.Model):
     level = models.PositiveSmallIntegerField(default=0)
     guess_level = models.FloatField(null=True, blank=True)
 
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
+    confidence = models.FloatField(default=0)
+
     source_key = models.CharField(max_length=100, null=True, blank=True)
     source = models.ForeignKey('Source', null=True, blank=True)
     
