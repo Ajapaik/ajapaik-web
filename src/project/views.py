@@ -9,3 +9,6 @@ def index(request):
         'photos': Photo.objects.all()[:6],
         
     }))
+    
+def geotag_add(request, photo_id):
+    return ''
