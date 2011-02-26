@@ -19,7 +19,7 @@ class Photo(models.Model):
     
     level = models.PositiveSmallIntegerField(default=0)
     guess_level = models.FloatField(null=True, blank=True)
-    
+
     source_key = models.CharField(max_length=100, null=True, blank=True)
     source = models.ForeignKey('Source', null=True, blank=True)
     
@@ -27,6 +27,38 @@ class Photo(models.Model):
     
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    def distance_in_meters(lon1,lat1,lon2,lat2):
+        lat_coeff = math.cos(math.radians((lat1 + lat2)/2.0))
+        return (6350e3*3.1415/360) * math.sqrt( \
+                                (lat1 - lat2)**2 + \
+                                ((lon1 - lon2)*lat_coeff)**2)
+
+    def set_calculated_fields(self):
+        self.confidence = 0
+        self.lon = None
+        self.lat = None
+
+        geotags = GeoTag.objects.filter(photo_id=self.id)
+        if geotags:
+            lon = sorted([g.lon for g in geotags])
+            lon = lon[len(lat)/2]
+            lat = sorted([g.lat for g in geotags])
+            lat = lat[len(lat)/2]
+
+            correct_guesses = 0
+            lon_sum, lat_sum = 0,0
+            for g in geotags:
+                if distance_in_meters() < 100:
+                    correct_guesses += 1
+                    lon_sum += g.lon
+                    lat_sum += g.lat
+            if correct_guesses:
+                self.lon = lon_sum / float(correct_guesses)
+                self.lat = lat_sum / float(correct_guesses)
+            self.confidence = (correct_guesses / 3.0) * \
+                        correct_guesses / float(len(geotags))
+
     
 class GeoTag(models.Model):
     MAP, EXIF, GPS = range(3)
