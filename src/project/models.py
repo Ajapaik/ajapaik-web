@@ -94,7 +94,9 @@ class GeoTag(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(BaseUser, primary_key=True)
     
-    fb_id = models.IntegerField(null=True, blank=True)
+    fb_name = models.CharField(max_length=255, null=True, blank=True)
+    fb_link = models.CharField(max_length=255, null=True, blank=True)
+    fb_id = models.CharField(max_length=100, null=True, blank=True)
     fb_token = models.CharField(max_length=255, null=True, blank=True)
     
     avatar_url = models.URLField(null=True, blank=True)
@@ -125,3 +127,10 @@ class Action(models.Model):
     related_object = generic.GenericForeignKey('related_type', 'related_id')
     
     params = json.JSONField(null=True, blank=True)
+
+    @classmethod
+    def log(cls, type, params=None, related_object=None, request=None):
+        obj = cls(type=type, related_object=related_object, params=params)
+        obj.save()
+        return obj
+        

@@ -12,6 +12,8 @@ urlpatterns = patterns('views',
     
     # Site urls
     (r'^$', 'index')
+) + patterns('',
+    (r'^facebook/(?P<stage>[a-z_]+)/', 'facebook.facebook_handler'),
 )
 
 if settings.DEBUG:
