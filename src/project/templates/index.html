@@ -1,7 +1,40 @@
 {% extends 'layouts/frontpage.html' %}
 {% load thumbnail i18n %}
 {% block content %}
+
+	<ul id="photos">
+
+        {% for photo in photos|slice:":3" %}
+        {% thumbnail photo.image "160x160" as im %}
+
+		{% if forloop.counter == 2 %}
+		<li class="current">
+			<p class="description">Tallinn, 1920. aastad</p>
+			<a href="http://server.vigvam.ee:8002/media/cache/d8/46/d846c479ebe60d2f4ced24b6ee6bd74b.jpg"><img src="{% thumbnail photo.image "510x375" as bim %}{{ bim.url }}{% endthumbnail %}" /></a>
+			<p class="controls">
+				<a href="tean-asukohta" class="btn">Tean asukohta!</a>
+				<div class="skip"><a href="j2tan-vahele">Jätan vahele</a></div>
+			</p>
+		</li>
+		{% else %}
+		<li class="thumb">
+			<div class="status no"></div>
+			<img src="{{ im.url }}" />
+		</li>
+		{% endif %}
+
+        {% endthumbnail %}
+        {% endfor %}
+
+	</ul>
+
+
     
+
+
+<div id="KRISTJAN" class="clearfix ir">
+
+<!--
     <div id="wheel" style="width:100%;height:330px;border:1px solid #000;">
         {% for photo in photos %}
         {% thumbnail photo.image "160x160" as im %}
@@ -9,11 +42,13 @@
         {% endthumbnail %}
         {% endfor %}
     </div>
-    
+
+
     <div style="width:510px;height:510px">
         <img id="current_image" src="" />
     </div>
-    
+
+
     <div id="map_canvas" style="width:512px;height:320px;">
     
     </div>
@@ -62,5 +97,8 @@
             return false;
         });
     </script>
+-->
+
+</div>
     
 {% endblock %}
