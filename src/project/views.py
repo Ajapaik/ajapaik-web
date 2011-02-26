@@ -11,7 +11,9 @@ from project.forms import GeoTagAddForm
 import get_next_photos_to_geotag
 
 def test1(request):
-    return HttpResponse(unicode(request.get_user()))
+    from django.contrib.auth import logout
+    logout(request)
+    #return HttpResponse(unicode(request.get_user()))
 
 def index(request):
     if request.method == 'POST':
