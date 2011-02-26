@@ -81,7 +81,7 @@ FILEBROWSER_DIRECTORY = 'upload/'
 MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), "media")
 
 STATIC_ROOT = MEDIA_ROOT + '/static'
-STATIC_URL = '/media/static/'
+STATIC_URL = '/static/'
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 

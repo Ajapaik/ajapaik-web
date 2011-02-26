@@ -1,12 +1,13 @@
 {% extends 'layouts/frontpage.html' %}
+{% load thumbnail %}
 {% block content %}
-    <h1>ReShoot</h1>
     
     <div id="wheel" style="width:100%;height:500px;border:1px solid #000;">
         {% for photo in photos %}
-        <div style="width:165px;height:165px;border:1px solid #aaa;"><img src="" /></div>
+        {% thumbnail photo.image "160x160" as im %}
+        <div style="width:160px;height:160px;border:1px solid #aaa;"><img src="{{ im.url }}" /></div>
+        {% endthumbnail %}
         {% endfor %}
     </div>
-    
     
 {% endblock %}
