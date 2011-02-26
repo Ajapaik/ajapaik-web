@@ -2,12 +2,12 @@
 {% load i18n %}
 {% block layout %}
 
-    <div class="frontpage">
-    
-        <div class="content">
+    <section>
+    	<div class="box center" id="content">
             {% block content %}{% endblock %}
-        </div>
-        
-    </div>
+    	</div>	
+    	<div class="clear"></div>
+    	<div class="box" id="footer"><img src="images/launched-at-garage48.png"> </div>
+    </section>
     
 {% endblock layout %}

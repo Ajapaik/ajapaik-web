@@ -98,7 +98,7 @@ MEDIA_BUNDLES = (
         'type': 'javascript',
         'name': 'scripts_combi',
         'path': MEDIA_ROOT + '/js/',
-        'url': MEDIA_URL + 'static/js/',
+        'url': MEDIA_URL + 'js/',
         'minify': False,
         'files': (
             'jquery-1.5.1.js',
@@ -109,7 +109,7 @@ MEDIA_BUNDLES = (
         'type': 'css',
         'name': 'styles_combi',
         'path': MEDIA_ROOT + '/css/',
-        'url': MEDIA_URL + 'static/css/',
+        'url': MEDIA_URL + 'css/',
         'minify': False,
         'files': (
             'style.css',

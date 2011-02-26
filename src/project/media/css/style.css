@@ -1,0 +1,24 @@
+* {margin: 0; padding: 0}
+
+body {background: url(images/header.jpg) top center repeat-x; font-size: 14px;
+font-family: Helvetica, Arial, sans-serif;
+font-style: normal;
+font-weight: normal;
+text-transform: normal;
+letter-spacing: -0.1;
+line-height: 1.4em; }
+
+#main {margin: 0 auto; width: 960px;}
+header {text-align: center; height: 100px; display: block;}
+header img {margin: 15px 0 0 0;}
+header h1 {padding: 20px 0;}
+section {}
+
+#content {width: 630px; margin: 0 14px 0 0; }
+#about { width: 280px;}
+#footer {margin: 14px 0 0 0}
+.box {padding: 8px; border: 1px solid #dca764;}
+.box p {margin: 5px 0 10px 0;}
+
+.left {float: left;}
+.clear {clear: both;}
