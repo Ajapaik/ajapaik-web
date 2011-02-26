@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'filebrowser',
     'media_bundler',
-    
+    'django_extensions',
 )
 
 # List of callables that know how to import templates from various sources.
