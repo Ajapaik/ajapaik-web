@@ -1,6 +1,7 @@
 from project.models import *
 from django.db.models import *
 from sorl.thumbnail import get_thumbnail
+import random
 
 def _make_thumbnail(photo,size):
 	image=get_thumbnail(photo.image,size)
@@ -17,23 +18,24 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 				datetime.datetime.now()-datetime.timedelta(1))] + \
 			list(GeoTag.objects.filter(user=user_id). \
 							values_list('photo_id',flat=True)))
-	known_photos=Photo.objects.exclude(
+	known_photos=list(Photo.objects.exclude(
 								pk__in=forbidden_photo_ids). \
-					filter(confidence__gte=0.3)[:nr_of_photos]
-	unknown_photos=Photo.objects.exclude(
+					filter(confidence__gte=0.3)[:nr_of_photos])
+	unknown_photos=list(Photo.objects.exclude(
 								pk__in=forbidden_photo_ids). \
 					filter(confidence=0,pk__in= \
 						GeoTag.objects.values_list(
 									'photo_id',flat=True)) \
-												[:nr_of_photos]
+												[:nr_of_photos])
 	if not unknown_photos:
-		unknown_photos=Photo.objects.exclude(pk__in= \
+		unknown_photos=list(Photo.objects.exclude(pk__in= \
 						GeoTag.objects.values_list(
 									'photo_id',flat=True)). \
 				annotate(skips_count=Count('guess')). \
-				order_by('skips_count')[:nr_of_photos]
+				order_by('skips_count')[:nr_of_photos])
 
-	photos=unknown_photos	#!!!
+	photos=random.sample(list(set(known_photos+unknown_photos)),
+						nr_of_photos)
 
 	data=[]
 	for p in photos:
