@@ -19,50 +19,53 @@ a {
 	color: #079ad1;
 }
 
-ul#photos {
-	margin: 0;
+#photos {
 	text-align: center;
 	padding: 0 10px;
+	height: 565px;
 }
-ul#photos li {
+#photos .photo {
 	position: relative;
-	list-style: none;
 	float: left;
 	padding: 20px 0;
 }
-ul#photos li.thumb {
+#photos .photo.thumb {
 	margin: 170px 0 0;
 }
-ul#photos li img {
+#photos .photo img {
 	border: 7px solid #fff;
 	-webkit-box-shadow: 0px 0px 5px #999;
+	-moz-box-shadow: 0px 0px 5px #999;
 }
-ul#photos li .description {
+#photos .photo.current {
+	margin: 0 30px;
+}
+#photos .photo.current .description {
 	color: #6e6b68;
 	margin: 0 0 15px;
 }
-ul#photos li .controls {
+#photos .photo.current .controls {
 	position: relative;
 	margin: 25px 0 0;
 	width: 100%;
 }
 
 
-ul#photos li.current {
-	margin: 0 30px;
+#photos .phoro.current .map {
+	position: relative;
 }
 
-ul#photos li .status {
+#photos .photo.thumb .status {
 	position: absolute;
 	top: 7px;
 	right: 10px;
 	width: 40px;
 	height: 45px;
 }
-ul#photos li .status.no {
+#photos .photo.thumb .status.no {
 	background: url(../images/icon_no.png) no-repeat;
 }
-ul#photos li .status.yes {
+#photos .photo.thumb .status.yes {
 	background: url(../images/icon_yes.png) no-repeat;
 }
 
@@ -77,6 +80,7 @@ a.btn {
 	border: 1px solid #489400;
 	background: #6cbb00 url(../images/btn_green_bg.png) repeat-x;
 	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 
 .skip {
@@ -112,6 +116,7 @@ a.btn {
 	margin: 34px 0 0;
 	background: url(../images/inset_bg.png) repeat-x;
 	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 #footer #facebook-connect a {
 	width: 169px;
