@@ -7,6 +7,8 @@ from django.contrib.contenttypes import generic
 #from filebrowser.fields import FileBrowseField
 from django_extensions.db.fields import json
 
+import math
+
 class Photo(models.Model):
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = models.ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
@@ -28,9 +30,10 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
         lat_coeff = math.cos(math.radians((lat1 + lat2)/2.0))
-        return (6350e3*3.1415/360) * math.sqrt( \
+        return (2*6350e3*3.1415/360) * math.sqrt( \
                                 (lat1 - lat2)**2 + \
                                 ((lon1 - lon2)*lat_coeff)**2)
 
@@ -39,7 +42,7 @@ class Photo(models.Model):
         self.lon = None
         self.lat = None
 
-        geotags = GeoTag.objects.filter(photo_id=self.id)
+        geotags = GeoTag.objects.filter(photo__id=self.id)
         if geotags:
             lon = sorted([g.lon for g in geotags])
             lon = lon[len(lat)/2]
