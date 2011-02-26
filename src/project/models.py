@@ -66,10 +66,10 @@ class Photo(models.Model):
                     correct_guesses += 1
                     lon_sum += g.lon
                     lat_sum += g.lat
-            if correct_guesses:
+            if correct_guesses / float(len(guesses)) > 0.63:
                 self.lon = lon_sum / float(correct_guesses)
                 self.lat = lat_sum / float(correct_guesses)
-            self.confidence = (correct_guesses / 3.0) * \
+                self.confidence = (correct_guesses / 3.0) * \
                         correct_guesses / float(len(geotags))
 
     
