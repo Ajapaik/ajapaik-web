@@ -2,7 +2,7 @@
 # http://docs.djangoproject.com/en/dev/topics/auth/
 
 from . import models
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, User
 
 def get_user(request):
     if request.user.is_authenticated():
@@ -18,13 +18,14 @@ class UserMiddleware(object):
 
 class AuthBackend(object):
     def authenticate(self, id):
-        user = models.User(username="_"+id[:28])
+        user = User(username="_"+id[:28])
+        user.profile = models.Profile()
         user.save()
         models.Action(type='create_user', related_object=user).save()
         return user
 
     def get_user(self, user_id):
         try:
-            return models.User.objects.get(pk=user_id)
-        except models.User.DoesNotExist:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
             return None
