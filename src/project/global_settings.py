@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'filebrowser',
     'media_bundler',
     'django_extensions',
+    'project',
 )
 
 # List of callables that know how to import templates from various sources.
