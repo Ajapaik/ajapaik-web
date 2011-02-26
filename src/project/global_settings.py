@@ -3,12 +3,6 @@ gettext = lambda s: s
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
-STATICFILES_DIRS = (
-    '/home/kristjan/rephoto/src/project/media',
-    
-)
-STATIC_URL = '/media/static/'
-
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -85,6 +79,11 @@ FILEBROWSER_DIRECTORY = 'upload/'
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), "media")
+
+STATIC_ROOT = MEDIA_ROOT + '/static'
+STATIC_URL = '/media/static/'
+
+ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).

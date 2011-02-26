@@ -11,7 +11,10 @@ class Photo(models.Model):
     image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     
     date = models.DateField(null=True, blank=True)
+    date_text = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
+    
+    user = models.ForeignKey('User', blank=True, null=True)
     
     level = models.PositiveSmallIntegerField(default=0)
     guess_level = models.FloatField(null=True, blank=True)
@@ -56,6 +59,10 @@ class Source(models.Model):
     modified = models.DateTimeField(auto_now=True)
     
 class Guess(models.Model):
+    class Meta:
+        verbose_name = 'Guess'
+        verbose_name_plural = 'Guesses'
+        
     user = models.ForeignKey(User)
     photo = models.ForeignKey(Photo)
 
