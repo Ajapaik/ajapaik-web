@@ -7,6 +7,12 @@ from django.contrib.contenttypes import generic
 #from filebrowser.fields import FileBrowseField
 from django_extensions.db.fields import json
 
+# Create profile automatically
+def user_post_save(sender, instance, **kwargs):
+    profile, new = Profile.objects.get_or_create(user=instance)
+
+models.signals.post_save.connect(user_post_save, sender=BaseUser)
+
 class Photo(models.Model):
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = models.ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
@@ -47,7 +53,7 @@ class GeoTag(models.Model):
     modified = models.DateTimeField(auto_now=True)
     
 class Profile(models.Model):
-    user_ptr = models.OneToOneField(BaseUser, primary_key=True)
+    user = models.OneToOneField(BaseUser, primary_key=True)
     
     fb_id = models.IntegerField(null=True, blank=True)
     fb_token = models.CharField(max_length=255, null=True, blank=True)

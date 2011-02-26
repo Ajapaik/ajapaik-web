@@ -14,7 +14,7 @@ def index(request):
     if request.method == 'POST':
         geotag_form = GeoTagAddForm(request.POST)
         if geotag_form.is_valid():
-            geotag_form.save(request.get_user())
+            geotag_form.save(request.get_user().get_profile())
     else:
         geotag_form = GeoTagAddForm()
     
