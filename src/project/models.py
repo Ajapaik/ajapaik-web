@@ -40,6 +40,9 @@ class GeoTag(models.Model):
     lon = models.FloatField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     
+    user = models.ForeignKey('User')
+    photo = models.ForeignKey('Photo')
+    
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     
