@@ -72,6 +72,9 @@ class GeoTag(models.Model):
     lon = models.FloatField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     
+    user = models.ForeignKey('User')
+    photo = models.ForeignKey('Photo')
+    
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     
@@ -104,6 +107,6 @@ class Action(models.Model):
     
     related_type = models.ForeignKey(ContentType)
     related_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('related_type', 'related_id')
+    related_object = generic.GenericForeignKey('related_type', 'related_id')
     
     params = json.JSONField(null=True, blank=True)

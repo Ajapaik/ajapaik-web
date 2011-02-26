@@ -7,9 +7,10 @@ urlpatterns = patterns('views',
     (r'^grappelli/', include('grappelli.urls')),
     (r'^admin/filebrowser/', include('filebrowser.urls')),
     (r'^admin/', include(admin.site.urls)),
+
+    (r'^test1/', 'test1'),
     
     # Site urls
-    (r'^photo/(?P<photo_id>\d)/geotag/add/$', 'geotag_add'),
     (r'^$', 'index')
 )
 

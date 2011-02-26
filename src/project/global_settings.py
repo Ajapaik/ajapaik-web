@@ -57,6 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'project.user_middleware.UserMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -66,6 +67,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
+)
+
+AUTHENTICATION_BACKENDS = (
+    'project.user_middleware.AuthBackend',
 )
 
 ROOT_URLCONF = 'project.urls'
