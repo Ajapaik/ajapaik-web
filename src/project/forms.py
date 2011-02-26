@@ -6,9 +6,9 @@ class GeoTagAddForm(forms.Form):
     lat = forms.CharField()
     lon = forms.CharField()
     
-    def save(self, user_obj):
+    def save(self, profile_obj):
         photo_obj = Photo.objects.get(id=self.cleaned_data['photo_id'])
-        geo, created = GeoTag.objects.get_or_create(user=user_obj, photo=photo_obj, defaults={
+        geo, created = GeoTag.objects.get_or_create(user=profile_obj, photo=photo_obj, defaults={
             'lat': self.cleaned_data['lat'],
             'lon': self.cleaned_data['lon'],
             'type': GeoTag.MAP,

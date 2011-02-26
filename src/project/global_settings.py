@@ -73,6 +73,8 @@ AUTHENTICATION_BACKENDS = (
     'project.user_middleware.AuthBackend',
 )
 
+AUTH_PROFILE_MODULE = 'project.Profile'
+
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATE_DIRS = (
