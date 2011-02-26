@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "RePhoto",
+    name = "project",
     version = "1.0",
     url = '',
     license = 'BSD',
