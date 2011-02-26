@@ -2,12 +2,10 @@
 {% load i18n %}
 {% block layout %}
 
-    <section>
-    	<div class="box center" id="content">
-            {% block content %}{% endblock %}
-    	</div>	
-    	<div class="clear"></div>
-    	<div class="box" id="footer"><img src="{{ MEDIA_URL }}images/launched-at-garage48.png"> </div>
-    </section>
+<div id="content" class="clearfix">
+
+{% block content %}{% endblock %}
+
+</div>
     
 {% endblock layout %}

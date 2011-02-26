@@ -1,24 +1,121 @@
-* {margin: 0; padding: 0}
+html {
+	background: #fff url(../images/bg.jpg) no-repeat top center;
+}
 
-body {background: url(../images/header.jpg) top center repeat-x; font-size: 14px;
-font-family: Helvetica, Arial, sans-serif;
-font-style: normal;
-font-weight: normal;
-text-transform: normal;
-letter-spacing: -0.1;
-line-height: 1.4em; }
+body {
+	color: #444;
+	font-family: 'Droid Serif', georgia, serif;
+	width: 100%;
+	height: 100%;
+}
 
-#main {margin: 0 auto; width: 960px;}
-header {text-align: center; height: 100px; display: block;}
-header img {margin: 15px 0 0 0;}
-header h1 {padding: 20px 0;}
-section {}
+#content {
+	width: 960px;
+	margin: 0 auto;
+	padding: 10px 0 150px;
+}
 
-#content {width: 630px; margin: 0 14px 0 0; }
-#about { width: 280px;}
-#footer {margin: 14px 0 0 0}
-.box {padding: 8px; border: 1px solid #dca764;}
-.box p {margin: 5px 0 10px 0;}
+a {
+	color: #079ad1;
+}
 
-.left {float: left;}
-.clear {clear: both;}
+ul#photos {
+	margin: 0;
+	text-align: center;
+	padding: 0 10px;
+}
+ul#photos li {
+	position: relative;
+	list-style: none;
+	float: left;
+	padding: 20px 0;
+}
+ul#photos li.thumb {
+	margin: 170px 0 0;
+}
+ul#photos li img {
+	border: 7px solid #fff;
+	-webkit-box-shadow: 0px 0px 5px #999;
+}
+ul#photos li .description {
+	color: #6e6b68;
+	margin: 0 0 15px;
+}
+ul#photos li .controls {
+	position: relative;
+	margin: 25px 0 0;
+	width: 100%;
+}
+
+
+ul#photos li.current {
+	margin: 0 30px;
+}
+
+ul#photos li .status {
+	position: absolute;
+	top: 7px;
+	right: 10px;
+	width: 40px;
+	height: 45px;
+}
+ul#photos li .status.no {
+	background: url(../images/icon_no.png) no-repeat;
+}
+ul#photos li .status.yes {
+	background: url(../images/icon_yes.png) no-repeat;
+}
+
+
+a.btn {
+	color: #fff;
+	font-size: 19px;
+	font-weight: 400;
+	text-decoration: none;
+	text-shadow: -1px -1px 0 #3f6b00;
+	padding: 10px 25px;
+	border: 1px solid #489400;
+	background: #6cbb00 url(../images/btn_green_bg.png) repeat-x;
+	-webkit-border-radius: 5px;
+}
+
+.skip {
+	margin: 25px 0 0;
+}
+
+
+#footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 100px;
+	background: url(../images/footer_bg.jpg) repeat-x;
+}
+#footer .container {
+	width: 960px;
+	margin: 0 auto;
+}
+#footer #logo {
+	width: 225px;
+	height: 55px;
+	margin: 24px 0 0;
+	float: left;
+	background: url(../images/Ajapaik_logo.png) no-repeat;
+}
+#footer #logo a {
+	display: block;
+	height: 100%;
+}
+#footer #facebook-connect {
+	float: right;
+	height: 34px;
+	margin: 34px 0 0;
+	background: url(../images/inset_bg.png) repeat-x;
+	-webkit-border-radius: 5px;
+}
+#footer #facebook-connect a {
+	width: 169px;
+	height: 21px;
+	margin: 6px;
+	background: url(../images/connect-with-facebook.png) no-repeat;	
+}
