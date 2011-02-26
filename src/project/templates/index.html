@@ -5,9 +5,14 @@
     <div id="wheel" style="width:100%;height:500px;border:1px solid #000;">
         {% for photo in photos %}
         {% thumbnail photo.image "160x160" as im %}
-        <div style="width:160px;height:160px;border:1px solid #aaa;"><img src="{{ im.url }}" /></div>
+        <div class="image" style="width:160px;height:160px;border:1px solid #aaa;"><a href="{% thumbnail photo.image "510x375" as bim %}{{ bim.url }}{% endthumbnail %}"><img src="{{ im.url }}" /></a></div>
         {% endthumbnail %}
         {% endfor %}
     </div>
+    
+    <script type="text/javascript">
+        $('#wheel > .image').click(function(){
+        });
+    </script>
     
 {% endblock %}
