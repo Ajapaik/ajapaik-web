@@ -9,7 +9,6 @@ urlpatterns = patterns('views',
     (r'^admin/', include(admin.site.urls)),
     
     # Site urls
-    (r'^photo/(?P<photo_id>\d)/geotag/add/$', 'geotag_add'),
     (r'^$', 'index')
 )
 
