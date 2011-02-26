@@ -63,7 +63,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.media",
     "django.contrib.messages.context_processors.messages",
-    "grappelli.context_processors.admin_template_path",
 )
 
 ROOT_URLCONF = 'project.urls'
@@ -94,7 +93,6 @@ MEDIA_BUNDLES = (
         'url': MEDIA_URL + 'js/',
         'minify': False,
         'files': (
-            'css_browser_selector.js',
             'jquery-1.4.1.min.js',
             'init.js',
         )

@@ -3,12 +3,13 @@ from django.contrib import admin
 from django.conf import settings
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('views',
     (r'^grappelli/', include('grappelli.urls')),
     (r'^admin/filebrowser/', include('filebrowser.urls')),
     (r'^admin/', include(admin.site.urls)),
     
-    #url(r'^', include('cms.urls')),
+    # Site urls
+    (r'^', 'index')
 )
 
 if settings.DEBUG:

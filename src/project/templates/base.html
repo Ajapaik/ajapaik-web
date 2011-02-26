@@ -1,17 +1,13 @@
-﻿{% load i18n cache cms_tags bundler_tags %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿{% load i18n cache bundler_tags %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>{% ifequal request.path '/' %}{% else %}{% page_attribute page_title %}{% endifequal %} - Vigvam Development</title>
+        <title>RePhoto</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <meta name="keywords" content="{% page_attribute meta_keywords %}" />
-        <meta name="description" content="{% page_attribute meta_description %}" />
-        <meta name="author" content="{% trans "Vigvam. Design and web development – www.vigvam.ee" %}" />
         <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
-        <link href="{{ MEDIA_URL }}images/favicon.ico" rel="shortcut icon"/>
         {% load_bundle "styles_combi" %}
         {% load_bundle "scripts_combi" %}
     </head>
-    <body class="{{ LANGUAGE_CODE }} {{ page.id }} {% block body_class %}{% endblock body_class %}">
+    <body>
         <div id="site-wrap">
             {% block layout %}{% endblock layout %}
         </div>
