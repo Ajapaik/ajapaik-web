@@ -42,6 +42,9 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
+
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
         lat_coeff = math.cos(math.radians((lat1 + lat2)/2.0))
@@ -104,6 +107,9 @@ class Profile(models.Model):
     avatar_url = models.URLField(null=True, blank=True)
     
     modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
     
 class Source(models.Model):
     name = models.CharField(max_length=255)
