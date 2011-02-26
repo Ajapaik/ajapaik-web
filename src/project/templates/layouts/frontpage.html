@@ -1,16 +1,13 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load cache cms_tags menu_tags %}
 {% block layout %}
 
-    <div class="default">
-        <ul class="menu">
-            {% show_menu 0 100 0 100 "menu.html" %}
-        </ul>
+    <div class="frontpage">
+    
         <div class="content">
-            <h2>{{ current_page.get_menu_title }}</h2>
-            {% placeholder content %}{% block additional_content %}{% endblock additional_content %}
+            {% block content %}{% endblock %}
         </div>
+        
     </div>
     
 {% endblock layout %}
