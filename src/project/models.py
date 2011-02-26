@@ -48,7 +48,6 @@ class GeoTag(models.Model):
     
 class Profile(models.Model):
     user_ptr = models.OneToOneField(BaseUser, primary_key=True)
-    cookie = models.CharField(max_length=255)
     
     fb_id = models.IntegerField(null=True, blank=True)
     fb_token = models.CharField(max_length=255, null=True, blank=True)
