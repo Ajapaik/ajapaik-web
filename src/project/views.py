@@ -2,9 +2,13 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib import messages
+from django.http import HttpResponse
 
 from project.models import Photo
 from project.forms import GeoTagAddForm
+
+def test1(request):
+    return HttpResponse(unicode(request.get_user()))
 
 def index(request):
     if request.method == 'POST':
@@ -19,3 +23,4 @@ def index(request):
         'geotag_form': geotag_form,
         
     }))
+
