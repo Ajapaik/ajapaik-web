@@ -93,6 +93,8 @@ class GeoTag(models.Model):
     
     user = models.ForeignKey('Profile')
     photo = models.ForeignKey('Photo')
+
+    is_correct = models.NullBooleanField()
     
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

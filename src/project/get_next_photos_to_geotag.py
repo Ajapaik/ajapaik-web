@@ -58,11 +58,13 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 
 	is_correct=None
 	if lon is not None and lat is not None:
+		g=GeoTag(user=user,photo_id=p.id,type=type,
+						lat=float(lat),lon=float(lon))
 		if p.confidence >= 0.3:
 			is_correct=(Photo.distance_in_meters(p.lon,p.lat,
 								float(lon),float(lat)) < 100)
-		GeoTag(user=user,photo_id=p.id,type=type,
-						lat=float(lat),lon=float(lon)).save()
+			g.is_correct=is_correct
+		g.save()
 	else:
 		Guess(user=user,photo_id=p.id).save()
 
