@@ -71,4 +71,11 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	p.set_calculated_fields()
 	p.save()
 
-	return is_correct
+	scoring_table={None:10,True:100}
+
+	score=0
+	for row in GeoTag.objects.filter(user=user.pk). \
+				values('is_correct').annotate(count=Count('pk')):
+		score+=scoring_table.get(row['is_correct'],0)
+
+	return is_correct,scoring_table.get(is_correct,0),score
