@@ -4,11 +4,12 @@ from django.contrib.auth.models import User as BaseUser
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
-from filebrowser.fields import FileBrowseField
+#from filebrowser.fields import FileBrowseField
 from django_extensions.db.fields import json
 
 class Photo(models.Model):
-    image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
+    #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
+    image = models.ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
     
     date = models.DateField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
