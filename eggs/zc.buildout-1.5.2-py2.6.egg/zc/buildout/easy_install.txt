@@ -1,0 +1,1985 @@
+Python API for egg and script installation
+==========================================
+
+The easy_install module provides some functions to provide support for
+egg and script installation.  It provides functionality at the python
+level that is similar to easy_install, with a few exceptions:
+
+- By default, we look for new packages *and* the packages that
+  they depend on.  This is somewhat like (and uses) the --upgrade
+  option of easy_install, except that we also upgrade required
+  packages.
+
+- If the highest-revision package satisfying a specification is
+  already present, then we don't try to get another one.  This saves a
+  lot of search time in the common case that packages are pegged to
+  specific versions.
+
+- If there is a develop egg that satisfies a requirement, we don't
+  look for additional distributions.  We always give preference to
+  develop eggs.
+
+- Distutils options for building extensions can be passed.
+
+Distribution installation
+-------------------------
+
+The easy_install module provides a function, install, for installing one
+or more packages and their dependencies.  The install function takes 2
+positional arguments:
+
+- An iterable of setuptools requirement strings for the distributions
+  to be installed, and
+
+- A destination directory to install to and to satisfy requirements
+  from.  The destination directory can be None, in which case, no new
+  distributions are downloaded and there will be an error if the
+  needed distributions can't be found among those already installed.
+
+It supports a number of optional keyword arguments:
+
+links
+   A sequence of URLs, file names, or directories to look for
+   links to distributions.
+
+index
+   The URL of an index server, or almost any other valid URL. :)
+
+   If not specified, the Python Package Index,
+   http://pypi.python.org/simple/, is used.  You can specify an
+   alternate index with this option.  If you use the links option and
+   if the links point to the needed distributions, then the index can
+   be anything and will be largely ignored.  In the examples, here,
+   we'll just point to an empty directory on our link server.  This
+   will make our examples run a little bit faster.
+
+executable
+   A path to a Python executable.  Distributions will be installed
+   using this executable and will be for the matching Python version.
+
+path
+   A list of additional directories to search for locally-installed
+   distributions.
+
+always_unzip
+   A flag indicating that newly-downloaded distributions should be
+   directories even if they could be installed as zip files.
+
+working_set
+   An existing working set to be augmented with additional
+   distributions, if necessary to satisfy requirements.  This allows
+   you to call install multiple times, if necessary, to gather
+   multiple sets of requirements.
+
+newest
+   A boolean value indicating whether to search for new distributions
+   when already-installed distributions meet the requirement.  When
+   this is true, the default, and when the destination directory is
+   not None, then the install function will search for the newest
+   distributions that satisfy the requirements.
+
+versions
+   A dictionary mapping project names to version numbers to be used
+   when selecting distributions.  This can be used to specify a set of
+   distribution versions independent of other requirements.
+
+use_dependency_links
+   A flag indicating whether to search for dependencies using the
+   setup dependency_links metadata or not. If true, links are searched
+   for using dependency_links in preference to other
+   locations. Defaults to true.
+
+include_site_packages
+    A flag indicating whether Python's non-standard-library packages should
+    be available for finding dependencies.  Defaults to true.
+
+    Paths outside of Python's standard library--or more precisely, those that
+    are not included when Python is started with the -S argument--are loosely
+    referred to as "site-packages" here.
+
+relative_paths
+   Adjust egg paths so they are relative to the script path.  This
+   allows scripts to work when scripts and eggs are moved, as long as
+   they are both moved in the same way.
+
+The install method returns a working set containing the distributions
+needed to meet the given requirements.
+
+We have a link server that has a number of eggs:
+
+    >>> print get(link_server),
+    <html><body>
+    <a href="bigdemo-0.1-py2.4.egg">bigdemo-0.1-py2.4.egg</a><br>
+    <a href="demo-0.1-py2.4.egg">demo-0.1-py2.4.egg</a><br>
+    <a href="demo-0.2-py2.4.egg">demo-0.2-py2.4.egg</a><br>
+    <a href="demo-0.3-py2.4.egg">demo-0.3-py2.4.egg</a><br>
+    <a href="demo-0.4c1-py2.4.egg">demo-0.4c1-py2.4.egg</a><br>
+    <a href="demoneeded-1.0.zip">demoneeded-1.0.zip</a><br>
+    <a href="demoneeded-1.1.zip">demoneeded-1.1.zip</a><br>
+    <a href="demoneeded-1.2c1.zip">demoneeded-1.2c1.zip</a><br>
+    <a href="extdemo-1.4.zip">extdemo-1.4.zip</a><br>
+    <a href="index/">index/</a><br>
+    <a href="other-1.0-py2.4.egg">other-1.0-py2.4.egg</a><br>
+    </body></html>
+
+Let's make a directory and install the demo egg to it, using the demo:
+
+    >>> dest = tmpdir('sample-install')
+    >>> import zc.buildout.easy_install
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo==0.2'], dest,
+    ...     links=[link_server], index=link_server+'index/')
+
+We requested version 0.2 of the demo distribution to be installed into
+the destination server.  We specified that we should search for links
+on the link server and that we should use the (empty) link server
+index directory as a package index.
+
+The working set contains the distributions we retrieved.
+
+    >>> for dist in ws:
+    ...     print dist
+    demo 0.2
+    demoneeded 1.1
+
+We got demoneeded because it was a dependency of demo.
+
+And the actual eggs were added to the eggs directory.
+
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    -  demoneeded-1.1-py2.4.egg
+
+If we remove the version restriction on demo, but specify a false
+value for newest, no new distributions will be installed:
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     newest=False)
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    -  demoneeded-1.1-py2.4.egg
+
+If we leave off the newest option, we'll get an update for demo:
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/')
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    -  demo-0.3-py2.4.egg
+    -  demoneeded-1.1-py2.4.egg
+
+Note that we didn't get the newest versions available.  There were
+release candidates for newer versions of both packages. By default,
+final releases are preferred.  We can change this behavior using the
+prefer_final function:
+
+    >>> zc.buildout.easy_install.prefer_final(False)
+    True
+
+The old setting is returned.
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/')
+    >>> for dist in ws:
+    ...     print dist
+    demo 0.4c1
+    demoneeded 1.2c1
+
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    -  demo-0.3-py2.4.egg
+    -  demo-0.4c1-py2.4.egg
+    -  demoneeded-1.1-py2.4.egg
+    -  demoneeded-1.2c1-py2.4.egg
+
+Let's put the setting back to the default.
+
+    >>> zc.buildout.easy_install.prefer_final(True)
+    False
+
+We can supply additional distributions.  We can also supply
+specifications for distributions that would normally be found via
+dependencies.  We might do this to specify a specific version.
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo', 'other', 'demoneeded==1.0'], dest,
+    ...     links=[link_server], index=link_server+'index/')
+
+    >>> for dist in ws:
+    ...     print dist
+    demo 0.3
+    other 1.0
+    demoneeded 1.0
+
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    -  demo-0.3-py2.4.egg
+    -  demo-0.4c1-py2.4.egg
+    -  demoneeded-1.0-py2.4.egg
+    -  demoneeded-1.1-py2.4.egg
+    -  demoneeded-1.2c1-py2.4.egg
+    d  other-1.0-py2.4.egg
+
+We can request that eggs be unzipped even if they are zip safe.  This
+can be useful when debugging.  (Note that Distribute will unzip eggs by
+default, so if you are using Distribute, most or all eggs will already be
+unzipped without this flag.)
+
+    >>> rmdir(dest)
+    >>> dest = tmpdir('sample-install')
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     always_unzip=True)
+
+    >>> ls(dest)
+    d  demo-0.3-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+
+    >>> rmdir(dest)
+    >>> dest = tmpdir('sample-install')
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     always_unzip=False)
+
+    >>> ls(dest)
+    -  demo-0.3-py2.4.egg
+    -  demoneeded-1.1-py2.4.egg
+
+We can also set a default by calling the always_unzip function:
+
+    >>> zc.buildout.easy_install.always_unzip(True)
+    False
+
+The old default is returned:
+
+    >>> rmdir(dest)
+    >>> dest = tmpdir('sample-install')
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/')
+
+    >>> ls(dest)
+    d  demo-0.3-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+
+
+    >>> zc.buildout.easy_install.always_unzip(False)
+    True
+
+    >>> rmdir(dest)
+    >>> dest = tmpdir('sample-install')
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/')
+
+    >>> ls(dest)
+    -  demo-0.3-py2.4.egg
+    -  demoneeded-1.1-py2.4.egg
+
+    >>> rmdir(dest)
+    >>> dest = tmpdir('sample-install')
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     always_unzip=True)
+
+    >>> ls(dest)
+    d  demo-0.3-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+
+Specifying version information independent of requirements
+----------------------------------------------------------
+
+Sometimes it's useful to specify version information independent of
+normal requirements specifications.  For example, a buildout may need
+to lock down a set of versions, without having to put put version
+numbers in setup files or part definitions.  If a dictionary is passed
+to the install function, mapping project names to version numbers,
+then the versions numbers will be used.
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     versions = dict(demo='0.2', demoneeded='1.0'))
+    >>> [d.version for d in ws]
+    ['0.2', '1.0']
+
+In this example, we specified a version for demoneeded, even though we
+didn't define a requirement for it.  The versions specified apply to
+dependencies as well as the specified requirements.
+
+If we specify a version that's incompatible with a requirement, then
+we'll get an error:
+
+    >>> from zope.testing.loggingsupport import InstalledHandler
+    >>> handler = InstalledHandler('zc.buildout.easy_install')
+    >>> import logging
+    >>> logging.getLogger('zc.buildout.easy_install').propagate = False
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo >0.2'], dest, links=[link_server],
+    ...     index=link_server+'index/',
+    ...     versions = dict(demo='0.2', demoneeded='1.0'))
+    Traceback (most recent call last):
+    ...
+    IncompatibleVersionError: Bad version 0.2
+
+    >>> print handler
+    zc.buildout.easy_install DEBUG
+      Installing 'demo >0.2'.
+    zc.buildout.easy_install ERROR
+      The version, 0.2, is not consistent with the requirement, 'demo>0.2'.
+
+    >>> handler.clear()
+
+If no versions are specified, a debugging message will be output
+reporting that a version was picked automatically:
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     )
+
+    >>> print handler
+    zc.buildout.easy_install DEBUG
+      Installing 'demo'.
+    zc.buildout.easy_install DEBUG
+      We have the best distribution that satisfies 'demo'.
+    zc.buildout.easy_install DEBUG
+      Picked: demo = 0.3
+    zc.buildout.easy_install DEBUG
+      Getting required 'demoneeded'
+    zc.buildout.easy_install DEBUG
+        required by demo 0.3.
+    zc.buildout.easy_install DEBUG
+      We have the best distribution that satisfies 'demoneeded'.
+    zc.buildout.easy_install DEBUG
+      Picked: demoneeded = 1.1
+
+    >>> handler.uninstall()
+    >>> logging.getLogger('zc.buildout.easy_install').propagate = True
+
+We can request that we get an error if versions are picked:
+
+    >>> zc.buildout.easy_install.allow_picked_versions(False)
+    True
+
+(The old setting is returned.)
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     )
+    Traceback (most recent call last):
+    ...
+    UserError: Picked: demo = 0.3
+
+    >>> zc.buildout.easy_install.allow_picked_versions(True)
+    False
+
+The function default_versions can be used to get and set default
+version information to be used when no version information is passes.
+If called with an argument, it sets the default versions:
+
+    >>> zc.buildout.easy_install.default_versions(dict(demoneeded='1'))
+    {}
+
+It always returns the previous default versions.  If called without an
+argument, it simply returns the default versions without changing
+them:
+
+    >>> zc.buildout.easy_install.default_versions()
+    {'demoneeded': '1'}
+
+So with the default versions set, we'll get the requested version even
+if the versions option isn't used:
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     )
+
+    >>> [d.version for d in ws]
+    ['0.3', '1.0']
+
+Of course, we can unset the default versions by passing an empty
+dictionary:
+
+    >>> zc.buildout.easy_install.default_versions({})
+    {'demoneeded': '1'}
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest, links=[link_server], index=link_server+'index/',
+    ...     )
+
+    >>> [d.version for d in ws]
+    ['0.3', '1.1']
+
+Dependencies in Site Packages
+-----------------------------
+
+Paths outside of Python's standard library--or more precisely, those that are
+not included when Python is started with the -S argument--are loosely referred
+to as "site-packages" here.  These site-packages are searched by default for
+distributions.  This can be disabled, so that, for instance, a system Python
+can be used with buildout, cleaned of any packages installed by a user or
+system package manager.
+
+The default behavior can be controlled and introspected using
+zc.buildout.easy_install.include_site_packages.
+
+    >>> zc.buildout.easy_install.include_site_packages()
+    True
+
+Here's an example of using a Python executable that includes our dependencies.
+
+Our "py_path" will have the "demoneeded," and "demo" packages available.
+ We'll simply be asking for "demoneeded" here, but without any external
+ index or links.
+
+    >>> from zc.buildout.tests import create_sample_sys_install
+    >>> py_path, site_packages_path = make_py()
+    >>> create_sample_sys_install(site_packages_path)
+
+    >>> example_dest = tmpdir('site-packages-example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['demoneeded'], example_dest, links=[], executable=py_path,
+    ...     index=None)
+    >>> [dist.project_name for dist in workingset]
+    ['demoneeded']
+
+That worked fine.  Let's try again with site packages not allowed.  We'll
+change the policy by changing the default.  Notice that the function for
+changing the default value returns the previous value.
+
+    >>> zc.buildout.easy_install.include_site_packages(False)
+    True
+
+    >>> zc.buildout.easy_install.include_site_packages()
+    False
+
+    >>> zc.buildout.easy_install.clear_index_cache()
+    >>> rmdir(example_dest)
+    >>> example_dest = tmpdir('site-packages-example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['demoneeded'], example_dest, links=[], executable=py_path,
+    ...     index=None)
+    Traceback (most recent call last):
+        ...
+    MissingDistribution: Couldn't find a distribution for 'demoneeded'.
+    >>> zc.buildout.easy_install.clear_index_cache()
+
+Now we'll reset the default.
+
+    >>> zc.buildout.easy_install.include_site_packages(True)
+    False
+
+    >>> zc.buildout.easy_install.include_site_packages()
+    True
+
+Dependency links
+----------------
+
+Setuptools allows metadata that describes where to search for package
+dependencies. This option is called dependency_links. Buildout has its
+own notion of where to look for dependencies, but it also uses the
+setup tools dependency_links information if it's available.
+
+Let's demo this by creating an egg that specifies dependency_links.
+
+To begin, let's create a new egg repository. This repository hold a
+newer version of the 'demoneeded' egg than the sample repository does.
+
+    >>> repoloc = tmpdir('repo')
+    >>> from zc.buildout.tests import create_egg
+    >>> create_egg('demoneeded', '1.2', repoloc)
+    >>> link_server2 = start_server(repoloc)
+
+Turn on logging on this server so that we can see when eggs are pulled
+from it.
+
+    >>> get(link_server2 + 'enable_server_logging')
+    GET 200 /enable_server_logging
+    ''
+
+Now we can create an egg that specifies that its dependencies are
+found on this server.
+
+    >>> repoloc = tmpdir('repo2')
+    >>> create_egg('hasdeps', '1.0', repoloc,
+    ...            install_requires = "'demoneeded'",
+    ...            dependency_links = [link_server2])
+
+Let's add the egg to another repository.
+
+    >>> link_server3 = start_server(repoloc)
+
+Now let's install the egg.
+
+    >>> example_dest = tmpdir('example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['hasdeps'], example_dest,
+    ...     links=[link_server3], index=link_server3+'index/')
+    GET 200 /
+    GET 200 /demoneeded-1.2-pyN.N.egg
+
+The server logs show that the dependency was retrieved from the server
+specified in the dependency_links.
+
+Now let's see what happens if we provide two different ways to retrieve
+the dependencies.
+
+    >>> rmdir(example_dest)
+    >>> example_dest = tmpdir('example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['hasdeps'], example_dest, index=link_server+'index/',
+    ...     links=[link_server, link_server3])
+    GET 200 /
+    GET 200 /demoneeded-1.2-pyN.N.egg
+
+Once again the dependency is fetched from the logging server even
+though it is also available from the non-logging server. This is
+because the version on the logging server is newer and buildout
+normally chooses the newest egg available.
+
+If you wish to control where dependencies come from regardless of
+dependency_links setup metadata use the 'use_dependency_links' option
+to zc.buildout.easy_install.install().
+
+    >>> rmdir(example_dest)
+    >>> example_dest = tmpdir('example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['hasdeps'], example_dest, index=link_server+'index/',
+    ...     links=[link_server, link_server3],
+    ...     use_dependency_links=False)
+
+Notice that this time the dependency egg is not fetched from the
+logging server. When you specify not to use dependency_links, eggs
+will only be searched for using the links you explicitly provide.
+
+Another way to control this option is with the
+zc.buildout.easy_install.use_dependency_links() function. This
+function sets the default behavior for the zc.buildout.easy_install()
+function.
+
+    >>> zc.buildout.easy_install.use_dependency_links(False)
+    True
+
+The function returns its previous setting.
+
+    >>> rmdir(example_dest)
+    >>> example_dest = tmpdir('example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['hasdeps'], example_dest, index=link_server+'index/',
+    ...     links=[link_server, link_server3])
+
+It can be overridden by passing a keyword argument to the install
+function.
+
+    >>> rmdir(example_dest)
+    >>> example_dest = tmpdir('example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['hasdeps'], example_dest, index=link_server+'index/',
+    ...     links=[link_server, link_server3],
+    ...	    use_dependency_links=True)
+    GET 200 /demoneeded-1.2-pyN.N.egg
+
+To return the dependency_links behavior to normal call the function again.
+
+    >>> zc.buildout.easy_install.use_dependency_links(True)
+    False
+    >>> rmdir(example_dest)
+    >>> example_dest = tmpdir('example-install')
+    >>> workingset = zc.buildout.easy_install.install(
+    ...     ['hasdeps'], example_dest, index=link_server+'index/',
+    ...     links=[link_server, link_server3])
+    GET 200 /demoneeded-1.2-pyN.N.egg
+
+
+Script generation
+-----------------
+
+The easy_install module provides support for creating scripts from eggs.
+It provides two competing functions.  One, ``scripts``, is a
+well-established approach to generating reliable scripts with a "clean"
+Python--e.g., one that does not have any packages in its site-packages.
+The other, ``sitepackage_safe_scripts``, is newer, a bit trickier, and is
+designed to work with a Python that has code in its site-packages, such
+as a system Python.
+
+Both are similar to setuptools except that they provides facilities for
+baking a script's path into the script.  This has two advantages:
+
+- The eggs to be used by a script are not chosen at run time, making
+  startup faster and, more importantly, deterministic.
+
+- The script doesn't have to import pkg_resources because the logic that
+  pkg_resources would execute at run time is executed at script-creation
+  time.  (There is an exception in ``sitepackage_safe_scripts`` if you
+  want to have your Python's site packages available, as discussed
+  below, but even in that case pkg_resources is only partially
+  activated, which can be a significant time savings.)
+
+
+The ``scripts`` function
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``scripts`` function is the first way to generate scripts that we'll
+examine. It is the earlier approach that the package offered.  Let's
+create a destination directory for it to place them in:
+
+    >>> bin = tmpdir('bin')
+
+Now, we'll use the scripts function to generate scripts in this directory
+from the demo egg:
+
+    >>> import sys
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...     ['demo'], ws, sys.executable, bin)
+
+the four arguments we passed were:
+
+1. A sequence of distribution requirements.  These are of the same
+   form as setuptools requirements.  Here we passed a single
+   requirement, for the version 0.1 demo distribution.
+
+2. A working set,
+
+3. The Python executable to use, and
+
+3. The destination directory.
+
+The bin directory now contains a generated script:
+
+    >>> ls(bin)
+    -  demo
+
+The return value is a list of the scripts generated:
+
+    >>> import os, sys
+    >>> if sys.platform == 'win32':
+    ...     scripts == [os.path.join(bin, 'demo.exe'),
+    ...                 os.path.join(bin, 'demo-script.py')]
+    ... else:
+    ...     scripts == [os.path.join(bin, 'demo')]
+    True
+
+Note that in Windows, 2 files are generated for each script.  A script
+file, ending in '-script.py', and an exe file that allows the script
+to be invoked directly without having to specify the Python
+interpreter and without having to provide a '.py' suffix.
+
+The demo script run the entry point defined in the demo egg:
+
+    >>> cat(bin, 'demo') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    <BLANKLINE>
+    import sys
+    sys.path[0:0] = [
+      '/sample-install/demo-0.3-py2.4.egg',
+      '/sample-install/demoneeded-1.1-py2.4.egg',
+      ]
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main()
+
+Some things to note:
+
+- The demo and demoneeded eggs are added to the beginning of sys.path.
+
+- The module for the script entry point is imported and the entry
+  point, in this case, 'main', is run.
+
+Rather than requirement strings, you can pass tuples containing 3
+strings:
+
+  - A script name,
+
+  - A module,
+
+  - An attribute expression for an entry point within the module.
+
+For example, we could have passed entry point information directly
+rather than passing a requirement:
+
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...     [('demo', 'eggrecipedemo', 'main')],
+    ...     ws, sys.executable, bin)
+
+    >>> cat(bin, 'demo') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    <BLANKLINE>
+    import sys
+    sys.path[0:0] = [
+      '/sample-install/demo-0.3-py2.4.egg',
+      '/sample-install/demoneeded-1.1-py2.4.egg',
+      ]
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main()
+
+Passing entry-point information directly is handy when using eggs (or
+distributions) that don't declare their entry points, such as
+distributions that aren't based on setuptools.
+
+The interpreter keyword argument can be used to generate a script that can
+be used to invoke the Python interactive interpreter with the path set
+based on the working set.  This generated script can also be used to
+run other scripts with the path set on the working set:
+
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...     ['demo'], ws, sys.executable, bin, interpreter='py')
+
+
+    >>> ls(bin)
+    -  demo
+    -  py
+
+    >>> if sys.platform == 'win32':
+    ...     scripts == [os.path.join(bin, 'demo.exe'),
+    ...                 os.path.join(bin, 'demo-script.py'),
+    ...                 os.path.join(bin, 'py.exe'),
+    ...                 os.path.join(bin, 'py-script.py')]
+    ... else:
+    ...     scripts == [os.path.join(bin, 'demo'),
+    ...                 os.path.join(bin, 'py')]
+    True
+
+The py script simply runs the Python interactive interpreter with
+the path set:
+
+    >>> cat(bin, 'py') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    <BLANKLINE>
+    import sys
+    <BLANKLINE>
+    sys.path[0:0] = [
+      '/sample-install/demo-0.3-pyN.N.egg',
+      '/sample-install/demoneeded-1.1-pyN.N.egg',
+      ]
+    <BLANKLINE>
+    _interactive = True
+    if len(sys.argv) > 1:
+        _options, _args = __import__("getopt").getopt(sys.argv[1:], 'ic:m:')
+        _interactive = False
+        for (_opt, _val) in _options:
+            if _opt == '-i':
+                _interactive = True
+            elif _opt == '-c':
+                exec _val
+            elif _opt == '-m':
+                sys.argv[1:] = _args
+                _args = []
+                __import__("runpy").run_module(
+                     _val, {}, "__main__", alter_sys=True)
+    <BLANKLINE>
+        if _args:
+            sys.argv[:] = _args
+            __file__ = _args[0]
+            del _options, _args
+            execfile(__file__)
+    <BLANKLINE>
+    if _interactive:
+        del _interactive
+        __import__("code").interact(banner="", local=globals())
+
+If invoked with a script name and arguments, it will run that script, instead.
+
+    >>> write('ascript', '''
+    ... "demo doc"
+    ... print sys.argv
+    ... print (__name__, __file__, __doc__)
+    ... ''')
+    >>> print system(join(bin, 'py')+' ascript a b c'),
+    ['ascript', 'a', 'b', 'c']
+    ('__main__', 'ascript', 'demo doc')
+
+For Python 2.5 and higher, you can also use the -m option to run a
+module:
+
+    >>> print system(join(bin, 'py')+' -m pdb'),
+    usage: pdb.py scriptfile [arg] ...
+
+    >>> print system(join(bin, 'py')+' -m pdb what'),
+    Error: what does not exist
+
+An additional argument can be passed to define which scripts to install
+and to provide script names. The argument is a dictionary mapping
+original script names to new script names.
+
+    >>> bin = tmpdir('bin2')
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...    ['demo'], ws, sys.executable, bin, dict(demo='run'))
+
+    >>> if sys.platform == 'win32':
+    ...     scripts == [os.path.join(bin, 'run.exe'),
+    ...                 os.path.join(bin, 'run-script.py')]
+    ... else:
+    ...     scripts == [os.path.join(bin, 'run')]
+    True
+    >>> ls(bin)
+    -  run
+
+    >>> print system(os.path.join(bin, 'run')),
+    3 1
+
+The ``scripts`` function: Including extra paths in scripts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We can pass a keyword argument, extra paths, to cause additional paths
+to be included in the a generated script:
+
+    >>> foo = tmpdir('foo')
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...    ['demo'], ws, sys.executable, bin, dict(demo='run'),
+    ...    extra_paths=[foo])
+
+    >>> cat(bin, 'run') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    <BLANKLINE>
+    import sys
+    sys.path[0:0] = [
+      '/sample-install/demo-0.3-py2.4.egg',
+      '/sample-install/demoneeded-1.1-py2.4.egg',
+      '/foo',
+      ]
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main()
+
+The ``scripts`` function: Providing script arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An "argument" keyword argument can be used to pass arguments to an
+entry point.  The value passed is a source string to be placed between the
+parentheses in the call:
+
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...    ['demo'], ws, sys.executable, bin, dict(demo='run'),
+    ...    arguments='1, 2')
+
+    >>> cat(bin, 'run') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    import sys
+    sys.path[0:0] = [
+      '/sample-install/demo-0.3-py2.4.egg',
+      '/sample-install/demoneeded-1.1-py2.4.egg',
+      ]
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main(1, 2)
+
+The ``scripts`` function: Passing initialization code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also pass script initialization code:
+
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...    ['demo'], ws, sys.executable, bin, dict(demo='run'),
+    ...    arguments='1, 2',
+    ...    initialization='import os\nos.chdir("foo")')
+
+    >>> cat(bin, 'run') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    import sys
+    sys.path[0:0] = [
+      '/sample-install/demo-0.3-py2.4.egg',
+      '/sample-install/demoneeded-1.1-py2.4.egg',
+      ]
+    <BLANKLINE>
+    import os
+    os.chdir("foo")
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main(1, 2)
+
+The ``scripts`` function: Relative paths
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes, you want to be able to move a buildout directory around and
+have scripts still work without having to rebuild them.  We can
+control this using the relative_paths option to install.  You need
+to pass a common base directory of the scripts and eggs:
+
+    >>> bo = tmpdir('bo')
+    >>> ba = tmpdir('ba')
+    >>> mkdir(bo, 'eggs')
+    >>> mkdir(bo, 'bin')
+    >>> mkdir(bo, 'other')
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], join(bo, 'eggs'), links=[link_server],
+    ...     index=link_server+'index/')
+
+    >>> scripts = zc.buildout.easy_install.scripts(
+    ...    ['demo'], ws, sys.executable, join(bo, 'bin'), dict(demo='run'),
+    ...    extra_paths=[ba, join(bo, 'bar')],
+    ...    interpreter='py',
+    ...    relative_paths=bo)
+
+    >>> cat(bo, 'bin', 'run') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    <BLANKLINE>
+    import os
+    <BLANKLINE>
+    join = os.path.join
+    base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))
+    base = os.path.dirname(base)
+    <BLANKLINE>
+    import sys
+    sys.path[0:0] = [
+      join(base, 'eggs/demo-0.3-pyN.N.egg'),
+      join(base, 'eggs/demoneeded-1.1-pyN.N.egg'),
+      '/ba',
+      join(base, 'bar'),
+      ]
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main()
+
+Note that the extra path we specified that was outside the directory
+passed as relative_paths wasn't converted to a relative path.
+
+Of course, running the script works:
+
+    >>> print system(join(bo, 'bin', 'run')),
+    3 1
+
+We specified an interpreter and its paths are adjusted too:
+
+    >>> cat(bo, 'bin', 'py') # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4
+    <BLANKLINE>
+    import os
+    <BLANKLINE>
+    join = os.path.join
+    base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))
+    base = os.path.dirname(base)
+    <BLANKLINE>
+    import sys
+    <BLANKLINE>
+    sys.path[0:0] = [
+      join(base, 'eggs/demo-0.3-pyN.N.egg'),
+      join(base, 'eggs/demoneeded-1.1-pyN.N.egg'),
+      '/ba',
+      join(base, 'bar'),
+      ]
+    <BLANKLINE>
+    _interactive = True
+    if len(sys.argv) > 1:
+        _options, _args = __import__("getopt").getopt(sys.argv[1:], 'ic:m:')
+        _interactive = False
+        for (_opt, _val) in _options:
+            if _opt == '-i':
+                _interactive = True
+            elif _opt == '-c':
+                exec _val
+            elif _opt == '-m':
+                sys.argv[1:] = _args
+                _args = []
+                __import__("runpy").run_module(
+                     _val, {}, "__main__", alter_sys=True)
+    <BLANKLINE>
+        if _args:
+            sys.argv[:] = _args
+            __file__ = _args[0]
+            del _options, _args
+            execfile(__file__)
+    <BLANKLINE>
+    if _interactive:
+        del _interactive
+        __import__("code").interact(banner="", local=globals())
+
+The ``sitepackage_safe_scripts`` function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The newer function for creating scripts is ``sitepackage_safe_scripts``.
+It has the same basic functionality as the ``scripts`` function: it can
+create scripts to run arbitrary entry points, and to run a Python
+interpreter.  The following are the differences from a user's
+perspective.
+
+- It can be used safely with a Python that has packages installed itself,
+  such as a system-installed Python.
+
+- In contrast to the interpreter generated by the ``scripts`` method, which
+  supports only a small subset of the usual Python executable's options,
+  the interpreter generated by ``sitepackage_safe_scripts`` supports all
+  of them. This makes it possible to use as full Python replacement for
+  scripts that need the distributions specified in your buildout.
+
+- Both the interpreter and the entry point scripts allow you to include the
+  site packages, and/or the sitecustomize, of the Python executable, if
+  desired.
+
+It works by creating site.py and sitecustomize.py files that set up the
+desired paths and initialization.  These must be placed within an otherwise
+empty directory.  Typically this is in a recipe's parts directory.
+
+Here's the simplest example, building an interpreter script.
+
+    >>> interpreter_dir = tmpdir('interpreter')
+    >>> interpreter_parts_dir = os.path.join(
+    ...     interpreter_dir, 'parts', 'interpreter')
+    >>> interpreter_bin_dir = os.path.join(interpreter_dir, 'bin')
+    >>> mkdir(interpreter_bin_dir)
+    >>> mkdir(interpreter_dir, 'eggs')
+    >>> mkdir(interpreter_dir, 'parts')
+    >>> mkdir(interpreter_parts_dir)
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], join(interpreter_dir, 'eggs'), links=[link_server],
+    ...     index=link_server+'index/')
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     interpreter='py')
+
+Depending on whether the machine being used is running Windows or not, this
+produces either three or four files.  In both cases, we have site.py and
+sitecustomize.py generated in the parts/interpreter directory.  For Windows,
+we have py.exe and py-script.py; for other operating systems, we have py.
+
+    >>> sitecustomize_path = os.path.join(
+    ...     interpreter_parts_dir, 'sitecustomize.py')
+    >>> site_path = os.path.join(interpreter_parts_dir, 'site.py')
+    >>> interpreter_path = os.path.join(interpreter_bin_dir, 'py')
+    >>> if sys.platform == 'win32':
+    ...     py_path = os.path.join(interpreter_bin_dir, 'py-script.py')
+    ...     expected = [sitecustomize_path,
+    ...                 site_path,
+    ...                 os.path.join(interpreter_bin_dir, 'py.exe'),
+    ...                 py_path]
+    ... else:
+    ...     py_path = interpreter_path
+    ...     expected = [sitecustomize_path, site_path, py_path]
+    ...
+    >>> assert generated == expected, repr((generated, expected))
+
+We didn't ask for any initialization, and we didn't ask to use the underlying
+sitecustomization, so sitecustomize.py is empty.
+
+    >>> cat(sitecustomize_path)
+
+The interpreter script is simple.  It puts the directory with the
+site.py and sitecustomize.py on the PYTHONPATH and (re)starts Python.
+
+    >>> cat(py_path)
+    #!/usr/bin/python -S
+    import os
+    import sys
+    <BLANKLINE>
+    argv = [sys.executable] + sys.argv[1:]
+    environ = os.environ.copy()
+    path = '/interpreter/parts/interpreter'
+    if environ.get('PYTHONPATH'):
+        path = os.pathsep.join([path, environ['PYTHONPATH']])
+    environ['PYTHONPATH'] = path
+    os.execve(sys.executable, argv, environ)
+
+The site.py file is a modified version of the underlying Python's site.py.
+The most important modification is that it has a different version of the
+addsitepackages function.  It sets up the Python path, similarly to the
+behavior of the function it replaces.  The following shows the part that
+buildout inserts, in the simplest case.
+
+    >>> sys.stdout.write('#\n'); cat(site_path)
+    ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    #...
+    def addsitepackages(known_paths):
+        """Add site packages, as determined by zc.buildout.
+    <BLANKLINE>
+        See original_addsitepackages, below, for the original version."""
+        buildout_paths = [
+            '/interpreter/eggs/demo-0.3-pyN.N.egg',
+            '/interpreter/eggs/demoneeded-1.1-pyN.N.egg'
+            ]
+        for path in buildout_paths:
+            sitedir, sitedircase = makepath(path)
+            if not sitedircase in known_paths and os.path.exists(sitedir):
+                sys.path.append(sitedir)
+                known_paths.add(sitedircase)
+        return known_paths
+    <BLANKLINE>
+    def original_addsitepackages(known_paths):...
+
+Here are some examples of the interpreter in use.
+
+    >>> print call_py(interpreter_path, "print 16+26")
+    42
+    <BLANKLINE>
+    >>> res = call_py(interpreter_path, "import sys; print sys.path")
+    >>> print res # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    ['',
+     '/interpreter/parts/interpreter',
+     ...,
+     '/interpreter/eggs/demo-0.3-pyN.N.egg',
+     '/interpreter/eggs/demoneeded-1.1-pyN.N.egg']
+    <BLANKLINE>
+    >>> clean_paths = eval(res.strip()) # This is used later for comparison.
+
+If you provide initialization, it goes in sitecustomize.py.
+
+    >>> def reset_interpreter():
+    ...     # This is necessary because, in our tests, the timestamps of the
+    ...     # .pyc files are not outdated when we want them to be.
+    ...     rmdir(interpreter_bin_dir)
+    ...     mkdir(interpreter_bin_dir)
+    ...     rmdir(interpreter_parts_dir)
+    ...     mkdir(interpreter_parts_dir)
+    ...
+    >>> reset_interpreter()
+
+    >>> initialization_string = """\
+    ... import os
+    ... os.environ['FOO'] = 'bar baz bing shazam'"""
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     interpreter='py', initialization=initialization_string)
+    >>> cat(sitecustomize_path)
+    import os
+    os.environ['FOO'] = 'bar baz bing shazam'
+    >>> print call_py(interpreter_path, "import os; print os.environ['FOO']")
+    bar baz bing shazam
+    <BLANKLINE>
+
+If you use relative paths, this affects the interpreter and site.py.  (This is
+again the UNIX version; the Windows version uses subprocess instead of
+os.execve.)
+
+    >>> reset_interpreter()
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     interpreter='py', relative_paths=interpreter_dir)
+    >>> cat(py_path)
+    #!/usr/bin/python -S
+    import os
+    import sys
+    <BLANKLINE>
+    join = os.path.join
+    base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))
+    base = os.path.dirname(base)
+    <BLANKLINE>
+    argv = [sys.executable] + sys.argv[1:]
+    environ = os.environ.copy()
+    path = join(base, 'parts/interpreter')
+    if environ.get('PYTHONPATH'):
+        path = os.pathsep.join([path, environ['PYTHONPATH']])
+    environ['PYTHONPATH'] = path
+    os.execve(sys.executable, argv, environ)
+
+For site.py, we again show only the pertinent parts.  Notice that the egg
+paths join a base to a path, as with the use of this argument in the
+``scripts`` function.
+
+    >>> sys.stdout.write('#\n'); cat(site_path) # doctest: +ELLIPSIS
+    #...
+    def addsitepackages(known_paths):
+        """Add site packages, as determined by zc.buildout.
+    <BLANKLINE>
+        See original_addsitepackages, below, for the original version."""
+        join = os.path.join
+        base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))
+        base = os.path.dirname(base)
+        base = os.path.dirname(base)
+        buildout_paths = [
+            join(base, 'eggs/demo-0.3-pyN.N.egg'),
+            join(base, 'eggs/demoneeded-1.1-pyN.N.egg')
+            ]...
+
+The paths resolve in practice as you would expect.
+
+    >>> print call_py(interpreter_path,
+    ...               "import sys, pprint; pprint.pprint(sys.path)")
+    ... # doctest: +ELLIPSIS
+    ['',
+     '/interpreter/parts/interpreter',
+     ...,
+     '/interpreter/eggs/demo-0.3-pyN.N.egg',
+     '/interpreter/eggs/demoneeded-1.1-pyN.N.egg']
+    <BLANKLINE>
+
+The ``extra_paths`` argument affects the path in site.py.  Notice that
+/interpreter/other is added after the eggs.
+
+    >>> reset_interpreter()
+    >>> mkdir(interpreter_dir, 'other')
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     interpreter='py', extra_paths=[join(interpreter_dir, 'other')])
+    >>> sys.stdout.write('#\n'); cat(site_path) # doctest: +ELLIPSIS
+    #...
+    def addsitepackages(known_paths):
+        """Add site packages, as determined by zc.buildout.
+    <BLANKLINE>
+        See original_addsitepackages, below, for the original version."""
+        buildout_paths = [
+            '/interpreter/eggs/demo-0.3-pyN.N.egg',
+            '/interpreter/eggs/demoneeded-1.1-pyN.N.egg',
+            '/interpreter/other'
+            ]...
+
+    >>> print call_py(interpreter_path,
+    ...               "import sys, pprint; pprint.pprint(sys.path)")
+    ... # doctest: +ELLIPSIS
+    ['',
+     '/interpreter/parts/interpreter',
+     ...,
+     '/interpreter/eggs/demo-0.3-pyN.N.egg',
+     '/interpreter/eggs/demoneeded-1.1-pyN.N.egg',
+     '/interpreter/other']
+    <BLANKLINE>
+
+The ``sitepackage_safe_scripts`` function: using site-packages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``sitepackage_safe_scripts`` function supports including site
+packages.  This has some advantages and some serious dangers.
+
+A typical reason to include site-packages is that it is easier to
+install one or more dependencies in your Python than it is with
+buildout.  Some packages, such as lxml or Python PostgreSQL integration,
+have dependencies that can be much easier to build and/or install using
+other mechanisms, such as your operating system's package manager.  By
+installing some core packages into your Python's site-packages, this can
+significantly simplify some application installations.
+
+However, doing this has a significant danger.  One of the primary goals
+of buildout is to provide repeatability.  Some packages (one of the
+better known Python openid packages, for instance) change their behavior
+depending on what packages are available.  If Python curl bindings are
+available, these may be preferred by the library.  If a certain XML
+package is installed, it may be preferred by the library.  These hidden
+choices may cause small or large behavior differences.  The fact that
+they can be rarely encountered can actually make it worse: you forget
+that this might be a problem, and debugging the differences can be
+difficult.  If you allow site-packages to be included in your buildout,
+and the Python you use is not managed precisely by your application (for
+instance, it is a system Python), you open yourself up to these
+possibilities.  Don't be unaware of the dangers.
+
+That explained, let's see how it works.  If you don't use namespace packages,
+this is very straightforward.
+
+    >>> reset_interpreter()
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     interpreter='py', include_site_packages=True)
+    >>> sys.stdout.write('#\n'); cat(site_path)
+    ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    #...
+    def addsitepackages(known_paths):
+        """Add site packages, as determined by zc.buildout.
+    <BLANKLINE>
+        See original_addsitepackages, below, for the original version."""
+        setuptools_path = None
+        buildout_paths = [
+            '/interpreter/eggs/demo-0.3-pyN.N.egg',
+            '/interpreter/eggs/demoneeded-1.1-pyN.N.egg'
+            ]
+        for path in buildout_paths:
+            sitedir, sitedircase = makepath(path)
+            if not sitedircase in known_paths and os.path.exists(sitedir):
+                sys.path.append(sitedir)
+                known_paths.add(sitedircase)
+        sys.__egginsert = len(buildout_paths) # Support distribute.
+        original_paths = [
+            ...
+            ]
+        for path in original_paths:
+            if path == setuptools_path or path not in known_paths:
+                addsitedir(path, known_paths)
+        return known_paths
+    <BLANKLINE>
+    def original_addsitepackages(known_paths):...
+
+It simply adds the original paths using addsitedir after the code to add the
+buildout paths.
+
+Here's an example of the new script in use.  Other documents and tests in
+this package give the feature a more thorough workout, but this should
+give you an idea of the feature.
+
+    >>> res = call_py(interpreter_path, "import sys; print sys.path")
+    >>> print res # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    ['',
+     '/interpreter/parts/interpreter',
+     ...,
+     '/interpreter/eggs/demo-0.3-py2.4.egg',
+     '/interpreter/eggs/demoneeded-1.1-py2.4.egg',
+     ...]
+    <BLANKLINE>
+
+The clean_paths gathered earlier is a subset of this full list of paths.
+
+    >>> full_paths = eval(res.strip())
+    >>> len(clean_paths) < len(full_paths)
+    True
+    >>> set(os.path.normpath(p) for p in clean_paths).issubset(
+    ...     os.path.normpath(p) for p in full_paths)
+    True
+
+Unfortunately, because of how setuptools namespace packages are implemented
+differently for operating system packages (debs or rpms) as opposed to
+standard setuptools installation, there's a slightly trickier dance if you
+use them.  To show this we'll needs some extra eggs that use namespaces.
+We'll use the ``tellmy.fortune`` package, which we'll need to make an initial
+call to another text fixture to create.
+
+    >>> from zc.buildout.tests import create_sample_namespace_eggs
+    >>> namespace_eggs = tmpdir('namespace_eggs')
+    >>> create_sample_namespace_eggs(namespace_eggs)
+
+    >>> reset_interpreter()
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo', 'tellmy.fortune'], join(interpreter_dir, 'eggs'),
+    ...     links=[link_server, namespace_eggs], index=link_server+'index/')
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     interpreter='py', include_site_packages=True)
+    >>> sys.stdout.write('#\n'); cat(site_path)
+    ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    #...
+    def addsitepackages(known_paths):
+        """Add site packages, as determined by zc.buildout.
+    <BLANKLINE>
+        See original_addsitepackages, below, for the original version."""
+        setuptools_path = '...setuptools...'
+        sys.path.append(setuptools_path)
+        known_paths.add(os.path.normcase(setuptools_path))
+        import pkg_resources
+        buildout_paths = [
+            '/interpreter/eggs/demo-0.3-pyN.N.egg',
+            '/interpreter/eggs/tellmy.fortune-1.0-pyN.N.egg',
+            '...setuptools...',
+            '/interpreter/eggs/demoneeded-1.1-pyN.N.egg'
+            ]
+        for path in buildout_paths:
+            sitedir, sitedircase = makepath(path)
+            if not sitedircase in known_paths and os.path.exists(sitedir):
+                sys.path.append(sitedir)
+                known_paths.add(sitedircase)
+                pkg_resources.working_set.add_entry(sitedir)
+        sys.__egginsert = len(buildout_paths) # Support distribute.
+        original_paths = [
+            ...
+            ]
+        for path in original_paths:
+            if path == setuptools_path or path not in known_paths:
+                addsitedir(path, known_paths)
+        return known_paths
+    <BLANKLINE>
+    def original_addsitepackages(known_paths):...
+
+    >>> print call_py(interpreter_path, "import sys; print sys.path")
+    ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    ['',
+     '/interpreter/parts/interpreter',
+     ...,
+     '...setuptools...',
+     '/interpreter/eggs/demo-0.3-pyN.N.egg',
+     '/interpreter/eggs/tellmy.fortune-1.0-pyN.N.egg',
+     '/interpreter/eggs/demoneeded-1.1-pyN.N.egg',
+     ...]
+
+As you can see, the script now first imports pkg_resources.  Then we
+need to process egg files specially to look for namespace packages there
+*before* we process process lines in .pth files that use the "import"
+feature--lines that might be part of the setuptools namespace package
+implementation for system packages, as mentioned above, and that must
+come after processing egg namespaces.
+
+The most complex that this function gets is if you use namespace packages,
+include site-packages, and use relative paths.  For completeness, we'll look
+at that result.
+
+    >>> reset_interpreter()
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     interpreter='py', include_site_packages=True,
+    ...     relative_paths=interpreter_dir)
+    >>> sys.stdout.write('#\n'); cat(site_path)
+    ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    #...
+    def addsitepackages(known_paths):
+        """Add site packages, as determined by zc.buildout.
+    <BLANKLINE>
+        See original_addsitepackages, below, for the original version."""
+        join = os.path.join
+        base = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))
+        base = os.path.dirname(base)
+        base = os.path.dirname(base)
+        setuptools_path = '...setuptools...'
+        sys.path.append(setuptools_path)
+        known_paths.add(os.path.normcase(setuptools_path))
+        import pkg_resources
+        buildout_paths = [
+            join(base, 'eggs/demo-0.3-pyN.N.egg'),
+            join(base, 'eggs/tellmy.fortune-1.0-pyN.N.egg'),
+            '...setuptools...',
+            join(base, 'eggs/demoneeded-1.1-pyN.N.egg')
+            ]
+        for path in buildout_paths:
+            sitedir, sitedircase = makepath(path)
+            if not sitedircase in known_paths and os.path.exists(sitedir):
+                sys.path.append(sitedir)
+                known_paths.add(sitedircase)
+                pkg_resources.working_set.add_entry(sitedir)
+        sys.__egginsert = len(buildout_paths) # Support distribute.
+        original_paths = [
+            ...
+            ]
+        for path in original_paths:
+            if path == setuptools_path or path not in known_paths:
+                addsitedir(path, known_paths)
+        return known_paths
+    <BLANKLINE>
+    def original_addsitepackages(known_paths):...
+
+    >>> print call_py(interpreter_path, "import sys; print sys.path")
+    ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    ['',
+     '/interpreter/parts/interpreter',
+     ...,
+     '...setuptools...',
+     '/interpreter/eggs/demo-0.3-pyN.N.egg',
+     '/interpreter/eggs/tellmy.fortune-1.0-pyN.N.egg',
+     '/interpreter/eggs/demoneeded-1.1-pyN.N.egg',
+     ...]
+
+The ``exec_sitecustomize`` argument does the same thing for the
+sitecustomize module--it allows you to include the code from the
+sitecustomize module in the underlying Python if you set the argument to
+True.  The z3c.recipe.scripts package sets up the full environment necessary
+to demonstrate this piece.
+
+The ``sitepackage_safe_scripts`` function: writing scripts for entry points
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All of the examples so far for this function have been creating
+interpreters.  The function can also write scripts for entry
+points.  They are almost identical to the scripts that we saw for the
+``scripts`` function except that they ``import site`` after setting the
+sys.path to include our custom site.py and sitecustomize.py files.  These
+files then initialize the Python environment as we have already seen.  Let's
+see a simple example.
+
+    >>> reset_interpreter()
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], join(interpreter_dir, 'eggs'), links=[link_server],
+    ...     index=link_server+'index/')
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     reqs=['demo'])
+
+As before, in Windows, 2 files are generated for each script.  A script
+file, ending in '-script.py', and an exe file that allows the script
+to be invoked directly without having to specify the Python
+interpreter and without having to provide a '.py' suffix.  This is in addition
+to the site.py and sitecustomize.py files that are generated as with our
+interpreter examples above.
+
+    >>> if sys.platform == 'win32':
+    ...     demo_path = os.path.join(interpreter_bin_dir, 'demo-script.py')
+    ...     expected = [sitecustomize_path,
+    ...                 site_path,
+    ...                 os.path.join(interpreter_bin_dir, 'demo.exe'),
+    ...                 demo_path]
+    ... else:
+    ...     demo_path = os.path.join(interpreter_bin_dir, 'demo')
+    ...     expected = [sitecustomize_path, site_path, demo_path]
+    ...
+    >>> assert generated == expected, repr((generated, expected))
+
+The demo script runs the entry point defined in the demo egg:
+
+    >>> cat(demo_path) # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4 -S
+    <BLANKLINE>
+    import sys
+    sys.path[0:0] = [
+        '/interpreter/parts/interpreter',
+        ]
+    <BLANKLINE>
+    <BLANKLINE>
+    import os
+    path = sys.path[0]
+    if os.environ.get('PYTHONPATH'):
+        path = os.pathsep.join([path, os.environ['PYTHONPATH']])
+    os.environ['BUILDOUT_ORIGINAL_PYTHONPATH'] = os.environ.get('PYTHONPATH', '')
+    os.environ['PYTHONPATH'] = path
+    import site # imports custom buildout-generated site.py
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main()
+
+    >>> demo_call = join(interpreter_bin_dir, 'demo')
+    >>> if sys.platform == 'win32':
+    ...     demo_call = '"%s"' % demo_call
+    >>> print system(demo_call)
+    3 1
+    <BLANKLINE>
+
+There are a few differences from the ``scripts`` function.  First, the
+``reqs`` argument (an iterable of string requirements or entry point
+tuples) is a keyword argument here.  We see that in the example above.
+Second, the ``arguments`` argument is now named ``script_arguments`` to
+try and clarify that it does not affect interpreters. While the
+``initialization`` argument continues to affect both the interpreters
+and the entry point scripts, if you have initialization that is only
+pertinent to the entry point scripts, you can use the
+``script_initialization`` argument.
+
+Let's see ``script_arguments`` and ``script_initialization`` in action.
+
+    >>> reset_interpreter()
+    >>> generated = zc.buildout.easy_install.sitepackage_safe_scripts(
+    ...     interpreter_bin_dir, ws, sys.executable, interpreter_parts_dir,
+    ...     reqs=['demo'], script_arguments='1, 2',
+    ...     script_initialization='import os\nos.chdir("foo")')
+
+    >>> cat(demo_path) # doctest: +NORMALIZE_WHITESPACE
+    #!/usr/local/bin/python2.4 -S
+    import sys
+    sys.path[0:0] = [
+      '/interpreter/parts/interpreter',
+      ]
+    <BLANKLINE>
+    import os
+    path = sys.path[0]
+    if os.environ.get('PYTHONPATH'):
+        path = os.pathsep.join([path, os.environ['PYTHONPATH']])
+    os.environ['BUILDOUT_ORIGINAL_PYTHONPATH'] = os.environ.get('PYTHONPATH', '')
+    os.environ['PYTHONPATH'] = path
+    import site # imports custom buildout-generated site.py
+    import os
+    os.chdir("foo")
+    <BLANKLINE>
+    import eggrecipedemo
+    <BLANKLINE>
+    if __name__ == '__main__':
+        eggrecipedemo.main(1, 2)
+
+Handling custom build options for extensions provided in source distributions
+-----------------------------------------------------------------------------
+
+Sometimes, we need to control how extension modules are built.  The
+build function provides this level of control.  It takes a single
+package specification, downloads a source distribution, and builds it
+with specified custom build options.
+
+The build function takes 3 positional arguments:
+
+spec
+   A package specification for a source distribution
+
+dest
+   A destination directory
+
+build_ext
+   A dictionary of options to be passed to the distutils build_ext
+   command when building extensions.
+
+It supports a number of optional keyword arguments:
+
+links
+   a sequence of URLs, file names, or directories to look for
+   links to distributions,
+
+index
+   The URL of an index server, or almost any other valid URL. :)
+
+   If not specified, the Python Package Index,
+   http://pypi.python.org/simple/, is used.  You can specify an
+   alternate index with this option.  If you use the links option and
+   if the links point to the needed distributions, then the index can
+   be anything and will be largely ignored.  In the examples, here,
+   we'll just point to an empty directory on our link server.  This
+   will make our examples run a little bit faster.
+
+executable
+   A path to a Python executable.  Distributions will be installed
+   using this executable and will be for the matching Python version.
+
+path
+   A list of additional directories to search for locally-installed
+   distributions.
+
+newest
+   A boolean value indicating whether to search for new distributions
+   when already-installed distributions meet the requirement.  When
+   this is true, the default, and when the destination directory is
+   not None, then the install function will search for the newest
+   distributions that satisfy the requirements.
+
+versions
+   A dictionary mapping project names to version numbers to be used
+   when selecting distributions.  This can be used to specify a set of
+   distribution versions independent of other requirements.
+
+
+Our link server included a source distribution that includes a simple
+extension, extdemo.c::
+
+  #include <Python.h>
+  #include <extdemo.h>
+
+  static PyMethodDef methods[] = {};
+
+  PyMODINIT_FUNC
+  initextdemo(void)
+  {
+      PyObject *m;
+      m = Py_InitModule3("extdemo", methods, "");
+  #ifdef TWO
+      PyModule_AddObject(m, "val", PyInt_FromLong(2));
+  #else
+      PyModule_AddObject(m, "val", PyInt_FromLong(EXTDEMO));
+  #endif
+  }
+
+The extension depends on a system-dependent include file, extdemo.h,
+that defines a constant, EXTDEMO, that is exposed by the extension.
+
+We'll add an include directory to our sample buildout and add the
+needed include file to it:
+
+    >>> mkdir('include')
+    >>> write('include', 'extdemo.h',
+    ... """
+    ... #define EXTDEMO 42
+    ... """)
+
+Now, we can use the build function to create an egg from the source
+distribution:
+
+    >>> zc.buildout.easy_install.build(
+    ...   'extdemo', dest,
+    ...   {'include-dirs': os.path.join(sample_buildout, 'include')},
+    ...   links=[link_server], index=link_server+'index/')
+    ['/sample-install/extdemo-1.4-py2.4-unix-i686.egg']
+
+The function returns the list of eggs
+
+Now if we look in our destination directory, we see we have an extdemo egg:
+
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    d  demo-0.3-py2.4.egg
+    -  demoneeded-1.0-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+    d  extdemo-1.4-py2.4-unix-i686.egg
+
+Let's update our link server with a new version of extdemo:
+
+    >>> update_extdemo()
+    >>> print get(link_server),
+    <html><body>
+    <a href="bigdemo-0.1-py2.4.egg">bigdemo-0.1-py2.4.egg</a><br>
+    <a href="demo-0.1-py2.4.egg">demo-0.1-py2.4.egg</a><br>
+    <a href="demo-0.2-py2.4.egg">demo-0.2-py2.4.egg</a><br>
+    <a href="demo-0.3-py2.4.egg">demo-0.3-py2.4.egg</a><br>
+    <a href="demo-0.4c1-py2.4.egg">demo-0.4c1-py2.4.egg</a><br>
+    <a href="demoneeded-1.0.zip">demoneeded-1.0.zip</a><br>
+    <a href="demoneeded-1.1.zip">demoneeded-1.1.zip</a><br>
+    <a href="demoneeded-1.2c1.zip">demoneeded-1.2c1.zip</a><br>
+    <a href="extdemo-1.4.zip">extdemo-1.4.zip</a><br>
+    <a href="extdemo-1.5.zip">extdemo-1.5.zip</a><br>
+    <a href="index/">index/</a><br>
+    <a href="other-1.0-py2.4.egg">other-1.0-py2.4.egg</a><br>
+    </body></html>
+
+The easy_install caches information about servers to reduce network
+access. To see the update, we have to call the clear_index_cache
+function to clear the index cache:
+
+    >>> zc.buildout.easy_install.clear_index_cache()
+
+If we run build with newest set to False, we won't get an update:
+
+    >>> zc.buildout.easy_install.build(
+    ...   'extdemo', dest,
+    ...   {'include-dirs': os.path.join(sample_buildout, 'include')},
+    ...   links=[link_server], index=link_server+'index/',
+    ...   newest=False)
+    ['/sample-install/extdemo-1.4-py2.4-linux-i686.egg']
+
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    d  demo-0.3-py2.4.egg
+    -  demoneeded-1.0-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+    d  extdemo-1.4-py2.4-unix-i686.egg
+
+But if we run it with the default True setting for newest, then we'll
+get an updated egg:
+
+    >>> zc.buildout.easy_install.build(
+    ...   'extdemo', dest,
+    ...   {'include-dirs': os.path.join(sample_buildout, 'include')},
+    ...   links=[link_server], index=link_server+'index/')
+    ['/sample-install/extdemo-1.5-py2.4-unix-i686.egg']
+
+    >>> ls(dest)
+    -  demo-0.2-py2.4.egg
+    d  demo-0.3-py2.4.egg
+    -  demoneeded-1.0-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+    d  extdemo-1.4-py2.4-unix-i686.egg
+    d  extdemo-1.5-py2.4-unix-i686.egg
+
+The versions option also influences the versions used.  For example,
+if we specify a version for extdemo, then that will be used, even
+though it isn't the newest.  Let's clean out the destination directory
+first:
+
+    >>> import os
+    >>> for name in os.listdir(dest):
+    ...     remove(dest, name)
+
+    >>> zc.buildout.easy_install.build(
+    ...   'extdemo', dest,
+    ...   {'include-dirs': os.path.join(sample_buildout, 'include')},
+    ...   links=[link_server], index=link_server+'index/',
+    ...   versions=dict(extdemo='1.4'))
+    ['/sample-install/extdemo-1.4-py2.4-unix-i686.egg']
+
+    >>> ls(dest)
+    d  extdemo-1.4-py2.4-unix-i686.egg
+
+Handling custom build options for extensions in develop eggs
+------------------------------------------------------------
+
+The develop function is similar to the build function, except that,
+rather than building an egg from a source directory containing a
+setup.py script.
+
+The develop function takes 2 positional arguments:
+
+setup
+   The path to a setup script, typically named "setup.py", or a
+   directory containing a setup.py script.
+
+dest
+   The directory to install the egg link to
+
+It supports some optional keyword argument:
+
+build_ext
+   A dictionary of options to be passed to the distutils build_ext
+   command when building extensions.
+
+executable
+   A path to a Python executable.  Distributions will be installed
+   using this executable and will be for the matching Python version.
+
+We have a local directory containing the extdemo source:
+
+    >>> ls(extdemo)
+    -  MANIFEST
+    -  MANIFEST.in
+    -  README
+    -  extdemo.c
+    -  setup.py
+
+Now, we can use the develop function to create a develop egg from the source
+distribution:
+
+    >>> zc.buildout.easy_install.develop(
+    ...   extdemo, dest,
+    ...   {'include-dirs': os.path.join(sample_buildout, 'include')})
+    '/sample-install/extdemo.egg-link'
+
+The name of the egg link created is returned.
+
+Now if we look in our destination directory, we see we have an extdemo
+egg link:
+
+    >>> ls(dest)
+    d  extdemo-1.4-py2.4-unix-i686.egg
+    -  extdemo.egg-link
+
+And that the source directory contains the compiled extension:
+
+    >>> ls(extdemo)
+    -  MANIFEST
+    -  MANIFEST.in
+    -  README
+    d  build
+    -  extdemo.c
+    d  extdemo.egg-info
+    -  extdemo.so
+    -  setup.py
+
+Download cache
+--------------
+
+Normally, when distributions are installed, if any processing is
+needed, they are downloaded from the internet to a temporary directory
+and then installed from there.  A download cache can be used to avoid
+the download step.  This can be useful to reduce network access and to
+create source distributions of an entire buildout.
+
+A download cache is specified by calling the download_cache
+function.  The function always returns the previous setting. If no
+argument is passed, then the setting is unchanged.  If an argument is
+passed, the download cache is set to the given path, which must point
+to an existing directory.  Passing None clears the cache setting.
+
+To see this work, we'll create a directory and set it as the cache
+directory:
+
+    >>> cache = tmpdir('cache')
+    >>> zc.buildout.easy_install.download_cache(cache)
+
+We'll recreate our destination directory:
+
+    >>> remove(dest)
+    >>> dest = tmpdir('sample-install')
+
+We'd like to see what is being fetched from the server, so we'll
+enable server logging:
+
+    >>> get(link_server+'enable_server_logging')
+    GET 200 /enable_server_logging
+    ''
+
+Now, if we install demo, and extdemo:
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo==0.2'], dest,
+    ...     links=[link_server], index=link_server+'index/',
+    ...     always_unzip=True)
+    GET 200 /
+    GET 404 /index/demo/
+    GET 200 /index/
+    GET 200 /demo-0.2-py2.4.egg
+    GET 404 /index/demoneeded/
+    GET 200 /demoneeded-1.1.zip
+
+    >>> zc.buildout.easy_install.build(
+    ...   'extdemo', dest,
+    ...   {'include-dirs': os.path.join(sample_buildout, 'include')},
+    ...   links=[link_server], index=link_server+'index/')
+    GET 404 /index/extdemo/
+    GET 200 /extdemo-1.5.zip
+    ['/sample-install/extdemo-1.5-py2.4-linux-i686.egg']
+
+Not only will we get eggs in our destination directory:
+
+    >>> ls(dest)
+    d  demo-0.2-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+    d  extdemo-1.5-py2.4-linux-i686.egg
+
+But we'll get distributions in the cache directory:
+
+    >>> ls(cache)
+    -  demo-0.2-py2.4.egg
+    -  demoneeded-1.1.zip
+    -  extdemo-1.5.zip
+
+The cache directory contains uninstalled distributions, such as zipped
+eggs or source distributions.
+
+Let's recreate our destination directory and clear the index cache:
+
+    >>> remove(dest)
+    >>> dest = tmpdir('sample-install')
+    >>> zc.buildout.easy_install.clear_index_cache()
+
+Now when we install the distributions:
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo==0.2'], dest,
+    ...     links=[link_server], index=link_server+'index/',
+    ...     always_unzip=True)
+    GET 200 /
+    GET 404 /index/demo/
+    GET 200 /index/
+    GET 404 /index/demoneeded/
+
+    >>> zc.buildout.easy_install.build(
+    ...   'extdemo', dest,
+    ...   {'include-dirs': os.path.join(sample_buildout, 'include')},
+    ...   links=[link_server], index=link_server+'index/')
+    GET 404 /index/extdemo/
+    ['/sample-install/extdemo-1.5-py2.4-linux-i686.egg']
+
+    >>> ls(dest)
+    d  demo-0.2-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+    d  extdemo-1.5-py2.4-linux-i686.egg
+
+Note that we didn't download the distributions from the link server.
+
+If we remove the restriction on demo, we'll download a newer version
+from the link server:
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest,
+    ...     links=[link_server], index=link_server+'index/',
+    ...     always_unzip=True)
+    GET 200 /demo-0.3-py2.4.egg
+
+Normally, the download cache is the preferred source of downloads, but
+not the only one.
+
+Installing solely from a download cache
+---------------------------------------
+
+A download cache can be used as the basis of application source
+releases.  In an application source release, we want to distribute an
+application that can be built without making any network accesses.  In
+this case, we distribute a download cache and tell the easy_install
+module to install from the download cache only, without making network
+accesses.  The install_from_cache function can be used to signal that
+packages should be installed only from the download cache.  The
+function always returns the previous setting.  Calling it with no
+arguments returns the current setting without changing it:
+
+    >>> zc.buildout.easy_install.install_from_cache()
+    False
+
+Calling it with a boolean value changes the setting and returns the
+previous setting:
+
+    >>> zc.buildout.easy_install.install_from_cache(True)
+    False
+
+Let's remove demo-0.3-py2.4.egg from the cache, clear the index cache,
+recreate the destination directory, and reinstall demo:
+
+    >>> for  f in os.listdir(cache):
+    ...     if f.startswith('demo-0.3-'):
+    ...         remove(cache, f)
+
+    >>> zc.buildout.easy_install.clear_index_cache()
+    >>> remove(dest)
+    >>> dest = tmpdir('sample-install')
+
+    >>> ws = zc.buildout.easy_install.install(
+    ...     ['demo'], dest,
+    ...     links=[link_server], index=link_server+'index/',
+    ...     always_unzip=True)
+
+    >>> ls(dest)
+    d  demo-0.2-py2.4.egg
+    d  demoneeded-1.1-py2.4.egg
+
+This time, we didn't download from or even query the link server.
+
+.. Disable the download cache:
+
+    >>> zc.buildout.easy_install.download_cache(None)
+    '/cache'
+
+    >>> zc.buildout.easy_install.install_from_cache(False)
+    True

@@ -1,0 +1,3 @@
+[zc.buildout]
+default = zerokspot.recipe.git:Recipe
+

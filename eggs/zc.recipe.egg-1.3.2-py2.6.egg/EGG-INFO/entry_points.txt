@@ -1,0 +1,8 @@
+[zc.buildout]
+develop = zc.recipe.egg:Develop
+script = zc.recipe.egg:Scripts
+default = zc.recipe.egg:Scripts
+eggs = zc.recipe.egg:Eggs
+custom = zc.recipe.egg:Custom
+scripts = zc.recipe.egg:Scripts
+

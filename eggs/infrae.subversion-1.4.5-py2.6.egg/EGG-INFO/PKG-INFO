@@ -1,0 +1,259 @@
+Metadata-Version: 1.0
+Name: infrae.subversion
+Version: 1.4.5
+Summary: Buildout recipe for checking out from subversion
+Home-page: https://svn.infrae.com/buildout/infrae.subversion/trunk/
+Author: Eric Casteleijn, Guido Wesdorp, Daniel Nouri, Sylvain Viollon and Reinout van Rees
+Author-email: info@infrae.com
+License: ZPL 2.1
+Description: infrae.subversion
+        =================
+        
+        This zc.buildout recipe will check out a *number* of URLs into its
+        parts directory.  It won't remove its parts directory if there are any
+        changes in the checkout, so it's safe to work with that checkout for
+        development.
+        
+        This is an example buildout part that uses this recipe::
+        
+            [development-products]
+            recipe = infrae.subversion
+            urls =
+                https://svn.plone.org/svn/collective/PDBDebugMode/trunk PDBDebugMode
+        
+        This will maintain a working copy of ``PDBDebugMode`` in the
+        ``parts/development-products/PDBDebugMode`` directory (*not* in the
+        parts directory itself).  Thus, the recipe handles multiple URLs fine.
+        
+        You can select a different location with ``location``, for instance::
+        
+           location = src
+        
+        Will extract ``PDBDebugMode`` in ``src/PDBDebugMode`` instead of
+        ``parts``.
+        
+        If you have ``pysvn`` installed on the computer, it will be used. This
+        implies better performances.
+        
+        Update
+        ------
+        
+        By default, when buildout update the part, an ``svn up`` is done for
+        each link. However, when a revision number is specified like this::
+        
+           https://svn.infrae.com/buildout/infrae.subversion/trunk@27829
+        
+        The SVN link is skipped for update. If you want to prevent update for
+        all SVN link of the part even if they do not contain revision number,
+        you can add the following option::
+        
+           ignore_updates = true
+        
+        Export
+        ------
+        
+        With ``pysvn`` installed, you can specify::
+        
+           export = true
+        
+        in your buildout part to get an SVN export instead of an SVN checkout.
+        
+        Verification
+        ------------
+        
+        By default, your checkout are checked against local modification
+        before any uninstallation step. This can take time on large checkouts,
+        and you may don't want it in some case (like when used on buildbot for
+        instance). To prevent this step, you can use this option::
+        
+          ignore_verification = true
+        
+        As well, when the recipe update it can emit some warnings because a
+        directory have been removed. You can suppress that warning with::
+        
+          no_warnings = true
+        
+        The verification will still be done, and the directory will be checked
+        out again to replace the missing one.
+        
+        Eggs
+        ----
+        
+        If you set the option ``as_eggs`` in your configuration file,
+        checkouted URLs will be registered as development eggs in your
+        buildout. This only work for non-recipe development eggs.
+        
+        .. warning:: If you add a new egg, this will trigger a new
+          uninstall-reinstall cycle. You may want to use that option to setup
+          eggs coming from SVN for production, but not for development.
+        
+        Exported Variables
+        ------------------
+        
+        If you set::
+        
+          export_info = true
+        
+        Two variables will be exported by this recipe:
+        
+        - ``revisions`` which gives for each URL the corresponding revision
+          number,
+        
+        - ``updated`` which gives a list of URLs which have been updated with
+          new code.
+        
+        Since values to these variables changes each time you run buildout
+        (revision number changes), this trigger an uninstall/reinstall of the
+        part. We recommand to activate it only if you need it.
+        
+        Is always exported a variable ``location`` to say where are done the
+        checkouts, and a variable ``eggs`` which contains a list of
+        checkouted eggs.
+        
+        Sample
+        ------
+        
+        For an example buildout that uses this recipe, please see the `Silva
+        buildout <https://svn.infrae.com/buildout/silva/trunk>`_.
+        
+        As well, the `doctest file
+        <https://svn.infrae.com/buildout/infrae.subversion/trunk/infrae/subversion/tests/IMPL.txt>`_
+        can provide more sample.
+        
+        Latest version
+        --------------
+        
+        The latest version is available in a `Subversion repository
+        <https://svn.infrae.com/buildout/infrae.subversion/trunk#egg=infrae.subversion-dev>`_.
+        
+        
+        Changes
+        -------
+        
+        1.4.5 (2009-01-29)
+        ~~~~~~~~~~~~~~~~~~
+        
+        - Fix an error when some path have been added to the checkout
+          path. [eric]
+        
+        - Still eggify and export information on update when running as
+          non-newest mode. [sylvain]
+        
+        1.4.4 (2009-01-28)
+        ~~~~~~~~~~~~~~~~~~
+        
+        - Add a ``no_warnings`` options which remove some warnings when
+          updating a part. [sylvain]
+        
+        1.4.3 (2009-01-21)
+        ~~~~~~~~~~~~~~~~~~
+        
+        - Add a login callback for people using PySVN. This let users
+          authenticate to an unauthorized svn. Thanks to Martin Stadler
+          (martin at siarp.de) for this fix. [sylvain]
+        
+        1.4.2 (2009-01-05)
+        ~~~~~~~~~~~~~~~~~~
+        
+        - Automatically ignore ``.pyc`` and ``.pyo`` files while checking for
+          modified/added/removed files. [sylvain]
+        
+        - Fix bug so ``.svn`` directory is really ignored when checking for
+          added paths in the checkout directory. [sylvain]
+        
+        1.4.1 (2008-10-31)
+        ~~~~~~~~~~~~~~~~~~
+        
+        Bug fix:
+        
+        - Correct typo in README.txt. [sylvain]
+        
+        - Ignore ``.svn`` directory when checking for added ones at
+          uninstall. [sylvain]
+        
+        1.4 (2008-10-31)
+        ~~~~~~~~~~~~~~~~
+        
+        New features:
+        
+        - Added ``location`` option that allows you to override the default
+          /parts/partname location. [reinout]
+        
+        - Added ``as_eggs`` option that installs the checkouts as development
+          eggs. [reinout]
+        
+        Bug fix:
+        
+        - Don't export revisions information if you're offline with Py. Py
+          tries to connect to the SVN repository to do a 'svn info'. [sylvain]
+        
+        1.3.1
+        ~~~~~
+        
+        Bug fix:
+        
+        - don't try to collect export information if you have a svn
+          export. [sylvain]
+        
+        - path were exported instead of URLs in the Native
+          implementation. [sylvain]
+        
+        1.3
+        ~~~
+        
+        - Remove the restriction to py 0.9.0, now that py 0.9.2 is out and fix
+          problems on svn status with strange userid. [sylvain]
+        
+        - Correct an error rendering. [sylvain]
+        
+        - Export information only for top level svn URLs in the native
+          implementation, this used to inject information from svn:externals
+          links included in URL list. [sylvain]
+        
+        - Add tests for export information feature. [tlotze]
+        
+        - Correct URL in setup.py [sylvain].
+        
+        1.2
+        ~~~
+        
+        - Refactor code, performances should be better at uninstall with Py
+          implementation [sylvain].
+        
+        - Look for the environment variable ``INFRAE_SUBVERSION_IMPL`` to
+          select which implementation to use. Possible values are ``PYSVN``
+          (default) and ``PY`` [sylvain].
+        
+        - Uninstall only look at directory which have been created by the
+          recipe in the part. Other are just reported [sylvain].
+        
+        - Export two new variables, if ``export_info`` is set to true:
+        
+          ``revisions``
+        
+             Which is lines formatted::
+        
+                link current_revision
+        
+          ``updated``
+        
+             Which is lines containing updated links.
+        
+        
+          [sylvain].
+        
+        1.1
+        ~~~
+        
+        - Add the ``ignore_verification`` option [sylvain].
+        
+        1.0
+        ~~~
+        
+        - Base version of the recipe.
+        
+Keywords: subversion buildout
+Platform: UNKNOWN
+Classifier: Framework :: Buildout
+Classifier: License :: OSI Approved :: Zope Public License
+Classifier: Topic :: Software Development :: Version Control

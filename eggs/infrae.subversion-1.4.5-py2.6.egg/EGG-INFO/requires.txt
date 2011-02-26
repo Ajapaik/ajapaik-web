@@ -1,0 +1,11 @@
+zc.buildout
+setuptools
+py
+
+[test]
+setuptools
+zc.buildout
+zc.recipe.egg
+zope.testing
+svnhelper
+py
