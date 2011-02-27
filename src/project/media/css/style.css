@@ -62,21 +62,60 @@ p {
 
 
 
-#inlinecontent.photo .description {
 
+
+#inlinecontent.photo .controls ul.thumbs {
+	margin: 0;
 }
-#inlinecontent.photo .previous {
+#inlinecontent.photo .controls ul.thumbs li {
+	list-style: none;
 	float: left;
-	width: 130px;
+	height: 40px;
+	width: 40px;
+	margin: 0 7px 0 0;
 }
-#inlinecontent.photo .content {
+#inlinecontent.photo .controls ul.thumbs li a {
+	display: block;
+	height: 100%;
+}
+#inlinecontent.photo .controls ul.thumbs li .add-photo {
+	background: transparent url(../images/icon_add_disabled.png) no-repeat;
+}
+
+#inlinecontent .description {
+	font-size: 12px;
+	line-height: 1.2;
+	margin: 10px 0;
+	width: 250px;
+	padding-right: 25px;
 	float: left;
 }
-#inlinecontent.photo .next {
+#inlinecontent .description .owner {
+	font-size: 10px;
+	color: #999;
+	margin-top: 5px;
+}
+
+#inlinecontent .add-photo {
+	margin: 18px 0 0;
 	float: right;
-	width: 130px;
 }
 
+
+#slider {
+    position:relative;
+/*     background:url(../images/loading.gif) no-repeat 50% 50%; */
+}
+#slider img {
+    position:absolute;
+    top:0px;
+    left:0px;
+    display:none;
+}
+#slider a {
+    border:0;
+    display:block;
+}
 
 
 
@@ -111,10 +150,8 @@ p {
 }
 #photos .photo.current .description {
 	color: #6e6b68;
-	margin: 0 0 15px;
+	margin: 10px 0 15px;
 }
-
-
 #photos .photo.thumb .status {
 	position: absolute;
 	top: 7px;
@@ -201,10 +238,19 @@ a.btn.disabled {
 	cursor: default;
 }
 
+a.btn.small {
+	font-size: 13px;
+	padding: 5px 12px;
+}
+
+
+
+
 
 .skip {
 	margin: 25px 0 0;
 }
+
 
 
 #footer {
