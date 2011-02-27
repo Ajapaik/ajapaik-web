@@ -8,9 +8,25 @@ def _make_thumbnail(photo,size):
 	return {'url':image.url,
 			'size':[image.width,image.height]}
  
+def calc_trustworthiness(user_id):
+	total_tries=0
+	correct_tries=0
+	for row in GeoTag.objects.filter(user=user.pk,
+								is_correct__isnull=False). \
+				values('is_correct').annotate(count=Count('pk')):
+		total_tries+=row['count']
+		if row['is_correct']:
+			correct_tries+=row['count']
+
+	if not total_tries:
+		return 0
+
+	return (1-0.9**total_tries) * \
+						correct_tries / float(total_tries)
+
 def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 
-	#!!! kui hea arvaja sa oled
+	#!!! use trustworthiness
 
 	extra_args={'select': {'final_level':
 			"(case when level > 0 then level else " + \
@@ -65,33 +81,36 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 	#			photod millel pole geotage ja mida on koige
 	#										vahem skipitud
 
+def get_total_score(user_id):
+	return GeoTag.objects.filter(user=user_id).aggregate(
+				total_score=Sum('score'))['total_score'] or 0
+
 def submit_guess(user,photo_id,lon=None,lat=None,
 											type=GeoTag.MAP):
 	p=Photo.objects.get(pk=photo_id)
 
+	scoring_table={None:10,True:100}
+
 	is_correct=None
+	this_guess_score=scoring_table.get(is_correct,0)
+
 	if lon is not None and lat is not None:
-		g=GeoTag(user=user,photo_id=p.id,type=type,
-						lat=float(lat),lon=float(lon))
 		if p.confidence >= 0.3:
 			is_correct=(Photo.distance_in_meters(p.lon,p.lat,
 								float(lon),float(lat)) < 100)
-			g.is_correct=is_correct
-		g.save()
+			this_guess_score=scoring_table.get(is_correct,0)
+
+		GeoTag(user=user,photo_id=p.id,type=type,
+						lat=float(lat),lon=float(lon),
+						is_correct=is_correct,
+						score=this_guess_score).save()
 	else:
 		Guess(user=user,photo_id=p.id).save()
 
 	p.set_calculated_fields()
 	p.save()
 
-	scoring_table={None:10,True:100}
-
-	score=0
-	for row in GeoTag.objects.filter(user=user.pk). \
-				values('is_correct').annotate(count=Count('pk')):
-		score+=scoring_table.get(row['is_correct'],0)
-
-	return is_correct,scoring_table.get(is_correct,0),score
+	return is_correct,this_guess_score,get_total_score(user.pk)
 
 def get_geotagged_photos():
 	rephotographed_ids=frozenset(Photo.objects.filter(
