@@ -2,9 +2,35 @@
 {% load i18n %}
 
 {% block layout %}
-<div id="content" class="clearfix">
+<div id="content" class="clearfix"
+						style="width:100%; height:100%">
 
-    Frontpage
-    
+<script type="text/javascript"
+    src="http://maps.google.com/maps/api/js?sensor=false">
+</script>
+<script type="text/javascript">
+
+  function init_map() {
+	var geotagged_photos={{ json_data }};
+    var myOptions = {
+      zoom: 14,
+      center: new google.maps.LatLng(59.437,24.76),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById(
+									"map_canvas"),myOptions);
+	for (var i in geotagged_photos) {
+		var p=geotagged_photos[i];
+		new google.maps.Marker({map: map,
+				position: new google.maps.LatLng(p[2],p[1]), 
+				icon:'/media/images/icon_camera.png'});
+		}
+	}
+
+	$(document).ready(function (){init_map();});
+</script>
+
+<div id="map_canvas" style="width:100%; height:100%"></div>
+
 </div>
 {% endblock layout %}

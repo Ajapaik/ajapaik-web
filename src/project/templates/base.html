@@ -24,7 +24,15 @@
 <div class="score"><span class="label">Punkte</span> <span class="digits">799</span></div>
 
 			<div id="facebook-connect">
+				{% if request.user.is_authenticated %}
+				{% with profile=request.user.get_profile user=request.user %}
+				<a href="#">
+				    <img src="http://graph.facebook.com/{{ profile.fb_id }}/picture" width="50" height="50"/>{{ user.get_full_name }}
+				</a>
+				{% endwith %}
+				{% else %}
 				<a href="/facebook/login" class="ir">Connect with Facebook</a>
+				{% endif %}
 			</div>
 
 		</div>
