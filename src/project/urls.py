@@ -10,6 +10,7 @@ urlpatterns = patterns('views',
 
     (r'^test1/', 'test1'),
     (r'^stream/', 'fetch_stream'),
+    (r'^geotag/add/', 'geotag_add'),
     
     # Site urls
     (r'^$', 'index')

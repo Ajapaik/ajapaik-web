@@ -118,7 +118,7 @@ Github site: http://github.com/razorjack/quicksand
             correctionOffset.top -= options.dy;
 
             // keeps nodes after source container, holding their position
-            //$sourceParent.css('height', $(this).height());
+            $sourceParent.css('height', $(this).height());
             
             // get positions of source collections
             $source.each(function (i) {
