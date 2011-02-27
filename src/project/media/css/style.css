@@ -88,6 +88,7 @@ p {
 	text-align: center;
 	padding: 0 10px;
 	height: 565px;
+	margin: 0 auto;
 }
 #photos .photo {
 	position: relative;
@@ -115,11 +116,7 @@ p {
 	color: #6e6b68;
 	margin: 0 0 15px;
 }
-#photos .photo.current .controls {
-	position: relative;
-	margin: 25px 0 0;
-	width: 100%;
-}
+
 
 #photos .photo.thumb .status {
 	position: absolute;
@@ -245,7 +242,7 @@ a.btn.disabled {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
-#footer #facebook-connect a.ir {
+#footer #facebook-connect a {
 	width: 169px;
 	height: 21px;
 	margin: 6px;

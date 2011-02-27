@@ -5,41 +5,46 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=ET"></script>
     
     <div style="display:none;">
-			<div class="map">
+			<div class="map" style="position: relative;">
 
-				<div class="close"><a href="close-map-cancel-tagging" class="ir">Katkesta</a></div>
+<!-- 				<div class="close"><a href="close-map-cancel-tagging" class="ir">Katkesta</a></div> -->
 
-				<div class="save-container">
-					<div class="button">
+				<div class="save-container" style="position: absolute; width: 100%; text-align: center; z-index: 1000; margin: -10px 0 0;">
+					<div class="button" style="display: inline-block; background: #fff; padding: 20px 12px; -webkit-border-radius: 12px; -moz-border-radius: 12px;">
 						<a href="#" class="save btn">Salvesta</a>
 					</div>
 				</div>
 
-				<div class="map_canvas" style="width:510px;height:510px;"></div>
+				<div class="map_canvas" style="width:100%;height:100%;"></div>
 			
 			</div>    
-            
-            <div class="message">
-    			<div class="message">
-    				<div class="container">
-    				    <span class="msg_text">Aitäh!</span>
-    					<div class="button">
-    						<a href="#" class="next btn">Edasi</a>
-    					</div>
-    				</div>
-    			</div>
-			</div>			
     </div>
     
     <div style="display:none">
 	<div class="wheel_item" id="wheel_ghost">
-        <div class="cell" style="width:165px;float:left;margin:5px;">
+<!--
+
+			<div class="message yes" style="visibility: hidden;">
+
+				<div class="container">
+
+					Aitäh! Õige vastus!
+
+					<div class="button">
+						<a href="tean-asukohta" class="btn">Edasi</a>
+					</div>
+
+				</div>
+
+			</div>
+-->
+        <div class="cell" style="width:165px;float:left;margin:15px;">
 		<div class="wheel_small thumb" style="padding:0px;border:7px solid #fff;position:relative;">
-			<div class="status"></div>
+			<div class="status no"></div>
 			<img class="small" style="width:100%;height:100%;position:absolute;top:0px;left:0px" />
-			<img class="big" style="width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:100" />
+			<img class="big" style="width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:100;" />
 			
-			<div class="controls" style="display:none;z-index:101;position:absolute;width:100%;">
+			<div class="controls" style="display:none;z-index:101;position:absolute;width:100%;bottom: -65px;">
     			<p class="description"></p>
     			<!-- <a href=""><img src="" /></a> -->
     			<p class="controls">
@@ -53,7 +58,7 @@
     </div>    
     </div>
     
-	<div id="photos" style="height:600px;width:905px;">
+	<div id="photos" style="height:600px;width:960px;">
 	</div>
 
     <script type="text/javascript">
@@ -68,7 +73,7 @@
                 $.merge(this._stack, pictures_json);
             },
             
-            setTagged: function(lat, lon, callback) {
+            setTagged: function(lat, lon) {
                 var frame = this.getCurrent();
                 
                 var data = {
@@ -78,7 +83,9 @@
                     data['lat'] = lat;
                     data['lon'] = lon;
                 }
-                $.getJSON('{% url views.geotag_add %}', data, callback);
+                $.getJSON('{% url views.geotag_add %}', data, function(){
+                    
+                });
             },
             
             fetchItems: function(doUpdate) {
@@ -220,8 +227,8 @@
         $('#photos').delegate('.next', 'click', function() {
             $.fancybox({
                 autoDimensions: false,
-                width: 510,
-                height: 510,
+                width: 700,
+                height: '70%',
                 content: $('.map').html(),
                 onComplete: function(){
                     var map = new google.maps.Map($('#fancybox-content .map_canvas').get(0), options);
@@ -231,37 +238,17 @@
                         animation: google.maps.Animation.DROP,
                         position: tallinn
                     });
+/*
+                    google.maps.event.addListener(marker, 'dragend', function(){
+                        wheel.setTagged(this.getPosition().lat(), this.getPosition().lng());
+                        /// thanks
+                    });
+*/
                     google.maps.event.addListener(marker, 'click', toggleBounce);
                     
                     $('.save:visible', $(this).content).click(function(){
-                        wheel.setTagged(marker.getPosition().lat(), marker.getPosition().lng(), function(data){
-                            $.fancybox({
-                                autoDimensions: false,
-                                width: 510,
-                                height: 200,
-                                content: $('.message').html(),
-                                onComplete: function(){
-                                    var msg = $('.message',$('#fancybox-content'));
-                                    var status = $('#photos').find('div[data-current="1"]').find('.status');
-                                    
-                                    if (data.is_correct === null) {
-                                        $('.msg_text', $(msg)).text('Aitäh! Sinu pakkumine oli esimene!');
-                                        msg.addClass('guess');
-                                        status.addClass('guess');
-                                    } else {
-                                        msg.addClass((data.is_correct === true) ? 'yes' : 'no');
-                                        status.addClass((data.is_correct === true) ? 'yes' : 'no');
-                                        $('.msg_text', $(msg)).text((data.is_correct === true) ? 'Aitäh! Tundub õige!' : 'Aitäh! Julgeme kahelda!');
-                                    }
-                                    $('.next', msg).click(function(){
-                                        $.fancybox.close();
-                                        wheel.advance();
-                                    });
-                                    
-                                }
-                            });
-                            
-                        });
+                        wheel.setTagged(marker.getPosition().lat(), marker.getPosition().lng());
+                        $.fancybox.close();
                         return false;
                     });
                 }
@@ -270,6 +257,156 @@
         });
     </script>    
     
+
+
+<div id="KRISTJAN" class="clearfix ir">
+
+<!--
+    <div id="wheel" style="width:100%;height:330px;border:1px solid #000;">
+        {% for photo in photos %}
+        {% thumbnail photo.image "160x160" as im %}
+        <div class="image" style="width:160px;height:160px;border:1px solid #aaa;float:left;"><a id="photo_{{ photo.id }}" href="{% thumbnail photo.image "510x375" as bim %}{{ bim.url }}{% endthumbnail %}"><img src="{{ im.url }}" /></a></div>
+        {% endthumbnail %}
+        {% endfor %}
+    </div>
+
+
+    <div style="width:510px;height:510px">
+        <img id="current_image" src="" />
+    </div>
+
+
+    <div id="map_canvas" style="width:512px;height:320px;">
+    
+    </div>
+    
+    <form id="geotag_form" action="{% url views.thegame %}" method="post">
+        {{ geotag_form.as_p }}
+        <input type="submit" value="{% trans "Salvesta" %}" />
+    </form>
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>    
+    <script type="text/javascript">
+        // create stack from dom elements
+        // later to be replaced by json from ajax
+        function create_stack(images) {
+            var data = [];
+            $(images).each(function(idx,img) {
+                data.push({
+                    'id': $(img).find('a').attr('id'),
+                    'big_image': $(img).find('a').attr('href'),
+                    'small_image': $(img).find('img').attr('src')
+                });
+            });
+            return data;
+        }
+        // Temporary event creator
+        function show(num) {
+            wheel.setTagged(true);
+            wheel.advance();
+        }
+        
+        
+        Wheel = function(container) {
+            this._stack = [];
+            this._container = container;
+            this._idx = 0;
+            
+            // Display settings
+            this.total_cells = 5;
+            this.selected_cell = 3;
+        };
+        Wheel.prototype = {
+            addData: function(pictures_json) {
+                $.merge(this._stack, pictures_json);
+            },
+            
+            setTagged: function() {
+                var frame = this.getCurrent();
+                frame['tagged'] = true;
+            },
+            
+            advance: function() {
+                this._idx++;
+                if (this._idx > this._stack.length-1) this._idx = this._stack.length-1;
+                if (this._idx < 0) this._idx = 0;
+                
+                this.update();
+            },
+            
+            getCurrent: function() {
+                return this._stack[this._idx];
+            },
+            
+            update: function(){
+                // render stuff
+                var data = this.getCurrent();
+                var selected = $('#'+data['id']);
+                var img = $(selected).find('img');
+                
+                var w = img.width();
+                var h = img.height();
+                img.css({
+                    width: w,
+                    height: h
+                }).attr('src', data['big_image']);
+                
+                $(selected).find('img').animate({
+                    width: 510,
+                    height: 375,
+                });
+            }
+        
+        };
+        
+        var wheel = new Wheel($('#wheel'));
+        $.getJSON('{% url views.fetch_stream %}', function(data){
+            wheel.addData(data);
+            wheel.update();
+        });
+    </script>
+    
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=ET"></script>
+    <script type="text/javascript">
+        var tallinn = new google.maps.LatLng(59.435474, 24.750309);
+        var form = $('#geotag_form');
+        
+        var options = {
+            zoom: 13,
+            center: tallinn,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }    
+    
+        function toggleBounce() {
+            if (marker.getAnimation() != null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+        
+        $('#wheel>div>a').click(function(){
+            $('#current_image').attr('src', $(this).attr('href'));
+            form.find('[name="photo_id"]').val($(this).attr('id').substr(6));
+            
+            var map = new google.maps.Map(document.getElementById("map_canvas"), options);        
+            marker = new google.maps.Marker({
+                map:map,
+                draggable:true,
+                animation: google.maps.Animation.DROP,
+                position: tallinn
+            });
+            google.maps.event.addListener(marker, 'dragend', function(){
+                form.find('[name="lat"]').val(this.getPosition().lat());
+                form.find('[name="lon"]').val(this.getPosition().lng());
+            });
+            google.maps.event.addListener(marker, 'click', toggleBounce);
+            
+            return false;
+        });
+    </script>
+-->
+
 </div>
     
 {% endblock %}
