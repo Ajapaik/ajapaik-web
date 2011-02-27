@@ -248,6 +248,10 @@
                     infowindow.open(map,marker);
                     
                     google.maps.event.addListener(marker, 'click', toggleBounce);
+                    google.maps.event.addListener(marker, 'dragstart', function(){
+                        infowindow.close();
+                    });
+                    
                     
                     $('.save:visible', $(this).content).click(function(){
                         wheel.setTagged(marker.getPosition().lat(), marker.getPosition().lng(), function(data){
