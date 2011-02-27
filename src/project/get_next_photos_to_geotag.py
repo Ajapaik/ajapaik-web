@@ -79,3 +79,14 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 		score+=scoring_table.get(row['is_correct'],0)
 
 	return is_correct,scoring_table.get(is_correct,0),score
+
+def get_geotagged_photos():
+	rephotographed_ids=frozenset(Photo.objects.filter(
+			rephoto_of__isnull=False).values_list(
+									'rephoto_of',flat=True))
+	data=[]
+	for p in Photo.objects.filter(confidence__gte=0.3,
+						lat__isnull=False,lon__isnull=False,
+						rephoto_of__isnull=True):
+		data.append((p.id,p.lon,p.lat,p.id in rephotographed_ids))
+	return data
