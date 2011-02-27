@@ -21,9 +21,23 @@
 									"map_canvas"),myOptions);
 	for (var i in geotagged_photos) {
 		var p=geotagged_photos[i];
-		new google.maps.Marker({map: map,
+		var marker = new google.maps.Marker({map: map,
 				position: new google.maps.LatLng(p[2],p[1]), 
 				icon:'/media/images/icon_camera.png'});
+        
+        (function(id) {
+        google.maps.event.addListener(marker, 'click', function() {
+            $.ajax({
+                cache: false,
+                url: '/photo/'+id+'/',
+                success: function(result) {
+                    $.fancybox({
+                        content: result
+                    });
+                }
+            });
+        });
+        })(p[0]);
 		}
 	}
 
