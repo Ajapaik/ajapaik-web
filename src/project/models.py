@@ -57,21 +57,22 @@ class Photo(models.Model):
         self.lon = None
         self.lat = None
 
-        geotags = GeoTag.objects.filter(photo__id=self.id)
+        geotags = list(GeoTag.objects.filter(photo__id=self.id))
         if geotags:
             lon = sorted([g.lon for g in geotags])
-            lon = lon[len(lat)/2]
+            lon = lon[len(lon)/2]
             lat = sorted([g.lat for g in geotags])
             lat = lat[len(lat)/2]
 
             correct_guesses = 0
             lon_sum, lat_sum = 0,0
             for g in geotags:
-                if distance_in_meters() < 100:
+                if Photo.distance_in_meters(g.lon, g.lat,
+											lon, lat) < 100:
                     correct_guesses += 1
                     lon_sum += g.lon
                     lat_sum += g.lat
-            if correct_guesses / float(len(guesses)) > 0.63:
+            if correct_guesses / float(len(geotags)) > 0.63:
                 self.lon = lon_sum / float(correct_guesses)
                 self.lat = lat_sum / float(correct_guesses)
                 self.confidence = (correct_guesses / 3.0) * \
@@ -92,6 +93,8 @@ class GeoTag(models.Model):
     
     user = models.ForeignKey('Profile')
     photo = models.ForeignKey('Photo')
+
+    is_correct = models.NullBooleanField()
     
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

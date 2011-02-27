@@ -15,15 +15,56 @@
 			</p>
 		</div>
 -->
-		<div class="wheel_small thumb" style="float:left;padding:0px;margin:0px;position:relative">
+<!--
+			<div class="map" style="visibility: hidden;">
+
+				<div class="close"><a href="close-map-cancel-tagging" class="ir">Katkesta</a></div>
+
+				<div class="save-container">
+					<div class="button">
+						<a href="save" class="btn">Salvesta</a>
+					</div>
+				</div>
+
+				<div id="map_canvas"></div>
+			
+			</div>
+
+			<div class="message yes" style="visibility: hidden;">
+
+				<div class="container">
+
+					Aitäh! Õige vastus!
+
+					<div class="button">
+						<a href="tean-asukohta" class="btn">Edasi</a>
+					</div>
+
+				</div>
+
+			</div>
+-->
+        <div class="cell" style="width:165px;float:left;margin:5px;">
+		<div class="wheel_small thumb" style="padding:0px;border:7px solid #fff;position:relative;">
 			<div class="status no"></div>
 			<img class="small" style="width:100%;height:100%;position:absolute;top:0px;left:0px" src="" />
 			<img class="big" style="width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:100" src="" />
+			
+			<div class="controls" style="display:none;z-index:101;position:absolute;width:100%;">
+    			<p class="description"></p>
+    			<a href=""><img src="" /></a>
+    			<p class="controls">
+    				<a href="javascript:" class="next btn">Tean asukohta!</a>
+    				<div class="skip"><a href="javascript:">Jätan vahele</a></div>
+    			</p>
+			</div>
+			
+		</div>
 		</div>
     </div>    
     </div>
     
-	<div id="photos">
+	<div id="photos" style="height:600px;width:905px;">
 	</div>
 
     <script type="text/javascript">
@@ -63,7 +104,7 @@
             },
             
             getPrev: function () {
-                return this._stack.slice(Math.max(0, this._idx - 2), this._idx);
+                return this._stack.slice(Math.max(0, this._idx - 1), this._idx);
             },
             getNext: function () {
                 return this._stack.slice(this._idx+1, Math.min(this._stack.length, this._idx+2));
@@ -78,7 +119,7 @@
                     if(callback) callback();
                     return;
                 }
-                console.log("animate element %o", el.get(0))
+                //console.log("animate element %o", el.get(0))
                 var id = parseInt(el.attr('data-id'));
                 var data = null;
                 for(var i = 0; i < this._stack.length; i++) {
@@ -89,15 +130,17 @@
                     }
                 }
                 var target = toOpen ? data.big : data.small;
-                console.log("animate to %o", target.size);
-                el.animate({width: target.size[0], height: target.size[1]}, 250, 'linear', callback);
+                //console.log("animate to %o", target.size);
+                
+                $(el).animate({width: (toOpen?target.size[0]:160)+14, height: (toOpen?target.size[1]:160)+14}, 250, 'linear');
+                $('.wheel_small', el).animate({width: target.size[0], height: target.size[1]}, 250, 'linear', callback);
             },
             
             buildElements: function() {
                 var base = $('<div></div>');
                 
                 function addElement(value, isCurrent) {
-                    var cloneSource = $('#wheel_ghost .wheel_small');
+                    var cloneSource = $('#wheel_ghost .cell');
                     var element = cloneSource.clone();
                     element.attr('data-id', value.id);
                     if(isCurrent) {
@@ -105,7 +148,7 @@
                     }
                     $('img.small', element).attr({src: value.small.url});
                     $('img.big', element).attr({src: value.big.url})
-                    element.css({width: value.small.size[0], height: value.small.size[1]});
+                    $('.wheel_small',element).css({width: value.small.size[0], height: value.small.size[1]});
                     base.append(element);
                 }
                 $.each(this.getPrev(), function(i, value) { addElement(value, false); });
@@ -116,18 +159,20 @@
             
             update: function(){
                 var self = this;
-
                 
                 //console.log("Elements %o <- %o", dest, els);
+                $('.controls',self.getCurrentEl()).hide();
 
                 self.animateTo(self.getCurrentEl(), false, function() {
-                    console.log("close animation complete");
+                    //console.log("close animation complete");
                     var el = self.buildElements();
                     var els = el.children();
                     var dest = $('#photos');
-                    dest.quicksand(els, {adjustHeight: 'dynamic', easing: 'linear', duration: 250}, function() {
-                        console.log("quicksand done");
-                        self.animateTo(self.getCurrentEl(), true);
+                    dest.quicksand(els, {adjustHeight: 'none', easing: 'linear', duration: 250}, function() {
+                        //console.log("quicksand done");
+                        self.animateTo(self.getCurrentEl(), true, function(){
+                            $('.controls',self.getCurrentEl()).show();
+                        });
                     });
                 });
             }

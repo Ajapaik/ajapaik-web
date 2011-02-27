@@ -1,5 +1,5 @@
 $(document).ready(function() {
 
-	$("ul#photos li.current a").fancybox();
+/* 	$("ul#photos li.current a").fancybox(); */
 
 });

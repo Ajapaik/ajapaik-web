@@ -51,3 +51,31 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 	#			jooksul arvanud; voi kui neid pole, siis
 	#			photod millel pole geotage ja mida on koige
 	#										vahem skipitud
+
+def submit_guess(user,photo_id,lon=None,lat=None,
+											type=GeoTag.MAP):
+	p=Photo.objects.get(pk=photo_id)
+
+	is_correct=None
+	if lon is not None and lat is not None:
+		g=GeoTag(user=user,photo_id=p.id,type=type,
+						lat=float(lat),lon=float(lon))
+		if p.confidence >= 0.3:
+			is_correct=(Photo.distance_in_meters(p.lon,p.lat,
+								float(lon),float(lat)) < 100)
+			g.is_correct=is_correct
+		g.save()
+	else:
+		Guess(user=user,photo_id=p.id).save()
+
+	p.set_calculated_fields()
+	p.save()
+
+	scoring_table={None:10,True:100}
+
+	score=0
+	for row in GeoTag.objects.filter(user=user.pk). \
+				values('is_correct').annotate(count=Count('pk')):
+		score+=scoring_table.get(row['is_correct'],0)
+
+	return is_correct,scoring_table.get(is_correct,0),score

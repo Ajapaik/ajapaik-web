@@ -30,6 +30,7 @@ a {
 	padding: 20px 0;
 }
 #photos .photo.thumb {
+	width: 160px;
 	margin: 170px 0 0;
 }
 #photos .photo img {
@@ -37,8 +38,11 @@ a {
 	-webkit-box-shadow: 0px 0px 5px #999;
 	-moz-box-shadow: 0px 0px 5px #999;
 }
+
+
 #photos .photo.current {
 	margin: 0 30px;
+	width: 510px;
 }
 #photos .photo.current .description {
 	color: #6e6b68;
@@ -48,11 +52,6 @@ a {
 	position: relative;
 	margin: 25px 0 0;
 	width: 100%;
-}
-
-
-#photos .phoro.current .map {
-	position: relative;
 }
 
 #photos .photo.thumb .status {
@@ -68,6 +67,45 @@ a {
 #photos .photo.thumb .status.yes {
 	background: url(../images/icon_yes.png) no-repeat;
 }
+
+
+
+#photos .message {
+	font-size: 29px;
+	position: absolute;
+	width: 496px;
+	margin: 150px 0 0;
+	border: 7px solid #e8f3d4;
+	background: #fff;
+	-webkit-box-shadow: 0px 0px 5px #999;
+	-moz-box-shadow: 0px 0px 5px #999;
+}
+#photos .message .container {
+	padding: 30px 50px;
+}
+#photos .message .container .button {
+	margin: 20px 0 0;
+}
+
+
+#photos .photo.current .map {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: grey;
+	z-index: 10;
+}
+#photos .photo.current .close {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	width: 28px;
+	height: 28px;
+	background: url(../images/icon_close.png) no-repeat;
+}
+
+
+
 
 
 a.btn {
@@ -94,6 +132,8 @@ a.btn {
 	width: 100%;
 	height: 100px;
 	background: url(../images/footer_bg.jpg) repeat-x;
+	position: relative;
+	text-align: center;
 }
 #footer .container {
 	width: 960px;
@@ -124,3 +164,38 @@ a.btn {
 	margin: 6px;
 	background: url(../images/connect-with-facebook.png) no-repeat;	
 }
+
+#footer .score {
+	position: absolute;
+	text-shadow: -1px -1px 0 #532a0d;
+	width: 170px;
+	height: 35px;
+	left: 600px;
+	background: url(../images/score_bg.png) no-repeat top center;
+}
+#footer .score .label {
+	color: #e2c193;
+	font-weight: 700;
+	float: left;
+	width: 87px;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 8px 0 0 7px;
+}
+#footer .score .digits {
+	color: #fff;
+	font-size: 16px;
+	font-weight: 700;
+	text-align: center;
+	float: right;
+	width: 63px;
+	padding: 7px 6px 0;
+}
+
+
+
+
+
+
+
+
