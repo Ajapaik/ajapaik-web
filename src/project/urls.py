@@ -11,9 +11,9 @@ urlpatterns = patterns('views',
     (r'^logout/', 'logout'),
     (r'^stream/', 'fetch_stream'),
     (r'^geotag/add/', 'geotag_add'),
-    (r'^thegame/$', 'thegame'),
-    (r'^photo/(?P<photo_id>\d+)/$', 'photo'),
-    (r'^map/$', 'mapview'),
+    (r'^ajapaikaja/$', 'thegame'),
+    (r'^foto/(?P<photo_id>\d+)/$', 'photo'),
+    (r'^kaart/$', 'mapview'),
     
     (r'^$', 'frontpage')
 ) + patterns('',
