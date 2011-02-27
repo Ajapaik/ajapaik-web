@@ -11,17 +11,17 @@ def _make_thumbnail(photo,size):
 def calc_trustworthiness(user_id):
 	total_tries=0
 	correct_tries=0
-	for row in GeoTag.objects.filter(user=user.pk,
+	for row in GeoTag.objects.filter(user=user_id,
 								is_correct__isnull=False). \
 				values('is_correct').annotate(count=Count('pk')):
 		total_tries+=row['count']
 		if row['is_correct']:
 			correct_tries+=row['count']
 
-	if not total_tries:
+	if not correct_tries:
 		return 0
 
-	return (1-0.9**total_tries) * \
+	return (1-0.9**correct_tries) * \
 						correct_tries / float(total_tries)
 
 def get_next_photos_to_geotag(user_id,nr_of_photos=5):
@@ -89,7 +89,9 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 											type=GeoTag.MAP):
 	p=Photo.objects.get(pk=photo_id)
 
-	scoring_table={None:10,True:100}
+	scoring_table={	None:max(20,
+							300*calc_trustworthiness(user.pk)),
+					True:100}
 
 	is_correct=None
 	this_guess_score=scoring_table.get(is_correct,0)

@@ -2,7 +2,7 @@
 # http://docs.djangoproject.com/en/dev/topics/auth/
 
 from project import models
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from functools import partial
 import sys
@@ -15,9 +15,16 @@ def get_user(request):
         login(request, user)
         return user
 
+def set_user(request, user):
+    logout(request)
+    authenticate(user=user)
+    login(request, user)
+    return user
+
 class UserMiddleware(object):
     def process_request(self, request):
-        request.get_user = partial(get_user, request=request)
+        request.get_user = partial(get_user, request)
+        request.set_user = partial(set_user, request)
         request.log_action = partial(models.Action.log, request=request)
 
 class AuthBackend(object):
@@ -25,7 +32,9 @@ class AuthBackend(object):
     supports_anonymous_user = False
     supports_inactive_user = True
 
-    def authenticate(self, username, password=None):
+    def authenticate(self, username=None, password=None, user=None):
+        if user is not None:
+            return user
         if password is not None:
             user = User.objects.get(username=username)
             if user.check_password(password):

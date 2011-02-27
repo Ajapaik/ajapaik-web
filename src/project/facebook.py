@@ -47,18 +47,30 @@ def facebook_handler(request, stage):
         code = request.GET.get("code")
         if code:
             # TODO: check for existing profile
-            token = url_read(token_url(request, code))
+            try:
+                token = url_read(token_url(request, code))
+                data = loads(url_read(profile_url(token)))
+            except Exception, e:
+                request.log_action("facebook.url_read.exception", {'message': unicode(e)})
+                raise
+
+            try:
+                profile = Profile.objects.get(fb_id=data.get("id"))
+                if request.user.is_authenticated():
+                    request.log_action("facebook.merge", {'id': data.get("id")}, profile)
+                    profile.merge_from_other(request.user.get_profile())
+                user = profile.user
+                request.set_user(user)
+            except Profile.DoesNotExist:
+                user = request.get_user()
+                profile = user.get_profile()
             
-            user = request.get_user()
-            profile = user.get_profile()
             profile.fb_token = token
-            
-            data = loads(url_read(profile_url(token)))
             user.first_name = data.get("first_name")
             user.last_name = data.get("last_name")
             user.save()
             profile.fb_id = data.get("id")
-            profile.fb_name = data.get("id")
+            profile.fb_name = data.get("name")
             profile.fb_link = data.get("link")
             profile.save()
 
