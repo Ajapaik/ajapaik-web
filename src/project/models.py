@@ -96,6 +96,7 @@ class GeoTag(models.Model):
 
     is_correct = models.NullBooleanField()
     score = models.PositiveSmallIntegerField()
+    trustworthiness = models.FloatField()
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

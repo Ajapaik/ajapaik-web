@@ -89,8 +89,8 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 											type=GeoTag.MAP):
 	p=Photo.objects.get(pk=photo_id)
 
-	scoring_table={	None:max(20,
-							300*calc_trustworthiness(user.pk)),
+	trustworthiness=calc_trustworthiness(user.pk)
+	scoring_table={	None:max(20,300*trustworthiness),
 					True:100}
 
 	is_correct=None
@@ -105,7 +105,8 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 		GeoTag(user=user,photo_id=p.id,type=type,
 						lat=float(lat),lon=float(lon),
 						is_correct=is_correct,
-						score=this_guess_score).save()
+						score=this_guess_score,
+						trustworthiness=trustworthiness).save()
 	else:
 		Guess(user=user,photo_id=p.id).save()
 
