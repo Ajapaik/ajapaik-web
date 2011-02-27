@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.http import HttpResponse
 from django.utils import simplejson as json
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 
 from project.models import Photo
 from project.forms import GeoTagAddForm
@@ -18,15 +18,13 @@ def logout(request):
     #return HttpResponse(unicode(request.get_user()))
 
 def thegame(request):
-#     if request.method == 'POST':
-#         geotag_form = GeoTagAddForm(request.POST)
-#         if geotag_form.is_valid():
-#             geotag_form.save(request.get_user().get_profile())
-#     else:
-#         geotag_form = GeoTagAddForm()
-    
     return render_to_response('index.html', RequestContext(request, {
-#         'geotag_form': geotag_form,
+    }))
+
+def photo(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    return render_to_response('photo.html', RequestContext(request, {
+        'photo': photo,
         
     }))
 
