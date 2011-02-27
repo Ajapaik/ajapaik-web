@@ -26,7 +26,9 @@ def calc_trustworthiness(user_id):
 
 def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 
-	#!!! use trustworthiness
+	#!!! use trustworthiness to select desired level
+
+	trustworthiness=calc_trustworthiness(user_id)
 
 	extra_args={'select': {'final_level':
 			"(case when level > 0 then level else " + \
@@ -44,21 +46,34 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 					filter(confidence__gte=0.3). \
 					extra(**extra_args). \
 					order_by('final_level')[:nr_of_photos])
-	unknown_photos=list(Photo.objects.exclude(
+
+	unknown_photos_to_get=0
+	if trustworthiness > 0.2:
+		unknown_photos_to_get= \
+				int(nr_of_photos * (0.3+5*trustworthiness))
+	unknown_photos_to_get=max(unknown_photos_to_get,
+								nr_of_photos-len(known_photos))
+
+	unknown_photos=[]
+
+	if unknown_photos_to_get:
+		unknown_photos=list(Photo.objects.exclude(
 								pk__in=forbidden_photo_ids). \
 					filter(confidence=0,pk__in= \
 							GeoTag.objects.values_list(
 									'photo_id',flat=True)). \
 					extra(**extra_args). \
-					order_by('final_level')[:nr_of_photos])
-	if not unknown_photos:
-		unknown_photos=list(Photo.objects. \
-				exclude(pk__in=GeoTag.objects.values_list(
+					order_by('final_level') \
+									[:unknown_photos_to_get])
+		if len(unknown_photos) < unknown_photos_to_get:
+			unknown_photos+=list(Photo.objects. \
+					exclude(pk__in=GeoTag.objects.values_list(
 									'photo_id',flat=True)). \
-				extra(**extra_args). \
-				annotate(skips_count=Count('guess')). \
-				order_by('final_level','skips_count') \
-											[:nr_of_photos])
+					extra(**extra_args). \
+					annotate(skips_count=Count('guess')). \
+					order_by('final_level','skips_count') \
+						[:(unknown_photos_to_get- \
+										len(unknown_photos))])
 
 	photos=random.sample(list(set(known_photos+unknown_photos)),
 						nr_of_photos)
