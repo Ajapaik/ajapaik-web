@@ -3,9 +3,12 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib import messages
 from django.http import HttpResponse
+from django.utils import simplejson as json
 
 from project.models import Photo
 from project.forms import GeoTagAddForm
+
+import get_next_photos_to_geotag
 
 def test1(request):
     from django.contrib.auth import logout
@@ -26,3 +29,6 @@ def index(request):
         
     }))
 
+def fetch_stream(request):
+    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile().user, 10)
+    return HttpResponse(json.dumps(data), mimetype="application/json")

@@ -1,16 +1,20 @@
 {% extends 'layouts/frontpage.html' %}
 {% load thumbnail i18n %}
 {% block content %}
-
-	<div id="photos">
-
-        {% for photo in photos|slice:":3" %}
-        {% thumbnail photo.image "160x160" as im %}
-
-		{% if forloop.counter == 2 %}
-
-		<div class="photo current">
-
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.quicksand.js"></script>
+    
+    <div style="display:none">
+	<div class="wheel_item" id="wheel_ghost">
+<!--
+		<div class="wheel_big current" style="float:left">
+			<p class="description"></p>
+			<a href=""><img src="" /></a>
+			<p class="controls">
+				<a href="javascript:" class="next btn">Tean asukohta!</a>
+				<div class="skip"><a href="javascript:">Jätan vahele</a></div>
+			</p>
+		</div>
+-->
 <!--
 			<div class="map" style="visibility: hidden;">
 
@@ -40,33 +44,150 @@
 
 			</div>
 -->
-
-			<div>
-
-				<p class="description">Tallinn, 1920. aastad</p>
-				<a href="http://server.vigvam.ee:8002/media/cache/d8/46/d846c479ebe60d2f4ced24b6ee6bd74b.jpg"><img src="{% thumbnail photo.image "510x375" as bim %}{{ bim.url }}{% endthumbnail %}" /></a>
-				<p class="controls">
-					<a href="tean-asukohta" class="btn">Tean asukohta!</a>
-					<div class="skip"><a href="j2tan-vahele">Jätan vahele</a></div>
-				</p>
-			
-			</div>
-
-		</div>
-
-		{% else %}
-		<div class="photo thumb">
+        <div class="cell" style="width:165px;float:left;margin:5px;">
+		<div class="wheel_small thumb" style="padding:0px;border:7px solid #fff;position:relative;">
 			<div class="status no"></div>
-			<img src="{{ im.url }}" />
+			<img class="small" style="width:100%;height:100%;position:absolute;top:0px;left:0px" src="" />
+			<img class="big" style="width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:100" src="" />
+			
+			<div class="controls" style="display:none;z-index:101;position:absolute;width:100%;">
+    			<p class="description"></p>
+    			<a href=""><img src="" /></a>
+    			<p class="controls">
+    				<a href="javascript:" class="next btn">Tean asukohta!</a>
+    				<div class="skip"><a href="javascript:">Jätan vahele</a></div>
+    			</p>
+			</div>
+			
 		</div>
-		{% endif %}
-
-        {% endthumbnail %}
-        {% endfor %}
-
+		</div>
+    </div>    
+    </div>
+    
+	<div id="photos" style="height:600px;width:905px;">
 	</div>
 
+    <script type="text/javascript">
+        // Temporary event creator
+        function show(num) {
+            wheel.setTagged(true);
+            wheel.advance();
+        }
+        
+        
+        Wheel = function(container) {
+            this._stack = [];
+            this._container = container;
+            this._idx = 0;
+            this._current = null;
+        };
+        Wheel.prototype = {
+            addData: function(pictures_json) {
+                $.merge(this._stack, pictures_json);
+            },
+            
+            setTagged: function() {
+                var frame = this.getCurrent();
+                frame['tagged'] = true;
+            },
+            
+            advance: function() {
+                this._idx++;
+                if (this._idx > this._stack.length-1) this._idx = this._stack.length-1;
+                if (this._idx < 0) this._idx = 0;
+                
+                this.update();
+            },
+            
+            getCurrent: function() {
+                return this._stack[this._idx];
+            },
+            
+            getPrev: function () {
+                return this._stack.slice(Math.max(0, this._idx - 1), this._idx);
+            },
+            getNext: function () {
+                return this._stack.slice(this._idx+1, Math.min(this._stack.length, this._idx+2));
+            },
+            
+            getCurrentEl: function() {
+                return $('#photos').find("div[data-current='1']");
+            },
+            
+            animateTo: function(el, toOpen, callback) {
+                if(el.size() == 0) {
+                    if(callback) callback();
+                    return;
+                }
+                //console.log("animate element %o", el.get(0))
+                var id = parseInt(el.attr('data-id'));
+                var data = null;
+                for(var i = 0; i < this._stack.length; i++) {
+                    var item = this._stack[i];
+                    if(item.id == id) {
+                        data = item;
+                        break;
+                    }
+                }
+                var target = toOpen ? data.big : data.small;
+                //console.log("animate to %o", target.size);
+                
+                $(el).animate({width: (toOpen?target.size[0]:160)+14, height: (toOpen?target.size[1]:160)+14}, 250, 'linear');
+                $('.wheel_small', el).animate({width: target.size[0], height: target.size[1]}, 250, 'linear', callback);
+            },
+            
+            buildElements: function() {
+                var base = $('<div></div>');
+                
+                function addElement(value, isCurrent) {
+                    var cloneSource = $('#wheel_ghost .cell');
+                    var element = cloneSource.clone();
+                    element.attr('data-id', value.id);
+                    if(isCurrent) {
+                        element.attr('data-current', '1');
+                    }
+                    $('img.small', element).attr({src: value.small.url});
+                    $('img.big', element).attr({src: value.big.url})
+                    $('.wheel_small',element).css({width: value.small.size[0], height: value.small.size[1]});
+                    base.append(element);
+                }
+                $.each(this.getPrev(), function(i, value) { addElement(value, false); });
+                addElement(this.getCurrent(), true);
+                $.each(this.getNext(), function(i, value) { addElement(value, false); });
+                return base;
+            },
+            
+            update: function(){
+                var self = this;
+                
+                //console.log("Elements %o <- %o", dest, els);
+                $('.controls',self.getCurrentEl()).hide();
 
+                self.animateTo(self.getCurrentEl(), false, function() {
+                    //console.log("close animation complete");
+                    var el = self.buildElements();
+                    var els = el.children();
+                    var dest = $('#photos');
+                    dest.quicksand(els, {adjustHeight: 'none', easing: 'linear', duration: 250}, function() {
+                        //console.log("quicksand done");
+                        self.animateTo(self.getCurrentEl(), true, function(){
+                            $('.controls',self.getCurrentEl()).show();
+                        });
+                    });
+                });
+            }
+        
+        };
+        
+        var wheel = new Wheel($('#wheel'));
+        $.getJSON('{% url views.fetch_stream %}', function(data){
+            wheel.addData(data);
+            wheel.update();
+        });
+        $('#photos').delegate('img', 'click', function() {
+            wheel.advance();
+        })
+    </script>
     
 
 
@@ -95,6 +216,87 @@
         {{ geotag_form.as_p }}
         <input type="submit" value="{% trans "Salvesta" %}" />
     </form>
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>    
+    <script type="text/javascript">
+        // create stack from dom elements
+        // later to be replaced by json from ajax
+        function create_stack(images) {
+            var data = [];
+            $(images).each(function(idx,img) {
+                data.push({
+                    'id': $(img).find('a').attr('id'),
+                    'big_image': $(img).find('a').attr('href'),
+                    'small_image': $(img).find('img').attr('src')
+                });
+            });
+            return data;
+        }
+        // Temporary event creator
+        function show(num) {
+            wheel.setTagged(true);
+            wheel.advance();
+        }
+        
+        
+        Wheel = function(container) {
+            this._stack = [];
+            this._container = container;
+            this._idx = 0;
+            
+            // Display settings
+            this.total_cells = 5;
+            this.selected_cell = 3;
+        };
+        Wheel.prototype = {
+            addData: function(pictures_json) {
+                $.merge(this._stack, pictures_json);
+            },
+            
+            setTagged: function() {
+                var frame = this.getCurrent();
+                frame['tagged'] = true;
+            },
+            
+            advance: function() {
+                this._idx++;
+                if (this._idx > this._stack.length-1) this._idx = this._stack.length-1;
+                if (this._idx < 0) this._idx = 0;
+                
+                this.update();
+            },
+            
+            getCurrent: function() {
+                return this._stack[this._idx];
+            },
+            
+            update: function(){
+                // render stuff
+                var data = this.getCurrent();
+                var selected = $('#'+data['id']);
+                var img = $(selected).find('img');
+                
+                var w = img.width();
+                var h = img.height();
+                img.css({
+                    width: w,
+                    height: h
+                }).attr('src', data['big_image']);
+                
+                $(selected).find('img').animate({
+                    width: 510,
+                    height: 375,
+                });
+            }
+        
+        };
+        
+        var wheel = new Wheel($('#wheel'));
+        $.getJSON('{% url views.fetch_stream %}', function(data){
+            wheel.addData(data);
+            wheel.update();
+        });
+    </script>
     
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=ET"></script>
     <script type="text/javascript">

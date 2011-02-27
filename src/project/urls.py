@@ -9,6 +9,7 @@ urlpatterns = patterns('views',
     (r'^admin/', include(admin.site.urls)),
 
     (r'^test1/', 'test1'),
+    (r'^stream/', 'fetch_stream'),
     
     # Site urls
     (r'^$', 'index')
