@@ -169,19 +169,20 @@ p {
 
 
 .message {
-	font-size: 29px;
+	font-size: 21px;
 	width: 100%;
-	height: 200px;
+	height: 154px;
 	background: #fff;
 }
-.message.yes .container {
+.message.yes .container,
+.message.guess .container {
 	border: 7px solid #e8f3d4;
 }
 .message.no .container {
 	border: 7px solid #ffd4d4;
 }
 .message .container {
-	padding: 30px 50px;
+	padding: 35px 50px;
 }
 .message .container .button {
 	margin: 20px 0 0;
