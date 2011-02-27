@@ -1,35 +1,49 @@
 {% load thumbnail %}<div id="inlinecontent" class="clearfix photo">
 
-<!-- 		<div class="previous"><a href="previous">Eelmine</a></div> -->
-
-		<div class="content">
 
 {% thumbnail photo.image "700x400" as im %}
-			<div class="photo-container" style="width: {{ im.width }}px;">
+			<div class="photo-container" class="clearfix">
 
-				<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height}}" />
+<table style="margin-bottom: 20px;">
+<tr>
+<td>
+	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
+</td>
+{% for rephoto in photo.rephotos.all %}
+<td>
+	<img src="{% thumbnail rephoto.image "700x400" as im2 %}{{ im2.url }}{% endthumbnail %}" width="{{ im2.width }}" />
 
-				<div id="description">
-					<p>{{ photo.description }}</p>
-					<p>{{ photo.date|default:"" }}</p>
-				</div>
+</td>
+{% endfor %}
+</tr>
+<tr>
+<td colspan="2">
+	<div class="description">
+		{{ photo.description }}
+		<p class="owner">Pilt on pärit Eesti Ajaloomuuseumi fotokogust.</p>
+	</div>
+	<div class="add-photo">
+		<a href="javascript:return false;" class="btn small disabled">Lisa ülepildistus</a>
+	</div>
+</td>
+</tr>
+</table>
+
 
 			</div>
 {% endthumbnail %}
 
+<!--
 			<div class="controls">
 
-				<ul class="thumbs">
+				<ul class="thumbs clearfix">
 				    {% for rephoto in photo.rephotos.all %}
-					<li><a href=""><img src="{% thumbnail rephoto.image "60x" as im %}{{ im.url }}{% endthumbnail %}" width="60" /></a></li>
+					<li><a href=""><img src="{% thumbnail rephoto.image "40x40" crop="center" as im %}{{ im.url }}{% endthumbnail %}" width="40" /></a></li>
 					{% endfor %}
-					<li><a href="add-photo">Lisa refoto</a></li>
+					<li><a href="#" class="add-photo ir">Lisa refoto</a></li>
 				</ul>
 
 			</div>
-
-		</div>
-
-<!-- 		<div class="next"><a href="next">Järgmine</a></div> -->
+-->
 
 </div>
