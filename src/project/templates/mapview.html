@@ -23,6 +23,7 @@
 		var p=geotagged_photos[i];
 		var marker = new google.maps.Marker({map: map,
 				position: new google.maps.LatLng(p[2],p[1]), 
+				zIndex: p[3] ? 1 : 0,
 				icon:'/media/images/' + (p[3] ? 'icon_camera_hot.png' : 'icon_camera.png')});
         
         (function(id) {
