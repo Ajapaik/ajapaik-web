@@ -12,9 +12,10 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 
 	#!!! kui hea arvaja sa oled
 
-	final_level_select={'final_level':
+	extra_args={'select': {'final_level':
 			"(case when level > 0 then level else " + \
-							"coalesce(guess_level,1) end)"}
+							"coalesce(guess_level,1) end)"},
+				'where': ['rephoto_of_id IS NULL']}
 
 	forbidden_photo_ids=frozenset([g.photo_id \
 			for g in Guess.objects.filter(user=user_id,
@@ -25,20 +26,20 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 	known_photos=list(Photo.objects.exclude(
 								pk__in=forbidden_photo_ids). \
 					filter(confidence__gte=0.3). \
-					extra(select=final_level_select). \
+					extra(**extra_args). \
 					order_by('final_level')[:nr_of_photos])
 	unknown_photos=list(Photo.objects.exclude(
 								pk__in=forbidden_photo_ids). \
 					filter(confidence=0,pk__in= \
-						GeoTag.objects.values_list(
+							GeoTag.objects.values_list(
 									'photo_id',flat=True)). \
-					extra(select=final_level_select). \
+					extra(**extra_args). \
 					order_by('final_level')[:nr_of_photos])
 	if not unknown_photos:
-		unknown_photos=list(Photo.objects.exclude(pk__in= \
-						GeoTag.objects.values_list(
+		unknown_photos=list(Photo.objects. \
+				exclude(pk__in=GeoTag.objects.values_list(
 									'photo_id',flat=True)). \
-				extra(select=final_level_select). \
+				extra(**extra_args). \
 				annotate(skips_count=Count('guess')). \
 				order_by('final_level','skips_count') \
 											[:nr_of_photos])
@@ -49,6 +50,9 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 	data=[]
 	for p in photos:
 		data.append({'id':p.id,
+					'description':p.description,
+					'date_text':p.date_text,
+					'source_key':p.source_key,
 					'big':_make_thumbnail(p,'510x375'),
 					'small':_make_thumbnail(p,'160x160')})
 	return data
