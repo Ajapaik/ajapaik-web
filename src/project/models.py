@@ -117,6 +117,12 @@ class Profile(models.Model):
         other.guesses.update(user=self)
         other.geotags.update(user=self)
 
+    def get_score(self):
+        # Must be imported here to prevent circular import
+        from project import get_next_photos_to_geotag
+
+        return get_next_photos_to_geotag.get_total_score(self)
+
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
     

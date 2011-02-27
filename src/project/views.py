@@ -18,9 +18,7 @@ def logout(request):
     #return HttpResponse(unicode(request.get_user()))
 
 def thegame(request):
-    score = get_next_photos_to_geotag.get_total_score(request.get_user().get_profile())
     return render_to_response('index.html', RequestContext(request, {
-        'total_score': score
     }))
 
 def photo(request, photo_id):

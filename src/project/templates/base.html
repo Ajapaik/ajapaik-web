@@ -21,7 +21,7 @@
 		<div class="container">
 			<div id="logo"><a href="/" class="ir">Ajapaik</a></div>
 
-<div class="score"><span class="label">Punkte</span> <span class="digits">{% block score_digits %}0{% endblock %}</span></div>
+            <div class="score"><span class="label">Punkte</span> <span class="digits">{% if request.user.is_authenticated %}{{ request.user.get_profile.get_score }}{% endif %}</span></div>
 
 			<div id="facebook-connect">
 				{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
