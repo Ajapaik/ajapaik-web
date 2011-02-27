@@ -9,15 +9,40 @@ body {
 	height: 100%;
 }
 
+a {
+	color: #079ad1;
+}
+
 #content {
 	width: 960px;
 	margin: 0 auto;
 	padding: 10px 0 150px;
 }
 
-a {
-	color: #079ad1;
+#item {
+	position: absolute;
+	left: 50%;
+	width: 960px;
+	margin-left: -480px;
+	background: red;
 }
+#item .previous {
+	float: left;
+	width: 130px;
+}
+#item .content {
+	float: left;
+	width: 700px;
+	background: green;
+}
+#item .next {
+	float: right;
+	width: 130px;
+}
+
+
+
+
 
 #photos {
 	text-align: center;
@@ -30,8 +55,9 @@ a {
 	padding: 20px 0;
 }
 #photos .photo.thumb {
-	width: 160px;
+	width: 174px;
 	margin: 170px 0 0;
+	text-align: center;
 }
 #photos .photo img {
 	border: 7px solid #fff;
@@ -41,8 +67,9 @@ a {
 
 
 #photos .photo.current {
-	margin: 0 30px;
-	width: 510px;
+	margin: 0 28px;
+	width: 534px;
+	text-align: center;
 }
 #photos .photo.current .description {
 	color: #6e6b68;
@@ -57,9 +84,10 @@ a {
 #photos .photo.thumb .status {
 	position: absolute;
 	top: 7px;
-	right: 10px;
+	left: 50%;
 	width: 40px;
 	height: 45px;
+	margin-left: -10px;
 }
 #photos .photo.thumb .status.no {
 	background: url(../images/icon_no.png) no-repeat;
@@ -104,7 +132,17 @@ a {
 	background: url(../images/icon_close.png) no-repeat;
 }
 
-
+/*
+#photos .photo.current .photo-container .owner {
+	position: relative;
+	text-align: left;
+}
+#photos .photo.current .owner {
+	color: #ccc;
+	font-size: 10px;
+	position: absolute;
+}
+*/
 
 
 
@@ -114,7 +152,7 @@ a.btn {
 	font-weight: 400;
 	text-decoration: none;
 	text-shadow: -1px -1px 0 #3f6b00;
-	padding: 10px 25px;
+	padding: 9px 25px;
 	border: 1px solid #489400;
 	background: #6cbb00 url(../images/btn_green_bg.png) repeat-x;
 	-webkit-border-radius: 5px;
@@ -132,7 +170,7 @@ a.btn {
 	width: 100%;
 	height: 100px;
 	background: url(../images/footer_bg.jpg) repeat-x;
-	position: relative;
+
 	text-align: center;
 }
 #footer .container {
@@ -166,11 +204,12 @@ a.btn {
 }
 
 #footer .score {
-	position: absolute;
 	text-shadow: -1px -1px 0 #532a0d;
+	position: absolute;
+	left: 50%;
 	width: 170px;
 	height: 35px;
-	left: 600px;
+	margin-left: -85px;
 	background: url(../images/score_bg.png) no-repeat top center;
 }
 #footer .score .label {
