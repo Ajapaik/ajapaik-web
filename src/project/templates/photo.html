@@ -1,4 +1,4 @@
-<div id="inlinecontent" class="clearfix photo">
+{% load thumbnail %}<div id="inlinecontent" class="clearfix photo">
 
 <!-- 		<div class="previous"><a href="previous">Eelmine</a></div> -->
 
@@ -6,11 +6,11 @@
 
 			<div class="photo-container">
 
-				<img src="{{ photo }}" width="700" height="500" />
+				<img src="{% thumbnail photo.image "700x500" as im %}{{ im.url }}{% endthumbnail %}" width="700" height="500" />
 
 				<div id="description">
-					<p>{{ description }}</p>
-					<p>{{ date }}</p>
+					<p>{{ photo.description }}</p>
+					<p>{{ photo.date|default:"" }}</p>
 				</div>
 
 			</div>
@@ -18,10 +18,10 @@
 			<div class="controls">
 
 				<ul class="thumbs">
-				{{ refoto loop }}
-					<li><a href=""><img src="http://server.vigvam.ee:8002/media/cache/d8/46/d846c479ebe60d2f4ced24b6ee6bd74b.jpg" width="60" /></a></li>
-				{{ refoto loop end}}
-					<li><a href="add-photo">Lisa refoto</a></li>
+				    {% for rephoto in photo.rephotos.all %}
+					<li><a href=""><img src="{% thumbnail rephoto.image "60x" as im %}{{ im.url }}{% endthumbnail %}" width="60" /></a></li>
+					{% endfor %}
+<!-- 					<li><a href="add-photo">Lisa refoto</a></li> -->
 				</ul>
 
 			</div>
