@@ -50,5 +50,5 @@ def geotag_add(request):
     }), mimetype="application/json")
 
 def fetch_stream(request):
-    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile().user, 10)
+    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile(), 4)
     return HttpResponse(json.dumps(data), mimetype="application/json")
