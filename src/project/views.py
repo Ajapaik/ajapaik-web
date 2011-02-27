@@ -31,10 +31,12 @@ def thegame(request):
 def frontpage(request):
     return render_to_response('frontpage.html', RequestContext(request, {
         
-    }))    
+    }))
     
 def mapview(request):
+    data = get_next_photos_to_geotag.get_geotagged_photos()
     return render_to_response('mapview.html', RequestContext(request, {
+        'json_data': json.dumps(data),
         
     }))    
 
