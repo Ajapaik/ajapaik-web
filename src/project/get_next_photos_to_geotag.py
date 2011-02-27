@@ -90,7 +90,7 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	p=Photo.objects.get(pk=photo_id)
 
 	trustworthiness=calc_trustworthiness(user.pk)
-	scoring_table={	None:max(20,300*trustworthiness),
+	scoring_table={	None:max(20,int(300*trustworthiness)),
 					True:100}
 
 	is_correct=None
