@@ -9,9 +9,14 @@ urlpatterns = patterns('views',
     (r'^admin/', include(admin.site.urls)),
 
     (r'^test1/', 'test1'),
+    (r'^stream/', 'fetch_stream'),
+    (r'^geotag/add/', 'geotag_add'),
     
     # Site urls
-    (r'^$', 'index')
+    (r'^thegame/$', 'thegame'),
+    (r'^map/$', 'mapview'),
+    
+    (r'^$', 'frontpage')
 ) + patterns('',
     (r'^facebook/(?P<stage>[a-z_]+)/', 'facebook.facebook_handler'),
 )
