@@ -30,5 +30,5 @@ def index(request):
     }))
 
 def fetch_stream(request):
-    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile().user, 4)
+    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile().user, 10)
     return HttpResponse(json.dumps(data), mimetype="application/json")

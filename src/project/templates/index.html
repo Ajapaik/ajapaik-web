@@ -1,34 +1,148 @@
 {% extends 'layouts/frontpage.html' %}
 {% load thumbnail i18n %}
 {% block content %}
-
-	<ul id="photos">
-
-        {% for photo in photos|slice:":3" %}
-        {% thumbnail photo.image "160x160" as im %}
-
-		{% if forloop.counter == 2 %}
-		<li class="current">
-			<p class="description">Tallinn, 1920. aastad</p>
-			<a href="http://server.vigvam.ee:8002/media/cache/d8/46/d846c479ebe60d2f4ced24b6ee6bd74b.jpg"><img src="{% thumbnail photo.image "510x375" as bim %}{{ bim.url }}{% endthumbnail %}" /></a>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.quicksand.js"></script>
+    
+    <div style="display:none">
+	<div class="wheel_item" id="wheel_ghost">
+<!--
+		<div class="wheel_big current" style="float:left">
+			<p class="description"></p>
+			<a href=""><img src="" /></a>
 			<p class="controls">
-				<a href="tean-asukohta" class="btn">Tean asukohta!</a>
-				<div class="skip"><a href="j2tan-vahele">Jätan vahele</a></div>
+				<a href="javascript:" class="next btn">Tean asukohta!</a>
+				<div class="skip"><a href="javascript:">Jätan vahele</a></div>
 			</p>
-		</li>
-		{% else %}
-		<li class="thumb">
+		</div>
+-->
+		<div class="wheel_small thumb" style="float:left;padding:0px;margin:0px;position:relative">
 			<div class="status no"></div>
-			<img src="{{ im.url }}" />
-		</li>
-		{% endif %}
+			<img class="small" style="width:100%;height:100%;position:absolute;top:0px;left:0px" src="" />
+			<img class="big" style="width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:100" src="" />
+		</div>
+    </div>    
+    </div>
+    
+	<div id="photos">
+	</div>
 
-        {% endthumbnail %}
-        {% endfor %}
+    <script type="text/javascript">
+        // Temporary event creator
+        function show(num) {
+            wheel.setTagged(true);
+            wheel.advance();
+        }
+        
+        
+        Wheel = function(container) {
+            this._stack = [];
+            this._container = container;
+            this._idx = 0;
+            this._current = null;
+        };
+        Wheel.prototype = {
+            addData: function(pictures_json) {
+                $.merge(this._stack, pictures_json);
+            },
+            
+            setTagged: function() {
+                var frame = this.getCurrent();
+                frame['tagged'] = true;
+            },
+            
+            advance: function() {
+                this._idx++;
+                if (this._idx > this._stack.length-1) this._idx = this._stack.length-1;
+                if (this._idx < 0) this._idx = 0;
+                
+                this.update();
+            },
+            
+            getCurrent: function() {
+                return this._stack[this._idx];
+            },
+            
+            getPrev: function () {
+                return this._stack.slice(Math.max(0, this._idx - 2), this._idx);
+            },
+            getNext: function () {
+                return this._stack.slice(this._idx+1, Math.min(this._stack.length, this._idx+2));
+            },
+            
+            getCurrentEl: function() {
+                return $('#photos').find("div[data-current='1']");
+            },
+            
+            animateTo: function(el, toOpen, callback) {
+                if(el.size() == 0) {
+                    if(callback) callback();
+                    return;
+                }
+                console.log("animate element %o", el.get(0))
+                var id = parseInt(el.attr('data-id'));
+                var data = null;
+                for(var i = 0; i < this._stack.length; i++) {
+                    var item = this._stack[i];
+                    if(item.id == id) {
+                        data = item;
+                        break;
+                    }
+                }
+                var target = toOpen ? data.big : data.small;
+                console.log("animate to %o", target.size);
+                el.animate({width: target.size[0], height: target.size[1]}, 250, 'linear', callback);
+            },
+            
+            buildElements: function() {
+                var base = $('<div></div>');
+                
+                function addElement(value, isCurrent) {
+                    var cloneSource = $('#wheel_ghost .wheel_small');
+                    var element = cloneSource.clone();
+                    element.attr('data-id', value.id);
+                    if(isCurrent) {
+                        element.attr('data-current', '1');
+                    }
+                    $('img.small', element).attr({src: value.small.url});
+                    $('img.big', element).attr({src: value.big.url})
+                    element.css({width: value.small.size[0], height: value.small.size[1]});
+                    base.append(element);
+                }
+                $.each(this.getPrev(), function(i, value) { addElement(value, false); });
+                addElement(this.getCurrent(), true);
+                $.each(this.getNext(), function(i, value) { addElement(value, false); });
+                return base;
+            },
+            
+            update: function(){
+                var self = this;
 
-	</ul>
+                
+                //console.log("Elements %o <- %o", dest, els);
 
-
+                self.animateTo(self.getCurrentEl(), false, function() {
+                    console.log("close animation complete");
+                    var el = self.buildElements();
+                    var els = el.children();
+                    var dest = $('#photos');
+                    dest.quicksand(els, {adjustHeight: 'dynamic', easing: 'linear', duration: 250}, function() {
+                        console.log("quicksand done");
+                        self.animateTo(self.getCurrentEl(), true);
+                    });
+                });
+            }
+        
+        };
+        
+        var wheel = new Wheel($('#wheel'));
+        $.getJSON('{% url views.fetch_stream %}', function(data){
+            wheel.addData(data);
+            wheel.update();
+        });
+        $('#photos').delegate('img', 'click', function() {
+            wheel.advance();
+        })
+    </script>
     
 
 
