@@ -4,20 +4,21 @@
 {% thumbnail photo.image "700x400" as im %}
 			<div class="photo-container" class="clearfix">
 
-<table style="margin-bottom: 20px;">
+<table style="margin-bottom: 20px; table-layout: fixed;">
 <tr>
-<td>
+    <td width="{{ im.width }}">
 	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
 </td>
 {% for rephoto in photo.rephotos.all %}
-<td>
-	<img src="{% thumbnail rephoto.image "700x400" as im2 %}{{ im2.url }}{% endthumbnail %}" width="{{ im2.width }}" />
-
+{% thumbnail rephoto.image "700x400" as im2 %}
+<td width="{{ im2.width }}">
+	<img src="{{ im2.url }}" width="{{ im2.width }}" />
 </td>
+{% endthumbnail %}
 {% endfor %}
 </tr>
 <tr>
-<td colspan="2">
+<td colspan="99">
 	<div class="description">
 		{{ photo.description }}
 		<p class="owner">Pilt on pärit Eesti Ajaloomuuseumi fotokogust.</p>
