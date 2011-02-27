@@ -25,7 +25,7 @@ class Photo(models.Model):
     date_text = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
     
-    user = models.ForeignKey('Profile', blank=True, null=True)
+    user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
     
     level = models.PositiveSmallIntegerField(default=0)
     guess_level = models.FloatField(null=True, blank=True)
@@ -91,7 +91,7 @@ class GeoTag(models.Model):
     lon = models.FloatField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     
-    user = models.ForeignKey('Profile')
+    user = models.ForeignKey('Profile', related_name='geotags')
     photo = models.ForeignKey('Photo')
 
     is_correct = models.NullBooleanField()
@@ -112,9 +112,10 @@ class Profile(models.Model):
     
     modified = models.DateTimeField(auto_now=True)
 
-    def merge_from_other(self, profile):
-        # TODO
-        pass
+    def merge_from_other(self, other):
+        other.photos.update(user=self)
+        other.guesses.update(user=self)
+        other.geotags.update(user=self)
 
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
@@ -130,7 +131,7 @@ class Guess(models.Model):
         verbose_name = 'Guess'
         verbose_name_plural = 'Guesses'
         
-    user = models.ForeignKey(Profile)
+    user = models.ForeignKey(Profile, related_name='guesses')
     photo = models.ForeignKey(Photo)
 
     created = models.DateTimeField(auto_now_add=True)
