@@ -244,7 +244,7 @@ a.btn.disabled {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
-#footer #facebook-connect a {
+#footer #facebook-connect a.ir {
 	width: 169px;
 	height: 21px;
 	margin: 6px;

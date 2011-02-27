@@ -8,7 +8,7 @@ urlpatterns = patterns('views',
     (r'^admin/filebrowser/', include('filebrowser.urls')),
     (r'^admin/', include(admin.site.urls)),
 
-    (r'^test1/', 'test1'),
+    (r'^logout/', 'logout'),
     (r'^stream/', 'fetch_stream'),
     (r'^geotag/add/', 'geotag_add'),
     

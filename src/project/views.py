@@ -4,15 +4,17 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.http import HttpResponse
 from django.utils import simplejson as json
+from django.shortcuts import redirect
 
 from project.models import Photo
 from project.forms import GeoTagAddForm
 
 import get_next_photos_to_geotag
 
-def test1(request):
+def logout(request):
     from django.contrib.auth import logout
     logout(request)
+    return redirect('/')
     #return HttpResponse(unicode(request.get_user()))
 
 def thegame(request):
