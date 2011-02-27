@@ -81,7 +81,7 @@
                 }
                 $.getJSON('{% url views.geotag_add %}', data, function(resp){
                     if (callback)
-                        callback(arguments);
+                        callback(resp);
                     $('.score .digits').text(resp['total_score']);
                 });
             },
