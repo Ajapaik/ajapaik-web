@@ -238,8 +238,15 @@
                         map:map,
                         draggable:true,
                         animation: google.maps.Animation.DROP,
-                        position: tallinn
+                        position: tallinn,
+                        icon: '{{ MEDIA_URL }}images/icon_marker.png'
                     });
+                    
+                    var infowindow = new google.maps.InfoWindow({
+                        content: 'Sikuta mind sinna kust pilt on tehtud.'
+                    });
+                    infowindow.open(map,marker);
+                    
                     google.maps.event.addListener(marker, 'click', toggleBounce);
                     
                     $('.save:visible', $(this).content).click(function(){
@@ -256,13 +263,13 @@
                                     var status = $('#photos').find('div[data-current="1"]').find('.status');
                                     
                                     if (data.is_correct === null) {
-                                        $('.msg_text', $(msg)).text('Aitäh! Sinu pakkumine oli esimene!');
+                                        $('.msg_text', $(msg)).text('Aitäh! Sinu pakkumine oli esimene.');
                                         msg.addClass('guess');
                                         status.addClass('guess');
                                     } else {
                                         msg.addClass((data.is_correct === true) ? 'yes' : 'no');
                                         status.addClass((data.is_correct === true) ? 'yes' : 'no');
-                                        $('.msg_text', $(msg)).text((data.is_correct === true) ? 'Aitäh! Tundub õige!' : 'Aitäh! Julgeme kahelda!');
+                                        $('.msg_text', $(msg)).text((data.is_correct === true) ? 'Aitäh! Tundub õige.' : 'Aitäh! Aga julgeme kahelda.');
                                     }
                                     $('.next', msg).click(function(){
                                         $.fancybox.close();
@@ -279,6 +286,7 @@
             });
             return false;
         });
+        
     </script>    
     
 </div>
