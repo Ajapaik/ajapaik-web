@@ -112,6 +112,10 @@ class Profile(models.Model):
     
     modified = models.DateTimeField(auto_now=True)
 
+    def merge_from_other(self, profile):
+        # TODO
+        pass
+
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
     
