@@ -29,7 +29,7 @@
         google.maps.event.addListener(marker, 'click', function() {
             $.ajax({
                 cache: false,
-                url: '/photo/'+id+'/',
+                url: '/foto/'+id+'/',
                 success: function(result) {
                     $.fancybox({
                         content: result
