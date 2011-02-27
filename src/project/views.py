@@ -40,7 +40,7 @@ def mapview(request):
 
 def geotag_add(request):
     data = request.GET
-    is_correct, current_score, total_score = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data['lon'], data['lat'])
+    is_correct, current_score, total_score = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'))
     return HttpResponse(json.dumps({
         'is_correct': is_correct,
         'current_score': current_score,
