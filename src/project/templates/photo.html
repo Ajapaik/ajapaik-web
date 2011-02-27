@@ -1,3 +1,33 @@
-<div id="content" class="clearfix">
-    {{ photo }}
+<div id="inlinecontent" class="clearfix photo">
+
+<!-- 		<div class="previous"><a href="previous">Eelmine</a></div> -->
+
+		<div class="content">
+
+			<div class="photo-container">
+
+				<img src="{{ photo }}" width="700" height="500" />
+
+				<div id="description">
+					<p>{{ description }}</p>
+					<p>{{ date }}</p>
+				</div>
+
+			</div>
+
+			<div class="controls">
+
+				<ul class="thumbs">
+				{{ refoto loop }}
+					<li><a href=""><img src="http://server.vigvam.ee:8002/media/cache/d8/46/d846c479ebe60d2f4ced24b6ee6bd74b.jpg" width="60" /></a></li>
+				{{ refoto loop end}}
+					<li><a href="add-photo">Lisa refoto</a></li>
+				</ul>
+
+			</div>
+
+		</div>
+
+<!-- 		<div class="next"><a href="next">Järgmine</a></div> -->
+
 </div>
