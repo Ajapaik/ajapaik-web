@@ -17,6 +17,17 @@
 			top: 50px !important;
 		}
 	</style>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-21689048-1']);
+     _gaq.push(['_trackPageview']);
+    
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>	
 </head>
 <body>
     
@@ -25,8 +36,8 @@
 	<div id="footer">
 		<div class="container">
 			<div id="logo"><a href="/" class="ir">Ajapaik</a></div>
-
-            <div class="score"><span class="label">Punkte</span> <span class="digits">{% if request.user.is_authenticated %}{{ request.user.get_profile.get_score }}{% endif %}</span></div>
+            
+            {% block footer_score %}{% endblock %}
 
 			<div id="facebook-connect">
 				{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
