@@ -57,28 +57,31 @@ class Photo(models.Model):
         self.lon = None
         self.lat = None
 
-        geotags = list(GeoTag.objects.filter(photo__id=self.id))
+        geotags = list(GeoTag.objects.filter(photo__id=self.id,
+									trustworthiness__gt=0.2))
         if geotags:
             lon = sorted([g.lon for g in geotags])
             lon = lon[len(lon)/2]
             lat = sorted([g.lat for g in geotags])
             lat = lat[len(lat)/2]
 
-            correct_guesses = 0
+            correct_guesses_weight, total_weight = 0,0
             lon_sum, lat_sum = 0,0
             for g in geotags:
                 if Photo.distance_in_meters(g.lon, g.lat,
 											lon, lat) < 100:
-                    correct_guesses += 1
-                    lon_sum += g.lon
-                    lat_sum += g.lat
-            if correct_guesses / float(len(geotags)) > 0.63:
-                self.lon = lon_sum / float(correct_guesses)
-                self.lat = lat_sum / float(correct_guesses)
-                self.confidence = (correct_guesses / 3.0) * \
-                        correct_guesses / float(len(geotags))
+                    correct_guesses_weight += g.trustworthiness
+                    lon_sum += g.lon * g.trustworthiness
+                    lat_sum += g.lat * g.trustworthiness
+                total_weight += g.trustworthiness
+            correct_guesses_ratio = correct_guesses_weight / \
+                                           float(total_weight)
+            if correct_guesses_ratio > 0.63:
+                self.lon = lon_sum / float(correct_guesses_weight)
+                self.lat = lat_sum / float(correct_guesses_weight)
+                self.confidence = correct_guesses_ratio * \
+                             min(1,correct_guesses_weight / 1.5)
 
-    
 class GeoTag(models.Model):
     MAP, EXIF, GPS = range(3)
     TYPE_CHOICES = (
