@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block layout %}
-<div id="content" class="clearfix"
+<div id="content" class="clearfix map"
 						style="width:100%; height:100%">
 
 <script type="text/javascript"
@@ -32,7 +32,9 @@
                 url: '/foto/'+id+'/',
                 success: function(result) {
                     $.fancybox({
-                        content: result
+                        content: result,
+                        overlayColor: '#fff',
+                        overlayOpacity: .7
                     });
                 }
             });

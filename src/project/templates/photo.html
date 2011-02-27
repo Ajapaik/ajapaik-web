@@ -4,9 +4,10 @@
 
 		<div class="content">
 
-			<div class="photo-container">
+{% thumbnail photo.image "700x400" as im %}
+			<div class="photo-container" style="width: {{ im.width }}px;">
 
-				<img src="{% thumbnail photo.image "700x500" as im %}{{ im.url }}{% endthumbnail %}" width="700" height="500" />
+				<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height}}" />
 
 				<div id="description">
 					<p>{{ photo.description }}</p>
@@ -14,6 +15,7 @@
 				</div>
 
 			</div>
+{% endthumbnail %}
 
 			<div class="controls">
 
@@ -21,7 +23,7 @@
 				    {% for rephoto in photo.rephotos.all %}
 					<li><a href=""><img src="{% thumbnail rephoto.image "60x" as im %}{{ im.url }}{% endthumbnail %}" width="60" /></a></li>
 					{% endfor %}
-<!-- 					<li><a href="add-photo">Lisa refoto</a></li> -->
+					<li><a href="add-photo">Lisa refoto</a></li>
 				</ul>
 
 			</div>

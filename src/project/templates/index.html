@@ -29,7 +29,7 @@
     					</div>
     				</div>
     			</div>
-			</div>			
+			</div>
     </div>
     
     <div style="display:none">
@@ -242,8 +242,10 @@
                         wheel.setTagged(marker.getPosition().lat(), marker.getPosition().lng(), function(data){
                             $.fancybox({
                                 autoDimensions: false,
+                                overlayColor: '#fff',
                                 width: 510,
                                 height: 200,
+                                padding: 0,
                                 content: $('.message').html(),
                                 onComplete: function(){
                                     var msg = $('.message',$('#fancybox-content'));
