@@ -2,31 +2,69 @@
 {% load thumbnail i18n %}
 {% block content %}
 
-	<ul id="photos">
+	<div id="photos">
 
         {% for photo in photos|slice:":3" %}
         {% thumbnail photo.image "160x160" as im %}
 
 		{% if forloop.counter == 2 %}
-		<li class="current">
-			<p class="description">Tallinn, 1920. aastad</p>
-			<a href="http://server.vigvam.ee:8002/media/cache/d8/46/d846c479ebe60d2f4ced24b6ee6bd74b.jpg"><img src="{% thumbnail photo.image "510x375" as bim %}{{ bim.url }}{% endthumbnail %}" /></a>
-			<p class="controls">
-				<a href="tean-asukohta" class="btn">Tean asukohta!</a>
-				<div class="skip"><a href="j2tan-vahele">Jätan vahele</a></div>
-			</p>
-		</li>
+
+		<div class="photo current">
+
+<!--
+			<div class="map" style="visibility: hidden;">
+
+				<div class="close"><a href="close-map-cancel-tagging" class="ir">Katkesta</a></div>
+
+				<div class="save-container">
+					<div class="button">
+						<a href="save" class="btn">Salvesta</a>
+					</div>
+				</div>
+
+				<div id="map_canvas"></div>
+			
+			</div>
+
+			<div class="message yes" style="visibility: hidden;">
+
+				<div class="container">
+
+					Aitäh! Õige vastus!
+
+					<div class="button">
+						<a href="tean-asukohta" class="btn">Edasi</a>
+					</div>
+
+				</div>
+
+			</div>
+-->
+
+			<div>
+
+				<p class="description">Tallinn, 1920. aastad</p>
+				<a href="http://server.vigvam.ee:8002/media/cache/d8/46/d846c479ebe60d2f4ced24b6ee6bd74b.jpg"><img src="{% thumbnail photo.image "510x375" as bim %}{{ bim.url }}{% endthumbnail %}" /></a>
+				<p class="controls">
+					<a href="tean-asukohta" class="btn">Tean asukohta!</a>
+					<div class="skip"><a href="j2tan-vahele">Jätan vahele</a></div>
+				</p>
+			
+			</div>
+
+		</div>
+
 		{% else %}
-		<li class="thumb">
+		<div class="photo thumb">
 			<div class="status no"></div>
 			<img src="{{ im.url }}" />
-		</li>
+		</div>
 		{% endif %}
 
         {% endthumbnail %}
         {% endfor %}
 
-	</ul>
+	</div>
 
 
     
