@@ -42,6 +42,9 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
+
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
         lat_coeff = math.cos(math.radians((lat1 + lat2)/2.0))
@@ -54,21 +57,22 @@ class Photo(models.Model):
         self.lon = None
         self.lat = None
 
-        geotags = GeoTag.objects.filter(photo__id=self.id)
+        geotags = list(GeoTag.objects.filter(photo__id=self.id))
         if geotags:
             lon = sorted([g.lon for g in geotags])
-            lon = lon[len(lat)/2]
+            lon = lon[len(lon)/2]
             lat = sorted([g.lat for g in geotags])
             lat = lat[len(lat)/2]
 
             correct_guesses = 0
             lon_sum, lat_sum = 0,0
             for g in geotags:
-                if distance_in_meters() < 100:
+                if Photo.distance_in_meters(g.lon, g.lat,
+											lon, lat) < 100:
                     correct_guesses += 1
                     lon_sum += g.lon
                     lat_sum += g.lat
-            if correct_guesses / float(len(guesses)) > 0.63:
+            if correct_guesses / float(len(geotags)) > 0.63:
                 self.lon = lon_sum / float(correct_guesses)
                 self.lat = lat_sum / float(correct_guesses)
                 self.confidence = (correct_guesses / 3.0) * \
@@ -89,6 +93,8 @@ class GeoTag(models.Model):
     
     user = models.ForeignKey('Profile')
     photo = models.ForeignKey('Photo')
+
+    is_correct = models.NullBooleanField()
     
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -104,6 +110,9 @@ class Profile(models.Model):
     avatar_url = models.URLField(null=True, blank=True)
     
     modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
     
 class Source(models.Model):
     name = models.CharField(max_length=255)
