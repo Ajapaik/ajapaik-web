@@ -38,10 +38,10 @@ def fbview_url(request, stage):
 
 def facebook_handler(request, stage):
     if stage == 'login':
-    	request.log_action("facebook.login")
+        request.log_action("facebook.login")
         return redirect(login_url(fbview_url(request, 'auth')))
     elif stage == 'auth':
-    	request.log_action("facebook.auth")
+        request.log_action("facebook.auth")
         return redirect(auth_url(fbview_url(request, 'done')))
     elif stage == 'done':
         code = request.GET.get("code")
@@ -49,12 +49,14 @@ def facebook_handler(request, stage):
             # TODO: check for existing profile
             token = url_read(token_url(request, code))
             
-            profile = request.get_user().get_profile()
+            user = request.get_user()
+            profile = user.get_profile()
             profile.fb_token = token
             
             data = loads(url_read(profile_url(token)))
-            profile.user.first_name = data.get("first_name")
-            profile.user.last_name = data.get("last_name")
+            user.first_name = data.get("first_name")
+            user.last_name = data.get("last_name")
+            user.save()
             profile.fb_id = data.get("id")
             profile.fb_name = data.get("id")
             profile.fb_link = data.get("link")
@@ -62,9 +64,10 @@ def facebook_handler(request, stage):
 
             request.log_action("facebook.connect", {'data': data}, profile)
             
-            return HttpResponse(repr(data))
+            #return HttpResponse(repr(data))
+            return redirect("/")
         else:
-    	    request.log_action("facebook.error")
+            request.log_action("facebook.error", {'params': request.GET})
             return redirect('/fb_error')
         
         return redirect('/')

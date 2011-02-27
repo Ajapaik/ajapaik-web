@@ -95,7 +95,8 @@ class GeoTag(models.Model):
     photo = models.ForeignKey('Photo')
 
     is_correct = models.NullBooleanField()
-    
+    score = models.PositiveSmallIntegerField()
+
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     
