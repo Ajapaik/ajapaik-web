@@ -2,9 +2,26 @@
 {% load i18n %}
 
 {% block layout %}
-<div id="content" class="clearfix">
+<div id="content" class="front-page clearfix">
 
-    Frontpage
+	<div class="photos"><img src="{{ MEDIA_URL }}images/sample_photos.png" /></div>
+
+	<div class="introduction">
+
+		<h1>Kus ajalugu asub?</h1>
+		<h2>Uuri, avasta, pane kaardile ja pildista üle.</h2>
+
+		<p>Ajapaik kutsub Sind avastama ja ära tundma vanadel fotodel olevaid kohti. Paiguta ajaloolised vaated kaardile ning lisa kaasaegne ülepildistus ehk refoto.</p>
+		<p><strong>Proovi, kui palju kohti Sa ära tunned ja kaardistada oskad?</strong> Mida täpsem oled, seda rohkem punkte kogud.</p>
+
+		<div class="buttons">
+			<a href="ajapaikaja" class="btn">Alusta mängu!</a>
+			<a href="" class="btn disabled">Avasta ajalugu</a>
+		</div>
+
+		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fajapaik&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+
+	</div>
     
 </div>
 {% endblock layout %}
