@@ -83,16 +83,16 @@
                     data['lat'] = lat;
                     data['lon'] = lon;
                 }
-                $.getJSON('{% url views.geotag_add %}', data, function(resp){
+                $.post('{% url views.geotag_add %}', data, function(resp){
                     if (callback)
                         callback(resp);
                     $('.score .digits').text(resp['total_score']);
-                });
+                }, 'json');
             },
             
             fetchItems: function(doUpdate) {
                 var self = this;
-                $.getJSON('{% url views.fetch_stream %}', {}, function(data) {
+                $.post('{% url views.fetch_stream %}', {}, function(data) {
                     var ids = {};
                     $.each(self._stack, function(i, val) { ids[val.id] = true; });
                     $.each(data, function(i, item) {
@@ -102,7 +102,7 @@
                     });
                     if(doUpdate)
                         self.update();
-                });
+                }, 'json');
             },
             advance: function() {
                 this._idx = Math.max(0, Math.min(this._idx + 1, this._stack.length-1));
