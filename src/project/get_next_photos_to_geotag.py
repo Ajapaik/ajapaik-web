@@ -54,28 +54,35 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 	unknown_photos_to_get=max(unknown_photos_to_get,
 								nr_of_photos-len(known_photos))
 
-	unknown_photos=[]
+	unknown_photos=set()
 
 	if unknown_photos_to_get:
-		unknown_photos=list(Photo.objects.exclude(
-								pk__in=forbidden_photo_ids). \
-					filter(confidence=0,pk__in= \
-							GeoTag.objects.values_list(
-									'photo_id',flat=True)). \
-					extra(**extra_args). \
-					order_by('final_level') \
-									[:unknown_photos_to_get])
+		photo_ids_with_few_guesses=frozenset(
+					GeoTag.objects.values('photo_id'). \
+					annotate(nr_of_geotags=Count('id')). \
+					filter(nr_of_geotags__lte=10). \
+					values_list('photo_id',flat=True)) - forbidden_photo_ids
+		if photo_ids_with_few_guesses:
+			unknown_photos.update(Photo.objects. \
+						filter(confidence__lt=0.3,
+									pk__in=photo_ids_with_few_guesses). \
+						extra(**extra_args). \
+						order_by('final_level')[:unknown_photos_to_get])
+
 		if len(unknown_photos) < unknown_photos_to_get:
-			unknown_photos+=list(Photo.objects. \
-					exclude(pk__in=GeoTag.objects.values_list(
-									'photo_id',flat=True)). \
-					extra(**extra_args). \
-					annotate(skips_count=Count('guess')). \
-					order_by('final_level','skips_count') \
-						[:(unknown_photos_to_get- \
+			unknown_photos.update(Photo.objects.exclude(
+									pk__in=forbidden_photo_ids). \
+						filter(confidence__lt=0.3). \
+						extra(**extra_args). \
+						order_by('final_level')[:(unknown_photos_to_get- \
 										len(unknown_photos))])
 
-	photos=random.sample(list(set(known_photos+unknown_photos)),
+	if len(unknown_photos.union(known_photos)) < nr_of_photos:
+		unknown_photos.update(Photo.objects. \
+					extra(**extra_args). \
+					order_by('?')[:unknown_photos_to_get])
+
+	photos=random.sample(list(unknown_photos.union(known_photos)),
 						nr_of_photos)
 
 	data=[]
