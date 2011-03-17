@@ -57,9 +57,14 @@ p {
 	margin: 30px 0 40px 0;
 }
 #content.front-page .introduction .btn {
+	font-size: 16px;
+	font-weight: 700;
 	margin: 0 10px 0 0;
 }
 
+#content.front-page .introduction .btn:hover {
+	-webkit-box-shadow: 0 0 7px #57c200;
+}
 
 
 
@@ -262,7 +267,7 @@ a.btn.small {
 	background: url(../images/footer_bg.jpg) repeat-x;
 	text-align: center;
 	box-shadow: 0 0 10px #666;
-	z-index: 2000;
+	z-index: 50;
 }
 #footer .container {
 	width: 960px;
