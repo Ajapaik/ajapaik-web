@@ -122,7 +122,7 @@ class Profile(models.Model):
     
     modified = models.DateTimeField(auto_now=True)
 
-    score = models.PositiveIntegerField()
+    score = models.PositiveIntegerField(default=0)
 
     def merge_from_other(self, other):
         other.photos.update(user=self)
