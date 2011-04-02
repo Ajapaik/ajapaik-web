@@ -26,6 +26,7 @@ def photo_upload(request, photo_id):
                 fileobj = handle_uploaded_file(f)
                 re_photo = Photo(
                     rephoto_of=photo,
+                    city=photo.city,
                     
                 )
                 re_photo.save()
