@@ -123,7 +123,7 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 			is_correct=(this_guess_score > 0)
 		else:
 			this_guess_score=max(20,int(300*trustworthiness))
-			location_is_unclear=int(bool(len(p.geotags)))
+			location_is_unclear=int(bool(len(p.geotags.all())))
 
 		if hint_used:
 			this_guess_score/=3

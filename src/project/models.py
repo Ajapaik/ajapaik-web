@@ -101,7 +101,7 @@ class GeoTag(models.Model):
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     
     user = models.ForeignKey('Profile', related_name='geotags')
-    photo = models.ForeignKey('Photo')
+    photo = models.ForeignKey('Photo', related_name='geotags')
 
     is_correct = models.NullBooleanField()
     score = models.PositiveSmallIntegerField()
