@@ -112,17 +112,17 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	p=Photo.objects.get(pk=photo_id)
 
 	trustworthiness=calc_trustworthiness(user.pk)
-	scoring_table={	None:max(20,int(300*trustworthiness)),
-					True:100}
 
 	is_correct=None
-	this_guess_score=scoring_table.get(is_correct,0)
+	this_guess_score=max(20,int(300*trustworthiness))
 
 	if lon is not None and lat is not None:
 		if p.confidence >= 0.3:
-			is_correct=(Photo.distance_in_meters(p.lon,p.lat,
-								float(lon),float(lat)) < 100)
-			this_guess_score=scoring_table.get(is_correct,0)
+			error_in_meters=Photo.distance_in_meters(
+							p.lon,p.lat,float(lon),float(lat))
+			this_guess_score=130*max(0,min(1,(1-
+						(error_in_meters-15)/float(94-15))))
+			is_correct=(this_guess_score > 0)
 
 		GeoTag(user=user,photo_id=p.id,type=type,
 						lat=float(lat),lon=float(lon),
