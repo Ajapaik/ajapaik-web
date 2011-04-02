@@ -2,8 +2,9 @@
 {% load thumbnail i18n %}
 
 {% block content %}
-<script>
+<script type="text/javascript">
 	var saveLocationURL = '{% url views.geotag_add %}';
+	var leaderboardUpdateURL = '{% url views.leaderboard %}';
 </script>
 
 <div id="game">
@@ -14,10 +15,6 @@
 			<h2>Osavamad paikajad</h2>
 
 			<ul id="scoreboard">
-				<li class="clearfix first"><span class="position">1.</span>	<span class="photo"><img src="http://graph.facebook.com/100000812606172/picture?type=square" /></span>	<span class="name">Sherri E. Melton</span> <span class="score">XXX</span></li>
-				<li class="clearfix"><span class="position">24.</span>		<span class="photo"><img src="http://graph.facebook.com/100000192728033/picture?type=square" /></span>	<span class="name">Malcolm Wagner</span> <span class="score">XXX</span></li>
-				<li class="clearfix you"><span class="position">25.</span>	<span class="photo"><img src="http://graph.facebook.com/100000812606172/picture?type=square" /></span>	<span class="name">Sinu punktid</span> <span class="score">{% if request.user.is_authenticated %}{{ request.user.get_profile.score }}{% endif %}</span></li>
-				<li class="clearfix"><span class="position">26.</span>		<span class="photo"><img src="http://graph.facebook.com/100000812606172/picture?type=square" /></span>	<span class="name">Patricia A. Mangum</span> <span class="score">XXX</span></li>
 			</ul>
 
 			<div id="facebook-connect">

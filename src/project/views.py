@@ -77,6 +77,13 @@ def geotag_add(request):
     	'location_is_unclear': location_is_unclear,
     }), mimetype="application/json")
 
+def leaderboard(request):
+    leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)
+    return render_to_response('block_leaderboard.html', RequestContext(request, {
+        'leaderboard': leaderboard,
+    }))
+    
+
 def fetch_stream(request):
     data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile(), 4)
     return HttpResponse(json.dumps(data), mimetype="application/json")
