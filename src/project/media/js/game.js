@@ -16,10 +16,15 @@ var streamUrl = '/stream';
 var disableNext = false;
 var locationToolsOpen = false;
 
+function update_leaderboard() {
+   $('#scoreboard').load(leaderboardUpdateURL);
+}
 
 /* INIT */
 
 $(document).ready(function() {
+    update_leaderboard();
+    
 	loadPhotos();
 
     // Will load the base map layer and return it
@@ -207,6 +212,7 @@ $(document).ready(function() {
 	}
 
 	function nextPhoto() {
+    	update_leaderboard();
 		hintUsed = 0;
 
 		if (photos.length == currentPhotoIdx+1) {
