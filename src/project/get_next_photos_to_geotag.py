@@ -108,21 +108,25 @@ def get_total_score(user_id):
 				total_score=Sum('score'))['total_score'] or 0
 
 def submit_guess(user,photo_id,lon=None,lat=None,
-											type=GeoTag.MAP):
+						type=GeoTag.MAP,hint_used=False):
 	p=Photo.objects.get(pk=photo_id)
 
-	trustworthiness=calc_trustworthiness(user.pk)
-
 	is_correct=None
-	this_guess_score=max(20,int(300*trustworthiness))
+	this_guess_score=0
 
 	if lon is not None and lat is not None:
+		trustworthiness=calc_trustworthiness(user.pk)
+		this_guess_score=max(20,int(300*trustworthiness))
+
 		if p.confidence >= 0.3:
 			error_in_meters=Photo.distance_in_meters(
 							p.lon,p.lat,float(lon),float(lat))
-			this_guess_score=130*max(0,min(1,(1-
-						(error_in_meters-15)/float(94-15))))
+			this_guess_score=int(130*max(0,min(1,(1-
+						(error_in_meters-15)/float(94-15)))))
 			is_correct=(this_guess_score > 0)
+
+		if hint_used:
+			this_guess_score/=3
 
 		GeoTag(user=user,photo_id=p.id,type=type,
 						lat=float(lat),lon=float(lon),
