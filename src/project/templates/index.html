@@ -1,298 +1,55 @@
-{% extends 'layouts/frontpage.html' %}
+{% extends 'layouts/game.html' %}
 {% load thumbnail i18n %}
 
-{% block footer_score %}
-<div class="score"><span class="label">Punkte</span> <span class="digits">{% if request.user.is_authenticated %}{{ request.user.get_profile.get_score }}{% endif %}</span></div>
-{% endblock %}
-
 {% block content %}
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.quicksand.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=ET"></script>
-    
-    <div style="display:none;">
-			<div class="map" style="position: relative;">
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=ET"></script>
+<script>
+	var saveLocationURL = '{% url views.geotag_add %}';
+</script>
 
-<!-- 				<div class="close"><a href="close-map-cancel-tagging" class="ir">Katkesta</a></div> -->
+<div id="game"> 
 
-				<div class="save-container" style="position: absolute; left:0; right:0; margin: 0 auto; width:152px; text-align: center; z-index: 1000;">
-					<div class="button" style="display: inline-block; background: #fff; padding: 20px 12px; -webkit-border-radius: 12px; -moz-border-radius: 12px;">
-						<a href="#" class="save btn">Salvesta</a>
-					</div>
-				</div>
+	<div id="top">
+		<div id="score-container">
 
-				<div class="map_canvas" style="width:100%;height:100%;"></div>
-			
-			</div>
-            
-            <div class="message">
-    			<div class="message">
-    				<div class="container">
-    				    <span class="msg_text">Aitäh!</span>
-    					<div class="button">
-    						<a href="#" class="next btn">Edasi</a>
-    					</div>
-    				</div>
-    			</div>
-			</div>
-    </div>
-    
-    <div style="display:none">
-	<div class="wheel_item" id="wheel_ghost">
-        <div class="cell" style="width:165px;float:left;margin:5px;">
-		<div class="wheel_small thumb" style="padding:0px;border:7px solid #fff;position:relative;">
-			<div class="status"></div>
-			<img class="small" style="width:100%;height:100%;position:absolute;top:0px;left:0px" />
-			<img class="big" style="width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:100" />
-			
-			<div class="controls" style="display:none;z-index:101;position:absolute;width:100%;bottom: -65px;">
-    			<p class="description"></p>
-    			<!-- <a href=""><img src="" /></a> -->
-    			<p class="controls">
-    				<a href="#" class="next btn">Tean asukohta!</a>
-    				<div class="skip"><a href="#">Jätan vahele</a></div>
-    			</p>
-			</div>
-			
+			<h2>Osavamad paikajad</h2>
+
+			<ul id="scoreboard">
+				<li class="clearfix first"><span class="position">1.</span>	<span class="photo"><img src="http://graph.facebook.com/100000812606172/picture?type=square" /></span>	<span class="name">Sherri E. Melton</span> <span class="score">XXX</span></li>
+				<li class="clearfix"><span class="position">24.</span>		<span class="photo"><img src="http://graph.facebook.com/100000192728033/picture?type=square" /></span>	<span class="name">Malcolm Wagner</span> <span class="score">XXX</span></li>
+				<li class="clearfix you"><span class="position">25.</span>	<span class="photo"><img src="http://graph.facebook.com/100000812606172/picture?type=square" /></span>	<span class="name">Sinu punktid</span> <span class="score">{% if request.user.is_authenticated %}{{ request.user.get_profile.get_score }}{% endif %}</span></li>
+				<li class="clearfix"><span class="position">26.</span>		<span class="photo"><img src="http://graph.facebook.com/100000812606172/picture?type=square" /></span>	<span class="name">Patricia A. Mangum</span> <span class="score">XXX</span></li>
+			</ul>
+
 		</div>
-		</div>
-    </div>    
-    </div>
-    
-	<div id="photos" style="height:600px;width:905px;">
 	</div>
 
-    <script type="text/javascript">
-        Wheel = function(container) {
-            this._stack = [];
-            this._container = container;
-            this._idx = 0;
-            this._current = null;
-        };
-        Wheel.prototype = {
-            addData: function(pictures_json) {
-                $.merge(this._stack, pictures_json);
-            },
-            
-            setTagged: function(lat, lon, callback) {
-                var frame = this.getCurrent();
-                
-                var data = {
-                    photo_id: frame['id']
-                };
-                if (lat && lon) {
-                    data['lat'] = lat;
-                    data['lon'] = lon;
-                }
-                $.post('{% url views.geotag_add %}', data, function(resp){
-                    if (callback)
-                        callback(resp);
-                    $('.score .digits').text(resp['total_score']);
-                }, 'json');
-            },
-            
-            fetchItems: function(doUpdate) {
-                var self = this;
-                $.post('{% url views.fetch_stream %}', {}, function(data) {
-                    var ids = {};
-                    $.each(self._stack, function(i, val) { ids[val.id] = true; });
-                    $.each(data, function(i, item) {
-                        if(!ids[item.id]) {
-                            self._stack.push(item);
-                        }
-                    });
-                    if(doUpdate)
-                        self.update();
-                }, 'json');
-            },
-            advance: function() {
-                this._idx = Math.max(0, Math.min(this._idx + 1, this._stack.length-1));
-                var remaining = this._stack.length - this._idx - 1;
+	<div id="tools">
+		<a id="save-location" href="#" class="btn green">Salvesta asukoht</a>
+		<a id="close-location-tools" href="#" class="btn small">Sulge kaart</a>
+		<div id="locationMap"></div>
+	</div>
 
-                if(remaining < 2) {
-                    this.fetchItems();
-                }
-                
-                this.update();
-            },
-            
-            getCurrent: function() {
-                return this._stack[this._idx];
-            },
-            
-            getPrev: function () {
-                return this._stack.slice(Math.max(0, this._idx - 1), this._idx);
-            },
-            getNext: function () {
-                return this._stack.slice(this._idx+1, Math.min(this._stack.length, this._idx+2));
-            },
-            
-            getCurrentEl: function() {
-                return $('#photos').find("div[data-current='1']");
-            },
-            
-            animateTo: function(el, toOpen, callback) {
-                if(el.size() == 0) {
-                    if(callback) callback();
-                    return;
-                }
-                //console.log("animate element %o", el.get(0))
-                var id = parseInt(el.attr('data-id'));
-                var data = null;
-                for(var i = 0; i < this._stack.length; i++) {
-                    var item = this._stack[i];
-                    if(item.id == id) {
-                        data = item;
-                        break;
-                    }
-                }
-                var target = toOpen ? data.big : data.small;
-                //console.log("animate to %o", target.size);
-                
-                $(el).animate({width: (toOpen?target.size[0]:160)+14, height: (toOpen?target.size[1]:160)+14}, 250, 'linear');
-                $('.wheel_small', el).animate({width: target.size[0], height: target.size[1]}, 250, 'linear', callback);
-            },
-            
-            buildElements: function() {
-                var base = $('<div></div>');
-                
-                function addElement(value, isCurrent) {
-                    var cloneSource = $('#wheel_ghost .cell');
-                    var element = cloneSource.clone();
-                    element.attr('data-id', value.id);
-                    if(isCurrent) {
-                        element.attr('data-current', '1');
-                    }
-                    $('img.small', element).attr({src: value.small.url});
-                    $('img.big', element).attr({src: value.big.url})
-                    $('.wheel_small',element).css({width: value.small.size[0], height: value.small.size[1]});
-                    base.append(element);
-                }
-                $.each(this.getPrev(), function(i, value) { addElement(value, false); });
-                addElement(this.getCurrent(), true);
-                $.each(this.getNext(), function(i, value) { addElement(value, false); });
-                return base;
-            },
-            
-            update: function(){
-                var self = this;
-                
-                //console.log("Elements %o <- %o", dest, els);
-                $('.controls',self.getCurrentEl()).hide();
+	<div id="photos">
+	</div>
+	<a id="skip-photo" href="#" class="skip-photo">Järgmine foto &rarr;</a>
 
-                self.animateTo(self.getCurrentEl(), false, function() {
-                    //console.log("close animation complete");
-                    var el = self.buildElements();
-                    var els = el.children();
-                    var dest = $('#photos');
-                    dest.quicksand(els, {adjustHeight: 'none', easing: 'linear', duration: 250}, function() {
-                        //console.log("quicksand done");
-                        self.animateTo(self.getCurrentEl(), true, function(){
-                            $('.controls',self.getCurrentEl()).show();
-                        });
-                    });
-                });
-            }
-        
-        };
-        
-        var wheel = new Wheel($('#wheel'));
-        wheel.fetchItems(true);
-        
-        $('#photos').delegate('.skip > a', 'click', function() {
-            wheel.setTagged();
-            wheel.advance();
-        })
-        $('#photos').delegate('img', 'click', function() {
-            wheel.setTagged();
-            wheel.advance();
-        })
-        
-        
-        // MAP
-        var tallinn = new google.maps.LatLng(59.435474, 24.750309);
-        var form = $('#geotag_form');
-        
-        var options = {
-            zoom: 13,
-            center: tallinn,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }    
-    
-        function toggleBounce() {
-            if (marker.getAnimation() != null) {
-                marker.setAnimation(null);
-            } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-        }
-        
-        $('#photos').delegate('.next', 'click', function() {
-            $.fancybox({
-                autoDimensions: false,
-                width: 510,
-                height: 510,
-                content: $('.map').html(),
-                onComplete: function(){
-                    var map = new google.maps.Map($('#fancybox-content .map_canvas').get(0), options);
-                    var marker = new google.maps.Marker({
-                        map:map,
-                        draggable:true,
-                        animation: google.maps.Animation.DROP,
-                        position: tallinn,
-                        icon: '{{ MEDIA_URL }}images/icon_marker.png'
-                    });
-                    
-                    var infowindow = new google.maps.InfoWindow({
-                        content: 'Sikuta mind sinna kust pilt on tehtud.'
-                    });
-                    infowindow.open(map,marker);
-                    
-                    google.maps.event.addListener(marker, 'click', toggleBounce);
-                    google.maps.event.addListener(marker, 'dragstart', function(){
-                        infowindow.close();
-                    });
-                    
-                    
-                    $('.save:visible', $(this).content).click(function(){
-                        wheel.setTagged(marker.getPosition().lat(), marker.getPosition().lng(), function(data){
-                            $.fancybox({
-                                autoDimensions: false,
-                                overlayColor: '#fff',
-                                width: 510,
-                                height: 154,
-                                padding: 0,
-                                content: $('.message').html(),
-                                onComplete: function(){
-                                    var msg = $('.message',$('#fancybox-content'));
-                                    var status = $('#photos').find('div[data-current="1"]').find('.status');
-                                    
-                                    if (data.is_correct === null) {
-                                        $('.msg_text', $(msg)).text('Aitäh! Sinu pakkumine oli esimene.');
-                                        msg.addClass('guess');
-                                        status.addClass('guess');
-                                    } else {
-                                        msg.addClass((data.is_correct === true) ? 'yes' : 'no');
-                                        status.addClass((data.is_correct === true) ? 'yes' : 'no');
-                                        $('.msg_text', $(msg)).text((data.is_correct === true) ? 'Aitäh! Tundub õige.' : 'Aitäh! Aga julgeme kahelda.');
-                                    }
-                                    $('.next', msg).click(function(){
-                                        $.fancybox.close();
-                                        wheel.advance();
-                                    });
-                                    
-                                }
-                            });
-                            
-                        });
-                        return false;
-                    });
-                }
-            });
-            return false;
-        });
-        
-    </script>    
-    
+	<div id="btm">
+		<div id="open-location-tools-container">
+			<a id="open-location-tools" href="#" class="btn green">Tean asukohta!</a>
+		</div>
+	</div>
+
+	<div id="notice">
+
+			<h2>Aitäh!</h2>
+			
+			<p class="message"></p>
+
+			<a id="continue-game" href="" class="btn small">Edasi</a>
+
+	</div>
+
 </div>
-    
+
 {% endblock %}

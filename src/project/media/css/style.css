@@ -1,336 +1,465 @@
-html {
+body, html {
 	height: 100%;
-	background: #fff url(../images/bg.jpg) no-repeat top center;
+	min-height: 550px;
+	font-family: arial, sans-serif;
+	overflow: hidden;
 }
-
 body {
-	color: #444;
-	font-family: 'Droid Serif', georgia, serif;
-	width: 100%;
-	height: 100%;
-}
-
-a {
-	color: #079ad1;
-}
-
-h1 {
-	font-size: 35px;
-	color: #508d00;
-}
-h2 {
-	font-size: 21px;
-	color: #92511a;
-	margin: 0 0 15px;
-}
-
-p {
-	font-size: 15px;
-	line-height: 1.5;
-	margin: 0 0 10px;
-}
-
-#content {
-	width: 960px;
-	margin: 0 auto;
-	padding-bottom: 80px;
-}
-#content.map {
-	padding-bottom: 0;
-}
-
-#content.front-page {
- 	padding-top: 10px;
+	background: #fff url(../gfx/bg.jpg) center center;
 }
 
 
-#content.front-page .photos {
-	float: left;
-	width: 400px;
-}
-#content.front-page .introduction {
-	float: right;
-	width: 500px;
-	padding: 30px 0 0;
-}
-#content.front-page .introduction .buttons {
-	margin: 30px 0 40px 0;
-}
-#content.front-page .introduction .btn {
-	font-size: 16px;
-	font-weight: 700;
-	margin: 0 10px 0 0;
-}
-
-#content.front-page .introduction .btn:hover {
-	-webkit-box-shadow: 0 0 7px #57c200;
-}
-
-
-
-
-#inlinecontent.photo .controls ul.thumbs {
-	margin: 0;
-}
-#inlinecontent.photo .controls ul.thumbs li {
-	list-style: none;
-	float: left;
-	height: 40px;
-	width: 40px;
-	margin: 0 7px 0 0;
-}
-#inlinecontent.photo .controls ul.thumbs li a {
-	display: block;
-	height: 100%;
-}
-#inlinecontent.photo .controls ul.thumbs li .add-photo {
-	background: transparent url(../images/icon_add_disabled.png) no-repeat;
-}
-
-#inlinecontent .description {
-	font-size: 12px;
-	line-height: 1.2;
-	margin: 10px 0;
-	width: 250px;
-	padding-right: 25px;
-	float: left;
-}
-#inlinecontent .description .owner {
-	font-size: 10px;
-	color: #999;
-	margin-top: 5px;
-}
-
-#inlinecontent .add-photo {
-	margin: 18px 0 0;
-	float: right;
-}
-
-
-#slider {
-    position:relative;
-/*     background:url(../images/loading.gif) no-repeat 50% 50%; */
-}
-#slider img {
-    position:absolute;
-    top:0px;
-    left:0px;
-    display:none;
-}
-#slider a {
-    border:0;
-    display:block;
-}
-
-
-
-
-#photos {
-	text-align: center;
-	padding: 0 10px;
-	height: 565px;
-	margin: 0 auto;
-}
-#photos .photo {
-	position: relative;
-	float: left;
-	padding: 20px 0;
-}
-#photos .photo.thumb {
-	width: 174px;
-	margin: 170px 0 0;
-	text-align: center;
-}
-#photos .photo img {
-	border: 7px solid #fff;
-	-webkit-box-shadow: 0px 0px 5px #999;
-	-moz-box-shadow: 0px 0px 5px #999;
-}
-
-
-#photos .photo.current {
-	margin: 0 28px;
-	width: 534px;
-	text-align: center;
-}
-#photos .photo.current .description {
-	color: #6e6b68;
-	margin: 10px 0 15px;
-}
-#photos .photo.thumb .status {
-	position: absolute;
-	top: 7px;
-	left: 50%;
-	width: 40px;
-	height: 45px;
-	margin-left: -10px;
-}
-#photos .photo.thumb .status.no {
-	background: url(../images/icon_no.png) no-repeat;
-}
-#photos .photo.thumb .status.yes {
-	background: url(../images/icon_yes.png) no-repeat;
-}
-
-
-.message {
-	font-size: 21px;
-	width: 100%;
-	height: 154px;
-	background: #fff;
-}
-.message.yes .container,
-.message.guess .container {
-	border: 7px solid #e8f3d4;
-}
-.message.no .container {
-	border: 7px solid #ffd4d4;
-}
-.message .container {
-	padding: 35px 50px;
-}
-.message .container .button {
-	margin: 20px 0 0;
-}
-
-
-#photos .photo.current .map {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: grey;
-	z-index: 10;
-}
-#photos .photo.current .close {
-	position: absolute;
-	top: -5px;
-	right: -5px;
-	width: 28px;
-	height: 28px;
-	background: url(../images/icon_close.png) no-repeat;
-}
-
-/*
-#photos .photo.current .photo-container .owner {
-	position: relative;
-	text-align: left;
-}
-#photos .photo.current .owner {
-	color: #ccc;
-	font-size: 10px;
-	position: absolute;
-}
-*/
-
-
+/* BUTTONS */
 
 a.btn {
-	color: #fff;
-	font-size: 19px;
-	font-weight: 400;
-	text-decoration: none;
-	text-shadow: -1px -1px 0 #3f6b00;
-	padding: 9px 25px;
-	border: 1px solid #489400;
-	background: #6cbb00 url(../images/btn_green_bg.png) repeat-x;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-a.btn.disabled {
-	color: #eaeaea;
-	text-shadow: -1px -1px 0 #a8a8a8;
-	border-color: #c5c5c4;
-	background: #cdcdcc url(../images/btn_gray_bg.png) repeat-x;
-	cursor: default;
-}
-
-a.btn.small {
-	font-size: 13px;
-	padding: 5px 12px;
-}
-
-
-
-
-
-.skip {
-	margin: 25px 0 0;
-}
-
-
-
-#footer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	height: 80px;
-	background: url(../images/footer_bg.jpg) repeat-x;
-	text-align: center;
-	box-shadow: 0 0 10px #666;
-	z-index: 50;
-}
-#footer .container {
-	width: 960px;
-	margin: 0 auto;
-}
-#footer #logo {
-	width: 225px;
-	height: 55px;
-	margin: 14px 0 0;
-	float: left;
-	background: url(../images/Ajapaik_logo.png) no-repeat;
-}
-#footer #logo a {
-	display: block;
-	height: 100%;
-}
-#footer #facebook-connect {
-	float: right;
-	height: 34px;
-	margin: 24px 0 0;
-	background: url(../images/inset_bg.png) repeat-x;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-#footer #facebook-connect a {
-	width: 169px;
-	height: 21px;
-	margin: 6px;
-	background: url(../images/connect-with-facebook.png) no-repeat;	
-}
-
-#footer .score {
-	text-shadow: -1px -1px 0 #532a0d;
-	position: absolute;
-	left: 50%;
-	width: 170px;
-	height: 35px;
-	margin-left: -85px;
-	background: url(../images/score_bg.png) no-repeat top center;
-}
-#footer .score .label {
-	color: #e2c193;
-	font-weight: 700;
-	float: left;
-	width: 87px;
-	text-align: center;
-	text-transform: uppercase;
-	padding: 8px 0 0 7px;
-}
-#footer .score .digits {
-	color: #fff;
+	color: #444;
 	font-size: 16px;
 	font-weight: 700;
+	line-height: 1;
+	text-decoration: none;
 	text-align: center;
+	padding: 9px 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-shadow: 0 1px 0 #fff;
+	border: 1px solid #ccc;
+	background: #cdcdcd;
+	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#ddd));
+	background: -moz-linear-gradient(top,  #efefef,  #ddd);
+}
+a.btn.small {
+	font-size: 13px;
+	padding: 5px 10px;
+}
+a.btn.green {
+	color: #fff;
+	text-shadow: 0 -1px 0 #3f6b00;
+	border: 1px solid #489400;
+	background: #1ba400;
+	background: -webkit-gradient(linear, left top, left bottom, from(#79d100), to(#159f00));
+	background: -moz-linear-gradient(top,  #79d100,  #159f00);
+}
+a.btn:hover {
+	border: 1px solid #bbb;
+	-webkit-box-shadow: 0 0 7px #ddd;
+	-moz-box-shadow: 0 0 7px #ddd;
+	box-shadow: 0 0 7px #ddd;
+	background: #ddd;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#ddd));
+	background: -moz-linear-gradient(top, #fefefe, #ddd);
+}
+a.btn.green:hover {
+	border: 1px solid #489400;
+	-webkit-box-shadow: 0 0 7px #57c200;
+	-moz-box-shadow: 0 0 7px #57c200;
+	box-shadow: 0 0 7px #57c200;
+	background: #38b700;
+	background: -webkit-gradient(linear, left top, left bottom, from(#99da44), to(#1ba400));
+	background: -moz-linear-gradient(top, #99da44, #1ba400);
+}
+a.btn:active {
+	background: #ccc;
+}
+a.btn.green:active {
+	background: -webkit-gradient(linear, left top, left bottom, from(#159f00), to(#38b700));
+	background: -moz-linear-gradient(top, #159f00, #38b700);
+}
+
+
+/******************************
+*******************************
+
+	B R O W S E
+
+*******************************
+*******************************/
+
+#browse {
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+}
+
+
+/* TOP BAR */
+
+#browse .top {
+	position: absolute;
+	top: 0;
+	height: 7%;
+	width: 100%;
+	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg) center bottom;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	z-index: 1000;
+}
+#browse .top h1 {
+	float: left;
+}
+#browse .top ul#nav {
 	float: right;
-	width: 63px;
-	padding: 7px 6px 0;
+	margin: 0;
+}
+#browse .top ul#nav li {
+	float: left;
+	list-style: none;
+	margin: 0 20px 0 0;
+}
+
+/* PHOTO DRAWER */
+
+#browse #photo-drawer {
+	position: absolute;
+	top: -100%;
+	width: 100%;
+	height: 500px;
+	background: #fff url(../gfx/bg.jpg) center center;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	z-index: 900;
+}
+
+/* photos */
+
+#browse #photo-drawer .photos {
+	position: relative;
+	line-height: 0;
+	overflow: hidden;
+	height: 450px;
+	padding: 25px 0;
+}
+#browse #photo-drawer .photos .original {
+	position: absolute;
+	right: 50.7%;
+	border: 10px solid #fff;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+#browse #photo-drawer .photos .rephoto {
+	position: absolute;
+	left: 50.7%;
+	border: 10px solid #fff;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+#browse #photo-drawer .photos img {
+	height: 350px;
+}
+#browse #photo-drawer .photos .rephoto .info {
+	line-height: 1;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: block;
+}
+
+
+/* original tools */
+
+#browse #photo-drawer .original .tools {
+	position: absolute;
+	bottom: -90px;
+	left: 0;
+	height: 60px;
+}
+#browse #photo-drawer .original .tools .description {
+	line-height: 1.3;
+}
+
+
+/* rephoto tools */
+
+#browse #photo-drawer .rephoto .tools {
+	position: absolute;
+	bottom: -90px;
+	right: 0;
+	height: 60px;
+}
+#browse #photo-drawer .rephoto .tools ul.thumbs {
+	margin: 0;
+	padding: 0;
+}
+#browse #photo-drawer .rephoto .tools ul.thumbs li {
+	line-height: 0;
+	list-style: none;
+	float: left;
+	margin: 0 0 0 5px;
+}
+#browse #photo-drawer .rephoto .tools ul.thumbs li img {
+	height: 50px;
+	border: 5px solid #fff;
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .2);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .2);
+}
+
+
+/* MAP */
+
+#browse .map {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 93%;
 }
 
 
 
+/******************************
+*******************************
+
+	G A M E
+
+*******************************
+*******************************/
+
+#game {
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+}
+
+/* photos */
+
+#game #photos {
+/* 	line-height: 0; */
+	position: absolute;
+	top: 0;
+	left: 1000px;
+	height: 100%;
+	display: table;
+	z-index: 1;
+}
+#game #photos .photo {
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
+	overflow: hidden;
+	visibility: hidden;
+}
+#game #photos .photo > .container {
+	position: relative;
+/* 	height: 50%; */
+	margin: 0 30px;
+	background: white;
+	border: 15px solid #fff;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+#game #photos .photo > .container img {
+	display: none;
+/* 	height: 100%; */
+}
+
+#game #photos .photo .btn.show-description {
+	position: absolute;
+	display: block;
+	top: -60px;
+	left: 50%;
+	width: 80px;
+	margin-left: -55px;
+}
+#game #photos .photo .description {
+	font-size: 12px;
+	font-weight: 700;
+	position: absolute;
+	display: none;
+	bottom: 100%;
+	width: 100%;
+	padding: 10px 20px;
+	margin-left: -20px;
+	margin-bottom: 30px;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	background: rgba(204, 172, 102, .3);
+	z-index: 10;
+
+}
+
+/* buttons */
+
+#game #skip-photo {
+	color: #d4975b;
+	font-size: 19px;
+	font-weight: 700;
+	text-decoration: none;
+	position: absolute;
+	top: 48%;
+	right: 5%;
+}
+#game #skip-photo:hover {
+	color: #b07f4f;
+}
+#game #skip-photo:active {
+	color: #6e4217;
+	padding: 1px 0 0;
+}
+
+/* tools overlay */
+
+#game #tools {
+	position: absolute;
+	height: 100%;
+	width: 85%;
+	min-width: 100px;
+	left: 100%;
+	font-weight: 700;
+	background: #000;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	z-index: 500;
+}
+#game #tools #locationMap {
+	width: 100%;
+	height: 100%;
+}
+#game #tools #save-location {
+	position: absolute;
+	right: 20px;
+	bottom: 60px;
+	z-index: 10;
+}
+#game #tools #close-location-tools {
+	position: absolute;
+	right: 20px;
+	bottom: 30px;
+	z-index: 10;
+}
 
 
+/* TOP BAR */
+
+#game #top {
+	position: absolute;
+	height: 20px;
+	width: 100%;
+	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg) center 6px;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	z-index: 100;
+}
+
+/* score */
+
+#game #top #score-container {
+	position: absolute;
+	left: 50%;
+	top: -18px;
+	width: 220px;
+	margin-left: -125px;
+	padding: 25px 0 7px 0;
+	background: #fff;
+	z-index: 1050;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+#game #top #score-container h2 {
+	color: #ccc;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 3px;
+	text-align: center;
+	text-transform: uppercase;
+	display: none;
+	margin: 3px 0 4px;
+}
+#game #top #score-container ul#scoreboard {
+	margin: 0;
+
+}
+#game #top #score-container ul#scoreboard li {
+	position: relative;
+	font-size: 12px;
+	line-height: 1;
+	list-style: none;
+	clear: both;
+	display: none;
+	border-bottom: 1px solid #efefef;
+	padding: 0 15px;
+}
+#game #top #score-container ul#scoreboard li.you {
+	font-weight: 700;
+	display: block;
+	background: #efefef;
+}
+#game #top #score-container ul#scoreboard li.first {
+	padding-bottom: 10px;
+}
+#game #top #score-container ul#scoreboard li span {
+	padding: 8px 0 0;
+}
+#game #top #score-container ul#scoreboard li .position {
+	float: left;
+	width: 27px;
+}
+#game #top #score-container ul#scoreboard li .name {
+	float: left;
+}
+#game #top #score-container ul#scoreboard li .photo {
+/*
+	position: absolute;
+	right: -25px;
+	top: 2px;
+*/	
+	line-height: 0;
+	float: right;
+	margin-right: -25px;
+	padding: 0;
+}
+#game #top #score-container ul#scoreboard li .photo img {
+	border: 3px solid #fff;
+	width: 23px;
+	height: 23px;
+}
+#game #top #score-container ul#scoreboard li .score {
+	float: right;
+	padding-right: 10px;
+}
 
 
+/* BOTTOM BAR */
 
+#game #btm {
+	position: absolute;
+	bottom: 0;
+	height: 20px;
+	width: 100%;
+	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg);
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	z-index: 100;
+}
+#game #btm #open-location-tools-container {
+	position: absolute;
+	bottom: 50px;
+	left: 50%;
+	height: 50px;
+	width: 210px;
+	margin-left: -105px;
+	z-index: 1050;
+/* 	background: #fff; */
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+#game #btm #open-location-tools {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 125px;
+	margin-left: -85px;
+	z-index: 1000;
+}
