@@ -139,7 +139,7 @@ $(document).ready(function() {
 			$("#scoreboard li.you score").text(resp['total_score']);
 
 			message = '';
-			if (resp['is_correct'] == 'true') {
+			if (resp['is_correct'] == true) {
 				message = 'Tundub õige!';
 			}
 			else
@@ -147,7 +147,7 @@ $(document).ready(function() {
 				message = 'Siin ei ole täpne koht veel kindlaks tehtud.';		
 			}
 			else
-			if (resp['is_correct'] == 'false') {
+			if (resp['is_correct'] == false) {
 				message = 'Aga julgeme kahelda.';		
 			}
 			else {
