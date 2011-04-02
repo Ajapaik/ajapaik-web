@@ -108,11 +108,12 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	p=Photo.objects.get(pk=photo_id)
 
 	is_correct=None
+	location_is_unclear=0
 	this_guess_score=0
+	leaderboard=None
 
 	if lon is not None and lat is not None:
 		trustworthiness=calc_trustworthiness(user.pk)
-		this_guess_score=max(20,int(300*trustworthiness))
 
 		if p.confidence >= 0.3:
 			error_in_meters=Photo.distance_in_meters(
@@ -120,6 +121,9 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 			this_guess_score=int(130*max(0,min(1,(1-
 						(error_in_meters-15)/float(94-15)))))
 			is_correct=(this_guess_score > 0)
+		else:
+			this_guess_score=max(20,int(300*trustworthiness))
+			location_is_unclear=int(bool(len(p.geotags)))
 
 		if hint_used:
 			this_guess_score/=3
@@ -138,7 +142,11 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	user.set_calculated_fields()
 	user.save()
 
-	return is_correct,this_guess_score,user.score
+	if this_guess_score:
+		leaderboard=get_leaderboard(user.pk)
+
+	return is_correct,this_guess_score,user.score,leaderboard, \
+											location_is_unclear
 
 def get_geotagged_photos():
 	rephotographed_ids=frozenset(Photo.objects.filter(
@@ -150,3 +158,22 @@ def get_geotagged_photos():
 						rephoto_of__isnull=True):
 		data.append((p.id,p.lon,p.lat,p.id in rephotographed_ids))
 	return data
+
+def get_leaderboard(user_id):
+	scores_list=list(enumerate(Profile.objects.filter(
+					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+				values_list('pk','score','fb_id','fb_name'). \
+				order_by('-score')))
+	leaderboard=[scores_list[0]]
+	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
+											scores_list)[0][0]
+	if self_user_idx-1 > 0:
+		leaderboard.append(scores_list[self_user_idx-1])
+	if self_user_idx > 0:
+		leaderboard.append(scores_list[self_user_idx])
+	if self_user_idx+1 < len(scores_list):
+		leaderboard.append(scores_list[self_user_idx+1])
+
+	leaderboard=[(idx,data[0]==user_id,data[1],data[2],data[3]) \
+									for idx,data in leaderboard]
+	return leaderboard
