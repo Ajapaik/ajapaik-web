@@ -132,11 +132,15 @@ $(document).ready(function() {
 			$("#scoreboard li.you score").text(resp['total_score']);
 
 			message = '';
-			if (resp['is_corrent'] == 'true') {
+			if (resp['is_correct'] == 'true') {
 				message = 'Tundub õige!';
 			}
 			else
-			if (resp['is_corrent'] == 'false') {
+			if (resp['is_location_unknown']) {
+				message = 'Aga julgeme kahelda.';		
+			}
+			else
+			if (resp['is_correct'] == 'false') {
 				message = 'Aga julgeme kahelda.';		
 			}
 			else {
