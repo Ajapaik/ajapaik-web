@@ -12,8 +12,10 @@ urlpatterns = patterns('views',
     (r'^stream/', 'fetch_stream'),
     (r'^geotag/add/', 'geotag_add'),
     (r'^ajapaikaja/$', 'thegame'),
-    (r'^foto/(?P<photo_id>\d+)/$', 'photo'),
     (r'^kaart/$', 'mapview'),
+    
+    (r'^foto/(?P<photo_id>\d+)/$', 'photo'),
+    (r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
     
     (r'^$', 'frontpage')
 ) + patterns('',

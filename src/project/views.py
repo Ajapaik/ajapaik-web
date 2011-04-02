@@ -5,11 +5,33 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.shortcuts import redirect, get_object_or_404
+from django.conf import settings
+
+from django.core.files import File
+from django.core.files.base import ContentFile
 
 from project.models import Photo
 from project.forms import GeoTagAddForm
 
 import get_next_photos_to_geotag
+
+def handle_uploaded_file(f):
+    return ContentFile(f.read())
+    
+def photo_upload(request, photo_id):
+    photo = get_object_or_404(Photo, pk=photo_id)
+    if request.method == 'POST':    
+        if 'user_file[]' in request.FILES.keys():
+            for f in request.FILES.getlist('user_file[]'):
+                fileobj = handle_uploaded_file(f)
+                re_photo = Photo(
+                    rephoto_of=photo,
+                    
+                )
+                re_photo.save()
+                re_photo.image.save(f.name, fileobj)
+                
+    return HttpResponse('')
 
 def logout(request):
     from django.contrib.auth import logout
