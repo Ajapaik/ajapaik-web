@@ -174,6 +174,6 @@ def get_leaderboard(user_id):
 	if self_user_idx+1 < len(scores_list):
 		leaderboard.append(scores_list[self_user_idx+1])
 
-	leaderboard=[(idx,data[0]==user_id,data[1],data[2],data[3]) \
+	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
 									for idx,data in leaderboard]
 	return leaderboard
