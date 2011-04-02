@@ -116,16 +116,16 @@ class Profile(models.Model):
     
     modified = models.DateTimeField(auto_now=True)
 
+    score = models.PositiveIntegerField()
+
     def merge_from_other(self, other):
         other.photos.update(user=self)
         other.guesses.update(user=self)
         other.geotags.update(user=self)
 
-    def get_score(self):
-        # Must be imported here to prevent circular import
-        from project import get_next_photos_to_geotag
-
-        return get_next_photos_to_geotag.get_total_score(self)
+    def set_calculated_fields(self):
+        self.score=self.geotags.aggregate(
+            total_score=models.Sum('score'))['total_score'] or 0
 
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
@@ -162,4 +162,3 @@ class Action(models.Model):
             obj.related_object = related_object
         obj.save()
         return obj
-        

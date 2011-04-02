@@ -2,7 +2,7 @@
 {% load thumbnail i18n %}
 
 {% block footer_score %}
-<div class="score"><span class="label">Punkte</span> <span class="digits">{% if request.user.is_authenticated %}{{ request.user.get_profile.get_score }}{% endif %}</span></div>
+<div class="score"><span class="label">Punkte</span> <span class="digits">{% if request.user.is_authenticated %}{{ request.user.get_profile.score }}{% endif %}</span></div>
 {% endblock %}
 
 {% block content %}
