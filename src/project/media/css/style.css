@@ -451,6 +451,7 @@ a.btn.green:active {
 	font-size: 12px;
 	margin: 6px 15px;
 	width: 190px;
+	display: none;
 }
 #game #top #score-container #facebook-connect p {
 	margin: 0 0 10px;
