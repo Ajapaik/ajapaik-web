@@ -69,6 +69,7 @@ def geotag_add(request):
         'is_correct': is_correct,
         'current_score': current_score,
         'total_score': total_score,
+        'session_id': request.session.session_key,
     }), mimetype="application/json")
 
 def fetch_stream(request):
