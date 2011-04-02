@@ -203,10 +203,12 @@ $(document).ready(function() {
 
 	function showScoreboard() {
 		$('#scoreboard li').not('.you').add('h2').slideDown();
+		$('#facebook-connect').slideDown();
 	}
 
 	function hideScoreboard() {
 		$('#scoreboard li').not('.you').add('h2').slideUp();
+		$('#facebook-connect').slideUp();
 	}
 
 	function showDescription() {
@@ -277,6 +279,8 @@ $(document).ready(function() {
 		$.getJSON(streamUrl, function(data) {
 
 			$.merge(photos, data);
+
+console.log(photos);
 
 			if (currentPhotoIdx <= 0) {
 				nextPhoto();

@@ -386,7 +386,7 @@ a.btn.green:active {
 
 #game #top {
 	position: absolute;
-	height: 20px;
+	height: 10px;
 	width: 100%;
 	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg) center 6px;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -496,7 +496,7 @@ a.btn.green:active {
 #game #btm {
 	position: absolute;
 	bottom: 0;
-	height: 20px;
+	height: 10px;
 	width: 100%;
 	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg);
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
