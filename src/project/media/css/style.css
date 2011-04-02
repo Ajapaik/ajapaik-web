@@ -407,6 +407,7 @@ a.btn.green:active {
 	display: none;
 	border-bottom: 1px solid #efefef;
 	padding: 0 15px;
+	height: 29px;
 }
 #game #top #score-container ul#scoreboard li.you {
 	font-weight: 700;
