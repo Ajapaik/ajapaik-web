@@ -20,8 +20,33 @@ var locationToolsOpen = false;
 /* INIT */
 
 $(document).ready(function() {
-
 	loadPhotos();
+
+    // Will load the base map layer and return it
+    map = get_map();
+    
+    // Create marker
+    function toggleBounce() {
+        if (marker.getAnimation() != null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+    
+    var tallinn = new google.maps.LatLng(59.435474, 24.750309);
+    var marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: tallinn,
+        icon: 'http://www.ajapaik.ee/media/images/icon_marker.png'
+    });
+
+
+    infowindow = new google.maps.InfoWindow({
+        content: 'Sikuta mind sinna kust pilt on tehtud.'
+    });
 
 /* BINDINGS */
 
@@ -123,52 +148,25 @@ $(document).ready(function() {
 
 	}
 
-        var tallinn = new google.maps.LatLng(59.435474, 24.750309);
-        var form = $('#geotag_form');
-        
-        var options = {
-            zoom: 13,
-            center: tallinn,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-
-        function toggleBounce() {
-            if (marker.getAnimation() != null) {
-                marker.setAnimation(null);
-            } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-        }
-
-        var map = new google.maps.Map($('#locationMap').get(0), options);
-        var marker = new google.maps.Marker({
-            map: map,
-            draggable: true,
-            animation: google.maps.Animation.DROP,
-            position: tallinn,
-            icon: 'http://www.ajapaik.ee/media/images/icon_marker.png'
-        });
-
-        var infowindow = new google.maps.InfoWindow({
-            content: 'Sikuta mind sinna kust pilt on tehtud.'
-        });
-
 	function openLocationTools() {
 		disableNext = true;
+		
 		$('#tools').animate({ left : '15%' }, function() {
 			locationToolsOpen = true;
 			var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
 			$('#photos').animate({ left : photosLeft+'px' });
 			$('#open-location-tools').fadeOut();
-
-			/* google maps */
-
-    	    infowindow.open(map,marker);
-			google.maps.event.addListener(marker, 'click', toggleBounce);
-			google.maps.event.addListener(marker, 'dragstart', function(){
-				infowindow.close();
-			});
-
+            
+            if (infowindow !== undefined) {
+        	    infowindow.open(map,marker);
+    			google.maps.event.addListener(marker, 'click', toggleBounce);
+    			google.maps.event.addListener(marker, 'dragstart', function(){
+                    if (infowindow !== undefined) {
+        				infowindow.close();
+        				infowindow = undefined;
+    				}
+    			});
+            }
 		});
 	}
 
@@ -213,7 +211,6 @@ $(document).ready(function() {
 	}
 
 	function nextPhoto() {
-
 		hintUsed = 0;
 
 		if (photos.length == currentPhotoIdx+1) {

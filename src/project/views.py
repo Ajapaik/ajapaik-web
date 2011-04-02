@@ -59,16 +59,22 @@ def mapview(request):
     data = get_next_photos_to_geotag.get_geotagged_photos()
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
-        
     }))    
+
+def get_leaderboard(request):
+    return HttpResponse(json.dumps(
+        get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk),
+        mimetype="application/json"))
 
 def geotag_add(request):
     data = request.POST
-    is_correct, current_score, total_score = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'), hint_used=data.get('hint_used'))
+    is_correct, current_score, total_score, leaderboard_update, location_is_unclear = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'), hint_used=data.get('hint_used'))
     return HttpResponse(json.dumps({
         'is_correct': is_correct,
         'current_score': current_score,
         'total_score': total_score,
+        'leaderboard_update': leaderboard_update,
+    	'location_is_unclear': location_is_unclear,
     }), mimetype="application/json")
 
 def fetch_stream(request):
