@@ -137,7 +137,7 @@ $(document).ready(function() {
 			}
 			else
 			if (resp['is_location_unknown']) {
-				message = 'Aga julgeme kahelda.';		
+				message = 'Siin ei ole täpne koht veel kindlaks tehtud.';		
 			}
 			else
 			if (resp['is_correct'] == 'false') {

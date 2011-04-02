@@ -48,8 +48,8 @@ a.btn {
 	background: -moz-linear-gradient(top,  #efefef,  #ddd);
 }
 a.btn.small {
-	font-size: 13px;
-	padding: 5px 10px;
+	font-size: 12px;
+	padding: 3px 7px;
 }
 a.btn.green {
 	color: #fff;
@@ -116,6 +116,10 @@ a.btn.green:active {
 }
 #browse .top h1 {
 	float: left;
+	background: url(../images/Ajapaik_logo.png) no-repeat;
+	width: 225px;
+	height: 55px;
+	margin: 10px 0 0 20px;
 }
 #browse .top ul#nav {
 	float: right;
@@ -187,7 +191,8 @@ a.btn.green:active {
 	height: 60px;
 }
 #browse #photo-drawer .original .tools .description {
-	line-height: 1.3;
+	font-size: 12px;
+	line-height: 1.2;
 }
 
 
@@ -215,6 +220,27 @@ a.btn.green:active {
 	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .2);
 	box-shadow: 0 0 7px rgba(0, 0, 0, .2);
+}
+
+#browse #photo-drawer .no-rephoto {
+	position: absolute;
+	left: 50.7%;
+	width: 350px;
+	padding: 10px;
+	background: rgba(204, 172, 102, .3);
+	height: 350px;
+	text-align: center;
+	line-height: 1.4;
+}
+#browse #photo-drawer .no-rephoto ul.thumbs {
+	margin: 0;
+	padding: 0;
+}
+#browse #photo-drawer .no-rephoto ul.thumbs li {
+	line-height: 0;
+	list-style: none;
+	float: left;
+	margin: 0 0 0 5px;
 }
 
 

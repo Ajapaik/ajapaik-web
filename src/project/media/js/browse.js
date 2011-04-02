@@ -1,6 +1,18 @@
 /* FUNCTIONS */
 
 	/* browse */
+var photoId;
+
+function loadPhoto(id) {
+	photoId = id;
+    $.ajax({
+        cache: false,
+        url: '/foto/'+id+'/',
+        success: function(result) {
+        	openPhotoDrawer(result);
+        }
+    });
+}
 
 function openPhotoDrawer(content) {
 	$('#photo-drawer').html(content);
@@ -9,6 +21,12 @@ function openPhotoDrawer(content) {
 
 function closePhotoDrawer() {
 	$('#photo-drawer').animate({ top : '-100%' });
+}
+
+function uploadCompleted() {
+	$.modal.close();
+	closePhotoDrawer();
+	loadPhoto(photoId);
 }
 
 /* INIT */
@@ -24,7 +42,7 @@ $(document).ready(function() {
 		openPhotoDrawer();
 	});
 
-	$('#close-photo-drawer').click(function(e) {
+	$('#photo-drawer').delegate('#close-photo-drawer', 'click', function(e) {
 		e.preventDefault();
 		closePhotoDrawer();
 	});
@@ -34,7 +52,7 @@ $(document).ready(function() {
 		$('.rephoto > img').attr('src', $(this).attr('rel') );
 	});
 
-	$('#photo-drawer').delegate('ul.thumbs li.add-rephoto a', 'click', function(e) {
+	$('#photo-drawer').delegate('a.add-rephoto', 'click', function(e) {
 		e.preventDefault();
 		$('#notice').modal();
 	});

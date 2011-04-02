@@ -9,7 +9,7 @@
             map = get_map();
 
     	var geotagged_photos={{ json_data }};
-    
+
     	for (var i in geotagged_photos) {
     		var p=geotagged_photos[i];
     		var marker = new google.maps.Marker({map: map,
@@ -19,13 +19,7 @@
             
             (function(id) {
             google.maps.event.addListener(marker, 'click', function() {
-                $.ajax({
-                    cache: false,
-                    url: '/foto/'+id+'/',
-                    success: function(result) {
-                    	openPhotoDrawer(result);
-                    }
-                });
+				loadPhoto(id);
             });
             })(p[0]);
         }
@@ -37,13 +31,9 @@
 
 	<div class="top">
 
-		<h1>Ajapaik</h1>
+		<h1 class="ir">Ajapaik</h1>
 
 		<ul id="nav">
-			<li><a href="#" id="open-photo-drawer"><b>Ava foto</b></a></li>
-			<li><a href="#" id="close-photo-drawer"><b>Sulge foto</b></a></li>
-			<li><a href="#">Info</a></li>
-			<li><a href="#">Mängi "Ajapaikajat"</a></li>
 		</ul>
 
 	</div>
