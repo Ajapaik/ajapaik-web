@@ -59,7 +59,14 @@ $(document).ready(function() {
 
 	$('.skip-photo').click(function(e) {
 		e.preventDefault();
-		nextPhoto();
+
+		var data = {
+			photo_id: photos[currentPhotoIdx-1].id,
+		};
+		$.post(saveLocationURL, data, function () {
+			nextPhoto();		
+		});
+
 	});
 
 	$('#open-location-tools').click(function(e) {
@@ -279,8 +286,6 @@ $(document).ready(function() {
 		$.getJSON(streamUrl, function(data) {
 
 			$.merge(photos, data);
-
-console.log(photos);
 
 			if (currentPhotoIdx <= 0) {
 				nextPhoto();
