@@ -143,7 +143,7 @@ $(document).ready(function() {
 				message = 'Tundub õige!';
 			}
 			else
-			if (resp['is_location_unknown']) {
+			if (resp['is_location_unclear']) {
 				message = 'Siin ei ole täpne koht veel kindlaks tehtud.';		
 			}
 			else
