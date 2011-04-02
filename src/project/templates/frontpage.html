@@ -11,6 +11,182 @@
 	});
 
 </script>
+
+<style>
+
+body {
+	color: #444;
+	font-family: 'Droid Serif', georgia, serif;
+	width: 100%;
+	height: 100%;
+}
+
+a {
+	color: #079ad1;
+}
+
+h1 {
+	font-size: 35px;
+	color: #508d00;
+}
+h2 {
+	font-size: 21px;
+	color: #92511a;
+	margin: 0 0 15px;
+}
+
+p {
+	font-size: 15px;
+	line-height: 1.5;
+	margin: 0 0 10px;
+}
+
+#content {
+	width: 960px;
+	margin: 0 auto;
+	padding-bottom: 80px;
+}
+#content.map {
+	padding-bottom: 0;
+}
+
+#content.front-page {
+ 	padding-top: 10px;
+}
+
+
+#content.front-page .photos {
+	float: left;
+	width: 400px;
+}
+#content.front-page .introduction {
+	float: right;
+	width: 500px;
+	padding: 30px 0 0;
+}
+#content.front-page .introduction .buttons {
+	margin: 30px 0 40px 0;
+}
+#content.front-page .introduction .btn {
+	font-size: 16px;
+	font-weight: 700;
+	margin: 0 10px 0 0;
+}
+
+#content.front-page .introduction .btn:hover {
+	color: #fff;
+	text-decoration: none;
+	text-shadow: -1px -1px 0 #3f6b00;
+	padding: 9px 25px;
+	border: 1px solid #489400;
+	background: #6cbb00 url({{ MEDIA_URL }}/images/btn_green_bg.png) repeat-x;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-shadow: 0 0 7px #57c200;
+}
+
+a.btn {
+	color: #fff;
+	font-size: 19px;
+	font-weight: 400;
+	text-decoration: none;
+	text-shadow: -1px -1px 0 #3f6b00;
+	padding: 9px 25px;
+	border: 1px solid #489400;
+	background: #6cbb00 url({{ MEDIA_URL }}/images/btn_green_bg.png) repeat-x;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+a.btn.disabled {
+	color: #eaeaea;
+	text-shadow: -1px -1px 0 #a8a8a8;
+	border-color: #c5c5c4;
+	background: #cdcdcc url({{ MEDIA_URL }}/images/btn_gray_bg.png) repeat-x;
+	cursor: default;
+}
+
+a.btn.small {
+	font-size: 13px;
+	padding: 5px 12px;
+}
+
+#footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 80px;
+	background: url({{ MEDIA_URL }}/images/footer_bg.jpg) repeat-x;
+	text-align: center;
+	box-shadow: 0 0 10px #666;
+	z-index: 50;
+}
+#footer .container {
+	width: 960px;
+	margin: 0 auto;
+}
+#footer #logo {
+	width: 225px;
+	height: 55px;
+	margin: 14px 0 0;
+	float: left;
+	background: url(../images/Ajapaik_logo.png) no-repeat;
+}
+#footer #logo a {
+	display: block;
+	height: 100%;
+}
+#footer #facebook-connect {
+	float: right;
+	height: 34px;
+	margin: 24px 0 0;
+	background: url(../images/inset_bg.png) repeat-x;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#footer #facebook-connect a {
+	width: 169px;
+	height: 21px;
+	margin: 6px;
+	background: url(../images/connect-with-facebook.png) no-repeat;	
+}
+
+#footer .score {
+	text-shadow: -1px -1px 0 #532a0d;
+	position: absolute;
+	left: 50%;
+	width: 170px;
+	height: 35px;
+	margin-left: -85px;
+	background: url(../images/score_bg.png) no-repeat top center;
+}
+#footer .score .label {
+	color: #e2c193;
+	font-weight: 700;
+	float: left;
+	width: 87px;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 8px 0 0 7px;
+}
+#footer .score .digits {
+	color: #fff;
+	font-size: 16px;
+	font-weight: 700;
+	text-align: center;
+	float: right;
+	width: 63px;
+	padding: 7px 6px 0;
+}
+
+
+
+
+</style>
+
+
+
+
+
 <div id="content" class="front-page clearfix">
 
 	<div class="photos"><img src="{{ MEDIA_URL }}images/sample_photos.png" /></div>
@@ -83,4 +259,16 @@ tel. 50 34 241
 	</div>
     
 </div>
+
+	<div id="footer">
+		<div class="container">
+			<div id="logo"><a href="/" class="ir">Ajapaik</a></div>
+            
+            {% block footer_score %}{% endblock %}
+
+		</div>
+	</div>
+
+
+
 {% endblock layout %}

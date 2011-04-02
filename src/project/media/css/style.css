@@ -9,6 +9,25 @@ body {
 }
 
 
+/* NOTICES */
+
+#notice {
+	font-size: 15px;
+	background: #fff;
+	border: 2px solid #efefef;
+	padding: 30px;
+}
+#notice h2 {
+	font-size: 19px;
+	margin: 0 0 10px;
+}
+#notice p {
+	margin: 0 0 20px;
+}
+#notice .btn {
+
+}
+
 /* BUTTONS */
 
 a.btn {
@@ -427,6 +446,21 @@ a.btn.green:active {
 	float: right;
 	padding-right: 10px;
 }
+
+#game #top #score-container #facebook-connect {
+	font-size: 12px;
+	margin: 6px 15px;
+	width: 190px;
+}
+#game #top #score-container #facebook-connect p {
+	margin: 0 0 10px;
+}
+#game #top #score-container #facebook-connect a {
+	width: 169px;
+	height: 21px;
+	background: url(../images/connect-with-facebook.png) no-repeat;	
+}
+
 
 
 /* BOTTOM BAR */
