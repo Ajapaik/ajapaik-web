@@ -281,6 +281,7 @@ a.btn.green:active {
 	z-index: 1;
 }
 #game #photos .photo {
+	line-height: 0;
 	display: table-cell;
 	vertical-align: middle;
 	height: 100%;
@@ -292,7 +293,7 @@ a.btn.green:active {
 /* 	height: 50%; */
 	margin: 0 30px;
 	background: white;
-	border: 15px solid #fff;
+	border: 10px solid #fff;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .2);
@@ -305,7 +306,7 @@ a.btn.green:active {
 #game #photos .photo .btn.show-description {
 	position: absolute;
 	display: block;
-	top: -60px;
+	top: -50px;
 	left: 50%;
 	width: 80px;
 	margin-left: -55px;
@@ -313,11 +314,12 @@ a.btn.green:active {
 #game #photos .photo .description {
 	font-size: 12px;
 	font-weight: 700;
+	line-height: 1.2;
 	position: absolute;
 	display: none;
 	bottom: 100%;
 	width: 100%;
-	padding: 10px 20px;
+	padding: 10px 15px;
 	margin-left: -20px;
 	margin-bottom: 30px;
 
@@ -399,10 +401,10 @@ a.btn.green:active {
 
 #game #top #score-container {
 	position: absolute;
-	left: 50%;
+	right: 5%;
 	top: -18px;
 	width: 220px;
-	margin-left: -125px;
+/* 	margin-left: -125px; */
 	padding: 25px 0 7px 0;
 	background: #fff;
 	z-index: 1050;

@@ -144,7 +144,7 @@ $(document).ready(function() {
 			}
 			else
 			if (resp['location_is_unclear']) {
-				message = 'Siin ei ole täpne koht veel kindlaks tehtud.';		
+				message = 'Siin ei ole päris täpne asukoht veel kindlaks tehtud.';
 			}
 			else
 			if (resp['is_correct'] == false) {
@@ -228,9 +228,11 @@ $(document).ready(function() {
     	update_leaderboard();
 		hintUsed = 0;
 
-		if (photos.length == currentPhotoIdx+1) {
+/*
+		if (photos.length == currentPhotoIdx) {
 			loadPhotos();
 		}
+*/
 
 		if (photos.length > currentPhotoIdx) {
 
@@ -268,8 +270,8 @@ $(document).ready(function() {
 
 		}
 		else {
-			console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length);
-			loadPhotos();
+/* 			console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length); */
+			loadPhotos(1);
 		}
 
 	}
@@ -281,13 +283,22 @@ $(document).ready(function() {
 		});
 	}
 
-	function loadPhotos() {
+	function loadPhotos(next) {
 
-		$.getJSON(streamUrl, function(data) {
+date = new Date();
+console.log('time: '+date.getTime());
+		$.getJSON(streamUrl+'?'+date.getTime(), function(data) {
 
 			$.merge(photos, data);
 
-			if (currentPhotoIdx <= 0) {
+console.log('loadPhotos();');
+for(var i in photos)
+{
+	console.log(photos[i].id+' -- '+photos[i].description);
+}
+
+
+			if (next || currentPhotoIdx <= 0) {
 				nextPhoto();
 			}
 
