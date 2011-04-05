@@ -10,7 +10,6 @@ var hintUsed = 0;
 
 var mediaUrl = 'http://www.ajapaik.ee/';
 
-/* var streamUrl = 'http://localhost:8001/ajapaik/stream.php'; */
 var streamUrl = '/stream';
 
 var disableNext = false;
@@ -285,17 +284,19 @@ $(document).ready(function() {
 
 	function loadPhotos(next) {
 
-date = new Date();
-console.log('time: '+date.getTime());
+		date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
+
 		$.getJSON(streamUrl+'?'+date.getTime(), function(data) {
 
 			$.merge(photos, data);
 
+/*
 console.log('loadPhotos();');
 for(var i in photos)
 {
 	console.log(photos[i].id+' -- '+photos[i].description);
 }
+*/
 
 
 			if (next || currentPhotoIdx <= 0) {

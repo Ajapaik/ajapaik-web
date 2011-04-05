@@ -14,17 +14,9 @@
 
 <style>
 
-body {
-	color: #444;
-	font-family: 'Droid Serif', georgia, serif;
-	width: 100%;
-	height: 100%;
-}
-
 a {
 	color: #079ad1;
 }
-
 h1 {
 	font-size: 35px;
 	color: #508d00;
@@ -34,7 +26,6 @@ h2 {
 	color: #92511a;
 	margin: 0 0 15px;
 }
-
 p {
 	font-size: 15px;
 	line-height: 1.5;
@@ -46,15 +37,9 @@ p {
 	margin: 0 auto;
 	padding-bottom: 80px;
 }
-#content.map {
-	padding-bottom: 0;
-}
-
 #content.front-page {
  	padding-top: 10px;
 }
-
-
 #content.front-page .photos {
 	float: left;
 	width: 400px;
@@ -68,46 +53,7 @@ p {
 	margin: 30px 0 40px 0;
 }
 #content.front-page .introduction .btn {
-	font-size: 16px;
-	font-weight: 700;
 	margin: 0 10px 0 0;
-}
-
-#content.front-page .introduction .btn:hover {
-	color: #fff;
-	text-decoration: none;
-	text-shadow: -1px -1px 0 #3f6b00;
-	padding: 9px 25px;
-	border: 1px solid #489400;
-	background: #6cbb00 url({{ MEDIA_URL }}/images/btn_green_bg.png) repeat-x;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-box-shadow: 0 0 7px #57c200;
-}
-
-a.btn {
-	color: #fff;
-	font-size: 19px;
-	font-weight: 400;
-	text-decoration: none;
-	text-shadow: -1px -1px 0 #3f6b00;
-	padding: 9px 25px;
-	border: 1px solid #489400;
-	background: #6cbb00 url({{ MEDIA_URL }}/images/btn_green_bg.png) repeat-x;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-a.btn.disabled {
-	color: #eaeaea;
-	text-shadow: -1px -1px 0 #a8a8a8;
-	border-color: #c5c5c4;
-	background: #cdcdcc url({{ MEDIA_URL }}/images/btn_gray_bg.png) repeat-x;
-	cursor: default;
-}
-
-a.btn.small {
-	font-size: 13px;
-	padding: 5px 12px;
 }
 
 #footer {
@@ -129,62 +75,14 @@ a.btn.small {
 	height: 55px;
 	margin: 14px 0 0;
 	float: left;
-	background: url(../images/Ajapaik_logo.png) no-repeat;
+	background: url(/media/images/Ajapaik_logo.png) no-repeat;
 }
 #footer #logo a {
 	display: block;
 	height: 100%;
 }
-#footer #facebook-connect {
-	float: right;
-	height: 34px;
-	margin: 24px 0 0;
-	background: url(../images/inset_bg.png) repeat-x;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-#footer #facebook-connect a {
-	width: 169px;
-	height: 21px;
-	margin: 6px;
-	background: url(../images/connect-with-facebook.png) no-repeat;	
-}
-
-#footer .score {
-	text-shadow: -1px -1px 0 #532a0d;
-	position: absolute;
-	left: 50%;
-	width: 170px;
-	height: 35px;
-	margin-left: -85px;
-	background: url(../images/score_bg.png) no-repeat top center;
-}
-#footer .score .label {
-	color: #e2c193;
-	font-weight: 700;
-	float: left;
-	width: 87px;
-	text-align: center;
-	text-transform: uppercase;
-	padding: 8px 0 0 7px;
-}
-#footer .score .digits {
-	color: #fff;
-	font-size: 16px;
-	font-weight: 700;
-	text-align: center;
-	float: right;
-	width: 63px;
-	padding: 7px 6px 0;
-}
-
-
-
 
 </style>
-
-
-
 
 
 <div id="content" class="front-page clearfix">
@@ -196,58 +94,36 @@ a.btn.small {
 		<h1>Kus ajalugu asub?</h1>
 		<h2>Uuri, avasta, märgi kaardil ja pildista üle.</h2>
 
-<!-- 		<p><strong>Tee proovi!</strong> Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et oleks põnevam, siis võistled kõigi teiste osalejatega: mida rohkem pilte kaardistad, refotosid lisad ja täpsem oled, seda enam punkte kogud.</p> -->
-
 		<p>Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et oleks põnevam, siis võistled kõigi teiste osalejatega. <a href="#about" class="about">Loe lähemalt</a>.</p>
 
 		<div style="display: none"><div id="about" style="width: 700px; height: 400px; overflow: auto; padding: 30px 40px;">
-
-<h2>Mis on Ajapaik.ee?</h2>
-
-<p>Muuseumide, raamatukogude ja arhiivide kogudes digiteeritakse pidevalt vanu fotosid ja fototrükiseid, nt vaatepostkaarte. Mäluasutuste eri liiki säilikute hulgast leiavad just fotokogudes hoiul olevad ajaloolised ülesvõtted kõige enam mitmesugust kasutamist, sest fotot saab uutes kontekstides edukalt pruukida nii faktilis-dokumentaalse illustratsioonina kui ka emotsionaalse ja esteetilise elamuse allikana.</p>
-
-<p>Olgugi et enamasti võib museaalse foto kirjelduses olla viiteid ka foto tegemise ehk kujutatu asukohale, on sageli see info hoopis teadmata. Igal juhul ei ole lihtsat ja ülevaatlikku võimalust kuvada ajaloolisi pilte maakaardil, et kiirelt leida ja uurida mõnest konkreetsest huvipakkuvast piirkonnast pärinevaid ajaloolisi jäädvustusi. Ometi tundub selline kaardilt otsimise võimalus digitaalse fotograafia ja positsioneerimistehnoloogiate ning kasvava asukohateadlikkuse ajajärgul üha iseenesestmõistetavam ja möödapääsmatum.</p>
-
-<p>Just siin tahabki appi tulla <strong>Ajapaik.ee</strong> ning pakkuda platvormi, kus kõik huvilised saavad aidata ajaloolisi fotosid kaardile asetada. Seda kasulikku tööd saab aga teha <strong>“Ajapaikaja”</strong> mängu vormis, kus iga õigesti kaardile asetatud foto annab punkte. Esmalt kontrollitakse mängija teadmisi, lastes tal kaardile asetada pilte, mille asukoht on juba kindlaks tehtud. Kui ta nendega ei eksi, hakatakse talle ette andma pilte, mille asukoht pole teada. Kui selliseid teadmata asukohaga pilte on enam-vähem samasse kohta pakkunud mitu mängijat, tekib foto Ajapaiga kaardivaatesse.</p>
-
-<p>Edaspidi on plaanis pakkuda võimalust laadida vanade fotode kõrvale ka samade kohtade kaasaegsed ülepildistused ehk refotod, et aja jooksul meie keskkonnas toimunud muutusi veelgi ilmekamalt esile tuua.</p>
-
-<p>Ajapaik.ee esimene versioon loodi <a href="http://garage48.org/public-services" target="_blank">Garage48 Public Services</a> üritusel 25.–27. veebruaril 2011. Meeskonda kuulusid Ahti Heinla, Jaen Saul, Kristjan Heinaste, Leen Videnski, Kaupo Kõrv, Jelena Savinen, Sven Tiirusson ja idee autor Vahur Puik. Ajapaika jääb haldama MTÜ Eesti Fotopärand.</p>
-
-<p>
-<strong>Soovite pakkuda digiteeritud ajaloolisi fotosid Ajapaik.ee-sse?</strong>
-</p>
-
-<p>
-Võtke ühendust:<br />
-<strong>Vahur Puik</strong><br />
-<a href="mailto:vahur@ajapaik.ee">vahur@ajapaik.ee</a><br />
-tel. 50 34 241
-</p>
-
-<p style="font-size: 12px;">Tulumaksusoodustusega mittetulundusühingute nimekirja kuuluv MTÜ Eesti Fotopärand ootab annetusi (a/a 221048847282 Swedbank) Ajapaik.ee ja muude fotopärandi väärtustamisega seotud tegevuste jätkamiseks ja käivitamiseks. Tulumaksuvabastuse saamiseks palume ülekande selgitusse märkida annetaja nimi ja isikukood.</p>
-
+			<h2>Mis on Ajapaik.ee?</h2>
+			<p>Muuseumide, raamatukogude ja arhiivide kogudes digiteeritakse pidevalt vanu fotosid ja fototrükiseid, nt vaatepostkaarte. Mäluasutuste eri liiki säilikute hulgast leiavad just fotokogudes hoiul olevad ajaloolised ülesvõtted kõige enam mitmesugust kasutamist, sest fotot saab uutes kontekstides edukalt pruukida nii faktilis-dokumentaalse illustratsioonina kui ka emotsionaalse ja esteetilise elamuse allikana.</p>
+			<p>Olgugi et enamasti võib museaalse foto kirjelduses olla viiteid ka foto tegemise ehk kujutatu asukohale, on sageli see info hoopis teadmata. Igal juhul ei ole lihtsat ja ülevaatlikku võimalust kuvada ajaloolisi pilte maakaardil, et kiirelt leida ja uurida mõnest konkreetsest huvipakkuvast piirkonnast pärinevaid ajaloolisi jäädvustusi. Ometi tundub selline kaardilt otsimise võimalus digitaalse fotograafia ja positsioneerimistehnoloogiate ning kasvava asukohateadlikkuse ajajärgul üha iseenesestmõistetavam ja möödapääsmatum.</p>
+			<p>Just siin tahabki appi tulla <strong>Ajapaik.ee</strong> ning pakkuda platvormi, kus kõik huvilised saavad aidata ajaloolisi fotosid kaardile asetada. Seda kasulikku tööd saab aga teha <strong>“Ajapaikaja”</strong> mängu vormis, kus iga õigesti kaardile asetatud foto annab punkte. Esmalt kontrollitakse mängija teadmisi, lastes tal kaardile asetada pilte, mille asukoht on juba kindlaks tehtud. Kui ta nendega ei eksi, hakatakse talle ette andma pilte, mille asukoht pole teada. Kui selliseid teadmata asukohaga pilte on enam-vähem samasse kohta pakkunud mitu mängijat, tekib foto Ajapaiga kaardivaatesse.</p>
+			<p>Edaspidi on plaanis pakkuda võimalust laadida vanade fotode kõrvale ka samade kohtade kaasaegsed ülepildistused ehk refotod, et aja jooksul meie keskkonnas toimunud muutusi veelgi ilmekamalt esile tuua.</p>
+			<p>Ajapaik.ee esimene versioon loodi <a href="http://garage48.org/public-services" target="_blank">Garage48 Public Services</a> üritusel 25.–27. veebruaril 2011. Meeskonda kuulusid Ahti Heinla, Jaen Saul, Kristjan Heinaste, Leen Videnski, Kaupo Kõrv, Jelena Savinen, Sven Tiirusson ja idee autor Vahur Puik. Ajapaika jääb haldama MTÜ Eesti Fotopärand.</p>
+			<p><strong>Soovite pakkuda digiteeritud ajaloolisi fotosid Ajapaik.ee-sse?</strong></p>
+			<p>
+			Võtke ühendust:<br />
+			<strong>Vahur Puik</strong><br />
+			<a href="mailto:vahur@ajapaik.ee">vahur@ajapaik.ee</a><br />
+			tel. 50 34 241
+			</p>
+			<p style="font-size: 12px;">Tulumaksusoodustusega mittetulundusühingute nimekirja kuuluv MTÜ Eesti Fotopärand ootab annetusi (a/a 221048847282 Swedbank) Ajapaik.ee ja muude fotopärandi väärtustamisega seotud tegevuste jätkamiseks ja käivitamiseks. Tulumaksuvabastuse saamiseks palume ülekande selgitusse märkida annetaja nimi ja isikukood.</p>
 		</div></div>
 
 		<p><a href="#collection" class="collection">Tallinna pildid</a>, millega alustame, on pärit Eesti Ajaloomuuseumi fotokogust.<p>
 
 		<div style="display: none"><div id="collection" style="width: 700px; height: 400px; overflow: auto; padding: 30px 40px;">
-
-<!-- <h2>Fotod</h2> -->
-
-<p>Esimesed ligi 600 ülesvõtet, millega Ajapaik.ee alustab, on pärit <a href="http://ajaloomuuseum.ee/index.php?id=59" target="_blank">Eesti Ajaloomuuseumi fotokogust</a>, nn Parikaste negatiivikollektsiooni Tallinna vaadete seast, kogunumbrite N5631:1–1999 alt. See kogu koosneb eri formaatides (9x12cm kuni 24x30 cm) klaasnegatiividest ja nitraatfilmi-negatiividest, millel pildistusi 1890.–1940. aastatest. Jäädvustuste hulgas leidub väga palju selliseid, millest kunagised kuulsad vendade Kristinite ja hiljem ka vendade Parikaste fotoateljeed rohkelt piltpostkaarte välja andsid. Ülesvõtete autorid on ilmselt vastavalt Jaan Kristin (1863–1919) ja Johannes Georg Parikas (1880–1958). Neist esimene kogus 20. saj alguses tuntust rohkete Eesti maastiku- ja linnavaadetega ning teine keskendus oma loomingus täie tõsidusega arhitektuurile.</p>
-
-<p>Kahjuks on kollektsioonis palju ka selliseid negatiive, mille täpne autorlus on piisava võrdlusmaterjali puudumise tõttu seni veel välja selgitamata. Teadmata on nii mõndagi muud. Kollektsioon on muuseumis arvele võetud 1951. aastal, aga ei ole teada, kust täpselt ja mil viisil see muuseumisse sattus – vastavaid dokumente ei vormistatud. Legendi kohaselt, mida toetab ka kollektsiooni sisu, on tegemist osaga kunagisest vendade Parikaste fotoarhiivist. See 1930. aastate lõpuks kultuurilooliselt väga oluliseks ja mahukaks kollektsiooniks kasvanud arhiiv hõlmas nii kõiki neid negatiive, mis Parikased olid ise aastatel 1909–1945 pildistanud, kui ka seda, mis nad olid oma arhiivi tarbeks teiste varasemate piltnike pärandist kogunud, sealhulgas ka fotograaf Jaan Kristini negatiivid. Pärast Parikaste fotoateljee riigistamist 1949. aastal pudenes arhiiv eri muuseumide ja arhiivide vahel laiali. Arvata on, et palju ka hävitati – tol ajal poliitiliselt ebasobiva sisu tõttu. See, mis järel, on tänaseks seda väärtuslikum.</p>
- 
-<p>Digitaalsed koopiad fotonegatiividest on valmistatud <a href="http://www.kanut.ee" target="_blank">Ennistuskojas Kanut</a> 2009.–2010. aastal.</p>
-
+			<p>Esimesed ligi 600 ülesvõtet, millega Ajapaik.ee alustab, on pärit <a href="http://ajaloomuuseum.ee/index.php?id=59" target="_blank">Eesti Ajaloomuuseumi fotokogust</a>, nn Parikaste negatiivikollektsiooni Tallinna vaadete seast, kogunumbrite N5631:1–1999 alt. See kogu koosneb eri formaatides (9x12cm kuni 24x30 cm) klaasnegatiividest ja nitraatfilmi-negatiividest, millel pildistusi 1890.–1940. aastatest. Jäädvustuste hulgas leidub väga palju selliseid, millest kunagised kuulsad vendade Kristinite ja hiljem ka vendade Parikaste fotoateljeed rohkelt piltpostkaarte välja andsid. Ülesvõtete autorid on ilmselt vastavalt Jaan Kristin (1863–1919) ja Johannes Georg Parikas (1880–1958). Neist esimene kogus 20. saj alguses tuntust rohkete Eesti maastiku- ja linnavaadetega ning teine keskendus oma loomingus täie tõsidusega arhitektuurile.</p>
+			<p>Kahjuks on kollektsioonis palju ka selliseid negatiive, mille täpne autorlus on piisava võrdlusmaterjali puudumise tõttu seni veel välja selgitamata. Teadmata on nii mõndagi muud. Kollektsioon on muuseumis arvele võetud 1951. aastal, aga ei ole teada, kust täpselt ja mil viisil see muuseumisse sattus – vastavaid dokumente ei vormistatud. Legendi kohaselt, mida toetab ka kollektsiooni sisu, on tegemist osaga kunagisest vendade Parikaste fotoarhiivist. See 1930. aastate lõpuks kultuurilooliselt väga oluliseks ja mahukaks kollektsiooniks kasvanud arhiiv hõlmas nii kõiki neid negatiive, mis Parikased olid ise aastatel 1909–1945 pildistanud, kui ka seda, mis nad olid oma arhiivi tarbeks teiste varasemate piltnike pärandist kogunud, sealhulgas ka fotograaf Jaan Kristini negatiivid. Pärast Parikaste fotoateljee riigistamist 1949. aastal pudenes arhiiv eri muuseumide ja arhiivide vahel laiali. Arvata on, et palju ka hävitati – tol ajal poliitiliselt ebasobiva sisu tõttu. See, mis järel, on tänaseks seda väärtuslikum.</p>
+			<p>Digitaalsed koopiad fotonegatiividest on valmistatud <a href="http://www.kanut.ee" target="_blank">Ennistuskojas Kanut</a> 2009.–2010. aastal.</p>
 		</div></div>
 
-<!-- 		<p>Ajapaik.ee esimene versioon loodi <a href="http://www.garage48.org/events/public-services-2011" target="_blank">Garage48 Public Services</a> üritusel.</p> -->
-
 		<div class="buttons">
-			<a href="{% url views.thegame %}" class="btn">Mängi "Ajapaikajat"</a>
-			<a href="{% url views.mapview %}" class="btn">Vaata fotosid kaardil</a>
+			<a href="{% url views.thegame %}" class="btn green">Mängi "Ajapaikajat"</a>
+			<a href="{% url views.mapview %}" class="btn green">Vaata fotosid kaardil</a>
 		</div>
 
 		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fajapaik&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
@@ -260,15 +136,10 @@ tel. 50 34 241
     
 </div>
 
-	<div id="footer">
-		<div class="container">
-			<div id="logo"><a href="/" class="ir">Ajapaik</a></div>
-            
-            {% block footer_score %}{% endblock %}
-
-		</div>
+<div id="footer">
+	<div class="container">
+		<div id="logo"><a href="/" class="ir">Ajapaik</a></div>
 	</div>
-
-
+</div>
 
 {% endblock layout %}

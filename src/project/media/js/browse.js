@@ -57,6 +57,7 @@ $(document).ready(function() {
 		$('#notice').modal();
 	});
 
+
 /*
 	$('#photo-drawer').delegate('#upload', 'click', function(e) {
 		$('#upload_field').trigger('click');

@@ -1,24 +1,25 @@
 {% load thumbnail %}
 
 <div class="photos clearfix">
+
+	<a href="#" id="close-photo-drawer" class="btn small">Sulge foto</a>
+
 	<div class="original">
 
-        {% thumbnail photo.image "700x400" as im %}
+		{% thumbnail photo.image "700x400" as im %}
 		<img src="{{ im.url }}" />
-        {% endthumbnail %}
+		{% endthumbnail %}
 
 		<div class="tools">
 			<div class="description">
-				{{ photo.description }}
-				<p class="owner" style="margin: 0 0 5px;">Pilt on pärit Eesti Ajaloomuuseumi fotokogust.</p>
-				<a href="#" id="close-photo-drawer" class="btn small">Sulge foto</a>
+				<p>{{ photo.description }}</p>
+				<p class="owner">Pilt on pärit Eesti Ajaloomuuseumi fotokogust.</p>
 			</div>
 		</div>
 
 	</div>
 
-
-        {% thumbnail photo.rephotos.all.0.image "700x400" as rephoto %}
+	{% thumbnail photo.rephotos.all.0.image "700x400" as rephoto %}
 
 	<div class="rephoto">
 
@@ -32,35 +33,38 @@
 
 				<li><a href="#" class="add-rephoto btn small">Lisa ülepildistus</a></li>
 
-            {% for rephoto in photo.rephotos.all %}
-
+				{% for rephoto in photo.rephotos.all %}
 				<li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}"><img src="{% thumbnail rephoto.image "40x40" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
-
-            {% endfor %}
+				{% endfor %}
 
 			</ul>
 		</div>
 
 	</div>
 
-		{% empty %}
+	{% empty %}
 
 	<div class="no-rephoto">
 
 		<p>Tee samast kohast võimalikult täpne tänapäevane ülepildistus ehk refoto ja lae siit ajaloolise pildi kõrvale.</p>
 
-		<a href="#" class="add-rephoto btn small">Lisa ülepildistus</a>
+		<p class="add-rephoto-container">
+			<a href="#" class="add-rephoto btn small">Lisa ülepildistus</a>
+		</p>
+
+<script>
+
+	$('#photo-drawer .original img').load(function() {
+		$('.no-rephoto').css('width', $(this).css('width') );
+	});
+
+</script>
 
 	</div>
 
-        {% endthumbnail %}
-
-
-
+	{% endthumbnail %}
 
 </div>
-
-
 
 
 
