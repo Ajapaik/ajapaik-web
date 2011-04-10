@@ -50,7 +50,7 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 	unknown_photos_to_get=0
 	if trustworthiness > 0.2:
 		unknown_photos_to_get= \
-				int(nr_of_photos * (0.3+5*trustworthiness))
+				int(nr_of_photos * (0.3+1.5*trustworthiness))
 	unknown_photos_to_get=max(unknown_photos_to_get,
 								nr_of_photos-len(known_photos))
 
