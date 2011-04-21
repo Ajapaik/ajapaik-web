@@ -27,7 +27,7 @@ def photo_upload(request, photo_id):
                 re_photo = Photo(
                     rephoto_of=photo,
                     city=photo.city,
-                    user=request.user.get_profile()
+                    user=request.get_user().get_profile()
                 )
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
