@@ -287,9 +287,13 @@ $(document).ready(function() {
 		date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
 
 		$.getJSON(streamUrl, {
-		  'bust': date.getTime(),
+		  'b': date.getTime(),
 		  'city': city_id
         }, function(data) {
+            if (data.length == 0) {
+                return;
+            }
+            
 			$.merge(photos, data);
 
 /*

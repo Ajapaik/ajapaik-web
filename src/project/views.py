@@ -74,6 +74,7 @@ def mapview(request):
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': city,
+        'city_select_form': city_select_form,
         
     }))    
 

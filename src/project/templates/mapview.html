@@ -43,7 +43,15 @@
 
 		<ul id="nav">
 		</ul>
-
+        
+        <div>
+            {{ city_select_form.as_p }}
+            <script type="text/javascript">
+                $('#id_city').change(function(){
+                    location.href = '{{ request.path }}?city=' + $(this).val();
+                });
+            </script>
+        </div>
 	</div>
 
 	<div id="photo-drawer">
