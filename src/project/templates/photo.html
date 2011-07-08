@@ -34,7 +34,7 @@
 				<li><a href="#" class="add-rephoto btn small">Lisa ülepildistus</a></li>
 
 				{% for rephoto in photo.rephotos.all %}
-				<li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}"><img src="{% thumbnail rephoto.image "40x40" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+				<li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}"><img src="{% thumbnail rephoto.image "40x40" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
 				{% endfor %}
 
 			</ul>
