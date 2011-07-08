@@ -10,7 +10,7 @@
 
     	var geotagged_photos={{ json_data }};
         
-        var markers = [];
+/*         var markers = []; */
     	for (var i in geotagged_photos) {
     		var p=geotagged_photos[i];
     		var marker = new google.maps.Marker({map: map,
@@ -24,9 +24,9 @@
             });
             })(p[0]);
             
-            markers.push(marker);
+/*             markers.push(marker); */
         }
-        var markerCluster = new MarkerClusterer(map, markers);
+/*         var markerCluster = new MarkerClusterer(map, markers); */
     };
     $(document).ready(initialize);
 </script>
