@@ -21,6 +21,9 @@ class City(models.Model):
     name = models.TextField()
     lat = models.FloatField()
     lon = models.FloatField()
+    
+    def __unicode__(self):
+        return u'%s' % self.name
 
 class Photo(models.Model):
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)

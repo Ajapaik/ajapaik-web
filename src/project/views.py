@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.files import File
 from django.core.files.base import ContentFile
 
-from project.models import Photo
+from project.models import Photo, City
 from project.forms import GeoTagAddForm, CitySelectForm
 
 import get_next_photos_to_geotag
@@ -63,9 +63,18 @@ def frontpage(request):
     }))
     
 def mapview(request):
-    data = get_next_photos_to_geotag.get_geotagged_photos()
+    city_select_form = CitySelectForm(request.GET)
+    city_id = city = None
+    
+    if city_select_form.is_valid():
+        city_id = city_select_form.cleaned_data['city']
+        city = City.objects.get(pk=city_id)
+    
+    data = get_next_photos_to_geotag.get_geotagged_photos(city_id)
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
+        'city': city,
+        
     }))    
 
 def get_leaderboard(request):

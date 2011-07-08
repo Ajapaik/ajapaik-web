@@ -1,8 +1,12 @@
 var map;
 
-function get_map() {
+function get_map(startpoint) {
     // Starting point
-	var latlng = new google.maps.LatLng(59.437,24.76);
+    if (startpoint == undefined) {
+    	var latlng = new google.maps.LatLng(59.437,24.76);
+    } else {
+        var latlng = new google.maps.LatLng(startpoint[1], startpoint[0]);
+    }
     
     // New base layer
     var osmMapType = new google.maps.ImageMapType({
