@@ -36,7 +36,8 @@ class Command(BaseCommand):
 			shutil.copyfile(input_fname,'/var/garage/' + fname)
 
 			description='; '.join(filter(None,[metadata[key].strip() \
-										for key in ('Kirjeldus','')]))
+										for key in ('Kirjeldus','') \
+										if key in metadata]))
 
 			p=Photo(date_text=metadata['Pildistamise aeg'],
 					description=description,
