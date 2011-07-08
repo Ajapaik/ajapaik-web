@@ -86,8 +86,8 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 					extra(**extra_args). \
 					order_by('?')[:unknown_photos_to_get])
 
-	photos=random.sample(list(unknown_photos.union(known_photos)),
-						nr_of_photos)
+	photos=list(unknown_photos.union(known_photos))
+	photos=random.sample(photos,min(len(photos),nr_of_photos))
 
 	data=[]
 	for p in photos:
