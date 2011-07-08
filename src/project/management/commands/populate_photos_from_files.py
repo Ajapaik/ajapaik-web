@@ -39,7 +39,14 @@ class Command(BaseCommand):
 										for key in ('Kirjeldus','') \
 										if key in metadata]))
 
+			city_name=metadata['S\xc3\xbc\xc5\xbeee nimetus']
+			city=City.objects.get(name=city_name)
+			if not city:
+				print >>self.stderr,'Error: city ' + city_name + ' not found for ' + input_fname
+				continue
+
 			p=Photo(date_text=metadata['Pildistamise aeg'],
+					city=city,
 					description=description,
 					source_key=source_id)
 			p.image.name=fname
