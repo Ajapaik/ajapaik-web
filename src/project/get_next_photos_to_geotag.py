@@ -36,7 +36,7 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 
 	extra_args={'select': {'final_level':
 			"(case when level > 0 then level else " + \
-							"coalesce(guess_level,1) end)"},
+							"coalesce(guess_level,4) end)"},
 				'where': ['rephoto_of_id IS NULL']}
 
 	forbidden_photo_ids=frozenset([g.photo_id \
