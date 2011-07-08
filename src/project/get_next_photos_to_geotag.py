@@ -24,11 +24,15 @@ def calc_trustworthiness(user_id):
 	return (1-0.9**correct_tries) * \
 						correct_tries / float(total_tries)
 
-def get_next_photos_to_geotag(user_id,nr_of_photos=5):
+def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 
 	#!!! use trustworthiness to select desired level
 
 	trustworthiness=calc_trustworthiness(user_id)
+
+	photos_set=Photo.objects.all()
+	if city_id is not None:
+		photos_set=photos_set.filter(city__pk=city_id)
 
 	extra_args={'select': {'final_level':
 			"(case when level > 0 then level else " + \
@@ -41,7 +45,7 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 				datetime.datetime.now()-datetime.timedelta(1))] + \
 			list(GeoTag.objects.filter(user=user_id). \
 							values_list('photo_id',flat=True)))
-	known_photos=list(Photo.objects.exclude(
+	known_photos=list(photos_set.exclude(
 								pk__in=forbidden_photo_ids). \
 					filter(confidence__gte=0.3). \
 					extra(**extra_args). \
@@ -63,14 +67,14 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 					filter(nr_of_geotags__lte=10). \
 					values_list('photo_id',flat=True)) - forbidden_photo_ids
 		if photo_ids_with_few_guesses:
-			unknown_photos.update(Photo.objects. \
+			unknown_photos.update(photos_set. \
 						filter(confidence__lt=0.3,
 									pk__in=photo_ids_with_few_guesses). \
 						extra(**extra_args). \
 						order_by('final_level')[:unknown_photos_to_get])
 
 		if len(unknown_photos) < unknown_photos_to_get:
-			unknown_photos.update(Photo.objects.exclude(
+			unknown_photos.update(photos_set.exclude(
 									pk__in=forbidden_photo_ids). \
 						filter(confidence__lt=0.3). \
 						extra(**extra_args). \
@@ -78,7 +82,7 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5):
 										len(unknown_photos))])
 
 	if len(unknown_photos.union(known_photos)) < nr_of_photos:
-		unknown_photos.update(Photo.objects. \
+		unknown_photos.update(photos_set. \
 					extra(**extra_args). \
 					order_by('?')[:unknown_photos_to_get])
 
@@ -148,12 +152,16 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	return is_correct,this_guess_score,user.score,leaderboard, \
 											location_is_unclear
 
-def get_geotagged_photos():
-	rephotographed_ids=frozenset(Photo.objects.filter(
+def get_geotagged_photos(city_id=None):
+	photos_set=Photo.objects.all()
+	if city_id is not None:
+		photos_set=photos_set.filter(city__pk=city_id)
+
+	rephotographed_ids=frozenset(photos_set.filter(
 			rephoto_of__isnull=False).values_list(
 									'rephoto_of',flat=True))
 	data=[]
-	for p in Photo.objects.filter(confidence__gte=0.3,
+	for p in photos_set.filter(confidence__gte=0.3,
 						lat__isnull=False,lon__isnull=False,
 						rephoto_of__isnull=True):
 		data.append((p.id,p.lon,p.lat,p.id in rephotographed_ids))
