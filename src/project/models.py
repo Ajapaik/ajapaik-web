@@ -53,7 +53,11 @@ class Photo(models.Model):
 
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
-
+    
+    @models.permalink
+    def get_detail_url(self):
+        return ('views.photo', [self.id, ])
+    
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
         lat_coeff = math.cos(math.radians((lat1 + lat2)/2.0))

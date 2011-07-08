@@ -2,6 +2,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib import messages
+from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.shortcuts import redirect, get_object_or_404
@@ -50,9 +51,12 @@ def thegame(request):
 
 def photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
-    return render_to_response('photo.html', RequestContext(request, {
+    site = Site.objects.get_current()
+    
+    template = ['', 'photo.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+    return render_to_response(template, RequestContext(request, {
         'photo': photo,
-        
+        'hostname': 'http://%s' % (site.domain, )
     }))
 
 def frontpage(request):

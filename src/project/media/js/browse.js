@@ -10,6 +10,7 @@ function loadPhoto(id) {
         url: '/foto/'+id+'/',
         success: function(result) {
         	openPhotoDrawer(result);
+        	FB.XFBML.parse();
         }
     });
 }
