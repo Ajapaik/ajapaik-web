@@ -25,9 +25,11 @@ $(document).ready(function() {
     update_leaderboard();
     
 	loadPhotos();
-
+    
+    var location = new google.maps.LatLng(start_location[1], start_location[0]);
+    
     // Will load the base map layer and return it
-    map = get_map();
+    map = get_map(start_location);
     
     // Create marker
     function toggleBounce() {
@@ -38,12 +40,11 @@ $(document).ready(function() {
         }
     }
     
-    var tallinn = new google.maps.LatLng(59.435474, 24.750309);
     var marker = new google.maps.Marker({
         map: map,
         draggable: true,
         animation: google.maps.Animation.DROP,
-        position: tallinn,
+        position: location,
         icon: 'http://www.ajapaik.ee/media/images/icon_marker.png'
     });
 

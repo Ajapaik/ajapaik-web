@@ -5,7 +5,9 @@
 <script type="text/javascript">
 	var saveLocationURL = '{% url views.geotag_add %}';
 	var leaderboardUpdateURL = '{% url views.leaderboard %}';
-	var city_id = '{{ city }}';
+	var city_id = '{{ city.id }}';
+	var start_location = [{{ city.lon }}, {{ city.lat }}];
+	
 </script>
 
 <div id="game">

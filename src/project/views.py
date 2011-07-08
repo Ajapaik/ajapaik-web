@@ -45,7 +45,7 @@ def thegame(request):
     ctx = {}
     city_select_form = CitySelectForm(request.GET)
     if city_select_form.is_valid():
-        ctx['city'] = city_select_form.cleaned_data['city']
+        ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
     
     return render_to_response('index.html', RequestContext(request, ctx))
 
