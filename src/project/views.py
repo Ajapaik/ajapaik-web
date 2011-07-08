@@ -69,6 +69,8 @@ def mapview(request):
     if city_select_form.is_valid():
         city_id = city_select_form.cleaned_data['city']
         city = City.objects.get(pk=city_id)
+    else:
+        city_select_form = CitySelectForm()
     
     data = get_next_photos_to_geotag.get_geotagged_photos(city_id)
     return render_to_response('mapview.html', RequestContext(request, {
