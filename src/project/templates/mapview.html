@@ -6,26 +6,30 @@
         var map;
         function initialize() {
             // Will load the base map layer and return it
+            {% if city %}
+            map = get_map([{{ city.lon }}, {{ city.lat }}]);
+            {% else %}
             map = get_map();
+            {% endif %}
 
-    	var geotagged_photos={{ json_data }};
+        	var geotagged_photos={{ json_data }};
         
 /*         var markers = []; */
-    	for (var i in geotagged_photos) {
-    		var p=geotagged_photos[i];
-    		var marker = new google.maps.Marker({map: map,
-    				position: new google.maps.LatLng(p[2],p[1]), 
-    				zIndex: p[3] ? 1 : 0,
-    				icon:'/media/images/' + (p[3] ? 'icon_camera_hot.png' : 'icon_camera.png')});
-            
-            (function(id) {
-            google.maps.event.addListener(marker, 'click', function() {
-				loadPhoto(id);
-            });
-            })(p[0]);
+        	for (var i in geotagged_photos) {
+        		var p=geotagged_photos[i];
+        		var marker = new google.maps.Marker({map: map,
+        				position: new google.maps.LatLng(p[2],p[1]), 
+        				zIndex: p[3] ? 1 : 0,
+        				icon:'/media/images/' + (p[3] ? 'icon_camera_hot.png' : 'icon_camera.png')});
+                
+                (function(id) {
+                google.maps.event.addListener(marker, 'click', function() {
+    				loadPhoto(id);
+                });
+                })(p[0]);
             
 /*             markers.push(marker); */
-        }
+            }
 /*         var markerCluster = new MarkerClusterer(map, markers); */
     };
     $(document).ready(initialize);

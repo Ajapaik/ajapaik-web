@@ -21,6 +21,9 @@ class City(models.Model):
     name = models.TextField()
     lat = models.FloatField()
     lon = models.FloatField()
+    
+    def __unicode__(self):
+        return u'%s' % self.name
 
 class Photo(models.Model):
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
@@ -42,7 +45,7 @@ class Photo(models.Model):
     source_key = models.CharField(max_length=100, null=True, blank=True)
     source = models.ForeignKey('Source', null=True, blank=True)
     
-    city = models.ForeignKey('City')
+    city = models.ForeignKey('City', related_name='cities')
     rephoto_of = models.ForeignKey('self', blank=True, null=True, related_name='rephotos')
     
     created = models.DateTimeField(auto_now_add=True)
