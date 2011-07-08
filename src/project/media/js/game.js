@@ -8,7 +8,7 @@ var currentPhoto;
 
 var hintUsed = 0;
 
-var mediaUrl = 'http://www.ajapaik.ee/';
+var mediaUrl = '';
 
 var streamUrl = '/stream/';
 
@@ -232,7 +232,6 @@ $(document).ready(function() {
 			loadPhotos();
 		}
 */
-
 		if (photos.length > currentPhotoIdx) {
 
 			if (disableNext == false) {
@@ -290,10 +289,6 @@ $(document).ready(function() {
 		  'b': date.getTime(),
 		  'city': city_id
         }, function(data) {
-            if (data.length == 0) {
-                return;
-            }
-            
 			$.merge(photos, data);
 
 /*

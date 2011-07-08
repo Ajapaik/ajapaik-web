@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block layout %}
+<div id="browse">
+	<div class="top">
+
+		<h1 class="ir"><a href="/">Ajapaik</a></h1>
+
+		<ul id="nav">
+		</ul>
+
+	</div>
+
+	<div class="photos clearfix">
+
+		{% thumbnail photo.image "700x400" as im %}
+		<img src="{{ im.url }}" />
+		{% endthumbnail %}
+
+		<div class="tools">
+			<div class="description">
+				<p>{{ photo.description }}</p>
+				<p class="owner">{{ photo.source.name }}</p>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+{% endblock %}
