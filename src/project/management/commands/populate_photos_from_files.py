@@ -1,5 +1,6 @@
 import re,csv,hashlib,os.path,shutil
 from django.core.management.base import BaseCommand,CommandError
+from django.core.exceptions import ObjectDoesNotExist
 from project.models import *
 
 class Command(BaseCommand):
@@ -40,8 +41,9 @@ class Command(BaseCommand):
 										if key in metadata]))
 
 			city_name=metadata['S\xc3\xbc\xc5\xbeee nimetus']
-			city=City.objects.get(name=city_name)
-			if not city:
+			try:
+				city=City.objects.get(name=city_name)
+			except ObjectDoesNotExist:
 				print >>self.stderr,'Error: city ' + city_name + ' not found for ' + input_fname
 				continue
 
