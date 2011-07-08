@@ -18,7 +18,7 @@ class Command(BaseCommand):
 				header_row=row
 				continue
 			row=dict(zip(header_row,row))
-			photos_metadata[row['Alanr']]=row
+			photos_metadata[(row.get('Inv nr') or row['Alanr']).lower()]=row
 
 		for input_fname in args:
 			source_id=os.path.basename(input_fname)
@@ -26,7 +26,7 @@ class Command(BaseCommand):
 				source_id=source_id[len(filename_prefix_to_skip):]
 			source_id,_,fname_extension=source_id.rpartition('.')
 
-			metadata=photos_metadata.get(source_id)
+			metadata=photos_metadata.get(source_id.lower())
 			if not metadata:
 				print >>self.stderr,'Error: no metadata found for ' + input_fname
 				continue
