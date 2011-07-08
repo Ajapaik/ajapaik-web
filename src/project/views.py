@@ -11,7 +11,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 
 from project.models import Photo
-from project.forms import GeoTagAddForm
+from project.forms import GeoTagAddForm, CitySelectForm
 
 import get_next_photos_to_geotag
 
@@ -41,8 +41,12 @@ def logout(request):
     #return HttpResponse(unicode(request.get_user()))
 
 def thegame(request):
-    return render_to_response('index.html', RequestContext(request, {
-    }))
+    ctx = {}
+    city_select_form = CitySelectForm(request.GET)
+    if city_select_form.is_valid():
+        ctx['city'] = city_select_form.cleaned_data['city']
+    
+    return render_to_response('index.html', RequestContext(request, ctx))
 
 def photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
@@ -52,7 +56,9 @@ def photo(request, photo_id):
     }))
 
 def frontpage(request):
+    city_select_form = CitySelectForm()
     return render_to_response('frontpage.html', RequestContext(request, {
+        'city_select_form': city_select_form,
         
     }))
     
@@ -86,5 +92,11 @@ def leaderboard(request):
     
 
 def fetch_stream(request):
-    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile(), 4)
+    try:
+        city = request.GET.get('city', None)
+        city_id = int(city)
+    except:
+        city_id = None
+        
+    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile(), 4, city_id)
     return HttpResponse(json.dumps(data), mimetype="application/json")

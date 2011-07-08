@@ -10,7 +10,7 @@ var hintUsed = 0;
 
 var mediaUrl = 'http://www.ajapaik.ee/';
 
-var streamUrl = '/stream';
+var streamUrl = '/stream/';
 
 var disableNext = false;
 var locationToolsOpen = false;
@@ -286,8 +286,10 @@ $(document).ready(function() {
 
 		date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
 
-		$.getJSON(streamUrl+'?'+date.getTime(), function(data) {
-
+		$.getJSON(streamUrl, {
+		  'bust': date.getTime(),
+		  'city': city_id
+        }, function(data) {
 			$.merge(photos, data);
 
 /*

@@ -120,12 +120,23 @@ p {
 			<p>Kahjuks on kollektsioonis palju ka selliseid negatiive, mille täpne autorlus on piisava võrdlusmaterjali puudumise tõttu seni veel välja selgitamata. Teadmata on nii mõndagi muud. Kollektsioon on muuseumis arvele võetud 1951. aastal, aga ei ole teada, kust täpselt ja mil viisil see muuseumisse sattus – vastavaid dokumente ei vormistatud. Legendi kohaselt, mida toetab ka kollektsiooni sisu, on tegemist osaga kunagisest vendade Parikaste fotoarhiivist. See 1930. aastate lõpuks kultuurilooliselt väga oluliseks ja mahukaks kollektsiooniks kasvanud arhiiv hõlmas nii kõiki neid negatiive, mis Parikased olid ise aastatel 1909–1945 pildistanud, kui ka seda, mis nad olid oma arhiivi tarbeks teiste varasemate piltnike pärandist kogunud, sealhulgas ka fotograaf Jaan Kristini negatiivid. Pärast Parikaste fotoateljee riigistamist 1949. aastal pudenes arhiiv eri muuseumide ja arhiivide vahel laiali. Arvata on, et palju ka hävitati – tol ajal poliitiliselt ebasobiva sisu tõttu. See, mis järel, on tänaseks seda väärtuslikum.</p>
 			<p>Digitaalsed koopiad fotonegatiividest on valmistatud <a href="http://www.kanut.ee" target="_blank">Ennistuskojas Kanut</a> 2009.–2010. aastal.</p>
 		</div></div>
-
+        
+        <div>
+            {{ city_select_form.as_p }}
+        </div>
+        
 		<div class="buttons">
-			<a href="{% url views.thegame %}" class="btn green">Mängi "Ajapaikajat"</a>
-			<a href="{% url views.mapview %}" class="btn green">Vaata fotosid kaardil</a>
+			<a href="{% url views.thegame %}" onclick="return submitWithCity(this);" class="btn green">Mängi "Ajapaikajat"</a>
+			<a href="{% url views.mapview %}" onclick="return submitWithCity(this);" class="btn green">Vaata fotosid kaardil</a>
 		</div>
-
+        
+        <script type="text/javascript">
+            function submitWithCity(href) {
+                location.href = $(href).attr('href') + '?city=' + $('#id_city').val();
+                return false;
+            }
+        </script>
+        
 		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fajapaik&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
 
 		<div style="margin: 5px 0;">
