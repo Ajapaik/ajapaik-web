@@ -40,7 +40,7 @@ class Command(BaseCommand):
 										for key in ('Kirjeldus','') \
 										if key in metadata]))
 
-			city_name=metadata['S\xc3\xbc\xc5\xbeee nimetus']
+			city_name=metadata.get('Pildistamise koht') or metadata['S\xc3\xbc\xc5\xbeee nimetus']
 			try:
 				city=City.objects.get(name=city_name)
 			except ObjectDoesNotExist:
