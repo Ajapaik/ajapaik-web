@@ -16,6 +16,7 @@ urlpatterns = patterns('views',
     (r'^leaderboard/$', 'leaderboard'),
     
     (r'^foto/(?P<photo_id>\d+)/$', 'photo'),
+    (r'^foto/(?P<slug>[\w\_\-]+)/$', 'photoview'),
     (r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
     (r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
     (r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
