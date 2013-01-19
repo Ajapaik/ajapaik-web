@@ -65,6 +65,16 @@ def photo(request, photo_id):
         'hostname': 'http://%s' % (site.domain, )
     }))
 
+def photoview(request, slug):
+    photo = get_object_or_404(Photo, slug=slug)
+    site = Site.objects.get_current()
+    
+    return render_to_response('photoview.html', RequestContext(request, {
+        'photo': photo,
+        'hostname': 'http://%s' % (site.domain, )
+    }))
+    
+
 def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
     im = get_thumbnail(photo.image, '700x400')

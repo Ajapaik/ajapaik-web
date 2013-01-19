@@ -60,6 +60,10 @@ class Photo(models.Model):
     def get_detail_url(self):
         return ('views.photo', [self.id, ])
     
+    @models.permalink
+    def get_absolute_url(self):
+        return ('views.photoview', [self.slug, ])
+    
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
         lat_coeff = math.cos(math.radians((lat1 + lat2)/2.0))
@@ -150,6 +154,9 @@ class Source(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    
+    def __unicode__(self):
+        return self.name
     
 class Guess(models.Model):
     class Meta:
