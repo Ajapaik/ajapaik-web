@@ -151,14 +151,16 @@ a.btn.green:active {
 
 /* photos */
 
-#browse #photo-drawer .photos {
+#browse #photo-drawer .photos,
+.single .photos {
 	position: relative;
 	line-height: 0;
 /* 	overflow: hidden; */
 	height: 450px;
 	padding: 25px 0;
 }
-#browse #photo-drawer .photos .original {
+#browse #photo-drawer .photos .original,
+.single .original {
 	position: absolute;
 	right: 50.7%;
 	border: 10px solid #fff;
@@ -167,7 +169,8 @@ a.btn.green:active {
 	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
 	overflow: hidden;
 }
-#browse #photo-drawer .photos .rephoto {
+#browse #photo-drawer .photos .rephoto,
+.single .rephoto {
 	position: absolute;
 	left: 50.7%;
 	border: 10px solid #fff;
@@ -175,13 +178,15 @@ a.btn.green:active {
 	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
-#browse #photo-drawer .photos img {
+#browse #photo-drawer .photos img,
+.single .photos img {
 	height: 350px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
-#browse #photo-drawer .photos .rephoto .info {
+#browse #photo-drawer .photos .rephoto .info,
+.single .rephoto .info {
 	line-height: 1;
 	position: absolute;
 	bottom: 0;
@@ -200,8 +205,10 @@ a.btn.green:active {
 
 
 /* original tools */
-#browse #photo-drawer .original:hover .tools{bottom:0px;}
-#browse #photo-drawer .original .tools {
+#browse #photo-drawer .original:hover .tools,
+.single .original:hover .tools { bottom:0px; }
+#browse #photo-drawer .original .tools,
+.single .original .tools {
 	background: black;
 	background: rgba(0, 0, 0, 0.7);
 	bottom: -85px;
@@ -212,23 +219,28 @@ a.btn.green:active {
 	-webkit-transition: bottom .1s;
 	transition: bottom .1s;
 }
-#browse #photo-drawer .original .tools .description {
+#browse #photo-drawer .original .tools .description,
+.single .original .tools .description {
 	font-size: 12px;
 	line-height: 1.3;
 	padding:5px;
 }
-#browse #photo-drawer .original .tools .description p {
+#browse #photo-drawer .original .tools .description p,
+.single .original .tools .description p {
 	margin: 0 0 5px;
 }
-#browse #photo-drawer .original .tools .description p.owner {
+#browse #photo-drawer .original .tools .description p.owner,
+.single .original .tools .description p.owner {
 	color: #bfa679;
 	font-size: 11px;
 }
 
 /* rephoto tools */
 
-#browse #photo-drawer .rephoto .container:hover .meta{bottom:0px;}
-#browse #photo-drawer .rephoto .container .meta {
+#browse #photo-drawer .rephoto .container:hover .meta,
+.single .rephoto .container:hover .meta { bottom:0px; }
+#browse #photo-drawer .rephoto .container .meta,
+.single .rephoto .container .meta {
 	background: black;
 	background: rgba(0, 0, 0, 0.7);
 	bottom: -85px;
@@ -239,31 +251,37 @@ a.btn.green:active {
 	-webkit-transition: bottom .1s;
 	transition: bottom .1s;
 }
-#browse #photo-drawer .rephoto .container .meta .content {
+#browse #photo-drawer .rephoto .container .meta .content,
+.single .rephoto .container .meta .content {
 	padding:10px;
 }
-#browse #photo-drawer .rephoto .container {
+#browse #photo-drawer .rephoto .container,
+.single .rephoto .container {
 	overflow: hidden;
 	position: relative;
 }
 
-#browse #photo-drawer .rephoto .tools {
+#browse #photo-drawer .rephoto .tools,
+.single .rephoto .tools {
 	position: absolute;
 	bottom: -90px;
 	right: 0;
 	height: 60px;
 }
-#browse #photo-drawer .rephoto .tools ul.thumbs {
+#browse #photo-drawer .rephoto .tools ul.thumbs,
+.single .rephoto .tools ul.thumbs {
 	margin: 0;
 	padding: 0;
 }
-#browse #photo-drawer .rephoto .tools ul.thumbs li {
+#browse #photo-drawer .rephoto .tools ul.thumbs li,
+.single .rephoto .tools ul.thumbs li {
 	line-height: 0;
 	list-style: none;
 	float: left;
 	margin: 0 0 0 5px;
 }
-#browse #photo-drawer .rephoto .tools ul.thumbs li img {
+#browse #photo-drawer .rephoto .tools ul.thumbs li img,
+.single .rephoto .tools ul.thumbs li img {
 	height: 50px;
 	border: 5px solid #fff;
 	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .2);
@@ -271,7 +289,8 @@ a.btn.green:active {
 	box-shadow: 0 0 7px rgba(0, 0, 0, .2);
 }
 
-#browse #photo-drawer .no-rephoto {
+#browse #photo-drawer .no-rephoto,
+.single .no-rephoto {
 	position: absolute;
 	left: 50.7%;
 	width: 350px;
@@ -281,7 +300,8 @@ a.btn.green:active {
 	text-align: center;
 	line-height: 1.4;
 }
-#browse #photo-drawer .no-rephoto p {
+#browse #photo-drawer .no-rephoto p,
+.single .no-rephoto p {
 	margin: 20px 25px;
 }
 
@@ -592,3 +612,26 @@ a.btn.green:active {
 	margin-left: -90px;
 	z-index: 1000;
 }
+
+
+/* Inzman */
+.single {
+    position:relative;
+}
+
+span.framed {
+    display:inline-block;
+}
+.framed {
+	border: 10px solid #fff;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+.rounded {
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.hovered { bottom:0px !important; }

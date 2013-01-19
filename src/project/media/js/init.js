@@ -42,3 +42,13 @@ function get_map(startpoint) {
 
     return map
 }
+
+$(document).ready(function() {
+
+    $('.photo-item').hover(function () {
+        $('.original .tools, .rephoto .meta').addClass('hovered');
+    },function () {
+        $('.original .tools, .rephoto .meta').removeClass('hovered');
+    });
+
+});

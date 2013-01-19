@@ -3,31 +3,59 @@
 
 {% block layout %}
 <div id="browse">
-	<div class="top">
+    <div class="top">
 
-		<h1 class="ir"><a href="/">Ajapaik</a></h1>
+        <h1 class="ir"><a href="/">Ajapaik</a></h1>
 
-		<ul id="nav">
-		</ul>
+        <ul id="nav">
+        </ul>
 
-	</div>
+    </div>
 
-	<div class="photos clearfix">
+    <div class="single" style="top:7%;">
+        <div class="photos clearfix">
 
-		{% thumbnail photo.image "700x400" as im %}
-		<img src="{{ im.url }}" />
-		{% endthumbnail %}
+            <div class="original photo-item">
+                <span class="framed rounded">
+                    {% thumbnail photo.image "700x400" as im %}
+                    <img src="{{ im.url }}" />
+                    {% endthumbnail %}
+                </span>
+                <div class="tools">
+                    <div class="description">
+                        <p>{{ photo.description }}</p>
+                        <p class="owner">{{ photo.source.name }}</p>
+                    </div>
+                </div>
+            </div><!-- .original -->
 
-		<div class="tools">
-			<div class="description">
-				<p>{{ photo.description }}</p>
-				<p class="owner">{{ photo.source.name }}</p>
-			</div>
-		</div>
+            {% thumbnail photo.rephotos.all.0.image "700x400" as rephoto %}
 
-	</div>
+            <div class="rephoto photo-item">
+                <div class="container">
+                    <div class="meta">
+                        <div class="content" id="meta_content">
+                            {% if photo.rephotos.all.0.user.fb_name %}{{ photo.rephotos.all.0.user.fb_name }}{% endif %}
+                        </div>
+                    </div>
+                    <img id="rephoto_img" src="{{ rephoto.url }}" />
+                </div>
 
-</div>
+                <div class="tools">
+                    <ul class="thumbs">
+                        {% for rephoto in photo.rephotos.all %}
+                        <li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div><!-- .rephoto -->
+            
+            {% endthumbnail %}
+
+        </div>
+    </div>
+
+</div><!-- #browse -->
 
 
 {% endblock %}

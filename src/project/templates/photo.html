@@ -4,7 +4,7 @@
 
 	<a href="#" id="close-photo-drawer" class="btn small">Sulge foto</a>
 
-	<div class="original">
+	<div class="original photo-item">
 
 		{% thumbnail photo.image "700x400" as im %}
 		<img src="{{ im.url }}" />
@@ -24,7 +24,7 @@
 
 	{% thumbnail photo.rephotos.all.0.image "700x400" as rephoto %}
 
-	<div class="rephoto">
+	<div class="rephoto photo-item">
 		<div class="container">
 			<div class="meta">
 				<div class="content" id="meta_content">
@@ -49,7 +49,7 @@
 			</ul>
 		</div>
 
-	</div>
+	</div><!-- .rephoto -->
 
 	{% empty %}
 
