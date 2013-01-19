@@ -2,7 +2,7 @@ from django import forms
 from .models import Photo, GeoTag, City
 from django.db import models
 
-CITY_CHOICES = City.objects.annotate(num_photos=models.Count('cities')).filter(num_photos__gt=0).values_list('pk','name')
+CITY_CHOICES = City.objects.annotate(num_photos=models.Count('cities')).filter(num_photos__gt=0).order_by('id').values_list('pk','name')
 
 class CitySelectForm(forms.Form):
     city = forms.ChoiceField(choices=CITY_CHOICES, label="Valige linn")

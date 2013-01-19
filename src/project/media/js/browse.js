@@ -5,14 +5,17 @@ var photoId;
 
 function loadPhoto(id) {
 	photoId = id;
-    $.ajax({
-        cache: false,
-        url: '/foto/'+id+'/',
-        success: function(result) {
-        	openPhotoDrawer(result);
-        	FB.XFBML.parse();
-        }
-    });
+	$.ajax({
+		cache: false,
+		url: '/foto/'+id+'/',
+		success: function(result) {
+			openPhotoDrawer(result);
+			FB.XFBML.parse();
+		},
+		error: function (result) {
+			alert('error');
+		}
+	});
 }
 
 function openPhotoDrawer(content) {
@@ -50,7 +53,13 @@ $(document).ready(function() {
 
 	$('#photo-drawer').delegate('ul.thumbs li.photo a', 'click', function(e) {
 		e.preventDefault();
-		$('.rephoto > img').attr('src', $(this).attr('rel') );
+		$('#rephoto_img').attr('src', $(this).attr('rel') );
+		if ($(this).attr('title')) {
+			$('#meta_content').html($(this).attr('title'));
+		}
+		else {
+			$('#meta_content').html('');
+		}
 	});
 
 	$('#photo-drawer').delegate('a.add-rephoto', 'click', function(e) {

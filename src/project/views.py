@@ -13,6 +13,7 @@ from django.core.files.base import ContentFile
 
 from project.models import Photo, City
 from project.forms import GeoTagAddForm, CitySelectForm
+from sorl.thumbnail import get_thumbnail
 
 import get_next_photos_to_geotag
 
@@ -25,9 +26,14 @@ def photo_upload(request, photo_id):
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
                 fileobj = handle_uploaded_file(f)
+                data = request.POST
                 re_photo = Photo(
                     rephoto_of=photo,
                     city=photo.city,
+                    description=data.get('description', None),
+                    lat=data.get('lat', None),
+                    lon=data.get('lon', None),
+                    date_text=data.get('date_text', None),
                     user=request.get_user().get_profile()
                 )
                 re_photo.save()
@@ -59,8 +65,22 @@ def photo(request, photo_id):
         'hostname': 'http://%s' % (site.domain, )
     }))
 
+def photo_url(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    im = get_thumbnail(photo.image, '700x400')
+    return redirect(im.url)
+
+def photo_thumb(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    im = get_thumbnail(photo.image, '50x50', crop='center')
+    return redirect(im.url)
+
 def frontpage(request):
-    city_select_form = CitySelectForm()
+    city_select_form = CitySelectForm(request.GET)
+    
+    if not city_select_form.is_valid():
+        city_select_form = CitySelectForm()
+
     return render_to_response('frontpage.html', RequestContext(request, {
         'city_select_form': city_select_form,
         

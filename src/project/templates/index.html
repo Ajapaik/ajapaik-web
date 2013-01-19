@@ -20,16 +20,18 @@
 			<ul id="scoreboard">
 			</ul>
 
-			<div id="facebook-connect">
-				{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
+			{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
 				{% with profile=request.user.get_profile user=request.user %}
-				<p>Konto seotud Facebookiga ({{ user.get_full_name }}).</p>
+				<div id="facebook-connected">
+					<p>Konto seotud Facebookiga ({{ user.get_full_name }}). Kui see ei ole sina, siis <a href="/logout">vajuta siia</a>.</p>
+				</div>
 				{% endwith %}
-				{% else %}
-				<p>Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga.</p>
-				<a href="/facebook/login" class="ir">Connect with Facebook</a>
-				{% endif %}
-			</div>
+			{% else %}
+				<div id="facebook-connect">
+					<p>Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga.</p>
+					<a href="/facebook/login" class="ir">Connect with Facebook</a>
+				</div>
+			{% endif %}
 
 		</div>
 	</div>
@@ -44,7 +46,7 @@
 	</div>
 	<a id="skip-photo" href="#" class="skip-photo">Järgmine foto &rarr;</a>
 
-	<a id="back-home" href="/">&larr; Tagasi esilehele</a>
+	<a id="back-home" href="/?city={{city.id}}">&larr; Tagasi esilehele</a>
 
 	<div id="btm">
 		<div id="open-location-tools-container">

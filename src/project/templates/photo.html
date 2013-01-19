@@ -25,10 +25,16 @@
 	{% thumbnail photo.rephotos.all.0.image "700x400" as rephoto %}
 
 	<div class="rephoto">
+		<div class="container">
+			<div class="meta">
+				<div class="content" id="meta_content">
+					{% if photo.rephotos.all.0.user.fb_name %}{{ photo.rephotos.all.0.user.fb_name }}{% endif %}
+				</div>
+			</div>
+			<!-- <a href="#" class="info">Info</a> -->
 
-		<!-- <a href="#" class="info">Info</a> -->
-
-		<img src="{{ rephoto.url }}" />
+			<img id="rephoto_img" src="{{ rephoto.url }}" />
+		</div>
 
 		<div class="tools">
 
@@ -37,7 +43,7 @@
 				<li><a href="#" class="add-rephoto btn small">Lisa ülepildistus</a></li>
 
 				{% for rephoto in photo.rephotos.all %}
-				<li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+				<li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
 				{% endfor %}
 
 			</ul>
@@ -49,7 +55,7 @@
 
 	<div class="no-rephoto">
 
-		<p>Tee samast kohast võimalikult täpne tänapäevane ülepildistus ehk refoto ja lae siit ajaloolise pildi kõrvale.</p>
+		<p>Tee samast kohast võimalikult täpne tänapäevane ülepildistus ehk refoto ja lae see siia ajaloolise pildi kõrvale.</p>
 
 		<p class="add-rephoto-container">
 			<a href="#" class="add-rephoto btn small">Lisa ülepildistus</a>
@@ -103,19 +109,33 @@
         });
     </script>
 
-	<p>Tee samast kohast võimalikult täpne tänapäevane ülepildistus ehk refoto ja lae siit ajaloolise pildi kõrvale.</p>
+	<p>Tee samast kohast võimalikult täpne tänapäevane ülepildistus ehk refoto ja lae see siia ajaloolise pildi kõrvale.</p>
 
-<!-- 	<a href="#" id="upload" class="btn green" onclick="$('#upload_field').click(); return false;">Vali pildifail</a> -->
+	{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
+		{% with profile=request.user.get_profile user=request.user %}
+		<p>Konto seotud Facebookiga (<a href="{{ profile.fb_link }}" target="_blank">{{ user.get_full_name }}</a>). Kui see ei ole sina, siis <a href="/logout">vajuta siia</a>.</p>
+		<!--
+		<a href="#" id="upload" class="btn green" onclick="$('#upload_field').click(); return false;">Vali pildifail</a>
+		-->
+		<label style="display: block;">Vali pildifail:</label>
+		<input type="file" multiple="multiple" id="upload_field" />
+		<div id="progress_report">
+			<div id="progress_report_name"></div>
+			<div id="progress_report_status" style="font-style: italic;"></div>
+			<div id="progress_report_bar_container" style="width: 90%; height: 5px;">
+				<div id="progress_report_bar" style="background-color: blue; width: 0; height: 100%;"></div>
+			</div>
+		</div>
+		{% endwith %}
+	{% else %}
+		<div id="facebook-connect">
+			<p>Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga.</p>
+			<a href="/facebook/login" class="ir">Connect with Facebook</a>
+		</div>
+	{% endif %}
 
-	<label style="display: block;">Vali pildifail:</label>
-	<input type="file" multiple="multiple" id="upload_field" />
-    <div id="progress_report">
-            <div id="progress_report_name"></div>
-            <div id="progress_report_status" style="font-style: italic;"></div>
-            <div id="progress_report_bar_container" style="width: 90%; height: 5px;">
-                    <div id="progress_report_bar" style="background-color: blue; width: 0; height: 100%;"></div>
-            </div>
-    </div>
+	<p></p>
+	<a href="javascript:void(0);" onclick="uploadCompleted();">Loobu</a>
 
 </div>
 
