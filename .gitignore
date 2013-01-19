@@ -22,3 +22,4 @@ src/project/media/static
 src/project/media/cache
 
 .AppleDouble
+src/project/settings.py
