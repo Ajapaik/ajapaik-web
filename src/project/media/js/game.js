@@ -54,7 +54,7 @@ $(document).ready(function() {
 	});
 
     infowindow = new google.maps.InfoWindow({
-        content: 'Sikuta mind sinna kust pilt on tehtud.'
+        content: 'Sikuta kaamera sinna kust pilt on tehtud.'
     });
 
 /* BINDINGS */
