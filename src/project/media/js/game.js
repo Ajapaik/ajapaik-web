@@ -13,6 +13,7 @@ var mediaUrl = '';
 var streamUrl = '/stream/';
 
 var disableNext = false;
+var disableSave = true;
 var locationToolsOpen = false;
 
 function update_leaderboard() {
@@ -48,6 +49,9 @@ $(document).ready(function() {
         icon: 'http://www.ajapaik.ee/media/images/icon_marker.png'
     });
 
+	google.maps.event.addListener(marker, 'position_changed', function() {
+		disableSave = false;
+	});
 
     infowindow = new google.maps.InfoWindow({
         content: 'Sikuta mind sinna kust pilt on tehtud.'
@@ -64,7 +68,7 @@ $(document).ready(function() {
 			photo_id: photos[currentPhotoIdx-1].id,
 		};
 		$.post(saveLocationURL, data, function () {
-			nextPhoto();		
+			nextPhoto();
 		});
 
 	});
@@ -86,7 +90,12 @@ $(document).ready(function() {
 
 	$('#save-location').click(function(e) {
 		e.preventDefault();
-		saveLocation();
+		if (disableSave) {
+			alert('Sikuta kaamera sinna kust pilt on tehtud.');
+		}
+		else {
+			saveLocation();
+		}
 	});
 
 	$('#photos').delegate('.show-description', 'click', function(e) {
@@ -225,8 +234,9 @@ $(document).ready(function() {
 	}
 
 	function nextPhoto() {
-    	update_leaderboard();
+		update_leaderboard();
 		hintUsed = 0;
+		disableSave = true;
 
 /*
 		if (photos.length == currentPhotoIdx) {
