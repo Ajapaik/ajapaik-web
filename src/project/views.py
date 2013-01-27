@@ -57,20 +57,30 @@ def thegame(request):
 
 def photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
+    rephoto = None
+    if hasattr(photo, 'rephoto_of') and photo.rephoto_of is not None:
+        rephoto = photo
+        photo = photo.rephoto_of
     site = Site.objects.get_current()
     
     template = ['', 'photo.html', 'photoview.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
         'photo': photo,
+        'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, )
     }))
 
 def photoview(request, slug):
     photo = get_object_or_404(Photo, slug=slug)
+    rephoto = None
+    if hasattr(photo, 'rephoto_of') and photo.rephoto_of is not None:
+        rephoto = photo
+        photo = photo.rephoto_of
     site = Site.objects.get_current()
     
     return render_to_response('photoview.html', RequestContext(request, {
         'photo': photo,
+        'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, )
     }))
     
