@@ -31,7 +31,7 @@
 			})(p[0]);
 			markers.push(marker);
 		}
-		var markerCluster = new MarkerClusterer(map, markers, {gridSize: 30, zoomOnClick: false});
+		var markerCluster = new MarkerClusterer(map, markers, {gridSize: 40, zoomOnClick: false});
 		google.maps.event.addListener(markerCluster, 'clusterclick',
 			function(clickedCluster){
 				var markers = clickedCluster.getMarkers();
