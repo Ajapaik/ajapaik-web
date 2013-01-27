@@ -100,6 +100,21 @@ a.btn.green:active {
 	overflow: hidden;
 }
 
+#photo_browser #browser_list {
+	overflow-y:auto;
+	width:300px;
+}
+#photo_browser #browser_list .item {
+	float:left;
+	width:50px;
+	height:50px;
+	margin-right:3px;
+	margin-bottom:3px;
+	border:3px solid #12A3E3;
+}
+#photo_browser #browser_list .hot {
+	border:3px solid #F57700;
+}
 
 /* TOP BAR */
 

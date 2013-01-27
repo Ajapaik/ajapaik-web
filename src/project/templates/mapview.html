@@ -38,12 +38,11 @@
 				var browser_content = '';
 				var i = 0;
 				for (marker in markers) {
-					browser_content += '<div style="float:left; border:1px solid silver; width:50px; height:50px; margin-right:3px; margin-bottom:3px;"><a href="javascript:void(0);" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();"><img src="'+ markers[marker].thumb +'" /></a></div>';
+					browser_content += '<div class="item'+ (markers[marker].zIndex ? ' hot' : '') +'"><a href="javascript:void(0);" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();"><img src="'+ markers[marker].thumb +'" border="0" /></a></div>';
 					if (++i >=20) {
 						break;
 					}
 				}
-				browser_content += '<div style="clear:both;"></div>';
 				$('#photo_browser #browser_list').html(browser_content);
 				$('#photo_browser').modal();
 			});
@@ -79,9 +78,9 @@
 </div>
 
 <div style="display: none;">
-	<div id="photo_browser" style="background: white;">
-		<div id="browser_list" style="overflow-y:auto;width:275px;"></div>
-		<a href="javascript:void(0);" onclick="$.modal.close();">Sulge</a>
+	<div id="photo_browser">
+		<div id="browser_list"></div>
+		<a style="clear:both;" href="javascript:void(0);" onclick="$.modal.close();">Sulge</a>
 	</div>
 </div>
 
