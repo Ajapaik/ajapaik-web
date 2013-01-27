@@ -29,8 +29,13 @@ function closePhotoDrawer() {
 
 function uploadCompleted() {
 	$.modal.close();
-	closePhotoDrawer();
-	loadPhoto(photoId);
+	if (typeof photoId == 'undefined') {
+		window.location.reload();
+	}
+	else {
+		closePhotoDrawer();
+		loadPhoto(photoId);
+	}
 }
 
 /* INIT */
@@ -66,6 +71,17 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('#notice').modal();
 	});
+	
+    $('#browse #photo-drawer .original, .single .original').hover(function () {
+        $('.original .tools').addClass('hovered');
+    },function () {
+        $('.original .tools').removeClass('hovered');
+    });
+	$('#browse #photo-drawer .rephoto .container, .single .rephoto .container').hover(function () {
+        $('.rephoto .container .meta').addClass('hovered');
+    },function () {
+        $('.rephoto .container .meta ').removeClass('hovered');
+    });
 
 
 /*

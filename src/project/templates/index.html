@@ -23,7 +23,7 @@
 			{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
 				{% with profile=request.user.get_profile user=request.user %}
 				<div id="facebook-connected">
-					<p>Konto seotud Facebookiga ({{ user.get_full_name }}). Kui see ei ole sina, siis <a href="/logout">vajuta siia</a>.</p>
+					<p>Konto ({{ user.get_full_name }}) seotud Facebookiga. Kui see ei ole sina, siis <a href="/logout">vajuta siia</a>.</p>
 				</div>
 				{% endwith %}
 			{% else %}

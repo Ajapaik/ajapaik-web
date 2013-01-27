@@ -62,7 +62,10 @@ class Photo(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('views.photoview', [self.slug, ])
+        if self.slug is not None:
+            return ('views.photoview', [self.slug, ])
+        else:
+            return ('views.photo', [self.id, ])
     
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):

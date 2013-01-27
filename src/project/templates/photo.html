@@ -75,9 +75,14 @@
 		<script type="text/javascript">
         $(function() {
             $("#upload_field").html5_upload({
+                autostart: true,
+                stopOnFirstError: false,
                 url: function(number) {
                     return '{% url views.photo_upload photo.pk %}';
                     //return prompt(number + " url", "/");
+                },
+                onBrowserIncompatible: function() {
+                    $("#upload_field").attr('disabled', 'disabled');
                 },
                 sendBoundary: window.FormData || $.browser.mozilla,
                 onStart: function(event, total) {
@@ -92,8 +97,8 @@
                 setProgress: function(val) {
                     $("#progress_report_bar").css('width', Math.ceil(val*100)+"%");
                 },
-                onFinishOne: function(event, response, name, number, total) {
-					uploadCompleted();
+                onFinish: function(event, response, name, number, total) {
+                    uploadCompleted();
                 }
             });
         });
@@ -103,12 +108,12 @@
 
 		{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
 			{% with profile=request.user.get_profile user=request.user %}
-			<p>Konto seotud Facebookiga (<a href="{{ profile.fb_link }}" target="_blank">{{ user.get_full_name }}</a>). Kui see ei ole sina, siis <a href="/logout">vajuta siia</a>.</p>
+			<p>Konto (<a href="{{ profile.fb_link }}" target="_blank">{{ user.get_full_name }}</a>) seotud Facebookiga.<br />Kui see ei ole sina, siis <a href="/logout">vajuta siia</a>.</p>
 			<!--
 			<a href="#" id="upload" class="btn green" onclick="$('#upload_field').click(); return false;">Vali pildifail</a>
 			-->
-			<label style="display: block;">Vali pildifail:</label>
 			<input type="file" multiple="multiple" id="upload_field" />
+			<!--<input type="button" id="upload_btn" value="Lae üles" onclick="$('#upload_field').trigger('html5_upload.start');" />-->
 			<div id="progress_report">
 				<div id="progress_report_name"></div>
 				<div id="progress_report_status" style="font-style: italic;"></div>

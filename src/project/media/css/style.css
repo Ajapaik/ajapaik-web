@@ -170,7 +170,9 @@ a.btn.green:active {
 	overflow: hidden;
 }
 #browse #photo-drawer .photos .rephoto,
-.single .rephoto {
+.single .rephoto,
+#browse #photo-drawer .photos .no-rephoto,
+.single .no-rephoto {
 	position: absolute;
 	left: 50.7%;
 	border: 10px solid #fff;
@@ -212,6 +214,7 @@ a.btn.green:active {
 	background: black;
 	background: rgba(0, 0, 0, 0.7);
 	bottom: -85px;
+	left: 0px;
 	color: #EEE;
 	position: absolute;
 	width: 100%;
@@ -262,26 +265,34 @@ a.btn.green:active {
 }
 
 #browse #photo-drawer .rephoto .tools,
-.single .rephoto .tools {
+.single .rephoto .tools,
+#browse #photo-drawer .no-rephoto .tools,
+.single .no-rephoto .tools {
 	position: absolute;
 	bottom: -90px;
 	right: 0;
 	height: 60px;
 }
 #browse #photo-drawer .rephoto .tools ul.thumbs,
-.single .rephoto .tools ul.thumbs {
+.single .rephoto .tools ul.thumbs,
+#browse #photo-drawer .no-rephoto .tools ul.thumbs,
+.single .no-rephoto .tools ul.thumbs {
 	margin: 0;
 	padding: 0;
 }
 #browse #photo-drawer .rephoto .tools ul.thumbs li,
-.single .rephoto .tools ul.thumbs li {
+.single .rephoto .tools ul.thumbs li,
+#browse #photo-drawer .no-rephoto .tools ul.thumbs li,
+.single .no-rephoto .tools ul.thumbs li {
 	line-height: 0;
 	list-style: none;
 	float: left;
 	margin: 0 0 0 5px;
 }
 #browse #photo-drawer .rephoto .tools ul.thumbs li img,
-.single .rephoto .tools ul.thumbs li img {
+.single .rephoto .tools ul.thumbs li img,
+#browse #photo-drawer .no-rephoto .tools ul.thumbs li img,
+.single .no-rephoto .tools ul.thumbs li img {
 	height: 50px;
 	border: 5px solid #fff;
 	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .2);
@@ -294,7 +305,7 @@ a.btn.green:active {
 	position: absolute;
 	left: 50.7%;
 	width: 350px;
-	padding: 10px;
+	border: 10px solid white;
 	background: rgba(204, 172, 102, .3);
 	height: 350px;
 	text-align: center;
