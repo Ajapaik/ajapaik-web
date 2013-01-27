@@ -2,37 +2,53 @@
 {% load i18n %}
 
 {% block layout %}
-    <script type="text/javascript">
-        var map;
-        function initialize() {
-            // Will load the base map layer and return it
-            {% if city %}
-            map = get_map([{{ city.lon }}, {{ city.lat }}]);
-            {% else %}
-            map = get_map();
-            {% endif %}
+<script type="text/javascript">
+	var map;
+	function initialize() {
+		// Will load the base map layer and return it
+		{% if city %}
+		map = get_map([{{ city.lon }}, {{ city.lat }}]);
+		{% else %}
+		map = get_map();
+		{% endif %}
 
-        	var geotagged_photos={{ json_data }};
-        
-/*         var markers = []; */
-        	for (var i in geotagged_photos) {
-        		var p=geotagged_photos[i];
-        		var marker = new google.maps.Marker({map: map,
-        				position: new google.maps.LatLng(p[2],p[1]), 
-        				zIndex: p[3] ? 1 : 0,
-        				icon:'/media/images/' + (p[3] ? 'icon_camera_hot.png' : 'icon_camera.png')});
-                
-                (function(id) {
-                google.maps.event.addListener(marker, 'click', function() {
-    				loadPhoto(id);
-                });
-                })(p[0]);
-            
-/*             markers.push(marker); */
-            }
-/*         var markerCluster = new MarkerClusterer(map, markers); */
-    };
-    $(document).ready(initialize);
+		var geotagged_photos={{ json_data|safe }};
+		var markers = [];
+		for (var i in geotagged_photos) {
+			var p=geotagged_photos[i];
+			var marker = new google.maps.Marker({
+					map: map,
+					id: p[0],
+					thumb: p[1],
+					position: new google.maps.LatLng(p[3],p[2]), 
+					zIndex: p[4] ? 1 : 0,
+					icon:'/media/images/' + (p[4] ? 'icon_camera_hot.png' : 'icon_camera.png')});
+			
+			(function(id) {
+				google.maps.event.addListener(marker, 'click', function() {
+					loadPhoto(id);
+				});
+			})(p[0]);
+			markers.push(marker);
+		}
+		var markerCluster = new MarkerClusterer(map, markers, {gridSize: 30, zoomOnClick: false});
+		google.maps.event.addListener(markerCluster, 'clusterclick',
+			function(clickedCluster){
+				var markers = clickedCluster.getMarkers();
+				var browser_content = '';
+				var i = 0;
+				for (marker in markers) {
+					browser_content += '<div style="float:left; border:1px solid silver; width:50px; height:50px; margin-right:3px; margin-bottom:3px;"><a href="javascript:void(0);" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();"><img src="'+ markers[marker].thumb +'" /></a></div>';
+					if (++i >=20) {
+						break;
+					}
+				}
+				browser_content += '<div style="clear:both;"></div>';
+				$('#photo_browser #browser_list').html(browser_content);
+				$('#photo_browser').modal();
+			});
+	};
+	$(document).ready(initialize);
 </script>
 
 <div id="browse">
@@ -60,6 +76,13 @@
 		<div id="map_canvas" style="width: 100%; height: 100%"></div>
 	</div>
 
+</div>
+
+<div style="display: none;">
+	<div id="photo_browser" style="background: white;">
+		<div id="browser_list" style="overflow-y:auto;width:275px;"></div>
+		<a href="javascript:void(0);" onclick="$.modal.close();">Sulge</a>
+	</div>
 </div>
 
 <script type="text/javascript" src="{{ MEDIA_URL }}js/browse.js"></script>

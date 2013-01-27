@@ -164,7 +164,8 @@ def get_geotagged_photos(city_id=None):
 	for p in photos_set.filter(confidence__gte=0.3,
 						lat__isnull=False,lon__isnull=False,
 						rephoto_of__isnull=True):
-		data.append((p.id,p.lon,p.lat,p.id in rephotographed_ids))
+		im = get_thumbnail(p.image, '50x50', crop='center')
+		data.append((p.id,im.url,p.lon,p.lat,p.id in rephotographed_ids))
 	return data
 
 def get_leaderboard(user_id):
