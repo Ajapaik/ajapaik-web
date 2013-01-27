@@ -1,4 +1,4 @@
-﻿{% load i18n cache bundler_tags %}<!DOCTYPE html>
+{% load i18n cache bundler_tags %}<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 
 <head>
@@ -37,11 +37,10 @@
 </head>
 <body>
     
-    {% comment %}
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
-        FB.init({appId: '104088066341612', status: true, cookie: true, xfbml: true});
+        FB.init({appId: '201052296573134', status: true, cookie: true, xfbml: true});
       };
       (function() {
         var e = document.createElement('script'); e.async = true;
@@ -50,7 +49,6 @@
         document.getElementById('fb-root').appendChild(e);
       }());
     </script>
-    {% endcomment %}
     
     {% block layout %}{% endblock layout %}
 

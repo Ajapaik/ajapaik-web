@@ -44,7 +44,7 @@
                 <div class="tools">
                     <ul class="thumbs">
                         {% for rephoto in photo.rephotos.all %}
-                        <li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+                        <li class="photo"><a href="{{ rephoto.get_absolute_url }}" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -53,8 +53,8 @@
             {% endthumbnail %}
 
         </div>
+		<fb:comments href="{{ hostname }}{{ photo.get_detail_url }}" num_posts="2" width="500"></fb:comments>
     </div>
-
 </div><!-- #browse -->
 
 
