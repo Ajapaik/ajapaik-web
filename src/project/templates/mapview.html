@@ -16,13 +16,24 @@
 		var markers = [];
 		for (var i in geotagged_photos) {
 			var p=geotagged_photos[i];
+			var thumb = p[1];
+			//var image = '/media/images/' + (p[4] ? 'icon_camera_hot.png' : 'icon_camera.png');
+			var image = new google.maps.MarkerImage(p[1], null, null, null,
+					new google.maps.Size(32, 32)
+				);
+			var border = new google.maps.MarkerImage('/media/images/' + (p[4] ? 'border_camera_hot.png' : 'border_camera.png'), null, null,
+					new google.maps.Point(18, 34),
+					new google.maps.Size(36, 36)
+				);
 			var marker = new google.maps.Marker({
 					map: map,
 					id: p[0],
-					thumb: p[1],
+					thumb: thumb,
 					position: new google.maps.LatLng(p[3],p[2]), 
 					zIndex: p[4] ? 1 : 0,
-					icon:'/media/images/' + (p[4] ? 'icon_camera_hot.png' : 'icon_camera.png')});
+					shadow:border,
+					icon:image
+				});
 			
 			(function(id) {
 				google.maps.event.addListener(marker, 'click', function() {
