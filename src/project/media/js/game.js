@@ -30,7 +30,7 @@ $(document).ready(function() {
     var location = new google.maps.LatLng(start_location[1], start_location[0]);
     
     // Will load the base map layer and return it
-    map = get_map(start_location);
+    map = get_map(start_location, 15);
     
     // Create marker
     function toggleBounce() {

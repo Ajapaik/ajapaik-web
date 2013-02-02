@@ -7,7 +7,7 @@
 	function initialize() {
 		// Will load the base map layer and return it
 		{% if city %}
-		map = get_map([{{ city.lon }}, {{ city.lat }}]);
+		map = get_map([{{ city.lon }}, {{ city.lat }}], 13);
 		{% else %}
 		map = get_map();
 		{% endif %}
