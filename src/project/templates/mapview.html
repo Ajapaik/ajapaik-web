@@ -49,10 +49,12 @@
 				var browser_content = '';
 				var i = 0;
 				for (marker in markers) {
-					browser_content += '<div class="item'+ (markers[marker].zIndex ? ' hot' : '') +'"><a href="javascript:void(0);" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();"><img src="'+ markers[marker].thumb +'" border="0" /></a></div>';
-					if (++i >=20) {
+					if (++i > 20) {
+						map.panTo(clickedCluster.getCenter());
+						map.fitBounds(clickedCluster.getBounds());
 						break;
 					}
+					browser_content += '<div class="item'+ (markers[marker].zIndex ? ' hot' : '') +'"><a href="javascript:void(0);" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();"><img src="'+ markers[marker].thumb +'" border="0" /></a></div>';
 				}
 				$('#photo_browser #browser_list').html(browser_content);
 				$('#photo_browser').modal();
