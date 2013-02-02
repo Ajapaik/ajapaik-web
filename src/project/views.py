@@ -30,7 +30,7 @@ def photo_upload(request, photo_id):
                 re_photo = Photo(
                     rephoto_of=photo,
                     city=photo.city,
-                    description=data.get('description', None),
+                    description=data.get('description', photo.description),
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
                     date_text=data.get('date_text', None),
