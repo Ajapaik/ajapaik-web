@@ -110,10 +110,10 @@ a.btn.green:active {
 	height:50px;
 	margin-right:3px;
 	margin-bottom:3px;
-	border:3px solid #A4E313;
+	border:3px solid #B9B9B9;
 }
 #photo_browser #browser_list .hot {
-	border:3px solid #F57700;
+	border:3px solid #A4E313;
 }
 
 /* TOP BAR */
