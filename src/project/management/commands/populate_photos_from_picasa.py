@@ -11,12 +11,13 @@ class Command(BaseCommand):
 
 		photos_metadata=dict()
 		header_row=None
-		for row in csv.reader(open(csv_filename,'rb')):
+		dialect = csv.Sniffer().sniff(open(csv_filename,'rb').read(1024))
+		for row in csv.reader(open(csv_filename,'rb'), dialect):
 			if not header_row:
 				header_row=row
 				continue
 			row=dict(zip(header_row,row))
-			photos_metadata[row['Alanr']]=row
+			photos_metadata[(row.get('Inv nr') or row['Alanr']]=row
 
 		url='http://picasaweb.google.com/data/feed/api/user/%s/album/%s?authkey=%s&kind=photo&start-index=%s&max-results=%s' % \
 					(userid,albumid,authkey,1,10000)
@@ -34,10 +35,10 @@ class Command(BaseCommand):
 			url=urls[0]
 			m=re.search(r'_([0-9]+)(\.*[a-z]*)_*$',url)
 			if not m:
-				print >>self.stderr,'Error: no source_id in URL ' + url
+				print >>self.stderr,'Error: no source_key in URL ' + url
 				continue
 
-			source_id=m.group(1)
+			source_key=m.group(1)
 
 			fname='uploads/' + hashlib.md5(url).hexdigest() + \
 													m.group(2)
@@ -45,7 +46,7 @@ class Command(BaseCommand):
 			if not os.path.exists(full_fname):
 				urllib.urlretrieve(url,full_fname)
 
-			metadata=photos_metadata.get(source_id)
+			metadata=photos_metadata.get(source_key)
 			if not metadata:
 				print >>self.stderr,'Error: no metadata found for URL ' + url
 				continue
@@ -55,7 +56,8 @@ class Command(BaseCommand):
 
 			p=Photo(date_text=metadata['Pildistamise aeg'],
 					description=description,
-					source_key=source_id)
+					source_id=1,
+					source_key=source_key)
 			p.image.name=fname
 			p.save()
-			print >>self.stdout, source_id,description,metadata['Pildistamise aeg']
+			print >>self.stdout, source_key,description,metadata['Pildistamise aeg']

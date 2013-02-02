@@ -23,12 +23,12 @@ class Command(BaseCommand):
 			photos_metadata[(row.get('Inv nr') or row['Alanr']).lower()]=row
 
 		for input_fname in args:
-			source_id=os.path.basename(input_fname)
-			if source_id.startswith(filename_prefix_to_skip):
-				source_id=source_id[len(filename_prefix_to_skip):]
-			source_id,_,fname_extension=source_id.rpartition('.')
+			source_key=os.path.basename(input_fname)
+			if source_key.startswith(filename_prefix_to_skip):
+				source_key=source_key[len(filename_prefix_to_skip):]
+			source_key,_,fname_extension=source_key.rpartition('.')
 
-			metadata=photos_metadata.get(source_id.lower())
+			metadata=photos_metadata.get(source_key.lower())
 			if not metadata:
 				print >>self.stderr,'Error: no metadata found for ' + input_fname
 				continue
@@ -51,7 +51,8 @@ class Command(BaseCommand):
 			p=Photo(date_text=metadata['Pildistamise aeg'],
 					city=city,
 					description=description,
-					source_key=source_id)
+					source_id=1,
+					source_key=source_key)
 			p.image.name=fname
 			p.save()
-			print >>self.stdout, source_id,description,metadata['Pildistamise aeg']
+			print >>self.stdout, source_key,description,metadata['Pildistamise aeg']
