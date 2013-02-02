@@ -14,29 +14,27 @@ function get_map(startpoint, startingzoom) {
 	} else {
 		var zoom_level = startingzoom;
 	}
-    
-    // New base layer
-    var osmMapType = new google.maps.ImageMapType({
-    	getTileUrl: function(coord, zoom) {
-    		return "http://tile.openstreetmap.org/" +
-    		zoom + "/" + coord.x + "/" + coord.y + ".png";
-    	},
-    	tileSize: new google.maps.Size(256, 256),
-    	isPng: true,
-    	alt: "OpenStreetMap layer",
-    	name: "OSM",
-    	maxZoom: 18
-    });
+	
+	// New base layer
+	var osmMapType = new google.maps.ImageMapType({
+		getTileUrl: function(coord, zoom) {
+			return "http://tile.openstreetmap.org/" +
+			zoom + "/" + coord.x + "/" + coord.y + ".png";
+		},
+		tileSize: new google.maps.Size(256, 256),
+		isPng: true,
+		alt: "OpenStreetMap layer",
+		name: "OSM",
+		maxZoom: 18
+	});
 	
 	var mapOpts = {
 		zoom: zoom_level,
 		center: latlng,
-        mapTypeId: 'OSM',
-        mapTypeControlOptions: {
-        	  mapTypeIds: ['OSM', google.maps.MapTypeId.ROADMAP],
-        	  style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-        }
-		
+		mapTypeControlOptions: {
+			mapTypeIds: ['OSM', google.maps.MapTypeId.ROADMAP],
+			style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+		}
 	};
 	
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOpts);
@@ -45,5 +43,5 @@ function get_map(startpoint, startingzoom) {
 	map.mapTypes.set('OSM', osmMapType);
 	map.setMapTypeId('OSM');
 
-    return map
+	return map
 }
