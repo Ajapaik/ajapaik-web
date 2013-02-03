@@ -18,7 +18,7 @@
             <div class="original photo-item">
                 <span class="framed rounded">
                     {% thumbnail photo.image "700x400" as im %}
-                    <a href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" /></a>
+                    <a href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                     {% endthumbnail %}
                 </span>
                 <div class="tools">
@@ -39,7 +39,7 @@
 							{% if rephoto.user.fb_name %}<p class="owner"><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" /></a> {{ rephoto.user.fb_name }}</p>{% endif %}
                         </div>
                     </div>
-                    <a href="{{ rephoto.get_absolute_url }}"><img id="rephoto_img" src="{{ im.url }}" /></a>
+                    <img id="rephoto_img" src="{{ im.url }}" />
                 </div>
 
                 <div class="tools">
@@ -47,7 +47,7 @@
                         <li><a href="{{ photo.get_absolute_url }}" class="add-rephoto btn small">Lisa ülepildistus</a></li>
 
                         {% for rephoto in photo.rephotos.all %}
-                        <li class="photo"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+                        <li class="photo"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" border="0" /></a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -139,7 +139,11 @@
 			<div>
 				<fb:comments href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" num_posts="3" width="500"></fb:comments>
 			</div>
+			{% if photo.lat and photo.lon %}
+			<a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x500&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
+			{% endif %}
 		</div>
+
     </div>
 </div><!-- #browse -->
 

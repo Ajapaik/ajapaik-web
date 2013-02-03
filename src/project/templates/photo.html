@@ -6,7 +6,7 @@
 
 	<div class="original photo-item">
 		{% thumbnail photo.image "700x400" as im %}
-		<img src="{{ im.url }}" />
+		<a href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
 		{% endthumbnail %}
 		
 		<div class="tools">
