@@ -17,7 +17,7 @@ var disableSave = true;
 var locationToolsOpen = false;
 
 function update_leaderboard() {
-   $('#scoreboard').load(leaderboardUpdateURL);
+   $('#top .score_container .scoreboard').load(leaderboardUpdateURL);
 }
 
 /* INIT */
@@ -116,13 +116,21 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#score-container').mouseleave(function() {
+	$('#top .score_container').mouseleave(function() {
 		hideScoreboard();
 	});
 
-	$('#score-container').mouseenter(function() {
+	$('#top .score_container').mouseenter(function() {
 		showScoreboard();
 	});
+	
+	$('#full_leaderboard').bind('click', function(e) {
+		e.preventDefault();
+		$('#leaderboard_browser .scoreboard').load(leaderboardFullURL, function() {
+		  $('#leaderboard_browser').modal();
+		});
+	});
+
 
 
 /* FUNCTIONS */
@@ -145,7 +153,7 @@ $(document).ready(function() {
 		}
 
 		$.post(saveLocationURL, data, function(resp) {
-			$("#scoreboard li.you score").text(resp['total_score']);
+			$("#top .score_container .scoreboard li.you score").text(resp['total_score']);
 
 			message = '';
 			if (resp['is_correct'] == true) {
@@ -157,7 +165,7 @@ $(document).ready(function() {
 			}
 			else
 			if (resp['is_correct'] == false) {
-				message = 'Aga julgeme kahelda.';		
+				message = 'Aga julgeme kahelda.';
 			}
 			else {
 				message = 'Sinu pakkumine oli esimene.';
@@ -218,13 +226,13 @@ $(document).ready(function() {
 	}
 
 	function showScoreboard() {
-		$('#scoreboard li').not('.you').add('h2').slideDown();
-		$('#facebook-connect').slideDown();
+		$('#top .score_container .scoreboard li').not('.you').add('h2').slideDown();
+		$('#top .score_container #facebook-connect').slideDown();
 	}
 
 	function hideScoreboard() {
-		$('#scoreboard li').not('.you').add('h2').slideUp();
-		$('#facebook-connect').slideUp();
+		$('#top .score_container .scoreboard li').not('.you').add('h2').slideUp();
+		$('#top .score_container #facebook-connect').slideUp();
 	}
 
 	function showDescription() {

@@ -63,7 +63,7 @@ def photo(request, photo_id):
         photo = photo.rephoto_of
     site = Site.objects.get_current()
     
-    template = ['', 'photo.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+    template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
         'photo': photo,
         'rephoto': rephoto,
@@ -78,7 +78,8 @@ def photoview(request, slug):
         photo = photo.rephoto_of
     site = Site.objects.get_current()
     
-    return render_to_response('photoview.html', RequestContext(request, {
+    template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+    return render_to_response(template, RequestContext(request, {
         'photo': photo,
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, )
@@ -126,8 +127,8 @@ def mapview(request):
 
 def get_leaderboard(request):
     return HttpResponse(json.dumps(
-        get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk),
-        mimetype="application/json"))
+        get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)),
+        mimetype="application/json")
 
 def geotag_add(request):
     data = request.POST
@@ -142,10 +143,17 @@ def geotag_add(request):
 
 def leaderboard(request):
     leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)
-    return render_to_response('block_leaderboard.html', RequestContext(request, {
+    template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+    return render_to_response(template, RequestContext(request, {
         'leaderboard': leaderboard,
     }))
-    
+
+def top50(request):
+    leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().get_profile().pk)
+    template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+    return render_to_response(template, RequestContext(request, {
+        'leaderboard': leaderboard,
+    }))
 
 def fetch_stream(request):
     try:

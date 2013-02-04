@@ -29,6 +29,9 @@ body {
 }
 
 /* BUTTONS */
+h2 a {
+	text-decoration:none;
+}
 
 a.btn {
 	color: #444;
@@ -506,7 +509,7 @@ a.btn.green:active {
 
 /* score */
 
-#game #top #score-container {
+#game #top .score_container {
 	position: absolute;
 	right: 5%;
 	top: -18px;
@@ -519,7 +522,18 @@ a.btn.green:active {
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
-#game #top #score-container h2 {
+.single .score_container {
+	margin-left:20px;
+	width: 400px;
+	padding: 25px 0 7px 0;
+	background: #fff;
+	z-index: 1050;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+
+}
+#game #top .score_container h2 {
 	color: #ccc;
 	font-size: 10px;
 	font-weight: 700;
@@ -529,11 +543,11 @@ a.btn.green:active {
 	display: none;
 	margin: 3px 0 4px;
 }
-#game #top #score-container ul#scoreboard {
+.score_container ul.scoreboard {
 	margin: 0;
 
 }
-#game #top #score-container ul#scoreboard li {
+#game #top .score_container ul.scoreboard li {
 	position: relative;
 	font-size: 12px;
 	line-height: 1;
@@ -544,25 +558,33 @@ a.btn.green:active {
 	padding: 0 15px;
 	height: 29px;
 }
-#game #top #score-container ul#scoreboard li.you {
+.single .score_container ul.scoreboard li {
+	font-size: 12px;
+	list-style: none;
+	line-height: 12px;
+	border-bottom: 1px solid #efefef;
+	padding: 0 15px;
+	height: 31px;
+}
+.score_container ul.scoreboard li.you {
 	font-weight: 700;
-	display: block;
+	display: block !important;
 	background: #efefef;
 }
-#game #top #score-container ul#scoreboard li.first {
+.score_container ul.scoreboard li.first {
 	padding-bottom: 10px;
 }
-#game #top #score-container ul#scoreboard li span {
+.score_container ul.scoreboard li span {
 	padding: 8px 0 0;
 }
-#game #top #score-container ul#scoreboard li .position {
+.score_container ul.scoreboard li .position {
 	float: left;
 	width: 27px;
 }
-#game #top #score-container ul#scoreboard li .name {
+.score_container ul.scoreboard li .name {
 	float: left;
 }
-#game #top #score-container ul#scoreboard li .photo {
+.score_container ul.scoreboard li .photo {
 /*
 	position: absolute;
 	right: -25px;
@@ -573,27 +595,27 @@ a.btn.green:active {
 	margin-right: -25px;
 	padding: 0;
 }
-#game #top #score-container ul#scoreboard li .photo img {
+.score_container ul.scoreboard li .photo img {
 	border: 3px solid #fff;
 	width: 23px;
 	height: 23px;
 }
-#game #top #score-container ul#scoreboard li .score {
+.score_container ul.scoreboard li .score {
 	float: right;
 	padding-right: 10px;
 }
 
-#game #top #score-container #facebook-connect {
+#game #top .score_container #facebook-connect {
 	font-size: 12px;
 	margin: 6px 15px;
 	width: 190px;
 	display: none;
 }
-#game #top #score-container #facebook-connected p {
+#game #top .score_container #facebook-connected p {
 	font-size: 12px;
 	margin: 6px 15px;
 }
-#game #top #score-container #facebook-connect p {
+#game #top .score_container #facebook-connect p {
 	margin: 0 0 10px;
 }
 #facebook-connect a {

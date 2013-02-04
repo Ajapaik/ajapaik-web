@@ -14,6 +14,7 @@ urlpatterns = patterns('views',
     (r'^ajapaikaja/$', 'thegame'),
     (r'^kaart/$', 'mapview'),
     (r'^leaderboard/$', 'leaderboard'),
+    (r'^top50/$', 'top50'),
     
     (r'^foto/(?P<photo_id>\d+)/$', 'photo'),
     (r'^foto/(?P<slug>[\w\_\-]+)/$', 'photoview'),

@@ -186,3 +186,16 @@ def get_leaderboard(user_id):
 	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
 									for idx,data in leaderboard]
 	return leaderboard
+
+def get_leaderboard50(user_id):
+	scores_list=list(enumerate(Profile.objects.filter(
+					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+				values_list('pk','score','fb_id','fb_name'). \
+				order_by('-score')))
+	leaderboard=scores_list[:50]
+	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
+											scores_list)[0][0]
+
+	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
+									for idx,data in leaderboard]
+	return leaderboard

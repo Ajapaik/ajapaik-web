@@ -5,6 +5,7 @@
 <script type="text/javascript">
 	var saveLocationURL = '{% url views.geotag_add %}';
 	var leaderboardUpdateURL = '{% url views.leaderboard %}';
+	var leaderboardFullURL = '{% url views.top50 %}';
 	var city_id = '{{ city.id }}';
 	var start_location = [{{ city.lon }}, {{ city.lat }}];
 	
@@ -13,11 +14,11 @@
 <div id="game">
 
 	<div id="top">
-		<div id="score-container">
+		<div class="score_container">
 
-			<h2>Osavamad ajapaikajad</h2>
+			<h2><a id="full_leaderboard" href="#">Osavamad ajapaikajad</a></h2>
 
-			<ul id="scoreboard">
+			<ul class="scoreboard">
 			</ul>
 
 			{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
@@ -58,6 +59,16 @@
 		<h2>Aitäh!</h2>
 		<p class="message"></p>
 		<a id="continue-game" href="" class="btn small">Edasi</a>
+	</div>
+	
+	<div style="display: none;">
+		<div id="leaderboard_browser">
+		<div class="single">
+			<a style="position:absolute;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">Sulge</a>
+			<div class="score_container">
+				<ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+			</div>
+		</div>
 	</div>
 
 </div>
