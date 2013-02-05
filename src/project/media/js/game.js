@@ -54,7 +54,7 @@ $(document).ready(function() {
 	});
 
     infowindow = new google.maps.InfoWindow({
-        content: 'Sikuta kaamera sinna kust pilt on tehtud.'
+        content: gettext('Drag the camera where the picture was taken.')
     });
 
 /* BINDINGS */
@@ -91,7 +91,7 @@ $(document).ready(function() {
 	$('#save-location').click(function(e) {
 		e.preventDefault();
 		if (disableSave) {
-			alert('Sikuta kaamera sinna kust pilt on tehtud.');
+			alert(gettext('Drag the camera where the picture was taken.'));
 		}
 		else {
 			saveLocation();
@@ -157,18 +157,18 @@ $(document).ready(function() {
 
 			message = '';
 			if (resp['is_correct'] == true) {
-				message = 'Tundub õige!';
+				message = gettext('Looks right!');
 			}
 			else
 			if (resp['location_is_unclear']) {
-				message = 'Siin ei ole päris täpne asukoht veel kindlaks tehtud.';
+				message = gettext('Correct location is not certain yet.');
 			}
 			else
 			if (resp['is_correct'] == false) {
-				message = 'Aga julgeme kahelda.';
+				message = gettext('We doubt about it.');
 			}
 			else {
-				message = 'Sinu pakkumine oli esimene.';
+				message = gettext('Your guess was first.');
 			}
 			$("#notice .message").text(message);
 			$("#notice").modal();
@@ -267,7 +267,7 @@ $(document).ready(function() {
 				currentPhoto = $('#photos .photo'+currentPhotoIdx);
 
 				$(currentPhoto).append(
-					'<div class="container"><a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">Näita vihjet</a><div class="description">'+photos[currentPhotoIdx].description+'</div><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></div>'
+					'<div class="container"><a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a><div class="description">'+photos[currentPhotoIdx].description+'</div><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></div>'
 				).find('img').load(function() {
 
 					currentPhoto.css({ 'visibility' : 'visible' });
@@ -276,7 +276,7 @@ $(document).ready(function() {
 
 						gameWidth += $(currentPhoto).width();
 						$('#photos').width(gameWidth);
-						scrollPhotos();				
+						scrollPhotos();
 
 					});
 

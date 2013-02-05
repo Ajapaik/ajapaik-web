@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ajapaik\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ru\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "Drag the camera where the picture was taken."
+msgstr "Перетяни фотоаппарат туда, где было снято фото."
+
+msgid "Show hint"
+msgstr "Покажи одсказку"
+
+msgid "Your guess was first."
+msgstr ""
+
+msgid "We doubt about it."
+msgstr ""
+
+msgid "Correct location is not certain yet."
+msgstr ""
+
+msgid "Looks right!"
+msgstr ""
+
+msgid "You have selected %s file for uploading. Continue?"
+msgid_plural "You have selected %s files for uploading. Continue?"
+msgstr[0] ""
+msgstr[1] ""

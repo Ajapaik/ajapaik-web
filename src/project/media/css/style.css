@@ -217,8 +217,8 @@ a.btn.green:active {
 #browse #photo-drawer .photos #close-photo-drawer {
 	position: absolute;
 	left: 50%;
-	width: 80px;
-	margin-left: -40px;
+	width: 90px;
+	margin-left: -45px;
 	bottom: -2%;
 	z-index: 3000;
 }
@@ -405,8 +405,8 @@ a.btn.green:active {
 	display: block;
 	top: -50px;
 	left: 50%;
-	width: 80px;
-	margin-left: -55px;
+	width: 110px;
+	margin-left: -70px;
 }
 #game #photos .photo .description {
 	font-size: 12px;

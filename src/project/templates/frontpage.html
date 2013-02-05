@@ -90,9 +90,8 @@ p {
 	<div class="photos"><img src="{{ MEDIA_URL }}images/sample_photos.png" /></div>
 
 	<div class="introduction">
-
-		<h1>Kus ajalugu asub?</h1>
-		<h2>Uuri, avasta, märgi kaardil ja pildista üle.</h2>
+		<h1>{% trans "Where is history located?" %}</h1>
+		<h2>{% trans "Discover, geotag and make the rephoto." %}</h2>
 
 		<p>Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et oleks põnevam, siis võistled kõigi teiste osalejatega. <a href="#about" class="about">Loe lähemalt</a>.</p>
 
@@ -119,14 +118,28 @@ p {
 			<p>Kahjuks on kollektsioonis palju ka selliseid negatiive, mille täpne autorlus on piisava võrdlusmaterjali puudumise tõttu seni veel välja selgitamata. Teadmata on nii mõndagi muud. Kollektsioon on muuseumis arvele võetud 1951. aastal, aga ei ole teada, kust täpselt ja mil viisil see muuseumisse sattus – vastavaid dokumente ei vormistatud. Legendi kohaselt, mida toetab ka kollektsiooni sisu, on tegemist osaga kunagisest vendade Parikaste fotoarhiivist. See 1930. aastate lõpuks kultuurilooliselt väga oluliseks ja mahukaks kollektsiooniks kasvanud arhiiv hõlmas nii kõiki neid negatiive, mis Parikased olid ise aastatel 1909–1945 pildistanud, kui ka seda, mis nad olid oma arhiivi tarbeks teiste varasemate piltnike pärandist kogunud, sealhulgas ka fotograaf Jaan Kristini negatiivid. Pärast Parikaste fotoateljee riigistamist 1949. aastal pudenes arhiiv eri muuseumide ja arhiivide vahel laiali. Arvata on, et palju ka hävitati – tol ajal poliitiliselt ebasobiva sisu tõttu. See, mis järel, on tänaseks seda väärtuslikum.</p>
 			<p>Digitaalsed koopiad fotonegatiividest on valmistatud <a href="http://www.kanut.ee" target="_blank">Ennistuskojas Kanut</a> 2009.–2010. aastal.</p>
 		</div></div>
-        
+		
+		{% get_language_info for LANGUAGE_CODE as lang %}
+		<div style="float:left;">{% trans "Choose language" %}:&nbsp;</div>
+		<form action="/i18n/setlang/" method="post" style="float:left;">
+			{% csrf_token %}
+			<input name="next" type="hidden" value="{{ redirect_to }}" />
+			<select name="language" onchange="this.form.submit();">
+				{% get_language_info_list for LANGUAGES as languages %}
+				{% for language in languages %}
+				<option value="{{ language.code }}"{% if language.code == lang.code %} selected="selected"{% endif %}>{{ language.name_local }} ({{ language.name }})</option>
+				{% endfor %}
+			</select>
+		</form>
+		<div style="clear:both;"></div>
+
         <div>
             {{ city_select_form.as_p }}
-        </div>
+		</div>
         
 		<div class="buttons">
-			<a href="{% url views.thegame %}" onclick="return submitWithCity(this);" class="btn green">Arva ära asukoht</a>
-			<a href="{% url views.mapview %}" onclick="return submitWithCity(this);" class="btn green">Vaata fotosid kaardil</a>
+			<a href="{% url views.thegame %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
+			<a href="{% url views.mapview %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
 		</div>
         
         <script type="text/javascript">
@@ -139,7 +152,7 @@ p {
 		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fajapaik&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
 
 		<div style="margin: 5px 0;">
-			<a href="http://www.facebook.com/ajapaik" target="_blank" style="font-size: 11px;">Ajapaik Facebookis</a>
+			<a href="http://www.facebook.com/ajapaik" target="_blank" style="font-size: 11px;">facebook.com/ajapaik</a>
 		</div>
 
 	</div>
@@ -148,7 +161,7 @@ p {
 
 <div id="footer">
 	<div class="container">
-		<div id="logo"><a href="/" class="ir">Ajapaik</a></div>
+		<div id="logo"><a href="/" class="ir">{% trans "Timepatch" %}</a></div>
 	</div>
 </div>
 

@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ajapaik\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "Where is history located?"
+msgstr "Где находится историю?"
+
+msgid "Timepatch"
+msgstr "Ajapaik"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Next photo"
+msgstr "Следующее фото"
+
+msgid "Facebook Connect to save your score and continue later."
+msgstr ""
+"Чтобы сохранить результат  и продолжит позже соедини аккаун с Facebook-ом."
+
+msgid "Connect with Facebook"
+msgstr ""
+
+msgid "Save location"
+msgstr "Сохранить расположение"
+
+msgid "Close map"
+msgstr "Закрыть карту"
+
+msgid "Back to home page"
+msgstr "Назад на главную"
+
+msgid "Pick the shooting location!"
+msgstr "Знаю где сделано фото!"
+
+msgid "Thank you!"
+msgstr ""
+
+msgid "Leaderboard"
+msgstr "Лучшие игроки"
+
+msgid ""
+"Account ({{ account_name }}) connected with Facebook. If it's not you then "
+"{{ link_open }}click here{{ link_close }}."
+msgstr ""
+"Аккаунт ({{ account_name }}) вязан с Facebook-ом. Если это не ты,  "
+"{{ link_open }}тогда нажми сюда{{ link_close }}."
+
+msgid "Discover, geotag and make the rephoto."
+msgstr ""
+"Узнай где сделана фотография и добавь современную фотграфию этого места."
+
+msgid "Guess the location"
+msgstr "Угадай место"
+
+msgid "Browse photos on map"
+msgstr "Смотри фото на карте"
+
+msgid "Your file has been uploaded."
+msgstr ""
+
+msgid "Choose language"
+msgstr ""
+
+msgid "Choose city"
+msgstr "Выбери город"
+
+msgid "Close photo"
+msgstr "Закрыть фото"
+
+msgid "Add rephoto"
+msgstr "Добавить современное фото"
+
+msgid ""
+"Make a contemporary rephoto from the very same place where the historic "
+"picture was taken and upload it."
+msgstr ""
+"Cделай как можно более похожую современную фотографию того же места и "
+"загрузи её."
+
+msgid "Rephoto uploading requires connecting your account with Facebook."
+msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."

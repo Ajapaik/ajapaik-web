@@ -15,7 +15,9 @@ TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'et'
 
 LANGUAGES = (
+    ('en', gettext('English')),
     ('et', gettext('Estonian')),
+    ('ru', gettext('Russian')),
     
 )
 
@@ -56,6 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'project.user_middleware.UserMiddleware',
 )

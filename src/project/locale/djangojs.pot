@@ -1,0 +1,22 @@
+msgid "Drag the camera where the picture was taken."
+msgstr ""
+
+msgid "Show hint"
+msgstr ""
+
+msgid "Your guess was first."
+msgstr ""
+
+msgid "We doubt about it."
+msgstr ""
+
+msgid "Correct location is not certain yet."
+msgstr ""
+
+msgid "Looks right!"
+msgstr ""
+
+msgid "You have selected %s file for uploading. Continue?"
+msgid_plural "You have selected %s files for uploading. Continue?"
+msgstr[0] ""
+msgstr[1] ""

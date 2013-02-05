@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ajapaik\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: et\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "Drag the camera where the picture was taken."
+msgstr "Sikuta kaamera sinna kust pilt on tehtud."
+
+msgid "Show hint"
+msgstr "Näita vihjet"
+
+msgid "Your guess was first."
+msgstr "Sinu pakkumine oli esimene."
+
+msgid "We doubt about it."
+msgstr "Aga julgeme kahelda."
+
+msgid "Correct location is not certain yet."
+msgstr "Siin ei ole päris täpne asukoht veel kindlaks tehtud."
+
+msgid "Looks right!"
+msgstr "Tundub õige!"
+
+msgid "You have selected %s file for uploading. Continue?"
+msgid_plural "You have selected %s files for uploading. Continue?"
+msgstr[0] "Soovid laadida üles %s fail. Jätkan?"
+msgstr[1] "Soovid laadida üles %s faili. Jätkan?"
