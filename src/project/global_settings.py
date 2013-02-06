@@ -118,8 +118,8 @@ MEDIA_BUNDLES = (
     {
         'type': 'css',
         'name': 'styles_combi',
-        'path': MEDIA_ROOT + '/css/',
-        'url': MEDIA_URL + 'css/',
+        'path': MEDIA_ROOT + '/gfx/',
+        'url': MEDIA_URL + 'gfx/',
         'minify': False,
         'files': (
             'style.css',

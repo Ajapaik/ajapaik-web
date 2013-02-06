@@ -12,6 +12,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 
+msgid ""
+"Account ({{ account_name }}) connected with Facebook. If it's not you then "
+"{{ link_open }}click here{{ link_close }}."
+msgstr ""
+"Konto ({{ account_name }}) seotud Facebookiga. Kui see ei ole sina, siis "
+"{{ link_open }}vajuta siia{{ link_close }}."
+
 msgid "Where is history located?"
 msgstr "Kus ajalugu asub?"
 
@@ -49,18 +56,11 @@ msgstr "Aitäh!"
 msgid "Leaderboard"
 msgstr "Osavamad Ajapaikajad"
 
-msgid ""
-"Account ({{ account_name }}) connected with Facebook. If it's not you then "
-"{{ link_open }}click here{{ link_close }}."
-msgstr ""
-"Konto ({{ account_name }}) seotud Facebookiga. Kui see ei ole sina, siis "
-"{{ link_open }}vajuta siia{{ link_close }}."
-
 msgid "Discover, geotag and make the rephoto."
 msgstr "Uuri, avasta, märgi kaardil ja pildista üle."
 
 msgid "Guess the location"
-msgstr "Salvesta asukoht"
+msgstr "Arva ära asukoht"
 
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
@@ -89,6 +89,15 @@ msgstr ""
 
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
+
+msgid "English"
+msgstr "Inglise"
+
+msgid "Estonian"
+msgstr "Eesti"
+
+msgid "Russian"
+msgstr "Vene"
 
 #~ msgid "Your points"
 #~ msgstr "Sinu punktid"

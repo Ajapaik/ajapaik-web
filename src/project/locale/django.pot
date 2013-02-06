@@ -1,3 +1,6 @@
+msgid "Account ({{ account_name }}) connected with Facebook. If it's not you then {{ link_open }}click here{{ link_close }}."
+msgstr ""
+
 msgid "Where is history located?"
 msgstr ""
 
@@ -34,9 +37,6 @@ msgstr ""
 msgid "Leaderboard"
 msgstr ""
 
-msgid "Account ({{ account_name }}) connected with Facebook. If it's not you then {{ link_open }}click here{{ link_close }}."
-msgstr ""
-
 msgid "Discover, geotag and make the rephoto."
 msgstr ""
 
@@ -65,4 +65,13 @@ msgid "Make a contemporary rephoto from the very same place where the historic p
 msgstr ""
 
 msgid "Rephoto uploading requires connecting your account with Facebook."
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Estonian"
+msgstr ""
+
+msgid "Russian"
 msgstr ""

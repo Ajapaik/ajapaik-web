@@ -5,7 +5,7 @@ body, html {
 	overflow: hidden;
 }
 body {
-	background: #fff url(../gfx/bg.jpg) center center;
+	background: #fff url(../gfx/bg2.jpg) center center;
 }
 
 
@@ -126,7 +126,7 @@ a.btn.green:active {
 	top: 0;
 	height: 7%;
 	width: 100%;
-	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg) center bottom;
+	background: #fff url(../gfx/footer_bg.jpg) center bottom;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -134,7 +134,7 @@ a.btn.green:active {
 }
 #browse .top h1 {
 	float: left;
-	background: url(../images/Ajapaik_logo.png) no-repeat;
+	background: url(../gfx/Ajapaik_logo.png) no-repeat;
 	width: 225px;
 	height: 55px;
 	margin: 10px 0 0 20px;
@@ -160,7 +160,7 @@ a.btn.green:active {
 	top: -100%;
 	width: 100%;
 	height: 500px;
-	background: #fff url(../gfx/bg.jpg) center center;
+	background: #fff url(../gfx/bg2.jpg) center center;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -500,7 +500,7 @@ a.btn.green:active {
 	position: absolute;
 	height: 10px;
 	width: 100%;
-	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg) center 6px;
+	background: #fff url(../gfx/footer_bg.jpg) center 6px;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -621,7 +621,7 @@ a.btn.green:active {
 #facebook-connect a {
 	width: 169px;
 	height: 21px;
-	background: url(../images/connect-with-facebook.png) no-repeat;	
+	background: url(../gfx/connect-with-facebook.png) no-repeat;	
 }
 
 
@@ -633,7 +633,7 @@ a.btn.green:active {
 	bottom: 0;
 	height: 10px;
 	width: 100%;
-	background: #fff url(http://www.ajapaik.ee/media/images/footer_bg.jpg);
+	background: #fff url(../gfx/footer_bg.jpg);
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -660,6 +660,105 @@ a.btn.green:active {
 	margin-left: -140px;
 	z-index: 1000;
 }
+
+/* FRONTPAGE CONTENT */
+
+#content {
+	width: 960px;
+	margin: 0 auto;
+	padding-bottom: 80px;
+}
+#content.front-page {
+ 	padding-top: 10px;
+}
+#content.front-page .photos {
+	float: left;
+	width: 400px;
+}
+#content.front-page .introduction {
+	float: right;
+	width: 500px;
+	padding: 30px 0 0;
+}
+#content.front-page .introduction .buttons {
+	margin: 30px 0 40px 0;
+}
+#content.front-page .introduction .btn {
+	margin: 0 10px 0 0;
+}
+
+/* FRONTPAGE FOOTER */
+
+#footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 80px;
+	background: url(../gfx/footer_bg.jpg) repeat-x;
+	text-align: center;
+	box-shadow: 0 0 10px #666;
+	z-index: 50;
+}
+#footer .container {
+	width: 960px;
+	margin: 0 auto;
+}
+#footer #logo {
+	width: 225px;
+	height: 55px;
+	margin: 14px 0 0;
+	float: left;
+	background: url(../gfx/Ajapaik_logo.png) no-repeat;
+}
+#footer #logo a {
+	display: block;
+	height: 100%;
+}
+
+#langlabel{
+	color:white;
+	float: right;
+	margin: 30px 12px 0 0;
+	text-shadow: 2px 1px #8E5D2E;
+}
+#langmenu{
+	position:relative;
+	float:right;
+	padding:7px 7px 7px 5px;
+	margin:24px 12px 0 0;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	-moz-background-clip:padding;
+	-webkit-background-clip:padding-box;
+	background-clip:padding-box;
+	-webkit-box-shadow:0 1px 0 rgba(255,255,255,.9),inset 0 2px 10px rgba(0,0,0,.1);
+	box-shadow:0 1px 0 rgba(255,255,255,.9),inset 0 2px 10px rgba(0,0,0,.1);
+	background-color: rgb(142, 93, 46);
+	background-color: rgba(142, 93, 46, 0.6);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#998E5D2E, endColorstr=#998E5D2E);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#998E5D2E, endColorstr=#998E5D2E)";
+}
+#langmenu div{
+	color:white;
+	font-size:14px;
+	background:url('../gfx/langmenu-arr.png') no-repeat right center;
+	padding-right:17px;
+}
+#langmenu select{
+	position:absolute;
+	font-size:14px;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	cursor:pointer;
+	opacity:0;
+	opacity: rgb(0, 0, 0);
+	opacity: rgba(0, 0, 0, 0);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
 
 
 /* Inzman */

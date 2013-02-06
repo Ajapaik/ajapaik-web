@@ -10,7 +10,9 @@ function loadPhoto(id) {
 		url: '/foto/'+id+'/',
 		success: function(result) {
 			openPhotoDrawer(result);
-			FB.XFBML.parse();
+			if (typeof FB != 'undefined') {
+				FB.XFBML.parse();
+			}
 		},
 		error: function (result) {
 			alert('error');
