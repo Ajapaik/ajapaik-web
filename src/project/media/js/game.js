@@ -46,7 +46,7 @@ $(document).ready(function() {
         draggable: true,
         animation: google.maps.Animation.DROP,
         position: location,
-        icon: 'http://www.ajapaik.ee/media/gfx/icon_marker.png'
+        icon: '/media/gfx/icon_marker.png'
     });
 
 	google.maps.event.addListener(marker, 'position_changed', function() {
