@@ -747,9 +747,9 @@ a.btn.green:active {
 #langmenu select{
 	position:absolute;
 	font-size:14px;
-	left:0;
+	left:-52px;
 	top:0;
-	width:100%;
+	width:100px;
 	height:100%;
 	cursor:pointer;
 	opacity:0;
