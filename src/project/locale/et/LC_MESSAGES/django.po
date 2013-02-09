@@ -99,5 +99,15 @@ msgstr "Eesti"
 msgid "Russian"
 msgstr "Vene"
 
+msgid ""
+"Look around and add metadata to historical photos. Competing with others "
+"adds more excitement."
+msgstr ""
+"Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et "
+"oleks põnevam, siis võistled kõigi teiste osalejatega."
+
+msgid "Read more"
+msgstr "Loe lähemalt"
+
 #~ msgid "Your points"
 #~ msgstr "Sinu punktid"

@@ -75,3 +75,9 @@ msgstr ""
 
 msgid "Russian"
 msgstr ""
+
+msgid "Look around and add metadata to historical photos. Competing with others adds more excitement."
+msgstr ""
+
+msgid "Read more"
+msgstr ""

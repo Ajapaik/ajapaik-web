@@ -21,7 +21,7 @@ msgstr ""
 "{{ link_open }}нажми сюда{{ link_close }}."
 
 msgid "Where is history located?"
-msgstr "Где находится историю?"
+msgstr "Где находится история?"
 
 msgid "Timepatch"
 msgstr "Аяпаик"
@@ -59,7 +59,7 @@ msgstr "Лучшие игроки"
 
 msgid "Discover, geotag and make the rephoto."
 msgstr ""
-"Узнай где сделана фотография и добавь современную фотграфию этого места."
+"Узнай где сделана фотографию и добавь современную фотграфию этого места."
 
 msgid "Guess the location"
 msgstr "Угадай место"
@@ -100,3 +100,13 @@ msgstr "Эстонский"
 
 msgid "Russian"
 msgstr "Русский"
+
+msgid ""
+"Look around and add metadata to historical photos. Competing with others "
+"adds more excitement."
+msgstr ""
+"Добавь дополнительную информацию к старым фотографиям.Так будет интреснее "
+"соревноваться с другими."
+
+msgid "Read more"
+msgstr "Подробнее"

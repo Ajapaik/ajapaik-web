@@ -1,5 +1,5 @@
-msgid "You have selected a file for uploading. Continue?"
-msgid_plural "You have selected %s files for uploading. Continue?"
+msgid "You have selected one photo for uploading. Continue?"
+msgid_plural "You have selected %s photos for uploading. Continue?"
 msgstr[] ""
 
 msgid "Drag the camera where the picture was taken."
