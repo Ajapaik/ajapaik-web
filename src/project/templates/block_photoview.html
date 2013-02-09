@@ -87,7 +87,7 @@
                 },
                 sendBoundary: window.FormData || $.browser.mozilla,
                 onStart: function(event, total) {
-                    return confirm(interpolate(ngettext('You have selected a file for uploading. Continue?', 'You have selected %s files for uploading. Continue?', total), [total]));
+                    return confirm(interpolate(ngettext('You have selected one photo for uploading. Continue?', 'You have selected %s files for uploading. Continue?', total), [total]));
                 },
                 setName: function(text) {
                     $("#progress_report_name").text(text);
