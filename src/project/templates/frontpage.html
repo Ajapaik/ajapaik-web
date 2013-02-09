@@ -41,7 +41,12 @@ p {
 		<h1>{% trans "Where is history located?" %}</h1>
 		<h2>{% trans "Discover, geotag and make the rephoto." %}</h2>
 
-		<p>{% trans "Look around and add metadata to historical photos. Competing with others adds more excitement." %}<br /><a href="#about" class="about">{% trans "Read more" %}</a>.</p>
+		<p>
+		{% trans "Look around and add metadata to historical photos. Competing with others adds more excitement." %}
+		{% if LANGUAGE_CODE == 'et' %}
+		<br /><a href="#about" class="about">{% trans "Read more" %}</a>
+		{% endif %}
+		</p>
 
 		<div style="display: none"><div id="about" style="width: 700px; height: 400px; overflow: auto; padding: 30px 40px;">
 			<h2>Mis on Ajapaik.ee?</h2>
