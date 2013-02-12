@@ -51,6 +51,9 @@ a.btn {
 	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#ddd));
 	background: -moz-linear-gradient(top,  #efefef,  #ddd);
 }
+a.btn.medium {
+	font-size: 12px;
+}
 a.btn.small {
 	font-size: 12px;
 	padding: 5px 10px;
@@ -161,7 +164,7 @@ a.btn.green:active {
 	position: absolute;
 	top: -100%;
 	width: 100%;
-	height: 500px;
+	height: 480px;
 	background: #fff url(../gfx/bg2.jpg) center center;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -219,16 +222,17 @@ a.btn.green:active {
 	right: 0;
 	display: block;
 }
-
-#browse #photo-drawer .photos #close-photo-drawer {
+.photos .browse-nav {
 	position: absolute;
-	left: 50%;
-	width: 90px;
-	margin-left: -45px;
-	bottom: -2%;
+	right: 50%;
+	margin-right: 12px;
+	top: 400px;
 	z-index: 3000;
 }
-
+.photos .browse-nav a.btn {
+	display: block;
+	margin-top: 5px;
+}
 
 /* original tools */
 #browse #photo-drawer .original:hover .tools,
@@ -293,9 +297,11 @@ a.btn.green:active {
 #browse #photo-drawer .no-rephoto .tools,
 .single .no-rephoto .tools {
 	position: absolute;
-	bottom: -90px;
+	bottom: -85px;
 	right: 0;
-	height: 60px;
+	width: 100%;
+	height: 65px;
+	overflow-y: auto;
 }
 #browse #photo-drawer .rephoto .tools ul.thumbs,
 .single .rephoto .tools ul.thumbs,
@@ -303,6 +309,7 @@ a.btn.green:active {
 .single .no-rephoto .tools ul.thumbs {
 	margin: 0;
 	padding: 0;
+	float: right;
 }
 #browse #photo-drawer .rephoto .tools ul.thumbs li,
 .single .rephoto .tools ul.thumbs li,
@@ -311,7 +318,7 @@ a.btn.green:active {
 	line-height: 0;
 	list-style: none;
 	float: left;
-	margin: 0 0 0 5px;
+	margin: 0 0 5px 4px;
 	min-width: 60px;
 	min-height: 60px;
 }

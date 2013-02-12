@@ -41,18 +41,19 @@
                     </div>
                     <img id="rephoto_img" src="{{ im.url }}" />
                 </div>
-
                 <div class="tools">
                     <ul class="thumbs">
-                        <li><a href="{{ photo.get_absolute_url }}" class="add-rephoto btn small">{% trans "Add rephoto" %}</a></li>
-
                         {% for rephoto in photo.rephotos.all %}
                         <li class="photo"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" border="0" /></a></li>
                         {% endfor %}
                     </ul>
                 </div>
             </div><!-- .rephoto -->
-			
+
+			<div class="browse-nav">
+				<a href="{{ photo.get_absolute_url }}" class="add-rephoto btn medium">{% trans "Add rephoto" %}</a>
+			</div>
+
 			{% empty %}
 
 			<div class="no-rephoto">
