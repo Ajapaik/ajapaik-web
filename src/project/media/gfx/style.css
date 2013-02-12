@@ -233,7 +233,7 @@ a.btn.green:active {
 .photos .browse-nav {
 	position: absolute;
 	right: 50%;
-	margin-right: 12px;
+	margin-right: 25px;
 	top: 400px;
 	z-index: 3000;
 }
