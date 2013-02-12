@@ -317,7 +317,7 @@ a.btn.green:active {
 .single .no-rephoto .tools ul.thumbs {
 	margin: 0;
 	padding: 0;
-	float: right;
+	float: left;
 }
 #browse #photo-drawer .rephoto .tools ul.thumbs li,
 .single .rephoto .tools ul.thumbs li,
