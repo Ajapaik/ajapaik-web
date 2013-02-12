@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% load i18n %}
 {% block layout %}
-<div id="browse">
+<div id="browse_scroll">
     <div class="top">
 
         <h1 class="ir"><a href="/?city={{ photo.city_id }}">{% trans "Timepatch" %}</a></h1>
@@ -10,9 +10,27 @@
         <ul id="nav">
         </ul>
 
+		{% get_language_info for LANGUAGE_CODE as lang %}
+		<div style="top: -20px;position: relative;">
+			<form style="display:inline;" action="/i18n/setlang/" method="post">
+				{% csrf_token %}
+				<div id="langmenu">
+					<div>{{ lang.code|upper }}</div>
+					<input name="next" type="hidden" value="{{ redirect_to }}" />
+					<select id="language" name="language" onchange="this.form.submit();">
+						{% get_language_info_list for LANGUAGES as languages %}
+						{% for language in languages %}
+						<option value="{{ language.code }}" title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"{% if language.code == lang.code %} selected="selected"{% endif %}>{{ language.name_local|title }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<span id="langlabel">{% trans "Choose language" %}:</span>
+			</form>
+		</div>
+
     </div>
 
-    <div class="single" style="top:7%;">
+    <div id="content" class="single">
         <div class="photos clearfix">
 
             <div class="original photo-item">

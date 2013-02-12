@@ -2,11 +2,9 @@ body, html {
 	height: 100%;
 	min-height: 550px;
 	font-family: 'Droid Serif', arial, sans-serif;
-	overflow: hidden;
-	overflow-y: auto;
 }
 body {
-	background: #fff url(../gfx/bg2.jpg) center center;
+	background: #fff url(../gfx/bg2.jpg) top center;
 }
 
 
@@ -105,7 +103,6 @@ a.btn.green:active {
 	position: relative;
 	height: 100%;
 	overflow: hidden;
-	overflow-y: auto;
 }
 
 #photo_browser #browser_list {
@@ -137,14 +134,25 @@ a.btn.green:active {
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	z-index: 1000;
 }
-#browse .top h1 {
+#browse_scroll .top {
+	position: fixed;
+	top: 0;
+	height: 40px;
+	width: 100%;
+	background: #fff url(../gfx/footer_bg.jpg) center bottom;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+	z-index: 1000;
+}
+#browse .top h1, #browse_scroll .top h1 {
 	float: left;
 	background: url(../gfx/Ajapaik_logo.png) no-repeat;
 	width: 225px;
 	height: 55px;
 	margin: 10px 0 0 20px;
 }
-#browse .top h1 a {
+#browse .top h1 a, #browse_scroll .top h1 a  {
 	display: block;
 	height: 100%;
 }
@@ -511,7 +519,7 @@ a.btn.green:active {
 
 /* TOP BAR */
 
-#game #top, #content.front-page {
+#game #top {
 	#position: relative;
 	height: 2%;
 	width: 100%;
@@ -526,7 +534,7 @@ a.btn.green:active {
 
 #game #top .score_container {
 	position: absolute;
-	right: 5%;
+	right: 10%;
 	top: -18px;
 	width: 250px;
 /* 	margin-left: -125px; */
@@ -682,9 +690,11 @@ a.btn.green:active {
 	width: 960px;
 	margin: 0 auto;
 	margin-bottom: 80px;
+	padding-top:40px;
 }
 #content.front-page {
- 	#padding-top: 10px;
+	padding-top: 50px;
+	padding-bottom: 90px;
 	margin: 0 auto;
 }
 #content .middle-block {
@@ -694,13 +704,10 @@ a.btn.green:active {
 #content.front-page .photos {
 	float: left;
 	width: 400px;
-	padding-top: 20px;
-	padding-bottom: 20px;
 }
 #content.front-page .introduction {
 	float: right;
 	width: 500px;
-	padding: 30px 0 0;
 }
 #content.front-page .introduction .buttons {
 	margin: 30px 0 40px 0;
@@ -737,11 +744,13 @@ a.btn.green:active {
 	height: 100%;
 }
 
-#langlabel{
+#browse .top #city_select, #langlabel{
 	color:white;
+	text-shadow: 2px 1px #8E5D2E;
+}
+#langlabel{
 	float: right;
 	margin: 30px 12px 0 0;
-	text-shadow: 2px 1px #8E5D2E;
 }
 #langmenu{
 	position:relative;
