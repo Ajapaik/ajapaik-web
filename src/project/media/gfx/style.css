@@ -3,9 +3,10 @@ body, html {
 	min-height: 550px;
 	font-family: 'Droid Serif', arial, sans-serif;
 	overflow: hidden;
+	overflow-y: auto;
 }
 body {
-	background: #fff url(../gfx/bg2.jpg) center center;
+	background: #fff url(../gfx/bg2.jpg) top center;
 }
 
 
@@ -101,6 +102,7 @@ a.btn.green:active {
 	position: relative;
 	height: 100%;
 	overflow: hidden;
+	overflow-y: auto;
 }
 
 #photo_browser #browser_list {
@@ -186,6 +188,8 @@ a.btn.green:active {
 	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
 	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
 	overflow: hidden;
+	min-width: 100px;
+	min-height: 350px;
 }
 #browse #photo-drawer .photos .rephoto,
 .single .rephoto,
@@ -197,6 +201,8 @@ a.btn.green:active {
 	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	min-width: 100px;
+	min-height: 350px;
 }
 #browse #photo-drawer .photos img,
 .single .photos img {
@@ -306,6 +312,8 @@ a.btn.green:active {
 	list-style: none;
 	float: left;
 	margin: 0 0 0 5px;
+	min-width: 60px;
+	min-height: 60px;
 }
 #browse #photo-drawer .rephoto .tools ul.thumbs li img,
 .single .rephoto .tools ul.thumbs li img,
@@ -496,9 +504,9 @@ a.btn.green:active {
 
 /* TOP BAR */
 
-#game #top {
-	position: absolute;
-	height: 10px;
+#game #top, #content.front-page {
+	position: relative;
+	height: 15px;
 	width: 100%;
 	background: #fff url(../gfx/footer_bg.jpg) center 6px;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -628,7 +636,7 @@ a.btn.green:active {
 
 /* BOTTOM BAR */
 
-#game #btm {
+#game #btm{
 	position: absolute;
 	bottom: 0;
 	height: 10px;
@@ -666,14 +674,15 @@ a.btn.green:active {
 #content {
 	width: 960px;
 	margin: 0 auto;
-	padding-bottom: 80px;
+	margin-bottom: 80px;
 }
 #content.front-page {
- 	padding-top: 10px;
+ 	#padding-top: 10px;
 }
 #content.front-page .photos {
 	float: left;
 	width: 400px;
+	padding-top: 20px;
 }
 #content.front-page .introduction {
 	float: right;
