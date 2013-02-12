@@ -161,7 +161,8 @@ $(document).ready(function() {
 		}
 
 		$.post(saveLocationURL, data, function(resp) {
-			$("#top .score_container .scoreboard li.you score").text(resp['total_score']);
+			//$("#top .score_container .scoreboard li.you score").text(resp['total_score']);
+			update_leaderboard();
 
 			message = '';
 			if (resp['is_correct'] == true) {
@@ -250,7 +251,7 @@ $(document).ready(function() {
 	}
 
 	function nextPhoto() {
-		update_leaderboard();
+		//update_leaderboard();
 		hintUsed = 0;
 		disableSave = true;
 
@@ -265,6 +266,7 @@ $(document).ready(function() {
 
 				disableNext = true;
 
+				$('.skip-photo').animate({ 'opacity' : .4 });
 				$(currentPhoto).find('img').animate({ 'opacity' : .4 });
 				showDescription();
 
@@ -305,6 +307,7 @@ $(document).ready(function() {
 		gameOffset = ($(document).width() / 2) + ($(currentPhoto).width() / 2) - gameWidth;
 		$('#photos').animate({ left : gameOffset }, 1000, function(){
 			disableNext = false;
+			$('.skip-photo').animate({ 'opacity' : 1 });
 		});
 	}
 
