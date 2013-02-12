@@ -49,6 +49,14 @@ $(document).ready(function() {
         icon: '/media/gfx/icon_marker.png'
     });
 
+	google.maps.event.addListener(map, 'click', function(event){
+		if (infowindow !== undefined) {
+			infowindow.close();
+			infowindow = undefined;
+		}
+		marker.setPosition(event.latLng);
+	});
+
 	google.maps.event.addListener(marker, 'position_changed', function() {
 		disableSave = false;
 	});
