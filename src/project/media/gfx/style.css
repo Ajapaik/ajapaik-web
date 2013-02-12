@@ -6,7 +6,7 @@ body, html {
 	overflow-y: auto;
 }
 body {
-	background: #fff url(../gfx/bg2.jpg) top center;
+	background: #fff url(../gfx/bg2.jpg) center center;
 }
 
 
@@ -473,7 +473,7 @@ a.btn.green:active {
 
 #game #tools {
 	position: absolute;
-	height: 100%;
+	height: 96%;
 	width: 85%;
 	min-width: 100px;
 	left: 100%;
@@ -505,8 +505,8 @@ a.btn.green:active {
 /* TOP BAR */
 
 #game #top, #content.front-page {
-	position: relative;
-	height: 15px;
+	#position: relative;
+	height: 2%;
 	width: 100%;
 	background: #fff url(../gfx/footer_bg.jpg) center 6px;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -639,13 +639,13 @@ a.btn.green:active {
 #game #btm{
 	position: absolute;
 	bottom: 0;
-	height: 10px;
+	height: 2%;
 	width: 100%;
 	background: #fff url(../gfx/footer_bg.jpg);
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-	z-index: 100;
+	z-index: 501;
 }
 #game #btm #open-location-tools-container {
 	position: absolute;
@@ -678,11 +678,17 @@ a.btn.green:active {
 }
 #content.front-page {
  	#padding-top: 10px;
+	margin: 0 auto;
+}
+#content .middle-block {
+	width: 960px;
+	margin: 0 auto;
 }
 #content.front-page .photos {
 	float: left;
 	width: 400px;
 	padding-top: 20px;
+	padding-bottom: 20px;
 }
 #content.front-page .introduction {
 	float: right;

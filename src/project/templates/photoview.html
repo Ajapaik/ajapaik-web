@@ -140,7 +140,7 @@
 				<fb:comments href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" num_posts="3" width="500"></fb:comments>
 			</div>
 			{% if photo.lat and photo.lon %}
-			<a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x500&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
+			<a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x250&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
 			{% endif %}
 		</div>
 
