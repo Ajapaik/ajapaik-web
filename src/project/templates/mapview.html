@@ -18,12 +18,17 @@
 			var p=geotagged_photos[i];
 			var thumb = p[1];
 			//var image = '/media/gfx/' + (p[4] ? 'icon_camera_hot.png' : 'icon_camera.png');
-			var image = new google.maps.MarkerImage(p[1], null, null, null,
+			var image = new google.maps.MarkerImage(
+					p[1],
+					null,
+					null,
+					new google.maps.Point(19, 48),
 					new google.maps.Size(32, 32)
+					
 				);
-			var border = new google.maps.MarkerImage('/media/gfx/' + (p[4] ? 'border_camera_hot.png' : 'border_camera.png'), null, null,
-					new google.maps.Point(18, 34),
-					new google.maps.Size(36, 36)
+			var border = new google.maps.MarkerImage('/media/gfx/' + (p[4] ? 'shadow_camera_hot.png' : 'shadow_camera.png'), null, null,
+					new google.maps.Point(22, 52),
+					new google.maps.Size(38, 48)
 				);
 			var marker = new google.maps.Marker({
 					map: map,
@@ -42,7 +47,34 @@
 			})(p[0]);
 			markers.push(marker);
 		}
-		var markerCluster = new MarkerClusterer(map, markers, {gridSize: 40, zoomOnClick: false});
+
+		var clusterStyles = [
+			{
+				textColor: 'green',
+				url: '/media/gfx/cluster.png',
+				width: 38,
+				height: 40
+			},
+			{
+				textColor: 'orange',
+				url: '/media/gfx/cluster.png',
+				width: 38,
+				height: 40
+			},
+			{
+				textColor: 'red',
+				url: '/media/gfx/cluster.png',
+				width: 38,
+				height: 40
+			}
+		];
+
+		var markerCluster = new MarkerClusterer(map, markers, {
+			styles: clusterStyles,
+			gridSize: 50,
+			zoomOnClick: false
+		});
+
 		google.maps.event.addListener(markerCluster, 'clusterclick',
 			function(clickedCluster){
 				var markers = clickedCluster.getMarkers();
@@ -58,7 +90,8 @@
 				}
 				$('#photo_browser #browser_list').html(browser_content);
 				$('#photo_browser').modal();
-			});
+			}
+		);
 	};
 	$(document).ready(initialize);
 </script>
