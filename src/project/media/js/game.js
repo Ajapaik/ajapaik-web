@@ -54,8 +54,13 @@ $(document).ready(function() {
 			infowindow.close();
 			infowindow = undefined;
 		}
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-		marker.setPosition(event.latLng);
+		// change position only if marker is idle
+		if (marker.getAnimation() != null) {
+			marker.setAnimation(null);
+		} else {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+			marker.setPosition(event.latLng);
+		}
 	});
 
 	google.maps.event.addListener(marker, 'position_changed', function() {
