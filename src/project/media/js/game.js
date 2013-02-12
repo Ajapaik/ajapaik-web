@@ -54,6 +54,7 @@ $(document).ready(function() {
 			infowindow.close();
 			infowindow = undefined;
 		}
+		marker.setAnimation(google.maps.Animation.BOUNCE);
 		marker.setPosition(event.latLng);
 	});
 
