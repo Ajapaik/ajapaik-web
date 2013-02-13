@@ -125,6 +125,24 @@ def mapview(request):
         
     }))    
 
+def heatmap(request):
+    city_select_form = CitySelectForm(request.GET)
+    city_id = city = None
+    
+    if city_select_form.is_valid():
+        city_id = city_select_form.cleaned_data['city']
+        city = City.objects.get(pk=city_id)
+    else:
+        city_select_form = CitySelectForm()
+    
+    data = get_next_photos_to_geotag.get_all_geotagged_photos(city_id)
+    return render_to_response('heatmap.html', RequestContext(request, {
+        'json_data': json.dumps(data),
+        'city': city,
+        'city_select_form': city_select_form,
+        
+    }))    
+
 def get_leaderboard(request):
     return HttpResponse(json.dumps(
         get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)),

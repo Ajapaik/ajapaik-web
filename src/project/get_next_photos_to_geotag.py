@@ -168,6 +168,17 @@ def get_geotagged_photos(city_id=None):
 		data.append((p.id,im.url,p.lon,p.lat,p.id in rephotographed_ids))
 	return data
 
+def get_all_geotagged_photos(city_id=None):
+	photos_set=Photo.objects.all()
+	if city_id is not None:
+		photos_set=photos_set.filter(city__pk=city_id)
+
+	rephotographed_ids=frozenset(photos_set.filter(rephoto_of__isnull=False))
+	data=[]
+	for p in photos_set.filter(lat__isnull=False,lon__isnull=False,rephoto_of__isnull=True):
+		data.append((p.lon,p.lat))
+	return data
+
 def get_leaderboard(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
 					Q(fb_name__isnull=False) | Q(pk=user_id)). \
