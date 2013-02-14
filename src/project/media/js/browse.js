@@ -60,13 +60,9 @@ $(document).ready(function() {
 
 	$('#photo-drawer').delegate('ul.thumbs li.photo a', 'click', function(e) {
 		e.preventDefault();
-		$('#rephoto_img').attr('src', $(this).attr('rel') );
-		if ($(this).attr('title')) {
-			$('#meta_content').html($(this).attr('title'));
-		}
-		else {
-			$('#meta_content').html('');
-		}
+		$('#rephoto_content').html($('#rephoto_img_'+$(this).attr('rel')).html());
+		$('#add-comment').attr('href', $('#rephoto_content a').attr('href'));
+		$('#meta_content').html($('#rephoto_meta_'+$(this).attr('rel')).html());
 	});
 
 	$('#photo-drawer').delegate('a.add-rephoto', 'click', function(e) {

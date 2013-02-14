@@ -236,10 +236,13 @@ a.btn.green:active {
 	margin-right: 25px;
 	top: 400px;
 	z-index: 3000;
+	width: 350px;
 }
 .photos .browse-nav a.btn {
 	display: block;
 	margin-top: 5px;
+	float: right;
+	margin-left: 5px;
 }
 
 /* original tools */

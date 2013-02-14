@@ -57,7 +57,7 @@
 							{% if rephoto.user.fb_name %}<p class="owner"><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" /></a> {{ rephoto.user.fb_name }}</p>{% endif %}
                         </div>
                     </div>
-                    <img id="rephoto_img" src="{{ im.url }}" />
+					<a href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                 </div>
                 <div class="tools">
                     <ul class="thumbs">
@@ -69,7 +69,7 @@
             </div><!-- .rephoto -->
 
 			<div class="browse-nav">
-				<a href="{{ photo.get_absolute_url }}" class="add-rephoto btn medium">{% trans "Add rephoto" %}</a>
+				<a href="{{ photo.get_absolute_url }}" class="add-rephoto btn green medium">{% trans "Add rephoto" %}</a>
 			</div>
 
 			{% empty %}

@@ -4,8 +4,9 @@
 <div class="photos clearfix">
 
 	<div class="browse-nav">
-		<a href="#" class="add-rephoto btn medium">{% trans "Add rephoto" %}</a>
+		<a href="#" class="add-rephoto btn green medium">{% trans "Add rephoto" %}</a>
 		<a href="#" id="close-photo-drawer" class="btn medium">{% trans "Close photo" %}</a>
+		<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" id="add-comment" class="btn green medium">{% trans "Add comment" %}</a>
 	</div>
 
 	<div class="original photo-item">
@@ -27,18 +28,38 @@
 		<div class="container">
 			<div class="meta">
 				<div class="content" id="meta_content">
-					{% if photo.rephotos.all.0.user.fb_name %}{{ photo.rephotos.all.0.user.fb_name }}{% endif %}
+					<p style="margin-left:35px;"> {% if photo.rephotos.all.0.date %}{{ photo.rephotos.all.0.date|date:"F d, Y" }}{% else %}{{ photo.rephotos.all.0.created|date:"F d, Y" }}{% endif %}</p>
+					{% if photo.rephotos.all.0.user.fb_name %}<p class="owner"><a href="{{ photo.rephotos.all.0.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ photo.rephotos.all.0.user.fb_id }}/picture?type=square" /></a> {{ photo.rephotos.all.0.user.fb_name }}</p>{% endif %}
+				</div>
+				<div style="display:none;">
+				{% for rephoto in photo.rephotos.all %}
+					<div id="rephoto_meta_{{ rephoto.id }}">
+					<p style="margin-left:35px;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>
+					{% if rephoto.user.fb_name %}<p class="owner"><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" /></a> {{ rephoto.user.fb_name }}</p>{% endif %}
+					</div>
+				{% endfor %}
 				</div>
 			</div>
 			<!-- <a href="#" class="info">Info</a> -->
 
-			<img id="rephoto_img" src="{{ rephoto.url }}" />
+			<div id="rephoto_content">
+				<a href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
+			</div>
+			<div style="display:none;">
+			{% for rephoto in photo.rephotos.all %}
+				<div id="rephoto_img_{{ rephoto.id }}">
+				{% thumbnail rephoto.image "700x400" as image %}
+					<a href="{{ rephoto.get_absolute_url }}"><img src="{{ image.url }}" border="0" /></a>
+				{% endthumbnail %}
+				</div>
+			{% endfor %}
+			</div>
 		</div>
 
 		<div class="tools">
 			<ul class="thumbs">
 				{% for rephoto in photo.rephotos.all %}
-				<li class="photo"><a href="#" rel="{% thumbnail rephoto.image "700x400" as image %}{{ image.url }}{% endthumbnail %}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+				<li class="photo"><a href="#" rel="{{ rephoto.id }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
 				{% endfor %}
 			</ul>
 		</div>
