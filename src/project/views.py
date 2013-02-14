@@ -55,6 +55,17 @@ def thegame(request):
     
     return render_to_response('game.html', RequestContext(request, ctx))
 
+def frontpage(request):
+    city_select_form = CitySelectForm(request.GET)
+    
+    if not city_select_form.is_valid():
+        city_select_form = CitySelectForm()
+
+    return render_to_response('frontpage.html', RequestContext(request, {
+        'city_select_form': city_select_form,
+        
+    }))
+
 def photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
     rephoto = None
@@ -71,20 +82,8 @@ def photo(request, photo_id):
     }))
 
 def photoview(request, slug):
-    photo = get_object_or_404(Photo, slug=slug)
-    rephoto = None
-    if hasattr(photo, 'rephoto_of') and photo.rephoto_of is not None:
-        rephoto = photo
-        photo = photo.rephoto_of
-    site = Site.objects.get_current()
-    
-    template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
-    return render_to_response(template, RequestContext(request, {
-        'photo': photo,
-        'rephoto': rephoto,
-        'hostname': 'http://%s' % (site.domain, )
-    }))
-    
+    photo_obj = get_object_or_404(Photo, slug=slug)
+    return photo(request, photo_obj.id)
 
 def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
@@ -96,34 +95,16 @@ def photo_thumb(request, photo_id):
     im = get_thumbnail(photo.image, '50x50', crop='center')
     return redirect(im.url)
 
-def frontpage(request):
-    city_select_form = CitySelectForm(request.GET)
-    
-    if not city_select_form.is_valid():
-        city_select_form = CitySelectForm()
-
-    return render_to_response('frontpage.html', RequestContext(request, {
-        'city_select_form': city_select_form,
+def photo_heatmap(request, photo_id):
+    data = []
+    return render_to_response('heatmap.html', RequestContext(request, {
+        'json_data': json.dumps(data),
         
     }))
-    
-def mapview(request):
-    city_select_form = CitySelectForm(request.GET)
-    city_id = city = None
-    
-    if city_select_form.is_valid():
-        city_id = city_select_form.cleaned_data['city']
-        city = City.objects.get(pk=city_id)
-    else:
-        city_select_form = CitySelectForm()
-    
-    data = get_next_photos_to_geotag.get_geotagged_photos(city_id)
-    return render_to_response('mapview.html', RequestContext(request, {
-        'json_data': json.dumps(data),
-        'city': city,
-        'city_select_form': city_select_form,
-        
-    }))    
+
+def photoview_heatmap(request, slug):
+    photo_obj = get_object_or_404(Photo, slug=slug)
+    return photo_heatmap(request, photo_obj.id)
 
 def heatmap(request):
     city_select_form = CitySelectForm(request.GET)
@@ -141,7 +122,25 @@ def heatmap(request):
         'city': city,
         'city_select_form': city_select_form,
         
-    }))    
+    }))
+
+def mapview(request):
+    city_select_form = CitySelectForm(request.GET)
+    city_id = city = None
+    
+    if city_select_form.is_valid():
+        city_id = city_select_form.cleaned_data['city']
+        city = City.objects.get(pk=city_id)
+    else:
+        city_select_form = CitySelectForm()
+    
+    data = get_next_photos_to_geotag.get_geotagged_photos(city_id)
+    return render_to_response('mapview.html', RequestContext(request, {
+        'json_data': json.dumps(data),
+        'city': city,
+        'city_select_form': city_select_form,
+        
+    }))
 
 def get_leaderboard(request):
     return HttpResponse(json.dumps(
