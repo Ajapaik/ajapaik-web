@@ -53,7 +53,7 @@ def thegame(request):
     if city_select_form.is_valid():
         ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
     
-    return render_to_response('index.html', RequestContext(request, ctx))
+    return render_to_response('game.html', RequestContext(request, ctx))
 
 def photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block layout %}
 <div id="game">
@@ -11,7 +12,7 @@
 			<li class="clearfix{% if pos.1 %} you{% endif %}">
 				<span class="position">{{ pos.0 }}.</span>
 				<span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square" />{% endif %}</span>
-				<span class="name">{% if pos.4 %}{{ pos.4 }}{% else %} {% endif %}</span>
+				<span class="name">{% if pos.4 %}{{ pos.4 }}{% else %}{% trans "Your points" %}{% endif %}</span>
 				<span class="score">{{ pos.2 }}</span>
 			</li>
 			{% endfor %}

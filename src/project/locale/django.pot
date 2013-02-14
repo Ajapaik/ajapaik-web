@@ -81,3 +81,9 @@ msgstr ""
 
 msgid "Read more"
 msgstr ""
+
+msgid "Your points"
+msgstr ""
+
+msgid "Add comment"
+msgstr ""

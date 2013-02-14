@@ -40,7 +40,6 @@
 				{% endfor %}
 				</div>
 			</div>
-			<!-- <a href="#" class="info">Info</a> -->
 
 			<div id="rephoto_content">
 				<a href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
@@ -71,11 +70,9 @@
 	<div class="no-rephoto">
 		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
 
-		<!--
 		<p class="add-rephoto-container">
 			<a href="#" class="add-rephoto btn small">{% trans "Add rephoto" %}</a>
 		</p>
-		-->
 
 		<script>
 			$('#photo-drawer .original img').load(function() {

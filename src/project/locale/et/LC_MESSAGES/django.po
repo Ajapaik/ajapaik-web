@@ -109,5 +109,8 @@ msgstr ""
 msgid "Read more"
 msgstr "Loe lähemalt"
 
-#~ msgid "Your points"
-#~ msgstr "Sinu punktid"
+msgid "Your points"
+msgstr "Sinu punktid"
+
+msgid "Add comment"
+msgstr "Lisa kommentaar"
