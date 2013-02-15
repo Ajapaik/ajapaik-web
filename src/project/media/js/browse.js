@@ -61,7 +61,7 @@ $(document).ready(function() {
 	$('#photo-drawer').delegate('ul.thumbs li.photo a', 'click', function(e) {
 		e.preventDefault();
 		$('#rephoto_content').html($('#rephoto_img_'+$(this).attr('rel')).html());
-		$('#add-comment').attr('href', $('#rephoto_content a').attr('href'));
+		$('#add-comment').html($('#rephoto_comment_'+$(this).attr('rel')).html());
 		$('#meta_content').html($('#rephoto_meta_'+$(this).attr('rel')).html());
 	});
 

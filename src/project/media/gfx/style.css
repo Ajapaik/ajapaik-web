@@ -696,8 +696,8 @@ a.btn.green:active {
 	padding-top:40px;
 }
 #content.front-page {
-	padding-top: 50px;
-	padding-bottom: 90px;
+	padding-top: 70px;
+	padding-bottom: 50px;
 	margin: 0 auto;
 }
 #content .middle-block {
@@ -725,7 +725,7 @@ a.btn.green:active {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	height: 80px;
+	height: 40px;
 	background: url(../gfx/footer_bg.jpg) repeat-x;
 	text-align: center;
 	box-shadow: 0 0 10px #666;

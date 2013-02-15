@@ -6,7 +6,16 @@
 	<div class="browse-nav">
 		<a href="#" class="add-rephoto btn green medium">{% trans "Add rephoto" %}</a>
 		<a href="#" id="close-photo-drawer" class="btn medium">{% trans "Close photo" %}</a>
-		<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" id="add-comment" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
+		<div id="add-comment">
+		<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
+		</div>
+		<div style="display:none;">
+		{% for rephoto in photo.rephotos.all %}
+			<div id="rephoto_comment_{{ rephoto.id }}">
+			<a href="{{ rephoto.get_absolute_url }}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a>
+			</div>
+		{% endfor %}
+		</div>
 	</div>
 
 	<div class="original photo-item">
