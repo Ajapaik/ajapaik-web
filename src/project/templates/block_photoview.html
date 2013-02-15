@@ -67,7 +67,7 @@
 		<div class="tools">
 			<ul class="thumbs">
 				{% for rephoto in photo.rephotos.all %}
-				<li class="photo"><a href="#" rel="{{ rephoto.id }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+				<li class="photo"><a href="{{ rephoto.get_absolute_url }}" rel="{{ rephoto.id }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
 				{% endfor %}
 			</ul>
 		</div>
