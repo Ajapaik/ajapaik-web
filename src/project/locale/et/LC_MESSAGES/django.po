@@ -75,7 +75,7 @@ msgid "Choose city"
 msgstr "Vali linn"
 
 msgid "Close photo"
-msgstr "Sulge kaart"
+msgstr "Sulge foto"
 
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
