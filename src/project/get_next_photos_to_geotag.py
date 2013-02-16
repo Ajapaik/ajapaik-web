@@ -184,9 +184,8 @@ def get_all_geotagged_photos(city_id=None):
 	if city_id is not None:
 		photos_set=photos_set.filter(city__pk=city_id)
 
-	rephotographed_ids=frozenset(photos_set.filter(rephoto_of__isnull=False))
 	data=[]
-	for p in photos_set.filter(lat__isnull=False,lon__isnull=False,rephoto_of__isnull=True):
+	for p in photos_set.filter(confidence__gte=0.3,lat__isnull=False,lon__isnull=False):
 		data.append((p.lon,p.lat))
 	return data
 
@@ -196,7 +195,7 @@ def get_all_geotag_submits(photo_id=None):
 		geotag_set=geotag_set.filter(photo__pk=photo_id)
 
 	data=[]
-	for g in geotag_set:
+	for g in geotag_set.filter(trustworthiness__gt=0.2):
 		data.append((g.lon,g.lat))
 	return data
 
