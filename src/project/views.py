@@ -98,6 +98,8 @@ def photo_thumb(request, photo_id):
 
 def photo_heatmap(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
+    if hasattr(photo, 'rephoto_of') and photo.rephoto_of is not None:
+        photo = photo.rephoto_of
     data = get_next_photos_to_geotag.get_all_geotag_submits(photo.id)
     return render_to_response('heatmap.html', RequestContext(request, {
         'json_data': json.dumps(data),
