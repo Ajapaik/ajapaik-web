@@ -157,14 +157,25 @@ def get_geotagged_photos(city_id=None):
 	if city_id is not None:
 		photos_set=photos_set.filter(city__pk=city_id)
 
-	rephotographed_ids=frozenset(photos_set.filter(
-			rephoto_of__isnull=False).values_list(
-									'rephoto_of',flat=True))
+	rephotographed_ids = photos_set.filter(
+						rephoto_of__isnull=False).order_by(
+						'rephoto_of').values_list(
+						'rephoto_of',flat=True)
+	rephotos = dict(zip(rephotographed_ids,
+				photos_set.filter(
+					rephoto_of__isnull=False).order_by(
+					'rephoto_of', 'id').distinct(
+					'rephoto_of').filter(
+					rephoto_of__in=rephotographed_ids)))
 	data=[]
 	for p in photos_set.filter(confidence__gte=0.3,
 						lat__isnull=False,lon__isnull=False,
 						rephoto_of__isnull=True):
-		im = get_thumbnail(p.image, '50x50', crop='center')
+		r = rephotos.get(p.id)
+		if r is not None and bool(r.image):
+			im = get_thumbnail(r.image, '50x50', crop='center')
+		else:
+			im = get_thumbnail(p.image, '50x50', crop='center')
 		data.append((p.id,im.url,p.lon,p.lat,p.id in rephotographed_ids))
 	return data
 

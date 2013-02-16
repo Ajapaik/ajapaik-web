@@ -30,6 +30,7 @@ urlpatterns = patterns('views',
 	(r'^facebook/(?P<stage>[a-z_]+)/', 'facebook.facebook_handler'),
 	(r'^i18n/', include('django.conf.urls.i18n')),
 	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs','packages': ('project')}),
+	(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/gfx/favicon.ico'}),
 )
 
 if settings.DEBUG:
