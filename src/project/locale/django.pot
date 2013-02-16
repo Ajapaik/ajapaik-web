@@ -87,3 +87,6 @@ msgstr ""
 
 msgid "Add comment"
 msgstr ""
+
+msgid "Heat map"
+msgstr ""

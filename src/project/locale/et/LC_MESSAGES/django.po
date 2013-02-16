@@ -114,3 +114,6 @@ msgstr "Sinu punktid"
 
 msgid "Add comment"
 msgstr "Lisa kommentaar"
+
+msgid "Heat map"
+msgstr "Pakkumiste kaart"
