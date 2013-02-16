@@ -190,6 +190,16 @@ def get_all_geotagged_photos(city_id=None):
 		data.append((p.lon,p.lat))
 	return data
 
+def get_all_geotag_submits(photo_id=None):
+	geotag_set=GeoTag.objects.all()
+	if photo_id is not None:
+		geotag_set=geotag_set.filter(photo__pk=photo_id)
+
+	data=[]
+	for g in geotag_set:
+		data.append((g.lon,g.lat))
+	return data
+
 def get_leaderboard(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
 					Q(fb_name__isnull=False) | Q(pk=user_id)). \

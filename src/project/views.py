@@ -14,6 +14,7 @@ from django.core.files.base import ContentFile
 from project.models import Photo, City
 from project.forms import GeoTagAddForm, CitySelectForm
 from sorl.thumbnail import get_thumbnail
+from pprint import pprint
 
 import get_next_photos_to_geotag
 
@@ -96,10 +97,13 @@ def photo_thumb(request, photo_id):
     return redirect(im.url)
 
 def photo_heatmap(request, photo_id):
-    data = []
+    photo = get_object_or_404(Photo, id=photo_id)
+    data = get_next_photos_to_geotag.get_all_geotag_submits(photo.id)
     return render_to_response('heatmap.html', RequestContext(request, {
         'json_data': json.dumps(data),
-        
+        'city': photo.city,
+        'photo_lon': photo.lon,
+        'photo_lat': photo.lat,
     }))
 
 def photoview_heatmap(request, slug):

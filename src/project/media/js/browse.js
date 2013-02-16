@@ -13,6 +13,9 @@ function loadPhoto(id) {
 			if (typeof FB != 'undefined') {
 				FB.XFBML.parse();
 			}
+			$("a.iframe").fancybox({
+				'hideOnContentClick': false
+			});
 		},
 		error: function (result) {
 			alert('error');
@@ -80,6 +83,10 @@ $(document).ready(function() {
     },function () {
         $('.rephoto .container .meta ').removeClass('hovered');
     });
+	
+	$("a.iframe").fancybox({
+		'hideOnContentClick': false
+	});
 
 
 /*

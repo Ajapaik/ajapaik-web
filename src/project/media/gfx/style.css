@@ -235,7 +235,7 @@ a.btn.green:active {
 	right: 50%;
 	margin-right: 25px;
 	top: 400px;
-	z-index: 3000;
+	z-index: 1100;
 	width: 350px;
 }
 .photos .browse-nav a.btn {

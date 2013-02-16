@@ -7,10 +7,14 @@
 	var map;
 	var heatmap;
 	function initialize() {
-		{% if city %}
-		map = get_map([{{ city.lon }}, {{ city.lat }}], 13);
+		{% if photo_lon and photo_lat %}
+		map = get_map([{{ photo_lon }}, {{ photo_lat }}], 14);
 		{% else %}
-		map = get_map();
+			{% if city %}
+			map = get_map([{{ city.lon }}, {{ city.lat }}], 13);
+			{% else %}
+			map = get_map();
+			{% endif %}
 		{% endif %}
 		var geotagged_photos={{ json_data|safe }};
 		

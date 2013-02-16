@@ -35,20 +35,7 @@
     </script>	
 </head>
 <body>
-    
-    <div id="fb-root"></div>
-    <script type="text/javascript">
-      window.fbAsyncInit = function() {
-        FB.init({appId: '201052296573134', status: true, cookie: true, xfbml: true});
-      };
-      (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol +
-          '//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js';
-        document.getElementById('fb-root').appendChild(e);
-      }());
-    </script>
-    
+   
     {% block layout %}{% endblock layout %}
 
 </body>
