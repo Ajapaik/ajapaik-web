@@ -22,7 +22,7 @@ msgstr ""
 msgid "Where is history located?"
 msgstr "Kus ajalugu asub?"
 
-msgid "Timepatch"
+msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
 msgid "Close"

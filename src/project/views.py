@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.utils import simplejson as json
+from django.utils.translation import ugettext as _
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 
@@ -53,7 +54,8 @@ def thegame(request):
     city_select_form = CitySelectForm(request.GET)
     if city_select_form.is_valid():
         ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
-    
+
+    ctx['title'] = _('Guess the location')
     return render_to_response('game.html', RequestContext(request, ctx))
 
 def frontpage(request):
@@ -78,6 +80,7 @@ def photo(request, photo_id):
     template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
         'photo': photo,
+        'title': photo.description,
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, )
     }))
@@ -104,6 +107,7 @@ def photo_heatmap(request, photo_id):
     return render_to_response('heatmap.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': photo.city,
+        'title': photo.description +' - '+ _("Heat map"),
         'photo_lon': photo.lon,
         'photo_lat': photo.lat,
     }))
@@ -144,6 +148,7 @@ def mapview(request):
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': city,
+        'title': _('Browse photos on map'),
         'city_select_form': city_select_form,
         
     }))
@@ -169,6 +174,7 @@ def leaderboard(request):
     template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
         'leaderboard': leaderboard,
+        'title': _('Leaderboard'),
     }))
 
 def top50(request):
@@ -176,6 +182,7 @@ def top50(request):
     template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
         'leaderboard': leaderboard,
+        'title': _('Leaderboard'),
     }))
 
 def fetch_stream(request):

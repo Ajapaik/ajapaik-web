@@ -34,9 +34,10 @@
 		
 		{% if photo_lon and photo_lat %}
 		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng({{ photo_lat }}, {{ photo_lon }}),
 			map: map,
-			draggable: false
+			draggable: false,
+			position: new google.maps.LatLng({{ photo_lat }}, {{ photo_lon }}),
+			icon: '/media/gfx/icon_marker.png'
 		});
 		{% endif %}
 		

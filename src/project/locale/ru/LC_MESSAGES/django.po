@@ -23,8 +23,8 @@ msgstr ""
 msgid "Where is history located?"
 msgstr "Где находится история?"
 
-msgid "Timepatch"
-msgstr "Аяпаик"
+msgid "Timepatch (Ajapaik)"
+msgstr "Аяпаик (Ajapaik)"
 
 msgid "Close"
 msgstr "Закрыть"
@@ -116,3 +116,6 @@ msgstr ""
 
 msgid "Add comment"
 msgstr "Комментировать"
+
+msgid "Heat map"
+msgstr ""

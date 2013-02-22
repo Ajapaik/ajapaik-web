@@ -1,8 +1,8 @@
 {% load i18n cache bundler_tags %}<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://opengraph.org/schema/">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
 
 <head>
-<title>{% trans "Timepatch" %}</title>
+<title>{% if title %}{{ title }} - {% trans "Timepatch (Ajapaik)" %}{% else %}{% trans "Timepatch (Ajapaik)" %}{% endif %}</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is" />

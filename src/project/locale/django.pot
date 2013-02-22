@@ -4,7 +4,7 @@ msgstr ""
 msgid "Where is history located?"
 msgstr ""
 
-msgid "Timepatch"
+msgid "Timepatch (Ajapaik)"
 msgstr ""
 
 msgid "Close"

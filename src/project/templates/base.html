@@ -1,13 +1,39 @@
-{% load i18n cache bundler_tags %}<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://opengraph.org/schema/">
+{% load i18n cache bundler_tags thumbnail %}<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
 
 <head>
-<title>{% trans "Timepatch" %}</title>
+<title>{% if title %}{{ title }} - {% trans "Timepatch (Ajapaik)" %}{% else %}{% trans "Timepatch (Ajapaik)" %}{% endif %}</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is" />
     <meta property="fb:app_id" content="201052296573134" />
     <meta charset="UTF-8" />
+	{% if title %}
+	<meta property="og:title" content="{{ title }}" />
+	<meta property="og:type" content="website" />
+	<!--<meta property="og:url" content="{{ hostname }}{{ request.path }}" />-->
+		{% if rephoto %}
+		{% thumbnail rephoto.image "700x400" as im %}
+		<meta property="og:image" content="{{ hostname }}{{ im.url }}" />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="700" />
+		<meta property="og:image:height" content="400" />
+		{% endthumbnail %}
+		{% else %}
+			{% if photo %}
+			{% thumbnail photo.image "700x400" as im %}
+			<meta property="og:image" content="{{ hostname }}{{ im.url }}" />
+			<meta property="og:image:type" content="image/jpeg" />
+			<meta property="og:image:width" content="700" />
+			<meta property="og:image:height" content="400" />
+			{% endthumbnail %}
+			{% endif %}
+		{% endif %}
+	<meta property="og:locale" content="et_EE" />
+	<meta property="og:locale:alternate" content="ru_RU" />
+	<meta property="og:locale:alternate" content="en_US" />
+	<meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}" />
+	{% endif %}
 	<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<link rel="shortcut icon" type="image/ico" href="{{ MEDIA_URL }}gfx/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}gfx/carte-blanche.css" />
