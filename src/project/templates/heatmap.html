@@ -32,9 +32,17 @@
 
 		heatmap.setMap(map);
 		
+		{% if photo_lon and photo_lat %}
+		var marker = new google.maps.Marker({
+			position: new google.maps.LatLng({{ photo_lat }}, {{ photo_lon }}),
+			map: map,
+			draggable: false
+		});
+		{% endif %}
+		
 		google.maps.event.addListener(map, 'zoom_changed', function() {
-			var zoomLevel = map.getZoom();
-			heatmap.setOptions({radius: 4*zoomLevel});
+			//var zoomLevel = map.getZoom();
+			//heatmap.setOptions({radius: 4*zoomLevel});
 		});
 	};
 	$(document).ready(initialize);

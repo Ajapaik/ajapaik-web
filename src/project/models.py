@@ -69,6 +69,13 @@ class Photo(models.Model):
             return ('views.photoview', [self.slug, ])
         else:
             return ('views.photo', [self.id, ])
+
+    @models.permalink
+    def get_heatmap_url(self):
+        if self.slug is not None:
+            return ('views.photoview_heatmap', [self.slug, ])
+        else:
+            return ('views.photo_heatmap', [self.id, ])
     
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):

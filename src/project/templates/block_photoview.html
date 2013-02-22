@@ -5,7 +5,7 @@
 
 	<div class="browse-nav">
 		<a href="#" class="add-rephoto btn green medium">{% trans "Add rephoto" %}</a>
-		<a href="{{ photo.get_absolute_url }}heatmap/" class="btn medium green iframe">{% trans "Heat map" %}</a>
+		<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe">{% trans "Heat map" %}</a>
 		<div id="add-comment">
 			<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
 		</div>

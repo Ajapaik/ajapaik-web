@@ -16,14 +16,14 @@ urlpatterns = patterns('views',
 	(r'^leaderboard/$', 'leaderboard'),
 	(r'^top50/$', 'top50'),
 	(r'^heatmap/$', 'heatmap'),
+	(r'^heatmap/(?P<photo_id>\d+)/$', 'photo_heatmap'),
+	(r'^heatmap/(?P<slug>[\w\_\-]+)/$', 'photoview_heatmap'),
 
 	(r'^foto/(?P<photo_id>\d+)/$', 'photo'),
 	(r'^foto/(?P<slug>[\w\_\-]+)/$', 'photoview'),
 	(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
 	(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
 	(r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
-	(r'^foto/(?P<photo_id>\d+)/heatmap/$', 'photo_heatmap'),
-	(r'^foto/(?P<slug>[\w\_\-]+)/heatmap/$', 'photoview_heatmap'),
 	
 	(r'^$', 'frontpage')
 ) + patterns('',
