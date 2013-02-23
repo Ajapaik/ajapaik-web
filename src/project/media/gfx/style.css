@@ -4,7 +4,7 @@ body, html {
 	font-family: 'Droid Serif', arial, sans-serif;
 }
 body {
-	background: #fff url(../gfx/bg2.jpg) center center;
+	background: #fff url(../gfx/bg-subtle-grunge.png) center center;
 }
 
 
@@ -173,7 +173,7 @@ a.btn.green:active {
 	top: -100%;
 	width: 100%;
 	height: 480px;
-	background: #fff url(../gfx/bg2.jpg) center center;
+	background: #fff url(../gfx/bg-subtle-grunge.png) center center;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -350,7 +350,7 @@ a.btn.green:active {
 	left: 50.7%;
 	width: 350px;
 	border: 10px solid white;
-	background: rgba(204, 172, 102, .3);
+	background: rgba(0, 0, 0, .1);
 	height: 350px;
 	text-align: center;
 	line-height: 1.4;
@@ -450,7 +450,7 @@ a.btn.green:active {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 
-	background: rgba(204, 172, 102, .3);
+	background: rgba(0, 0, 0, .1);
 	z-index: 10;
 
 }
