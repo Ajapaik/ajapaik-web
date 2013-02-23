@@ -52,8 +52,8 @@
                 <div class="container">
                     <div class="meta">
                         <div class="content" id="meta_content">
-							<p style="margin-left:35px;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>
-							{% if rephoto.user.fb_name %}<p class="owner"><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" /></a> {{ rephoto.user.fb_name }}</p>{% endif %}
+							{% if rephoto.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 32px;" src="{{ MEDIA_URL }}gfx/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:32px;height:32px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" title="{{ rephoto.user.fb_name }}" /></a></p>{% endif %}
+							<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>
                         </div>
                     </div>
 					<a href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
