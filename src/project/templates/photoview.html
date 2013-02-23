@@ -148,7 +148,7 @@
 			</div>
 			<div class="browse-nav">
 				<a href="{{ photo.get_absolute_url }}" onclick="jQuery('.no-rephoto').fadeOut(300).fadeIn(150);return false;" class="add-rephoto btn green medium">{% trans "Add rephoto" %}</a>
-				<a href="{{ photo.get_absolute_url }}heatmap/" class="btn medium green iframe">{% trans "Heat map" %}</a>
+				<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe">{% trans "Heat map" %}</a>
 			</div>
 			{% endthumbnail %}
 
