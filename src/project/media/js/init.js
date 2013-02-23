@@ -45,3 +45,16 @@ function get_map(startpoint, startingzoom) {
 
 	return map
 }
+
+// Stuff which is included in EVERY view. PERIOD! (MANOWAR rules)
+$(document).ready(function() {
+    
+    // Hotkeys
+    $.jQee('esc', function(e) {
+        $('#close-photo-drawer').click();
+    });
+    $.jQee('space', function(e) {
+        $('#open-location-tools').click();
+    });
+
+});

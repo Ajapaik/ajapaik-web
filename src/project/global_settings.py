@@ -111,7 +111,9 @@ MEDIA_BUNDLES = (
         'url': MEDIA_URL + 'js/',
         'minify': False,
         'files': (
-            'jquery-1.5.1.js',
+            #'jquery-1.5.1.js',
+            'jquery-1.8.3.min.js',
+            'keyboard_control.js',
             'init.js',
         )
     },

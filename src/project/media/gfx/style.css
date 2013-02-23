@@ -815,3 +815,15 @@ span.framed {
 }
 
 .hovered { bottom:0px !important; }
+
+.photo-socials {
+    background:#fff;
+    margin:0 auto;
+    max-width:500px;
+    padding:20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.xxx { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
