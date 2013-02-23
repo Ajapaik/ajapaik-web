@@ -209,9 +209,12 @@
 			{% if rephoto %}
 			$('ul.tabs li:nth-child(2) a').click();
 			{% endif %}
-            $('ul.tabs li a').click(function(){
-                // Maybe some custom stuff for Vahur's ideas?
-            });
+			$('ul.tabs li a').click(function(){
+				if (typeof FB != 'undefined') {
+					// Firefox like box rendering fix
+					FB.XFBML.parse();
+				}
+			});
         </script>
 
     </div>

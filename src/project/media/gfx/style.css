@@ -837,8 +837,8 @@ span.framed {
     padding:0;
 }
 .tabs a {
-    background:url(../gfx/transp.png);
-    border-bottom:1px solid #EDEDED;
+	background-color:#EDEDED;
+    border-bottom:1px dotted silver;
     color:#333;
     display:inline-block;
     font-size:14px;
@@ -867,6 +867,13 @@ span.framed {
 .tabs li.current a {
     cursor:default !important; 
     color:#cd1d1d !important;
+	background-color: rgb(255, 255, 255);
+	/* RGBa with 0.6 opacity */
+	background-color: rgba(255, 255, 255, 0.6);
+	/* For IE 5.5 - 7*/
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff);
+	/* For IE 8*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff)";
 }
 .tabs .current {
     top:1px;
@@ -878,7 +885,13 @@ span.framed {
 }
 .panes .pane {
     display:none;
-    background:url(../gfx/transp.png);
+	background-color: rgb(255, 255, 255);
+	/* RGBa with 0.6 opacity */
+	background-color: rgba(255, 255, 255, 0.6);
+	/* For IE 5.5 - 7*/
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff);
+	/* For IE 8*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff)";
     margin:0 auto;
     max-width:500px;
     padding:20px;
