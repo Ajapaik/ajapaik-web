@@ -69,27 +69,6 @@ def frontpage(request):
         
     }))
 
-def photo(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    rephoto = None
-    if hasattr(photo, 'rephoto_of') and photo.rephoto_of is not None:
-        rephoto = photo
-        photo = photo.rephoto_of
-    site = Site.objects.get_current()
-    
-    template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
-    return render_to_response(template, RequestContext(request, {
-        'photo': photo,
-        'title': ' '.join(photo.description.split(' ')[:6])[:50],
-        'description': photo.description,
-        'rephoto': rephoto,
-        'hostname': 'http://%s' % (site.domain, )
-    }))
-
-def photoview(request, slug):
-    photo_obj = get_object_or_404(Photo, slug=slug)
-    return photo(request, photo_obj.id)
-
 def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
     im = get_thumbnail(photo.image, '700x400')
@@ -100,23 +79,70 @@ def photo_thumb(request, photo_id):
     im = get_thumbnail(photo.image, '50x50', crop='center')
     return redirect(im.url)
 
-def photo_heatmap(request, photo_id):
+def photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
-    if hasattr(photo, 'rephoto_of') and photo.rephoto_of is not None:
-        photo = photo.rephoto_of
-    data = get_next_photos_to_geotag.get_all_geotag_submits(photo.id)
-    return render_to_response('heatmap.html', RequestContext(request, {
-        'json_data': json.dumps(data),
-        'city': photo.city,
-        'title': ' '.join(photo.description.split(' ')[:6])[:50] +' - '+ _("Heat map"),
-        'description': photo.description,
-        'photo_lon': photo.lon,
-        'photo_lat': photo.lat,
+    pseudo_slug = photo.get_pseudo_slug()
+    # slug not needed if not enough data for slug or ajax request
+    if pseudo_slug != "" and not request.is_ajax():
+        return photoslug(request, photo.id, "")
+    else:
+        return photoslug(request, photo.id, pseudo_slug)
+
+def photoslug(request, photo_id, pseudo_slug):
+    photo_obj = get_object_or_404(Photo, id=photo_id)
+    # redirect if slug in url doesn't match with our pseudo slug
+    if photo_obj.get_pseudo_slug() != pseudo_slug:
+        response = HttpResponse(content="", status=301) # HTTP 301 for google juice
+        response["Location"] = photo_obj.get_absolute_url()
+        return response
+
+    # switch places if rephoto url
+    rephoto = None
+    if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
+        rephoto = photo_obj
+        photo_obj = photo_obj.rephoto_of
+
+    site = Site.objects.get_current()
+    template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+    return render_to_response(template, RequestContext(request, {
+        'photo': photo_obj,
+        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50],
+        'description': photo_obj.description,
+        'rephoto': rephoto,
+        'hostname': 'http://%s' % (site.domain, )
     }))
 
-def photoview_heatmap(request, slug):
-    photo_obj = get_object_or_404(Photo, slug=slug)
-    return photo_heatmap(request, photo_obj.id)
+def photo_heatmap(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    pseudo_slug = photo.get_pseudo_slug()
+    # slug not needed if not enough data for slug or ajax request
+    if pseudo_slug != "" and not request.is_ajax():
+        return photoslug_heatmap(request, photo.id, "")
+    else:
+        return photoslug_heatmap(request, photo.id, pseudo_slug)
+
+
+def photoslug_heatmap(request, photo_id, pseudo_slug):
+    photo_obj = get_object_or_404(Photo, id=photo_id)
+    # redirect if slug in url doesn't match with our pseudo slug
+    if photo_obj.get_pseudo_slug() != pseudo_slug:
+        response = HttpResponse(content="", status=301) # HTTP 301 for google juice
+        response["Location"] = photo_obj.get_heatmap_url()
+        return response
+
+    # load heatmap data always from original photo
+    if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
+        photo_obj = photo_obj.rephoto_of
+
+    data = get_next_photos_to_geotag.get_all_geotag_submits(photo_obj.id)
+    return render_to_response('heatmap.html', RequestContext(request, {
+        'json_data': json.dumps(data),
+        'city': photo_obj.city,
+        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50] +' - '+ _("Heat map"),
+        'description': photo_obj.description,
+        'photo_lon': photo_obj.lon,
+        'photo_lat': photo_obj.lat,
+    }))
 
 def heatmap(request):
     city_select_form = CitySelectForm(request.GET)
@@ -168,10 +194,11 @@ def geotag_add(request):
         'current_score': current_score,
         'total_score': total_score,
         'leaderboard_update': leaderboard_update,
-    	'location_is_unclear': location_is_unclear,
+        'location_is_unclear': location_is_unclear,
     }), mimetype="application/json")
 
 def leaderboard(request):
+    # leaderboard with first position, one in front of you, your score and one after you
     leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)
     template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
@@ -180,6 +207,7 @@ def leaderboard(request):
     }))
 
 def top50(request):
+    # leaderboard with top 50 scores
     leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().get_profile().pk)
     template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {

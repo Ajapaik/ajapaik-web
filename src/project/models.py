@@ -6,6 +6,7 @@ from django.contrib.contenttypes import generic
 
 #from filebrowser.fields import FileBrowseField
 from django_extensions.db.fields import json
+from django.template.defaultfilters import slugify
 
 from sorl.thumbnail import ImageField
 
@@ -29,7 +30,7 @@ class Photo(models.Model):
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
     
-    slug = models.SlugField(null=True, blank=True)
+    #slug = models.SlugField(null=True, blank=True)
     
     date = models.DateField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
@@ -65,17 +66,29 @@ class Photo(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        if self.slug is not None:
-            return ('views.photoview', [self.slug, ])
+        pseudo_slug = self.get_pseudo_slug();
+        if pseudo_slug != "":
+            return ('views.photoslug', [self.id, pseudo_slug, ])
         else:
             return ('views.photo', [self.id, ])
 
     @models.permalink
     def get_heatmap_url(self):
-        if self.slug is not None:
-            return ('views.photoview_heatmap', [self.slug, ])
+        pseudo_slug = self.get_pseudo_slug();
+        if pseudo_slug != "":
+            return ('views.photoslug_heatmap', [self.id, pseudo_slug, ])
         else:
             return ('views.photo_heatmap', [self.id, ])
+
+    def get_pseudo_slug(self):
+        if self.description is not None:
+            desc = "%s-" % "-".join(slugify(self.description).split('-')[:6])[:60]
+        else:
+            desc = ""
+        if self.source_key is None or not "_" in self.source_key:
+            return "%s%s" % (desc, self.source or "AJP")
+        else:
+            return "%s%s_%s" % (desc, self.source or "AJP", self.source_key)
     
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
