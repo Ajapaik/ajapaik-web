@@ -109,16 +109,21 @@ a.btn.green:active {
 	overflow-y:auto;
 	width:300px;
 }
+#photo_browser #browser_list .item a {
+	padding-top: 4px;
+	padding-left: 3px;
+	display: block;
+}
 #photo_browser #browser_list .item {
 	float:left;
-	width:50px;
-	height:50px;
+	width:56px;
+	height:58px;
 	margin-right:3px;
 	margin-bottom:3px;
-	border:3px solid black;
+	background: #fff url(../gfx/ajapaik_klastri_sees_must_56px_2.png) center center;
 }
 #photo_browser #browser_list .hot {
-	border:3px solid #00A9E7;
+	background: #fff url(../gfx/ajapaik_klastri_sees_sinine_56px_2.png) center center;
 }
 
 /* TOP BAR */
@@ -148,8 +153,8 @@ a.btn.green:active {
 #browse .top h1, #browse_scroll .top h1 {
 	float: left;
 	background: url(../gfx/Ajapaik_logo.png) no-repeat;
-	width: 225px;
-	height: 55px;
+	width: 133px;
+	height: 73px;
 	margin: 10px 0 0 20px;
 }
 #browse .top h1 a, #browse_scroll .top h1 a  {
@@ -696,7 +701,7 @@ a.btn.green:active {
 	padding-top:40px;
 }
 #content.front-page {
-	padding-top: 70px;
+	padding-top: 80px;
 	padding-bottom: 50px;
 	margin: 0 auto;
 }
@@ -736,8 +741,8 @@ a.btn.green:active {
 	margin: 0 auto;
 }
 #footer #logo {
-	width: 225px;
-	height: 55px;
+	width: 133px;
+	height: 73px;
 	margin: 14px 0 0;
 	float: left;
 	background: url(../gfx/Ajapaik_logo.png) no-repeat;

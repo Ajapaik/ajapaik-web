@@ -34,6 +34,12 @@ function get_map(startpoint, startingzoom) {
 		mapTypeControlOptions: {
 			mapTypeIds: ['OSM', google.maps.MapTypeId.ROADMAP],
 			style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+		},
+		panControlOptions: {
+			position: google.maps.ControlPosition.LEFT_CENTER
+		},
+		zoomControlOptions: {
+			position: google.maps.ControlPosition.LEFT_CENTER
 		}
 	};
 	
