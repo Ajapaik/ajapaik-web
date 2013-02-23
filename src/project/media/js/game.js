@@ -46,7 +46,7 @@ $(document).ready(function() {
         draggable: true,
         animation: google.maps.Animation.DROP,
         position: location,
-        icon: '/media/gfx/icon_marker.png'
+        icon: '/media/gfx/ajapaik_marker_45px.png'
     });
 
 	google.maps.event.addListener(map, 'click', function(event){

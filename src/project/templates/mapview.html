@@ -26,7 +26,7 @@
 					new google.maps.Size(32, 32)
 					
 				);
-			var border = new google.maps.MarkerImage('/media/gfx/' + (p[4] ? 'shadow_camera_hot.png' : 'shadow_camera_cold.png'), null, null,
+			var border = new google.maps.MarkerImage('/media/gfx/' + (p[4] ? 'ajapaik_sinine_38px.png' : 'ajapaik_must_38px.png'), null, null,
 					new google.maps.Point(22, 52),
 					new google.maps.Size(38, 48)
 				);
@@ -48,26 +48,34 @@
 			markers.push(marker);
 		}
 
+		/*
 		var clusterStyles = [
 			{
 				textColor: 'green',
-				url: '/media/gfx/cluster.png',
+				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
 				width: 38,
 				height: 40
 			},
 			{
 				textColor: 'orange',
-				url: '/media/gfx/cluster.png',
+				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
 				width: 38,
 				height: 40
 			},
 			{
 				textColor: 'red',
-				url: '/media/gfx/cluster.png',
+				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
 				width: 38,
 				height: 40
 			}
 		];
+		*/
+		var clusterStyles = [{
+				textColor: 'black',
+				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
+				width: 38,
+				height: 40
+			}];
 
 		var markerCluster = new MarkerClusterer(map, markers, {
 			styles: clusterStyles,
