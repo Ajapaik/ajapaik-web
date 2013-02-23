@@ -119,3 +119,10 @@ msgstr "Комментировать"
 
 msgid "Heat map"
 msgstr ""
+
+msgid "Original photo"
+msgstr ""
+
+#, fuzzy
+msgid "Selected rephoto"
+msgstr "Добавить современное фото"

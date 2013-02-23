@@ -80,7 +80,8 @@ def photo(request, photo_id):
     template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
         'photo': photo,
-        'title': photo.description,
+        'title': ' '.join(photo.description.split(' ')[:6])[:50],
+        'description': photo.description,
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, )
     }))
@@ -107,7 +108,8 @@ def photo_heatmap(request, photo_id):
     return render_to_response('heatmap.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': photo.city,
-        'title': photo.description +' - '+ _("Heat map"),
+        'title': ' '.join(photo.description.split(' ')[:6])[:50] +' - '+ _("Heat map"),
+        'description': photo.description,
         'photo_lon': photo.lon,
         'photo_lat': photo.lat,
     }))
