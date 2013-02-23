@@ -26,7 +26,7 @@
 		<div class="tools">
 			<div class="description">
 				<p>{{ photo.description }}</p>
-				<p class="owner">{{ photo.source.name }}</p>
+				<p class="owner">{{ photo.source.name }}{% if photo.source_key %}_{{ photo.source_key }}{% endif %}</p>
 			</div>
 		</div>
 	</div>
