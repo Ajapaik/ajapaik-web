@@ -154,19 +154,38 @@
 
         </div>
 
-		<div class="photo-socials">
-			<div>
-				<fb:like href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" send="true" width="500" show_faces="true" action="recommend"></fb:like>
-			</div>
-			<div>
-				<fb:comments href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" num_posts="3" width="500"></fb:comments>
-			</div>
-			{% comment %}
-			{% if photo.lat and photo.lon %}
-			<a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x250&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
-			{% endif %}
-			{% endcomment %}
-		</div>
+        <ul class="tabs clearfix">
+            <li><a href="#">Tab 1</a></li>
+            <li><a href="#">Tab 2</a></li>
+        </ul>
+        
+        <div class="panes">
+            <div class="pane">
+                <div class="photo-socials">
+                    <div>
+                        <fb:like href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" send="true" width="500" show_faces="true" action="recommend"></fb:like>
+                    </div>
+                    <div>
+                        <fb:comments href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" num_posts="3" width="500"></fb:comments>
+                    </div>
+                    {% comment %}
+                    {% if photo.lat and photo.lon %}
+                    <a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x250&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
+                    {% endif %}
+                    {% endcomment %}
+                </div>
+            </div>
+            <div class="pane">
+                <img src="http://theleague2012.com/wp-content/uploads/2012/08/samuel-l-jackson.jpg" />
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            $("ul.tabs").tabs("div.panes > .pane", {effect: 'fade'});
+            $('ul.tabs li a').click(function(){
+                // Maybe some custom stuff for Vahur's ideas?
+            });
+        </script>
 
     </div>
 </div><!-- #browse -->
