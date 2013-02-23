@@ -155,33 +155,60 @@
         </div>
 
         <ul class="tabs clearfix">
-            <li><a href="#">Tab 1</a></li>
-            <li><a href="#">Tab 2</a></li>
+            <li><a href="#">{% trans "Original photo" %} (<fb:comments-count href="{{ hostname }}{{ photo.get_detail_url }}"></fb:comments-count>)</a></li>
+
+			{% if rephoto %}
+            <li><a href="#">{% trans "Selected rephoto" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a></li>
+			{% endif %}
+
+			{% comment %}
+			{% if photo.lat and photo.lon %}
+			<li><a href="#">{% trans "Map" %}</a></li>
+			{% endif %}
+			{% endcomment %}
         </ul>
         
         <div class="panes">
             <div class="pane">
                 <div class="photo-socials">
                     <div>
-                        <fb:like href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" send="true" width="500" show_faces="true" action="recommend"></fb:like>
+                        <fb:like href="{{ hostname }}{{ photo.get_detail_url }}" send="true" width="500" show_faces="true" action="recommend"></fb:like>
                     </div>
+                    <div>&nbsp;</div>
                     <div>
-                        <fb:comments href="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}" num_posts="3" width="500"></fb:comments>
+                        <fb:comments href="{{ hostname }}{{ photo.get_detail_url }}" num_posts="3" width="500"></fb:comments>
                     </div>
-                    {% comment %}
-                    {% if photo.lat and photo.lon %}
-                    <a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x250&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
-                    {% endif %}
-                    {% endcomment %}
                 </div>
             </div>
-            <div class="pane">
-                <img src="http://theleague2012.com/wp-content/uploads/2012/08/samuel-l-jackson.jpg" />
-            </div>
+
+			{% if rephoto %}
+			<div class="pane">
+				<div class="photo-socials">
+					<div>
+						<fb:like href="{{ hostname }}{{ rephoto.get_detail_url }}" send="true" width="500" show_faces="true" action="recommend"></fb:like>
+					</div>
+					<div>&nbsp;</div>
+					<div>
+						<fb:comments href="{{ hostname }}{{ rephoto.get_detail_url }}" num_posts="3" width="500"></fb:comments>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+
+			{% comment %}
+			{% if photo.lat and photo.lon %}
+			<div class="pane">
+				<a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x250&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
+			</div>
+			{% endif %}
+			{% endcomment %}
         </div>
         
         <script type="text/javascript">
             $("ul.tabs").tabs("div.panes > .pane", {effect: 'fade'});
+			{% if rephoto %}
+			$('ul.tabs li:nth-child(2) a').click();
+			{% endif %}
             $('ul.tabs li a').click(function(){
                 // Maybe some custom stuff for Vahur's ideas?
             });

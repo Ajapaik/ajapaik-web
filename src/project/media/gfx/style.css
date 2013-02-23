@@ -177,7 +177,7 @@ a.btn.green:active {
 	position: absolute;
 	top: -100%;
 	width: 100%;
-	height: 480px;
+	height: 510px;
 	background: #fff url(../gfx/bg-subtle-grunge.png) center center;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -192,8 +192,10 @@ a.btn.green:active {
 	position: relative;
 	line-height: 0;
 /* 	overflow: hidden; */
-	height: 450px;
-	padding: 25px 0;
+	padding: 50px 0;
+}
+.single .photos {
+	height: 410px;
 }
 #browse #photo-drawer .photos .original,
 .single .original {
@@ -239,7 +241,7 @@ a.btn.green:active {
 	position: absolute;
 	right: 50%;
 	margin-right: 25px;
-	top: 400px;
+	top: 425px;
 	z-index: 1100;
 	width: 350px;
 }

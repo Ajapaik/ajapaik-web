@@ -28,21 +28,47 @@ function get_map(startpoint, startingzoom) {
 		maxZoom: 18
 	});
 	
+	var streetViewOptions = {
+		panControl: true,
+		panControlOptions: {
+		  position: google.maps.ControlPosition.LEFT_CENTER
+		},
+		zoomControl: true,
+		zoomControlOptions: {
+			position: google.maps.ControlPosition.LEFT_CENTER
+		},
+		addressControl: false,
+		linksControl: true,
+		linksControlOptions: {
+			position: google.maps.ControlPosition.BOTTOM_CENTER
+		},
+		enableCloseButton: true,
+		visible: false
+	};
+	var street = new google.maps.StreetViewPanorama(document.getElementById('map_canvas'), streetViewOptions);
+
 	var mapOpts = {
 		zoom: zoom_level,
 		center: latlng,
+		mapTypeControl: true,
 		mapTypeControlOptions: {
 			mapTypeIds: ['OSM', google.maps.MapTypeId.ROADMAP],
 			style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		},
+		panControl: true,
 		panControlOptions: {
 			position: google.maps.ControlPosition.LEFT_CENTER
 		},
+		zoomControl: true,
 		zoomControlOptions: {
 			position: google.maps.ControlPosition.LEFT_CENTER
-		}
+		},
+		streetViewControl: true,
+		streetViewControlOptions: {
+			position: google.maps.ControlPosition.LEFT_CENTER
+		},
+		streetView: street
 	};
-	
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOpts);
 
 	// Attach base layer
