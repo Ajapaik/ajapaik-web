@@ -37,13 +37,13 @@
 		<div class="container">
 			<div class="meta">
 				<div class="content" id="meta_content">
-					{% if photo.rephotos.all.0.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 32px;" src="{{ MEDIA_URL }}gfx/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ photo.rephotos.all.0.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ photo.rephotos.all.0.user.fb_id }}/picture?type=square" title="{{ photo.rephotos.all.0.user.fb_name }}" /></a></p>{% endif %}
+					{% if photo.rephotos.all.0.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 30px;" src="{{ MEDIA_URL }}gfx/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ photo.rephotos.all.0.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ photo.rephotos.all.0.user.fb_id }}/picture?type=square" title="{{ photo.rephotos.all.0.user.fb_name }}" /></a></p>{% endif %}
 					<p style="float:right;"> {% if photo.rephotos.all.0.date %}{{ photo.rephotos.all.0.date|date:"F d, Y" }}{% else %}{{ photo.rephotos.all.0.created|date:"F d, Y" }}{% endif %}</p>
 				</div>
 				<div style="display:none;">
 				{% for rephoto in photo.rephotos.all %}
 					<div id="rephoto_meta_{{ rephoto.id }}">
-					{% if rephoto.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 32px;" src="{{ MEDIA_URL }}gfx/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" title="{{ rephoto.user.fb_name }}" /></a></p>{% endif %}
+					{% if rephoto.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 30px;" src="{{ MEDIA_URL }}gfx/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" title="{{ rephoto.user.fb_name }}" /></a></p>{% endif %}
 					<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>
 					</div>
 				{% endfor %}
