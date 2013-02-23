@@ -90,3 +90,9 @@ msgstr ""
 
 msgid "Heat map"
 msgstr ""
+
+msgid "Original photo"
+msgstr ""
+
+msgid "Selected rephoto"
+msgstr ""

@@ -117,3 +117,9 @@ msgstr "Lisa kommentaar"
 
 msgid "Heat map"
 msgstr "Pakkumiste kaart"
+
+msgid "Original photo"
+msgstr "Originaal foto"
+
+msgid "Selected rephoto"
+msgstr "Valitud ülepildistus"
