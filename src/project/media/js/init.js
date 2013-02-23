@@ -52,9 +52,16 @@ $(document).ready(function() {
     // Hotkeys
     $.jQee('esc', function(e) {
         $('#close-photo-drawer').click();
+        $('#close-location-tools').click();
     });
     $.jQee('space', function(e) {
         $('#open-location-tools').click();
+    });
+    $.jQee('enter', function(e) {
+        $('#save-location').click();
+    });
+    $.jQee('right', function(e) {
+        $('#skip-photo').click();
     });
 
 });
