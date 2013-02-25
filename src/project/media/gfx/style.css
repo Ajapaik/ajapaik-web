@@ -243,7 +243,7 @@ a.btn.green:active {
 	margin-right: 25px;
 	top: 425px;
 	z-index: 1100;
-	width: 350px;
+	width: 100%;
 }
 .photos .browse-nav a.btn {
 	display: block;

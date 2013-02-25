@@ -80,7 +80,7 @@ msgid "Close photo"
 msgstr "Закрыть фото"
 
 msgid "Add rephoto"
-msgstr "Добавить современное фото"
+msgstr "Добавить новое фото"
 
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
@@ -112,17 +112,16 @@ msgid "Read more"
 msgstr "Подробнее"
 
 msgid "Your points"
-msgstr ""
+msgstr "Твои очки"
 
 msgid "Add comment"
 msgstr "Комментировать"
 
 msgid "Heat map"
-msgstr ""
+msgstr "Карта предположений"
 
 msgid "Original photo"
-msgstr ""
+msgstr "Оригинальное фото"
 
-#, fuzzy
 msgid "Selected rephoto"
-msgstr "Добавить современное фото"
+msgstr "Выбери новое фото"
