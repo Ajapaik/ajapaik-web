@@ -2,6 +2,7 @@
 
 	/* browse */
 var photoId;
+var cityId;
 
 function loadPhoto(id) {
 	photoId = id;
@@ -30,6 +31,7 @@ function openPhotoDrawer(content) {
 
 function closePhotoDrawer() {
 	$('#photo-drawer').animate({ top : '-100%' });
+	History.replaceState(null, null, "/kaart/?city="+cityId);
 }
 
 function uploadCompleted() {
@@ -66,6 +68,7 @@ $(document).ready(function() {
 		$('#rephoto_content').html($('#rephoto_img_'+$(this).attr('rel')).html());
 		$('#add-comment').html($('#rephoto_comment_'+$(this).attr('rel')).html());
 		$('#meta_content').html($('#rephoto_meta_'+$(this).attr('rel')).html());
+		History.replaceState(null, null, $(this).attr('href'));
 	});
 
 	$('#photo-drawer').delegate('a.add-rephoto', 'click', function(e) {

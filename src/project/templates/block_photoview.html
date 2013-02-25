@@ -1,5 +1,11 @@
 {% load thumbnail i18n %}
 
+<script>
+cityId = "{{ photo.city_id }}";
+$(document).ready(function() {
+	History.replaceState(null, null, "{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}");
+});
+</script>
 <div class="photos clearfix">
 
 	<div class="browse-nav">

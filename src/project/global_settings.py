@@ -115,6 +115,7 @@ MEDIA_BUNDLES = (
             'jquery-1.8.3.min.js',
             'keyboard_control.js',
             'jquery.tools.min.js',
+            'jquery.history.html5.js',
             'init.js',
         )
     },
