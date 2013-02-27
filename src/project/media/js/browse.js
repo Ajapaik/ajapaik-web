@@ -62,6 +62,10 @@ $(document).ready(function() {
 		e.preventDefault();
 		closePhotoDrawer();
 	});
+	$('#photo-drawer').delegate('#random-photo', 'click', function(e) {
+		e.preventDefault();
+		loadPhoto(geotagged_photos[Math.floor(Math.random()*geotagged_photos.length)][0]);
+	});
 
 	$('#photo-drawer').delegate('ul.thumbs li.photo a', 'click', function(e) {
 		e.preventDefault();

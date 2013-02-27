@@ -45,7 +45,7 @@ a.btn {
 	border-radius: 5px;
 	text-shadow: 0 1px 0 #fff;
 	border: 1px solid #ccc;
-	background: #cdcdcd;
+	background: #E6E6E6;
 	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#ddd));
 	background: -moz-linear-gradient(top,  #efefef,  #ddd);
 }
@@ -64,12 +64,20 @@ a.btn.green {
 	background: -webkit-gradient(linear, left top, left bottom, from(#79d100), to(#159f00));
 	background: -moz-linear-gradient(top,  #79d100,  #159f00);
 }
+a.btn.shuffle {
+	background-color: #E6E6E6;
+	background-image: url('../gfx/media-shuffle.png');
+	background-size: 32px 32px;
+	background-repeat: no-repeat;
+	background-position: center;
+	height:12px;
+}
 a.btn:hover {
 	border: 1px solid #bbb;
 	-webkit-box-shadow: 0 0 7px #ddd;
 	-moz-box-shadow: 0 0 7px #ddd;
 	box-shadow: 0 0 7px #ddd;
-	background: #ddd;
+	background: #EDEDED;
 	background: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#ddd));
 	background: -moz-linear-gradient(top, #fefefe, #ddd);
 }
@@ -81,6 +89,13 @@ a.btn.green:hover {
 	background: #38b700;
 	background: -webkit-gradient(linear, left top, left bottom, from(#99da44), to(#1ba400));
 	background: -moz-linear-gradient(top, #99da44, #1ba400);
+}
+a.btn.shuffle:hover {
+	background-color: #EDEDED;
+	background-image: url('../gfx/media-shuffle.png');
+	background-size: 32px 32px;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 a.btn:active {
 	background: #ccc;

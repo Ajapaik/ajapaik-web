@@ -9,13 +9,14 @@ $(document).ready(function() {
 <div class="photos clearfix">
 
 	<div class="browse-nav">
-		<a href="#" class="add-rephoto btn green medium">{% trans "Add rephoto" %}</a>
-		<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe">{% trans "Heat map" %}</a>
+		<a href="#" class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %}</a>
+		<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
 		<div class="clearfix"></div>
 		<div id="add-comment">
-			<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
+			<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium" title="{% trans "Add comment" %}">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
 		</div>
-		<a href="#" id="close-photo-drawer" class="btn medium">{% trans "Close photo" %}</a>
+		<a href="#" id="close-photo-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
+		<a href="#" id="random-photo" class="btn shuffle" title="Random">&nbsp;</a>
 		<div style="display:none;">
 		{% for rephoto in photo.rephotos.all %}
 			<div id="rephoto_comment_{{ rephoto.id }}">
@@ -87,7 +88,7 @@ $(document).ready(function() {
 		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
 
 		<p class="add-rephoto-container">
-			<a href="#" class="add-rephoto btn small">{% trans "Add rephoto" %}</a>
+			<a href="#" class="add-rephoto btn small" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %}</a>
 		</p>
 
 		<script>

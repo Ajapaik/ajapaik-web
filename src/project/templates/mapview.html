@@ -4,6 +4,8 @@
 {% block layout %}
 <script type="text/javascript">
 	var map;
+	var geotagged_photos={{ json_data|safe }};
+
 	function initialize() {
 		// Will load the base map layer and return it
 		{% if city %}
@@ -12,7 +14,6 @@
 		map = get_map();
 		{% endif %}
 
-		var geotagged_photos={{ json_data|safe }};
 		var markers = [];
 		for (var i in geotagged_photos) {
 			var p=geotagged_photos[i];
