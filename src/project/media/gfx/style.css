@@ -224,6 +224,43 @@ a.btn.green:active {
 	min-width: 100px;
 	min-height: 350px;
 }
+.single .example {
+	position: absolute;
+	border: 10px solid #fff;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	overflow: hidden;
+	min-width: 100px;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: rotate(-5deg);
+	   -moz-transform: rotate(-5deg);
+	     -o-transform: rotate(-5deg);
+	    -ms-transform: rotate(-5deg);
+	        transform: rotate(-5deg);
+}
+
+#cf {
+  position:relative;
+  margin:0 auto;
+}
+
+#cf img {
+  position:absolute;
+  height:100%;
+  width:100%;
+  left:0;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+#cf img.cf-top:hover {
+  opacity:0;
+}
+
 #browse #photo-drawer .photos .rephoto,
 .single .rephoto,
 #browse #photo-drawer .photos .no-rephoto,

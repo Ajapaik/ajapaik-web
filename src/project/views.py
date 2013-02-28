@@ -18,6 +18,7 @@ from sorl.thumbnail import get_thumbnail
 from pprint import pprint
 
 import get_next_photos_to_geotag
+import random
 
 def handle_uploaded_file(f):
     return ContentFile(f.read())
@@ -59,6 +60,8 @@ def thegame(request):
     return render_to_response('game.html', RequestContext(request, ctx))
 
 def frontpage(request):
+    example = random.choice(Photo.objects.filter(id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307], rephoto_of__isnull=False))
+    example_source = Photo.objects.get(pk=example.rephoto_of.id)
     city_select_form = CitySelectForm(request.GET)
     
     if not city_select_form.is_valid():
@@ -66,6 +69,8 @@ def frontpage(request):
 
     return render_to_response('frontpage.html', RequestContext(request, {
         'city_select_form': city_select_form,
+        'example': example,
+        'example_source': example_source,
         
     }))
 
