@@ -15,6 +15,9 @@ function loadPhoto(id) {
 				FB.XFBML.parse();
 			}
 			$("a.iframe").fancybox({
+				'width': '75%',
+				'height': '75%',
+				'autoScale': false,
 				'hideOnContentClick': false
 			});
 		},
@@ -92,6 +95,9 @@ $(document).ready(function() {
     });
 	
 	$("a.iframe").fancybox({
+		'width': '75%',
+		'height': '75%',
+		'autoScale': false,
 		'hideOnContentClick': false
 	});
 
