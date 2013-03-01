@@ -13,6 +13,7 @@ var mediaUrl = '';
 var streamUrl = '/stream/';
 
 var disableNext = false;
+var disableSave = true;
 var locationToolsOpen = false;
 
 function update_leaderboard() {
@@ -48,9 +49,26 @@ $(document).ready(function() {
         icon: 'http://www.ajapaik.ee/media/images/icon_marker.png'
     });
 
+	google.maps.event.addListener(map, 'click', function(event){
+		if (infowindow !== undefined) {
+			infowindow.close();
+			infowindow = undefined;
+		}
+		// change position only if marker is idle
+		if (marker.getAnimation() != null) {
+			marker.setAnimation(null);
+		} else {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+			marker.setPosition(event.latLng);
+		}
+	});
+
+	google.maps.event.addListener(marker, 'position_changed', function() {
+		disableSave = false;
+	});
 
     infowindow = new google.maps.InfoWindow({
-        content: 'Sikuta mind sinna kust pilt on tehtud.'
+        content: 'Sikuta kaamera sinna kust pilt on tehtud.'
     });
 
 /* BINDINGS */
@@ -86,7 +104,12 @@ $(document).ready(function() {
 
 	$('#save-location').click(function(e) {
 		e.preventDefault();
-		saveLocation();
+		if (disableSave) {
+			alert('Sikuta kaamera sinna kust pilt on tehtud.');
+		}
+		else {
+			saveLocation();
+		}
 	});
 
 	$('#photos').delegate('.show-description', 'click', function(e) {
@@ -136,7 +159,8 @@ $(document).ready(function() {
 		}
 
 		$.post(saveLocationURL, data, function(resp) {
-			$("#scoreboard li.you score").text(resp['total_score']);
+			//$("#top .score_container .scoreboard li.you score").text(resp['total_score']);
+			update_leaderboard();
 
 			message = '';
 			if (resp['is_correct'] == true) {
@@ -225,8 +249,9 @@ $(document).ready(function() {
 	}
 
 	function nextPhoto() {
-    	update_leaderboard();
+		//update_leaderboard();
 		hintUsed = 0;
+		disableSave = true;
 
 /*
 		if (photos.length == currentPhotoIdx) {
@@ -239,6 +264,7 @@ $(document).ready(function() {
 
 				disableNext = true;
 
+				$('.skip-photo').animate({ 'opacity' : .4 });
 				$(currentPhoto).find('img').animate({ 'opacity' : .4 });
 				showDescription();
 
@@ -279,6 +305,7 @@ $(document).ready(function() {
 		gameOffset = ($(document).width() / 2) + ($(currentPhoto).width() / 2) - gameWidth;
 		$('#photos').animate({ left : gameOffset }, 1000, function(){
 			disableNext = false;
+			$('.skip-photo').animate({ 'opacity' : 1 });
 		});
 	}
 

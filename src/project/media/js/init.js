@@ -18,7 +18,7 @@ function get_map(startpoint) {
     	isPng: true,
     	alt: "OpenStreetMap layer",
     	name: "OSM",
-    	maxZoom: 19
+    	maxZoom: 18
     });
 	
 	var mapOpts = {

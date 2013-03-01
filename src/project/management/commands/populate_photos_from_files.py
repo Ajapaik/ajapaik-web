@@ -14,7 +14,8 @@ class Command(BaseCommand):
 
 		photos_metadata=dict()
 		header_row=None
-		for row in csv.reader(open(csv_filename,'rb')):
+		dialect = csv.Sniffer().sniff(open(csv_filename,'rb').read(1024))
+		for row in csv.reader(open(csv_filename,'rb'), dialect):
 			if not header_row:
 				header_row=row
 				continue

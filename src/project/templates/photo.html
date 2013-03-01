@@ -1,5 +1,9 @@
 {% load thumbnail %}
-
+<script>
+$(document).ready(function() {
+	_gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}']);
+});
+</script>
 <div class="photos clearfix">
 
 	<a href="#" id="close-photo-drawer" class="btn small">Sulge foto</a>
@@ -79,7 +83,7 @@
 
 <div id="notice-container" style="display: none">
 
-<div id="notice" style="width: 400px;">
+	<div id="notice" style="width: 400px;">
 
     <script src="{{ MEDIA_URL }}js/jquery.html5_upload.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -137,17 +141,12 @@
 	<p></p>
 	<a href="javascript:void(0);" onclick="uploadCompleted();">Loobu</a>
 
-</div>
+	</div>
 
-<div id="uploadCompleted" class="notice">
-
-	<h2>Aitäh!</h2>
-
-	<p>Teie foto on lisatud.</p>
-
-</div>
+	<div id="uploadCompleted" class="notice">
+		<h2>Aitäh!</h2>
+		<p>Teie foto on lisatud.</p>
+	</div>
 
 </div>
 
-
-</div>
