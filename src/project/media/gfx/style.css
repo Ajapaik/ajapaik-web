@@ -245,24 +245,23 @@ h2.add_comment {
 	        transform: rotate(-3deg);
 }
 
-#cf {
+.cf {
   position:relative;
   margin:0 auto;
 }
 
-#cf img {
+.cf img {
   position:absolute;
-  height:100%;
   width:100%;
   left:0;
   -webkit-backface-visibility: hidden;
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
-#cf img.cf-top:hover {
+.cf img.cf-top:hover {
   opacity:0;
 }
 
@@ -781,6 +780,11 @@ h2.add_comment {
 }
 #content.front-page .introduction .btn {
 	margin: 0 10px 0 0;
+}
+#content.front-page .partners {
+	position: relative;
+	top: 330px;
+	padding-bottom: 50px;
 }
 
 /* FRONTPAGE FOOTER */
