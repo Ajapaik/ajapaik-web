@@ -165,6 +165,10 @@ a.btn.green:active {
 	box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 	z-index: 2000;
 }
+h2.add_comment {
+    margin: 10px auto;
+    max-width: 540px;
+}
 #browse .top h1, #browse_scroll .top h1 {
 	float: left;
 	background: url(../gfx/ajapaik_266px.png) no-repeat;
@@ -895,13 +899,13 @@ span.framed {
     border-bottom:1px dotted silver;
     color:#333;
     display:inline-block;
-    font-size:14px;
+    font-size:13px;
     font-weight:700;
     line-height:1;
     padding:8px 14px;
     position:relative;
     text-decoration:none;
-    text-transform:uppercase;
+    text-transform:lowercase;
     z-index:1;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
