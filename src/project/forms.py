@@ -6,7 +6,11 @@ from django.utils.translation import ugettext as _
 CITY_CHOICES = City.objects.annotate(num_photos=models.Count('cities')).filter(num_photos__gt=0).order_by('id').values_list('pk','name')
 
 class CitySelectForm(forms.Form):
-    city = forms.ChoiceField(choices=CITY_CHOICES, label=_("Choose city"))
+    city = forms.ChoiceField(choices=CITY_CHOICES)
+
+    def __init__(self, *args, **kwargs):
+        super(CitySelectForm, self).__init__(*args, **kwargs)
+        self.fields['city'].label = _("Choose city")
 
 class GeoTagAddForm(forms.Form):
     photo_id = forms.CharField()
