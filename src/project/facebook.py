@@ -39,11 +39,24 @@ def fbview_url(request, stage):
 def facebook_handler(request, stage):
     if stage == 'login':
         request.log_action("facebook.login")
+        
+        if 'next' in request.GET:
+            request.session['fb_next'] = request.GET['next']
+            request.session.modified = True
+            
         return redirect(login_url(fbview_url(request, 'auth')))
     elif stage == 'auth':
         request.log_action("facebook.auth")
         return redirect(auth_url(fbview_url(request, 'done'), ["user_location", "user_hometown", "user_birthday"]))
     elif stage == 'done':
+        
+        next_uri = '/'
+        
+        if 'fb_next' in request.session:
+            next_uri = request.session['fb_next']
+            del request.session['fb_next']
+            request.session.modified = True
+        
         code = request.GET.get("code")
         if code:
             # TODO: check for existing profile
@@ -77,10 +90,10 @@ def facebook_handler(request, stage):
             request.log_action("facebook.connect", {'data': data}, profile)
             
             #return HttpResponse(repr(data))
-            return redirect("/")
+            return redirect(next_uri)
         else:
             request.log_action("facebook.error", {'params': request.GET})
             return redirect('/fb_error')
         
-        return redirect('/')
+        return redirect(next_uri)
         

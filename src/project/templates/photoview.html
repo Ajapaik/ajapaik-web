@@ -129,7 +129,7 @@
 				{% else %}
 					<div id="facebook-connect" align="center">
 						<p>{% trans "Rephoto uploading requires connecting your account with Facebook." %}</p>
-						<a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+						<a href="/facebook/login?next={{ request.path|urlencode }}" class="ir">{% trans "Connect with Facebook" %}</a>
 					</div>
 				{% endif %}
 		
