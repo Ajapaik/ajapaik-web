@@ -19,11 +19,11 @@ urlpatterns = patterns('views',
 	(r'^heatmap/(?P<photo_id>\d+)/$', 'photo_heatmap'),
 	(r'^heatmap/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug_heatmap'),
 
+	(r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
 	(r'^foto/(?P<photo_id>\d+)/$', 'photo'),
 	(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug'),
 	(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
 	(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
-	(r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
 	
 	(r'^$', 'frontpage')
 ) + patterns('',
