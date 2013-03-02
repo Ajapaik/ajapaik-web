@@ -177,7 +177,8 @@ class Profile(models.Model):
     
 class Source(models.Model):
     name = models.CharField(max_length=255)
-
+    description = models.TextField(null=True, blank=True)
+    
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     
