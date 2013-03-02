@@ -54,6 +54,13 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    #scale_factor: vana pildi zoom level pildistamise hetkel (float; vahemikus [0.5, 4.0])
+    #yaw, pitch, roll: telefoni orientatsioon pildistamise hetkel (float; radiaanides)
+    cam_scale_factor = models.FloatField(null=True, blank=True)
+    cam_yaw = models.FloatField(null=True, blank=True)
+    cam_pitch = models.FloatField(null=True, blank=True)
+    cam_roll = models.FloatField(null=True, blank=True)
+    
     class Meta:
         ordering = ['-id']
 

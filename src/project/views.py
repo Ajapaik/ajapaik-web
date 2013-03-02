@@ -22,10 +22,10 @@ import random
 
 def handle_uploaded_file(f):
     return ContentFile(f.read())
-    
+
 def photo_upload(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
-    if request.method == 'POST':    
+    if request.method == 'POST':
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
                 fileobj = handle_uploaded_file(f)
@@ -37,7 +37,12 @@ def photo_upload(request, photo_id):
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
                     date_text=data.get('date_text', None),
-                    user=request.get_user().get_profile()
+                    user=request.get_user().get_profile(),
+                    cam_scale_factor=data.get('scale_factor'),
+                    cam_yaw=data.get('yaw'),
+                    cam_pitch=data.get('pitch'),
+                    cam_roll=data.get('roll'),
+                    
                 )
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
