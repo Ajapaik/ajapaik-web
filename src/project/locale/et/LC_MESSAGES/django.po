@@ -162,8 +162,8 @@ msgstr "Tean pildistamise asukohta!"
 
 #: templates/photoview.html:158
 msgid "Original photo"
-msgstr "Originaal foto"
+msgstr "ajaloolist fotot"
 
 #: templates/photoview.html:161
 msgid "Selected rephoto"
-msgstr "Valitud ülepildistus"
+msgstr "valitud ülepildistust"
