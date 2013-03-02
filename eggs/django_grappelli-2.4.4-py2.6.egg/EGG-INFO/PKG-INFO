@@ -1,0 +1,42 @@
+Metadata-Version: 1.0
+Name: django-grappelli
+Version: 2.4.4
+Summary: A jazzy skin for the Django Admin-Interface.
+Home-page: http://django-grappelli.readthedocs.org
+Author: Patrick Kranzlmueller, Axel Swoboda (vonautomatisch)
+Author-email: werkstaetten@vonautomatisch.at
+License: UNKNOWN
+Description: Django Grappelli
+        ================
+        
+        **A jazzy skin for the Django admin interface**.
+        
+        Grappelli is a grid-based alternative/extension to the `Django <http://www.djangoproject.com>`_ administration interface.
+        
+        Code
+        ----
+        
+        https://github.com/sehmaschine/django-grappelli
+        
+        Documentation
+        -------------
+        
+        http://readthedocs.org/docs/django-grappelli/
+        
+        Releases
+        --------
+        
+        * Grappelli 2.4.5 (Development Version, not yet released, see Branch Stable/2.4.x)
+        * Grappelli 2.4.4 (February 22 2013): Compatible with Django 1.4/1.5
+        * Grappelli 2.3.9 (September 06 2012): Compatible with Django 1.3
+        
+        Older versions are availabe at GitHub, but are not supported anymore.
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python

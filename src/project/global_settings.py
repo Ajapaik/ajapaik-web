@@ -28,7 +28,7 @@ SITE_ID = 1
 USE_I18N = True
 
 INSTALLED_APPS = (
-    'grappelli',
+    #'grappelli',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -93,7 +93,7 @@ MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), "media")
 STATIC_ROOT = MEDIA_ROOT + '/static'
 STATIC_URL = '/static/'
 
-ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
+ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).

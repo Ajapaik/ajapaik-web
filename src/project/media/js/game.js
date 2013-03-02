@@ -200,17 +200,17 @@ $(document).ready(function() {
 			var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
 			$('#photos').animate({ left : photosLeft+'px' });
 			$('#open-location-tools').fadeOut();
-            
-            if (infowindow !== undefined) {
-        	    infowindow.open(map,marker);
-    			google.maps.event.addListener(marker, 'click', toggleBounce);
-    			google.maps.event.addListener(marker, 'dragstart', function(){
-                    if (infowindow !== undefined) {
-        				infowindow.close();
-        				infowindow = undefined;
-    				}
-    			});
-            }
+
+			if (infowindow !== undefined) {
+				infowindow.open(map,marker);
+				google.maps.event.addListener(marker, 'click', toggleBounce);
+				google.maps.event.addListener(marker, 'dragstart', function(){
+					if (infowindow !== undefined) {
+						infowindow.close();
+						infowindow = undefined;
+					}
+				});
+			}
 		});
 	}
 

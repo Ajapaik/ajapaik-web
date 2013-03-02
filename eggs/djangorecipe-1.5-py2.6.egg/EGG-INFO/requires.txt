@@ -1,0 +1,7 @@
+zc.buildout
+zc.recipe.egg
+Django
+
+[test]
+coverage
+mock
