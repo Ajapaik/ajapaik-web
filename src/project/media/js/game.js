@@ -283,7 +283,7 @@ $(document).ready(function() {
 				currentPhoto = $('#photos .photo'+currentPhotoIdx);
 
 				$(currentPhoto).append(
-					'<div class="container"><a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a><div class="description">'+photos[currentPhotoIdx].description+'</div><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></div>'
+					'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></div>'
 				).find('img').load(function() {
 
 					currentPhoto.css({ 'visibility' : 'visible' });
