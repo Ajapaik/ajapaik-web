@@ -93,9 +93,9 @@ class Photo(models.Model):
         else:
             desc = ""
         if self.source_key is None or not "_" in self.source_key:
-            return "%s%s" % (desc, self.source or "AJP")
+            return "%s%s" % (desc, self.source or "AJAPAIK")
         else:
-            return "%s%s_%s" % (desc, self.source or "AJP", self.source_key)
+            return "%s%s_%s" % (desc, self.source or "AJAPAIK", self.source_key)
     
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
