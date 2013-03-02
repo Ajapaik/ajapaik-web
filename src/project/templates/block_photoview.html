@@ -17,7 +17,7 @@ $(document).ready(function() {
 			<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium" title="{% trans "Add comment" %}">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
 		</div>
 		<a href="#" id="close-photo-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
-		<a href="#" id="random-photo" class="btn shuffle" title="Random">&nbsp;</a>
+		<a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Map', 'Random']);" title="{% trans "Random" %}">&nbsp;</a>
 		<div style="display:none;">
 		{% for rephoto in photo.rephotos.all %}
 			<div id="rephoto_comment_{{ rephoto.id }}">
