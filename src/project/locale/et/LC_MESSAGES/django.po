@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 10:57+0000\n"
+"POT-Creation-Date: 2013-03-02 16:49+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kristjan Heinaste <heinaste@gmail.com>\n"
 "Language-Team: \n"
@@ -29,20 +29,20 @@ msgstr "Inglise"
 msgid "Russian"
 msgstr "Vene"
 
-#: views.py:59 templates/frontpage.html:127
+#: views.py:64 templates/frontpage.html:131
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: views.py:146 templates/block_photoview.html:14 templates/photoview.html:72
+#: views.py:151 templates/block_photoview.html:14 templates/photoview.html:72
 #: templates/photoview.html.py:151
 msgid "Heat map"
 msgstr "Pakkumiste kaart"
 
-#: views.py:184 templates/frontpage.html:128
+#: views.py:189 templates/frontpage.html:132
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: views.py:211 views.py:220 templates/game.html:19
+#: views.py:216 views.py:225 templates/game.html:20
 msgid "Leaderboard"
 msgstr "Osavamad Ajapaikajad"
 
@@ -62,8 +62,9 @@ msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
 #: templates/block_photoview.html:17 templates/block_photoview.html.py:24
+#: templates/photoview.html:157
 msgid "Add comment"
-msgstr "Lisa kommentaar"
+msgstr "Kommenteeri"
 
 #: templates/block_photoview.html:19
 msgid "Close photo"
@@ -78,7 +79,7 @@ msgstr ""
 "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
 "ajaloolise pildi kõrvale."
 
-#: templates/block_photoview.html:146 templates/game.html:27
+#: templates/block_photoview.html:146 templates/game.html:28
 #: templates/photoview.html:115
 #, python-format
 msgid ""
@@ -92,38 +93,38 @@ msgstr ""
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
 
-#: templates/block_photoview.html:163 templates/game.html:33
+#: templates/block_photoview.html:163 templates/game.html:34
 #: templates/photoview.html:132
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
-#: templates/block_photoview.html:168 templates/game.html:67
+#: templates/block_photoview.html:168 templates/game.html:68
 #: templates/mapview.html:155
 msgid "Close"
 msgstr "Sulge"
 
-#: templates/block_photoview.html:173 templates/game.html:59
+#: templates/block_photoview.html:173 templates/game.html:60
 msgid "Thank you!"
 msgstr "Aitäh!"
 
 #: templates/block_photoview.html:175
-msgid "Your file has been uploaded."
-msgstr "Teie fail on lisatud."
+msgid "Your rephoto has been uploaded."
+msgstr "Teie ülepildistus on lisatud."
 
 #: templates/frontpage.html:27 templates/mapview.html:138
 #: templates/photoview.html:26
 msgid "Choose language"
 msgstr "Vali keel"
 
-#: templates/frontpage.html:88
+#: templates/frontpage.html:92
 msgid "Where is history located?"
 msgstr "Kus ajalugu asub?"
 
-#: templates/frontpage.html:89
+#: templates/frontpage.html:93
 msgid "Discover, geotag and make the rephoto."
 msgstr "Uuri, avasta, märgi kaardil ja pildista üle."
 
-#: templates/frontpage.html:92
+#: templates/frontpage.html:96
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
@@ -131,39 +132,39 @@ msgstr ""
 "Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et "
 "oleks põnevam, siis võistled kõigi teiste osalejatega."
 
-#: templates/frontpage.html:94
+#: templates/frontpage.html:98
 msgid "Read more"
 msgstr "Loe lähemalt"
 
-#: templates/game.html:32
+#: templates/game.html:33
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/game.html:41
+#: templates/game.html:42
 msgid "Save location"
 msgstr "Salvesta asukoht"
 
-#: templates/game.html:42
+#: templates/game.html:43
 msgid "Close map"
 msgstr "Sulge kaart"
 
-#: templates/game.html:48 templates/game.html.py:61
+#: templates/game.html:49 templates/game.html.py:62
 msgid "Next photo"
 msgstr "Järgmine foto"
 
-#: templates/game.html:50
+#: templates/game.html:51
 msgid "Back to home page"
 msgstr "Tagasi esilehele"
 
-#: templates/game.html:54
+#: templates/game.html:55
 msgid "Pick the shooting location!"
-msgstr "Tean pildistamise asukohta!"
+msgstr "Tean pildistamise kohta!"
 
-#: templates/photoview.html:158
-msgid "Original photo"
+#: templates/photoview.html:159
+msgid "Historic photo"
 msgstr "ajaloolist fotot"
 
-#: templates/photoview.html:161
+#: templates/photoview.html:162
 msgid "Selected rephoto"
 msgstr "valitud ülepildistust"

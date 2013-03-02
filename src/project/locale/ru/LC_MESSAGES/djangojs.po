@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
-"POT-Creation-Date: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-02 16:38+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,27 +14,34 @@ msgstr ""
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.5\n"
 
+#: media/js/game.js:69 media/js/game.js.py:106
+#, fuzzy
+msgid "Point the marker to where the picture was taken from."
+msgstr "Перетяни фотоаппарат туда, где было снято фото."
+
+#: media/js/game.js:173
+msgid "Looks right!"
+msgstr "Похоже на правду!"
+
+#: media/js/game.js:177
+msgid "Correct location is not certain yet."
+msgstr "Здесь еще не выбрано точное расположение места."
+
+#: media/js/game.js:181
+msgid "We doubt about it."
+msgstr "Но это не очень похоже на правду."
+
+#: media/js/game.js:184
+msgid "Your guess was first."
+msgstr "Твоё предположение было первым."
+
+#: media/js/game.js:284
+msgid "Show hint"
+msgstr "Покажи подсказку"
+
 msgid "You have selected one photo for uploading. Continue?"
 msgid_plural "You have selected %s photos for uploading. Continue?"
 msgstr[0] "Желаете загрузить одно фото. Продолжить?"
 msgstr[1] "Желаете загрузить %s фото. Продолжить?"
 msgstr[2] "Желаете загрузить %s фото. Продолжить?"
 msgstr[3] "Желаете загрузить %s фото. Продолжить?"
-
-msgid "Drag the camera where the picture was taken."
-msgstr "Перетяни фотоаппарат туда, где было снято фото."
-
-msgid "Show hint"
-msgstr "Покажи подсказку"
-
-msgid "Your guess was first."
-msgstr "Твоё предположение было первым."
-
-msgid "We doubt about it."
-msgstr "Но это не очень похоже на правду."
-
-msgid "Correct location is not certain yet."
-msgstr "Здесь еще не выбрано точное расположение места."
-
-msgid "Looks right!"
-msgstr "Похоже на правду!"

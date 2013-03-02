@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
-"POT-Creation-Date: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-02 16:38+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,25 +13,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 
+#: media/js/game.js:69 media/js/game.js.py:106
+msgid "Point the marker to where the picture was taken from."
+msgstr "Aseta marker sinna, kust pilt on tehtud."
+
+#: media/js/game.js:173
+msgid "Looks right!"
+msgstr "Tundub õige!"
+
+#: media/js/game.js:177
+msgid "Correct location is not certain yet."
+msgstr "Siin ei ole päris täpne asukoht veel kindlaks tehtud."
+
+#: media/js/game.js:181
+msgid "We doubt about it."
+msgstr "Aga julgeme kahelda."
+
+#: media/js/game.js:184
+msgid "Your guess was first."
+msgstr "Sinu pakkumine oli esimene."
+
+#: media/js/game.js:284
+msgid "Show hint"
+msgstr "Näita vihjet"
+
 msgid "You have selected one photo for uploading. Continue?"
 msgid_plural "You have selected %s photos for uploading. Continue?"
 msgstr[0] "Soovid laadida üles ühe foto. Jätkan? "
 msgstr[1] "Soovid laadida üles %s fotot. Jätkan?"
-
-msgid "Drag the camera where the picture was taken."
-msgstr "Sikuta kaamera sinna kust pilt on tehtud."
-
-msgid "Show hint"
-msgstr "Näita vihjet"
-
-msgid "Your guess was first."
-msgstr "Sinu pakkumine oli esimene."
-
-msgid "We doubt about it."
-msgstr "Aga julgeme kahelda."
-
-msgid "Correct location is not certain yet."
-msgstr "Siin ei ole päris täpne asukoht veel kindlaks tehtud."
-
-msgid "Looks right!"
-msgstr "Tundub õige!"

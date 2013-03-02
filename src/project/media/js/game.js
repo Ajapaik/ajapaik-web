@@ -68,7 +68,7 @@ $(document).ready(function() {
 	});
 
     infowindow = new google.maps.InfoWindow({
-        content: gettext('Drag the camera where the picture was taken.')
+        content: gettext('Point the marker to where the picture was taken from.')
     });
 
 /* BINDINGS */
@@ -105,7 +105,7 @@ $(document).ready(function() {
 	$('#save-location').click(function(e) {
 		e.preventDefault();
 		if (disableSave) {
-			alert(gettext('Drag the camera where the picture was taken.'));
+			alert(gettext('Point the marker to where the picture was taken from.'));
 		}
 		else {
 			saveLocation();
