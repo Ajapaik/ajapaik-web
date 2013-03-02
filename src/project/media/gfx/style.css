@@ -167,7 +167,8 @@ a.btn.green:active {
 }
 #browse .top h1, #browse_scroll .top h1 {
 	float: left;
-	background: url(../gfx/Ajapaik_logo.png) no-repeat;
+	background: url(../gfx/ajapaik_266px.png) no-repeat;
+	background-size: 133px 73px;
 	width: 133px;
 	height: 73px;
 	margin: 10px 0 0 20px;
@@ -233,11 +234,11 @@ a.btn.green:active {
 	overflow: hidden;
 	min-width: 100px;
 	-webkit-backface-visibility: hidden;
-	-webkit-transform: rotate(-5deg);
-	   -moz-transform: rotate(-5deg);
-	     -o-transform: rotate(-5deg);
-	    -ms-transform: rotate(-5deg);
-	        transform: rotate(-5deg);
+	-webkit-transform: rotate(-3deg);
+	   -moz-transform: rotate(-3deg);
+	     -o-transform: rotate(-3deg);
+	    -ms-transform: rotate(-3deg);
+	        transform: rotate(-3deg);
 }
 
 #cf {
@@ -799,7 +800,8 @@ a.btn.green:active {
 	height: 73px;
 	margin: 14px 0 0;
 	float: left;
-	background: url(../gfx/Ajapaik_logo.png) no-repeat;
+	background: url(../gfx/ajapaik_266px.png) no-repeat;
+	background-size: 133px 73px;
 }
 #footer #logo a {
 	display: block;
