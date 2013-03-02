@@ -70,6 +70,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
+    "project.context_processors.analytics",
 )
 
 AUTHENTICATION_BACKENDS = (
