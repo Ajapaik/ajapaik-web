@@ -15,10 +15,9 @@ TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'et'
 
 LANGUAGES = (
-    ('en', gettext('English')),
     ('et', gettext('Estonian')),
+    ('en', gettext('English')),
     ('ru', gettext('Russian')),
-    
 )
 
 SITE_ID = 1
@@ -56,6 +55,7 @@ MIDDLEWARE_CLASSES = (
     #'django.middleware.gzip.GZipMiddleware',
     #'django.middleware.http.ConditionalGetMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'project.middleware.ForceDefaultLanguageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.locale.LocaleMiddleware',
