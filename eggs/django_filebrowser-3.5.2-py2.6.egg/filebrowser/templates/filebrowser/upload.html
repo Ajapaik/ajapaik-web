@@ -1,0 +1,159 @@
+{% extends "admin/base_site.html" %}
+
+<!-- LOADING -->
+{% load i18n l10n fb_tags %}
+{% load url from future %}
+
+<!-- STYLESHEETS -->
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/filebrowser.css" />
+{% endblock %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="../../jsi18n/"></script>
+    <script type="text/javascript" src="{{ settings_var.URL_FILEBROWSER_MEDIA }}js/fileuploader.js"></script>
+    <script type="text/javascript">
+    (function($){
+        $(document).ready(function() {
+            $("div#grp-content-container .grp-collapse").grp_collapsible({
+                on_init: function(elem, options) {
+                    // open collapse (and all collapse parents) in case of errors
+                    if (elem.find("ul.grp-errorlist").length > 0) {
+                        elem.removeClass("grp-closed")
+                            .addClass("grp-open");
+                        elem.parents(".grp-collapse")
+                            .removeClass("grp-closed")
+                            .addClass("grp-open");
+                    }
+                }
+            });
+        });
+    })(grp.jQuery);
+    (function($){
+        $(document).ready(function() {
+            var uploader = new qq.FileUploader({
+                element: $('#file-uploader').get(0),
+                action: '{% url 'filebrowser:fb_do_upload' %}',
+
+                template: '<div class="qq-uploader">' +
+                    '<div class="qq-upload-drop-area"><span>{% trans "Drop files here to upload" %}</span></div>' +
+                    '<div class="qq-upload-button">{% trans "Upload a file" %}</div>' +
+                    '<ul class="qq-upload-list"></ul>' +
+                '</div>',
+
+                fileTemplate: '<li>' +
+                    '<span class="qq-upload-file"></span>' +
+                    '<span class="qq-upload-spinner"></span>' +
+                    '<span class="qq-upload-size"></span>' +
+                    '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                    '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+                    '<div class="progress-bar"><div class="content"></div></div>' +
+                '</li>',
+
+                params: { 'csrf_token': '{{ csrf_token }}',
+                          'csrf_name': 'csrfmiddlewaretoken',
+                          'csrf_xname': 'X-CSRFToken',
+                          'folder': '{{ query.dir|escapejs }}', },
+
+                sizeLimit: {{ settings_var.MAX_UPLOAD_SIZE|unlocalize }},
+                minSizeLimit: 0,
+                debug: false,
+                // messages
+                messages: {
+                    typeError: "{% trans "{file} has invalid extension. Only {extensions} are allowed." %}",
+                    sizeError: "{% trans "{file} is too large, maximum file size is {sizeLimit}." %}",
+                    minSizeError: "{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}",
+                    emptyError: "{% trans "{file} is empty, please select files again without it." %}",
+                    onLeave: "{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}"
+                },
+
+                getItem: function(id) {
+                    var items = $(this.element).find('.qq-upload-list li').get();
+                    var item = items.pop();
+
+                    while (typeof item != "undefined") {
+                        if (item.qqFileId == id) {
+                            return $(item);
+                        }
+                        item = items.pop();
+                    }
+                },
+                onProgress: function(id, fileName, loaded, total){
+                    var bar = this.getItem(id).find('.progress-bar .content');
+                    var new_width = '' + (loaded/total * 100) + '%';
+                    bar.css('width', new_width);
+                },
+                onComplete: function(id, fileName, resp){
+                    // if (resp.success) {
+                    //     this.getItem(id).fadeOut('slow');
+                    // }
+                },
+                showMessage: function(message){ alert(message); }
+            });
+        });
+    })(grp.jQuery);
+    </script>
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS -->
+{% block bodyclass %}change-form grp-filebrowser{% if query.pop %} grp-popup{% endif %}{% endblock %}
+{% block content-class %}content-flexible{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}{% include "filebrowser/include/breadcrumbs.html" %}{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+<div id="grp-content-container">
+    <form>
+        <fieldset class="grp-module aligned">
+        <div class="grp-row" id="file-uploader">
+            <noscript>
+                {% trans "Please enable Javascript to upload files." %}
+            </noscript>
+        </div>
+        </fieldset>
+        <fieldset class="grp-module grp-collapse grp-closed">
+            <h2 class="grp-collapse-handler">{% trans "Help" %}</h2>
+            <div class="grp-row">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1"><label class="required">{% trans "Allowed" %}</label></div>
+                    <div class="c-2">
+                        <p class="grp-text">
+                        {% for extension in settings_var.EXTENSIONS.items %}
+                            {% ifnotequal extension.0 'Folder' %}
+                                <strong>{% trans extension.0|safe %}</strong> ({{ extension.1|join:", "|safe }})<br />
+                            {% endifnotequal %}
+                        {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="grp-row">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1"><label class="required">{% trans "Max. Filesize" %}</label></div>
+                    <div class="c-2"><p class="grp-text">{{ settings_var.MAX_UPLOAD_SIZE|filesizeformat }}</p></div>
+                </div>
+            </div>
+            {% if settings_var.NORMALIZE_FILENAME or settings_var.CONVERT_FILENAME %}
+                <div class="grp-row">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1"><label class="required">{% trans "Filename" %}</label></div>
+                        <div class="c-2">
+                            {% if settings_var.NORMALIZE_FILENAME %}
+                                <p class="grp-text">{% trans "The Name will be normalized by converting or stripping all non-standard characters." %}</p>
+                            {% endif %}
+                            {% if settings_var.CONVERT_FILENAME %}
+                                <p class="grp-text">{% trans "The Name will be converted to lowercase. Spaces will be replaced with underscores." %}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

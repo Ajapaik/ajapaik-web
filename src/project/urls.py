@@ -4,7 +4,7 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('views',
-    (r'^grappelli/', include('grappelli.urls')),
+    #(r'^grappelli/', include('grappelli.urls')),
     (r'^admin/filebrowser/', include('filebrowser.urls')),
     (r'^admin/', include(admin.site.urls)),
 
