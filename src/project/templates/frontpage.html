@@ -73,18 +73,18 @@ p {
 				<a href="{{ example.get_absolute_url }}" title="{{ example.description }}">
 					<div class="cf" style="width:400px;height:300px;">
 						{% thumbnail example.image "700x400" as im %}
-						<img src="{{ im.url }}" border="0" />
+						<img src="{{ im.url }}" border="0" style="height:100%;" />
 						{% endthumbnail %}
 						{% thumbnail example_source.image "700x400" as im %}
-						<img src="{{ im.url }}" border="0" class="cf-top" />
+						<img src="{{ im.url }}" border="0" style="height:100%;" class="cf-top" />
 						{% endthumbnail %}
 					</div>
 				</a>
 			</div>
 		</div>
 		<div class="cf partners">
-			<img src="{{ MEDIA_URL }}gfx/toetajad-logod.png" title="Eesti Kultuurkapital, Kultuuripärandi Aasta 2013, Ajujaht, Garage48, Zone.ee, MTÜ Eesti Fotopärand" border="0" />
-			<img src="{{ MEDIA_URL }}gfx/toetajad-logod-grayscale.png" title="Eesti Kultuurkapital, Kultuuripärandi Aasta 2013, Ajujaht, Garage48, Zone.ee, MTÜ Eesti Fotopärand" border="0"  class="cf-top" />
+			<img src="{{ MEDIA_URL }}gfx/toetajad-logod.png" title="Eesti Kultuurkapital, Kultuuripärandi Aasta 2013, Ajujaht, Garage48, Zone.ee, MTÜ Eesti Fotopärand" border="0" width="400" height="143" />
+			<img src="{{ MEDIA_URL }}gfx/toetajad-logod-grayscale.png" title="Eesti Kultuurkapital, Kultuuripärandi Aasta 2013, Ajujaht, Garage48, Zone.ee, MTÜ Eesti Fotopärand" border="0" width="400" height="143" class="cf-top" />
 		</div>
 	</div>
 
