@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 16:38+0000\n"
+"POT-Creation-Date: 2013-03-03 12:46+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,27 +13,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: media/js/game.js:69 media/js/game.js.py:106
+#: media/js/game.js:69 media/js/game.js.py:108
 msgid "Point the marker to where the picture was taken from."
 msgstr "Aseta marker sinna, kust pilt on tehtud."
 
-#: media/js/game.js:173
+#: media/js/game.js:178
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: media/js/game.js:177
+#: media/js/game.js:182
 msgid "Correct location is not certain yet."
 msgstr "Siin ei ole päris täpne asukoht veel kindlaks tehtud."
 
-#: media/js/game.js:181
+#: media/js/game.js:186
 msgid "We doubt about it."
 msgstr "Aga julgeme kahelda."
 
-#: media/js/game.js:184
+#: media/js/game.js:189
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: media/js/game.js:284
+#: media/js/game.js:289
 msgid "Show hint"
 msgstr "Näita vihjet"
 

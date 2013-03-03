@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 16:49+0000\n"
+"POT-Creation-Date: 2013-03-03 12:46+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: forms.py:9
+#: forms.py:13
 msgid "Choose city"
 msgstr "Выбери город"
 
@@ -71,6 +71,10 @@ msgstr "Комментировать"
 msgid "Close photo"
 msgstr "Закрыть фото"
 
+#: templates/block_photoview.html:20
+msgid "Random"
+msgstr "Случайное"
+
 #: templates/block_photoview.html:89 templates/block_photoview.html.py:142
 #: templates/photoview.html:111
 msgid ""
@@ -109,7 +113,6 @@ msgid "Thank you!"
 msgstr "Спасибо!"
 
 #: templates/block_photoview.html:175
-#, fuzzy
 msgid "Your rephoto has been uploaded."
 msgstr "Файл загружен."
 
@@ -125,7 +128,7 @@ msgstr "Где находится история?"
 #: templates/frontpage.html:93
 msgid "Discover, geotag and make the rephoto."
 msgstr ""
-"Узнай где сделана фотографию и добавь современную фотграфию этого места."
+"Узнай где сделана фотографию и добавь современную фотографию этого места."
 
 #: templates/frontpage.html:96
 msgid ""
@@ -165,9 +168,8 @@ msgid "Pick the shooting location!"
 msgstr "Знаю где сделано фото!"
 
 #: templates/photoview.html:159
-#, fuzzy
 msgid "Historic photo"
-msgstr "Оригинальное фото"
+msgstr "Историческое фото"
 
 #: templates/photoview.html:162
 msgid "Selected rephoto"

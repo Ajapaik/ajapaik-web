@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 16:49+0000\n"
+"POT-Creation-Date: 2013-03-03 12:46+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kristjan Heinaste <heinaste@gmail.com>\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: forms.py:9
+#: forms.py:13
 msgid "Choose city"
 msgstr "Vali linn"
 
@@ -69,6 +69,10 @@ msgstr "Kommenteeri"
 #: templates/block_photoview.html:19
 msgid "Close photo"
 msgstr "Sulge foto"
+
+#: templates/block_photoview.html:20
+msgid "Random"
+msgstr "Suvaline"
 
 #: templates/block_photoview.html:89 templates/block_photoview.html.py:142
 #: templates/photoview.html:111
