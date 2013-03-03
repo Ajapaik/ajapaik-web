@@ -34,7 +34,7 @@ def profile_url(token):
     return 'https://graph.facebook.com/me?' + token
 
 def fbview_url(request, stage):
-    return request.build_absolute_uri('/facebook/%s' % stage)
+    return request.build_absolute_uri('/facebook/%s/' % stage)
 
 def facebook_handler(request, stage):
     if stage == 'login':

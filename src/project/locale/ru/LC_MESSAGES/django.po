@@ -37,7 +37,7 @@ msgstr "Угадай место"
 #: views.py:151 templates/block_photoview.html:14 templates/photoview.html:72
 #: templates/photoview.html.py:151
 msgid "Heat map"
-msgstr "Карта предположений"
+msgstr "Карта"
 
 #: views.py:189 templates/frontpage.html:132
 msgid "Browse photos on map"
