@@ -68,7 +68,7 @@
             </div><!-- .rephoto -->
 
 			<div class="browse-nav">
-				<a href="{{ photo.get_absolute_url }}" class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %}</a>
+				<a href="{{ photo.get_absolute_url }}" class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
 				<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
 			</div>
 
