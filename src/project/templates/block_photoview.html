@@ -90,7 +90,8 @@ $(document).ready(function() {
 		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
 
 		<p class="add-rephoto-container">
-			<a href="#" class="add-rephoto btn small" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %}</a>
+			<a href="{{ photo.get_absolute_url }}" class="btn small" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
+			<!--<a href="#" class="add-rephoto btn small" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %}</a>-->
 		</p>
 
 		<script>
