@@ -75,12 +75,14 @@ $(document).ready(function() {
 		$('#rephoto_content').html($('#rephoto_img_'+$(this).attr('rel')).html());
 		$('#add-comment').html($('#rephoto_comment_'+$(this).attr('rel')).html());
 		$('#meta_content').html($('#rephoto_meta_'+$(this).attr('rel')).html());
-		History.replaceState(null, null, $(this).attr('href'));
+		History.replaceState(null, window.document.title, $(this).attr('href'));
+		_gaq.push(['_trackPageview', $(this).attr('href')]);
 	});
 
 	$('#photo-drawer').delegate('a.add-rephoto', 'click', function(e) {
 		e.preventDefault();
 		$('#notice').modal();
+		_gaq.push(['_trackEvent', 'Map', 'Add rephoto']);
 	});
 	
     $('#browse #photo-drawer .original, .single .original').hover(function () {

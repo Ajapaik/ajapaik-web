@@ -84,6 +84,7 @@ $(document).ready(function() {
 		$.post(saveLocationURL, data, function () {
 			nextPhoto();
 		});
+		_gaq.push(['_trackEvent', 'Game', 'Skip photo']);
 
 	});
 
@@ -105,10 +106,12 @@ $(document).ready(function() {
 	$('#save-location').click(function(e) {
 		e.preventDefault();
 		if (disableSave) {
+			_gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
 			alert(gettext('Point the marker to where the picture was taken from.'));
 		}
 		else {
 			saveLocation();
+			_gaq.push(['_trackEvent', 'Game', 'Save location']);
 		}
 	});
 
@@ -116,6 +119,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		hintUsed = 1;
 		showDescription();
+		_gaq.push(['_trackEvent', 'Game', 'Show description']);
 	});
 
 	$('#tools').mouseleave(function() {
@@ -143,6 +147,7 @@ $(document).ready(function() {
 		$('#leaderboard_browser .scoreboard').load(leaderboardFullURL, function() {
 		  $('#leaderboard_browser').modal();
 		});
+		_gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
 	});
 
 
