@@ -13,7 +13,9 @@
 		<meta property="og:description" content="{{ description }}" />
 	{% endif %}
 	<meta property="og:type" content="website" />
-	{% if hostname %}<meta property="og:url" content="{{ hostname }}{% if rephoto %}{{ rephoto.get_detail_url }}{% else %}{% if photo %}{{ photo.get_detail_url }}{% else %}{{ request.path }}{% endif %}{% endif %}" />{% endif %}
+	{% if photo or rephoto %}
+	<meta property="og:url" content="{{ hostname }}{{ request.path }}" />
+	{% endif %}
 	{% if rephoto %}
 	{% thumbnail rephoto.image "700x400" as im %}
 	<meta property="og:image" content="{{ hostname }}{{ im.url }}" />
