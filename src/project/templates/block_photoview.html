@@ -5,6 +5,9 @@ cityId = "{{ photo.city_id }}";
 $(document).ready(function() {
 	History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
 	_gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
+	{% if photo.lat and photo.lon %}
+	map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
+	{% endif %}
 });
 </script>
 <div class="photos clearfix">
