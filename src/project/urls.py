@@ -23,6 +23,7 @@ urlpatterns = patterns('views',
 	(r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
 	(r'^foto/(?P<photo_id>\d+)/$', 'photo'),
 	(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug'),
+	(r'^foto_large/(?P<photo_id>\d+)/$', 'photo_large'),
 	(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
 	(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
 	

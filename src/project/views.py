@@ -79,6 +79,11 @@ def frontpage(request):
         
     }))
 
+def photo_large(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    im = get_thumbnail(photo.image, '1024x1024', upscale=False)
+    return redirect(im.url)
+
 def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
     im = get_thumbnail(photo.image, '700x400')
