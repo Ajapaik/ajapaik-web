@@ -7,7 +7,11 @@
 	var leaderboardUpdateURL = '{% url views.leaderboard %}';
 	var leaderboardFullURL = '{% url views.top50 %}';
 	var city_id = '{{ city.id }}';
+	{% if city %}
 	var start_location = [{{ city.lon }}, {{ city.lat }}];
+	{% else %}
+	var start_location = [26, 59];
+	{% endif %}
 	var language_code = '{{ LANGUAGE_CODE }}';
 	
 </script>

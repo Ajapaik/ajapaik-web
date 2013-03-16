@@ -30,7 +30,12 @@ $(document).ready(function() {
     var location = new google.maps.LatLng(start_location[1], start_location[0]);
     
     // Will load the base map layer and return it
-    map = get_map(start_location, 15);
+	if (city_id) {
+		map = get_map(start_location, 15);
+	}
+	else {
+		map = get_map();
+	}
     
     // Create marker
     function toggleBounce() {
