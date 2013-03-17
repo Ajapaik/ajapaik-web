@@ -78,14 +78,7 @@ def facebook_handler(request, stage):
                 user = request.get_user()
                 profile = user.get_profile()
             
-            profile.fb_token = token
-            user.first_name = data.get("first_name")
-            user.last_name = data.get("last_name")
-            user.save()
-            profile.fb_id = data.get("id")
-            profile.fb_name = data.get("name")
-            profile.fb_link = data.get("link")
-            profile.save()
+            profile.update_from_fb_data(token, data)
 
             request.log_action("facebook.connect", {'data': data}, profile)
             

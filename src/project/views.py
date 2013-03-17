@@ -12,7 +12,7 @@ from django.conf import settings
 from django.core.files import File
 from django.core.files.base import ContentFile
 
-from project.models import Photo, City
+from project.models import Photo, City, Profile
 from project.forms import GeoTagAddForm, CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from pprint import pprint
@@ -26,6 +26,18 @@ def handle_uploaded_file(f):
 def photo_upload(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
     if request.method == 'POST':
+        profile = request.get_user().get_profile()
+        
+        if 'fb_access_token' in request.POST:
+            token = request.POST.get('fb_access_token')
+            profile, fb_data = Profile.facebook.get_user(token)
+            if profile is None:
+                user = request.get_user() # will create user on-demand
+                profile = user.get_profile()
+                
+                # update user info
+                profile.update_from_fb_data(token, fb_data)
+                
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
                 fileobj = handle_uploaded_file(f)
@@ -37,12 +49,11 @@ def photo_upload(request, photo_id):
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
                     date_text=data.get('date_text', None),
-                    user=request.get_user().get_profile(),
+                    user=profile,
                     cam_scale_factor=data.get('scale_factor'),
                     cam_yaw=data.get('yaw'),
                     cam_pitch=data.get('pitch'),
                     cam_roll=data.get('roll'),
-                    
                 )
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
@@ -65,7 +76,10 @@ def thegame(request):
     return render_to_response('game.html', RequestContext(request, ctx))
 
 def frontpage(request):
-    example = random.choice(Photo.objects.filter(id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307], rephoto_of__isnull=False))
+    try:
+        example = random.choice(Photo.objects.filter(id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307], rephoto_of__isnull=False))
+    except:
+        example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
     example_source = Photo.objects.get(pk=example.rephoto_of.id)
     city_select_form = CitySelectForm(request.GET)
     

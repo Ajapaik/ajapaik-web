@@ -8,6 +8,12 @@ from django.contrib.contenttypes import generic
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
 
+from urllib2 import urlopen
+from contextlib import closing
+import urllib
+from django.utils.simplejson import loads as json_decode
+from django.core.exceptions import ObjectDoesNotExist
+
 from sorl.thumbnail import ImageField
 
 import math
@@ -155,8 +161,26 @@ class GeoTag(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    
+
+class FacebookManager(models.Manager):
+    def url_read(self, uri):
+        with closing(urlopen(uri)) as request:
+            return request.read()    
+
+    def get_user(self, access_token, application_id=None):
+        data = json_decode(self.url_read("https://graph.facebook.com/me?access_token=%s" % access_token))
+        if not data:
+            raise "Facebook did not return anything useful for this access token"
+            
+        try:
+            return (self.get(fb_id=data.get('id')), data)
+        except ObjectDoesNotExist:
+            return (None, data, )
+
 class Profile(models.Model):
+    facebook = FacebookManager()
+    objects = models.Manager()
+    
     user = models.OneToOneField(BaseUser, primary_key=True)
     
     fb_name = models.CharField(max_length=255, null=True, blank=True)
@@ -169,6 +193,17 @@ class Profile(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     score = models.PositiveIntegerField(default=0)
+
+    def update_from_fb_data(self, token, data):
+        self.user.first_name = data.get("first_name")
+        self.user.last_name = data.get("last_name")
+        self.user.save()
+        
+        self.fb_token = token
+        self.fb_id = data.get("id")
+        self.fb_name = data.get("name")
+        self.fb_link = data.get("link")
+        self.save()        
 
     def merge_from_other(self, other):
         other.photos.update(user=self)
