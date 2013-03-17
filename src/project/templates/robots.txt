@@ -1,1 +1,5 @@
-User-agent: *Disallow: /ajapaikaja/Disallow: /kaart/Disallow: /heatmap/
+User-agent: *
+Disallow: /ajapaikaja/
+Disallow: /kaart/
+Disallow: /heatmap/
+Disallow: /facebook/
