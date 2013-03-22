@@ -206,11 +206,16 @@ def mapview(request):
     else:
         city_select_form = CitySelectForm()
     
+    if city:
+        title = city.name +' - '+ _('Browse photos on map')
+    else:
+        title = _('Browse photos on map')
+    
     data = get_next_photos_to_geotag.get_geotagged_photos(city_id)
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': city,
-        'title': _('Browse photos on map'),
+        'title': title,
         'city_select_form': city_select_form,
         
     }))
