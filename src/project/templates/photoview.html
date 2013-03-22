@@ -89,9 +89,6 @@
 							$("#upload_field").attr('disabled', 'disabled');
 						},
 						sendBoundary: window.FormData || $.browser.mozilla,
-						onStart: function(event, total) {
-							return confirm(ngettext('You have selected one photo for uploading. Continue?', 'You have selected %s files for uploading. Continue?', total));
-						},
 						setName: function(text) {
 							$("#progress_report_name").text(text);
 						},
@@ -101,8 +98,17 @@
 						setProgress: function(val) {
 							$("#progress_report_bar").css('width', Math.ceil(val*100)+"%");
 						},
-						onFinish: function(event, response, name, number, total) {
-							uploadCompleted();
+						onStart: function(event, total) {
+							return true;
+						},
+						onStartOne: function(event, name, number, total) {
+							return confirm(gettext('You have selected one photo for uploading. Continue?'));
+						},
+						onFinish: function(event, total) {
+							return true;
+						},
+						onFinishOne: function(event, response, name, number, total) {
+							uploadCompleted($.parseJSON(response));
 						}
 					});
 				});
@@ -117,7 +123,6 @@
 					<a href="#" id="upload" class="btn green" onclick="$('#upload_field').click(); return false;">Vali pildifail</a>
 					-->
 					<input type="file" id="upload_field" />
-					<!--<input type="file" multiple="multiple" id="upload_field" />-->
 					<!--<input type="button" id="upload_btn" value="{% trans "Add rephoto" %}" onclick="$('#upload_field').trigger('html5_upload.start');" />-->
 					<div id="progress_report">
 						<div id="progress_report_name"></div>

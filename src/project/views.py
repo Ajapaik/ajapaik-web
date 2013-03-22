@@ -25,6 +25,7 @@ def handle_uploaded_file(f):
     return ContentFile(f.read())
 
 def photo_upload(request, photo_id):
+    new_id = 0
     photo = get_object_or_404(Photo, pk=photo_id)
     if request.method == 'POST':
         profile = request.get_user().get_profile()
@@ -58,8 +59,11 @@ def photo_upload(request, photo_id):
                 )
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
+                new_id = re_photo.pk
                 
-    return HttpResponse('')
+    return HttpResponse(json.dumps({
+        'new_id': new_id,
+    }), mimetype="application/json")
 
 def logout(request):
     from django.contrib.auth import logout

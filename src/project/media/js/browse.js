@@ -37,14 +37,24 @@ function closePhotoDrawer() {
 	History.replaceState(null, null, "/kaart/?city="+cityId);
 }
 
-function uploadCompleted() {
+function uploadCompleted(response) {
 	$.modal.close();
 	if (typeof photoId == 'undefined') {
-		window.location.reload();
+		if (typeof response.new_id != 'undefined' && response.new_id) {
+			window.location.href = '/foto/'+ response.new_id +'/';
+		}
+		else {
+			window.location.reload();
+		}
 	}
 	else {
 		closePhotoDrawer();
-		loadPhoto(photoId);
+		if (typeof response.new_id != 'undefined' && response.new_id) {
+			loadPhoto(response.new_id);
+		}
+		else {
+			loadPhoto(photoId);
+		}
 	}
 }
 
