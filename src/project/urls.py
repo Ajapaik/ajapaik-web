@@ -5,9 +5,9 @@ from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
 urlpatterns = patterns('views',
-    #(r'^grappelli/', include('grappelli.urls')),
-    (r'^admin/filebrowser/', include('filebrowser.urls')),
-    (r'^admin/', include(admin.site.urls)),
+	#(r'^grappelli/', include('grappelli.urls')),
+	(r'^admin/filebrowser/', include('filebrowser.urls')),
+	(r'^admin/', include(admin.site.urls)),
 
 	(r'^logout/', 'logout'),
 	(r'^stream/', 'fetch_stream'),
@@ -26,7 +26,7 @@ urlpatterns = patterns('views',
 	(r'^foto_large/(?P<photo_id>\d+)/$', 'photo_large'),
 	(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
 	(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
-	
+
 	(r'^$', 'frontpage')
 ) + patterns('',
 	(r'^facebook/(?P<stage>[a-z_]+)/', 'facebook.facebook_handler'),
