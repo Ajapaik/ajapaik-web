@@ -36,6 +36,7 @@ urlpatterns = patterns('views',
 	(r'^feed/photos/', 'django.views.generic.simple.redirect_to', {'url': 'http://api.ajapaik.ee/?action=photo'}),
 )
 
+# not sure how to distinguish between LIVE and DEV other than GA code
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
 	urlpatterns += patterns('',
 		(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
