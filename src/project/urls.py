@@ -33,8 +33,17 @@ urlpatterns = patterns('views',
 	(r'^i18n/', include('django.conf.urls.i18n')),
 	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs','packages': ('project')}),
 	(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/gfx/favicon.ico'}),
-	(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+	(r'^feed/photos/', 'django.views.generic.simple.redirect_to', {'url': 'http://api.ajapaik.ee/?action=photo'}),
 )
+
+if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
+	urlpatterns += patterns('',
+		(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+	)
+else:
+	urlpatterns += patterns('',
+		(r'^robots\.txt$', direct_to_template, {'template': 'robots-staging.txt', 'mimetype': 'text/plain'}),
+	)
 
 if settings.DEBUG:
 	urlpatterns += patterns('',
