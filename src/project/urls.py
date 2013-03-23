@@ -33,7 +33,7 @@ urlpatterns = patterns('views',
 	(r'^i18n/', include('django.conf.urls.i18n')),
 	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs','packages': ('project')}),
 	(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/gfx/favicon.ico'}),
-	(r'^feed/photos/', 'django.views.generic.simple.redirect_to', {'url': 'http://api.ajapaik.ee/?action=photo'}),
+	(r'^feed/photos/', 'django.views.generic.simple.redirect_to', {'url': 'http://api.ajapaik.ee/?action=photo&format=atom'}),
 )
 
 # not sure how to distinguish between LIVE and DEV other than GA code
