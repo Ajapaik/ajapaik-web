@@ -117,6 +117,7 @@ MEDIA_BUNDLES = (
             'keyboard_control.js',
             'jquery.tools.min.js',
             'jquery.history.html5.js',
+            'bigscreen.min.js',
             'init.js',
         )
     },

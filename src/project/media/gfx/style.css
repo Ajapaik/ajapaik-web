@@ -430,6 +430,30 @@ h2.add_comment {
 }
 
 
+/* FULLSCREEN */
+
+.full-box {
+	opacity:0;
+	width:0px;
+	height:0px;
+	overflow:hidden;
+}
+#full-large1, #full-large2 {
+	width: 100%;
+	height: 100%;
+	background:black;
+}
+#full-large1 img, #full-large2 img {
+	position:relative;
+	left: 50%;
+	top: 50%;
+	width: auto;
+	max-width: 1024px;
+	height: auto;
+	max-height: 1024px;
+}
+
+
 /* MAP */
 
 #browse .map {

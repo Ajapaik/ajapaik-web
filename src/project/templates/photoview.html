@@ -35,9 +35,16 @@
             <div class="original photo-item">
                 <span class="framed rounded">
                     {% thumbnail photo.image "700x400" as im %}
-                    <a href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+                    <a id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                     {% endthumbnail %}
                 </span>
+				<div class="full-box">
+					<div id="full-large1">
+						{% thumbnail photo.image "1024x1024" upscale=False as full %}
+						<img src="{{ full.url }}" border="0" />
+						{% endthumbnail %}
+					</div>
+				</div>
                 <div class="tools">
                     <div class="description">
                         <p>{{ photo.description }}</p>
@@ -56,7 +63,7 @@
 							<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>
                         </div>
                     </div>
-					<a href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+					<a id="full-thumb2" href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                 </div>
                 <div class="tools">
                     <ul class="thumbs">
@@ -146,11 +153,6 @@
 						{% endfor %}
 					</ul>
 				</div>
-				<script>
-					$('.photos .original img').load(function() {
-						$('.no-rephoto').css('width', $(this).css('width') );
-					});
-				</script>
 			</div>
 			<div class="browse-nav">
 				<a href="{{ photo.get_absolute_url }}" onclick="jQuery('.no-rephoto').fadeOut(300).fadeIn(150);return false;" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
@@ -158,6 +160,13 @@
 			</div>
 			{% endthumbnail %}
 
+			<div class="full-box">
+				<div id="full-large2">
+					{% thumbnail rephoto.image "1024x1024" upscale=False as full %}
+					<img src="{{ full.url }}" border="0" />
+					{% endthumbnail %}
+				</div>
+			</div>
         </div>
 
 		<h2 class="add_comment">{% trans "Add comment" %}</h2>
@@ -209,10 +218,15 @@
 			</div>
 			{% endif %}
 			{% endcomment %}
-        </div>
-        
-        <script type="text/javascript">
-            $("ul.tabs").tabs("div.panes > .pane", {effect: 'fade'});
+		</div>
+
+		<script type="text/javascript">
+		$(function() {
+			$('.photos .original .framed img').load(function() {
+				$('.no-rephoto').css('width', $(this).css('width') );
+			});
+
+			$("ul.tabs").tabs("div.panes > .pane", {effect: 'fade'});
 			{% if rephoto %}
 			$('ul.tabs li:nth-child(2) a').click();
 			{% endif %}
@@ -222,9 +236,39 @@
 					FB.XFBML.parse();
 				}
 			});
-        </script>
 
-    </div>
+			$('#full-large1, #full-large2').click(function(e) {
+				if (BigScreen.enabled) {
+					e.preventDefault();
+					BigScreen.exit();
+				}
+			});
+
+			$('#full-thumb1').click(function(e) {
+				if (BigScreen.enabled) {
+					e.preventDefault();
+					BigScreen.request($('#full-large1')[0],
+						function(element) {
+							$('#full-large1 img').css('margin-top', '-'+ $('#full-large1 img').height() / 2 +'px');
+							$('#full-large1 img').css('margin-left', '-'+ $('#full-large1 img').width() / 2 +'px');
+						}
+					);
+				}
+			});
+			$('#full-thumb2').click(function(e) {
+				if (BigScreen.enabled) {
+					e.preventDefault();
+					BigScreen.request($('#full-large2')[0],
+						function(element) {
+							$('#full-large2 img').css('margin-top', '-'+ $('#full-large2 img').height() / 2 +'px');
+							$('#full-large2 img').css('margin-left', '-'+ $('#full-large2 img').width() / 2 +'px');
+						}
+					);
+				}
+			});
+		});
+		</script>
+	</div>
 </div><!-- #browse -->
 
 <script type="text/javascript" src="{{ MEDIA_URL }}js/browse.js"></script>
