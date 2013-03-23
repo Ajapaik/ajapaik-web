@@ -82,9 +82,13 @@ $(document).ready(function() {
 
 	$('#photo-drawer').delegate('ul.thumbs li.photo a', 'click', function(e) {
 		e.preventDefault();
-		$('#rephoto_content').html($('#rephoto_img_'+$(this).attr('rel')).html());
-		$('#add-comment').html($('#rephoto_comment_'+$(this).attr('rel')).html());
-		$('#meta_content').html($('#rephoto_meta_'+$(this).attr('rel')).html());
+		$('#rephoto_content a').attr('href', rephoto_img_href[$(this).attr('rel')]);
+		$('#rephoto_content img').attr('src', rephoto_img_src[$(this).attr('rel')]);
+		$('#meta_content').html(rephoto_meta[$(this).attr('rel')]);
+		$('#add-comment').html(rephoto_comment[$(this).attr('rel')]);
+		if (typeof FB != 'undefined') {
+			FB.XFBML.parse();
+		}
 		History.replaceState(null, window.document.title, $(this).attr('href'));
 		_gaq.push(['_trackPageview', $(this).attr('href')]);
 	});
