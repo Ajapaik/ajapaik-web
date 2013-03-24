@@ -249,14 +249,14 @@
 				if (BigScreen.enabled) {
 					e.preventDefault();
 					BigScreen.request($('#full-large1')[0]);
-					_gaq.push(['_trackEvent', 'Photo', 'full-screen', 'historic-photo']);
+					_gaq.push(['_trackEvent', 'Photo', 'full-screen', this.href]);
 				}
 			});
 			$('#full-thumb2').click(function(e) {
 				if (BigScreen.enabled) {
 					e.preventDefault();
 					BigScreen.request($('#full-large2')[0]);
-					_gaq.push(['_trackEvent', 'Photo', 'full-screen', 'rephoto']);
+					_gaq.push(['_trackEvent', 'Photo', 'full-screen', this.href]);
 				}
 			});
 		});
