@@ -137,7 +137,7 @@ $(document).ready(function() {
 		if (BigScreen.enabled) {
 			e.preventDefault();
 			BigScreen.request($('#full-large2')[0]);
-			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'refoto-'+this.rel]);
+			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'rephoto-'+this.rel]);
 		}
 	});
 
