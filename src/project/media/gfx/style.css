@@ -760,9 +760,9 @@ a.fullscreen {
 }
 #game #btm #open-location-tools-container {
 	position: absolute;
-	bottom: 50px;
+	bottom: 40px;
 	left: 50%;
-	height: 50px;
+	height: 40px;
 	width: 210px;
 	margin-left: -105px;
 	z-index: 1050;
