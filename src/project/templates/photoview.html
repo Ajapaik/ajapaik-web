@@ -33,7 +33,7 @@
             <div class="original photo-item">
                 <span class="framed rounded">
                     {% thumbnail photo.image "700x400" as im %}
-                    <a id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+                    <a class="fullscreen" id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                     {% endthumbnail %}
                 </span>
                 <div class="tools">
@@ -54,7 +54,7 @@
 							<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>
                         </div>
                     </div>
-					<a id="full-thumb2" href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+					<a class="fullscreen" id="full-thumb2" href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                 </div>
                 <div class="tools">
                     <ul class="thumbs">
@@ -206,12 +206,12 @@
 	</div><!-- #content -->
 
 	<div class="full-box" style="opacity: 0;width: 0px;height: 0px;overflow: hidden;">
-		<div id="full-large1">
+		<div class="full-pic" id="full-large1">
 			{% thumbnail photo.image "1024x1024" upscale=False as full %}
 			<img src="{{ full.url }}" border="0" />
 			{% endthumbnail %}
 		</div>
-		<div id="full-large2">
+		<div class="full-pic" id="full-large2">
 			{% thumbnail rephoto.image "1024x1024" upscale=False as full %}
 			<img src="{{ full.url }}" border="0" />
 			{% endthumbnail %}

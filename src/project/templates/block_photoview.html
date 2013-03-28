@@ -32,7 +32,7 @@ $(document).ready(function() {
 
 	<div class="original photo-item">
 		{% thumbnail photo.image "700x400" as im %}
-		<a id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+		<a class="fullscreen" id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
 		{% endthumbnail %}
 		
 		<div class="tools">
@@ -61,7 +61,7 @@ $(document).ready(function() {
 			</div>
 
 			<div id="rephoto_content">
-				<a id="full-thumb2" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
+				<a class="fullscreen" id="full-thumb2" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
 			</div>
 			<script>
 			var rephoto_img_href = [];
@@ -100,12 +100,12 @@ $(document).ready(function() {
 </div><!-- .photos -->
 
 <div class="full-box" style="opacity: 0;width: 0px;height: 0px;overflow: hidden;">
-	<div id="full-large1">
+	<div class="full-pic" id="full-large1">
 		{% thumbnail photo.image "1024x1024" upscale=False as full %}
 		<img src="{{ full.url }}" border="0" />
 		{% endthumbnail %}
 	</div>
-	<div id="full-large2">
+	<div class="full-pic" id="full-large2">
 		{% thumbnail photo.rephotos.all.0.image "1024x1024" upscale=False as full %}
 		<img src="{{ full.url }}" border="0" />
 		{% endthumbnail %}

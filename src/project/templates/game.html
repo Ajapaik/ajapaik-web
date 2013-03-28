@@ -48,8 +48,8 @@
         <div id="map_canvas" style="width:100%; height:100%"></div>
 	</div>
 
-	<div id="photos">
-	</div>
+	<div id="photos"></div>
+
 	<a id="skip-photo" href="#" class="skip-photo">{% trans "Next photo" %} &rarr;</a>
 
 	<a id="back-home" href="/?city={{city.id}}">&larr; {% trans "Back to home page" %}</a>
@@ -68,13 +68,16 @@
 	
 	<div style="display: none;">
 		<div id="leaderboard_browser">
-		<div class="single">
-			<a style="position:absolute;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">{% trans "Close" %}</a>
-			<div class="score_container">
-				<ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+			<div class="single">
+				<a style="position:absolute;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">{% trans "Close" %}</a>
+				<div class="score_container">
+					<ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div id="full-photos"></div>
 
 </div>
 

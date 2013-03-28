@@ -127,6 +127,20 @@ $(document).ready(function() {
 		_gaq.push(['_trackEvent', 'Game', 'Show description']);
 	});
 
+	$('#photos a.fullscreen').live('click', function(e) {
+		e.preventDefault();
+		if (BigScreen.enabled) {
+			BigScreen.request($('#game-full'+this.rel)[0]);
+		}
+	});
+
+	$('.full-box div').live('click', function(e) {
+		if (BigScreen.enabled) {
+			e.preventDefault();
+			BigScreen.exit();
+		}
+	});
+
 	$('#tools').mouseleave(function() {
 		if (locationToolsOpen == true) {
 			showPhotos();
@@ -293,7 +307,7 @@ $(document).ready(function() {
 				currentPhoto = $('#photos .photo'+currentPhotoIdx);
 
 				$(currentPhoto).append(
-					'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></div>'
+					'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><a class="fullscreen" rel="'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></a></div>'
 				).find('img').load(function() {
 
 					currentPhoto.css({ 'visibility' : 'visible' });
@@ -306,6 +320,13 @@ $(document).ready(function() {
 
 					});
 
+				});
+				$('#full-photos').append('<div class="full-box" style="opacity: 0;width: 0px;height: 0px;overflow: hidden;"><div class="full-pic" id="game-full'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].large.url+'" border="0" /></div>');
+				
+				$('.full-box img').load(function() {
+					$(this).css('margin-top', '-'+ $(this).height() / 2 +'px');
+					$(this).css('margin-left', '-'+ $(this).width() / 2 +'px');
+					$(this).css('opacity', 1);
 				});
 
 				currentPhotoIdx++;

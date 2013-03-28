@@ -431,19 +431,22 @@ h2.add_comment {
 
 
 /* FULLSCREEN */
-
+a.fullscreen {
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+}
 .full-box {
 	opacity:0;
 	width:0px;
 	height:0px;
 	overflow:hidden;
 }
-#full-large1, #full-large2 {
+.full-pic {
 	width: 100%;
 	height: 100%;
 	background: black url('../gfx/icon_loading.gif') center center no-repeat;
 }
-#full-large1 img, #full-large2 img {
+.full-pic img {
 	position:relative;
 	left: 50%;
 	top: 50%;
@@ -452,6 +455,8 @@ h2.add_comment {
 	height: auto;
 	max-height: 1024px;
 	opacity:0;
+	cursor: -webkit-zoom-out;
+	cursor: -moz-zoom-out;
 }
 
 
@@ -530,8 +535,8 @@ h2.add_comment {
 	display: none;
 	bottom: 100%;
 	width: 100%;
-	padding: 10px 15px;
-	margin-left: -20px;
+	padding: 10px 10px;
+	margin-left: -10px;
 	margin-bottom: 30px;
 
 	-webkit-border-radius: 5px;

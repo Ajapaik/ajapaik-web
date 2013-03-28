@@ -7,6 +7,11 @@ def _make_thumbnail(photo,size):
 	image=get_thumbnail(photo.image,size)
 	return {'url':image.url,
 			'size':[image.width,image.height]}
+
+def _make_fullscreen(photo):
+	image=get_thumbnail(photo.image, '1024x1024', upscale=False)
+	return {'url':image.url,
+			'size':[image.width,image.height]}
  
 def calc_trustworthiness(user_id):
 	total_tries=0
@@ -93,10 +98,11 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 	for p in photos:
 		data.append({'id':p.id,
 					'description':p.description,
-					'date_text':p.date_text,
+					#'date_text':p.date_text,
 					'source_key':p.source_key,
-					'big':_make_thumbnail(p,'510x375'),
-					'small':_make_thumbnail(p,'160x160')})
+					'big':_make_thumbnail(p,'700x400'),
+					'large':_make_fullscreen(p)
+					})
 	return data
 
 	# photod mille kohta saab anda feedbacki, ja mida ma
