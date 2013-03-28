@@ -26,21 +26,7 @@
 				<span id="langlabel">{% trans "Choose language" %}:</span>
 			</form>
 		</div>
-
-    </div>
-
-	<div class="full-box" style="opacity: 0;width: 0px;height: 0px;overflow: hidden;">
-		<div id="full-large1">
-			{% thumbnail photo.image "1024x1024" upscale=False as full %}
-			<img src="{{ full.url }}" border="0" />
-			{% endthumbnail %}
-		</div>
-		<div id="full-large2">
-			{% thumbnail rephoto.image "1024x1024" upscale=False as full %}
-			<img src="{{ full.url }}" border="0" />
-			{% endthumbnail %}
-		</div>
-	</div>
+    </div><!-- .top -->
 
     <div id="content" class="single">
         <div class="photos clearfix">
@@ -56,7 +42,7 @@
                         <p class="owner">{{ photo.source.description }} {{ photo.source.name }}{% if photo.source_key %}_{{ photo.source_key }}{% endif %}</p>
                     </div>
                 </div>
-            </div><!-- .original -->
+            </div><!-- .original.photo-item -->
 
             {% thumbnail rephoto.image "700x400" as im %}
 
@@ -158,13 +144,14 @@
 						{% endfor %}
 					</ul>
 				</div>
-			</div>
+			</div><!-- .no-rehpoto -->
+
 			<div class="browse-nav">
 				<a href="{{ photo.get_absolute_url }}" onclick="jQuery('.no-rephoto').fadeOut(300).fadeIn(150);return false;" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
 				<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
 			</div>
 			{% endthumbnail %}
-        </div>
+        </div><!-- .photos -->
 
 		<h2 class="add_comment">{% trans "Add comment" %}</h2>
         <ul class="tabs clearfix">
@@ -215,55 +202,48 @@
 			</div>
 			{% endif %}
 			{% endcomment %}
+		</div><!-- .panes -->
+	</div><!-- #content -->
+
+	<div class="full-box" style="opacity: 0;width: 0px;height: 0px;overflow: hidden;">
+		<div id="full-large1">
+			{% thumbnail photo.image "1024x1024" upscale=False as full %}
+			<img src="{{ full.url }}" border="0" />
+			{% endthumbnail %}
 		</div>
+		<div id="full-large2">
+			{% thumbnail rephoto.image "1024x1024" upscale=False as full %}
+			<img src="{{ full.url }}" border="0" />
+			{% endthumbnail %}
+		</div>
+	</div><!-- .full-box -->
 
-		<script type="text/javascript">
-		$(function() {
-			$('.photos .original .framed img').load(function() {
-				$('.no-rephoto').css('width', $(this).css('width') );
-			});
+</div><!-- #browse_scroll -->
 
-			$("ul.tabs").tabs("div.panes > .pane", {effect: 'fade'});
-			{% if rephoto %}
-			$('ul.tabs li:nth-child(2) a').click();
-			{% endif %}
-			$('ul.tabs li a').click(function(){
-				if (typeof FB != 'undefined') {
-					// Firefox like box rendering fix
-					FB.XFBML.parse();
-				}
-			});
+<script type="text/javascript">
+$(function() {
+	$('.photos .original .framed img').load(function() {
+		$('.no-rephoto').css('width', $(this).css('width') );
+	});
 
-			$('.full-box img').load(function() {
-				$(this).css('margin-top', '-'+ $(this).height() / 2 +'px');
-				$(this).css('margin-left', '-'+ $(this).width() / 2 +'px');
-				$(this).css('opacity', 1);
-			});
-			$('.full-box div').click(function(e) {
-				if (BigScreen.enabled) {
-					e.preventDefault();
-					BigScreen.exit();
-				}
-			});
+	$("ul.tabs").tabs("div.panes > .pane", {effect: 'fade'});
+	{% if rephoto %}
+	$('ul.tabs li:nth-child(2) a').click();
+	{% endif %}
+	$('ul.tabs li a').click(function(){
+		if (typeof FB != 'undefined') {
+			// Firefox like box rendering fix
+			FB.XFBML.parse();
+		}
+	});
 
-			$('#full-thumb1').click(function(e) {
-				if (BigScreen.enabled) {
-					e.preventDefault();
-					BigScreen.request($('#full-large1')[0]);
-					_gaq.push(['_trackEvent', 'Photo', 'full-screen', this.href]);
-				}
-			});
-			$('#full-thumb2').click(function(e) {
-				if (BigScreen.enabled) {
-					e.preventDefault();
-					BigScreen.request($('#full-large2')[0]);
-					_gaq.push(['_trackEvent', 'Photo', 'full-screen', this.href]);
-				}
-			});
-		});
-		</script>
-	</div>
-</div><!-- #browse -->
+	$('.full-box img').load(function() {
+		$(this).css('margin-top', '-'+ $(this).height() / 2 +'px');
+		$(this).css('margin-left', '-'+ $(this).width() / 2 +'px');
+		$(this).css('opacity', 1);
+	});
+});
+</script>
 
 <script type="text/javascript" src="{{ MEDIA_URL }}js/browse.js"></script>
 

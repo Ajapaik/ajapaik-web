@@ -84,6 +84,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('#rephoto_content a').attr('href', rephoto_img_href[$(this).attr('rel')]);
 		$('#rephoto_content img').attr('src', rephoto_img_src[$(this).attr('rel')]);
+		$('#full-large2 img').attr('src', rephoto_img_src_fs[$(this).attr('rel')]);
 		$('#meta_content').html(rephoto_meta[$(this).attr('rel')]);
 		$('#add-comment').html(rephoto_comment[$(this).attr('rel')]);
 		if (typeof FB != 'undefined') {
@@ -115,6 +116,28 @@ $(document).ready(function() {
 		'height': '75%',
 		'autoScale': false,
 		'hideOnContentClick': false
+	});
+	
+	$('.full-box div').live('click', function(e) {
+		if (BigScreen.enabled) {
+			e.preventDefault();
+			BigScreen.exit();
+		}
+	});
+
+	$('#full-thumb1').live('click', function(e) {
+		if (BigScreen.enabled) {
+			e.preventDefault();
+			BigScreen.request($('#full-large1')[0]);
+			_gaq.push(['_trackEvent', 'Photo', 'full-screen', this.href]);
+		}
+	});
+	$('#full-thumb2').live('click', function(e) {
+		if (BigScreen.enabled) {
+			e.preventDefault();
+			BigScreen.request($('#full-large2')[0]);
+			_gaq.push(['_trackEvent', 'Photo', 'full-screen', this.href]);
+		}
 	});
 
 

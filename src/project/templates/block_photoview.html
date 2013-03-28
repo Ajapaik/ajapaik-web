@@ -28,11 +28,11 @@ $(document).ready(function() {
 			rephoto_comment[{{ rephoto.id }}] = '<a href="{{ rephoto.get_absolute_url }}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a>';
 		{% endfor %}
 		</script>
-	</div>
+	</div><!-- .browse-nav -->
 
 	<div class="original photo-item">
 		{% thumbnail photo.image "700x400" as im %}
-		<a href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+		<a id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
 		{% endthumbnail %}
 		
 		<div class="tools">
@@ -41,7 +41,7 @@ $(document).ready(function() {
 				<p class="owner">{{ photo.source.description }} {{ photo.source.name }}{% if photo.source_key %}_{{ photo.source_key }}{% endif %}</p>
 			</div>
 		</div>
-	</div>
+	</div><!-- .original.photo-item -->
 
 	{% thumbnail photo.rephotos.all.0.image "700x400" as rephoto %}
 
@@ -61,15 +61,19 @@ $(document).ready(function() {
 			</div>
 
 			<div id="rephoto_content">
-				<a href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
+				<a id="full-thumb2" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
 			</div>
 			<script>
 			var rephoto_img_href = [];
 			var rephoto_img_src = [];
+			var rephoto_img_src_fs = [];
 			{% for rephoto in photo.rephotos.all %}
+				rephoto_img_href[{{ rephoto.id }}] = '{{ rephoto.get_absolute_url }}';
 				{% thumbnail rephoto.image "700x400" as image %}
-					rephoto_img_href[{{ rephoto.id }}] = '{{ rephoto.get_absolute_url }}';
 					rephoto_img_src[{{ rephoto.id }}] = '{{ image.url }}';
+				{% endthumbnail %}
+				{% thumbnail rephoto.image "1024x1024" upscale=False as image %}
+					rephoto_img_src_fs[{{ rephoto.id }}] = '{{ image.url }}';
 				{% endthumbnail %}
 			{% endfor %}
 			</script>
@@ -81,25 +85,44 @@ $(document).ready(function() {
 				<li class="photo"><a href="{{ rephoto.get_absolute_url }}" rel="{{ rephoto.id }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
 				{% endfor %}
 			</ul>
-		</div>
+		</div><!-- .tools -->
 
-	</div><!-- .rephoto -->
+	</div><!-- .rephoto.photo-item -->
 
 	{% empty %}
 
 	<div class="no-rephoto">
 		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
-
-		<script>
-			$('#photo-drawer .original img').load(function() {
-				$('.no-rephoto').css('width', $(this).css('width') );
-			});
-		</script>
-	</div>
+	</div><!-- .no-refoto -->
 
 	{% endthumbnail %}
 
-</div>
+</div><!-- .photos -->
+
+<div class="full-box" style="opacity: 0;width: 0px;height: 0px;overflow: hidden;">
+	<div id="full-large1">
+		{% thumbnail photo.image "1024x1024" upscale=False as full %}
+		<img src="{{ full.url }}" border="0" />
+		{% endthumbnail %}
+	</div>
+	<div id="full-large2">
+		{% thumbnail photo.rephotos.all.0.image "1024x1024" upscale=False as full %}
+		<img src="{{ full.url }}" border="0" />
+		{% endthumbnail %}
+	</div>
+</div><!-- .full-box -->
+
+<script>
+$('#photo-drawer .original img').load(function() {
+	$('.no-rephoto').css('width', $(this).css('width') );
+});
+
+$('.full-box img').load(function() {
+	$(this).css('margin-top', '-'+ $(this).height() / 2 +'px');
+	$(this).css('margin-left', '-'+ $(this).width() / 2 +'px');
+	$(this).css('opacity', 1);
+});
+</script>
 
 <div id="notice-container" style="display: none">
 
@@ -171,11 +194,11 @@ $(document).ready(function() {
 		<p></p>
 		<a href="javascript:void(0);" onclick="uploadCompleted();">{% trans "Close" %}</a>
 
-	</div>
+	</div><!-- #notice -->
 
 	<div id="uploadCompleted" class="notice">
 		<h2>{% trans "Thank you!" %}</h2>
 
 		<p>{% trans "Your rephoto has been uploaded." %}</p>
 	</div>
-</div>
+</div><!-- #notice-container -->
