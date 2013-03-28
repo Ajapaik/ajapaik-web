@@ -131,6 +131,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		if (BigScreen.enabled) {
 			BigScreen.request($('#game-full'+this.rel)[0]);
+			_gaq.push(['_trackEvent', 'Game', 'Full-screen', this.rel]);
 		}
 	});
 
