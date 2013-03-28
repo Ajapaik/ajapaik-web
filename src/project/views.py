@@ -77,6 +77,8 @@ def thegame(request):
     if city_select_form.is_valid():
         ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
 
+    site = Site.objects.get_current()
+    ctx['hostname'] = 'http://%s' % (site.domain, )
     ctx['title'] = _('Guess the location')
     return render_to_response('game.html', RequestContext(request, ctx))
 
