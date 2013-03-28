@@ -33,7 +33,7 @@
             <div class="original photo-item">
                 <span class="framed rounded">
                     {% thumbnail photo.image "700x400" as im %}
-                    <a class="fullscreen" id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+                    <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                     {% endthumbnail %}
                 </span>
                 <div class="tools">
@@ -54,7 +54,7 @@
 							<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>
                         </div>
                     </div>
-					<a class="fullscreen" id="full-thumb2" href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+					<a class="fullscreen" id="full-thumb2" rel="{{ rephoto.id }}" href="{{ rephoto.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
                 </div>
                 <div class="tools">
                     <ul class="thumbs">

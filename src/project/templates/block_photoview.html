@@ -32,7 +32,7 @@ $(document).ready(function() {
 
 	<div class="original photo-item">
 		{% thumbnail photo.image "700x400" as im %}
-		<a class="fullscreen" id="full-thumb1" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
+		<a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
 		{% endthumbnail %}
 		
 		<div class="tools">
@@ -61,7 +61,7 @@ $(document).ready(function() {
 			</div>
 
 			<div id="rephoto_content">
-				<a class="fullscreen" id="full-thumb2" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
+				<a class="fullscreen" id="full-thumb2" rel="{{ photo.rephotos.all.0.id }}" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
 			</div>
 			<script>
 			var rephoto_img_href = [];

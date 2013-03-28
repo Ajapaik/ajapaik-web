@@ -83,6 +83,7 @@ $(document).ready(function() {
 	$('#photo-drawer').delegate('ul.thumbs li.photo a', 'click', function(e) {
 		e.preventDefault();
 		$('#rephoto_content a').attr('href', rephoto_img_href[$(this).attr('rel')]);
+		$('#rephoto_content a').attr('rel', $(this).attr('rel'));
 		$('#rephoto_content img').attr('src', rephoto_img_src[$(this).attr('rel')]);
 		$('#full-large2 img').attr('src', rephoto_img_src_fs[$(this).attr('rel')]);
 		$('#meta_content').html(rephoto_meta[$(this).attr('rel')]);
@@ -129,14 +130,14 @@ $(document).ready(function() {
 		if (BigScreen.enabled) {
 			e.preventDefault();
 			BigScreen.request($('#full-large1')[0]);
-			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', this.href]);
+			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-'+this.rel]);
 		}
 	});
 	$('#full-thumb2').live('click', function(e) {
 		if (BigScreen.enabled) {
 			e.preventDefault();
 			BigScreen.request($('#full-large2')[0]);
-			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', this.href]);
+			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'refoto-'+this.rel]);
 		}
 	});
 
