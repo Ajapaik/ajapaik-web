@@ -80,28 +80,28 @@
 			});
 			try {
 				FB.Event.subscribe('edge.create',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'like added', response]);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Like added', response]);}
 				);
 				FB.Event.subscribe('edge.remove',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'like removed', response]);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Like removed', response]);}
 				);
 				FB.Event.subscribe('message.send',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'message sent', response]);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Message sent', response]);}
 				);
 				FB.Event.subscribe('comment.create',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'comment added', response.href]);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Comment added', response.href]);}
 				);
 				FB.Event.subscribe('comment.remove',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'comment removed', response.href]);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Comment removed', response.href]);}
 				);
 				FB.Event.subscribe('auth.prompt',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'login prompt']);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Login prompt']);}
 				);
 				FB.Event.subscribe('auth.login',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'login success']);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Login success']);}
 				);
 				FB.Event.subscribe('auth.logout',
-					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'logged out']);}
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Logged out']);}
 				);
 			}
 			catch (err) {}
