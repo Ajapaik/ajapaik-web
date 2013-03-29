@@ -140,10 +140,11 @@ def photoslug(request, photo_id, pseudo_slug):
 
     site = Site.objects.get_current()
     template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+    title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
-        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50],
-        'description': photo_obj.description,
+        'title': title,
+        'description': photo_obj.description if title != photo_obj.description else "",
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, )
     }))
@@ -171,11 +172,12 @@ def photoslug_heatmap(request, photo_id, pseudo_slug):
         photo_obj = photo_obj.rephoto_of
 
     data = get_next_photos_to_geotag.get_all_geotag_submits(photo_obj.id)
+    title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
     return render_to_response('heatmap.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': photo_obj.city,
-        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50] +' - '+ _("Heat map"),
-        'description': photo_obj.description,
+        'title': title +' - '+ _("Heat map"),
+        'description': photo_obj.description if title != photo_obj.description else "",
         'photo_lon': photo_obj.lon,
         'photo_lat': photo_obj.lat,
     }))
