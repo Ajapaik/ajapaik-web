@@ -36,7 +36,7 @@
 		$("a.about").fancybox();
 		$("a.collection").fancybox();
 
-		if (window.location.hash && $("a[href="+window.location.hash+"]").length) {
+		if (window.location.hash && window.location.hash != '#_=_' && $("a[href="+window.location.hash+"]").length) {
 			$("a[href="+window.location.hash+"]").click();
 		}
 	});
