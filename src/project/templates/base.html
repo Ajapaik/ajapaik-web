@@ -78,6 +78,16 @@
 				cookie: true,
 				xfbml: true,
 			});
+			/*
+			FB.getLoginStatus(function(response) {
+				console.log(response);
+				if(response && response.status == 'connected') {
+					FB.api('/me', function(response) {
+						console.log(response);
+					});
+				}
+			});
+			*/
 			try {
 				FB.Event.subscribe('edge.create',
 					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Like added', response]);}
