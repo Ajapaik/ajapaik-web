@@ -32,6 +32,34 @@ class City(models.Model):
     def __unicode__(self):
         return u'%s' % self.name
 
+class Album(models.Model):
+    FRONTPAGE, FAVORITES, COLLECTION = range(3)
+    TYPE_CHOICES = (
+        (FRONTPAGE, 'Frontpage'),
+        (FAVORITES, 'Favorites'),
+        (COLLECTION, 'Collection'),
+    )
+    name = models.CharField(max_length=255)
+    slug = models.SlugField()
+    description = models.TextField(null=True, blank=True)
+    
+    atype = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
+    profile = models.ForeignKey('Profile', related_name='albums', blank=True, null=True)
+    
+    is_public = models.BooleanField(default=True)
+    
+    photos = models.ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
+    
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+        
+class AlbumPhoto(models.Model):
+    album = models.ForeignKey('Album')
+    photo = models.ForeignKey('Photo')
+    sort_order = models.PositiveSmallIntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    notes = models.TextField(null=True, blank=True)
+
 class Photo(models.Model):
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
@@ -52,6 +80,7 @@ class Photo(models.Model):
     confidence = models.FloatField(default=0)
 
     source_key = models.CharField(max_length=100, null=True, blank=True)
+    source_url = models.URLField(null=True, blank=True)
     source = models.ForeignKey('Source', null=True, blank=True)
     
     city = models.ForeignKey('City', related_name='cities')

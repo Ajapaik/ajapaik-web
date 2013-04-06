@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'filebrowser',
     'media_bundler',
-    'django_extensions',
+    #'django_extensions',
     'project',
 )
 
