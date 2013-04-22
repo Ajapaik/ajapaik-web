@@ -95,5 +95,19 @@ $(document).ready(function() {
     $.jQee('right', function(e) {
         $('#skip-photo').click();
     });
+    
+    $('.filter-box select').change(function(){
+        var uri = URI(location.href),
+            new_q = URI.parseQuery($(this).val()),
+            is_filter_empty = false;
+                    
+        uri.removeQuery(Object.keys(new_q));
+        $.each(new_q, function(i,ii){ is_filter_empty = ii == "" });
+                
+        if (!is_filter_empty) {
+            uri = uri.addQuery(new_q);
+        }
+        location.href = uri.toString();
+    });    
 
 });

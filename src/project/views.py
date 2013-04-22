@@ -17,15 +17,119 @@ from project.models import Photo, City, Profile
 from project.forms import GeoTagAddForm, CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from pprint import pprint
+from django.db import models
 
 import get_next_photos_to_geotag
 import random
+import datetime
+import urllib
+
+from django.forms.forms import Form
+from django.forms.fields import ChoiceField
+
+class FilterSpecCollection(object): # selectbox type, choice based
+    def __init__(self, qs, params):
+        self.qs = qs
+        self.params = params
+        self.filters = []
+        
+    def register(self, filter_spec, field):
+        self.filters.append(filter_spec(self.params, field))
+        
+    def out(self):
+        for f in self.filters:
+            pass
+    
+    def get_filtered_qs(self):
+        for item in self.filters:
+            ##
+            ## TODO: Add security measures to limit field
+            ##
+            self.qs = self.qs.filter(**dict(item.get_qs_filter()))
+        return self.qs
+    
+    def get_form(self):
+        class DynaForm(Form):
+            def __init__(self, *args, **kwargs):
+                args = list(args)
+                filters = args.pop(0)
+                
+                super(DynaForm, self).__init__(*args, **kwargs)
+                for item in filters:
+                    choices = [(i['query_string'], i['display']) for i in list(item.choices())]
+                    self.fields[item.get_slug_name()] = ChoiceField(choices=choices, label=item.get_label())
+        
+        initial = {}
+        for item in self.filters:
+            selected = [i['query_string'] for i in item.choices() if i['selected']] or ["",]
+            initial[item.get_slug_name()] = selected.pop(0)
+        
+        return DynaForm(self.filters, initial=initial)
+
+class FilterSpec(object):
+    def get_qs_filter(self):
+        return self.selected_params
+    
+    def choices(self):
+        for title, param_dict in self.links:
+            yield {'selected': self.selected_params == param_dict,
+                   'query_string': urllib.urlencode(param_dict),
+                   'display': title
+                   }
+                                      
+class DateFieldFilterSpec(FilterSpec):
+    def __init__(self, params, field_path):
+        self.field_path = field_path
+        self.field_generic = '%s__' % field_path
+        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
+        
+        today = datetime.date.today()
+        one_week_ago = today - datetime.timedelta(days=7)
+        one_month_ago = today - datetime.timedelta(days=30)
+        today_str = today.strftime('%Y-%m-%d 23:59:59')
+        
+        self.links = (
+            (_('All pictures'), {
+                '%s__gte' % self.field_path: "",
+                '%s__lte' % self.field_path: "",            
+            }),
+            (_('Added last week'), {
+                '%s__gte' % self.field_path: one_week_ago.strftime('%Y-%m-%d'),
+                '%s__lte' % self.field_path: today_str,
+            }),
+            (_('Added last month'), {
+                '%s__gte' % self.field_path: one_month_ago.strftime('%Y-%m-%d'),
+                '%s__lte' % self.field_path: today_str,
+            }),
+        )
+
+    def get_slug_name(self):
+        return u'creation_date_filter'
+
+    def get_label(self):
+        return u'Vali vahemik'
+
+
+class CityLookupFilterSpec(FilterSpec):
+    def __init__(self, params, field_path):
+        self.field_path = field_path
+        self.field_generic = '%s__' % field_path
+        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
+        
+        self.links = []
+        for city in City.objects.all():
+            self.links.append((city.name, {'%s__pk' % self.field_path: u'%s' % city.pk}))
+    
+    def get_slug_name(self):
+        return u'city_lookup_filter'
+    
+    def get_label(self):
+        return u'Vali linn'
 
 def handle_uploaded_file(f):
     return ContentFile(f.read())
 
 def photo_upload(request, photo_id):
-    new_id = 0
     photo = get_object_or_404(Photo, pk=photo_id)
     if request.method == 'POST':
         profile = request.get_user().get_profile()
@@ -59,11 +163,8 @@ def photo_upload(request, photo_id):
                 )
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
-                new_id = re_photo.pk
                 
-    return HttpResponse(json.dumps({
-        'new_id': new_id,
-    }), mimetype="application/json")
+    return HttpResponse('')
 
 def logout(request):
     from django.contrib.auth import logout
@@ -77,8 +178,6 @@ def thegame(request):
     if city_select_form.is_valid():
         ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
 
-    site = Site.objects.get_current()
-    ctx['hostname'] = 'http://%s' % (site.domain, )
     ctx['title'] = _('Guess the location')
     return render_to_response('game.html', RequestContext(request, ctx))
 
@@ -92,12 +191,11 @@ def frontpage(request):
     
     if not city_select_form.is_valid():
         city_select_form = CitySelectForm()
-
+    
     return render_to_response('frontpage.html', RequestContext(request, {
         'city_select_form': city_select_form,
         'example': example,
         'example_source': example_source,
-        
     }))
 
 def photo_large(request, photo_id):
@@ -140,11 +238,10 @@ def photoslug(request, photo_id, pseudo_slug):
 
     site = Site.objects.get_current()
     template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
-    title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
-        'title': title,
-        'description': photo_obj.description if title != photo_obj.description else "",
+        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50],
+        'description': photo_obj.description,
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, )
     }))
@@ -172,12 +269,11 @@ def photoslug_heatmap(request, photo_id, pseudo_slug):
         photo_obj = photo_obj.rephoto_of
 
     data = get_next_photos_to_geotag.get_all_geotag_submits(photo_obj.id)
-    title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
     return render_to_response('heatmap.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': photo_obj.city,
-        'title': title +' - '+ _("Heat map"),
-        'description': photo_obj.description if title != photo_obj.description else "",
+        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50] +' - '+ _("Heat map"),
+        'description': photo_obj.description,
         'photo_lon': photo_obj.lon,
         'photo_lat': photo_obj.lat,
     }))
@@ -201,27 +297,17 @@ def heatmap(request):
     }))
 
 def mapview(request):
-    city_select_form = CitySelectForm(request.GET)
-    city_id = city = None
+    qs = Photo.objects.all()
     
-    if city_select_form.is_valid():
-        city_id = city_select_form.cleaned_data['city']
-        city = City.objects.get(pk=city_id)
-    else:
-        city_select_form = CitySelectForm()
+    filters = FilterSpecCollection(qs, request.GET)
+    filters.register(DateFieldFilterSpec, 'created')
+    filters.register(CityLookupFilterSpec, 'city')
+    data = filters.get_filtered_qs().get_geotagged_photos_list()
     
-    if city:
-        title = city.name +' - '+ _('Browse photos on map')
-    else:
-        title = _('Browse photos on map')
-    
-    data = get_next_photos_to_geotag.get_geotagged_photos(city_id)
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
-        'city': city,
-        'title': title,
-        'city_select_form': city_select_form,
-        
+        'title': _('Browse photos on map'),
+        'filter_form': filters.get_form(),
     }))
 
 def get_leaderboard(request):
@@ -264,6 +350,6 @@ def fetch_stream(request):
         city_id = int(city)
     except:
         city_id = None
-        
+    
     data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile(), 4, city_id)
     return HttpResponse(json.dumps(data), mimetype="application/json")

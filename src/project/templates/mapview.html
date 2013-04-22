@@ -113,14 +113,10 @@
 
 		<ul id="nav"></ul>
         
-        <div id="city_select">
-            {{ city_select_form.as_p }}
-            <script type="text/javascript">
-                $('#id_city').change(function() {
-                    location.href = '{{ request.path }}?city=' + $(this).val();
-                });
-            </script>
+        <div class="filter-box">
+            {{ filter_form.as_p }}
         </div>
+        
 		{% get_language_info for LANGUAGE_CODE as lang %}
 		<div style="top: -40px;position: relative;">
 			<form style="display:inline;" action="/i18n/setlang/" method="post">

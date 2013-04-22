@@ -14,6 +14,8 @@ import urllib
 from django.utils.simplejson import loads as json_decode
 from django.core.exceptions import ObjectDoesNotExist
 
+from sorl.thumbnail import get_thumbnail
+
 from sorl.thumbnail import ImageField
 
 import math
@@ -60,7 +62,13 @@ class AlbumPhoto(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(null=True, blank=True)
 
+class PhotoManager(models.Manager):
+    def get_query_set(self):
+        return self.model.QuerySet(self.model)
+
 class Photo(models.Model):
+    objects = PhotoManager()
+    
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
     
@@ -98,7 +106,31 @@ class Photo(models.Model):
     
     class Meta:
         ordering = ['-id']
-
+        
+    class QuerySet(models.query.QuerySet):
+        def get_geotagged_photos_list(self):
+        	rephotographed_ids = self.filter(
+        						rephoto_of__isnull=False).order_by(
+        						'rephoto_of').values_list(
+        						'rephoto_of',flat=True)
+        	rephotos = dict(zip(rephotographed_ids,
+        				self.filter(
+        					rephoto_of__isnull=False).order_by(
+        					'rephoto_of', 'id').distinct(
+        					'rephoto_of').filter(
+        					rephoto_of__in=rephotographed_ids)))
+        	data=[]
+        	for p in self.filter(confidence__gte=0.3,
+        						lat__isnull=False,lon__isnull=False,
+        						rephoto_of__isnull=True):
+        		r = rephotos.get(p.id)
+        		if r is not None and bool(r.image):
+        			im = get_thumbnail(r.image, '50x50', crop='center')
+        		else:
+        			im = get_thumbnail(p.image, '50x50', crop='center')
+        		data.append((p.id,im.url,p.lon,p.lat,p.id in rephotographed_ids))
+        	return data          
+    
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
     
