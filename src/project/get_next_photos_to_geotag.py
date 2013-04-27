@@ -29,6 +29,9 @@ def calc_trustworthiness(user_id):
 	return (1-0.9**correct_tries) * \
 						correct_tries / float(total_tries)
 
+#
+# DEPRICATED see models.Photo
+#
 def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 
 	#!!! use trustworthiness to select desired level
@@ -158,6 +161,9 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	return is_correct,this_guess_score,user.score,leaderboard, \
 											location_is_unclear
 
+#
+# DEPRICATED see models.Photo
+#
 def get_geotagged_photos(city_id=None):
 	photos_set=Photo.objects.all()
 	if city_id is not None:

@@ -1,17 +1,11 @@
 var photos = [];
-
 var gameOffset = 0;
 var gameWidth = 0;
-
 var currentPhotoIdx = 0;
 var currentPhoto;
-
 var hintUsed = 0;
-
 var mediaUrl = '';
-
 var streamUrl = '/stream/';
-
 var disableNext = false;
 var disableSave = true;
 var locationToolsOpen = false;
@@ -19,8 +13,6 @@ var locationToolsOpen = false;
 function update_leaderboard() {
    $('#top .score_container .scoreboard').load(leaderboardUpdateURL);
 }
-
-/* INIT */
 
 $(document).ready(function() {
     update_leaderboard();
@@ -76,8 +68,7 @@ $(document).ready(function() {
         content: gettext('Point the marker to where the picture was taken from.')
     });
 
-/* BINDINGS */
-
+    /* BINDINGS */
 	/* game */
 
 	$('.skip-photo').click(function(e) {
@@ -169,11 +160,8 @@ $(document).ready(function() {
 		});
 		_gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
 	});
-
-
-
-/* FUNCTIONS */
-
+    
+    /* FUNCTIONS */
 	/* game */
 
 	function saveLocation() {
@@ -286,11 +274,11 @@ $(document).ready(function() {
 		hintUsed = 0;
 		disableSave = true;
 
-/*
+        /*
 		if (photos.length == currentPhotoIdx) {
 			loadPhotos();
 		}
-*/
+        */
 		if (photos.length > currentPhotoIdx) {
 
 			if (disableNext == false) {
@@ -336,9 +324,8 @@ $(document).ready(function() {
 				currentPhotoIdx++;
 			}
 
-		}
-		else {
-/* 			console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length); */
+		} else {
+            /* console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length); */
 			loadPhotos(1);
 		}
 
@@ -352,31 +339,17 @@ $(document).ready(function() {
 		});
 	}
 
-	function loadPhotos(next) {
-
-		date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
-
-		$.getJSON(streamUrl, {
-		  'b': date.getTime(),
-		  'city': city_id
-        }, function(data) {
-			$.merge(photos, data);
-
-/*
-console.log('loadPhotos();');
-for(var i in photos)
-{
-	console.log(photos[i].id+' -- '+photos[i].description);
-}
-*/
-
-
+    function loadPhotos(next) {
+        var date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
+        var qs = URI.parseQuery(window.location.search);
+        
+        $.getJSON(streamUrl, $.extend({
+            'b': date.getTime()
+        }, qs), function(data) {
+            $.merge(photos, data);
 			if (next || currentPhotoIdx <= 0) {
 				nextPhoto();
 			}
-
 		});
-
 	}
-
 });

@@ -143,3 +143,5 @@ FILEBROWSER_VERSIONS = {
 }
 
 FILEBROWSER_ADMIN_VERSIONS = ['thumbnail', 'small', 'big']
+
+DEFAULT_CITY_ID = 1

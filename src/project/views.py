@@ -32,9 +32,12 @@ class FilterSpecCollection(object): # selectbox type, choice based
         self.qs = qs
         self.params = params
         self.filters = []
+        self.filters_by_name = {}
         
     def register(self, filter_spec, field):
-        self.filters.append(filter_spec(self.params, field))
+        filter_obj = filter_spec(self.params, field)
+        self.filters.append(filter_obj)
+        self.filters_by_name[filter_obj.get_slug_name()] = filter_obj
         
     def out(self):
         for f in self.filters:
@@ -42,10 +45,9 @@ class FilterSpecCollection(object): # selectbox type, choice based
     
     def get_filtered_qs(self):
         for item in self.filters:
-            ##
-            ## TODO: Add security measures to limit field
-            ##
-            self.qs = self.qs.filter(**dict(item.get_qs_filter()))
+            qs_filter = item.get_qs_filter()
+            if qs_filter:
+                self.qs = self.qs.filter(**dict(item.get_qs_filter()))
         return self.qs
     
     def get_form(self):
@@ -68,7 +70,10 @@ class FilterSpecCollection(object): # selectbox type, choice based
 
 class FilterSpec(object):
     def get_qs_filter(self):
-        return self.selected_params
+        for title, param_dict in self.links:
+            if param_dict == self.selected_params:
+                return self.selected_params
+        return False
     
     def choices(self):
         for title, param_dict in self.links:
@@ -106,6 +111,9 @@ class DateFieldFilterSpec(FilterSpec):
     def get_slug_name(self):
         return u'creation_date_filter'
 
+    def get_option_object(self):
+        return None
+
     def get_label(self):
         return u'Vali vahemik'
 
@@ -115,10 +123,18 @@ class CityLookupFilterSpec(FilterSpec):
         self.field_path = field_path
         self.field_generic = '%s__' % field_path
         self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
-        
+        self.lookup = '%s__pk' % self.field_path
+            
         self.links = []
         for city in City.objects.all():
-            self.links.append((city.name, {'%s__pk' % self.field_path: u'%s' % city.pk}))
+            self.links.append((city.name, {self.lookup: u'%s' % city.pk}))
+        
+        # Initial and default value
+        if not self.get_qs_filter():
+            self.selected_params = {self.lookup: u'%s' % settings.DEFAULT_CITY_ID}
+    
+    def get_option_object(self):
+        return City.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
     
     def get_slug_name(self):
         return u'city_lookup_filter'
@@ -179,6 +195,13 @@ def thegame(request):
         ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
 
     ctx['title'] = _('Guess the location')
+    
+    filters = FilterSpecCollection(None, request.GET)
+    filters.register(DateFieldFilterSpec, 'created')
+    filters.register(CityLookupFilterSpec, 'city')
+    #data = filters.get_filtered_qs().get_geotagged_photos_list()
+    ctx['filters'] = filters
+    
     return render_to_response('game.html', RequestContext(request, ctx))
 
 def frontpage(request):
@@ -307,7 +330,7 @@ def mapview(request):
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'title': _('Browse photos on map'),
-        'filter_form': filters.get_form(),
+        'filters': filters,
     }))
 
 def get_leaderboard(request):
@@ -345,11 +368,9 @@ def top50(request):
     }))
 
 def fetch_stream(request):
-    try:
-        city = request.GET.get('city', None)
-        city_id = int(city)
-    except:
-        city_id = None
-    
-    data = get_next_photos_to_geotag.get_next_photos_to_geotag(request.get_user().get_profile(), 4, city_id)
+    qs = Photo.objects.all()
+    filters = FilterSpecCollection(qs, request.GET)
+    filters.register(DateFieldFilterSpec, 'created')
+    filters.register(CityLookupFilterSpec, 'city')
+    data = filters.get_filtered_qs().get_next_photos_to_geotag(request.get_user().get_profile(), 4)
     return HttpResponse(json.dumps(data), mimetype="application/json")

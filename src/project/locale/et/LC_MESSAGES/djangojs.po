@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-03 12:46+0000\n"
+"POT-Creation-Date: 2013-04-27 10:36+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,31 +13,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: media/js/game.js:69 media/js/game.js.py:108
+#: media/js/game.js:66 media/js/game.js.py:104
 msgid "Point the marker to where the picture was taken from."
 msgstr "Aseta marker sinna, kust pilt on tehtud."
 
-#: media/js/game.js:178
+#: media/js/game.js:186
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: media/js/game.js:182
+#: media/js/game.js:190
 msgid "Correct location is not certain yet."
 msgstr "Siin ei ole päris täpne asukoht veel kindlaks tehtud."
 
-#: media/js/game.js:186
+#: media/js/game.js:194
 msgid "We doubt about it."
 msgstr "Aga julgeme kahelda."
 
-#: media/js/game.js:189
+#: media/js/game.js:197
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: media/js/game.js:289
+#: media/js/game.js:297
 msgid "Show hint"
 msgstr "Näita vihjet"
 
-msgid "You have selected one photo for uploading. Continue?"
-msgid_plural "You have selected %s photos for uploading. Continue?"
-msgstr[0] "Soovid laadida üles ühe foto. Jätkan? "
-msgstr[1] "Soovid laadida üles %s fotot. Jätkan?"
+#~ msgid "You have selected one photo for uploading. Continue?"
+#~ msgid_plural "You have selected %s photos for uploading. Continue?"
+#~ msgstr[0] "Soovid laadida üles ühe foto. Jätkan? "
+#~ msgstr[1] "Soovid laadida üles %s fotot. Jätkan?"

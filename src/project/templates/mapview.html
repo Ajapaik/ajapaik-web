@@ -8,8 +8,8 @@
 
 	function initialize() {
 		// Will load the base map layer and return it
-		{% if city %}
-		map = get_map([{{ city.lon }}, {{ city.lat }}], 13);
+		{% if filters.filters_by_name.city_lookup_filter.get_option_object %}
+		map = get_map([{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}], 13);
 		{% else %}
 		map = get_map();
 		{% endif %}
@@ -114,11 +114,11 @@
 		<ul id="nav"></ul>
         
         <div class="filter-box">
-            {{ filter_form.as_p }}
+            {{ filters.get_form.as_p }}
         </div>
         
 		{% get_language_info for LANGUAGE_CODE as lang %}
-		<div style="top: -40px;position: relative;">
+		<div class="lang-box">
 			<form style="display:inline;" action="/i18n/setlang/" method="post">
 				{% csrf_token %}
 				<div id="langmenu">

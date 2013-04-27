@@ -7,9 +7,10 @@
 	var leaderboardUpdateURL = '{% url views.leaderboard %}';
 	var leaderboardFullURL = '{% url views.top50 %}';
 	var permalinkURL = '{{ hostname }}/foto/';
-	var city_id = '{{ city.id }}';
-	{% if city %}
-	var start_location = [{{ city.lon }}, {{ city.lat }}];
+	
+    var city_id = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}';
+	{% if filters.filters_by_name.city_lookup_filter.get_option_object %}
+	var start_location = [{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}];
 	{% else %}
 	var start_location = [26, 59];
 	{% endif %}
@@ -20,6 +21,9 @@
 <div id="game">
 
 	<div id="top">
+        
+        <h1 class="ir"><a href="/?city={{city_select_form.cleaned_data.city}}">{% trans "Timepatch (Ajapaik)" %}</a></h1>        
+        
 		<div class="score_container">
 
 			<h2><a id="full_leaderboard" href="#">{% trans "Leaderboard" %}</a></h2>
@@ -41,6 +45,11 @@
 			{% endif %}
 
 		</div>
+        
+        <div class="filter-box">
+            {{ filters.get_form.as_p }}
+        </div>        
+        
 	</div>
 
 	<div id="tools">
@@ -53,7 +62,7 @@
 
 	<a id="skip-photo" href="#" class="skip-photo">{% trans "Next photo" %} &rarr;</a>
 
-	<a id="back-home" href="/?city={{city.id}}">&larr; {% trans "Back to home page" %}</a>
+	<a id="back-home" href="/">&larr; {% trans "Back to home page" %}</a>
 
 	<div id="btm">
 		<div id="open-location-tools-container">

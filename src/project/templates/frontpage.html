@@ -11,7 +11,7 @@
         </ul>
 
 		{% get_language_info for LANGUAGE_CODE as lang %}
-		<div style="top: -20px;position: relative;">
+		<div class="lang-box">
 			<form style="display:inline;" action="/i18n/setlang/" method="post">
 				{% csrf_token %}
 				<div id="langmenu">
