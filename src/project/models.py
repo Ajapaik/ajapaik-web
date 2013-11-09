@@ -228,14 +228,14 @@ class Photo(models.Model):
             return ('views.photo_heatmap', [self.id, ])
 
     def get_pseudo_slug(self):
-        if self.description is not None:
-            desc = "%s-" % "-".join(slugify(self.description).split('-')[:6])[:60]
+        slug = ""
+        if self.description is not None and self.description !="":
+            slug = "-".join(slugify(self.description).split('-')[:6])[:60]
+        if self.source_key is not None and self.source_key !="":
+            slug = "%s/%s" % (slug, slugify(self.source_key))
         else:
-            desc = ""
-        if self.source_key is None or not "_" in self.source_key:
-            return "%s%s" % (desc, self.source or "AJAPAIK")
-        else:
-            return "%s%s_%s" % (desc, self.source or "AJAPAIK", self.source_key)
+            slug = "%s/%s" % (slug, slugify(self.created.__format__("%Y-%m-%d")))
+        return slug
     
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):

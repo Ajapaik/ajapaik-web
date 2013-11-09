@@ -153,8 +153,14 @@ p {
 		</div>
 		</div>
 
-        <div>
-            {{ city_select_form.as_p }}
+		<!--
+		<div>
+			{{ city_select_form.as_p }}
+		</div>
+		-->
+
+		<div>
+			{{ filters.get_form.as_p }}
 		</div>
         
 		<div class="buttons">
@@ -164,7 +170,8 @@ p {
         
         <script type="text/javascript">
             function submitWithCity(href) {
-                location.href = $(href).attr('href') + '?city=' + $('#id_city').val();
+                //location.href = $(href).attr('href') + '?city__pk=' + $('#id_city').val();
+                location.href = $(href).attr('href') + '?' + $('#id_city_lookup_filter').val();
                 return false;
             }
         </script>

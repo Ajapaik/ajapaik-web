@@ -110,7 +110,18 @@
 		<h1 class="ir"><a href="/?city={{city_select_form.cleaned_data.city}}">{% trans "Timepatch (Ajapaik)" %}</a></h1>
 
 		<ul id="nav"></ul>
-        
+
+		<!--
+		<div id="city_select">
+			{{ city_select_form.as_p }}
+			<script type="text/javascript">
+				$('#id_city').change(function() {
+					location.href = '{{ request.path }}?city=' + $(this).val();
+				});
+			</script>
+		</div>
+		-->
+
         <div class="filter-box">
             {{ filters.get_form.as_p }}
         </div>

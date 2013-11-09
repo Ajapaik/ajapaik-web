@@ -194,11 +194,13 @@ def thegame(request):
     if city_select_form.is_valid():
         ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
 
+    site = Site.objects.get_current()
+    ctx['hostname'] = 'http://%s' % (site.domain, )
     ctx['title'] = _('Guess the location')
     
     filters = FilterSpecCollection(None, request.GET)
-    filters.register(DateFieldFilterSpec, 'created')
     filters.register(CityLookupFilterSpec, 'city')
+    #filters.register(DateFieldFilterSpec, 'created')
     #data = filters.get_filtered_qs().get_geotagged_photos_list()
     ctx['filters'] = filters
     
@@ -214,9 +216,13 @@ def frontpage(request):
     
     if not city_select_form.is_valid():
         city_select_form = CitySelectForm()
+
+    filters = FilterSpecCollection(None, request.GET)
+    filters.register(CityLookupFilterSpec, 'city')
     
     return render_to_response('frontpage.html', RequestContext(request, {
         'city_select_form': city_select_form,
+        'filters': filters,
         'example': example,
         'example_source': example_source,
     }))
@@ -320,16 +326,32 @@ def heatmap(request):
     }))
 
 def mapview(request):
+    city_select_form = CitySelectForm(request.GET)
+    city_id = city = None
+    
+    if city_select_form.is_valid():
+        city_id = city_select_form.cleaned_data['city']
+        city = City.objects.get(pk=city_id)
+    else:
+        city_select_form = CitySelectForm()
+    
+    if city:
+        title = city.name +' - '+ _('Browse photos on map')
+    else:
+        title = _('Browse photos on map')
+
     qs = Photo.objects.all()
     
     filters = FilterSpecCollection(qs, request.GET)
-    filters.register(DateFieldFilterSpec, 'created')
     filters.register(CityLookupFilterSpec, 'city')
+    filters.register(DateFieldFilterSpec, 'created')
     data = filters.get_filtered_qs().get_geotagged_photos_list()
     
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
-        'title': _('Browse photos on map'),
+        'city': city,
+        'title': title,
+        'city_select_form': city_select_form,
         'filters': filters,
     }))
 
