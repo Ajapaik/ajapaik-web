@@ -22,7 +22,7 @@
 
 	<div id="top">
         
-        <h1 class="ir"><a href="/?city={{city_select_form.cleaned_data.city}}">{% trans "Timepatch (Ajapaik)" %}</a></h1>        
+        <h1 class="ir"><a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">{% trans "Timepatch (Ajapaik)" %}</a></h1>        
         
 		<div class="score_container">
 
