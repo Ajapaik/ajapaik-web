@@ -19,18 +19,16 @@
 			var p=geotagged_photos[i];
 			var thumb = p[1];
 			//var image = '/media/gfx/' + (p[4] ? 'icon_camera_hot.png' : 'icon_camera.png');
-			var image = new google.maps.MarkerImage(
-					p[1],
-					null,
-					null,
-					new google.maps.Point(19, 48),
-					new google.maps.Size(32, 32)
-					
-				);
-			var border = new google.maps.MarkerImage('/media/gfx/' + (p[4] ? 'ajapaik_sinine_38px.png' : 'ajapaik_must_38px.png'), null, null,
-					new google.maps.Point(22, 52),
-					new google.maps.Size(38, 48)
-				);
+			var image = {
+				url: p[1],
+				anchor: new google.maps.Point(19, 48),
+				scaledSize: new google.maps.Size(32, 32)
+			};
+			var border = {
+				url: '/media/gfx/' + (p[4] ? 'ajapaik_sinine_38px.png' : 'ajapaik_must_38px.png'),
+				anchor: new google.maps.Point(22, 52),
+				scaledSize: new google.maps.Size(38, 48)
+			};
 			var marker = new google.maps.Marker({
 					map: map,
 					id: p[0],

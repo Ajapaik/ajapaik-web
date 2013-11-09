@@ -115,7 +115,7 @@ class DateFieldFilterSpec(FilterSpec):
         return None
 
     def get_label(self):
-        return u'Vali vahemik'
+        return _('Vali vahemik')
 
 
 class CityLookupFilterSpec(FilterSpec):
@@ -140,7 +140,7 @@ class CityLookupFilterSpec(FilterSpec):
         return u'city_lookup_filter'
     
     def get_label(self):
-        return u'Vali linn'
+        return _('Vali linn')
 
 def handle_uploaded_file(f):
     return ContentFile(f.read())

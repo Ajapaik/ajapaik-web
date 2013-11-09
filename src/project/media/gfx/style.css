@@ -588,7 +588,7 @@ a.fullscreen {
 
 #game #tools {
 	position: absolute;
-	height: 96%;
+	height: 98%;
 	width: 85%;
 	min-width: 100px;
 	left: 100%;
@@ -622,7 +622,7 @@ a.fullscreen {
 #game #top {
 	position: absolute;
 	/*height: 7%;*/
-    height:50px;
+    height:40px;
 	width: 100%;
 	background: #fff url(../gfx/footer_bg.jpg) center 49px;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -635,7 +635,7 @@ a.fullscreen {
 
 #game #top .score_container {
 	position: absolute;
-	right: 10%;
+	right: 5%;
 	top: -18px;
 	width: 250px;
 /* 	margin-left: -125px; */
