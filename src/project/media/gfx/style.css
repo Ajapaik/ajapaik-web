@@ -1,6 +1,6 @@
 body, html {
 	height: 100%;
-	#min-height: 550px;
+	/*min-height: 550px;*/
 	font-family: 'Droid Serif', arial, sans-serif;
 }
 body {
@@ -146,7 +146,8 @@ a.btn.green:active {
 #browse .top {
 	position: absolute;
 	top: 0;
-	height: 50px;
+	height: 7%;
+	min-height:40px;
 	width: 100%;
 	background: #fff url(../gfx/footer_bg.jpg) center bottom;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -157,7 +158,7 @@ a.btn.green:active {
 #browse_scroll .top {
 	position: fixed;
 	top: 0;
-	height: 50px;
+	height: 40px;
 	width: 100%;
 	background: #fff url(../gfx/footer_bg.jpg) center bottom;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -195,7 +196,7 @@ h2.add_comment {
 
 #browse #photo-drawer {
 	position: absolute;
-	top: -100%;
+	top: -1000px;
 	width: 100%;
 	height: 510px;
 	background: #fff url(../gfx/bg-subtle-grunge.png) center center;
@@ -440,10 +441,11 @@ a.fullscreen {
 	width:0px;
 	height:0px;
 	overflow:hidden;
+	position: relative;
 }
 .full-pic {
 	width: 100%;
-	height: 100%;
+	position:absolute;
 	background: black url('../gfx/icon_loading.gif') center center no-repeat;
 }
 .full-pic img {
@@ -451,8 +453,10 @@ a.fullscreen {
 	left: 50%;
 	top: 50%;
 	width: auto;
+	min-width: 100px;
 	max-width: 1024px;
 	height: auto;
+	min-height: 100px;
 	max-height: 1024px;
 	opacity:0;
 	cursor: -webkit-zoom-out;
@@ -466,9 +470,7 @@ a.fullscreen {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	/*height: 93%;*/
-    height: 100%;
-    margin-bottom: -50px;    
+	height: 93%;
 }
 
 
@@ -855,13 +857,13 @@ a.fullscreen {
 }
 #langlabel{
 	float: right;
-	margin: 17px 12px 0 0;
+	margin: 30px 12px 0 0;
 }
 #langmenu{
 	position:relative;
 	float:right;
 	padding:7px 7px 7px 5px;
-	margin:9px 12px 0 0;
+	margin:24px 12px 0 0;
 	-webkit-border-radius:4px;
 	border-radius:4px;
 	-moz-background-clip:padding;
@@ -999,12 +1001,15 @@ span.framed {
 }
 .panes img { max-width:500px; }
 
-.xxx { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.xxx {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
 
 .filter-box {
-    margin-top: 9px;
+    margin-top: 10px;
     overflow: hidden;
-    padding: 6px 0px;
 }
 .filter-box p:first-child {
     margin-left:10px;
@@ -1022,5 +1027,5 @@ span.framed {
 .lang-box {
     position:absolute;
     right:0px;
-    top:0px;
+    top:-20px;
 }

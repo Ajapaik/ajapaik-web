@@ -33,7 +33,7 @@ function openPhotoDrawer(content) {
 }
 
 function closePhotoDrawer() {
-	$('#photo-drawer').animate({ top : '-100%' });
+	$('#photo-drawer').animate({ top : '-1000px' });
 	History.replaceState(null, null, "/kaart/?city="+cityId);
 }
 
@@ -129,6 +129,7 @@ $(document).ready(function() {
 	$('#full-thumb1').live('click', function(e) {
 		if (BigScreen.enabled) {
 			e.preventDefault();
+			
 			BigScreen.request($('#full-large1')[0]);
 			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-'+this.rel]);
 		}
