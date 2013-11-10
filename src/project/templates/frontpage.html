@@ -167,13 +167,26 @@ p {
 			<a href="{% url views.thegame %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
 			<a href="{% url views.mapview %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
 		</div>
+		
+		<!--
+		<div>
+			{{ filters_test.get_form.as_p }}
+		</div>
+		-->
         
         <script type="text/javascript">
-            function submitWithCity(href) {
-                //location.href = $(href).attr('href') + '?city__pk=' + $('#id_city').val();
-                location.href = $(href).attr('href') + '?' + $('#id_city_lookup_filter').val();
-                return false;
-            }
+			function submitWithCity(href) {
+				//location.href = $(href).attr('href') + '?city__pk=' + $('#id_city').val();
+				location.href = $(href).attr('href') + '?' + $('#id_city_lookup_filter').val();
+				return false;
+			}
+			$('#id_source_lookup_filter').on('change', function() {
+				if ($(this).val())
+				{
+					location.href = '{% url views.mapview %}?' + $(this).val();
+				}
+				return false;
+			});
         </script>
 
 		<div style="background-color:whitesmoke;">

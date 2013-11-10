@@ -13,7 +13,7 @@ from django.conf import settings
 from django.core.files import File
 from django.core.files.base import ContentFile
 
-from project.models import Photo, City, Profile
+from project.models import Photo, City, Profile, Source
 from project.forms import GeoTagAddForm, CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from pprint import pprint
@@ -132,7 +132,7 @@ class CityLookupFilterSpec(FilterSpec):
         # Initial and default value
         if not self.get_qs_filter():
             self.selected_params = {self.lookup: u'%s' % settings.DEFAULT_CITY_ID}
-    
+        
     def get_option_object(self):
         return City.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
     
@@ -141,6 +141,27 @@ class CityLookupFilterSpec(FilterSpec):
     
     def get_label(self):
         return _('Vali linn')
+
+class SourceLookupFilterSpec(FilterSpec):
+    def __init__(self, params, field_path):
+        self.field_path = field_path
+        self.field_generic = '%s__' % field_path
+        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
+        self.lookup = '%s__eq' % self.field_path
+            
+        self.links = []
+        self.links.append(('--', ''))
+        for source in Source.objects.all():
+            self.links.append((source.description, {self.lookup: u'%s' % source.pk}))
+    
+    def get_option_object(self):
+        return Source.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
+    
+    def get_slug_name(self):
+        return u'source_lookup_filter'
+    
+    def get_label(self):
+        return _('Vali allikas')
 
 def handle_uploaded_file(f):
     return ContentFile(f.read())
@@ -219,10 +240,13 @@ def frontpage(request):
 
     filters = FilterSpecCollection(None, request.GET)
     filters.register(CityLookupFilterSpec, 'city')
+    filters_test = FilterSpecCollection(None, request.GET)
+    filters_test.register(SourceLookupFilterSpec, 'source_id')
     
     return render_to_response('frontpage.html', RequestContext(request, {
         'city_select_form': city_select_form,
         'filters': filters,
+        'filters_test': filters_test,
         'example': example,
         'example_source': example_source,
     }))
@@ -394,5 +418,6 @@ def fetch_stream(request):
     filters = FilterSpecCollection(qs, request.GET)
     filters.register(DateFieldFilterSpec, 'created')
     filters.register(CityLookupFilterSpec, 'city')
+    filters.register(SourceLookupFilterSpec, 'source_id')
     data = filters.get_filtered_qs().get_next_photos_to_geotag(request.get_user().get_profile(), 4)
     return HttpResponse(json.dumps(data), mimetype="application/json")
