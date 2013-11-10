@@ -296,7 +296,7 @@ $(document).ready(function() {
 				currentPhoto = $('#photos .photo'+currentPhotoIdx);
 
 				$(currentPhoto).append(
-					'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><a class="fullscreen" rel="'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></a><div style="margin-top:10px;text-align:center;overflow:hidden;height:20px;"><fb:like href="'+permalinkURL+photos[currentPhotoIdx].id+'/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div></div>'
+					'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><a class="fullscreen" rel="'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></a><div class="fb-like"><fb:like href="'+permalinkURL+photos[currentPhotoIdx].id+'/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div></div>'
 				).find('img').load(function() {
 
 					currentPhoto.css({ 'visibility' : 'visible' });
@@ -313,14 +313,8 @@ $(document).ready(function() {
 				if (typeof FB != 'undefined') {
 					FB.XFBML.parse();
 				}
-				$('#full-photos').append('<div class="full-box" style="opacity: 0;width: 0px;height: 0px;overflow: hidden;"><div class="full-pic" id="game-full'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].large.url+'" border="0" /></div>');
-				
-				$('.full-box img').load(function() {
-					$(this).css('margin-top', '-'+ $(this).height() / 2 +'px');
-					$(this).css('margin-left', '-'+ $(this).width() / 2 +'px');
-					$(this).css('opacity', 1);
-				});
-
+				$('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].large.url+'" border="0" /></div>');
+				prepareFullscreen();
 				currentPhotoIdx++;
 			}
 

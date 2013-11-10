@@ -78,6 +78,27 @@ function get_map(startpoint, startingzoom) {
 	return map
 }
 
+function prepareFullscreen()
+{
+	$('.full-box img').load(function() {
+		var aspectRatio = $(this).width() / $(this).height();
+		var new_width = parseInt(screen.height * aspectRatio);
+		var new_height = parseInt(screen.width / aspectRatio);
+		if (new_width > screen.width)
+		{
+			new_width = screen.width;
+		}
+		else {
+			new_height = screen.height;
+		}
+		$(this).css('margin-left', (screen.width-new_width) / 2 +'px');
+		$(this).css('margin-top', (screen.height-new_height) / 2 +'px');
+		$(this).css('width', new_width);
+		$(this).css('height', new_height);
+		$(this).css('opacity', 1);
+	});
+}
+
 // Stuff which is included in EVERY view. PERIOD! (MANOWAR rules)
 $(document).ready(function() {
     

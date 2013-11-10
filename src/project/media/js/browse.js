@@ -129,7 +129,6 @@ $(document).ready(function() {
 	$('#full-thumb1').live('click', function(e) {
 		if (BigScreen.enabled) {
 			e.preventDefault();
-			
 			BigScreen.request($('#full-large1')[0]);
 			_gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-'+this.rel]);
 		}
