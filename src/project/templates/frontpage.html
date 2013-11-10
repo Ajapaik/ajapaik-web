@@ -202,6 +202,17 @@ p {
 	</div>
 </div>
 </div>
+<div id="mobile_notice">
+	{% if LANGUAGE_CODE == 'et' %}
+	<a href="https://play.google.com/store/apps/details?id=ee.ajapaik.android"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/et_generic_rgb_wo_60.png" /></a>
+	{% else %}
+		{% if LANGUAGE_CODE == 'ru' %}
+		<a href="https://play.google.com/store/apps/details?id=ee.ajapaik.android"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png" /></a>
+		{% else %}
+		<a href="https://play.google.com/store/apps/details?id=ee.ajapaik.android"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" /></a>
+		{% endif %}
+	{% endif %}
+</div>
 </div>
 <div id="footer">
 
