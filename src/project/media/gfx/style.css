@@ -424,6 +424,10 @@ h2.add_comment {
 	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .2);
 	box-shadow: 0 0 7px rgba(0, 0, 0, .2);
 }
+.tools ul.thumbs li.current img
+{
+	border: 5px solid #ca8f4b !important;
+}
 
 #browse #photo-drawer .no-rephoto,
 .single .no-rephoto {

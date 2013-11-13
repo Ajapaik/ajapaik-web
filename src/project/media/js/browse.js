@@ -82,6 +82,8 @@ $(document).ready(function() {
 
 	$('#photo-drawer').delegate('ul.thumbs li.photo a', 'click', function(e) {
 		e.preventDefault();
+		$('ul.thumbs li.photo').removeClass('current');
+		$(this).parent().addClass('current');
 		$('#rephoto_content a').attr('href', rephoto_img_href[$(this).attr('rel')]);
 		$('#rephoto_content a').attr('rel', $(this).attr('rel'));
 		$('#rephoto_content img').attr('src', rephoto_img_src[$(this).attr('rel')]);
