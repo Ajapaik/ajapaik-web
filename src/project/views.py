@@ -222,7 +222,6 @@ def thegame(request):
     filters = FilterSpecCollection(None, request.GET)
     filters.register(CityLookupFilterSpec, 'city')
     #filters.register(DateFieldFilterSpec, 'created')
-    #data = filters.get_filtered_qs().get_geotagged_photos_list()
     ctx['filters'] = filters
     
     return render_to_response('game.html', RequestContext(request, ctx))
@@ -240,13 +239,10 @@ def frontpage(request):
 
     filters = FilterSpecCollection(None, request.GET)
     filters.register(CityLookupFilterSpec, 'city')
-    filters_test = FilterSpecCollection(None, request.GET)
-    filters_test.register(SourceLookupFilterSpec, 'source_id')
     
     return render_to_response('frontpage.html', RequestContext(request, {
         'city_select_form': city_select_form,
         'filters': filters,
-        'filters_test': filters_test,
         'example': example,
         'example_source': example_source,
     }))
@@ -368,7 +364,8 @@ def mapview(request):
     
     filters = FilterSpecCollection(qs, request.GET)
     filters.register(CityLookupFilterSpec, 'city')
-    filters.register(DateFieldFilterSpec, 'created')
+    #filters.register(DateFieldFilterSpec, 'created')
+    #filters.register(SourceLookupFilterSpec, 'source')
     data = filters.get_filtered_qs().get_geotagged_photos_list()
     
     return render_to_response('mapview.html', RequestContext(request, {
@@ -418,6 +415,6 @@ def fetch_stream(request):
     filters = FilterSpecCollection(qs, request.GET)
     filters.register(DateFieldFilterSpec, 'created')
     filters.register(CityLookupFilterSpec, 'city')
-    filters.register(SourceLookupFilterSpec, 'source_id')
+    filters.register(SourceLookupFilterSpec, 'source')
     data = filters.get_filtered_qs().get_next_photos_to_geotag(request.get_user().get_profile(), 4)
     return HttpResponse(json.dumps(data), mimetype="application/json")
