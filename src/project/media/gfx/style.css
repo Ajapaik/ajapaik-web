@@ -357,6 +357,11 @@ h2.add_comment {
 	color: #bfa679;
 	font-size: 11px;
 }
+#browse #photo-drawer .original .tools .description p.owner a,
+.single .original .tools .description p.owner a {
+	color: #bfa679;
+	text-decoration: none;
+}
 
 /* rephoto tools */
 

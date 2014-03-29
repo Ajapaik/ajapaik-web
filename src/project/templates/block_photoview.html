@@ -38,7 +38,13 @@ $(document).ready(function() {
 		<div class="tools">
 			<div class="description">
 				<p>{{ photo.description }}</p>
-				<p class="owner">{{ photo.source.description }}{% if photo.source_key %} - {% if photo.source_url %}<a href="{{ photo.source_url }}" target="_blank">{% endif %}{{ photo.source_key }}{% if photo.source_url %}</a>{% endif %}{% endif %}</p>
+				<p class="owner">
+				{% if photo.source_url %}
+					<a href="{{ photo.source_url }}" target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
+				{% else %}
+					{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+				{% endif %}
+				</p>
 			</div>
 		</div>
 	</div><!-- .original.photo-item -->
