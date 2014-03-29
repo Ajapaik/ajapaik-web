@@ -167,12 +167,6 @@ p {
 			<a href="{% url views.thegame %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
 			<a href="{% url views.mapview %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
 		</div>
-		
-		<!--
-		<div>
-			{{ filters_test.get_form.as_p }}
-		</div>
-		-->
         
         <script type="text/javascript">
 			function submitWithCity(href) {
