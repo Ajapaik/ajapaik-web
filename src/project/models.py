@@ -31,8 +31,8 @@ models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 class City(models.Model):
     name = models.TextField()
-    lat = models.FloatField()
-    lon = models.FloatField()
+    lat = models.FloatField(null=True)
+    lon = models.FloatField(null=True)
     
     def __unicode__(self):
         return u'%s' % self.name

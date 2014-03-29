@@ -126,7 +126,7 @@ class CityLookupFilterSpec(FilterSpec):
         self.lookup = '%s__pk' % self.field_path
             
         self.links = []
-        for city in City.objects.all():
+        for city in City.objects.filter(lat__isnull=False, lon__isnull=False):
             self.links.append((city.name, {self.lookup: u'%s' % city.pk}))
         
         # Initial and default value

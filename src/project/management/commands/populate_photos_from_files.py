@@ -14,23 +14,26 @@ class Command(BaseCommand):
 
 		photos_metadata=dict()
 		header_row=None
-		dialect = csv.Sniffer().sniff(open(csv_filename,'rb').read(1024))
-		for row in csv.reader(open(csv_filename,'rb'), dialect):
+		#dialect = csv.Sniffer().sniff(open(csv_filename,'rb').read(1024), delimiters=";,")
+		#for row in csv.reader(open(csv_filename,'rb'), dialect):
+		for row in csv.reader(open(csv_filename,'rb'), delimiter=';'):
 			if not header_row:
 				header_row=row
 				continue
 			row=dict(zip(header_row,row))
-			photos_metadata[(row.get('Inv nr') or row['Alanr']).lower()]=row
+			photos_metadata[(row.get('Inv nr') or row.get('Alanr') or row.get('image')).lower()]=row
 
 		for input_fname in args:
-			source_key=os.path.basename(input_fname)
-			if source_key.startswith(filename_prefix_to_skip):
-				source_key=source_key[len(filename_prefix_to_skip):]
-			source_key,_,fname_extension=source_key.rpartition('.')
+			file_key=os.path.basename(input_fname)
+			if file_key.startswith(filename_prefix_to_skip):
+				file_key=file_key[len(filename_prefix_to_skip):]
+			file_key,_,fname_extension=file_key.rpartition('.')
 
-			metadata=photos_metadata.get(source_key.lower())
+			metadata=photos_metadata.get(file_key.lower()) \
+				or photos_metadata.get(file_key.lower()+ '.' + fname_extension)
+
 			if not metadata:
-				print >>self.stderr,'Error: no metadata found for ' + input_fname
+				print >>self.stderr,'Error: no metadata found for ' + file_key
 				continue
 
 			fname='uploads/' + hashlib.md5(input_fname).hexdigest() + '.' + \
@@ -38,21 +41,35 @@ class Command(BaseCommand):
 			shutil.copyfile(input_fname,'/var/garage/' + fname)
 
 			description='; '.join(filter(None,[metadata[key].strip() \
-										for key in ('Kirjeldus','') \
+										for key in ('Kirjeldus','title') \
 										if key in metadata]))
 
-			city_name=metadata.get('Pildistamise koht') or metadata['S\xc3\xbc\xc5\xbeee nimetus']
+			city_name=metadata.get('Pildistamise koht') \
+					or metadata.get('S\xc3\xbc\xc5\xbeee nimetus') \
+					or metadata.get('place')
+
 			try:
 				city=City.objects.get(name=city_name)
 			except ObjectDoesNotExist:
-				print >>self.stderr,'Error: city ' + city_name + ' not found for ' + input_fname
-				continue
+				city=City(name=city_name)
+				city.save()
+			
+			source_description=metadata.get('institution')
+			try:
+				source=Source.objects.get(description=source_description)
+			except ObjectDoesNotExist:
+				source=Source(name=source_description,description=source_description)
+				source.save()
 
-			p=Photo(date_text=metadata['Pildistamise aeg'],
+			source_key=metadata.get('number') or file_key
+			source_url=metadata.get('url')
+
+			p=Photo(date_text=metadata.get('Pildistamise aeg') or metadata.get('date'),
 					city=city,
 					description=description,
-					source_id=1,
+					source=source,
+					source_url=source_url,
 					source_key=source_key)
 			p.image.name=fname
 			p.save()
-			print >>self.stdout, source_key,description,metadata['Pildistamise aeg']
+			print >>self.stdout, file_key,description
