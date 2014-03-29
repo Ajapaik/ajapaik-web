@@ -231,10 +231,10 @@ class Photo(models.Model):
         slug = ""
         if self.description is not None and self.description !="":
             slug = "-".join(slugify(self.description).split('-')[:6])[:60]
-        if self.source_key is not None and self.source_key !="":
-            slug = "%s/%s" % (slug, slugify(self.source_key))
+        elif self.source_key is not None and self.source_key !="":
+            slug = slugify(self.source_key)
         else:
-            slug = "%s/%s" % (slug, slugify(self.created.__format__("%Y-%m-%d")))
+            slug = slugify(self.created.__format__("%Y-%m-%d"))
         return slug
     
     @staticmethod
