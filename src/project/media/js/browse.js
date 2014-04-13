@@ -34,7 +34,8 @@ function openPhotoDrawer(content) {
 
 function closePhotoDrawer() {
 	$('#photo-drawer').animate({ top : '-1000px' });
-	History.replaceState(null, null, "/kaart/?city="+cityId);
+	History.replaceState(null, null, "/kaart/?city__pk="+cityId);
+	$('.filter-box').show();
 }
 
 function uploadCompleted(response) {
