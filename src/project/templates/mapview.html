@@ -8,7 +8,7 @@
 
 	function initialize() {
 		// Will load the base map layer and return it
-		{% if filters.filters_by_name.city_lookup_filter.get_option_object %}
+		{% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
 		map = get_map([{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}], 13);
 		{% else %}
 		map = get_map();

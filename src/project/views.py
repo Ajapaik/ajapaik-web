@@ -346,14 +346,18 @@ def heatmap(request):
     }))
 
 def mapview(request):
-    city_select_form = CitySelectForm(request.GET)
-    city_id = city = None
+    city = None
+    get_params = request.GET.copy()
+    city_id = get_params.get('city__pk', 0)
     
-    if city_select_form.is_valid():
-        city_id = city_select_form.cleaned_data['city']
+    if int(city_id) == 0:
+        # backwards compatible with old city parameter
+        city_id = get_params.get('city', 0)
+        if int(city_id) > 0:
+            get_params['city__pk'] = city_id
+
+    if int(city_id) > 0:
         city = City.objects.get(pk=city_id)
-    else:
-        city_select_form = CitySelectForm()
     
     if city:
         title = city.name +' - '+ _('Browse photos on map')
@@ -362,7 +366,7 @@ def mapview(request):
 
     qs = Photo.objects.all()
     
-    filters = FilterSpecCollection(qs, request.GET)
+    filters = FilterSpecCollection(qs, get_params)
     filters.register(CityLookupFilterSpec, 'city')
     #filters.register(DateFieldFilterSpec, 'created')
     #filters.register(SourceLookupFilterSpec, 'source')
@@ -372,7 +376,6 @@ def mapview(request):
         'json_data': json.dumps(data),
         'city': city,
         'title': title,
-        'city_select_form': city_select_form,
         'filters': filters,
     }))
 
