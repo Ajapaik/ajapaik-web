@@ -74,6 +74,7 @@
 			<div class="browse-nav">
 				<a href="{{ photo.get_absolute_url }}" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
 				<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
+				<a href="/kaart/?city__pk={{ photo.city_id }}" class="btn medium green" title="{{ photo.city }}">{{ photo.city }}</a>
 			</div>
 
 			{% empty %}
@@ -155,6 +156,7 @@
 			<div class="browse-nav">
 				<a href="{{ photo.get_absolute_url }}" onclick="jQuery('.no-rephoto').fadeOut(300).fadeIn(150);return false;" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
 				<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
+				<a href="/kaart/?city__pk={{ photo.city_id }}" class="btn medium green" title="{{ photo.city }}">{{ photo.city }}</a>
 			</div>
 			{% endthumbnail %}
         </div><!-- .photos -->
