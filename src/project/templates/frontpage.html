@@ -164,8 +164,8 @@ p {
 		</div>
         
 		<div class="buttons">
-			<a href="{% url views.thegame %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
-			<a href="{% url views.mapview %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
+			<a href="{% url 'views.thegame' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
+			<a href="{% url 'views.mapview' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
 		</div>
         
         <script type="text/javascript">
@@ -177,7 +177,7 @@ p {
 			$('#id_source_lookup_filter').on('change', function() {
 				if ($(this).val())
 				{
-					location.href = '{% url views.mapview %}?' + $(this).val();
+					location.href = '{% url 'views.mapview' %}?' + $(this).val();
 				}
 				return false;
 			});

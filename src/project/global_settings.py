@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'filebrowser',
     'media_bundler',
     #'django_extensions',
+    'rosetta',
     'project',
 )
 
@@ -145,3 +146,5 @@ FILEBROWSER_VERSIONS = {
 FILEBROWSER_ADMIN_VERSIONS = ['thumbnail', 'small', 'big']
 
 DEFAULT_CITY_ID = 1
+
+LOGIN_URL = "/admin/"

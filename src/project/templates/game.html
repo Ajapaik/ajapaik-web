@@ -3,9 +3,9 @@
 
 {% block content %}
 <script type="text/javascript">
-	var saveLocationURL = '{% url views.geotag_add %}';
-	var leaderboardUpdateURL = '{% url views.leaderboard %}';
-	var leaderboardFullURL = '{% url views.top50 %}';
+	var saveLocationURL = '{% url 'views.geotag_add' %}';
+	var leaderboardUpdateURL = '{% url 'views.leaderboard' %}';
+	var leaderboardFullURL = '{% url 'views.top50' %}';
 	var permalinkURL = '{{ hostname }}/foto/';
 	
     var city_id = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}';

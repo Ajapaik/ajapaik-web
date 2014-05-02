@@ -11,7 +11,8 @@ def get_user(request):
     if request.user.is_authenticated():
         return request.user
     else:
-        user = authenticate(username=request.session.session_key)
+        session_id = request.session._get_or_create_session_key()
+        user = authenticate(username=session_id)
         login(request, user)
         return user
 
@@ -44,7 +45,7 @@ class AuthBackend(object):
                 models.Action.log("user_middleware.login.error", {'username': username})
                 return None
 
-        user = User(username="_"+username[:28])
+        user = User.objects.create_user(username="_"+username[:28])
         user.save()
         models.Action.log("user_middleware.create", related_object=user)
         return user

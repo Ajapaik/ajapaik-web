@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.conf import settings
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView, RedirectView
 admin.autodiscover()
 
 urlpatterns = patterns('views',
@@ -32,21 +32,27 @@ urlpatterns = patterns('views',
 	(r'^facebook/(?P<stage>[a-z_]+)/', 'facebook.facebook_handler'),
 	(r'^i18n/', include('django.conf.urls.i18n')),
 	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs','packages': ('project')}),
-	(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/gfx/favicon.ico'}),
-	(r'^feed/photos/', 'django.views.generic.simple.redirect_to', {'url': 'http://api.ajapaik.ee/?action=photo&format=atom'}),
+	(r'^favicon\.ico$', RedirectView.as_view(url='/media/gfx/favicon.ico')),
+	(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom')),
 )
 
 # not sure how to distinguish between LIVE and DEV other than GA code
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
 	urlpatterns += patterns('',
-		(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+		(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 	)
 else:
 	urlpatterns += patterns('',
-		(r'^robots\.txt$', direct_to_template, {'template': 'robots-staging.txt', 'mimetype': 'text/plain'}),
+		(r'^robots\.txt$', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')),
 	)
 
 if settings.DEBUG:
 	urlpatterns += patterns('',
 		(r'^media/(.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
 	)
+
+if 'rosetta' in settings.INSTALLED_APPS:
+	urlpatterns += patterns('',
+	url(r'^rosetta/', include('rosetta.urls')),
+	)
+
