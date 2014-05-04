@@ -21,7 +21,7 @@
 			//var image = '/media/gfx/' + (p[4] ? 'icon_camera_hot.png' : 'icon_camera.png');
 			var image = {
 				url: p[1],
-				anchor: new google.maps.Point(19, 48),
+				anchor: new google.maps.Point(16, 16),
 				scaledSize: new google.maps.Size(32, 32)
 			};
 			var border = {
@@ -35,7 +35,6 @@
 					thumb: thumb,
 					position: new google.maps.LatLng(p[3],p[2]), 
 					zIndex: p[4] ? 1 : 0,
-					shadow:border,
 					icon:image
 				});
 			

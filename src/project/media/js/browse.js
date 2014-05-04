@@ -41,7 +41,7 @@ function closePhotoDrawer() {
 function uploadCompleted(response) {
 	$.modal.close();
 	if (typeof photoId == 'undefined') {
-		if (typeof response.new_id != 'undefined' && response.new_id) {
+		if (response && typeof response.new_id != 'undefined' && response.new_id) {
 			window.location.href = '/foto/'+ response.new_id +'/';
 		}
 		else {
@@ -50,7 +50,7 @@ function uploadCompleted(response) {
 	}
 	else {
 		closePhotoDrawer();
-		if (typeof response.new_id != 'undefined' && response.new_id) {
+		if (response && typeof response.new_id != 'undefined' && response.new_id) {
 			loadPhoto(response.new_id);
 		}
 		else {
