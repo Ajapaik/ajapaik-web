@@ -137,7 +137,7 @@ prepareFullscreen();
 				autostart: true,
 				stopOnFirstError: false,
 				url: function(number) {
-					return '{% url views.photo_upload photo.pk %}';
+					return '{% url 'views.photo_upload' photo.pk %}';
 					//return prompt(number + " url", "/");
 				},
 				onBrowserIncompatible: function() {
