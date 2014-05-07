@@ -11,52 +11,48 @@ var disableSave = true;
 var locationToolsOpen = false;
 
 function update_leaderboard() {
-   $('#top .score_container .scoreboard').load(leaderboardUpdateURL);
+	$('#top .score_container .scoreboard').load(leaderboardUpdateURL);
 }
 
 $(document).ready(function() {
-    update_leaderboard();
-    
+	update_leaderboard();
+
 	loadPhotos();
-    
-    var location = new google.maps.LatLng(start_location[1], start_location[0]);
-    
-    // Will load the base map layer and return it
+
+	var location = new google.maps.LatLng(start_location[1], start_location[0]);
+
+	// Will load the base map layer and return it
 	if (city_id) {
 		map = get_map(start_location, 15);
 	}
 	else {
 		map = get_map();
 	}
-    
-    // Create marker
-    function toggleBounce() {
-        if (marker.getAnimation() != null) {
-            marker.setAnimation(null);
-        } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-    }
-    
-    var marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: location,
-        icon: '/media/gfx/ajapaik_marker_45px.png'
-    });
+
+	// Create marker
+	var marker = new google.maps.Marker({
+		map: map,
+		draggable: true,
+		position: location,
+		icon: '/media/gfx/ajapaik_marker_45px.png'
+	});
 
 	google.maps.event.addListener(map, 'click', function(event){
 		if (infowindow !== undefined) {
 			infowindow.close();
 			infowindow = undefined;
 		}
-		// change position only if marker is idle
-		if (marker.getAnimation() != null) {
-			marker.setAnimation(null);
-		} else {
-			marker.setAnimation(google.maps.Animation.BOUNCE);
-			marker.setPosition(event.latLng);
+		// re-drop
+		marker.setMap(map);
+		marker.setAnimation(google.maps.Animation.DROP);
+		
+		marker.setPosition(event.latLng);
+	});
+
+	google.maps.event.addListener(marker, 'dragstart', function(){
+		if (infowindow !== undefined) {
+			infowindow.close();
+			infowindow = undefined;
 		}
 	});
 
@@ -64,11 +60,11 @@ $(document).ready(function() {
 		disableSave = false;
 	});
 
-    infowindow = new google.maps.InfoWindow({
-        content: gettext('Point the marker to where the picture was taken from.')
-    });
+	infowindow = new google.maps.InfoWindow({
+		content: '<div style="overflow:hidden;white-space:nowrap;">'+ gettext('Point the marker to where the picture was taken from.') +'</div>'
+	});
 
-    /* BINDINGS */
+	/* BINDINGS */
 	/* game */
 
 	$('.skip-photo').click(function(e) {
@@ -160,8 +156,8 @@ $(document).ready(function() {
 		});
 		_gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
 	});
-    
-    /* FUNCTIONS */
+	
+	/* FUNCTIONS */
 	/* game */
 
 	function saveLocation() {
@@ -208,22 +204,17 @@ $(document).ready(function() {
 	function openLocationTools() {
 		disableNext = true;
 		
+		if (infowindow !== undefined)
+		{
+			// show infowindow on the first time when map opened
+			infowindow.open(map,marker);
+		}
+
 		$('#tools').animate({ left : '15%' }, function() {
 			locationToolsOpen = true;
 			var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
 			$('#photos').animate({ left : photosLeft+'px' });
 			$('#open-location-tools').fadeOut();
-
-			if (infowindow !== undefined) {
-				infowindow.open(map,marker);
-				google.maps.event.addListener(marker, 'click', toggleBounce);
-				google.maps.event.addListener(marker, 'dragstart', function(){
-					if (infowindow !== undefined) {
-						infowindow.close();
-						infowindow = undefined;
-					}
-				});
-			}
 		});
 	}
 
@@ -274,11 +265,11 @@ $(document).ready(function() {
 		hintUsed = 0;
 		disableSave = true;
 
-        /*
+		/*
 		if (photos.length == currentPhotoIdx) {
 			loadPhotos();
 		}
-        */
+		*/
 		if (photos.length > currentPhotoIdx) {
 
 			if (disableNext == false) {
@@ -319,7 +310,7 @@ $(document).ready(function() {
 			}
 
 		} else {
-            /* console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length); */
+			/* console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length); */
 			loadPhotos(1);
 		}
 
@@ -333,14 +324,14 @@ $(document).ready(function() {
 		});
 	}
 
-    function loadPhotos(next) {
-        var date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
-        var qs = URI.parseQuery(window.location.search);
-        
-        $.getJSON(streamUrl, $.extend({
-            'b': date.getTime()
-        }, qs), function(data) {
-            $.merge(photos, data);
+	function loadPhotos(next) {
+		var date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
+		var qs = URI.parseQuery(window.location.search);
+
+		$.getJSON(streamUrl, $.extend({
+			'b': date.getTime()
+		}, qs), function(data) {
+			$.merge(photos, data);
 			if (next || currentPhotoIdx <= 0) {
 				nextPhoto();
 			}
