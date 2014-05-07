@@ -12,7 +12,7 @@
 		{% if photo_lon and photo_lat %}
 		map = get_map([{{ photo_lon }}, {{ photo_lat }}], 15);
 		{% else %}
-			{% if city %}
+			{% if city and city.lon and city.lat %}
 			map = get_map([{{ city.lon }}, {{ city.lat }}], 13);
 			{% else %}
 			map = get_map();

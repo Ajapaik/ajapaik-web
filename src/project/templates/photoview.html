@@ -74,7 +74,9 @@
 			<div class="browse-nav">
 				<a href="{{ photo.get_absolute_url }}" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
 				<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
+				{% if photo.city.lat and photo.city.lon %}
 				<a href="/kaart/?city__pk={{ photo.city_id }}" class="btn medium green" title="{{ photo.city }}">{{ photo.city }}</a>
+				{% endif %}
 			</div>
 
 			{% empty %}
@@ -156,7 +158,9 @@
 			<div class="browse-nav">
 				<a href="{{ photo.get_absolute_url }}" onclick="jQuery('.no-rephoto').fadeOut(300).fadeIn(150);return false;" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
 				<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
+				{% if photo.city.lat and photo.city.lon %}
 				<a href="/kaart/?city__pk={{ photo.city_id }}" class="btn medium green" title="{{ photo.city }}">{{ photo.city }}</a>
+				{% endif %}
 			</div>
 			{% endthumbnail %}
         </div><!-- .photos -->
@@ -206,7 +210,7 @@
 			{% comment %}
 			{% if photo.lat and photo.lon %}
 			<div class="pane">
-				<a href="/kaart/?city={{ photo.city_id }}"><img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x250&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" /></a>
+				{% if photo.city.lat and photo.city.lon %}<a href="/kaart/?city={{ photo.city_id }}">{% endif %}<img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=500x250&scale=2&markers={{ photo.lat }},{{ photo.lon }}" border="0" width="500" />{% if photo.city.lat and photo.city.lon %}</a>{% endif %}
 			</div>
 			{% endif %}
 			{% endcomment %}
