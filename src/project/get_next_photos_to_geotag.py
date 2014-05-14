@@ -242,3 +242,35 @@ def get_leaderboard50(user_id):
 	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
 									for idx,data in leaderboard]
 	return leaderboard
+    
+def get_rephoto_leaderboard(user_id):
+	scores_list=list(enumerate(Profile.objects.filter(
+					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+				values_list('pk','score_rephoto','fb_id','fb_name'). \
+				order_by('-score_rephoto')))
+	leaderboard=[scores_list[0]]
+	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
+											scores_list)[0][0]
+	if self_user_idx-1 > 0:
+		leaderboard.append(scores_list[self_user_idx-1])
+	if self_user_idx > 0:
+		leaderboard.append(scores_list[self_user_idx])
+	if self_user_idx+1 < len(scores_list):
+		leaderboard.append(scores_list[self_user_idx+1])
+
+	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
+									for idx,data in leaderboard]
+	return leaderboard
+    
+def get_rephoto_leaderboard50(user_id):
+	scores_list=list(enumerate(Profile.objects.filter(
+					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+				values_list('pk','score_rephoto','fb_id','fb_name'). \
+				order_by('-score_rephoto')))
+	leaderboard=scores_list[:50]
+	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
+											scores_list)[0][0]
+
+	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
+									for idx,data in leaderboard]
+	return leaderboard

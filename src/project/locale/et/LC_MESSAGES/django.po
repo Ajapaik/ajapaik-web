@@ -1,19 +1,21 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-27 10:32+0000\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Kristjan Heinaste <heinaste@gmail.com>\n"
+"POT-Creation-Date: 2014-05-14 00:44+0000\n"
+"PO-Revision-Date: 2014-05-14 00:45+0000\n"
+"Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
-"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: forms.py:13
+#: forms.py:13 views.py:143
 msgid "Choose city"
 msgstr "Vali linn"
 
@@ -41,64 +43,73 @@ msgstr "Lisatud viimasel nädalal"
 msgid "Added last month"
 msgstr "Lisatud viimasel kuul"
 
-#: views.py:197 templates/frontpage.html:161
+#: views.py:118
+msgid "Choose range"
+msgstr "Vali vahemik"
+
+#: views.py:164
+msgid "Choose source"
+msgstr "Vali linn"
+
+#: views.py:233 templates/frontpage.html:167
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: views.py:298 templates/block_photoview.html:18 templates/photoview.html:70
-#: templates/photoview.html.py:151
+#: views.py:337 templates/block_photoview.html:19 templates/photoview.html:76
+#: templates/photoview.html.py:160
 msgid "Heat map"
 msgstr "Asukoht kaardil"
 
-#: views.py:332 templates/frontpage.html:162
+#: views.py:376 views.py:378 templates/frontpage.html:168
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: views.py:358 views.py:367 templates/game.html:29
+#: views.py:420 views.py:429 templates/game.html:29
 msgid "Leaderboard"
 msgstr "Osavamad Ajapaikajad"
 
-#: templates/base.html:4 templates/base.html.py:38 templates/base_viz.html:5
+#: templates/base.html:4 templates/base.html.py:41 templates/base_viz.html:5
 #: templates/block_photoview.html:6 templates/frontpage.html:8
-#: templates/game.html:25 templates/mapview.html:112
+#: templates/game.html:25 templates/mapview.html:104
 #: templates/photoview.html:7
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
 #: templates/block_leaderboard.html:6 templates/leaderboard.html:15
+#: templates/mapview.html:128
 msgid "Your points"
 msgstr "Sinu punktid"
 
-#: templates/block_photoview.html:16 templates/block_photoview.html.py:17
-#: templates/block_photoview.html:178 templates/photoview.html:69
-#: templates/photoview.html.py:124 templates/photoview.html:150
+#: templates/block_photoview.html:17 templates/block_photoview.html.py:18
+#: templates/block_photoview.html:181 templates/photoview.html:75
+#: templates/photoview.html.py:133 templates/photoview.html:159
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
-#: templates/block_photoview.html:21 templates/block_photoview.html.py:28
-#: templates/photoview.html:156
+#: templates/block_photoview.html:22 templates/block_photoview.html.py:29
+#: templates/photoview.html:168
 msgid "Add comment"
 msgstr "Kommenteeri"
 
-#: templates/block_photoview.html:23
+#: templates/block_photoview.html:24
 msgid "Close photo"
 msgstr "Sulge foto"
 
-#: templates/block_photoview.html:24
+#: templates/block_photoview.html:25
 msgid "Random"
 msgstr "Suvaline"
 
-#: templates/block_photoview.html:95 templates/block_photoview.html.py:169
-#: templates/photoview.html:115
+#: templates/block_photoview.html:102 templates/block_photoview.html.py:172
+#: templates/photoview.html:124
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
 "picture was taken and upload it."
 msgstr ""
-"Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
-"ajaloolise pildi kõrvale."
+"Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia"
+" ajaloolise pildi kõrvale."
 
-#: templates/block_photoview.html:173 templates/game.html:37
-#: templates/photoview.html:119
+#: templates/block_photoview.html:176 templates/game.html:37
+#: templates/mapview.html:137 templates/photoview.html:128
 #, python-format
 msgid ""
 "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -107,29 +118,29 @@ msgstr ""
 "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
 "%(link_open)svajuta siia%(link_close)s."
 
-#: templates/block_photoview.html:189 templates/photoview.html:135
+#: templates/block_photoview.html:192 templates/photoview.html:144
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
 
-#: templates/block_photoview.html:190 templates/game.html:43
-#: templates/photoview.html:136
+#: templates/block_photoview.html:193 templates/game.html:43
+#: templates/mapview.html:143 templates/photoview.html:145
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
-#: templates/block_photoview.html:195 templates/game.html:82
-#: templates/mapview.html:151
+#: templates/block_photoview.html:198 templates/game.html:82
+#: templates/mapview.html:186
 msgid "Close"
 msgstr "Sulge"
 
-#: templates/block_photoview.html:200 templates/game.html:74
+#: templates/block_photoview.html:203 templates/game.html:74
 msgid "Thank you!"
 msgstr "Aitäh!"
 
-#: templates/block_photoview.html:202
+#: templates/block_photoview.html:205
 msgid "Your rephoto has been uploaded."
 msgstr "Teie ülepildistus on lisatud."
 
-#: templates/frontpage.html:27 templates/mapview.html:134
+#: templates/frontpage.html:27 templates/mapview.html:168
 #: templates/photoview.html:26
 msgid "Choose language"
 msgstr "Vali keel"
@@ -154,7 +165,7 @@ msgstr ""
 msgid "Read more"
 msgstr "Loe lähemalt"
 
-#: templates/game.html:42
+#: templates/game.html:42 templates/mapview.html:142
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
@@ -179,10 +190,14 @@ msgstr "Tagasi esilehele"
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: templates/photoview.html:158
+#: templates/mapview.html:121
+msgid "Rephoto Leaderboard"
+msgstr "Aktiivsemad ülepildistajad"
+
+#: templates/photoview.html:170
 msgid "Historic photo"
 msgstr "ajaloolist fotot"
 
-#: templates/photoview.html:161
+#: templates/photoview.html:173
 msgid "Selected rephoto"
 msgstr "valitud ülepildistust"

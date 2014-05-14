@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-27 10:36+0000\n"
+"POT-Creation-Date: 2014-05-14 00:44+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,27 +14,27 @@ msgstr ""
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: media/js/game.js:66 media/js/game.js.py:104
+#: media/js/game.js:64 media/js/game.js.c:102
 msgid "Point the marker to where the picture was taken from."
 msgstr "Перетяни маркер на то место, откуда сделана фотография."
 
-#: media/js/game.js:186
+#: media/js/game.js:184
 msgid "Looks right!"
 msgstr "Похоже на правду!"
 
-#: media/js/game.js:190
+#: media/js/game.js:188
 msgid "Correct location is not certain yet."
 msgstr "Здесь еще не выбрано точное расположение места."
 
-#: media/js/game.js:194
+#: media/js/game.js:192
 msgid "We doubt about it."
 msgstr "Но это не очень похоже на правду."
 
-#: media/js/game.js:197
+#: media/js/game.js:195
 msgid "Your guess was first."
 msgstr "Твоё предположение было первым."
 
-#: media/js/game.js:297
+#: media/js/game.js:290
 msgid "Show hint"
 msgstr "Покажи подсказку"
 

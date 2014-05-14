@@ -7,35 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-27 10:37+0000\n"
+"POT-Creation-Date: 2014-05-14 00:44+0000\n"
 "PO-Revision-Date: 2013-04-27 13:38+0200\n"
 "Last-Translator: Kristjan Heinaste <heinaste@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: media/js/game.js:66 media/js/game.js.py:104
+#: media/js/game.js:64 media/js/game.js.c:102
 msgid "Point the marker to where the picture was taken from."
 msgstr ""
 
-#: media/js/game.js:186
+#: media/js/game.js:184
 msgid "Looks right!"
 msgstr ""
 
-#: media/js/game.js:190
+#: media/js/game.js:188
 msgid "Correct location is not certain yet."
 msgstr ""
 
-#: media/js/game.js:194
+#: media/js/game.js:192
 msgid "We doubt about it."
 msgstr "We doubt that."
 
-#: media/js/game.js:197
+#: media/js/game.js:195
 msgid "Your guess was first."
 msgstr ""
 
-#: media/js/game.js:297
+#: media/js/game.js:290
 msgid "Show hint"
 msgstr ""

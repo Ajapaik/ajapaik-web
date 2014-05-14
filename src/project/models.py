@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, Sum
 
 from django.contrib.auth.models import User as BaseUser
 from django.contrib.contenttypes.models import ContentType
@@ -72,6 +72,7 @@ class PhotoManager(models.Manager):
 class Photo(models.Model):
     objects = PhotoManager()
     
+    id = models.AutoField(primary_key=True)
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
     
@@ -327,6 +328,26 @@ class Profile(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     score = models.PositiveIntegerField(default=0)
+    score_rephoto = models.PositiveIntegerField(default=0)
+
+    def update_rephoto_score(self):
+        rephotos = Photo.objects.filter(rephoto_of__isnull=False, user=self.user)
+        total = rephotos.count()
+        if total == 0:
+            return False
+
+        # every photo gives 2 points
+        total = total*2
+        distinct = rephotos.values('rephoto_of').order_by().annotate(rephoto_count=Count("user"))
+        for p in distinct:
+            # every last upload per photo gives 3 extra points
+            sp=Photo.objects.filter(rephoto_of=p['rephoto_of']).values('user').order_by('-id')[:1].get()
+            if sp and sp['user'] == self.user.id:
+                total += 3
+
+        self.score_rephoto = total
+        self.save()
+        return True
 
     def update_from_fb_data(self, token, data):
         self.user.first_name = data.get("first_name")

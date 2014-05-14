@@ -1,34 +1,37 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ajapaik\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-14 00:44+0000\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ru\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
-"((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.5\n"
 
 #: forms.py:13 views.py:143
 msgid "Choose city"
-msgstr "Выбери город"
+msgstr ""
 
 #: global_settings.py:18
 msgid "Estonian"
-msgstr "Эстонский"
+msgstr ""
 
 #: global_settings.py:19
 msgid "English"
-msgstr "Английский"
+msgstr ""
 
 #: global_settings.py:20
 msgid "Russian"
-msgstr "Русский"
+msgstr ""
 
 #: views.py:97
 msgid "All pictures"
@@ -43,62 +46,60 @@ msgid "Added last month"
 msgstr ""
 
 #: views.py:118
-#, fuzzy
 msgid "Choose range"
-msgstr "Выбери язык"
+msgstr ""
 
 #: views.py:164
-#, fuzzy
 msgid "Choose source"
-msgstr "Выбери город"
+msgstr ""
 
 #: views.py:233 templates/frontpage.html:167
 msgid "Guess the location"
-msgstr "Угадай место"
+msgstr ""
 
 #: views.py:337 templates/block_photoview.html:19 templates/photoview.html:76
 #: templates/photoview.html.py:160
 msgid "Heat map"
-msgstr "Карта предположений"
+msgstr ""
 
 #: views.py:376 views.py:378 templates/frontpage.html:168
 msgid "Browse photos on map"
-msgstr "Смотри фото на карте"
+msgstr ""
 
 #: views.py:420 views.py:429 templates/game.html:29
 msgid "Leaderboard"
-msgstr "Лучшие игроки"
+msgstr ""
 
 #: templates/base.html:4 templates/base.html.py:41 templates/base_viz.html:5
 #: templates/block_photoview.html:6 templates/frontpage.html:8
 #: templates/game.html:25 templates/mapview.html:104
 #: templates/photoview.html:7
 msgid "Timepatch (Ajapaik)"
-msgstr "Аяпаик (Ajapaik)"
+msgstr ""
 
 #: templates/block_leaderboard.html:6 templates/leaderboard.html:15
 #: templates/mapview.html:128
 msgid "Your points"
-msgstr "Твои очки"
+msgstr ""
 
 #: templates/block_photoview.html:17 templates/block_photoview.html.py:18
 #: templates/block_photoview.html:181 templates/photoview.html:75
 #: templates/photoview.html.py:133 templates/photoview.html:159
 msgid "Add rephoto"
-msgstr "Добавить новое фото"
+msgstr ""
 
 #: templates/block_photoview.html:22 templates/block_photoview.html.py:29
 #: templates/photoview.html:168
 msgid "Add comment"
-msgstr "Комментировать"
+msgstr ""
 
 #: templates/block_photoview.html:24
 msgid "Close photo"
-msgstr "Закрыть фото"
+msgstr ""
 
 #: templates/block_photoview.html:25
 msgid "Random"
-msgstr "Случайное"
+msgstr ""
 
 #: templates/block_photoview.html:102 templates/block_photoview.html.py:172
 #: templates/photoview.html:124
@@ -106,8 +107,6 @@ msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
 "picture was taken and upload it."
 msgstr ""
-"Cделай как можно более похожую современную фотографию того же места и "
-"загрузи её."
 
 #: templates/block_photoview.html:176 templates/game.html:37
 #: templates/mapview.html:137 templates/photoview.html:128
@@ -116,91 +115,84 @@ msgid ""
 "Account (%(account_name)s) connected with Facebook. If it's not you then "
 "%(link_open)sclick here%(link_close)s."
 msgstr ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
 
 #: templates/block_photoview.html:192 templates/photoview.html:144
 msgid "Rephoto uploading requires connecting your account with Facebook."
-msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
+msgstr ""
 
 #: templates/block_photoview.html:193 templates/game.html:43
 #: templates/mapview.html:143 templates/photoview.html:145
 msgid "Connect with Facebook"
-msgstr "Соединить с Facebook-ом."
+msgstr ""
 
 #: templates/block_photoview.html:198 templates/game.html:82
 #: templates/mapview.html:186
 msgid "Close"
-msgstr "Закрыть"
+msgstr ""
 
 #: templates/block_photoview.html:203 templates/game.html:74
 msgid "Thank you!"
-msgstr "Спасибо!"
+msgstr ""
 
 #: templates/block_photoview.html:205
 msgid "Your rephoto has been uploaded."
-msgstr "Файл загружен."
+msgstr ""
 
 #: templates/frontpage.html:27 templates/mapview.html:168
 #: templates/photoview.html:26
 msgid "Choose language"
-msgstr "Выбери язык"
+msgstr ""
 
 #: templates/frontpage.html:93
 msgid "Where is history located?"
-msgstr "Где находится история?"
+msgstr ""
 
 #: templates/frontpage.html:94
 msgid "Discover, geotag and make the rephoto."
 msgstr ""
-"Узнай где сделана фотографию и добавь современную фотографию этого места."
 
 #: templates/frontpage.html:97
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
 msgstr ""
-"Добавь дополнительную информацию к старым фотографиям.Так будет интреснее "
-"соревноваться с другими."
 
 #: templates/frontpage.html:99
 msgid "Read more"
-msgstr "Подробнее"
+msgstr ""
 
 #: templates/game.html:42 templates/mapview.html:142
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
-"Чтобы сохранить результат  и продолжит позже соедини аккаун с Facebook-ом."
 
 #: templates/game.html:56
 msgid "Save location"
-msgstr "Сохранить расположение"
+msgstr ""
 
 #: templates/game.html:57
 msgid "Close map"
-msgstr "Закрыть карту"
+msgstr ""
 
 #: templates/game.html:63 templates/game.html.py:76
 msgid "Next photo"
-msgstr "Следующее фото"
+msgstr ""
 
 #: templates/game.html:65
 msgid "Back to home page"
-msgstr "Назад на главную"
+msgstr ""
 
 #: templates/game.html:69
 msgid "Pick the shooting location!"
-msgstr "Знаю где сделано фото!"
+msgstr ""
 
 #: templates/mapview.html:121
-#, fuzzy
 msgid "Rephoto Leaderboard"
-msgstr "Лучшие игроки"
+msgstr ""
 
 #: templates/photoview.html:170
 msgid "Historic photo"
-msgstr "Историческое фото"
+msgstr ""
 
 #: templates/photoview.html:173
 msgid "Selected rephoto"
-msgstr "Выбери новое фото"
+msgstr ""

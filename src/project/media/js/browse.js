@@ -67,6 +67,14 @@ $(document).ready(function() {
 
 	/* browse */
 
+	$('.top .score_container').mouseleave(function() {
+		hideScoreboard();
+	});
+
+	$('.top .score_container').mouseenter(function() {
+		showScoreboard();
+	});
+
 	$('#open-photo-drawer').click(function(e) {
 		e.preventDefault();
 		openPhotoDrawer();
@@ -144,11 +152,28 @@ $(document).ready(function() {
 		}
 	});
 
-
 /*
 	$('#photo-drawer').delegate('#upload', 'click', function(e) {
 		$('#upload_field').trigger('click');
 	});
 */
+
+	$('#full_leaderboard').live('click', function(e) {
+		e.preventDefault();
+		$('#leaderboard_browser .scoreboard').load(leaderboardFullURL, function() {
+		  $('#leaderboard_browser').modal();
+		});
+		_gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
+	});
+
+	function showScoreboard() {
+		$('.top .score_container .scoreboard li').not('.you').add('h2').slideDown();
+		$('.top .score_container #facebook-connect').slideDown();
+	}
+
+	function hideScoreboard() {
+		$('.top .score_container .scoreboard li').not('.you').add('h2').slideUp();
+		$('.top .score_container #facebook-connect').slideUp();
+	}
 
 });

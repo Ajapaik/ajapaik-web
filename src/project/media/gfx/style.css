@@ -716,7 +716,7 @@ a.fullscreen {
 }
 .score_container ul.scoreboard li.you {
 	font-weight: 700;
-	display: block !important;
+	display: list-item !important;
 	background: #efefef;
 }
 .score_container ul.scoreboard li.first {

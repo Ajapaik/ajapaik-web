@@ -115,7 +115,7 @@ class DateFieldFilterSpec(FilterSpec):
         return None
 
     def get_label(self):
-        return _('Vali vahemik')
+        return _('Choose range')
 
 
 class CityLookupFilterSpec(FilterSpec):
@@ -140,7 +140,7 @@ class CityLookupFilterSpec(FilterSpec):
         return u'city_lookup_filter'
     
     def get_label(self):
-        return _('Vali linn')
+        return _('Choose city')
 
 class SourceLookupFilterSpec(FilterSpec):
     def __init__(self, params, field_path):
@@ -161,13 +161,14 @@ class SourceLookupFilterSpec(FilterSpec):
         return u'source_lookup_filter'
     
     def get_label(self):
-        return _('Vali allikas')
+        return _('Choose source')
 
 def handle_uploaded_file(f):
     return ContentFile(f.read())
 
 def photo_upload(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
+    new_id = 0
     if request.method == 'POST':
         profile = request.get_user().get_profile()
         
@@ -180,7 +181,13 @@ def photo_upload(request, photo_id):
                 
                 # update user info
                 profile.update_from_fb_data(token, fb_data)
-                
+        
+        # get the latest uploaded rephoto
+        latest_upload = Photo.objects.filter(rephoto_of=photo)
+        previous_uploader = None
+        if latest_upload:
+            previous_uploader = latest_upload.values('user').order_by('-id')[:1].get()
+        
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
                 fileobj = handle_uploaded_file(f)
@@ -200,8 +207,17 @@ def photo_upload(request, photo_id):
                 )
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
-                
-    return HttpResponse('')
+                new_id = re_photo.pk
+            
+            # recalculate points for previous uploader
+            if previous_uploader and previous_uploader['user']:
+                uploader = Profile.objects.get(pk=previous_uploader['user'])
+                uploader.update_rephoto_score()
+            
+            # recalculate points for new uploader
+            profile.update_rephoto_score()
+    
+    return HttpResponse(json.dumps({'new_id': new_id}), mimetype="application/json")
 
 def logout(request):
     from django.contrib.auth import logout
@@ -372,11 +388,14 @@ def mapview(request):
     #filters.register(SourceLookupFilterSpec, 'source')
     data = filters.get_filtered_qs().get_geotagged_photos_list()
     
+    leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().get_profile().pk)
+    
     return render_to_response('mapview.html', RequestContext(request, {
         'json_data': json.dumps(data),
         'city': city,
         'title': title,
         'filters': filters,
+        'leaderboard': leaderboard,
     }))
 
 def get_leaderboard(request):
@@ -407,6 +426,15 @@ def leaderboard(request):
 def top50(request):
     # leaderboard with top 50 scores
     leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().get_profile().pk)
+    template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+    return render_to_response(template, RequestContext(request, {
+        'leaderboard': leaderboard,
+        'title': _('Leaderboard'),
+    }))
+    
+def rephoto_top50(request):
+    # leaderboard with top 50 scores
+    leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard50(request.get_user().get_profile().pk)
     template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
         'leaderboard': leaderboard,

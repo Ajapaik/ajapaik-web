@@ -5,6 +5,7 @@
 <script type="text/javascript">
 	var map;
 	var geotagged_photos={{ json_data|safe }};
+	var leaderboardFullURL = '{% url 'views.rephoto_top50' %}';
 
 	function initialize() {
 		// Will load the base map layer and return it
@@ -115,11 +116,42 @@
 			</script>
 		</div>
 		-->
+		
+		<div class="score_container">
+
+			<h2><a id="full_leaderboard" href="#">{% trans "Rephoto Leaderboard" %}</a></h2>
+
+			<ul class="scoreboard">
+				{% for pos in leaderboard %}
+				<li class="clearfix{% if pos.1 %} you{% endif %}">
+					<span class="position">{{ pos.0 }}.</span>
+					<span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square" />{% endif %}</span>
+					<span class="name">{% if pos.4 %}{{ pos.4 }}{% else %}{% trans "Your points" %}{% endif %}</span>
+					<span class="score">{{ pos.2 }}</span>
+				</li>
+				{% endfor %}
+			</ul>
+
+			{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
+				{% with profile=request.user.get_profile user=request.user %}
+				<div id="facebook-connected">
+					<p>{% blocktrans with "<a href='/logout'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}Account ({{ account_name }}) connected with Facebook. If it's not you then {{ link_open }}click here{{ link_close }}.{% endblocktrans %}</p>
+				</div>
+				{% endwith %}
+			{% else %}
+				<div id="facebook-connect">
+					<p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+					<a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+				</div>
+			{% endif %}
+
+		</div>
 
         <div class="filter-box">
             {{ filters.get_form.as_p }}
         </div>
         
+		<!--
 		{% get_language_info for LANGUAGE_CODE as lang %}
 		<div class="lang-box">
 			<form style="display:inline;" action="/i18n/setlang/" method="post">
@@ -137,6 +169,7 @@
 				<span id="langlabel">{% trans "Choose language" %}:</span>
 			</form>
 		</div>
+		-->
 	</div><!-- .top -->
 
 	<div id="photo-drawer">
@@ -152,6 +185,14 @@
 	<div id="photo_browser">
 		<div id="browser_list"></div>
 		<a style="clear:both;" href="javascript:void(0);" onclick="$.modal.close();">{% trans "Close" %}</a>
+	</div>
+	<div id="leaderboard_browser">
+		<div class="single">
+			<a style="position:absolute;top:5px;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">{% trans "Close" %}</a>
+			<div class="score_container">
+				<ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+			</div>
+		</div>
 	</div>
 </div>
 
