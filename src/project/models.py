@@ -113,27 +113,27 @@ class Photo(models.Model):
         
     class QuerySet(models.query.QuerySet):
         def get_geotagged_photos_list(self):
-        	rephotographed_ids = self.filter(
-        						rephoto_of__isnull=False).order_by(
-        						'rephoto_of').values_list(
-        						'rephoto_of',flat=True)
-        	rephotos = dict(zip(rephotographed_ids,
-        				self.filter(
-        					rephoto_of__isnull=False).order_by(
-        					'rephoto_of', 'id').distinct(
-        					'rephoto_of').filter(
-        					rephoto_of__in=rephotographed_ids)))
-        	data=[]
-        	for p in self.filter(confidence__gte=0.3,
-        						lat__isnull=False,lon__isnull=False,
-        						rephoto_of__isnull=True):
-        		r = rephotos.get(p.id)
-        		if r is not None and bool(r.image):
-        			im = get_thumbnail(r.image, '50x50', crop='center')
-        		else:
-        			im = get_thumbnail(p.image, '50x50', crop='center')
-        		data.append((p.id,im.url,p.lon,p.lat,p.id in rephotographed_ids))
-        	return data
+            rephotographed_ids = self.filter(
+                                rephoto_of__isnull=False).order_by(
+                                'rephoto_of').values_list(
+                                'rephoto_of',flat=True)
+            rephotos = dict(zip(rephotographed_ids,
+                        self.filter(
+                            rephoto_of__isnull=False).order_by(
+                            'rephoto_of', 'id').distinct(
+                            'rephoto_of').filter(
+                            rephoto_of__in=rephotographed_ids)))
+            data=[]
+            for p in self.filter(confidence__gte=0.3,
+                                lat__isnull=False,lon__isnull=False,
+                                rephoto_of__isnull=True):
+                r = rephotos.get(p.id)
+                if r is not None and bool(r.image):
+                    im = get_thumbnail(r.image, '50x50', crop='center')
+                else:
+                    im = get_thumbnail(p.image, '50x50', crop='center')
+                data.append((p.id,im.url,p.lon,p.lat,p.id in rephotographed_ids))
+            return data
         
         def get_next_photos_to_geotag(self,user_id,nr_of_photos=5):
             #!!! use trustworthiness to select desired level
@@ -251,7 +251,7 @@ class Photo(models.Model):
         self.lat = None
 
         geotags = list(GeoTag.objects.filter(photo__id=self.id,
-									trustworthiness__gt=0.2))
+                                    trustworthiness__gt=0.2))
         if geotags:
             lon = sorted([g.lon for g in geotags])
             lon = lon[len(lon)/2]
@@ -262,7 +262,7 @@ class Photo(models.Model):
             lon_sum, lat_sum = 0,0
             for g in geotags:
                 if Photo.distance_in_meters(g.lon, g.lat,
-											lon, lat) < 100:
+                                            lon, lat) < 100:
                     correct_guesses_weight += g.trustworthiness
                     lon_sum += g.lon * g.trustworthiness
                     lat_sum += g.lat * g.trustworthiness
