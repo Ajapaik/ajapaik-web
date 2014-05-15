@@ -213,7 +213,7 @@ def get_all_geotag_submits(photo_id=None):
 
 def get_leaderboard(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+					Q(fb_name__isnull=False, score__gt=0) | Q(pk=user_id)). \
 				values_list('pk','score','fb_id','fb_name'). \
 				order_by('-score')))
 	leaderboard=[scores_list[0]]
@@ -232,7 +232,7 @@ def get_leaderboard(user_id):
 
 def get_leaderboard50(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+					Q(fb_name__isnull=False, score__gt=0) | Q(pk=user_id)). \
 				values_list('pk','score','fb_id','fb_name'). \
 				order_by('-score')))
 	leaderboard=scores_list[:50]
@@ -245,7 +245,7 @@ def get_leaderboard50(user_id):
     
 def get_rephoto_leaderboard(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+					Q(fb_name__isnull=False, score_rephoto__gt=0) | Q(pk=user_id)). \
 				values_list('pk','score_rephoto','fb_id','fb_name'). \
 				order_by('-score_rephoto')))
 	leaderboard=[scores_list[0]]
@@ -264,7 +264,7 @@ def get_rephoto_leaderboard(user_id):
     
 def get_rephoto_leaderboard50(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False) | Q(pk=user_id)). \
+					Q(fb_name__isnull=False, score_rephoto__gt=0) | Q(pk=user_id)). \
 				values_list('pk','score_rephoto','fb_id','fb_name'). \
 				order_by('-score_rephoto')))
 	leaderboard=scores_list[:50]
