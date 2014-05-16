@@ -227,6 +227,8 @@ $(document).ready(function() {
 		locationToolsOpen = false;
 		$('#photos').animate({ left : gameOffset });
 		$('#tools').animate({ left : '100%' }, function() {
+			var panorama = map.getStreetView();
+			panorama.setVisible(false);
 			disableNext = false;
 			$('#open-location-tools').fadeIn();
 			if (next == 1) {
