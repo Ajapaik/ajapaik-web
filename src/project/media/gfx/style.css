@@ -327,8 +327,6 @@ h2.add_comment {
 }
 
 /* original tools */
-#browse #photo-drawer .original:hover .tools,
-.single .original:hover .tools { bottom:0px; }
 #browse #photo-drawer .original .tools,
 .single .original .tools {
 	background: black;
@@ -364,9 +362,6 @@ h2.add_comment {
 }
 
 /* rephoto tools */
-
-#browse #photo-drawer .rephoto .container:hover .meta,
-.single .rephoto .container:hover .meta { bottom:0px; }
 #browse #photo-drawer .rephoto .container .meta,
 .single .rephoto .container .meta {
 	background: black;

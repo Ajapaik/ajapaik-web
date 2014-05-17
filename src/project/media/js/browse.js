@@ -66,14 +66,7 @@ $(document).ready(function() {
 /* BINDINGS */
 
 	/* browse */
-
-	$('.top .score_container').mouseleave(function() {
-		hideScoreboard();
-	});
-
-	$('.top .score_container').mouseenter(function() {
-		showScoreboard();
-	});
+	$('.top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 
 	$('#open-photo-drawer').click(function(e) {
 		e.preventDefault();
@@ -111,13 +104,13 @@ $(document).ready(function() {
 		$('#notice').modal();
 		_gaq.push(['_trackEvent', 'Map', 'Add rephoto']);
 	});
-	
-    $('#browse #photo-drawer .original, .single .original').hover(function () {
+
+    $('#browse #photo-drawer .original, .single .original').hoverIntent(function () {
         $('.original .tools').addClass('hovered');
     },function () {
         $('.original .tools').removeClass('hovered');
     });
-	$('#browse #photo-drawer .rephoto .container, .single .rephoto .container').hover(function () {
+    $('#browse #photo-drawer .rephoto .container, .single .rephoto .container').hoverIntent(function () {
         $('.rephoto .container .meta').addClass('hovered');
     },function () {
         $('.rephoto .container .meta ').removeClass('hovered');

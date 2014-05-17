@@ -129,25 +129,17 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#tools').mouseleave(function() {
+	$('#tools').hoverIntent(function () {
+		if (locationToolsOpen == true) {
+			hidePhotos();
+		}
+	},function () {
 		if (locationToolsOpen == true) {
 			showPhotos();
 		}
 	});
 
-	$('#tools').mouseenter(function() {
-		if (locationToolsOpen == true) {
-			hidePhotos();
-		}
-	});
-
-	$('#top .score_container').mouseleave(function() {
-		hideScoreboard();
-	});
-
-	$('#top .score_container').mouseenter(function() {
-		showScoreboard();
-	});
+	$('#top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 	
 	$('#full_leaderboard').bind('click', function(e) {
 		e.preventDefault();
