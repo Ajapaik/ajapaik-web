@@ -129,13 +129,13 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#tools').hoverIntent(function () {
+	$('#photos').hoverIntent(function () {
 		if (locationToolsOpen == true) {
-			hidePhotos();
+			showPhotos();
 		}
 	},function () {
 		if (locationToolsOpen == true) {
-			showPhotos();
+			hidePhotos();
 		}
 	});
 
