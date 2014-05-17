@@ -105,17 +105,17 @@ $(document).ready(function() {
 		_gaq.push(['_trackEvent', 'Map', 'Add rephoto']);
 	});
 
-    $('#browse #photo-drawer .original, .single .original').hoverIntent(function () {
-        $('.original .tools').addClass('hovered');
-    },function () {
-        $('.original .tools').removeClass('hovered');
-    });
-    $('#browse #photo-drawer .rephoto .container, .single .rephoto .container').hoverIntent(function () {
-        $('.rephoto .container .meta').addClass('hovered');
-    },function () {
-        $('.rephoto .container .meta ').removeClass('hovered');
-    });
-	
+	$('.single .original').hoverIntent(function () {
+		$('.original .tools').addClass('hovered');
+	},function () {
+		$('.original .tools').removeClass('hovered');
+	});
+	$('.single .rephoto .container').hoverIntent(function () {
+		$('.rephoto .container .meta').addClass('hovered');
+	},function () {
+		$('.rephoto .container .meta ').removeClass('hovered');
+	});
+
 	$("a.iframe").fancybox({
 		'width': '75%',
 		'height': '75%',

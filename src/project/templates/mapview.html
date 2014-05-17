@@ -4,8 +4,8 @@
 {% block layout %}
 <script type="text/javascript">
 	var map;
-	var geotagged_photos={{ json_data|safe }};
 	var leaderboardFullURL = '{% url 'views.rephoto_top50' %}';
+	var geotagged_photos={{ json_data|safe }};
 
 	function initialize() {
 		// Will load the base map layer and return it

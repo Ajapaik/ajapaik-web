@@ -9,6 +9,17 @@ $(document).ready(function() {
 	{% if photo.lat and photo.lon %}
 	map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
 	{% endif %}
+
+	$('#browse #photo-drawer .original').hoverIntent(function () {
+		$('.original .tools').addClass('hovered');
+	},function () {
+		$('.original .tools').removeClass('hovered');
+	});
+	$('#browse #photo-drawer .rephoto .container').hoverIntent(function () {
+		$('.rephoto .container .meta').addClass('hovered');
+	},function () {
+		$('.rephoto .container .meta ').removeClass('hovered');
+	});
 });
 </script>
 <div class="photos clearfix">
