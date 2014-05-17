@@ -668,12 +668,12 @@ a.fullscreen {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	border: 1px solid silver;
 }
 .single .score_container {
 	position: static;
 	margin-left:20px;
 	width: 400px;
-	border: 1px solid silver;
 }
 .score_container h2 {
 	color: #ccc;
