@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-14 00:44+0000\n"
+"POT-Creation-Date: 2014-05-17 23:39+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,23 +18,23 @@ msgstr ""
 msgid "Point the marker to where the picture was taken from."
 msgstr "Перетяни маркер на то место, откуда сделана фотография."
 
-#: media/js/game.js:184
+#: media/js/game.js:176
 msgid "Looks right!"
 msgstr "Похоже на правду!"
 
-#: media/js/game.js:188
+#: media/js/game.js:180
 msgid "Correct location is not certain yet."
 msgstr "Здесь еще не выбрано точное расположение места."
 
-#: media/js/game.js:192
+#: media/js/game.js:184
 msgid "We doubt about it."
 msgstr "Но это не очень похоже на правду."
 
-#: media/js/game.js:195
+#: media/js/game.js:187
 msgid "Your guess was first."
 msgstr "Твоё предположение было первым."
 
-#: media/js/game.js:290
+#: media/js/game.js:284
 msgid "Show hint"
 msgstr "Покажи подсказку"
 
