@@ -173,11 +173,23 @@ class Photo(models.Model):
             unknown_photos=set()
 
             if unknown_photos_to_get:
-                photo_ids_with_few_guesses=frozenset(
+                qs = Photo.objects.get_query_set()
+                qs.query.join((None, 'project_photo', None, None))
+                qs.query.join(('project_photo', 'project_geotag', 'id', 'photo_id'), promote=True)
+                qs_args={'where': ['rephoto_of_id IS NULL']}
+                qs = qs.extra(**qs_args)
+                photo_ids_without_guesses = frozenset(
+                    qs.values('id').order_by(). \
+                    annotate(geotag_count=Count("geotags")). \
+                    filter(geotag_count=0). \
+                    values_list('id',flat=True))
+
+                photo_ids_with_few_guesses = photo_ids_without_guesses.union(frozenset(
                     GeoTag.objects.values('photo_id'). \
                     annotate(nr_of_geotags=Count('id')). \
                     filter(nr_of_geotags__lte=10). \
-                    values_list('photo_id',flat=True)) - forbidden_photo_ids
+                    values_list('photo_id',flat=True))) - forbidden_photo_ids
+
                 if photo_ids_with_few_guesses:
                     unknown_photos.update(photos_set. \
                         filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses). \
