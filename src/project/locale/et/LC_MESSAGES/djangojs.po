@@ -1,17 +1,19 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-17 23:49+0000\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2014-05-21 18:16+0000\n"
+"Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
-"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: media/js/game.js:64 media/js/game.js.c:102
 msgid "Point the marker to where the picture was taken from."
@@ -27,7 +29,7 @@ msgstr "Siin ei ole päris täpne asukoht veel kindlaks tehtud."
 
 #: media/js/game.js:184
 msgid "We doubt about it."
-msgstr "Aga julgeme kahelda."
+msgstr "Teised arvavad teisiti."
 
 #: media/js/game.js:187
 msgid "Your guess was first."

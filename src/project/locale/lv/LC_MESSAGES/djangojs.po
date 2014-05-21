@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-17 23:49+0000\n"
-"PO-Revision-Date: 2014-05-19 19:27+0000\n"
+"PO-Revision-Date: 2014-05-21 18:18+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Nav vēl noteikta pareizā vieta."
 
 #: media/js/game.js:184
 msgid "We doubt about it."
-msgstr "Drošvien nav pareizi."
+msgstr "Citiem ir savādāks viedoklis‏."
 
 #: media/js/game.js:187
 msgid "Your guess was first."
