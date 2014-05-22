@@ -74,24 +74,33 @@
 		var markerCluster = new MarkerClusterer(map, markers, {
 			styles: clusterStyles,
 			gridSize: 50,
-			zoomOnClick: false
+			zoomOnClick: false // using custom zoom functionality instead on clusterclick event
 		});
 
 		google.maps.event.addListener(markerCluster, 'clusterclick',
 			function(clickedCluster){
+				var mapTypeRegistry = map.mapTypes;
+				var currentMapTypeId = map.getMapTypeId();
+				var mapType = mapTypeRegistry.get(currentMapTypeId);
+				var canZoom = map.getZoom() < mapType.maxZoom;
 				var markers = clickedCluster.getMarkers();
 				var browser_content = '';
 				var i = 0;
+				var isZooming = false;
 				for (marker in markers) {
-					if (++i > 20) {
+					if (canZoom && ++i > 20) {
 						map.panTo(clickedCluster.getCenter());
 						map.fitBounds(clickedCluster.getBounds());
+						isZooming = true;
 						break;
 					}
 					browser_content += '<div class="item'+ (markers[marker].zIndex ? ' hot' : '') +'"><a href="javascript:void(0);" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();"><img src="'+ markers[marker].thumb +'" border="0" /></a></div>';
 				}
-				$('#photo_browser #browser_list').html(browser_content);
-				$('#photo_browser').modal();
+				if (isZooming == false)
+				{
+					$('#photo_browser #browser_list').html(browser_content);
+					$('#photo_browser').modal();
+				}
 			}
 		);
 	};
