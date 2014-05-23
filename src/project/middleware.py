@@ -52,7 +52,5 @@ class SessionBasedLocaleWithRedirectMiddleware(object):
                 return redirect(request.GET['redirect_to'])
             elif 'redirect_to' in request.GET:
                 return redirect(request.GET['redirect_to'])
-            else:
-                return redirect('/')
 
         return response
