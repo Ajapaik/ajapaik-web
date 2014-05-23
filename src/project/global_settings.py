@@ -56,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     #'django.middleware.gzip.GZipMiddleware',
     #'django.middleware.http.ConditionalGetMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #'project.middleware.ForceDefaultLanguageMiddleware',
     'project.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
