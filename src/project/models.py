@@ -95,6 +95,7 @@ class Photo(models.Model):
     source_key = models.CharField(max_length=100, null=True, blank=True)
     source_url = models.URLField(null=True, blank=True)
     source = models.ForeignKey('Source', null=True, blank=True)
+    device = models.ForeignKey('Device', null=True, blank=True)
     
     city = models.ForeignKey('City', related_name='cities')
     rephoto_of = models.ForeignKey('self', blank=True, null=True, related_name='rephotos')
@@ -389,7 +390,7 @@ class Profile(models.Model):
 
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
-    
+
 class Source(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
@@ -399,7 +400,17 @@ class Source(models.Model):
     
     def __unicode__(self):
         return self.name
+
+class Device(models.Model):
+    camera_make = models.CharField(null=True, blank=True, max_length=255)
+    camera_model = models.CharField(null=True, blank=True, max_length=255)
+    lens_make = models.CharField(null=True, blank=True, max_length=255)
+    lens_model = models.CharField(null=True, blank=True, max_length=255)
+    software = models.CharField(null=True, blank=True, max_length=255)
     
+    def __unicode__(self):
+        return (self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
+
 class Guess(models.Model):
     class Meta:
         verbose_name = 'Guess'
