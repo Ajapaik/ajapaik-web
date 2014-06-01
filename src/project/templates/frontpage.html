@@ -73,12 +73,8 @@ p {
 			<div class="example">
 				<a href="{{ example.get_absolute_url }}">
 					<div class="cf" style="width:400px;height:300px;">
-						{% thumbnail example.image "700x400" as im %}
-						<img src="{{ im.url }}" border="0" style="height:100%;" title="{{ example.description }}" />
-						{% endthumbnail %}
-						{% thumbnail example_source.image "700x400" as im %}
-						<img src="{{ im.url }}" border="0" style="height:100%;" title="{{ example_source.description }}" class="cf-top" />
-						{% endthumbnail %}
+						<img src="{% url 'views.photo_url' example.id %}" border="0" style="height:100%;" title="{{ example.description }}" />
+						<img src="{% url 'views.photo_url' example_source.id %}" border="0" style="height:100%;" title="{{ example_source.description }}" class="cf-top" />
 					</div>
 				</a>
 			</div>

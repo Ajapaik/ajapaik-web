@@ -58,7 +58,7 @@ class Command(BaseCommand):
         if photo_id:
             photos_without_meta = Photo.objects.filter(rephoto_of__isnull=False, pk=photo_id)[:1]
         else:
-            photos_without_meta = Photo.objects.filter(rephoto_of__isnull=False, device__isnull=True)
+            photos_without_meta = Photo.objects.filter(rephoto_of__isnull=False)
 
         for photo in photos_without_meta:
             img = Image.open('/var/garage/' + str(photo.image))
