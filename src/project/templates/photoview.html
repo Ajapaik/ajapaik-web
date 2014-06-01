@@ -63,7 +63,7 @@
                 <div class="tools">
                     <ul class="thumbs">
                         {% for rephoto_item in photo.rephotos.all %}
-                        <li class="photo{% if rephoto_item.id == rephoto.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'views.photo_thumb' rephoto.id %}" border="0" /></a></li>
+                        <li class="photo{% if rephoto_item.id == rephoto.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'views.photo_thumb' rephoto.id %}" width="50" border="0" /></a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -147,7 +147,7 @@
 				<div class="tools">
 					<ul class="thumbs">
 						{% for rephoto in photo.rephotos.all %}
-						<li class="photo"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% url 'views.photo_thumb' rephoto.id %}" /></a></li>
+						<li class="photo"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% url 'views.photo_thumb' rephoto.id %}" width="50" border="0" /></a></li>
 						{% endfor %}
 					</ul>
 				</div>

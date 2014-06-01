@@ -94,7 +94,7 @@ $(document).ready(function() {
 		<div class="tools">
 			<ul class="thumbs">
 				{% for rephoto_item in photo.rephotos.all %}
-				<li class="photo{% if rephoto_item.id == photo.rephotos.all.0.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" rel="{{ rephoto_item.id }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'views.photo_thumb' rephoto_item.id %}" /></a></li>
+				<li class="photo{% if rephoto_item.id == photo.rephotos.all.0.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" rel="{{ rephoto_item.id }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'views.photo_thumb' rephoto_item.id %}" width="50" border="0" /></a></li>
 				{% endfor %}
 			</ul>
 		</div><!-- .tools -->
