@@ -16,6 +16,9 @@ from django.core.files.base import ContentFile
 from project.models import Photo, City, Profile, Source
 from project.forms import GeoTagAddForm, CitySelectForm
 from sorl.thumbnail import get_thumbnail
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 from pprint import pprint
 from django.db import models
 

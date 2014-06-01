@@ -16,8 +16,9 @@ from django.utils.simplejson import loads as json_decode
 from django.core.exceptions import ObjectDoesNotExist
 
 from sorl.thumbnail import get_thumbnail
-
 from sorl.thumbnail import ImageField
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 import math
 import datetime
