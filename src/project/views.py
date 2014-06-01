@@ -367,12 +367,22 @@ def frontpage(request):
 
 def photo_large(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
-    im = get_thumbnail(photo.image, '1024x1024', upscale=False)
+    if (photo.cam_scale_factor and photo.rephoto_of):
+        # if rephoto is taken with mobile then make it same width/height as source photo
+        im = get_thumbnail(photo.rephoto_of.image, '1024x1024', upscale=False)
+        im = get_thumbnail(photo.image, str(im.width) +'x'+ str(im.height), crop="center" )
+    else:
+        im = get_thumbnail(photo.image, '1024x1024', upscale=False)
     return redirect(im.url)
 
 def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
-    im = get_thumbnail(photo.image, '700x400')
+    if (photo.cam_scale_factor and photo.rephoto_of):
+        # if rephoto is taken with mobile then make it same width/height as source photo
+        im = get_thumbnail(photo.rephoto_of.image, '700x400')
+        im = get_thumbnail(photo.image, str(im.width) +'x'+ str(im.height), crop="center" )
+    else:
+        im = get_thumbnail(photo.image, '700x400')
     return redirect(im.url)
 
 def photo_thumb(request, photo_id):

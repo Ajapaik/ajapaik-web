@@ -14,6 +14,7 @@ from contextlib import closing
 import urllib
 from django.utils.simplejson import loads as json_decode
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail import ImageField
@@ -136,10 +137,12 @@ class Photo(models.Model):
                                 rephoto_of__isnull=True):
                 r = rephotos.get(p.id)
                 if r is not None and bool(r.image):
-                    im = get_thumbnail(r.image, '50x50', crop='center')
+                    #im = get_thumbnail(r.image, '50x50', crop='center')
+                    im_url = reverse('views.photo_thumb', args=(r.id,))
                 else:
-                    im = get_thumbnail(p.image, '50x50', crop='center')
-                data.append((p.id,im.url,p.lon,p.lat,p.id in rephotographed_ids))
+                    #im = get_thumbnail(p.image, '50x50', crop='center')
+                    im_url = reverse('views.photo_thumb', args=(p.id,))
+                data.append((p.id,im_url,p.lon,p.lat,p.id in rephotographed_ids))
             return data
         
         def get_next_photos_to_geotag(self,user_id,nr_of_photos=5):

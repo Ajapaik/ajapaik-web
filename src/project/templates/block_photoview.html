@@ -43,9 +43,7 @@ $(document).ready(function() {
 	</div><!-- .browse-nav -->
 
 	<div class="original photo-item">
-		{% thumbnail photo.image "700x400" as im %}
-		<a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" border="0" /></a>
-		{% endthumbnail %}
+		<a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img src="{% url 'views.photo_url' photo.id %}" border="0" /></a>
 		
 		<div class="tools">
 			<div class="description">
@@ -61,7 +59,7 @@ $(document).ready(function() {
 		</div>
 	</div><!-- .original.photo-item -->
 
-	{% thumbnail photo.rephotos.all.0.image "700x400" as rephoto %}
+	{% if photo.rephotos.all.0.image %}
 
 	<div class="rephoto photo-item">
 		<div class="container">
@@ -79,7 +77,7 @@ $(document).ready(function() {
 			</div>
 
 			<div id="rephoto_content">
-				<a class="fullscreen" id="full-thumb2" rel="{{ photo.rephotos.all.0.id }}" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{{ rephoto.url }}" border="0" /></a>
+				<a class="fullscreen" id="full-thumb2" rel="{{ photo.rephotos.all.0.id }}" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{% url 'views.photo_url' photo.rephotos.all.0.id %}" border="0" /></a>
 			</div>
 			<script>
 			var rephoto_img_href = [];
@@ -87,12 +85,8 @@ $(document).ready(function() {
 			var rephoto_img_src_fs = [];
 			{% for rephoto in photo.rephotos.all %}
 				rephoto_img_href[{{ rephoto.id }}] = '{{ rephoto.get_absolute_url }}';
-				{% thumbnail rephoto.image "700x400" as image %}
-					rephoto_img_src[{{ rephoto.id }}] = '{{ image.url }}';
-				{% endthumbnail %}
-				{% thumbnail rephoto.image "1024x1024" upscale=False as image %}
-					rephoto_img_src_fs[{{ rephoto.id }}] = '{{ image.url }}';
-				{% endthumbnail %}
+				rephoto_img_src[{{ rephoto.id }}] = '{% url 'views.photo_url' rephoto.id %}';
+				rephoto_img_src_fs[{{ rephoto.id }}] = '{% url 'views.photo_large' rephoto.id %}';
 			{% endfor %}
 			</script>
 		</div>
@@ -100,39 +94,37 @@ $(document).ready(function() {
 		<div class="tools">
 			<ul class="thumbs">
 				{% for rephoto_item in photo.rephotos.all %}
-				<li class="photo{% if rephoto_item.id == photo.rephotos.all.0.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" rel="{{ rephoto_item.id }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% thumbnail rephoto_item.image "50x50" crop="center" as thumb %}{{ thumb.url }}{% endthumbnail %}" /></a></li>
+				<li class="photo{% if rephoto_item.id == photo.rephotos.all.0.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" rel="{{ rephoto_item.id }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'views.photo_thumb' rephoto_item.id %}" /></a></li>
 				{% endfor %}
 			</ul>
 		</div><!-- .tools -->
 
 	</div><!-- .rephoto.photo-item -->
 
-	{% empty %}
+	{% else %}
 
 	<div class="no-rephoto">
 		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
 	</div><!-- .no-refoto -->
 
-	{% endthumbnail %}
+	{% endif %}
 
 </div><!-- .photos -->
 
 <div class="full-box">
 	<div class="full-pic" id="full-large1">
-		{% thumbnail photo.image "1024x1024" upscale=False as full %}
-		<img src="{{ full.url }}" border="0" />
-		{% endthumbnail %}
+		<img src="{% url 'views.photo_large' photo.id %}" border="0" />
 	</div>
+	{% if photo.rephotos.all.0.image %}
 	<div class="full-pic" id="full-large2">
-		{% thumbnail photo.rephotos.all.0.image "1024x1024" upscale=False as full %}
-		<img src="{{ full.url }}" border="0" />
-		{% endthumbnail %}
+		<img src="{% url 'views.photo_large' photo.rephotos.all.0.id %}" border="0" />
 	</div>
+	{% endif %}
 </div><!-- .full-box -->
 
 <script>
 $('#photo-drawer .original img').load(function() {
-	$('.no-rephoto').css('width', $(this).css('width') );
+	$('#photo-drawer .no-rephoto').css('width', $(this).css('width') );
 });
 
 prepareFullscreen();
