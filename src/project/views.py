@@ -374,7 +374,13 @@ def photo_large(request, photo_id):
     else:
         im = get_thumbnail(photo.image, '1024x1024', upscale=False)
     #return redirect(im.url)
-    return HttpResponse(im.read(), content_type='image/jpg')
+    content = im.read()
+    next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
+    response = HttpResponse(content, content_type='image/jpg')
+    response['Content-Length'] = len(content)
+    response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
+    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+    return response
 
 def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
@@ -385,13 +391,25 @@ def photo_url(request, photo_id):
     else:
         im = get_thumbnail(photo.image, '700x400')
     #return redirect(im.url)
-    return HttpResponse(im.read(), content_type='image/jpg')
+    content = im.read()
+    next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
+    response = HttpResponse(content, content_type='image/jpg')
+    response['Content-Length'] = len(content)
+    response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
+    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+    return response
 
 def photo_thumb(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
     im = get_thumbnail(photo.image, '50x50', crop='center')
     #return redirect(im.url)
-    return HttpResponse(im.read(), content_type='image/jpg')
+    content = im.read()
+    next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
+    response = HttpResponse(content, content_type='image/jpg')
+    response['Content-Length'] = len(content)
+    response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
+    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+    return response
 
 def photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
