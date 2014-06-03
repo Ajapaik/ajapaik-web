@@ -97,6 +97,9 @@ $(document).ready(function() {
 			$('#save-location').click();
 		}
 	});
+	$.jQee('up', function(e) {
+		$('.show-description').click();
+	});
 	$.jQee('right', function(e) {
 		$('#skip-photo').click();
 	});
