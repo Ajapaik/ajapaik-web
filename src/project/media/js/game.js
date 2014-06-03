@@ -8,6 +8,7 @@ var mediaUrl = '';
 var streamUrl = '/stream/';
 var disableNext = false;
 var disableSave = true;
+var disableContinue = true;
 var locationToolsOpen = false;
 
 function update_leaderboard() {
@@ -45,7 +46,6 @@ $(document).ready(function() {
 		// re-drop
 		marker.setMap(map);
 		marker.setAnimation(google.maps.Animation.DROP);
-		
 		marker.setPosition(event.latLng);
 	});
 
@@ -66,17 +66,54 @@ $(document).ready(function() {
 
 	/* BINDINGS */
 	/* game */
+	
+	$.jQee('space', function(e) {
+		// continue game if Tools and result window open
+		if (locationToolsOpen && !disableContinue)
+		{
+			$('#continue-game').click();
+		}
+		else if (locationToolsOpen)
+		{
+			// remove notice and drop the marker in the middle (works only if map in focus)
+			if (infowindow !== undefined) {
+				infowindow.close();
+				infowindow = undefined;
+			}
+			marker.setMap(map);
+			marker.setAnimation(google.maps.Animation.DROP);
+			marker.setPosition(map.getCenter());
+		}
+		else
+		{
+			// otherwise open Tools
+			$('#open-location-tools').click();
+		}
+	});
+	$.jQee('enter', function(e) {
+		// save location only if Tools open and no result window
+		if (locationToolsOpen && disableContinue)
+		{
+			$('#save-location').click();
+		}
+	});
+	$.jQee('right', function(e) {
+		$('#skip-photo').click();
+	});
 
 	$('.skip-photo').click(function(e) {
 		e.preventDefault();
 
-		var data = {
-			photo_id: photos[currentPhotoIdx-1].id,
-		};
-		$.post(saveLocationURL, data, function () {
-			nextPhoto();
-		});
-		_gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+		if (disableNext == false)
+		{
+			var data = {
+				photo_id: photos[currentPhotoIdx-1].id,
+			};
+			$.post(saveLocationURL, data, function () {
+				nextPhoto();
+			});
+			_gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+		}
 
 	});
 
@@ -187,7 +224,8 @@ $(document).ready(function() {
 				message = gettext('Your guess was first.');
 			}
 			$("#notice .message").text(message);
-			$("#notice").modal();
+			$("#notice").modal({escClose: false});
+			disableContinue = false;
 
 		}, 'json');
 
@@ -213,6 +251,7 @@ $(document).ready(function() {
 	function continueGame() {
 		$.modal.close();
 		closeLocationTools(1);
+		disableContinue = true;
 	}
 
 	function closeLocationTools(next) {
@@ -264,46 +303,44 @@ $(document).ready(function() {
 			loadPhotos();
 		}
 		*/
-		if (photos.length > currentPhotoIdx) {
+		if (photos.length > currentPhotoIdx)
+		{
+			disableNext = true;
 
-			if (disableNext == false) {
+			$('.skip-photo').animate({ 'opacity' : .4 });
+			$(currentPhoto).find('img').animate({ 'opacity' : .4 });
+			showDescription();
 
-				disableNext = true;
+			$('#photos').append(
+				'<div class="photo photo'+currentPhotoIdx+'"></div>'
+			);
 
-				$('.skip-photo').animate({ 'opacity' : .4 });
-				$(currentPhoto).find('img').animate({ 'opacity' : .4 });
-				showDescription();
+			currentPhoto = $('#photos .photo'+currentPhotoIdx);
 
-				$('#photos').append(
-					'<div class="photo photo'+currentPhotoIdx+'"></div>'
-				);
+			$(currentPhoto).append(
+				'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><a class="fullscreen" rel="'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></a><div class="fb-like"><fb:like href="'+permalinkURL+photos[currentPhotoIdx].id+'/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div></div>'
+			).find('img').load(function() {
 
-				currentPhoto = $('#photos .photo'+currentPhotoIdx);
+				currentPhoto.css({ 'visibility' : 'visible' });
 
-				$(currentPhoto).append(
-					'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><a class="fullscreen" rel="'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></a><div class="fb-like"><fb:like href="'+permalinkURL+photos[currentPhotoIdx].id+'/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div></div>'
-				).find('img').load(function() {
+				$(this).fadeIn('slow', function() {
 
-					currentPhoto.css({ 'visibility' : 'visible' });
-
-					$(this).fadeIn('slow', function() {
-
-						gameWidth += $(currentPhoto).width();
-						$('#photos').width(gameWidth);
-						scrollPhotos();
-
-					});
+					gameWidth += $(currentPhoto).width();
+					$('#photos').width(gameWidth);
+					scrollPhotos();
 
 				});
-				if (typeof FB != 'undefined') {
-					FB.XFBML.parse();
-				}
-				$('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].large.url+'" border="0" /></div>');
-				prepareFullscreen();
-				currentPhotoIdx++;
-			}
 
-		} else {
+			});
+			if (typeof FB != 'undefined') {
+				FB.XFBML.parse();
+			}
+			$('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].large.url+'" border="0" /></div>');
+			prepareFullscreen();
+			currentPhotoIdx++;
+		} 
+		else
+		{
 			/* console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length); */
 			loadPhotos(1);
 		}

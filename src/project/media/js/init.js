@@ -99,23 +99,15 @@ function prepareFullscreen()
 	});
 }
 
-// Stuff which is included in EVERY view. PERIOD! (MANOWAR rules)
 $(document).ready(function() {
-    
-    // Hotkeys
-    $.jQee('esc', function(e) {
-        $('#close-photo-drawer').click();
-        $('#close-location-tools').click();
-    });
-    $.jQee('space', function(e) {
-        $('#open-location-tools').click();
-    });
-    $.jQee('enter', function(e) {
-        $('#save-location').click();
-    });
-    $.jQee('right', function(e) {
-        $('#skip-photo').click();
-    });
+
+	$.jQee('esc', function(e) {
+		$('#close-photo-drawer').click();
+		$('#close-location-tools').click();
+	});
+	$.jQee('shift+r', function(e) {
+		$('#random-photo').click();
+	});
     
     $('.filter-box select').change(function(){
         var uri = URI(location.href),
