@@ -145,7 +145,7 @@ class Photo(models.Model):
                 data.append((p.id,im_url,p.lon,p.lat,p.id in rephotographed_ids))
             return data
         
-        def get_next_photos_to_geotag(self,user_id,nr_of_photos=5):
+        def get_next_photos_to_geotag(self,user_id,nr_of_photos=5,load_extra=None):
             #!!! use trustworthiness to select desired level
             from get_next_photos_to_geotag import calc_trustworthiness, _make_thumbnail, _make_fullscreen
             trustworthiness=calc_trustworthiness(user_id)
@@ -217,6 +217,16 @@ class Photo(models.Model):
             photos=random.sample(photos,min(len(photos),nr_of_photos))
 
             data=[]
+            if (load_extra):
+                extra_photo = Photo.objects.filter(pk=int(load_extra), rephoto_of__isnull=True).get() or None
+                if (extra_photo):
+                    data.append({'id':extra_photo.id,
+                        'description':extra_photo.description,
+                        'date_text':extra_photo.date_text,
+                        'source_key':extra_photo.source_key,
+                        'big':_make_thumbnail(extra_photo,'700x400'),
+                        'large':_make_fullscreen(extra_photo)
+                    })
             for p in photos:
                 data.append({'id':p.id,
                     'description':p.description,
