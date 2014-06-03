@@ -45,7 +45,8 @@ class AuthBackend(object):
                 models.Action.log("user_middleware.login.error", {'username': username})
                 return None
 
-        user = User.objects.create_user(username="_"+username[:28])
+        random_username = u"_%s_%s" % (username[:25], User.objects.make_random_password(length=3))
+        user = User.objects.create_user(username=random_username)
         user.save()
         models.Action.log("user_middleware.create", related_object=user)
         return user
