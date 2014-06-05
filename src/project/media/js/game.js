@@ -184,7 +184,7 @@ $(document).ready(function() {
 	$('#full_leaderboard').bind('click', function(e) {
 		e.preventDefault();
 		$('#leaderboard_browser .scoreboard').load(leaderboardFullURL, function() {
-		  $('#leaderboard_browser').modal();
+			$('#leaderboard_browser').modal({overlayClose: true});
 		});
 		_gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
 	});
