@@ -370,7 +370,7 @@ def thegame(request):
 
 def frontpage(request):
     try:
-        example = random.choice(Photo.objects.filter(id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5492, 5535, 5588, 5617, 5644, 5645, 5646, 5653], rephoto_of__isnull=False))
+        example = random.choice(Photo.objects.filter(id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646], rephoto_of__isnull=False))
     except:
         example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
     example_source = Photo.objects.get(pk=example.rephoto_of.id)
