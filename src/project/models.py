@@ -77,6 +77,7 @@ class Photo(models.Model):
     id = models.AutoField(primary_key=True)
     #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
+    image_unscaled = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
     
     #slug = models.SlugField(null=True, blank=True)
     
