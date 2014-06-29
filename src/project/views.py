@@ -425,7 +425,10 @@ def photo_url(request, photo_id):
 
 def photo_thumb(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
-    im = get_thumbnail(photo.image, '50x50', crop='center')
+    if (photo.image_unscaled):
+        im = get_thumbnail(photo.image_unscaled, '50x50', crop='center')
+    else:
+        im = get_thumbnail(photo.image, '50x50', crop='center')
     #return redirect(im.url)
     content = im.read()
     next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
