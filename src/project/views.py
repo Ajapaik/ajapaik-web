@@ -247,11 +247,13 @@ def photo_upload(request, photo_id):
                     lon=data.get('lon', None),
                     date_text=data.get('date_text', None),
                     user=profile,
-                    cam_scale_factor=data.get('scale_factor'),
+                    cam_scale_factor=data.get('scale_factor', None),
                     cam_yaw=data.get('yaw'),
                     cam_pitch=data.get('pitch'),
                     cam_roll=data.get('roll'),
                 )
+                if (re_photo.cam_scale_factor):
+                    re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
