@@ -33,12 +33,19 @@
 					zIndex: p[4] ? 1 : 0,
 					icon:image
 				});
-			
+
 			(function(id) {
-				google.maps.event.addListener(marker, 'click', function() {
-					loadPhoto(id);
-				});
-			})(p[0]);
+					google.maps.event.addListener(marker, 'click', function() {
+						loadPhoto(id);
+					});
+				})(p[0]);
+
+			(function(id) {
+					google.maps.event.addListener(marker, 'rightclick', function() {
+						console.log(id);
+					});
+				})(p[0]);
+
 			markers.push(marker);
 		}
 
@@ -94,7 +101,7 @@
 						isZooming = true;
 						break;
 					}
-					browser_content += '<div class="item'+ (markers[marker].zIndex ? ' hot' : '') +'"><a href="javascript:void(0);" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();"><img src="'+ markers[marker].thumb +'" border="0" /></a></div>';
+					browser_content += '<div class="item'+ (markers[marker].zIndex ? ' hot' : '') +'"><a href="/foto/'+ markers[marker].id +'/" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();return false;"><img src="'+ markers[marker].thumb +'" border="0" /></a></div>';
 				}
 				if (isZooming == false)
 				{
