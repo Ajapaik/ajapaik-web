@@ -41,12 +41,15 @@
 	<meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}" />
 {% endif %}
 	<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" href="{{ MEDIA_URL }}gfx/neutered_bootstrap.css">
+    <link rel="stylesheet" href="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/css/jquery.fileupload.css">
 	<link rel="shortcut icon" type="image/ico" href="{{ MEDIA_URL }}gfx/favicon.ico" />
 	<link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik" />
 	<link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}gfx/carte-blanche.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}gfx/jquery.fancybox-1.3.4.css" />
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold' rel='stylesheet' type='text/css'>
+
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3"></script>
     {% load_bundle "styles_combi" %}
     {% load_bundle "scripts_combi" %}

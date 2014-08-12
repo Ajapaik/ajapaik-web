@@ -258,7 +258,7 @@ def photo_upload(request, photo_id):
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
                 
-                img = Image.open('/var/garage/' + str(re_photo.image))
+                img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 exif_data = _get_exif_data(img)
                 if (exif_data):
                     if ('GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data):
@@ -336,15 +336,15 @@ def photo_upload(request, photo_id):
                         new_img.save(output_file, 'JPEG', quality=95)
                         re_photo.image_unscaled = deepcopy(re_photo.image)
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-            
+
             # recalculate points for previous uploader
             if previous_uploader and previous_uploader['user']:
                 uploader = Profile.objects.get(pk=previous_uploader['user'])
                 uploader.update_rephoto_score()
-            
+
             # recalculate points for new uploader
             profile.update_rephoto_score()
-    
+
     return HttpResponse(json.dumps({'new_id': new_id}), mimetype="application/json")
 
 def logout(request):
