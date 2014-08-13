@@ -6,8 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('views',
 	#(r'^grappelli/', include('grappelli.urls')),
-	(r'^admin/filebrowser/', include('filebrowser.urls')),
+	#(r'^admin/filebrowser/', include('filebrowser.urls')),
 	(r'^admin/', include(admin.site.urls)),
+    (r'^simple-autocomplete/', include('simple_autocomplete.urls')),
 
 	(r'^logout/', 'logout'),
 	(r'^stream/', 'fetch_stream'),
@@ -56,4 +57,3 @@ if 'rosetta' in settings.INSTALLED_APPS:
 	urlpatterns += patterns('',
 	url(r'^rosetta/', include('rosetta.urls')),
 	)
-

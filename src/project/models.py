@@ -363,6 +363,10 @@ class Profile(models.Model):
     score = models.PositiveIntegerField(default=0)
     score_rephoto = models.PositiveIntegerField(default=0)
 
+    @property
+    def id(self):
+        return self.user_id
+
     def update_rephoto_score(self):
         rephotos = Photo.objects.filter(rephoto_of__isnull=False, user=self.user)
         total = rephotos.count()
@@ -423,7 +427,7 @@ class Device(models.Model):
     software = models.CharField(null=True, blank=True, max_length=255)
     
     def __unicode__(self):
-        return (self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
+        return "%s %s %s %s %s" %(self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
 
 class Guess(models.Model):
     class Meta:

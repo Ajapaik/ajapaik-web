@@ -26,6 +26,10 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
+SIMPLE_AUTOCOMPLETE = {'auth.user': {'search_field': 'username', 'threshold': 25, 'max_items': 10, 'duplicate_format_function': lambda obj, model, content_type: 'id: %s' % obj.id},
+                       'project.profile': {'search_field': 'fb_name'},
+                       'project.photo': {'search_field': 'description'}}
+
 INSTALLED_APPS = (
     #'grappelli',
     'django.contrib.auth',
@@ -43,6 +47,7 @@ INSTALLED_APPS = (
     #'django_extensions',
     'rosetta',
     'project',
+    'simple_autocomplete'
 )
 
 # List of callables that know how to import templates from various sources.
