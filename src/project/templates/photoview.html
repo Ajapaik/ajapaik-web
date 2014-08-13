@@ -95,6 +95,14 @@
                             done: function (e, data) {
                                 uploadCompleted($.parseJSON(data));
                             },
+                            change: function (e, data) {
+                                $.each(data.files, function (index, file) {
+                                    var ok = confirm("{% trans 'Selected file' %}" + ": " + file.name + ", " + "{% trans 'upload?' %}");
+                                    if (!ok) {
+                                        this.abort();
+                                    }
+                                });
+                            },
                             progressall: function (e, data) {
                                 var progress = parseInt(data.loaded / data.total * 100, 10);
                                 $('#progress').find('.progress-bar').css(
