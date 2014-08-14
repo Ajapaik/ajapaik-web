@@ -145,98 +145,93 @@ class Photo(models.Model):
                     im_url = reverse('views.photo_thumb', args=(p.id,))
                 data.append((p.id,im_url,p.lon,p.lat,p.id in rephotographed_ids))
             return data
-        
-        def get_next_photos_to_geotag(self,user_id,nr_of_photos=5,load_extra=None):
-            #!!! use trustworthiness to select desired level
-            from get_next_photos_to_geotag import calc_trustworthiness, _make_thumbnail, _make_fullscreen
-            trustworthiness=calc_trustworthiness(user_id)
 
+        def get_next_photos_to_geotag(self, user_id, nr_of_photos=5, load_extra=None, only_untagged=None):
+            from get_next_photos_to_geotag import calc_trustworthiness, _make_thumbnail, _make_fullscreen
+            #TODO: This function requires refactoring
+
+            trustworthiness = calc_trustworthiness(user_id)
+
+            #These currently seem to be all the photos in the given city
             photos_set = self
 
-            extra_args={'select': {'final_level':
-                "(case when level > 0 then level else " + \
-                    "coalesce(guess_level,4) end)"},
+            extra_args = {
+                'select': {'final_level': "(case when level > 0 then level else coalesce(guess_level, 4) end)"},
                 'where': ['rephoto_of_id IS NULL']}
 
-            forbidden_photo_ids=frozenset([g.photo_id \
-                for g in Guess.objects.filter(user=user_id,
-                    created__gte= \
-                    datetime.datetime.now()-datetime.timedelta(1))] + \
-                list(GeoTag.objects.filter(user=user_id). \
-                    values_list('photo_id',flat=True)))
-            known_photos=list(photos_set.exclude(
-                pk__in=forbidden_photo_ids). \
-                filter(confidence__gte=0.3). \
-                extra(**extra_args). \
-                order_by('final_level')[:nr_of_photos])
+            user_has_seen_all_photos_in_city = False
+            one_day_ago = datetime.datetime.now() - datetime.timedelta(1)
+            #Why?
+            user_guessed_photo_ids_last_24h = [g.photo_id for g in Guess.objects.filter(user=user_id, created__gte=one_day_ago)]
+            #Determine if the user has geotagged all the photos in the city
+            user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id).values_list("photo_id", flat=True))
+            all_city_photo_ids = [p.id for p in photos_set]
+            if set(all_city_photo_ids).issubset(set(user_geotagged_photo_ids)):
+                #User has seen all photos, enable full pool again
+                user_has_seen_all_photos_in_city = True
 
-            unknown_photos_to_get=0
+            forbidden_photo_ids = frozenset(user_guessed_photo_ids_last_24h + user_geotagged_photo_ids)
+
+            known_photos = list(
+                photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__gte=0.3).extra(**extra_args).order_by(
+                    'final_level')[:nr_of_photos])
+
+            unknown_photos_to_get = 0
             if trustworthiness > 0.2:
-                unknown_photos_to_get= \
-                int(nr_of_photos * (0.3+1.5*trustworthiness))
-            unknown_photos_to_get=max(unknown_photos_to_get, nr_of_photos-len(known_photos))
+                unknown_photos_to_get = int(nr_of_photos * (0.3 + 1.5 * trustworthiness))
+            unknown_photos_to_get = max(unknown_photos_to_get, nr_of_photos - len(known_photos))
 
-            unknown_photos=set()
+            unknown_photos = set()
 
             if unknown_photos_to_get:
+                #Doing a bunch of queries again, wasteful?
                 qs = Photo.objects.get_query_set()
                 qs.query.join((None, 'project_photo', None, None))
                 qs.query.join(('project_photo', 'project_geotag', 'id', 'photo_id'), promote=True)
-                qs_args={'where': ['rephoto_of_id IS NULL']}
+                qs_args = {'where': ['rephoto_of_id IS NULL']}
                 qs = qs.extra(**qs_args)
                 photo_ids_without_guesses = frozenset(
-                    qs.values('id').order_by(). \
-                    annotate(geotag_count=Count("geotags")). \
-                    filter(geotag_count=0). \
-                    values_list('id',flat=True))
-
+                    qs.values('id').order_by().annotate(geotag_count=Count("geotags")).filter(
+                        geotag_count=0).values_list('id', flat=True))
                 photo_ids_with_few_guesses = photo_ids_without_guesses.union(frozenset(
-                    GeoTag.objects.values('photo_id'). \
-                    annotate(nr_of_geotags=Count('id')). \
-                    filter(nr_of_geotags__lte=10). \
-                    values_list('photo_id',flat=True))) - forbidden_photo_ids
-
+                    GeoTag.objects.values('photo_id').annotate(nr_of_geotags=Count('id')).filter(
+                        nr_of_geotags__lte=10).values_list('photo_id', flat=True))) - forbidden_photo_ids
                 if photo_ids_with_few_guesses:
-                    unknown_photos.update(photos_set. \
-                        filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses). \
-                        extra(**extra_args). \
-                        order_by('final_level')[:unknown_photos_to_get])
-
+                    unknown_photos.update(
+                        photos_set.filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
+                            **extra_args).order_by('final_level')[:unknown_photos_to_get])
                 if len(unknown_photos) < unknown_photos_to_get:
-                    unknown_photos.update(photos_set.exclude(pk__in=forbidden_photo_ids). \
-                    filter(confidence__lt=0.3). \
-                    extra(**extra_args). \
-                    order_by('final_level')[:(unknown_photos_to_get- \
-                        len(unknown_photos))])
+                    unknown_photos.update(
+                        photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3).extra(
+                            **extra_args).order_by('final_level')[:(unknown_photos_to_get - len(unknown_photos))])
 
             if len(unknown_photos.union(known_photos)) < nr_of_photos:
-                unknown_photos.update(photos_set. \
-                extra(**extra_args). \
-                order_by('?')[:unknown_photos_to_get])
+                unknown_photos.update(photos_set.extra(**extra_args).order_by('?')[:unknown_photos_to_get])
 
-            photos=list(unknown_photos.union(known_photos))
-            photos=random.sample(photos,min(len(photos),nr_of_photos))
+            photos = list(unknown_photos.union(known_photos))
+            photos = random.sample(photos, min(len(photos), nr_of_photos))
 
-            data=[]
-            if (load_extra):
+            data = []
+            if load_extra:
                 extra_photo = Photo.objects.filter(pk=int(load_extra), rephoto_of__isnull=True).get() or None
-                if (extra_photo):
-                    data.append({'id':extra_photo.id,
-                        'description':extra_photo.description,
-                        'date_text':extra_photo.date_text,
-                        'source_key':extra_photo.source_key,
-                        'big':_make_thumbnail(extra_photo,'700x400'),
-                        'large':_make_fullscreen(extra_photo)
+                if extra_photo:
+                    data.append({'id': extra_photo.id,
+                                 'description': extra_photo.description,
+                                 'date_text': extra_photo.date_text,
+                                 'source_key': extra_photo.source_key,
+                                 'big': _make_thumbnail(extra_photo, '700x400'),
+                                 'large': _make_fullscreen(extra_photo)
                     })
             for p in photos:
-                data.append({'id':p.id,
-                    'description':p.description,
-                    'date_text':p.date_text,
-                    'source_key':p.source_key,
-                    'big':_make_thumbnail(p,'700x400'),
-                    'large':_make_fullscreen(p)
+                data.append({'id': p.id,
+                             'description': p.description,
+                             'date_text': p.date_text,
+                             'source_key': p.source_key,
+                             'big': _make_thumbnail(p, '700x400'),
+                             'large': _make_fullscreen(p)
                 })
-            return data
+
+            return data, user_has_seen_all_photos_in_city
         
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)

@@ -10,6 +10,7 @@ var disableNext = false;
 var disableSave = true;
 var disableContinue = true;
 var locationToolsOpen = false;
+var user_seen_all = false;
 
 function update_leaderboard() {
 	$('#top .score_container .scoreboard').load(leaderboardUpdateURL);
@@ -20,13 +21,16 @@ $(document).ready(function() {
 
 	loadPhotos();
 
+    if (user_seen_all) {
+        showGameChoiceWindow();
+    }
+
 	var location = new google.maps.LatLng(start_location[1], start_location[0]);
 
 	// Will load the base map layer and return it
 	if (city_id) {
 		map = get_map(start_location, 15);
-	}
-	else {
+	} else {
 		map = get_map();
 	}
 
@@ -110,7 +114,7 @@ $(document).ready(function() {
 		if (disableNext == false)
 		{
 			var data = {
-				photo_id: photos[currentPhotoIdx-1].id,
+				photo_id: photos[currentPhotoIdx-1].id
 			};
 			$.post(saveLocationURL, data, function () {
 				nextPhoto();
@@ -134,6 +138,18 @@ $(document).ready(function() {
 		e.preventDefault();
 		continueGame();
 	});
+
+    $('#load-untagged-button').click(function (e) {
+        e.preventDefault();
+        closeGameChoiceWindow();
+		loadPhotos(0, 1, 1);
+    });
+
+    $('#load-from-all-button').click(function (e) {
+        e.preventDefault();
+        closeGameChoiceWindow();
+		loadPhotos(0, 0, 1);
+    });
 
 	$('#save-location').click(function(e) {
 		e.preventDefault();
@@ -251,6 +267,14 @@ $(document).ready(function() {
 		});
 	}
 
+    function showGameChoiceWindow() {
+        $("#game-choice-window-container").show();
+    }
+
+    function closeGameChoiceWindow() {
+        $("#game-choice-window-container").hide();
+    }
+
 	function continueGame() {
 		$.modal.close();
 		closeLocationTools(1);
@@ -358,14 +382,25 @@ $(document).ready(function() {
 		});
 	}
 
-	function loadPhotos(next) {
+	function loadPhotos(next, only_untagged, from_choice_button) {
 		var date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
 		var qs = URI.parseQuery(window.location.search);
+        if (only_untagged === undefined) {
+            only_untagged = 0;
+        }
+
+        if (from_choice_button === undefined) {
+            from_choice_button = false;
+        }
 
 		$.getJSON(streamUrl, $.extend({
-			'b': date.getTime()
+			'b': date.getTime(), 'only_untagged': only_untagged
 		}, qs), function(data) {
-			$.merge(photos, data);
+			$.merge(photos, data.photos);
+            user_seen_all = data.user_seen_all;
+            if (user_seen_all && !from_choice_button) {
+                showGameChoiceWindow();
+            }
 			if (next || currentPhotoIdx <= 0) {
 				nextPhoto();
 			}

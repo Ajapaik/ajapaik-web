@@ -1095,3 +1095,25 @@ span.framed {
     font-size: 12px !important;
     line-height: initial !important;
 }
+
+#game-choice-window-container {
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    height: 100px;
+    margin: 0 auto;
+    z-index: 10000;
+}
+
+#game-choice-window {
+    background-color: white;
+    height: 100%;
+    width: 33%;
+    margin: 0 auto;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#game-choice-window p {
+    line-height: 40px;
+}

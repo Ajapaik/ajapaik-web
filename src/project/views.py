@@ -1,4 +1,5 @@
 # encoding: utf-8
+from django.db.models import Q
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -14,7 +15,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 
-from project.models import Photo, City, Profile, Source, Device
+from project.models import Photo, City, Profile, Source, Device, GeoTag
 from project.forms import GeoTagAddForm, CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
@@ -92,9 +93,12 @@ class FilterSpecCollection(object): # selectbox type, choice based
     
     def get_filtered_qs(self):
         for item in self.filters:
-            qs_filter = item.get_qs_filter()
-            if qs_filter:
-                self.qs = self.qs.filter(**dict(item.get_qs_filter()))
+            if hasattr(item, "get_qs_exclude"):
+                if item.get_qs_exclude():
+                    self.qs = self.qs.exclude(**dict(item.get_qs_exclude()))
+            if hasattr(item, "get_qs_filter"):
+                if item.get_qs_filter():
+                    self.qs = self.qs.filter(**dict(item.get_qs_filter()))
         return self.qs
     
     def get_form(self):
@@ -209,6 +213,29 @@ class SourceLookupFilterSpec(FilterSpec):
     
     def get_label(self):
         return _('Choose source')
+
+
+class UserAlreadyGeotaggedFilterSpec(FilterSpec):
+    def __init__(self, params, user_id):
+        self.user_id = user_id
+
+    def get_qs_filter(self):
+        pass
+
+    def get_qs_exclude(self):
+        ret = {u'guess__user': self.user_id}
+        return ret
+
+    def get_option_object(self):
+        return GeoTag.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
+
+    @staticmethod
+    def get_slug_name():
+        return u'user_already_geotagged_lookup_filter'
+
+    @staticmethod
+    def get_label():
+        return _('Choose photos not geotagged by user')
 
 def handle_uploaded_file(f):
     return ContentFile(f.read())
@@ -603,13 +630,17 @@ def rephoto_top50(request):
         'title': _('Leaderboard'),
     }))
 
+
 def fetch_stream(request):
     qs = Photo.objects.all()
     filters = FilterSpecCollection(qs, request.GET)
     filters.register(DateFieldFilterSpec, 'created')
     filters.register(CityLookupFilterSpec, 'city')
     filters.register(SourceLookupFilterSpec, 'source')
-    data = filters.get_filtered_qs().get_next_photos_to_geotag(request.get_user().get_profile().pk, 4, request.GET.get('extra'))
+    # filters.register(UserAlreadyGeotaggedFilterSpec, request.get_user().get_profile().pk)
+    data = {}
+    data["photos"], data["user_seen_all"] = filters.get_filtered_qs().get_next_photos_to_geotag(
+        request.get_user().get_profile().pk, 4, request.GET.get('extra'), request.GET.get("only_untagged"))
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
 def custom_404(request):
