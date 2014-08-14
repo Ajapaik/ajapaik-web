@@ -611,3 +611,13 @@ def fetch_stream(request):
     filters.register(SourceLookupFilterSpec, 'source')
     data = filters.get_filtered_qs().get_next_photos_to_geotag(request.get_user().get_profile().pk, 4, request.GET.get('extra'))
     return HttpResponse(json.dumps(data), mimetype="application/json")
+
+def custom_404(request):
+    response = render_to_response('404.html', {}, context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+def custom_500(request):
+    response = render_to_response('500.html', {}, context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
