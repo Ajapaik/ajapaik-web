@@ -32,6 +32,7 @@ SIMPLE_AUTOCOMPLETE = {'auth.user': {'search_field': 'username', 'threshold': 25
 
 INSTALLED_APPS = (
     #'grappelli',
+    'filebrowser',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -42,7 +43,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'sorl.thumbnail',
-    'filebrowser',
     'media_bundler',
     #'django_extensions',
     'rosetta',
