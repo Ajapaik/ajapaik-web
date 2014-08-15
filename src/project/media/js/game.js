@@ -142,13 +142,13 @@ $(document).ready(function() {
     $('#load-untagged-button').click(function (e) {
         e.preventDefault();
         closeGameChoiceWindow();
-		loadPhotos(0, 1, 1);
+		loadPhotos(0, 1, 0, 1);
     });
 
     $('#load-from-all-button').click(function (e) {
         e.preventDefault();
         closeGameChoiceWindow();
-		loadPhotos(0, 0, 1);
+		loadPhotos(0, 0, 1, 1);
     });
 
 	$('#save-location').click(function(e) {
@@ -382,11 +382,15 @@ $(document).ready(function() {
 		});
 	}
 
-	function loadPhotos(next, only_untagged, from_choice_button) {
+	function loadPhotos(next, only_untagged, retry_old, from_choice_button) {
 		var date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
 		var qs = URI.parseQuery(window.location.search);
         if (only_untagged === undefined) {
             only_untagged = 0;
+        }
+
+        if (retry_old === undefined) {
+            retry_old = 1;
         }
 
         if (from_choice_button === undefined) {
@@ -394,11 +398,11 @@ $(document).ready(function() {
         }
 
 		$.getJSON(streamUrl, $.extend({
-			'b': date.getTime(), 'only_untagged': only_untagged
+			'b': date.getTime(), 'only_untagged': only_untagged, 'retry_old': retry_old
 		}, qs), function(data) {
 			$.merge(photos, data.photos);
             user_seen_all = data.user_seen_all;
-            if (user_seen_all && !from_choice_button) {
+            if ((user_seen_all && !from_choice_button) || data.photos.length == 0) {
                 showGameChoiceWindow();
             }
 			if (next || currentPhotoIdx <= 0) {

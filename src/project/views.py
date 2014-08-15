@@ -640,7 +640,7 @@ def fetch_stream(request):
     # filters.register(UserAlreadyGeotaggedFilterSpec, request.get_user().get_profile().pk)
     data = {}
     data["photos"], data["user_seen_all"] = filters.get_filtered_qs().get_next_photos_to_geotag(
-        request.get_user().get_profile().pk, 4, request.GET.get('extra'), request.GET.get("only_untagged"))
+        request.get_user().get_profile().pk, 4, request.GET.get('extra'), request.GET.get("only_untagged"), request.GET.get("retry_old"))
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
 def custom_404(request):

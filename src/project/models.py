@@ -146,39 +146,45 @@ class Photo(models.Model):
                 data.append((p.id,im_url,p.lon,p.lat,p.id in rephotographed_ids))
             return data
 
-        def get_next_photos_to_geotag(self, user_id, nr_of_photos=5, load_extra=None, only_untagged=None):
+        def get_next_photos_to_geotag(self, user_id, nr_of_photos=5, load_extra=None, only_untagged=0, retry_old=1):
             from get_next_photos_to_geotag import calc_trustworthiness, _make_thumbnail, _make_fullscreen
-            #TODO: This function requires refactoring
 
-            trustworthiness = calc_trustworthiness(user_id)
+            user_trustworthiness = calc_trustworthiness(user_id)
 
-            #These currently seem to be all the photos in the given city
+            #These currently seem to be all the photos in the given city, strange code though...
             photos_set = self
 
+            #No rephotos, selects final level if it's > 0 or (guess_level or 4)
             extra_args = {
                 'select': {'final_level': "(case when level > 0 then level else coalesce(guess_level, 4) end)"},
                 'where': ['rephoto_of_id IS NULL']}
 
-            user_has_seen_all_photos_in_city = False
-            one_day_ago = datetime.datetime.now() - datetime.timedelta(1)
-            #Why?
-            user_guessed_photo_ids_last_24h = [g.photo_id for g in Guess.objects.filter(user=user_id, created__gte=one_day_ago)]
             #Determine if the user has geotagged all the photos in the city
+            user_has_seen_all_photos_in_city = False
             user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id).values_list("photo_id", flat=True))
             all_city_photo_ids = [p.id for p in photos_set]
             if set(all_city_photo_ids).issubset(set(user_geotagged_photo_ids)):
-                #User has seen all photos, enable full pool again
+                #print "This user has seen all the photos in the city"
                 user_has_seen_all_photos_in_city = True
 
+            one_day_ago = datetime.datetime.now() - datetime.timedelta(1)
+            # #Why?
+            user_guessed_photo_ids_last_24h = [g.photo_id for g in Guess.objects.filter(user=user_id, created__gte=one_day_ago)]
             forbidden_photo_ids = frozenset(user_guessed_photo_ids_last_24h + user_geotagged_photo_ids)
+            if int(retry_old) == 1:
+                #print "This user wants to see geotagged photos again, setting no forbidden ids"
+                forbidden_photo_ids = []
 
+            #Get nr_of_photos photos that aren't forbidden to the user that have confidence >= 0.3, no rephotos
             known_photos = list(
                 photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__gte=0.3).extra(**extra_args).order_by(
                     'final_level')[:nr_of_photos])
 
+            #print "Found %s known photos for the user" %len(known_photos)
+
             unknown_photos_to_get = 0
-            if trustworthiness > 0.2:
-                unknown_photos_to_get = int(nr_of_photos * (0.3 + 1.5 * trustworthiness))
+            if user_trustworthiness > 0.2:
+                unknown_photos_to_get = int(nr_of_photos * (0.3 + 1.5 * user_trustworthiness))
             unknown_photos_to_get = max(unknown_photos_to_get, nr_of_photos - len(known_photos))
 
             unknown_photos = set()
@@ -193,19 +199,29 @@ class Photo(models.Model):
                 photo_ids_without_guesses = frozenset(
                     qs.values('id').order_by().annotate(geotag_count=Count("geotags")).filter(
                         geotag_count=0).values_list('id', flat=True))
+                #photo_ids_without_guesses + photo_ids where geotags <= 10 - forbidden_photo_ids
                 photo_ids_with_few_guesses = photo_ids_without_guesses.union(frozenset(
                     GeoTag.objects.values('photo_id').annotate(nr_of_geotags=Count('id')).filter(
                         nr_of_geotags__lte=10).values_list('photo_id', flat=True))) - forbidden_photo_ids
                 if photo_ids_with_few_guesses:
-                    unknown_photos.update(
-                        photos_set.filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
-                            **extra_args).order_by('final_level')[:unknown_photos_to_get])
+                    #Add unknown_photos_to_get photos with few guesses to unknown_photos where confidence <= 0.3,
+                    if int(only_untagged) == 1:
+                        unknown_photos.update(
+                            photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
+                                **extra_args).order_by('final_level')[:unknown_photos_to_get])
+                    else:
+                        unknown_photos.update(
+                            photos_set.filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
+                                **extra_args).order_by('final_level')[:unknown_photos_to_get])
                 if len(unknown_photos) < unknown_photos_to_get:
+                    #If we didn't get enough unknown photos, add from city's photos that aren't forbidden, where
+                    #confidence <= 0.3
                     unknown_photos.update(
                         photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3).extra(
                             **extra_args).order_by('final_level')[:(unknown_photos_to_get - len(unknown_photos))])
 
-            if len(unknown_photos.union(known_photos)) < nr_of_photos:
+            #If we still don't have enough photos and retry_old is True, get some at random
+            if len(unknown_photos.union(known_photos)) < nr_of_photos and int(retry_old) == 1:
                 unknown_photos.update(photos_set.extra(**extra_args).order_by('?')[:unknown_photos_to_get])
 
             photos = list(unknown_photos.union(known_photos))
@@ -232,6 +248,7 @@ class Photo(models.Model):
                 })
 
             return data, user_has_seen_all_photos_in_city
+
         
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
