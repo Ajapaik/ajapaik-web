@@ -92,6 +92,7 @@ class Photo(models.Model):
 
     lat = models.FloatField(null=True, blank=True)
     lon = models.FloatField(null=True, blank=True)
+    bounding_circle_radius = models.FloatField(null=True, blank=True)
     confidence = models.FloatField(default=0)
 
     source_key = models.CharField(max_length=100, null=True, blank=True)
