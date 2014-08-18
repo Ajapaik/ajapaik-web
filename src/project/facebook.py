@@ -5,7 +5,6 @@ from urllib2 import quote, urlopen
 from project.models import Profile
 from contextlib import closing
 
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.utils.simplejson import loads
 
@@ -20,7 +19,9 @@ def url_read(uri):
 def login_url(redirect_uri):
     return "https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s" % (APP_ID, quote(redirect_uri))
 
-def auth_url(redirect_uri, scope=[]):
+def auth_url(redirect_uri, scope=None):
+    if not scope:
+        scope = []
     return "https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&scope=%s" % (APP_ID, quote(redirect_uri), quote(",".join(scope)))
 
 def token_url(request, code):
@@ -87,6 +88,3 @@ def facebook_handler(request, stage):
         else:
             request.log_action("facebook.error", {'params': request.GET})
             return redirect('/fb_error')
-        
-        return redirect(next_uri)
-        

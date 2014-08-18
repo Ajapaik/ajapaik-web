@@ -109,14 +109,6 @@
             $("#cookie-notice-container").hide();
         };
     </script>
-    
-<!--
-	<style>
-		#fancybox-wrap {
-			top: 50px !important;
-		}
-	</style>
--->
     <script type="text/javascript">
      var _gaq = _gaq || [];
      _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
@@ -136,7 +128,6 @@
             <p id="cookie-notice-close" onclick="setEUCookie();">X</p>
         </div>
     </div>
-
     <div id="fb-root"></div>
     <script type="text/javascript">
 		window.fbAsyncInit = function() {
@@ -144,18 +135,8 @@
 				appId: '201052296573134',
 				status: true,
 				cookie: true,
-				xfbml: true,
+				xfbml: true
 			});
-			/*
-			FB.getLoginStatus(function(response) {
-				console.log(response);
-				if(response && response.status == 'connected') {
-					FB.api('/me', function(response) {
-						console.log(response);
-					});
-				}
-			});
-			*/
 			try {
 				FB.Event.subscribe('edge.create',
 					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Like added', response]);}
@@ -191,8 +172,6 @@
 		document.getElementById('fb-root').appendChild(e);
 		}());
     </script>
-
     {% block layout %}{% endblock layout %}
-
 </body>
 </html>

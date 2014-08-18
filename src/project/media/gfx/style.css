@@ -767,13 +767,33 @@ a.fullscreen {
 .score_container #facebook-connect p {
 	margin: 0 0 10px;
 }
+
 #facebook-connect a {
 	width: 169px;
 	height: 21px;
 	background: url(../gfx/connect-with-facebook.png) no-repeat;	
 }
 
+.score_container #google-plus-connect {
+	font-size: 12px;
+	margin: 6px 15px;
+	display: none;
+}
+.score_container #google-plus-connected p {
+	font-size: 12px;
+	margin: 6px 15px;
+}
+.score_container #google-plus-connect p {
+	margin: 0 0 10px;
+}
 
+#google-plus-connect a {
+    width: 169px;
+	height: 57px;
+	background: url(../gfx/connect-with-google.png) no-repeat;
+    text-indent: -999em;
+    display: block;
+}
 
 /* BOTTOM BAR */
 

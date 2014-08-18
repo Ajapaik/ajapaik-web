@@ -16,6 +16,9 @@ from django.utils.simplejson import loads as json_decode
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 
+from oauth2client.django_orm import FlowField
+from oauth2client.django_orm import CredentialsField
+
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail import ImageField
 from PIL import ImageFile
@@ -358,6 +361,14 @@ class FacebookManager(models.Manager):
         except ObjectDoesNotExist:
             return (None, data, )
 
+class CredentialsModel(models.Model):
+    id = models.ForeignKey(BaseUser, primary_key=True)
+    credential = CredentialsField()
+
+class FlowModel(models.Model):
+    id = models.ForeignKey(BaseUser, primary_key=True)
+    flow = FlowField()
+
 class Profile(models.Model):
     facebook = FacebookManager()
     objects = models.Manager()
@@ -368,6 +379,12 @@ class Profile(models.Model):
     fb_link = models.CharField(max_length=255, null=True, blank=True)
     fb_id = models.CharField(max_length=100, null=True, blank=True)
     fb_token = models.CharField(max_length=255, null=True, blank=True)
+
+    google_plus_id = models.CharField(max_length=100, null=True, blank=True)
+    google_plus_link = models.CharField(max_length=255, null=True, blank=True)
+    google_plus_name = models.CharField(max_length=255, null=True, blank=True)
+    google_plus_token = models.CharField(max_length=255, null=True, blank=True)
+    google_plus_picture = models.CharField(max_length=255, null=True, blank=True)
     
     avatar_url = models.URLField(null=True, blank=True)
     
@@ -408,7 +425,19 @@ class Profile(models.Model):
         self.fb_id = data.get("id")
         self.fb_name = data.get("name")
         self.fb_link = data.get("link")
-        self.save()        
+        self.save()
+
+    def update_from_google_plus_data(self, token, data):
+        self.user.first_name = data["given_name"]
+        self.user.last_name = data["family_name"]
+        self.user.save()
+
+        self.google_plus_token = token
+        self.google_plus_id = data["id"]
+        self.google_plus_link = data["link"]
+        self.google_plus_name = data["name"]
+        self.google_plus_picture = data["picture"]
+        self.save()
 
     def merge_from_other(self, other):
         other.photos.update(user=self)
