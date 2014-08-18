@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Photo, GeoTag, City
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 CITY_CHOICES = City.objects.annotate(num_photos=models.Count('cities')).filter(num_photos__gt=0).order_by('id').values_list('pk','name')
 
