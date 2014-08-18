@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.utils import simplejson as json
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 
