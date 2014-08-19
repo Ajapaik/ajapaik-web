@@ -78,12 +78,8 @@ class Photo(models.Model):
     objects = PhotoManager()
     
     id = models.AutoField(primary_key=True)
-    #image = FileBrowseField("Image", directory="images/", extensions=['.jpg','.png'], max_length=200, blank=True, null=True)
     image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
     image_unscaled = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
-    
-    #slug = models.SlugField(null=True, blank=True)
-    
     date = models.DateField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(null=True, blank=True)

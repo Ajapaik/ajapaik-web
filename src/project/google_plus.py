@@ -16,10 +16,10 @@ CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 FLOW = flow_from_clientsecrets(
     CLIENT_SECRETS,
     scope='https://www.googleapis.com/auth/plus.me',
-    redirect_uri='http://localhost:8001/oauth2callback')
+    redirect_uri='http://ajapaik.ee:8001/oauth2callback')
 
 def google_login(request):
-    storage = Storage(CredentialsModel, 'id', request.user, 'credential')
+    storage = Storage(CredentialsModel, 'id', request.user.id, 'credential')
     credential = storage.get()
     next_uri = "/"
     if 'next' in request.GET:
@@ -36,8 +36,6 @@ def auth_return(request):
     if not xsrfutil.validate_token(settings.SECRET_KEY, request.REQUEST['state'], request.user):
         return  HttpResponseBadRequest()
     credential = FLOW.step2_exchange(request.REQUEST)
-    storage = Storage(CredentialsModel, 'id', request.user, 'credential')
-    storage.put(credential)
     http = httplib2.Http()
     http = credential.authorize(http)
     (resp_headers, content) = http.request("https://www.googleapis.com/oauth2/v1/userinfo", "GET")
@@ -52,6 +50,8 @@ def auth_return(request):
     except Profile.DoesNotExist:
         user = request.get_user()
         profile = user.get_profile()
+    storage = Storage(CredentialsModel, 'id', request.user, 'credential')
+    storage.put(credential)
     profile.update_from_google_plus_data(credential, content)
     request.log_action("google_plus.connect", {'data': content}, profile)
     next_uri = "/"

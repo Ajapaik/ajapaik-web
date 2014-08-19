@@ -31,6 +31,7 @@ import get_next_photos_to_geotag
 import random
 import datetime
 import urllib
+import ExifTags
 
 from django.forms.forms import Form
 from django.forms.fields import ChoiceField
@@ -56,7 +57,7 @@ def _get_exif_data(img):
         exif = img._getexif()
     except (AttributeError, IOError, KeyError, IndexError):
         exif = None
-    if (exif is None):
+    if exif is None:
         return None
 
     exif_data = {}
@@ -67,11 +68,11 @@ def _get_exif_data(img):
                 sub_decoded = GPSTAGS.get(t, t)
                 exif_data[decoded+'.'+sub_decoded] = value[t]
 
-        elif (len(str(value)) < 50):
+        elif len(str(value)) < 50:
             exif_data[decoded] = value
         else:
             exif_data[decoded] = None
-            
+
     return exif_data
 
 class FilterSpecCollection(object): # selectbox type, choice based
@@ -239,28 +240,47 @@ class UserAlreadyGeotaggedFilterSpec(FilterSpec):
 def handle_uploaded_file(f):
     return ContentFile(f.read())
 
+
 def photo_upload(request, photo_id):
+    def flip_horizontal(im): return im.transpose(Image.FLIP_LEFT_RIGHT)
+    def flip_vertical(im): return im.transpose(Image.FLIP_TOP_BOTTOM)
+    def rotate_180(im): return im.transpose(Image.ROTATE_180)
+    def rotate_90(im): return im.transpose(Image.ROTATE_90)
+    def rotate_270(im): return im.transpose(Image.ROTATE_270)
+    def transpose(im): return rotate_90(flip_horizontal(im))
+    def transverse(im): return rotate_90(flip_vertical(im))
+    orientation_funcs = [None,
+                 lambda x: x,
+                 flip_horizontal,
+                 rotate_180,
+                 flip_vertical,
+                 transpose,
+                 rotate_270,
+                 transverse,
+                 rotate_90
+                ]
     photo = get_object_or_404(Photo, pk=photo_id)
     new_id = 0
+
     if request.method == 'POST':
         profile = request.get_user().get_profile()
-        
+
         if 'fb_access_token' in request.POST:
             token = request.POST.get('fb_access_token')
             profile, fb_data = Profile.facebook.get_user(token)
             if profile is None:
-                user = request.get_user() # will create user on-demand
+                user = request.get_user()  # will create user on-demand
                 profile = user.get_profile()
-                
+
                 # update user info
                 profile.update_from_fb_data(token, fb_data)
-        
+
         # get the latest uploaded rephoto
         latest_upload = Photo.objects.filter(rephoto_of=photo)
         previous_uploader = None
         if latest_upload:
             previous_uploader = latest_upload.values('user').order_by('-id')[:1].get()
-        
+
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
                 fileobj = handle_uploaded_file(f)
@@ -278,16 +298,16 @@ def photo_upload(request, photo_id):
                     cam_pitch=data.get('pitch'),
                     cam_roll=data.get('roll'),
                 )
-                if (re_photo.cam_scale_factor):
+                if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
-                
+
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 exif_data = _get_exif_data(img)
-                if (exif_data):
-                    if ('GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data):
+                if exif_data:
+                    if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
                         gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
                         gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
                         gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
@@ -305,7 +325,7 @@ def photo_upload(request, photo_id):
                         re_photo.lon = lon
                         re_photo.save()
 
-                    if ('Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data):
+                    if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data:
                         camera_make = exif_data.get('Make')
                         camera_model = exif_data.get('Model')
                         lens_make = exif_data.get('LensMake')
@@ -313,50 +333,58 @@ def photo_upload(request, photo_id):
                         software = exif_data.get('Software')
                         try:
                             # find existing device configuration
-                            device=Device.objects.get(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
+                            device = Device.objects.get(camera_make=camera_make, camera_model=camera_model,
+                                                        lens_make=lens_make, lens_model=lens_model, software=software)
                         except ObjectDoesNotExist:
                             # create new device configuration
-                            device=Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
+                            device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make,
+                                            lens_model=lens_model, software=software)
                             device.save()
 
                         re_photo.device = device
                         re_photo.save()
 
-                    if ('DateTimeOriginal' in exif_data):
+                    if 'DateTimeOriginal' in exif_data:
                         date_taken = exif_data.get('DateTimeOriginal')
                         try:
                             parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                        except (ValueError):
+                        except ValueError:
                             parsed_time = None
-                        if (parsed_time):
+                        if parsed_time:
                             parsed_time = strftime("%H:%M:%S", parsed_time)
 
                         # ignore default camera dates
-                        if (parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00'):
+                        if parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00':
                             try:
                                 parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                            except (ValueError):
+                            except ValueError:
                                 parsed_date = None
-                            if (parsed_date):
+                            if parsed_date:
                                 re_photo.date = strftime("%Y-%m-%d", parsed_date)
                                 re_photo.save()
 
-                if (re_photo.cam_scale_factor):
-                    new_size = tuple([int(x*re_photo.cam_scale_factor) for x in img.size])
+                f = orientation_funcs[int(request.POST["orientation"])]
+                new_img = f(img)
+                output_file = StringIO()
+                new_img.save(output_file, "JPEG", quality=95)
+                re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+
+                if re_photo.cam_scale_factor:
+                    new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
                     output_file = StringIO()
 
-                    if (re_photo.cam_scale_factor < 1):
-                        x0 = (img.size[0]-new_size[0])/2;
-                        y0 = (img.size[1]-new_size[1])/2;
-                        x1 = img.size[0]-x0;
-                        y1 = img.size[1]-y0;
+                    if re_photo.cam_scale_factor < 1:
+                        x0 = (img.size[0] - new_size[0]) / 2
+                        y0 = (img.size[1] - new_size[1]) / 2
+                        x1 = img.size[0] - x0
+                        y1 = img.size[1] - y0
                         new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
                         new_img.save(output_file, 'JPEG', quality=95)
                         re_photo.image_unscaled = deepcopy(re_photo.image)
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-                    elif (re_photo.cam_scale_factor > 1):
-                        x0 = (new_size[0]-img.size[0])/2;
-                        y0 = (new_size[1]-img.size[1])/2;
+                    elif re_photo.cam_scale_factor > 1:
+                        x0 = (new_size[0] - img.size[0]) / 2
+                        y0 = (new_size[1] - img.size[1]) / 2
                         new_img = Image.new("RGB", new_size)
                         new_img.paste(img, (x0, y0))
                         new_img.save(output_file, 'JPEG', quality=95)
@@ -419,18 +447,17 @@ def frontpage(request):
 
 def photo_large(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
-    if (photo.cam_scale_factor and photo.rephoto_of):
+    if photo.cam_scale_factor and photo.rephoto_of:
         # if rephoto is taken with mobile then make it same width/height as source photo
         im = get_thumbnail(photo.rephoto_of.image, '1024x1024', upscale=False)
-        im = get_thumbnail(photo.image, str(im.width) +'x'+ str(im.height), crop="center" )
+        im = get_thumbnail(photo.image, str(im.width) + 'x' + str(im.height), crop="center")
     else:
         im = get_thumbnail(photo.image, '1024x1024', upscale=False)
-    #return redirect(im.url)
     content = im.read()
-    next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
+    next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
-    response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
+    response['Cache-Control'] = "max-age=604800, public"  # 604800 = 7 days
     response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
     return response
 
