@@ -48,7 +48,8 @@ INSTALLED_APPS = (
     'rosetta',
     'project',
     'simple_autocomplete',
-    'rest_framework'
+    'rest_framework',
+    'europeana'
 )
 
 # List of callables that know how to import templates from various sources.

@@ -52,6 +52,7 @@ urlpatterns = patterns('views',
 	(r'^foto_large/(?P<photo_id>\d+)/$', 'photo_large'),
 	(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
 	(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
+    (r'^europeana/$', 'europeana'),
 
 	(r'^$', 'frontpage')
 ) + patterns('',

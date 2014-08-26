@@ -37,6 +37,7 @@ import ExifTags
 
 from django.forms.forms import Form
 from django.forms.fields import ChoiceField
+from europeana import Search, BoundingBox
 
 
 def _convert_to_degress(value):
@@ -683,3 +684,16 @@ def custom_500(request):
     response = render_to_response('500.html', {}, context_instance=RequestContext(request))
     response.status_code = 500
     return response
+
+def europeana(request):
+    x1 = request.GET.get("x1", None)
+    x2 = request.GET.get("x2", None)
+    y1 = request.GET.get("y1", None)
+    y2 = request.GET.get("y2", None)
+    bounding_box = None
+    if x1 and x2 and y1 and y2:
+        bounding_box = BoundingBox(x1, y1, x2, y2)
+    results = Search().query(request.GET.get("query", "Kose"), request.GET.get("refinement_terms", None), bounding_box, request.GET.get("start", 1), request.GET.get("size", 12))
+    return render_to_response("europeana.html", RequestContext(request, {
+        'results': results
+    }))
