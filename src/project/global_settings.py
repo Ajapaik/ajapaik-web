@@ -47,7 +47,8 @@ INSTALLED_APPS = (
     #'django_extensions',
     'rosetta',
     'project',
-    'simple_autocomplete'
+    'simple_autocomplete',
+    'rest_framework'
 )
 
 # List of callables that know how to import templates from various sources.
@@ -154,3 +155,8 @@ FILEBROWSER_ADMIN_VERSIONS = ['thumbnail', 'small', 'big']
 DEFAULT_CITY_ID = 1
 
 LOGIN_URL = "/admin/"
+
+REST_FRAMEWORK = {
+    'DEFAULT_MODEL_SERIALIZER_CLASS': 'rest_framework.serializers.HyperlinkedModelSerializer',
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
+}

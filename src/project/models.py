@@ -38,7 +38,10 @@ class City(models.Model):
     name = models.TextField()
     lat = models.FloatField(null=True)
     lon = models.FloatField(null=True)
-    
+
+    class Meta:
+        app_label = "project"
+
     def __unicode__(self):
         return u'%s' % self.name
 
@@ -62,6 +65,9 @@ class Album(models.Model):
     
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
         
 class AlbumPhoto(models.Model):
     album = models.ForeignKey('Album')
@@ -69,6 +75,9 @@ class AlbumPhoto(models.Model):
     sort_order = models.PositiveSmallIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(null=True, blank=True)
+
+    class Meta:
+        app_label = "project"
 
 class PhotoManager(models.Manager):
     def get_query_set(self):
@@ -84,7 +93,7 @@ class Photo(models.Model):
     date_text = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
     
-    user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
+    user = models.ForeignKey('Profile', related_name='profile', blank=True, null=True)
     
     level = models.PositiveSmallIntegerField(default=0)
     guess_level = models.FloatField(null=True, blank=True)
@@ -114,6 +123,7 @@ class Photo(models.Model):
     
     class Meta:
         ordering = ['-id']
+        app_label = "project"
         
     class QuerySet(models.query.QuerySet):
         def get_geotagged_photos_list(self):
@@ -342,6 +352,9 @@ class GeoTag(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        app_label = "project"
+
 class FacebookManager(models.Manager):
     def url_read(self, uri):
         with closing(urlopen(uri)) as request:
@@ -361,9 +374,15 @@ class CredentialsModel(models.Model):
     id = models.ForeignKey(BaseUser, primary_key=True)
     credential = CredentialsField()
 
+    class Meta:
+        app_label = "project"
+
 class FlowModel(models.Model):
     id = models.ForeignKey(BaseUser, primary_key=True)
     flow = FlowField()
+
+    class Meta:
+        app_label = "project"
 
 class Profile(models.Model):
     facebook = FacebookManager()
@@ -447,6 +466,9 @@ class Profile(models.Model):
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
 
+    class Meta:
+        app_label = "project"
+
 class Source(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
@@ -457,12 +479,18 @@ class Source(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        app_label = "project"
+
 class Device(models.Model):
     camera_make = models.CharField(null=True, blank=True, max_length=255)
     camera_model = models.CharField(null=True, blank=True, max_length=255)
     lens_make = models.CharField(null=True, blank=True, max_length=255)
     lens_model = models.CharField(null=True, blank=True, max_length=255)
     software = models.CharField(null=True, blank=True, max_length=255)
+
+    class Meta:
+        app_label = "project"
     
     def __unicode__(self):
         return "%s %s %s %s %s" %(self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
@@ -476,6 +504,9 @@ class Guess(models.Model):
     photo = models.ForeignKey(Photo)
 
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        app_label = "project"
 
 class Action(models.Model):
     type = models.CharField(max_length=255)
@@ -493,3 +524,6 @@ class Action(models.Model):
             obj.related_object = related_object
         obj.save()
         return obj
+
+    class Meta:
+        app_label = "project"

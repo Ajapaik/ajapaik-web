@@ -2,7 +2,31 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import TemplateView, RedirectView
+from models import Photo, Profile, City, Device, Source
+from rest_framework import viewsets, routers
 admin.autodiscover()
+
+class PhotoViewSet(viewsets.ModelViewSet):
+    model = Photo
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    model = Profile
+
+class CityViewSet(viewsets.ModelViewSet):
+    model = City
+
+class DeviceViewSet(viewsets.ModelViewSet):
+    model = Device
+
+class SourceViewSet(viewsets.ModelViewSet):
+    model = Source
+
+router = routers.DefaultRouter()
+router.register(r'profiles', ProfileViewSet)
+router.register(r'photos', PhotoViewSet)
+router.register(r'cities', CityViewSet)
+router.register(r'devices', DeviceViewSet)
+router.register(r'sources', SourceViewSet)
 
 urlpatterns = patterns('views',
 	#(r'^grappelli/', include('grappelli.urls')),
@@ -38,6 +62,7 @@ urlpatterns = patterns('views',
 	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs','packages': ('project')}),
 	(r'^favicon\.ico$', RedirectView.as_view(url='/media/gfx/favicon.ico')),
 	(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom')),
+    (r'^', include(router.urls)),
 )
 
 # not sure how to distinguish between LIVE and DEV other than GA code

@@ -26,6 +26,8 @@ from copy import deepcopy
 
 from pprint import pprint
 from django.db import models
+from rest_framework import viewsets
+from serializers import PhotoSerializer
 
 import get_next_photos_to_geotag
 import random
@@ -240,6 +242,9 @@ class UserAlreadyGeotaggedFilterSpec(FilterSpec):
 def handle_uploaded_file(f):
     return ContentFile(f.read())
 
+class PhotoViewSet(viewsets.ModelViewSet):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
 
 def photo_upload(request, photo_id):
     def flip_horizontal(im): return im.transpose(Image.FLIP_LEFT_RIGHT)
