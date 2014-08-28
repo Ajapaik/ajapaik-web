@@ -340,6 +340,7 @@ class GeoTag(models.Model):
 
     lat = models.FloatField()
     lon = models.FloatField()
+    azimuth = models.FloatField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     
     user = models.ForeignKey('Profile', related_name='geotags')

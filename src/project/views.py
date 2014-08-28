@@ -624,7 +624,7 @@ def get_leaderboard(request):
 
 def geotag_add(request):
 	data = request.POST
-	is_correct, current_score, total_score, leaderboard_update, location_is_unclear = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'), hint_used=data.get('hint_used'))
+	is_correct, current_score, total_score, leaderboard_update, location_is_unclear = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'), hint_used=data.get('hint_used'), azimuth=data.get('azimuth'))
 	return HttpResponse(json.dumps({
 		'is_correct': is_correct,
 		'current_score': current_score,
