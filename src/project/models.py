@@ -93,7 +93,7 @@ class Photo(models.Model):
     date_text = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
     
-    user = models.ForeignKey('Profile', related_name='profile', blank=True, null=True)
+    user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
     
     level = models.PositiveSmallIntegerField(default=0)
     guess_level = models.FloatField(null=True, blank=True)
@@ -296,9 +296,9 @@ class Photo(models.Model):
     @staticmethod
     def distance_in_meters(lon1,lat1,lon2,lat2):
         lat_coeff = math.cos(math.radians((lat1 + lat2)/2.0))
-        return (2*6350e3*3.1415/360) * math.sqrt( \
-                                (lat1 - lat2)**2 + \
-                                ((lon1 - lon2)*lat_coeff)**2)
+        return (2*6350e3*3.1415/360) * math.sqrt(
+            (lat1 - lat2)**2 +
+            ((lon1 - lon2)*lat_coeff)**2)
 
     def set_calculated_fields(self):
         self.confidence = 0
@@ -366,9 +366,9 @@ class FacebookManager(models.Manager):
             raise "Facebook did not return anything useful for this access token"
             
         try:
-            return (self.get(fb_id=data.get('id')), data)
+            return self.get(fb_id=data.get('id')), data
         except ObjectDoesNotExist:
-            return (None, data, )
+            return None, data,
 
 class CredentialsModel(models.Model):
     id = models.ForeignKey(BaseUser, primary_key=True)
@@ -419,7 +419,7 @@ class Profile(models.Model):
             return False
 
         # every photo gives 2 points
-        total = total*2
+        total *= 2
         distinct = rephotos.values('rephoto_of').order_by().annotate(rephoto_count=Count("user"))
         for p in distinct:
             # every last upload per photo gives 3 extra points
@@ -499,14 +499,12 @@ class Guess(models.Model):
     class Meta:
         verbose_name = 'Guess'
         verbose_name_plural = 'Guesses'
+        app_label = "project"
         
     user = models.ForeignKey(Profile, related_name='guesses')
     photo = models.ForeignKey(Photo)
 
     created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        app_label = "project"
 
 class Action(models.Model):
     type = models.CharField(max_length=255)

@@ -1,17 +1,11 @@
 import os
+
 gettext = lambda s: s
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
 TIME_ZONE = 'UTC'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'et'
 
 LANGUAGES = (
@@ -22,16 +16,24 @@ LANGUAGES = (
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
 
-SIMPLE_AUTOCOMPLETE = {'auth.user': {'search_field': 'username', 'threshold': 25, 'max_items': 10, 'duplicate_format_function': lambda obj, model, content_type: 'id: %s' % obj.id},
-                       'project.profile': {'search_field': 'fb_name'},
-                       'project.photo': {'search_field': 'description'}}
+SIMPLE_AUTOCOMPLETE = {
+    'auth.user': {
+        'search_field': 'username',
+        'threshold': 25,
+        'max_items': 10,
+        'duplicate_format_function': lambda obj, model, content_type: 'id: %s' % obj.id
+    },
+    'project.profile': {
+       'search_field': 'fb_name'
+    },
+    'project.photo': {
+       'search_field': 'description'
+    }
+}
 
 INSTALLED_APPS = (
-    #'grappelli',
     'filebrowser',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,12 +46,10 @@ INSTALLED_APPS = (
     'south',
     'sorl.thumbnail',
     'media_bundler',
-    #'django_extensions',
     'rosetta',
     'project',
     'simple_autocomplete',
-    'rest_framework',
-    'europeana'
+    'rest_framework'
 )
 
 # List of callables that know how to import templates from various sources.
@@ -60,7 +60,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    #'django.middleware.gzip.GZipMiddleware',
+    # 'django.middleware.gzip.GZipMiddleware',
     #'django.middleware.http.ConditionalGetMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     #'project.middleware.ForceDefaultLanguageMiddleware',
@@ -92,12 +92,10 @@ ROOT_URLCONF = 'project.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.abspath(os.path.dirname(__file__)), "templates"),
-    
 )
+
 FILEBROWSER_DIRECTORY = 'upload/'
 
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), "media")
 
 STATIC_ROOT = MEDIA_ROOT + '/static'
@@ -105,12 +103,9 @@ STATIC_URL = '/static/'
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
-#USE_BUNDLES = True
+# USE_BUNDLES = True
 DEFER_JAVASCRIPT = False
 
 MEDIA_BUNDLES = (
@@ -139,7 +134,6 @@ MEDIA_BUNDLES = (
         'files': (
             'style.css',
         )
-    
     },
 )
 
@@ -148,7 +142,6 @@ FILEBROWSER_VERSIONS = {
     'thumbnail': {'verbose_name': 'Thumbnail (155x101px)', 'width': 155, 'height': 101, 'opts': 'crop'},
     'small': {'verbose_name': 'Small (300px)', 'width': 300, 'height': '', 'opts': ''},
     'big': {'verbose_name': 'Big (800px)', 'width': 800, 'height': '', 'opts': ''},
-    
 }
 
 FILEBROWSER_ADMIN_VERSIONS = ['thumbnail', 'small', 'big']
@@ -158,6 +151,6 @@ DEFAULT_CITY_ID = 1
 LOGIN_URL = "/admin/"
 
 REST_FRAMEWORK = {
-    'DEFAULT_MODEL_SERIALIZER_CLASS': 'rest_framework.serializers.HyperlinkedModelSerializer',
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
+    'PAGINATE_BY': 10
 }

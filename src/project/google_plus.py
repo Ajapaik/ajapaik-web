@@ -16,7 +16,7 @@ CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 FLOW = flow_from_clientsecrets(
     CLIENT_SECRETS,
     scope='https://www.googleapis.com/auth/plus.me',
-    redirect_uri='http://ajapaik.ee:8001/oauth2callback')
+    redirect_uri=settings.GOOGLE_PLUS_OAUTH2_CALLBACK_URL)
 
 def google_login(request):
     storage = Storage(CredentialsModel, 'id', request.user.id, 'credential')
