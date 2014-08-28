@@ -73,7 +73,7 @@
 
         var marker = new google.maps.Marker({
             map: map,
-            draggable: true,
+            draggable: false,
             position: location
         });
 
