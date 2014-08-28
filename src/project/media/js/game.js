@@ -88,6 +88,7 @@
                 google.maps.event.clearListeners(map, 'mousemove');
             } else {
                 addMouseMoveListener();
+                map.mousemove();
             }
             azimuthListenerActive = !azimuthListenerActive;
         });
