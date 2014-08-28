@@ -79,7 +79,7 @@
 
         marker.bindTo('position', map, 'center');
 
-        google.maps.event.addListener(map, 'click', function () {
+        google.maps.event.addListener(map, 'click', function (e) {
             if (infowindow !== undefined) {
                 infowindow.close();
                 infowindow = undefined;
@@ -88,7 +88,7 @@
                 google.maps.event.clearListeners(map, 'mousemove');
             } else {
                 addMouseMoveListener();
-                map.mousemove();
+                google.maps.event.trigger(map, "mousemove", e);
             }
             azimuthListenerActive = !azimuthListenerActive;
         });
