@@ -95,7 +95,8 @@
         var relativeVector = {},
             radianAngle = 0,
             degreeAngle = 0,
-            azimuthListenerActive = true;
+            azimuthListenerActive = true,
+            firstDragDone = false;
         //path = false,
         //poly = new google.maps.Polygon({
         //    map: map,
@@ -133,10 +134,12 @@
         }
 
         google.maps.event.addListener(map, 'idle', function () {
-            marker.position = map.center;
-            line.setVisible(false);
-            azimuthListenerActive = true;
-            addMouseMoveListener();
+            if (firstDragDone) {
+                marker.position = map.center;
+                line.setVisible(false);
+                azimuthListenerActive = true;
+                addMouseMoveListener();
+            }
         });
 
         google.maps.event.addListener(map, 'dragstart', function () {
@@ -147,6 +150,10 @@
             }
             azimuthListenerActive = false;
             google.maps.event.clearListeners(map, 'mousemove');
+        });
+
+        google.maps.event.addListener(map, 'dragend', function () {
+            firstDragDone = true;
         });
 
         google.maps.event.addListener(marker, 'position_changed', function () {
@@ -194,6 +201,7 @@
         });
 
         $('.skip-photo').click(function (e) {
+            firstDragDone = false;
             e.preventDefault();
             if (disableNext == false) {
                 var data = {photo_id: photos[currentPhotoIdx - 1].id};
@@ -232,6 +240,7 @@
         });
 
         $('#save-location').click(function (e) {
+            firstDragDone = false;
             e.preventDefault();
             if (disableSave) {
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
