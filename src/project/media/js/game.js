@@ -95,7 +95,7 @@
         var relativeVector = {},
             radianAngle = 0,
             degreeAngle = 0,
-            azimuthListenerActive = false;
+            azimuthListenerActive = true;
         //path = false,
         //poly = new google.maps.Polygon({
         //    map: map,
@@ -109,7 +109,8 @@
             strokeOpacity: 1.0,
             strokeWeight: 2,
             visible: false,
-            map: map
+            map: map,
+            clickable: false
         });
 
         function addMouseMoveListener () {
@@ -131,18 +132,10 @@
             });
         }
 
-        google.maps.event.addListener(line, 'click', function (e) {
-            if (azimuthListenerActive) {
-                google.maps.event.clearListeners(map, 'mousemove');
-            } else {
-                addMouseMoveListener();
-            }
-            azimuthListenerActive = !azimuthListenerActive;
-        });
-
         google.maps.event.addListener(map, 'idle', function () {
             marker.position = map.center;
             line.setVisible(false);
+            azimuthListenerActive = true;
             addMouseMoveListener();
         });
 
