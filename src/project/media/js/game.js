@@ -409,6 +409,11 @@
         function nextPhoto() {
             hintUsed = 0;
             disableSave = true;
+            azimuthListenerActive = false;
+            google.maps.event.clearListeners(map, 'mousemove');
+            if (line !== undefined) {
+                line.setVisible(false);
+            }
 
             if (photos.length > currentPhotoIdx) {
                 disableNext = true;
