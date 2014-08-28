@@ -84,11 +84,18 @@
                 infowindow.close();
                 infowindow = undefined;
             }
+            if (azimuthListenerActive) {
+                google.maps.event.clearListeners(map, 'mousemove');
+            } else {
+                addMouseMoveListener();
+            }
+            azimuthListenerActive = !azimuthListenerActive;
         });
 
         var relativeVector = {},
             radianAngle = 0,
-            degreeAngle = 0;
+            degreeAngle = 0,
+            azimuthListenerActive = false;
         //path = false,
         //poly = new google.maps.Polygon({
         //    map: map,
@@ -105,13 +112,7 @@
             map: map
         });
 
-        google.maps.event.addListener(line, 'click', function (e) {
-            google.maps.event.clearListeners(map, 'mousemove');
-        });
-
-        google.maps.event.addListener(map, 'idle', function () {
-            marker.position = map.center;
-            line.setVisible(false);
+        function addMouseMoveListener () {
             google.maps.event.addListener(map, 'mousemove', function (e) {
                 relativeVector.x = e.latLng.lat() - marker.position.lat();
                 relativeVector.y = e.latLng.lng() - marker.position.lng();
@@ -128,6 +129,21 @@
                 line.setPath([marker.position, e.latLng]);
                 line.setVisible(true);
             });
+        }
+
+        google.maps.event.addListener(line, 'click', function (e) {
+            if (azimuthListenerActive) {
+                google.maps.event.clearListeners(map, 'mousemove');
+            } else {
+                addMouseMoveListener();
+            }
+            azimuthListenerActive = !azimuthListenerActive;
+        });
+
+        google.maps.event.addListener(map, 'idle', function () {
+            marker.position = map.center;
+            line.setVisible(false);
+            addMouseMoveListener();
         });
 
         google.maps.event.addListener(map, 'dragstart', function () {
@@ -136,6 +152,7 @@
                 infowindow.close();
                 infowindow = undefined;
             }
+            azimuthListenerActive = false;
             google.maps.event.clearListeners(map, 'mousemove');
         });
 
