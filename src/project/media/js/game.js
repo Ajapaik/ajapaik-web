@@ -112,9 +112,9 @@
         var dashedLineSymbol = {
             path: google.maps.SymbolPath.CIRCLE,
             strokeOpacity: 1,
-            strokeWeight: 3,
+            strokeWeight: 1,
             strokeColor: 'red',
-            scale: 1.5
+            scale: 0.75
         };
 
         var line = new google.maps.Polyline({
@@ -124,7 +124,7 @@
             icons: [{
                 icon: dashedLineSymbol,
                 offset: '0',
-                repeat: '20px'
+                repeat: '7px'
             }],
             visible: false,
             map: map,
