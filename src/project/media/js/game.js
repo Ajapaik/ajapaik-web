@@ -167,6 +167,7 @@
 
         google.maps.event.addListener(map, 'drag', function () {
             firstDragDone = true;
+            marker.position = map.center;
         });
 
         google.maps.event.addListener(marker, 'position_changed', function () {
