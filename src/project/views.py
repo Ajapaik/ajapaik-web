@@ -630,6 +630,7 @@ def geotag_add(request):
 		'current_score': current_score,
 		'total_score': total_score,
 		'leaderboard_update': leaderboard_update,
+		'leaderboard_update': leaderboard_update,
 		'location_is_unclear': location_is_unclear,
 	}), mimetype="application/json")
 

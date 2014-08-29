@@ -105,11 +105,21 @@
         //    fillOpacity: 0.6
         //});
 
+        var dashedLineSymbol = {
+            path: 'M 0,-1 0,1',
+            strokeOpacity: 1,
+            strokeColor: 'red',
+            scale: 2
+        };
+
         var line = new google.maps.Polyline({
             geodesic: true,
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2,
+            strokeOpacity: 0,
+            icons: [{
+                icon: dashedLineSymbol,
+                offset: '0',
+                repeat: '20px'
+            }],
             visible: false,
             map: map,
             clickable: false
@@ -302,6 +312,8 @@
         function saveLocation() {
             lat = marker.getPosition().lat();
             lon = marker.getPosition().lng();
+
+            if (photos)
 
             var data = {
                 photo_id: photos[currentPhotoIdx - 1].id,

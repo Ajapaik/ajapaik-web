@@ -210,9 +210,9 @@ class Photo(models.Model):
                     qs.values('id').order_by().annotate(geotag_count=Count("geotags")).filter(
                         geotag_count=0).values_list('id', flat=True))
                 #photo_ids_without_guesses + photo_ids where geotags <= 10 - forbidden_photo_ids
-                photo_ids_with_few_guesses = photo_ids_without_guesses.union(frozenset(
+                photo_ids_with_few_guesses = frozenset(photo_ids_without_guesses.union(frozenset(
                     GeoTag.objects.values('photo_id').annotate(nr_of_geotags=Count('id')).filter(
-                        nr_of_geotags__lte=10).values_list('photo_id', flat=True))) - forbidden_photo_ids
+                        nr_of_geotags__lte=10).values_list('photo_id', flat=True)))) - forbidden_photo_ids
                 if photo_ids_with_few_guesses:
                     #Add unknown_photos_to_get photos with few guesses to unknown_photos where confidence <= 0.3,
                     if int(only_untagged) == 1:
