@@ -126,7 +126,7 @@
                 infowindow = undefined;
             }
             reCalculateAzimuthOfMouseAndMarker(e);
-            if (azimuthListenerActive || isMobile) {
+            if (azimuthListenerActive) {
                 google.maps.event.clearListeners(map, 'mousemove');
                 saveDirection = true;
                 $("#save-location").text(gettext('Save location and direction'));
@@ -149,23 +149,23 @@
         });*/
 
         function addMouseMoveListener () {
-            if (!isMobile) {
-                google.maps.event.addListener(map, 'mousemove', function (e) {
-                    // The mouse is moving, therefore we haven't locked on a direction
-                    $("#save-location").text(gettext('Save location only'));
-                    saveDirection = false;
-                    reCalculateAzimuthOfMouseAndMarker(e);
+            google.maps.event.addListener(map, 'mousemove', function (e) {
+                // The mouse is moving, therefore we haven't locked on a direction
+                $("#save-location").text(gettext('Save location only'));
+                saveDirection = false;
+                reCalculateAzimuthOfMouseAndMarker(e);
+                if (!isMobile) {
                     line.setPath([marker.position, e.latLng]);
                     line['icons'] = [{icon: dottedLineSymbol, offset: '0', repeat: '7px'}];
                     line.setVisible(true);
-                    // We may need this for field of vision
-                    /*path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
-                    path.unshift(marker.position);
-                    path.push(marker.position);
-                    poly.setPath(path);
-                    poly.setVisible(true);*/
-                });
-            }
+                }
+                // We may need this for field of vision
+                /*path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
+                path.unshift(marker.position);
+                path.push(marker.position);
+                poly.setPath(path);
+                poly.setVisible(true);*/
+            });
         }
 
         google.maps.event.addListener(map, 'idle', function () {
