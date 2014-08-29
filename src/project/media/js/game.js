@@ -74,7 +74,8 @@
         var marker = new google.maps.Marker({
             map: map,
             draggable: false,
-            position: location
+            position: location,
+            visible: false
         });
 
         marker.bindTo('position', map, 'center');
