@@ -26,17 +26,24 @@
         disableContinue = true,
         locationToolsOpen = false,
         userSeenAll = false,
-        infowindow,
-        photosDiv,
-        noticeDiv,
-        topDiv,
-        lat,
-        lon;
+        infowindow = undefined,
+        photosDiv = undefined,
+        noticeDiv = undefined,
+        topDiv = undefined,
+        lat = undefined,
+        lon = undefined,
+        relativeVector = {},
+        radianAngle = undefined,
+        degreeAngle = undefined,
+        azimuthListenerActive = true,
+        firstDragDone = false,
+        saveDirection = false;
 
-    function update_leaderboard() {
+    function update_leaderboard () {
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
     }
 
+    // May need this to draw field of vision
     /*function getArcPath(center, radiusMeters, startAngle, endAngle) {
         var point, points = [], a = startAngle;
         while (true) {
@@ -64,6 +71,16 @@
 
         var location = new google.maps.LatLng(start_location[1], start_location[0]);
 
+        function reCalculateAzimuthOfMouseAndMarker (e) {
+            relativeVector.x = e.latLng.lat() - marker.position.lat();
+            relativeVector.y = e.latLng.lng() - marker.position.lng();
+            radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
+            degreeAngle = radianAngle * (180 / Math.PI);
+            if (degreeAngle < 0) {
+              degreeAngle += 360;
+            }
+        }
+
         // Will load the base map layer and return it
         if (city_id) {
             map = get_map(start_location, 15);
@@ -71,6 +88,7 @@
             map = get_map();
         }
 
+        // To support touchscreens, we have an invisible marker underneath a fake one
         var marker = new google.maps.Marker({
             map: map,
             draggable: false,
@@ -78,38 +96,7 @@
             visible: false
         });
 
-        marker.bindTo('position', map, 'center');
-
-        google.maps.event.addListener(map, 'click', function (e) {
-            if (infowindow !== undefined) {
-                infowindow.close();
-                infowindow = undefined;
-            }
-            if (azimuthListenerActive) {
-                google.maps.event.clearListeners(map, 'mousemove');
-                saveDirection = true;
-                $("#save-location").text(gettext("Save location and direction"));
-            } else {
-                addMouseMoveListener();
-                google.maps.event.trigger(map, "mousemove", e);
-            }
-            azimuthListenerActive = !azimuthListenerActive;
-        });
-
-        var relativeVector = {},
-            radianAngle = 0,
-            degreeAngle = 0,
-            azimuthListenerActive = true,
-            firstDragDone = false,
-            saveDirection = false;
-        //path = false,
-        //poly = new google.maps.Polygon({
-        //    map: map,
-        //    fillColor: "red",
-        //    fillOpacity: 0.6
-        //});
-
-        var dashedLineSymbol = {
+        var dottedLineSymbol = {
             path: google.maps.SymbolPath.CIRCLE,
             strokeOpacity: 1,
             strokeWeight: 1,
@@ -120,9 +107,8 @@
         var line = new google.maps.Polyline({
             geodesic: true,
             strokeOpacity: 0,
-            fillColor: 'red',
             icons: [{
-                icon: dashedLineSymbol,
+                icon: dottedLineSymbol,
                 offset: '0',
                 repeat: '7px'
             }],
@@ -131,31 +117,55 @@
             clickable: false
         });
 
-        function addMouseMoveListener () {
-            google.maps.event.addListener(map, 'mousemove', function (e) {
-                $("#save-location").text(gettext("Save location only"));
-                saveDirection = false;
-                relativeVector.x = e.latLng.lat() - marker.position.lat();
-                relativeVector.y = e.latLng.lng() - marker.position.lng();
-                radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
-                degreeAngle = radianAngle * (180 / Math.PI);
-                if (degreeAngle < 0) {
-                  degreeAngle += 360;
-                }
-                //path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
-                //path.unshift(marker.position);
-                //path.push(marker.position);
-                //poly.setPath(path);
-                //poly.setVisible(true);
+        marker.bindTo('position', map, 'center');
+
+        google.maps.event.addListener(map, 'click', function (e) {
+            if (infowindow !== undefined) {
+                infowindow.close();
+                infowindow = undefined;
+            }
+            reCalculateAzimuthOfMouseAndMarker(e);
+            if (azimuthListenerActive) {
+                google.maps.event.clearListeners(map, 'mousemove');
+                saveDirection = true;
+                $("#save-location").text(gettext("Save location and direction"));
                 line.setPath([marker.position, e.latLng]);
                 line.setVisible(true);
+            } else {
+                addMouseMoveListener();
+                google.maps.event.trigger(map, "mousemove", e);
+            }
+            azimuthListenerActive = !azimuthListenerActive;
+        });
+
+        // We may need this for field of vision
+        /*path = false,
+        poly = new google.maps.Polygon({
+            map: map,
+            fillColor: "red",
+            fillOpacity: 0.6
+        });*/
+
+        function addMouseMoveListener () {
+            google.maps.event.addListener(map, 'mousemove', function (e) {
+                // The mouse is moving, therefore we haven't locked on a direction
+                $("#save-location").text(gettext("Save location only"));
+                saveDirection = false;
+                reCalculateAzimuthOfMouseAndMarker(e);
+                line.setPath([marker.position, e.latLng]);
+                line.setVisible(true);
+                // We may need this for field of vision
+                /*path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
+                path.unshift(marker.position);
+                path.push(marker.position);
+                poly.setPath(path);
+                poly.setVisible(true);*/
             });
         }
 
         google.maps.event.addListener(map, 'idle', function () {
             if (firstDragDone) {
                 marker.position = map.center;
-                line.setVisible(false);
                 azimuthListenerActive = true;
                 addMouseMoveListener();
             }
@@ -167,7 +177,9 @@
                 infowindow.close();
                 infowindow = undefined;
             }
+            $("#save-location").text(gettext("Save location only"));
             azimuthListenerActive = false;
+            line.setVisible(false);
             google.maps.event.clearListeners(map, 'mousemove');
         });
 
@@ -187,11 +199,11 @@
         /* game */
 
         $.jQee('space', function () {
-            // continue game if Tools and result window open
+            // If tools is open, continue game
             if (locationToolsOpen && !disableContinue) {
                 $('#continue-game').click();
             } else if (locationToolsOpen) {
-                // remove notice and drop the marker in the middle (works only if map in focus)
+                // Remove notice and center marker
                 if (infowindow !== undefined) {
                     infowindow.close();
                     infowindow = undefined;
@@ -199,7 +211,7 @@
                 marker.setMap(map);
                 marker.setPosition(map.getCenter());
             } else {
-                // otherwise open Tools
+                // Otherwise open tools
                 $('#open-location-tools').click();
             }
         });
@@ -363,7 +375,7 @@
             disableNext = true;
 
             if (infowindow !== undefined) {
-                // show infowindow on the first time when map opened
+                // Show info window when the map is opened the first time
                 infowindow.open(map, marker);
             }
 
@@ -483,7 +495,7 @@
         }
 
         function loadPhotos(next, only_untagged, retry_old, from_choice_button) {
-            var date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
+            var date = new Date(); // IE needs a different URL, sending seconds
             var qs = URI.parseQuery(window.location.search);
             if (only_untagged === undefined) {
                 only_untagged = 0;
