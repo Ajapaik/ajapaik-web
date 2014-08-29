@@ -12,6 +12,7 @@
     /*global leaderboardFullURL */
     /*global language_code */
     /*global FB */
+    /*global isMobile */
 
     var photos = [],
         gameOffset = 0,
@@ -154,7 +155,9 @@
                 saveDirection = false;
                 reCalculateAzimuthOfMouseAndMarker(e);
                 line.setPath([marker.position, e.latLng]);
-                line['icons'] = [{icon: dottedLineSymbol, offset: '0', repeat: '7px'}];
+                if (!isMobile) {
+                    line['icons'] = [{icon: dottedLineSymbol, offset: '0', repeat: '7px'}];
+                }
                 line.setVisible(true);
                 // We may need this for field of vision
                 /*path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
