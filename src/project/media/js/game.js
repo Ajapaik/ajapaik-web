@@ -126,7 +126,7 @@
                 infowindow = undefined;
             }
             reCalculateAzimuthOfMouseAndMarker(e);
-            if (azimuthListenerActive) {
+            if (azimuthListenerActive || isMobile) {
                 google.maps.event.clearListeners(map, 'mousemove');
                 saveDirection = true;
                 $("#save-location").text(gettext('Save location and direction'));
