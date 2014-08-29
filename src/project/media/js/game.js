@@ -158,6 +158,8 @@
                     line.setPath([marker.position, e.latLng]);
                     line['icons'] = [{icon: dottedLineSymbol, offset: '0', repeat: '7px'}];
                     line.setVisible(true);
+                } else {
+                    line.setVisible(false);
                 }
                 // We may need this for field of vision
                 /*path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
