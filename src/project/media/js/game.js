@@ -128,7 +128,7 @@
             if (azimuthListenerActive) {
                 google.maps.event.clearListeners(map, 'mousemove');
                 saveDirection = true;
-                $("#save-location").text(gettext("Save location and direction"));
+                $("#save-location").text(gettext('Save location and direction'));
                 line.setPath([marker.position, e.latLng]);
                 line.setVisible(true);
             } else {
@@ -149,7 +149,7 @@
         function addMouseMoveListener () {
             google.maps.event.addListener(map, 'mousemove', function (e) {
                 // The mouse is moving, therefore we haven't locked on a direction
-                $("#save-location").text(gettext("Save location only"));
+                $("#save-location").text(gettext('Save location only'));
                 saveDirection = false;
                 reCalculateAzimuthOfMouseAndMarker(e);
                 line.setPath([marker.position, e.latLng]);
@@ -177,7 +177,7 @@
                 infowindow.close();
                 infowindow = undefined;
             }
-            $("#save-location").text(gettext("Save location only"));
+            $("#save-location").text(gettext('Save location only'));
             azimuthListenerActive = false;
             line.setVisible(false);
             google.maps.event.clearListeners(map, 'mousemove');

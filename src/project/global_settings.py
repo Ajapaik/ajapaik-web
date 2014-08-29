@@ -49,7 +49,7 @@ INSTALLED_APPS = (
     'rosetta',
     'project',
     'simple_autocomplete',
-    'rest_framework'
+    'rest_framework',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -70,6 +70,7 @@ MIDDLEWARE_CLASSES = (
     #'django.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'project.user_middleware.UserMiddleware',
+    'mobi.middleware.MobileDetectionMiddleware'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
