@@ -1140,12 +1140,12 @@ span.framed {
 
 .center-marker {
     position: absolute;
-    background: url(http://maps.gstatic.com/mapfiles/markers2/marker.png) no-repeat;
+    background: url(http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png) no-repeat;
     top: 50%;
     left: 50%;
     z-index: 1;
-    margin-left: -10px;
-    margin-top: -34px;
+    margin-left: -9px;
+    margin-top: -10px;
     height: 34px;
     width: 20px;
     cursor: pointer;
