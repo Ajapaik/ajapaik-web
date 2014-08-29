@@ -86,6 +86,7 @@
             }
             if (azimuthListenerActive) {
                 google.maps.event.clearListeners(map, 'mousemove');
+                saveDirection = true;
                 $("#save-location").text(gettext("Save location and direction"));
             } else {
                 addMouseMoveListener();
@@ -98,7 +99,8 @@
             radianAngle = 0,
             degreeAngle = 0,
             azimuthListenerActive = true,
-            firstDragDone = false;
+            firstDragDone = false,
+            saveDirection = false;
         //path = false,
         //poly = new google.maps.Polygon({
         //    map: map,
@@ -130,7 +132,8 @@
 
         function addMouseMoveListener () {
             google.maps.event.addListener(map, 'mousemove', function (e) {
-                $("#save-location").text(gettext("Save location"));
+                $("#save-location").text(gettext("Save location only"));
+                saveDirection = false;
                 relativeVector.x = e.latLng.lat() - marker.position.lat();
                 relativeVector.y = e.latLng.lng() - marker.position.lng();
                 radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
@@ -321,9 +324,12 @@
 
             var data = {
                 photo_id: photos[currentPhotoIdx - 1].id,
-                hint_used: hintUsed,
-                azimuth: degreeAngle
+                hint_used: hintUsed
             };
+
+            if (saveDirection) {
+                data['azimuth'] = degreeAngle;
+            }
 
             if (lat && lon) {
                 data['lat'] = lat;
