@@ -129,6 +129,7 @@
                 google.maps.event.clearListeners(map, 'mousemove');
                 saveDirection = true;
                 $("#save-location").text(gettext('Save location and direction'));
+                line.icons[0].repeat = '2px';
                 line.setPath([marker.position, e.latLng]);
                 line.setVisible(true);
             } else {
@@ -153,6 +154,7 @@
                 saveDirection = false;
                 reCalculateAzimuthOfMouseAndMarker(e);
                 line.setPath([marker.position, e.latLng]);
+                line['icons'] = [{icon: dottedLineSymbol, offset: '0', repeat: '7px'}];
                 line.setVisible(true);
                 // We may need this for field of vision
                 /*path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
