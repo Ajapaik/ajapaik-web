@@ -70,14 +70,13 @@ function get_map(startpoint, startingzoom) {
 		streetView: street
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOpts);
-/*    $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function(){
-               var that=$(this);
-               if(!that.data('win')){
-                that.data('win',new google.maps.InfoWindow({content:'this is the center'}));
-                that.data('win').bindTo('position',map,'center');
-               }
-               that.data('win').open(map);
-            });*/
+/*    $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
+        var that = $(this);
+        if (!that.data('win')) {
+            that.data('win').bindTo('position', map, 'center');
+        }
+        that.data('win').open(map);
+    });*/
 
 
 	// Attach base layer

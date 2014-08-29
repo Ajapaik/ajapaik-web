@@ -86,6 +86,7 @@
             }
             if (azimuthListenerActive) {
                 google.maps.event.clearListeners(map, 'mousemove');
+                $("#save-location").text(gettext("Save location and direction"));
             } else {
                 addMouseMoveListener();
                 google.maps.event.trigger(map, "mousemove", e);
@@ -129,6 +130,7 @@
 
         function addMouseMoveListener () {
             google.maps.event.addListener(map, 'mousemove', function (e) {
+                $("#save-location").text(gettext("Save location"));
                 relativeVector.x = e.latLng.lat() - marker.position.lat();
                 relativeVector.y = e.latLng.lng() - marker.position.lng();
                 radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
@@ -167,7 +169,6 @@
 
         google.maps.event.addListener(map, 'drag', function () {
             firstDragDone = true;
-            marker.position = map.center;
         });
 
         google.maps.event.addListener(marker, 'position_changed', function () {
