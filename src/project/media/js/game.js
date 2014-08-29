@@ -106,15 +106,17 @@
         //});
 
         var dashedLineSymbol = {
-            path: 'M 0,-1 0,1',
+            path: google.maps.SymbolPath.CIRCLE,
             strokeOpacity: 1,
+            strokeWeight: 3,
             strokeColor: 'red',
-            scale: 2
+            scale: 1.5
         };
 
         var line = new google.maps.Polyline({
             geodesic: true,
             strokeOpacity: 0,
+            fillColor: 'red',
             icons: [{
                 icon: dashedLineSymbol,
                 offset: '0',
@@ -163,7 +165,7 @@
             google.maps.event.clearListeners(map, 'mousemove');
         });
 
-        google.maps.event.addListener(map, 'dragend', function () {
+        google.maps.event.addListener(map, 'drag', function () {
             firstDragDone = true;
         });
 
