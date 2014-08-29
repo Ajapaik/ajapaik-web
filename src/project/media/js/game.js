@@ -84,9 +84,9 @@
 
         // Will load the base map layer and return it
         if (city_id) {
-            map = get_map(start_location, 15);
+            map = get_map(start_location, 15, true);
         } else {
-            map = get_map();
+            map = get_map(undefined, undefined, true);
         }
 
         // To support touchscreens, we have an invisible marker underneath a fake one
