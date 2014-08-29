@@ -181,6 +181,7 @@ class Photo(models.Model):
             # #Why?
             user_guessed_photo_ids_last_24h = [g.photo_id for g in Guess.objects.filter(user=user_id, created__gte=one_day_ago)]
             forbidden_photo_ids = frozenset(user_guessed_photo_ids_last_24h + user_geotagged_photo_ids)
+            user_geotagged_photo_ids = frozenset(user_geotagged_photo_ids)
             if int(retry_old) == 1:
                 #print "This user wants to see geotagged photos again, setting no forbidden ids"
                 forbidden_photo_ids = []
@@ -210,9 +211,11 @@ class Photo(models.Model):
                     qs.values('id').order_by().annotate(geotag_count=Count("geotags")).filter(
                         geotag_count=0).values_list('id', flat=True))
                 #photo_ids_without_guesses + photo_ids where geotags <= 10 - forbidden_photo_ids
-                photo_ids_with_few_guesses = frozenset(photo_ids_without_guesses.union(frozenset(
-                    GeoTag.objects.values('photo_id').annotate(nr_of_geotags=Count('id')).filter(
-                        nr_of_geotags__lte=10).values_list('photo_id', flat=True)))) - forbidden_photo_ids
+                photo_ids_with_few_guesses = frozenset(
+                    photo_ids_without_guesses.union(
+                        frozenset(GeoTag.objects.values('photo_id').annotate(nr_of_geotags=Count('id')).filter(nr_of_geotags__lte=10).values_list('photo_id', flat=True))
+                    )
+                )
                 if photo_ids_with_few_guesses:
                     #Add unknown_photos_to_get photos with few guesses to unknown_photos where confidence <= 0.3,
                     if int(only_untagged) == 1:
