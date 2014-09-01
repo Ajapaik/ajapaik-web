@@ -429,8 +429,10 @@
             $('#tools').animate({ left: photoWidthPercent + '%' });
         }
 
-        $("#tools").bind('click', function (e) {
-            hidePhotos();
+        $("#tools").bind('click', function () {
+            if (isMobile) {
+                hidePhotos();
+            }
         });
 
         function hidePhotos() {
