@@ -315,40 +315,41 @@ class Photo(models.Model):
 			((lon1 - lon2) * lat_coeff) ** 2)
 
 	def set_calculated_fields(self):
-		self.confidence = 0
-		self.lon = None
-		self.lat = None
+		if not self.bounding_circle_radius:
+			self.confidence = 0
+			self.lon = None
+			self.lat = None
 
-		geotags = list(GeoTag.objects.filter(photo__id=self.id, trustworthiness__gt=0.2))
-		geotags_with_azimuth = []
-		for g in geotags:
-			if g.azimuth:
-				geotags_with_azimuth.append(g)
-		if geotags:
-			lon = sorted([g.lon for g in geotags])
-			lon = lon[len(lon) / 2]
-			lat = sorted([g.lat for g in geotags])
-			lat = lat[len(lat) / 2]
-			azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
-			median_azimuth = azimuths[len(azimuths) / 2]
-
-			correct_guesses_weight, total_weight = 0, 0
-			lon_sum, lat_sum, azimuth_sum = 0, 0, 0
+			geotags = list(GeoTag.objects.filter(photo__id=self.id, trustworthiness__gt=0.2))
+			geotags_with_azimuth = []
 			for g in geotags:
-				if Photo.distance_in_meters(g.lon, g.lat, lon, lat) < 100:
-					correct_guesses_weight += g.trustworthiness
-					lon_sum += g.lon * g.trustworthiness
-					lat_sum += g.lat * g.trustworthiness
-					if median_azimuth + 15 >= g.azimuth >= median_azimuth - 15:
-						azimuth_sum += g.azimuth * g.trustworthiness
-				total_weight += g.trustworthiness
-			correct_guesses_ratio = correct_guesses_weight / float(total_weight)
+				if g.azimuth:
+					geotags_with_azimuth.append(g)
+			if geotags:
+				lon = sorted([g.lon for g in geotags])
+				lon = lon[len(lon) / 2]
+				lat = sorted([g.lat for g in geotags])
+				lat = lat[len(lat) / 2]
+				azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
+				median_azimuth = azimuths[len(azimuths) / 2]
 
-			if correct_guesses_ratio > 0.63:
-				self.lon = lon_sum / float(correct_guesses_weight)
-				self.lat = lat_sum / float(correct_guesses_weight)
-				self.azimuth = azimuth_sum / float(correct_guesses_weight)
-				self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 1.5)
+				correct_guesses_weight, total_weight = 0, 0
+				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
+				for g in geotags:
+					if Photo.distance_in_meters(g.lon, g.lat, lon, lat) < 100:
+						correct_guesses_weight += g.trustworthiness
+						lon_sum += g.lon * g.trustworthiness
+						lat_sum += g.lat * g.trustworthiness
+						if median_azimuth + 15 >= g.azimuth >= median_azimuth - 15:
+							azimuth_sum += g.azimuth * g.trustworthiness
+					total_weight += g.trustworthiness
+				correct_guesses_ratio = correct_guesses_weight / float(total_weight)
+
+				if correct_guesses_ratio > 0.63:
+					self.lon = lon_sum / float(correct_guesses_weight)
+					self.lat = lat_sum / float(correct_guesses_weight)
+					self.azimuth = azimuth_sum / float(correct_guesses_weight)
+					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 1.5)
 
 
 class GeoTag(models.Model):
