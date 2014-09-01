@@ -343,7 +343,10 @@ class Photo(models.Model):
 						lon_sum += g.lon * g.trustworthiness
 						lat_sum += g.lat * g.trustworthiness
 						if median_azimuth:
-							if median_azimuth + 15 >= g.azimuth >= median_azimuth - 15:
+							difference = max(g.azimuth, median_azimuth) - min(g.azimuth, median_azimuth)
+							if difference > 180:
+								difference = 360 - difference
+							if difference <= 15:
 								azimuth_sum += g.azimuth * g.trustworthiness
 					total_weight += g.trustworthiness
 				correct_guesses_ratio = correct_guesses_weight / float(total_weight)
