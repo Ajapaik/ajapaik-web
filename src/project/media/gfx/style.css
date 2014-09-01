@@ -1119,7 +1119,7 @@ span.framed {
 #game-choice-window-container {
     width: 100%;
     position: absolute;
-    top: 10%;
+    top: 50%;
     height: 100px;
     margin: 0 auto;
     z-index: 10000;

@@ -344,7 +344,8 @@
 
             var data = {
                 photo_id: photos[currentPhotoIdx - 1].id,
-                hint_used: hintUsed
+                hint_used: hintUsed,
+                zoom_level: map.zoom
             };
 
             if (saveDirection) {

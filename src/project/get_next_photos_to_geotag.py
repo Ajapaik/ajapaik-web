@@ -12,22 +12,20 @@ def _make_fullscreen(photo):
 	image=get_thumbnail(photo.image, '1024x1024', upscale=False)
 	return {'url':image.url,
 			'size':[image.width,image.height]}
- 
+
+
 def calc_trustworthiness(user_id):
-	total_tries=0
-	correct_tries=0
-	for row in GeoTag.objects.filter(user=user_id,
-								is_correct__isnull=False). \
-				values('is_correct').annotate(count=Count('pk')):
-		total_tries+=row['count']
+	total_tries = 0
+	correct_tries = 0
+	for row in GeoTag.objects.filter(user=user_id, is_correct__isnull=False).values('is_correct').annotate(count=Count('pk')):
+		total_tries += row['count']
 		if row['is_correct']:
-			correct_tries+=row['count']
+			correct_tries += row['count']
 
 	if not correct_tries:
 		return 0
 
-	return (1-0.9**correct_tries) * \
-						correct_tries / float(total_tries)
+	return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
 
 #
 # DEPRICATED see models.Photo
@@ -116,42 +114,58 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 	#			photod millel pole geotage ja mida on koige
 	#										vahem skipitud
 
-def submit_guess(user,photo_id,lon=None,lat=None,
-						type=GeoTag.MAP,hint_used=False,azimuth=None):
-	p=Photo.objects.get(pk=photo_id)
+def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None):
+	p = Photo.objects.get(pk=photo_id)
 
-	is_correct=None
-	location_is_unclear=0
-	this_guess_score=0
-	leaderboard=None
+	is_correct = None
+	location_is_unclear = 0
+	this_guess_score = 0
+	leaderboard = None
 
 	if lon is not None and lat is not None:
-		trustworthiness=calc_trustworthiness(user.pk)
+		trustworthiness = calc_trustworthiness(user.pk)
 
 		if p.confidence >= 0.3:
-			error_in_meters=Photo.distance_in_meters(
-							p.lon,p.lat,float(lon),float(lat))
-			this_guess_score=int(130*max(0,min(1,(1-
-						(error_in_meters-15)/float(94-15)))))
-			is_correct=(this_guess_score > 0)
+			error_in_meters = Photo.distance_in_meters(p.lon, p.lat, float(lon), float(lat))
+			this_guess_score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
+			is_correct = (this_guess_score > 0)
 		else:
-			this_guess_score=max(20,int(300*trustworthiness))
-			location_is_unclear=int(bool(len(p.geotags.all())))
+			this_guess_score = max(20, int(300 * trustworthiness))
+			location_is_unclear = int(bool(len(p.geotags.all())))
 
 		if hint_used:
-			this_guess_score/=3
+			this_guess_score /= 3
 
-		new_geotag = GeoTag(user=user,photo_id=p.id,type=type,
-						lat=float(lat),lon=float(lon),
-						is_correct=is_correct,
-						score=this_guess_score,
-						trustworthiness=trustworthiness)
-		if azimuth:
+		new_geotag = GeoTag(user=user, photo_id=p.id, type=type,
+							lat=float(lat), lon=float(lon),
+							is_correct=is_correct,
+							score=this_guess_score,
+							trustworthiness=trustworthiness,
+							zoom_level=zoom_level)
+
+		if azimuth and p.azimuth:
+			degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
+			azimuth = float(azimuth)
+			difference = max(p.azimuth, azimuth) - min(p.azimuth, azimuth)
+			if difference > 180:
+				difference = 360 - difference
+			azimuth_score = 0
+			if int(difference) <= 15:
+				azimuth_score = degree_error_point_array[int(difference) - 1]
+			# Leaving in the Gaussian idea for now, so it wouldn't take any time to change this back if needed
+			# from math import e, pi, sqrt, fabs
+			# #Gaussian distribution with mean 0 and standard deviation 7, missing by 15 degrees gives about 10%, 5 degrees about 77%, 1 degree 98.9%
+			# degrees_error = float(fabs(p.median_azimuth - azimuth))
+			# if degrees_error > 15:
+			# 	azimuth_score = 0
+			# else:
+			# 	azimuth_score = min(1, (((e ** (-((degrees_error ** 2) / 98))) / (7 * (sqrt(2 * pi)))) * 1754) + 0.05) * 100
+			new_geotag.azimuth_score = azimuth_score
 			new_geotag.azimuth = azimuth
 
 		new_geotag.save()
 	else:
-		Guess(user=user,photo_id=p.id).save()
+		Guess(user=user, photo_id=p.id).save()
 
 	p.set_calculated_fields()
 	p.save()
@@ -160,10 +174,9 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	user.save()
 
 	if this_guess_score:
-		leaderboard=get_leaderboard(user.pk)
+		leaderboard = get_leaderboard(user.pk)
 
-	return is_correct,this_guess_score,user.score,leaderboard, \
-											location_is_unclear
+	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear
 
 #
 # DEPRICATED see models.Photo
