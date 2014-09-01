@@ -325,7 +325,11 @@
 
         photosDiv.bind('click', function () {
             if (isMobile) {
-                hidePhotos();
+                if (locationToolsOpen) {
+                    hidePhotos();
+                } else {
+                    showPhotos();
+                }
             }
         });
 
