@@ -323,7 +323,11 @@
             }
         });
 
-
+        photosDiv.bind('click', function () {
+            if (isMobile) {
+                hidePhotos();
+            }
+        });
 
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
@@ -428,12 +432,6 @@
             var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
             $('#tools').animate({ left: photoWidthPercent + '%' });
         }
-
-        $("#tools").bind('click', function () {
-            if (isMobile) {
-                hidePhotos();
-            }
-        });
 
         function hidePhotos() {
             $('#tools').animate({ left: '15%' });
