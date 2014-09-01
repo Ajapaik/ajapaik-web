@@ -323,7 +323,7 @@ class Photo(models.Model):
 			geotags = list(GeoTag.objects.filter(photo__id=self.id, trustworthiness__gt=0.2))
 			geotags_with_azimuth = []
 			for g in geotags:
-				if g.azimuth:
+				if g.azimuth > 0:
 					geotags_with_azimuth.append(g)
 			if geotags:
 				lon = sorted([g.lon for g in geotags])
@@ -342,7 +342,7 @@ class Photo(models.Model):
 						correct_guesses_weight += g.trustworthiness
 						lon_sum += g.lon * g.trustworthiness
 						lat_sum += g.lat * g.trustworthiness
-						if g.azimuth and median_azimuth:
+						if g.azimuth > 0 and median_azimuth:
 							difference = max(g.azimuth, median_azimuth) - min(g.azimuth, median_azimuth)
 							if difference > 180:
 								difference = 360 - difference
