@@ -323,18 +323,6 @@
             }
         });
 
-        photosDiv.bind('click', function () {
-            if (isMobile) {
-                if (locationToolsOpen) {
-                    hidePhotos();
-                    locationToolsOpen = true;
-                } else {
-                    showPhotos();
-                    locationToolsOpen = false;
-                }
-            }
-        });
-
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
         $('#full_leaderboard').bind('click', function (e) {
@@ -477,7 +465,7 @@
 
                 $('.skip-photo').animate({ 'opacity': .4 });
                 $(currentPhoto).find('img').animate({ 'opacity': .4 });
-                showDescription();
+                //showDescription();
 
                 photosDiv = $('#photos');
                 photosDiv.append('<div class="photo photo' + currentPhotoIdx + '"></div>');
@@ -485,7 +473,7 @@
                 currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
 
                 $(currentPhoto).append(
-                        '<div class="container">' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show hint') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div></div>'
+                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
                 ).find('img').load(function () {
                         currentPhoto.css({ 'visibility': 'visible' });
                         $(this).fadeIn('slow', function () {

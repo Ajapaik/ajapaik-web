@@ -134,7 +134,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 			location_is_unclear = int(bool(len(p.geotags.all())))
 
 		if hint_used:
-			this_guess_score /= 3
+			this_guess_score *= 0.75
 
 		new_geotag = GeoTag(user=user, photo_id=p.id, type=type,
 							lat=float(lat), lon=float(lon),
