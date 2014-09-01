@@ -556,7 +556,7 @@ a.fullscreen {
 #game #photos .photo .btn.show-description {
 	position: absolute;
 	display: block;
-	bottom: -50px;
+	bottom: -40px;
 	left: 50%;
 	width: 110px;
 	margin-left: -70px;
