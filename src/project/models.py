@@ -331,18 +331,18 @@ class Photo(models.Model):
 				lat = sorted([g.lat for g in geotags])
 				lat = lat[len(lat) / 2]
 				median_azimuth = None
-				if geotags_with_azimuth:
+				if len(geotags_with_azimuth) > 0:
 					azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
 					median_azimuth = azimuths[len(azimuths) / 2]
 
 				correct_guesses_weight, total_weight = 0, 0
-				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
+				lon_sum, lat_sum, azimuth_sum = 0, 0, None
 				for g in geotags:
 					if Photo.distance_in_meters(g.lon, g.lat, lon, lat) < 100:
 						correct_guesses_weight += g.trustworthiness
 						lon_sum += g.lon * g.trustworthiness
 						lat_sum += g.lat * g.trustworthiness
-						if median_azimuth:
+						if g.azimuth and median_azimuth:
 							difference = max(g.azimuth, median_azimuth) - min(g.azimuth, median_azimuth)
 							if difference > 180:
 								difference = 360 - difference
@@ -354,7 +354,8 @@ class Photo(models.Model):
 				if correct_guesses_ratio > 0.63:
 					self.lon = lon_sum / float(correct_guesses_weight)
 					self.lat = lat_sum / float(correct_guesses_weight)
-					self.azimuth = azimuth_sum / float(correct_guesses_weight)
+					if azimuth_sum is not None:
+						self.azimuth = azimuth_sum / float(correct_guesses_weight)
 					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 1.5)
 
 
