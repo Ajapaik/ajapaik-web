@@ -165,6 +165,8 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 			# 	azimuth_score = min(1, (((e ** (-((degrees_error ** 2) / 98))) / (7 * (sqrt(2 * pi)))) * 1754) + 0.05) * 100
 			new_geotag.azimuth_score = azimuth_score
 
+		if new_geotag.azimuth_score:
+			new_geotag.score += new_geotag.azimuth_score
 		new_geotag.save()
 	else:
 		Guess(user=user, photo_id=p.id).save()

@@ -323,6 +323,8 @@
             }
         });
 
+
+
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
         $('#full_leaderboard').bind('click', function (e) {
@@ -381,7 +383,6 @@
 
         function openLocationTools() {
             disableNext = true;
-
             if (infowindow !== undefined) {
                 // Show info window when the map is opened the first time
                 infowindow.open(map, marker);
@@ -428,6 +429,10 @@
             $('#tools').animate({ left: photoWidthPercent + '%' });
         }
 
+        $("#tools").bind('click', function (e) {
+            hidePhotos();
+        });
+
         function hidePhotos() {
             $('#tools').animate({ left: '15%' });
         }
@@ -443,7 +448,7 @@
             topDiv = $('#top');
             topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideUp();
             topDiv.find('.score_container #facebook-connect').slideUp();
-            topDiv.find('.score_container #google-plus-connect').slideDown();
+            topDiv.find('.score_container #google-plus-connect').slideUp();
         }
 
         function showDescription() {
