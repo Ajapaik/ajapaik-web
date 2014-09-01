@@ -327,8 +327,10 @@
             if (isMobile) {
                 if (locationToolsOpen) {
                     hidePhotos();
+                    locationToolsOpen = true;
                 } else {
                     showPhotos();
+                    locationToolsOpen = false;
                 }
             }
         });
