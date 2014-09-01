@@ -330,8 +330,10 @@ class Photo(models.Model):
 				lon = lon[len(lon) / 2]
 				lat = sorted([g.lat for g in geotags])
 				lat = lat[len(lat) / 2]
-				azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
-				median_azimuth = azimuths[len(azimuths) / 2]
+				median_azimuth = None
+				if geotags_with_azimuth:
+					azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
+					median_azimuth = azimuths[len(azimuths) / 2]
 
 				correct_guesses_weight, total_weight = 0, 0
 				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
@@ -340,8 +342,9 @@ class Photo(models.Model):
 						correct_guesses_weight += g.trustworthiness
 						lon_sum += g.lon * g.trustworthiness
 						lat_sum += g.lat * g.trustworthiness
-						if median_azimuth + 15 >= g.azimuth >= median_azimuth - 15:
-							azimuth_sum += g.azimuth * g.trustworthiness
+						if median_azimuth:
+							if median_azimuth + 15 >= g.azimuth >= median_azimuth - 15:
+								azimuth_sum += g.azimuth * g.trustworthiness
 					total_weight += g.trustworthiness
 				correct_guesses_ratio = correct_guesses_weight / float(total_weight)
 
