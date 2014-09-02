@@ -121,7 +121,6 @@
         marker.bindTo('position', map, 'center');
 
         google.maps.event.addListener(map, 'click', function (e) {
-            e.preventDefault();
             if (infowindow !== undefined) {
                 infowindow.close();
                 infowindow = undefined;
@@ -315,11 +314,11 @@
         });
 
         photosDiv.hoverIntent(function () {
-            if (locationToolsOpen == true) {
+            if (locationToolsOpen == true && !isMobile) {
                 showPhotos();
             }
         }, function () {
-            if (locationToolsOpen == true) {
+            if (locationToolsOpen == true && !isMobile) {
                 hidePhotos();
             }
         });
