@@ -741,7 +741,7 @@ a.fullscreen {
 	position: absolute;
 	right: -25px;
 	top: 2px;
-*/	
+*/
 	line-height: 0;
 	float: right;
 	margin-right: -25px;
@@ -773,7 +773,7 @@ a.fullscreen {
 #facebook-connect a {
 	width: 169px;
 	height: 21px;
-	background: url(../gfx/connect-with-facebook.png) no-repeat;	
+	background: url(../gfx/connect-with-facebook.png) no-repeat;
 }
 
 .score_container #google-plus-connect {
@@ -971,7 +971,7 @@ span.framed {
 /* tabs  */
 .tabs {
     list-style:none;
-    margin:0 auto; 
+    margin:0 auto;
     max-width:540px;
     padding:0;
 }
@@ -1001,15 +1001,15 @@ span.framed {
     border-top-right-radius: 5px;
 }
 .tabs a:active {
-    outline:none;        
+    outline:none;
 }
 .tabs a:hover {
-    color:#161616;    
+    color:#161616;
 }
 .tabs .current,
 .tabs .current:hover,
 .tabs li.current a {
-    cursor:default !important; 
+    cursor:default !important;
     color:#cd1d1d !important;
 	background-color: rgb(255, 255, 255);
 	/* RGBa with 0.6 opacity */
@@ -1069,7 +1069,7 @@ span.framed {
     float:left;
     margin-right:10px;
     color: white;
-    text-shadow: 2px 1px #8E5D2E;    
+    text-shadow: 2px 1px #8E5D2E;
 }
 .lang-box {
     position:absolute;
@@ -1099,7 +1099,8 @@ span.framed {
 #cookie-notice span {
     vertical-align: middle;
     display: inline-block;
-    line-height: 40px;
+    line-height: 20px;
+    padding-top: 10px;
 }
 
 #cookie-notice p {
