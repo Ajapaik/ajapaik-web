@@ -307,14 +307,8 @@
         });
 
         photosDiv.find('img').live('click', function () {
-            if (isMobile) {
-                if (locationToolsOpen == true) {
-                    showPhotos();
-                    locationToolsOpen = false;
-                } else {
-                    hidePhotos();
-                    locationToolsOpen = true;
-                }
+            if (isMobile && locationToolsOpen) {
+                hidePhotos();
             }
         });
 
