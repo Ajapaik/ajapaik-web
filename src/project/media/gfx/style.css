@@ -1102,6 +1102,7 @@ span.framed {
     line-height: 20px;
     padding-top: 10px;
     width: 75%;
+    padding-bottom: 5px;
 }
 
 #cookie-notice p {
