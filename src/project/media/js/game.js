@@ -306,7 +306,7 @@
             }
         });
 
-        photosDiv.bind('click', function () {
+        photosDiv.find('img').live('click', function () {
             if (isMobile) {
                 if (locationToolsOpen == true) {
                     showPhotos();
