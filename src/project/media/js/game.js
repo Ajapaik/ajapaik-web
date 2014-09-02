@@ -306,6 +306,13 @@
             }
         });
 
+        photosDiv.bind('click', function () {
+            if (isMobile) {
+                alert("MOBILE CLICK ON PHOTOS DIV");
+                hidePhotos();
+            }
+        });
+
         $('.full-box div').live('click', function (e) {
             if (BigScreen.enabled) {
                 e.preventDefault();
