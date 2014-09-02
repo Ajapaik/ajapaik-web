@@ -133,12 +133,12 @@ prepareFullscreen();
 <div id="notice-container" style="display: none">
 
 	<div id="notice" style="width: 400px;">
-        <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/vendor/jquery.ui.widget.js"></script>
+{#        <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/vendor/jquery.ui.widget.js"></script>#}
         <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/jquery.iframe-transport.js"></script>
         <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/jquery.fileupload.js"></script>
-        <script src="{{ MEDIA_URL }}js/libs/JavaScript-Load-Image-master/js/load-image.min.js"></script>
+{% comment %}        <script src="{{ MEDIA_URL }}js/libs/JavaScript-Load-Image-master/js/load-image.min.js"></script>
         <script src="{{ MEDIA_URL }}js/libs/JavaScript-Load-Image-master/js/load-image-exif.js"></script>
-        <script src="{{ MEDIA_URL }}js/libs/jquery-ui-1.11.1.custom/jquery-ui.min.js"></script>
+        <script src="{{ MEDIA_URL }}js/libs/jquery-ui-1.11.1.custom/jquery-ui.min.js"></script>{% endcomment %}
         <script type="text/javascript">
             /*jslint unparam: true */
             /*global window, $ */
@@ -158,7 +158,10 @@ prepareFullscreen();
                         $.each(data.files, function (index, file) {
                             var filesList = data.files;
                             ok = confirm("{% trans 'Selected file' %}" + ": " + file.name + ", " + "{% trans 'upload?' %}");
-                            loadImage.parseMetaData(
+                            if (ok) {
+                                $('#fileupload').fileupload('send', {files: filesList});
+                            }
+                            {% comment %}loadImage.parseMetaData(
                                     file,
                                     function (data) {
                                         if (!data.exif || !data.exif.get("Orientation")) {
@@ -197,7 +200,7 @@ prepareFullscreen();
                                         }
                                     },
                                     {}
-                            );
+                            );{% endcomment %}
                         });
                     },
                     progressall: function (e, data) {

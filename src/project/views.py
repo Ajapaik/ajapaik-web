@@ -220,27 +220,27 @@ class SourceLookupFilterSpec(FilterSpec):
 		return _('Choose source')
 
 
-class UserAlreadyGeotaggedFilterSpec(FilterSpec):
-	def __init__(self, params, user_id):
-		self.user_id = user_id
-
-	def get_qs_filter(self):
-		pass
-
-	def get_qs_exclude(self):
-		ret = {u'guess__user': self.user_id}
-		return ret
-
-	def get_option_object(self):
-		return GeoTag.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
-
-	@staticmethod
-	def get_slug_name():
-		return u'user_already_geotagged_lookup_filter'
-
-	@staticmethod
-	def get_label():
-		return _('Choose photos not geotagged by user')
+# class UserAlreadyGeotaggedFilterSpec(FilterSpec):
+# 	def __init__(self, params, user_id):
+# 		self.user_id = user_id
+#
+# 	def get_qs_filter(self):
+# 		pass
+#
+# 	def get_qs_exclude(self):
+# 		ret = {u'guess__user': self.user_id}
+# 		return ret
+#
+# 	def get_option_object(self):
+# 		return GeoTag.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
+#
+# 	@staticmethod
+# 	def get_slug_name():
+# 		return u'user_already_geotagged_lookup_filter'
+#
+# 	@staticmethod
+# 	def get_label():
+# 		return _('Choose photos not geotagged by user')
 
 def handle_uploaded_file(f):
 	return ContentFile(f.read())
