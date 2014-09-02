@@ -1086,7 +1086,7 @@ span.framed {
 
 #cookie-notice {
     width: 50%;
-    height: 60px;
+    max-height: 60px;
     background-color: white;
     opacity: 0.9;
     text-align: center;
@@ -1101,6 +1101,7 @@ span.framed {
     display: inline-block;
     line-height: 20px;
     padding-top: 10px;
+    width: 75%;
 }
 
 #cookie-notice p {
