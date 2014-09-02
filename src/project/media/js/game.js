@@ -327,11 +327,11 @@
         photosDiv.find('img').live('click', function () {
             if (isMobile && locationToolsOpen) {
                 if (mobileMapMinimized) {
-                    $('#tools').style({left: '15%'});
+                    $('#tools').css({left: '15%'});
                     mobileMapMinimized = false;
                 } else {
                     var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
-                    $('#tools').style({left: photoWidthPercent + '%'});
+                    $('#tools').css({left: photoWidthPercent + '%'});
                     mobileMapMinimized = true;
                 }
             }
