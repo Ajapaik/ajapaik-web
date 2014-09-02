@@ -196,8 +196,8 @@ class Photo(models.Model):
 			# #Why?
 			user_guessed_photo_ids_last_24h = [g.photo_id for g in
 											   Guess.objects.filter(user=user_id, created__gte=one_day_ago)]
-			forbidden_photo_ids = frozenset(user_guessed_photo_ids_last_24h + user_geotagged_photo_ids)
-			user_geotagged_photo_ids = frozenset(user_geotagged_photo_ids)
+			forbidden_photo_ids = frozenset(user_geotagged_photo_ids)
+			#user_geotagged_photo_ids = frozenset(user_geotagged_photo_ids)
 			if int(retry_old) == 1:
 				#print "This user wants to see geotagged photos again, setting no forbidden ids"
 				forbidden_photo_ids = []

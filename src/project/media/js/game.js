@@ -539,7 +539,7 @@
             }, qs), function (data) {
                 $.merge(photos, data.photos);
                 userSeenAll = data.user_seen_all;
-                if ((userSeenAll && !from_choice_button && !only_untagged) || data.photos.length == 0) {
+                if ((userSeenAll && !from_choice_button) || data.photos.length == 0) {
                     showGameChoiceWindow();
                 }
                 if (next || currentPhotoIdx <= 0) {
