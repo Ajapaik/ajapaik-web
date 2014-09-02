@@ -310,8 +310,10 @@
             if (isMobile) {
                 if (locationToolsOpen == true) {
                     showPhotos();
+                    locationToolsOpen = false;
                 } else {
                     hidePhotos();
+                    locationToolsOpen = true;
                 }
             }
         });
