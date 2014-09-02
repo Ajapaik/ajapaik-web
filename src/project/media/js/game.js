@@ -28,6 +28,7 @@
         locationToolsOpen = false,
         mobileMapMinimized = false,
         userSeenAll = false,
+        onlyUntagged = false,
         infowindow = undefined,
         photosDiv = undefined,
         noticeDiv = undefined,
@@ -67,7 +68,7 @@
 
         loadPhotos();
 
-        if (userSeenAll) {
+        if (userSeenAll && !onlyUntagged) {
             showGameChoiceWindow();
         }
 
@@ -522,6 +523,8 @@
             if (only_untagged === undefined) {
                 only_untagged = 0;
             }
+
+            onlyUntagged = only_untagged;
 
             if (retry_old === undefined) {
                 retry_old = 1;

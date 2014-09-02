@@ -180,7 +180,7 @@ class Photo(models.Model):
 
 			#Determine if the user has seen all the photos in the city
 			user_has_seen_all_photos_in_city = False
-			user_has_geotagged_all_photos_in_city = False
+			# user_has_geotagged_all_photos_in_city = False
 			user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id).values_list("photo_id", flat=True))
 			user_guessed_photo_ids = list(Guess.objects.filter(user=user_id).values_list("photo_id", flat=True))
 			user_all_seen_photo_ids = set(user_geotagged_photo_ids + user_guessed_photo_ids)
@@ -189,8 +189,8 @@ class Photo(models.Model):
 				#print "This user has seen all the photos in the city"
 				user_has_seen_all_photos_in_city = True
 
-			if set(all_city_photo_ids).issubset(set(user_geotagged_photo_ids)):
-				user_has_geotagged_all_photos_in_city = True
+			# if set(all_city_photo_ids).issubset(set(user_geotagged_photo_ids)):
+			# 	user_has_geotagged_all_photos_in_city = True
 
 			one_day_ago = datetime.datetime.now() - datetime.timedelta(1)
 			# #Why?
