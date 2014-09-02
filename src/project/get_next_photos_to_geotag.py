@@ -145,6 +145,8 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 
 		if azimuth:
 			new_geotag.azimuth = azimuth
+			if not p.azimuth:
+				new_geotag.azimuth_score = max(20, int(300 * trustworthiness))
 
 		if azimuth and p.azimuth:
 			degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]

@@ -110,6 +110,7 @@ class Photo(models.Model):
 	bounding_circle_radius = models.FloatField(null=True, blank=True)
 	azimuth = models.FloatField(null=True, blank=True)
 	confidence = models.FloatField(default=0)
+	azimuth_confidence = models.FloatField(default=0)
 
 	source_key = models.CharField(max_length=100, null=True, blank=True)
 	source_url = models.URLField(null=True, blank=True)
@@ -351,12 +352,14 @@ class Photo(models.Model):
 								azimuth_guesses_weight += g.trustworthiness
 					total_weight += g.trustworthiness
 				correct_guesses_ratio = correct_guesses_weight / float(total_weight)
+				azimuth_correct_ratio = azimuth_guesses_weight / float(total_weight)
 
 				if correct_guesses_ratio > 0.63:
 					self.lon = lon_sum / float(correct_guesses_weight)
 					self.lat = lat_sum / float(correct_guesses_weight)
 					if azimuth_sum != 0:
 						self.azimuth = azimuth_sum / float(azimuth_guesses_weight)
+						self.azimuth_confidence = azimuth_correct_ratio * min(1, azimuth_guesses_weight / 1.5)
 					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 1.5)
 
 
