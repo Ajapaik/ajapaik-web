@@ -308,8 +308,11 @@
 
         photosDiv.bind('click', function () {
             if (isMobile) {
-                alert("MOBILE CLICK ON PHOTOS DIV");
-                hidePhotos();
+                if (locationToolsOpen == true) {
+                    showPhotos();
+                } else {
+                    hidePhotos();
+                }
             }
         });
 
