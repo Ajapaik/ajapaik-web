@@ -26,6 +26,7 @@
         disableSave = true,
         disableContinue = true,
         locationToolsOpen = false,
+        mobileMapMinimized = false,
         userSeenAll = false,
         infowindow = undefined,
         photosDiv = undefined,
@@ -324,8 +325,15 @@
         });
 
         photosDiv.find('img').live('click', function () {
-            if (isMobile) {
-                hidePhotos();
+            if (isMobile && locationToolsOpen) {
+                if (mobileMapMinimized) {
+                    $('#tools').style({left: '15%'});
+                    mobileMapMinimized = false;
+                } else {
+                    var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
+                    $('#tools').style({left: photoWidthPercent + '%'});
+                    mobileMapMinimized = true;
+                }
             }
         });
 
