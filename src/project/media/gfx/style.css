@@ -599,11 +599,11 @@ a.fullscreen {
 }
 #game #skip-photo {
 	color: #d4975b;
-	font-size: 19px;
+	font-size: 13px;
 	font-weight: 700;
 	text-decoration: none;
 	position: absolute;
-	top: 48%;
+	bottom: 7%;
 	right: 5%;
 }
 #game #skip-photo:hover,
