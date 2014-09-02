@@ -478,6 +478,7 @@
                 $('.skip-photo').animate({ 'opacity': .4 });
                 $(currentPhoto).find('img').animate({ 'opacity': .4 });
                 //showDescription();
+                $(currentPhoto).find('.show-description').hide();
 
                 photosDiv = $('#photos');
                 photosDiv.append('<div class="photo photo' + currentPhotoIdx + '"></div>');

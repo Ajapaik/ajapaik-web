@@ -560,7 +560,9 @@ a.fullscreen {
 	left: 50%;
 	width: 110px;
 	margin-left: -70px;
+    z-index: 1000;
 }
+
 #game #photos .photo .description {
 	font-size: 12px;
 	font-weight: 700;
