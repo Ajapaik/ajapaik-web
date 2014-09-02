@@ -242,7 +242,7 @@ class Photo(models.Model):
 								**extra_args).order_by('final_level')[:unknown_photos_to_get])
 					else:
 						unknown_photos.update(
-							photos_set.filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
+							photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
 								**extra_args).order_by('final_level')[:unknown_photos_to_get])
 				if len(unknown_photos) < unknown_photos_to_get:
 					#If we didn't get enough unknown photos, add from city's photos that aren't forbidden, where
