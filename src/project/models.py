@@ -178,11 +178,13 @@ class Photo(models.Model):
 			'select': {'final_level': "(case when level > 0 then level else coalesce(guess_level, 4) end)"},
 			'where': ['rephoto_of_id IS NULL']}
 
-			#Determine if the user has geotagged all the photos in the city
+			#Determine if the user has seen all the photos in the city
 			user_has_seen_all_photos_in_city = False
 			user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id).values_list("photo_id", flat=True))
+			user_guessed_photo_ids = list(Guess.objects.filter(user=user_id).values_list("photo_id", flat=True))
+			user_all_seen_photo_ids = set(user_geotagged_photo_ids + user_guessed_photo_ids)
 			all_city_photo_ids = [p.id for p in photos_set]
-			if set(all_city_photo_ids).issubset(set(user_geotagged_photo_ids)):
+			if set(all_city_photo_ids).issubset(set(user_all_seen_photo_ids)):
 				#print "This user has seen all the photos in the city"
 				user_has_seen_all_photos_in_city = True
 
