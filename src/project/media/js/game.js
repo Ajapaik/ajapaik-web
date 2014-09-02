@@ -121,6 +121,7 @@
         marker.bindTo('position', map, 'center');
 
         google.maps.event.addListener(map, 'click', function (e) {
+            e.preventDefault();
             if (infowindow !== undefined) {
                 infowindow.close();
                 infowindow = undefined;
@@ -306,12 +307,6 @@
             }
         });
 
-        photosDiv.find('img').live('click', function () {
-            if (isMobile && locationToolsOpen) {
-                hidePhotos();
-            }
-        });
-
         $('.full-box div').live('click', function (e) {
             if (BigScreen.enabled) {
                 e.preventDefault();
@@ -325,6 +320,12 @@
             }
         }, function () {
             if (locationToolsOpen == true) {
+                hidePhotos();
+            }
+        });
+
+        photosDiv.find('img').live('click', function () {
+            if (isMobile) {
                 hidePhotos();
             }
         });
