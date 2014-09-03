@@ -170,7 +170,8 @@ class Photo(models.Model):
 
 			user_trustworthiness = calc_trustworthiness(user_id)
 
-			#These currently seem to be all the photos in the given city, strange code though...
+			#Strange way to code, but these are all the photos in the city that aren't rephotos
+			#photos_set = self.filter(rephoto_of_id=None)
 			photos_set = self
 
 			#No rephotos, selects final level if it's > 0 or (guess_level or 4)
@@ -182,7 +183,7 @@ class Photo(models.Model):
 			user_has_seen_all_photos_in_city = False
 			# user_has_geotagged_all_photos_in_city = False
 			user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id).values_list("photo_id", flat=True))
-			user_guessed_photo_ids = list(Guess.objects.filter(user=user_id).values_list("photo_id", flat=True))
+			user_guessed_photo_ids = list(Skip.objects.filter(user=user_id).values_list("photo_id", flat=True))
 			user_all_seen_photo_ids = set(user_geotagged_photo_ids + user_guessed_photo_ids)
 			all_city_photo_ids = [p.id for p in photos_set]
 			if set(all_city_photo_ids).issubset(set(user_all_seen_photo_ids)):
@@ -195,7 +196,7 @@ class Photo(models.Model):
 			one_day_ago = datetime.datetime.now() - datetime.timedelta(1)
 			# #Why?
 			user_guessed_photo_ids_last_24h = [g.photo_id for g in
-											   Guess.objects.filter(user=user_id, created__gte=one_day_ago)]
+											   Skip.objects.filter(user=user_id, created__gte=one_day_ago)]
 			forbidden_photo_ids = frozenset(user_geotagged_photo_ids)
 			#user_geotagged_photo_ids = frozenset(user_geotagged_photo_ids)
 			if int(retry_old) == 1:
@@ -250,7 +251,7 @@ class Photo(models.Model):
 					unknown_photos.update(
 						photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3).extra(
 							**extra_args).order_by('final_level')[:(unknown_photos_to_get - len(unknown_photos))])
-
+			print retry_old
 			#If we still don't have enough photos and retry_old is True, get some at random
 			if len(unknown_photos.union(known_photos)) < nr_of_photos and int(retry_old) == 1:
 				unknown_photos.update(photos_set.extra(**extra_args).order_by('?')[:unknown_photos_to_get])
@@ -544,13 +545,13 @@ class Device(models.Model):
 		return "%s %s %s %s %s" % (self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
 
 
-class Guess(models.Model):
+class Skip(models.Model):
 	class Meta:
-		verbose_name = 'Guess'
-		verbose_name_plural = 'Guesses'
+		verbose_name = 'Skip'
+		verbose_name_plural = 'Skips'
 		app_label = "project"
 
-	user = models.ForeignKey(Profile, related_name='guesses')
+	user = models.ForeignKey(Profile, related_name='skips')
 	photo = models.ForeignKey(Photo)
 
 	created = models.DateTimeField(auto_now_add=True)

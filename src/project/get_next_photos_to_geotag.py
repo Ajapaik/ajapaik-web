@@ -46,7 +46,7 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 				'where': ['rephoto_of_id IS NULL']}
 
 	forbidden_photo_ids=frozenset([g.photo_id \
-			for g in Guess.objects.filter(user=user_id,
+			for g in Skip.objects.filter(user=user_id,
 				created__gte= \
 				datetime.datetime.now()-datetime.timedelta(1))] + \
 			list(GeoTag.objects.filter(user=user_id). \
@@ -171,7 +171,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 			new_geotag.score += new_geotag.azimuth_score
 		new_geotag.save()
 	else:
-		Guess(user=user, photo_id=p.id).save()
+		Skip(user=user, photo_id=p.id).save()
 
 	p.set_calculated_fields()
 	p.save()

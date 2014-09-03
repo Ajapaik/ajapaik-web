@@ -78,86 +78,41 @@
 			</div>
 
 			{% else %}
-
-			<div class="no-rephoto">
-                <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/vendor/jquery.ui.widget.js"></script>
-                <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/jquery.iframe-transport.js"></script>
-                <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/jquery.fileupload.js"></script>
-                <script src="{{ MEDIA_URL }}js/libs/JavaScript-Load-Image-master/js/load-image.min.js"></script>
-                <script src="{{ MEDIA_URL }}js/libs/JavaScript-Load-Image-master/js/load-image-exif.js"></script>
-                <script src="{{ MEDIA_URL }}js/libs/jquery-ui-1.11.1.custom/jquery-ui.min.js"></script>
-                <script type="text/javascript">
-                    /*jslint unparam: true */
-                    /*global window, $ */
-                    $(function () {
-                        'use strict';
-                        var url = '{% url 'views.photo_upload' photo.pk %}';
-                        var ok = false;
-                        var orientation = false;
-                        $('#fileupload').fileupload({
-                            url: url,
-                            dataType: 'json',
-                            autoUpload: false,
-                            done: function (e, data) {
-                                uploadCompleted($.parseJSON(data));
-                            },
-                            change: function (e, data) {
-                                $.each(data.files, function (index, file) {
-                                    var filesList = data.files;
-                                    ok = confirm("{% trans 'Selected file' %}" + ": " + file.name + ", " + "{% trans 'upload?' %}");
-                                    loadImage.parseMetaData(
-                                            file,
-                                            function (data) {
-                                                if (!data.exif || !data.exif.get("Orientation")) {
-                                                    var dialog = $('<p>{% trans "Which side is up on this photo?" %}</p>').dialog({
-                                                        buttons: {
-                                                            "Up": function () {
-                                                                dialog.dialog("close");
-                                                                if (ok) {
-                                                                    $('#fileupload').fileupload('send', {files: filesList, formData: {orientation: 1}});
-                                                                }
-                                                            },
-                                                            "Down": function () {
-                                                                dialog.dialog("close");
-                                                                if (ok) {
-                                                                    $('#fileupload').fileupload('send', {files: filesList, formData: {orientation: 3}});
-                                                                }
-                                                            },
-                                                            "Right": function () {
-                                                                dialog.dialog("close");
-                                                                if (ok) {
-                                                                    $('#fileupload').fileupload('send', {files: filesList, formData: {orientation: 8}});
-                                                                }
-                                                            },
-                                                            "Left": function () {
-                                                                dialog.dialog("close");
-                                                                if (ok) {
-                                                                    $('#fileupload').fileupload('send', {files: filesList, formData: {orientation: 6}});
-                                                                }
-                                                            }
-                                                        }
-                                                    });
-                                                } else {
-                                                    if (ok) {
-                                                        $('#fileupload').fileupload('send', {files: filesList, formData: {orientation: data.exif.get("Orientation")}});
-                                                    }
-                                                }
-                                            },
-                                            {}
-                                    );
-                                });
-                            },
-                            progressall: function (e, data) {
-                                var progress = parseInt(data.loaded / data.total * 100, 10);
-                                $('#progress').find('.progress-bar').css(
-                                        'width',
-                                                progress + '%'
-                                );
-                            }
-                        }).prop('disabled', !$.support.fileInput)
-                                .parent().addClass($.support.fileInput ? undefined : 'disabled')
-                    });
-                </script>
+                <div class="no-rephoto">
+                    <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/vendor/jquery.ui.widget.js"></script>
+                    <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/jquery.iframe-transport.js"></script>
+                    <script src="{{ MEDIA_URL }}js/libs/jQuery-File-Upload-9.7.0/js/jquery.fileupload.js"></script>
+                    <script type="text/javascript">
+                        /*jslint unparam: true */
+                        /*global window, $ */
+                        $(function () {
+                            'use strict';
+                            var url = '{% url 'views.photo_upload' photo.pk %}';
+                            var ok = false;
+                            $('#fileupload').fileupload({
+                                url: url,
+                                dataType: 'json',
+                                autoUpload: false,
+                                done: function (e, data) {
+                                    uploadCompleted($.parseJSON(data));
+                                },
+                                change: function (e, data) {
+                                    $.each(data.files, function (index, file) {
+                                        var filesList = data.files;
+                                        ok = confirm("{% trans 'Selected file' %}" + ": " + file.name + ", " + "{% trans 'upload?' %}");
+                                        if (ok) {
+                                            $('#fileupload').fileupload('send', {files: filesList});
+                                        }
+                                    });
+                                },
+                                progressall: function (e, data) {
+                                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                                    $('#progress').find('.progress-bar').css('width', progress + '%');
+                                }
+                            }).prop('disabled', !$.support.fileInput).parent()
+                                    .addClass($.support.fileInput ? undefined : 'disabled')
+                        });
+                    </script>
 
 				<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
 

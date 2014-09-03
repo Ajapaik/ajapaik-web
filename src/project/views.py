@@ -245,41 +245,20 @@ class SourceLookupFilterSpec(FilterSpec):
 def handle_uploaded_file(f):
 	return ContentFile(f.read())
 
+
 def photo_upload(request, photo_id):
-	def flip_horizontal(im): return im.transpose(Image.FLIP_LEFT_RIGHT)
-	def flip_vertical(im): return im.transpose(Image.FLIP_TOP_BOTTOM)
-	def rotate_180(im): return im.transpose(Image.ROTATE_180)
-	def rotate_90(im): return im.transpose(Image.ROTATE_90)
-	def rotate_270(im): return im.transpose(Image.ROTATE_270)
-	def transpose(im): return rotate_90(flip_horizontal(im))
-	def transverse(im): return rotate_90(flip_vertical(im))
-	orientation_funcs = [None,
-				 lambda x: x,
-				 flip_horizontal,
-				 rotate_180,
-				 flip_vertical,
-				 transpose,
-				 rotate_270,
-				 transverse,
-				 rotate_90
-				]
-	photo = get_object_or_404(Photo, pk=photo_id)
+	p = get_object_or_404(Photo, pk=photo_id)
 	new_id = 0
 
 	if request.method == 'POST':
 		profile = request.get_user().get_profile()
-
 		if 'fb_access_token' in request.POST:
 			token = request.POST.get('fb_access_token')
 			profile, fb_data = Profile.facebook.get_user(token)
 			if profile is None:
-				user = request.get_user()  # will create user on-demand
+				user = request.get_user()
 				profile = user.get_profile()
-
-				# update user info
 				profile.update_from_fb_data(token, fb_data)
-
-		# get the latest uploaded rephoto
 		latest_upload = Photo.objects.filter(rephoto_of=photo)
 		previous_uploader = None
 		if latest_upload:
@@ -291,8 +270,8 @@ def photo_upload(request, photo_id):
 				data = request.POST
 				re_photo = Photo(
 					rephoto_of=photo,
-					city=photo.city,
-					description=data.get('description', photo.description),
+					city=p.city,
+					description=data.get('description', p.description),
 					lat=data.get('lat', None),
 					lon=data.get('lon', None),
 					date_text=data.get('date_text', None),
@@ -336,11 +315,9 @@ def photo_upload(request, photo_id):
 						lens_model = exif_data.get('LensModel')
 						software = exif_data.get('Software')
 						try:
-							# find existing device configuration
 							device = Device.objects.get(camera_make=camera_make, camera_model=camera_model,
 														lens_make=lens_make, lens_model=lens_model, software=software)
 						except ObjectDoesNotExist:
-							# create new device configuration
 							device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make,
 											lens_model=lens_model, software=software)
 							device.save()
@@ -367,12 +344,6 @@ def photo_upload(request, photo_id):
 								re_photo.date = strftime("%Y-%m-%d", parsed_date)
 								re_photo.save()
 
-				f = orientation_funcs[int(request.POST["orientation"])]
-				new_img = f(img)
-				output_file = StringIO()
-				new_img.save(output_file, "JPEG", quality=95)
-				re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-
 				if re_photo.cam_scale_factor:
 					new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
 					output_file = StringIO()
@@ -395,12 +366,10 @@ def photo_upload(request, photo_id):
 						re_photo.image_unscaled = deepcopy(re_photo.image)
 						re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
-			# recalculate points for previous uploader
 			if previous_uploader and previous_uploader['user']:
 				uploader = Profile.objects.get(pk=previous_uploader['user'])
 				uploader.update_rephoto_score()
 
-			# recalculate points for new uploader
 			profile.update_rephoto_score()
 
 	return HttpResponse(json.dumps({'new_id': new_id}), mimetype="application/json")
