@@ -102,11 +102,11 @@
         var dottedLineSymbol = {
             path: google.maps.SymbolPath.CIRCLE,
             strokeOpacity: 1,
-            strokeWeight: 1,
+            strokeWeight: 1.5,
             strokeColor: 'red',
             scale: 0.75
         };
-
+        
         var line = new google.maps.Polyline({
             geodesic: true,
             strokeOpacity: 0,
