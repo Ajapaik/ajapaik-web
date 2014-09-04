@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Count, Sum
+from operator import attrgetter
 
 from django.contrib.auth.models import User as BaseUser
 from django.contrib.contenttypes.models import ContentType
@@ -8,6 +9,7 @@ from django.contrib.contenttypes import generic
 # from filebrowser.fields import FileBrowseField
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
+from django.db.models import Q
 
 from urllib2 import urlopen
 from contextlib import closing
@@ -130,6 +132,14 @@ class Photo(models.Model):
 	cam_pitch = models.FloatField(null=True, blank=True)
 	cam_roll = models.FloatField(null=True, blank=True)
 
+	@property
+	def calculated_level(self):
+		if self.level > 0:
+			return self.level
+		if self.guess_level:
+			return self.guess_level
+		return 4
+
 	class Meta:
 		ordering = ['-id']
 		app_label = "project"
@@ -165,121 +175,153 @@ class Photo(models.Model):
 				data.append((p.id, im_url, p.lon, p.lat, p.id in rephotographed_ids))
 			return data
 
-		def get_next_photos_to_geotag(self, user_id, nr_of_photos=5, load_extra=None, only_untagged=0, retry_old=1):
-			from get_next_photos_to_geotag import calc_trustworthiness, _make_thumbnail, _make_fullscreen
+		@staticmethod
+		def _get_game_json_format_photo(photo):
+			# TODO: proper JSON serialization
+			from get_next_photos_to_geotag import _make_thumbnail, _make_fullscreen
+			assert isinstance(photo, Photo)
+			return {
+				"id": photo.id,
+				"description": photo.description,
+				"date_text": photo.date_text,
+				"source_key": photo.source_key,
+				"big": _make_thumbnail(photo, "700x400"),
+				"large": _make_fullscreen(photo)
+			}
+
+		def get_next_photo_to_geotag(self, user_id):
+			from get_next_photos_to_geotag import calc_trustworthiness
 
 			user_trustworthiness = calc_trustworthiness(user_id)
 
-			#Strange way to code, but these are all the photos in the city that aren't rephotos
-			#photos_set = self.filter(rephoto_of_id=None)
-			photos_set = self
+			city_photos_set = self.filter(rephoto_of_id=None)
+			city_photo_ids = frozenset([p.id for p in city_photos_set])
 
-			#No rephotos, selects final level if it's > 0 or (guess_level or 4)
-			extra_args = {
-			'select': {'final_level': "(case when level > 0 then level else coalesce(guess_level, 4) end)"},
-			'where': ['rephoto_of_id IS NULL']}
+			user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
+			user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 
-			#Determine if the user has seen all the photos in the city
-			user_has_seen_all_photos_in_city = False
-			# user_has_geotagged_all_photos_in_city = False
-			user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id).values_list("photo_id", flat=True))
-			user_guessed_photo_ids = list(Skip.objects.filter(user=user_id).values_list("photo_id", flat=True))
-			user_all_seen_photo_ids = set(user_geotagged_photo_ids + user_guessed_photo_ids)
-			all_city_photo_ids = [p.id for p in photos_set]
-			if set(all_city_photo_ids).issubset(set(user_all_seen_photo_ids)):
-				#print "This user has seen all the photos in the city"
-				user_has_seen_all_photos_in_city = True
+			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
+			user_skipped_photo_ids = list(set(user_skips_in_city.values_list("photo_id", flat=True)))
+			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
 
-			# if set(all_city_photo_ids).issubset(set(user_geotagged_photo_ids)):
-			# 	user_has_geotagged_all_photos_in_city = True
+			if user_trustworthiness < 0.2:
+				# Novice users should only receive the easiest images to prove themselves
+				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("confidence")
+				if len(ret) == 0:
+					# If the user has seen all the photos, offer something at random
+					ret = city_photos_set.order_by("confidence")
+				return [self._get_game_json_format_photo(ret[0])]
+			else:
+				# Let's try to show the more experienced users photos they have not yet seen at all
+				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
+				if len(ret) == 0:
+					# If the user has seen them all, let's try showing her photos she has skipped or not marked an azimuth on
+					user_geotags_without_azimuth_in_city = user_geotags_in_city.exclude(azimuth__isnull=False)
+					user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_city.values_list("photo_id", flat=True)))
+					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_photo_ids))
+					if len(ret) == 0:
+						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
+						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
+						user_incorrectly_geotagged_photo_ids = list(set(user_incorrect_geotags.values_list("photo_id", flat=True)))
+						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_incorrectly_geotagged_photo_ids))
+				if user_trustworthiness < 0.3:
+					for p in ret:
+						if p.confidence > 0.6:
+							ret = [p]
+				elif 0.3 <= user_trustworthiness < 0.6:
+					for p in ret:
+						if 0.4 <= p.confidence <= 0.6:
+							ret = [p]
+				else:
+					for p in ret:
+						if p.confidence < 0.4:
+							ret = [p]
+				return [self._get_game_json_format_photo(ret[0])]
 
-			one_day_ago = datetime.datetime.now() - datetime.timedelta(1)
-			# #Why?
-			user_guessed_photo_ids_last_24h = [g.photo_id for g in
-											   Skip.objects.filter(user=user_id, created__gte=one_day_ago)]
-			forbidden_photo_ids = frozenset(user_geotagged_photo_ids)
-			#user_geotagged_photo_ids = frozenset(user_geotagged_photo_ids)
-			if int(retry_old) == 1:
-				#print "This user wants to see geotagged photos again, setting no forbidden ids"
-				forbidden_photo_ids = []
 
-			#Get nr_of_photos photos that aren't forbidden to the user that have confidence >= 0.3, no rephotos
-			known_photos = list(
-				photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__gte=0.3).extra(**extra_args).order_by(
-					'final_level')[:nr_of_photos])
 
-			#print "Found %s known photos for the user" %len(known_photos)
 
-			unknown_photos_to_get = 0
-			if user_trustworthiness > 0.2:
-				unknown_photos_to_get = int(nr_of_photos * (0.3 + 1.5 * user_trustworthiness))
-			unknown_photos_to_get = max(unknown_photos_to_get, nr_of_photos - len(known_photos))
 
-			unknown_photos = set()
 
-			if unknown_photos_to_get:
-				#Doing a bunch of queries again, wasteful?
-				qs = Photo.objects.get_query_set()
-				qs.query.join((None, 'project_photo', None, None))
-				qs.query.join(('project_photo', 'project_geotag', 'id', 'photo_id'), promote=True)
-				qs_args = {'where': ['rephoto_of_id IS NULL']}
-				qs = qs.extra(**qs_args)
-				photo_ids_without_guesses = frozenset(
-					qs.values('id').order_by().annotate(geotag_count=Count("geotags")).filter(
-						geotag_count=0).values_list('id', flat=True))
-				#photo_ids_without_guesses + photo_ids where geotags <= 10 - forbidden_photo_ids
-				photo_ids_with_few_guesses = frozenset(
-					photo_ids_without_guesses.union(
-						frozenset(GeoTag.objects.values('photo_id').annotate(nr_of_geotags=Count('id')).filter(
-							nr_of_geotags__lte=10).values_list('photo_id', flat=True))
-					)
-				)
-				if photo_ids_with_few_guesses:
-					#Add unknown_photos_to_get photos with few guesses to unknown_photos where confidence <= 0.3,
-					if int(only_untagged) == 1:
-						unknown_photos.update(
-							photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3,
-																				  pk__in=photo_ids_with_few_guesses).extra(
-								**extra_args).order_by('final_level')[:unknown_photos_to_get])
-					else:
-						unknown_photos.update(
-							photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
-								**extra_args).order_by('final_level')[:unknown_photos_to_get])
-				if len(unknown_photos) < unknown_photos_to_get:
-					#If we didn't get enough unknown photos, add from city's photos that aren't forbidden, where
-					#confidence <= 0.3
-					unknown_photos.update(
-						photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3).extra(
-							**extra_args).order_by('final_level')[:(unknown_photos_to_get - len(unknown_photos))])
-			print retry_old
-			#If we still don't have enough photos and retry_old is True, get some at random
-			if len(unknown_photos.union(known_photos)) < nr_of_photos and int(retry_old) == 1:
-				unknown_photos.update(photos_set.extra(**extra_args).order_by('?')[:unknown_photos_to_get])
+			# user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id, photo_id__in=all_city_photo_ids).values_list("photo_id", flat=True))
+			# user_skipped_photo_ids = list(Skip.objects.filter(user=user_id, photo_id__in=all_city_photo_ids).values_list("photo_id", flat=True))
+			# user_geotagged_with_azimuth_photo_ids = user_geotagged_photo_ids
+			# user_all_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
+			#
+			# user_has_seen_all_photos_in_city = False
+			# if set(all_city_photo_ids).issubset(set(user_all_seen_photo_ids)):
+			# 	user_has_seen_all_photos_in_city = True
+			#
+			# excluded_photo_ids = []
+			# if only_untagged or not retry_old:
+			# 	excluded_photo_ids = user_geotagged_photo_ids
+			#
+			# known_photos = list(photos_set.exclude(pk__in=excluded_photo_ids).filter(confidence__gte=0.3))
+			# known_photos = sorted(known_photos, key=attrgetter("calculated_level"))[:nr_of_photos]
+			#
+			# unknown_photos_to_get = 0
+			# if user_trustworthiness > 0.2:
+			# 	# Value between nr_of_photos * 0.3 up to nr_of_photos * 1.8, floored, with default nr_of_photos (5): 1-9
+			# 	unknown_photos_to_get = int(nr_of_photos * (0.3 + 1.5 * user_trustworthiness))
+			# unknown_photos_to_get = max(unknown_photos_to_get, nr_of_photos - len(known_photos))
+			#
+			# photo_ids_with_less_than_10_tags = []
+			# photo_ids_with_at_least_10_tags_but_low_confidence = []
+			# if unknown_photos_to_get:
+			# 	all_photo_ids_that_are_geotagged = GeoTag.objects.filter(photo_id__in=all_city_photo_ids).values_list("photo_id", flat=True)
+			# 	for p in photos_set:
+			# 		if sum(1 for x in all_photo_ids_that_are_geotagged if x == p.id) < 10:
+			# 			photo_ids_with_less_than_10_tags.append(p.id)
+			# 		else:
+			# 			if p.confidence < 0.3:
+			# 				photo_ids_with_at_least_10_tags_but_low_confidence.append(p.id)
 
-			photos = list(unknown_photos.union(known_photos))
-			photos = random.sample(photos, min(len(photos), nr_of_photos))
-
-			data = []
-			if load_extra:
-				extra_photo = Photo.objects.filter(pk=int(load_extra), rephoto_of__isnull=True).get() or None
-				if extra_photo:
-					data.append({'id': extra_photo.id,
-								 'description': extra_photo.description,
-								 'date_text': extra_photo.date_text,
-								 'source_key': extra_photo.source_key,
-								 'big': _make_thumbnail(extra_photo, '700x400'),
-								 'large': _make_fullscreen(extra_photo)
-					})
-			for p in photos:
-				data.append({'id': p.id,
-							 'description': p.description,
-							 'date_text': p.date_text,
-							 'source_key': p.source_key,
-							 'big': _make_thumbnail(p, '700x400'),
-							 'large': _make_fullscreen(p)
-				})
-
-			return data, user_has_seen_all_photos_in_city
+			# 	if photo_ids_with_few_guesses:
+			# 		#Add unknown_photos_to_get photos with few guesses to unknown_photos where confidence <= 0.3,
+			# 		if int(only_untagged) == 1:
+			# 			unknown_photos.update(
+			# 				photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3,
+			# 																	  pk__in=photo_ids_with_few_guesses).extra(
+			# 					**extra_args).order_by('final_level')[:unknown_photos_to_get])
+			# 		else:
+			# 			unknown_photos.update(
+			# 				photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
+			# 					**extra_args).order_by('final_level')[:unknown_photos_to_get])
+			# 	if len(unknown_photos) < unknown_photos_to_get:
+			# 		#If we didn't get enough unknown photos, add from city's photos that aren't forbidden, where
+			# 		#confidence <= 0.3
+			# 		unknown_photos.update(
+			# 			photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3).extra(
+			# 				**extra_args).order_by('final_level')[:(unknown_photos_to_get - len(unknown_photos))])
+			# print retry_old
+			# #If we still don't have enough photos and retry_old is True, get some at random
+			# if len(unknown_photos.union(known_photos)) < nr_of_photos and int(retry_old) == 1:
+			# 	unknown_photos.update(photos_set.extra(**extra_args).order_by('?')[:unknown_photos_to_get])
+			#
+			# photos = list(unknown_photos.union(known_photos))
+			# photos = random.sample(photos, min(len(photos), nr_of_photos))
+			#
+			# data = []
+			# if load_extra:
+			# 	extra_photo = Photo.objects.filter(pk=int(load_extra), rephoto_of__isnull=True).get() or None
+			# 	if extra_photo:
+			# 		data.append({'id': extra_photo.id,
+			# 					 'description': extra_photo.description,
+			# 					 'date_text': extra_photo.date_text,
+			# 					 'source_key': extra_photo.source_key,
+			# 					 'big': _make_thumbnail(extra_photo, '700x400'),
+			# 					 'large': _make_fullscreen(extra_photo)
+			# 		})
+			# for p in photos:
+			# 	data.append({'id': p.id,
+			# 				 'description': p.description,
+			# 				 'date_text': p.date_text,
+			# 				 'source_key': p.source_key,
+			# 				 'big': _make_thumbnail(p, '700x400'),
+			# 				 'large': _make_fullscreen(p)
+			# 	})
+			#
+			# return data, user_has_seen_all_photos_in_city
 
 
 	def __unicode__(self):

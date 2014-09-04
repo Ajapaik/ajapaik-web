@@ -106,7 +106,7 @@
             strokeColor: 'red',
             scale: 0.75
         };
-        
+
         var line = new google.maps.Polyline({
             geodesic: true,
             strokeOpacity: 0,
