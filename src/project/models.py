@@ -191,8 +191,6 @@ class Photo(models.Model):
 
 		@staticmethod
 		def distance_in_meters(lon1, lat1, lon2, lat2):
-			if not lon1 or not lat1 or not lon2 or not lat2:
-				return None
 			lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
 			return (2 * 6350e3 * 3.1415 / 360) * math.sqrt(
 				(lat1 - lat2) ** 2 +
@@ -214,6 +212,8 @@ class Photo(models.Model):
 			if len(user_geotags_in_city) > 0:
 				user_last_geotag = user_geotags_in_city.order_by("-created")[0]
 				user_last_geotagged_photo = city_photos_set.filter(id=user_last_geotag.photo_id, lat__isnull=False, lon__isnull=False)
+				if len(user_last_geotagged_photo) == 0:
+					user_last_geotagged_photo = None
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			# TODO: Tidy up
