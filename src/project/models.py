@@ -181,7 +181,7 @@ class Photo(models.Model):
 			return data
 
 		@staticmethod
-		def _get_game_json_format_photo(photo):
+		def _get_game_json_format_photo(photo, distance_from_last):
 			# TODO: proper JSON serialization
 			from get_next_photos_to_geotag import _make_thumbnail, _make_fullscreen
 			assert isinstance(photo, Photo)
@@ -191,7 +191,9 @@ class Photo(models.Model):
 				"date_text": photo.date_text,
 				"source_key": photo.source_key,
 				"big": _make_thumbnail(photo, "700x400"),
-				"large": _make_fullscreen(photo)
+				"large": _make_fullscreen(photo),
+				"confidence": photo.confidence,
+				"distance_from_last": distance_from_last
 			}
 
 		def get_next_photo_to_geotag(self, request):
@@ -284,7 +286,7 @@ class Photo(models.Model):
 				request.session.user_skip_array.append(ret[0].id)
 			if len(ret) == 0:
 				return [{}], True, True
-			return [self._get_game_json_format_photo(ret[0])], user_seen_all, nothing_more_to_show
+			return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
 
 	def __unicode__(self):
