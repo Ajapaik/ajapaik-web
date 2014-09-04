@@ -211,9 +211,9 @@ class Photo(models.Model):
 			distance_between_photos = None
 			if len(user_geotags_in_city) > 0:
 				user_last_geotag = user_geotags_in_city.order_by("-created")[0]
-				user_last_geotagged_photo = city_photos_set.filter(id=user_last_geotag.photo_id, lat__isnull=False, lon__isnull=False)
-				if len(user_last_geotagged_photo) == 0:
-					user_last_geotagged_photo = None
+				user_last_geotagged_photos = list(city_photos_set.filter(id=user_last_geotag.photo_id, lat__isnull=False, lon__isnull=False))
+				if len(user_last_geotagged_photos) > 0:
+					user_last_geotagged_photo = user_last_geotagged_photos[0]
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			# TODO: Tidy up
@@ -221,7 +221,7 @@ class Photo(models.Model):
 			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
 
 			if "user_skip_array" not in request.session:
-				request.session.user_skip_array = user_skipped_photo_ids
+				request.session.user_skip_array = []
 
 			if user_trustworthiness < 0.2:
 				# Novice users should only receive the easiest images to prove themselves
@@ -279,10 +279,8 @@ class Photo(models.Model):
 								ret = [p]
 							elif p.confidence < 0.4:
 								ret = [p]
-			if ret[0].id in request.session.user_skip_array:
-				print request.session.user_skip_array
-				request.session.user_skip_array.remove(ret[0].id)
-				print request.session.user_skip_array
+			if ret[0].id in user_skipped_photo_ids:
+				request.session.user_skip_array.append(ret[0].id)
 			return [self._get_game_json_format_photo(ret[0])]
 
 
