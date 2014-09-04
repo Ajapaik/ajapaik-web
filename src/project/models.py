@@ -209,10 +209,10 @@ class Photo(models.Model):
 
 			if user_trustworthiness < 0.2:
 				# Novice users should only receive the easiest images to prove themselves
-				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("confidence")
+				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-confidence")
 				if len(ret) == 0:
 					# If the user has seen all the photos, offer something at random
-					ret = city_photos_set.order_by("confidence")
+					ret = city_photos_set.order_by("-confidence")
 				return [self._get_game_json_format_photo(ret[0])]
 			else:
 				# Let's try to show the more experienced users photos they have not yet seen at all
