@@ -189,8 +189,7 @@ class Photo(models.Model):
 				"large": _make_fullscreen(photo)
 			}
 
-		@staticmethod
-		def distance_in_meters(lon1, lat1, lon2, lat2):
+		def distance_in_meters(self, lon1, lat1, lon2, lat2):
 			if not lon1 or not lat1 or not lon2 or not lat2:
 				return None
 			lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
