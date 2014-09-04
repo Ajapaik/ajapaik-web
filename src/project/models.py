@@ -189,6 +189,13 @@ class Photo(models.Model):
 				"large": _make_fullscreen(photo)
 			}
 
+		@staticmethod
+		def distance_in_meters(lon1, lat1, lon2, lat2):
+			lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
+			return (2 * 6350e3 * 3.1415 / 360) * math.sqrt(
+				(lat1 - lat2) ** 2 +
+				((lon1 - lon2) * lat_coeff) ** 2)
+
 		def get_next_photo_to_geotag(self, user_id):
 			from get_next_photos_to_geotag import calc_trustworthiness
 
@@ -200,8 +207,8 @@ class Photo(models.Model):
 			user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			if len(user_geotags_in_city) > 0:
-				user_last_geotag = user_geotags_in_city.order_by("created")
-				print user_last_geotag
+				user_last_geotag = user_geotags_in_city.order_by("-created")[0]
+				user_last_geotagged_photo = city_photos_set.filter(id=user_last_geotag.photo_id)
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			user_skipped_photo_ids = list(set(user_skips_in_city.values_list("photo_id", flat=True)))
@@ -213,6 +220,11 @@ class Photo(models.Model):
 				if len(ret) == 0:
 					# If the user has seen all the photos, offer something at random
 					ret = city_photos_set.order_by("-confidence")
+				for p in ret:
+					# Trying not to offer photos in the vicinity of the last one
+					distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+					if 100 <= distance_between_photos <= 1000:
+						ret = [p]
 				return [self._get_game_json_format_photo(ret[0])]
 			else:
 				# Let's try to show the more experienced users photos they have not yet seen at all
@@ -240,91 +252,6 @@ class Photo(models.Model):
 						if p.confidence < 0.4:
 							ret = [p]
 				return [self._get_game_json_format_photo(ret[0])]
-
-
-
-
-
-
-			# user_geotagged_photo_ids = list(GeoTag.objects.filter(user=user_id, photo_id__in=all_city_photo_ids).values_list("photo_id", flat=True))
-			# user_skipped_photo_ids = list(Skip.objects.filter(user=user_id, photo_id__in=all_city_photo_ids).values_list("photo_id", flat=True))
-			# user_geotagged_with_azimuth_photo_ids = user_geotagged_photo_ids
-			# user_all_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
-			#
-			# user_has_seen_all_photos_in_city = False
-			# if set(all_city_photo_ids).issubset(set(user_all_seen_photo_ids)):
-			# 	user_has_seen_all_photos_in_city = True
-			#
-			# excluded_photo_ids = []
-			# if only_untagged or not retry_old:
-			# 	excluded_photo_ids = user_geotagged_photo_ids
-			#
-			# known_photos = list(photos_set.exclude(pk__in=excluded_photo_ids).filter(confidence__gte=0.3))
-			# known_photos = sorted(known_photos, key=attrgetter("calculated_level"))[:nr_of_photos]
-			#
-			# unknown_photos_to_get = 0
-			# if user_trustworthiness > 0.2:
-			# 	# Value between nr_of_photos * 0.3 up to nr_of_photos * 1.8, floored, with default nr_of_photos (5): 1-9
-			# 	unknown_photos_to_get = int(nr_of_photos * (0.3 + 1.5 * user_trustworthiness))
-			# unknown_photos_to_get = max(unknown_photos_to_get, nr_of_photos - len(known_photos))
-			#
-			# photo_ids_with_less_than_10_tags = []
-			# photo_ids_with_at_least_10_tags_but_low_confidence = []
-			# if unknown_photos_to_get:
-			# 	all_photo_ids_that_are_geotagged = GeoTag.objects.filter(photo_id__in=all_city_photo_ids).values_list("photo_id", flat=True)
-			# 	for p in photos_set:
-			# 		if sum(1 for x in all_photo_ids_that_are_geotagged if x == p.id) < 10:
-			# 			photo_ids_with_less_than_10_tags.append(p.id)
-			# 		else:
-			# 			if p.confidence < 0.3:
-			# 				photo_ids_with_at_least_10_tags_but_low_confidence.append(p.id)
-
-			# 	if photo_ids_with_few_guesses:
-			# 		#Add unknown_photos_to_get photos with few guesses to unknown_photos where confidence <= 0.3,
-			# 		if int(only_untagged) == 1:
-			# 			unknown_photos.update(
-			# 				photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3,
-			# 																	  pk__in=photo_ids_with_few_guesses).extra(
-			# 					**extra_args).order_by('final_level')[:unknown_photos_to_get])
-			# 		else:
-			# 			unknown_photos.update(
-			# 				photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3, pk__in=photo_ids_with_few_guesses).extra(
-			# 					**extra_args).order_by('final_level')[:unknown_photos_to_get])
-			# 	if len(unknown_photos) < unknown_photos_to_get:
-			# 		#If we didn't get enough unknown photos, add from city's photos that aren't forbidden, where
-			# 		#confidence <= 0.3
-			# 		unknown_photos.update(
-			# 			photos_set.exclude(pk__in=forbidden_photo_ids).filter(confidence__lt=0.3).extra(
-			# 				**extra_args).order_by('final_level')[:(unknown_photos_to_get - len(unknown_photos))])
-			# print retry_old
-			# #If we still don't have enough photos and retry_old is True, get some at random
-			# if len(unknown_photos.union(known_photos)) < nr_of_photos and int(retry_old) == 1:
-			# 	unknown_photos.update(photos_set.extra(**extra_args).order_by('?')[:unknown_photos_to_get])
-			#
-			# photos = list(unknown_photos.union(known_photos))
-			# photos = random.sample(photos, min(len(photos), nr_of_photos))
-			#
-			# data = []
-			# if load_extra:
-			# 	extra_photo = Photo.objects.filter(pk=int(load_extra), rephoto_of__isnull=True).get() or None
-			# 	if extra_photo:
-			# 		data.append({'id': extra_photo.id,
-			# 					 'description': extra_photo.description,
-			# 					 'date_text': extra_photo.date_text,
-			# 					 'source_key': extra_photo.source_key,
-			# 					 'big': _make_thumbnail(extra_photo, '700x400'),
-			# 					 'large': _make_fullscreen(extra_photo)
-			# 		})
-			# for p in photos:
-			# 	data.append({'id': p.id,
-			# 				 'description': p.description,
-			# 				 'date_text': p.date_text,
-			# 				 'source_key': p.source_key,
-			# 				 'big': _make_thumbnail(p, '700x400'),
-			# 				 'large': _make_fullscreen(p)
-			# 	})
-			#
-			# return data, user_has_seen_all_photos_in_city
 
 
 	def __unicode__(self):
@@ -359,13 +286,6 @@ class Photo(models.Model):
 		else:
 			slug = slugify(self.created.__format__("%Y-%m-%d"))
 		return slug
-
-	@staticmethod
-	def distance_in_meters(lon1, lat1, lon2, lat2):
-		lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
-		return (2 * 6350e3 * 3.1415 / 360) * math.sqrt(
-			(lat1 - lat2) ** 2 +
-			((lon1 - lon2) * lat_coeff) ** 2)
 
 	def set_calculated_fields(self):
 		if not self.bounding_circle_radius:
