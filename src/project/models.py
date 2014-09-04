@@ -234,7 +234,7 @@ class Photo(models.Model):
 					# Trying not to offer photos in the vicinity of the last one
 					if user_last_geotagged_photo:
 						distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
-					if distance_between_photos and 100 <= distance_between_photos <= 1000:
+					if distance_between_photos and 250 <= distance_between_photos <= 1000:
 						ret = [p]
 			else:
 				# Let's try to show the more experienced users photos they have not yet seen at all
@@ -258,7 +258,7 @@ class Photo(models.Model):
 						if user_last_geotagged_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 						if distance_between_photos:
-							if p.confidence > 0.6 and 100 <= distance_between_photos <= 1000:
+							if p.confidence > 0.6 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
 							elif p.confidence > 0.6:
 								ret = [p]
@@ -267,7 +267,7 @@ class Photo(models.Model):
 						if user_last_geotagged_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 						if distance_between_photos:
-							if 0.4 <= p.confidence <= 0.6 and 100 <= distance_between_photos <= 1000:
+							if 0.4 <= p.confidence <= 0.6 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
 							elif 0.4 <= p.confidence <= 0.6:
 								ret = [p]
@@ -276,7 +276,7 @@ class Photo(models.Model):
 						if user_last_geotagged_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 						if distance_between_photos:
-							if p.confidence < 0.4 and 100 <= distance_between_photos <= 1000:
+							if p.confidence < 0.4 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
 							elif p.confidence < 0.4:
 								ret = [p]
