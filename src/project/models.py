@@ -199,6 +199,9 @@ class Photo(models.Model):
 
 			user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
+			if len(user_geotags_in_city) > 0:
+				user_last_geotag = user_geotags_in_city.order_by("created")
+				print user_last_geotag
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			user_skipped_photo_ids = list(set(user_skips_in_city.values_list("photo_id", flat=True)))
@@ -545,7 +548,7 @@ class Profile(models.Model):
 
 	def merge_from_other(self, other):
 		other.photos.update(user=self)
-		other.guesses.update(user=self)
+		other.skips.update(user=self)
 		other.geotags.update(user=self)
 
 	def set_calculated_fields(self):
