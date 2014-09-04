@@ -244,7 +244,6 @@ class Photo(models.Model):
 				if len(ret) == 0:
 					# If the user has seen all the photos, offer something at random
 					ret = city_photos_set.order_by("-confidence")
-				ret = ret[0]
 				# for p in ret:
 				# 	# Trying not to offer photos in the vicinity of the last one
 				# 	if user_last_interacted_photo:
