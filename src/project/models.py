@@ -206,9 +206,11 @@ class Photo(models.Model):
 
 			user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
+			user_last_geotagged_photo = None
+			distance_between_photos = None
 			if len(user_geotags_in_city) > 0:
 				user_last_geotag = user_geotags_in_city.order_by("-created")[0]
-				user_last_geotagged_photo = city_photos_set.filter(id=user_last_geotag.photo_id)
+				user_last_geotagged_photo = city_photos_set.filter(id=user_last_geotag.photo_id, lat__isnull=False, lon__isnull=False)
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			user_skipped_photo_ids = list(set(user_skips_in_city.values_list("photo_id", flat=True)))
@@ -222,8 +224,9 @@ class Photo(models.Model):
 					ret = city_photos_set.order_by("-confidence")
 				for p in ret:
 					# Trying not to offer photos in the vicinity of the last one
-					distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
-					if 100 <= distance_between_photos <= 1000:
+					if user_last_geotagged_photo:
+						distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+					if distance_between_photos and 100 <= distance_between_photos <= 1000:
 						ret = [p]
 				return [self._get_game_json_format_photo(ret[0])]
 			else:
@@ -239,18 +242,34 @@ class Photo(models.Model):
 						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
 						user_incorrectly_geotagged_photo_ids = list(set(user_incorrect_geotags.values_list("photo_id", flat=True)))
 						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_incorrectly_geotagged_photo_ids))
+				# TODO: Refactor to use two variable sorting instead of many loops and ifs
 				if user_trustworthiness < 0.3:
 					for p in ret:
-						if p.confidence > 0.6:
-							ret = [p]
+						if user_last_geotagged_photo:
+							distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+						if distance_between_photos:
+							if p.confidence > 0.6 and 100 <= distance_between_photos <= 1000:
+								ret = [p]
+							elif p.confidence > 0.6:
+								ret = [p]
 				elif 0.3 <= user_trustworthiness < 0.6:
 					for p in ret:
-						if 0.4 <= p.confidence <= 0.6:
-							ret = [p]
+						if user_last_geotagged_photo:
+							distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+						if distance_between_photos:
+							if 0.4 <= p.confidence <= 0.6 and 100 <= distance_between_photos <= 1000:
+								ret = [p]
+							elif 0.4 <= p.confidence <= 0.6:
+								ret = [p]
 				else:
 					for p in ret:
-						if p.confidence < 0.4:
-							ret = [p]
+						if user_last_geotagged_photo:
+							distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+						if distance_between_photos:
+							if p.confidence < 0.4 and 100 <= distance_between_photos <= 1000:
+								ret = [p]
+							elif p.confidence < 0.4:
+								ret = [p]
 				return [self._get_game_json_format_photo(ret[0])]
 
 
