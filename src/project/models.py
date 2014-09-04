@@ -218,6 +218,9 @@ class Photo(models.Model):
 			user_skipped_photo_ids = list(set(list(user_skips_in_city.values_list("photo_id", flat=True))) - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
 			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
 
+			if "user_skip_array" not in request.session:
+				request.session.user_skip_array = user_skipped_photo_ids
+
 			if user_trustworthiness < 0.2:
 				# Novice users should only receive the easiest images to prove themselves
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-confidence")
@@ -230,17 +233,14 @@ class Photo(models.Model):
 						distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 					if distance_between_photos and 100 <= distance_between_photos <= 1000:
 						ret = [p]
-				return [self._get_game_json_format_photo(ret[0])]
 			else:
 				# Let's try to show the more experienced users photos they have not yet seen at all
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
 				if len(ret) == 0:
-					# If the user has seen them all, let's try showing her photos she has skipped or not marked an azimuth on
-					if not hasattr(request.session, "user_skip_array"):
-						request.session.user_skip_array = user_skipped_photo_ids
+					# If the user has seen them all, let's try showing her photos she has skipped (but not in this session) or not marked an azimuth on
 					user_geotags_without_azimuth_in_city = user_geotags_in_city.exclude(azimuth__isnull=False)
 					user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_city.values_list("photo_id", flat=True)))
-					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_photo_ids))
+					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_photo_ids)).exclude(id__in=request.session.user_skip_array)
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
 						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
@@ -277,11 +277,11 @@ class Photo(models.Model):
 								ret = [p]
 							elif p.confidence < 0.4:
 								ret = [p]
-				if hasattr(request.session, "user_skip_array" and ret[0].id in request.session.user_skip_array):
-					print request.session.user_skip_array
-					request.session.user_skip_array.remove(ret[0].id)
-					print request.session.user_skip_array
-				return [self._get_game_json_format_photo(ret[0])]
+			if ret[0].id in request.session.user_skip_array:
+				print request.session.user_skip_array
+				request.session.user_skip_array.remove(ret[0].id)
+				print request.session.user_skip_array
+			return [self._get_game_json_format_photo(ret[0])]
 
 
 	def __unicode__(self):
