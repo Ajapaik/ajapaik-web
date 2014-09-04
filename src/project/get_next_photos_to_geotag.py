@@ -126,7 +126,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 		trustworthiness = calc_trustworthiness(user.pk)
 
 		if p.confidence >= 0.3:
-			error_in_meters = Photo.distance_in_meters(p.lon, p.lat, float(lon), float(lat))
+			error_in_meters = distance_in_meters(p.lon, p.lat, float(lon), float(lat))
 			this_guess_score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
 			is_correct = (this_guess_score > 0)
 		else:

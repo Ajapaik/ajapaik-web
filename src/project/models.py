@@ -36,8 +36,13 @@ def user_post_save(sender, instance, **kwargs):
 	profile, new = Profile.objects.get_or_create(user=instance)
 
 
-models.signals.post_save.connect(user_post_save, sender=BaseUser)
+def distance_in_meters(lon1, lat1, lon2, lat2):
+	if not lon1 or not lat1 or not lon2 or not lat2:
+		return None
+	lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
+	return (2 * 6350e3 * 3.1415 / 360) * math.sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
 
+models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 class City(models.Model):
 	name = models.TextField()
@@ -189,15 +194,6 @@ class Photo(models.Model):
 				"large": _make_fullscreen(photo)
 			}
 
-		@staticmethod
-		def distance_in_meters(lon1, lat1, lon2, lat2):
-			if not lon1 or not lat1 or not lon2 or not lat2:
-				return None
-			lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
-			return (2 * 6350e3 * 3.1415 / 360) * math.sqrt(
-				(lat1 - lat2) ** 2 +
-				((lon1 - lon2) * lat_coeff) ** 2)
-
 		def get_next_photo_to_geotag(self, request):
 			user_id = request.get_user().get_profile().pk
 			from get_next_photos_to_geotag import calc_trustworthiness
@@ -234,7 +230,7 @@ class Photo(models.Model):
 				for p in ret:
 					# Trying not to offer photos in the vicinity of the last one
 					if user_last_geotagged_photo:
-						distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+						distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 					if distance_between_photos and 100 <= distance_between_photos <= 1000:
 						ret = [p]
 			else:
@@ -257,7 +253,7 @@ class Photo(models.Model):
 				if user_trustworthiness < 0.3:
 					for p in ret:
 						if user_last_geotagged_photo:
-							distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 						if distance_between_photos:
 							if p.confidence > 0.6 and 100 <= distance_between_photos <= 1000:
 								ret = [p]
@@ -266,7 +262,7 @@ class Photo(models.Model):
 				elif 0.3 <= user_trustworthiness < 0.6:
 					for p in ret:
 						if user_last_geotagged_photo:
-							distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 						if distance_between_photos:
 							if 0.4 <= p.confidence <= 0.6 and 100 <= distance_between_photos <= 1000:
 								ret = [p]
@@ -275,7 +271,7 @@ class Photo(models.Model):
 				else:
 					for p in ret:
 						if user_last_geotagged_photo:
-							distance_between_photos = self.distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
 						if distance_between_photos:
 							if p.confidence < 0.4 and 100 <= distance_between_photos <= 1000:
 								ret = [p]
@@ -343,7 +339,7 @@ class Photo(models.Model):
 				correct_guesses_weight, total_weight, azimuth_guesses_weight = 0, 0, 0
 				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
 				for g in geotags:
-					if self.distance_in_meters(g.lon, g.lat, lon, lat) < 100:
+					if distance_in_meters(g.lon, g.lat, lon, lat) < 100:
 						correct_guesses_weight += g.trustworthiness
 						lon_sum += g.lon * g.trustworthiness
 						lat_sum += g.lat * g.trustworthiness
