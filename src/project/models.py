@@ -189,7 +189,8 @@ class Photo(models.Model):
 				"large": _make_fullscreen(photo)
 			}
 
-		def distance_in_meters(self, lon1, lat1, lon2, lat2):
+		@staticmethod
+		def distance_in_meters(lon1, lat1, lon2, lat2):
 			if not lon1 or not lat1 or not lon2 or not lat2:
 				return None
 			lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
@@ -342,7 +343,7 @@ class Photo(models.Model):
 				correct_guesses_weight, total_weight, azimuth_guesses_weight = 0, 0, 0
 				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
 				for g in geotags:
-					if Photo.distance_in_meters(g.lon, g.lat, lon, lat) < 100:
+					if self.distance_in_meters(g.lon, g.lat, lon, lat) < 100:
 						correct_guesses_weight += g.trustworthiness
 						lon_sum += g.lon * g.trustworthiness
 						lat_sum += g.lat * g.trustworthiness
