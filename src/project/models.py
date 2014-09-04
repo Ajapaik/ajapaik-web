@@ -277,8 +277,10 @@ class Photo(models.Model):
 								ret = [p]
 							elif p.confidence < 0.4:
 								ret = [p]
-			if ret[0].id in user_skipped_photo_ids:
+			if ret and ret[0].id in user_skipped_photo_ids:
 				request.session.user_skip_array.append(ret[0].id)
+			if len(ret) == 0:
+				ret[0] = {}
 			return [self._get_game_json_format_photo(ret[0])]
 
 
