@@ -28,7 +28,7 @@
         locationToolsOpen = false,
         mobileMapMinimized = false,
         userSeenAll = false,
-        onlyUntagged = false,
+        nothingMoreToShow = false,
         infowindow = undefined,
         photosDiv = undefined,
         noticeDiv = undefined,
@@ -46,31 +46,10 @@
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
     }
 
-    // May need this to draw field of vision
-    /*function getArcPath(center, radiusMeters, startAngle, endAngle) {
-        var point, points = [], a = startAngle;
-        while (true) {
-            point = google.maps.geometry.spherical.computeOffset(center, radiusMeters, a);
-            points.push(point);
-            if (a == endAngle) {
-                break;
-            }
-            a++;
-            if (a > 360) {
-                a = 1;
-            }
-        }
-        return points;
-    }*/
-
     $(document).ready(function () {
         update_leaderboard();
 
         loadPhotos();
-
-        if (userSeenAll && !onlyUntagged) {
-            showGameChoiceWindow();
-        }
 
         var location = new google.maps.LatLng(start_location[1], start_location[0]);
 
@@ -142,14 +121,6 @@
             azimuthListenerActive = !azimuthListenerActive;
         });
 
-        // We may need this for field of vision
-        /*path = false,
-        poly = new google.maps.Polygon({
-            map: map,
-            fillColor: "red",
-            fillOpacity: 0.6
-        });*/
-
         function addMouseMoveListener () {
             google.maps.event.addListener(map, 'mousemove', function (e) {
                 // The mouse is moving, therefore we haven't locked on a direction
@@ -163,12 +134,6 @@
                 } else {
                     line.setVisible(false);
                 }
-                // We may need this for field of vision
-                /*path = getArcPath(marker.position, 200, degreeAngle - 15, degreeAngle + 15);
-                path.unshift(marker.position);
-                path.push(marker.position);
-                poly.setPath(path);
-                poly.setVisible(true);*/
             });
         }
 
@@ -204,9 +169,6 @@
             content: '<div style="overflow:hidden;white-space:nowrap;">' + gettext('Point the marker to where the picture was taken from.') + '</div>'
         });
 
-        /* BINDINGS */
-        /* game */
-
         $.jQee('space', function () {
             // If tools is open, continue game
             if (locationToolsOpen && !disableContinue) {
@@ -226,7 +188,7 @@
         });
 
         $.jQee('enter', function () {
-            // save location only if Tools open and no result window
+            // Save location only if Tools open and no result window
             if (locationToolsOpen && disableContinue) {
                 $('#save-location').click();
             }
@@ -265,18 +227,6 @@
         $('#continue-game').click(function (e) {
             e.preventDefault();
             continueGame();
-        });
-
-        $('#load-untagged-button').click(function (e) {
-            e.preventDefault();
-            closeGameChoiceWindow();
-            loadPhotos(0, 1, 0, 1);
-        });
-
-        $('#load-from-all-button').click(function (e) {
-            e.preventDefault();
-            closeGameChoiceWindow();
-            loadPhotos(0, 0, 1, 1);
         });
 
         $('#save-location').click(function (e) {
@@ -348,9 +298,6 @@
             _gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
         });
 
-        /* FUNCTIONS */
-        /* game */
-
         function saveLocation() {
             lat = marker.getPosition().lat();
             lon = marker.getPosition().lng();
@@ -392,6 +339,8 @@
                 noticeDiv.modal({escClose: false});
                 disableContinue = false;
             }, 'json');
+
+            map.setZoom(16);
         }
 
         function openLocationTools() {
@@ -407,14 +356,6 @@
                 $('#photos').animate({ left: photosLeft + 'px' });
                 $('#open-location-tools').fadeOut();
             });
-        }
-
-        function showGameChoiceWindow() {
-            $("#game-choice-window-container").show();
-        }
-
-        function closeGameChoiceWindow() {
-            $("#game-choice-window-container").hide();
         }
 
         function continueGame() {
@@ -469,8 +410,8 @@
         function nextPhoto() {
             hintUsed = 0;
             disableSave = true;
-            map.zoom = 16;
             azimuthListenerActive = false;
+            map.setZoom(16);
             google.maps.event.clearListeners(map, 'mousemove');
             if (line !== undefined) {
                 line.setVisible(false);
@@ -481,7 +422,6 @@
 
                 $('.skip-photo').animate({ 'opacity': .4 });
                 $(currentPhoto).find('img').animate({ 'opacity': .4 });
-                //showDescription();
                 $(currentPhoto).find('.show-description').hide();
 
                 photosDiv = $('#photos');
@@ -518,31 +458,16 @@
             });
         }
 
-        function loadPhotos(next, only_untagged, retry_old, from_choice_button) {
+        function loadPhotos(next) {
             var date = new Date(); // IE needs a different URL, sending seconds
             var qs = URI.parseQuery(window.location.search);
-            if (only_untagged === undefined) {
-                only_untagged = 0;
-            }
-
-            onlyUntagged = only_untagged;
-
-            if (retry_old === undefined) {
-                retry_old = 1;
-            }
-
-            if (from_choice_button === undefined) {
-                from_choice_button = false;
-            }
 
             $.getJSON(streamUrl, $.extend({
-                'b': date.getTime(), 'only_untagged': only_untagged, 'retry_old': retry_old
+                'b': date.getTime()
             }, qs), function (data) {
                 $.merge(photos, data.photos);
                 userSeenAll = data.user_seen_all;
-                if ((userSeenAll && !from_choice_button) || data.photos.length == 0) {
-                    showGameChoiceWindow();
-                }
+                nothingMoreToShow = data.nothing_more_to_show;
                 if (next || currentPhotoIdx <= 0) {
                     nextPhoto();
                 }

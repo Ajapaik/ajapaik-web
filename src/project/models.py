@@ -272,11 +272,11 @@ class Photo(models.Model):
 						if user_last_interacted_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
 						if distance_between_photos:
-							if p.confidence > 0.6 and 250 <= distance_between_photos <= 1000:
+							if p.confidence > 0.7 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
 							elif p.confidence > 0.6:
 								ret = [p]
-				elif 0.3 <= user_trustworthiness < 0.6:
+				elif 0.3 <= user_trustworthiness < 0.7:
 					for p in ret:
 						if user_last_interacted_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
