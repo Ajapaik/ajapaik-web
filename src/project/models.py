@@ -207,6 +207,8 @@ class Photo(models.Model):
 			city_photos_set = self.filter(rephoto_of_id=None)
 			city_photo_ids = frozenset([p.id for p in city_photos_set])
 
+			print calc_trustworthiness(18677)
+
 			user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_last_action = None
@@ -238,7 +240,7 @@ class Photo(models.Model):
 			if "user_skip_array" not in request.session:
 				request.session.user_skip_array = []
 
-			if user_trustworthiness < 0.2:
+			if user_trustworthiness < 0.4:
 				# Novice users should only receive the easiest images to prove themselves
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-confidence")
 				if len(ret) == 0:
@@ -267,23 +269,23 @@ class Photo(models.Model):
 						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
 						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 				# TODO: Refactor to use two variable sorting instead of many loops and ifs
-				if user_trustworthiness < 0.3:
+				if user_trustworthiness < 0.4:
 					for p in ret:
 						if user_last_interacted_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
 						if distance_between_photos:
 							if p.confidence > 0.7 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
-							elif p.confidence > 0.6:
+							elif p.confidence > 0.7:
 								ret = [p]
-				elif 0.3 <= user_trustworthiness < 0.7:
+				elif 0.4 <= user_trustworthiness < 0.7:
 					for p in ret:
 						if user_last_interacted_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
 						if distance_between_photos:
-							if 0.4 <= p.confidence <= 0.6 and 250 <= distance_between_photos <= 1000:
+							if 0.4 <= p.confidence <= 0.7 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
-							elif 0.4 <= p.confidence <= 0.6:
+							elif 0.4 <= p.confidence <= 0.7:
 								ret = [p]
 				else:
 					for p in ret:
@@ -357,7 +359,9 @@ class Photo(models.Model):
 
 				correct_guesses_weight, total_weight, azimuth_guesses_weight = 0, 0, 0
 				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
+				geotag_count = 0
 				for g in geotags:
+					geotag_count += 1
 					if distance_in_meters(g.lon, g.lat, lon, lat) < 100:
 						correct_guesses_weight += g.trustworthiness
 						lon_sum += g.lon * g.trustworthiness
@@ -380,6 +384,8 @@ class Photo(models.Model):
 						self.azimuth = azimuth_sum / float(azimuth_guesses_weight)
 						self.azimuth_confidence = azimuth_correct_ratio * min(1, azimuth_guesses_weight / 1.5)
 					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 1.5)
+					if geotag_count <= 3:
+						self.confidence = min(self.confidence, 0.29)
 
 
 class GeoTag(models.Model):
