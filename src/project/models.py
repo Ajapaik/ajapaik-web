@@ -183,6 +183,8 @@ class Photo(models.Model):
 		@staticmethod
 		def _get_game_json_format_photo(photo, distance_from_last):
 			# TODO: proper JSON serialization
+			if not distance_from_last:
+				distance_from_last = "Unkown"
 			from get_next_photos_to_geotag import _make_thumbnail, _make_fullscreen
 			assert isinstance(photo, Photo)
 			return {
