@@ -339,8 +339,6 @@
                 noticeDiv.modal({escClose: false});
                 disableContinue = false;
             }, 'json');
-
-            map.setZoom(16);
         }
 
         function openLocationTools() {
