@@ -184,7 +184,7 @@ class Photo(models.Model):
 		def _get_game_json_format_photo(photo, distance_from_last):
 			# TODO: proper JSON serialization
 			if not distance_from_last:
-				distance_from_last = "Unkown"
+				distance_from_last = "Unknown"
 			from get_next_photos_to_geotag import _make_thumbnail, _make_fullscreen
 			assert isinstance(photo, Photo)
 			return {
@@ -209,13 +209,23 @@ class Photo(models.Model):
 
 			user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
-			user_last_geotagged_photo = None
+			user_last_action = None
+			user_last_interacted_photo = None
 			distance_between_photos = None
+			user_last_geotag = None
+			user_last_skip = None
 			if len(user_geotags_in_city) > 0:
 				user_last_geotag = user_geotags_in_city.order_by("-created")[0]
-				user_last_geotagged_photos = list(city_photos_set.filter(id=user_last_geotag.photo_id, lat__isnull=False, lon__isnull=False))
-				if len(user_last_geotagged_photos) > 0:
-					user_last_geotagged_photo = user_last_geotagged_photos[0]
+			if len(user_skips_in_city) > 0:
+				user_last_skip = user_skips_in_city.order_by("-created")[0]
+			if user_last_skip and user_last_geotag and user_last_skip.created > user_last_geotag.created:
+				user_last_action = user_last_skip
+			else:
+				user_last_action = user_last_geotag
+			if user_last_action is not None:
+				user_last_interacted_photos = list(city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False))
+				if len(user_last_interacted_photos) > 0:
+					user_last_interacted_photo = user_last_interacted_photos[0]
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			# TODO: Tidy up
@@ -236,8 +246,8 @@ class Photo(models.Model):
 					ret = city_photos_set.order_by("-confidence")
 				for p in ret:
 					# Trying not to offer photos in the vicinity of the last one
-					if user_last_geotagged_photo:
-						distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+					if user_last_interacted_photo:
+						distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
 					if distance_between_photos and 250 <= distance_between_photos <= 1000:
 						ret = [p]
 			else:
@@ -259,8 +269,8 @@ class Photo(models.Model):
 				# TODO: Refactor to use two variable sorting instead of many loops and ifs
 				if user_trustworthiness < 0.3:
 					for p in ret:
-						if user_last_geotagged_photo:
-							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+						if user_last_interacted_photo:
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
 						if distance_between_photos:
 							if p.confidence > 0.6 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
@@ -268,8 +278,8 @@ class Photo(models.Model):
 								ret = [p]
 				elif 0.3 <= user_trustworthiness < 0.6:
 					for p in ret:
-						if user_last_geotagged_photo:
-							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+						if user_last_interacted_photo:
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
 						if distance_between_photos:
 							if 0.4 <= p.confidence <= 0.6 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
@@ -277,8 +287,8 @@ class Photo(models.Model):
 								ret = [p]
 				else:
 					for p in ret:
-						if user_last_geotagged_photo:
-							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_geotagged_photo.lon, user_last_geotagged_photo.lat)
+						if user_last_interacted_photo:
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
 						if distance_between_photos:
 							if p.confidence < 0.4 and 250 <= distance_between_photos <= 1000:
 								ret = [p]
