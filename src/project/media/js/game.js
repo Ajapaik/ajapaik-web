@@ -469,6 +469,7 @@
         function nextPhoto() {
             hintUsed = 0;
             disableSave = true;
+            map.zoom = 16;
             azimuthListenerActive = false;
             google.maps.event.clearListeners(map, 'mousemove');
             if (line !== undefined) {

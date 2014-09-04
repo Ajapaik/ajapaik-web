@@ -218,6 +218,9 @@ class Photo(models.Model):
 			user_skipped_photo_ids = list(set(list(user_skips_in_city.values_list("photo_id", flat=True))) - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
 			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
 
+			user_seen_all = False
+			nothing_more_to_show = False
+
 			if "user_skip_array" not in request.session:
 				request.session.user_skip_array = []
 
@@ -280,8 +283,8 @@ class Photo(models.Model):
 			if ret and ret[0].id in user_skipped_photo_ids:
 				request.session.user_skip_array.append(ret[0].id)
 			if len(ret) == 0:
-				return [{}]
-			return [self._get_game_json_format_photo(ret[0])]
+				return [{}], True, True
+			return [self._get_game_json_format_photo(ret[0])], user_seen_all, nothing_more_to_show
 
 
 	def __unicode__(self):
