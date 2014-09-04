@@ -196,7 +196,8 @@ class Photo(models.Model):
 				(lat1 - lat2) ** 2 +
 				((lon1 - lon2) * lat_coeff) ** 2)
 
-		def get_next_photo_to_geotag(self, user_id):
+		def get_next_photo_to_geotag(self, request):
+			user_id = request.get_user().get_profile().pk
 			from get_next_photos_to_geotag import calc_trustworthiness
 
 			user_trustworthiness = calc_trustworthiness(user_id)
@@ -213,7 +214,8 @@ class Photo(models.Model):
 				user_last_geotagged_photo = city_photos_set.filter(id=user_last_geotag.photo_id, lat__isnull=False, lon__isnull=False)
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
-			user_skipped_photo_ids = list(set(user_skips_in_city.values_list("photo_id", flat=True)))
+			# TODO: Tidy up
+			user_skipped_photo_ids = list(set(list(user_skips_in_city.values_list("photo_id", flat=True))) - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
 			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
 
 			if user_trustworthiness < 0.2:
@@ -234,14 +236,19 @@ class Photo(models.Model):
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
 				if len(ret) == 0:
 					# If the user has seen them all, let's try showing her photos she has skipped or not marked an azimuth on
+					if not hasattr(request.session, "user_skip_array"):
+						request.session.user_skip_array = user_skipped_photo_ids
 					user_geotags_without_azimuth_in_city = user_geotags_in_city.exclude(azimuth__isnull=False)
 					user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_city.values_list("photo_id", flat=True)))
 					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_photo_ids))
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
 						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
-						user_incorrectly_geotagged_photo_ids = list(set(user_incorrect_geotags.values_list("photo_id", flat=True)))
-						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_incorrectly_geotagged_photo_ids))
+						user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
+						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
+						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
+						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 				# TODO: Refactor to use two variable sorting instead of many loops and ifs
 				if user_trustworthiness < 0.3:
 					for p in ret:
@@ -270,6 +277,10 @@ class Photo(models.Model):
 								ret = [p]
 							elif p.confidence < 0.4:
 								ret = [p]
+				if hasattr(request.session, "user_skip_array" and ret[0].id in request.session.user_skip_array):
+					print request.session.user_skip_array
+					request.session.user_skip_array.remove(ret[0].id)
+					print request.session.user_skip_array
 				return [self._get_game_json_format_photo(ret[0])]
 
 
