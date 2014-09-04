@@ -207,8 +207,6 @@ class Photo(models.Model):
 			city_photos_set = self.filter(rephoto_of_id=None)
 			city_photo_ids = frozenset([p.id for p in city_photos_set])
 
-			print calc_trustworthiness(18677)
-
 			user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
 			user_last_action = None
