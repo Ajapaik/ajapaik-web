@@ -10,6 +10,7 @@ class Command(BaseCommand):
 			photo_geotags = len(GeoTag.objects.filter(id=photo.id).values_list("id", flat=True))
 			photo_skips = len(Skip.objects.filter(id=photo.id).values_list("id", flat=True))
 			print photo_geotags
+			print photo_skips
 			print "asd"
 			if photo_skips == 0:
 				output_buf.append(";".join([str(photo.id), photo.description.encode('utf-8'), str(photo.confidence), "No skips", "1"]))
