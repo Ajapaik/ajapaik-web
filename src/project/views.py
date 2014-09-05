@@ -27,8 +27,6 @@ from copy import deepcopy
 
 from pprint import pprint
 from django.db import models
-from rest_framework import viewsets, permissions, generics
-from serializers import PhotoSerializer, ProfileSerializer, BaseUserSerializer, CitySerializer, DeviceSerializer, SourceSerializer
 
 import get_next_photos_to_geotag
 import random
@@ -641,8 +639,3 @@ def europeana(request):
 	return render_to_response("europeana.html", RequestContext(request, {
 		'results': results
 	}))
-
-class PhotoCreate(generics.CreateApiView):
-	queryset = Photo.objects.all()
-	serializer_class = PhotoSerializer
-	permission_classes = [permissions.IsAdminUser]
