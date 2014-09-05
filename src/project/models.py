@@ -370,6 +370,7 @@ class Photo(models.Model):
 						else:
 							if current_distance < distance_in_meters(user_geotags_map[g.user_id].lon, user_geotags_map[g.user_id].lat, lon, lat):
 								user_geotags_map[g.user_id] = g
+				print user_geotags_map
 				for v in user_geotags_map.values():
 					correct_guesses_weight += v.trustworthiness
 					lon_sum += v.lon * v.trustworthiness
@@ -383,7 +384,9 @@ class Photo(models.Model):
 							azimuth_correct_guesses_weight += v.trustworthiness
 						azimuth_total_guesses_weight += v.trustworthiness
 					total_weight += v.trustworthiness
-				unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)
+				unique_correct_guesses_ratio = 0
+				if total_weight > 0:
+					unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)
 				unique_azimuth_correct_ratio = False
 				if azimuth_correct_guesses_weight > 0 and azimuth_total_guesses_weight > 0:
 					unique_azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
@@ -391,7 +394,7 @@ class Photo(models.Model):
 				if unique_correct_guesses_ratio > 0.63:
 					self.lon = lon_sum / float(correct_guesses_weight)
 					self.lat = lat_sum / float(correct_guesses_weight)
-					if azimuth_sum != 0 and unique_azimuth_correct_ratio > 0.63:
+					if unique_azimuth_correct_ratio > 0.63:
 						self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
 						self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 3)
 					self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 3)
