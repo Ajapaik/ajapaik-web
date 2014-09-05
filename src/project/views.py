@@ -220,28 +220,6 @@ class SourceLookupFilterSpec(FilterSpec):
 		return _('Choose source')
 
 
-# class UserAlreadyGeotaggedFilterSpec(FilterSpec):
-# 	def __init__(self, params, user_id):
-# 		self.user_id = user_id
-#
-# 	def get_qs_filter(self):
-# 		pass
-#
-# 	def get_qs_exclude(self):
-# 		ret = {u'guess__user': self.user_id}
-# 		return ret
-#
-# 	def get_option_object(self):
-# 		return GeoTag.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
-#
-# 	@staticmethod
-# 	def get_slug_name():
-# 		return u'user_already_geotagged_lookup_filter'
-#
-# 	@staticmethod
-# 	def get_label():
-# 		return _('Choose photos not geotagged by user')
-
 def handle_uploaded_file(f):
 	return ContentFile(f.read())
 
@@ -378,7 +356,6 @@ def logout(request):
 	from django.contrib.auth import logout
 	logout(request)
 	return redirect('/')
-	#return HttpResponse(unicode(request.get_user()))
 
 def thegame(request):
 	ctx = {}
@@ -392,7 +369,6 @@ def thegame(request):
 
 	filters = FilterSpecCollection(None, request.GET)
 	filters.register(CityLookupFilterSpec, 'city')
-	#filters.register(DateFieldFilterSpec, 'created')
 	ctx['filters'] = filters
 
 	return render_to_response('game.html', RequestContext(request, ctx))
@@ -654,6 +630,7 @@ def custom_500(request):
 	return response
 
 def europeana(request):
+	# This is for testing Europeana integration, nothing good yet
 	x1 = request.GET.get("x1", None)
 	x2 = request.GET.get("x2", None)
 	y1 = request.GET.get("y1", None)
@@ -666,27 +643,7 @@ def europeana(request):
 		'results': results
 	}))
 
-class PhotoViewSet(viewsets.ModelViewSet):
+class PhotoCreate(generics.CreateApiView):
 	queryset = Photo.objects.all()
 	serializer_class = PhotoSerializer
-	permission_classes = [permissions.IsAdminUser]
-
-class ProfileViewSet(viewsets.ModelViewSet):
-	queryset = Profile.objects.all()
-	serializer_class = ProfileSerializer
-	permission_classes = [permissions.IsAdminUser]
-
-class CityViewSet(viewsets.ModelViewSet):
-	queryset = City.objects.all()
-	serializer_class = CitySerializer
-	permission_classes = [permissions.IsAdminUser]
-
-class DeviceViewSet(viewsets.ModelViewSet):
-	queryset = Device.objects.all()
-	serializer_class = DeviceSerializer
-	permission_classes = [permissions.IsAdminUser]
-
-class SourceViewSet(viewsets.ModelViewSet):
-	queryset = Source.objects.all()
-	serializer_class = SourceSerializer
 	permission_classes = [permissions.IsAdminUser]

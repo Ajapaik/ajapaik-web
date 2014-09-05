@@ -44,10 +44,7 @@ class Command(BaseCommand):
 										for key in ('Kirjeldus','title') \
 										if key in metadata]))
 
-			city_name=metadata.get('Pildistamise koht') \
-					or metadata.get('S\xc3\xbc\xc5\xbeee nimetus') \
-					or metadata.get('place')
-					or "Ajapaik"
+			city_name=metadata.get('Pildistamise koht') or metadata.get('S\xc3\xbc\xc5\xbeee nimetus') or metadata.get('place') or "Ajapaik"
 
 			try:
 				city=City.objects.get(name=city_name)
