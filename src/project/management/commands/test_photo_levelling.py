@@ -7,8 +7,8 @@ class Command(BaseCommand):
 	def handle(self,*args,**options):
 		output_buf = []
 		for photo in Photo.objects.all():
-			photo_geotags = len(GeoTag.objects.filter(id=photo.id).values_list("id", flat=True))
-			photo_skips = len(Skip.objects.filter(id=photo.id).values_list("id", flat=True))
+			photo_geotags = GeoTag.objects.filter(id=photo.id).count()
+			photo_skips = Skip.objects.filter(id=photo.id).count()
 			print photo_geotags
 			print photo_skips
 			print "asd"
