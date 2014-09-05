@@ -19,11 +19,12 @@
 </script>
 
 <div id="game">
-    <div id="game-choice-window-container" style="display: none;">
-        <div id="game-choice-window">
-            <p>{% trans "You have seen all the pictures we have for this area" %}</p>
-            <a href="#" id="load-untagged-button" class="btn green">{% trans "Show skipped" %}</a>
-            <a href="#" id="load-from-all-button" class="btn green">{% trans "Show all" %}</a>
+    <div id="user-message-container" style="display: none;">
+        <div id="user-seen-all">
+            <p>{% trans "You have seen all the pictures we have for this area." %}</p>
+        </div>
+        <div id="nothing-more-to-show">
+            <p>{% trans "There are no more photos to show you based on our criteria." %}</p>
         </div>
     </div>
 

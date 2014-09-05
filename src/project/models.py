@@ -243,6 +243,7 @@ class Photo(models.Model):
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-confidence")
 				if len(ret) == 0:
 					# If the user has seen all the photos, offer something at random
+					user_seen_all = True
 					ret = city_photos_set.order_by("-confidence")
 				# for p in ret:
 				# 	# Trying not to offer photos in the vicinity of the last one
@@ -255,6 +256,7 @@ class Photo(models.Model):
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
 				if len(ret) == 0:
 					# If the user has seen them all, let's try showing her photos she has skipped (but not in this session) or not marked an azimuth on
+					user_seen_all = True
 					user_geotags_without_azimuth_in_city = user_geotags_in_city.exclude(azimuth__isnull=False)
 					user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_city.values_list("photo_id", flat=True)))
 					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_photo_ids)).exclude(id__in=request.session.user_skip_array)
@@ -266,6 +268,8 @@ class Photo(models.Model):
 						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
 						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
 						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+						if len(ret) == 0:
+							nothing_more_to_show = True
 				# TODO: Refactor to use two variable sorting instead of many loops and ifs
 				if user_trustworthiness < 0.4:
 					for p in ret:
@@ -357,9 +361,7 @@ class Photo(models.Model):
 
 				correct_guesses_weight, total_weight, azimuth_guesses_weight = 0, 0, 0
 				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
-				geotag_count = 0
 				for g in geotags:
-					geotag_count += 1
 					if distance_in_meters(g.lon, g.lat, lon, lat) < 100:
 						correct_guesses_weight += g.trustworthiness
 						lon_sum += g.lon * g.trustworthiness
@@ -380,10 +382,8 @@ class Photo(models.Model):
 					self.lat = lat_sum / float(correct_guesses_weight)
 					if azimuth_sum != 0:
 						self.azimuth = azimuth_sum / float(azimuth_guesses_weight)
-						self.azimuth_confidence = azimuth_correct_ratio * min(1, azimuth_guesses_weight / 1.5)
-					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 1.5)
-					if geotag_count <= 3:
-						self.confidence = min(self.confidence, 0.29)
+						self.azimuth_confidence = azimuth_correct_ratio * min(1, azimuth_guesses_weight / 3)
+					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 3)
 
 
 class GeoTag(models.Model):

@@ -1120,26 +1120,25 @@ span.framed {
     line-height: initial !important;
 }
 
-#game-choice-window-container {
+#user-message-container {
     width: 100%;
     position: absolute;
-    top: 50%;
-    height: 100px;
+    top: 10%;
     margin: 0 auto;
-    z-index: 10000;
 }
 
-#game-choice-window {
-    background-color: white;
+#user-seen-all {
     height: 100%;
     width: 33%;
     margin: 0 auto;
-    border-radius: 10px;
     text-align: center;
 }
 
-#game-choice-window p {
-    line-height: 40px;
+#nothing-more-to-show {
+    height: 100%;
+    width: 33%;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .center-marker {

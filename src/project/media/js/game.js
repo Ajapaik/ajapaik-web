@@ -27,8 +27,6 @@
         disableContinue = true,
         locationToolsOpen = false,
         mobileMapMinimized = false,
-        userSeenAll = false,
-        nothingMoreToShow = false,
         infowindow = undefined,
         photosDiv = undefined,
         noticeDiv = undefined,
@@ -391,6 +389,18 @@
             $('#tools').animate({ left: '15%' });
         }
 
+        function showSeenAllMessage() {
+            $('#user-message-container').show();
+            $('#nothing-more-to-show').hide();
+            $('#user-seen-all').show();
+        }
+
+        function showNothingMoreToShowMessage() {
+            $('#user-message-container').show();
+            $('#user-seen-all').hide();
+            $('#nothing-more-to-show').show();
+        }
+
         function showScoreboard() {
             topDiv = $('#top');
             topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideDown();
@@ -433,22 +443,24 @@
 
                 currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
 
-                $(currentPhoto).append(
-                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
-                ).find('img').load(function () {
-                        currentPhoto.css({ 'visibility': 'visible' });
-                        $(this).fadeIn('slow', function () {
-                            gameWidth += $(currentPhoto).width();
-                            $('#photos').width(gameWidth);
-                            scrollPhotos();
+                if (currentPhoto.big) {
+                    $(currentPhoto).append(
+                            '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
+                    ).find('img').load(function () {
+                            currentPhoto.css({ 'visibility': 'visible' });
+                            $(this).fadeIn('slow', function () {
+                                gameWidth += $(currentPhoto).width();
+                                $('#photos').width(gameWidth);
+                                scrollPhotos();
+                            });
                         });
-                    });
-                if (typeof FB !== 'undefined') {
-                    FB.XFBML.parse();
+                    if (typeof FB !== 'undefined') {
+                        FB.XFBML.parse();
+                    }
+                    $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
+                    prepareFullscreen();
+                    currentPhotoIdx++;
                 }
-                $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
-                prepareFullscreen();
-                currentPhotoIdx++;
             } else {
                 loadPhotos(1);
             }
@@ -470,8 +482,11 @@
                 'b': date.getTime()
             }, qs), function (data) {
                 $.merge(photos, data.photos);
-                userSeenAll = data.user_seen_all;
-                nothingMoreToShow = data.nothing_more_to_show;
+                if (data.nothing_more_to_show) {
+                    showNothingMoreToShowMessage();
+                } else if (data.user_seen_all) {
+                    showSeenAllMessage();
+                }
                 if (next || currentPhotoIdx <= 0) {
                     nextPhoto();
                 }
