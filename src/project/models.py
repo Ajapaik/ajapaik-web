@@ -385,7 +385,7 @@ class Photo(models.Model):
 					total_weight += v.trustworthiness
 				unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)
 				unique_azimuth_correct_ratio = False
-				if azimuth_correct_guesses_weight and azimuth_total_guesses_weight:
+				if azimuth_correct_guesses_weight  and azimuth_total_guesses_weight > 0:
 					unique_azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
 
 				if unique_correct_guesses_ratio > 0.63:
