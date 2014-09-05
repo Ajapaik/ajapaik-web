@@ -324,6 +324,12 @@
                 var message = '';
                 if (resp['is_correct'] == true) {
                     message = gettext('Looks right!');
+                    if (resp['azimuth_false']) {
+                        message = gettext('The location seems right, but not the azimuth.');
+                    }
+                    if (resp['azimuth_uncertain']) {
+                        message = gettext('The location seems right, but the azimuth is yet uncertain.');
+                    }
                 }
                 else if (resp['location_is_unclear']) {
                     message = gettext('Correct location is not certain yet.');

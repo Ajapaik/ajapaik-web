@@ -121,6 +121,8 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 	location_is_unclear = 0
 	this_guess_score = 0
 	leaderboard = None
+	azimuth_uncertain = False
+	azimuth_false = True
 
 	if lon is not None and lat is not None:
 		trustworthiness = calc_trustworthiness(user.pk)
@@ -147,6 +149,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 			new_geotag.azimuth = azimuth
 			if not p.azimuth:
 				new_geotag.azimuth_score = max(20, int(300 * trustworthiness))
+				azimuth_uncertain = True
 
 		if azimuth and p.azimuth:
 			degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
@@ -157,15 +160,9 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 			azimuth_score = 0
 			if int(difference) <= 15:
 				azimuth_score = degree_error_point_array[int(difference) - 1]
-			# Leaving in the Gaussian idea for now, so it wouldn't take any time to change this back if needed
-			# from math import e, pi, sqrt, fabs
-			# #Gaussian distribution with mean 0 and standard deviation 7, missing by 15 degrees gives about 10%, 5 degrees about 77%, 1 degree 98.9%
-			# degrees_error = float(fabs(p.median_azimuth - azimuth))
-			# if degrees_error > 15:
-			# 	azimuth_score = 0
-			# else:
-			# 	azimuth_score = min(1, (((e ** (-((degrees_error ** 2) / 98))) / (7 * (sqrt(2 * pi)))) * 1754) + 0.05) * 100
-			new_geotag.azimuth_score = azimuth_score
+				azimuth_false = False
+			if is_correct or location_is_unclear:
+				new_geotag.azimuth_score = azimuth_score
 
 		if new_geotag.azimuth_score:
 			new_geotag.score += new_geotag.azimuth_score
@@ -182,7 +179,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 	if this_guess_score:
 		leaderboard = get_leaderboard(user.pk)
 
-	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear
+	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain
 
 #
 # DEPRICATED see models.Photo
