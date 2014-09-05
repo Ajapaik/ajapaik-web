@@ -376,12 +376,14 @@ class Photo(models.Model):
 							azimuth_total_guesses_weight += g.trustworthiness
 					total_weight += g.trustworthiness
 				correct_guesses_ratio = correct_guesses_weight / float(total_weight)
-				azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
+				azimuth_correct_ratio = False
+				if azimuth_correct_guesses_weight and azimuth_total_guesses_weight:
+					azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
 
 				if correct_guesses_ratio > 0.63:
 					self.lon = lon_sum / float(correct_guesses_weight)
 					self.lat = lat_sum / float(correct_guesses_weight)
-					if azimuth_sum != 0:
+					if azimuth_sum != 0 and azimuth_correct_ratio:
 						self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
 						self.azimuth_confidence = azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 3)
 					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 3)
