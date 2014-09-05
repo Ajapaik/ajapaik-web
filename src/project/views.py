@@ -245,8 +245,8 @@ def photo_upload(request, photo_id):
 				data = request.POST
 				re_photo = Photo(
 					rephoto_of=photo,
-					city=p.city,
-					description=data.get('description', p.description),
+					city=photo.city,
+					description=data.get('description', photo.description),
 					lat=data.get('lat', None),
 					lon=data.get('lon', None),
 					date_text=data.get('date_text', None),
