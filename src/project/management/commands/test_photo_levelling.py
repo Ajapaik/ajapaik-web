@@ -7,8 +7,10 @@ class Command(BaseCommand):
 	def handle(self,*args,**options):
 		output_buf = []
 		for photo in Photo.objects.all():
-			photo_geotags = len(GeoTag.objects.filter(id=photo.id).all())
-			photo_skips = len(Skip.objects.filter(id=photo.id).all())
+			photo_geotags = len(GeoTag.objects.filter(id=photo.id).values_list("id", flat=True))
+			photo_skips = len(Skip.objects.filter(id=photo.id).values_list("id", flat=True))
+			print photo_geotags
+			print "asd"
 			if photo_skips == 0:
 				output_buf.append(";".join([str(photo.id), photo.description.encode('utf-8'), str(photo.confidence), "No skips", "1"]))
 			else:
