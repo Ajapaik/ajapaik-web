@@ -370,7 +370,6 @@ class Photo(models.Model):
 						else:
 							if current_distance < distance_in_meters(user_geotags_map[g.user_id].lon, user_geotags_map[g.user_id].lat, lon, lat):
 								user_geotags_map[g.user_id] = g
-				print user_geotags_map
 				for v in user_geotags_map.values():
 					correct_guesses_weight += v.trustworthiness
 					lon_sum += v.lon * v.trustworthiness
