@@ -10,7 +10,7 @@ class Command(BaseCommand):
 			photo_geotags = len(GeoTag.objects.filter(id=photo.id).values_list("id", flat=True))
 			photo_skips = len(Skip.objects.filter(id=photo.id).values_list("id", flat=True))
 			if photo_skips == 0:
-				output_buf.append(",".join([str(photo.id), photo.description, str(photo.confidence), "No skips", "1"]))
+				output_buf.append(",".join([photo.id, photo.description.encode('utf-8'), photo.confidence, "No skips", "1"]))
 			else:
 				ratio = photo_geotags / photo_skips
 				if ratio > 1.2:
@@ -19,7 +19,7 @@ class Command(BaseCommand):
 					level = "2"
 				else:
 					level = "3"
-				output_buf.append(",".join([str(photo.id), photo.description, str(photo.confidence), str(ratio), level]))
+				output_buf.append(",".join([photo.id, photo.description.encode('utf-8'), photo.confidence, ratio, level]))
 		f = open("output.txt", "w")
 		f.write("\n".join(output_buf))
 		f.close()
