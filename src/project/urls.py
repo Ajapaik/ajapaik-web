@@ -9,11 +9,11 @@ import views
 admin.autodiscover()
 
 router = routers.DefaultRouter()
-router.register(r'api/profiles', views.ProfileViewSet)
-router.register(r'api/photos', views.PhotoViewSet)
-router.register(r'api/cities', views.CityViewSet)
-router.register(r'api/devices', views.DeviceViewSet)
-router.register(r'api/sources', views.SourceViewSet)
+# router.register(r'api/profiles', views.ProfileViewSet)
+# router.register(r'api/photos', views.PhotoViewSet)
+# router.register(r'api/cities', views.CityViewSet)
+# router.register(r'api/devices', views.DeviceViewSet)
+# router.register(r'api/sources', views.SourceViewSet)
 
 urlpatterns = patterns('views',
 	#(r'^grappelli/', include('grappelli.urls')),
