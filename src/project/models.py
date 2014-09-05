@@ -359,7 +359,7 @@ class Photo(models.Model):
 					azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
 					median_azimuth = azimuths[len(azimuths) / 2]
 
-				correct_guesses_weight, total_weight, azimuth_guesses_weight = 0, 0, 0
+				correct_guesses_weight, total_weight, azimuth_correct_guesses_weight, azimuth_total_guesses_weight = 0, 0, 0, 0
 				lon_sum, lat_sum, azimuth_sum = 0, 0, 0
 				for g in geotags:
 					if distance_in_meters(g.lon, g.lat, lon, lat) < 100:
@@ -372,17 +372,18 @@ class Photo(models.Model):
 								difference = 360 - difference
 							if difference <= 15:
 								azimuth_sum += g.azimuth * g.trustworthiness
-								azimuth_guesses_weight += g.trustworthiness
+								azimuth_correct_guesses_weight += g.trustworthiness
+							azimuth_total_guesses_weight += g.trustworthiness
 					total_weight += g.trustworthiness
 				correct_guesses_ratio = correct_guesses_weight / float(total_weight)
-				azimuth_correct_ratio = azimuth_guesses_weight / float(total_weight)
+				azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
 
 				if correct_guesses_ratio > 0.63:
 					self.lon = lon_sum / float(correct_guesses_weight)
 					self.lat = lat_sum / float(correct_guesses_weight)
 					if azimuth_sum != 0:
-						self.azimuth = azimuth_sum / float(azimuth_guesses_weight)
-						self.azimuth_confidence = azimuth_correct_ratio * min(1, azimuth_guesses_weight / 3)
+						self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
+						self.azimuth_confidence = azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 3)
 					self.confidence = correct_guesses_ratio * min(1, correct_guesses_weight / 3)
 
 
