@@ -135,10 +135,10 @@
 						<p>{% trans "Rephoto uploading requires connecting your account with Facebook." %}</p>
 						<a href="/facebook/login?next={{ request.path|urlencode }}" class="ir">{% trans "Connect with Facebook" %}</a>
 					</div>
-                    <div id="google-plus-connect" align="center">
+                    {% comment %}<div id="google-plus-connect" align="center">
 						<p>{% trans "You can also connect your Rephoto account with Google Plus." %}</p>
 						<a href="/google_login?next={{ request.path|urlencode }}">{% trans "Connect with Google+" %}</a>
-					</div>
+					</div>{% endcomment %}
 				{% endif %}
 		
 				<div class="tools">
