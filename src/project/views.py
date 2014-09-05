@@ -222,7 +222,7 @@ def handle_uploaded_file(f):
 
 
 def photo_upload(request, photo_id):
-	p = get_object_or_404(Photo, pk=photo_id)
+	photo = get_object_or_404(Photo, pk=photo_id)
 	new_id = 0
 
 	if request.method == 'POST':
