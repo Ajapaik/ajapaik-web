@@ -7,11 +7,8 @@ class Command(BaseCommand):
 	def handle(self,*args,**options):
 		output_buf = []
 		for photo in Photo.objects.all():
-			photo_geotags = GeoTag.objects.filter(id=photo.id).count()
-			photo_skips = Skip.objects.filter(id=photo.id).count()
-			print photo_geotags
-			print photo_skips
-			print "asd"
+			photo_geotags = GeoTag.objects.filter(photo_id=photo.id).count()
+			photo_skips = Skip.objects.filter(photo_id=photo.id).count()
 			if photo_skips == 0:
 				output_buf.append(";".join([str(photo.id), photo.description.encode('utf-8'), str(photo.confidence), "No skips", "1"]))
 			else:
@@ -22,7 +19,6 @@ class Command(BaseCommand):
 					level = "2"
 				else:
 					level = "3"
-				print ratio
 				output_buf.append(";".join([str(photo.id), photo.description.encode('utf-8'), str(photo.confidence), str(ratio), level]))
 		f = open("output.txt", "w")
 		f.write("\n".join(output_buf))
