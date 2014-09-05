@@ -443,24 +443,22 @@
 
                 currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
 
-                if (currentPhoto.big) {
-                    $(currentPhoto).append(
-                            '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
-                    ).find('img').load(function () {
-                            currentPhoto.css({ 'visibility': 'visible' });
-                            $(this).fadeIn('slow', function () {
-                                gameWidth += $(currentPhoto).width();
-                                $('#photos').width(gameWidth);
-                                scrollPhotos();
-                            });
+                $(currentPhoto).append(
+                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
+                ).find('img').load(function () {
+                        currentPhoto.css({ 'visibility': 'visible' });
+                        $(this).fadeIn('slow', function () {
+                            gameWidth += $(currentPhoto).width();
+                            $('#photos').width(gameWidth);
+                            scrollPhotos();
                         });
-                    if (typeof FB !== 'undefined') {
-                        FB.XFBML.parse();
-                    }
-                    $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
-                    prepareFullscreen();
-                    currentPhotoIdx++;
+                    });
+                if (typeof FB !== 'undefined') {
+                    FB.XFBML.parse();
                 }
+                $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
+                prepareFullscreen();
+                currentPhotoIdx++;
             } else {
                 loadPhotos(1);
             }
