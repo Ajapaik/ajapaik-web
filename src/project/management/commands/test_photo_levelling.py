@@ -8,7 +8,7 @@ class Command(BaseCommand):
 		output_buf = []
 		for photo in Photo.objects.all():
 			photo_geotags = len(GeoTag.objects.filter(id=photo.id).values_list("id", flat=True))
-			photo_skips = len(Skip.objects.filter(id=photo.id.values_list("id", flat=True)))
+			photo_skips = len(Skip.objects.filter(id=photo.id).values_list("id", flat=True))
 			if photo_skips == 0:
 				output_buf.append(",".join([photo.id, photo.description, photo.confidence, "No skips", 1]))
 			else:
