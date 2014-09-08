@@ -38,11 +38,9 @@ function closePhotoDrawer() {
 	$('.filter-box').show();
 }
 
-var sourceLinkClick = function (url) {
+var sourceLinkClick = function () {
     _gaq.push(["_trackEvent", "Map", "Source link click"]);
-    setTimeout(function () {
-        window.open(url, "_blank");
-    }, 200);
+    setTimeout('document.location = "' + this.url + '"', 100);
     return false;
 };
 
