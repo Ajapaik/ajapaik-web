@@ -81,9 +81,9 @@ $(document).ready(function() {
          _gaq.push(["_trackEvent", "Map", "Logout"]);
     });
 
-    $('#source-link').click(function () {
+    var sourceLinkClick = function () {
          _gaq.push(["_trackEvent", "Map", "Source link click"]);
-    });
+    };
 
 	$('#photo-drawer').delegate('#close-photo-drawer', 'click', function(e) {
 		e.preventDefault();
