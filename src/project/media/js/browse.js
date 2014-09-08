@@ -38,12 +38,6 @@ function closePhotoDrawer() {
 	$('.filter-box').show();
 }
 
-var sourceLinkClick = function () {
-    _gaq.push(["_trackEvent", "Map", "Source link click"]);
-    setTimeout('document.location = "' + this.url + '"', 100);
-    return false;
-};
-
 function uploadCompleted(response) {
 	$.modal.close();
 	if (typeof photoId == 'undefined') {
