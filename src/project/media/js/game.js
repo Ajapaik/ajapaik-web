@@ -339,7 +339,8 @@
                     _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
                     if (resp['azimuth_false']) {
                         message = gettext('The location seems right, but not the azimuth.');
-                    } else if (resp['azimuth_uncertain']) {
+                    }
+                    if (resp['azimuth_uncertain']) {
                         message = gettext('The location seems right, but the azimuth is yet uncertain.');
                     } else {
                         message = gettext('The location seems right, your azimuth was first.');
