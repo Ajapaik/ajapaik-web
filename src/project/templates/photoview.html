@@ -39,7 +39,7 @@
                         <p>{{ photo.description }}</p>
 						<p class="owner">
 						{% if photo.source_url %}
-							<a onclick="trackSourceLinkClick({{ photo.source_url }})" target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
+							<a onclick="trackSourceLinkClick('{{ photo.source_url }}')" target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
 						{% else %}
 							{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
 						{% endif %}
