@@ -1,374 +1,511 @@
-var photos = [];
-var gameOffset = 0;
-var gameWidth = 0;
-var currentPhotoIdx = 0;
-var currentPhoto;
-var hintUsed = 0;
-var mediaUrl = '';
-var streamUrl = '/stream/';
-var disableNext = false;
-var disableSave = true;
-var disableContinue = true;
-var locationToolsOpen = false;
+(function () {
+    "use strict";
+    /*jslint nomen: true*/
+    /*global google */
+    /*global leaderboardUpdateURL */
+    /*global start_location */
+    /*global city_id */
+    /*global map */
+    /*global saveLocationURL */
+    /*global _gaq */
+    /*global gettext */
+    /*global leaderboardFullURL */
+    /*global language_code */
+    /*global FB */
+    /*global isMobile */
 
-function update_leaderboard() {
-	$('#top .score_container .scoreboard').load(leaderboardUpdateURL);
-}
+    var photos = [],
+        gameOffset = 0,
+        gameWidth = 0,
+        currentPhotoIdx = 0,
+        currentPhoto,
+        hintUsed = 0,
+        mediaUrl = '',
+        streamUrl = '/stream/',
+        disableNext = false,
+        disableSave = true,
+        disableContinue = true,
+        locationToolsOpen = false,
+        mobileMapMinimized = false,
+        infowindow = undefined,
+        photosDiv = undefined,
+        noticeDiv = undefined,
+        topDiv = undefined,
+        lat = undefined,
+        lon = undefined,
+        relativeVector = {},
+        radianAngle = undefined,
+        degreeAngle = undefined,
+        azimuthListenerActive = true,
+        firstDragDone = false,
+        saveDirection = false;
 
-$(document).ready(function() {
-	update_leaderboard();
+    function update_leaderboard () {
+        $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
+    }
 
-	loadPhotos();
+    $(document).ready(function () {
+        update_leaderboard();
 
-	var location = new google.maps.LatLng(start_location[1], start_location[0]);
+        loadPhotos();
 
-	// Will load the base map layer and return it
-	if (city_id) {
-		map = get_map(start_location, 15);
-	}
-	else {
-		map = get_map();
-	}
+        var location = new google.maps.LatLng(start_location[1], start_location[0]);
 
-	// Create marker
-	var marker = new google.maps.Marker({
-		map: map,
-		draggable: true,
-		position: location,
-		icon: '/media/gfx/ajapaik_marker_45px.png'
-	});
+        function reCalculateAzimuthOfMouseAndMarker (e) {
+            relativeVector.x = e.latLng.lat() - marker.position.lat();
+            relativeVector.y = e.latLng.lng() - marker.position.lng();
+            radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
+            degreeAngle = radianAngle * (180 / Math.PI);
+            if (degreeAngle < 0) {
+              degreeAngle += 360;
+            }
+        }
 
-	google.maps.event.addListener(map, 'click', function(event){
-		if (infowindow !== undefined) {
-			infowindow.close();
-			infowindow = undefined;
-		}
-		// re-drop
-		marker.setMap(map);
-		marker.setAnimation(google.maps.Animation.DROP);
-		marker.setPosition(event.latLng);
-	});
+        // Will load the base map layer and return it
+        if (city_id) {
+            map = get_map(start_location, 15, true);
+        } else {
+            map = get_map(undefined, undefined, true);
+        }
 
-	google.maps.event.addListener(marker, 'dragstart', function(){
-		if (infowindow !== undefined) {
-			infowindow.close();
-			infowindow = undefined;
-		}
-	});
+        // To support touchscreens, we have an invisible marker underneath a fake one
+        var marker = new google.maps.Marker({
+            map: map,
+            draggable: false,
+            position: location,
+            visible: false
+        });
 
-	google.maps.event.addListener(marker, 'position_changed', function() {
-		disableSave = false;
-	});
+        var dottedLineSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            strokeOpacity: 1,
+            strokeWeight: 1.5,
+            strokeColor: 'red',
+            scale: 0.75
+        };
 
-	infowindow = new google.maps.InfoWindow({
-		content: '<div style="overflow:hidden;white-space:nowrap;">'+ gettext('Point the marker to where the picture was taken from.') +'</div>'
-	});
+        var line = new google.maps.Polyline({
+            geodesic: true,
+            strokeOpacity: 0,
+            icons: [{
+                icon: dottedLineSymbol,
+                offset: '0',
+                repeat: '7px'
+            }],
+            visible: false,
+            map: map,
+            clickable: false
+        });
 
-	/* BINDINGS */
-	/* game */
-	
-	$.jQee('space', function(e) {
-		// continue game if Tools and result window open
-		if (locationToolsOpen && !disableContinue)
-		{
-			$('#continue-game').click();
-		}
-		else if (locationToolsOpen)
-		{
-			// remove notice and drop the marker in the middle (works only if map in focus)
-			if (infowindow !== undefined) {
-				infowindow.close();
-				infowindow = undefined;
-			}
-			marker.setMap(map);
-			marker.setAnimation(google.maps.Animation.DROP);
-			marker.setPosition(map.getCenter());
-		}
-		else
-		{
-			// otherwise open Tools
-			$('#open-location-tools').click();
-		}
-	});
-	$.jQee('enter', function(e) {
-		// save location only if Tools open and no result window
-		if (locationToolsOpen && disableContinue)
-		{
-			$('#save-location').click();
-		}
-	});
-	$.jQee('up', function(e) {
-		$('.show-description').click();
-	});
-	$.jQee('right', function(e) {
-		$('#skip-photo').click();
-	});
+        marker.bindTo('position', map, 'center');
 
-	$('.skip-photo').click(function(e) {
-		e.preventDefault();
+        google.maps.event.addListener(map, 'click', function (e) {
+            if (infowindow !== undefined) {
+                infowindow.close();
+                infowindow = undefined;
+            }
+            reCalculateAzimuthOfMouseAndMarker(e);
+            if (azimuthListenerActive) {
+                google.maps.event.clearListeners(map, 'mousemove');
+                saveDirection = true;
+                $("#save-location").text(gettext('Save location and direction')).removeClass("medium").addClass("green");
+                line.icons[0].repeat = '2px';
+                line.setPath([marker.position, e.latLng]);
+                line.setVisible(true);
+            } else {
+                addMouseMoveListener();
+                google.maps.event.trigger(map, "mousemove", e);
+            }
+            azimuthListenerActive = !azimuthListenerActive;
+        });
 
-		if (disableNext == false)
-		{
-			var data = {
-				photo_id: photos[currentPhotoIdx-1].id,
-			};
-			$.post(saveLocationURL, data, function () {
-				nextPhoto();
-			});
-			_gaq.push(['_trackEvent', 'Game', 'Skip photo']);
-		}
+        function addMouseMoveListener () {
+            google.maps.event.addListener(map, 'mousemove', function (e) {
+                // The mouse is moving, therefore we haven't locked on a direction
+                $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
+                saveDirection = false;
+                reCalculateAzimuthOfMouseAndMarker(e);
+                if (!isMobile) {
+                    line.setPath([marker.position, e.latLng]);
+                    line['icons'] = [{icon: dottedLineSymbol, offset: '0', repeat: '7px'}];
+                    line.setVisible(true);
+                } else {
+                    line.setVisible(false);
+                }
+            });
+        }
 
-	});
+        google.maps.event.addListener(map, 'idle', function () {
+            if (firstDragDone) {
+                marker.position = map.center;
+                azimuthListenerActive = true;
+                addMouseMoveListener();
+            }
+        });
 
-	$('#open-location-tools').click(function(e) {
-		e.preventDefault();
-		openLocationTools();
-	});
+        google.maps.event.addListener(map, 'dragstart', function () {
+            line.setVisible(false);
+            if (infowindow !== undefined) {
+                infowindow.close();
+                infowindow = undefined;
+            }
+            $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
+            azimuthListenerActive = false;
+            line.setVisible(false);
+            google.maps.event.clearListeners(map, 'mousemove');
+        });
 
-	$('#close-location-tools').click(function(e) {
-		e.preventDefault();
-		closeLocationTools();
-	});
+        google.maps.event.addListener(map, 'drag', function () {
+            firstDragDone = true;
+        });
 
-	$('#continue-game').click(function(e) {
-		e.preventDefault();
-		continueGame();
-	});
+        google.maps.event.addListener(marker, 'position_changed', function () {
+            disableSave = false;
+        });
 
-	$('#save-location').click(function(e) {
-		e.preventDefault();
-		if (disableSave) {
-			_gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
-			alert(gettext('Point the marker to where the picture was taken from.'));
-		}
-		else {
-			saveLocation();
-			_gaq.push(['_trackEvent', 'Game', 'Save location']);
-		}
-	});
+        infowindow = new google.maps.InfoWindow({
+            content: '<div style="overflow:hidden;white-space:nowrap;">' + gettext('Point the marker to where the picture was taken from.') + '</div>'
+        });
 
-	$('#photos').delegate('.show-description', 'click', function(e) {
-		e.preventDefault();
-		hintUsed = 1;
-		showDescription();
-		_gaq.push(['_trackEvent', 'Game', 'Show description']);
-	});
+        $.jQee('space', function () {
+            // If tools is open, continue game
+            if (locationToolsOpen && !disableContinue) {
+                $('#continue-game').click();
+            } else if (locationToolsOpen) {
+                // Remove notice and center marker
+                if (infowindow !== undefined) {
+                    infowindow.close();
+                    infowindow = undefined;
+                }
+                marker.setMap(map);
+                marker.setPosition(map.getCenter());
+            } else {
+                // Otherwise open tools
+                $('#open-location-tools').click();
+            }
+        });
 
-	$('#photos a.fullscreen').live('click', function(e) {
-		e.preventDefault();
-		if (BigScreen.enabled) {
-			BigScreen.request($('#game-full'+this.rel)[0]);
-			_gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-'+this.rel]);
-		}
-	});
+        $.jQee('enter', function () {
+            // Save location only if Tools open and no result window
+            if (locationToolsOpen && disableContinue) {
+                $('#save-location').click();
+            }
+        });
 
-	$('.full-box div').live('click', function(e) {
-		if (BigScreen.enabled) {
-			e.preventDefault();
-			BigScreen.exit();
-		}
-	});
+        $.jQee('up', function () {
+            $('.show-description').click();
+        });
 
-	$('#photos').hoverIntent(function () {
-		if (locationToolsOpen == true) {
-			showPhotos();
-		}
-	},function () {
-		if (locationToolsOpen == true) {
-			hidePhotos();
-		}
-	});
+        $.jQee('right', function () {
+            $('#skip-photo').click();
+        });
 
-	$('#top .score_container').hoverIntent(showScoreboard, hideScoreboard);
-	
-	$('#full_leaderboard').bind('click', function(e) {
-		e.preventDefault();
-		$('#leaderboard_browser .scoreboard').load(leaderboardFullURL, function() {
-			$('#leaderboard_browser').modal({overlayClose: true});
-		});
-		_gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
-	});
-	
-	/* FUNCTIONS */
-	/* game */
+        $('.skip-photo').click(function (e) {
+            firstDragDone = false;
+            e.preventDefault();
+            if (disableNext == false) {
+                var data = {photo_id: photos[currentPhotoIdx - 1].id};
+                $.post(saveLocationURL, data, function () {
+                    nextPhoto();
+                });
+                _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+            }
+        });
 
-	function saveLocation() {
+        $('#open-location-tools').click(function (e) {
+            e.preventDefault();
+            _gaq.push(["_trackEvent", "Game", "Opened location tools"]);
+            openLocationTools();
+        });
 
-		lat = marker.getPosition().lat();
-		lon = marker.getPosition().lng();
+        $('#close-location-tools').click(function (e) {
+            e.preventDefault();
+            _gaq.push(["_trackEvent", "Game", "Closed location tools"]);
+            closeLocationTools();
+        });
 
-		var data = {
-			photo_id: photos[currentPhotoIdx-1].id,
-			hint_used: hintUsed
-		};
+        $('#google-plus-login-button').click(function () {
+             _gaq.push(["_trackEvent", "Game", "Google+ login"]);
+        });
 
-		if (lat && lon) {
-			data['lat'] = lat;
-			data['lon'] = lon;
-		}
+        $('#logout-button').click(function () {
+             _gaq.push(["_trackEvent", "Game", "Logout"]);
+        });
 
-		$.post(saveLocationURL, data, function(resp) {
-			//$("#top .score_container .scoreboard li.you score").text(resp['total_score']);
-			update_leaderboard();
+        $('#continue-game').click(function (e) {
+            e.preventDefault();
+            continueGame();
+        });
 
-			message = '';
-			if (resp['is_correct'] == true) {
-				message = gettext('Looks right!');
-			}
-			else
-			if (resp['location_is_unclear']) {
-				message = gettext('Correct location is not certain yet.');
-			}
-			else
-			if (resp['is_correct'] == false) {
-				message = gettext('We doubt about it.');
-			}
-			else {
-				message = gettext('Your guess was first.');
-			}
-			$("#notice .message").text(message);
-			$("#notice").modal({escClose: false});
-			disableContinue = false;
+        $('#save-location').click(function (e) {
+            firstDragDone = false;
+            e.preventDefault();
+            if (disableSave) {
+                _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
+                alert(gettext('Point the marker to where the picture was taken from.'));
+            } else {
+                saveLocation();
+                if (saveDirection) {
+                    _gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
+                } else {
+                    _gaq.push(['_trackEvent', 'Game', 'Save location only']);
+                }
+            }
+        });
 
-		}, 'json');
+        photosDiv = $('#photos');
 
-	}
+        photosDiv.delegate('.show-description', 'click', function (e) {
+            e.preventDefault();
+            hintUsed = 1;
+            showDescription();
+            _gaq.push(['_trackEvent', 'Game', 'Show description']);
+        });
 
-	function openLocationTools() {
-		disableNext = true;
-		
-		if (infowindow !== undefined)
-		{
-			// show infowindow on the first time when map opened
-			infowindow.open(map,marker);
-		}
+        photosDiv.find('a.fullscreen').live('click', function (e) {
+            e.preventDefault();
+            if (BigScreen.enabled) {
+                BigScreen.request($('#game-full' + this.rel)[0]);
+                _gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-' + this.rel]);
+            }
+        });
 
-		$('#tools').animate({ left : '15%' }, function() {
-			locationToolsOpen = true;
-			var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
-			$('#photos').animate({ left : photosLeft+'px' });
-			$('#open-location-tools').fadeOut();
-		});
-	}
+        $('.full-box div').live('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.exit();
+            }
+        });
 
-	function continueGame() {
-		$.modal.close();
-		closeLocationTools(1);
-		disableContinue = true;
-	}
+        photosDiv.hoverIntent(function () {
+            if (locationToolsOpen == true && !isMobile) {
+                showPhotos();
+            }
+        }, function () {
+            if (locationToolsOpen == true && !isMobile) {
+                hidePhotos();
+            }
+        });
 
-	function closeLocationTools(next) {
-		locationToolsOpen = false;
-		$('#photos').animate({ left : gameOffset });
-		$('#tools').animate({ left : '100%' }, function() {
-			var panorama = map.getStreetView();
-			panorama.setVisible(false);
-			disableNext = false;
-			$('#open-location-tools').fadeIn();
-			if (next == 1) {
-				nextPhoto();
-			}
-		});
-	}
+        photosDiv.find('img').live('click', function () {
+            if (isMobile && locationToolsOpen) {
+                if (mobileMapMinimized) {
+                    $('#tools').css({left: '15%'});
+                    mobileMapMinimized = false;
+                } else {
+                    var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
+                    $('#tools').css({left: photoWidthPercent + '%'});
+                    mobileMapMinimized = true;
+                }
+            }
+        });
 
-	function showPhotos() {
-		photoWidthPercent = Math.round( ($(currentPhoto).width()) / ($(document).width()) * 100 );
-		$('#tools').animate({ left : photoWidthPercent+'%' });
-	}
+        $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
-	function hidePhotos() {
-		$('#tools').animate({ left : '15%' });
-	}
+        $('#full_leaderboard').bind('click', function (e) {
+            e.preventDefault();
+            $('#leaderboard_browser').find('.scoreboard').load(leaderboardFullURL, function () {
+                $('#leaderboard_browser').modal({overlayClose: true});
+            });
+            _gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
+        });
 
-	function showScoreboard() {
-		$('#top .score_container .scoreboard li').not('.you').add('h2').slideDown();
-		$('#top .score_container #facebook-connect').slideDown();
-	}
+        function saveLocation() {
+            lat = marker.getPosition().lat();
+            lon = marker.getPosition().lng();
 
-	function hideScoreboard() {
-		$('#top .score_container .scoreboard li').not('.you').add('h2').slideUp();
-		$('#top .score_container #facebook-connect').slideUp();
-	}
+            if (photos)
 
-	function showDescription() {
-		$(currentPhoto).find('.show-description').fadeOut(function() {
-			$(this).parent().find('.description').fadeIn();
-		});
-	}
+            var data = {
+                photo_id: photos[currentPhotoIdx - 1].id,
+                hint_used: hintUsed,
+                zoom_level: map.zoom
+            };
 
-	function nextPhoto() {
-		//update_leaderboard();
-		hintUsed = 0;
-		disableSave = true;
+            if (saveDirection) {
+                data['azimuth'] = degreeAngle;
+            }
 
-		/*
-		if (photos.length == currentPhotoIdx) {
-			loadPhotos();
-		}
-		*/
-		if (photos.length > currentPhotoIdx)
-		{
-			disableNext = true;
+            if (lat && lon) {
+                data['lat'] = lat;
+                data['lon'] = lon;
+            }
 
-			$('.skip-photo').animate({ 'opacity' : .4 });
-			$(currentPhoto).find('img').animate({ 'opacity' : .4 });
-			showDescription();
+            $.post(saveLocationURL, data, function (resp) {
+                update_leaderboard();
+                var message = '';
+                if (resp['is_correct'] == true) {
+                    message = gettext('Looks right!');
+                    _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
+                    if (resp['azimuth_false']) {
+                        message = gettext('The location seems right, but not the azimuth.');
+                    }
+                    if (resp['azimuth_uncertain']) {
+                        message = gettext('The location seems right, but the azimuth is yet uncertain.');
+                    }
+                }
+                else if (resp['location_is_unclear']) {
+                    message = gettext('Correct location is not certain yet.');
+                    _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
+                }
+                else if (resp['is_correct'] == false) {
+                    message = gettext('We doubt about it.');
+                    _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
+                }
+                else {
+                    message = gettext('Your guess was first.');
+                }
+                noticeDiv = $("#notice");
+                noticeDiv.find(".message").text(message);
+                noticeDiv.modal({escClose: false});
+                disableContinue = false;
+            }, 'json');
+        }
 
-			$('#photos').append(
-				'<div class="photo photo'+currentPhotoIdx+'"></div>'
-			);
+        function openLocationTools() {
+            disableNext = true;
+            if (infowindow !== undefined) {
+                // Show info window when the map is opened the first time
+                infowindow.open(map, marker);
+            }
 
-			currentPhoto = $('#photos .photo'+currentPhotoIdx);
+            $('#tools').animate({ left: '15%' }, function () {
+                locationToolsOpen = true;
+                var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
+                $('#photos').animate({ left: photosLeft + 'px' });
+                $('#open-location-tools').fadeOut();
+            });
+        }
 
-			$(currentPhoto).append(
-				'<div class="container">'+ (language_code == 'et' ? '<a href="#" class="id'+photos[currentPhotoIdx].id+' btn small show-description">'+gettext('Show hint')+'</a>':'') +'<div class="description">'+photos[currentPhotoIdx].description+'</div><a class="fullscreen" rel="'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].big.url+'" /></a><div class="fb-like"><fb:like href="'+permalinkURL+photos[currentPhotoIdx].id+'/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div></div>'
-			).find('img').load(function() {
+        function continueGame() {
+            $.modal.close();
+            closeLocationTools(1);
+            disableContinue = true;
+        }
 
-				currentPhoto.css({ 'visibility' : 'visible' });
+        function closeLocationTools(next) {
+            locationToolsOpen = false;
+            $('#photos').animate({ left: gameOffset });
+            $('#tools').animate({ left: '100%' }, function () {
+                var panorama = map.getStreetView();
+                panorama.setVisible(false);
+                disableNext = false;
+                $('#open-location-tools').fadeIn();
+                if (next == 1) {
+                    nextPhoto();
+                }
+            });
+        }
 
-				$(this).fadeIn('slow', function() {
+        function showPhotos() {
+            var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
+            $('#tools').animate({ left: photoWidthPercent + '%' });
+        }
 
-					gameWidth += $(currentPhoto).width();
-					$('#photos').width(gameWidth);
-					scrollPhotos();
+        function hidePhotos() {
+            $('#tools').animate({ left: '15%' });
+        }
 
-				});
+        function showSeenAllMessage() {
+            $('#user-message-container').show();
+            $('#nothing-more-to-show').hide();
+            $('#user-seen-all').show();
+        }
 
-			});
-			if (typeof FB != 'undefined') {
-				FB.XFBML.parse();
-			}
-			$('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full'+photos[currentPhotoIdx].id+'"><img src="'+mediaUrl+photos[currentPhotoIdx].large.url+'" border="0" /></div>');
-			prepareFullscreen();
-			currentPhotoIdx++;
-		} 
-		else
-		{
-			/* console.log('End of an array: '+currentPhotoIdx+' >= '+photos.length); */
-			loadPhotos(1);
-		}
+        function showNothingMoreToShowMessage() {
+            $('#user-message-container').show();
+            $('#user-seen-all').hide();
+            $('#nothing-more-to-show').show();
+        }
 
-	}
+        function showScoreboard() {
+            topDiv = $('#top');
+            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideDown();
+            topDiv.find('.score_container #facebook-connect').slideDown();
+            topDiv.find('.score_container #google-plus-connect').slideDown();
+        }
 
-	function scrollPhotos() {
-		gameOffset = ($(document).width() / 2) + ($(currentPhoto).width() / 2) - gameWidth;
-		$('#photos').animate({ left : gameOffset }, 1000, function(){
-			disableNext = false;
-			$('.skip-photo').animate({ 'opacity' : 1 });
-		});
-	}
+        function hideScoreboard() {
+            topDiv = $('#top');
+            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideUp();
+            topDiv.find('.score_container #facebook-connect').slideUp();
+            topDiv.find('.score_container #google-plus-connect').slideUp();
+        }
 
-	function loadPhotos(next) {
-		var date = new Date(); // IE jaoks oli vajalik erinev URL, seega anname sekundid kaasa
-		var qs = URI.parseQuery(window.location.search);
+        function showDescription() {
+            $(currentPhoto).find('.show-description').fadeOut(function () {
+                $(this).parent().find('.description').fadeIn();
+            });
+        }
 
-		$.getJSON(streamUrl, $.extend({
-			'b': date.getTime()
-		}, qs), function(data) {
-			$.merge(photos, data);
-			if (next || currentPhotoIdx <= 0) {
-				nextPhoto();
-			}
-		});
-	}
-});
+        function nextPhoto() {
+            hintUsed = 0;
+            disableSave = true;
+            azimuthListenerActive = false;
+            map.setZoom(16);
+            google.maps.event.clearListeners(map, 'mousemove');
+            if (line !== undefined) {
+                line.setVisible(false);
+            }
+
+            if (photos.length > currentPhotoIdx) {
+                disableNext = true;
+
+                $('.skip-photo').animate({ 'opacity': .4 });
+                $(currentPhoto).find('img').animate({ 'opacity': .4 });
+                $(currentPhoto).find('.show-description').hide();
+
+                photosDiv = $('#photos');
+                photosDiv.append('<div class="photo photo' + currentPhotoIdx + '"></div>');
+
+                currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
+
+                $(currentPhoto).append(
+                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
+                ).find('img').load(function () {
+                        currentPhoto.css({ 'visibility': 'visible' });
+                        $(this).fadeIn('slow', function () {
+                            gameWidth += $(currentPhoto).width();
+                            $('#photos').width(gameWidth);
+                            scrollPhotos();
+                        });
+                    });
+                if (typeof FB !== 'undefined') {
+                    FB.XFBML.parse();
+                }
+                $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
+                prepareFullscreen();
+                currentPhotoIdx++;
+            } else {
+                loadPhotos(1);
+            }
+        }
+
+        function scrollPhotos() {
+            gameOffset = ($(document).width() / 2) + ($(currentPhoto).width() / 2) - gameWidth;
+            $('#photos').animate({ left: gameOffset }, 1000, function () {
+                disableNext = false;
+                $('.skip-photo').animate({ 'opacity': 1 });
+            });
+        }
+
+        function loadPhotos(next) {
+            var date = new Date(); // IE needs a different URL, sending seconds
+            var qs = URI.parseQuery(window.location.search);
+
+            $.getJSON(streamUrl, $.extend({
+                'b': date.getTime()
+            }, qs), function (data) {
+                $.merge(photos, data.photos);
+                if (data.nothing_more_to_show) {
+                    showNothingMoreToShowMessage();
+                } else if (data.user_seen_all) {
+                    showSeenAllMessage();
+                }
+                if (next || currentPhotoIdx <= 0) {
+                    nextPhoto();
+                }
+            });
+        }
+    })
+}());

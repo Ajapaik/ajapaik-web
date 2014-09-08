@@ -12,22 +12,20 @@ def _make_fullscreen(photo):
 	image=get_thumbnail(photo.image, '1024x1024', upscale=False)
 	return {'url':image.url,
 			'size':[image.width,image.height]}
- 
+
+
 def calc_trustworthiness(user_id):
-	total_tries=0
-	correct_tries=0
-	for row in GeoTag.objects.filter(user=user_id,
-								is_correct__isnull=False). \
-				values('is_correct').annotate(count=Count('pk')):
-		total_tries+=row['count']
+	total_tries = 0
+	correct_tries = 0
+	for row in GeoTag.objects.filter(user=user_id, is_correct__isnull=False).values('is_correct').annotate(count=Count('pk')):
+		total_tries += row['count']
 		if row['is_correct']:
-			correct_tries+=row['count']
+			correct_tries += row['count']
 
 	if not correct_tries:
 		return 0
 
-	return (1-0.9**correct_tries) * \
-						correct_tries / float(total_tries)
+	return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
 
 #
 # DEPRICATED see models.Photo
@@ -48,7 +46,7 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 				'where': ['rephoto_of_id IS NULL']}
 
 	forbidden_photo_ids=frozenset([g.photo_id \
-			for g in Guess.objects.filter(user=user_id,
+			for g in Skip.objects.filter(user=user_id,
 				created__gte= \
 				datetime.datetime.now()-datetime.timedelta(1))] + \
 			list(GeoTag.objects.filter(user=user_id). \
@@ -116,38 +114,61 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 	#			photod millel pole geotage ja mida on koige
 	#										vahem skipitud
 
-def submit_guess(user,photo_id,lon=None,lat=None,
-						type=GeoTag.MAP,hint_used=False):
-	p=Photo.objects.get(pk=photo_id)
+def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None):
+	p = Photo.objects.get(pk=photo_id)
 
-	is_correct=None
-	location_is_unclear=0
-	this_guess_score=0
-	leaderboard=None
+	is_correct = None
+	location_is_unclear = 0
+	this_guess_score = 0
+	leaderboard = None
+	azimuth_uncertain = False
+	azimuth_false = True
 
 	if lon is not None and lat is not None:
-		trustworthiness=calc_trustworthiness(user.pk)
+		trustworthiness = calc_trustworthiness(user.pk)
 
 		if p.confidence >= 0.3:
-			error_in_meters=Photo.distance_in_meters(
-							p.lon,p.lat,float(lon),float(lat))
-			this_guess_score=int(130*max(0,min(1,(1-
-						(error_in_meters-15)/float(94-15)))))
-			is_correct=(this_guess_score > 0)
+			error_in_meters = distance_in_meters(p.lon, p.lat, float(lon), float(lat))
+			this_guess_score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
+			is_correct = (this_guess_score > 0)
 		else:
-			this_guess_score=max(20,int(300*trustworthiness))
-			location_is_unclear=int(bool(len(p.geotags.all())))
+			this_guess_score = max(20, int(300 * trustworthiness))
+			location_is_unclear = int(bool(len(p.geotags.all())))
 
 		if hint_used:
-			this_guess_score/=3
+			this_guess_score *= 0.75
 
-		GeoTag(user=user,photo_id=p.id,type=type,
-						lat=float(lat),lon=float(lon),
-						is_correct=is_correct,
-						score=this_guess_score,
-						trustworthiness=trustworthiness).save()
+		new_geotag = GeoTag(user=user, photo_id=p.id, type=type,
+							lat=float(lat), lon=float(lon),
+							is_correct=is_correct,
+							score=this_guess_score,
+							trustworthiness=trustworthiness,
+							zoom_level=zoom_level)
+
+		if azimuth:
+			new_geotag.azimuth = azimuth
+			if not p.azimuth:
+				new_geotag.azimuth_score = max(20, int(300 * trustworthiness))
+				azimuth_uncertain = True
+
+		if azimuth and p.azimuth:
+			degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
+			azimuth = float(azimuth)
+			difference = max(p.azimuth, azimuth) - min(p.azimuth, azimuth)
+			if difference > 180:
+				difference = 360 - difference
+			azimuth_score = 0
+			if int(difference) <= 15:
+				azimuth_score = degree_error_point_array[int(difference) - 1]
+				azimuth_false = False
+			if is_correct or location_is_unclear:
+				new_geotag.azimuth_score = azimuth_score
+
+		if new_geotag.azimuth_score:
+			new_geotag.score += new_geotag.azimuth_score
+		new_geotag.save()
 	else:
-		Guess(user=user,photo_id=p.id).save()
+		Skip(user=user, photo_id=p.id).save()
 
 	p.set_calculated_fields()
 	p.save()
@@ -156,10 +177,9 @@ def submit_guess(user,photo_id,lon=None,lat=None,
 	user.save()
 
 	if this_guess_score:
-		leaderboard=get_leaderboard(user.pk)
+		leaderboard = get_leaderboard(user.pk)
 
-	return is_correct,this_guess_score,user.score,leaderboard, \
-											location_is_unclear
+	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain
 
 #
 # DEPRICATED see models.Photo
@@ -211,29 +231,29 @@ def get_all_geotag_submits(photo_id=None):
 		data.append((g.lon,g.lat))
 	return data
 
+
 def get_leaderboard(user_id):
-	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False, score__gt=0) | Q(pk=user_id)). \
-				values_list('pk','score','fb_id','fb_name'). \
-				order_by('-score')))
-	leaderboard=[scores_list[0]]
-	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
-											scores_list)[0][0]
-	if self_user_idx-1 > 0:
-		leaderboard.append(scores_list[self_user_idx-1])
+	scores_list = list(enumerate(Profile.objects.filter(
+		Q(fb_name__isnull=False, score__gt=0) | Q(google_plus_name__isnull=False, score__gt=0) | Q(
+			pk=user_id)).values_list('pk', 'score', 'fb_id', 'fb_name', 'google_plus_name',
+									 'google_plus_picture').order_by('-score')))
+	leaderboard = [scores_list[0]]
+	self_user_idx = filter(lambda (idx, data): data[0] == user_id, scores_list)[0][0]
+	if self_user_idx - 1 > 0:
+		leaderboard.append(scores_list[self_user_idx - 1])
 	if self_user_idx > 0:
 		leaderboard.append(scores_list[self_user_idx])
-	if self_user_idx+1 < len(scores_list):
-		leaderboard.append(scores_list[self_user_idx+1])
+	if self_user_idx + 1 < len(scores_list):
+		leaderboard.append(scores_list[self_user_idx + 1])
 
-	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
-									for idx,data in leaderboard]
+	leaderboard = [(idx + 1, data[0] == user_id, data[1], data[2], data[3], data[4], data[5]) for idx, data in
+				   leaderboard]
 	return leaderboard
 
 def get_leaderboard50(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False, score__gt=0) | Q(pk=user_id)). \
-				values_list('pk','score','fb_id','fb_name'). \
+					Q(fb_name__isnull=False, score__gt=0) | Q(google_plus_name__isnull=False, score__gt=0) | Q(pk=user_id)). \
+				values_list('pk','score','fb_id','fb_name', 'google_plus_name', 'google_plus_picture'). \
 				order_by('-score')))
 	leaderboard=scores_list[:50]
 	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
@@ -242,11 +262,11 @@ def get_leaderboard50(user_id):
 	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
 									for idx,data in leaderboard]
 	return leaderboard
-    
+
 def get_rephoto_leaderboard(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False, score_rephoto__gt=0) | Q(pk=user_id)). \
-				values_list('pk','score_rephoto','fb_id','fb_name'). \
+					Q(fb_name__isnull=False, score_rephoto__gt=0) | Q(google_plus_name__isnull=False, score_rephoto__gt=0) | Q(pk=user_id)). \
+				values_list('pk','score_rephoto','fb_id','fb_name', 'google_plus_name', 'google_plus_picture'). \
 				order_by('-score_rephoto')))
 	leaderboard=[scores_list[0]]
 	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
@@ -258,19 +278,19 @@ def get_rephoto_leaderboard(user_id):
 	if self_user_idx+1 < len(scores_list):
 		leaderboard.append(scores_list[self_user_idx+1])
 
-	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
+	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3],data[4],data[5]) \
 									for idx,data in leaderboard]
 	return leaderboard
-    
+
 def get_rephoto_leaderboard50(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False, score_rephoto__gt=0) | Q(pk=user_id)). \
-				values_list('pk','score_rephoto','fb_id','fb_name'). \
+					Q(fb_name__isnull=False, score_rephoto__gt=0) | Q(google_plus_name__isnull=False, score_rephoto__gt=0) | Q(pk=user_id)). \
+				values_list('pk','score_rephoto','fb_id','fb_name', 'google_plus_name', 'google_plus_picture'). \
 				order_by('-score_rephoto')))
 	leaderboard=scores_list[:50]
 	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
 											scores_list)[0][0]
 
-	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3]) \
+	leaderboard=[(idx+1,data[0]==user_id,data[1],data[2],data[3],data[4],data[5]) \
 									for idx,data in leaderboard]
 	return leaderboard

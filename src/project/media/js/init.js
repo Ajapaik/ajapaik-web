@@ -1,6 +1,6 @@
 var map;
 
-function get_map(startpoint, startingzoom) {
+function get_map(startpoint, startingzoom, isGameMap) {
 	// Starting point
 	if (startpoint == undefined) {
 		var latlng = new google.maps.LatLng(59,26);
@@ -70,12 +70,41 @@ function get_map(startpoint, startingzoom) {
 		streetView: street
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOpts);
+    if (isGameMap) {
+        $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
+            var that = $(this);
+            if (!that.data('win')) {
+                that.data('win').bindTo('position', map, 'center');
+            }
+            that.data('win').open(map);
+        });
+    }
 
 	// Attach base layer
 	map.mapTypes.set('OSM', osmMapType);
 	map.setMapTypeId('OSM');
 
-	return map
+    var thePanorama = map.getStreetView();
+
+    google.maps.event.addListener(thePanorama, 'visible_changed', function () {
+        if (thePanorama.getVisible()) {
+            if (isGameMap) {
+                _gaq.push(["_trackEvent", "Game", "Opened Street View"]);
+            } else {
+                _gaq.push(["_trackEvent", "Map", "Opened Street View"]);
+            }
+        }
+    });
+
+    google.maps.event.addListener(thePanorama, 'pano_changed', function () {
+        if (isGameMap) {
+            _gaq.push(["_trackEvent", "Game", "Street View Movement"]);
+        } else {
+            _gaq.push(["_trackEvent", "Map", "Street View Movement"]);
+        }
+    });
+
+	return map;
 }
 
 function prepareFullscreen()

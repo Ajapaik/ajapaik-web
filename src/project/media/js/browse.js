@@ -73,6 +73,14 @@ $(document).ready(function() {
 		openPhotoDrawer();
 	});
 
+    $('#google-plus-login-button').click(function (e) {
+         _gaq.push(["_trackEvent", "Map", "Google+ login"]);
+    });
+
+    $('#logout-button').click(function () {
+         _gaq.push(["_trackEvent", "Map", "Logout"]);
+    });
+
 	$('#photo-drawer').delegate('#close-photo-drawer', 'click', function(e) {
 		e.preventDefault();
 		closePhotoDrawer();
@@ -162,11 +170,13 @@ $(document).ready(function() {
 	function showScoreboard() {
 		$('.top .score_container .scoreboard li').not('.you').add('h2').slideDown();
 		$('.top .score_container #facebook-connect').slideDown();
+        $('.top .score_container #google-plus-connect').slideDown();
 	}
 
 	function hideScoreboard() {
 		$('.top .score_container .scoreboard li').not('.you').add('h2').slideUp();
 		$('.top .score_container #facebook-connect').slideUp();
+        $('.top .score_container #google-plus-connect').slideUp();
 	}
 
 });
