@@ -38,6 +38,14 @@ function closePhotoDrawer() {
 	$('.filter-box').show();
 }
 
+var trackSourceLinkClick = function (url) {
+    ga('send', 'event', 'outbound', 'click', url, {'hitCallback': function () {
+        _gaq.push(["_trackEvent", "Map", "Source link click"]);
+        document.location = url;
+    }
+    });
+};
+
 function uploadCompleted(response) {
 	$.modal.close();
 	if (typeof photoId == 'undefined') {
@@ -80,14 +88,6 @@ $(document).ready(function() {
     $('#logout-button').click(function () {
          _gaq.push(["_trackEvent", "Map", "Logout"]);
     });
-
-    var trackSourceLinkClick = function (url) {
-        ga('send', 'event', 'outbound', 'click', url, {'hitCallback': function () {
-            _gaq.push(["_trackEvent", "Map", "Source link click"]);
-            document.location = url;
-        }
-        });
-    };
 
 	$('#photo-drawer').delegate('#close-photo-drawer', 'click', function(e) {
 		e.preventDefault();
