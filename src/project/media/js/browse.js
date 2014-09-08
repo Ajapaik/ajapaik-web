@@ -39,11 +39,8 @@ function closePhotoDrawer() {
 }
 
 var trackSourceLinkClick = function (url) {
-    ga('send', 'event', 'outbound', 'click', url, {'hitCallback': function () {
-        _gaq.push(["_trackEvent", "Map", "Source link click"]);
-        document.location = url;
-    }
-    });
+    _gaq.push(["_trackEvent", "Map", "Source link click"]);
+    document.location = url;
 };
 
 function uploadCompleted(response) {
