@@ -40,7 +40,7 @@ function closePhotoDrawer() {
 
 var trackSourceLinkClick = function (url) {
     _gaq.push(["_trackEvent", "Map", "Source link click"]);
-    document.location = url;
+    window.open(url, "_blank");
 };
 
 function uploadCompleted(response) {
