@@ -409,8 +409,8 @@ class GeoTag(models.Model):
 
 	lat = models.FloatField()
 	lon = models.FloatField()
-	azimuth = models.FloatField()
-	zoom_level = models.IntegerField()
+	azimuth = models.FloatField(null=True, blank=True)
+	zoom_level = models.IntegerField(null=True, blank=True)
 	type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
 
 	user = models.ForeignKey('Profile', related_name='geotags')
@@ -418,7 +418,7 @@ class GeoTag(models.Model):
 
 	is_correct = models.NullBooleanField()
 	score = models.PositiveSmallIntegerField()
-	azimuth_score = models.PositiveSmallIntegerField()
+	azimuth_score = models.PositiveSmallIntegerField(null=True, blank=True)
 	trustworthiness = models.FloatField()
 
 	created = models.DateTimeField(auto_now_add=True)
@@ -442,6 +442,10 @@ class FacebookManager(models.Manager):
 			return self.get(fb_id=data.get('id')), data
 		except ObjectDoesNotExist:
 			return None, data,
+
+from south.modelsinspector import add_introspection_rules
+from oauth2client.django_orm import CredentialsField
+add_introspection_rules([], ["^oauth2client\.django_orm\.CredentialsField", "^oauth2client\.django_orm\.FlowField"])
 
 
 class CredentialsModel(models.Model):
