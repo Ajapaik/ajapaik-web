@@ -339,20 +339,18 @@
                     _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
                     if (resp['azimuth_false']) {
                         message = gettext('The location seems right, but not the azimuth.');
-                    }
-                    if (resp['azimuth_uncertain']) {
+                    } else if (resp['azimuth_uncertain']) {
                         message = gettext('The location seems right, but the azimuth is yet uncertain.');
+                    } else {
+                        message = gettext('The location seems right, your azimuth was first.');
                     }
-                }
-                else if (resp['location_is_unclear']) {
+                } else if (resp['location_is_unclear']) {
                     message = gettext('Correct location is not certain yet.');
                     _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
-                }
-                else if (resp['is_correct'] == false) {
+                } else if (resp['is_correct'] == false) {
                     message = gettext('We doubt about it.');
                     _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
-                }
-                else {
+                } else {
                     message = gettext('Your guess was first.');
                 }
                 noticeDiv = $("#notice");
