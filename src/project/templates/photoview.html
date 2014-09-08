@@ -39,7 +39,7 @@
                         <p>{{ photo.description }}</p>
 						<p class="owner">
 						{% if photo.source_url %}
-							<a href="{{ photo.source_url }}" target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
+							<a id="source-link" href="{{ photo.source_url }}" target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
 						{% else %}
 							{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
 						{% endif %}
@@ -118,7 +118,7 @@
 
 				{% if request.user.is_authenticated and request.user.get_profile.fb_id or request.user.get_profile.google_plus_id %}
 					{% with profile=request.user.get_profile user=request.user %}
-					<p>{% blocktrans with "<a href='/logout'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click here{{ link_close }}.{% endblocktrans %}</p>
+					<p>{% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click here{{ link_close }}.{% endblocktrans %}</p>
                     <span class="btn btn-success fileinput-button">
                         <span>{% trans "Select file..." %}</span>
                         <input id="fileupload" type="file" name="user_file[]">
@@ -137,7 +137,7 @@
 					</div>
                     {% comment %}<div id="google-plus-connect" align="center">
 						<p>{% trans "You can also connect your Rephoto account with Google Plus." %}</p>
-						<a href="/google_login?next={{ request.path|urlencode }}">{% trans "Connect with Google+" %}</a>
+						<a id="google-plus-login-button" href="/google_login?next={{ request.path|urlencode }}">{% trans "Connect with Google+" %}</a>
 					</div>{% endcomment %}
 				{% endif %}
 		

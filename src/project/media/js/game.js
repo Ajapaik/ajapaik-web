@@ -214,12 +214,22 @@
 
         $('#open-location-tools').click(function (e) {
             e.preventDefault();
+            _gaq.push(["_trackEvent", "Game", "Opened location tools"]);
             openLocationTools();
         });
 
         $('#close-location-tools').click(function (e) {
             e.preventDefault();
+            _gaq.push(["_trackEvent", "Game", "Closed location tools"]);
             closeLocationTools();
+        });
+
+        $('#google-plus-login-button').click(function () {
+             _gaq.push(["_trackEvent", "Game", "Google+ login"]);
+        });
+
+        $('#logout-button').click(function () {
+             _gaq.push(["_trackEvent", "Game", "Logout"]);
         });
 
         $('#continue-game').click(function (e) {
@@ -235,7 +245,11 @@
                 alert(gettext('Point the marker to where the picture was taken from.'));
             } else {
                 saveLocation();
-                _gaq.push(['_trackEvent', 'Game', 'Save location']);
+                if (saveDirection) {
+                    _gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
+                } else {
+                    _gaq.push(['_trackEvent', 'Game', 'Save location only']);
+                }
             }
         });
 
@@ -322,6 +336,7 @@
                 var message = '';
                 if (resp['is_correct'] == true) {
                     message = gettext('Looks right!');
+                    _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
                     if (resp['azimuth_false']) {
                         message = gettext('The location seems right, but not the azimuth.');
                     }
@@ -331,9 +346,11 @@
                 }
                 else if (resp['location_is_unclear']) {
                     message = gettext('Correct location is not certain yet.');
+                    _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
                 }
                 else if (resp['is_correct'] == false) {
                     message = gettext('We doubt about it.');
+                    _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
                 }
                 else {
                     message = gettext('Your guess was first.');

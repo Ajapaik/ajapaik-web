@@ -84,6 +84,26 @@ function get_map(startpoint, startingzoom, isGameMap) {
 	map.mapTypes.set('OSM', osmMapType);
 	map.setMapTypeId('OSM');
 
+    var thePanorama = map.getStreetView();
+
+    google.maps.event.addListener(thePanorama, 'visible_changed', function () {
+        if (thePanorama.getVisible()) {
+            if (isGameMap) {
+                _gaq.push(["_trackEvent", "Game", "Opened Street View"]);
+            } else {
+                _gaq.push(["_trackEvent", "Map", "Opened Street View"]);
+            }
+        }
+    });
+
+    google.maps.event.addListener(thePanorama, 'pano_changed', function () {
+        if (isGameMap) {
+            _gaq.push(["_trackEvent", "Game", "Street View Movement"]);
+        } else {
+            _gaq.push(["_trackEvent", "Map", "Street View Movement"]);
+        }
+    });
+
 	return map;
 }
 

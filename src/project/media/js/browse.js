@@ -73,6 +73,18 @@ $(document).ready(function() {
 		openPhotoDrawer();
 	});
 
+    $('#google-plus-login-button').click(function (e) {
+         _gaq.push(["_trackEvent", "Map", "Google+ login"]);
+    });
+
+    $('#logout-button').click(function () {
+         _gaq.push(["_trackEvent", "Map", "Logout"]);
+    });
+
+    $('#source-link').click(function () {
+         _gaq.push(["_trackEvent", "Map", "Source link click"]);
+    });
+
 	$('#photo-drawer').delegate('#close-photo-drawer', 'click', function(e) {
 		e.preventDefault();
 		closePhotoDrawer();
