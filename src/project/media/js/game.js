@@ -111,7 +111,7 @@
             if (!lastTriggeredWheeling) {
                 lastTriggeredWheeling = now - 100;
             }
-            if (now - 400 > lastTriggeredWheeling) {
+            if (now - 100 > lastTriggeredWheeling) {
                 lastTriggeredWheeling = now;
                 if (e.detail > 0) {
                     if (map.zoom < 18) {
@@ -130,7 +130,7 @@
             if (!lastTriggeredWheeling) {
                 lastTriggeredWheeling = now - 100;
             }
-            if (now - 400 > lastTriggeredWheeling) {
+            if (now - 100 > lastTriggeredWheeling) {
                 lastTriggeredWheeling = now;
                 if (e.wheelDelta > 0) {
                     if (map.zoom < 18) {
