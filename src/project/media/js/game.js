@@ -103,16 +103,20 @@
             map.setCenter(location);
         });*/
         function wheelEventFF(e) {
-            if (e.detail > 0 && map.zoom < 18) {
-                map.setZoom(map.zoom + 1);
+            if (e.detail > 0) {
+                if (map.zoom < 18) {
+                    map.setZoom(map.zoom + 1);
+                }
             } else {
                 map.setZoom(map.zoom - 1);
             }
         }
 
         function wheelEventNonFF(e) {
-            if (e.wheelDelta > 0 && map.zoom < 18) {
-                map.setZoom(map.zoom + 1);
+            if (e.wheelDelta > 0) {
+                if (map.zoom < 18) {
+                    map.setZoom(map.zoom + 1);
+                }
             } else {
                 map.setZoom(map.zoom - 1);
             }
