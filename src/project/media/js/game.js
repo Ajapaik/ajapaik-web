@@ -99,6 +99,29 @@
 
         marker.bindTo('position', map, 'center');
 
+/*        google.maps.event.addListener(map,'zoom_changed',function () {
+            map.setCenter(location);
+        });*/
+        function wheelEventFF(e) {
+            if (e.detail > 0 && map.zoom < 18) {
+                map.setZoom(map.zoom + 1);
+            } else {
+                map.setZoom(map.zoom - 1);
+            }
+        }
+
+        function wheelEventNonFF(e) {
+            if (e.wheelDelta > 0 && map.zoom < 18) {
+                map.setZoom(map.zoom + 1);
+            } else {
+                map.setZoom(map.zoom - 1);
+            }
+        }
+
+        var realMapElement = $("#map_canvas")[0];
+        realMapElement.addEventListener( 'mousewheel', wheelEventNonFF, true );
+        realMapElement.addEventListener( 'DOMMouseScroll', wheelEventFF, true );
+
         google.maps.event.addListener(map, 'click', function (e) {
             if (infowindow !== undefined) {
                 infowindow.close();
