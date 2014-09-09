@@ -102,26 +102,38 @@
 /*        google.maps.event.addListener(map,'zoom_changed',function () {
             map.setCenter(location);
         });*/
+
+        var lastTriggeredWheeling,
+            now;
+
         function wheelEventFF(e) {
-            if (e.detail > 0) {
-                if (map.zoom < 18) {
-                    map.setZoom(map.zoom + 1);
-                }
-            } else {
-                if (map.zoom > 14) {
-                    map.setZoom(map.zoom - 1);
+            now = new Date().getTime();
+            if (now - 400 > lastTriggeredWheeling) {
+                lastTriggeredWheeling = now;
+                if (e.detail > 0) {
+                    if (map.zoom < 18) {
+                        map.setZoom(map.zoom + 1);
+                    }
+                } else {
+                    if (map.zoom > 14) {
+                        map.setZoom(map.zoom - 1);
+                    }
                 }
             }
         }
 
         function wheelEventNonFF(e) {
-            if (e.wheelDelta > 0) {
-                if (map.zoom < 18) {
-                    map.setZoom(map.zoom + 1);
-                }
-            } else {
-                if (map.zoom > 14) {
-                    map.setZoom(map.zoom - 1);
+            now = new Date().getTime();
+            if (now - 400 > lastTriggeredWheeling) {
+                lastTriggeredWheeling = now;
+                if (e.wheelDelta > 0) {
+                    if (map.zoom < 18) {
+                        map.setZoom(map.zoom + 1);
+                    }
+                } else {
+                    if (map.zoom > 14) {
+                        map.setZoom(map.zoom - 1);
+                    }
                 }
             }
         }
