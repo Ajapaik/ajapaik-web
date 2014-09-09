@@ -99,6 +99,51 @@
 
         marker.bindTo('position', map, 'center');
 
+        var lastTriggeredWheeling,
+            now;
+
+        function wheelEventFF(e) {
+            now = new Date().getTime();
+            if (!lastTriggeredWheeling) {
+                lastTriggeredWheeling = now - 100;
+            }
+            if (now - 100 > lastTriggeredWheeling) {
+                lastTriggeredWheeling = now;
+                if (e.detail > 0) {
+                    if (map.zoom < 18) {
+                        map.setZoom(map.zoom + 1);
+                    }
+                } else {
+                    if (map.zoom > 14) {
+                        map.setZoom(map.zoom - 1);
+                    }
+                }
+            }
+        }
+
+        function wheelEventNonFF(e) {
+            now = new Date().getTime();
+            if (!lastTriggeredWheeling) {
+                lastTriggeredWheeling = now - 100;
+            }
+            if (now - 100 > lastTriggeredWheeling) {
+                lastTriggeredWheeling = now;
+                if (e.wheelDelta > 0) {
+                    if (map.zoom < 18) {
+                        map.setZoom(map.zoom + 1);
+                    }
+                } else {
+                    if (map.zoom > 14) {
+                        map.setZoom(map.zoom - 1);
+                    }
+                }
+            }
+        }
+
+        var realMapElement = $("#map_canvas")[0];
+        realMapElement.addEventListener( 'mousewheel', wheelEventNonFF, true );
+        realMapElement.addEventListener( 'DOMMouseScroll', wheelEventFF, true );
+
         google.maps.event.addListener(map, 'click', function (e) {
             if (infowindow !== undefined) {
                 infowindow.close();
