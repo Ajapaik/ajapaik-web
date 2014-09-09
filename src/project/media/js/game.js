@@ -357,7 +357,7 @@
                 }
                 noticeDiv = $("#notice");
                 noticeDiv.find(".message").text(message);
-                noticeDiv.modal({escClose: false});
+                //noticeDiv.modal({escClose: false});
                 disableContinue = false;
             }, 'json');
         }
