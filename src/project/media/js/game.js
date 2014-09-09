@@ -109,7 +109,7 @@
         function wheelEventFF(e) {
             now = new Date().getTime();
             if (!lastTriggeredWheeling) {
-                lastTriggeredWheeling = now - 400;
+                lastTriggeredWheeling = now - 100;
             }
             if (now - 400 > lastTriggeredWheeling) {
                 lastTriggeredWheeling = now;
@@ -128,7 +128,7 @@
         function wheelEventNonFF(e) {
             now = new Date().getTime();
             if (!lastTriggeredWheeling) {
-                lastTriggeredWheeling = now - 400;
+                lastTriggeredWheeling = now - 100;
             }
             if (now - 400 > lastTriggeredWheeling) {
                 lastTriggeredWheeling = now;
