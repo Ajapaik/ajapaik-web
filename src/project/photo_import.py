@@ -8,6 +8,7 @@ from rest_framework.authentication import SessionAuthentication
 from models import Photo, Source, City
 from json import loads, dumps
 from project.serializers import PhotoSerializer
+from time import time
 
 
 def check_for_duplicate_source_keys(request):
@@ -18,6 +19,9 @@ def check_for_duplicate_source_keys(request):
 	for existing_photo in photos_with_same_source_keys:
 		ret.append(existing_photo.source_key)
 	return HttpResponse(dumps(ret), mimetype="application/json")
+
+class OnlyOneFilePerPostException(Exception):
+	pass
 
 class PostNewHistoricPhoto(generics.CreateAPIView):
 	serializer_class = PhotoSerializer
@@ -36,24 +40,28 @@ class PostNewHistoricPhoto(generics.CreateAPIView):
 		except ObjectDoesNotExist:
 			source = Source(name=source_description, description=source_description)
 			source.save()
-		city_name = request.POST.get("Pildistamise koht") or request.POST.get("S\xc3\xbc\xc5\xbeee nimetus") or request.POST.get("place") or "Ajapaik"
+		city_name = request.POST.get("place") or "Ajapaik"
 		try:
 			city = City.objects.filter(name=city_name)[:1].get()
 		except ObjectDoesNotExist:
 			city = Source(name=city_name)
 			city.save()
-		description1 = request.POST.get("Kirjeldus").strip()
-		description2 = request.POST.get("title").strip()
 		photo_data = {
 			"source": source.__dict__,
 			"city": city.__dict__,
 			"source_key": request.POST.get("number"),
 			"source_url": request.POST.get("url"),
-			"date_text": request.POST.get('Pildistamise aeg') or request.POST.get('date'),
-			"description": '; '.join([description1, description2])
+			"date_text": request.POST.get('date'),
+			"description": '; '.join(filter(None,[request.POST[key].strip() for key in ('description','title') if key in request.POST]))
 		}
+		print int(time())
+		if request.FILES.iteritems().length == 1:
+			for filename, file in request.FILES.iteritems():
+				print filename
+		else:
+			raise OnlyOneFilePerPostException
 		serializer = self.serializer_class(data=photo_data)
 		if serializer.is_valid():
-			return HttpResponse("VALID")
+			return HttpResponse("VALID", status=200)
 		else:
-			return HttpResponse(serializer.errors)
+			return HttpResponse(serializer.errors, status=400)

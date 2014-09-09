@@ -108,7 +108,9 @@
                     map.setZoom(map.zoom + 1);
                 }
             } else {
-                map.setZoom(map.zoom - 1);
+                if (map.zoom > 14) {
+                    map.setZoom(map.zoom - 1);
+                }
             }
         }
 
@@ -118,7 +120,9 @@
                     map.setZoom(map.zoom + 1);
                 }
             } else {
-                map.setZoom(map.zoom - 1);
+                if (map.zoom > 14) {
+                    map.setZoom(map.zoom - 1);
+                }
             }
         }
 
