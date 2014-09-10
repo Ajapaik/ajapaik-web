@@ -347,7 +347,7 @@
             }
         };
 
-        photosDiv.find('img').live('click', toggleTouchPhotoView());
+        photosDiv.find('img').live('click', toggleTouchPhotoView);
 
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
