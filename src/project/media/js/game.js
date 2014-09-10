@@ -99,10 +99,6 @@
 
         marker.bindTo('position', map, 'center');
 
-/*        google.maps.event.addListener(map,'zoom_changed',function () {
-            map.setCenter(location);
-        });*/
-
         var lastTriggeredWheeling,
             now;
 
