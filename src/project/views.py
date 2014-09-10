@@ -12,7 +12,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 
-from project.models import Photo, City, Profile, Source, Device
+from project.models import Photo, City, Profile, Source, Device, DifficultyFeedback
 from project.forms import CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
@@ -636,6 +636,23 @@ def fetch_stream(request):
 	data["photos"], data["user_seen_all"], data[
 		"nothing_more_to_show"] = filters.get_filtered_qs().get_next_photo_to_geotag(request)
 	return HttpResponse(json.dumps(data), mimetype="application/json")
+
+
+def difficulty_feedback(request):
+	# TODO: Tighten down security when it becomes apparent people are abusing this
+	from get_next_photos_to_geotag import calc_trustworthiness
+	user_profile = request.get_user().get_profile()
+	user_trustworthiness = calc_trustworthiness(user_profile.pk)
+	level = request.POST.get("level") or None
+	photo_id = request.POST.get("photo_id") or None
+	if user_profile and level and photo_id:
+		feedback_object = DifficultyFeedback()
+		feedback_object.user_profile = user_profile
+		feedback_object.level = level
+		feedback_object.photo_id = photo_id
+		feedback_object.trustworthiness = user_trustworthiness
+		feedback_object.save()
+	return HttpResponse("OK")
 
 
 def custom_404(request):

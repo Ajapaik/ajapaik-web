@@ -12,6 +12,7 @@ urlpatterns = patterns('views',
 
    (r'^logout/', 'logout'),
    (r'^stream/', 'fetch_stream'),
+   (r'^difficulty_feedback/', 'difficulty_feedback'),
    (r'^geotag/add/', 'geotag_add'),
    (r'^ajapaikaja/$', 'thegame'),
    (r'^kaart/$', 'mapview'),

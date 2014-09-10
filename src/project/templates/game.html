@@ -85,6 +85,12 @@
 	<div id="notice" style="display: none;">
 		<h2>{% trans "Thank you!" %}</h2>
 		<p class="message"></p>
+        <p class="difficulty-message" style="margin: 0 0 5px;">{% trans "Geotagging this photo was" %}:</p>
+        <form id="difficulty-form">
+            <span style="margin-right: 10px;">{% trans "easy" %}</span><input type="radio" name="difficulty" value="1">1
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">2
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">3<span style="margin-left: 10px;">{% trans "hard" %}</span>
+        </form>
 		<a id="continue-game" href="" class="btn small">{% trans "Next photo" %}</a>
 	</div>
 	

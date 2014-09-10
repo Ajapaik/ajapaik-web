@@ -145,14 +145,6 @@ class Photo(models.Model):
 	cam_pitch = models.FloatField(null=True, blank=True)
 	cam_roll = models.FloatField(null=True, blank=True)
 
-	@property
-	def calculated_level(self):
-		if self.level > 0:
-			return self.level
-		if self.guess_level:
-			return self.guess_level
-		return 4
-
 	class Meta:
 		ordering = ['-id']
 		app_label = "project"
@@ -248,11 +240,11 @@ class Photo(models.Model):
 
 			if user_trustworthiness < 0.4:
 				# Novice users should only receive the easiest images to prove themselves
-				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-confidence")
+				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-guess_level", "-confidence")
 				if len(ret) == 0:
 					# If the user has seen all the photos, offer something at random
 					user_seen_all = True
-					ret = city_photos_set.order_by("-confidence")
+					ret = city_photos_set.order_by("-guess_level", "-confidence")
 				# for p in ret:
 				# 	# Trying not to offer photos in the vicinity of the last one
 				# 	if user_last_interacted_photo:
@@ -347,6 +339,14 @@ class Photo(models.Model):
 		return slug
 
 	def set_calculated_fields(self):
+		photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
+		weighted_level_sum, total_weight = 0, 0
+		for each in photo_difficulty_feedback:
+			weighted_level_sum += float(each.level) * each.trustworthiness
+			total_weight = each.trustworthiness
+		if total_weight != 0:
+			self.guess_level = weighted_level_sum / total_weight
+
 		if not self.bounding_circle_radius:
 			self.confidence = 0
 			self.lon = None
@@ -406,6 +406,14 @@ class Photo(models.Model):
 						self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 3)
 					self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 3)
 
+class DifficultyFeedback(models.Model):
+	photo = models.ForeignKey('Photo', related_name='photo')
+	user_profile = models.ForeignKey('Profile', related_name='profile')
+	level = models.PositiveSmallIntegerField(null=False, blank=False)
+	trustworthiness = models.FloatField(null=False, blank=False)
+
+	class Meta:
+		app_label = "project"
 
 class GeoTag(models.Model):
 	MAP, EXIF, GPS = range(3)

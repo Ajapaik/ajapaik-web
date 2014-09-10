@@ -22,6 +22,7 @@
         hintUsed = 0,
         mediaUrl = '',
         streamUrl = '/stream/',
+        difficultyFeedbackURL = '/difficulty_feedback/',
         disableNext = false,
         disableSave = true,
         disableContinue = true,
@@ -429,6 +430,11 @@
         }
 
         function continueGame() {
+            var data = {
+                level: $('input[name=difficulty]:checked', '#difficulty-form').val(),
+                photo_id: photos[currentPhotoIdx - 1].id
+            };
+            $.post(difficultyFeedbackURL, data, function () {});
             $.modal.close();
             closeLocationTools(1);
             disableContinue = true;
