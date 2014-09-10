@@ -1,3 +1,5 @@
+from PIL.Image import Image
+from django.core.files import File
 from django.db import models
 from django.db.models import Count, Sum
 from operator import attrgetter
@@ -23,9 +25,6 @@ from oauth2client.django_orm import CredentialsField
 
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail import ImageField
-from PIL import ImageFile
-
-ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 import math
 import datetime
@@ -304,6 +303,13 @@ class Photo(models.Model):
 				return [{}], True, True
 			return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
+
+	def flip_horizontal(self):
+		from PIL import Image
+		image = Image.open(self.image.path)
+		exif = image.info['exif']
+		image = image.transpose(Image.FLIP_LEFT_RIGHT)
+		image.save(self.image.path, File(image), exif=exif)
 
 	def __unicode__(self):
 		return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
