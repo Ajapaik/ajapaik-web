@@ -345,7 +345,7 @@ class Photo(models.Model):
 			weighted_level_sum += float(each.level) * each.trustworthiness
 			total_weight = each.trustworthiness
 		if total_weight != 0:
-			self.guess_level = round(weighted_level_sum, 2) / round(total_weight, 2)
+			self.guess_level = round(round(weighted_level_sum, 2) / round(total_weight, 2), 2)
 
 		if not self.bounding_circle_radius:
 			self.confidence = 0
