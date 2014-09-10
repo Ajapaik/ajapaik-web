@@ -1,6 +1,5 @@
 from models import Photo
 from rest_framework import serializers
-from rest_framework.parsers import FileUploadParser
 
 class PhotoSerializer(serializers.ModelSerializer):
 	class Meta:
