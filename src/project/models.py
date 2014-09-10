@@ -345,7 +345,7 @@ class Photo(models.Model):
 			weighted_level_sum += float(each.level) * each.trustworthiness
 			total_weight = each.trustworthiness
 		if total_weight != 0:
-			self.guess_level = weighted_level_sum / total_weight
+			self.guess_level = round(weighted_level_sum, 2) / round(total_weight, 2)
 
 		if not self.bounding_circle_radius:
 			self.confidence = 0
@@ -489,7 +489,7 @@ class Profile(models.Model):
 	fb_name = models.CharField(max_length=255, null=True, blank=True)
 	fb_link = models.CharField(max_length=255, null=True, blank=True)
 	fb_id = models.CharField(max_length=100, null=True, blank=True)
-	fb_token = models.CharField(max_length=255, null=True, blank=True)
+	fb_token = models.CharField(max_length=511, null=True, blank=True)
 
 	google_plus_id = models.CharField(max_length=100, null=True, blank=True)
 	google_plus_link = models.CharField(max_length=255, null=True, blank=True)

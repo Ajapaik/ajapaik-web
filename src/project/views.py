@@ -652,6 +652,8 @@ def difficulty_feedback(request):
 		feedback_object.photo_id = photo_id
 		feedback_object.trustworthiness = user_trustworthiness
 		feedback_object.save()
+	photo = Photo.objects.filter(id=photo_id)[:1].get()
+	photo.set_calculated_fields()
 	return HttpResponse("OK")
 
 
