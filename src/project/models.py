@@ -97,12 +97,20 @@ class PhotoManager(models.Manager):
 		return self.model.QuerySet(self.model)
 
 
+import uuid
+def get_unique_image_file_name(filename):
+	ext = filename.split('.')[-1]
+	filename = "%s.%s" % (uuid.uuid4(), ext)
+	return filename
+
+
 class Photo(models.Model):
 	objects = PhotoManager()
 
 	id = models.AutoField(primary_key=True)
-	image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
-	image_unscaled = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
+	#Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
+	image = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
+	image_unscaled = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
 	date = models.DateField(null=True, blank=True)
 	date_text = models.CharField(max_length=100, blank=True, null=True)
 	description = models.TextField(null=True, blank=True)

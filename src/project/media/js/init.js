@@ -49,6 +49,7 @@ function get_map(startpoint, startingzoom, isGameMap) {
 
 	var mapOpts = {
 		zoom: zoom_level,
+        maxZoom: 18,
         scrollwheel: false,
 		center: latlng,
 		mapTypeControl: true,

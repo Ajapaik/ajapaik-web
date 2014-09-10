@@ -1,3 +1,5 @@
+import time
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -8,8 +10,6 @@ from rest_framework.authentication import SessionAuthentication
 from models import Photo, Source, City
 from json import loads, dumps
 from project.serializers import PhotoSerializer
-from time import time
-
 
 def check_for_duplicate_source_keys(request):
 	# Returns photo source_keys that are already in the database
@@ -19,9 +19,6 @@ def check_for_duplicate_source_keys(request):
 	for existing_photo in photos_with_same_source_keys:
 		ret.append(existing_photo.source_key)
 	return HttpResponse(dumps(ret), mimetype="application/json")
-
-class OnlyOneFilePerPostException(Exception):
-	pass
 
 class PostNewHistoricPhoto(generics.CreateAPIView):
 	serializer_class = PhotoSerializer
@@ -44,24 +41,19 @@ class PostNewHistoricPhoto(generics.CreateAPIView):
 		try:
 			city = City.objects.filter(name=city_name)[:1].get()
 		except ObjectDoesNotExist:
-			city = Source(name=city_name)
+			city = City(name=city_name)
 			city.save()
 		photo_data = {
-			"source": source.__dict__,
-			"city": city.__dict__,
+			"source": source.id,
+			"city": city.id,
 			"source_key": request.POST.get("number"),
 			"source_url": request.POST.get("url"),
-			"date_text": request.POST.get('date'),
-			"description": '; '.join(filter(None,[request.POST[key].strip() for key in ('description','title') if key in request.POST]))
+			"date_text": request.POST.get("date"),
+			"description": "; ".join(filter(None,[request.POST[key].strip() for key in ("description","title") if key in request.POST]))
 		}
-		print int(time())
-		if request.FILES.iteritems().length == 1:
-			for filename, file in request.FILES.iteritems():
-				print filename
-		else:
-			raise OnlyOneFilePerPostException
-		serializer = self.serializer_class(data=photo_data)
+		serializer = self.serializer_class(data=photo_data, files=request.FILES)
 		if serializer.is_valid():
-			return HttpResponse("VALID", status=200)
+			serializer.save()
+			return HttpResponse("OK", status=200)
 		else:
 			return HttpResponse(serializer.errors, status=400)
