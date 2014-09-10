@@ -235,6 +235,8 @@
             // Save location only if Tools open and no result window
             if (locationToolsOpen && disableContinue) {
                 $('#save-location').click();
+            } else {
+                continueGame();
             }
         });
 
