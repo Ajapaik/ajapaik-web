@@ -569,7 +569,7 @@ a.fullscreen {
 	line-height: 1.2;
 	position: absolute;
 	display: none;
-	bottom: -75px;
+	bottom: -20%;
 	width: 100%;
 	padding: 10px 10px;
 	margin-left: -10px;
