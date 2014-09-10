@@ -189,6 +189,7 @@
         });
 
         google.maps.event.addListener(map, 'dragstart', function () {
+            toggleTouchPhotoView();
             line.setVisible(false);
             if (infowindow !== undefined) {
                 infowindow.close();
@@ -332,7 +333,8 @@
             }
         });
 
-        photosDiv.find('img').live('click', function () {
+
+        var toggleTouchPhotoView = function () {
             if (isMobile && locationToolsOpen) {
                 if (mobileMapMinimized) {
                     $('#tools').css({left: '15%'});
@@ -343,7 +345,9 @@
                     mobileMapMinimized = true;
                 }
             }
-        });
+        };
+
+        photosDiv.find('img').live('click', toggleTouchPhotoView());
 
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
