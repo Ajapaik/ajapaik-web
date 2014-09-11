@@ -190,7 +190,9 @@
         });
 
         google.maps.event.addListener(map, 'dragstart', function () {
-            toggleTouchPhotoView();
+            if (mobileMapMinimized) {
+                toggleTouchPhotoView();
+            }
             line.setVisible(false);
             if (infowindow !== undefined) {
                 infowindow.close();
