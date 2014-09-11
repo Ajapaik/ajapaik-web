@@ -416,7 +416,7 @@
                 }
                 noticeDiv = $("#notice");
                 if (hide_feedback) {
-                    noticeDiv.find("#difficulty-message").hide();
+                    noticeDiv.find(".difficulty-message").hide();
                     noticeDiv.find("#difficulty-form").hide();
                 }
                 noticeDiv.find(".message").text(message);
