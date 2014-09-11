@@ -150,6 +150,9 @@
                 infowindow.close();
                 infowindow = undefined;
             }
+            if (mobileMapMinimized) {
+                toggleTouchPhotoView();
+            }
             reCalculateAzimuthOfMouseAndMarker(e);
             if (azimuthListenerActive) {
                 google.maps.event.clearListeners(map, 'mousemove');
