@@ -12,7 +12,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 
-from project.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag
+from project.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback
 from project.forms import CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
@@ -559,7 +559,7 @@ def mapview(request):
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
 	# filters.register(DateFieldFilterSpec, 'created')
-	#filters.register(SourceLookupFilterSpec, 'source')
+	# filters.register(SourceLookupFilterSpec, 'source')
 	data = filters.get_filtered_qs().get_geotagged_photos_list()
 
 	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().get_profile().pk)
@@ -641,6 +641,7 @@ def fetch_stream(request):
 def difficulty_feedback(request):
 	# TODO: Tighten down security when it becomes apparent people are abusing this
 	from get_next_photos_to_geotag import calc_trustworthiness
+
 	user_profile = request.get_user().get_profile()
 	user_trustworthiness = calc_trustworthiness(user_profile.pk)
 	user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
@@ -657,6 +658,20 @@ def difficulty_feedback(request):
 	photo = Photo.objects.filter(id=photo_id)[:1].get()
 	photo.set_calculated_fields()
 	return HttpResponse("OK")
+
+
+def flip_feedback(request):
+	user_profile = request.get_user().get_profile()
+	photo_id = request.POST.get("photo_id") or None
+	flip = request.POST.get("flip") or None
+	if photo_id and flip is not None:
+		feedback_object = FlipFeedback()
+		feedback_object.photo_id = photo_id
+		feedback_object.user_profile = user_profile
+		feedback_object.flip = flip
+		feedback_object.save()
+	photo = Photo.objects.filter(id=photo_id)[:1].get()
+	photo.set_calculated_fields()
 
 
 def custom_404(request):

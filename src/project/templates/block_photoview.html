@@ -43,7 +43,7 @@ $(document).ready(function() {
 	</div><!-- .browse-nav -->
 
 	<div class="original photo-item">
-		<a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img src="{% url 'views.photo_url' photo.id %}" border="0" /></a>
+		<a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'views.photo_url' photo.id %}" border="0" /></a>
 		
 		<div class="tools">
 			<div class="description">
@@ -113,11 +113,11 @@ $(document).ready(function() {
 
 <div class="full-box">
 	<div class="full-pic" id="full-large1">
-		<img src="{% url 'views.photo_large' photo.id %}" border="0" />
+		<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'views.photo_large' photo.id %}" border="0" />
 	</div>
 	{% if photo.rephotos.all.0.image %}
 	<div class="full-pic" id="full-large2">
-		<img src="{% url 'views.photo_large' photo.rephotos.all.0.id %}" border="0" />
+		<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'views.photo_large' photo.rephotos.all.0.id %}" border="0" />
 	</div>
 	{% endif %}
 </div><!-- .full-box -->

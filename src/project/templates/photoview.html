@@ -32,7 +32,7 @@
         <div class="photos clearfix">
             <div class="original photo-item">
                 <span class="framed rounded">
-                    <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img src="{% url 'views.photo_url' photo.id %}" border="0" /></a>
+                    <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'views.photo_url' photo.id %}" border="0" /></a>
                 </span>
                 <div class="tools">
                     <div class="description">
@@ -214,11 +214,11 @@
 
 	<div class="full-box">
 		<div class="full-pic" id="full-large1">
-			<img src="{% url 'views.photo_large' photo.id %}" border="0" />
+			<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'views.photo_large' photo.id %}" border="0" />
 		</div>
 		{% if rephoto %}
 		<div class="full-pic" id="full-large2">
-			<img src="{% url 'views.photo_large' rephoto.id %}" border="0" />
+			<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'views.photo_large' rephoto.id %}" border="0" />
 		</div>
 		{% endif %}
 	</div><!-- .full-box -->

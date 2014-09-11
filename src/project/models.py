@@ -110,6 +110,7 @@ class Photo(models.Model):
 	#Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
 	image = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
 	image_unscaled = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
+	flip = models.NullBooleanField()
 	date = models.DateField(null=True, blank=True)
 	date_text = models.CharField(max_length=100, blank=True, null=True)
 	description = models.TextField(null=True, blank=True)
@@ -176,7 +177,7 @@ class Photo(models.Model):
 				else:
 					#im = get_thumbnail(p.image, '50x50', crop='center')
 					im_url = reverse('views.photo_thumb', args=(p.id,))
-				data.append((p.id, im_url, p.lon, p.lat, p.id in rephotographed_ids))
+				data.append((p.id, im_url, p.lon, p.lat, p.id, p.flip in rephotographed_ids))
 			return data
 
 		@staticmethod
@@ -191,6 +192,7 @@ class Photo(models.Model):
 				"description": photo.description,
 				"date_text": photo.date_text,
 				"source_key": photo.source_key,
+				"flip": photo.flip,
 				"big": _make_thumbnail(photo, "700x400"),
 				"large": _make_fullscreen(photo),
 				"confidence": photo.confidence,
@@ -344,6 +346,7 @@ class Photo(models.Model):
 		return slug
 
 	def set_calculated_fields(self):
+		from operator import itemgetter
 		photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
 		weighted_level_sum, total_weight = 0, 0
 		for each in photo_difficulty_feedback:
@@ -351,6 +354,27 @@ class Photo(models.Model):
 			total_weight = each.trustworthiness
 		if total_weight != 0:
 			self.guess_level = round(round(weighted_level_sum, 2) / round(total_weight, 2), 2)
+
+		photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
+		flip_feedback_user_dict = {}
+		for each in photo_flip_feedback:
+			if each.user_profile_id not in flip_feedback_user_dict:
+				flip_feedback_user_dict[each.user_profile.id] = [each]
+			else:
+				flip_feedback_user_dict[each.user_profile.id].append(each)
+		votes_for_flipping = 0
+		votes_against_flipping = 0
+		for user_id, feedback_objects in photo_flip_feedback:
+			feedback_objects = sorted(feedback_objects, key=itemgetter("-created"))
+			latest_feedback = feedback_objects[0]
+			if latest_feedback.flip:
+				votes_for_flipping += 1
+			else:
+				votes_against_flipping += 1
+		if votes_for_flipping > votes_against_flipping:
+			self.flip = True
+		else:
+			self.flip = False
 
 		if not self.bounding_circle_radius:
 			self.confidence = 0
@@ -412,11 +436,21 @@ class Photo(models.Model):
 					self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 3)
 
 class DifficultyFeedback(models.Model):
-	photo = models.ForeignKey('Photo', related_name='photo')
-	user_profile = models.ForeignKey('Profile', related_name='profile')
+	photo = models.ForeignKey('Photo')
+	user_profile = models.ForeignKey('Profile')
 	level = models.PositiveSmallIntegerField(null=False, blank=False)
 	trustworthiness = models.FloatField(null=False, blank=False)
-	geotag = models.ForeignKey('GeoTag', related_name='geotag')
+	geotag = models.ForeignKey('GeoTag')
+	created = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		app_label = "project"
+
+class FlipFeedback(models.Model):
+	photo = models.ForeignKey('Photo')
+	user_profile = models.ForeignKey('Profile')
+	flip = models.NullBooleanField()
+	created = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
 		app_label = "project"
