@@ -1,4 +1,4 @@
-from PIL.Image import Image
+from PIL import Image
 from django.core.files import File
 from django.db import models
 from django.db.models import Count, Sum
@@ -305,7 +305,6 @@ class Photo(models.Model):
 
 
 	def flip_horizontal(self):
-		from PIL import Image
 		image = Image.open(self.image.path)
 		exif = image.info['exif']
 		image = image.transpose(Image.FLIP_LEFT_RIGHT)
