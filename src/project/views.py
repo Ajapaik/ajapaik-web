@@ -643,7 +643,7 @@ def difficulty_feedback(request):
 	from get_next_photos_to_geotag import calc_trustworthiness
 	user_profile = request.get_user().get_profile()
 	user_trustworthiness = calc_trustworthiness(user_profile.pk)
-	user_last_geotag_id = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get().id
+	user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
 	level = request.POST.get("level") or None
 	photo_id = request.POST.get("photo_id") or None
 	if user_profile and level and photo_id:
@@ -652,7 +652,7 @@ def difficulty_feedback(request):
 		feedback_object.level = level
 		feedback_object.photo_id = photo_id
 		feedback_object.trustworthiness = user_trustworthiness
-		feedback_object.geotag_id = user_last_geotag_id
+		feedback_object.geotag = user_last_geotag
 		feedback_object.save()
 	photo = Photo.objects.filter(id=photo_id)[:1].get()
 	photo.set_calculated_fields()

@@ -416,7 +416,7 @@ class DifficultyFeedback(models.Model):
 	user_profile = models.ForeignKey('Profile', related_name='profile')
 	level = models.PositiveSmallIntegerField(null=False, blank=False)
 	trustworthiness = models.FloatField(null=False, blank=False)
-	geotag_id = models.ForeignKey('GeoTag', related_name='geotag')
+	geotag = models.ForeignKey('GeoTag', related_name='geotag')
 
 	class Meta:
 		app_label = "project"
