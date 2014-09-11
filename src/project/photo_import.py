@@ -20,6 +20,16 @@ def check_for_duplicate_source_keys(request):
 		ret.append(existing_photo.source_key)
 	return HttpResponse(dumps(ret), mimetype="application/json")
 
+def get_photo_info_by_source_keys(request):
+	# Returns photo source_keys that are already in the database
+	id_array = request.GET.getlist("source_keys")
+	photos_with_same_source_keys = Photo.objects.filter(source_key__in=id_array)
+	ret = []
+	print photos_with_same_source_keys
+	for existing_photo in photos_with_same_source_keys:
+		ret.append({"source_key": existing_photo.source_key, "azimuth": existing_photo.azimuth, "lon": existing_photo.lon, "lat": existing_photo.lat, "confidence": existing_photo.confidence})
+	return HttpResponse(ret, mimetype="application/json")
+
 class PostNewHistoricPhoto(generics.CreateAPIView):
 	serializer_class = PhotoSerializer
 	permission_classes = (IsAdminUser,)

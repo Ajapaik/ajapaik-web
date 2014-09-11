@@ -42,6 +42,7 @@ urlpatterns = patterns('views',
 	(r'^favicon\.ico$', RedirectView.as_view(url='/media/gfx/favicon.ico')),
 	(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom')),
 	(r'^api/check_for_duplicate_source_keys', 'photo_import.check_for_duplicate_source_keys'),
+	(r'^api/get_photo_info_by_source_keys', 'photo_import.get_photo_info_by_source_keys'),
 	(r'^api/post_new_historic_photo', PostNewHistoricPhoto.as_view()),
 	(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
