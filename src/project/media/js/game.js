@@ -390,7 +390,8 @@
 
             $.post(saveLocationURL, data, function (resp) {
                 update_leaderboard();
-                var message = '';
+                var message = '',
+                    hide_feedback = false;
                 if (resp['is_correct'] == true) {
                     message = gettext('Looks right!');
                     _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
@@ -408,11 +409,15 @@
                     _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
                 } else if (resp['is_correct'] == false) {
                     message = gettext('We doubt about it.');
+                    hide_feedback = true;
                     _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
                 } else {
                     message = gettext('Your guess was first.');
                 }
                 noticeDiv = $("#notice");
+                if (hide_feedback) {
+                    noticeDiv.find("#difficulty-form").hide();
+                }
                 noticeDiv.find(".message").text(message);
                 noticeDiv.modal({escClose: false});
                 disableContinue = false;
