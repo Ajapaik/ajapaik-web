@@ -263,21 +263,22 @@ class Photo(models.Model):
 						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 						if len(ret) == 0:
 							nothing_more_to_show = True
-				print ret
 				ret = sorted(ret, key=lambda x: -distance_in_meters(x.lon, x.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat))
-				print ret
 				if user_trustworthiness < 0.4:
 					for p in ret:
 						if p.confidence > 0.7:
 							ret = [p]
+							break
 				elif 0.4 <= user_trustworthiness < 0.7:
 					for p in ret:
 						if 0.4 <= p.confidence <= 0.7:
 							ret = [p]
+							break
 				else:
 					for p in ret:
 						if p.confidence < 0.4:
 							ret = [p]
+							break
 			if ret and ret[0].id in user_skipped_photo_ids:
 				request.session.user_skip_array.append(ret[0].id)
 			if len(ret) == 0:
