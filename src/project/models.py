@@ -272,8 +272,8 @@ class Photo(models.Model):
 					for p in ret:
 						distance_from_last = 99999
 						if user_last_interacted_photo:
-							distance_from_last = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if p.confidence > 0.7 and 250 <= distance_from_last <= 1000:
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+						if p.confidence > 0.7 and 250 <= distance_between_photos <= 1000:
 							good_candidates.append(p)
 						elif p.confidence > 0.7:
 							shitty_candidates.append(p)
@@ -281,8 +281,8 @@ class Photo(models.Model):
 					for p in ret:
 						distance_from_last = 99999
 						if user_last_interacted_photo:
-							distance_from_last = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if 0.4 <= p.confidence <= 0.7 and 250 <= distance_from_last <= 1000:
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+						if 0.4 <= p.confidence <= 0.7 and 250 <= distance_between_photos <= 1000:
 							good_candidates.append(p)
 						elif 0.4 <= p.confidence <= 0.7:
 							shitty_candidates.append(p)
@@ -290,8 +290,8 @@ class Photo(models.Model):
 					for p in ret:
 						distance_from_last = 99999
 						if user_last_interacted_photo:
-							distance_from_last = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if p.confidence < 0.4 and 250 <= distance_from_last <= 1000:
+							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+						if p.confidence < 0.4 and 250 <= distance_between_photos <= 1000:
 							good_candidates.append(p)
 						elif p.confidence < 0.4:
 							shitty_candidates.append(p)
