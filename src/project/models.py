@@ -250,12 +250,6 @@ class Photo(models.Model):
 					# If the user has seen all the photos, offer something at random
 					user_seen_all = True
 					ret = city_photos_set.order_by("-guess_level", "-confidence")
-				# for p in ret:
-				# 	# Trying not to offer photos in the vicinity of the last one
-				# 	if user_last_interacted_photo:
-				# 		distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-				# 	if distance_between_photos and 250 <= distance_between_photos <= 1000:
-				# 		ret = [p]
 			else:
 				# Let's try to show the more experienced users photos they have not yet seen at all
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
@@ -272,7 +266,7 @@ class Photo(models.Model):
 						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
 						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
 						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids)).order_by("?")
 						if len(ret) == 0:
 							nothing_more_to_show = True
 				# TODO: Refactor to use two variable sorting instead of many loops and ifs
