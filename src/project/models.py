@@ -1,6 +1,6 @@
 from PIL import Image
 from django.core.files import File
-from django.db import models
+from django.db import models, connection
 from django.db.models import Count, Sum
 from operator import attrgetter
 
@@ -260,12 +260,18 @@ class Photo(models.Model):
 					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(id__in=request.session["user_skip_array"])
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
-						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
-						user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
-						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
-						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
-						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+						# Don't do this for very small/fresh sets (<1000 geotags)
+						cursor = connection.cursor()
+						cursor.execute("SELECT C.id, COUNT(G.id) AS geotags FROM project_city C INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
+						result = cursor.fetchall()
+						result = [i[0] for i in result if i[1] > 1000]
+						if city_photos_set[0].city_id in result:
+							user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
+							user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
+							user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
+							user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
+							user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+							ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 						if len(ret) == 0:
 							nothing_more_to_show = True
 				good_candidates = []
