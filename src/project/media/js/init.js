@@ -1,5 +1,9 @@
 var map;
 
+function voteFlipPhoto() {
+    console.log(photos[currentPhotoIdx]);
+}
+
 function get_map(startpoint, startingzoom, isGameMap) {
 	// Starting point
 	if (startpoint == undefined) {
