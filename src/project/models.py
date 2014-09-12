@@ -263,26 +263,36 @@ class Photo(models.Model):
 						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
 						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
 						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids)).order_by("?")
+						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 						if len(ret) == 0:
 							nothing_more_to_show = True
-				if user_last_interacted_photo:
-					ret = sorted(ret, key=lambda x: -distance_in_meters(x.lon, x.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat))
+				good_candidates = []
+				shitty_candidates = []
 				if user_trustworthiness < 0.4:
 					for p in ret:
-						if p.confidence > 0.7:
-							ret = [p]
-							break
+						distance_from_last = distance_in_meters(self.lon, self.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+						if p.confidence > 0.7 and 250 <= distance_from_last <= 1000:
+							good_candidates.append(p)
+						elif p.confidence > 0.7:
+							shitty_candidates.append(p)
 				elif 0.4 <= user_trustworthiness < 0.7:
 					for p in ret:
-						if 0.4 <= p.confidence <= 0.7:
-							ret = [p]
-							break
+						distance_from_last = distance_in_meters(self.lon, self.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+						if 0.4 <= p.confidence <= 0.7 and 250 <= distance_from_last <= 1000:
+							good_candidates.append(p)
+						elif 0.4 <= p.confidence <= 0.7:
+							shitty_candidates.append(p)
 				else:
 					for p in ret:
-						if p.confidence < 0.4:
-							ret = [p]
-							break
+						distance_from_last = distance_in_meters(self.lon, self.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+						if p.confidence < 0.4 and 250 <= distance_from_last <= 1000:
+							good_candidates.append(p)
+						elif p.confidence < 0.4:
+							shitty_candidates.append(p)
+				if len(good_candidates) > 0:
+					ret = good_candidates
+				else:
+					ret = shitty_candidates
 			if ret and ret[0].id in user_skipped_photo_ids:
 				request.session.user_skip_array.append(ret[0].id)
 			if len(ret) == 0:
