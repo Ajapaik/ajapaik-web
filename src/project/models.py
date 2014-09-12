@@ -128,7 +128,7 @@ class Photo(models.Model):
 	azimuth_confidence = models.FloatField(default=0)
 
 	source_key = models.CharField(max_length=100, null=True, blank=True)
-	source_url = models.URLField(null=True, blank=True)
+	source_url = models.URLField(null=True, blank=True, max_length=1023)
 	source = models.ForeignKey('Source', null=True, blank=True)
 	device = models.ForeignKey('Device', null=True, blank=True)
 
