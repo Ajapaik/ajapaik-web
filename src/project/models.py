@@ -260,7 +260,6 @@ class Photo(models.Model):
 					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(id__in=request.session["user_skip_array"])
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
-						# With small/fresh sets this gets really repetitive (you can get stuck with just 1 photo indefinitely, enabling only for well established cities
 						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
 						user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
 						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
