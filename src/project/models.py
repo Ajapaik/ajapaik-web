@@ -266,7 +266,8 @@ class Photo(models.Model):
 						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 						if len(ret) == 0:
 							nothing_more_to_show = True
-				ret = sorted(ret, key=lambda x: -distance_in_meters(x.lon, x.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat))
+				if user_last_interacted_photo:
+					ret = sorted(ret, key=lambda x: -distance_in_meters(x.lon, x.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat))
 				if user_trustworthiness < 0.4:
 					for p in ret:
 						if p.confidence > 0.7:
