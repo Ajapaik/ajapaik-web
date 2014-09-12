@@ -145,10 +145,6 @@ class Photo(models.Model):
 	cam_pitch = models.FloatField(null=True, blank=True)
 	cam_roll = models.FloatField(null=True, blank=True)
 
-	@property
-	def stripped_spaces_source_key(self):
-		return self.source_key.replace(" ", "")
-
 	class Meta:
 		ordering = ['-id']
 		app_label = "project"
@@ -228,9 +224,7 @@ class Photo(models.Model):
 			else:
 				user_last_action = user_last_geotag
 			if user_last_action is not None:
-				user_last_interacted_photos = list(city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False))
-				if len(user_last_interacted_photos) > 0:
-					user_last_interacted_photo = user_last_interacted_photos[0]
+				user_last_interacted_photo = city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False)[:1].get()
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			# TODO: Tidy up
@@ -266,37 +260,24 @@ class Photo(models.Model):
 						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
 						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
 						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids)).order_by("?")
+						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 						if len(ret) == 0:
 							nothing_more_to_show = True
-				# TODO: Refactor to use two variable sorting instead of many loops and ifs
+				print ret
+				ret = sorted(ret, key=lambda x: -distance_in_meters(x.lon, x.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat))
+				print ret
 				if user_trustworthiness < 0.4:
 					for p in ret:
-						if user_last_interacted_photo:
-							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if distance_between_photos:
-							if p.confidence > 0.7 and 250 <= distance_between_photos <= 1000:
-								ret = [p]
-							elif p.confidence > 0.7:
-								ret = [p]
+						if p.confidence > 0.7:
+							ret = [p]
 				elif 0.4 <= user_trustworthiness < 0.7:
 					for p in ret:
-						if user_last_interacted_photo:
-							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if distance_between_photos:
-							if 0.4 <= p.confidence <= 0.7 and 250 <= distance_between_photos <= 1000:
-								ret = [p]
-							elif 0.4 <= p.confidence <= 0.7:
-								ret = [p]
+						if 0.4 <= p.confidence <= 0.7:
+							ret = [p]
 				else:
 					for p in ret:
-						if user_last_interacted_photo:
-							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if distance_between_photos:
-							if p.confidence < 0.4 and 250 <= distance_between_photos <= 1000:
-								ret = [p]
-							elif p.confidence < 0.4:
-								ret = [p]
+						if p.confidence < 0.4:
+							ret = [p]
 			if ret and ret[0].id in user_skipped_photo_ids:
 				request.session.user_skip_array.append(ret[0].id)
 			if len(ret) == 0:
