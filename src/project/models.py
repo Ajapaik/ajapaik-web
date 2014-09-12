@@ -145,6 +145,10 @@ class Photo(models.Model):
 	cam_pitch = models.FloatField(null=True, blank=True)
 	cam_roll = models.FloatField(null=True, blank=True)
 
+	@property
+	def stripped_spaces_source_key(self):
+		return self.source_key.replace(" ", "")
+
 	class Meta:
 		ordering = ['-id']
 		app_label = "project"

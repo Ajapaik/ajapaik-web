@@ -296,7 +296,7 @@
             e.preventDefault();
             if (disableSave) {
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
-                alert(gettext('Point the marker to where the picture was taken from.'));
+                alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
                 saveLocation();
                 if (saveDirection) {

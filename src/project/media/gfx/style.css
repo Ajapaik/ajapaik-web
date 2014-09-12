@@ -1164,5 +1164,7 @@ span.framed {
 }
 
 #vote-flip-photo {
-
+    margin-left: 300px;
+    margin-top: 5px;
+    background-image: url(../gfx/flip-horizontal-xxl.png);
 }
