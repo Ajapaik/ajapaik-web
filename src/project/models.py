@@ -231,14 +231,16 @@ class Photo(models.Model):
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			# TODO: Tidy up
-			user_skipped_photo_ids = list(set(list(user_skips_in_city.values_list("photo_id", flat=True))) - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
-			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
+			user_skipped_photo_ids = set(list(user_skips_in_city.values_list("photo_id", flat=True)))
+			user_skipped_less_geotagged_photo_ids = list(user_skipped_photo_ids - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
+			user_skipped_photo_ids = list(user_skipped_photo_ids)
+			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_less_geotagged_photo_ids)
 
 			user_seen_all = False
 			nothing_more_to_show = False
 
 			if "user_skip_array" not in request.session:
-				request.session.user_skip_array = []
+				request.session["user_skip_array"] = []
 
 			if user_trustworthiness < 0.4:
 				# Novice users should only receive the easiest images to prove themselves
@@ -255,9 +257,10 @@ class Photo(models.Model):
 					user_seen_all = True
 					user_geotags_without_azimuth_in_city = user_geotags_in_city.exclude(azimuth__isnull=False)
 					user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_city.values_list("photo_id", flat=True)))
-					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_photo_ids)).exclude(id__in=request.session.user_skip_array)
+					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(id__in=request.session["user_skip_array"])
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
+						# With small/fresh sets this gets really repetitive (you can get stuck with just 1 photo indefinitely, enabling only for well established cities
 						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
 						user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
 						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
@@ -300,7 +303,8 @@ class Photo(models.Model):
 				else:
 					ret = shitty_candidates
 			if ret and ret[0].id in user_skipped_photo_ids:
-				request.session.user_skip_array.append(ret[0].id)
+				request.session["user_skip_array"].append(ret[0].id)
+				request.session.modified= True
 			if len(ret) == 0:
 				random_photo = self._get_game_json_format_photo(city_photos_set.order_by("?")[:1].get(), distance_between_photos)
 				return [random_photo], True, True
