@@ -263,7 +263,7 @@ class Photo(models.Model):
 						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
 						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
 						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids)).order_by("?")
 						if len(ret) == 0:
 							nothing_more_to_show = True
 				if user_last_interacted_photo:
