@@ -113,7 +113,7 @@ class Photo(models.Model):
 	flip = models.NullBooleanField()
 	date = models.DateField(null=True, blank=True)
 	date_text = models.CharField(max_length=100, blank=True, null=True)
-	description = models.TextField(null=True, blank=True)
+	description = models.TextField(null=True, blank=True, max_length=2047)
 
 	user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
 
