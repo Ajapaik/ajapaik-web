@@ -224,7 +224,10 @@ class Photo(models.Model):
 			else:
 				user_last_action = user_last_geotag
 			if user_last_action is not None:
-				user_last_interacted_photo = city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False)[:1].get()
+				try:
+					user_last_interacted_photo = city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False)[:1].get()
+				except:
+					user_last_interacted_photo = None
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			# TODO: Tidy up
