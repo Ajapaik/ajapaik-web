@@ -242,13 +242,22 @@ class Photo(models.Model):
 			if "user_skip_array" not in request.session:
 				request.session["user_skip_array"] = []
 
+			cursor = connection.cursor()
+			cursor.execute("SELECT C.id, COUNT(G.id) AS geotags FROM project_city C INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
+			result = cursor.fetchall()
+			exception_city_ids = [i[0] for i in result if i[1] > 1000]
+
 			if user_trustworthiness < 0.4:
 				# Novice users should only receive the easiest images to prove themselves
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-guess_level", "-confidence")
 				if len(ret) == 0:
-					# If the user has seen all the photos, offer something at random
+					# If the user has seen all the photos, offer the easiest or at random
 					user_seen_all = True
-					ret = city_photos_set.order_by("-guess_level", "-confidence")
+					if city_photos_set[0].city_id in exception_city_ids:
+						ret = city_photos_set.order_by("-guess_level", "-confidence")
+					else:
+						nothing_more_to_show = True
+						ret = city_photos_set.order_by("?")
 			else:
 				# Let's try to show the more experienced users photos they have not yet seen at all
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
@@ -261,11 +270,7 @@ class Photo(models.Model):
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
 						# Don't do this for very small/fresh sets (<1000 geotags)
-						cursor = connection.cursor()
-						cursor.execute("SELECT C.id, COUNT(G.id) AS geotags FROM project_city C INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
-						result = cursor.fetchall()
-						result = [i[0] for i in result if i[1] > 1000]
-						if city_photos_set[0].city_id in result:
+						if city_photos_set[0].city_id in exception_city_ids:
 							user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
 							user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
 							user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
