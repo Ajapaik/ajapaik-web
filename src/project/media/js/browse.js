@@ -36,7 +36,7 @@
         var flipNoticeImage = window.flipNoticeElement.find("img");
         photoIsFlipped = flip;
         flipNoticeImage.attr("src", photoURL);
-        if (flip) {
+        if (!flip) {
             flipNoticeImage.removeClass("flip-photo");
         } else {
             flipNoticeImage.addClass("flip-photo");
