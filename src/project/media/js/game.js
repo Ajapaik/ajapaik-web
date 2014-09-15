@@ -3,9 +3,9 @@
     /*jslint nomen: true*/
     /*global google */
     /*global leaderboardUpdateURL */
+    /*global flipFeedbackURL */
     /*global start_location */
     /*global city_id */
-    /*global map */
     /*global saveLocationURL */
     /*global _gaq */
     /*global gettext */
@@ -39,8 +39,30 @@
         degreeAngle = undefined,
         azimuthListenerActive = true,
         firstDragDone = false,
-        saveDirection = false;
+        saveDirection = false,
+        flipNotice = $("#flip-notice");
 
+    window.showFlipWindow = function () {
+        var flipNoticeImage = flipNotice.find("img");
+        flipNoticeImage.attr("src", mediaUrl + photos[currentPhotoIdx - 1].big.url);
+        if (photos[currentPhotoIdx - 1].flip) {
+            flipNoticeImage.removeClass("flip-photo");
+        } else {
+            flipNoticeImage.addClass("flip-photo");
+        }
+        flipNotice.modal();
+    };
+
+    window.sendFlipVote = function () {
+        var data = {
+            was_flipped: photos[currentPhotoIdx - 1].flip,
+            photo_id: photos[currentPhotoIdx - 1].id
+        };
+        console.log(data);
+        $.post(flipFeedbackURL, data, function () {
+            flipNotice.find(".simplemodal-close").click();
+        });
+    };
 
     function update_leaderboard () {
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
@@ -63,16 +85,15 @@
             }
         }
 
-        // Will load the base map layer and return it
         if (city_id) {
-            map = get_map(start_location, 15, true);
+            window.getMap(start_location, 15, true);
         } else {
-            map = get_map(undefined, undefined, true);
+            window.getMap(undefined, undefined, true);
         }
 
         // To support touchscreens, we have an invisible marker underneath a fake one
         var marker = new google.maps.Marker({
-            map: map,
+            map: window.map,
             draggable: false,
             position: location,
             visible: false
@@ -95,15 +116,16 @@
                 repeat: '7px'
             }],
             visible: false,
-            map: map,
+            map: window.map,
             clickable: false
         });
 
-        marker.bindTo('position', map, 'center');
+        marker.bindTo('position', window.map, 'center');
 
         var lastTriggeredWheeling,
             now;
 
+        // Our own custom zooming functions to fix the otherwise laggy map
         function wheelEventFF(e) {
             now = new Date().getTime();
             if (!lastTriggeredWheeling) {
@@ -112,12 +134,12 @@
             if (now - 100 > lastTriggeredWheeling) {
                 lastTriggeredWheeling = now;
                 if (e.detail > 0) {
-                    if (map.zoom < 18) {
-                        map.setZoom(map.zoom + 1);
+                    if (window.map.zoom < 18) {
+                        window.map.setZoom(window.map.zoom + 1);
                     }
                 } else {
-                    if (map.zoom > 14) {
-                        map.setZoom(map.zoom - 1);
+                    if (window.map.zoom > 14) {
+                        window.map.setZoom(window.map.zoom - 1);
                     }
                 }
             }
@@ -131,22 +153,22 @@
             if (now - 100 > lastTriggeredWheeling) {
                 lastTriggeredWheeling = now;
                 if (e.wheelDelta > 0) {
-                    if (map.zoom < 18) {
-                        map.setZoom(map.zoom + 1);
+                    if (window.map.zoom < 18) {
+                        window.map.setZoom(window.map.zoom + 1);
                     }
                 } else {
-                    if (map.zoom > 14) {
-                        map.setZoom(map.zoom - 1);
+                    if (window.map.zoom > 14) {
+                        window.map.setZoom(window.map.zoom - 1);
                     }
                 }
             }
         }
 
         var realMapElement = $("#map_canvas")[0];
-        realMapElement.addEventListener( 'mousewheel', wheelEventNonFF, true );
-        realMapElement.addEventListener( 'DOMMouseScroll', wheelEventFF, true );
+        realMapElement.addEventListener('mousewheel', wheelEventNonFF, true);
+        realMapElement.addEventListener('DOMMouseScroll', wheelEventFF, true);
 
-        google.maps.event.addListener(map, 'click', function (e) {
+        google.maps.event.addListener(window.map, 'click', function (e) {
             if (infowindow !== undefined) {
                 infowindow.close();
                 infowindow = undefined;
@@ -156,7 +178,7 @@
             }
             reCalculateAzimuthOfMouseAndMarker(e);
             if (azimuthListenerActive) {
-                google.maps.event.clearListeners(map, 'mousemove');
+                google.maps.event.clearListeners(window.map, 'mousemove');
                 saveDirection = true;
                 $("#save-location").text(gettext('Save location and direction')).removeClass("medium").addClass("green");
                 line.icons[0].repeat = '2px';
@@ -164,13 +186,13 @@
                 line.setVisible(true);
             } else {
                 addMouseMoveListener();
-                google.maps.event.trigger(map, "mousemove", e);
+                google.maps.event.trigger(window.map, "mousemove", e);
             }
             azimuthListenerActive = !azimuthListenerActive;
         });
 
         function addMouseMoveListener () {
-            google.maps.event.addListener(map, 'mousemove', function (e) {
+            google.maps.event.addListener(window.map, 'mousemove', function (e) {
                 // The mouse is moving, therefore we haven't locked on a direction
                 $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
                 saveDirection = false;
@@ -185,15 +207,15 @@
             });
         }
 
-        google.maps.event.addListener(map, 'idle', function () {
+        google.maps.event.addListener(window.map, 'idle', function () {
             if (firstDragDone) {
-                marker.position = map.center;
+                marker.position = window.map.center;
                 azimuthListenerActive = true;
                 addMouseMoveListener();
             }
         });
 
-        google.maps.event.addListener(map, 'dragstart', function () {
+        google.maps.event.addListener(window.map, 'dragstart', function () {
             if (mobileMapMinimized) {
                 toggleTouchPhotoView();
             }
@@ -205,10 +227,10 @@
             $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
             azimuthListenerActive = false;
             line.setVisible(false);
-            google.maps.event.clearListeners(map, 'mousemove');
+            google.maps.event.clearListeners(window.map, 'mousemove');
         });
 
-        google.maps.event.addListener(map, 'drag', function () {
+        google.maps.event.addListener(window.map, 'drag', function () {
             firstDragDone = true;
         });
 
@@ -230,8 +252,8 @@
                     infowindow.close();
                     infowindow = undefined;
                 }
-                marker.setMap(map);
-                marker.setPosition(map.getCenter());
+                marker.setMap(window.map);
+                marker.setPosition(window.map.getCenter());
             } else {
                 // Otherwise open tools
                 $('#open-location-tools').click();
@@ -332,6 +354,8 @@
             }
         });
 
+
+
         photosDiv.hoverIntent(function () {
             if (locationToolsOpen == true && !isMobile) {
                 showPhotos();
@@ -377,7 +401,7 @@
             var data = {
                 photo_id: photos[currentPhotoIdx - 1].id,
                 hint_used: hintUsed,
-                zoom_level: map.zoom
+                zoom_level: window.map.zoom
             };
 
             if (saveDirection) {
@@ -430,7 +454,7 @@
             disableNext = true;
             if (infowindow !== undefined) {
                 // Show info window when the map is opened the first time
-                infowindow.open(map, marker);
+                infowindow.open(window.map, marker);
             }
 
             $('#tools').animate({ left: '15%' }, function () {
@@ -456,7 +480,7 @@
             locationToolsOpen = false;
             $('#photos').animate({ left: gameOffset });
             $('#tools').animate({ left: '100%' }, function () {
-                var panorama = map.getStreetView();
+                var panorama = window.map.getStreetView();
                 panorama.setVisible(false);
                 disableNext = false;
                 $('#open-location-tools').fadeIn();
@@ -511,8 +535,8 @@
             hintUsed = 0;
             disableSave = true;
             azimuthListenerActive = false;
-            map.setZoom(16);
-            google.maps.event.clearListeners(map, 'mousemove');
+            window.map.setZoom(16);
+            google.maps.event.clearListeners(window.map, 'mousemove');
             if (line !== undefined) {
                 line.setVisible(false);
             }
@@ -530,7 +554,7 @@
                 currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
 
                 $(currentPhoto).append(
-                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') +'src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><a onclick="voteFlipPhoto();" class="btn flip" href="#" class="btn medium"></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
+                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') +'src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><a onclick="window.showFlipWindow();" class="btn flip" href="#" class="btn medium"></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
                 ).find('img').load(function () {
                         currentPhoto.css({ 'visibility': 'visible' });
                         $(this).fadeIn('slow', function () {

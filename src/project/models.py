@@ -379,8 +379,8 @@ class Photo(models.Model):
 				flip_feedback_user_dict[each.user_profile.id].append(each)
 		votes_for_flipping = 0
 		votes_against_flipping = 0
-		for user_id, feedback_objects in photo_flip_feedback:
-			feedback_objects = sorted(feedback_objects, key=itemgetter("-created"))
+		for user_id, feedback_objects in flip_feedback_user_dict.items():
+			feedback_objects = sorted(feedback_objects, key=attrgetter("created"), reverse=True)
 			latest_feedback = feedback_objects[0]
 			if latest_feedback.flip:
 				votes_for_flipping += 1

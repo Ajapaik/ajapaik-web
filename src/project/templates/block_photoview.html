@@ -7,7 +7,7 @@ $(document).ready(function() {
 	$('.filter-box').hide();
 	_gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
 	{% if photo.lat and photo.lon %}
-	map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
+	window.map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
 	{% endif %}
 
 	$('#browse #photo-drawer .original').hoverIntent(function () {
@@ -33,7 +33,8 @@ $(document).ready(function() {
 			<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium" title="{% trans "Add comment" %}">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
 		</div>
 		<a href="#" id="close-photo-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
-		<a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Photo', 'Random']);" title="{% trans "Random" %}">&nbsp;</a>
+        <a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Photo', 'Random']);" title="{% trans "Random" %}">&nbsp;</a>
+		<a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.showFlipWindow({{ photo.id }}, {% if photo.flip %}true{% else %}false{% endif %});" title="{% trans "Flip" %}">&nbsp;</a>
 		<script>
 		var rephoto_comment = [];
 		{% for rephoto in photo.rephotos.all %}

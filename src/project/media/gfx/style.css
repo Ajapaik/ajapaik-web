@@ -29,7 +29,7 @@ body {
 
 /* NOTICES */
 
-#notice, #photo_browser {
+#notice, #photo_browser, #flip-notice {
     font-size: 15px;
     background: #fff;
     border: 2px solid #efefef;
@@ -41,12 +41,16 @@ body {
     margin: 0 0 10px;
 }
 
-#notice p {
+#notice p, #flip-notice p {
     margin: 0 0 20px;
 }
 
-#notice .btn {
+#notice .btn, #flip-notice .btn {
     margin-top: 20px;
+}
+
+#flip-notice img {
+    display: block;
 }
 
 /* BUTTONS */
@@ -91,9 +95,13 @@ a.btn.green {
 }
 
 a.btn.shuffle {
-    background-size: 32px 32px;
-    background: #E6E6E6 url('../gfx/media-shuffle.png') no-repeat center;
+    /* Using background properties correctly hear will break the class */
     height: 12px;
+    background-color: #E6E6E6;
+    background-image: url('../gfx/media-shuffle.png');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 a.btn:hover {
@@ -1262,4 +1270,8 @@ a.btn.flip {
     position: absolute;
     left: 0;
     bottom: 0;
+}
+
+#browse-flip-button {
+    position: initial !important;
 }

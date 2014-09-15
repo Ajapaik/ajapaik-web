@@ -3,6 +3,7 @@
 /* browse */
 var photoId;
 var cityId;
+var flipNotice = $("#flip-notice");
 
 function loadPhoto(id) {
     photoId = id;
@@ -26,6 +27,20 @@ function loadPhoto(id) {
         }
     });
 }
+
+window.showFlipWindow = function (photoId, flip) {
+    console.log(photoId);
+    console.log(flip);
+//    var flipNoticeImage = flipNotice.find("img");
+//    var currentPhotoUrl = $(".photo-item").find("img").attr("src");
+//    flipNoticeImage.attr("src", currentPhotoUrl);
+//    if (photos[currentPhotoIdx - 1].flip) {
+//        flipNoticeImage.removeClass("flip-photo");
+//    } else {
+//        flipNoticeImage.addClass("flip-photo");
+//    }
+//    flipNotice.modal();
+};
 
 function openPhotoDrawer(content) {
     $('#photo-drawer').html(content);
@@ -124,7 +139,9 @@ $(document).ready(function () {
         $('.rephoto .container .meta ').removeClass('hovered');
     });
 
-    map.scrollwheel = true;
+    if (window.map !== undefined) {
+        window.map.scrollwheel = true;
+    }
 
     $("a.iframe").fancybox({
         'width': '75%',

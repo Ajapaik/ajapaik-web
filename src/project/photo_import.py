@@ -47,7 +47,7 @@ class PostNewHistoricPhoto(generics.CreateAPIView):
 			"source_key": request.POST.get("number"),
 			"source_url": request.POST.get("url"),
 			"date_text": request.POST.get("date"),
-			"description": "; ".join(filter(None,[request.POST[key].strip() for key in ("description","title") if key in request.POST]))
+			"description": "; ".join(filter(None,[request.POST[key].strip() for key in ("title", "description") if key in request.POST]))
 		}
 		serializer = self.serializer_class(data=photo_data, files=request.FILES)
 		if serializer.is_valid():

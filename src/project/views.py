@@ -663,15 +663,20 @@ def difficulty_feedback(request):
 def flip_feedback(request):
 	user_profile = request.get_user().get_profile()
 	photo_id = request.POST.get("photo_id") or None
-	flip = request.POST.get("flip") or None
-	if photo_id and flip is not None:
+	was_flipped = request.POST.get("was_flipped") or None
+	if was_flipped == "true":
+		was_flipped = True
+	else:
+		was_flipped = False
+	if photo_id and was_flipped is not None:
 		feedback_object = FlipFeedback()
 		feedback_object.photo_id = photo_id
 		feedback_object.user_profile = user_profile
-		feedback_object.flip = flip
+		feedback_object.flip = not was_flipped
 		feedback_object.save()
 	photo = Photo.objects.filter(id=photo_id)[:1].get()
 	photo.set_calculated_fields()
+	return HttpResponse("OK")
 
 
 def custom_404(request):
