@@ -42,6 +42,8 @@
         saveDirection = false,
         flipNotice = $("#flip-notice");
 
+    window.flipNoticeElement =  $("#flip-notice");
+
     window.showFlipWindow = function () {
         var flipNoticeImage = flipNotice.find("img");
         flipNoticeImage.attr("src", mediaUrl + photos[currentPhotoIdx - 1].big.url);
@@ -382,7 +384,7 @@
 
         photosDiv.find('img').live('click', toggleTouchPhotoView);
 
-        $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
+        $('#top').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();

@@ -1,10 +1,10 @@
-window.flipFeedbackURL = "/flip_feedback/";
-
 (function () {
     "use strict";
     /*jslint nomen: true*/
     /*global google */
     /*global _gaq */
+
+    window.flipFeedbackURL = "/flip_feedback/";
 
     window.getMap = function(startPoint, startingZoom, isGameMap) {
         var latLng,
@@ -134,6 +134,18 @@ window.flipFeedbackURL = "/flip_feedback/";
             that.css("height", newHeight);
             that.css("opacity", 1);
         });
+    };
+
+    window.showScoreboard = function () {
+        $('.top .score_container .scoreboard li').not('.you').add('h2').slideDown();
+        $('.top .score_container #facebook-connect').slideDown();
+        $('.top .score_container #google-plus-connect').slideDown();
+    };
+
+    window.hideScoreboard = function () {
+        $('.top .score_container .scoreboard li').not('.you').add('h2').slideUp();
+        $('.top .score_container #facebook-connect').slideUp();
+        $('.top .score_container #google-plus-connect').slideUp();
     };
 
     $(document).ready(function () {

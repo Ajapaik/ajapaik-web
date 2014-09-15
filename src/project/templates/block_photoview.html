@@ -34,11 +34,11 @@ $(document).ready(function() {
 		</div>
 		<a href="#" id="close-photo-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
         <a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Photo', 'Random']);" title="{% trans "Random" %}">&nbsp;</a>
-		<a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.showFlipWindow({{ photo.id }}, {% if photo.flip %}true{% else %}false{% endif %});" title="{% trans "Flip" %}">&nbsp;</a>
+		<a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.showFlipWindow({{ photo.id }}, '{% url 'views.photo_url' photo.id %}', {% if photo.flip %}true{% else %}false{% endif %});" title="{% trans "Flip" %}">&nbsp;</a>
 		<script>
-		var rephoto_comment = [];
+		var rephotoComment = [];
 		{% for rephoto in photo.rephotos.all %}
-			rephoto_comment[{{ rephoto.id }}] = '<a href="{{ rephoto.get_absolute_url }}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a>';
+			rephotoComment[{{ rephoto.id }}] = '<a href="{{ rephoto.get_absolute_url }}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a>';
 		{% endfor %}
 		</script>
 	</div><!-- .browse-nav -->
@@ -70,9 +70,9 @@ $(document).ready(function() {
 					<p style="float:right;"> {% if photo.rephotos.all.0.date %}{{ photo.rephotos.all.0.date|date:"F d, Y" }}{% else %}{{ photo.rephotos.all.0.created|date:"F d, Y" }}{% endif %}</p>
 				</div>
 				<script>
-				var rephoto_meta = [];
+				var rephotoMeta = [];
 				{% for rephoto in photo.rephotos.all %}
-					rephoto_meta[{{ rephoto.id }}] = '{% if rephoto.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 30px;" src="{{ MEDIA_URL }}gfx/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" title="{{ rephoto.user.fb_name }}" /></a></p>{% endif %}<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>';
+					rephotoMeta[{{ rephoto.id }}] = '{% if rephoto.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 30px;" src="{{ MEDIA_URL }}gfx/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" title="{{ rephoto.user.fb_name }}" /></a></p>{% endif %}<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>';
 				{% endfor %}
 				</script>
 			</div>
@@ -81,13 +81,13 @@ $(document).ready(function() {
 				<a class="fullscreen" id="full-thumb2" rel="{{ photo.rephotos.all.0.id }}" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{% url 'views.photo_url' photo.rephotos.all.0.id %}" border="0" /></a>
 			</div>
 			<script>
-			var rephoto_img_href = [];
-			var rephoto_img_src = [];
-			var rephoto_img_src_fs = [];
+			var rephotoImgHref = [];
+			var rephotoImgSrc = [];
+			var rephotoImgSrcFs = [];
 			{% for rephoto in photo.rephotos.all %}
-				rephoto_img_href[{{ rephoto.id }}] = '{{ rephoto.get_absolute_url }}';
-				rephoto_img_src[{{ rephoto.id }}] = '{% url 'views.photo_url' rephoto.id %}';
-				rephoto_img_src_fs[{{ rephoto.id }}] = '{% url 'views.photo_large' rephoto.id %}';
+				rephotoImgHref[{{ rephoto.id }}] = '{{ rephoto.get_absolute_url }}';
+				rephotoImgSrc[{{ rephoto.id }}] = '{% url 'views.photo_url' rephoto.id %}';
+				rephotoImgSrcFs[{{ rephoto.id }}] = '{% url 'views.photo_large' rephoto.id %}';
 			{% endfor %}
 			</script>
 		</div>
