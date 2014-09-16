@@ -409,6 +409,10 @@
                 data['lon'] = lon;
             }
 
+            if (userFlippedPhoto) {
+                data['flip'] = !photos[currentPhotoIdx - 1].flip;
+            }
+
             $.post(saveLocationURL, data, function (resp) {
                 updateLeaderboard();
                 var message = '',

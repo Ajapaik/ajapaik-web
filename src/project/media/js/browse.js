@@ -58,6 +58,18 @@
         }
     };
 
+    window.showScoreboard = function () {
+        $('.top .score_container .scoreboard li').not('.you').add('h2').slideDown();
+        $('.top .score_container #facebook-connect').slideDown();
+        $('.top .score_container #google-plus-connect').slideDown();
+    };
+
+    window.hideScoreboard = function () {
+        $('.top .score_container .scoreboard li').not('.you').add('h2').slideUp();
+        $('.top .score_container #facebook-connect').slideUp();
+        $('.top .score_container #google-plus-connect').slideUp();
+    };
+
     $(document).ready(function () {
         $('.top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 

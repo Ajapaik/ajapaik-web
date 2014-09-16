@@ -595,6 +595,12 @@ class Profile(models.Model):
 		self.fb_id = data.get("id")
 		self.fb_name = data.get("name")
 		self.fb_link = data.get("link")
+		self.fb_email = data.get("email")
+		self.fb_birthday = datetime.datetime.strptime(data.get("birthday"), '%m/%d/%Y')
+		self.fb_current_location = data.get("location")["name"]
+		self.fb_hometown = data.get("hometown")["name"]
+		self.fb_user_friends = data.get("user_friends")
+
 		self.save()
 
 	def update_from_google_plus_data(self, token, data):

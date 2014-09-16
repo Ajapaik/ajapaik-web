@@ -584,14 +584,26 @@ def geotag_add(request):
 	is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain = get_next_photos_to_geotag.submit_guess(
 		request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'),
 		hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'))
+	flip = data.get("flip", None)
+	if flip is not None:
+		print "asd"
+		flip_feedback = FlipFeedback()
+		flip_feedback.photo_id = data['photo_id']
+		flip_feedback.user_profile = request.get_user().get_profile()
+		if flip == "true":
+			flip_feedback.flip = True
+		elif flip == "false":
+			flip_feedback.flip = False
+		flip_feedback.save()
+
 	return HttpResponse(json.dumps({
-	'is_correct': is_correct,
-	'current_score': current_score,
-	'total_score': total_score,
-	'leaderboard_update': leaderboard_update,
-	'location_is_unclear': location_is_unclear,
-	'azimuth_false': azimuth_false,
-	'azimuth_uncertain': azimuth_uncertain
+		'is_correct': is_correct,
+		'current_score': current_score,
+		'total_score': total_score,
+		'leaderboard_update': leaderboard_update,
+		'location_is_unclear': location_is_unclear,
+		'azimuth_false': azimuth_false,
+		'azimuth_uncertain': azimuth_uncertain
 	}), mimetype="application/json")
 
 
@@ -658,26 +670,6 @@ def difficulty_feedback(request):
 	photo = Photo.objects.filter(id=photo_id)[:1].get()
 	photo.set_calculated_fields()
 	return HttpResponse("OK")
-
-
-def flip_feedback(request):
-	user_profile = request.get_user().get_profile()
-	photo_id = request.POST.get("photo_id") or None
-	was_flipped = request.POST.get("was_flipped") or None
-	if was_flipped == "true":
-		was_flipped = True
-	else:
-		was_flipped = False
-	if photo_id and was_flipped is not None:
-		feedback_object = FlipFeedback()
-		feedback_object.photo_id = photo_id
-		feedback_object.user_profile = user_profile
-		feedback_object.flip = not was_flipped
-		feedback_object.save()
-	photo = Photo.objects.filter(id=photo_id)[:1].get()
-	photo.set_calculated_fields()
-	return HttpResponse("OK")
-
 
 def custom_404(request):
 	response = render_to_response('404.html', {}, context_instance=RequestContext(request))
