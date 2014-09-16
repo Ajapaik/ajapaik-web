@@ -547,7 +547,7 @@ class Profile(models.Model):
 	fb_token = models.CharField(max_length=511, null=True, blank=True)
 	fb_hometown = models.CharField(max_length=511, null=True, blank=True)
 	fb_current_location = models.CharField(max_length=511, null=True, blank=True)
-	fb_birthday = models.DateField()
+	fb_birthday = models.DateField(null=True, blank=True)
 	fb_email = models.CharField(max_length=255, null=True, blank=True)
 	fb_user_friends = models.TextField(null=True, blank=True)
 
