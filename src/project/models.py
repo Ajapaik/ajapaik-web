@@ -270,7 +270,7 @@ class Photo(models.Model):
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
 						# Don't do this for very small/fresh sets (<1000 geotags)
-						if city_photos_set[0].city_id in exception_city_ids:
+						if len(city_photos_set) > 0 and city_photos_set[0].city_id and city_photos_set[0].city_id in exception_city_ids:
 							user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
 							user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
 							user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
