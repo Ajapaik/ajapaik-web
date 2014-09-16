@@ -361,7 +361,6 @@ class Photo(models.Model):
 		return slug
 
 	def set_calculated_fields(self):
-		from operator import itemgetter
 		photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
 		weighted_level_sum, total_weight = 0, 0
 		for each in photo_difficulty_feedback:
@@ -370,26 +369,26 @@ class Photo(models.Model):
 		if total_weight != 0:
 			self.guess_level = round(round(weighted_level_sum, 2) / round(total_weight, 2), 2)
 
-		photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
-		flip_feedback_user_dict = {}
-		for each in photo_flip_feedback:
-			if each.user_profile_id not in flip_feedback_user_dict:
-				flip_feedback_user_dict[each.user_profile.id] = [each]
-			else:
-				flip_feedback_user_dict[each.user_profile.id].append(each)
-		votes_for_flipping = 0
-		votes_against_flipping = 0
-		for user_id, feedback_objects in flip_feedback_user_dict.items():
-			feedback_objects = sorted(feedback_objects, key=attrgetter("created"), reverse=True)
-			latest_feedback = feedback_objects[0]
-			if latest_feedback.flip:
-				votes_for_flipping += 1
-			else:
-				votes_against_flipping += 1
-		if votes_for_flipping > votes_against_flipping:
-			self.flip = True
-		else:
-			self.flip = False
+		# photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
+		# flip_feedback_user_dict = {}
+		# for each in photo_flip_feedback:
+		# 	if each.user_profile_id not in flip_feedback_user_dict:
+		# 		flip_feedback_user_dict[each.user_profile.id] = [each]
+		# 	else:
+		# 		flip_feedback_user_dict[each.user_profile.id].append(each)
+		# votes_for_flipping = 0
+		# votes_against_flipping = 0
+		# for user_id, feedback_objects in flip_feedback_user_dict.items():
+		# 	feedback_objects = sorted(feedback_objects, key=attrgetter("created"), reverse=True)
+		# 	latest_feedback = feedback_objects[0]
+		# 	if latest_feedback.flip:
+		# 		votes_for_flipping += 1
+		# 	else:
+		# 		votes_against_flipping += 1
+		# if votes_for_flipping > votes_against_flipping:
+		# 	self.flip = True
+		# else:
+		# 	self.flip = False
 
 		if not self.bounding_circle_radius:
 			self.confidence = 0

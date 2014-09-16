@@ -3,8 +3,8 @@ from django.conf import settings
 from project.models import  Photo, GeoTag, \
                             Profile, Source, \
                             Skip, Action, \
-                            Album
-                            
+                            Album, City
+
 from sorl.thumbnail.admin import AdminImageMixin
 
 class PhotoAdmin(AdminImageMixin, admin.ModelAdmin):
@@ -44,3 +44,4 @@ admin.site.register(Source)
 admin.site.register(Skip)
 admin.site.register(Action)
 admin.site.register(Album)
+admin.site.register(City)
