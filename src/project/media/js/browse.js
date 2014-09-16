@@ -7,10 +7,7 @@
 
     var photoId,
         cityId,
-        photoIsFlipped,
         photoDrawerElement = $('#photo-drawer');
-
-    window.flipNoticeElement =  $("#flip-notice");
 
     window.loadPhoto = function(id) {
         photoId = id;
@@ -29,28 +26,6 @@
                     'hideOnContentClick': false
                 });
             }
-        });
-    };
-
-    window.showFlipWindow = function (photoId, photoURL, flip) {
-        var flipNoticeImage = window.flipNoticeElement.find("img");
-        photoIsFlipped = flip;
-        flipNoticeImage.attr("src", photoURL);
-        if (!flip) {
-            flipNoticeImage.removeClass("flip-photo");
-        } else {
-            flipNoticeImage.addClass("flip-photo");
-        }
-        window.flipNoticeElement.modal();
-    };
-
-    window.sendFlipVote = function () {
-        var data = {
-            was_flipped: photoIsFlipped,
-            photo_id: photoId
-        };
-        $.post(flipFeedbackURL, data, function () {
-            window.flipNoticeElement.find(".simplemodal-close").click();
         });
     };
 
@@ -84,7 +59,7 @@
     };
 
     $(document).ready(function () {
-        $('.top .score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
+        $('.top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 
         $('#open-photo-drawer').click(function (e) {
             e.preventDefault();

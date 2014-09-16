@@ -29,7 +29,7 @@ body {
 
 /* NOTICES */
 
-#notice, #photo_browser, #flip-notice {
+#notice, #photo_browser {
     font-size: 15px;
     background: #fff;
     border: 2px solid #efefef;
@@ -41,21 +41,12 @@ body {
     margin: 0 0 10px;
 }
 
-#notice p, #flip-notice p {
+#notice p {
     margin: 0 0 20px;
 }
 
-#notice .btn, #flip-notice .btn {
+#notice .btn {
     margin-top: 20px;
-}
-
-#flip-notice img {
-    display: block;
-    margin: 0 auto;
-}
-
-#flip-notice {
-    text-align: center;
 }
 
 /* BUTTONS */

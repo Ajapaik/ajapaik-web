@@ -4,15 +4,17 @@
     /*global google */
     /*global leaderboardUpdateURL */
     /*global flipFeedbackURL */
+    /*global saveLocationURL */
+    /*global leaderboardFullURL */
     /*global start_location */
     /*global city_id */
-    /*global saveLocationURL */
     /*global _gaq */
     /*global gettext */
-    /*global leaderboardFullURL */
     /*global language_code */
     /*global FB */
     /*global isMobile */
+
+    // TODO: Sort global functionality into init.js, specific into game.js and browse.js respectively
 
     var photos = [],
         gameOffset = 0,
@@ -31,7 +33,6 @@
         infowindow = undefined,
         photosDiv = undefined,
         noticeDiv = undefined,
-        topDiv = undefined,
         lat = undefined,
         lon = undefined,
         relativeVector = {},
@@ -40,42 +41,42 @@
         azimuthListenerActive = true,
         firstDragDone = false,
         saveDirection = false,
-        flipNotice = $("#flip-notice");
+        userFlippedPhoto = false;
 
-    window.flipNoticeElement =  $("#flip-notice");
 
-    window.showFlipWindow = function () {
-        var flipNoticeImage = flipNotice.find("img");
-        flipNoticeImage.attr("src", mediaUrl + photos[currentPhotoIdx - 1].big.url);
-        if (photos[currentPhotoIdx - 1].flip) {
-            flipNoticeImage.removeClass("flip-photo");
-        } else {
-            flipNoticeImage.addClass("flip-photo");
-        }
-        flipNotice.modal();
-    };
-
-    window.sendFlipVote = function () {
-        var data = {
-            was_flipped: photos[currentPhotoIdx - 1].flip,
-            photo_id: photos[currentPhotoIdx - 1].id
-        };
-        console.log(data);
-        $.post(flipFeedbackURL, data, function () {
-            flipNotice.find(".simplemodal-close").click();
-        });
-    };
-
-    function update_leaderboard () {
+    function updateLeaderboard () {
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
     }
 
-    $(document).ready(function () {
-        update_leaderboard();
+    window.flipPhoto = function () {
+        userFlippedPhoto = !userFlippedPhoto;
+        var photoElement = $(".photo" + (currentPhotoIdx - 1)).find("img"),
+            photoFullscreenElement = $("#game-full" + photos[currentPhotoIdx - 1].id).find("img");
+        if (photoElement.hasClass("flip-photo")) {
+            photoElement.removeClass("flip-photo");
+        } else {
+            photoElement.addClass("flip-photo");
+        }
+        if (photoFullscreenElement.hasClass("flip-photo")) {
+            photoFullscreenElement.removeClass("flip-photo");
+        } else {
+            photoFullscreenElement.addClass("flip-photo");
+        }
+    };
 
+    $(document).ready(function () {
+        var marker,
+            location,
+            dottedLineSymbol,
+            line,
+            lastTriggeredWheeling,
+            now,
+            realMapElement;
+
+        updateLeaderboard();
         loadPhotos();
 
-        var location = new google.maps.LatLng(start_location[1], start_location[0]);
+        location = new google.maps.LatLng(start_location[1], start_location[0]);
 
         function reCalculateAzimuthOfMouseAndMarker (e) {
             relativeVector.x = e.latLng.lat() - marker.position.lat();
@@ -94,14 +95,14 @@
         }
 
         // To support touchscreens, we have an invisible marker underneath a fake one
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             map: window.map,
             draggable: false,
             position: location,
             visible: false
         });
 
-        var dottedLineSymbol = {
+        dottedLineSymbol = {
             path: google.maps.SymbolPath.CIRCLE,
             strokeOpacity: 1,
             strokeWeight: 1.5,
@@ -109,7 +110,7 @@
             scale: 0.75
         };
 
-        var line = new google.maps.Polyline({
+        line = new google.maps.Polyline({
             geodesic: true,
             strokeOpacity: 0,
             icons: [{
@@ -123,9 +124,6 @@
         });
 
         marker.bindTo('position', window.map, 'center');
-
-        var lastTriggeredWheeling,
-            now;
 
         // Our own custom zooming functions to fix the otherwise laggy map
         function wheelEventFF(e) {
@@ -166,7 +164,7 @@
             }
         }
 
-        var realMapElement = $("#map_canvas")[0];
+        realMapElement = $("#map_canvas")[0];
         realMapElement.addEventListener('mousewheel', wheelEventNonFF, true);
         realMapElement.addEventListener('DOMMouseScroll', wheelEventFF, true);
 
@@ -356,8 +354,6 @@
             }
         });
 
-
-
         photosDiv.hoverIntent(function () {
             if (locationToolsOpen == true && !isMobile) {
                 showPhotos();
@@ -369,7 +365,7 @@
         });
 
 
-        var toggleTouchPhotoView = function () {
+        function toggleTouchPhotoView () {
             if (isMobile && locationToolsOpen) {
                 if (mobileMapMinimized) {
                     $('#tools').css({left: '15%'});
@@ -380,11 +376,11 @@
                     mobileMapMinimized = true;
                 }
             }
-        };
+        }
 
         photosDiv.find('img').live('click', toggleTouchPhotoView);
 
-        $('#top').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
+        $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
@@ -397,8 +393,6 @@
         function saveLocation() {
             lat = marker.getPosition().lat();
             lon = marker.getPosition().lng();
-
-            if (photos)
 
             var data = {
                 photo_id: photos[currentPhotoIdx - 1].id,
@@ -416,7 +410,7 @@
             }
 
             $.post(saveLocationURL, data, function (resp) {
-                update_leaderboard();
+                updateLeaderboard();
                 var message = '',
                     hide_feedback = false;
                 if (resp['is_correct'] == true) {
@@ -513,20 +507,6 @@
             $('#nothing-more-to-show').show();
         }
 
-        function showScoreboard() {
-            topDiv = $('#top');
-            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideDown();
-            topDiv.find('.score_container #facebook-connect').slideDown();
-            topDiv.find('.score_container #google-plus-connect').slideDown();
-        }
-
-        function hideScoreboard() {
-            topDiv = $('#top');
-            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideUp();
-            topDiv.find('.score_container #facebook-connect').slideUp();
-            topDiv.find('.score_container #google-plus-connect').slideUp();
-        }
-
         function showDescription() {
             $(currentPhoto).find('.show-description').fadeOut(function () {
                 $(this).parent().find('.description').fadeIn();
@@ -556,7 +536,7 @@
                 currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
 
                 $(currentPhoto).append(
-                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') +'src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><a onclick="window.showFlipWindow();" class="btn flip" href="#" class="btn medium"></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
+                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') +'src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><a onclick="window.flipPhoto();" class="btn flip" href="#" class="btn medium"></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
                 ).find('img').load(function () {
                         currentPhoto.css({ 'visibility': 'visible' });
                         $(this).fadeIn('slow', function () {
@@ -582,6 +562,20 @@
                 disableNext = false;
                 $('.skip-photo').animate({ 'opacity': 1 });
             });
+        }
+
+        function showScoreboard() {
+            var topDiv = $('#top');
+            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideDown();
+            topDiv.find('.score_container #facebook-connect').slideDown();
+            topDiv.find('.score_container #google-plus-connect').slideDown();
+        }
+
+        function hideScoreboard() {
+            var topDiv = $('#top');
+            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideUp();
+            topDiv.find('.score_container #facebook-connect').slideUp();
+            topDiv.find('.score_container #google-plus-connect').slideUp();
         }
 
         function loadPhotos(next) {

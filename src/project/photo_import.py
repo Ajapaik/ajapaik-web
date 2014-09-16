@@ -1,29 +1,16 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import authentication_classes
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAdminUser
-from rest_framework.authentication import SessionAuthentication
 from models import Photo, Source, City
-from project.serializers import PhotoSerializer
+from project.serializers import PhotoSerializer, CitySerializer
 
-def get_photo_info_by_source_keys(request):
-	key_array = request.GET.getlist("source_keys[]")
-	photos_with_same_source_keys = Photo.objects.filter(source_key__in=key_array)
-	ret = []
-	for existing_photo in photos_with_same_source_keys:
-		ret.append({"source_key": existing_photo.source_key, "azimuth": existing_photo.azimuth, "lon": existing_photo.lon, "lat": existing_photo.lat, "confidence": existing_photo.confidence})
-	return HttpResponse(ret, mimetype="application/json")
-
-class PostNewHistoricPhoto(generics.CreateAPIView):
+class PhotoViewSet(viewsets.ModelViewSet):
+	queryset = Photo.objects.all()
 	serializer_class = PhotoSerializer
-	permission_classes = (IsAdminUser,)
 
-	# TODO: CSRF
-	@csrf_exempt
-	@authentication_classes(SessionAuthentication)
-	def post(self, request, *args, **kwargs):
+	def create(self, request, *args, **kwargs):
 		try:
 			Photo.objects.filter(source_key=request.POST.get("number"))[:1].get()
 			return HttpResponse("Duplicate", status=400)
@@ -55,3 +42,32 @@ class PostNewHistoricPhoto(generics.CreateAPIView):
 			return HttpResponse("OK", status=200)
 		else:
 			return HttpResponse(serializer.errors, status=400)
+
+class CityViewSet(viewsets.ModelViewSet):
+	queryset = City.objects.all()
+	serializer_class = CitySerializer
+
+def get_photo_info_by_source_keys(request):
+	key_array = request.GET.getlist("source_keys[]")
+	photos_with_same_source_keys = Photo.objects.filter(source_key__in=key_array)
+	ret = []
+	for existing_photo in photos_with_same_source_keys:
+		ret.append({"source_key": existing_photo.source_key, "azimuth": existing_photo.azimuth, "lon": existing_photo.lon, "lat": existing_photo.lat, "confidence": existing_photo.confidence})
+	return HttpResponse(ret, mimetype="application/json")
+
+class GetCreateCities(generics.ListCreateAPIView):
+	model = City
+	serializer_class = CitySerializer
+	permission_classes = (IsAdminUser,)
+
+class PhotoListCreate(generics.ListCreateAPIView):
+	model = Photo
+	serializer_class = PhotoSerializer
+	permission_classes = (IsAdminUser,)
+
+	@csrf_exempt
+	def post(self, request, *args, **kwargs):
+		pass
+
+	def get(self, request, *args, **kwargs):
+		return "asd"

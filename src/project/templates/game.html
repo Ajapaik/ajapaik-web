@@ -10,9 +10,9 @@
 	
     var city_id = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}';
 	{% if filters.filters_by_name.city_lookup_filter.get_option_object %}
-	var start_location = [{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}];
+	    var start_location = [{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}];
 	{% else %}
-	var start_location = [26, 59];
+	    var start_location = [26, 59];
 	{% endif %}
 	var language_code = '{{ LANGUAGE_CODE }}';
 	
@@ -37,6 +37,7 @@
 			<h2><a id="full_leaderboard" href="#">{% trans "Leaderboard" %}</a></h2>
 
 			<ul class="scoreboard">
+
 			</ul>
 
 			{% if request.user.is_authenticated and request.user.get_profile.fb_id or request.user.get_profile.google_plus_id %}
@@ -55,13 +56,10 @@
 					<a id="google-plus-login-button" href="/google_login" class="ir">{% trans "Connect with Google+" %}</a>
 				</div>{% endcomment %}
 			{% endif %}
-
 		</div>
-        
         <div class="filter-box">
             {{ filters.get_form.as_p }}
-        </div>        
-        
+        </div>
 	</div>
 
 	<div id="tools">
@@ -81,10 +79,6 @@
 			<a id="open-location-tools" href="#" class="btn green">{% trans "Pick the shooting location!" %}</a>
 		</div>
 	</div>
-
-    <div id="flip-notice" style="display: none;">
-        {% include "dialogue_flip.html" %}
-    </div>
 
 	<div id="notice" style="display: none;">
 		<h2>{% trans "Thank you!" %}</h2>

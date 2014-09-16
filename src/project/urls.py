@@ -2,9 +2,14 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import TemplateView, RedirectView
-from photo_import import PostNewHistoricPhoto
+from rest_framework import routers
+from project.photo_import import PhotoViewSet, CityViewSet
 
 admin.autodiscover()
+
+router = routers.DefaultRouter()
+router.register(r'api/photos', PhotoViewSet)
+router.register(r'api/cities', CityViewSet)
 
 urlpatterns = patterns('views',
    (r'^admin/', include(admin.site.urls)),
@@ -41,8 +46,7 @@ urlpatterns = patterns('views',
 	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
 	(r'^favicon\.ico$', RedirectView.as_view(url='/media/gfx/favicon.ico')),
 	(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom')),
-	(r'^api/get_photo_info_by_source_keys', 'photo_import.get_photo_info_by_source_keys'),
-	(r'^api/post_new_historic_photo', PostNewHistoricPhoto.as_view()),
+	(r'^', include(router.urls)),
 	(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
 
