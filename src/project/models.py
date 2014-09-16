@@ -549,6 +549,7 @@ class Profile(models.Model):
 	fb_current_location = models.CharField(max_length=511, null=True, blank=True)
 	fb_birthday = models.DateField()
 	fb_email = models.CharField(max_length=255, null=True, blank=True)
+	fb_user_friends = models.TextField(null=True, blank=True)
 
 	google_plus_id = models.CharField(max_length=100, null=True, blank=True)
 	google_plus_link = models.CharField(max_length=255, null=True, blank=True)
