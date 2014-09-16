@@ -234,9 +234,9 @@ def get_all_geotag_submits(photo_id=None):
 
 def get_leaderboard(user_id):
 	scores_list = list(enumerate(Profile.objects.filter(
-		Q(fb_name__isnull=False, score__gt=0) | Q(google_plus_name__isnull=False, score__gt=0) | Q(
-			pk=user_id)).values_list('pk', 'score', 'fb_id', 'fb_name', 'google_plus_name',
-									 'google_plus_picture').order_by('-score')))
+		Q(fb_name__isnull=False, score_last_1000_geotags__gt=0) | Q(google_plus_name__isnull=False, score_last_1000_geotags__gt=0) | Q(
+			pk=user_id)).values_list('pk', 'score_last_1000_geotags', 'fb_id', 'fb_name', 'google_plus_name',
+									 'google_plus_picture').order_by('-score_last_1000_geotags')))
 	leaderboard = [scores_list[0]]
 	self_user_idx = filter(lambda (idx, data): data[0] == user_id, scores_list)[0][0]
 	if self_user_idx - 1 > 0:
@@ -252,9 +252,9 @@ def get_leaderboard(user_id):
 
 def get_leaderboard50(user_id):
 	scores_list=list(enumerate(Profile.objects.filter(
-					Q(fb_name__isnull=False, score__gt=0) | Q(google_plus_name__isnull=False, score__gt=0) | Q(pk=user_id)). \
-				values_list('pk','score','fb_id','fb_name', 'google_plus_name', 'google_plus_picture'). \
-				order_by('-score')))
+					Q(fb_name__isnull=False, score_last_1000_geotags__gt=0) | Q(google_plus_name__isnull=False, score_last_1000_geotags__gt=0) | Q(pk=user_id)). \
+				values_list('pk','score_last_1000_geotags','fb_id','fb_name', 'google_plus_name', 'google_plus_picture'). \
+				order_by('-score_last_1000_geotags')))
 	leaderboard=scores_list[:50]
 	self_user_idx=filter(lambda (idx,data):data[0]==user_id,
 											scores_list)[0][0]

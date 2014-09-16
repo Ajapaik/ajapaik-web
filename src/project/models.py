@@ -562,6 +562,7 @@ class Profile(models.Model):
 
 	score = models.PositiveIntegerField(default=0)
 	score_rephoto = models.PositiveIntegerField(default=0)
+	score_last_1000_geotags = models.PositiveIntegerField(default=0)
 
 	@property
 	def id(self):
@@ -621,8 +622,13 @@ class Profile(models.Model):
 		other.geotags.update(user=self)
 
 	def set_calculated_fields(self):
-		self.score = self.geotags.aggregate(
-			total_score=models.Sum('score'))['total_score'] or 0
+		last_1000_geotag_ids = GeoTag.objects.order_by("-created")[:1000].values_list("id", flat=True)
+		score = 0
+		for g in self.geotags.all():
+			if g.id in last_1000_geotag_ids:
+				score += g.score
+		self.score_last_1000_geotags = score
+		self.score = self.geotags.aggregate(total_score=models.Sum('score'))['total_score'] or 0
 
 	def __unicode__(self):
 		return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
