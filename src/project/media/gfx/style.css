@@ -1278,6 +1278,7 @@ a.btn.flip {
     right: 0;
     width: 25%;
     height: 93%;
+    overflow: auto;
 }
 
 #photo-pane .element {

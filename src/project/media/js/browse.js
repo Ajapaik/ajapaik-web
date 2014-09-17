@@ -9,8 +9,6 @@
     var photoId,
         cityId,
         photoDrawerElement = $('#photo-drawer'),
-        photoPaneDomElement,
-        photoPaneElements = [],
         i = 0;
 
     window.loadPhoto = function(id) {
@@ -74,20 +72,14 @@
         $('.top .score_container #google-plus-connect').slideUp();
     };
 
-    window.loadPaneElements = function () {
+    window.toggleVisiblePaneElements = function () {
         if (window.map) {
-            photoPaneDomElement = $("#photo-pane");
-            photoPaneDomElement.html("");
             for (i = 0; i < markers.length; i += 1) {
+                var currentElement = $("#element" + markers[i].id);
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
-                    var newElementDiv = document.createElement("div");
-                    $(newElementDiv).addClass("element").click(function () {
-                        console.log(1);
-                    });
-                    var newImgElement = document.createElement("img");
-                    newImgElement.setAttribute("src", markers[i].thumb);
-                    newElementDiv.appendChild(newImgElement);
-                    photoPaneDomElement.append(newElementDiv);
+                    currentElement.show();
+                } else {
+                    currentElement.hide();
                 }
             }
         }
@@ -101,8 +93,19 @@
             openPhotoDrawer();
         });
 
+        for (var i = 0; i < markers.length; i += 1) {
+            var newElementDiv = document.createElement("div");
+            $(newElementDiv).addClass("element").click(function () {
+                console.log(1);
+            }).hide().attr("id", "element" + markers[i].id);
+            var newImgElement = document.createElement("img");
+            newImgElement.setAttribute("src", markers[i].thumb);
+            newElementDiv.appendChild(newImgElement);
+            $("#photo-pane").append(newElementDiv);
+        }
+
         google.maps.event.addListener(window.map, 'bounds_changed', function () {
-            window.loadPaneElements();
+            window.toggleVisiblePaneElements();
         });
 
         $('#google-plus-login-button').click(function () {
