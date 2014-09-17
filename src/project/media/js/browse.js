@@ -87,6 +87,7 @@
 
     window.highlightSelected = function (markerId) {
         var targetPaneElement = $("#element" + markerId);
+        var photoPaneContainer = $("#photo-pane-container");
         $("#photo-pane").find(".element").removeClass("selected-pane-element");
         for (i = 0; i < markers.length; i += 1) {
             if (markers[i].id == markerId) {
@@ -96,6 +97,7 @@
                 markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
             }
         }
+        photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
     };
 
     $(document).ready(function () {
@@ -115,7 +117,6 @@
             newImgElement.setAttribute("src", markers[i].thumb);
             newImgElement.setAttribute("title", markers[i].description);
             newImgElement.setAttribute("data-id", markers[i].id);
-            var newParagraphElement = document.createElement("p");
             newElementDiv.appendChild(newImgElement);
             $("#photo-pane").append(newElementDiv);
         }
