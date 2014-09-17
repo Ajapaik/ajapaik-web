@@ -177,8 +177,9 @@ class Photo(models.Model):
 				else:
 					#im = get_thumbnail(p.image, '50x50', crop='center')
 					im_url = reverse('views.photo_thumb', args=(p.id,))
-				data.append((p.id, im_url, p.lon, p.lat, p.id, p.flip in rephotographed_ids))
+				data.append((p.id, im_url, p.lon, p.lat, p.id, p.flip, p.description in rephotographed_ids))
 			return data
+
 
 		@staticmethod
 		def _get_game_json_format_photo(photo, distance_from_last):

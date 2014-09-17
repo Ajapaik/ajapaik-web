@@ -1279,3 +1279,18 @@ a.btn.flip {
     width: 25%;
     height: 93%;
 }
+
+#photo-pane .element {
+    background-color: red;
+    width: 90%;
+    margin: 5% auto 0;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+}
+
+#photo-pane .element img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}

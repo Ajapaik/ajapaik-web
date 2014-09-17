@@ -4,10 +4,14 @@
     /*global FB */
     /*global geotaggedPhotos */
     /*global _gaq */
+    /*global markers */
 
     var photoId,
         cityId,
-        photoDrawerElement = $('#photo-drawer');
+        photoDrawerElement = $('#photo-drawer'),
+        photoPaneDomElement,
+        photoPaneElements = [],
+        i = 0;
 
     window.loadPhoto = function(id) {
         photoId = id;
@@ -70,12 +74,35 @@
         $('.top .score_container #google-plus-connect').slideUp();
     };
 
+    window.loadPaneElements = function () {
+        if (window.map) {
+            photoPaneDomElement = $("#photo-pane");
+            photoPaneDomElement.html("");
+            for (i = 0; i < markers.length; i += 1) {
+                if (window.map.getBounds().contains(markers[i].getPosition())) {
+                    var newElementDiv = document.createElement("div");
+                    $(newElementDiv).addClass("element").click(function () {
+                        console.log(1);
+                    });
+                    var newImgElement = document.createElement("img");
+                    newImgElement.setAttribute("src", markers[i].thumb);
+                    newElementDiv.appendChild(newImgElement);
+                    photoPaneDomElement.append(newElementDiv);
+                }
+            }
+        }
+    };
+
     $(document).ready(function () {
         $('.top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 
         $('#open-photo-drawer').click(function (e) {
             e.preventDefault();
             openPhotoDrawer();
+        });
+
+        google.maps.event.addListener(window.map, 'bounds_changed', function () {
+            window.loadPaneElements();
         });
 
         $('#google-plus-login-button').click(function () {

@@ -5,7 +5,6 @@
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},
-                photoPaneDiv = $("#photo-pane"),
                 i,
                 markers = [],
                 p,
@@ -25,13 +24,13 @@
                 window.getMap();
             {% endif %}
 
-            var markerPaneElements = "";
             for (i in geotaggedPhotos) {
                 if (geotaggedPhotos.hasOwnProperty(i)) {
                     p = geotaggedPhotos[i];
                     var marker = new google.maps.Marker({
                         map: window.map,
                         id: p[0],
+                        thumb: p[1],
                         position: new google.maps.LatLng(p[3], p[2]),
                         zIndex: p[4] ? 1 : 0
                     });
@@ -41,12 +40,8 @@
                         });
                     })(p[0]);
                     markers.push(marker);
-                    var markerPaneElement = "<p>asd</p>";
-                    markerPaneElements += markerPaneElement;
                 }
             }
-            photoPaneDiv.innerHTML = markerPaneElements;
-            console.log(photoPaneDiv);
         }
         $(document).ready(initialize);
     </script>
@@ -106,9 +101,7 @@
             <div id="map_canvas" style="width: 100%; height: 100%"></div>
         </div>
         <div id="photo-pane-container">
-            <div id="photo-pane">
-                asd
-            </div>
+            <div id="photo-pane"></div>
         </div>
     </div>
     <div style="display: none;">
