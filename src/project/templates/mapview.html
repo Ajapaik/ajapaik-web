@@ -4,99 +4,50 @@
 {% block layout %}
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
-            geotaggedPhotos = {{ json_data|safe }},
-            i,
-            markers = [],
-            p,
-            thumb,
-            image,
-            clusterStyles,
-            markerCluster;
+                geotaggedPhotos = {{ json_data|safe }},
+                photoPaneDiv = $("#photo-pane"),
+                i,
+                markers = [],
+                p,
+                thumb,
+                image;
 
         function initialize() {
             {% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
-                window.getMap([
-                    {{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }},
-                    {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}],
+                window.getMap(
+                    [
+                        {{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }},
+                        {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}
+                    ],
                     13
                 );
             {% else %}
                 window.getMap();
             {% endif %}
 
+            var markerPaneElements = "";
             for (i in geotaggedPhotos) {
                 if (geotaggedPhotos.hasOwnProperty(i)) {
                     p = geotaggedPhotos[i];
-                    thumb = p[1];
-                    image = {
-                        url: thumb,
-                        anchor: new google.maps.Point(16, 16),
-                        scaledSize: new google.maps.Size(32, 32)
-                    };
-                    marker = new google.maps.Marker({
+                    var marker = new google.maps.Marker({
                         map: window.map,
                         id: p[0],
-                        thumb: thumb,
                         position: new google.maps.LatLng(p[3], p[2]),
-                        zIndex: p[4] ? 1 : 0,
-                        icon: image
+                        zIndex: p[4] ? 1 : 0
                     });
-
                     (function (id) {
                         google.maps.event.addListener(marker, "click", function () {
                             loadPhoto(id);
                         });
                     })(p[0]);
-
                     markers.push(marker);
+                    var markerPaneElement = "<p>asd</p>";
+                    markerPaneElements += markerPaneElement;
                 }
             }
-
-            clusterStyles = [
-                {
-                    textColor: "black",
-                    url: "/media/gfx/ajapaik_klaster_hall_38px.png",
-                    width: 38,
-                    height: 40
-                }
-            ];
-
-            markerCluster = new MarkerClusterer(map, markers, {
-                styles: clusterStyles,
-                gridSize: 50,
-                zoomOnClick: false
-            });
-
-            google.maps.event.addListener(markerCluster, "clusterclick", function (clickedCluster) {
-                var mapTypeRegistry = window.map.mapTypes,
-                    currentMapTypeId = window.map.getMapTypeId(),
-                    mapType = mapTypeRegistry.get(currentMapTypeId),
-                    canZoom = window.map.getZoom() < mapType.maxZoom,
-                    markers = clickedCluster.getMarkers(),
-                    browserContent = "",
-                    i = 0,
-                    isZooming = false,
-                    marker,
-                    photoBrowser = $("#photo_browser");
-                    for (marker in markers) {
-                        if (markers.hasOwnProperty(marker)) {
-                            if (canZoom && ++i > 20) {
-                                window.map.panTo(clickedCluster.getCenter());
-                                window.map.fitBounds(clickedCluster.getBounds());
-                                isZooming = true;
-                                break;
-                            }
-                            browserContent += "<div class='item" + (markers[marker].zIndex ? " hot'" : "'") + "><a href='/foto/" + markers[marker].id + "/' onclick='loadPhoto(" + markers[marker].id + ");$.modal.close();return false;'><img src='" + markers[marker].thumb + "' border='0' /></a></div>";
-                        }
-                    }
-                    if (isZooming === false) {
-                        photoBrowser.find("#browser_list").html(browserContent);
-                        photoBrowser.modal({overlayClose: true});
-                    }
-                }
-            );
+            photoPaneDiv.innerHTML = markerPaneElements;
+            console.log(photoPaneDiv);
         }
-
         $(document).ready(initialize);
     </script>
 
@@ -154,12 +105,13 @@
         <div class="map">
             <div id="map_canvas" style="width: 100%; height: 100%"></div>
         </div>
+        <div id="photo-pane-container">
+            <div id="photo-pane">
+                asd
+            </div>
+        </div>
     </div>
     <div style="display: none;">
-        <div id="photo_browser">
-            <div id="browser_list"></div>
-            <a style="clear:both;" href="javascript:void(0);" onclick="$.modal.close();">{% trans "Close" %}</a>
-        </div>
         <div id="leaderboard_browser">
             <div class="single">
                 <a style="position:absolute;top:5px;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">
@@ -171,7 +123,5 @@
             </div>
         </div>
     </div>
-
     <script type="text/javascript" src="{{ MEDIA_URL }}js/browse.js"></script>
-
 {% endblock layout %}

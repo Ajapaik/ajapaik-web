@@ -541,7 +541,7 @@ a.fullscreen {
 #browse .map {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 75%;
     height: 93%;
 }
 
@@ -1270,4 +1270,12 @@ a.btn.flip {
 
 #browse-flip-button {
     position: initial !important;
+}
+
+#photo-pane-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25%;
+    height: 93%;
 }
