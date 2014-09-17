@@ -1282,16 +1282,30 @@ a.btn.flip {
 }
 
 #photo-pane .element {
-    background-color: red;
+    background-color: white;
     width: 90%;
     margin: 5% auto 0;
     padding-top: 2%;
     padding-bottom: 2%;
     padding-left: 2%;
+    border-radius: 10px;
 }
 
 #photo-pane .element img {
     display: inline-block;
     vertical-align: middle;
     height: 100%;
+}
+
+#photo-pane .element p {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    left: 20%;
+}
+
+.selected-pane-element {
+    background-color: #1ba400 !important;
 }
