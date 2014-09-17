@@ -165,7 +165,6 @@ class Photo(models.Model):
 				filtered_rephotos_ids.append(p.rephoto_of.id)
 			zipped_rephotos = zip(filtered_rephotos_ids, filtered_rephotos)
 			rephotos = dict(zipped_rephotos)
-			#return len(rephotographed_ids), len(filtered_rephotos), len(filtered_rephotos_ids), len(zipped_rephotos), len(rephotos)
 			data = []
 			for p in self.filter(confidence__gte=0.3,
 								 lat__isnull=False, lon__isnull=False,

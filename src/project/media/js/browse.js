@@ -86,14 +86,14 @@
     };
 
     window.highlightSelected = function (markerId) {
-        console.log(markerId);
+        var targetPaneElement = $("#element" + markerId);
+        $("#photo-pane").find(".element").removeClass("selected-pane-element");
         for (i = 0; i < markers.length; i += 1) {
             if (markers[i].id == markerId) {
                 markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
-                $("#element" + markerId).addClass("selected-pane-element");
+                targetPaneElement.addClass("selected-pane-element");
             } else {
                 markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
-                $("#element" + markerId).removeClass("selected-pane-element");
             }
         }
     };
@@ -113,12 +113,10 @@
             }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
             var newImgElement = document.createElement("img");
             newImgElement.setAttribute("src", markers[i].thumb);
+            newImgElement.setAttribute("title", markers[i].description);
             newImgElement.setAttribute("data-id", markers[i].id);
             var newParagraphElement = document.createElement("p");
-            newParagraphElement.innerHTML = markers[i].description;
-            newParagraphElement.setAttribute("data-id", markers[i].id);
             newElementDiv.appendChild(newImgElement);
-            newElementDiv.appendChild(newParagraphElement);
             $("#photo-pane").append(newElementDiv);
         }
 
