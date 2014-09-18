@@ -102,6 +102,21 @@
         }
     };
 
+    window.flipPhoto = function (photoId) {
+        var photoElement = $("a[rel=" + photoId + "]").find("img"),
+            photoFullscreenElement = $("#full-large1").find("img");
+        if (photoElement.hasClass("flip-photo")) {
+            photoElement.removeClass("flip-photo");
+        } else {
+            photoElement.addClass("flip-photo");
+        }
+        if (photoFullscreenElement.hasClass("flip-photo")) {
+            photoFullscreenElement.removeClass("flip-photo");
+        } else {
+            photoFullscreenElement.addClass("flip-photo");
+        }
+    };
+
     $(document).ready(function () {
         $('.top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 
