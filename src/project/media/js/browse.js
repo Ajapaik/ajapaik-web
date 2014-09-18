@@ -82,7 +82,7 @@
                     currentElement.hide();
                 }
             }
-            $("#photo-pane-container").scroll();
+            window.lazyLoadImagesBasedOnScroll();
         }
     };
 
@@ -107,7 +107,19 @@
         if (fromMarker) {
             photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
         }
-        photoPaneContainer.scroll();
+        window.lazyLoadImagesBasedOnScroll();
+    };
+
+    window.lazyLoadImagesBasedOnScroll = function () {
+        var photoPaneContainer = $("#photo-pane-container");
+        $('img[realsrc]').each(function () {
+            var t = $(this),
+            container = t.parent();
+            if (container.position().top < (parseInt(photoPaneContainer.scrollTop()) + parseInt(photoPaneContainer.height()))) {
+                t.attr('src', t.attr('realsrc'));
+                t.removeAttr('realsrc');
+            }
+        });
     };
 
     window.flipPhoto = function (photoId) {
@@ -133,17 +145,8 @@
             openPhotoDrawer();
         });
 
-        var photoPaneContainer = $("#photo-pane-container");
         photoPaneContainer.scroll(function () {
-            $('img[realsrc]').each(function () {
-                var t = $(this),
-                    container = t.parent();
-                if (container.position().top < (parseInt(photoPaneContainer.scrollTop()) + parseInt(photoPaneContainer.height()))) {
-                    console.log(t);
-                    t.attr('src', t.attr('realsrc'));
-                    t.removeAttr('realsrc');
-                }
-            });
+            window.lazyLoadImagesBasedOnScroll();
         });
 
         if (typeof(markers) !== "undefined") {
