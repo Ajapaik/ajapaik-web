@@ -1295,7 +1295,8 @@ a.btn.flip {
 #photo-pane .element img {
     display: inline-block;
     vertical-align: middle;
-    height: 100%;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=) repeat-y;
+    height: 150px;
 }
 
 #photo-pane .element p {
