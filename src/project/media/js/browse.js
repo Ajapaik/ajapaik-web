@@ -107,6 +107,7 @@
         if (fromMarker) {
             photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
         }
+        photoPaneContainer.scroll();
     };
 
     window.flipPhoto = function (photoId) {
@@ -137,7 +138,8 @@
             $('img[realsrc]').each(function () {
                 var t = $(this),
                     container = t.parent();
-                if (container.position().top < (photoPaneContainer.scrollTop() + photoPaneContainer.height())) {
+                if (container.position().top < (parseInt(photoPaneContainer.scrollTop()) + parseInt(photoPaneContainer.height()))) {
+                    console.log(t);
                     t.attr('src', t.attr('realsrc'));
                     t.removeAttr('realsrc');
                 }
