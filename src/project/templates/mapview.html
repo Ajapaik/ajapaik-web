@@ -39,7 +39,7 @@
                     });
                     (function (id) {
                         google.maps.event.addListener(marker, "click", function () {
-                            highlightSelected(id);
+                            highlightSelected(id, true);
                         });
                     })(p[0]);
                     markers.push(marker);
