@@ -1317,3 +1317,8 @@ a.btn.flip {
 .selected-pane-element {
     border: 1px solid;
 }
+
+#simplemodal-container {
+    bottom: 0 !important;
+    right: 0 !important;
+}

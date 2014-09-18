@@ -44,7 +44,8 @@
         userFlippedPhoto = false,
         taxiData = [],
         pointArray,
-        heatmap;
+        heatmap,
+        playerMarker;
 
 
     function updateLeaderboard () {
@@ -450,15 +451,18 @@
                 }
                 noticeDiv.find(".message").text(message);
                 noticeDiv.find(".geotag-count-message").text(gettext("Amount of geotags for this photo") + ": " + resp["heatmap_points"].length);
-                noticeDiv.modal({escClose: false, position: ["70%", "70%"], minWidth: "400"});
+                noticeDiv.modal({escClose: false, autoPosition: false, modal: false});
                 disableContinue = false;
                 if (resp["heatmap_points"]) {
+                    var playerLatlng = new google.maps.LatLng(data.lat, data.lon);
+                    playerMarker = new google.maps.Marker({
+                        position: playerLatlng,
+                        map: window.map,
+                        title: gettext("Your guess")
+                    });
                     taxiData = [];
-                    var newMapBounds = new google.maps.LatLngBounds();
-                    newMapBounds.extend(new google.maps.LatLng(data.lat, data.lon));
                     for (var i = 0; i < resp["heatmap_points"].length; i += 1) {
                         taxiData.push(new google.maps.LatLng(resp["heatmap_points"][i][0], resp["heatmap_points"][i][1]));
-                        newMapBounds.extend(new google.maps.LatLng(resp["heatmap_points"][i][0], resp["heatmap_points"][i][1]));
                     }
                     pointArray = new google.maps.MVCArray(taxiData);
                     heatmap = new google.maps.visualization.HeatmapLayer({
@@ -466,7 +470,6 @@
                     });
                     heatmap.setOptions({radius: 50, dissipating: true});
                     heatmap.setMap(window.map);
-                    window.map.fitBounds(newMapBounds);
                 }
             }, 'json');
         }
@@ -611,6 +614,9 @@
                 heatmap.setMap(null);
             }
 
+            if (playerMarker) {
+                playerMarker.setMap(null);
+            }
 
             $.getJSON(streamUrl, $.extend({
                 'b': date.getTime()
