@@ -9,6 +9,7 @@
     var photoId,
         cityId,
         photoDrawerElement = $('#photo-drawer'),
+        photoPaneContainer = $("#photo-pane-container"),
         i = 0;
 
     window.loadPhoto = function(id) {
@@ -88,7 +89,6 @@
 
     window.highlightSelected = function (markerId, fromMarker) {
         var targetPaneElement = $("#element" + markerId);
-        var photoPaneContainer = $("#photo-pane-container");
         $("#photo-pane").find(".element").removeClass("selected-pane-element");
         for (i = 0; i < markers.length; i += 1) {
             if (markers[i].id == markerId) {
@@ -111,7 +111,6 @@
     };
 
     window.lazyLoadImagesBasedOnScroll = function () {
-        var photoPaneContainer = $("#photo-pane-container");
         $('img[realsrc]').each(function () {
             var t = $(this),
             container = t.parent();
