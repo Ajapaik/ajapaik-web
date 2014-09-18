@@ -108,26 +108,30 @@
             openPhotoDrawer();
         });
 
-        for (i = 0; i < markers.length; i += 1) {
-            var newElementDiv = document.createElement("div");
-            $(newElementDiv).addClass("element").click(function (e) {
-                window.highlightSelected(e.target.dataset.id);
-            }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
-            var newImgElement = document.createElement("img");
-            $(newImgElement).attr("src", markers[i].thumb).attr("title", markers[i].description)
-                .attr("data-id", markers[i].id);
-            var newButtonElement = document.createElement("a");
-            $(newButtonElement).addClass("btn green").click(function (e) {
-                window.loadPhoto(e.target.dataset.id);
-            }).attr("data-id", markers[i].id).attr("id", "button" + markers[i].id).html(gettext("Open photo")).hide();
-            newElementDiv.appendChild(newImgElement);
-            newElementDiv.appendChild(newButtonElement);
-            $("#photo-pane").append(newElementDiv);
+        if (typeof(markers) !== "undefined") {
+            for (i = 0; i < markers.length; i += 1) {
+                var newElementDiv = document.createElement("div");
+                $(newElementDiv).addClass("element").click(function (e) {
+                    window.highlightSelected(e.target.dataset.id);
+                }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
+                var newImgElement = document.createElement("img");
+                $(newImgElement).attr("src", markers[i].thumb).attr("title", markers[i].description)
+                    .attr("data-id", markers[i].id);
+                var newButtonElement = document.createElement("a");
+                $(newButtonElement).addClass("btn green").click(function (e) {
+                    window.loadPhoto(e.target.dataset.id);
+                }).attr("data-id", markers[i].id).attr("id", "button" + markers[i].id).html(gettext("Open photo")).hide();
+                newElementDiv.appendChild(newImgElement);
+                newElementDiv.appendChild(newButtonElement);
+                $("#photo-pane").append(newElementDiv);
+            }
         }
 
-        google.maps.event.addListener(window.map, 'bounds_changed', function () {
-            window.toggleVisiblePaneElements();
-        });
+        if (typeof(window.map) !== "undefined") {
+            google.maps.event.addListener(window.map, 'bounds_changed', function () {
+                window.toggleVisiblePaneElements();
+            });
+        }
 
         $('#google-plus-login-button').click(function () {
             _gaq.push(["_trackEvent", "Map", "Google+ login"]);
