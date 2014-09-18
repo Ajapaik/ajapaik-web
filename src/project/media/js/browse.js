@@ -156,7 +156,7 @@
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("realsrc", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=").attr("height", "150px").attr("width", "300px");
+                    .attr("data-id", markers[i].id).attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=").attr("height", "150px");
                 var newButtonElement = document.createElement("a");
                 $(newButtonElement).addClass("btn green").click(function (e) {
                     window.loadPhoto(e.target.dataset.id);
