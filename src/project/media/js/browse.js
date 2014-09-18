@@ -88,11 +88,11 @@
     window.highlightSelected = function (markerId) {
         var targetPaneElement = $("#element" + markerId);
         var photoPaneContainer = $("#photo-pane-container");
-        $("#photo-pane").find(".element").removeClass("selected-pane-element");
+        $("#photo-pane").find(".btn").hide();
         for (i = 0; i < markers.length; i += 1) {
             if (markers[i].id == markerId) {
                 markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
-                targetPaneElement.addClass("selected-pane-element");
+                targetPaneElement.find("#button" + markerId).show();
             } else {
                 markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
             }
@@ -114,10 +114,14 @@
                 window.highlightSelected(e.target.dataset.id);
             }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
             var newImgElement = document.createElement("img");
-            newImgElement.setAttribute("src", markers[i].thumb);
-            newImgElement.setAttribute("title", markers[i].description);
-            newImgElement.setAttribute("data-id", markers[i].id);
+            $(newImgElement).attr("src", markers[i].thumb).attr("title", markers[i].description)
+                .attr("data-id", markers[i].id);
+            var newButtonElement = document.createElement("a");
+            $(newButtonElement).addClass("btn green").click(function (e) {
+                window.loadPhoto(e.target.dataset.id);
+            }).attr("data-id", markers[i].id).attr("id", "button" + markers[i].id).html(gettext("Open photo")).hide();
             newElementDiv.appendChild(newImgElement);
+            newElementDiv.appendChild(newButtonElement);
             $("#photo-pane").append(newElementDiv);
         }
 

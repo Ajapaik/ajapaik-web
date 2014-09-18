@@ -1306,6 +1306,10 @@ a.btn.flip {
     left: 20%;
 }
 
-.selected-pane-element {
-    background-color: #1ba400 !important;
+#photo-pane .element .btn {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    position: relative;
+    left: 5%;
 }
