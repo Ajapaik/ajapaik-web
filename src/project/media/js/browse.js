@@ -134,10 +134,13 @@
         var photoPaneContainer = $("#photo-pane-container");
         photoPaneContainer.scroll(function () {
             $('img[realsrc]').each(function () {
-                var t = $(this);
-                if (t.position().top > ($(window).scrollTop() + $(window).height())) {
-                    t.attr('src', t.attr('realsrc'));
-                    t.removeAttr('realsrc');
+                var t = $(this).parent();
+                if (t.position().top < (photoPaneContainer.scrollTop() + photoPaneContainer.height())) {
+                    console.log(t);
+                    console.log(t.position().top);
+                    console.log(photoPaneContainer.scrollTop() + photoPaneContainer.height());
+                    t.find("img").attr('src', t.attr('realsrc'));
+                    t.find("img").removeAttr('realsrc');
                 }
             });
         });
