@@ -82,6 +82,7 @@
                     currentElement.hide();
                 }
             }
+            $("#photo-pane-container").scroll();
         }
     };
 
