@@ -92,9 +92,15 @@
         for (i = 0; i < markers.length; i += 1) {
             if (markers[i].id == markerId) {
                 markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+                if (markers[i].zIndex <= 1) {
+                    markers[i].setZIndex(markers[i].zIndex + 1);
+                }
                 targetPaneElement.addClass("selected-pane-element");
             } else {
                 markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+                if (markers[i].zIndex > 1) {
+                    markers[i].setZIndex(1);
+                }
             }
         }
         if (fromMarker) {
@@ -125,6 +131,16 @@
             openPhotoDrawer();
         });
 
+        $(window).scroll(function () {
+            $('img[realsrc]').each(function () {
+                var t = $(this);
+                if (t.position().top > ($(window).scrollTop() + $(window).height())) {
+                    t.attr('src', t.attr('realsrc'));
+                    t.removeAttr('realsrc');
+                }
+            });
+        });
+
         if (typeof(markers) !== "undefined") {
             for (i = 0; i < markers.length; i += 1) {
                 var newElementDiv = document.createElement("div");
@@ -132,7 +148,7 @@
                     window.highlightSelected(e.target.dataset.id, false);
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
-                $(newImgElement).attr("src", markers[i].thumb).attr("title", markers[i].description)
+                $(newImgElement).attr("realsrc", markers[i].thumb).attr("title", markers[i].description)
                     .attr("data-id", markers[i].id);
                 var newButtonElement = document.createElement("a");
                 $(newButtonElement).addClass("btn green").click(function (e) {
