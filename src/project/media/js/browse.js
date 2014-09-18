@@ -131,7 +131,8 @@
             openPhotoDrawer();
         });
 
-        $(window).scroll(function () {
+        var photoPaneContainer = $("#photo-pane-container");
+        photoPaneContainer.scroll(function () {
             $('img[realsrc]').each(function () {
                 var t = $(this);
                 if (t.position().top > ($(window).scrollTop() + $(window).height())) {
