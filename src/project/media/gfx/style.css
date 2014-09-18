@@ -1289,6 +1289,7 @@ a.btn.flip {
     padding-bottom: 2%;
     padding-left: 2%;
     border-radius: 10px;
+    position: relative;
 }
 
 #photo-pane .element img {
@@ -1307,9 +1308,11 @@ a.btn.flip {
 }
 
 #photo-pane .element .btn {
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-    position: relative;
-    left: 5%;
+    position: absolute;
+    bottom: 5%;
+    right: 2%;
+}
+
+.selected-pane-element {
+    border: 1px solid;
 }
