@@ -582,7 +582,7 @@ def get_leaderboard(request):
 
 def geotag_add(request):
     data = request.POST
-    is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain = get_next_photos_to_geotag.submit_guess(
+    is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain, heatmap_points = get_next_photos_to_geotag.submit_guess(
         request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'),
         hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'))
     flip = data.get("flip", None)
@@ -598,13 +598,14 @@ def geotag_add(request):
         flip_feedback.save()
 
     return HttpResponse(json.dumps({
-    'is_correct': is_correct,
-    'current_score': current_score,
-    'total_score': total_score,
-    'leaderboard_update': leaderboard_update,
-    'location_is_unclear': location_is_unclear,
-    'azimuth_false': azimuth_false,
-    'azimuth_uncertain': azimuth_uncertain
+		'is_correct': is_correct,
+		'current_score': current_score,
+		'total_score': total_score,
+		'leaderboard_update': leaderboard_update,
+		'location_is_unclear': location_is_unclear,
+		'azimuth_false': azimuth_false,
+		'azimuth_uncertain': azimuth_uncertain,
+		'heatmap_points': heatmap_points
     }), mimetype="application/json")
 
 

@@ -179,7 +179,12 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 	if this_guess_score:
 		leaderboard = get_leaderboard(user.pk)
 
-	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain
+	all_geotags_latlng_for_this_photo = GeoTag.objects.filter(photo_id=photo_id).values_list("lat", "lon")
+	converted_from_tuple_form = []
+	for latlng_tuple in all_geotags_latlng_for_this_photo:
+		converted_from_tuple_form.append([latlng_tuple[0], latlng_tuple[1]])
+
+	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain, converted_from_tuple_form
 
 #
 # DEPRICATED see models.Photo

@@ -41,7 +41,10 @@
         azimuthListenerActive = true,
         firstDragDone = false,
         saveDirection = false,
-        userFlippedPhoto = false;
+        userFlippedPhoto = false,
+        taxiData = [],
+        pointArray,
+        heatmap;
 
 
     function updateLeaderboard () {
@@ -419,6 +422,7 @@
                     hide_feedback = false;
                 if (resp['is_correct'] == true) {
                     message = gettext('Looks right!');
+                    hide_feedback = false;
                     _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
                     if (resp['azimuth_false']) {
                         message = gettext('The location seems right, but not the azimuth.');
@@ -445,8 +449,25 @@
                     noticeDiv.find("#difficulty-form").hide();
                 }
                 noticeDiv.find(".message").text(message);
-                noticeDiv.modal({escClose: false});
+                noticeDiv.find(".geotag-count-message").text(gettext("Amount of geotags for this photo") + ": " + resp["heatmap_points"].length);
+                noticeDiv.modal({escClose: false, position: ["70%", "70%"], minWidth: "400"});
                 disableContinue = false;
+                if (resp["heatmap_points"]) {
+                    taxiData = [];
+                    var newMapBounds = new google.maps.LatLngBounds();
+                    newMapBounds.extend(new google.maps.LatLng(data.lat, data.lon));
+                    for (var i = 0; i < resp["heatmap_points"].length; i += 1) {
+                        taxiData.push(new google.maps.LatLng(resp["heatmap_points"][i][0], resp["heatmap_points"][i][1]));
+                        newMapBounds.extend(new google.maps.LatLng(resp["heatmap_points"][i][0], resp["heatmap_points"][i][1]));
+                    }
+                    pointArray = new google.maps.MVCArray(taxiData);
+                    heatmap = new google.maps.visualization.HeatmapLayer({
+                        data: pointArray
+                    });
+                    heatmap.setOptions({radius: 50, dissipating: true});
+                    heatmap.setMap(window.map);
+                    window.map.fitBounds(newMapBounds);
+                }
             }, 'json');
         }
 
@@ -585,6 +606,11 @@
         function loadPhotos(next) {
             var date = new Date(); // IE needs a different URL, sending seconds
             var qs = URI.parseQuery(window.location.search);
+
+            if (heatmap) {
+                heatmap.setMap(null);
+            }
+
 
             $.getJSON(streamUrl, $.extend({
                 'b': date.getTime()
