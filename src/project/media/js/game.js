@@ -3,16 +3,20 @@
     /*jslint nomen: true*/
     /*global google */
     /*global leaderboardUpdateURL */
+    /*global flipFeedbackURL */
+    /*global saveLocationURL */
+    /*global leaderboardFullURL */
     /*global start_location */
     /*global city_id */
-    /*global map */
-    /*global saveLocationURL */
     /*global _gaq */
     /*global gettext */
-    /*global leaderboardFullURL */
     /*global language_code */
     /*global FB */
     /*global isMobile */
+    /*global $ */
+    /*global URI */
+
+    // TODO: Sort global functionality into init.js, specific into game.js and browse.js respectively
 
     var photos = [],
         gameOffset = 0,
@@ -22,61 +26,226 @@
         hintUsed = 0,
         mediaUrl = '',
         streamUrl = '/stream/',
+        difficultyFeedbackURL = '/difficulty_feedback/',
         disableNext = false,
         disableSave = true,
         disableContinue = true,
         locationToolsOpen = false,
         mobileMapMinimized = false,
-        infowindow = undefined,
-        photosDiv = undefined,
-        noticeDiv = undefined,
-        topDiv = undefined,
-        lat = undefined,
-        lon = undefined,
+        infowindow,
+        photosDiv,
+        noticeDiv,
+        lat,
+        lon,
         relativeVector = {},
-        radianAngle = undefined,
-        degreeAngle = undefined,
+        radianAngle,
+        degreeAngle,
         azimuthListenerActive = true,
         firstDragDone = false,
-        saveDirection = false;
+        saveDirection = false,
+        userFlippedPhoto = false,
+        taxiData = [],
+        pointArray,
+        heatmap,
+        playerMarker,
+        mapClickListenerFunction,
+        mapDragstartListenerFunction,
+        mapIdleListenerFunction,
+        mapMousemoveListenerFunction,
+        mapClickListenerActive,
+        mapDragstartListenerActive,
+        mapIdleListenerActive,
+        mapMousemoveListenerActive,
+        reCalculateAzimuthOfMouseAndMarker,
+        updateLeaderboard,
+        marker,
+        location,
+        dottedLineSymbol,
+        line,
+        lastTriggeredWheeling,
+        now,
+        realMapElement,
+        wheelEventFF,
+        wheelEventNonFF,
+        toggleTouchPhotoView,
+        i,
+        playerLatlng;
 
-    function update_leaderboard () {
+    updateLeaderboard = function () {
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
-    }
+    };
+
+    reCalculateAzimuthOfMouseAndMarker = function (e) {
+        relativeVector.x = e.latLng.lat() - marker.position.lat();
+        relativeVector.y = e.latLng.lng() - marker.position.lng();
+        radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
+        degreeAngle = radianAngle * (180 / Math.PI);
+        if (degreeAngle < 0) {
+            degreeAngle += 360;
+        }
+    };
+
+    toggleTouchPhotoView = function () {
+        if (isMobile && locationToolsOpen) {
+            if (mobileMapMinimized) {
+                $('#tools').css({left: '15%'});
+                mobileMapMinimized = false;
+            } else {
+                var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
+                $('#tools').css({left: photoWidthPercent + '%'});
+                mobileMapMinimized = true;
+            }
+        }
+    };
+
+    mapClickListenerFunction = function (e) {
+        if (infowindow !== undefined) {
+            infowindow.close();
+            infowindow = undefined;
+        }
+        if (mobileMapMinimized) {
+            toggleTouchPhotoView();
+        }
+        reCalculateAzimuthOfMouseAndMarker(e);
+        if (azimuthListenerActive) {
+            mapMousemoveListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'mousemove');
+            saveDirection = true;
+            $("#save-location").text(gettext('Save location and direction')).removeClass("medium").addClass("green");
+            line.icons[0].repeat = '2px';
+            line.setPath([marker.position, e.latLng]);
+            line.setVisible(true);
+        } else {
+            if (!mapMousemoveListenerActive) {
+                google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                mapMousemoveListenerActive = true;
+                google.maps.event.trigger(window.map, "mousemove", e);
+            }
+        }
+        azimuthListenerActive = !azimuthListenerActive;
+    };
+
+    mapMousemoveListenerFunction = function (e) {
+        // The mouse is moving, therefore we haven't locked on a direction
+        $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
+        saveDirection = false;
+        reCalculateAzimuthOfMouseAndMarker(e);
+        if (!isMobile) {
+            line.setPath([marker.position, e.latLng]);
+            line.icons = [
+                {icon: dottedLineSymbol, offset: '0', repeat: '7px'}
+            ];
+            line.setVisible(true);
+        } else {
+            line.setVisible(false);
+        }
+    };
+
+    mapIdleListenerFunction = function () {
+        if (firstDragDone) {
+            marker.position = window.map.center;
+            azimuthListenerActive = true;
+            if (!mapMousemoveListenerActive) {
+                google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                mapMousemoveListenerActive = true;
+            }
+
+        }
+    };
+
+    mapDragstartListenerFunction = function () {
+        if (mobileMapMinimized) {
+            toggleTouchPhotoView();
+        }
+        line.setVisible(false);
+        if (infowindow !== undefined) {
+            infowindow.close();
+            infowindow = undefined;
+        }
+        $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
+        azimuthListenerActive = false;
+        line.setVisible(false);
+        mapMousemoveListenerActive = false;
+        google.maps.event.clearListeners(window.map, 'mousemove');
+    };
+
+    // Our own custom zooming functions to fix the otherwise laggy zooming
+    wheelEventFF = function (e) {
+        now = new Date().getTime();
+        if (!lastTriggeredWheeling) {
+            lastTriggeredWheeling = now - 250;
+        }
+        if (now - 250 > lastTriggeredWheeling) {
+            lastTriggeredWheeling = now;
+            if (e.detail > 0) {
+                if (window.map.zoom < 18) {
+                    window.map.setZoom(window.map.zoom + 1);
+                }
+            } else {
+                if (window.map.zoom > 14) {
+                    window.map.setZoom(window.map.zoom - 1);
+                }
+            }
+        }
+    };
+
+    wheelEventNonFF = function (e) {
+        now = new Date().getTime();
+        if (!lastTriggeredWheeling) {
+            lastTriggeredWheeling = now - 100;
+        }
+        if (now - 100 > lastTriggeredWheeling) {
+            lastTriggeredWheeling = now;
+            if (e.wheelDelta > 0) {
+                if (window.map.zoom < 18) {
+                    window.map.setZoom(window.map.zoom + 1);
+                }
+            } else {
+                if (window.map.zoom > 14) {
+                    window.map.setZoom(window.map.zoom - 1);
+                }
+            }
+        }
+    };
+
+    window.flipPhoto = function () {
+        userFlippedPhoto = !userFlippedPhoto;
+        var photoElement = $(".photo" + (currentPhotoIdx - 1)).find("img"),
+            photoFullscreenElement = $("#game-full" + photos[currentPhotoIdx - 1].id).find("img");
+        if (photoElement.hasClass("flip-photo")) {
+            photoElement.removeClass("flip-photo");
+        } else {
+            photoElement.addClass("flip-photo");
+        }
+        if (photoFullscreenElement.hasClass("flip-photo")) {
+            photoFullscreenElement.removeClass("flip-photo");
+        } else {
+            photoFullscreenElement.addClass("flip-photo");
+        }
+    };
 
     $(document).ready(function () {
-        update_leaderboard();
+        updateLeaderboard();
 
         loadPhotos();
 
-        var location = new google.maps.LatLng(start_location[1], start_location[0]);
+        location = new google.maps.LatLng(start_location[1], start_location[0]);
 
-        function reCalculateAzimuthOfMouseAndMarker (e) {
-            relativeVector.x = e.latLng.lat() - marker.position.lat();
-            relativeVector.y = e.latLng.lng() - marker.position.lng();
-            radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
-            degreeAngle = radianAngle * (180 / Math.PI);
-            if (degreeAngle < 0) {
-              degreeAngle += 360;
-            }
-        }
-
-        // Will load the base map layer and return it
         if (city_id) {
-            map = get_map(start_location, 15, true);
+            window.getMap(start_location, 15, true);
         } else {
-            map = get_map(undefined, undefined, true);
+            window.getMap(undefined, undefined, true);
         }
 
-        // To support touchscreens, we have an invisible marker underneath a fake one
-        var marker = new google.maps.Marker({
-            map: map,
+        // To support touchscreens, we have an invisible marker underneath a fake one (otherwise it's laggy)
+        marker = new google.maps.Marker({
+            map: window.map,
             draggable: false,
             position: location,
             visible: false
         });
 
-        var dottedLineSymbol = {
+        dottedLineSymbol = {
             path: google.maps.SymbolPath.CIRCLE,
             strokeOpacity: 1,
             strokeWeight: 1.5,
@@ -84,126 +253,37 @@
             scale: 0.75
         };
 
-        var line = new google.maps.Polyline({
+        line = new google.maps.Polyline({
             geodesic: true,
             strokeOpacity: 0,
-            icons: [{
-                icon: dottedLineSymbol,
-                offset: '0',
-                repeat: '7px'
-            }],
+            icons: [
+                {
+                    icon: dottedLineSymbol,
+                    offset: '0',
+                    repeat: '7px'
+                }
+            ],
             visible: false,
-            map: map,
+            map: window.map,
             clickable: false
         });
 
-        marker.bindTo('position', map, 'center');
+        marker.bindTo('position', window.map, 'center');
 
-        var lastTriggeredWheeling,
-            now;
+        realMapElement = $("#map_canvas")[0];
+        realMapElement.addEventListener('mousewheel', wheelEventNonFF, true);
+        realMapElement.addEventListener('DOMMouseScroll', wheelEventFF, true);
 
-        function wheelEventFF(e) {
-            now = new Date().getTime();
-            if (!lastTriggeredWheeling) {
-                lastTriggeredWheeling = now - 100;
-            }
-            if (now - 100 > lastTriggeredWheeling) {
-                lastTriggeredWheeling = now;
-                if (e.detail > 0) {
-                    if (map.zoom < 18) {
-                        map.setZoom(map.zoom + 1);
-                    }
-                } else {
-                    if (map.zoom > 14) {
-                        map.setZoom(map.zoom - 1);
-                    }
-                }
-            }
-        }
+        mapClickListenerActive = true;
+        google.maps.event.addListener(window.map, 'click', mapClickListenerFunction);
+        mapIdleListenerActive = true;
+        google.maps.event.addListener(window.map, 'idle', mapIdleListenerFunction);
+        mapDragstartListenerActive = true;
+        google.maps.event.addListener(window.map, 'dragstart', mapDragstartListenerFunction);
 
-        function wheelEventNonFF(e) {
-            now = new Date().getTime();
-            if (!lastTriggeredWheeling) {
-                lastTriggeredWheeling = now - 100;
-            }
-            if (now - 100 > lastTriggeredWheeling) {
-                lastTriggeredWheeling = now;
-                if (e.wheelDelta > 0) {
-                    if (map.zoom < 18) {
-                        map.setZoom(map.zoom + 1);
-                    }
-                } else {
-                    if (map.zoom > 14) {
-                        map.setZoom(map.zoom - 1);
-                    }
-                }
-            }
-        }
-
-        var realMapElement = $("#map_canvas")[0];
-        realMapElement.addEventListener( 'mousewheel', wheelEventNonFF, true );
-        realMapElement.addEventListener( 'DOMMouseScroll', wheelEventFF, true );
-
-        google.maps.event.addListener(map, 'click', function (e) {
-            if (infowindow !== undefined) {
-                infowindow.close();
-                infowindow = undefined;
-            }
-            reCalculateAzimuthOfMouseAndMarker(e);
-            if (azimuthListenerActive) {
-                google.maps.event.clearListeners(map, 'mousemove');
-                saveDirection = true;
-                $("#save-location").text(gettext('Save location and direction')).removeClass("medium").addClass("green");
-                line.icons[0].repeat = '2px';
-                line.setPath([marker.position, e.latLng]);
-                line.setVisible(true);
-            } else {
-                addMouseMoveListener();
-                google.maps.event.trigger(map, "mousemove", e);
-            }
-            azimuthListenerActive = !azimuthListenerActive;
-        });
-
-        function addMouseMoveListener () {
-            google.maps.event.addListener(map, 'mousemove', function (e) {
-                // The mouse is moving, therefore we haven't locked on a direction
-                $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
-                saveDirection = false;
-                reCalculateAzimuthOfMouseAndMarker(e);
-                if (!isMobile) {
-                    line.setPath([marker.position, e.latLng]);
-                    line['icons'] = [{icon: dottedLineSymbol, offset: '0', repeat: '7px'}];
-                    line.setVisible(true);
-                } else {
-                    line.setVisible(false);
-                }
-            });
-        }
-
-        google.maps.event.addListener(map, 'idle', function () {
-            if (firstDragDone) {
-                marker.position = map.center;
-                azimuthListenerActive = true;
-                addMouseMoveListener();
-            }
-        });
-
-        google.maps.event.addListener(map, 'dragstart', function () {
-            line.setVisible(false);
-            if (infowindow !== undefined) {
-                infowindow.close();
-                infowindow = undefined;
-            }
-            $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
-            azimuthListenerActive = false;
-            line.setVisible(false);
-            google.maps.event.clearListeners(map, 'mousemove');
-        });
-
-        google.maps.event.addListener(map, 'drag', function () {
+        google.maps.event.addListener(window.map, 'drag', function () {
             firstDragDone = true;
         });
-
         google.maps.event.addListener(marker, 'position_changed', function () {
             disableSave = false;
         });
@@ -222,8 +302,8 @@
                     infowindow.close();
                     infowindow = undefined;
                 }
-                marker.setMap(map);
-                marker.setPosition(map.getCenter());
+                marker.setMap(window.map);
+                marker.setPosition(window.map.getCenter());
             } else {
                 // Otherwise open tools
                 $('#open-location-tools').click();
@@ -234,6 +314,8 @@
             // Save location only if Tools open and no result window
             if (locationToolsOpen && disableContinue) {
                 $('#save-location').click();
+            } else {
+                continueGame();
             }
         });
 
@@ -270,11 +352,11 @@
         });
 
         $('#google-plus-login-button').click(function () {
-             _gaq.push(["_trackEvent", "Game", "Google+ login"]);
+            _gaq.push(["_trackEvent", "Game", "Google+ login"]);
         });
 
         $('#logout-button').click(function () {
-             _gaq.push(["_trackEvent", "Game", "Logout"]);
+            _gaq.push(["_trackEvent", "Game", "Logout"]);
         });
 
         $('#continue-game').click(function (e) {
@@ -287,7 +369,7 @@
             e.preventDefault();
             if (disableSave) {
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
-                alert(gettext('Point the marker to where the picture was taken from.'));
+                alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
                 saveLocation();
                 if (saveDirection) {
@@ -323,27 +405,16 @@
         });
 
         photosDiv.hoverIntent(function () {
-            if (locationToolsOpen == true && !isMobile) {
+            if (locationToolsOpen === true && !isMobile) {
                 showPhotos();
             }
         }, function () {
-            if (locationToolsOpen == true && !isMobile) {
+            if (locationToolsOpen === true && !isMobile) {
                 hidePhotos();
             }
         });
 
-        photosDiv.find('img').live('click', function () {
-            if (isMobile && locationToolsOpen) {
-                if (mobileMapMinimized) {
-                    $('#tools').css({left: '15%'});
-                    mobileMapMinimized = false;
-                } else {
-                    var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
-                    $('#tools').css({left: photoWidthPercent + '%'});
-                    mobileMapMinimized = true;
-                }
-            }
-        });
+        photosDiv.find('img').live('click', toggleTouchPhotoView);
 
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
@@ -359,12 +430,10 @@
             lat = marker.getPosition().lat();
             lon = marker.getPosition().lng();
 
-            if (photos)
-
             var data = {
                 photo_id: photos[currentPhotoIdx - 1].id,
                 hint_used: hintUsed,
-                zoom_level: map.zoom
+                zoom_level: window.map.zoom
             };
 
             if (saveDirection) {
@@ -376,11 +445,17 @@
                 data['lon'] = lon;
             }
 
+            if (userFlippedPhoto) {
+                data['flip'] = !photos[currentPhotoIdx - 1].flip;
+            }
+
             $.post(saveLocationURL, data, function (resp) {
-                update_leaderboard();
-                var message = '';
+                updateLeaderboard();
+                var message = '',
+                    hide_feedback = false;
                 if (resp['is_correct'] == true) {
                     message = gettext('Looks right!');
+                    hide_feedback = false;
                     _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
                     if (resp['azimuth_false']) {
                         message = gettext('The location seems right, but not the azimuth.');
@@ -396,14 +471,57 @@
                     _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
                 } else if (resp['is_correct'] == false) {
                     message = gettext('We doubt about it.');
+                    hide_feedback = true;
                     _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
                 } else {
                     message = gettext('Your guess was first.');
                 }
                 noticeDiv = $("#notice");
+                if (hide_feedback) {
+                    noticeDiv.find(".difficulty-message").hide();
+                    noticeDiv.find("#difficulty-form").hide();
+                }
                 noticeDiv.find(".message").text(message);
-                noticeDiv.modal({escClose: false});
+                noticeDiv.find(".geotag-count-message").text(gettext("Amount of geotags for this photo") + ": " + resp["heatmap_points"].length);
+                noticeDiv.find(".azimuth-count-message").text(gettext("Amount of azimuths for this photo") + ": " + resp["azimuth_tags"]);
+                noticeDiv.modal({escClose: false, autoPosition: false, modal: false});
                 disableContinue = false;
+                if (resp.heatmap_points) {
+                    marker.setMap(null);
+                    $(".center-marker").hide();
+                    mapMousemoveListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'mousemove');
+                    mapIdleListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'idle');
+                    mapClickListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'click');
+                    mapDragstartListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'dragstart');
+                    playerLatlng = new google.maps.LatLng(data.lat, data.lon);
+                    var markerImage = {
+                        url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(8, 8),
+                        scaledSize: new google.maps.Size(16, 16)
+                    };
+                    playerMarker = new google.maps.Marker({
+                        position: playerLatlng,
+                        map: window.map,
+                        title: gettext("Your guess"),
+                        draggable: false,
+                        icon: markerImage
+                    });
+                    taxiData = [];
+                    for (i = 0; i < resp.heatmap_points.length; i += 1) {
+                        taxiData.push(new google.maps.LatLng(resp.heatmap_points[i][0], resp.heatmap_points[i][1]));
+                    }
+                    pointArray = new google.maps.MVCArray(taxiData);
+                    heatmap = new google.maps.visualization.HeatmapLayer({
+                        data: pointArray
+                    });
+                    heatmap.setOptions({radius: 50, dissipating: true});
+                    heatmap.setMap(window.map);
+                }
             }, 'json');
         }
 
@@ -411,7 +529,7 @@
             disableNext = true;
             if (infowindow !== undefined) {
                 // Show info window when the map is opened the first time
-                infowindow.open(map, marker);
+                infowindow.open(window.map, marker);
             }
 
             $('#tools').animate({ left: '15%' }, function () {
@@ -423,6 +541,12 @@
         }
 
         function continueGame() {
+            var data = {
+                level: $('input[name=difficulty]:checked', '#difficulty-form').val(),
+                photo_id: photos[currentPhotoIdx - 1].id
+            };
+            $.post(difficultyFeedbackURL, data, function () {
+            });
             $.modal.close();
             closeLocationTools(1);
             disableContinue = true;
@@ -432,11 +556,11 @@
             locationToolsOpen = false;
             $('#photos').animate({ left: gameOffset });
             $('#tools').animate({ left: '100%' }, function () {
-                var panorama = map.getStreetView();
+                var panorama = window.map.getStreetView();
                 panorama.setVisible(false);
                 disableNext = false;
                 $('#open-location-tools').fadeIn();
-                if (next == 1) {
+                if (parseInt(next) === 1) {
                     nextPhoto();
                 }
             });
@@ -463,20 +587,6 @@
             $('#nothing-more-to-show').show();
         }
 
-        function showScoreboard() {
-            topDiv = $('#top');
-            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideDown();
-            topDiv.find('.score_container #facebook-connect').slideDown();
-            topDiv.find('.score_container #google-plus-connect').slideDown();
-        }
-
-        function hideScoreboard() {
-            topDiv = $('#top');
-            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideUp();
-            topDiv.find('.score_container #facebook-connect').slideUp();
-            topDiv.find('.score_container #google-plus-connect').slideUp();
-        }
-
         function showDescription() {
             $(currentPhoto).find('.show-description').fadeOut(function () {
                 $(this).parent().find('.description').fadeIn();
@@ -487,8 +597,9 @@
             hintUsed = 0;
             disableSave = true;
             azimuthListenerActive = false;
-            map.setZoom(16);
-            google.maps.event.clearListeners(map, 'mousemove');
+            window.map.setZoom(16);
+            mapMousemoveListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'mousemove');
             if (line !== undefined) {
                 line.setVisible(false);
             }
@@ -496,8 +607,8 @@
             if (photos.length > currentPhotoIdx) {
                 disableNext = true;
 
-                $('.skip-photo').animate({ 'opacity': .4 });
-                $(currentPhoto).find('img').animate({ 'opacity': .4 });
+                $('.skip-photo').animate({ 'opacity': 0.4 });
+                $(currentPhoto).find('img').animate({ 'opacity': 0.4 });
                 $(currentPhoto).find('.show-description').hide();
 
                 photosDiv = $('#photos');
@@ -506,21 +617,21 @@
                 currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
 
                 $(currentPhoto).append(
-                        '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
+                    '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><a onclick="window.flipPhoto();" class="btn flip" href="#" class="btn medium"></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
                 ).find('img').load(function () {
-                        currentPhoto.css({ 'visibility': 'visible' });
-                        $(this).fadeIn('slow', function () {
-                            gameWidth += $(currentPhoto).width();
-                            $('#photos').width(gameWidth);
-                            scrollPhotos();
-                        });
+                    currentPhoto.css({ 'visibility': 'visible' });
+                    $(this).fadeIn('slow', function () {
+                        gameWidth += $(currentPhoto).width();
+                        $('#photos').width(gameWidth);
+                        scrollPhotos();
                     });
+                });
                 if (typeof FB !== 'undefined') {
                     FB.XFBML.parse();
                 }
-                $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
+                $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
                 prepareFullscreen();
-                currentPhotoIdx++;
+                currentPhotoIdx += 1;
             } else {
                 loadPhotos(1);
             }
@@ -534,9 +645,55 @@
             });
         }
 
+        function showScoreboard() {
+            var topDiv = $('#top');
+            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideDown();
+            topDiv.find('.score_container #facebook-connect').slideDown();
+            topDiv.find('.score_container #google-plus-connect').slideDown();
+        }
+
+        function hideScoreboard() {
+            var topDiv = $('#top');
+            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideUp();
+            topDiv.find('.score_container #facebook-connect').slideUp();
+            topDiv.find('.score_container #google-plus-connect').slideUp();
+        }
+
         function loadPhotos(next) {
-            var date = new Date(); // IE needs a different URL, sending seconds
-            var qs = URI.parseQuery(window.location.search);
+            // IE needs a different URL, sending seconds
+            var date = new Date(),
+                qs = URI.parseQuery(window.location.search);
+            if (marker) {
+                marker.setMap(window.map);
+                $(".center-marker").show();
+            }
+
+            if (window.map) {
+                if (!mapClickListenerActive) {
+                    google.maps.event.addListener(window.map, 'click', mapClickListenerFunction);
+                    mapClickListenerActive = true;
+                }
+                if (!mapIdleListenerActive) {
+                    google.maps.event.addListener(window.map, 'idle', mapIdleListenerFunction);
+                    mapIdleListenerActive = true;
+                }
+                if (!mapDragstartListenerActive) {
+                    google.maps.event.addListener(window.map, 'dragstart', mapDragstartListenerFunction);
+                    mapDragstartListenerActive = true;
+                }
+                if (!mapMousemoveListenerActive) {
+                    google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                    mapMousemoveListenerActive = true;
+                }
+            }
+
+            if (heatmap) {
+                heatmap.setMap(null);
+            }
+
+            if (playerMarker) {
+                playerMarker.setMap(null);
+            }
 
             $.getJSON(streamUrl, $.extend({
                 'b': date.getTime()
@@ -552,5 +709,5 @@
                 }
             });
         }
-    })
+    });
 }());

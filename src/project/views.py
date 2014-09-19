@@ -2,37 +2,31 @@
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib import messages
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User as BaseUser
 from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 
-from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 
-from project.models import Photo, City, Profile, Source, Device, GeoTag
-from project.forms import GeoTagAddForm, CitySelectForm
+from project.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback
+from project.forms import CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from PIL.ExifTags import TAGS, GPSTAGS
-from time import gmtime, strftime, strptime
+from time import strftime, strptime
 from StringIO import StringIO
 from copy import deepcopy
-
-from pprint import pprint
-from django.db import models
 
 import get_next_photos_to_geotag
 import random
 import datetime
 import urllib
-import ExifTags
 
 from django.forms.forms import Form
 from django.forms.fields import ChoiceField
@@ -54,6 +48,7 @@ def _convert_to_degress(value):
 
 	return d + (m / 60.0) + (s / 3600.0)
 
+
 def _get_exif_data(img):
 	try:
 		exif = img._getexif()
@@ -68,7 +63,7 @@ def _get_exif_data(img):
 		if decoded == "GPSInfo":
 			for t in value:
 				sub_decoded = GPSTAGS.get(t, t)
-				exif_data[decoded+'.'+sub_decoded] = value[t]
+				exif_data[decoded + '.' + sub_decoded] = value[t]
 
 		elif len(str(value)) < 50:
 			exif_data[decoded] = value
@@ -77,7 +72,8 @@ def _get_exif_data(img):
 
 	return exif_data
 
-class FilterSpecCollection(object): # selectbox type, choice based
+
+class FilterSpecCollection(object):  # selectbox type, choice based
 	def __init__(self, qs, params):
 		self.qs = qs
 		self.params = params
@@ -116,10 +112,11 @@ class FilterSpecCollection(object): # selectbox type, choice based
 
 		initial = {}
 		for item in self.filters:
-			selected = [i['query_string'] for i in item.choices() if i['selected']] or ["",]
+			selected = [i['query_string'] for i in item.choices() if i['selected']] or ["", ]
 			initial[item.get_slug_name()] = selected.pop(0)
 
 		return DynaForm(self.filters, initial=initial)
+
 
 class FilterSpec(object):
 	def get_qs_filter(self):
@@ -133,7 +130,8 @@ class FilterSpec(object):
 			yield {'selected': self.selected_params == param_dict,
 				   'query_string': urllib.urlencode(param_dict),
 				   'display': title
-				   }
+			}
+
 
 class DateFieldFilterSpec(FilterSpec):
 	def __init__(self, params, field_path):
@@ -147,18 +145,18 @@ class DateFieldFilterSpec(FilterSpec):
 		today_str = today.strftime('%Y-%m-%d 23:59:59')
 
 		self.links = (
-			(_('All pictures'), {
-				'%s__gte' % self.field_path: "",
-				'%s__lte' % self.field_path: "",
-			}),
-			(_('Added last week'), {
-				'%s__gte' % self.field_path: one_week_ago.strftime('%Y-%m-%d'),
-				'%s__lte' % self.field_path: today_str,
-			}),
-			(_('Added last month'), {
-				'%s__gte' % self.field_path: one_month_ago.strftime('%Y-%m-%d'),
-				'%s__lte' % self.field_path: today_str,
-			}),
+		(_('All pictures'), {
+		'%s__gte' % self.field_path: "",
+		'%s__lte' % self.field_path: "",
+		}),
+		(_('Added last week'), {
+		'%s__gte' % self.field_path: one_week_ago.strftime('%Y-%m-%d'),
+		'%s__lte' % self.field_path: today_str,
+		}),
+		(_('Added last month'), {
+		'%s__gte' % self.field_path: one_month_ago.strftime('%Y-%m-%d'),
+		'%s__lte' % self.field_path: today_str,
+		}),
 		)
 
 	def get_slug_name(self):
@@ -194,6 +192,7 @@ class CityLookupFilterSpec(FilterSpec):
 
 	def get_label(self):
 		return _('Choose city')
+
 
 class SourceLookupFilterSpec(FilterSpec):
 	def __init__(self, params, field_path):
@@ -349,10 +348,13 @@ def photo_upload(request, photo_id):
 
 	return HttpResponse(json.dumps({'new_id': new_id}), mimetype="application/json")
 
+
 def logout(request):
 	from django.contrib.auth import logout
+
 	logout(request)
 	return redirect('/')
+
 
 def thegame(request):
 	ctx = {}
@@ -370,9 +372,12 @@ def thegame(request):
 
 	return render_to_response('game.html', RequestContext(request, ctx))
 
+
 def frontpage(request):
 	try:
-		example = random.choice(Photo.objects.filter(id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646], rephoto_of__isnull=False))
+		example = random.choice(Photo.objects.filter(
+			id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
+			rephoto_of__isnull=False))
 	except:
 		example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
 	example_source = Photo.objects.get(pk=example.rephoto_of.id)
@@ -385,11 +390,12 @@ def frontpage(request):
 	filters.register(CityLookupFilterSpec, 'city')
 
 	return render_to_response('frontpage.html', RequestContext(request, {
-		'city_select_form': city_select_form,
-		'filters': filters,
-		'example': example,
-		'example_source': example_source,
+	'city_select_form': city_select_form,
+	'filters': filters,
+	'example': example,
+	'example_source': example_source,
 	}))
+
 
 def photo_large(request, photo_id):
 	photo = get_object_or_404(Photo, id=photo_id)
@@ -407,37 +413,40 @@ def photo_large(request, photo_id):
 	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
 	return response
 
+
 def photo_url(request, photo_id):
 	photo = get_object_or_404(Photo, id=photo_id)
 	if (photo.cam_scale_factor and photo.rephoto_of):
 		# if rephoto is taken with mobile then make it same width/height as source photo
 		im = get_thumbnail(photo.rephoto_of.image, '700x400')
-		im = get_thumbnail(photo.image, str(im.width) +'x'+ str(im.height), crop="center" )
+		im = get_thumbnail(photo.image, str(im.width) + 'x' + str(im.height), crop="center")
 	else:
 		im = get_thumbnail(photo.image, '700x400')
-	#return redirect(im.url)
+	# return redirect(im.url)
 	content = im.read()
-	next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
+	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
 	response = HttpResponse(content, content_type='image/jpg')
 	response['Content-Length'] = len(content)
-	response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
+	response['Cache-Control'] = "max-age=604800, public"  # 604800 = 7 days
 	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
 	return response
 
+
 def photo_thumb(request, photo_id):
 	photo = get_object_or_404(Photo, id=photo_id)
-	if (photo.image_unscaled):
-		im = get_thumbnail(photo.image_unscaled, '50x50', crop='center')
+	if photo.image_unscaled:
+		im = get_thumbnail(photo.image_unscaled, 'x150', crop='center')
 	else:
-		im = get_thumbnail(photo.image, '50x50', crop='center')
-	#return redirect(im.url)
+		im = get_thumbnail(photo.image, 'x150', crop='center')
+	# return redirect(im.url)
 	content = im.read()
-	next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
+	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
 	response = HttpResponse(content, content_type='image/jpg')
 	response['Content-Length'] = len(content)
-	response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
+	response['Cache-Control'] = "max-age=604800, public"  # 604800 = 7 days
 	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
 	return response
+
 
 def photo(request, photo_id):
 	photo = get_object_or_404(Photo, id=photo_id)
@@ -448,11 +457,12 @@ def photo(request, photo_id):
 	else:
 		return photoslug(request, photo.id, pseudo_slug)
 
+
 def photoslug(request, photo_id, pseudo_slug):
 	photo_obj = get_object_or_404(Photo, id=photo_id)
 	# redirect if slug in url doesn't match with our pseudo slug
 	if photo_obj.get_pseudo_slug() != pseudo_slug:
-		response = HttpResponse(content="", status=301) # HTTP 301 for google juice
+		response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
 		response["Location"] = photo_obj.get_absolute_url()
 		return response
 
@@ -465,12 +475,13 @@ def photoslug(request, photo_id, pseudo_slug):
 	site = Site.objects.get_current()
 	template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
 	return render_to_response(template, RequestContext(request, {
-		'photo': photo_obj,
-		'title': ' '.join(photo_obj.description.split(' ')[:5])[:50],
-		'description': photo_obj.description,
-		'rephoto': rephoto,
-		'hostname': 'http://%s' % (site.domain, )
+	'photo': photo_obj,
+	'title': ' '.join(photo_obj.description.split(' ')[:5])[:50],
+	'description': photo_obj.description,
+	'rephoto': rephoto,
+	'hostname': 'http://%s' % (site.domain, )
 	}))
+
 
 def photo_heatmap(request, photo_id):
 	photo = get_object_or_404(Photo, id=photo_id)
@@ -486,7 +497,7 @@ def photoslug_heatmap(request, photo_id, pseudo_slug):
 	photo_obj = get_object_or_404(Photo, id=photo_id)
 	# redirect if slug in url doesn't match with our pseudo slug
 	if photo_obj.get_pseudo_slug() != pseudo_slug:
-		response = HttpResponse(content="", status=301) # HTTP 301 for google juice
+		response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
 		response["Location"] = photo_obj.get_heatmap_url()
 		return response
 
@@ -496,13 +507,14 @@ def photoslug_heatmap(request, photo_id, pseudo_slug):
 
 	data = get_next_photos_to_geotag.get_all_geotag_submits(photo_obj.id)
 	return render_to_response('heatmap.html', RequestContext(request, {
-		'json_data': json.dumps(data),
-		'city': photo_obj.city,
-		'title': ' '.join(photo_obj.description.split(' ')[:5])[:50] +' - '+ _("Heat map"),
-		'description': photo_obj.description,
-		'photo_lon': photo_obj.lon,
-		'photo_lat': photo_obj.lat,
+	'json_data': json.dumps(data),
+	'city': photo_obj.city,
+	'title': ' '.join(photo_obj.description.split(' ')[:5])[:50] + ' - ' + _("Heat map"),
+	'description': photo_obj.description,
+	'photo_lon': photo_obj.lon,
+	'photo_lat': photo_obj.lat,
 	}))
+
 
 def heatmap(request):
 	city_select_form = CitySelectForm(request.GET)
@@ -516,11 +528,12 @@ def heatmap(request):
 
 	data = get_next_photos_to_geotag.get_all_geotagged_photos(city_id)
 	return render_to_response('heatmap.html', RequestContext(request, {
-		'json_data': json.dumps(data),
-		'city': city,
-		'city_select_form': city_select_form,
+	'json_data': json.dumps(data),
+	'city': city,
+	'city_select_form': city_select_form,
 
 	}))
+
 
 def mapview(request):
 	city = None
@@ -537,7 +550,7 @@ def mapview(request):
 		city = City.objects.get(pk=city_id)
 
 	if city:
-		title = city.name +' - '+ _('Browse photos on map')
+		title = city.name + ' - ' + _('Browse photos on map')
 	else:
 		title = _('Browse photos on map')
 
@@ -545,28 +558,44 @@ def mapview(request):
 
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
-	#filters.register(DateFieldFilterSpec, 'created')
-	#filters.register(SourceLookupFilterSpec, 'source')
+	# filters.register(DateFieldFilterSpec, 'created')
+	# filters.register(SourceLookupFilterSpec, 'source')
 	data = filters.get_filtered_qs().get_geotagged_photos_list()
+	# data = filters.get_filtered_qs()
 
 	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().get_profile().pk)
 
 	return render_to_response('mapview.html', RequestContext(request, {
-		'json_data': json.dumps(data),
-		'city': city,
-		'title': title,
-		'filters': filters,
-		'leaderboard': leaderboard,
+	'json_data': json.dumps(data),
+	'city': city,
+	'title': title,
+	'filters': filters,
+	'leaderboard': leaderboard,
 	}))
+
 
 def get_leaderboard(request):
 	return HttpResponse(json.dumps(
 		get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)),
-		mimetype="application/json")
+						mimetype="application/json")
+
 
 def geotag_add(request):
 	data = request.POST
-	is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'), hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'))
+	is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain, heatmap_points, azimuth_tag_count = get_next_photos_to_geotag.submit_guess(
+		request.get_user().get_profile(), data.get('photo_id'), data.get('lon'), data.get('lat'),
+		hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'))
+	flip = data.get("flip", None)
+	if flip is not None:
+		flip_feedback = FlipFeedback()
+		flip_feedback.photo_id = data['photo_id']
+		flip_feedback.user_profile = request.get_user().get_profile()
+		if flip == "true":
+			flip_feedback.flip = True
+		elif flip == "false":
+			flip_feedback.flip = False
+		flip_feedback.save()
+
 	return HttpResponse(json.dumps({
 		'is_correct': is_correct,
 		'current_score': current_score,
@@ -574,34 +603,39 @@ def geotag_add(request):
 		'leaderboard_update': leaderboard_update,
 		'location_is_unclear': location_is_unclear,
 		'azimuth_false': azimuth_false,
-		'azimuth_uncertain': azimuth_uncertain
+		'azimuth_uncertain': azimuth_uncertain,
+		'heatmap_points': heatmap_points,
+		'azimuth_tags': azimuth_tag_count
 	}), mimetype="application/json")
+
 
 def leaderboard(request):
 	# leaderboard with first position, one in front of you, your score and one after you
 	leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)
 	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
 	return render_to_response(template, RequestContext(request, {
-		'leaderboard': leaderboard,
-		'title': _('Leaderboard'),
+	'leaderboard': leaderboard,
+	'title': _('Leaderboard'),
 	}))
+
 
 def top50(request):
 	# leaderboard with top 50 scores
 	leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().get_profile().pk)
 	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
 	return render_to_response(template, RequestContext(request, {
-		'leaderboard': leaderboard,
-		'title': _('Leaderboard'),
+	'leaderboard': leaderboard,
+	'title': _('Leaderboard'),
 	}))
+
 
 def rephoto_top50(request):
 	# leaderboard with top 50 scores
 	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard50(request.get_user().get_profile().pk)
 	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
 	return render_to_response(template, RequestContext(request, {
-		'leaderboard': leaderboard,
-		'title': _('Leaderboard'),
+	'leaderboard': leaderboard,
+	'title': _('Leaderboard'),
 	}))
 
 
@@ -613,18 +647,44 @@ def fetch_stream(request):
 	filters.register(SourceLookupFilterSpec, 'source')
 	# filters.register(UserAlreadyGeotaggedFilterSpec, request.get_user().get_profile().pk)
 	data = {}
-	data["photos"], data["user_seen_all"], data["nothing_more_to_show"] = filters.get_filtered_qs().get_next_photo_to_geotag(request)
+	data["photos"], data["user_seen_all"], data[
+		"nothing_more_to_show"] = filters.get_filtered_qs().get_next_photo_to_geotag(request)
 	return HttpResponse(json.dumps(data), mimetype="application/json")
+
+
+def difficulty_feedback(request):
+	# TODO: Tighten down security when it becomes apparent people are abusing this
+	from get_next_photos_to_geotag import calc_trustworthiness
+
+	user_profile = request.get_user().get_profile()
+	user_trustworthiness = calc_trustworthiness(user_profile.pk)
+	user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
+	level = request.POST.get("level") or None
+	photo_id = request.POST.get("photo_id") or None
+	if user_profile and level and photo_id:
+		feedback_object = DifficultyFeedback()
+		feedback_object.user_profile = user_profile
+		feedback_object.level = level
+		feedback_object.photo_id = photo_id
+		feedback_object.trustworthiness = user_trustworthiness
+		feedback_object.geotag = user_last_geotag
+		feedback_object.save()
+	photo = Photo.objects.filter(id=photo_id)[:1].get()
+	photo.set_calculated_fields()
+	return HttpResponse("OK")
+
 
 def custom_404(request):
 	response = render_to_response('404.html', {}, context_instance=RequestContext(request))
 	response.status_code = 404
 	return response
 
+
 def custom_500(request):
 	response = render_to_response('500.html', {}, context_instance=RequestContext(request))
 	response.status_code = 500
 	return response
+
 
 def europeana(request):
 	# This is for testing Europeana integration, nothing good yet
@@ -635,7 +695,8 @@ def europeana(request):
 	bounding_box = None
 	if x1 and x2 and y1 and y2:
 		bounding_box = BoundingBox(x1, y1, x2, y2)
-	results = Search().query(request.GET.get("query", "Kose"), request.GET.get("refinement_terms", None), bounding_box, request.GET.get("start", 1), request.GET.get("size", 12))
+	results = Search().query(request.GET.get("query", "Kose"), request.GET.get("refinement_terms", None), bounding_box,
+							 request.GET.get("start", 1), request.GET.get("size", 12))
 	return render_to_response("europeana.html", RequestContext(request, {
-		'results': results
+	'results': results
 	}))

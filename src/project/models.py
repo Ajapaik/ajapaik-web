@@ -1,4 +1,6 @@
-from django.db import models
+from PIL import Image
+from django.core.files import File
+from django.db import models, connection
 from django.db.models import Count, Sum
 from operator import attrgetter
 
@@ -23,9 +25,6 @@ from oauth2client.django_orm import CredentialsField
 
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail import ImageField
-from PIL import ImageFile
-
-ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 import math
 import datetime
@@ -97,15 +96,24 @@ class PhotoManager(models.Manager):
 		return self.model.QuerySet(self.model)
 
 
+import uuid
+def get_unique_image_file_name(filename):
+	ext = filename.split('.')[-1]
+	filename = "%s.%s" % (uuid.uuid4(), ext)
+	return filename
+
+
 class Photo(models.Model):
 	objects = PhotoManager()
 
 	id = models.AutoField(primary_key=True)
-	image = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
-	image_unscaled = ImageField(upload_to='uploads/', max_length=200, blank=True, null=True)
+	#Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
+	image = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
+	image_unscaled = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
+	flip = models.NullBooleanField()
 	date = models.DateField(null=True, blank=True)
 	date_text = models.CharField(max_length=100, blank=True, null=True)
-	description = models.TextField(null=True, blank=True)
+	description = models.TextField(null=True, blank=True, max_length=2047)
 
 	user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
 
@@ -120,7 +128,7 @@ class Photo(models.Model):
 	azimuth_confidence = models.FloatField(default=0)
 
 	source_key = models.CharField(max_length=100, null=True, blank=True)
-	source_url = models.URLField(null=True, blank=True)
+	source_url = models.URLField(null=True, blank=True, max_length=1023)
 	source = models.ForeignKey('Source', null=True, blank=True)
 	device = models.ForeignKey('Device', null=True, blank=True)
 
@@ -136,14 +144,6 @@ class Photo(models.Model):
 	cam_yaw = models.FloatField(null=True, blank=True)
 	cam_pitch = models.FloatField(null=True, blank=True)
 	cam_roll = models.FloatField(null=True, blank=True)
-
-	@property
-	def calculated_level(self):
-		if self.level > 0:
-			return self.level
-		if self.guess_level:
-			return self.guess_level
-		return 4
 
 	class Meta:
 		ordering = ['-id']
@@ -165,7 +165,6 @@ class Photo(models.Model):
 				filtered_rephotos_ids.append(p.rephoto_of.id)
 			zipped_rephotos = zip(filtered_rephotos_ids, filtered_rephotos)
 			rephotos = dict(zipped_rephotos)
-			#return len(rephotographed_ids), len(filtered_rephotos), len(filtered_rephotos_ids), len(zipped_rephotos), len(rephotos)
 			data = []
 			for p in self.filter(confidence__gte=0.3,
 								 lat__isnull=False, lon__isnull=False,
@@ -177,8 +176,9 @@ class Photo(models.Model):
 				else:
 					#im = get_thumbnail(p.image, '50x50', crop='center')
 					im_url = reverse('views.photo_thumb', args=(p.id,))
-				data.append((p.id, im_url, p.lon, p.lat, p.id in rephotographed_ids))
+				data.append((p.id, im_url, p.lon, p.lat, p.id, p.flip, p.description))
 			return data
+
 
 		@staticmethod
 		def _get_game_json_format_photo(photo, distance_from_last):
@@ -192,6 +192,7 @@ class Photo(models.Model):
 				"description": photo.description,
 				"date_text": photo.date_text,
 				"source_key": photo.source_key,
+				"flip": photo.flip,
 				"big": _make_thumbnail(photo, "700x400"),
 				"large": _make_fullscreen(photo),
 				"confidence": photo.confidence,
@@ -223,34 +224,40 @@ class Photo(models.Model):
 			else:
 				user_last_action = user_last_geotag
 			if user_last_action is not None:
-				user_last_interacted_photos = list(city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False))
-				if len(user_last_interacted_photos) > 0:
-					user_last_interacted_photo = user_last_interacted_photos[0]
+				try:
+					user_last_interacted_photo = city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False)[:1].get()
+				except:
+					user_last_interacted_photo = None
 
 			user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
 			# TODO: Tidy up
-			user_skipped_photo_ids = list(set(list(user_skips_in_city.values_list("photo_id", flat=True))) - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
-			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
+			user_skipped_photo_ids = set(list(user_skips_in_city.values_list("photo_id", flat=True)))
+			user_skipped_less_geotagged_photo_ids = list(user_skipped_photo_ids - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
+			user_skipped_photo_ids = list(user_skipped_photo_ids)
+			user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_less_geotagged_photo_ids)
 
 			user_seen_all = False
 			nothing_more_to_show = False
 
 			if "user_skip_array" not in request.session:
-				request.session.user_skip_array = []
+				request.session["user_skip_array"] = []
+
+			cursor = connection.cursor()
+			cursor.execute("SELECT C.id, COUNT(G.id) AS geotags FROM project_city C INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
+			result = cursor.fetchall()
+			exception_city_ids = [i[0] for i in result if i[1] > 1000]
 
 			if user_trustworthiness < 0.4:
 				# Novice users should only receive the easiest images to prove themselves
-				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-confidence")
+				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-guess_level", "-confidence")
 				if len(ret) == 0:
-					# If the user has seen all the photos, offer something at random
+					# If the user has seen all the photos, offer the easiest or at random
 					user_seen_all = True
-					ret = city_photos_set.order_by("-confidence")
-				# for p in ret:
-				# 	# Trying not to offer photos in the vicinity of the last one
-				# 	if user_last_interacted_photo:
-				# 		distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-				# 	if distance_between_photos and 250 <= distance_between_photos <= 1000:
-				# 		ret = [p]
+					if city_photos_set[0].city_id in exception_city_ids:
+						ret = city_photos_set.order_by("-guess_level", "-confidence")
+					else:
+						nothing_more_to_show = True
+						ret = city_photos_set.order_by("?")
 			else:
 				# Let's try to show the more experienced users photos they have not yet seen at all
 				ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
@@ -259,51 +266,66 @@ class Photo(models.Model):
 					user_seen_all = True
 					user_geotags_without_azimuth_in_city = user_geotags_in_city.exclude(azimuth__isnull=False)
 					user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_city.values_list("photo_id", flat=True)))
-					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_photo_ids)).exclude(id__in=request.session.user_skip_array)
+					ret = city_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(id__in=request.session["user_skip_array"])
 					if len(ret) == 0:
 						# This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
-						user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
-						user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
-						user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
-						user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
-						user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-						ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+						# Don't do this for very small/fresh sets (<1000 geotags)
+						if len(city_photos_set) > 0 and city_photos_set[0].city_id and city_photos_set[0].city_id in exception_city_ids:
+							user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
+							user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
+							user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
+							user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
+							user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+							ret = city_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
 						if len(ret) == 0:
 							nothing_more_to_show = True
-				# TODO: Refactor to use two variable sorting instead of many loops and ifs
+				good_candidates = []
+				shitty_candidates = []
 				if user_trustworthiness < 0.4:
 					for p in ret:
+						distance_between_photos = None
 						if user_last_interacted_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if distance_between_photos:
-							if p.confidence > 0.7 and 250 <= distance_between_photos <= 1000:
-								ret = [p]
-							elif p.confidence > 0.7:
-								ret = [p]
+						if p.confidence > 0.7 and distance_between_photos and 250 <= distance_between_photos <= 1000:
+							good_candidates.append(p)
+						elif p.confidence > 0.7:
+							shitty_candidates.append(p)
 				elif 0.4 <= user_trustworthiness < 0.7:
 					for p in ret:
+						distance_between_photos = None
 						if user_last_interacted_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if distance_between_photos:
-							if 0.4 <= p.confidence <= 0.7 and 250 <= distance_between_photos <= 1000:
-								ret = [p]
-							elif 0.4 <= p.confidence <= 0.7:
-								ret = [p]
+						if 0.4 <= p.confidence <= 0.7 and distance_between_photos and 250 <= distance_between_photos <= 1000:
+							good_candidates.append(p)
+						elif 0.4 <= p.confidence <= 0.7:
+							shitty_candidates.append(p)
 				else:
 					for p in ret:
+						distance_between_photos = None
 						if user_last_interacted_photo:
 							distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-						if distance_between_photos:
-							if p.confidence < 0.4 and 250 <= distance_between_photos <= 1000:
-								ret = [p]
-							elif p.confidence < 0.4:
-								ret = [p]
+						if p.confidence < 0.4 and distance_between_photos and 250 <= distance_between_photos <= 1000:
+							good_candidates.append(p)
+						elif p.confidence < 0.4:
+							shitty_candidates.append(p)
+				if len(good_candidates) > 0:
+					ret = good_candidates
+				else:
+					ret = shitty_candidates
 			if ret and ret[0].id in user_skipped_photo_ids:
-				request.session.user_skip_array.append(ret[0].id)
+				request.session["user_skip_array"].append(ret[0].id)
+				request.session.modified= True
 			if len(ret) == 0:
-				return [{}], True, True
+				random_photo = self._get_game_json_format_photo(city_photos_set.order_by("?")[:1].get(), distance_between_photos)
+				return [random_photo], True, True
 			return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
+
+	def flip_horizontal(self):
+		image = Image.open(self.image.path)
+		exif = image.info['exif']
+		image = image.transpose(Image.FLIP_LEFT_RIGHT)
+		image.save(self.image.path, File(image), exif=exif)
 
 	def __unicode__(self):
 		return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
@@ -339,6 +361,35 @@ class Photo(models.Model):
 		return slug
 
 	def set_calculated_fields(self):
+		photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
+		weighted_level_sum, total_weight = 0, 0
+		for each in photo_difficulty_feedback:
+			weighted_level_sum += float(each.level) * each.trustworthiness
+			total_weight = each.trustworthiness
+		if total_weight != 0:
+			self.guess_level = round(round(weighted_level_sum, 2) / round(total_weight, 2), 2)
+
+		# photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
+		# flip_feedback_user_dict = {}
+		# for each in photo_flip_feedback:
+		# 	if each.user_profile_id not in flip_feedback_user_dict:
+		# 		flip_feedback_user_dict[each.user_profile.id] = [each]
+		# 	else:
+		# 		flip_feedback_user_dict[each.user_profile.id].append(each)
+		# votes_for_flipping = 0
+		# votes_against_flipping = 0
+		# for user_id, feedback_objects in flip_feedback_user_dict.items():
+		# 	feedback_objects = sorted(feedback_objects, key=attrgetter("created"), reverse=True)
+		# 	latest_feedback = feedback_objects[0]
+		# 	if latest_feedback.flip:
+		# 		votes_for_flipping += 1
+		# 	else:
+		# 		votes_against_flipping += 1
+		# if votes_for_flipping > votes_against_flipping:
+		# 	self.flip = True
+		# else:
+		# 	self.flip = False
+
 		if not self.bounding_circle_radius:
 			self.confidence = 0
 			self.lon = None
@@ -398,6 +449,25 @@ class Photo(models.Model):
 						self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 3)
 					self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 3)
 
+class DifficultyFeedback(models.Model):
+	photo = models.ForeignKey('Photo')
+	user_profile = models.ForeignKey('Profile')
+	level = models.PositiveSmallIntegerField(null=False, blank=False)
+	trustworthiness = models.FloatField(null=False, blank=False)
+	geotag = models.ForeignKey('GeoTag')
+	created = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		app_label = "project"
+
+class FlipFeedback(models.Model):
+	photo = models.ForeignKey('Photo')
+	user_profile = models.ForeignKey('Profile')
+	flip = models.NullBooleanField()
+	created = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		app_label = "project"
 
 class GeoTag(models.Model):
 	MAP, EXIF, GPS = range(3)
@@ -473,7 +543,12 @@ class Profile(models.Model):
 	fb_name = models.CharField(max_length=255, null=True, blank=True)
 	fb_link = models.CharField(max_length=255, null=True, blank=True)
 	fb_id = models.CharField(max_length=100, null=True, blank=True)
-	fb_token = models.CharField(max_length=255, null=True, blank=True)
+	fb_token = models.CharField(max_length=511, null=True, blank=True)
+	fb_hometown = models.CharField(max_length=511, null=True, blank=True)
+	fb_current_location = models.CharField(max_length=511, null=True, blank=True)
+	fb_birthday = models.DateField(null=True, blank=True)
+	fb_email = models.CharField(max_length=255, null=True, blank=True)
+	fb_user_friends = models.TextField(null=True, blank=True)
 
 	google_plus_id = models.CharField(max_length=100, null=True, blank=True)
 	google_plus_link = models.CharField(max_length=255, null=True, blank=True)
@@ -487,6 +562,7 @@ class Profile(models.Model):
 
 	score = models.PositiveIntegerField(default=0)
 	score_rephoto = models.PositiveIntegerField(default=0)
+	score_last_1000_geotags = models.PositiveIntegerField(default=0)
 
 	@property
 	def id(self):
@@ -520,6 +596,12 @@ class Profile(models.Model):
 		self.fb_id = data.get("id")
 		self.fb_name = data.get("name")
 		self.fb_link = data.get("link")
+		self.fb_email = data.get("email")
+		self.fb_birthday = datetime.datetime.strptime(data.get("birthday"), '%m/%d/%Y')
+		self.fb_current_location = data.get("location")["name"]
+		self.fb_hometown = data.get("hometown")["name"]
+		self.fb_user_friends = data.get("user_friends")
+
 		self.save()
 
 	def update_from_google_plus_data(self, token, data):
@@ -540,8 +622,13 @@ class Profile(models.Model):
 		other.geotags.update(user=self)
 
 	def set_calculated_fields(self):
-		self.score = self.geotags.aggregate(
-			total_score=models.Sum('score'))['total_score'] or 0
+		last_1000_geotag_ids = GeoTag.objects.order_by("-created")[:1000].values_list("id", flat=True)
+		score = 0
+		for g in self.geotags.all():
+			if g.id in last_1000_geotag_ids:
+				score += g.score
+		self.score_last_1000_geotags = score
+		self.score = self.geotags.aggregate(total_score=models.Sum('score'))['total_score'] or 0
 
 	def __unicode__(self):
 		return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())

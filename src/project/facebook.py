@@ -48,7 +48,7 @@ def facebook_handler(request, stage):
         return redirect(login_url(fbview_url(request, 'auth')))
     elif stage == 'auth':
         request.log_action("facebook.auth")
-        return redirect(auth_url(fbview_url(request, 'done'), ["user_location", "user_hometown", "user_birthday"]))
+        return redirect(auth_url(fbview_url(request, 'done'), ["user_location", "user_hometown", "user_birthday", "email", "user_friends"]))
     elif stage == 'done':
         
         next_uri = '/'

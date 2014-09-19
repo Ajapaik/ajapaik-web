@@ -10,9 +10,9 @@
 	
     var city_id = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}';
 	{% if filters.filters_by_name.city_lookup_filter.get_option_object %}
-	var start_location = [{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}];
+	    var start_location = [{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}];
 	{% else %}
-	var start_location = [26, 59];
+	    var start_location = [26, 59];
 	{% endif %}
 	var language_code = '{{ LANGUAGE_CODE }}';
 	
@@ -24,7 +24,7 @@
             <p>{% trans "You have seen all the pictures we have for this area." %}</p>
         </div>
         <div id="nothing-more-to-show">
-            <p>{% trans "There are no more photos to show you based on our criteria." %}</p>
+            <p>{% trans "We are now showing you random photos." %}</p>
         </div>
     </div>
 
@@ -37,6 +37,7 @@
 			<h2><a id="full_leaderboard" href="#">{% trans "Leaderboard" %}</a></h2>
 
 			<ul class="scoreboard">
+
 			</ul>
 
 			{% if request.user.is_authenticated and request.user.get_profile.fb_id or request.user.get_profile.google_plus_id %}
@@ -55,13 +56,10 @@
 					<a id="google-plus-login-button" href="/google_login" class="ir">{% trans "Connect with Google+" %}</a>
 				</div>{% endcomment %}
 			{% endif %}
-
 		</div>
-        
         <div class="filter-box">
             {{ filters.get_form.as_p }}
-        </div>        
-        
+        </div>
 	</div>
 
 	<div id="tools">
@@ -85,6 +83,14 @@
 	<div id="notice" style="display: none;">
 		<h2>{% trans "Thank you!" %}</h2>
 		<p class="message"></p>
+        <p class="geotag-count-message"></p>
+        <p class="azimuth-count-message"></p>
+        <p class="difficulty-message" style="margin: 0 0 5px;">{% trans "In your opinion to geotag this photo is" %}</p>
+        <form id="difficulty-form">
+            <span style="margin-right: 10px;">{% trans "easy" %}</span><input type="radio" name="difficulty" value="1">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3"><span style="margin-left: 10px;">{% trans "hard" %}</span>
+        </form>
 		<a id="continue-game" href="" class="btn small">{% trans "Next photo" %}</a>
 	</div>
 	

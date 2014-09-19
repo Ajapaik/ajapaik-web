@@ -124,7 +124,9 @@ $(document).ready(function () {
         $('.rephoto .container .meta ').removeClass('hovered');
     });
 
-    map.scrollwheel = true;
+    if (window.map !== undefined) {
+        window.map.scrollwheel = true;
+    }
 
     $("a.iframe").fancybox({
         'width': '75%',
