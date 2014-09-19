@@ -229,7 +229,7 @@
             map: window.map,
             draggable: false,
             position: location,
-            //visible: false
+            visible: false
         });
 
         dottedLineSymbol = {
