@@ -2,225 +2,122 @@
 {% load i18n %}
 
 {% block layout %}
-<script type="text/javascript">
-	var map;
-	var leaderboardFullURL = '{% url 'views.rephoto_top50' %}';
-	var geotagged_photos={{ json_data|safe }};
+{#    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>#}
+    <script type="text/javascript">
+        var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
+                geotaggedPhotos = {{ json_data|safe }},
+                i,
+                markers = [],
+                p,
+                thumb,
+                image;
 
-	function initialize() {
-		// Will load the base map layer and return it
-		{% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
-		map = get_map([{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}], 13);
-		{% else %}
-		map = get_map();
-		{% endif %}
+        function initialize() {
+            {% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
+                window.getMap(
+                    [
+                        {{ filters.filters_by_name.city_lookup_filter.get_option_object.lon }},
+                        {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat }}
+                    ],
+                    13
+                );
+            {% else %}
+                window.getMap();
+            {% endif %}
 
-		var markers = [];
-		for (var i in geotagged_photos) {
-			var p=geotagged_photos[i];
-			var thumb = p[1];
-			//var image = '/media/gfx/' + (p[4] ? 'icon_camera_hot.png' : 'icon_camera.png');
-			var image = {
-				url: p[1],
-				anchor: new google.maps.Point(16, 16),
-				scaledSize: new google.maps.Size(32, 32)
-			};
-			var marker = new google.maps.Marker({
-					map: map,
-					id: p[0],
-					thumb: thumb,
-					position: new google.maps.LatLng(p[3],p[2]), 
-					zIndex: p[4] ? 1 : 0,
-					icon:image
-				});
+            for (i in geotaggedPhotos) {
+                if (geotaggedPhotos.hasOwnProperty(i)) {
+                    p = geotaggedPhotos[i];
+                    var marker = new google.maps.Marker({
+                        map: window.map,
+                        id: p[0],
+                        thumb: p[1],
+                        description: p[6],
+                        icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                        position: new google.maps.LatLng(p[3], p[2]),
+                        zIndex: 1
+                    });
+                    (function (id) {
+                        google.maps.event.addListener(marker, "click", function () {
+                            highlightSelected(id, true);
+                        });
+                    })(p[0]);
+                    markers.push(marker);
+                }
+            }
+        }
+        $(document).ready(initialize);
+    </script>
 
-			(function(id) {
-					google.maps.event.addListener(marker, 'click', function() {
-						loadPhoto(id);
-					});
-				})(p[0]);
-
-			(function(id) {
-					google.maps.event.addListener(marker, 'rightclick', function() {
-						console.log(id);
-					});
-				})(p[0]);
-
-			markers.push(marker);
-		}
-
-		/*
-		var clusterStyles = [
-			{
-				textColor: 'green',
-				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
-				width: 38,
-				height: 40
-			},
-			{
-				textColor: 'orange',
-				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
-				width: 38,
-				height: 40
-			},
-			{
-				textColor: 'red',
-				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
-				width: 38,
-				height: 40
-			}
-		];
-		*/
-		var clusterStyles = [{
-				textColor: 'black',
-				url: '/media/gfx/ajapaik_klaster_hall_38px.png',
-				width: 38,
-				height: 40
-			}];
-
-		var markerCluster = new MarkerClusterer(map, markers, {
-			styles: clusterStyles,
-			gridSize: 50,
-			zoomOnClick: false // using custom zoom functionality instead on clusterclick event
-		});
-
-		google.maps.event.addListener(markerCluster, 'clusterclick',
-			function(clickedCluster){
-				var mapTypeRegistry = map.mapTypes;
-				var currentMapTypeId = map.getMapTypeId();
-				var mapType = mapTypeRegistry.get(currentMapTypeId);
-				var canZoom = map.getZoom() < mapType.maxZoom;
-				var markers = clickedCluster.getMarkers();
-				var browser_content = '';
-				var i = 0;
-				var isZooming = false;
-				for (marker in markers) {
-					if (canZoom && ++i > 20) {
-						map.panTo(clickedCluster.getCenter());
-						map.fitBounds(clickedCluster.getBounds());
-						isZooming = true;
-						break;
-					}
-					browser_content += '<div class="item'+ (markers[marker].zIndex ? ' hot' : '') +'"><a href="/foto/'+ markers[marker].id +'/" onclick="loadPhoto('+ markers[marker].id +');$.modal.close();return false;"><img src="'+ markers[marker].thumb +'" border="0" /></a></div>';
-				}
-				if (isZooming == false)
-				{
-					$('#photo_browser #browser_list').html(browser_content);
-					$('#photo_browser').modal({overlayClose: true});
-				}
-			}
-		);
-	};
-	$(document).ready(initialize);
-</script>
-
-<div id="browse">
-
-	<div class="top">
-
-		<h1 class="ir"><a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">{% trans "Timepatch (Ajapaik)" %}</a></h1>
-
-		<ul id="nav"></ul>
-
-		<!--
-		<div id="city_select">
-			{{ city_select_form.as_p }}
-			<script type="text/javascript">
-				$('#id_city').change(function() {
-					location.href = '{{ request.path }}?city=' + $(this).val();
-				});
-			</script>
-		</div>
-		-->
-		
-		<div class="score_container">
-
-			<h2><a id="full_leaderboard" href="#">{% trans "Rephoto Leaderboard" %}</a></h2>
-
-			<ul class="scoreboard">
-				{% for pos in leaderboard %}
-				<li class="clearfix{% if pos.1 %} you{% endif %}">
-					<span class="position">{{ pos.0 }}.</span>
-					<span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square" />{% endif %}</span>
-					<span class="name">{% if pos.4 %}{{ pos.4 }}{% else %}{% trans "Your points" %}{% endif %}</span>
-					<span class="score">{{ pos.2 }}</span>
-				</li>
-				{% endfor %}
-			</ul>
-
-			{% if request.user.is_authenticated and request.user.get_profile.fb_id %}
-				{% with profile=request.user.get_profile user=request.user %}
-				<div id="facebook-connected">
-					<p>{% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click here{{ link_close }}.{% endblocktrans %}</p>
-				</div>
-				{% endwith %}
-			{% else %}
-				<div id="facebook-connect">
-					<p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-					<a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-				</div>
-                {% comment %}<div id="google-plus-connect">
-					<p>{% trans "Connect with Google plus to save your score and continue later." %}</p>
-					<a id="google-plus-login-button" href="/google_login" class="ir">{% trans "Connect with Google+" %}</a>
-				</div>{% endcomment %}
-			{% endif %}
-
-		</div>
-
-        <div class="filter-box">
-            {{ filters.get_form.as_p }}
+    <div id="browse">
+        <div class="top">
+            <h1 class="ir">
+                <a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">
+                    {% trans "Timepatch (Ajapaik)" %}
+                </a>
+            </h1>
+            <ul id="nav"></ul>
+            <div class="score_container">
+                <h2><a id="full_leaderboard" href="#">{% trans "Rephoto Leaderboard" %}</a></h2>
+                <ul class="scoreboard">
+                    {% for pos in leaderboard %}
+                        <li class="clearfix{% if pos.1 %} you{% endif %}">
+                            <span class="position">{{ pos.0 }}.</span>
+                            <span class="photo">{% if pos.3 %}
+                                <img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square"/>{% endif %}</span>
+                            <span class="name">{% if pos.4 %}{{ pos.4 }}{% else %}
+                                {% trans "Your points" %}{% endif %}</span>
+                            <span class="score">{{ pos.2 }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if request.user.is_authenticated and request.user.get_profile.fb_id %}
+                    {% with profile=request.user.get_profile user=request.user %}
+                        <div id="facebook-connected">
+                            <p>
+                                {% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
+                                    Account ({{ account_name }}) connected. If it"s not you then {{ link_open }}click
+                                    here{{ link_close }}.{% endblocktrans %}</p>
+                        </div>
+                    {% endwith %}
+                {% else %}
+                    <div id="facebook-connect">
+                        <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                    </div>
+                    {% comment %}
+                    <div id="google-plus-connect">
+                        <p>{% trans "Connect with Google plus to save your score and continue later." %}</p>
+                        <a id="google-plus-login-button" href="/google_login" class="ir">
+                            {% trans "Connect with Google+" %}
+                        </a>
+				    </div>
+				    {% endcomment %}
+                {% endif %}
+            </div>
+            <div class="filter-box">
+                {{ filters.get_form.as_p }}
+            </div>
         </div>
-        
-		<!--
-		{% get_language_info for LANGUAGE_CODE as lang %}
-		<div class="lang-box">
-			<form style="display:inline;" action="/i18n/setlang/" method="post">
-				{% csrf_token %}
-				<div id="langmenu">
-					<div>{{ lang.code|upper }}</div>
-					<input name="next" type="hidden" value="{{ redirect_to }}" />
-					<select id="language" name="language" onchange="this.form.submit();">
-						{% get_language_info_list for LANGUAGES as languages %}
-						{% for language in languages %}
-						<option value="{{ language.code }}" title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"{% if language.code == lang.code %} selected="selected"{% endif %}>{{ language.name_local|title }}</option>
-						{% endfor %}
-					</select>
-				</div>
-				<span id="langlabel">{% trans "Choose language" %}:</span>
-			</form>
-		</div>
-		-->
-	</div><!-- .top -->
-
-	<div id="photo-drawer">
-	</div>
-
-	<div class="map">
-		<div id="map_canvas" style="width: 100%; height: 100%"></div>
-	</div>
-</div><!-- #browse -->
-
-<div id="photo-pane-container">
-    <div id="photo-pane">
-        asd
+        <div id="photo-drawer"></div>
+        <div class="map">
+            <div id="map_canvas" style="width: 100%; height: 100%"></div>
+        </div>
+        <div id="photo-pane-container">
+            <div id="photo-pane"></div>
+        </div>
     </div>
-</div>
-
-<div style="display: none;">
-	<div id="photo_browser">
-		<div id="browser_list"></div>
-		<a style="clear:both;" href="javascript:void(0);" onclick="$.modal.close();">{% trans "Close" %}</a>
-	</div>
-	<div id="leaderboard_browser">
-		<div class="single">
-			<a style="position:absolute;top:5px;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">{% trans "Close" %}</a>
-			<div class="score_container">
-				<ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
-			</div>
-		</div>
-	</div>
-</div>
-
-<script type="text/javascript" src="{{ MEDIA_URL }}js/browse.js"></script>
-
+    <div style="display: none;">
+        <div id="leaderboard_browser">
+            <div class="single">
+                <a style="position:absolute;top:5px;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">
+                    {% trans "Close" %}
+                </a>
+                <div class="score_container">
+                    <ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/browse.js"></script>
 {% endblock layout %}
