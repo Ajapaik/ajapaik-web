@@ -52,6 +52,10 @@
         mapDragstartListenerFunction,
         mapIdleListenerFunction,
         mapMousemoveListenerFunction,
+        mapClickListenerActive,
+        mapDragstartListenerActive,
+        mapIdleListenerActive,
+        mapMousemoveListenerActive,
         reCalculateAzimuthOfMouseAndMarker,
         updateLeaderboard,
         marker,
@@ -104,6 +108,7 @@
         }
         reCalculateAzimuthOfMouseAndMarker(e);
         if (azimuthListenerActive) {
+            mapMousemoveListenerActive = false;
             google.maps.event.clearListeners(window.map, 'mousemove');
             saveDirection = true;
             $("#save-location").text(gettext('Save location and direction')).removeClass("medium").addClass("green");
@@ -111,8 +116,11 @@
             line.setPath([marker.position, e.latLng]);
             line.setVisible(true);
         } else {
-            google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
-            google.maps.event.trigger(window.map, "mousemove", e);
+            if (!mapMousemoveListenerActive) {
+                google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                mapMousemoveListenerActive = true;
+                google.maps.event.trigger(window.map, "mousemove", e);
+            }
         }
         azimuthListenerActive = !azimuthListenerActive;
     };
@@ -137,7 +145,11 @@
         if (firstDragDone) {
             marker.position = window.map.center;
             azimuthListenerActive = true;
-            google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+            if (!mapMousemoveListenerActive) {
+                google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                mapMousemoveListenerActive = true;
+            }
+
         }
     };
 
@@ -153,6 +165,7 @@
         $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
         azimuthListenerActive = false;
         line.setVisible(false);
+        mapMousemoveListenerActive = false;
         google.maps.event.clearListeners(window.map, 'mousemove');
     };
 
@@ -261,8 +274,11 @@
         realMapElement.addEventListener('mousewheel', wheelEventNonFF, true);
         realMapElement.addEventListener('DOMMouseScroll', wheelEventFF, true);
 
+        mapClickListenerActive = true;
         google.maps.event.addListener(window.map, 'click', mapClickListenerFunction);
+        mapIdleListenerActive = true;
         google.maps.event.addListener(window.map, 'idle', mapIdleListenerFunction);
+        mapDragstartListenerActive = true;
         google.maps.event.addListener(window.map, 'dragstart', mapDragstartListenerFunction);
 
         google.maps.event.addListener(window.map, 'drag', function () {
@@ -473,9 +489,13 @@
                 if (resp.heatmap_points) {
                     marker.setMap(null);
                     $(".center-marker").hide();
+                    mapMousemoveListenerActive = false;
                     google.maps.event.clearListeners(window.map, 'mousemove');
+                    mapIdleListenerActive = false;
                     google.maps.event.clearListeners(window.map, 'idle');
+                    mapClickListenerActive = false;
                     google.maps.event.clearListeners(window.map, 'click');
+                    mapDragstartListenerActive = false;
                     google.maps.event.clearListeners(window.map, 'dragstart');
                     playerLatlng = new google.maps.LatLng(data.lat, data.lon);
                     var markerImage = {
@@ -578,6 +598,7 @@
             disableSave = true;
             azimuthListenerActive = false;
             window.map.setZoom(16);
+            mapMousemoveListenerActive = false;
             google.maps.event.clearListeners(window.map, 'mousemove');
             if (line !== undefined) {
                 line.setVisible(false);
@@ -648,10 +669,22 @@
             }
 
             if (window.map) {
-                google.maps.event.addListener(window.map, 'click', mapClickListenerFunction);
-                google.maps.event.addListener(window.map, 'idle', mapIdleListenerFunction);
-                google.maps.event.addListener(window.map, 'dragstart', mapDragstartListenerFunction);
-                google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                if (!mapClickListenerActive) {
+                    google.maps.event.addListener(window.map, 'click', mapClickListenerFunction);
+                    mapClickListenerActive = true;
+                }
+                if (!mapIdleListenerActive) {
+                    google.maps.event.addListener(window.map, 'idle', mapIdleListenerFunction);
+                    mapIdleListenerActive = true;
+                }
+                if (!mapDragstartListenerActive) {
+                    google.maps.event.addListener(window.map, 'dragstart', mapDragstartListenerFunction);
+                    mapDragstartListenerActive = true;
+                }
+                if (!mapMousemoveListenerActive) {
+                    google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                    mapMousemoveListenerActive = true;
+                }
             }
 
             if (heatmap) {
