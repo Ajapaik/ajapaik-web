@@ -173,9 +173,9 @@
     wheelEventFF = function (e) {
         now = new Date().getTime();
         if (!lastTriggeredWheeling) {
-            lastTriggeredWheeling = now - 100;
+            lastTriggeredWheeling = now - 250;
         }
-        if (now - 100 > lastTriggeredWheeling) {
+        if (now - 250 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
             if (e.detail > 0) {
                 if (window.map.zoom < 18) {
