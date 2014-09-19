@@ -3,13 +3,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.views.generic import TemplateView, RedirectView
 from rest_framework import routers
-from project.photo_import import PhotoViewSet, CityViewSet
+from project.photo_import import PhotoViewSet, CityViewSet, SourceViewSet
 
 admin.autodiscover()
 
 router = routers.DefaultRouter()
 router.register(r'api/photos', PhotoViewSet)
 router.register(r'api/cities', CityViewSet)
+router.register(r'api/sources', SourceViewSet)
 
 urlpatterns = patterns('views',
    (r'^admin/', include(admin.site.urls)),
