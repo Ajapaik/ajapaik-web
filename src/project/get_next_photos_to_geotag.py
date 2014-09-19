@@ -179,12 +179,12 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 	if this_guess_score:
 		leaderboard = get_leaderboard(user.pk)
 
-	all_geotags_latlng_for_this_photo = GeoTag.objects.filter(photo_id=photo_id).values_list("lat", "lon")
-	converted_from_tuple_form = []
-	for latlng_tuple in all_geotags_latlng_for_this_photo:
-		converted_from_tuple_form.append([latlng_tuple[0], latlng_tuple[1]])
+	all_geotags_latlng_for_this_photo = GeoTag.objects.filter(photo_id=photo_id)
+	all_geotags_with_azimuth_for_this_photo = all_geotags_latlng_for_this_photo.filter(azimuth__isnull=False)
+	all_geotags_latlng_for_this_photo = [[g[0], g[1]] for g in all_geotags_latlng_for_this_photo.values_list("lat", "lon")]
+	all_geotag_ids_with_azimuth_for_this_photo = all_geotags_with_azimuth_for_this_photo.values_list("id", flat=True)
 
-	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain, converted_from_tuple_form
+	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain, all_geotags_latlng_for_this_photo, len(all_geotag_ids_with_azimuth_for_this_photo)
 
 #
 # DEPRICATED see models.Photo
