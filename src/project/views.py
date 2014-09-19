@@ -2,7 +2,6 @@
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.utils import simplejson as json
@@ -10,22 +9,19 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 
-from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 
-from project.models import Photo, City, Profile, Source, Device
-from project.forms import GeoTagAddForm, CitySelectForm
+from project.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback
+from project.forms import CitySelectForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from PIL.ExifTags import TAGS, GPSTAGS
-from time import gmtime, strftime, strptime
+from time import strftime, strptime
 from StringIO import StringIO
 from copy import deepcopy
-
-from pprint import pprint
-from django.db import models
 
 import get_next_photos_to_geotag
 import random
@@ -34,580 +30,673 @@ import urllib
 
 from django.forms.forms import Form
 from django.forms.fields import ChoiceField
+from europeana import Search, BoundingBox
 
 
 def _convert_to_degress(value):
-    d0 = value[0][0]
-    d1 = value[0][1]
-    d = float(d0) / float(d1)
+	d0 = value[0][0]
+	d1 = value[0][1]
+	d = float(d0) / float(d1)
 
-    m0 = value[1][0]
-    m1 = value[1][1]
-    m = float(m0) / float(m1)
+	m0 = value[1][0]
+	m1 = value[1][1]
+	m = float(m0) / float(m1)
 
-    s0 = value[2][0]
-    s1 = value[2][1]
-    s = float(s0) / float(s1)
+	s0 = value[2][0]
+	s1 = value[2][1]
+	s = float(s0) / float(s1)
 
-    return d + (m / 60.0) + (s / 3600.0)
-    
+	return d + (m / 60.0) + (s / 3600.0)
+
+
 def _get_exif_data(img):
-    try:
-        exif = img._getexif()
-    except (AttributeError, IOError, KeyError, IndexError):
-        exif = None
-    if (exif is None):
-        return None
+	try:
+		exif = img._getexif()
+	except (AttributeError, IOError, KeyError, IndexError):
+		exif = None
+	if exif is None:
+		return None
 
-    exif_data = {}
-    for (tag, value) in exif.items():
-        decoded = TAGS.get(tag, tag)
-        if decoded == "GPSInfo":
-            for t in value:
-                sub_decoded = GPSTAGS.get(t, t)
-                exif_data[decoded+'.'+sub_decoded] = value[t]
+	exif_data = {}
+	for (tag, value) in exif.items():
+		decoded = TAGS.get(tag, tag)
+		if decoded == "GPSInfo":
+			for t in value:
+				sub_decoded = GPSTAGS.get(t, t)
+				exif_data[decoded + '.' + sub_decoded] = value[t]
 
-        elif (len(str(value)) < 50):
-            exif_data[decoded] = value
-        else:
-            exif_data[decoded] = None
-            
-    return exif_data
+		elif len(str(value)) < 50:
+			exif_data[decoded] = value
+		else:
+			exif_data[decoded] = None
 
-class FilterSpecCollection(object): # selectbox type, choice based
-    def __init__(self, qs, params):
-        self.qs = qs
-        self.params = params
-        self.filters = []
-        self.filters_by_name = {}
-        
-    def register(self, filter_spec, field):
-        filter_obj = filter_spec(self.params, field)
-        self.filters.append(filter_obj)
-        self.filters_by_name[filter_obj.get_slug_name()] = filter_obj
-        
-    def out(self):
-        for f in self.filters:
-            pass
-    
-    def get_filtered_qs(self):
-        for item in self.filters:
-            qs_filter = item.get_qs_filter()
-            if qs_filter:
-                self.qs = self.qs.filter(**dict(item.get_qs_filter()))
-        return self.qs
-    
-    def get_form(self):
-        class DynaForm(Form):
-            def __init__(self, *args, **kwargs):
-                args = list(args)
-                filters = args.pop(0)
-                
-                super(DynaForm, self).__init__(*args, **kwargs)
-                for item in filters:
-                    choices = [(i['query_string'], i['display']) for i in list(item.choices())]
-                    self.fields[item.get_slug_name()] = ChoiceField(choices=choices, label=item.get_label())
-        
-        initial = {}
-        for item in self.filters:
-            selected = [i['query_string'] for i in item.choices() if i['selected']] or ["",]
-            initial[item.get_slug_name()] = selected.pop(0)
-        
-        return DynaForm(self.filters, initial=initial)
+	return exif_data
+
+
+class FilterSpecCollection(object):  # selectbox type, choice based
+	def __init__(self, qs, params):
+		self.qs = qs
+		self.params = params
+		self.filters = []
+		self.filters_by_name = {}
+
+	def register(self, filter_spec, field):
+		filter_obj = filter_spec(self.params, field)
+		self.filters.append(filter_obj)
+		self.filters_by_name[filter_obj.get_slug_name()] = filter_obj
+
+	def out(self):
+		for f in self.filters:
+			pass
+
+	def get_filtered_qs(self):
+		for item in self.filters:
+			if hasattr(item, "get_qs_exclude"):
+				if item.get_qs_exclude():
+					self.qs = self.qs.exclude(**dict(item.get_qs_exclude()))
+			if hasattr(item, "get_qs_filter"):
+				if item.get_qs_filter():
+					self.qs = self.qs.filter(**dict(item.get_qs_filter()))
+		return self.qs
+
+	def get_form(self):
+		class DynaForm(Form):
+			def __init__(self, *args, **kwargs):
+				args = list(args)
+				filters = args.pop(0)
+
+				super(DynaForm, self).__init__(*args, **kwargs)
+				for item in filters:
+					choices = [(i['query_string'], i['display']) for i in list(item.choices())]
+					self.fields[item.get_slug_name()] = ChoiceField(choices=choices, label=item.get_label())
+
+		initial = {}
+		for item in self.filters:
+			selected = [i['query_string'] for i in item.choices() if i['selected']] or ["", ]
+			initial[item.get_slug_name()] = selected.pop(0)
+
+		return DynaForm(self.filters, initial=initial)
+
 
 class FilterSpec(object):
-    def get_qs_filter(self):
-        for title, param_dict in self.links:
-            if param_dict == self.selected_params:
-                return self.selected_params
-        return False
-    
-    def choices(self):
-        for title, param_dict in self.links:
-            yield {'selected': self.selected_params == param_dict,
-                   'query_string': urllib.urlencode(param_dict),
-                   'display': title
-                   }
-                                      
+	def get_qs_filter(self):
+		for title, param_dict in self.links:
+			if param_dict == self.selected_params:
+				return self.selected_params
+		return False
+
+	def choices(self):
+		for title, param_dict in self.links:
+			yield {'selected': self.selected_params == param_dict,
+				   'query_string': urllib.urlencode(param_dict),
+				   'display': title
+			}
+
+
 class DateFieldFilterSpec(FilterSpec):
-    def __init__(self, params, field_path):
-        self.field_path = field_path
-        self.field_generic = '%s__' % field_path
-        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
-        
-        today = datetime.date.today()
-        one_week_ago = today - datetime.timedelta(days=7)
-        one_month_ago = today - datetime.timedelta(days=30)
-        today_str = today.strftime('%Y-%m-%d 23:59:59')
-        
-        self.links = (
-            (_('All pictures'), {
-                '%s__gte' % self.field_path: "",
-                '%s__lte' % self.field_path: "",            
-            }),
-            (_('Added last week'), {
-                '%s__gte' % self.field_path: one_week_ago.strftime('%Y-%m-%d'),
-                '%s__lte' % self.field_path: today_str,
-            }),
-            (_('Added last month'), {
-                '%s__gte' % self.field_path: one_month_ago.strftime('%Y-%m-%d'),
-                '%s__lte' % self.field_path: today_str,
-            }),
-        )
+	def __init__(self, params, field_path):
+		self.field_path = field_path
+		self.field_generic = '%s__' % field_path
+		self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
 
-    def get_slug_name(self):
-        return u'creation_date_filter'
+		today = datetime.date.today()
+		one_week_ago = today - datetime.timedelta(days=7)
+		one_month_ago = today - datetime.timedelta(days=30)
+		today_str = today.strftime('%Y-%m-%d 23:59:59')
 
-    def get_option_object(self):
-        return None
+		self.links = (
+		(_('All pictures'), {
+		'%s__gte' % self.field_path: "",
+		'%s__lte' % self.field_path: "",
+		}),
+		(_('Added last week'), {
+		'%s__gte' % self.field_path: one_week_ago.strftime('%Y-%m-%d'),
+		'%s__lte' % self.field_path: today_str,
+		}),
+		(_('Added last month'), {
+		'%s__gte' % self.field_path: one_month_ago.strftime('%Y-%m-%d'),
+		'%s__lte' % self.field_path: today_str,
+		}),
+		)
 
-    def get_label(self):
-        return _('Choose range')
+	def get_slug_name(self):
+		return u'creation_date_filter'
+
+	def get_option_object(self):
+		return None
+
+	def get_label(self):
+		return _('Choose range')
 
 
 class CityLookupFilterSpec(FilterSpec):
-    def __init__(self, params, field_path):
-        self.field_path = field_path
-        self.field_generic = '%s__' % field_path
-        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
-        self.lookup = '%s__pk' % self.field_path
-            
-        self.links = []
-        for city in City.objects.filter(lat__isnull=False, lon__isnull=False):
-            self.links.append((city.name, {self.lookup: u'%s' % city.pk}))
-        
-        # Initial and default value
-        if not self.get_qs_filter():
-            self.selected_params = {self.lookup: u'%s' % settings.DEFAULT_CITY_ID}
-        
-    def get_option_object(self):
-        return City.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
-    
-    def get_slug_name(self):
-        return u'city_lookup_filter'
-    
-    def get_label(self):
-        return _('Choose city')
+	def __init__(self, params, field_path):
+		self.field_path = field_path
+		self.field_generic = '%s__' % field_path
+		self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
+		self.lookup = '%s__pk' % self.field_path
+
+		self.links = []
+		for city in City.objects.filter(lat__isnull=False, lon__isnull=False):
+			self.links.append((city.name, {self.lookup: u'%s' % city.pk}))
+
+		# Initial and default value
+		if not self.get_qs_filter():
+			self.selected_params = {self.lookup: u'%s' % settings.DEFAULT_CITY_ID}
+
+	def get_option_object(self):
+		return City.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
+
+	def get_slug_name(self):
+		return u'city_lookup_filter'
+
+	def get_label(self):
+		return _('Choose city')
+
 
 class SourceLookupFilterSpec(FilterSpec):
-    def __init__(self, params, field_path):
-        self.field_path = field_path
-        self.field_generic = '%s__' % field_path
-        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
-        self.lookup = '%s__eq' % self.field_path
-            
-        self.links = []
-        self.links.append(('--', ''))
-        for source in Source.objects.all():
-            self.links.append((source.description, {self.lookup: u'%s' % source.pk}))
-    
-    def get_option_object(self):
-        return Source.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
-    
-    def get_slug_name(self):
-        return u'source_lookup_filter'
-    
-    def get_label(self):
-        return _('Choose source')
+	def __init__(self, params, field_path):
+		self.field_path = field_path
+		self.field_generic = '%s__' % field_path
+		self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
+		self.lookup = '%s__eq' % self.field_path
+
+		self.links = []
+		self.links.append(('--', ''))
+		for source in Source.objects.all():
+			self.links.append((source.description, {self.lookup: u'%s' % source.pk}))
+
+	def get_option_object(self):
+		return Source.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
+
+	def get_slug_name(self):
+		return u'source_lookup_filter'
+
+	def get_label(self):
+		return _('Choose source')
+
 
 def handle_uploaded_file(f):
-    return ContentFile(f.read())
+	return ContentFile(f.read())
+
 
 def photo_upload(request, photo_id):
-    photo = get_object_or_404(Photo, pk=photo_id)
-    new_id = 0
-    if request.method == 'POST':
-        profile = request.get_user().get_profile()
-        
-        if 'fb_access_token' in request.POST:
-            token = request.POST.get('fb_access_token')
-            profile, fb_data = Profile.facebook.get_user(token)
-            if profile is None:
-                user = request.get_user() # will create user on-demand
-                profile = user.get_profile()
-                
-                # update user info
-                profile.update_from_fb_data(token, fb_data)
-        
-        # get the latest uploaded rephoto
-        latest_upload = Photo.objects.filter(rephoto_of=photo)
-        previous_uploader = None
-        if latest_upload:
-            previous_uploader = latest_upload.values('user').order_by('-id')[:1].get()
-        
-        if 'user_file[]' in request.FILES.keys():
-            for f in request.FILES.getlist('user_file[]'):
-                fileobj = handle_uploaded_file(f)
-                data = request.POST
-                re_photo = Photo(
-                    rephoto_of=photo,
-                    city=photo.city,
-                    description=data.get('description', photo.description),
-                    lat=data.get('lat', None),
-                    lon=data.get('lon', None),
-                    date_text=data.get('date_text', None),
-                    user=profile,
-                    cam_scale_factor=data.get('scale_factor', None),
-                    cam_yaw=data.get('yaw'),
-                    cam_pitch=data.get('pitch'),
-                    cam_roll=data.get('roll'),
-                )
-                if (re_photo.cam_scale_factor):
-                    re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
-                re_photo.save()
-                re_photo.image.save(f.name, fileobj)
-                new_id = re_photo.pk
-                
-                img = Image.open('/var/garage/' + str(re_photo.image))
-                exif_data = _get_exif_data(img)
-                if (exif_data):
-                    if ('GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data):
-                        gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
-                        gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
-                        gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
-                        gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
+	photo = get_object_or_404(Photo, pk=photo_id)
+	new_id = 0
 
-                        lat = _convert_to_degress(gps_latitude)
-                        if gps_latitude_ref != "N":
-                            lat = 0 - lat
+	if request.method == 'POST':
+		profile = request.get_user().get_profile()
+		if 'fb_access_token' in request.POST:
+			token = request.POST.get('fb_access_token')
+			profile, fb_data = Profile.facebook.get_user(token)
+			if profile is None:
+				user = request.get_user()
+				profile = user.get_profile()
+				profile.update_from_fb_data(token, fb_data)
+		latest_upload = Photo.objects.filter(rephoto_of=photo)
+		previous_uploader = None
+		if latest_upload:
+			previous_uploader = latest_upload.values('user').order_by('-id')[:1].get()
 
-                        lon = _convert_to_degress(gps_longitude)
-                        if gps_longitude_ref != "E":
-                            lon = 0 - lon
+		if 'user_file[]' in request.FILES.keys():
+			for f in request.FILES.getlist('user_file[]'):
+				fileobj = handle_uploaded_file(f)
+				data = request.POST
+				re_photo = Photo(
+					rephoto_of=photo,
+					city=photo.city,
+					description=data.get('description', photo.description),
+					lat=data.get('lat', None),
+					lon=data.get('lon', None),
+					date_text=data.get('date_text', None),
+					user=profile,
+					cam_scale_factor=data.get('scale_factor', None),
+					cam_yaw=data.get('yaw'),
+					cam_pitch=data.get('pitch'),
+					cam_roll=data.get('roll'),
+				)
+				if re_photo.cam_scale_factor:
+					re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
+				re_photo.save()
+				re_photo.image.save(f.name, fileobj)
+				new_id = re_photo.pk
 
-                        re_photo.lat = lat
-                        re_photo.lon = lon
-                        re_photo.save()
+				img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
+				exif_data = _get_exif_data(img)
+				if exif_data:
+					if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
+						gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
+						gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
+						gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
+						gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
 
-                    if ('Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data):
-                        camera_make = exif_data.get('Make')
-                        camera_model = exif_data.get('Model')
-                        lens_make = exif_data.get('LensMake')
-                        lens_model = exif_data.get('LensModel')
-                        software = exif_data.get('Software')
-                        try:
-                            # find existing device configuration
-                            device=Device.objects.get(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
-                        except ObjectDoesNotExist:
-                            # create new device configuration
-                            device=Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
-                            device.save()
+						lat = _convert_to_degress(gps_latitude)
+						if gps_latitude_ref != "N":
+							lat = 0 - lat
 
-                        re_photo.device = device
-                        re_photo.save()
+						lon = _convert_to_degress(gps_longitude)
+						if gps_longitude_ref != "E":
+							lon = 0 - lon
 
-                    if ('DateTimeOriginal' in exif_data):
-                        date_taken = exif_data.get('DateTimeOriginal')
-                        try:
-                            parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                        except (ValueError):
-                            parsed_time = None
-                        if (parsed_time):
-                            parsed_time = strftime("%H:%M:%S", parsed_time)
+						re_photo.lat = lat
+						re_photo.lon = lon
+						re_photo.save()
 
-                        # ignore default camera dates
-                        if (parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00'):
-                            try:
-                                parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                            except (ValueError):
-                                parsed_date = None
-                            if (parsed_date):
-                                re_photo.date = strftime("%Y-%m-%d", parsed_date)
-                                re_photo.save()
+					if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data:
+						camera_make = exif_data.get('Make')
+						camera_model = exif_data.get('Model')
+						lens_make = exif_data.get('LensMake')
+						lens_model = exif_data.get('LensModel')
+						software = exif_data.get('Software')
+						try:
+							device = Device.objects.get(camera_make=camera_make, camera_model=camera_model,
+														lens_make=lens_make, lens_model=lens_model, software=software)
+						except ObjectDoesNotExist:
+							device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make,
+											lens_model=lens_model, software=software)
+							device.save()
 
-                if (re_photo.cam_scale_factor):
-                    new_size = tuple([int(x*re_photo.cam_scale_factor) for x in img.size])
-                    output_file = StringIO()
+						re_photo.device = device
+						re_photo.save()
 
-                    if (re_photo.cam_scale_factor < 1):
-                        x0 = (img.size[0]-new_size[0])/2;
-                        y0 = (img.size[1]-new_size[1])/2;
-                        x1 = img.size[0]-x0;
-                        y1 = img.size[1]-y0;
-                        new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
-                        new_img.save(output_file, 'JPEG', quality=95)
-                        re_photo.image_unscaled = deepcopy(re_photo.image)
-                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-                    elif (re_photo.cam_scale_factor > 1):
-                        x0 = (new_size[0]-img.size[0])/2;
-                        y0 = (new_size[1]-img.size[1])/2;
-                        new_img = Image.new("RGB", new_size)
-                        new_img.paste(img, (x0, y0))
-                        new_img.save(output_file, 'JPEG', quality=95)
-                        re_photo.image_unscaled = deepcopy(re_photo.image)
-                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-            
-            # recalculate points for previous uploader
-            if previous_uploader and previous_uploader['user']:
-                uploader = Profile.objects.get(pk=previous_uploader['user'])
-                uploader.update_rephoto_score()
-            
-            # recalculate points for new uploader
-            profile.update_rephoto_score()
-    
-    return HttpResponse(json.dumps({'new_id': new_id}), mimetype="application/json")
+					if 'DateTimeOriginal' in exif_data:
+						date_taken = exif_data.get('DateTimeOriginal')
+						try:
+							parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+						except ValueError:
+							parsed_time = None
+						if parsed_time:
+							parsed_time = strftime("%H:%M:%S", parsed_time)
+
+						# ignore default camera dates
+						if parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00':
+							try:
+								parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+							except ValueError:
+								parsed_date = None
+							if parsed_date:
+								re_photo.date = strftime("%Y-%m-%d", parsed_date)
+								re_photo.save()
+
+				if re_photo.cam_scale_factor:
+					new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
+					output_file = StringIO()
+
+					if re_photo.cam_scale_factor < 1:
+						x0 = (img.size[0] - new_size[0]) / 2
+						y0 = (img.size[1] - new_size[1]) / 2
+						x1 = img.size[0] - x0
+						y1 = img.size[1] - y0
+						new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
+						new_img.save(output_file, 'JPEG', quality=95)
+						re_photo.image_unscaled = deepcopy(re_photo.image)
+						re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+					elif re_photo.cam_scale_factor > 1:
+						x0 = (new_size[0] - img.size[0]) / 2
+						y0 = (new_size[1] - img.size[1]) / 2
+						new_img = Image.new("RGB", new_size)
+						new_img.paste(img, (x0, y0))
+						new_img.save(output_file, 'JPEG', quality=95)
+						re_photo.image_unscaled = deepcopy(re_photo.image)
+						re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+
+			if previous_uploader and previous_uploader['user']:
+				uploader = Profile.objects.get(pk=previous_uploader['user'])
+				uploader.update_rephoto_score()
+
+			profile.update_rephoto_score()
+
+	return HttpResponse(json.dumps({'new_id': new_id}), mimetype="application/json")
+
 
 def logout(request):
-    from django.contrib.auth import logout
-    logout(request)
-    return redirect('/')
-    #return HttpResponse(unicode(request.get_user()))
+	from django.contrib.auth import logout
+
+	logout(request)
+	return redirect('/')
+
 
 def thegame(request):
-    ctx = {}
-    city_select_form = CitySelectForm(request.GET)
-    if city_select_form.is_valid():
-        ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
+	ctx = {}
+	city_select_form = CitySelectForm(request.GET)
+	if city_select_form.is_valid():
+		ctx['city'] = City.objects.get(pk=city_select_form.cleaned_data['city'])
 
-    site = Site.objects.get_current()
-    ctx['hostname'] = 'http://%s' % (site.domain, )
-    ctx['title'] = _('Guess the location')
-    
-    filters = FilterSpecCollection(None, request.GET)
-    filters.register(CityLookupFilterSpec, 'city')
-    #filters.register(DateFieldFilterSpec, 'created')
-    ctx['filters'] = filters
-    
-    return render_to_response('game.html', RequestContext(request, ctx))
+	site = Site.objects.get_current()
+	ctx['hostname'] = 'http://%s' % (site.domain, )
+	ctx['title'] = _('Guess the location')
+
+	filters = FilterSpecCollection(None, request.GET)
+	filters.register(CityLookupFilterSpec, 'city')
+	ctx['filters'] = filters
+
+	return render_to_response('game.html', RequestContext(request, ctx))
+
 
 def frontpage(request):
-    try:
-        example = random.choice(Photo.objects.filter(id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646], rephoto_of__isnull=False))
-    except:
-        example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
-    example_source = Photo.objects.get(pk=example.rephoto_of.id)
-    city_select_form = CitySelectForm(request.GET)
-    
-    if not city_select_form.is_valid():
-        city_select_form = CitySelectForm()
+	try:
+		example = random.choice(Photo.objects.filter(
+			id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
+			rephoto_of__isnull=False))
+	except:
+		example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
+	example_source = Photo.objects.get(pk=example.rephoto_of.id)
+	city_select_form = CitySelectForm(request.GET)
 
-    filters = FilterSpecCollection(None, request.GET)
-    filters.register(CityLookupFilterSpec, 'city')
-    
-    return render_to_response('frontpage.html', RequestContext(request, {
-        'city_select_form': city_select_form,
-        'filters': filters,
-        'example': example,
-        'example_source': example_source,
-    }))
+	if not city_select_form.is_valid():
+		city_select_form = CitySelectForm()
+
+	filters = FilterSpecCollection(None, request.GET)
+	filters.register(CityLookupFilterSpec, 'city')
+
+	return render_to_response('frontpage.html', RequestContext(request, {
+	'city_select_form': city_select_form,
+	'filters': filters,
+	'example': example,
+	'example_source': example_source,
+	}))
+
 
 def photo_large(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    if (photo.cam_scale_factor and photo.rephoto_of):
-        # if rephoto is taken with mobile then make it same width/height as source photo
-        im = get_thumbnail(photo.rephoto_of.image, '1024x1024', upscale=False)
-        im = get_thumbnail(photo.image, str(im.width) +'x'+ str(im.height), crop="center" )
-    else:
-        im = get_thumbnail(photo.image, '1024x1024', upscale=False)
-    #return redirect(im.url)
-    content = im.read()
-    next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
-    response = HttpResponse(content, content_type='image/jpg')
-    response['Content-Length'] = len(content)
-    response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
-    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    return response
+	photo = get_object_or_404(Photo, id=photo_id)
+	if photo.cam_scale_factor and photo.rephoto_of:
+		# if rephoto is taken with mobile then make it same width/height as source photo
+		im = get_thumbnail(photo.rephoto_of.image, '1024x1024', upscale=False)
+		im = get_thumbnail(photo.image, str(im.width) + 'x' + str(im.height), crop="center")
+	else:
+		im = get_thumbnail(photo.image, '1024x1024', upscale=False)
+	content = im.read()
+	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+	response = HttpResponse(content, content_type='image/jpg')
+	response['Content-Length'] = len(content)
+	response['Cache-Control'] = "max-age=604800, public"  # 604800 = 7 days
+	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+	return response
+
 
 def photo_url(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    if (photo.cam_scale_factor and photo.rephoto_of):
-        # if rephoto is taken with mobile then make it same width/height as source photo
-        im = get_thumbnail(photo.rephoto_of.image, '700x400')
-        im = get_thumbnail(photo.image, str(im.width) +'x'+ str(im.height), crop="center" )
-    else:
-        im = get_thumbnail(photo.image, '700x400')
-    #return redirect(im.url)
-    content = im.read()
-    next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
-    response = HttpResponse(content, content_type='image/jpg')
-    response['Content-Length'] = len(content)
-    response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
-    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    return response
+	photo = get_object_or_404(Photo, id=photo_id)
+	if (photo.cam_scale_factor and photo.rephoto_of):
+		# if rephoto is taken with mobile then make it same width/height as source photo
+		im = get_thumbnail(photo.rephoto_of.image, '700x400')
+		im = get_thumbnail(photo.image, str(im.width) + 'x' + str(im.height), crop="center")
+	else:
+		im = get_thumbnail(photo.image, '700x400')
+	# return redirect(im.url)
+	content = im.read()
+	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+	response = HttpResponse(content, content_type='image/jpg')
+	response['Content-Length'] = len(content)
+	response['Cache-Control'] = "max-age=604800, public"  # 604800 = 7 days
+	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+	return response
+
 
 def photo_thumb(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    if (photo.image_unscaled):
-        im = get_thumbnail(photo.image_unscaled, '50x50', crop='center')
-    else:
-        im = get_thumbnail(photo.image, '50x50', crop='center')
-    #return redirect(im.url)
-    content = im.read()
-    next_week = datetime.datetime.now()+datetime.timedelta(seconds=604800)
-    response = HttpResponse(content, content_type='image/jpg')
-    response['Content-Length'] = len(content)
-    response['Cache-Control'] = "max-age=604800, public" # 604800 = 7 days
-    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    return response
+	photo = get_object_or_404(Photo, id=photo_id)
+	if photo.image_unscaled:
+		im = get_thumbnail(photo.image_unscaled, 'x150', crop='center')
+	else:
+		im = get_thumbnail(photo.image, 'x150', crop='center')
+	# return redirect(im.url)
+	content = im.read()
+	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+	response = HttpResponse(content, content_type='image/jpg')
+	response['Content-Length'] = len(content)
+	response['Cache-Control'] = "max-age=604800, public"  # 604800 = 7 days
+	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+	return response
+
 
 def photo(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    pseudo_slug = photo.get_pseudo_slug()
-    # slug not needed if not enough data for slug or ajax request
-    if pseudo_slug != "" and not request.is_ajax():
-        return photoslug(request, photo.id, "")
-    else:
-        return photoslug(request, photo.id, pseudo_slug)
+	photo = get_object_or_404(Photo, id=photo_id)
+	pseudo_slug = photo.get_pseudo_slug()
+	# slug not needed if not enough data for slug or ajax request
+	if pseudo_slug != "" and not request.is_ajax():
+		return photoslug(request, photo.id, "")
+	else:
+		return photoslug(request, photo.id, pseudo_slug)
+
 
 def photoslug(request, photo_id, pseudo_slug):
-    photo_obj = get_object_or_404(Photo, id=photo_id)
-    # redirect if slug in url doesn't match with our pseudo slug
-    if photo_obj.get_pseudo_slug() != pseudo_slug:
-        response = HttpResponse(content="", status=301) # HTTP 301 for google juice
-        response["Location"] = photo_obj.get_absolute_url()
-        return response
+	photo_obj = get_object_or_404(Photo, id=photo_id)
+	# redirect if slug in url doesn't match with our pseudo slug
+	if photo_obj.get_pseudo_slug() != pseudo_slug:
+		response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
+		response["Location"] = photo_obj.get_absolute_url()
+		return response
 
-    # switch places if rephoto url
-    rephoto = None
-    if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
-        rephoto = photo_obj
-        photo_obj = photo_obj.rephoto_of
+	# switch places if rephoto url
+	rephoto = None
+	if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
+		rephoto = photo_obj
+		photo_obj = photo_obj.rephoto_of
 
-    site = Site.objects.get_current()
-    template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
-    return render_to_response(template, RequestContext(request, {
-        'photo': photo_obj,
-        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50],
-        'description': photo_obj.description,
-        'rephoto': rephoto,
-        'hostname': 'http://%s' % (site.domain, )
-    }))
+	site = Site.objects.get_current()
+	template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+	return render_to_response(template, RequestContext(request, {
+	'photo': photo_obj,
+	'title': ' '.join(photo_obj.description.split(' ')[:5])[:50],
+	'description': photo_obj.description,
+	'rephoto': rephoto,
+	'hostname': 'http://%s' % (site.domain, )
+	}))
+
 
 def photo_heatmap(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    pseudo_slug = photo.get_pseudo_slug()
-    # slug not needed if not enough data for slug or ajax request
-    if pseudo_slug != "" and not request.is_ajax():
-        return photoslug_heatmap(request, photo.id, "")
-    else:
-        return photoslug_heatmap(request, photo.id, pseudo_slug)
+	photo = get_object_or_404(Photo, id=photo_id)
+	pseudo_slug = photo.get_pseudo_slug()
+	# slug not needed if not enough data for slug or ajax request
+	if pseudo_slug != "" and not request.is_ajax():
+		return photoslug_heatmap(request, photo.id, "")
+	else:
+		return photoslug_heatmap(request, photo.id, pseudo_slug)
 
 
 def photoslug_heatmap(request, photo_id, pseudo_slug):
-    photo_obj = get_object_or_404(Photo, id=photo_id)
-    # redirect if slug in url doesn't match with our pseudo slug
-    if photo_obj.get_pseudo_slug() != pseudo_slug:
-        response = HttpResponse(content="", status=301) # HTTP 301 for google juice
-        response["Location"] = photo_obj.get_heatmap_url()
-        return response
+	photo_obj = get_object_or_404(Photo, id=photo_id)
+	# redirect if slug in url doesn't match with our pseudo slug
+	if photo_obj.get_pseudo_slug() != pseudo_slug:
+		response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
+		response["Location"] = photo_obj.get_heatmap_url()
+		return response
 
-    # load heatmap data always from original photo
-    if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
-        photo_obj = photo_obj.rephoto_of
+	# load heatmap data always from original photo
+	if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
+		photo_obj = photo_obj.rephoto_of
 
-    data = get_next_photos_to_geotag.get_all_geotag_submits(photo_obj.id)
-    return render_to_response('heatmap.html', RequestContext(request, {
-        'json_data': json.dumps(data),
-        'city': photo_obj.city,
-        'title': ' '.join(photo_obj.description.split(' ')[:5])[:50] +' - '+ _("Heat map"),
-        'description': photo_obj.description,
-        'photo_lon': photo_obj.lon,
-        'photo_lat': photo_obj.lat,
-    }))
+	data = get_next_photos_to_geotag.get_all_geotag_submits(photo_obj.id)
+	return render_to_response('heatmap.html', RequestContext(request, {
+	'json_data': json.dumps(data),
+	'city': photo_obj.city,
+	'title': ' '.join(photo_obj.description.split(' ')[:5])[:50] + ' - ' + _("Heat map"),
+	'description': photo_obj.description,
+	'photo_lon': photo_obj.lon,
+	'photo_lat': photo_obj.lat,
+	}))
+
 
 def heatmap(request):
-    city_select_form = CitySelectForm(request.GET)
-    city_id = city = None
-    
-    if city_select_form.is_valid():
-        city_id = city_select_form.cleaned_data['city']
-        city = City.objects.get(pk=city_id)
-    else:
-        city_select_form = CitySelectForm()
-    
-    data = get_next_photos_to_geotag.get_all_geotagged_photos(city_id)
-    return render_to_response('heatmap.html', RequestContext(request, {
-        'json_data': json.dumps(data),
-        'city': city,
-        'city_select_form': city_select_form,
-        
-    }))
+	city_select_form = CitySelectForm(request.GET)
+	city_id = city = None
+
+	if city_select_form.is_valid():
+		city_id = city_select_form.cleaned_data['city']
+		city = City.objects.get(pk=city_id)
+	else:
+		city_select_form = CitySelectForm()
+
+	data = get_next_photos_to_geotag.get_all_geotagged_photos(city_id)
+	return render_to_response('heatmap.html', RequestContext(request, {
+	'json_data': json.dumps(data),
+	'city': city,
+	'city_select_form': city_select_form,
+
+	}))
+
 
 def mapview(request):
-    city = None
-    get_params = request.GET.copy()
-    city_id = get_params.get('city__pk', 0)
-    
-    if int(city_id) == 0:
-        # backwards compatible with old city parameter
-        city_id = get_params.get('city', 0)
-        if int(city_id) > 0:
-            get_params['city__pk'] = city_id
+	city = None
+	get_params = request.GET.copy()
+	city_id = get_params.get('city__pk', 0)
 
-    if int(city_id) > 0:
-        city = City.objects.get(pk=city_id)
-    
-    if city:
-        title = city.name +' - '+ _('Browse photos on map')
-    else:
-        title = _('Browse photos on map')
+	if int(city_id) == 0:
+		# backwards compatible with old city parameter
+		city_id = get_params.get('city', 0)
+		if int(city_id) > 0:
+			get_params['city__pk'] = city_id
 
-    qs = Photo.objects.all()
-    
-    filters = FilterSpecCollection(qs, get_params)
-    filters.register(CityLookupFilterSpec, 'city')
-    #filters.register(DateFieldFilterSpec, 'created')
-    #filters.register(SourceLookupFilterSpec, 'source')
-    data = filters.get_filtered_qs().get_geotagged_photos_list()
-    
-    leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().get_profile().pk)
-    
-    return render_to_response('mapview.html', RequestContext(request, {
-        'json_data': json.dumps(data),
-        'city': city,
-        'title': title,
-        'filters': filters,
-        'leaderboard': leaderboard,
-    }))
+	if int(city_id) > 0:
+		city = City.objects.get(pk=city_id)
+
+	if city:
+		title = city.name + ' - ' + _('Browse photos on map')
+	else:
+		title = _('Browse photos on map')
+
+	qs = Photo.objects.all()
+
+	filters = FilterSpecCollection(qs, get_params)
+	filters.register(CityLookupFilterSpec, 'city')
+	# filters.register(DateFieldFilterSpec, 'created')
+	# filters.register(SourceLookupFilterSpec, 'source')
+	data = filters.get_filtered_qs().get_geotagged_photos_list()
+	# data = filters.get_filtered_qs()
+
+	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().get_profile().pk)
+
+	return render_to_response('mapview.html', RequestContext(request, {
+	'json_data': json.dumps(data),
+	'city': city,
+	'title': title,
+	'filters': filters,
+	'leaderboard': leaderboard,
+	}))
+
 
 def get_leaderboard(request):
-    return HttpResponse(json.dumps(
-        get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)),
-        mimetype="application/json")
+	return HttpResponse(json.dumps(
+		get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)),
+						mimetype="application/json")
+
 
 def geotag_add(request):
-    data = request.POST
-    is_correct, current_score, total_score, leaderboard_update, location_is_unclear = get_next_photos_to_geotag.submit_guess(request.get_user().get_profile(), data['photo_id'], data.get('lon'), data.get('lat'), hint_used=data.get('hint_used'))
-    return HttpResponse(json.dumps({
-        'is_correct': is_correct,
-        'current_score': current_score,
-        'total_score': total_score,
-        'leaderboard_update': leaderboard_update,
-        'location_is_unclear': location_is_unclear,
-    }), mimetype="application/json")
+	data = request.POST
+	is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain, heatmap_points, azimuth_tag_count = get_next_photos_to_geotag.submit_guess(
+		request.get_user().get_profile(), data.get('photo_id'), data.get('lon'), data.get('lat'),
+		hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'))
+	flip = data.get("flip", None)
+	if flip is not None:
+		flip_feedback = FlipFeedback()
+		flip_feedback.photo_id = data['photo_id']
+		flip_feedback.user_profile = request.get_user().get_profile()
+		if flip == "true":
+			flip_feedback.flip = True
+		elif flip == "false":
+			flip_feedback.flip = False
+		flip_feedback.save()
+
+	return HttpResponse(json.dumps({
+		'is_correct': is_correct,
+		'current_score': current_score,
+		'total_score': total_score,
+		'leaderboard_update': leaderboard_update,
+		'location_is_unclear': location_is_unclear,
+		'azimuth_false': azimuth_false,
+		'azimuth_uncertain': azimuth_uncertain,
+		'heatmap_points': heatmap_points,
+		'azimuth_tags': azimuth_tag_count
+	}), mimetype="application/json")
+
 
 def leaderboard(request):
-    # leaderboard with first position, one in front of you, your score and one after you
-    leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)
-    template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
-    return render_to_response(template, RequestContext(request, {
-        'leaderboard': leaderboard,
-        'title': _('Leaderboard'),
-    }))
+	# leaderboard with first position, one in front of you, your score and one after you
+	leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().get_profile().pk)
+	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+	return render_to_response(template, RequestContext(request, {
+	'leaderboard': leaderboard,
+	'title': _('Leaderboard'),
+	}))
+
 
 def top50(request):
-    # leaderboard with top 50 scores
-    leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().get_profile().pk)
-    template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
-    return render_to_response(template, RequestContext(request, {
-        'leaderboard': leaderboard,
-        'title': _('Leaderboard'),
-    }))
-    
+	# leaderboard with top 50 scores
+	leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().get_profile().pk)
+	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+	return render_to_response(template, RequestContext(request, {
+	'leaderboard': leaderboard,
+	'title': _('Leaderboard'),
+	}))
+
+
 def rephoto_top50(request):
-    # leaderboard with top 50 scores
-    leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard50(request.get_user().get_profile().pk)
-    template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
-    return render_to_response(template, RequestContext(request, {
-        'leaderboard': leaderboard,
-        'title': _('Leaderboard'),
-    }))
+	# leaderboard with top 50 scores
+	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard50(request.get_user().get_profile().pk)
+	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+	return render_to_response(template, RequestContext(request, {
+	'leaderboard': leaderboard,
+	'title': _('Leaderboard'),
+	}))
+
 
 def fetch_stream(request):
-    qs = Photo.objects.all()
-    filters = FilterSpecCollection(qs, request.GET)
-    filters.register(DateFieldFilterSpec, 'created')
-    filters.register(CityLookupFilterSpec, 'city')
-    filters.register(SourceLookupFilterSpec, 'source')
-    data = filters.get_filtered_qs().get_next_photos_to_geotag(request.get_user().get_profile().pk, 4, request.GET.get('extra'))
-    return HttpResponse(json.dumps(data), mimetype="application/json")
+	qs = Photo.objects.all()
+	filters = FilterSpecCollection(qs, request.GET)
+	filters.register(DateFieldFilterSpec, 'created')
+	filters.register(CityLookupFilterSpec, 'city')
+	filters.register(SourceLookupFilterSpec, 'source')
+	# filters.register(UserAlreadyGeotaggedFilterSpec, request.get_user().get_profile().pk)
+	data = {}
+	data["photos"], data["user_seen_all"], data[
+		"nothing_more_to_show"] = filters.get_filtered_qs().get_next_photo_to_geotag(request)
+	return HttpResponse(json.dumps(data), mimetype="application/json")
+
+
+def difficulty_feedback(request):
+	# TODO: Tighten down security when it becomes apparent people are abusing this
+	from get_next_photos_to_geotag import calc_trustworthiness
+
+	user_profile = request.get_user().get_profile()
+	user_trustworthiness = calc_trustworthiness(user_profile.pk)
+	user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
+	level = request.POST.get("level") or None
+	photo_id = request.POST.get("photo_id") or None
+	if user_profile and level and photo_id:
+		feedback_object = DifficultyFeedback()
+		feedback_object.user_profile = user_profile
+		feedback_object.level = level
+		feedback_object.photo_id = photo_id
+		feedback_object.trustworthiness = user_trustworthiness
+		feedback_object.geotag = user_last_geotag
+		feedback_object.save()
+	photo = Photo.objects.filter(id=photo_id)[:1].get()
+	photo.set_calculated_fields()
+	return HttpResponse("OK")
+
+
+def custom_404(request):
+	response = render_to_response('404.html', {}, context_instance=RequestContext(request))
+	response.status_code = 404
+	return response
+
+
+def custom_500(request):
+	response = render_to_response('500.html', {}, context_instance=RequestContext(request))
+	response.status_code = 500
+	return response
+
+
+def europeana(request):
+	# This is for testing Europeana integration, nothing good yet
+	x1 = request.GET.get("x1", None)
+	x2 = request.GET.get("x2", None)
+	y1 = request.GET.get("y1", None)
+	y2 = request.GET.get("y2", None)
+	bounding_box = None
+	if x1 and x2 and y1 and y2:
+		bounding_box = BoundingBox(x1, y1, x2, y2)
+	results = Search().query(request.GET.get("query", "Kose"), request.GET.get("refinement_terms", None), bounding_box,
+							 request.GET.get("start", 1), request.GET.get("size", 12))
+	return render_to_response("europeana.html", RequestContext(request, {
+	'results': results
+	}))

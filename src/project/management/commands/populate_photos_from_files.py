@@ -44,9 +44,7 @@ class Command(BaseCommand):
 										for key in ('Kirjeldus','title') \
 										if key in metadata]))
 
-			city_name=metadata.get('Pildistamise koht') \
-					or metadata.get('S\xc3\xbc\xc5\xbeee nimetus') \
-					or metadata.get('place')
+			city_name=metadata.get('Pildistamise koht') or metadata.get('S\xc3\xbc\xc5\xbeee nimetus') or metadata.get('place') or "Ajapaik"
 
 			try:
 				city=City.objects.get(name=city_name)
@@ -54,7 +52,7 @@ class Command(BaseCommand):
 				city=City(name=city_name)
 				city.save()
 			
-			source_description=metadata.get('institution')
+			source_description=metadata.get('institution') or "Ajapaik"
 			try:
 				source=Source.objects.get(description=source_description)
 			except ObjectDoesNotExist:
