@@ -407,10 +407,14 @@
         photosDiv.hoverIntent(function () {
             if (locationToolsOpen === true && !isMobile) {
                 showPhotos();
+            } else if (locationToolsOpen === false && !isMobile) {
+                showTools();
             }
         }, function () {
             if (locationToolsOpen === true && !isMobile) {
                 hidePhotos();
+            } else if (locationToolsOpen === false && !isMobile) {
+                hideTools();
             }
         });
 
@@ -571,8 +575,22 @@
             $('#tools').animate({ left: photoWidthPercent + '%' });
         }
 
+        function showTools() {
+//            $("a.btn.flip").show();
+//            $(".fb-like").show();
+//            $(".show-description").show();
+            $(".game-photo-tools").show();
+        }
+
         function hidePhotos() {
             $('#tools').animate({ left: '15%' });
+        }
+
+        function hideTools() {
+//            $("a.btn.flip").hide();
+//            $(".fb-like").hide();
+//            $(".show-description").hide();
+            $(".game-photo-tools").hide();
         }
 
         function showSeenAllMessage() {
@@ -589,7 +607,7 @@
 
         function showDescription() {
             $(currentPhoto).find('.show-description').fadeOut(function () {
-                $(this).parent().find('.description').fadeIn();
+                $(this).parent().parent().find('.description').fadeIn();
             });
         }
 
@@ -617,7 +635,7 @@
                 currentPhoto = photosDiv.find('.photo' + currentPhotoIdx);
 
                 $(currentPhoto).append(
-                    '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><a onclick="window.flipPhoto();" class="btn flip" href="#" class="btn medium"></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '<div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
+                    '<div class="container"><a class="fullscreen" rel="' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].big.url + '" /></a><div class="game-photo-tools"><a onclick="window.flipPhoto();" class="btn flip" href="#" class="btn medium"></a><div class="fb-like"><fb:like href="' + permalinkURL + photos[currentPhotoIdx].id + '/" layout="button_count" send="false" show_faces="false" action="recommend"></fb:like></div>' + (language_code == 'et' ? '<a href="#" class="id' + photos[currentPhotoIdx].id + ' btn small show-description">' + gettext('Show description') + '</a>' : '') + '</div><div class="description">' + photos[currentPhotoIdx].description + '</div></div>'
                 ).find('img').load(function () {
                     currentPhoto.css({ 'visibility': 'visible' });
                     $(this).fadeIn('slow', function () {

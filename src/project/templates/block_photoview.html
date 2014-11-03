@@ -34,7 +34,6 @@ $(document).ready(function() {
 		</div>
 		<a href="#" id="close-photo-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
         <a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Photo', 'Random']);" title="{% trans "Random" %}">&nbsp;</a>
-		<a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.flipPhoto({{ photo.id }});" title="{% trans "Flip" %}">&nbsp;</a>
 		<script>
 		var rephotoComment = [];
 		{% for rephoto in photo.rephotos.all %}
@@ -48,7 +47,7 @@ $(document).ready(function() {
 		
 		<div class="tools">
 			<div class="description">
-				<p>{{ photo.description }}</p>
+				<p>{{ photo.description }}</p><br/>
 				<p class="owner">
 				{% if photo.source_url %}
 					<a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
@@ -56,6 +55,7 @@ $(document).ready(function() {
 					{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
 				{% endif %}
 				</p>
+            <a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.flipPhoto({{ photo.id }});" title="{% trans "Flip" %}">&nbsp;</a>
 			</div>
 		</div>
 	</div><!-- .original.photo-item -->

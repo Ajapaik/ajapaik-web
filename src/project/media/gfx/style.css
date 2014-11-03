@@ -381,6 +381,7 @@ h2.add_comment {
 #browse #photo-drawer .original .tools .description p,
 .single .original .tools .description p {
     margin: 0 0 5px;
+    display: inline;
 }
 
 #browse #photo-drawer .original .tools .description p.owner,
@@ -598,9 +599,8 @@ a.fullscreen {
 
 #game #photos .photo .btn.show-description {
     position: absolute;
-    display: block;
-    bottom: -40px;
-    left: 50%;
+    bottom: 0;
+    right: 0;
     width: 110px;
     margin-left: -70px;
     z-index: 1000;
@@ -1270,6 +1270,9 @@ a.btn.flip {
 
 #browse-flip-button {
     position: initial !important;
+    float: right;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 #photo-pane-container {
@@ -1321,4 +1324,12 @@ a.btn.flip {
 #simplemodal-container {
     bottom: 0 !important;
     right: 0 !important;
+}
+
+.game-photo-tools {
+    position: absolute;
+    display: none;
+    width: 100%;
+    bottom: 0px;
+    background-color: white;
 }
