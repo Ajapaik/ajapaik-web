@@ -463,7 +463,7 @@
                     if (resp['azimuth_uncertain']) {
                         message = gettext('The location seems right, but the azimuth is yet uncertain.');
                     }
-                    if (resp['azimuth_uncertain'] && resp['azimuth_false']) {
+                    if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
                         message = gettext('The location seems right, your azimuth was first.');
                     }
                 } else if (resp['location_is_unclear']) {
