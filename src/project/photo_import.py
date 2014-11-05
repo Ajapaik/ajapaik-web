@@ -23,20 +23,20 @@ class PhotoViewSet(viewsets.ModelViewSet):
 			queryset = queryset.filter(source_key__in=source_keys)
 		return queryset
 
-	# def create(self, request, *args, **kwargs):
-	# 	serializer = self.get_serializer(data=request.DATA, files=request.FILES)
-	#
-	# 	existing_photo_with_source_key_in_city = Photo.objects.filter(source_key=serializer.source_key, city=serializer.city)
-	#
-	# 	if serializer.is_valid() and not existing_photo_with_source_key_in_city:
-	# 		self.pre_save(serializer.object)
-	# 		self.object = serializer.save(force_insert=True)
-	# 		self.post_save(self.object, created=True)
-	# 		headers = self.get_success_headers(serializer.data)
-	# 		return Response(serializer.data, status=status.HTTP_201_CREATED,
-	# 						headers=headers)
-	#
-	# 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	def create(self, request, *args, **kwargs):
+		serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+
+		existing_photo_with_source_key_in_city = Photo.objects.filter(source_key=serializer.source_key, city=serializer.city)
+
+		if serializer.is_valid() and not existing_photo_with_source_key_in_city:
+			self.pre_save(serializer.object)
+			self.object = serializer.save(force_insert=True)
+			self.post_save(self.object, created=True)
+			headers = self.get_success_headers(serializer.data)
+			return Response(serializer.data, status=status.HTTP_201_CREATED,
+							headers=headers)
+
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CityViewSet(viewsets.ModelViewSet):
 	queryset = City.objects.all()
