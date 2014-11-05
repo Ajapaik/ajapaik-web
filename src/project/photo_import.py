@@ -26,9 +26,9 @@ class PhotoViewSet(viewsets.ModelViewSet):
 	def create(self, request, *args, **kwargs):
 		serializer = self.get_serializer(data=request.DATA, files=request.FILES)
 
-		existing_photo_with_source_key = Photo.objects.filter(source_key=serializer.source_key)
+		existing_photo_with_source_key_in_city = Photo.objects.filter(source_key=serializer.source_key, city=serializer.city)
 
-		if serializer.is_valid() and not existing_photo_with_source_key:
+		if serializer.is_valid() and not existing_photo_with_source_key_in_city:
 			self.pre_save(serializer.object)
 			self.object = serializer.save(force_insert=True)
 			self.post_save(self.object, created=True)
