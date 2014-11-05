@@ -4,6 +4,7 @@
 *.pyo
 .svn
 .installed.cfg
+.idea
 bin
 develop-eggs
 dist

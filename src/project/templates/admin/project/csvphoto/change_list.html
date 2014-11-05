@@ -1,1 +1,20 @@
-asd
+{% extends 'admin/base.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="/admin/">{% trans "Home" %}</a>
+     {% trans "Upload photos via CSV file" %}›
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% block content_title %}{% endblock %}
+    <form enctype="multipart/form-data" method="post" action="/csv_upload/">
+        <label for="ajapaik-csv-upload-field">{% trans "CSV" %}</label>
+        <input name="csv_file" type="file" id="ajapaik-csv-upload-field"/>
+        <label for="ajapaik-zip-upload-field">{% trans "ZIP" %}</label>
+        <input name="zip_file" type="file" id="ajapaik-zip-upload-field"/>
+        <input type="submit" value="{% trans "Submit" %}"/>
+    </form>
+{% endblock %}

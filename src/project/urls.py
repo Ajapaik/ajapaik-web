@@ -34,6 +34,7 @@ urlpatterns = patterns('views',
    (r'^foto_large/(?P<photo_id>\d+)/$', 'photo_large'),
    (r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
    (r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
+   (r'^csv_upload/$', 'csv_upload'),
    (r'^europeana/$', 'europeana'),
 
    (r'^$', 'frontpage')
@@ -48,6 +49,7 @@ urlpatterns = patterns('views',
 	(r'^', include(router.urls)),
 	(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
+
 
 # not sure how to distinguish between LIVE and DEV other than GA code
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':

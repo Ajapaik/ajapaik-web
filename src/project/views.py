@@ -700,3 +700,55 @@ def europeana(request):
 	return render_to_response("europeana.html", RequestContext(request, {
 	'results': results
 	}))
+
+def csv_upload(request):
+	import csv, zipfile, hashlib
+	csv_file = request.FILES["csv_file"]
+	dialect = csv.Sniffer().sniff(csv_file.read(1024), delimiters=";,")
+	header_row = None
+	photos_metadata = {}
+	for row in csv.reader(csv_file, dialect):
+		if not header_row:
+			header_row = row
+			continue
+		row = dict(zip(header_row, row))
+		photos_metadata[row.get("image")] = row
+
+	print photos_metadata
+
+	zip_file = zipfile.ZipFile(request.FILES["zip_file"])
+
+	for key in photos_metadata.keys():
+		image_file = zip_file.read(key)
+		meta_for_this_image = photos_metadata[key]
+		extension = key.split(".")[-1]
+		upload_file_name = "uploads/%s.%s" %(hashlib.md5(key).hexdigest(), extension)
+		fout = open("/var/garage/" + upload_file_name, "w")
+		fout.write(image_file)
+		fout.close()
+		place_name = meta_for_this_image.get("place") or "Ajapaik"
+		try:
+			city = City.objects.get(name=place_name)
+		except ObjectDoesNotExist:
+			city = City(name=place_name)
+			city.save()
+		description='; '.join(filter(None, [meta_for_this_image[sub_key].strip() for sub_key in ('description','title') if sub_key in meta_for_this_image]))
+		source_name = meta_for_this_image.get("institution") or "Ajapaik"
+		try:
+			source = Source.objects.get(description=source_name)
+		except ObjectDoesNotExist:
+			source=Source(name=source_name, description=source_name)
+			source.save()
+		source_key = meta_for_this_image.get("number") or key
+		source_url = meta_for_this_image.get("url")
+		p = Photo(
+			date_text = meta_for_this_image.get("date"),
+		    city = city,
+		    description = description,
+		    source = source,
+		    source_url = source_url,
+		    source_key = source_key
+		)
+		p.image.name = upload_file_name
+		p.save()
+	return HttpResponse("OK")
