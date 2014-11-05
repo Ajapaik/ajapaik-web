@@ -719,7 +719,10 @@ def csv_upload(request):
 	zip_file = zipfile.ZipFile(request.FILES["zip_file"])
 
 	for key in photos_metadata.keys():
-		image_file = zip_file.read(key)
+		try:
+			image_file = zip_file.read(key)
+		except KeyError:
+			continue
 		meta_for_this_image = photos_metadata[key]
 		extension = key.split(".")[-1]
 		upload_file_name = "uploads/%s.%s" %(hashlib.md5(key).hexdigest(), extension)
