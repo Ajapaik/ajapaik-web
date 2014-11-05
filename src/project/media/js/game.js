@@ -579,7 +579,7 @@
 //            $("a.btn.flip").show();
 //            $(".fb-like").show();
 //            $(".show-description").show();
-            $(currentPhoto).find(".game-photo-tools").show();
+            $(".game-photo-tools").show();
         }
 
         function hidePhotos() {
@@ -590,7 +590,7 @@
 //            $("a.btn.flip").hide();
 //            $(".fb-like").hide();
 //            $(".show-description").hide();
-            $(currentPhoto).find(".game-photo-tools").hide();
+            $(".game-photo-tools").hide();
         }
 
         function showSeenAllMessage() {
@@ -617,7 +617,6 @@
             azimuthListenerActive = false;
             window.map.setZoom(16);
             mapMousemoveListenerActive = false;
-            hideTools();
             google.maps.event.clearListeners(window.map, 'mousemove');
             if (line !== undefined) {
                 line.setVisible(false);

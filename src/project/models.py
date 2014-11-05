@@ -696,8 +696,3 @@ class Action(models.Model):
 
 	class Meta:
 		app_label = "project"
-
-class CSVPhoto(Photo):
-	# This is a fake class for adding an admin page
-	class Meta:
-		proxy=True
