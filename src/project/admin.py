@@ -14,7 +14,10 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
-	pass
+	def has_change_permission(self, request, obj=None):
+		return request.user.groups.filter(name='csv_uploaders').exists()
+	def has_add_permission(self, request, obj=None):
+		return request.user.groups.filter(name='csv_uploaders').exists()
 	#Example of self-made view
 	# @permission_required('blog.add_post')
 	# def admin_my_view(request, model_admin):

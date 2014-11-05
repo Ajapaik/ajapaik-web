@@ -12,6 +12,7 @@ from django.contrib.contenttypes import generic
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
 from django.db.models import Q
+from south.v2 import SchemaMigration
 
 from urllib2 import urlopen
 from contextlib import closing
@@ -701,3 +702,11 @@ class CSVPhoto(Photo):
 	# This is a fake class for adding an admin page
 	class Meta:
 		proxy=True
+
+#Possible fix for proxy models not getting their auto-generated permissions and stuff
+# class Migration(SchemaMigration):
+# 	def forwards(self, orm):
+# 		orm.send_create_signal("project", ["CSVPhoto"])
+#
+# 	def backwards(self, orm):
+# 		pass

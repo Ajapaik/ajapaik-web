@@ -1,4 +1,5 @@
 # encoding: utf-8
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -701,6 +702,8 @@ def europeana(request):
 	'results': results
 	}))
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name="csv_uploaders").count() == 0, login_url="/admin/")
 def csv_upload(request):
 	import csv, zipfile, hashlib
 	csv_file = request.FILES["csv_file"]
