@@ -599,8 +599,12 @@ class Profile(models.Model):
 		self.fb_link = data.get("link")
 		self.fb_email = data.get("email")
 		self.fb_birthday = datetime.datetime.strptime(data.get("birthday"), '%m/%d/%Y')
-		self.fb_current_location = data.get("location")["name"]
-		self.fb_hometown = data.get("hometown")["name"]
+		location = data.get("location")
+		if location is not None and "name" in location:
+			self.fb_current_location = location["name"]
+		hometown = data.get("hometown")
+		if hometown is not None and "name" in hometown:
+			self.fb_hometown = data.get("hometown")["name"]
 		self.fb_user_friends = data.get("user_friends")
 
 		self.save()
