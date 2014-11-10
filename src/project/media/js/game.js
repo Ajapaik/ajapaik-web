@@ -486,6 +486,7 @@
                     noticeDiv.find("#difficulty-form").hide();
                 }
                 noticeDiv.find(".message").text(message);
+                noticeDiv.find(".points-gained-message").text(gettext("Points awarded") + ": " + resp["current_score"]);
                 noticeDiv.find(".geotag-count-message").text(gettext("Amount of geotags for this photo") + ": " + resp["heatmap_points"].length);
                 noticeDiv.find(".azimuth-count-message").text(gettext("Amount of azimuths for this photo") + ": " + resp["azimuth_tags"]);
                 noticeDiv.modal({escClose: false, autoPosition: false, modal: false});
