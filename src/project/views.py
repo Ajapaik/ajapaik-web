@@ -727,6 +727,12 @@ def csv_upload(request):
 		except KeyError:
 			continue
 		meta_for_this_image = photos_metadata[key]
+		source_key = meta_for_this_image.get("number") or key
+		try:
+			existing_photo = Photo.objects.get(source_key=source_key)
+			continue
+		except ObjectDoesNotExist:
+			pass
 		extension = key.split(".")[-1]
 		upload_file_name = "uploads/%s.%s" %(hashlib.md5(key).hexdigest(), extension)
 		fout = open("/var/garage/" + upload_file_name, "w")
@@ -745,7 +751,6 @@ def csv_upload(request):
 		except ObjectDoesNotExist:
 			source=Source(name=source_name, description=source_name)
 			source.save()
-		source_key = meta_for_this_image.get("number") or key
 		source_url = meta_for_this_image.get("url")
 		p = Photo(
 			date_text = meta_for_this_image.get("date"),
