@@ -447,8 +447,8 @@ class Photo(models.Model):
 					self.lat = lat_sum / float(correct_guesses_weight)
 					if unique_azimuth_correct_ratio > 0.63:
 						self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
-						self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 3)
-					self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 3)
+						self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
+					self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
 
 class DifficultyFeedback(models.Model):
 	photo = models.ForeignKey('Photo')
