@@ -10,7 +10,10 @@
         cityId,
         photoDrawerElement = $('#photo-drawer'),
         photoPaneContainer = $("#photo-pane-container"),
-        i = 0;
+        i = 0,
+        maxIndex = 2,
+        lastHighlightedMarker,
+        lastSelectedPaneElement;
 
     window.loadPhoto = function(id) {
         photoId = id;
@@ -83,42 +86,50 @@
                     currentElement.hide();
                 }
             }
-            window.lazyLoadImagesBasedOnScroll();
+            //window.lazyLoadImagesBasedOnScroll();
         }
     };
 
     window.highlightSelected = function (markerId, fromMarker) {
         var targetPaneElement = $("#element" + markerId);
-        $("#photo-pane").find(".element").removeClass("selected-pane-element");
+        if (lastSelectedPaneElement) {
+            lastSelectedPaneElement.removeClass("selected-pane-element");
+        }
+        lastSelectedPaneElement = targetPaneElement;
+        var markerTemp;
         for (i = 0; i < markers.length; i += 1) {
-            if (markers[i].id == markerId) {
-                markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
-                if (markers[i].zIndex <= 1) {
-                    markers[i].setZIndex(markers[i].zIndex + 1);
-                }
-                targetPaneElement.addClass("selected-pane-element");
-            } else {
-                markers[i].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
-                if (markers[i].zIndex > 1) {
-                    markers[i].setZIndex(1);
+            if (lastHighlightedMarker) {
+                if (lastHighlightedMarker.rephotoId) {
+                    lastHighlightedMarker.setIcon("/media/gfx/ajapaik_marker_20px_blue.png");
+                } else {
+                    lastHighlightedMarker.setIcon("/media/gfx/ajapaik_marker_20px.png");
                 }
             }
+            if (markers[i].id == markerId) {
+                targetPaneElement.find("img").attr("src", markers[i].thumb);
+                markers[i].setIcon("/media/gfx/ajapaik_marker_20px_green.png");
+                markers[i].setZIndex(maxIndex);
+                maxIndex += 1;
+                targetPaneElement.addClass("selected-pane-element");
+                markerTemp = markers[i];
+            }
         }
+        lastHighlightedMarker = markerTemp;
         if (fromMarker) {
             photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
         }
-        window.lazyLoadImagesBasedOnScroll();
+        //window.lazyLoadImagesBasedOnScroll();
     };
 
     window.lazyLoadImagesBasedOnScroll = function () {
-        $('img[realsrc]').each(function () {
+        /*$('img[realsrc]').each(function () {
             var t = $(this),
             container = t.parent();
             if (container.position().top < (parseInt(photoPaneContainer.scrollTop()) + parseInt(photoPaneContainer.height()))) {
                 t.attr('src', t.attr('realsrc'));
                 t.removeAttr('realsrc');
             }
-        });
+        });*/
     };
 
     window.flipPhoto = function (photoId) {
@@ -144,10 +155,6 @@
             openPhotoDrawer();
         });
 
-        photoPaneContainer.scroll(function () {
-            window.lazyLoadImagesBasedOnScroll();
-        });
-
         if (typeof(markers) !== "undefined") {
             for (i = 0; i < markers.length; i += 1) {
                 var newElementDiv = document.createElement("div");
@@ -156,7 +163,7 @@
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("realsrc", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id);
+                    .attr("data-id", markers[i].id).attr("src", "/media/gfx/ajax_loader_gray_256.gif");
                 var newButtonElement = document.createElement("a");
                 $(newButtonElement).addClass("btn green").click(function (e) {
                     window.loadPhoto(e.target.dataset.id);
@@ -166,6 +173,97 @@
                 $("#photo-pane").append(newElementDiv);
             }
         }
+
+        //Smal scroll-into-view plugin
+        (function ($) {
+            var $window = photoPaneContainer,
+                _watch = [],
+                _buffer;
+
+            function test($el) {
+                var docViewTop = $window.scrollTop(),
+                    docViewBottom = docViewTop + $window.height(),
+                    elemTop = $el.offset().top,
+                    elemBottom = elemTop + $el.height();
+
+                return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom)
+                    && (elemBottom <= docViewBottom) && (elemTop >= docViewTop) );
+            }
+
+            $window.on('scroll', function (e) {
+                if (!_buffer) {
+                    _buffer = setTimeout(function () {
+                        checkInView(e);
+                        _buffer = null;
+                    }, 300);
+                }
+            });
+
+            function checkInView(e) {
+                $.each(_watch, function () {
+                    if (test(this.element)) {
+                        if (!this.invp) {
+                            this.invp = true;
+                            if (this.options.scrolledin)
+                                this.options.scrolledin.call(this.element, e);
+
+                            this.element.trigger('scrolledin', e);
+                        }
+                    } else if (this.invp) {
+                        this.invp = false;
+                        if (this.options.scrolledout)
+                            this.options.scrolledout.call(this.element, e);
+
+                        this.element.trigger('scrolledout', e);
+                    }
+                });
+            }
+
+            function monitor(element, options) {
+                var item = { element: element, options: options, invp: false };
+                _watch.push(item);
+                return item;
+            }
+
+            function unmonitor(item) {
+                for (var i = 0; i < _watch.length; i++) {
+                    if (_watch[i] === item) {
+                        _watch.splice(i, 1);
+                        item.element = null;
+                        break;
+                    }
+                }
+                console.log(_watch);
+            }
+
+            var pluginName = 'scrolledIntoView',
+                settings = {scrolledin: null, scrolledout: null};
+
+            $.fn[pluginName] = function (options) {
+                var options = $.extend({}, settings, options);
+                this.each(function () {
+                    var $el = $(this),
+                        instance = $.data(this, pluginName);
+                    if (instance) {
+                        instance.options = options;
+                    } else {
+                        $.data(this, pluginName, monitor($el, options));
+                        $el.on('remove', $.proxy(function () {
+                            $.removeData(this, pluginName);
+                            unmonitor(instance);
+                        }, this));
+                    }
+                });
+                return this;
+            }
+        })(jQuery);
+
+        $('div.element').scrolledIntoView().on('scrolledin', function () {
+            var targetImage = $(this).find("img");
+            targetImage.attr("src", targetImage.attr("realsrc"));
+        }).on('scrolledout', function () {
+            console.log('out ' + $(this).text());
+        });
 
         if (typeof(window.map) !== "undefined") {
             google.maps.event.addListener(window.map, 'bounds_changed', function () {

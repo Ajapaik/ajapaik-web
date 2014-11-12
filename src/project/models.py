@@ -167,17 +167,17 @@ class Photo(models.Model):
 			zipped_rephotos = zip(filtered_rephotos_ids, filtered_rephotos)
 			rephotos = dict(zipped_rephotos)
 			data = []
-			for p in self.filter(confidence__gte=0.3,
-								 lat__isnull=False, lon__isnull=False,
-								 rephoto_of__isnull=True):
+			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
 				r = rephotos.get(p.id)
+				rephoto_id = None
 				if r is not None and bool(r.image):
 					#im = get_thumbnail(r.image, '50x50', crop='center')
+					rephoto_id = r.id
 					im_url = reverse('views.photo_thumb', args=(r.id,))
 				else:
 					#im = get_thumbnail(p.image, '50x50', crop='center')
 					im_url = reverse('views.photo_thumb', args=(p.id,))
-				data.append((p.id, im_url, p.lon, p.lat, p.id, p.flip, p.description))
+				data.append((p.id, im_url, p.lon, p.lat, rephoto_id, p.flip, p.description))
 			return data
 
 

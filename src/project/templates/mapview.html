@@ -3,6 +3,7 @@
 
 {% block layout %}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>#}
+    <script src="/media/js/pane_scroller.js"></script>
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},
@@ -10,7 +11,9 @@
                 markers = [],
                 p,
                 thumb,
-                image;
+                image,
+                blueIconUrl = "/media/gfx/ajapaik_marker_20px_blue.png",
+                blackIconUrl = "/media/gfx/ajapaik_marker_20px.png";
 
         function initialize() {
             {% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
@@ -33,10 +36,14 @@
                         id: p[0],
                         thumb: p[1],
                         description: p[6],
-                        icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                        rephotoId: p[4],
+                        icon: blackIconUrl,
                         position: new google.maps.LatLng(p[3], p[2]),
                         zIndex: 1
                     });
+                    if (p[4]) {
+                        marker.setIcon(blueIconUrl);
+                    }
                     (function (id) {
                         google.maps.event.addListener(marker, "click", function () {
                             highlightSelected(id, true);
