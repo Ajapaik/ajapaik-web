@@ -13,7 +13,8 @@
         i = 0,
         maxIndex = 2,
         lastHighlightedMarker,
-        lastSelectedPaneElement;
+        lastSelectedPaneElement,
+        initialImageBatchSize = 5;
 
     window.loadPhoto = function(id) {
         photoId = id;
@@ -78,15 +79,18 @@
 
     window.toggleVisiblePaneElements = function () {
         if (window.map) {
+            var j;
             for (i = 0; i < markers.length; i += 1) {
                 var currentElement = $("#element" + markers[i].id);
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
+                    for (j = 0; j < initialImageBatchSize; j += 1) {
+                        currentElement.find("img").attr("src", currentElement.find("img").attr("realsrc"));
+                    }
                     currentElement.show();
                 } else {
                     currentElement.hide();
                 }
             }
-            //window.lazyLoadImagesBasedOnScroll();
         }
     };
 
@@ -118,18 +122,6 @@
         if (fromMarker) {
             photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
         }
-        //window.lazyLoadImagesBasedOnScroll();
-    };
-
-    window.lazyLoadImagesBasedOnScroll = function () {
-        /*$('img[realsrc]').each(function () {
-            var t = $(this),
-            container = t.parent();
-            if (container.position().top < (parseInt(photoPaneContainer.scrollTop()) + parseInt(photoPaneContainer.height()))) {
-                t.attr('src', t.attr('realsrc'));
-                t.removeAttr('realsrc');
-            }
-        });*/
     };
 
     window.flipPhoto = function (photoId) {
