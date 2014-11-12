@@ -225,7 +225,6 @@
                         break;
                     }
                 }
-                console.log(_watch);
             }
 
             var pluginName = 'scrolledIntoView',
@@ -254,7 +253,7 @@
             var targetImage = $(this).find("img");
             targetImage.attr("src", targetImage.attr("realsrc"));
         }).on('scrolledout', function () {
-            console.log('out ' + $(this).text());
+
         });
 
         if (typeof(window.map) !== "undefined") {
