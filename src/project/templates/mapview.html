@@ -3,7 +3,6 @@
 
 {% block layout %}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>#}
-    <script src="/media/js/pane_scroller.js"></script>
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},
