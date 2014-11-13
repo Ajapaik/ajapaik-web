@@ -79,13 +79,9 @@
 
     window.toggleVisiblePaneElements = function () {
         if (window.map) {
-            var j;
             for (i = 0; i < markers.length; i += 1) {
                 var currentElement = $("#element" + markers[i].id);
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
-                    for (j = 0; j < initialImageBatchSize; j += 1) {
-                        currentElement.find("img").attr("src", currentElement.find("img").attr("realsrc"));
-                    }
                     currentElement.show();
                 } else {
                     currentElement.hide();

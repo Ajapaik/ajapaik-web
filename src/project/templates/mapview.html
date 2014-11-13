@@ -11,8 +11,9 @@
                 p,
                 thumb,
                 image,
-                blueIconUrl = "/media/gfx/ajapaik_marker_20px_blue.png",
-                blackIconUrl = "/media/gfx/ajapaik_marker_20px.png";
+                blueIcon,
+                blackIcon,
+                currentIcon;
 
         function initialize() {
             {% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
@@ -27,22 +28,32 @@
                 window.getMap();
             {% endif %}
 
+            blackIcon = {
+                url: "/media/gfx/ajapaik_marker_20px.png"
+            };
+
+            blueIcon = {
+                url: "/media/gfx/ajapaik_marker_20px_blue.png"
+            };
+
             for (i in geotaggedPhotos) {
                 if (geotaggedPhotos.hasOwnProperty(i)) {
                     p = geotaggedPhotos[i];
+                    if (p[4]) {
+                        currentIcon = blueIcon;
+                    } else {
+                        currentIcon = blackIcon;
+                    }
                     var marker = new google.maps.Marker({
                         map: window.map,
                         id: p[0],
                         thumb: p[1],
                         description: p[6],
                         rephotoId: p[4],
-                        icon: blackIconUrl,
+                        icon: currentIcon,
                         position: new google.maps.LatLng(p[3], p[2]),
                         zIndex: 1
                     });
-                    if (p[4]) {
-                        marker.setIcon(blueIconUrl);
-                    }
                     (function (id) {
                         google.maps.event.addListener(marker, "click", function () {
                             highlightSelected(id, true);
