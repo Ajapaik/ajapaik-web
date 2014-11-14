@@ -164,15 +164,14 @@
         $(function () {
             $("img.lazy").lazyload({
                 container: photoPaneContainer,
-                event: "loadInitial"
+                effect: "fadeIn",
+                threshold: 50
             });
         });
 
-        $(window).bind("load", function () {
-            var timeout = setTimeout(function () {
-                $("img.lazy").trigger("loadInitial")
-            }, 1000);
-        });
+        var timeout = setTimeout(function () {
+            photoPaneContainer.trigger("scroll");
+        }, 1000);
 
         if (typeof(window.map) !== "undefined") {
             google.maps.event.addListener(window.map, 'bounds_changed', function () {
