@@ -12,11 +12,10 @@ class BoundingBox(object):
         self.y2 = y2
 
 class Search(object):
-    def query(self, query_term, refinement_terms = None, bounding_box = None, start = 1, size = 12):
+    def query(self, query_term, refinement_terms=None, bounding_box=None, start=1, size=12):
         qf_buf = []
         if bounding_box and isinstance(bounding_box, BoundingBox):
-            query_term += " AND pl_wgs84_pos_lat[%s TO %s] AND pl_wgs84_pos_long[%s TO %s]" \
-                     %(bounding_box.x1, bounding_box.x2, bounding_box.y1, bounding_box.y2)
+            query_term += " AND pl_wgs84_pos_lat[%s TO %s] AND pl_wgs84_pos_long[%s TO %s]" %(bounding_box.x1, bounding_box.x2, bounding_box.y1, bounding_box.y2)
         if refinement_terms:
             for t in refinement_terms.split(","):
                 qf_buf.append("%s" %t)

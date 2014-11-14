@@ -171,11 +171,9 @@ class Photo(models.Model):
 				r = rephotos.get(p.id)
 				rephoto_id = None
 				if r is not None and bool(r.image):
-					#im = get_thumbnail(r.image, '50x50', crop='center')
 					rephoto_id = r.id
 					im_url = reverse('views.photo_thumb', args=(r.id,))
 				else:
-					#im = get_thumbnail(p.image, '50x50', crop='center')
 					im_url = reverse('views.photo_thumb', args=(p.id,))
 				data.append((p.id, im_url, p.lon, p.lat, rephoto_id, p.flip, p.description))
 			return data
