@@ -86,6 +86,7 @@
                     currentElement.hide();
                 }
             }
+            photoPaneContainer.trigger("scroll");
         }
     };
 
