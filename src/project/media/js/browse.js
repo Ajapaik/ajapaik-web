@@ -13,8 +13,7 @@
         i = 0,
         maxIndex = 2,
         lastHighlightedMarker,
-        lastSelectedPaneElement,
-        initialImageBatchSize = 5;
+        lastSelectedPaneElement;
 
     window.loadPhoto = function(id) {
         photoId = id;
@@ -151,7 +150,7 @@
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("data-original", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazy").attr("width", 150).attr("height", 150);
+                    .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150);
                 var newButtonElement = document.createElement("a");
                 $(newButtonElement).addClass("btn green").click(function (e) {
                     window.loadPhoto(e.target.dataset.id);
@@ -162,10 +161,17 @@
             }
         }
 
-        $(function() {
+        $(function () {
             $("img.lazy").lazyload({
-                container: photoPaneContainer
+                container: photoPaneContainer,
+                event: "loadInitial"
             });
+        });
+
+        $(window).bind("load", function () {
+            var timeout = setTimeout(function () {
+                $("img.lazy").trigger("loadInitial")
+            }, 1000);
         });
 
         if (typeof(window.map) !== "undefined") {
