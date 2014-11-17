@@ -107,7 +107,11 @@
             }
             if (markers[i].id == markerId) {
                 targetPaneElement.find("img").attr("src", markers[i].thumb);
-                markers[i].setIcon("/media/gfx/ajapaik_marker_20px_green.png");
+                if (markers[i].rephotoId) {
+                    markers[i].setIcon("/media/gfx/ajapaik_marker_35px_blue.png");
+                } else {
+                    markers[i].setIcon("/media/gfx/ajapaik_marker_35px.png");
+                }
                 markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
                 targetPaneElement.addClass("selected-pane-element");
