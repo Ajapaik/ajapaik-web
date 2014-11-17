@@ -175,7 +175,7 @@ class Photo(models.Model):
 					im_url = reverse('views.photo_thumb', args=(p.id,))
 				else:
 					im_url = reverse('views.photo_thumb', args=(p.id,))
-				data.append((p.id, im_url, p.lon, p.lat, rephoto_id, p.flip, p.description))
+				data.append((p.id, im_url, p.lon, p.lat, rephoto_id, p.flip, p.description, p.azimuth))
 			return data
 
 

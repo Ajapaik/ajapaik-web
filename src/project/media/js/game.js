@@ -289,7 +289,8 @@
         });
 
         infowindow = new google.maps.InfoWindow({
-            content: '<div style="overflow:hidden;white-space:nowrap;">' + gettext('Point the marker to where the picture was taken from.') + '</div>'
+            content: '<div style="overflow:hidden;white-space:nowrap;">' + gettext('Point the marker to where the picture was taken from.') + '</div>',
+
         });
 
         $.jQee('space', function () {

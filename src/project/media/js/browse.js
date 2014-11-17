@@ -90,12 +90,49 @@
         }
     };
 
+    var dottedLineSymbol = {
+        path: google.maps.SymbolPath.CIRCLE,
+        strokeOpacity: 1,
+        strokeWeight: 1.5,
+        strokeColor: 'red',
+        scale: 0.75
+    };
+
+    var line = new google.maps.Polyline({
+        geodesic: true,
+        strokeOpacity: 0,
+        icons: [
+            {
+                icon: dottedLineSymbol,
+                offset: '0',
+                repeat: '7px'
+            }
+        ],
+        visible: false,
+        clickable: false
+    });
+
+    var lineLength = 0.01;
+    Math.radians = function(degrees) {
+        return degrees * Math.PI / 180;
+    };
+    var calculateLineEndPoint = function(azimuth, startPoint) {
+        azimuth = Math.radians(azimuth);
+        var yComponent = Math.sin(azimuth) * lineLength;
+        var newY = startPoint.lng() + yComponent;
+        return new google.maps.LatLng(startPoint.lat(), newY);
+    };
+
     window.highlightSelected = function (markerId, fromMarker) {
         window.currentlySelectedMarkerId = markerId;
         var targetPaneElement = $("#element" + markerId);
+        if (fromMarker) {
+            photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
+        }
         if (window.currentlySelectedMarkerId == window.lastSelectedMarkerId) {
             return true;
         }
+
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.removeClass("selected-pane-element");
         }
@@ -121,12 +158,12 @@
                 maxIndex += 1;
                 targetPaneElement.addClass("selected-pane-element");
                 markerTemp = markers[i];
+                line.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
+                line.setMap(window.map);
+                line.setVisible(true);
             }
         }
         lastHighlightedMarker = markerTemp;
-        if (fromMarker) {
-            photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
-        }
     };
 
     window.flipPhoto = function (photoId) {
