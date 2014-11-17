@@ -35,6 +35,7 @@ SIMPLE_AUTOCOMPLETE = {
 
 INSTALLED_APPS = (
     'filebrowser',
+    'django',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
