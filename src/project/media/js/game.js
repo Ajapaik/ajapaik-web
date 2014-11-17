@@ -504,7 +504,7 @@
                     google.maps.event.clearListeners(window.map, 'dragstart');
                     playerLatlng = new google.maps.LatLng(data.lat, data.lon);
                     var markerImage = {
-                        url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
+                        url: '/media/gfx/ajapaik_marker_35px.png',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(8, 8),
                         scaledSize: new google.maps.Size(16, 16)
