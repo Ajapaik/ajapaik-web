@@ -42,7 +42,7 @@
 
     function closePhotoDrawer() {
         photoDrawerElement.animate({ top: '-1000px' });
-        History.replaceState(null, null, "/kaart/?city__pk=" + cityId);
+        History.replaceState(null, null, "/kaart/?city__pk=" + window.cityId);
         $('.filter-box').show();
     }
 
@@ -91,10 +91,15 @@
     };
 
     window.highlightSelected = function (markerId, fromMarker) {
+        window.currentlySelectedMarkerId = markerId;
         var targetPaneElement = $("#element" + markerId);
+        if (window.currentlySelectedMarkerId == window.lastSelectedMarkerId) {
+            return true;
+        }
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.removeClass("selected-pane-element");
         }
+        window.lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         var markerTemp;
         for (i = 0; i < markers.length; i += 1) {
@@ -167,11 +172,14 @@
         }
 
         $(function () {
-            $("img.lazy").lazyload({
+            var lazyImages = $("img.lazy");
+            if (lazyImages.length > 0) {
+                lazyImages.lazyload({
                 container: photoPaneContainer,
                 effect: "fadeIn",
                 threshold: 50
             });
+            }
         });
 
         var timeout = setTimeout(function () {
