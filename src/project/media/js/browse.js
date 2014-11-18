@@ -200,7 +200,7 @@
                     //window.highlightSelected(e.target.dataset.id, false);
                 //}).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newAElement = document.createElement("a");
-                $(newAElement).click(function (e) {
+                $(newAElement).attr("src", markers[i].thumb).click(function (e) {
                     window.highlightSelected(e.target.dataset.id, false);
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
