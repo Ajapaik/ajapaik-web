@@ -158,10 +158,13 @@
                 maxIndex += 1;
                 targetPaneElement.addClass("selected-pane-element");
                 markerTemp = markers[i];
-                console.log(markers[i].azimuth);
-                line.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
-                line.setMap(window.map);
-                line.setVisible(true);
+                if (markers[i].azimuth) {
+                    line.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
+                    line.setMap(window.map);
+                    line.setVisible(true);
+                } else {
+                    line.setVisible(false);
+                }
             }
         }
         lastHighlightedMarker = markerTemp;
