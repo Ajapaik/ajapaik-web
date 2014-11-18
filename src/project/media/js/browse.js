@@ -195,38 +195,48 @@
 
         if (typeof(markers) !== "undefined") {
             for (i = 0; i < markers.length; i += 1) {
-                //var newElementDiv = document.createElement("div");
-                //$(newElementDiv).addClass("element").click(function (e) {
-                    //window.highlightSelected(e.target.dataset.id, false);
-                //}).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
-                var newAElement = document.createElement("a");
-                $(newAElement).attr("src", markers[i].thumb).click(function (e) {
-                    e.preventDefault();
+                var newElementDiv = document.createElement("div");
+                $(newElementDiv).addClass("photo-container").click(function (e) {
                     window.highlightSelected(e.target.dataset.id, false);
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
+//                var newAElement = document.createElement("a");
+//                $(newAElement).attr("src", markers[i].thumb).click(function (e) {
+//                    e.preventDefault();
+//                    window.highlightSelected(e.target.dataset.id, false);
+//                }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
-                $(newImgElement).attr("src", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazy").addClass("image-thumb").attr("height", 150);
+                $(newImgElement).attr("data-original", markers[i].thumb).attr("title", markers[i].description)
+                    .attr("data-id", markers[i].id).addClass("lazy").addClass("image-thumb");
                 //var newButtonElement = document.createElement("a");
                 //$(newButtonElement).addClass("btn green").click(function (e) {
                 //window.loadPhoto(e.target.dataset.id);
                 //}).attr("data-id", markers[i].id).attr("id", "button" + markers[i].id).html(gettext("Open photo"));
-                newAElement.appendChild(newImgElement);
+                newElementDiv.appendChild(newImgElement);
                 //newElementDiv.appendChild(newAElement);
                 //newElementDiv.appendChild(newButtonElement);
-                $("#photo-pane").append(newAElement);
+                $("#photo-pane").append(newElementDiv);
             }
         }
 
+        $(function () {
+            var lazyImages = $("img.lazy");
+            if (lazyImages.length > 0) {
+                lazyImages.lazyload({
+                container: photoPaneContainer,
+                effect: "fadeIn",
+                threshold: 50
+            });
+            }
+        });
+
         $('.photo-pane').empty().justifiedImages({
             images : markers,
-            rowHeight: 150,
-            maxRowHeight: 300,
             thumbnailPath: function(photo) {
                 return photo.thumb;
             },
             getSize: function(photo){
-                return {width: photo.width_s, height: photo.height_s};
+                console.log(photo);
+                return {width: photo.width, height: 150};
             },
             margin: 0
         });

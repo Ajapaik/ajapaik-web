@@ -55,7 +55,8 @@
                         icon: currentIcon,
                         position: new google.maps.LatLng(p[3], p[2]),
                         zIndex: 1,
-                        azimuth: p[7]
+                        azimuth: p[7],
+                        width: p[8]
                     });
                     (function (id) {
                         google.maps.event.addListener(marker, "click", function () {
