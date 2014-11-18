@@ -100,6 +100,7 @@
 
     mapClickListenerFunction = function (e) {
         if (infowindow !== undefined) {
+            $(".center-marker").show();
             infowindow.close();
             infowindow = undefined;
         }
@@ -159,6 +160,7 @@
         }
         line.setVisible(false);
         if (infowindow !== undefined) {
+            $(".center-marker").show();
             infowindow.close();
             infowindow = undefined;
         }
@@ -289,9 +291,10 @@
         });
 
         infowindow = new google.maps.InfoWindow({
-            content: '<div style="overflow:hidden;white-space:nowrap;">' + gettext('Point the marker to where the picture was taken from.') + '</div>',
-
+            content: '<div style="overflow:hidden;white-space:nowrap;">' + gettext('Point the marker to where the picture was taken from.') + '</div>'
         });
+
+        $(".center-marker").hide();
 
         $.jQee('space', function () {
             // If tools is open, continue game
@@ -300,6 +303,7 @@
             } else if (locationToolsOpen) {
                 // Remove notice and center marker
                 if (infowindow !== undefined) {
+                    $(".center-marker").show();
                     infowindow.close();
                     infowindow = undefined;
                 }

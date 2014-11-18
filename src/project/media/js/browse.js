@@ -195,22 +195,33 @@
 
         if (typeof(markers) !== "undefined") {
             for (i = 0; i < markers.length; i += 1) {
-                var newElementDiv = document.createElement("div");
-                $(newElementDiv).addClass("element").click(function (e) {
+                //var newElementDiv = document.createElement("div");
+                //$(newElementDiv).addClass("element").click(function (e) {
+                    //window.highlightSelected(e.target.dataset.id, false);
+                //}).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
+                var newAElement = document.createElement("a");
+                $(newAElement).click(function (e) {
                     window.highlightSelected(e.target.dataset.id, false);
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
-                $(newImgElement).attr("data-original", markers[i].thumb).attr("title", markers[i].description)
+                $(newImgElement).attr("src", markers[i].thumb).attr("title", markers[i].description)
                     .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150);
-                var newButtonElement = document.createElement("a");
-                $(newButtonElement).addClass("btn green").click(function (e) {
-                    window.loadPhoto(e.target.dataset.id);
-                }).attr("data-id", markers[i].id).attr("id", "button" + markers[i].id).html(gettext("Open photo"));
-                newElementDiv.appendChild(newImgElement);
-                newElementDiv.appendChild(newButtonElement);
-                $("#photo-pane").append(newElementDiv);
+                //var newButtonElement = document.createElement("a");
+                //$(newButtonElement).addClass("btn green").click(function (e) {
+                //window.loadPhoto(e.target.dataset.id);
+                //}).attr("data-id", markers[i].id).attr("id", "button" + markers[i].id).html(gettext("Open photo"));
+                newAElement.appendChild(newImgElement);
+                //newElementDiv.appendChild(newAElement);
+                //newElementDiv.appendChild(newButtonElement);
+                $("#photo-pane").append(newAElement);
             }
         }
+
+        $("#photo-pane").justifiedGallery({
+            rowHeight: 150,
+            fixedHeight: true,
+            margins: 0
+        });
 
         $(function () {
             var lazyImages = $("img.lazy");
