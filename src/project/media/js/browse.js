@@ -201,6 +201,7 @@
                 //}).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newAElement = document.createElement("a");
                 $(newAElement).attr("src", markers[i].thumb).click(function (e) {
+                    e.preventDefault();
                     window.highlightSelected(e.target.dataset.id, false);
                 }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
@@ -228,7 +229,8 @@
                 lt500 : '',
                 lt640 : '',
                 lt1024 : ''
-            }
+            },
+            waitThumbnailsLoad: false
         });
 
         $(function () {
