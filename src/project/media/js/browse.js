@@ -88,6 +88,7 @@
                 }
             }
             photoPaneContainer.trigger("scroll");
+            $(window).trigger("resize");
         }
     };
 
@@ -211,7 +212,27 @@
         }
 
         photoPane.collagePlus({
-            targetHeight: 150
+            targetHeight: 150,
+            allowPartialLastRow: true
+        });
+
+        function collage() {
+        photoPane.collagePlus(
+{
+            targetHeight: 150,
+            allowPartialLastRow: true
+        }
+        );
+        };
+
+        var resizeTimer = null;
+        $(window).bind('resize', function() {
+        // hide all the images until we resize them
+        // set the element you are scaling i.e. the first child nodes of ```.Collage``` to opacity 0
+        $('.Collage .Image_Wrapper').css("opacity", 0);
+        // set a timer to re-apply the plugin
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(collage, 200);
         });
 
 //        var options = {minMargin: 0, maxMargin: 0, itemSelector: ".image-container"};
