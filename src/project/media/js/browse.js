@@ -87,6 +87,7 @@
                 }
             }
             photoPaneContainer.trigger("scroll");
+            $('#photo-pane').justifiedGallery('norewind');
         }
     };
 
@@ -220,7 +221,6 @@
 
         $("#photo-pane").justifiedGallery({
             rowHeight: 150,
-            fixedHeight: true,
             margins: 0,
             sizeRangeSuffixes : {
                 lt100 : '',
@@ -229,8 +229,7 @@
                 lt500 : '',
                 lt640 : '',
                 lt1024 : ''
-            },
-            waitThumbnailsLoad: false
+            }
         });
 
         $(function () {
