@@ -220,7 +220,15 @@
         $("#photo-pane").justifiedGallery({
             rowHeight: 150,
             fixedHeight: true,
-            margins: 0
+            margins: 0,
+            sizeRangeSuffixes : {
+                lt100 : '',
+                lt240 : '',
+                lt320 : '',
+                lt500 : '',
+                lt640 : '',
+                lt1024 : ''
+            }
         });
 
         $(function () {
