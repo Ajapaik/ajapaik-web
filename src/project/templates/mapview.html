@@ -4,7 +4,7 @@
 {% block layout %}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>#}
     <script type="text/javascript" src="/media/js/jquery.lazyload.min.js"></script>
-    <script type="text/javascript" src="/media/js/jquery.justifiedGallery.min.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.row-grid.min.js"></script>
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},
@@ -56,7 +56,7 @@
                         position: new google.maps.LatLng(p[3], p[2]),
                         zIndex: 1,
                         azimuth: p[7],
-                        width: p[8]
+                        thumbWidth: p[8]
                     });
                     (function (id) {
                         google.maps.event.addListener(marker, "click", function () {

@@ -10,6 +10,7 @@
         cityId,
         photoDrawerElement = $('#photo-drawer'),
         photoPaneContainer = $("#photo-pane-container"),
+        photoPane = $("#photo-pane"),
         i = 0,
         maxIndex = 2,
         lastHighlightedMarker,
@@ -195,28 +196,47 @@
 
         if (typeof(markers) !== "undefined") {
             for (i = 0; i < markers.length; i += 1) {
-//                var newElementDiv = document.createElement("div");
-//                $(newElementDiv).click(function (e) {
-//                    window.highlightSelected(e.target.dataset.id, false);
-//                }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
-                var newAElement = document.createElement("a");
-                $(newAElement).attr("src", markers[i].thumb).click(function (e) {
+                var newAElement = document.createElement("div");
+                $(newAElement).click(function (e) {
                     e.preventDefault();
                     window.highlightSelected(e.target.dataset.id, false);
-                }).hide().attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
+                }).addClass("photo-container").attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150).attr("width", markers[i].width);
-                //var newButtonElement = document.createElement("a");
-                //$(newButtonElement).addClass("btn green").click(function (e) {
-                //window.loadPhoto(e.target.dataset.id);
-                //}).attr("data-id", markers[i].id).attr("id", "button" + markers[i].id).html(gettext("Open photo"));
+                    .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150).attr("width", markers[i].thumbWidth);
                 newAElement.appendChild(newImgElement);
-                //newElementDiv.appendChild(newAElement);
-                //newElementDiv.appendChild(newButtonElement);
-                $("#photo-pane").append(newAElement);
+                photoPane.append(newAElement);
             }
         }
+
+        var options = {minMargin: 10, maxMargin: 35, itemSelector: ".photo-container"};
+        photoPane.rowGrid(options);
+
+//        photoPane.justifiedGallery({
+//            waitThumbnailsLoad: false,
+//            rowHeight: 150,
+//            refreshTime: 1,
+//            sizeRangeSuffixes: {
+//                'lt100':'',
+//                'lt240':'',
+//                'lt320':'',
+//                'lt500':'',
+//                'lt640':'',
+//                'lt1024':''
+//            }
+//        });
+
+//            photoPane.empty().justifiedImages({
+//            images : markers,
+//            thumbnailPath: function(photo, width, height){
+//                return photo.thumb;
+//            },
+//            getSize: function(photo){
+//                return {width: photo.thumbWidth, height: 150};
+//            },
+//            margin: 0
+//            });
+
 
         $(function () {
             var lazyImages = $("img.lazy");
@@ -229,18 +249,6 @@
             }
         });
 
-        $('#photo-pane').justifiedGallery({
-            waitThumbnailsLoad: false,
-            rowHeight: 150,
-            sizeRangeSuffixes: {
-                'lt100':'',
-                'lt240':'',
-                'lt320':'',
-                'lt500':'',
-                'lt640':'',
-                'lt1024':''
-            }
-        });
 
 
         var timeout = setTimeout(function () {
