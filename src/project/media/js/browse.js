@@ -118,9 +118,9 @@
     };
     var calculateLineEndPoint = function(azimuth, startPoint) {
         azimuth = Math.radians(azimuth);
-        var yComponent = Math.sin(azimuth) * lineLength;
-        var newY = startPoint.lng() + yComponent;
-        return new google.maps.LatLng(startPoint.lat(), newY);
+        var newX = Math.cos(azimuth) * lineLength + startPoint.lat();
+        var newY = Math.sin(azimuth) * lineLength + startPoint.lng();
+        return new google.maps.LatLng(newX, newY);
     };
 
     window.highlightSelected = function (markerId, fromMarker) {
@@ -158,6 +158,7 @@
                 maxIndex += 1;
                 targetPaneElement.addClass("selected-pane-element");
                 markerTemp = markers[i];
+                console.log(markers[i].azimuth);
                 line.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
                 line.setMap(window.map);
                 line.setVisible(true);
