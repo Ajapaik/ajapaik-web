@@ -196,21 +196,26 @@
 
         if (typeof(markers) !== "undefined") {
             for (i = 0; i < markers.length; i += 1) {
-                var newAElement = document.createElement("div");
+                var newAElement = document.createElement("a");
                 $(newAElement).click(function (e) {
                     e.preventDefault();
                     window.highlightSelected(e.target.dataset.id, false);
-                }).addClass("photo-container").attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
+                }).attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
                     .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150).attr("width", markers[i].thumbWidth);
+                $(newAElement).attr("src", markers[i].thumb);
                 newAElement.appendChild(newImgElement);
                 photoPane.append(newAElement);
             }
         }
 
-        var options = {minMargin: 10, maxMargin: 35, itemSelector: ".photo-container"};
-        photoPane.rowGrid(options);
+        photoPane.collagePlus({
+            targetHeight: 150
+        });
+
+//        var options = {minMargin: 0, maxMargin: 0, itemSelector: ".image-container"};
+//        photoPane.rowGrid(options);
 
 //        photoPane.justifiedGallery({
 //            waitThumbnailsLoad: false,
