@@ -4,7 +4,7 @@
 {% block layout %}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>#}
     <script type="text/javascript" src="/media/js/jquery.lazyload.min.js"></script>
-    <script type="text/javascript" src="/media/js/jquery.collagePlus.min.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.collagePlus.js"></script>
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},

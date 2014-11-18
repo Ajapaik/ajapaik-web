@@ -83,8 +83,10 @@
                 var currentElement = $("#element" + markers[i].id);
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
                     currentElement.show();
+                    currentElement.addClass("image-visible");
                 } else {
                     currentElement.hide();
+                    currentElement.removeClass("image-visible");
                 }
             }
             photoPaneContainer.trigger("scroll");
@@ -219,11 +221,10 @@
         function collage() {
         photoPane.collagePlus(
 {
-            targetHeight: 150,
-            allowPartialLastRow: true
+            targetHeight: 150
         }
         );
-        };
+        }
 
         var resizeTimer = null;
         $(window).bind('resize', function() {
