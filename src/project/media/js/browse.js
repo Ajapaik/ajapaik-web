@@ -166,7 +166,7 @@
         currentlySelectedMarkerId = markerId;
         targetPaneElement = $("#element" + markerId);
         if (fromMarker) {
-            photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
+            photoPaneContainer.scrollTop(targetPaneElement.position().top);
         }
         if (currentlySelectedMarkerId == lastSelectedMarkerId) {
             return true;
