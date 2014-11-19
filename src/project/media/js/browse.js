@@ -58,7 +58,9 @@
             container: photoPaneContainer,
             effect: "fadeIn",
             threshold: 50
-        };
+        },
+        lastMapReorg,
+        now;
 
     Math.radians = function(degrees) {
         return degrees * Math.PI / 180;
@@ -126,7 +128,9 @@
     };
 
     function toggleVisiblePaneElements() {
-        if (window.map) {
+        now = new Date().getTime();
+        console.log(now - lastMapReorg);
+        if (window.map && (now - lastMapReorg > 1000)) {
             for (i = 0; i < markers.length; i += 1) {
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
                     if (detachedPhotos[markers[i].id]) {
@@ -142,6 +146,7 @@
             photoPane.justifiedGallery();
             photoPaneContainer.trigger("scroll");
         }
+        lastMapReorg = new Date().getTime();
     }
 
     function calculateLineEndPoint(azimuth, startPoint) {
@@ -152,7 +157,7 @@
     }
 
     function setIcon(marker, color, size) {
-        
+
         if (color) {
             marker.setIcon("/media/gfx/ajapaik_marker_" + size + "px_" + color + ".png")
         } else {
