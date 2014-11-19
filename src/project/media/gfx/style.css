@@ -1284,43 +1284,6 @@ a.btn.flip {
     overflow: scroll;
 }
 
-/*#photo-pane .element {*/
-    /*background-color: white;*/
-    /*width: 90%;*/
-    /*margin: 5% auto 0;*/
-    /*padding-top: 2%;*/
-    /*padding-bottom: 2%;*/
-    /*padding-left: 2%;*/
-    /*border-radius: 10px;*/
-    /*position: relative;*/
-/*}*/
-
-/*#photo-pane .element img {*/
-    /*display: inline-block;*/
-    /*vertical-align: middle;*/
-    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=) repeat-y;*/
-    /*height: 150px;*/
-/*}*/
-
-/*#photo-pane .element p {*/
-    /*display: inline-block;*/
-    /*vertical-align: middle;*/
-    /*height: 100%;*/
-    /*margin: 0 auto;*/
-    /*position: relative;*/
-    /*left: 20%;*/
-/*}*/
-
-/*#photo-pane .element .btn {*/
-    /*position: absolute;*/
-    /*bottom: 5%;*/
-    /*right: 2%;*/
-/*}*/
-
-/*.selected-pane-element {*/
-    /*border: 1px solid;*/
-/*}*/
-
 #simplemodal-container {
     bottom: 0 !important;
     right: 0 !important;
@@ -1332,4 +1295,24 @@ a.btn.flip {
     width: 100%;
     bottom: 0;
     background-color: white;
+}
+
+.ajapaik-eye-open {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.ajapaik-eye-open-black {
+    background-image: url("../gfx/eye_open_40px.png");
+}
+
+.ajapaik-eye-open-white {
+    background-image: url("../gfx/eye_open_40px_white.png") !important;
+}
+
+.ajapaik-eye-open-blue {
+    background-image: url("../gfx/eye_open_40px_blue.png");
 }

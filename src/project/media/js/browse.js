@@ -172,7 +172,7 @@
             return true;
         }
         if (lastSelectedPaneElement) {
-            lastSelectedPaneElement.removeClass("selected-pane-element");
+            lastSelectedPaneElement.find(".ajapaik-eye-open").removeClass("ajapaik-eye-open-white");
         }
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
@@ -193,7 +193,7 @@
                 }
                 markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
-                targetPaneElement.addClass("selected-pane-element");
+                targetPaneElement.find(".ajapaik-eye-open").addClass("ajapaik-eye-open-white");
                 markerTemp = markers[i];
                 if (markers[i].azimuth) {
                     line.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
@@ -255,7 +255,24 @@
                 $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
                     .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150).attr("width", markers[i].thumbWidth);
                 $(newAElement).attr("src", markers[i].thumb);
+                var newEyeElement = document.createElement("div");
+                $(newEyeElement).addClass("ajapaik-eye-open").click(function (e) {
+                    window.loadPhoto(e.target.dataset.id);
+                }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hover(function() {
+                    $(this).addClass("ajapaik-eye-open-white");
+                }, function() {
+                    var t = $(this);
+                    if (t.attr("data-id") !== currentlySelectedMarkerId) {
+                        $(this).removeClass("ajapaik-eye-open-white");
+                    }
+                });
+                if (markers[i].rephotoId) {
+                    $(newEyeElement).addClass("ajapaik-eye-open-blue");
+                } else {
+                    $(newEyeElement).addClass("ajapaik-eye-open-black");
+                }
                 newAElement.appendChild(newImgElement);
+                newAElement.appendChild(newEyeElement);
                 photoPane.append(newAElement);
             }
         }

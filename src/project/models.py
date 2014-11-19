@@ -152,23 +152,9 @@ class Photo(models.Model):
 
 	class QuerySet(models.query.QuerySet):
 		def get_geotagged_photos_list(self):
-			# rephotographed_ids = self.filter(
-			# 	rephoto_of__isnull=False).order_by(
-			# 	'rephoto_of').values_list(
-			# 	'rephoto_of', flat=True)
-			# filtered_rephotos = self.filter(
-			# 	rephoto_of__isnull=False).order_by(
-			# 	'rephoto_of', '-id').distinct(
-			# 	'rephoto_of').filter(
-			# 	rephoto_of__in=rephotographed_ids)
-			# filtered_rephotos_ids = []
-			# for p in filtered_rephotos:
-			# 	filtered_rephotos_ids.append(p.rephoto_of.id)
-			# zipped_rephotos = zip(filtered_rephotos_ids, filtered_rephotos)
-			# rephotos = dict(zipped_rephotos)
 			data = []
 			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
-				rephoto_count = len(self.filter(rephoto_of=p.id))
+				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
 				im_url = reverse('views.photo_thumb', args=(p.id,))
 				im = get_thumbnail(p.image, 'x150', crop='center')
 				data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]))
