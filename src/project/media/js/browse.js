@@ -59,8 +59,8 @@
             effect: "fadeIn",
             threshold: 50
         },
-        lastMapReorg,
-        now;
+        lastEvent,
+        mapRefreshInterval = 1000;
 
     Math.radians = function(degrees) {
         return degrees * Math.PI / 180;
@@ -128,9 +128,7 @@
     };
 
     function toggleVisiblePaneElements() {
-        now = new Date().getTime();
-        console.log(now - lastMapReorg);
-        if (window.map && (now - lastMapReorg > 1000)) {
+        if (window.map) {
             for (i = 0; i < markers.length; i += 1) {
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
                     if (detachedPhotos[markers[i].id]) {
@@ -146,7 +144,6 @@
             photoPane.justifiedGallery();
             photoPaneContainer.trigger("scroll");
         }
-        lastMapReorg = new Date().getTime();
     }
 
     function calculateLineEndPoint(azimuth, startPoint) {
@@ -228,6 +225,17 @@
         }
     };
 
+    function fireIfLastEvent() {
+        if (lastEvent.getTime() + mapRefreshInterval <= new Date().getTime()) {
+            toggleVisiblePaneElements();
+        }
+    }
+
+    function scheduleDelayedCallback() {
+        lastEvent = new Date();
+        setTimeout(fireIfLastEvent, mapRefreshInterval);
+    }
+
     $(document).ready(function () {
         $('.top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 
@@ -266,9 +274,7 @@
         }, 1000);
 
         if (typeof(window.map) !== "undefined") {
-            google.maps.event.addListener(window.map, 'bounds_changed', function () {
-                toggleVisiblePaneElements();
-            });
+            google.maps.event.addListener(window.map, 'bounds_changed', scheduleDelayedCallback);
         }
 
         $('#google-plus-login-button').click(function () {
