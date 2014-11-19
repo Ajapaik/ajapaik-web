@@ -5,16 +5,64 @@
     /*global geotaggedPhotos */
     /*global _gaq */
     /*global markers */
+    /*global cityId */
+    /*global google */
 
     var photoId,
-        cityId,
         photoDrawerElement = $('#photo-drawer'),
         photoPaneContainer = $("#photo-pane-container"),
         photoPane = $("#photo-pane"),
+        detachedPhotos = {},
         i = 0,
         maxIndex = 2,
         lastHighlightedMarker,
-        lastSelectedPaneElement;
+        lastSelectedPaneElement,
+        dottedLineSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            strokeOpacity: 1,
+            strokeWeight: 1.5,
+            strokeColor: 'red',
+            scale: 0.75
+        },
+        line = new google.maps.Polyline({
+            geodesic: true,
+            strokeOpacity: 0,
+            icons: [
+                {
+                    icon: dottedLineSymbol,
+                    offset: '0',
+                    repeat: '7px'
+                }
+            ],
+            visible: false,
+            clickable: false
+        }),
+        lineLength = 0.01,
+        lastSelectedMarkerId,
+        currentlySelectedMarkerId,
+        targetPaneElement,
+        markerTemp,
+        justifiedGallerySettings = {
+            waitThumbnailsLoad: false,
+            rowHeight: 150,
+            sizeRangeSuffixes: {
+                'lt100':'',
+                'lt240':'',
+                'lt320':'',
+                'lt500':'',
+                'lt640':'',
+                'lt1024':''
+            }
+        },
+        lazyloadSettings = {
+            container: photoPaneContainer,
+            effect: "fadeIn",
+            threshold: 50
+        };
+
+    Math.radians = function(degrees) {
+        return degrees * Math.PI / 180;
+    };
 
     window.loadPhoto = function(id) {
         photoId = id;
@@ -43,7 +91,7 @@
 
     function closePhotoDrawer() {
         photoDrawerElement.animate({ top: '-1000px' });
-        History.replaceState(null, null, "/kaart/?city__pk=" + window.cityId);
+        History.replaceState(null, null, "/kaart/?city__pk=" + cityId);
         $('.filter-box').show();
     }
 
@@ -77,86 +125,69 @@
         $('.top .score_container #google-plus-connect').slideUp();
     };
 
-    window.toggleVisiblePaneElements = function () {
+    function toggleVisiblePaneElements() {
         if (window.map) {
             for (i = 0; i < markers.length; i += 1) {
-                var currentElement = $("#element" + markers[i].id);
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
-                    currentElement.show();
-                    currentElement.addClass("image-visible");
+                    if (detachedPhotos[markers[i].id]) {
+                        photoPane.append(detachedPhotos[markers[i].id]);
+                        delete detachedPhotos[markers[i].id];
+                    }
                 } else {
-                    currentElement.hide();
-                    currentElement.removeClass("image-visible");
+                    if (!detachedPhotos[markers[i].id]) {
+                        detachedPhotos[markers[i].id] = $("#element" + markers[i].id).detach();
+                    }
                 }
             }
+            photoPane.justifiedGallery();
             photoPaneContainer.trigger("scroll");
-            $(window).trigger("resize");
         }
-    };
+    }
 
-    var dottedLineSymbol = {
-        path: google.maps.SymbolPath.CIRCLE,
-        strokeOpacity: 1,
-        strokeWeight: 1.5,
-        strokeColor: 'red',
-        scale: 0.75
-    };
-
-    var line = new google.maps.Polyline({
-        geodesic: true,
-        strokeOpacity: 0,
-        icons: [
-            {
-                icon: dottedLineSymbol,
-                offset: '0',
-                repeat: '7px'
-            }
-        ],
-        visible: false,
-        clickable: false
-    });
-
-    var lineLength = 0.01;
-    Math.radians = function(degrees) {
-        return degrees * Math.PI / 180;
-    };
-    var calculateLineEndPoint = function(azimuth, startPoint) {
+    function calculateLineEndPoint(azimuth, startPoint) {
         azimuth = Math.radians(azimuth);
         var newX = Math.cos(azimuth) * lineLength + startPoint.lat();
         var newY = Math.sin(azimuth) * lineLength + startPoint.lng();
         return new google.maps.LatLng(newX, newY);
-    };
+    }
+
+    function setIcon(marker, color, size) {
+        
+        if (color) {
+            marker.setIcon("/media/gfx/ajapaik_marker_" + size + "px_" + color + ".png")
+        } else {
+            marker.setIcon("/media/gfx/ajapaik_marker_" + size + "px.png")
+        }
+    }
 
     window.highlightSelected = function (markerId, fromMarker) {
-        window.currentlySelectedMarkerId = markerId;
-        var targetPaneElement = $("#element" + markerId);
+        currentlySelectedMarkerId = markerId;
+        targetPaneElement = $("#element" + markerId);
         if (fromMarker) {
             photoPaneContainer.scrollTop(photoPaneContainer.scrollTop() + targetPaneElement.position().top);
         }
-        if (window.currentlySelectedMarkerId == window.lastSelectedMarkerId) {
+        if (currentlySelectedMarkerId == lastSelectedMarkerId) {
             return true;
         }
-
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.removeClass("selected-pane-element");
         }
-        window.lastSelectedMarkerId = markerId;
+        lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
-        var markerTemp;
         for (i = 0; i < markers.length; i += 1) {
             if (lastHighlightedMarker) {
                 if (lastHighlightedMarker.rephotoId) {
-                    lastHighlightedMarker.setIcon("/media/gfx/ajapaik_marker_20px_blue.png");
+                    setIcon(lastHighlightedMarker, "blue", 20);
                 } else {
-                    lastHighlightedMarker.setIcon("/media/gfx/ajapaik_marker_20px.png");
+                    setIcon(lastHighlightedMarker, null, 20);
                 }
             }
             if (markers[i].id == markerId) {
                 targetPaneElement.find("img").attr("src", markers[i].thumb);
                 if (markers[i].rephotoId) {
-                    markers[i].setIcon("/media/gfx/ajapaik_marker_35px_blue.png");
+                    setIcon(markers[i], "blue", 35);
                 } else {
-                    markers[i].setIcon("/media/gfx/ajapaik_marker_35px.png");
+                    setIcon(markers[i], null, 35);
                 }
                 markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
@@ -171,7 +202,10 @@
                 }
             }
         }
-        lastHighlightedMarker = markerTemp;
+        if (markerTemp) {
+            lastHighlightedMarker = markerTemp;
+            markerTemp = undefined;
+        }
     };
 
     window.flipPhoto = function (photoId) {
@@ -213,78 +247,22 @@
             }
         }
 
-        photoPane.collagePlus({
-            targetHeight: 150,
-            allowPartialLastRow: true
-        });
-
-        function collage() {
-        photoPane.collagePlus(
-{
-            targetHeight: 150
-        }
-        );
-        }
-
-        var resizeTimer = null;
-        $(window).bind('resize', function() {
-        // hide all the images until we resize them
-        // set the element you are scaling i.e. the first child nodes of ```.Collage``` to opacity 0
-        $('.Collage .Image_Wrapper').css("opacity", 0);
-        // set a timer to re-apply the plugin
-        if (resizeTimer) clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(collage, 200);
-        });
-
-//        var options = {minMargin: 0, maxMargin: 0, itemSelector: ".image-container"};
-//        photoPane.rowGrid(options);
-
-//        photoPane.justifiedGallery({
-//            waitThumbnailsLoad: false,
-//            rowHeight: 150,
-//            refreshTime: 1,
-//            sizeRangeSuffixes: {
-//                'lt100':'',
-//                'lt240':'',
-//                'lt320':'',
-//                'lt500':'',
-//                'lt640':'',
-//                'lt1024':''
-//            }
-//        });
-
-//            photoPane.empty().justifiedImages({
-//            images : markers,
-//            thumbnailPath: function(photo, width, height){
-//                return photo.thumb;
-//            },
-//            getSize: function(photo){
-//                return {width: photo.thumbWidth, height: 150};
-//            },
-//            margin: 0
-//            });
-
+        photoPane.justifiedGallery(justifiedGallerySettings);
 
         $(function () {
             var lazyImages = $("img.lazy");
             if (lazyImages.length > 0) {
-                lazyImages.lazyload({
-                container: photoPaneContainer,
-                effect: "fadeIn",
-                threshold: 50
-            });
+                lazyImages.lazyload(lazyloadSettings);
             }
         });
 
-
-
-        var timeout = setTimeout(function () {
+        setTimeout(function () {
             photoPaneContainer.trigger("scroll");
         }, 1000);
 
         if (typeof(window.map) !== "undefined") {
             google.maps.event.addListener(window.map, 'bounds_changed', function () {
-                window.toggleVisiblePaneElements();
+                toggleVisiblePaneElements();
             });
         }
 
