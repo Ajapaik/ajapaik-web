@@ -46,6 +46,7 @@
             waitThumbnailsLoad: false,
             rowHeight: 150,
             maxRowHeight: -1,
+            lastRow: 'nojustify',
             sizeRangeSuffixes: {
                 'lt100':'',
                 'lt240':'',
