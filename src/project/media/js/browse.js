@@ -46,7 +46,6 @@
             waitThumbnailsLoad: false,
             rowHeight: 150,
             maxRowHeight: -1,
-            randomize: true,
             sizeRangeSuffixes: {
                 'lt100':'',
                 'lt240':'',
