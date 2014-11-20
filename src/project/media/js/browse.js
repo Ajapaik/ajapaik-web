@@ -172,6 +172,7 @@
         if (currentlySelectedMarkerId == lastSelectedMarkerId) {
             return true;
         }
+        $.post("/log_user_map_action/", {user_action: "saw_marker", photo_id: markerId}, function () {});
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.find(".ajapaik-eye-open").removeClass("ajapaik-eye-open-white");
         }
@@ -278,7 +279,10 @@
             }
         }
 
-        photoPane.justifiedGallery(justifiedGallerySettings);
+        if (photoPane) {
+            photoPane.justifiedGallery(justifiedGallerySettings);
+        }
+
 
         $(function () {
             var lazyImages = $("img.lazy");

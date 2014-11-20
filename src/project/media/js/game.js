@@ -69,7 +69,8 @@
         wheelEventNonFF,
         toggleTouchPhotoView,
         i,
-        playerLatlng;
+        playerLatlng,
+        centerMarker;
 
     updateLeaderboard = function () {
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
@@ -100,7 +101,7 @@
 
     mapClickListenerFunction = function (e) {
         if (infowindow !== undefined) {
-            $(".center-marker").show();
+            centerMarker.show();
             infowindow.close();
             infowindow = undefined;
         }
@@ -146,6 +147,7 @@
         if (firstDragDone) {
             marker.position = window.map.center;
             azimuthListenerActive = true;
+            centerMarker.css("background-image", "url('http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png')").css("margin-left", "-8px").css("margin-top", "-9px");
             if (!mapMousemoveListenerActive) {
                 google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
@@ -155,15 +157,17 @@
     };
 
     mapDragstartListenerFunction = function () {
+        centerMarker = $(".center-marker");
         if (mobileMapMinimized) {
             toggleTouchPhotoView();
         }
         line.setVisible(false);
         if (infowindow !== undefined) {
-            $(".center-marker").show();
+            centerMarker.show();
             infowindow.close();
             infowindow = undefined;
         }
+        centerMarker.css("background-image", "url('/media/gfx/ajapaik_marker_35px.png')").css("margin-left", "-17px").css("margin-top", "-47px");
         $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
         azimuthListenerActive = false;
         line.setVisible(false);
@@ -509,7 +513,7 @@
                     google.maps.event.clearListeners(window.map, 'dragstart');
                     playerLatlng = new google.maps.LatLng(data.lat, data.lon);
                     var markerImage = {
-                        url: '/media/gfx/ajapaik_marker_35px.png',
+                        url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(8, 8),
                         scaledSize: new google.maps.Size(16, 16)

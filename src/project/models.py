@@ -450,6 +450,17 @@ class FlipFeedback(models.Model):
 	class Meta:
 		app_label = "project"
 
+
+class UserMapView(models.Model):
+	photo = models.ForeignKey('Photo')
+	user_profile = models.ForeignKey('Profile')
+	confidence = models.FloatField(default=0)
+	action = models.CharField(max_length=255, null=False, blank=False)
+	created = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		app_label = "project"
+
 class GeoTag(models.Model):
 	MAP, EXIF, GPS = range(3)
 	TYPE_CHOICES = (
