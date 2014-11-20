@@ -69,6 +69,7 @@
     };
 
     window.loadPhoto = function(id) {
+        $.post("/log_user_map_action/", {user_action: "opened_drawer", photo_id: id}, function () {});
         photoId = id;
         $.ajax({
             cache: false,
@@ -280,10 +281,9 @@
             }
         }
 
-        if (photoPane) {
+        if (typeof(markers) !== "undefined") {
             photoPane.justifiedGallery(justifiedGallerySettings);
         }
-
 
         $(function () {
             var lazyImages = $("img.lazy");

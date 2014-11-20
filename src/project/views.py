@@ -458,9 +458,25 @@ def photo(request, photo_id):
 	else:
 		return photoslug(request, photo.id, pseudo_slug)
 
+def _add_log_entry_if_necessary(user_profile, photo_id, user_action):
+	existing_log_entry = None
+	try:
+		existing_log_entry = UserMapView.objects.filter(user_profile=user_profile, photo_id=photo_id, action=user_action)[:1].get()
+	except ObjectDoesNotExist:
+		if photo_id and user_action and not existing_log_entry:
+			target_photo = Photo.objects.filter(id=photo_id)[:1].get()
+			log_entry = UserMapView()
+			log_entry.photo_id = photo_id
+			log_entry.confidence = target_photo.confidence
+			log_entry.action = user_action
+			log_entry.user_profile = user_profile
+			log_entry.save()
+
 
 def photoslug(request, photo_id, pseudo_slug):
 	photo_obj = get_object_or_404(Photo, id=photo_id)
+	user_profile = request.get_user().get_profile()
+	_add_log_entry_if_necessary(user_profile, photo_id, "opened_drawer")
 	# redirect if slug in url doesn't match with our pseudo slug
 	if photo_obj.get_pseudo_slug() != pseudo_slug:
 		response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
@@ -496,6 +512,8 @@ def photo_heatmap(request, photo_id):
 
 def photoslug_heatmap(request, photo_id, pseudo_slug):
 	photo_obj = get_object_or_404(Photo, id=photo_id)
+	user_profile = request.get_user().get_profile()
+	_add_log_entry_if_necessary(user_profile, photo_id, "opened_heatmap")
 	# redirect if slug in url doesn't match with our pseudo slug
 	if photo_obj.get_pseudo_slug() != pseudo_slug:
 		response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
@@ -678,18 +696,7 @@ def log_user_map_action(request):
 	user_profile = request.get_user().get_profile()
 	photo_id = request.POST.get("photo_id") or None
 	user_action = request.POST.get("user_action") or None
-	existing_log_entry = None
-	try:
-		existing_log_entry = UserMapView.objects.filter(user_profile=user_profile, photo_id=photo_id)[:1].get()
-	except ObjectDoesNotExist:
-		if photo_id and user_action and not existing_log_entry:
-			target_photo = Photo.objects.filter(id=photo_id)[:1].get()
-			log_entry = UserMapView()
-			log_entry.photo_id = photo_id
-			log_entry.confidence = target_photo.confidence
-			log_entry.action = user_action
-			log_entry.user_profile = user_profile
-			log_entry.save()
+	_add_log_entry_if_necessary(user_profile, photo_id, user_action)
 	return HttpResponse("OK")
 
 
