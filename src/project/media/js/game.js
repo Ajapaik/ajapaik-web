@@ -298,7 +298,8 @@
             content: '<div style="overflow:hidden;white-space:nowrap;">' + gettext('Point the marker to where the picture was taken from.') + '</div>'
         });
 
-        $(".center-marker").hide();
+        //$(".center-marker").hide();
+        $(".center-marker").css("background-image", "url('http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png')").css("margin-left", "-8px").css("margin-top", "-9px");
 
         $.jQee('space', function () {
             // If tools is open, continue game
