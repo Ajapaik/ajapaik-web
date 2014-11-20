@@ -46,6 +46,7 @@
             waitThumbnailsLoad: false,
             rowHeight: 150,
             maxRowHeight: -1,
+            margins: 3,
             sizeRangeSuffixes: {
                 'lt100':'',
                 'lt240':'',
