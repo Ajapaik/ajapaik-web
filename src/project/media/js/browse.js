@@ -176,9 +176,6 @@
             return true;
         }
         $.post("/log_user_map_action/", {user_action: "saw_marker", photo_id: markerId}, function () {});
-        if (lastSelectedPaneElement) {
-            lastSelectedPaneElement.find(".ajapaik-eye-open").removeClass("ajapaik-eye-open-white");
-        }
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         for (i = 0; i < markers.length; i += 1) {
@@ -198,7 +195,6 @@
                 }
                 markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
-                targetPaneElement.find(".ajapaik-eye-open").addClass("ajapaik-eye-open-white");
                 markerTemp = markers[i];
                 if (markers[i].azimuth) {
                     line.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
@@ -258,26 +254,39 @@
                 }).attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150).attr("width", markers[i].thumbWidth);
+                    .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150).attr("width", markers[i].thumbWidth).hover(function () {
+                        $(this).parent().find(".ajapaik-eye-open").show();
+                        $(this).parent().find(".ajapaik-azimuth").show();
+                    }, function () {
+                        $(this).parent().find(".ajapaik-eye-open").hide();
+                        $(this).parent().find(".ajapaik-azimuth").hide();
+                    });
                 $(newAElement).attr("src", markers[i].thumb);
                 var newEyeElement = document.createElement("div");
                 $(newEyeElement).addClass("ajapaik-eye-open").click(function (e) {
                     window.loadPhoto(e.target.dataset.id);
-                }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hover(function() {
-                    $(this).addClass("ajapaik-eye-open-white");
-                }, function() {
-                    var t = $(this);
-                    if (t.attr("data-id") !== currentlySelectedMarkerId) {
-                        $(this).removeClass("ajapaik-eye-open-white");
-                    }
-                });
-                if (markers[i].rephotoId) {
-                    $(newEyeElement).addClass("ajapaik-eye-open-blue");
-                } else {
-                    $(newEyeElement).addClass("ajapaik-eye-open-black");
-                }
+                }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hide().hover(function () {
+                    $(this).show();
+                    $(this).parent().find(".ajapaik-azimuth").show();
+                    return false;
+                }, function () {
+                    $(this).hide();
+                    $(this).parent().find(".ajapaik-azimuth").hide();
+                    return false;
+                }).addClass("ajapaik-eye-open-white");
+                var newAzimuthelement = document.createElement("div");
+                $(newAzimuthelement).addClass("ajapaik-azimuth").hover(function () {
+                    $(this).show();
+                    $(this).parent().find(".ajapaik-eye-open").show();
+                    return false;
+                }, function () {
+                    $(this).hide();
+                    $(this).parent().find(".ajapaik-eye-open").hide();
+                    return false;
+                }).hide();
                 newAElement.appendChild(newImgElement);
                 newAElement.appendChild(newEyeElement);
+                newAElement.appendChild(newAzimuthelement);
                 photoPane.append(newAElement);
             }
         }
