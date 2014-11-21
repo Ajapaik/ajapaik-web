@@ -274,8 +274,10 @@
                     $(this).parent().find(".ajapaik-azimuth").hide();
                     return false;
                 }).addClass("ajapaik-eye-open-white");
+                var newAzimuthelement;
                 if (markers[i].azimuth) {
-                    var newAzimuthelement = document.createElement("div");
+                    console.log(markers[i].azimuth);
+                    newAzimuthelement = document.createElement("div");
                     $(newAzimuthelement).addClass("ajapaik-azimuth").hover(function () {
                         $(this).show();
                         $(this).parent().find(".ajapaik-eye-open").show();
