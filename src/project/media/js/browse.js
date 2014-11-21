@@ -45,10 +45,8 @@
         justifiedGallerySettings = {
             waitThumbnailsLoad: false,
             rowHeight: 150,
-            maxRowHeight: 200,
+            maxRowHeight: -1,
             margins: 3,
-            justifyThreshold: 1,
-            lastRow : 'nojustify',
             sizeRangeSuffixes: {
                 'lt100':'',
                 'lt240':'',
@@ -71,6 +69,7 @@
     };
 
     window.loadPhoto = function(id) {
+        $.post("/log_user_map_action/", {user_action: "opened_drawer", photo_id: id}, function () {});
         photoId = id;
         $.ajax({
             cache: false,
@@ -175,6 +174,7 @@
         if (currentlySelectedMarkerId == lastSelectedMarkerId) {
             return true;
         }
+        $.post("/log_user_map_action/", {user_action: "saw_marker", photo_id: markerId}, function () {});
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.find(".ajapaik-eye-open").removeClass("ajapaik-eye-open-white");
         }
@@ -281,7 +281,9 @@
             }
         }
 
-        photoPane.justifiedGallery(justifiedGallerySettings);
+        if (typeof(markers) !== "undefined") {
+            photoPane.justifiedGallery(justifiedGallerySettings);
+        }
 
         $(function () {
             var lazyImages = $("img.lazy");

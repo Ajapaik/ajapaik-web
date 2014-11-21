@@ -31,8 +31,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
 			self.object = serializer.save(force_insert=True)
 			self.post_save(self.object, created=True)
 			headers = self.get_success_headers(serializer.data)
-			return Response(serializer.data, status=status.HTTP_201_CREATED,
-							headers=headers)
+			return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
