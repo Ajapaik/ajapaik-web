@@ -253,9 +253,11 @@
     }
 
     function paneImageHoverOut() {
-        $(this).parent().find(".ajapaik-eye-open").hide();
-        $(this).parent().find(".ajapaik-azimuth").hide();
-        $(this).parent().find(".ajapaik-rephoto-count").hide();
+        if (this.dataset.id !== currentlySelectedMarkerId) {
+            $(this).parent().find(".ajapaik-eye-open").hide();
+            $(this).parent().find(".ajapaik-azimuth").hide();
+            $(this).parent().find(".ajapaik-rephoto-count").hide();
+        }
     }
 
     function paneEyeHoverIn() {
