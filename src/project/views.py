@@ -241,6 +241,8 @@ def photo_upload(request, photo_id):
 
 		if 'user_file[]' in request.FILES.keys():
 			for f in request.FILES.getlist('user_file[]'):
+				if f.name.split()[-1] not in ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG"]:
+					pass
 				fileobj = handle_uploaded_file(f)
 				data = request.POST
 				re_photo = Photo(

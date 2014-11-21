@@ -37,6 +37,7 @@
             heatmap.setMap(window.map);
 
             {% if photo_lon and photo_lat %}
+                window.map.scrollwheel = true;
                 marker = new google.maps.Marker({
                     map: window.map,
                     draggable: false,

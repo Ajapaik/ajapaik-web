@@ -175,12 +175,17 @@
         if (currentlySelectedMarkerId == lastSelectedMarkerId) {
             return true;
         }
+        if (lastSelectedPaneElement) {
+            lastSelectedPaneElement.find(".ajapaik-azimuth").hide();
+            lastSelectedPaneElement.find(".ajapaik-eye-open").hide();
+            lastSelectedPaneElement.find(".ajapaik-rephoto-count").hide();
+        }
         $.post("/log_user_map_action/", {user_action: "saw_marker", photo_id: markerId}, function () {});
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         for (i = 0; i < markers.length; i += 1) {
             if (lastHighlightedMarker) {
-                if (lastHighlightedMarker.rephotoId) {
+                if (lastHighlightedMarker.rephotoCount) {
                     setIcon(lastHighlightedMarker, "blue", 20);
                 } else {
                     setIcon(lastHighlightedMarker, null, 20);
@@ -188,7 +193,10 @@
             }
             if (markers[i].id == markerId) {
                 targetPaneElement.find("img").attr("src", markers[i].thumb);
-                if (markers[i].rephotoId) {
+                targetPaneElement.find(".ajapaik-azimuth").show();
+                targetPaneElement.find(".ajapaik-eye-open").show();
+                targetPaneElement.find(".ajapaik-rephoto-count").show();
+                if (markers[i].rephotoCount) {
                     setIcon(markers[i], "blue", 35);
                 } else {
                     setIcon(markers[i], null, 35);
@@ -237,6 +245,61 @@
         setTimeout(fireIfLastEvent, mapRefreshInterval);
     }
 
+    //TODO: There has to be a better way
+    function paneImageHoverIn() {
+        $(this).parent().find(".ajapaik-eye-open").show();
+        $(this).parent().find(".ajapaik-azimuth").show();
+        $(this).parent().find(".ajapaik-rephoto-count").show();
+    }
+
+    function paneImageHoverOut() {
+        $(this).parent().find(".ajapaik-eye-open").hide();
+        $(this).parent().find(".ajapaik-azimuth").hide();
+        $(this).parent().find(".ajapaik-rephoto-count").hide();
+    }
+
+    function paneEyeHoverIn() {
+        $(this).parent().find(".ajapaik-eye-open").show();
+        $(this).parent().find(".ajapaik-azimuth").show();
+        $(this).parent().find(".ajapaik-rephoto-count").show();
+        return false;
+    }
+
+    function paneEyeHoverOut() {
+        $(this).parent().find(".ajapaik-eye-open").hide();
+        $(this).parent().find(".ajapaik-azimuth").hide();
+        $(this).parent().find(".ajapaik-rephoto-count").hide();
+        return false;
+    }
+
+    function paneAzimuthHoverIn() {
+        $(this).parent().find(".ajapaik-eye-open").show();
+        $(this).parent().find(".ajapaik-azimuth").show();
+        $(this).parent().find(".ajapaik-rephoto-count").show();
+        return false;
+    }
+
+    function paneAzimuthHoverOut() {
+        $(this).parent().find(".ajapaik-eye-open").hide();
+        $(this).parent().find(".ajapaik-azimuth").hide();
+        $(this).parent().find(".ajapaik-rephoto-count").hide();
+        return false;
+    }
+
+    function paneRephotoCountHoverIn() {
+        $(this).parent().find(".ajapaik-eye-open").show();
+        $(this).parent().find(".ajapaik-azimuth").show();
+        $(this).parent().find(".ajapaik-rephoto-count").show();
+        return false;
+    }
+
+    function paneRephotoCountHoverOut() {
+        $(this).parent().find(".ajapaik-eye-open").hide();
+        $(this).parent().find(".ajapaik-azimuth").hide();
+        $(this).parent().find(".ajapaik-rephoto-count").hide();
+        return false;
+    }
+
     $(document).ready(function () {
         $('.top .score_container').hoverIntent(showScoreboard, hideScoreboard);
 
@@ -254,43 +317,32 @@
                 }).attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150).attr("width", markers[i].thumbWidth).hover(function () {
-                        $(this).parent().find(".ajapaik-eye-open").show();
-                        $(this).parent().find(".ajapaik-azimuth").show();
-                    }, function () {
-                        $(this).parent().find(".ajapaik-eye-open").hide();
-                        $(this).parent().find(".ajapaik-azimuth").hide();
-                    });
+                    .attr("data-id", markers[i].id).addClass("lazy").attr("height", 150)
+                    .attr("width", markers[i].thumbWidth).hover(paneImageHoverIn, paneImageHoverOut);
                 $(newAElement).attr("src", markers[i].thumb);
                 var newEyeElement = document.createElement("div");
                 $(newEyeElement).addClass("ajapaik-eye-open").click(function (e) {
                     window.loadPhoto(e.target.dataset.id);
-                }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hide().hover(function () {
-                    $(this).show();
-                    $(this).parent().find(".ajapaik-azimuth").show();
-                    return false;
-                }, function () {
-                    $(this).hide();
-                    $(this).parent().find(".ajapaik-azimuth").hide();
-                    return false;
-                }).addClass("ajapaik-eye-open-white");
-                var newAzimuthelement;
+                }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hide()
+                    .addClass("ajapaik-eye-open-white").hover(paneEyeHoverIn, paneEyeHoverOut);
+                var newAzimuthElement;
                 if (markers[i].azimuth) {
-                    newAzimuthelement = document.createElement("div");
-                    $(newAzimuthelement).addClass("ajapaik-azimuth").hover(function () {
-                        $(this).show();
-                        $(this).parent().find(".ajapaik-eye-open").show();
-                        return false;
-                    }, function () {
-                        $(this).hide();
-                        $(this).parent().find(".ajapaik-eye-open").hide();
-                        return false;
-                    }).hide();
+                    newAzimuthElement = document.createElement("div");
+                    $(newAzimuthElement).addClass("ajapaik-azimuth").hover(paneAzimuthHoverIn, paneAzimuthHoverOut).hide();
+                }
+                var newRephotoCountElement;
+                if (markers[i].rephotoCount) {
+                    newRephotoCountElement = document.createElement("div");
+                    $(newRephotoCountElement).addClass("ajapaik-rephoto-count")
+                        .hover(paneRephotoCountHoverIn, paneRephotoCountHoverOut).hide().html(markers[i].rephotoCount);
                 }
                 newAElement.appendChild(newImgElement);
                 newAElement.appendChild(newEyeElement);
-                if (newAzimuthelement) {
-                    newAElement.appendChild(newAzimuthelement);
+                if (newAzimuthElement) {
+                    newAElement.appendChild(newAzimuthElement);
+                }
+                if (newRephotoCountElement) {
+                    newAElement.appendChild(newRephotoCountElement);
                 }
                 photoPane.append(newAElement);
             }

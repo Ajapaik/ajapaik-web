@@ -1302,13 +1302,13 @@ a.btn.flip {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background: rgba(128, 128, 128, 0.5) no-repeat center;
 }
 
 .ajapaik-eye-open-white {
-    background-image: url("../gfx/eye_open_30px_white.png") !important;
+    background-image: url("../gfx/eye_open_20px_white.png") !important;
 }
 
 .ajapaik-azimuth {
@@ -1318,4 +1318,16 @@ a.btn.flip {
     width: 30px;
     height: 30px;
     background: rgba(128, 128, 128, 0.5) url("../gfx/direction_20px_white.png") no-repeat center;
+}
+
+.ajapaik-rephoto-count {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background: rgba(0, 169, 231, 0.5);
 }
