@@ -353,8 +353,7 @@
                 if (typeof queryString[pair[0]] === "undefined") {
                     queryString[pair[0]] = pair[1];
                 } else if (typeof queryString[pair[0]] === "string") {
-                    var arr = [ queryString[pair[0]], pair[1] ];
-                    queryString[pair[0]] = arr;
+                    queryString[pair[0]] = [ queryString[pair[0]], pair[1] ];
                 } else {
                     queryString[pair[0]].push(pair[1]);
                 }
