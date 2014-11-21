@@ -1239,7 +1239,7 @@ span.framed {
 
 .center-marker {
     position: absolute;
-    background: url(/media/gfx/ajapaik_marker_35px.png) no-repeat;
+    background: url('../gfx/ajapaik_marker_35px.png') no-repeat;
     top: 50%;
     left: 50%;
     z-index: 1;
@@ -1304,11 +1304,11 @@ a.btn.flip {
     left: 0;
     width: 30px;
     height: 30px;
-    background: rgba(128, 128, 128, 0.5) no-repeat center;
+    background: rgba(128, 128, 128, 0.5) url("../gfx/eye_open_20px_white.png") no-repeat center;
 }
 
-.ajapaik-eye-open-white {
-    background-image: url("../gfx/eye_open_20px_white.png") !important;
+.ajapaik-eye-open-light-bg {
+    background-color: rgba(225, 225, 225, 0.5) !important;
 }
 
 .ajapaik-azimuth {

@@ -8,6 +8,7 @@
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},
+                userAlreadySeenPhotoIds = {{ user_seen_photo_ids|safe }},
                 i,
                 markers = [],
                 p,

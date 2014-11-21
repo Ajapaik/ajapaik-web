@@ -7,6 +7,7 @@
     /*global markers */
     /*global cityId */
     /*global google */
+    /*global userAlreadySeenPhotoIds */
 
     var photoId,
         photoDrawerElement = $('#photo-drawer'),
@@ -169,6 +170,7 @@
     window.highlightSelected = function (markerId, fromMarker) {
         currentlySelectedMarkerId = markerId;
         targetPaneElement = $("#element" + markerId);
+        userAlreadySeenPhotoIds[markerId] = 1;
         if (fromMarker && targetPaneElement) {
             photoPaneContainer.scrollTop(targetPaneElement.position().top);
         }
@@ -255,7 +257,6 @@
     }
 
     function paneImageHoverOut() {
-        console.log("asd");
         if (this.dataset.id != currentlySelectedMarkerId) {
             $(this).parent().find(".ajapaik-eye-open").hide();
             $(this).parent().find(".ajapaik-azimuth").hide();
@@ -335,7 +336,10 @@
                 $(newEyeElement).addClass("ajapaik-eye-open").click(function (e) {
                     window.loadPhoto(e.target.dataset.id);
                 }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hide()
-                    .addClass("ajapaik-eye-open-white").hover(paneEyeHoverIn, paneEyeHoverOut);
+                    .hover(paneEyeHoverIn, paneEyeHoverOut);
+                if (markers[i].id in userAlreadySeenPhotoIds) {
+                    $(newEyeElement).addClass("ajapaik-eye-open-light-bg")
+                }
                 var newAzimuthElement = undefined;
                 if (markers[i].azimuth) {
                     newAzimuthElement = document.createElement("div");
