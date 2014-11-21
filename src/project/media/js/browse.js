@@ -199,6 +199,9 @@
                 targetPaneElement.find(".ajapaik-azimuth").show();
                 targetPaneElement.find(".ajapaik-eye-open").show();
                 targetPaneElement.find(".ajapaik-rephoto-count").show();
+                if (!targetPaneElement.find(".ajapaik-eye-open").hasClass("ajapaik-eye-open-light-bg")) {
+                    targetPaneElement.find(".ajapaik-eye-open").addClass("ajapaik-eye-open-light-bg");
+                }
                 if (markers[i].rephotoCount) {
                     setIcon(markers[i], "blue", 35);
                 } else {
