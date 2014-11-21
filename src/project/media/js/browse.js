@@ -274,19 +274,23 @@
                     $(this).parent().find(".ajapaik-azimuth").hide();
                     return false;
                 }).addClass("ajapaik-eye-open-white");
-                var newAzimuthelement = document.createElement("div");
-                $(newAzimuthelement).addClass("ajapaik-azimuth").hover(function () {
-                    $(this).show();
-                    $(this).parent().find(".ajapaik-eye-open").show();
-                    return false;
-                }, function () {
-                    $(this).hide();
-                    $(this).parent().find(".ajapaik-eye-open").hide();
-                    return false;
-                }).hide();
+                if (markers[i].azimuth) {
+                    var newAzimuthelement = document.createElement("div");
+                    $(newAzimuthelement).addClass("ajapaik-azimuth").hover(function () {
+                        $(this).show();
+                        $(this).parent().find(".ajapaik-eye-open").show();
+                        return false;
+                    }, function () {
+                        $(this).hide();
+                        $(this).parent().find(".ajapaik-eye-open").hide();
+                        return false;
+                    }).hide();
+                }
                 newAElement.appendChild(newImgElement);
                 newAElement.appendChild(newEyeElement);
-                newAElement.appendChild(newAzimuthelement);
+                if (newAzimuthelement) {
+                    newAElement.appendChild(newAzimuthelement);
+                }
                 photoPane.append(newAElement);
             }
         }
