@@ -327,13 +327,13 @@
                     window.loadPhoto(e.target.dataset.id);
                 }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hide()
                     .addClass("ajapaik-eye-open-white").hover(paneEyeHoverIn, paneEyeHoverOut);
-                var newAzimuthElement;
+                var newAzimuthElement = undefined;
                 if (markers[i].azimuth) {
                     newAzimuthElement = document.createElement("div");
                     $(newAzimuthElement).addClass("ajapaik-azimuth").hover(paneAzimuthHoverIn, paneAzimuthHoverOut).hide();
                 }
-                var newRephotoCountElement;
-                if (markers[i].rephotoCount) {
+                var newRephotoCountElement = undefined;
+                if (markers[i].rephotoCount > 0) {
                     newRephotoCountElement = document.createElement("div");
                     $(newRephotoCountElement).addClass("ajapaik-rephoto-count")
                         .hover(paneRephotoCountHoverIn, paneRephotoCountHoverOut).hide().html(markers[i].rephotoCount);
