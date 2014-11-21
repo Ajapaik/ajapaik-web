@@ -184,9 +184,9 @@
         if (now - 250 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
             if (e.detail > 0) {
-                if (window.map.zoom < 18) {
+//                if (window.map.zoom < 18) {
                     window.map.setZoom(window.map.zoom + 1);
-                }
+//                }
             } else {
                 if (window.map.zoom > 14) {
                     window.map.setZoom(window.map.zoom - 1);
@@ -203,9 +203,9 @@
         if (now - 100 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
             if (e.wheelDelta > 0) {
-                if (window.map.zoom < 18) {
+//                if (window.map.zoom < 18) {
                     window.map.setZoom(window.map.zoom + 1);
-                }
+//                }
             } else {
                 if (window.map.zoom > 14) {
                     window.map.setZoom(window.map.zoom - 1);

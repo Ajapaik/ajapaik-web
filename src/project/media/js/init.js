@@ -9,7 +9,6 @@
     window.getMap = function(startPoint, startingZoom, isGameMap) {
         var latLng,
             zoomLevel,
-            osmMapType,
             streetViewOptions,
             mapOpts,
             streetPanorama;
@@ -26,17 +25,6 @@
         } else {
             zoomLevel = startingZoom;
         }
-
-        osmMapType = new google.maps.ImageMapType({
-            getTileUrl: function (coord, zoom) {
-                return "http://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
-            },
-            tileSize: new google.maps.Size(256, 256),
-            isPng: true,
-            alt: "OpenStreetMap layer",
-            name: "OSM",
-            maxZoom: 18
-        });
 
         streetViewOptions = {
             panControl: true,
@@ -60,14 +48,9 @@
 
         mapOpts = {
             zoom: zoomLevel,
-            maxZoom: 18,
             scrollwheel: false,
             center: latLng,
             mapTypeControl: true,
-            mapTypeControlOptions: {
-                mapTypeIds: ["OSM", google.maps.MapTypeId.ROADMAP],
-                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-            },
             panControl: true,
             panControlOptions: {
                 position: google.maps.ControlPosition.LEFT_CENTER
@@ -94,9 +77,6 @@
                 that.data("win").open(window.map);
             });
         }
-
-        window.map.mapTypes.set("OSM", osmMapType);
-        window.map.setMapTypeId("OSM");
 
         google.maps.event.addListener(streetPanorama, "visible_changed", function () {
             if (streetPanorama.getVisible()) {
