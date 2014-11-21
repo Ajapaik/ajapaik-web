@@ -63,7 +63,7 @@
             threshold: 50
         },
         lastEvent,
-        mapRefreshInterval = 1000;
+        mapRefreshInterval = 500;
 
     Math.radians = function(degrees) {
         return degrees * Math.PI / 180;
@@ -169,7 +169,7 @@
     window.highlightSelected = function (markerId, fromMarker) {
         currentlySelectedMarkerId = markerId;
         targetPaneElement = $("#element" + markerId);
-        if (fromMarker) {
+        if (fromMarker && targetPaneElement) {
             photoPaneContainer.scrollTop(targetPaneElement.position().top);
         }
         if (currentlySelectedMarkerId == lastSelectedMarkerId) {
