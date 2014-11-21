@@ -1282,6 +1282,7 @@ a.btn.flip {
     width: 25%;
     height: 93%;
     overflow: scroll;
+    border-left: 3px solid white;
 }
 
 #simplemodal-container {
