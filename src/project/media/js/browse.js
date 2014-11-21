@@ -276,7 +276,6 @@
                 }).addClass("ajapaik-eye-open-white");
                 var newAzimuthelement;
                 if (markers[i].azimuth) {
-                    console.log(markers[i].azimuth);
                     newAzimuthelement = document.createElement("div");
                     $(newAzimuthelement).addClass("ajapaik-azimuth").hover(function () {
                         $(this).show();
