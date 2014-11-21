@@ -44,8 +44,8 @@
         markerTemp,
         justifiedGallerySettings = {
             waitThumbnailsLoad: false,
-            rowHeight: 150,
-            maxRowHeight: 200,
+            rowHeight: 120,
+            maxRowHeight: 150,
             lastRow: 'nojustify',
             margins: 3,
             sizeRangeSuffixes: {

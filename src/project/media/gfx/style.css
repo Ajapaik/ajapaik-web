@@ -542,7 +542,7 @@ a.fullscreen {
 #browse .map {
     position: absolute;
     bottom: 0;
-    width: 67%;
+    width: 75%;
     height: 93%;
 }
 
@@ -1279,7 +1279,7 @@ a.btn.flip {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 33%;
+    width: 25%;
     height: 93%;
     overflow: scroll;
     border-left: 3px solid white;
