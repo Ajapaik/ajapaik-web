@@ -183,6 +183,7 @@
         $.post("/log_user_map_action/", {user_action: "saw_marker", photo_id: markerId}, function () {});
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
+        markerTemp = undefined;
         for (i = 0; i < markers.length; i += 1) {
             if (lastHighlightedMarker) {
                 if (lastHighlightedMarker.rephotoCount) {
@@ -211,6 +212,7 @@
                 } else {
                     line.setVisible(false);
                 }
+                break;
             }
         }
         if (markerTemp) {
@@ -253,7 +255,8 @@
     }
 
     function paneImageHoverOut() {
-        if (this.dataset.id !== currentlySelectedMarkerId) {
+        console.log("asd");
+        if (this.dataset.id != currentlySelectedMarkerId) {
             $(this).parent().find(".ajapaik-eye-open").hide();
             $(this).parent().find(".ajapaik-azimuth").hide();
             $(this).parent().find(".ajapaik-rephoto-count").hide();
@@ -268,9 +271,11 @@
     }
 
     function paneEyeHoverOut() {
-        $(this).parent().find(".ajapaik-eye-open").hide();
-        $(this).parent().find(".ajapaik-azimuth").hide();
-        $(this).parent().find(".ajapaik-rephoto-count").hide();
+        if (this.dataset.id != currentlySelectedMarkerId) {
+            $(this).parent().find(".ajapaik-eye-open").hide();
+            $(this).parent().find(".ajapaik-azimuth").hide();
+            $(this).parent().find(".ajapaik-rephoto-count").hide();
+        }
         return false;
     }
 
@@ -282,9 +287,11 @@
     }
 
     function paneAzimuthHoverOut() {
-        $(this).parent().find(".ajapaik-eye-open").hide();
-        $(this).parent().find(".ajapaik-azimuth").hide();
-        $(this).parent().find(".ajapaik-rephoto-count").hide();
+        if (this.dataset.id != currentlySelectedMarkerId) {
+            $(this).parent().find(".ajapaik-eye-open").hide();
+            $(this).parent().find(".ajapaik-azimuth").hide();
+            $(this).parent().find(".ajapaik-rephoto-count").hide();
+        }
         return false;
     }
 
@@ -296,9 +303,11 @@
     }
 
     function paneRephotoCountHoverOut() {
-        $(this).parent().find(".ajapaik-eye-open").hide();
-        $(this).parent().find(".ajapaik-azimuth").hide();
-        $(this).parent().find(".ajapaik-rephoto-count").hide();
+        if (this.dataset.id != currentlySelectedMarkerId) {
+            $(this).parent().find(".ajapaik-eye-open").hide();
+            $(this).parent().find(".ajapaik-azimuth").hide();
+            $(this).parent().find(".ajapaik-rephoto-count").hide();
+        }
         return false;
     }
 
@@ -330,13 +339,13 @@
                 var newAzimuthElement = undefined;
                 if (markers[i].azimuth) {
                     newAzimuthElement = document.createElement("div");
-                    $(newAzimuthElement).addClass("ajapaik-azimuth").hover(paneAzimuthHoverIn, paneAzimuthHoverOut).hide();
+                    $(newAzimuthElement).addClass("ajapaik-azimuth").hover(paneAzimuthHoverIn, paneAzimuthHoverOut).hide().attr("data-id", markers[i].id);
                 }
                 var newRephotoCountElement = undefined;
                 if (markers[i].rephotoCount > 0) {
                     newRephotoCountElement = document.createElement("div");
                     $(newRephotoCountElement).addClass("ajapaik-rephoto-count")
-                        .hover(paneRephotoCountHoverIn, paneRephotoCountHoverOut).hide().html(markers[i].rephotoCount);
+                        .hover(paneRephotoCountHoverIn, paneRephotoCountHoverOut).hide().html(markers[i].rephotoCount).attr("data-id", markers[i].id);
                 }
                 newAElement.appendChild(newImgElement);
                 newAElement.appendChild(newEyeElement);
