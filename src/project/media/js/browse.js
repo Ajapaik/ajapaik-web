@@ -45,7 +45,8 @@
         justifiedGallerySettings = {
             waitThumbnailsLoad: false,
             rowHeight: 150,
-            maxRowHeight: -1,
+            maxRowHeight: 200,
+            lastRow: 'nojustify',
             margins: 3,
             sizeRangeSuffixes: {
                 'lt100':'',
