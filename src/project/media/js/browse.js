@@ -98,7 +98,12 @@
 
     function closePhotoDrawer() {
         photoDrawerElement.animate({ top: '-1000px' });
-        History.replaceState(null, null, "/kaart/?city__pk=" + cityId);
+        var historyReplacementString = "/kaart/?city__pk=" + cityId + "&lat=" + window.map.getCenter().lat() + "&lng=" + window.map.getCenter().lng();
+        if (currentlySelectedMarkerId) {
+            historyReplacementString += "&selectedPhoto=" + currentlySelectedMarkerId;
+        }
+        historyReplacementString += "&zoom=" + window.map.zoom;
+        History.replaceState(null, null, historyReplacementString);
         $('.filter-box').show();
     }
 
@@ -134,6 +139,14 @@
 
     function toggleVisiblePaneElements() {
         if (window.map) {
+            if (cityId) {
+                var historyReplacementString = "/kaart/?city__pk=" + cityId + "&lat=" + window.map.getCenter().lat() + "&lng=" + window.map.getCenter().lng();
+                if (currentlySelectedMarkerId) {
+                    historyReplacementString += "&selectedPhoto=" + currentlySelectedMarkerId;
+                }
+                historyReplacementString += "&zoom=" + window.map.zoom;
+                History.replaceState(null, null, historyReplacementString);
+            }
             for (i = 0; i < markers.length; i += 1) {
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
                     if (detachedPhotos[markers[i].id]) {
@@ -169,6 +182,14 @@
 
     window.highlightSelected = function (markerId, fromMarker) {
         currentlySelectedMarkerId = markerId;
+        if (cityId) {
+            var historyReplacementString = "/kaart/?city__pk=" + cityId + "&lat=" + window.map.getCenter().lat() + "&lng=" + window.map.getCenter().lng();
+            if (currentlySelectedMarkerId) {
+                historyReplacementString += "&selectedPhoto=" + currentlySelectedMarkerId;
+            }
+            historyReplacementString += "&zoom=" + window.map.zoom;
+            History.replaceState(null, null, historyReplacementString);
+        }
         targetPaneElement = $("#element" + markerId);
         userAlreadySeenPhotoIds[markerId] = 1;
         if (fromMarker && targetPaneElement) {
@@ -322,6 +343,35 @@
             e.preventDefault();
             openPhotoDrawer();
         });
+
+        var QueryString = function () {
+            var queryString = {};
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (typeof queryString[pair[0]] === "undefined") {
+                    queryString[pair[0]] = pair[1];
+                } else if (typeof queryString[pair[0]] === "string") {
+                    var arr = [ queryString[pair[0]], pair[1] ];
+                    queryString[pair[0]] = arr;
+                } else {
+                    queryString[pair[0]].push(pair[1]);
+                }
+            }
+            return queryString;
+        }();
+
+        if (QueryString.lat && QueryString.lng && QueryString.zoom) {
+            window.map.setCenter(new google.maps.LatLng(QueryString.lat, QueryString.lng));
+            window.map.setZoom(parseInt(QueryString.zoom));
+        }
+
+        if (QueryString.selectedPhoto) {
+            setTimeout(function () {
+                window.highlightSelected(QueryString.selectedPhoto, true);
+            }, 1000);
+        }
 
         if (typeof(markers) !== "undefined") {
             for (i = 0; i < markers.length; i += 1) {

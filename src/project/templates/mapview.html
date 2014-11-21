@@ -9,6 +9,7 @@
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},
                 userAlreadySeenPhotoIds = {{ user_seen_photo_ids|safe }},
+                cityId = {{ city_id|safe }},
                 i,
                 markers = [],
                 p,

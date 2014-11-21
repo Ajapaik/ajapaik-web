@@ -597,7 +597,8 @@ def mapview(request):
 		'title': title,
 		'filters': filters,
 		'leaderboard': leaderboard,
-	    'user_seen_photo_ids': photo_ids_user_has_looked_at
+	    'user_seen_photo_ids': photo_ids_user_has_looked_at,
+	    'city_id': city_id
 	}))
 
 
