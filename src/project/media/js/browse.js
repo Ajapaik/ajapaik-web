@@ -44,7 +44,7 @@
         targetPaneElement,
         markerTemp,
         justifiedGallerySettings = {
-            //waitThumbnailsLoad: false,
+            waitThumbnailsLoad: false,
             rowHeight: 120,
             margins: 3
         },
