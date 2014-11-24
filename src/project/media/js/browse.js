@@ -194,6 +194,10 @@
         userAlreadySeenPhotoIds[markerId] = 1;
         if (fromMarker && targetPaneElement) {
             photoPaneContainer.scrollTop(targetPaneElement.position().top);
+            _gaq.push(["_trackEvent", "Map", "Marker click"]);
+        }
+        if (!fromMarker) {
+            _gaq.push(["_trackEvent", "Map", "Pane photo click"]);
         }
         if (currentlySelectedMarkerId == lastSelectedMarkerId) {
             return true;
@@ -386,6 +390,7 @@
                 $(newAElement).attr("src", markers[i].thumb);
                 var newEyeElement = document.createElement("div");
                 $(newEyeElement).addClass("ajapaik-eye-open").click(function (e) {
+                    _gaq.push(["_trackEvent", "Map", "Pane photo eye click"]);
                     window.loadPhoto(e.target.dataset.id);
                 }).attr("data-id", markers[i].id).attr("id", "eye" + markers[i].id).hide()
                     .hover(paneEyeHoverIn, paneEyeHoverOut);
@@ -418,13 +423,6 @@
         if (typeof(markers) !== "undefined") {
             photoPane.justifiedGallery(justifiedGallerySettings);
         }
-
-//        $(function () {
-//            var lazyImages = $("img.lazy");
-//            if (lazyImages.length > 0) {
-//                lazyImages.lazyload(lazyloadSettings);
-//            }
-//        });
 
         setTimeout(function () {
             photoPaneContainer.trigger("scroll");
