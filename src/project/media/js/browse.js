@@ -48,6 +48,11 @@
             rowHeight: 120,
             margins: 3
         },
+        lazyloadSettings = {
+            container: photoPaneContainer,
+            effect: "fadeIn",
+            threshold: 50
+        },
         lastEvent,
         mapRefreshInterval = 500;
 
@@ -369,10 +374,8 @@
                     window.highlightSelected(e.target.dataset.id, false);
                 }).attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
-                $(newImgElement).attr("src", "").attr("data-src", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazyload").hover(paneImageHoverIn, paneImageHoverOut);
-                    //.attr("height", 150)
-                    //.attr("width", markers[i].thumbWidth);
+                $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
+                    .attr("data-id", markers[i].id).addClass("lazy").hover(paneImageHoverIn, paneImageHoverOut);
                 $(newAElement).attr("src", markers[i].thumb);
                 var newEyeElement = document.createElement("div");
                 $(newEyeElement).addClass("ajapaik-eye-open").click(function (e) {
@@ -405,6 +408,13 @@
                 photoPane.append(newAElement);
             }
         }
+
+        $(function () {
+            var lazyImages = $("img.lazy");
+            if (lazyImages.length > 0) {
+                lazyImages.lazyload(lazyloadSettings);
+            }
+        });
 
         if (typeof(markers) !== "undefined") {
             photoPane.justifiedGallery(justifiedGallerySettings);
