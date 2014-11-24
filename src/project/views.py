@@ -435,7 +435,7 @@ def photo_url(request, photo_id):
 	return response
 
 
-def photo_thumb(request, photo_id, thumb_size=""):
+def photo_thumb(request, photo_id, thumb_size=None):
 	p = get_object_or_404(Photo, id=photo_id)
 	image_to_use = p.image_unscaled or p.image
 	if image_to_use._get_height() >= image_to_use._get_width():
