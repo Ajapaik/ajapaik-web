@@ -454,7 +454,6 @@ def photo_thumb(request, photo_id, thumb_size=None):
 	# 	im = get_thumbnail(image_to_use, thumb_str % 1024, crop="center")
 	# else:
 	# 	im = get_thumbnail(image_to_use, thumb_str % 500, crop="center")
-	print thumb_str % 150
 	im = get_thumbnail(image_to_use, thumb_str % 150, crop="center")
 	content = im.read()
 	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
