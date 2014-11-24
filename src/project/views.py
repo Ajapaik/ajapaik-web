@@ -436,17 +436,16 @@ def photo_url(request, photo_id):
 
 
 def photo_thumb(request, photo_id):
-	photo = get_object_or_404(Photo, id=photo_id)
-	if photo.image_unscaled:
-		im = get_thumbnail(photo.image_unscaled, 'x150', crop='center')
+	p = get_object_or_404(Photo, id=photo_id)
+	if p.image_unscaled:
+		im = get_thumbnail(p.image_unscaled, 'x150', crop='center')
 	else:
-		im = get_thumbnail(photo.image, 'x150', crop='center')
-	# return redirect(im.url)
+		im = get_thumbnail(p.image, 'x150', crop='center')
 	content = im.read()
 	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
 	response = HttpResponse(content, content_type='image/jpg')
 	response['Content-Length'] = len(content)
-	response['Cache-Control'] = "max-age=604800, public"  # 604800 = 7 days
+	response['Cache-Control'] = "max-age=604800, public"
 	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
 	return response
 
