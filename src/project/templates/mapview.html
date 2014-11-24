@@ -3,7 +3,7 @@
 
 {% block layout %}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>#}
-    <script type="text/javascript" src="/media/js/jquery.lazyload.min.js"></script>
+    <script type="text/javascript" src="/media/js/lazysizes.min.js"></script>
     <script type="text/javascript" src="/media/js/jquery.justifiedGallery.min.js"></script>
     <script type="text/javascript">
         var leaderboardFullURL = "{% url "views.rephoto_top50" %}",
@@ -20,6 +20,7 @@
                 currentIcon;
 
         function initialize() {
+            History.replaceState(null, null, "/kaart/?city__pk=" + cityId);
             {% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
                 window.getMap(
                     [
