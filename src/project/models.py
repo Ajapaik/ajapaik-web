@@ -156,7 +156,7 @@ class Photo(models.Model):
 			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
 				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
 				im_url = reverse('views.photo_thumb', args=(p.id,))
-				if p._get_width() >= p._get_height():
+				if p.image._get_width() >= p.image._get_height():
 					thumb_str = "%d"
 				else:
 					thumb_str = "x%d"
