@@ -46,7 +46,15 @@
         justifiedGallerySettings = {
             waitThumbnailsLoad: false,
             rowHeight: 120,
-            margins: 3
+            margins: 3,
+            sizeRangeSuffixes: {
+                'lt100': '',
+                'lt240': '',
+                'lt320': '',
+                'lt500': '',
+                'lt640': '',
+                'lt1024': ''
+            }
         },
         lazyloadSettings = {
             container: photoPaneContainer,

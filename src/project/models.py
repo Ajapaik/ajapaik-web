@@ -160,7 +160,7 @@ class Photo(models.Model):
 					thumb_str = "x%d"
 				else:
 					thumb_str = "%d"
-				im = get_thumbnail(p.image, thumb_str % 100, crop = "center")
+				im = get_thumbnail(p.image, thumb_str % 100, crop="center")
 				data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]))
 			return data
 

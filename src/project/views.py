@@ -442,18 +442,19 @@ def photo_thumb(request, photo_id, thumb_size=None):
 		thumb_str = "x%d"
 	else:
 		thumb_str = "%d"
-	if thumb_size == "_t":
-		im = get_thumbnail(image_to_use, thumb_str % 100, crop="center")
-	elif thumb_size == "_m":
-		im = get_thumbnail(image_to_use, thumb_str % 240, crop="center")
-	elif thumb_size == "_n":
-		im = get_thumbnail(image_to_use, thumb_str % 320, crop="center")
-	elif thumb_size == "_z":
-		im = get_thumbnail(image_to_use, thumb_str % 640, crop="center")
-	elif thumb_size == "_b":
-		im = get_thumbnail(image_to_use, thumb_str % 1024, crop="center")
-	else:
-		im = get_thumbnail(image_to_use, thumb_str % 500, crop="center")
+	# if thumb_size == "_t":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 100, crop="center")
+	# elif thumb_size == "_m":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 240, crop="center")
+	# elif thumb_size == "_n":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 320, crop="center")
+	# elif thumb_size == "_z":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 640, crop="center")
+	# elif thumb_size == "_b":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 1024, crop="center")
+	# else:
+	# 	im = get_thumbnail(image_to_use, thumb_str % 500, crop="center")
+	im = get_thumbnail(image_to_use, thumb_str % 100, crop="center")
 	content = im.read()
 	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
 	response = HttpResponse(content, content_type='image/jpg')
