@@ -155,8 +155,11 @@ class Photo(models.Model):
 			data = []
 			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
 				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
-				im_url = reverse('views.photo_thumb', args=(p.id,))
-				data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth))
+				im_url = reverse('views.photo_thumb', args=(p.id, None))
+				if p.image._get_height() >= p.image._get_width():
+					thumb_str = "x%d"
+				im = get_thumbnail(p.image, thumb_str % 100)
+				data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]))
 			return data
 
 

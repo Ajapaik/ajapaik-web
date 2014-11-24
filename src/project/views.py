@@ -435,20 +435,25 @@ def photo_url(request, photo_id):
 	return response
 
 
-def photo_thumb(request, photo_id, thumb_size="_t"):
+def photo_thumb(request, photo_id, thumb_size=""):
 	p = get_object_or_404(Photo, id=photo_id)
 	image_to_use = p.image_unscaled or p.image
-	im = None
 	if image_to_use._get_height() >= image_to_use._get_width():
 		thumb_str = "x%d"
 	else:
 		thumb_str = "%d"
 	if thumb_size == "_t":
-		im = get_thumbnail(image_to_use, thumb_str % 100, crop='center')
+		im = get_thumbnail(image_to_use, thumb_str % 100)
 	elif thumb_size == "_m":
-		im = get_thumbnail(image_to_use, thumb_str % 240, crop='center')
+		im = get_thumbnail(image_to_use, thumb_str % 240)
 	elif thumb_size == "_n":
-		im = get_thumbnail(image_to_use, thumb_str % 320, crop='center')
+		im = get_thumbnail(image_to_use, thumb_str % 320)
+	elif thumb_size == "_z":
+		im = get_thumbnail(image_to_use, thumb_str % 640)
+	elif thumb_size == "_b":
+		im = get_thumbnail(image_to_use, thumb_str % 1024)
+	else:
+		im = get_thumbnail(image_to_use, thumb_str % 500)
 	content = im.read()
 	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
 	response = HttpResponse(content, content_type='image/jpg')
