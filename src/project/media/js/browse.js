@@ -44,24 +44,9 @@
         targetPaneElement,
         markerTemp,
         justifiedGallerySettings = {
-            waitThumbnailsLoad: false,
+            //waitThumbnailsLoad: false,
             rowHeight: 120,
-            maxRowHeight: 150,
-            lastRow: 'nojustify',
-            margins: 3,
-            sizeRangeSuffixes: {
-                'lt100':'',
-                'lt240':'',
-                'lt320':'',
-                'lt500':'',
-                'lt640':'',
-                'lt1024':''
-            }
-        },
-        lazyloadSettings = {
-            container: photoPaneContainer,
-            effect: "fadeIn",
-            threshold: 50
+            margins: 3
         },
         lastEvent,
         mapRefreshInterval = 500;
@@ -385,8 +370,9 @@
                 }).attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("src", "").attr("data-src", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazyload").attr("height", 150)
-                    .attr("width", markers[i].thumbWidth).hover(paneImageHoverIn, paneImageHoverOut);
+                    .attr("data-id", markers[i].id).addClass("lazyload").hover(paneImageHoverIn, paneImageHoverOut);
+                    //.attr("height", 150)
+                    //.attr("width", markers[i].thumbWidth);
                 $(newAElement).attr("src", markers[i].thumb);
                 var newEyeElement = document.createElement("div");
                 $(newEyeElement).addClass("ajapaik-eye-open").click(function (e) {

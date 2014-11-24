@@ -156,8 +156,7 @@ class Photo(models.Model):
 			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
 				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
 				im_url = reverse('views.photo_thumb', args=(p.id,))
-				im = get_thumbnail(p.image, 'x150', crop='center')
-				data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]))
+				data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth))
 			return data
 
 
