@@ -438,10 +438,10 @@ def photo_url(request, photo_id):
 def photo_thumb(request, photo_id, thumb_size=None):
 	p = get_object_or_404(Photo, id=photo_id)
 	image_to_use = p.image_unscaled or p.image
-	if image_to_use._get_height() >= image_to_use._get_width():
-		thumb_str = "x%d"
-	else:
+	if image_to_use._get_width() >= image_to_use._get_height():
 		thumb_str = "%d"
+	else:
+		thumb_str = "x%d"
 	# if thumb_size == "_t":
 	# 	im = get_thumbnail(image_to_use, thumb_str % 100, crop="center")
 	# elif thumb_size == "_m":
@@ -454,7 +454,8 @@ def photo_thumb(request, photo_id, thumb_size=None):
 	# 	im = get_thumbnail(image_to_use, thumb_str % 1024, crop="center")
 	# else:
 	# 	im = get_thumbnail(image_to_use, thumb_str % 500, crop="center")
-	im = get_thumbnail(image_to_use, thumb_str % 100, crop="center")
+	print thumb_str % 150
+	im = get_thumbnail(image_to_use, thumb_str % 150, crop="center")
 	content = im.read()
 	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
 	response = HttpResponse(content, content_type='image/jpg')
