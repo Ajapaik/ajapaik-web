@@ -375,7 +375,7 @@
                 }).attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
                 $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
-                    .attr("data-id", markers[i].id).addClass("lazy").hover(paneImageHoverIn, paneImageHoverOut)
+                    .attr("data-id", markers[i].id).addClass("lazyload").hover(paneImageHoverIn, paneImageHoverOut)
                     .attr("height", markers[i].thumbHeight).attr("width", markers[i].thumbWidth);
                 $(newAElement).attr("src", markers[i].thumb);
                 var newEyeElement = document.createElement("div");
@@ -410,12 +410,12 @@
             }
         }
 
-        $(function () {
-            var lazyImages = $("img.lazy");
-            if (lazyImages.length > 0) {
-                lazyImages.lazyload(lazyloadSettings);
-            }
-        });
+//        $(function () {
+//            var lazyImages = $("img.lazy");
+//            if (lazyImages.length > 0) {
+//                lazyImages.lazyload(lazyloadSettings);
+//            }
+//        });
 
         if (typeof(markers) !== "undefined") {
             photoPane.justifiedGallery(justifiedGallerySettings);
