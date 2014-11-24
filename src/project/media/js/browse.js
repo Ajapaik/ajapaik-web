@@ -374,7 +374,7 @@
                     window.highlightSelected(e.target.dataset.id, false);
                 }).attr("id", "element" + markers[i].id).attr("data-id", markers[i].id);
                 var newImgElement = document.createElement("img");
-                $(newImgElement).attr("src", "").attr("data-original", markers[i].thumb).attr("title", markers[i].description)
+                $(newImgElement).attr("src", "").attr("data-src", markers[i].thumb).attr("title", markers[i].description)
                     .attr("data-id", markers[i].id).addClass("lazyload").hover(paneImageHoverIn, paneImageHoverOut)
                     .attr("height", markers[i].thumbHeight).attr("width", markers[i].thumbWidth);
                 $(newAElement).attr("src", markers[i].thumb);
