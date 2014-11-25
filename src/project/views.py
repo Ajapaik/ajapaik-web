@@ -699,10 +699,9 @@ def fetch_stream(request):
 
 def difficulty_feedback(request):
 	# TODO: Tighten down security when it becomes apparent people are abusing this
-	from get_next_photos_to_geotag import calc_trustworthiness
 
 	user_profile = request.get_user().get_profile()
-	user_trustworthiness = calc_trustworthiness(user_profile.pk)
+	user_trustworthiness = get_next_photos_to_geotag.calc_trustworthiness(user_profile.pk)
 	user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
 	level = request.POST.get("level") or None
 	photo_id = request.POST.get("photo_id") or None
@@ -768,8 +767,6 @@ def csv_upload(request):
 		row = dict(zip(header_row, row))
 		photos_metadata[row.get("image")] = row
 
-	print photos_metadata
-
 	zip_file = zipfile.ZipFile(request.FILES["zip_file"])
 
 	for key in photos_metadata.keys():
@@ -803,14 +800,12 @@ def csv_upload(request):
 			source=Source(name=source_name, description=source_name)
 			source.save()
 		source_url = meta_for_this_image.get("url")
-		p = Photo(
-			date_text = meta_for_this_image.get("date"),
-		    city = city,
-		    description = description,
-		    source = source,
-		    source_url = source_url,
-		    source_key = source_key
-		)
+		p = Photo(date_text=meta_for_this_image.get("date"), city=city, description=description, source=source, source_url=source_url, source_key=source_key)
 		p.image.name = upload_file_name
 		p.save()
 	return HttpResponse("OK")
+
+def old_photo_upload(request):
+	user_profile = request.get_user().get_profile()
+	print user_profile.score
+	return render_to_response('photo_upload.html', RequestContext(request, {}))
