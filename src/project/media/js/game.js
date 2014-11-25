@@ -167,7 +167,7 @@
             infowindow.close();
             infowindow = undefined;
         }
-        centerMarker.css("background-image", "url('/media/gfx/ajapaik_marker_35px.png')").css("margin-left", "-17px").css("margin-top", "-47px");
+        centerMarker.css("background-image", "url('/media/gfx/ajapaik_marker_35px_cross.png')").css("margin-left", "-17px").css("margin-top", "-55px").css("height", "60px");
         $("#save-location").text(gettext('Save location only')).removeClass("medium").addClass("green");
         azimuthListenerActive = false;
         line.setVisible(false);
