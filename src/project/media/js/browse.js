@@ -346,12 +346,12 @@
             openPhotoDrawer();
         });
 
-        if (window.QueryString.lat && window.QueryString.lng && window.QueryString.zoom && !window.fromSelect) {
+        if (window.QueryString.lat && window.QueryString.lng && window.QueryString.zoom && !window.fromSelect && !window.barePhotoview) {
             window.map.setCenter(new google.maps.LatLng(QueryString.lat, QueryString.lng));
             window.map.setZoom(parseInt(QueryString.zoom));
         }
 
-        if (window.QueryString.selectedPhoto && !window.fromSelect) {
+        if (window.QueryString.selectedPhoto && !window.fromSelect && !window.barePhotoview) {
             setTimeout(function () {
                 window.highlightSelected(QueryString.selectedPhoto, true);
             }, 1000);

@@ -1,7 +1,6 @@
 {% load thumbnail i18n %}
 
 <script>
-window.cityId = "{{ photo.city_id }}";
 $(document).ready(function() {
     if (window.currentlySelectedMarkerId) {
         window.highlightSelected(window.currentlySelectedMarkerId, false);
@@ -28,7 +27,7 @@ $(document).ready(function() {
 <div class="photos clearfix">
 
 	<div class="browse-nav">
-		<a href="{{ photo.get_absolute_url }}" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
+		<a class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
 		<!--<a href="#" class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>-->
 		<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
 		<div class="clearfix"></div>

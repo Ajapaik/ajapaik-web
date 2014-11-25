@@ -103,15 +103,15 @@
                     {% with profile=request.user.get_profile user=request.user %}
                         <div id="facebook-connected">
                             <p>
-                                {% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
-                                    Account ({{ account_name }}) connected. If it"s not you then {{ link_open }}click
+                                {% blocktrans with "<a id='logout-button' href='/logout?next=" as link_open and request.get_full_path|urlencode as link_href and "'>" as href_end and "</a>" as link_close and user.get_full_name as account_name %}
+                                    Account ({{ account_name }}) connected. If it"s not you then {{ link_open }}{{ link_href }}{{ href_end }}click
                                     here{{ link_close }}.{% endblocktrans %}</p>
                         </div>
                     {% endwith %}
                 {% else %}
                     <div id="facebook-connect">
                         <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                        <a href="/facebook/login?next={{ request.get_full_path | urlencode }}" class="ir">{% trans "Connect with Facebook" %}</a>
                     </div>
                     {% comment %}
                     <div id="google-plus-connect">

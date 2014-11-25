@@ -354,9 +354,8 @@ def photo_upload(request, photo_id):
 
 def logout(request):
 	from django.contrib.auth import logout
-
 	logout(request)
-	return redirect('/')
+	return redirect(request.META['HTTP_REFERER'])
 
 
 def thegame(request):

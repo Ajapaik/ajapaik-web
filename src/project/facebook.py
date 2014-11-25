@@ -40,10 +40,9 @@ def fbview_url(request, stage):
 def facebook_handler(request, stage):
     if stage == 'login':
         request.log_action("facebook.login")
-        
-        if 'next' in request.GET:
-            request.session['fb_next'] = request.GET['next']
-            request.session.modified = True
+
+        request.session['fb_next'] = request.META['HTTP_REFERER']
+        request.session.modified = True
             
         return redirect(login_url(fbview_url(request, 'auth')))
     elif stage == 'auth':
