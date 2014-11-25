@@ -20,7 +20,10 @@
                 currentIcon;
 
         function initialize() {
-            History.replaceState(null, null, "/kaart/?city__pk=" + cityId);
+            if (window.QueryString.from_select) {
+                window.fromSelect = true;
+                History.replaceState(null, null, "/kaart/?city__pk=" + cityId);
+            }
             {% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
                 window.getMap(
                     [

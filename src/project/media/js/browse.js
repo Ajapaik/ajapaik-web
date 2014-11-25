@@ -346,29 +346,12 @@
             openPhotoDrawer();
         });
 
-        var QueryString = function () {
-            var queryString = {};
-            var query = window.location.search.substring(1);
-            var vars = query.split("&");
-            for (var i = 0; i < vars.length; i++) {
-                var pair = vars[i].split("=");
-                if (typeof queryString[pair[0]] === "undefined") {
-                    queryString[pair[0]] = pair[1];
-                } else if (typeof queryString[pair[0]] === "string") {
-                    queryString[pair[0]] = [ queryString[pair[0]], pair[1] ];
-                } else {
-                    queryString[pair[0]].push(pair[1]);
-                }
-            }
-            return queryString;
-        }();
-
-        if (QueryString.lat && QueryString.lng && QueryString.zoom) {
+        if (window.QueryString.lat && window.QueryString.lng && window.QueryString.zoom && !window.fromSelect) {
             window.map.setCenter(new google.maps.LatLng(QueryString.lat, QueryString.lng));
             window.map.setZoom(parseInt(QueryString.zoom));
         }
 
-        if (QueryString.selectedPhoto) {
+        if (window.QueryString.selectedPhoto && !window.fromSelect) {
             setTimeout(function () {
                 window.highlightSelected(QueryString.selectedPhoto, true);
             }, 1000);

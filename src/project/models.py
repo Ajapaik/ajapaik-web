@@ -3,6 +3,7 @@ from django.core.files import File
 from django.db import models, connection
 from django.db.models import Count, Sum
 from operator import attrgetter
+from django.core.cache import cache
 
 from django.contrib.auth.models import User as BaseUser
 from django.contrib.contenttypes.models import ContentType
@@ -12,6 +13,7 @@ from django.contrib.contenttypes import generic
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
 from django.db.models import Q
+import os
 from south.v2 import SchemaMigration
 
 from urllib2 import urlopen
@@ -152,16 +154,24 @@ class Photo(models.Model):
 
 	class QuerySet(models.query.QuerySet):
 		def get_geotagged_photos_list(self):
+			cache_key = "ajapaik_geotagged_photos_list_response_%d" % self[0].city_id
+			cached_response = cache.get(cache_key)
+			if cached_response:
+				return cached_response
 			data = []
 			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
 				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
 				im_url = reverse('views.photo_thumb', args=(p.id,))
-				if p.image._get_width() >= p.image._get_height():
-					thumb_str = "%d"
-				else:
-					thumb_str = "x%d"
-				im = get_thumbnail(p.image, thumb_str % 150, crop="center")
-				data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]))
+				try:
+					if p.image._get_width() >= p.image._get_height():
+						thumb_str = "%d"
+					else:
+						thumb_str = "x%d"
+					im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+					data.append((p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]))
+				except IOError:
+					pass
+			cache.set(cache_key, data)
 			return data
 
 
