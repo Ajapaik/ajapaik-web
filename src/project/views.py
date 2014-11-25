@@ -9,7 +9,7 @@ from django.utils import simplejson as json
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
-
+from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -436,6 +436,10 @@ def photo_url(request, photo_id):
 
 
 def photo_thumb(request, photo_id, thumb_size=None):
+	cache_key = "ajapaik_pane_photo_thumb_response_%s" % photo_id
+	cached_response = cache.get(cache_key)
+	if cached_response:
+		return cached_response
 	p = get_object_or_404(Photo, id=photo_id)
 	image_to_use = p.image_unscaled or p.image
 	if image_to_use._get_width() >= image_to_use._get_height():
@@ -461,6 +465,7 @@ def photo_thumb(request, photo_id, thumb_size=None):
 	response['Content-Length'] = len(content)
 	response['Cache-Control'] = "max-age=604800, public"
 	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+	cache.set(cache_key, response)
 	return response
 
 
