@@ -1,0 +1,209 @@
+{% load thumbnail i18n %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/neutered_bootstrap.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.1.custom/jquery-ui.min.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/css/jquery.fileupload.css">
+<script>
+$(document).ready(function() {
+    if (window.currentlySelectedMarkerId) {
+        window.highlightSelected(window.currentlySelectedMarkerId, false);
+    }
+	History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
+	$('.filter-box').hide();
+	_gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
+	{% if photo.lat and photo.lon %}
+	//window.map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
+	{% endif %}
+
+	$('#browse #photo-drawer .original').hoverIntent(function () {
+		$('.original .tools').addClass('hovered');
+	},function () {
+		$('.original .tools').removeClass('hovered');
+	});
+	$('#browse #photo-drawer .rephoto .container').hoverIntent(function () {
+		$('.rephoto .container .meta').addClass('hovered');
+	},function () {
+		$('.rephoto .container .meta ').removeClass('hovered');
+	});
+});
+</script>
+<div class="photos clearfix">
+
+	<div class="browse-nav">
+		<a class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
+		<!--<a href="#" class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>-->
+		<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
+		<div class="clearfix"></div>
+		<div id="add-comment">
+			<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium" title="{% trans "Add comment" %}">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
+		</div>
+		<a href="#" id="close-photo-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
+        <a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Photo', 'Random']);" title="{% trans "Random" %}">&nbsp;</a>
+		<script>
+		var rephotoComment = [];
+		{% for rephoto in photo.rephotos.all %}
+			rephotoComment[{{ rephoto.id }}] = '<a href="{{ rephoto.get_absolute_url }}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a>';
+		{% endfor %}
+		</script>
+	</div><!-- .browse-nav -->
+
+	<div class="original photo-item">
+		<a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}" border="0" /></a>
+		
+		<div class="tools">
+			<div class="description">
+				<p>{{ photo.description }}</p><br/>
+				<p class="owner">
+				{% if photo.source_url %}
+					<a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
+				{% else %}
+					{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+				{% endif %}
+				</p>
+            <a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.flipPhoto({{ photo.id }});" title="{% trans "Flip" %}">&nbsp;</a>
+			</div>
+		</div>
+	</div><!-- .original.photo-item -->
+
+	{% if photo.rephotos.all.0.image %}
+
+	<div class="rephoto photo-item">
+		<div class="container">
+			<div class="meta">
+				<div class="content" id="meta_content">
+					{% if photo.rephotos.all.0.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 30px;" src="{{ STATIC_URL }}images/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ photo.rephotos.all.0.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ photo.rephotos.all.0.user.fb_id }}/picture?type=square" title="{{ photo.rephotos.all.0.user.fb_name }}" /></a></p>{% endif %}
+					<p style="float:right;"> {% if photo.rephotos.all.0.date %}{{ photo.rephotos.all.0.date|date:"F d, Y" }}{% else %}{{ photo.rephotos.all.0.created|date:"F d, Y" }}{% endif %}</p>
+				</div>
+				<script>
+				var rephotoMeta = [];
+				{% for rephoto in photo.rephotos.all %}
+					rephotoMeta[{{ rephoto.id }}] = '{% if rephoto.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 30px;" src="{{ STATIC_URL }}images/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" title="{{ rephoto.user.fb_name }}" /></a></p>{% endif %}<p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>';
+				{% endfor %}
+				</script>
+			</div>
+
+			<div id="rephoto_content">
+				<a class="fullscreen" id="full-thumb2" rel="{{ photo.rephotos.all.0.id }}" href="{{ photo.rephotos.all.0.get_absolute_url }}"><img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" border="0" /></a>
+			</div>
+			<script>
+			var rephotoImgHref = [];
+			var rephotoImgSrc = [];
+			var rephotoImgSrcFs = [];
+			{% for rephoto in photo.rephotos.all %}
+				rephotoImgHref[{{ rephoto.id }}] = '{{ rephoto.get_absolute_url }}';
+				rephotoImgSrc[{{ rephoto.id }}] = '{% url 'project.home.views.photo_url' rephoto.id %}';
+				rephotoImgSrcFs[{{ rephoto.id }}] = '{% url 'project.home.views.photo_large' rephoto.id %}';
+			{% endfor %}
+			</script>
+		</div>
+
+		<div class="tools">
+			<ul class="thumbs">
+				{% for rephoto_item in photo.rephotos.all %}
+				<li class="photo{% if rephoto_item.id == photo.rephotos.all.0.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" rel="{{ rephoto_item.id }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'project.home.views.photo_thumb' rephoto_item.id %}" width="50" border="0" /></a></li>
+				{% endfor %}
+			</ul>
+		</div><!-- .tools -->
+
+	</div><!-- .rephoto.photo-item -->
+
+	{% else %}
+
+	<div class="no-rephoto">
+		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
+	</div><!-- .no-refoto -->
+
+	{% endif %}
+
+</div><!-- .photos -->
+
+<div class="full-box">
+	<div class="full-pic" id="full-large1">
+		<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}" border="0" />
+	</div>
+	{% if photo.rephotos.all.0.image %}
+	<div class="full-pic" id="full-large2">
+		<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.rephotos.all.0.id %}" border="0" />
+	</div>
+	{% endif %}
+</div><!-- .full-box -->
+
+<script>
+$('#photo-drawer .original img').load(function() {
+	$('#photo-drawer .no-rephoto').css('width', $(this).css('width') );
+});
+
+prepareFullscreen();
+</script>
+
+<div id="notice-container" style="display: none">
+
+	<div id="notice" style="width: 400px;">
+                    <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/js/vendor/jquery.ui.widget.js"></script>
+                    <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/js/jquery.iframe-transport.js"></script>
+                    <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/js/jquery.fileupload.js"></script>
+                    <script type="text/javascript">
+                        /*jslint unparam: true */
+                        /*global window, $ */
+                        $(function () {
+                            'use strict';
+                            var url = '{% url 'project.home.views.photo_upload' photo.pk %}';
+                            var ok = false;
+                            $('#fileupload').fileupload({
+                                url: url,
+                                dataType: 'json',
+                                autoUpload: false,
+                                done: function (e, data) {
+                                    uploadCompleted($.parseJSON(data));
+                                },
+                                change: function (e, data) {
+                                    $.each(data.files, function (index, file) {
+                                        var filesList = data.files;
+                                        ok = confirm("{% trans 'Selected file' %}" + ": " + file.name + ", " + "{% trans 'upload?' %}");
+                                        if (ok) {
+                                            $('#fileupload').fileupload('send', {files: filesList});
+                                        }
+                                    });
+                                },
+                                progressall: function (e, data) {
+                                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                                    $('#progress').find('.progress-bar').css('width', progress + '%');
+                                }
+                            }).prop('disabled', !$.support.fileInput).parent()
+                                    .addClass($.support.fileInput ? undefined : 'disabled')
+                        });
+                    </script>
+
+		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
+
+		{% if request.user.is_authenticated and request.user.profile.fb_id %}
+			{% with profile=request.user.profile user=request.user %}
+			    <p>{% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click here{{ link_close }}.{% endblocktrans %}</p>
+                <span class="btn btn-success fileinput-button">
+                    <span>{% trans "Select file..." %}</span>
+                    <input id="fileupload" type="file" name="user_file[]">
+                </span>
+                <br>
+                <br>
+                <div id="progress" class="progress">
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+                <br>
+			{% endwith %}
+		{% else %}
+			<div id="facebook-connect">
+				<p>{% trans "Rephoto uploading requires connecting your account with Facebook." %}</p>
+				<a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+			</div>
+		{% endif %}
+
+		<p></p>
+		<a href="javascript:void(0);" onclick="uploadCompleted();">{% trans "Close" %}</a>
+
+	</div><!-- #notice -->
+
+	<div id="uploadCompleted" class="notice">
+		<h2>{% trans "Thank you!" %}</h2>
+
+		<p>{% trans "Your rephoto has been uploaded." %}</p>
+	</div>
+</div><!-- #notice-container -->

@@ -1,0 +1,116 @@
+{% extends 'layouts/game.html' %}
+{% load thumbnail i18n l10n %}
+{% block content %}
+    <script type="text/javascript">
+        var saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
+            leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
+            leaderboardFullURL = '{% url 'project.home.views.top50' %}',
+            permalinkURL = '{{ hostname }}/foto/',
+            cityId = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}',
+            language_code = '{{ LANGUAGE_CODE }}';
+        {% if filters.filters_by_name.city_lookup_filter.get_option_object %}
+            start_location = [{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon|safe }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat|safe }}];
+        {% else %}
+            start_location = [26, 59];
+        {% endif %}
+    </script>
+    <div id="game">
+        <div id="user-message-container" style="display: none;">
+            <div id="user-seen-all">
+                <p>{% trans "You have seen all the pictures we have for this area." %}</p>
+            </div>
+            <div id="nothing-more-to-show">
+                <p>{% trans "We are now showing you random photos." %}</p>
+            </div>
+        </div>
+        <div id="top">
+            <h1 class="ir">
+                <a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">
+                    {% trans "Timepatch (Ajapaik)" %}
+                </a>
+            </h1>
+            <div class="score_container">
+                <h2>
+                    <a id="full_leaderboard" href="#">
+                        {% trans "Leaderboard" %}
+                    </a>
+                </h2>
+                <ul class="scoreboard"></ul>
+                {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                    {% with profile=request.user.profile user=request.user %}
+                        <div id="facebook-connected">
+                            <p>
+                                {% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
+                                    Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click
+                                    here{{ link_close }}.{% endblocktrans %}
+                            </p>
+                        </div>
+                    {% endwith %}
+                {% else %}
+                    <div id="facebook-connect">
+                        <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                    </div>
+                    {% comment %}<div id="google-plus-connect">
+                        <p>{% trans "Connect with Google plus to save your score and continue later." %}</p>
+                        <a id="google-plus-login-button" href="/google_login" class="ir">{% trans "Connect with Google+" %}</a>
+				    </div>{% endcomment %}
+                {% endif %}
+            </div>
+            <div class="filter-box">
+                {{ filters.get_form.as_p }}
+            </div>
+        </div>
+        <div id="tools">
+            <a id="save-location" href="#" class="btn medium">{% trans "Save location only" %}</a>
+            <a id="close-location-tools" href="#" class="btn medium">{% trans "Close map" %}</a>
+            <div id="map_canvas" style="width:100%; height:100%"></div>
+        </div>
+        <div id="photos"></div>
+        <a id="skip-photo" href="#" class="skip-photo">{% trans "Next photo" %} &rarr;</a>
+        <a id="back-home" href="/">&larr; {% trans "Back to home page" %}</a>
+        <div id="btm">
+            <div id="open-location-tools-container">
+                <a id="open-location-tools" href="#" class="btn green">{% trans "Pick the shooting location!" %}</a>
+            </div>
+        </div>
+        <div id="notice" style="display: none;">
+            <h2>{% trans "Thank you!" %}</h2>
+            <p class="message"></p>
+            <p class="points-gained-message"></p>
+            <p class="geotag-count-message"></p>
+            <p class="azimuth-count-message"></p>
+            <p class="difficulty-message" style="margin: 0 0 5px;">
+                {% trans "In your opinion to geotag this photo is" %}
+            </p>
+            <form id="difficulty-form">
+                <span style="margin-right: 10px;">
+                    {% trans "easy" %}
+                </span>
+                <input type="radio" name="difficulty" value="1">
+                <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
+                <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
+                <span style="margin-left: 10px;">
+                    {% trans "hard" %}
+                </span>
+            </form>
+            <a id="continue-game" href="" class="btn small">{% trans "Next photo" %}</a>
+        </div>
+        <div style="display: none;">
+            <div id="leaderboard_browser">
+                <div class="single">
+                    <a style="position:absolute;top:5px;right:10px;" href="javascript:void(0);" onclick="$.modal.close();">
+                        {% trans "Close" %}
+                    </a>
+                    <div class="score_container">
+                        <ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="full-photos"></div>
+    </div>
+    <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
+    <script src="{{ STATIC_URL }}js/init.js"></script>
+    <script src="{{ STATIC_URL }}js/game.js"></script>
+{% endblock %}
