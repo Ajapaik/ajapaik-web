@@ -183,7 +183,7 @@
                     }
                 }
             }
-            photoPane.justifiedGallery();
+            photoPane.justifiedGallery(justifiedGallerySettings);
             photoPaneContainer.trigger('scroll');
         }
     };
