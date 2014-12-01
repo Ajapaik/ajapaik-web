@@ -600,7 +600,6 @@ def mapview(request):
 	# filters.register(DateFieldFilterSpec, 'created')
 	# filters.register(SourceLookupFilterSpec, 'source')
 	data = filters.get_filtered_qs().get_geotagged_photos_list()
-	print request.get_user().__dict__
 	photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list('photo_id', flat=True)
 	keys = {}
 	for e in photo_ids_user_has_looked_at:
@@ -611,6 +610,7 @@ def mapview(request):
 	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().profile.pk)
 
 	return render_to_response('mapview.html', RequestContext(request, {
+		'data': data,
 		'json_data': json.dumps(data),
 		'city': city,
 		'title': title,

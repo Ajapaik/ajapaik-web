@@ -130,7 +130,51 @@
             <div id="map_canvas" style="width: 100%; height: 100%"></div>
         </div>
         <div id="photo-pane-container">
-            <div id="photo-pane"></div>
+            <div id="photo-pane">
+                {% for element in data %}
+                    <a id="element{{ element.0 }}"
+                       data-id="{{ element.0 }}"
+                       onclick="(function(e) {window.highlightSelected({{ element.0 }}, false);})(this)">
+                        <img src=""
+                             data-original="{{ element.1 }}"
+                             title="{{ element.6 }}"
+                             data-id="{{ element.0 }}"
+                             class="lazy" height="{{ element.9 }}"
+                             width="{{ element.8 }}"
+                             onmouseover="(function(e) {paneImageHoverIn(e)})(this)"
+                             onmouseout="(function(e) {paneImageHoverOut(e)})(this)"/>
+                        <div class="ajapaik-eye-open {% if element.0 in user_seen_photo_ids %}ajapaik-eye-open-light-bg{% endif %}"
+                             data-id="{{ element.0 }}"
+                             id="eye{{ element.0 }}"
+                             style="display: none;"
+                             onclick="(function() {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.target.dataset.id);})(this)"
+                             onmouseover="(function(e) {paneEyeHoverIn(e)})(this)"
+                             onmouseout="(function(e) {paneEyeHoverOut(e)})(this)">
+                        </div>
+                    </a>
+                {% endfor %}
+
+{#                var newAzimuthElement = undefined;#}
+{#                if (markers[i].azimuth) {#}
+{#                    newAzimuthElement = document.createElement('div');#}
+{#                    $(newAzimuthElement).addClass('ajapaik-azimuth').hover(paneAzimuthHoverIn, paneAzimuthHoverOut).hide().attr('data-id', markers[i].id);#}
+{#                }#}
+{#                var newRephotoCountElement = undefined;#}
+{#                if (markers[i].rephotoCount > 0) {#}
+{#                    newRephotoCountElement = document.createElement('div');#}
+{#                    $(newRephotoCountElement).addClass('ajapaik-rephoto-count')#}
+{#                        .hover(paneRephotoCountHoverIn, paneRephotoCountHoverOut).hide().html(markers[i].rephotoCount).attr('data-id', markers[i].id);#}
+{#                }#}
+{#                newAElement.appendChild(newImgElement);#}
+{#                newAElement.appendChild(newEyeElement);#}
+{#                if (newAzimuthElement) {#}
+{#                    newAElement.appendChild(newAzimuthElement);#}
+{#                }#}
+{#                if (newRephotoCountElement) {#}
+{#                    newAElement.appendChild(newRephotoCountElement);#}
+{#                }#}
+{#                photoPane.append(newAElement);#}
+            </div>
         </div>
     </div>
     <div style="display: none;">
