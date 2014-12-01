@@ -177,9 +177,7 @@
                 }
                 setCorrectMarkerIcon(markers[i]);
             }
-            if (window.map.zoom >= 17) {
-                photoPane.justifiedGallery();
-            }
+            photoPane.justifiedGallery();
             photoPaneContainer.trigger('scroll');
         }
     };
@@ -399,7 +397,7 @@
             }, 1000);
         }
 
-        if (typeof markers !== 'undefined' && window.map.zoom >= 17) {
+        if (typeof markers !== 'undefined') {
             photoPane.justifiedGallery(justifiedGallerySettings);
         }
 
