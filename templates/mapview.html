@@ -151,12 +151,15 @@
                              onmouseover="(function(e) {paneEyeHoverIn(e)})(this)"
                              onmouseout="(function(e) {paneEyeHoverOut(e)})(this)">
                         </div>
+                        {% if element.7 %}
                         <div class="ajapaik-azimuth"
                              data-id="{{ element.0 }}"
                              style="display: none;"
                              onmouseover="(function(e) {paneAzimuthHoverIn(e)})(this)"
                              onmouseout="(function(e) {paneAzimuthHoverOut(e)})(this)">
+                        {% endif %}
                         </div>
+                        {% if element.4 %}
                         <div class="ajapaik-rephoto-count"
                              data-id="{{ element.0 }}"
                              style="display: none;"
@@ -164,6 +167,7 @@
                              onmouseout="(function(e) {paneRephotoCountHoverOut(e)})(this)">
                             {{ element.4 }}
                         </div>
+                        {% endif %}
                     </a>
                 {% endfor %}
             </div>
