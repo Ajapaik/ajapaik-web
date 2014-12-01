@@ -131,45 +131,45 @@
         </div>
         <div id="photo-pane-container">
             <div id="photo-pane">
-{#                {% for element in data %}#}
-{#                    <a id="element{{ element.0 }}"#}
-{#                       data-id="{{ element.0 }}"#}
-{#                       onclick="window.highlightSelected({{ element.0 }}, false);">#}
-{#                        <img src=""#}
-{#                             data-src="{{ element.1 }}"#}
-{#                             title="{{ element.6 }}"#}
-{#                             data-id="{{ element.0 }}"#}
-{#                             class="lazyload" height="{{ element.9 }}"#}
-{#                             width="{{ element.8 }}"#}
-{#                             onmouseover="(function(e) {paneImageHoverIn(e)})(this)"#}
-{#                             onmouseout="(function(e) {paneImageHoverOut(e)})(this)"/>#}
-{#                        <div class="ajapaik-eye-open {% if element.0 in user_seen_photo_ids %}ajapaik-eye-open-light-bg{% endif %}"#}
-{#                             data-id="{{ element.0 }}"#}
-{#                             id="eye{{ element.0 }}"#}
-{#                             style="display: none;"#}
-{#                             onclick="(function(e) {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.dataset.id);})(this)"#}
-{#                             onmouseover="(function(e) {paneEyeHoverIn(e)})(this)"#}
-{#                             onmouseout="(function(e) {paneEyeHoverOut(e)})(this)">#}
-{#                        </div>#}
-{#                        {% if element.7 %}#}
-{#                        <div class="ajapaik-azimuth"#}
-{#                             data-id="{{ element.0 }}"#}
-{#                             style="display: none;"#}
-{#                             onmouseover="(function(e) {paneAzimuthHoverIn(e)})(this)"#}
-{#                             onmouseout="(function(e) {paneAzimuthHoverOut(e)})(this)">#}
-{#                        </div>#}
-{#                        {% endif %}#}
-{#                        {% if element.4 %}#}
-{#                        <div class="ajapaik-rephoto-count"#}
-{#                             data-id="{{ element.0 }}"#}
-{#                             style="display: none;"#}
-{#                             onmouseover="(function(e) {paneRephotoCountHoverIn(e)})(this)"#}
-{#                             onmouseout="(function(e) {paneRephotoCountHoverOut(e)})(this)">#}
-{#                            {{ element.4 }}#}
-{#                        </div>#}
-{#                        {% endif %}#}
-{#                    </a>#}
-{#                {% endfor %}#}
+                {% for element in data %}
+                    <a id="element{{ element.0 }}"
+                       data-id="{{ element.0 }}"
+                       onclick="window.highlightSelected({{ element.0 }}, false);">
+                        <img src=""
+                             data-src="{{ element.1 }}"
+                             title="{{ element.6 }}"
+                             data-id="{{ element.0 }}"
+                             class="lazyload" height="{{ element.9 }}"
+                             width="{{ element.8 }}"
+                             onmouseover="(function(e) {paneImageHoverIn(e)})(this)"
+                             onmouseout="(function(e) {paneImageHoverOut(e)})(this)"/>
+                        <div class="ajapaik-eye-open {% if element.0 in user_seen_photo_ids %}ajapaik-eye-open-light-bg{% endif %}"
+                             data-id="{{ element.0 }}"
+                             id="eye{{ element.0 }}"
+                             style="display: none;"
+                             onclick="(function(e) {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.dataset.id);})(this)"
+                             onmouseover="(function(e) {paneEyeHoverIn(e)})(this)"
+                             onmouseout="(function(e) {paneEyeHoverOut(e)})(this)">
+                        </div>
+                        {% if element.7 %}
+                        <div class="ajapaik-azimuth"
+                             data-id="{{ element.0 }}"
+                             style="display: none;"
+                             onmouseover="(function(e) {paneAzimuthHoverIn(e)})(this)"
+                             onmouseout="(function(e) {paneAzimuthHoverOut(e)})(this)">
+                        </div>
+                        {% endif %}
+                        {% if element.4 %}
+                        <div class="ajapaik-rephoto-count"
+                             data-id="{{ element.0 }}"
+                             style="display: none;"
+                             onmouseover="(function(e) {paneRephotoCountHoverIn(e)})(this)"
+                             onmouseout="(function(e) {paneRephotoCountHoverOut(e)})(this)">
+                            {{ element.4 }}
+                        </div>
+                        {% endif %}
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </div>
