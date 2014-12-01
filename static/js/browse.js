@@ -22,7 +22,6 @@
         photoDrawerElement = $('#photo-drawer'),
         photoPaneContainer = $('#photo-pane-container'),
         photoPane = $('#photo-pane'),
-        detachedPhotos = {},
         i = 0,
         maxIndex = 2,
         lastHighlightedMarker,
@@ -65,14 +64,10 @@
                 'lt1024': ''
             }
         },
-        lastEvent,
-        mapRefreshInterval = 500,
         openPhotoDrawer,
         closePhotoDrawer,
         toggleVisiblePaneElements,
         calculateLineEndPoint,
-        fireIfLastEvent,
-        scheduleDelayedCallback,
         setCorrectMarkerIcon,
         blueSvgIconUrl = '/static/images/ajapaik-dot-blue.svg',
         blackSvgIconUrl = '/static/images/ajapaik-dot-black.svg',
@@ -164,21 +159,37 @@
                 historyReplacementString += '&zoom=' + window.map.zoom;
                 History.replaceState(null, null, historyReplacementString);
             }
+            var currentBounds = window.map.getBounds(),
+                markerIdsWithinBounds = [];
             for (i = 0; i < markers.length; i += 1) {
-                if (window.map.getBounds().contains(markers[i].getPosition())) {
-                    if (detachedPhotos[markers[i].id]) {
-                        photoPane.append(detachedPhotos[markers[i].id]);
-                        delete detachedPhotos[markers[i].id];
-                    }
-                } else {
-                    if (!detachedPhotos[markers[i].id]) {
-                        detachedPhotos[markers[i].id] = $('#element' + markers[i].id).detach();
-                    }
+                if (currentBounds.contains(markers[i].getPosition())) {
+                    markerIdsWithinBounds.push(markers[i].id);
                 }
                 setCorrectMarkerIcon(markers[i]);
             }
-            photoPane.justifiedGallery();
-            photoPaneContainer.trigger('scroll');
+            if (window.map.zoom > 15) {
+                $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
+                    photoPane.html(response);
+                    setTimeout(function () {
+                        photoPane.justifiedGallery(justifiedGallerySettings);
+                    }, 1000);
+                });
+            }
+//            for (i = 0; i < markers.length; i += 1) {
+//                if (window.map.getBounds().contains(markers[i].getPosition())) {
+//                    if (detachedPhotos[markers[i].id]) {
+//                        photoPane.append(detachedPhotos[markers[i].id]);
+//                        delete detachedPhotos[markers[i].id];
+//                    }
+//                } else {
+//                    if (!detachedPhotos[markers[i].id]) {
+//                        detachedPhotos[markers[i].id] = $('#element' + markers[i].id).detach();
+//                    }
+//                }
+//                setCorrectMarkerIcon(markers[i]);
+//            }
+//            photoPane.justifiedGallery();
+//            photoPaneContainer.trigger('scroll');
         }
     };
 
@@ -271,17 +282,6 @@
             photoFullscreenElement.addClass('flip-photo');
         }
     };
-
-//    fireIfLastEvent = function () {
-//        if (lastEvent.getTime() + mapRefreshInterval <= new Date().getTime()) {
-//            toggleVisiblePaneElements();
-//        }
-//    };
-//
-//    scheduleDelayedCallback = function () {
-//        lastEvent = new Date();
-//        setTimeout(fireIfLastEvent, mapRefreshInterval);
-//    };
 
     //TODO: There has to be a better way
     window.paneImageHoverIn = function (e) {
@@ -396,14 +396,6 @@
                 window.highlightSelected(window.getQueryParameterByName('selectedPhoto'), true);
             }, 1000);
         }
-
-        if (typeof markers !== 'undefined') {
-            photoPane.justifiedGallery(justifiedGallerySettings);
-        }
-
-        setTimeout(function () {
-            photoPaneContainer.trigger('scroll');
-        }, 1000);
 
         if (window.map !== undefined) {
             google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);

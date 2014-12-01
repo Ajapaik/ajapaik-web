@@ -1,5 +1,6 @@
 # encoding: utf-8
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.urlresolvers import reverse
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -610,7 +611,6 @@ def mapview(request):
 	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().profile.pk)
 
 	return render_to_response('mapview.html', RequestContext(request, {
-		'data': data,
 		'json_data': json.dumps(data),
 		'city': city,
 		'title': title,
@@ -809,5 +809,21 @@ def csv_upload(request):
 
 def old_photo_upload(request):
 	user_profile = request.get_user().profile
-	print user_profile.score
 	return render_to_response('photo_upload.html', RequestContext(request, {}))
+
+def pane_contents(request):
+	marker_ids = request.POST.getlist('marker_ids[]')
+	data = []
+	for p in Photo.objects.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids):
+		rephoto_count = len(list(Photo.objects.filter(rephoto_of=p.id)))
+		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
+		try:
+			if p.image._get_width() >= p.image._get_height():
+				thumb_str = "%d"
+			else:
+				thumb_str = "x%d"
+			im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+			data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]])
+		except IOError:
+			pass
+	return render_to_response('pane_contents.html', RequestContext(request, {"data": data}))
