@@ -65,6 +65,11 @@
                 'lt1024': ''
             }
         },
+        lazyloadSettings = {
+            threshold : 200,
+            effect : 'fadeIn',
+            container: photoPane
+        },
         lastEvent,
         mapRefreshInterval = 500,
         openPhotoDrawer,
@@ -394,8 +399,8 @@
                     window.highlightSelected(e.target.dataset.id, false);
                 }).attr('id', 'element' + markers[i].id).attr('data-id', markers[i].id);
                 var newImgElement = document.createElement('img');
-                $(newImgElement).attr('src', '').attr('data-src', markers[i].thumb).attr('title', markers[i].description)
-                    .attr('data-id', markers[i].id).addClass('lazyload').hover(paneImageHoverIn, paneImageHoverOut)
+                $(newImgElement).attr('src', '').attr('data-original', markers[i].thumb).attr('title', markers[i].description)
+                    .attr('data-id', markers[i].id).addClass('lazy').hover(paneImageHoverIn, paneImageHoverOut)
                     .attr('height', markers[i].thumbHeight).attr('width', markers[i].thumbWidth);
                 $(newAElement).attr('src', markers[i].thumb);
                 var newEyeElement = document.createElement('div');
@@ -430,12 +435,16 @@
             }
         }
 
+        $(function () {
+            $('img.lazy').lazyload(lazyloadSettings);
+        });
+
         if (typeof marker !== 'undefined') {
             photoPane.justifiedGallery(justifiedGallerySettings);
         }
 
         setTimeout(function () {
-            photoPaneContainer.trigger("scroll");
+            photoPaneContainer.trigger('scroll');
         }, 1000);
 
         if (window.map !== undefined) {
@@ -443,11 +452,11 @@
         }
 
         $('#google-plus-login-button').click(function () {
-            _gaq.push(["_trackEvent", "Map", "Google+ login"]);
+            _gaq.push(['_trackEvent', 'Map', 'Google+ login']);
         });
 
         $('#logout-button').click(function () {
-            _gaq.push(["_trackEvent", "Map", "Logout"]);
+            _gaq.push(['_trackEvent', 'Map', 'Logout']);
         });
 
         photoDrawerElement.delegate('#close-photo-drawer', 'click', function (e) {
