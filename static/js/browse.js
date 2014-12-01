@@ -73,7 +73,7 @@
         calculateLineEndPoint,
         fireIfLastEvent,
         scheduleDelayedCallback,
-        setCorrectMarkerIcons,
+        setCorrectMarkerIcon,
         blueSvgIconUrl = '/static/images/ajapaik-dot-blue.svg',
         blackSvgIconUrl = '/static/images/ajapaik-dot-black.svg',
         blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
@@ -166,17 +166,19 @@
             }
             for (i = 0; i < markers.length; i += 1) {
                 if (window.map.getBounds().contains(markers[i].getPosition())) {
-                    if (detachedPhotos[markers[i].id]) {
-                        photoPane.append(detachedPhotos[markers[i].id]);
-                        delete detachedPhotos[markers[i].id];
-                    }
+//                    if (detachedPhotos[markers[i].id]) {
+//                        photoPane.append(detachedPhotos[markers[i].id]);
+//                        delete detachedPhotos[markers[i].id];
+//                    }
+                    $("#element" + markers[i].id).css("display", "");
                 } else {
-                    if (!detachedPhotos[markers[i].id]) {
-                        detachedPhotos[markers[i].id] = $('#element' + markers[i].id).detach();
-                    }
+//                    if (!detachedPhotos[markers[i].id]) {
+//                        detachedPhotos[markers[i].id] = $('#element' + markers[i].id).detach();
+//                    }
+                    console.log("#element" + i);
+                    $("#element" + markers[i].id).css("display", "none");
                 }
             }
-            setCorrectMarkerIcons();
             photoPane.justifiedGallery(justifiedGallerySettings);
             photoPaneContainer.trigger('scroll');
         }
@@ -200,6 +202,7 @@
             History.replaceState(null, null, historyReplacementString);
         }
         targetPaneElement = $('#element' + markerId);
+        lastSelectedMarkerId = markerId;
         userAlreadySeenPhotoIds[markerId] = 1;
         if (fromMarker && targetPaneElement) {
             photoPaneContainer.scrollTop(targetPaneElement.position().top);
@@ -242,7 +245,6 @@
                 break;
             }
         }
-        setCorrectMarkerIcons();
         if (markerTemp) {
             lastHighlightedMarker = markerTemp;
             markerTemp = undefined;
@@ -346,34 +348,31 @@
         return false;
     };
 
-    setCorrectMarkerIcons = function () {
-        var k;
-        for (k = 0; k < markers.length; k += 1) {
-            if (window.map.zoom < 17) {
-                if (markers[k].icon.indexOf('ajapaik-dot') > -1) {
-                    return;
-                }
-                if (markers[k].rephotoCount) {
-                    markers[k].setIcon(blueSvgIconUrl);
+    setCorrectMarkerIcon = function (marker) {
+        if (window.map.zoom < 16) {
+            if (marker.icon.indexOf('ajapaik-dot') > -1) {
+                return;
+            }
+            if (marker.rephotoCount) {
+                marker.setIcon(blueSvgIconUrl);
+            } else {
+                marker.setIcon(blackSvgIconUrl);
+            }
+        } else {
+            if (marker.icon.indexOf('ajapaik_marker') > -1) {
+                return;
+            }
+            if (marker.rephotoCount) {
+                if (marker.id == currentlySelectedMarkerId) {
+                    marker.setIcon(blueMarkerIcon35);
                 } else {
-                    markers[k].setIcon(blackSvgIconUrl);
+                    marker.setIcon(blueMarkerIcon20);
                 }
             } else {
-                if (markers[k].icon.indexOf('ajapaik_marker') > -1) {
-                    return;
-                }
-                if (markers[k].rephotoCount) {
-                    if (markers[k].id == currentlySelectedMarkerId) {
-                        markers[k].setIcon(blueMarkerIcon35);
-                    } else {
-                        markers[k].setIcon(blueMarkerIcon20);
-                    }
+                if (marker.id == currentlySelectedMarkerId) {
+                    marker.setIcon(blackMarkerIcon35);
                 } else {
-                    if (markers[k].id == currentlySelectedMarkerId) {
-                        markers[k].setIcon(blackMarkerIcon35);
-                    } else {
-                        markers[k].setIcon(blackMarkerIcon20);
-                    }
+                    marker.setIcon(blackMarkerIcon20);
                 }
             }
         }
@@ -408,7 +407,7 @@
 
         if (window.map !== undefined) {
             google.maps.event.addListener(window.map, 'bounds_changed', scheduleDelayedCallback);
-            google.maps.event.addListener(window.map, 'zoom_changed', setCorrectMarkerIcons);
+            //google.maps.event.addListener(window.map, 'zoom_changed', setCorrectMarkerIcons);
         }
 
         $('#google-plus-login-button').click(function () {
