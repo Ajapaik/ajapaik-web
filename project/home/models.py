@@ -152,10 +152,10 @@ class Photo(models.Model):
 
 	class QuerySet(models.query.QuerySet):
 		def get_geotagged_photos_list(self):
-			# cache_key = "ajapaik_geotagged_photos_list_response_%d" % self[0].city_id
-			# cached_response = cache.get(cache_key)
-			# if cached_response:
-			# 	return cached_response
+			cache_key = "ajapaik_geotagged_photos_list_response_%d" % self[0].city_id
+			cached_response = cache.get(cache_key)
+			if cached_response:
+				return cached_response
 			data = []
 			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
 				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
@@ -169,7 +169,7 @@ class Photo(models.Model):
 					data.append([p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]])
 				except IOError:
 					pass
-			# cache.set(cache_key, data)
+			cache.set(cache_key, data)
 			return data
 
 
