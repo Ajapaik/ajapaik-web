@@ -65,11 +65,6 @@
                 'lt1024': ''
             }
         },
-        lazyloadSettings = {
-            threshold : 200,
-            effect : 'fadeIn',
-            container: photoPaneContainer
-        },
         lastEvent,
         mapRefreshInterval = 500,
         openPhotoDrawer,
@@ -364,10 +359,6 @@
     };
 
     $(document).ready(function () {
-        $(function () {
-            $('img.lazy').lazyload(lazyloadSettings);
-        });
-
         $('.top .score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $('#open-photo-drawer').click(function (e) {
