@@ -406,7 +406,7 @@
         }, 1000);
 
         if (window.map !== undefined) {
-            google.maps.event.addListener(window.map, 'bounds_changed', scheduleDelayedCallback);
+            google.maps.event.addListener(window.map, 'idle', scheduleDelayedCallback);
         }
 
         $('#google-plus-login-button').click(function () {
