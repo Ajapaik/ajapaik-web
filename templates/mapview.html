@@ -134,7 +134,7 @@
                 {% for element in data %}
                     <a id="element{{ element.0 }}"
                        data-id="{{ element.0 }}"
-                       onclick="(function(e) {window.highlightSelected({{ element.0 }}, false);})(this)">
+                       onclick="window.highlightSelected({{ element.0 }}, false);">
                         <img src=""
                              data-original="{{ element.1 }}"
                              title="{{ element.6 }}"
@@ -147,7 +147,7 @@
                              data-id="{{ element.0 }}"
                              id="eye{{ element.0 }}"
                              style="display: none;"
-                             onclick="(function() {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.target.dataset.id);})(this)"
+                             onclick="(function(e) {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.dataset.id);})(this)"
                              onmouseover="(function(e) {paneEyeHoverIn(e)})(this)"
                              onmouseout="(function(e) {paneEyeHoverOut(e)})(this)">
                         </div>
