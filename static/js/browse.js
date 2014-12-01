@@ -177,7 +177,9 @@
                 }
                 setCorrectMarkerIcon(markers[i]);
             }
-            photoPane.justifiedGallery();
+            if (window.map.zoom >= 16) {
+                photoPane.justifiedGallery();
+            }
             photoPaneContainer.trigger('scroll');
         }
     };
@@ -202,11 +204,12 @@
         targetPaneElement = $('#element' + markerId);
         userAlreadySeenPhotoIds[markerId] = 1;
         if (fromMarker && targetPaneElement) {
-            var targetPos = targetPaneElement.position();
+            var targetPos = targetPaneElement.position(),
+                targetTop;
             if (targetPos) {
-                var targetTop = targetPos.top;
+                targetTop = targetPos.top;
+                photoPaneContainer.scrollTop(targetTop);
             }
-            photoPaneContainer.scrollTop(targetTop);
             _gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
         if (!fromMarker) {
@@ -396,7 +399,7 @@
             }, 1000);
         }
 
-        if (typeof markers !== 'undefined') {
+        if (typeof markers !== 'undefined' && window.map.zoom >= 16) {
             photoPane.justifiedGallery(justifiedGallerySettings);
         }
 
