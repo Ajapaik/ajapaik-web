@@ -392,7 +392,7 @@
 
         setTimeout(function () {
             photoPaneContainer.trigger('scroll');
-        }, 2000);
+        }, 1000);
 
         if (window.map !== undefined) {
             google.maps.event.addListener(window.map, 'bounds_changed', scheduleDelayedCallback);

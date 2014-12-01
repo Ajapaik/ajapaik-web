@@ -136,10 +136,10 @@
                        data-id="{{ element.0 }}"
                        onclick="window.highlightSelected({{ element.0 }}, false);">
                         <img src=""
-                             data-original="{{ element.1 }}"
+                             data-src="{{ element.1 }}"
                              title="{{ element.6 }}"
                              data-id="{{ element.0 }}"
-                             class="lazy" height="{{ element.9 }}"
+                             class="lazyload" height="{{ element.9 }}"
                              width="{{ element.8 }}"
                              onmouseover="(function(e) {paneImageHoverIn(e)})(this)"
                              onmouseout="(function(e) {paneImageHoverOut(e)})(this)"/>
@@ -186,7 +186,7 @@
         </div>
     </div>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.lazyload-1.9.3.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/lazysizes-0.5.0.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/init.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/browse.js"></script>
