@@ -78,15 +78,7 @@
         calculateLineEndPoint,
         setIcon,
         fireIfLastEvent,
-        scheduleDelayedCallback,
-        paneImageHoverIn,
-        paneImageHoverOut,
-        paneEyeHoverIn,
-        paneEyeHoverOut,
-        paneAzimuthHoverIn,
-        paneAzimuthHoverOut,
-        paneRephotoCountHoverIn,
-        paneRephotoCountHoverOut;
+        scheduleDelayedCallback;
 
     Math.radians = function (degrees) {
         return degrees * Math.PI / 180;
@@ -372,13 +364,16 @@
     };
 
     $(document).ready(function () {
+        $(function () {
+            $('img.lazy').lazyload(lazyloadSettings);
+        });
+
         $('.top .score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $('#open-photo-drawer').click(function (e) {
             e.preventDefault();
             openPhotoDrawer();
         });
-
 
         if (QueryString.lat && QueryString.lng && QueryString.zoom && !window.fromSelect && !window.barePhotoview) {
             window.map.setCenter(new google.maps.LatLng(QueryString.lat, QueryString.lng));
@@ -391,57 +386,9 @@
             }, 1000);
         }
 
-//        if (typeof markers !== 'undefined') {
-//            for (i = 0; i < markers.length; i += 1) {
-//                var newAElement = document.createElement('a');
-//                $(newAElement).click(function (e) {
-//                    e.preventDefault();
-//                    window.highlightSelected(e.target.dataset.id, false);
-//                }).attr('id', 'element' + markers[i].id).attr('data-id', markers[i].id);
-//                var newImgElement = document.createElement('img');
-//                $(newImgElement).attr('src', '').attr('data-original', markers[i].thumb).attr('title', markers[i].description)
-//                    .attr('data-id', markers[i].id).addClass('lazy').hover(paneImageHoverIn, paneImageHoverOut)
-//                    .attr('height', markers[i].thumbHeight).attr('width', markers[i].thumbWidth);
-//                $(newAElement).attr('src', markers[i].thumb);
-//                var newEyeElement = document.createElement('div');
-//                $(newEyeElement).addClass('ajapaik-eye-open').click(function (e) {
-//                    _gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']);
-//                    window.loadPhoto(e.target.dataset.id);
-//                }).attr('data-id', markers[i].id).attr('id', 'eye' + markers[i].id).hide()
-//                    .hover(paneEyeHoverIn, paneEyeHoverOut);
-//                if (markers[i].id in userAlreadySeenPhotoIds) {
-//                    $(newEyeElement).addClass('ajapaik-eye-open-light-bg');
-//                }
-//                var newAzimuthElement = undefined;
-//                if (markers[i].azimuth) {
-//                    newAzimuthElement = document.createElement('div');
-//                    $(newAzimuthElement).addClass('ajapaik-azimuth').hover(paneAzimuthHoverIn, paneAzimuthHoverOut).hide().attr('data-id', markers[i].id);
-//                }
-//                var newRephotoCountElement = undefined;
-//                if (markers[i].rephotoCount > 0) {
-//                    newRephotoCountElement = document.createElement('div');
-//                    $(newRephotoCountElement).addClass('ajapaik-rephoto-count')
-//                        .hover(paneRephotoCountHoverIn, paneRephotoCountHoverOut).hide().html(markers[i].rephotoCount).attr('data-id', markers[i].id);
-//                }
-//                newAElement.appendChild(newImgElement);
-//                newAElement.appendChild(newEyeElement);
-//                if (newAzimuthElement) {
-//                    newAElement.appendChild(newAzimuthElement);
-//                }
-//                if (newRephotoCountElement) {
-//                    newAElement.appendChild(newRephotoCountElement);
-//                }
-//                photoPane.append(newAElement);
-//            }
-//        }
-
         if (typeof markers !== 'undefined') {
             photoPane.justifiedGallery(justifiedGallerySettings);
         }
-
-        $(function () {
-            $('img.lazy').lazyload(lazyloadSettings);
-        });
 
         setTimeout(function () {
             photoPaneContainer.trigger('scroll');
