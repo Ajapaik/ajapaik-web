@@ -170,13 +170,13 @@
 //                        photoPane.append(detachedPhotos[markers[i].id]);
 //                        delete detachedPhotos[markers[i].id];
 //                    }
-                    $("#element" + markers[i].id).css("display", "");
+                    $("#element" + markers[i].id).css("visiblity", "visible");
                 } else {
 //                    if (!detachedPhotos[markers[i].id]) {
 //                        detachedPhotos[markers[i].id] = $('#element' + markers[i].id).detach();
 //                    }
                     console.log("#element" + i);
-                    $("#element" + markers[i].id).css("display", "none");
+                    $("#element" + markers[i].id).css("visiblity", "hidden");
                 }
             }
             photoPane.justifiedGallery();
