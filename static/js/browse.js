@@ -68,7 +68,7 @@
         lazyloadSettings = {
             threshold : 200,
             effect : 'fadeIn',
-            container: photoPane
+            container: photoPaneContainer
         },
         lastEvent,
         mapRefreshInterval = 500,
