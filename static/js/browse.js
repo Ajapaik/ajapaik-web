@@ -272,16 +272,16 @@
         }
     };
 
-    fireIfLastEvent = function () {
-        if (lastEvent.getTime() + mapRefreshInterval <= new Date().getTime()) {
-            toggleVisiblePaneElements();
-        }
-    };
-
-    scheduleDelayedCallback = function () {
-        lastEvent = new Date();
-        setTimeout(fireIfLastEvent, mapRefreshInterval);
-    };
+//    fireIfLastEvent = function () {
+//        if (lastEvent.getTime() + mapRefreshInterval <= new Date().getTime()) {
+//            toggleVisiblePaneElements();
+//        }
+//    };
+//
+//    scheduleDelayedCallback = function () {
+//        lastEvent = new Date();
+//        setTimeout(fireIfLastEvent, mapRefreshInterval);
+//    };
 
     //TODO: There has to be a better way
     window.paneImageHoverIn = function (e) {
@@ -406,7 +406,7 @@
         }, 1000);
 
         if (window.map !== undefined) {
-            google.maps.event.addListener(window.map, 'idle', scheduleDelayedCallback);
+            google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);
         }
 
         $('#google-plus-login-button').click(function () {
