@@ -439,9 +439,9 @@
             $('img.lazy').lazyload(lazyloadSettings);
         });
 
-        if (typeof marker !== 'undefined') {
-            photoPane.justifiedGallery(justifiedGallerySettings);
-        }
+//        if (typeof marker !== 'undefined') {
+//            photoPane.justifiedGallery(justifiedGallerySettings);
+//        }
 
         setTimeout(function () {
             photoPaneContainer.trigger('scroll');

@@ -35,6 +35,7 @@ urlpatterns = patterns('project.home.views',
 	url(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
 	url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>.*)/', 'photo_thumb'),
 	url(r'^upload/$', 'old_photo_upload'),
+    url(r'^csv_upload/$', 'csv_upload'),
 	url(r'^europeana/$', 'europeana'),
 	url(r'^$', 'frontpage')
 )
