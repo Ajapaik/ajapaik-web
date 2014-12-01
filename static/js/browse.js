@@ -179,7 +179,7 @@
                     $("#element" + markers[i].id).css("display", "none");
                 }
             }
-            photoPane.justifiedGallery(justifiedGallerySettings);
+            photoPane.justifiedGallery();
             photoPaneContainer.trigger('scroll');
         }
     };
