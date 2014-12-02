@@ -13,6 +13,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
+import hashlib
 
 from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView
 from project.home.forms import CitySelectForm
@@ -751,7 +752,7 @@ def europeana(request):
 	results = Search().query(request.GET.get("query", "Kose"), request.GET.get("refinement_terms", None), bounding_box,
 							 request.GET.get("start", 1), request.GET.get("size", 12))
 	return render_to_response("europeana.html", RequestContext(request, {
-	'results': results
+		'results': results
 	}))
 
 @login_required
@@ -808,12 +809,23 @@ def csv_upload(request):
 	return HttpResponse("OK")
 
 def public_photo_upload(request):
-	return render_to_response('photo_upload.html', RequestContext(request, {}))
+	all_cities = City.objects.all()
+	return render_to_response('photo_upload.html', RequestContext(request, {
+		'cities': all_cities
+	}))
 
 def public_photo_upload_handler(request):
 	user_profile = request.get_user().profile
 	uploaded_photos = request.FILES.getlist('files[]')
-	print uploaded_photos
+	city_id = request.POST.get('city')
+	ret = {"files": []}
+	for each in uploaded_photos:
+		p = Photo()
+		p.image = each
+		p.city_id = city_id
+		p.save()
+		ret["files"].append({"name": p.image.name})
+
 	# {"files": [
 	# {
 	# "name": "picture1.jpg",
@@ -832,7 +844,7 @@ def public_photo_upload_handler(request):
 	# "deleteType": "DELETE"
 	# }
 	# ]}
-	return HttpResponse("OK")
+	return HttpResponse(json.dumps(ret), content_type="application/json")
 
 def pane_contents(request):
 	marker_ids = request.POST.getlist('marker_ids[]')
@@ -850,3 +862,35 @@ def pane_contents(request):
 		except IOError:
 			pass
 	return render_to_response('pane_contents.html', RequestContext(request, {"data": data}))
+
+def grid(request, city_id):
+	data = []
+	city = City.objects.get(pk=city_id)
+	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[:50]:
+		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
+		try:
+			if p.image._get_width() >= p.image._get_height():
+				thumb_str = "%d"
+			else:
+				thumb_str = "x%d"
+			im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+			data.append([p.id, im_url, im._size[0], im._size[1]])
+		except IOError:
+			pass
+	return render_to_response('grid.html', RequestContext(request, {"data": data, "city_id": city_id}))
+
+def grid_infinite_scroll(request, city_id, end=50):
+	data = []
+	city = City.objects.get(pk=city_id)
+	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[(end - 50):end]:
+		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
+		try:
+			if p.image._get_width() >= p.image._get_height():
+				thumb_str = "%d"
+			else:
+				thumb_str = "x%d"
+			im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+			data.append([p.id, im_url, im._size[0], im._size[1]])
+		except IOError:
+			pass
+	return HttpResponse(json.dumps(data), content_type="application/json")
