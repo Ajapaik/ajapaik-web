@@ -882,7 +882,7 @@ def grid(request, city_id):
 def grid_infinite_scroll(request, city_id, end=100):
 	data = []
 	city = City.objects.get(pk=city_id)
-	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[(end - 100):end]:
+	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[(int(end) - 100):int(end)]:
 		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
 		try:
 			if p.image._get_width() >= p.image._get_height():
