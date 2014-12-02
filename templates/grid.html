@@ -3,7 +3,7 @@
 
 {% block layout %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
-    <script>var cityId = {{ city_id | safe }}; var end = 100;</script>
+    <script>var cityId = {{ city_id | safe }}; var end = 200;</script>
     <div id="gallery">
         {% for photo in data %}
             <a href="{{ photo.1 }}">
@@ -42,6 +42,7 @@
                             newA.appendChild(newImg);
                             $("#gallery").append(newA);
                         }
+                        end += 100;
                         $('#gallery').justifiedGallery('norewind');
                     }
                 });

@@ -866,7 +866,7 @@ def pane_contents(request):
 def grid(request, city_id):
 	data = []
 	city = City.objects.get(pk=city_id)
-	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[:50]:
+	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[:100]:
 		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
 		try:
 			if p.image._get_width() >= p.image._get_height():
@@ -879,10 +879,10 @@ def grid(request, city_id):
 			pass
 	return render_to_response('grid.html', RequestContext(request, {"data": data, "city_id": city_id}))
 
-def grid_infinite_scroll(request, city_id, end=50):
+def grid_infinite_scroll(request, city_id, end=100):
 	data = []
 	city = City.objects.get(pk=city_id)
-	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[(end - 50):end]:
+	for p in Photo.objects.filter(rephoto_of__isnull=True, city=city)[(end - 100):end]:
 		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
 		try:
 			if p.image._get_width() >= p.image._get_height():
