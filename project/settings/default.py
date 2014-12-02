@@ -84,7 +84,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'mobi.middleware.MobileDetectionMiddleware'
+    'mobi.middleware.MobileDetectionMiddleware',
     'project.home.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'project.home.user_middleware.UserMiddleware',
 )

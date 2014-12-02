@@ -807,9 +807,32 @@ def csv_upload(request):
 		p.save()
 	return HttpResponse("OK")
 
-def old_photo_upload(request):
-	user_profile = request.get_user().profile
+def public_photo_upload(request):
 	return render_to_response('photo_upload.html', RequestContext(request, {}))
+
+def public_photo_upload_handler(request):
+	user_profile = request.get_user().profile
+	uploaded_photos = request.FILES.getlist('files[]')
+	print uploaded_photos
+	# {"files": [
+	# {
+	# "name": "picture1.jpg",
+	# "size": 902604,
+	# "url": "http:\/\/example.org\/files\/picture1.jpg",
+	# "thumbnailUrl": "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
+	# "deleteUrl": "http:\/\/example.org\/files\/picture1.jpg",
+	# "deleteType": "DELETE"
+	# },
+	# {
+	# "name": "picture2.jpg",
+	# "size": 841946,
+	# "url": "http:\/\/example.org\/files\/picture2.jpg",
+	# "thumbnailUrl": "http:\/\/example.org\/files\/thumbnail\/picture2.jpg",
+	# "deleteUrl": "http:\/\/example.org\/files\/picture2.jpg",
+	# "deleteType": "DELETE"
+	# }
+	# ]}
+	return HttpResponse("OK")
 
 def pane_contents(request):
 	marker_ids = request.POST.getlist('marker_ids[]')
