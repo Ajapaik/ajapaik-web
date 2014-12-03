@@ -46,7 +46,8 @@
     <script>
         var cityId = {{ city_id | safe }},
             start = {{ start | safe }},
-            pageSize = {{ page_size | safe }};
+            pageSize = {{ page_size | safe }},
+            ajaxQueryInProgress = false;
     </script>
     <script>
         $(document).ready(function () {
@@ -70,22 +71,26 @@
             var browseDiv = $("#browse"),
                 galleryDiv = $("#gallery"),
                 doGridAjaxQuery = function () {
-                    $.ajax({
-                        cache: false,
-                        url: '/grid_infinity/',
-                        data: {'city__pk': cityId, 'start': start},
-                        success: function (result) {
-                            for (var i = 0; i < result.length; i += 1) {
-                                var newA = document.createElement("a");
-                                var newImg = document.createElement("img");
-                                $(newImg).attr("src", result[i][1]).attr("width", result[i][2]).attr("height", result[i][3]);
-                                newA.appendChild(newImg);
-                                $("#gallery").append(newA);
+                    if (!ajaxQueryInProgress) {
+                        ajaxQueryInProgress = true;
+                        $.ajax({
+                            cache: false,
+                            url: '/grid_infinity/',
+                            data: {'city__pk': cityId, 'start': start},
+                            success: function (result) {
+                                for (var i = 0; i < result.length; i += 1) {
+                                    var newA = document.createElement("a");
+                                    var newImg = document.createElement("img");
+                                    $(newImg).attr("src", result[i][1]).attr("width", result[i][2]).attr("height", result[i][3]);
+                                    newA.appendChild(newImg);
+                                    $("#gallery").append(newA);
+                                }
+                                start += pageSize;
+                                $('#gallery').justifiedGallery('norewind');
+                                ajaxQueryInProgress = false;
                             }
-                            start += pageSize;
-                            $('#gallery').justifiedGallery('norewind');
-                        }
-                    });
+                        });
+                    }
                 };
             browseDiv.scroll(function() {
                 if((browseDiv.scrollTop() - browseDiv.height()) > 0) {
