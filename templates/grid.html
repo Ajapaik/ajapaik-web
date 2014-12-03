@@ -3,7 +3,7 @@
 
 {% block layout %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
-    <div id="browse">
+    <div id="browse" style="overflow: auto !important;">
         <div class="top">
             <h1 class="ir">
                 <a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">
@@ -31,12 +31,14 @@
             <div class="filter-box">
                 {{ filters.get_form.as_p }}
             </div>
-            <div id="gallery">
-                {% for photo in data %}
-                    <a href="{{ photo.1 }}">
-                        <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}"/>
-                    </a>
-                {% endfor %}
+            <div id="content">
+                <div id="gallery">
+                    {% for photo in data %}
+                        <a href="{{ photo.1 }}">
+                            <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}"/>
+                        </a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -50,6 +52,7 @@
         $(document).ready(function () {
             $('#gallery').justifiedGallery({
                 rowHeight: 120,
+                lastRow: 'justify',
                 waitThumbnailsLoad: false,
                 margins: 3,
                 sizeRangeSuffixes: {
@@ -64,8 +67,9 @@
             $.ajaxSetup({
                 headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
             });
-            $(window).scroll(function() {
-                if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            var browseDiv = $("#browse");
+            browseDiv.scroll(function() {
+                if((browseDiv.scrollTop() - browseDiv.height()) > 0) {
                     $.ajax({
                         cache: false,
                         url: '/grid_infinity/',

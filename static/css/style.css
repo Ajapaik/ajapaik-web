@@ -2,6 +2,7 @@ body, html {
     height: 100%;
     /*min-height: 550px;*/
     font-family: 'Droid Serif', arial, sans-serif;
+    overflow-y: auto;
 }
 
 body {
@@ -1306,4 +1307,8 @@ a.btn.flip {
     line-height: 30px;
     text-align: center;
     background: rgba(0, 169, 231, 0.5);
+}
+
+#gallery {
+
 }
