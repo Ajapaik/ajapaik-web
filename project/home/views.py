@@ -852,28 +852,28 @@ def pane_contents(request):
 	return render_to_response('pane_contents.html', RequestContext(request, {"data": data}))
 
 
-
-def grid(request, city_id):
+def grid(request):
 	qs = Photo.objects.all()
 	get_params = request.GET.copy()
-	get_params['city__pk'] = city_id
+	city_id = get_params.get('city__pk', 1)
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
 	data = filters.get_filtered_qs().get_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
 	return render_to_response('grid.html', RequestContext(request, {
 		"data": data,
 		"city_id": city_id,
-	    "start": 0,
-	    "page_size": settings.GRID_VIEW_PAGE_SIZE
+		"start": 0,
+	    "filters": filters,
+		"page_size": settings.GRID_VIEW_PAGE_SIZE
 	}))
 
 
-def grid_infinite_scroll(request, city_id, start=0):
-	start = int(start)
+def grid_infinite_scroll(request):
 	qs = Photo.objects.all()
 	get_params = request.GET.copy()
-	get_params['city__pk'] = city_id
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
-	data = filters.get_filtered_qs().get_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
+	start = int(get_params['start'])
+	#data = filters.get_filtered_qs().get_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
+	data = filters.get_filtered_qs().get_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
 	return HttpResponse(json.dumps(data), content_type="application/json")

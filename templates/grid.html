@@ -3,15 +3,49 @@
 
 {% block layout %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
-    <script>var cityId = {{ city_id | safe }}; var start = {{ start | safe }}; var pageSize = {{ page_size | safe }};</script>
-    <div id="gallery">
-        {% for photo in data %}
-            <a href="{{ photo.1 }}">
-                <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}"/>
-            </a>
-        {% endfor %}
+    <div id="browse">
+        <div class="top">
+            <h1 class="ir">
+                <a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">
+                    {% trans "Timepatch (Ajapaik)" %}
+                </a>
+            </h1>
+            <ul id="nav"></ul>
+            {% get_language_info for LANGUAGE_CODE as lang %}
+            <div class="lang-box">
+                <form style="display:inline;" action="/i18n/setlang/" method="post">
+                    {% csrf_token %}
+                    <div id="langmenu">
+                        <div>{{ lang.code | upper }}</div>
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <select id="language" name="language" onchange="this.form.submit();">
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <option value="{{ language.code }}" title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"{% if language.code == lang.code %} selected="selected"{% endif %}>{{ language.name_local|title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label id="langlabel" for="language">{% trans "Choose language" %}:</label>
+                </form>
+            </div>
+            <div class="filter-box">
+                {{ filters.get_form.as_p }}
+            </div>
+            <div id="gallery">
+                {% for photo in data %}
+                    <a href="{{ photo.1 }}">
+                        <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}"/>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
+    <script>
+        var cityId = {{ city_id | safe }},
+            start = {{ start | safe }},
+            pageSize = {{ page_size | safe }};
+    </script>
     <script>
         $(document).ready(function () {
             $('#gallery').justifiedGallery({
@@ -25,30 +59,47 @@
                     'lt500': '',
                     'lt640': '',
                     'lt1024': ''
-                }});
+                }
+            });
             $.ajaxSetup({
                 headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
             });
-          $(window).scroll(function() {
-             if($(window).scrollTop() + $(window).height() == $(document).height()) {
-                $.ajax({
-                    cache: false,
-                    url: '/grid_infinity/' + cityId + '/' + start + '/',
-                    success: function (result) {
-                        for (var i = 0; i < result.length; i += 1) {
-                            var newA = document.createElement("a");
-                            var newImg = document.createElement("img");
-                            $(newImg).attr("src", result[i][1]).attr("width", result[i][2]).attr("height", result[i][3]);
-                            newA.appendChild(newImg);
-                            $("#gallery").append(newA);
+            $(window).scroll(function() {
+                if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    $.ajax({
+                        cache: false,
+                        url: '/grid_infinity/',
+                        data: {'city__pk': cityId, 'start': start},
+                        success: function (result) {
+                            for (var i = 0; i < result.length; i += 1) {
+                                var newA = document.createElement("a");
+                                var newImg = document.createElement("img");
+                                $(newImg).attr("src", result[i][1]).attr("width", result[i][2]).attr("height", result[i][3]);
+                                newA.appendChild(newImg);
+                                $("#gallery").append(newA);
+                            }
+                            start += pageSize;
+                            $('#gallery').justifiedGallery('norewind');
                         }
-                        start += pageSize;
-                        $('#gallery').justifiedGallery('norewind');
-                    }
+                    });
+                }
+            });
+            $(".filter-box select").change(function () {
+                var uri = new URI(location.href),
+                    newQ = URI.parseQuery($(this).val()),
+                    isFilterEmpty = false;
+
+                uri.removeQuery(Object.keys(newQ));
+                $.each(newQ, function (i, ii) {
+                    isFilterEmpty = ii == "";
                 });
 
-             }
-          });
+                if (!isFilterEmpty) {
+                    uri = uri.addQuery(newQ);
+                }
+
+                location.href = uri.toString();
+            });
         });
     </script>
 {% endblock layout %}
