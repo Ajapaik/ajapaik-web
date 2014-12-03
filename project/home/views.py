@@ -894,3 +894,22 @@ def grid_infinite_scroll(request, city_id, end=100):
 		except IOError:
 			pass
 	return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def temporary_rephoto_list(request, start = 0):
+	start = int(start)
+	data = []
+	for p in Photo.objects.exclude(rephoto_of__isnull=True)[start:start + 25]:
+		original_photo = Photo.objects.filter(id=p.rephoto_of.id)
+		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
+		try:
+			if p.image._get_width() >= p.image._get_height():
+				thumb_str = "%d"
+			else:
+				thumb_str = "x%d"
+			im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+			data.append([p.id, im_url, im._size[0], im._size[1], original_photo.description])
+		except IOError:
+			pass
+	print data
+	return render_to_response('temporary_rephoto_list.html', RequestContext(request, {"data": data, "next_start": start + 25}))
