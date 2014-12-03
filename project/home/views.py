@@ -900,7 +900,7 @@ def temporary_rephoto_list(request, start = 0):
 	start = int(start)
 	data = []
 	for p in Photo.objects.exclude(rephoto_of__isnull=True)[start:start + 25]:
-		original_photo = Photo.objects.filter(id=p.rephoto_of.id)
+		original_photo = Photo.objects.filter(id=p.rephoto_of.id).get()
 		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
 		try:
 			if p.image._get_width() >= p.image._get_height():
