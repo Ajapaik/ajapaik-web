@@ -859,11 +859,8 @@ def grid(request):
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
 	data = filters.get_filtered_qs().get_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
-	test_data = []
-	while len(test_data) < 50:
-		test_data += data
 	return render_to_response('grid.html', RequestContext(request, {
-		"data": test_data,
+		"data": data,
 		"city_id": city_id,
 		"start": 0,
 	    "filters": filters,
