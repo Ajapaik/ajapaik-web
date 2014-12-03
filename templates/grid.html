@@ -3,7 +3,7 @@
 
 {% block layout %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
-    <script>var cityId = {{ city_id | safe }}; var end = 200;</script>
+    <script>var cityId = {{ city_id | safe }}; var start = {{ start | safe }}; var pageSize = {{ page_size | safe }};</script>
     <div id="gallery">
         {% for photo in data %}
             <a href="{{ photo.1 }}">
@@ -33,7 +33,7 @@
              if($(window).scrollTop() + $(window).height() == $(document).height()) {
                 $.ajax({
                     cache: false,
-                    url: '/grid_infinity/' + cityId + '/' + end + '/',
+                    url: '/grid_infinity/' + cityId + '/' + start + '/',
                     success: function (result) {
                         for (var i = 0; i < result.length; i += 1) {
                             var newA = document.createElement("a");
@@ -42,7 +42,7 @@
                             newA.appendChild(newImg);
                             $("#gallery").append(newA);
                         }
-                        end += 100;
+                        start += pageSize;
                         $('#gallery').justifiedGallery('norewind');
                     }
                 });

@@ -313,6 +313,17 @@ class Photo(models.Model):
 				return [random_photo], True, True
 			return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
+		def get_photos_for_grid_view(self, start, end):
+			data = []
+			for p in self.filter(rephoto_of__isnull=True)[start:end]:
+				im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
+				try:
+					im = get_thumbnail(p.image, '300x300', upscale=False)
+					data.append([p.id, im_url, im.size[0], im.size[1]])
+				except (IOError, TypeError):
+					pass
+			return data
+
 
 	def flip_horizontal(self):
 		image = Image.open(self.image.path)
@@ -441,6 +452,7 @@ class Photo(models.Model):
 						self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
 						self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
 					self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
+
 
 class DifficultyFeedback(models.Model):
 	photo = models.ForeignKey('Photo')
