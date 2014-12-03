@@ -94,12 +94,11 @@
                 };
             browseDiv.scroll(function() {
                 if((browseDiv.scrollTop() - browseDiv.height()) > 0) {
-                    start += pageSize;
                     doGridAjaxQuery();
                 }
             });
-
             if (galleryDiv.innerHeight() < browseDiv.height()) {
+                start += pageSize;
                 doGridAjaxQuery();
             }
             $(".filter-box select").change(function () {
