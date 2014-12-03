@@ -470,6 +470,39 @@ def photo_thumb(request, photo_id, thumb_size=None):
 	cache.set(cache_key, response)
 	return response
 
+def temporary_list_photo_thumb(request, photo_id):
+	cache_key = "ajapaik_temporary_photo_thumb_response_%s" % photo_id
+	cached_response = cache.get(cache_key)
+	if cached_response:
+		return cached_response
+	p = get_object_or_404(Photo, id=photo_id)
+	image_to_use = p.image_unscaled or p.image
+	if image_to_use._get_width() >= image_to_use._get_height():
+		thumb_str = "%d"
+	else:
+		thumb_str = "x%d"
+	# if thumb_size == "_t":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 100, crop="center")
+	# elif thumb_size == "_m":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 240, crop="center")
+	# elif thumb_size == "_n":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 320, crop="center")
+	# elif thumb_size == "_z":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 640, crop="center")
+	# elif thumb_size == "_b":
+	# 	im = get_thumbnail(image_to_use, thumb_str % 1024, crop="center")
+	# else:
+	# 	im = get_thumbnail(image_to_use, thumb_str % 500, crop="center")
+	im = get_thumbnail(image_to_use, thumb_str % 600, crop="center")
+	content = im.read()
+	next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+	response = HttpResponse(content, content_type='image/jpg')
+	response['Content-Length'] = len(content)
+	response['Cache-Control'] = "max-age=604800, public"
+	response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
+	cache.set(cache_key, response)
+	return response
+
 
 def photo(request, photo_id):
 	photo = get_object_or_404(Photo, id=photo_id)
@@ -899,17 +932,12 @@ def grid_infinite_scroll(request, city_id, end=100):
 def temporary_rephoto_list(request, start = 0):
 	start = int(start)
 	data = []
-	for p in Photo.objects.exclude(rephoto_of__isnull=True)[start:start + 25]:
+	for p in Photo.objects.exclude(rephoto_of__isnull=True)[start:start + 10]:
 		original_photo = Photo.objects.filter(id=p.rephoto_of.id).get()
-		im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
+		im_url = reverse('project.home.views.temporary_list_photo_thumb', args=(p.id,))
 		try:
-			if p.image._get_width() >= p.image._get_height():
-				thumb_str = "%d"
-			else:
-				thumb_str = "x%d"
-			im = get_thumbnail(p.image, thumb_str % 150, crop="center")
-			data.append([p.id, im_url, im._size[0], im._size[1], original_photo.description])
+			data.append([p.id, im_url, original_photo.description])
 		except IOError:
 			pass
 	print data
-	return render_to_response('temporary_rephoto_list.html', RequestContext(request, {"data": data, "next_start": start + 25}))
+	return render_to_response('temporary_rephoto_list.html', RequestContext(request, {"data": data, "next_start": start + 10}))

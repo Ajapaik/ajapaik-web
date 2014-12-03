@@ -1,7 +1,7 @@
 <div id="gallery">
     {% for photo in data %}
         <a href="{{ photo.1 }}">
-            <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}"/>
+            <img alt="{{ photo.2 }}" src="{{ photo.1 }}"/>
         </a>
         <br/>
     {% endfor %}
