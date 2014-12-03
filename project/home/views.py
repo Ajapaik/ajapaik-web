@@ -935,8 +935,9 @@ def temporary_rephoto_list(request, start = 0):
 	for p in Photo.objects.exclude(rephoto_of__isnull=True)[start:start + 10]:
 		original_photo = Photo.objects.filter(id=p.rephoto_of.id).get()
 		im_url = reverse('project.home.views.temporary_list_photo_thumb', args=(p.id,))
+		original_im_url = reverse('project.home.views.temporary_list_photo_thumb', args=(original_photo.id,))
 		try:
-			data.append([p.id, im_url, original_photo.description])
+			data.append([p.id, im_url, original_photo.description, original_im_url])
 		except IOError:
 			pass
 	print data

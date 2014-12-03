@@ -1,9 +1,13 @@
 <div id="gallery">
     {% for photo in data %}
         <a href="{{ photo.1 }}">
-            <img alt="{{ photo.2 }}" src="{{ photo.1 }}"/>
+            <img src="{{ photo.1 }}"/>
+        </a>
+        <a href="{{ photo.3 }}">
+            <img src="{{ photo.3 }}"/>
         </a>
         <br/>
+        <p>{{ photo.2 }}</p>
     {% endfor %}
 </div>
 
