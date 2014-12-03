@@ -67,9 +67,9 @@
             $.ajaxSetup({
                 headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
             });
-            var browseDiv = $("#browse");
-            browseDiv.scroll(function() {
-                if((browseDiv.scrollTop() - browseDiv.height()) > 0) {
+            var browseDiv = $("#browse"),
+                galleryDiv = $("#gallery"),
+                doGridAjaxQuery = function () {
                     $.ajax({
                         cache: false,
                         url: '/grid_infinity/',
@@ -86,8 +86,16 @@
                             $('#gallery').justifiedGallery('norewind');
                         }
                     });
+                };
+            browseDiv.scroll(function() {
+                if((browseDiv.scrollTop() - browseDiv.height()) > 0) {
+                    doGridAjaxQuery();
                 }
             });
+
+            if (galleryDiv.innerHeight() < browseDiv.height()) {
+                doGridAjaxQuery();
+            }
             $(".filter-box select").change(function () {
                 var uri = new URI(location.href),
                     newQ = URI.parseQuery($(this).val()),
