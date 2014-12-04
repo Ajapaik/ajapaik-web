@@ -4,7 +4,7 @@
 {% block layout %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
     <div id="browse" style="overflow: auto !important;">
-        <div class="top">
+        <div class="top" style="z-index: 1001;">
             <h1 class="ir">
                 <a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">
                     {% trans "Timepatch (Ajapaik)" %}
