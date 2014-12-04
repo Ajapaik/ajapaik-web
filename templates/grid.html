@@ -87,6 +87,7 @@
                                 }
                                 start += pageSize;
                                 setTimeout(justify, 500);
+                                ajaxQueryInProgress = false;
                                 if (galleryDiv.innerHeight() < $(window).height() * 1.5) {
                                     doGridAjaxQuery();
                                 }
@@ -96,7 +97,6 @@
                 };
             var justify = function () {
                 $('#gallery').justifiedGallery('norewind');
-                ajaxQueryInProgress = false;
             };
             browseDiv.scroll(function() {
                 if((browseDiv.scrollTop() - ($(window).height() * 0.75)) > 0) {
