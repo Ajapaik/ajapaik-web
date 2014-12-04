@@ -88,6 +88,9 @@
                                 start += pageSize;
                                 $('#gallery').justifiedGallery('norewind');
                                 ajaxQueryInProgress = false;
+                                if (galleryDiv.innerHeight() < browseDiv.height()) {
+                                    doGridAjaxQuery();
+                                }
                             }
                         });
                     }
