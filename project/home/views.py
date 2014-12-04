@@ -874,6 +874,6 @@ def grid_infinite_scroll(request):
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
 	start = int(get_params['start'])
-	#data = filters.get_filtered_qs().get_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
-	data = filters.get_filtered_qs().get_photos_for_grid_view(0, start + settings.GRID_VIEW_PAGE_SIZE)
+	data = filters.get_filtered_qs().get_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
+	#data = filters.get_filtered_qs().get_photos_for_grid_view(0, start + settings.GRID_VIEW_PAGE_SIZE)
 	return HttpResponse(json.dumps(data), content_type="application/json")
