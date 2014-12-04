@@ -32,26 +32,25 @@
                 {{ filters.get_form.as_p }}
             </div>
         </div>
-    <div id="photo-drawer"></div>
-            <div id="content">
-                <div id="gallery">
-                    {% for photo in data %}
-                        <a href="{{ photo.1 }}" class="ajapaik-grid-image-container">
-                            <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image" data-id="{{ photo.0 }}"/>
-                        </a>
-                    {% endfor %}
-                </div>
-                <div id="ajapaik-grid-load-more">
-                    <a id="ajapaik-grid-load-more-link" href="javascript:void(0);">
-                        {% trans "Load more photos" %}
+        <div id="photo-drawer"></div>
+        <div id="content">
+            <div id="gallery">
+                {% for photo in data %}
+                    <a href="{{ photo.1 }}" class="ajapaik-grid-image-container">
+                        <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image" data-id="{{ photo.0 }}"/>
                     </a>
-                    <p id="ajapaik-grid-no-more-photos" style="display: none;">
-                        {% trans "No more photos to show" %}
-                    </p>
-                </div>
+                {% endfor %}
             </div>
-
+            <div id="ajapaik-grid-load-more">
+                <a id="ajapaik-grid-load-more-link" href="javascript:void(0);">
+                    {% trans "Load more photos" %}
+                </a>
+                <p id="ajapaik-grid-no-more-photos" style="display: none;">
+                    {% trans "No more photos to show" %}
+                </p>
+            </div>
         </div>
+    </div>
     <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/lazysizes-0.5.0.min.js"></script>
     <script>

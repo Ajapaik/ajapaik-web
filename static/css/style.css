@@ -215,7 +215,7 @@ h2.add_comment {
     position: fixed;
     top: -1000px;
     width: 100%;
-    height: 510px;
+    height: 600px;
     background: #fff url(../images/bg-subtle-grunge.png) center center;
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -1316,4 +1316,51 @@ a.btn.flip {
 #ajapaik-grid-load-more {
     text-align: center;
     margin-top: 20px;
+}
+
+#ajapaik-grid-open-photo-container {
+    display: block;
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#ajapaik-grid-open-photo-inner-container {
+    display: inline-block;
+    height: 450px;
+}
+
+#ajapaik-grid-open-photo {
+    height: 450px !important;
+    padding-bottom: 10px;
+}
+
+#ajapaik-grid-open-photo-rephoto-list {
+    list-style-type: none;
+    margin: 0;
+    text-align: right;
+}
+
+#ajapaik-grid-open-photo-rephoto-list > li {
+   display: inline;
+}
+
+#ajapaik-grid-open-photo-rephoto-list > li > a > img {
+    height: 50px !important;
+}
+
+#ajapaik-open-photo-description {
+    width: 50%;
+    line-height: 1;
+    text-align: left;
+    position: relative;
+    bottom: 50px;
+}
+
+#ajapaik-open-photo-owner {
+    line-height: 1;
+    width: 50%;
+    position: relative;
+    bottom: 40px;
+    text-align: left;
 }

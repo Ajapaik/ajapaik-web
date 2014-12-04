@@ -506,11 +506,11 @@ def photoslug(request, photo_id, pseudo_slug):
 	else:
 		title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 	return render_to_response(template, RequestContext(request, {
-	'photo': photo_obj,
-	'title': title,
-	'description': photo_obj.description,
-	'rephoto': rephoto,
-	'hostname': 'http://%s' % (site.domain, )
+		'photo': photo_obj,
+		'title': title,
+		'description': photo_obj.description,
+		'rephoto': rephoto,
+		'hostname': 'http://%s' % (site.domain, )
 	}))
 
 

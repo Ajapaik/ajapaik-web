@@ -343,7 +343,10 @@ class Photo(models.Model):
 
 	@models.permalink
 	def get_absolute_url(self):
-		pseudo_slug = self.get_pseudo_slug();
+		pseudo_slug = self.get_pseudo_slug()
+		rephoto = self.rephoto_of
+		if rephoto:
+			pass
 		if pseudo_slug != "":
 			return ('project.home.views.photoslug', [self.id, pseudo_slug, ])
 		else:
