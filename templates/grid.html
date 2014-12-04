@@ -88,7 +88,7 @@
                                 start += pageSize;
                                 $('#gallery').justifiedGallery('norewind');
                                 ajaxQueryInProgress = false;
-                                if (galleryDiv.innerHeight() < browseDiv.height()) {
+                                if (galleryDiv.innerHeight() < $(window).height() * 1.5) {
                                     doGridAjaxQuery();
                                 }
                             }
@@ -96,7 +96,7 @@
                     }
                 };
             browseDiv.scroll(function() {
-                if((browseDiv.scrollTop() - browseDiv.height()) > 0) {
+                if((browseDiv.scrollTop() - ($(window).height() / 2)) > 0) {
                     doGridAjaxQuery();
                 }
             });
