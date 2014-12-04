@@ -34,26 +34,28 @@
             <div id="content">
                 <div id="gallery">
                     {% for photo in data %}
-                        <a href="{{ photo.1 }}">
+                        <a href="{{ photo.1 }}" class="ajapaik-grid-image">
                             <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}"/>
                         </a>
                     {% endfor %}
                 </div>
+                <div id="ajapaik-grid-no-more-photos" style="display: none;">{% trans "No more photos to show" %}</div>
             </div>
         </div>
     </div>
     <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/lazysizes-0.5.0.min.js"></script>
     <script>
         var cityId = {{ city_id | safe }},
             start = {{ start | safe }},
             pageSize = {{ page_size | safe }},
-            ajaxQueryInProgress = false;
+            ajaxQueryInProgress = false,
+            totalPhotoCount = {{ photo_count | safe }};
     </script>
     <script>
         $(document).ready(function () {
             $('#gallery').justifiedGallery({
                 rowHeight: 120,
-                lastRow: 'justify',
                 waitThumbnailsLoad: false,
                 margins: 3,
                 sizeRangeSuffixes: {
@@ -69,37 +71,40 @@
                 headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
             });
             var browseDiv = $("#browse"),
-                galleryDiv = $("#gallery"),
+                galleryDiv = $("#gallery");
                 doGridAjaxQuery = function () {
-                    if (!ajaxQueryInProgress) {
+                    if (!ajaxQueryInProgress && start <= totalPhotoCount) {
                         ajaxQueryInProgress = true;
                         $.ajax({
                             cache: false,
                             url: '/grid_infinity/',
                             data: {'city__pk': cityId, 'start': start},
                             success: function (result) {
+
                                 for (var i = 0; i < result.length; i += 1) {
                                     var newA = document.createElement("a");
                                     var newImg = document.createElement("img");
-                                    $(newImg).attr("src", result[i][1]).attr("width", result[i][2]).attr("height", result[i][3]);
+                                    $(newA).addClass("ajapaik-grid-image");
+                                    $(newImg).attr("src", result[i][1]).attr("width", result[i][2]).attr("height", result[i][3]).attr("alt", result[i][0]).addClass("lazy");
                                     newA.appendChild(newImg);
                                     $("#gallery").append(newA);
                                 }
                                 start += pageSize;
-                                setTimeout(justify, 500);
+                                $('#gallery').justifiedGallery("norewind");
+                                setTimeout($(".ajapaik-grid-image").css("opacity", 1), 100);
                                 ajaxQueryInProgress = false;
-                                if (galleryDiv.innerHeight() < $(window).height() * 1.5) {
+                                if (galleryDiv.innerHeight() < browseDiv.height() * 1.5) {
                                     doGridAjaxQuery();
                                 }
                             }
                         });
                     }
+                    if (start > totalPhotoCount) {
+                        $("#ajapaik-grid-no-more-photos").show();
+                    }
                 };
-            var justify = function () {
-                $('#gallery').justifiedGallery('norewind');
-            };
             browseDiv.scroll(function() {
-                if((browseDiv.scrollTop() - ($(window).height() * 0.75)) > 0) {
+                if((browseDiv.scrollTop() - (browseDiv.height() * 0.75)) > 0) {
                     doGridAjaxQuery();
                 }
             });

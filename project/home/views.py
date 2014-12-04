@@ -858,9 +858,11 @@ def grid(request):
 	city_id = get_params.get('city__pk', 1)
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
-	data = filters.get_filtered_qs().get_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
+	data = filters.get_filtered_qs().get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
+	photo_count = filters.get_filtered_qs().get_old_photo_count_for_grid_view()
 	return render_to_response('grid.html', RequestContext(request, {
 		"data": data,
+	    "photo_count": photo_count,
 		"city_id": city_id,
 		"start": 0,
 	    "filters": filters,
@@ -874,5 +876,5 @@ def grid_infinite_scroll(request):
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
 	start = int(get_params['start'])
-	data = filters.get_filtered_qs().get_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
+	data = filters.get_filtered_qs().get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
 	return HttpResponse(json.dumps(data), content_type="application/json")

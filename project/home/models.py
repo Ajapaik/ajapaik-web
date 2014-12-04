@@ -313,7 +313,7 @@ class Photo(models.Model):
 				return [random_photo], True, True
 			return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
-		def get_photos_for_grid_view(self, start, end):
+		def get_old_photos_for_grid_view(self, start, end):
 			data = []
 			for p in self.filter(rephoto_of__isnull=True)[start:end]:
 				im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
@@ -323,6 +323,9 @@ class Photo(models.Model):
 				except (IOError, TypeError):
 					pass
 			return data
+
+		def get_old_photo_count_for_grid_view(self):
+			return self.filter(rephoto_of__isnull=True).count()
 
 
 	def flip_horizontal(self):
