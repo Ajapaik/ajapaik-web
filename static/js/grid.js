@@ -7,6 +7,11 @@
     /*global FB */
     /*global _gaq */
     /*global URI */
+    /*global document */
+    /*global window */
+    /*global setTimeout */
+    /*global screen */
+    /*global location */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
             browseDiv = $('#browse'),
@@ -45,7 +50,7 @@
                 $.ajax({
                     cache: false,
                     url: '/grid_infinity/',
-                    data: {'city__pk': window.cityId, 'start': window.start},
+                    data: {city__pk: window.cityId, start: window.start},
                     success: function (result) {
                         for (i = 0; i < result.length; i += 1) {
                             newA = document.createElement('a');
@@ -60,13 +65,13 @@
                         }
                         window.start += window.pageSize;
                         galleryDiv.justifiedGallery('norewind');
-                        setTimeout($('.ajapaik-grid-image-container').css('opacity', 1), 100);
+                        setTimeout(function () { $('.ajapaik-grid-image-container').css('opacity', 1); }, 100);
                         ajaxQueryInProgress = false;
                         $('.ajapaik-grid-image').on('click', function (e) {
                             e.preventDefault();
                             window.loadPhoto(e.target.dataset.id);
                         });
-                        if (galleryDiv.innerHeight() < browseDiv.height() * 1.5) {
+                        if (galleryDiv.innerHeight() < (browseDiv.height() * 1.5)) {
                             doGridAjaxQuery();
                         }
                     }
