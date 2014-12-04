@@ -96,7 +96,7 @@
                     }
                 };
             browseDiv.scroll(function() {
-                if((browseDiv.scrollTop() - ($(window).height() / 2)) > 0) {
+                if((browseDiv.scrollTop() - ($(window).height() * 0.75)) > 0) {
                     doGridAjaxQuery();
                 }
             });
