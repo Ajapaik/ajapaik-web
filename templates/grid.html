@@ -39,7 +39,14 @@
                         </a>
                     {% endfor %}
                 </div>
-                <div id="ajapaik-grid-no-more-photos" style="display: none;">{% trans "No more photos to show" %}</div>
+                <div id="ajapaik-grid-load-more">
+                    <a id="ajapaik-grid-load-more-link" href="javascript:;" style="display: none;">
+                        {% trans "Load more photos" %}
+                    </a>
+                    <p id="ajapaik-grid-no-more-photos" style="display: none;">
+                        {% trans "No more photos to show" %}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -100,6 +107,7 @@
                         });
                     }
                     if (start > totalPhotoCount) {
+                        $("#ajapaik-grid-load-more-link").hide();
                         $("#ajapaik-grid-no-more-photos").show();
                     }
                 };
