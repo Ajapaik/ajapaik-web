@@ -220,7 +220,7 @@ h2.add_comment {
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    z-index: 900;
+    z-index: 1000;
 }
 
 /* photos */
