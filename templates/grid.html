@@ -40,7 +40,7 @@
                     {% endfor %}
                 </div>
                 <div id="ajapaik-grid-load-more">
-                    <a id="ajapaik-grid-load-more-link" href="javascript:;" style="display: none;">
+                    <a id="ajapaik-grid-load-more-link">
                         {% trans "Load more photos" %}
                     </a>
                     <p id="ajapaik-grid-no-more-photos" style="display: none;">
@@ -78,8 +78,9 @@
                 headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
             });
             var browseDiv = $("#browse"),
-                galleryDiv = $("#gallery");
+                galleryDiv = $("#gallery"),
                 doGridAjaxQuery = function () {
+                    console.log(start);
                     if (!ajaxQueryInProgress && start <= totalPhotoCount) {
                         ajaxQueryInProgress = true;
                         $.ajax({
@@ -111,6 +112,10 @@
                         $("#ajapaik-grid-no-more-photos").show();
                     }
                 };
+            $("#ajapaik-grid-load-more-link").on("click", function (e) {
+                e.preventDefault();
+                doGridAjaxQuery();
+            });
             browseDiv.scroll(function() {
                 if((browseDiv.scrollTop() - (browseDiv.height() * 0.75)) > 0) {
                     doGridAjaxQuery();
