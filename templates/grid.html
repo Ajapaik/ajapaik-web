@@ -192,6 +192,7 @@
             photoDrawerElement.delegate('#close-photo-drawer', 'click', function (e) {
                 e.preventDefault();
                 closePhotoDrawer();
+                $(".filter-box").show();
             });
             photoDrawerElement.delegate('a.add-rephoto', 'click', function (e) {
                 e.preventDefault();
