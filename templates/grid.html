@@ -184,6 +184,11 @@
                 var historyReplacementString = '/grid/?city__pk=' + cityId;
                 History.replaceState(null, null, historyReplacementString);
             };
+            $(".ajapaik-grid-image-container").on("click", function (e) {
+                e.preventDefault();
+                var targetId = e.target.dataset.id;
+                loadPhoto(targetId);
+            });
             $(".ajapaik-grid-image").on("click", function (e) {
                 e.preventDefault();
                 var targetId = e.target.dataset.id;
