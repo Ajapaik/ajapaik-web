@@ -171,9 +171,10 @@
                 $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
                     photoPane.empty();
                     photoPane.html(response);
+                    photoPane.justifiedGallery(justifiedGallerySettings);
                     setTimeout(function () {
-                        photoPane.justifiedGallery(justifiedGallerySettings);
-                    }, 2000);
+                        $()
+                    });
                 });
             }
 //            for (i = 0; i < markers.length; i += 1) {
