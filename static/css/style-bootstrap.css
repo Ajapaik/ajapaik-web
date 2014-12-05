@@ -154,3 +154,7 @@ body {
 .ajapaik-flip-photo-button:hover {
     background-position: center;
 }
+
+#ajapaik-photo-drawer-photo-column {
+    text-align: center;
+}

@@ -73,7 +73,8 @@
         showSeenAllMessage,
         nextPhoto,
         hideTools,
-        scrollPhotos;
+        scrollPhotos,
+        photosDivSlidInPlace = false;
 
     updateLeaderboard = function () {
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
@@ -154,6 +155,7 @@
                 .css('background-image', 'url("http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png")')
                 .css('margin-left', '-8px')
                 .css('margin-top', '-9px');
+            //TODO: Maybe this one?
             if (!mapMousemoveListenerActive) {
                 google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
@@ -246,6 +248,8 @@
     nextPhoto = function () {
         hintUsed = 0;
         disableSave = true;
+        photosDivSlidInPlace = false;
+        photosDiv.removeClass('map-open-hide-photos');
         azimuthListenerActive = false;
         window.map.setZoom(16);
         mapMousemoveListenerActive = false;
@@ -553,14 +557,16 @@
 //            } else if (locationToolsOpen === false && !isMobile) {
 //                hideTools();
 //            }
-            if (locationToolsOpen) {
-                $('#photos .photo').animate({opacity: 0.33});
-            }
-        }, function () {
-            $('#photos .photo').animate({opacity: 1});
+
         });
 
-        photosDiv.find('img').live('click', toggleTouchPhotoView);
+        photosDiv.find('img').live('click', toggleTouchPhotoView).live('mouseover', function () {
+            if (locationToolsOpen && photosDivSlidInPlace) {
+                $('#photos').addClass('map-open-hide-photos');
+            }
+        });
+
+
 
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
@@ -681,11 +687,13 @@
                 // Show info window when the map is opened the first time
                 infowindow.open(window.map, marker);
             }
-            $("#photos").addClass("map-open");
+            $("#photos").addClass("map-open-show-photos");
             $('#tools').animate({ left: '15%' }, function () {
                 locationToolsOpen = true;
                 var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
-                $('#photos').animate({ left: photosLeft + 'px' });
+                $('#photos').animate({ left: photosLeft + 'px' }, function () {
+                    photosDivSlidInPlace = true;
+                });
                 $('#open-location-tools').fadeOut();
             });
         }
@@ -704,7 +712,7 @@
 
         function closeLocationTools(next) {
             locationToolsOpen = false;
-            $("#photos").removeClass("map-open");
+            $("#photos").removeClass("map-open-show-photos");
             $('#photos').animate({ left: gameOffset });
             $('#tools').animate({ left: '100%' }, function () {
                 var panorama = window.map.getStreetView();

@@ -548,13 +548,8 @@ a.fullscreen {
     display: table;
 }
 
-.map-open {
-    z-index: 10000;
-    pointer-events: none;
-}
-
-.map-open .photo {
-    pointer-events: all;
+.map-open-hide-photos {
+    z-index: -10000;
 }
 
 #game #photos .photo {
