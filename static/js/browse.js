@@ -171,8 +171,10 @@
             if (window.map.zoom > 15) {
                 $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
                     photoPane.html(response);
-                    photoPane.justifiedGallery(justifiedGallerySettings);
-                    photoPaneContainer.show();
+                    setTimeout(function () {
+                        photoPane.justifiedGallery(justifiedGallerySettings);
+                        photoPaneContainer.show();
+                    }, 250);
                 });
             }
 //            for (i = 0; i < markers.length; i += 1) {
