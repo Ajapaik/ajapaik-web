@@ -54,8 +54,8 @@ $(document).ready(function() {
                     <li><a href="{{ rephoto_item.get_absolute_url }}" rel="{{ rephoto_item.id }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'project.home.views.photo_thumb' rephoto_item.id %}" border="0" /></a></li>
                 {% endfor %}
             </ul>
-            <p id="ajapaik-open-photo-description">{{ photo.description }}</p>
-            <p id="ajapaik-open-photo-owner">
+            <p id="ajapaik-grid-open-photo-description">{{ photo.description }}</p>
+            <p id="ajapaik-grid-open-photo-owner">
                 {% if photo.source_url %}
                     <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
                         {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
@@ -65,6 +65,7 @@ $(document).ready(function() {
                 {% endif %}
             </p>
         </div>
+        <a href="#" id="ajapaik-grid-open-photo-close-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
     </div>
 {% comment %}    <div class="original photo-item">
         <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img

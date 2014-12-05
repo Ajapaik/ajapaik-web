@@ -1,0 +1,83 @@
+body, html {
+    height: 100%;
+    font-family: 'Droid Serif', arial, sans-serif;
+    overflow-y: auto;
+}
+
+body {
+    background: #fff url(../images/bg-subtle-grunge.png) center center;
+}
+
+#ajapaik-header-logo {
+    background: url(../images/ajapaik_266px.png) no-repeat;
+    width: 133px;
+    height: 73px;
+    margin: 10px 0 0 20px;
+    background-size: 133px 73px;
+    text-indent: -999em;
+}
+
+#ajapaik-header {
+    height: 40px;
+    background: transparent url(../images/footer_bg.jpg) center bottom;
+    border-color: transparent;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+}
+
+#ajapaik-language-box {
+    position: absolute;
+    right: 0;
+    top: -20px;
+}
+
+#ajapaik-language-box > form {
+    display:inline;
+}
+
+#ajapaik-language-label {
+    color: white;
+    text-shadow: 2px 1px #8E5D2E;
+    float: right;
+    margin: 30px 12px 0 0;
+}
+
+#ajapaik-language-menu {
+    position: relative;
+    float: right;
+    padding: 7px 7px 7px 5px;
+    margin: 24px 12px 0 0;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .9), inset 0 2px 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .9), inset 0 2px 10px rgba(0, 0, 0, .1);
+    background-color: rgb(142, 93, 46);
+    background-color: rgba(142, 93, 46, 0.6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#998E5D2E, endColorstr=#998E5D2E);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#998E5D2E, endColorstr=#998E5D2E)";
+}
+
+#ajapaik-language-menu div {
+    color: white;
+    font-size: 14px;
+    background: url('../images/langmenu-arr.png') no-repeat right center;
+    padding-right: 17px;
+}
+
+#ajapaik-language-menu select {
+    position: absolute;
+    font-size: 14px;
+    left: -52px;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+

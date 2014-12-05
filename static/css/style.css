@@ -1349,7 +1349,7 @@ a.btn.flip {
     height: 50px !important;
 }
 
-#ajapaik-open-photo-description {
+#ajapaik-grid-open-photo-description {
     width: 50%;
     line-height: 1;
     text-align: left;
@@ -1357,10 +1357,16 @@ a.btn.flip {
     bottom: 50px;
 }
 
-#ajapaik-open-photo-owner {
+#ajapaik-grid-open-photo-owner {
     line-height: 1;
     width: 50%;
     position: relative;
     bottom: 40px;
     text-align: left;
+}
+
+#ajapaik-grid-open-photo-close-drawer {
+    position: relative;
+    bottom: 15px;
+    right: 100px;
 }

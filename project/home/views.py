@@ -383,8 +383,8 @@ def frontpage(request):
 		example = random.choice(Photo.objects.filter(
 			id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
 			rephoto_of__isnull=False))
-	except:
-			example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
+	except ObjectDoesNotExist:
+		example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
 	example_source = Photo.objects.get(pk=example.rephoto_of.id)
 	city_select_form = CitySelectForm(request.GET)
 
@@ -395,10 +395,10 @@ def frontpage(request):
 	filters.register(CityLookupFilterSpec, 'city')
 
 	return render_to_response('frontpage.html', RequestContext(request, {
-	'city_select_form': city_select_form,
-	'filters': filters,
-	'example': example,
-	'example_source': example_source,
+		'city_select_form': city_select_form,
+		'filters': filters,
+		'example': example,
+		'example_source': example_source,
 	}))
 
 
@@ -506,11 +506,11 @@ def photoslug(request, photo_id, pseudo_slug):
 	else:
 		title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 	return render_to_response(template, RequestContext(request, {
-		'photo': photo_obj,
-		'title': title,
-		'description': photo_obj.description,
-		'rephoto': rephoto,
-		'hostname': 'http://%s' % (site.domain, )
+	'photo': photo_obj,
+	'title': title,
+	'description': photo_obj.description,
+	'rephoto': rephoto,
+	'hostname': 'http://%s' % (site.domain, )
 	}))
 
 
