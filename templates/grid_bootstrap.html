@@ -14,7 +14,7 @@
                 <div id="gallery">
                     {% for photo in data %}
                         <a href="{{ photo.1 }}" class="ajapaik-grid-image-container">
-                            <img alt="{{ photo.0 }}" src="" data-src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image lazyload" data-id="{{ photo.0 }}"/>
+                            <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image" data-id="{{ photo.0 }}"/>
                         </a>
                     {% endfor %}
                 </div>
