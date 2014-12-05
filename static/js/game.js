@@ -542,17 +542,22 @@
         });
 
         photosDiv.hoverIntent(function () {
-            if (locationToolsOpen === true && !isMobile) {
-                showPhotos();
-            } else if (locationToolsOpen === false && !isMobile) {
-                showTools();
+//            if (locationToolsOpen === true && !isMobile) {
+//                showPhotos();
+//            } else if (locationToolsOpen === false && !isMobile) {
+//                showTools();
+//            }
+//        }, function () {
+//            if (locationToolsOpen === true && !isMobile) {
+//                hidePhotos();
+//            } else if (locationToolsOpen === false && !isMobile) {
+//                hideTools();
+//            }
+            if (locationToolsOpen) {
+                $('#photos .photo').animate({opacity: 0.33});
             }
         }, function () {
-            if (locationToolsOpen === true && !isMobile) {
-                hidePhotos();
-            } else if (locationToolsOpen === false && !isMobile) {
-                hideTools();
-            }
+            $('#photos .photo').animate({opacity: 1});
         });
 
         photosDiv.find('img').live('click', toggleTouchPhotoView);
@@ -676,7 +681,7 @@
                 // Show info window when the map is opened the first time
                 infowindow.open(window.map, marker);
             }
-
+            $("#photos").addClass("map-open");
             $('#tools').animate({ left: '15%' }, function () {
                 locationToolsOpen = true;
                 var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
@@ -699,6 +704,7 @@
 
         function closeLocationTools(next) {
             locationToolsOpen = false;
+            $("#photos").removeClass("map-open");
             $('#photos').animate({ left: gameOffset });
             $('#tools').animate({ left: '100%' }, function () {
                 var panorama = window.map.getStreetView();
@@ -712,8 +718,9 @@
         }
 
         function showPhotos() {
-            var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
-            $('#tools').animate({ left: photoWidthPercent + '%' });
+            //var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
+            //$('#tools').animate({ left: photoWidthPercent + '%' });
+            $("#photos").hide();
         }
 
         function showTools() {
@@ -725,23 +732,14 @@
 
         function hidePhotos() {
             $('#tools').animate({ left: '15%' });
+            $("#photos").show();
         }
-
-
-
-
-
-
 
         function showDescription() {
             $(currentPhoto).find('.show-description').fadeOut(function () {
                 $(this).parent().parent().find('.description').fadeIn();
             });
         }
-
-
-
-
 
         function showScoreboard() {
             var topDiv = $('#top');

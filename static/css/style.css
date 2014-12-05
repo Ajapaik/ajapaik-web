@@ -546,7 +546,15 @@ a.fullscreen {
     left: 1000px;
     height: 100%;
     display: table;
-    z-index: 1;
+}
+
+.map-open {
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.map-open .photo {
+    pointer-events: all;
 }
 
 #game #photos .photo {
