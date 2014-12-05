@@ -1,8 +1,3 @@
-body, html {
-    height: 100%;
-    overflow-y: auto;
-}
-
 body {
     background: #fff url(../images/bg-subtle-grunge.png) center center;
 }

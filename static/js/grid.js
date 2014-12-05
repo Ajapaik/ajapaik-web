@@ -12,7 +12,6 @@
     /*global screen */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
-            browseDiv = $('#ajapaik-grid-container'),
             doGridAjaxQuery,
             ajaxQueryInProgress = false,
             loadMoreLink = $('#ajapaik-grid-load-more-link'),
@@ -178,8 +177,8 @@
             doGridAjaxQuery();
         });
 
-        browseDiv.scroll(function () {
-            if ((browseDiv.scrollTop() - (browseDiv.height() * 0.75)) > 0 && !ajaxQueryInProgress && window.start <= window.totalPhotoCount) {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() - ($(window).height()) > 0 && !ajaxQueryInProgress && window.start <= window.totalPhotoCount) {
                 doGridAjaxQuery();
             }
         });
