@@ -7,7 +7,7 @@ $(document).ready(function() {
     if (window.currentlySelectedMarkerId) {
         window.highlightSelected(window.currentlySelectedMarkerId, false);
     }
-	//History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
+	History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
 	$('.filter-box').hide();
 	_gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
 	{% if photo.lat and photo.lon %}
@@ -24,89 +24,49 @@ $(document).ready(function() {
 	},function () {
 		$('.rephoto .container .meta ').removeClass('hovered');
 	});
-    $('#ajapaik-grid-open-photo').hoverIntent(function () {
-        $('#ajapaik-grid-open-photo-hover').addClass('ajapaik-grid-open-photo-hovered');
-    }, function () {
-        $('#ajapaik-grid-open-photo-hover').removeClass('ajapaik-grid-open-photo-hovered');
-    });
 });
 </script>
-<div class="photos">
-    <div id="ajapaik-grid-open-photo-container">
-        <div id="ajapaik-grid-open-photo-inner-container">
-            <img id="ajapaik-grid-open-photo" class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}" border="0"/>
-{#            <div id="ajapaik-grid-open-photo-hover">#}
-{#                <p id="ajapaik-grid-open-photo-hover-description">#}
-{#                    {{ photo.description }}#}
-{#                </p>#}
-{#                <p id="ajapaik-grid-open-photo-hover-owner">#}
-{#                    {% if photo.source_url %}#}
-{#                        <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">#}
-{#                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}#}
-{#                        </a>#}
-{#                    {% else %}#}
-{#                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}#}
-{#                    {% endif %}#}
-{#                </p>#}
-{#            </div>#}
-            <ul id="ajapaik-grid-open-photo-rephoto-list">
-                {% for rephoto_item in photo.rephotos.all|slice:":3" %}
-                    <li><a href="{{ rephoto_item.get_absolute_url }}" rel="{{ rephoto_item.id }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'project.home.views.photo_thumb' rephoto_item.id %}" border="0" /></a></li>
-                {% endfor %}
-            </ul>
-            <p id="ajapaik-grid-open-photo-description">{{ photo.description }}</p>
-            <p id="ajapaik-grid-open-photo-owner">
-                {% if photo.source_url %}
-                    <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                    </a>
-                {% else %}
-                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                {% endif %}
-            </p>
-        </div>
-        <a href="#" id="ajapaik-grid-open-photo-close-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
-    </div>
-{% comment %}    <div class="original photo-item">
-        <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img
-                class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}"
-                border="0"/></a>
+<div class="photos clearfix">
 
-        <div class="tools">
+	<div class="browse-nav">
+		<a class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>
+		<!--<a href="#" class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>-->
+		<a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
+		<div class="clearfix"></div>
+		<div id="add-comment">
+			<a href="{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" class="btn green medium" title="{% trans "Add comment" %}">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>)</a>
+		</div>
+		<a href="#" id="close-photo-drawer" class="btn medium" title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
+        <a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Photo', 'Random']);" title="{% trans "Random" %}">&nbsp;</a>
+		<script>
+		var rephotoComment = [];
+		{% for rephoto in photo.rephotos.all %}
+			rephotoComment[{{ rephoto.id }}] = '<a href="{{ rephoto.get_absolute_url }}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a>';
+		{% endfor %}
+		</script>
+	</div><!-- .browse-nav -->
 
-        </div>
-        <div class="browse-nav">
-            <a class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %}
-                ({{ photo.rephotos.count }})</a>
-            <!--<a href="#" class="add-rephoto btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>-->
-            <a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe"
-               title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>
+	<div class="original photo-item">
+		<a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}"><img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}" border="0" /></a>
+		
+		<div class="tools">
+			<div class="description">
+				<p>{{ photo.description }}</p><br/>
+				<p class="owner">
+				{% if photo.source_url %}
+					<a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>
+				{% else %}
+					{{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+				{% endif %}
+				</p>
+            <a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.flipPhoto({{ photo.id }});" title="{% trans "Flip" %}">&nbsp;</a>
+			</div>
+		</div>
+	</div><!-- .original.photo-item -->
 
-            <div class="clearfix"></div>
-            <div id="add-comment">
-                <a href="
-                        {% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
-                   class="btn green medium" title="{% trans "Add comment" %}">{% trans "Add comment" %} (
-                    <fb:comments-count href="
-                            {{ hostname }}{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_detail_url }}{% else %}{{ photo.get_detail_url }}{% endif %}"></fb:comments-count>
-                    )</a>
-            </div>
-            <a href="#" id="close-photo-drawer" class="btn medium"
-               title="{% trans "Close photo" %}">{% trans "Close photo" %}</a>
-            <a href="#" id="random-photo" class="btn shuffle" onClick="_gaq.push(['_trackEvent', 'Photo', 'Random']);"
-               title="{% trans "Random" %}">&nbsp;</a>
-            <script>
-                var rephotoComment = [];
-                {% for rephoto in photo.rephotos.all %}
-                    rephotoComment[{{ rephoto.id }}] = '<a href="{{ rephoto.get_absolute_url }}" class="btn green medium">{% trans "Add comment" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a>';
-                {% endfor %}
-            </script>
-        </div>
-    </div>{% endcomment %}
+	{% if photo.rephotos.all.0.image %}
 
-	{% comment %}{% if photo.rephotos.all.0.image %}
-
-    <div class="rephoto photo-item">
+	<div class="rephoto photo-item">
 		<div class="container">
 			<div class="meta">
 				<div class="content" id="meta_content">
@@ -152,11 +112,10 @@ $(document).ready(function() {
 		<p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
 	</div><!-- .no-refoto -->
 
-	{% endif %}{% endcomment %}
+	{% endif %}
 
 </div><!-- .photos -->
 
-{% comment %}
 <div class="full-box">
 	<div class="full-pic" id="full-large1">
 		<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}" border="0" />
@@ -248,4 +207,3 @@ prepareFullscreen();
 		<p>{% trans "Your rephoto has been uploaded." %}</p>
 	</div>
 </div><!-- #notice-container -->
-{% endcomment %}
