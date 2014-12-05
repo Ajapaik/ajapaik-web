@@ -1,0 +1,42 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n %}
+
+{% block header %}
+    {% include "header_city_selection_bootstrap.html" %}
+{% endblock %}
+{% block layout %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
+    <div id="photo-drawer"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-offset-3"></div>
+            <div class="col-xs-12">
+                <div id="gallery">
+                    {% for photo in data %}
+                        <a href="{{ photo.1 }}" class="ajapaik-grid-image-container">
+                            <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image" data-id="{{ photo.0 }}"/>
+                        </a>
+                    {% endfor %}
+                </div>
+                <div id="ajapaik-grid-load-more">
+                    <a id="ajapaik-grid-load-more-link" href="javascript:void(0);">
+                        {% trans "Load more photos" %}
+                    </a>
+                    <p id="ajapaik-grid-no-more-photos" style="display: none;">
+                        {% trans "No more photos to show" %}
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-offset-3"></div>
+        </div>
+    </div>
+    <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/lazysizes-0.5.0.min.js"></script>
+    <script>
+        window.cityId = {{ city_id | safe }};
+        window.start = {{ start | safe }};
+        window.pageSize = {{ page_size | safe }};
+        window.totalPhotoCount = {{ photo_count | safe }};
+    </script>
+    <script src="{{ STATIC_URL }}js/grid.js"></script>
+{% endblock layout %}

@@ -57,7 +57,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+    <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <script>
+        var isMobile = '{{ request.mobile }}';
+        isMobile = isMobile === 'True';
+    </script>
+    <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
 </head>
 <body>
 <div id="cookie-notice-container" style="display: none;">
@@ -67,24 +90,6 @@
     </div>
 </div>
 <div id="fb-root"></div>
-{% include "header_bootstrap.html" %}
-{% block layout %}{% endblock layout %}
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-<script>
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
-    _gaq.push(['_trackPageview']);
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-</script>
 <script>
     window.fbAsyncInit = function () {
         FB.init({
@@ -145,11 +150,9 @@
         document.getElementById('fb-root').appendChild(e);
     }());
 </script>
-<script>
-    var isMobile = '{{ request.mobile }}';
-    isMobile = isMobile === 'True';
-</script>
-<script src="{{ STATIC_URL }}js/cookie.min.js"></script>
-<script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
+{% block header %}
+    {% include "header_bootstrap.html" %}
+{% endblock header %}
+{% block layout %}{% endblock layout %}
 </body>
 </html>

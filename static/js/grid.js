@@ -14,7 +14,7 @@
     /*global location */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
-            browseDiv = $('#browse'),
+            browseDiv = $('.container'),
             doGridAjaxQuery,
             ajaxQueryInProgress = false,
             loadMoreLink = $('#ajapaik-grid-load-more-link'),
@@ -90,7 +90,7 @@
 
         openPhotoDrawer = function (content) {
             photoDrawerElement.html(content);
-            photoDrawerElement.animate({ top: '7%' });
+            photoDrawerElement.animate({ top: '10%' });
         };
 
         closePhotoDrawer = function () {
@@ -112,12 +112,12 @@
                     if (FB !== undefined) {
                         FB.XFBML.parse();
                     }
-                    $('a.iframe').fancybox({
-                        'width': '75%',
-                        'height': '75%',
-                        'autoScale': false,
-                        'hideOnContentClick': false
-                    });
+//                    $('a.iframe').fancybox({
+//                        'width': '75%',
+//                        'height': '75%',
+//                        'autoScale': false,
+//                        'hideOnContentClick': false
+//                    });
                 }
             });
         };
@@ -197,10 +197,9 @@
             window.loadPhoto(targetId);
         });
 
-        photoDrawerElement.delegate('#close-photo-drawer', 'click', function (e) {
+        photoDrawerElement.delegate('#ajapaik-close-photo-drawer', 'click', function (e) {
             e.preventDefault();
             closePhotoDrawer();
-            $('.filter-box').show();
         });
 
         photoDrawerElement.delegate('a.add-rephoto', 'click', function (e) {
@@ -213,24 +212,6 @@
             e.preventDefault();
             var imagesOnPage = $('.ajapaik-grid-image');
             window.loadPhoto(imagesOnPage[Math.floor(Math.random() * imagesOnPage.length)].dataset.id);
-        });
-
-        $('.filter-box select').change(function () {
-            var uri = new URI(location.href),
-                newQ = URI.parseQuery($(this).val()),
-                isFilterEmpty = false;
-
-            uri.removeQuery(Object.keys(newQ));
-            $.each(newQ, function (i, ii) {
-                ii = String(ii);
-                isFilterEmpty = ii === '';
-            });
-
-            if (!isFilterEmpty) {
-                uri = uri.addQuery(newQ);
-            }
-
-            location.href = uri.toString();
         });
     });
 }());

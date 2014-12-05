@@ -500,7 +500,7 @@ def photoslug(request, photo_id, pseudo_slug):
 		photo_obj = photo_obj.rephoto_of
 
 	site = Site.objects.get_current()
-	template = ['', 'block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+	template = ['', 'block_photoview_bootstrap.html', 'photoview.html'][request.is_ajax() and 1 or 2]
 	if not photo_obj.description:
 		title = "Unknown photo"
 	else:
@@ -868,7 +868,7 @@ def grid(request):
 	filters.register(CityLookupFilterSpec, 'city')
 	data = filters.get_filtered_qs().get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
 	photo_count = filters.get_filtered_qs().get_old_photo_count_for_grid_view()
-	return render_to_response('grid.html', RequestContext(request, {
+	return render_to_response('grid_bootstrap.html', RequestContext(request, {
 		"data": data,
 	    "photo_count": photo_count,
 		"city_id": city_id,

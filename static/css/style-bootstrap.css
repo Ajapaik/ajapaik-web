@@ -1,6 +1,5 @@
 body, html {
     height: 100%;
-    font-family: 'Droid Serif', arial, sans-serif;
     overflow-y: auto;
 }
 
@@ -24,6 +23,7 @@ body {
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    border-radius: 0;
 }
 
 #ajapaik-language-box {
@@ -81,3 +81,76 @@ body {
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
 }
 
+.filter-box {
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.filter-box p:first-child {
+    margin-left: 10px;
+}
+
+.filter-box p label {
+    vertical-align: middle;
+}
+
+.filter-box p {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    color: white;
+    text-shadow: 2px 1px #8E5D2E;
+}
+
+.filter-box p select {
+    color: black;
+}
+
+#photo-drawer {
+    position: fixed;
+    top: -1000px;
+    width: 100%;
+    height: 500px;
+    background: #fff url(../images/bg-subtle-grunge.png) center center;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    z-index: 1000;
+}
+
+#ajapaik-photo-drawer-photo-container {
+    display: inline-block;
+    position: relative;
+}
+
+#ajapaik-block-photoview-main-photo {
+    padding-top: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+#ajapaik-photo-drawer-buttons {
+    padding-top: 10px;
+}
+
+.ajapaik-photo-flipped {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+.ajapaik-flip-photo-button {
+    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.ajapaik-flip-photo-button:hover {
+    background-position: center;
+}
