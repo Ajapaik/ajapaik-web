@@ -69,7 +69,7 @@
                             e.preventDefault();
                             window.loadPhoto(e.target.dataset.id);
                         });
-                        if (galleryDiv.innerHeight() < (browseDiv.height() * 1.5)) {
+                        if (galleryDiv.innerHeight() < ($(window).height() * 1.5)) {
                             doGridAjaxQuery();
                         }
                     }
@@ -81,7 +81,7 @@
             }
         };
 
-        if (galleryDiv.innerHeight() < browseDiv.height()) {
+        if (galleryDiv.innerHeight() < $(window).height()) {
             window.start += window.pageSize;
             doGridAjaxQuery();
         }
