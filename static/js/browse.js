@@ -150,7 +150,6 @@
     };
 
     toggleVisiblePaneElements = function () {
-        photoPaneContainer.hide();
         if (window.map) {
             if (cityId) {
                 var historyReplacementString = '/kaart/?city__pk=' + cityId + '&lat=' + window.map.getCenter().lat() + '&lng=' + window.map.getCenter().lng();
@@ -173,7 +172,6 @@
                     photoPane.html(response);
                     setTimeout(function () {
                         photoPane.justifiedGallery(justifiedGallerySettings);
-                        photoPaneContainer.show();
                     }, 250);
                 });
             }
