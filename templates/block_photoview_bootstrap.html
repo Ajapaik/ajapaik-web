@@ -26,7 +26,9 @@
         /*jslint nomen: true*/
         /*global _gaq */
         {% if photo.lat and photo.lon %}
-            window.map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
+            if (window.map) {
+                window.map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
+            }
         {% endif %}
         if (window.currentlySelectedMarkerId) {
             window.highlightSelected(window.currentlySelectedMarkerId, false);
