@@ -173,7 +173,7 @@
                     photoPane.html(response);
                     setTimeout(function () {
                         photoPane.justifiedGallery(justifiedGallerySettings);
-                    }, 250);
+                    }, 2000);
                 });
             }
 //            for (i = 0; i < markers.length; i += 1) {
