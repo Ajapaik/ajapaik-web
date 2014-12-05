@@ -150,6 +150,7 @@
     };
 
     toggleVisiblePaneElements = function () {
+        photoPaneContainer.hide();
         if (window.map) {
             if (cityId) {
                 var historyReplacementString = '/kaart/?city__pk=' + cityId + '&lat=' + window.map.getCenter().lat() + '&lng=' + window.map.getCenter().lng();
@@ -170,9 +171,8 @@
             if (window.map.zoom > 15) {
                 $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
                     photoPane.html(response);
-                    setTimeout(function () {
-                        photoPane.justifiedGallery(justifiedGallerySettings);
-                    }, 3000);
+                    photoPane.justifiedGallery(justifiedGallerySettings);
+                    photoPaneContainer.show();
                 });
             }
 //            for (i = 0; i < markers.length; i += 1) {
