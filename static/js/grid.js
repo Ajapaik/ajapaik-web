@@ -96,6 +96,7 @@
         closePhotoDrawer = function () {
             var historyReplacementString = '/grid/?city__pk=' + window.cityId;
             photoDrawerElement.animate({ top: '-1000px' });
+            $(".filter-box").show();
             History.replaceState(null, null, historyReplacementString);
         };
 
