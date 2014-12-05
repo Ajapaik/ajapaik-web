@@ -169,6 +169,7 @@
             }
             if (window.map.zoom > 15) {
                 $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
+                    photoPane.empty();
                     photoPane.html(response);
                     setTimeout(function () {
                         photoPane.justifiedGallery(justifiedGallerySettings);
