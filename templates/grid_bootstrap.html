@@ -7,14 +7,14 @@
 {% block layout %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
     <div id="photo-drawer"></div>
-    <div class="container">
+    <div class="container" id="ajapaik-grid-container">
         <div class="row">
             <div class="col-xs-offset-3"></div>
             <div class="col-xs-12">
                 <div id="gallery">
                     {% for photo in data %}
                         <a href="{{ photo.1 }}" class="ajapaik-grid-image-container">
-                            <img alt="{{ photo.0 }}" src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image" data-id="{{ photo.0 }}"/>
+                            <img alt="{{ photo.0 }}" src="" data-src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image lazyload" data-id="{{ photo.0 }}"/>
                         </a>
                     {% endfor %}
                 </div>

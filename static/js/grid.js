@@ -6,15 +6,13 @@
     /*global History */
     /*global FB */
     /*global _gaq */
-    /*global URI */
     /*global document */
     /*global window */
     /*global setTimeout */
     /*global screen */
-    /*global location */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
-            browseDiv = $('.container'),
+            browseDiv = $('#ajapaik-grid-container'),
             doGridAjaxQuery,
             ajaxQueryInProgress = false,
             loadMoreLink = $('#ajapaik-grid-load-more-link'),
@@ -56,9 +54,9 @@
                             newA = document.createElement('a');
                             newImg = document.createElement('img');
                             $(newA).addClass('ajapaik-grid-image-container').attr('href', result[i][1]);
-                            $(newImg).attr('src', result[i][1]).attr('data-src', result[i][1]).attr('width', result[i][2])
+                            $(newImg).attr('src', '').attr('data-src', result[i][1]).attr('width', result[i][2])
                                 .attr('height', result[i][3]).attr('alt', result[i][0])
-                                .addClass('').addClass('ajapaik-grid-image')
+                                .addClass('lazyload').addClass('ajapaik-grid-image')
                                 .attr('data-id', result[i][0]);
                             newA.appendChild(newImg);
                             $('#gallery').append(newA);
