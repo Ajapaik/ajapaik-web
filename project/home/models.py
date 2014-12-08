@@ -370,6 +370,15 @@ class Photo(models.Model):
 			slug = slugify(self.created.__format__("%Y-%m-%d"))
 		return slug
 
+	def get_heatmap_points(self):
+		#TODO: Restore
+		#valid_geotags = self.geotags.filter(trustworthiness__gt=0.2)
+		valid_geotags = self.geotags.filter()
+		data = []
+		for each in valid_geotags:
+			data.append([each.lat, each.lon])
+		return data
+
 	def set_calculated_fields(self):
 		photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
 		weighted_level_sum, total_weight = 0, 0

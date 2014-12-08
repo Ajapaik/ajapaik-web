@@ -482,6 +482,15 @@ def _add_log_entry_if_necessary(user_profile, photo_id, user_action):
 			log_entry.user_profile = user_profile
 			log_entry.save()
 
+def heatmap_points(request):
+	res = []
+	photo_id = request.GET.get("photo_id") or None
+	if photo_id:
+		targetPhoto = Photo.objects.filter(pk=photo_id).get()
+		if hasattr(targetPhoto, "rephoto_of") and targetPhoto.rephoto_of is not None:
+			targetPhoto = targetPhoto.rephoto_of
+		res = targetPhoto.get_heatmap_points()
+	return HttpResponse(json.dumps(res), content_type="application/json")
 
 def photoslug(request, photo_id, pseudo_slug):
 	photo_obj = get_object_or_404(Photo, id=photo_id)
@@ -506,11 +515,11 @@ def photoslug(request, photo_id, pseudo_slug):
 	else:
 		title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 	return render_to_response(template, RequestContext(request, {
-	'photo': photo_obj,
-	'title': title,
-	'description': photo_obj.description,
-	'rephoto': rephoto,
-	'hostname': 'http://%s' % (site.domain, )
+		'photo': photo_obj,
+		'title': title,
+		'description': photo_obj.description,
+		'rephoto': rephoto,
+		'hostname': 'http://%s' % (site.domain, )
 	}))
 
 

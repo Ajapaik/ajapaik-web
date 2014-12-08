@@ -11,7 +11,7 @@
                      class="{% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                      src="{% url 'project.home.views.photo_url' photo.id %}"/>
                 <button class="btn btn-default ajapaik-flip-photo-button"></button>
-                <button class="btn btn-default ajapaik-open-heatmap-button"></button>
+                <button class="btn btn-default ajapaik-open-heatmap-button" data-id="{{ photo.id }}"></button>
             </div>
             {% if photo.description %}
                 <div class="row">
@@ -38,9 +38,6 @@
 
 <script>
     $(document).ready(function () {
-        'use strict';
-        /*jslint nomen: true*/
-        /*global _gaq */
         {% if photo.lat and photo.lon %}
             if (window.map) {
                 window.map.panTo(new google.maps.LatLng({{ photo.lat }}, {{ photo.lon }}));
@@ -60,8 +57,8 @@
                 target.addClass("ajapaik-photo-flipped");
             }
         });
-        $(".ajapaik-open-heatmap-button").click(function () {
-
+        $(".ajapaik-open-heatmap-button").click(function (e) {
+            window.showHeatmap(e.target.dataset.id);
         });
     });
 </script>

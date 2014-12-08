@@ -115,6 +115,7 @@ body {
 #ajapaik-photo-drawer-photo-container {
     display: inline-block;
     position: relative;
+    margin-bottom: 10px;
 }
 
 #ajapaik-block-photoview-main-photo {
@@ -155,6 +156,13 @@ body {
     left: 5px;
 }
 
+.ajapaik-grid-close-map-button {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 1002;
+}
+
 .ajapaik-flip-photo-button:hover {
     background-position: center;
 }
@@ -165,5 +173,14 @@ body {
 }
 
 #ajapaik-grid-map-container {
-    height: 500px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 85%;
+    webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    display: none;
+    z-index: 1001;
 }
