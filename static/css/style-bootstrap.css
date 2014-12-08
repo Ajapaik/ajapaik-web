@@ -200,7 +200,7 @@ body {
 }
 
 #ajapaik-grid-guess-photo {
-    position: absolute;
+    position: fixed;
     top: 15%;
     z-index: 1003;
     left: 2%;
