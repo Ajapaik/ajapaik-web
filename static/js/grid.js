@@ -100,6 +100,9 @@
                     var guessPhoto = $('#ajapaik-grid-guess-photo');
                     guessPhoto.attr('src', ($('#ajapaik-block-photoview-main-photo').attr('src')));
                     guessPhoto.show();
+                    var guessPhotoBack = $('#ajapaik-grid-guess-photo-back');
+                    guessPhotoBack.attr('src', ($('#ajapaik-block-photoview-main-photo').attr('src')));
+                    guessPhotoBack.show();
                     $('#photo-drawer').hide();
                 }
             });
@@ -108,6 +111,7 @@
         $('.ajapaik-grid-close-map-button').click(function () {
             $('#photo-drawer').show();
             $('#ajapaik-grid-guess-photo').hide();
+            $('#ajapaik-grid-guess-photo-back').hide();
             $('#ajapaik-grid-map-container').hide();
         });
 
