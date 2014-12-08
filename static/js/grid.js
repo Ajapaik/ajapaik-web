@@ -10,6 +10,7 @@
     /*global window */
     /*global setTimeout */
     /*global screen */
+    /*global google */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
             doGridAjaxQuery,
@@ -18,7 +19,27 @@
             photoDrawerElement = $('#photo-drawer'),
             openPhotoDrawer,
             closePhotoDrawer,
-            photoId;
+            photoId,
+            mapOpts = {
+                zoom: 14,
+                center: new google.maps.LatLng(59, 26)
+//                scrollwheel: false,
+//                center: latLng,
+//                mapTypeControl: true,
+//                panControl: true,
+//                panControlOptions: {
+//                    position: google.maps.ControlPosition.LEFT_CENTER
+//                },
+//                zoomControl: true,
+//                zoomControlOptions: {
+//                    position: google.maps.ControlPosition.LEFT_CENTER
+//                },
+//                streetViewControl: true,
+//                streetViewControlOptions: {
+//                    position: google.maps.ControlPosition.LEFT_CENTER
+//                },
+//                streetView: streetPanorama
+            };
 
         galleryDiv.justifiedGallery({
             rowHeight: 120,
@@ -37,6 +58,8 @@
         $.ajaxSetup({
             headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
         });
+
+        window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOpts);
 
         doGridAjaxQuery = function () {
             var i,

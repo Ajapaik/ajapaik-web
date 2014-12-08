@@ -4,19 +4,35 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-8" id="ajapaik-photo-drawer-photo-column">
+        <div class="col-xs-3"></div>
+        <div class="col-xs-9" id="ajapaik-photo-drawer-photo-column">
             <div class="row" id="ajapaik-photo-drawer-photo-container">
                 <img id="ajapaik-block-photoview-main-photo"
                      class="{% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                      src="{% url 'project.home.views.photo_url' photo.id %}"/>
                 <button class="btn btn-default ajapaik-flip-photo-button"></button>
+                <button class="btn btn-default ajapaik-open-heatmap-button"></button>
             </div>
+            {% if photo.description %}
+                <div class="row">
+                    <p>{{ photo.description }}</p>
+                </div>
+            {% endif %}
+            {% if photo.source_url %}
+                <div class="row">
+                    <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                    </a>
+                </div>
+            {% elif photo.source.description %}
+                <div class="row" id="ajapaik-photo-drawer-description">
+                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                </div>
+            {% endif %}
             <div class="row" id="ajapaik-photo-drawer-buttons">
-                <button id="ajapaik-close-photo-drawer" type="button" class="btn btn-primary pull-right">{% trans "Close photo" %}</button>
+                <button id="ajapaik-close-photo-drawer" type="button" class="btn btn-primary">{% trans "Close photo" %}</button>
             </div>
         </div>
-        <div class="col-xs-2"></div>
     </div>
 </div>
 
@@ -43,6 +59,9 @@
             } else {
                 target.addClass("ajapaik-photo-flipped");
             }
+        });
+        $(".ajapaik-open-heatmap-button").click(function () {
+
         });
     });
 </script>
