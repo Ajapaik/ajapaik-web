@@ -20,12 +20,7 @@
             openPhotoDrawer,
             closePhotoDrawer,
             photoId,
-            mapOpts = {
-                zoom: 14,
-                center: new google.maps.LatLng(59, 26),
-//                scrollwheel: false,
-//                center: latLng,
-                mapTypeControl: true,
+            streetViewOptions = {
                 panControl: true,
                 panControlOptions: {
                     position: google.maps.ControlPosition.LEFT_CENTER
@@ -34,11 +29,30 @@
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.LEFT_CENTER
                 },
+                addressControl: false,
+                linksControl: true,
+                linksControlOptions: {
+                    position: google.maps.ControlPosition.BOTTOM_CENTER
+                },
+                enableCloseButton: true,
+                visible: false
+            },
+            mapOptions = {
+                zoom: 14,
+                center: new google.maps.LatLng(59, 26),
+                mapTypeControl: true,
+                panControl: true,
+                panControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
                 streetViewControl: true,
                 streetViewControlOptions: {
-                    position: google.maps.ControlPosition.LEFT_CENTER
+                    position: google.maps.ControlPosition.RIGHT_TOP
                 }
-//                streetView: streetPanorama
             };
 
         galleryDiv.justifiedGallery({
@@ -78,15 +92,22 @@
                         data: points
                     });
                     heatmap.setOptions({radius: 50, dissipating: true});
-                    window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOpts);
+                    mapOptions.streetPanorama = new google.maps.StreetViewPanorama(document.getElementById('ajapaik-grid-map-canvas'), streetViewOptions);
+                    window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOptions);
                     window.map.setCenter(latlngbounds.getCenter());
-                    window.map.fitBounds(latlngbounds);
+                    window.map.zoom = 15;
                     heatmap.setMap(window.map);
+                    var guessPhoto = $('#ajapaik-grid-guess-photo');
+                    guessPhoto.attr('src', ($('#ajapaik-block-photoview-main-photo').attr('src')));
+                    guessPhoto.show();
+                    $('#photo-drawer').hide();
                 }
             });
         };
 
         $('.ajapaik-grid-close-map-button').click(function () {
+            $('#photo-drawer').show();
+            $('#ajapaik-grid-guess-photo').hide();
             $('#ajapaik-grid-map-container').hide();
         });
 

@@ -158,8 +158,15 @@ body {
 
 .ajapaik-grid-close-map-button {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1002;
+}
+
+.ajapaik-grid-guess-location {
+    position: absolute;
+    bottom: 75px;
+    right: 25px;
     z-index: 1002;
 }
 
@@ -174,7 +181,7 @@ body {
 
 #ajapaik-grid-map-container {
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     width: 85%;
@@ -183,4 +190,20 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     display: none;
     z-index: 1001;
+}
+
+#ajapaik-grid-map-info-panel {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    z-index: 1003;
+}
+
+#ajapaik-grid-guess-photo {
+    position: absolute;
+    top: 15%;
+    z-index: 1003;
+    left: 2%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    display: none;
 }
