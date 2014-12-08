@@ -511,7 +511,7 @@ def photoslug(request, photo_id, pseudo_slug):
 		photo_obj = photo_obj.rephoto_of
 
 	site = Site.objects.get_current()
-	template = ['', 'block_photoview_bootstrap.html', 'photoview.html'][request.is_ajax() and 1 or 2]
+	template = ['', 'block_photoview_bootstrap.html', 'photoview_bootstrap.html'][request.is_ajax() and 1 or 2]
 	if not photo_obj.description:
 		title = "Unknown photo"
 	else:

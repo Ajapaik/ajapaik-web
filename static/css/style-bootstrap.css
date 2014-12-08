@@ -119,7 +119,6 @@ body {
 }
 
 #ajapaik-block-photoview-main-photo {
-    padding-top: 20px;
     display: block;
     margin: 0 auto;
 }
@@ -208,10 +207,6 @@ body {
     display: none;
 }
 
-#ajapaik-grid-guess-photo:hover {
-    opacity: 0;
-}
-
 #ajapaik-grid-guess-photo-back {
     position: fixed;
     top: 15%;
@@ -219,4 +214,35 @@ body {
     left: 2%;
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     display: none;
+}
+
+a.fullscreen {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+}
+
+.full-box {
+    position: relative;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.full-pic {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: black url('../images/ajax_loader_gray_256.gif') center center no-repeat;
+    background-size: 128px 128px;
+    width: 100%;
+    height: 100%;
+}
+
+.full-pic img {
+    min-width: 128px;
+    min-height: 128px;
+    opacity: 0;
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
 }

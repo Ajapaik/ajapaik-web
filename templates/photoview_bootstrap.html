@@ -1,0 +1,322 @@
+{% extends "base_bootstrap.html" %}
+{% load thumbnail i18n %}
+<link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.1.custom/jquery-ui.min.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/css/jquery.fileupload.css">
+
+{% block layout %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-5" id="ajapaik-photo-drawer-photo-column">
+            <div class="row" id="ajapaik-photo-drawer-photo-container">
+                <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}">
+                    <img id="ajapaik-block-photoview-main-photo" class="img-responsive {% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}" />
+                </a>
+                <button class="btn btn-default ajapaik-flip-photo-button"></button>
+                <button class="btn btn-default ajapaik-open-heatmap-button" data-id="{{ photo.id }}"></button>
+            </div>
+            {% if photo.description %}
+                <div class="row">
+                    <p>{{ photo.description }}</p>
+                </div>
+            {% endif %}
+            {% if photo.source_url %}
+                <div class="row">
+                    <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                    </a>
+                </div>
+            {% elif photo.source.description %}
+                <div class="row" id="ajapaik-photo-drawer-description">
+                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-5">
+            
+        </div>
+        <div class="col-xs-2">
+            {% for rephoto in photo.rephotos.all %}
+                <div class="row"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img class="img-responsive" src="{% url 'project.home.views.photo_thumb' rephoto.id %}" width="50" /></a></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div id="ajapaik-grid-map-container">
+    <div class="panel panel-default" id="ajapaik-grid-map-info-panel">
+        <div class="panel-body">
+            {% trans "Geotags" %}: <span id="ajapaik-grid-map-geotag-count"></span>
+            <br/>
+            {% trans "With azimuth" %}: <span id="ajapaik-grid-map-geotag-with-azimuth-count"></span>
+        </div>
+    </div>
+    <button class="btn btn-primary ajapaik-grid-guess-location">{% trans "Guess location" %}</button>
+    <button class="btn btn-primary ajapaik-grid-close-map-button">{% trans "Close map" %}</button>
+    <div id="ajapaik-grid-map-canvas"></div>
+</div>
+<img src="{% url 'project.home.views.photo_url' photo.id %}" id="ajapaik-grid-guess-photo" />
+<img src="{% url 'project.home.views.photo_url' photo.id %}" id="ajapaik-grid-guess-photo-back" />
+<div class="full-box">
+	<div class="full-pic" id="full-large1">
+		<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}" border="0" />
+	</div>
+</div>
+<script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
+<script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        window.barePhotoview = true;
+        _gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
+        $(".ajapaik-flip-photo-button").click(function () {
+            var target = $("#ajapaik-block-photoview-main-photo");
+            if (target.hasClass("ajapaik-photo-flipped")) {
+                target.removeClass("ajapaik-photo-flipped");
+            } else {
+                target.addClass("ajapaik-photo-flipped");
+            }
+        });
+        $(".ajapaik-open-heatmap-button").click(function (e) {
+            window.showHeatmap(e.target.dataset.id);
+        });
+        var prepareFullscreen = function() {
+            $(".full-box img").load(function () {
+                var that = $(this),
+                    aspectRatio = that.width() / that.height(),
+                    newWidth = parseInt(screen.height * aspectRatio),
+                    newHeight = parseInt(screen.width / aspectRatio);
+                if (newWidth > screen.width) {
+                    newWidth = screen.width;
+                } else {
+                    newHeight = screen.height;
+                }
+                that.css("margin-left", (screen.width - newWidth) / 2 + "px");
+                that.css("margin-top", (screen.height - newHeight) / 2 + "px");
+                that.css("width", newWidth);
+                that.css("height", newHeight);
+                that.css("opacity", 1);
+            });
+        };
+
+        $('.full-box div').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.exit();
+            }
+        });
+
+        $('#full-thumb1').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.request($('#full-large1')[0]);
+                _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
+            }
+        });
+
+        prepareFullscreen();
+    });
+</script>
+{% endblock %}
+
+{#        <div id="content" class="single">#}
+{#            <div class="photos clearfix">#}
+{#                <div class="original photo-item">#}
+{#                    <span class="framed rounded">#}
+{#                        <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}">#}
+{#                            <img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}" border="0" />#}
+{#                        </a>#}
+{#                    </span>#}
+{#                    <div class="tools">#}
+{#                        <div class="description">#}
+{#                            <p>{{ photo.description }}</p><br/>#}
+{#                            <p class="owner">#}
+{#                            {% if photo.source_url %}#}
+{#                                <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">#}
+{#                                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}</a>#}
+{#                            {% else %}#}
+{#                                {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}#}
+{#                            {% endif %}#}
+{#                            </p>#}
+{#                        <a href="#" id="browse-flip-button" class="btn flip" onClick="_gaq.push(['_trackEvent', 'Photo', 'Flip']); window.flipPhoto({{ photo.id }});" title="{% trans "Flip" %}">&nbsp;</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                {% if rephoto.image %}#}
+{#                    <div class="rephoto photo-item">#}
+{#                        <div class="container">#}
+{#                            <div class="meta">#}
+{#                                <div class="content" id="meta_content">#}
+{#                                    {% if rephoto.user.fb_name %}<p class="owner"><img style="padding-right: 10px;float: left;height: 30px;" src="{{ STATIC_URL }}images/cc-at-sa.png" title="Creative Commons Attribution-ShareAlike" /><a href="{{ rephoto.user.fb_link }}" target="_blank"><img style="width:30px;height:30px;" src="http://graph.facebook.com/{{ rephoto.user.fb_id }}/picture?type=square" title="{{ rephoto.user.fb_name }}" /></a></p>{% endif %}#}
+{#                                    <p style="float:right;"> {% if rephoto.date %}{{ rephoto.date|date:"F d, Y" }}{% else %}{{ rephoto.created|date:"F d, Y" }}{% endif %}</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <a class="fullscreen" id="full-thumb2" rel="{{ rephoto.id }}" href="{{ rephoto.get_absolute_url }}"><img src="{% url 'project.home.views.photo_url' rephoto.id %}" border="0" /></a>#}
+{#                        </div>#}
+{#                        <div class="tools">#}
+{#                            <ul class="thumbs">#}
+{#                                {% for rephoto_item in photo.rephotos.all %}#}
+{#                                <li class="photo{% if rephoto_item.id == rephoto.id %} current{% endif %}"><a href="{{ rephoto_item.get_absolute_url }}" title="{% if rephoto_item.user.fb_name %}{{ rephoto_item.user.fb_name }}{% endif %}"><img src="{% url 'project.home.views.photo_thumb' rephoto_item.id %}" width="50" border="0" /></a></li>#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="browse-nav">#}
+{#                        <a href="{{ photo.get_absolute_url }}" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>#}
+{#                        <a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>#}
+{#                        {% if photo.city.lat and photo.city.lon %}#}
+{#                        <a href="/kaart/?city__pk={{ photo.city_id }}" class="btn medium green" title="{{ photo.city }}">{{ photo.city }}</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#			    {% else %}#}
+{#                    <div class="no-rephoto">#}
+{#                        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/js/vendor/jquery.ui.widget.js"></script>#}
+{#                        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/js/jquery.iframe-transport.js"></script>#}
+{#                        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/js/jquery.fileupload.js"></script>#}
+{#                        <script type="text/javascript">#}
+{#                            /*jslint unparam: true */#}
+{#                            /*global window, $ */#}
+{#                            $(function () {#}
+{#                                'use strict';#}
+{#                                var url = '{% url 'project.home.views.photo_upload' photo.pk %}';#}
+{#                                var ok = false;#}
+{#                                $('#fileupload').fileupload({#}
+{#                                    url: url,#}
+{#                                    dataType: 'json',#}
+{#                                    autoUpload: false,#}
+{#                                    done: function (e, data) {#}
+{#                                        uploadCompleted($.parseJSON(data));#}
+{#                                    },#}
+{#                                    change: function (e, data) {#}
+{#                                        $.each(data.files, function (index, file) {#}
+{#                                            var filesList = data.files;#}
+{#                                            ok = confirm("{% trans 'Selected file' %}" + ": " + file.name + ", " + "{% trans 'upload?' %}");#}
+{#                                            if (ok) {#}
+{#                                                $('#fileupload').fileupload('send', {files: filesList});#}
+{#                                            }#}
+{#                                        });#}
+{#                                    },#}
+{#                                    progressall: function (e, data) {#}
+{#                                        var progress = parseInt(data.loaded / data.total * 100, 10);#}
+{#                                        $('#progress').find('.progress-bar').css('width', progress + '%');#}
+{#                                    }#}
+{#                                }).prop('disabled', !$.support.fileInput).parent()#}
+{#                                        .addClass($.support.fileInput ? undefined : 'disabled')#}
+{#                            });#}
+{#                        </script>#}
+{#                        <p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>#}
+{#                        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}#}
+{#                            {% with profile=request.user.profile user=request.user %}#}
+{#                                <p>{% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click here{{ link_close }}.{% endblocktrans %}</p>#}
+{#                                <span class="btn btn-success fileinput-button">#}
+{#                                    <span>{% trans "Select file..." %}</span>#}
+{#                                    <input id="fileupload" type="file" name="user_file[]" accept="image/*">#}
+{#                                </span>#}
+{#                                <br>#}
+{#                                <br>#}
+{#                                <div id="progress" class="progress">#}
+{#                                    <div class="progress-bar progress-bar-success"></div>#}
+{#                                </div>#}
+{#                                <br>#}
+{#                            {% endwith %}#}
+{#                        {% else %}#}
+{#                            <div id="facebook-connect" align="center">#}
+{#                                <p>{% trans "Rephoto uploading requires connecting your account with Facebook." %}</p>#}
+{#                                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>#}
+{#                            </div>#}
+{#                            {% comment %}<div id="google-plus-connect" align="center">#}
+{#                                <p>{% trans "You can also connect your Rephoto account with Google Plus." %}</p>#}
+{#                                <a id="google-plus-login-button" href="/google_login">{% trans "Connect with Google+" %}</a>#}
+{#                            </div>{% endcomment %}#}
+{#                        {% endif %}#}
+{##}
+{#                        <div class="tools">#}
+{#                            <ul class="thumbs">#}
+{#                                {% for rephoto in photo.rephotos.all %}#}
+{#                                <li class="photo"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img src="{% url 'project.home.views.photo_thumb' rephoto.id %}" width="50" border="0" /></a></li>#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                    <div class="browse-nav">#}
+{#                        <a href="{{ photo.get_absolute_url }}" onclick="jQuery('.no-rephoto').fadeOut(300).fadeIn(150);return false;" class="btn green medium" title="{% trans "Add rephoto" %}">{% trans "Add rephoto" %} ({{ photo.rephotos.count }})</a>#}
+{#                        <a href="{{ photo.get_heatmap_url }}" class="btn medium green iframe" title="{% trans "Heat map" %}">{% trans "Heat map" %}</a>#}
+{#                        {% if photo.city.lat and photo.city.lon %}#}
+{#                        <a href="/kaart/?city__pk={{ photo.city_id }}" class="btn medium green" title="{{ photo.city }}">{{ photo.city }}</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#			{% endif %}#}
+{#        </div>#}
+{##}
+{#		<h2 class="add_comment">{% trans "Add comment" %}</h2>#}
+{#        <ul class="tabs clearfix">#}
+{#            <li><a href="#">{% trans "Historic photo" %} (<fb:comments-count href="{{ hostname }}{{ photo.get_detail_url }}"></fb:comments-count>)</a></li>#}
+{##}
+{#			{% if rephoto %}#}
+{#            <li><a href="#">{% trans "Selected rephoto" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a></li>#}
+{#			{% endif %}#}
+{#        </ul>#}
+{#        #}
+{#        <div class="panes">#}
+{#            <div class="pane">#}
+{#                <div class="photo-socials">#}
+{#                    <div>#}
+{#                        <fb:like href="{{ hostname }}{{ photo.get_detail_url }}" send="true" width="500" show_faces="true" action="recommend"></fb:like>#}
+{#                    </div>#}
+{#                    <div>&nbsp;</div>#}
+{#                    <div>#}
+{#                        <fb:comments href="{{ hostname }}{{ photo.get_detail_url }}" num_posts="3" width="500"></fb:comments>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#			{% if rephoto %}#}
+{#			<div class="pane">#}
+{#				<div class="photo-socials">#}
+{#					<div>#}
+{#						<fb:like href="{{ hostname }}{{ rephoto.get_detail_url }}" send="true" width="500" show_faces="true" action="recommend"></fb:like>#}
+{#					</div>#}
+{#					<div>&nbsp;</div>#}
+{#					<div>#}
+{#						<fb:comments href="{{ hostname }}{{ rephoto.get_detail_url }}" num_posts="3" width="500"></fb:comments>#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+{#			{% endif %}#}
+{##}
+{#		</div>#}
+{#	</div>#}
+{##}
+{#	<div class="full-box">#}
+{#		<div class="full-pic" id="full-large1">#}
+{#			<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}" border="0" />#}
+{#		</div>#}
+{#		{% if rephoto %}#}
+{#		<div class="full-pic" id="full-large2">#}
+{#			<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' rephoto.id %}" border="0" />#}
+{#		</div>#}
+{#		{% endif %}#}
+{#	</div>#}
+{##}
+{#</div>#}
+{##}
+{#<script type="text/javascript">#}
+{#$(function() {#}
+{#	$('.photos .original .framed img').load(function() {#}
+{#		$('.no-rephoto').css('width', $(this).css('width') );#}
+{#	});#}
+{#	$("ul.tabs").tabs("div.panes > .pane", {effect: 'fade'});#}
+{#	{% if rephoto %}#}
+{#	    $('ul.tabs li:nth-child(2) a').click();#}
+{#	{% endif %}#}
+{#	$('ul.tabs li a').click(function(){#}
+{#		if (typeof FB != 'undefined') {#}
+{#			// Firefox like box rendering fix#}
+{#			FB.XFBML.parse();#}
+{#		}#}
+{#	});#}
+{#	prepareFullscreen();#}
+{#});#}
+{#</script>#}
+{#<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>#}
+{#<script type="text/javascript" src="{{ STATIC_URL }}js/init.js"></script>#}
+{#<script type="text/javascript" src="{{ STATIC_URL }}js/browse.js"></script>#}
+{#{% endblock %}#}

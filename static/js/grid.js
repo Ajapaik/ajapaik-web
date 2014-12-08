@@ -129,6 +129,14 @@
             $('#ajapaik-grid-map-container').hide();
         });
 
+        $('#ajapaik-grid-guess-photo').hover(function () {
+            $(this).hide();
+        });
+
+        $('#ajapaik-grid-guess-photo-back').hover(function () {
+            $('#ajapaik-grid-guess-photo').show();
+        });
+
         doGridAjaxQuery = function () {
             var i,
                 newA,
