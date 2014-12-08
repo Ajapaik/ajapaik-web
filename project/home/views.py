@@ -482,14 +482,16 @@ def _add_log_entry_if_necessary(user_profile, photo_id, user_action):
 			log_entry.user_profile = user_profile
 			log_entry.save()
 
-def heatmap_points(request):
-	res = []
+def heatmap_data(request):
+	res = {}
 	photo_id = request.GET.get("photo_id") or None
 	if photo_id:
 		targetPhoto = Photo.objects.filter(pk=photo_id).get()
 		if hasattr(targetPhoto, "rephoto_of") and targetPhoto.rephoto_of is not None:
 			targetPhoto = targetPhoto.rephoto_of
-		res = targetPhoto.get_heatmap_points()
+		if targetPhoto.lat and targetPhoto.lon:
+			res["estimated_location"] = [targetPhoto.lat, targetPhoto.lon]
+		res["heatmap_points"] = targetPhoto.get_heatmap_points()
 	return HttpResponse(json.dumps(res), content_type="application/json")
 
 def photoslug(request, photo_id, pseudo_slug):

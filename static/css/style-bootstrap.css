@@ -213,14 +213,10 @@ body {
 }
 
 #ajapaik-grid-guess-photo-back {
-    position: absolute;
+    position: fixed;
     top: 15%;
     z-index: 1000;
     left: 2%;
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     display: none;
-}
-
-.navbar {
-    margin-bottom: 0 !important;
 }

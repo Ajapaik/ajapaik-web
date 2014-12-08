@@ -11,6 +11,7 @@
     /*global setTimeout */
     /*global screen */
     /*global google */
+    /*global gettext */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
             doGridAjaxQuery,
@@ -76,14 +77,14 @@
         window.showHeatmap = function (photoId) {
             $.ajax({
                 cache: false,
-                url: '/heatmap_points/',
+                url: '/heatmap_data/',
                 data: {photo_id: photoId},
                 success: function (result) {
                     $('#ajapaik-grid-map-container').show();
                     var points = [];
                     var latlngbounds = new google.maps.LatLngBounds();
-                    for (var i = 0; i < result.length; i += 1) {
-                        var newLatLng = new google.maps.LatLng(result[i][0], result[i][1]);
+                    for (var i = 0; i < result.heatmap_points.length; i += 1) {
+                        var newLatLng = new google.maps.LatLng(result.heatmap_points[i][0], result.heatmap_points[i][1]);
                         points.push(newLatLng);
                         latlngbounds.extend(newLatLng);
                     }
@@ -96,6 +97,19 @@
                     window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOptions);
                     window.map.setCenter(latlngbounds.getCenter());
                     window.map.zoom = 15;
+                    if (result.estimated_location) {
+                        var playerLatlng = new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]);
+                        var markerImage = {
+                            url: '/static/images/ajapaik_marker_35px.png'
+                        };
+                        var playerMarker = new google.maps.Marker({
+                            position: playerLatlng,
+                            map: window.map,
+                            title: gettext("Your guess"),
+                            draggable: false,
+                            icon: markerImage
+                        });
+                    }
                     heatmap.setMap(window.map);
                     var guessPhoto = $('#ajapaik-grid-guess-photo');
                     guessPhoto.attr('src', ($('#ajapaik-block-photoview-main-photo').attr('src')));
