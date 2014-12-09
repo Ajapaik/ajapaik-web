@@ -223,7 +223,7 @@
                         moveOrCreateHeatmapEstimatedLocationMarker(new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]));
                     }
                     if (estimatedLocationMarker) {
-                        window.map.setCenter(estimatedLocation);
+                        window.map.setCenter(estimatedLocationMarker.getPosition());
                         window.map.setZoom(17);
                     } else {
                         window.map.fitBounds(latLngBounds);
