@@ -12,6 +12,7 @@
     /*global screen */
     /*global google */
     /*global gettext */
+    /*global isMobile */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
             doGridAjaxQuery,
@@ -22,6 +23,20 @@
             closePhotoDrawer,
             photoId,
             marker,
+            radianAngle,
+            degreeAngle,
+            azimuthListenerActive = true,
+            firstDragDone = false,
+            saveDirection = false,
+            centerMarker,
+            mapClickListenerFunction,
+            mapDragstartListenerFunction,
+            mapIdleListenerFunction,
+            mapMousemoveListenerFunction,
+            mapClickListenerActive,
+            mapDragstartListenerActive,
+            mapIdleListenerActive,
+            mapMousemoveListenerActive,
             guessLocationStarted = false,
             streetViewOptions = {
                 panControl: true,
@@ -115,7 +130,7 @@
                     mapOptions.streetPanorama = new google.maps.StreetViewPanorama(document.getElementById('ajapaik-grid-map-canvas'), streetViewOptions);
                     window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOptions);
                     window.map.setCenter(latlngbounds.getCenter());
-                    window.map.zoom = 17;
+                    window.map.setZoom(17);
                     if (result.estimated_location) {
                         estimatedLocation = new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]);
                         estimatedLocationMarker = new google.maps.Marker({
@@ -139,6 +154,60 @@
             });
         };
 
+        mapClickListenerFunction = function (e) {
+            radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
+            degreeAngle = Math.degrees(radianAngle);
+            if (azimuthListenerActive) {
+                mapMousemoveListenerActive = false;
+                google.maps.event.clearListeners(window.map, 'mousemove');
+                saveDirection = true;
+                $('.ajapaik-grid-save-location').text(gettext('Save location and direction'));
+                window.dottedAzimuthLine.icons[0].repeat = '2px';
+                window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
+                window.dottedAzimuthLine.setVisible(true);
+            } else {
+                if (!mapMousemoveListenerActive) {
+                    google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                    mapMousemoveListenerActive = true;
+                    google.maps.event.trigger(window.map, 'mousemove', e);
+                }
+            }
+            azimuthListenerActive = !azimuthListenerActive;
+        };
+
+        mapMousemoveListenerFunction = function (e) {
+            // The mouse is moving, therefore we haven't locked on a direction
+            $('.ajapaik-grid-save-location').text(gettext('Save location only'));
+            saveDirection = false;
+            radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
+            degreeAngle = Math.degrees(radianAngle);
+            if (!isMobile) {
+                window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
+                window.dottedAzimuthLine.setMap(window.map);
+                window.dottedAzimuthLine.icons = [
+                    {icon: window.dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
+                ];
+                window.dottedAzimuthLine.setVisible(true);
+            } else {
+                window.dottedAzimuthLine.setVisible(false);
+            }
+        };
+
+        mapIdleListenerFunction = function () {
+            if (firstDragDone) {
+                marker.position = window.map.center;
+                azimuthListenerActive = true;
+                centerMarker
+                    .css('background-image', 'url("http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png")')
+                    .css('margin-left', '-8px')
+                    .css('margin-top', '-9px');
+                if (!mapMousemoveListenerActive) {
+                    google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                    mapMousemoveListenerActive = true;
+                }
+            }
+        };
+
         window.startGuessLocation = function () {
             if (!guessLocationStarted) {
                 marker = new google.maps.Marker({
@@ -155,6 +224,8 @@
                     }
                     that.data('win').open(window.map);
                 });
+                centerMarker = $('.center-marker');
+                $('.ajapaik-grid-guess-location').hide();
                 guessLocationStarted = true;
             }
         };

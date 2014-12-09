@@ -99,7 +99,7 @@
             toggleTouchPhotoView();
         }
         radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
-        degreeAngle = window.radiansToDegrees(radianAngle);
+        degreeAngle = Math.degrees(radianAngle);
         if (azimuthListenerActive) {
             mapMousemoveListenerActive = false;
             google.maps.event.clearListeners(window.map, 'mousemove');
@@ -123,7 +123,7 @@
         $('#save-location').text(gettext('Save location only')).removeClass('medium').addClass('green');
         saveDirection = false;
         radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
-        degreeAngle = window.radiansToDegrees(radianAngle);
+        degreeAngle = Math.degrees(radianAngle);
         if (!isMobile) {
             window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
             window.dottedAzimuthLine.setMap(window.map);
@@ -532,7 +532,6 @@
         });
 
 
-
         $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
 
         $('#full_leaderboard').bind('click', function (e) {
@@ -566,10 +565,7 @@
                 data['flip'] = !photos[currentPhotoIdx - 1].flip;
             }
 
-
-
             $.post(saveLocationURL, data, function (resp) {
-
                 updateLeaderboard();
                 var message = '',
                     hide_feedback = false;

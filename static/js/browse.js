@@ -47,7 +47,6 @@
         openPhotoDrawer,
         closePhotoDrawer,
         toggleVisiblePaneElements,
-        calculateLineEndPoint,
         setCorrectMarkerIcon,
         blueSvgIconUrl = '/static/images/ajapaik-dot-blue.svg',
         blackSvgIconUrl = '/static/images/ajapaik-dot-black.svg',
@@ -56,9 +55,7 @@
         blueMarkerIcon20 = '/static/images/ajapaik_marker_20px_blue.png',
         blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png';
 
-    Math.radians = function (degrees) {
-        return degrees * Math.PI / 180;
-    };
+
 
     window.loadPhoto = function (id) {
         $.post('/log_user_map_action/', {user_action: 'opened_drawer', photo_id: id}, function () {
@@ -175,13 +172,6 @@
         }
     };
 
-    calculateLineEndPoint = function (azimuth, startPoint) {
-        azimuth = Math.radians(azimuth);
-        var newX = Math.cos(azimuth) * lineLength + startPoint.lat(),
-            newY = Math.sin(azimuth) * lineLength + startPoint.lng();
-        return new google.maps.LatLng(newX, newY);
-    };
-
     window.highlightSelected = function (markerId, fromMarker) {
         currentlySelectedMarkerId = markerId;
         if (cityId) {
@@ -234,7 +224,7 @@
                 maxIndex += 1;
                 markerTemp = markers[i];
                 if (markers[i].azimuth) {
-                    window.dottedAzimuthLine.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
+                    window.dottedAzimuthLine.setPath([markers[i].position, Math.calculateMapLineEndPoint(markers[i].azimuth, markers[i].position, lineLength)]);
                     window.dottedAzimuthLine.setMap(window.map);
                     window.dottedAzimuthLine.setVisible(true);
                 } else {

@@ -7,12 +7,21 @@
             y = e.latLng.lng() - marker.position.lng();
         return Math.atan2(y, x);
     };
-    window.radiansToDegrees = function (rad) {
+    Math.degrees = function (rad) {
         var ret = rad * (180 / Math.PI);
         if (ret < 0) {
             ret += 360;
         }
         return ret;
+    };
+    Math.radians = function (degrees) {
+        return degrees * Math.PI / 180;
+    };
+    Math.calculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
+        azimuth = Math.radians(azimuth);
+        var newX = Math.cos(azimuth) * lineLength + startPoint.lat(),
+            newY = Math.sin(azimuth) * lineLength + startPoint.lng();
+        return new google.maps.LatLng(newX, newY);
     };
     window.dottedAzimuthLineSymbol = {
         path: google.maps.SymbolPath.CIRCLE,
