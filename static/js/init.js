@@ -69,7 +69,7 @@
             streetView: streetPanorama
         };
 
-        window.map = new google.maps.Map(document.getElementById("map_canvas"), mapOpts);
+        window.map = new google.maps.Map(document.getElementById("ajapaik-game-map-canvas"), mapOpts);
 
         if (isGameMap) {
             $("<div/>").addClass("center-marker").appendTo(window.map.getDiv()).click(function () {

@@ -188,7 +188,26 @@ body {
     height: 100%;
 }
 
+#ajapaik-game-map-canvas {
+    width: 100%;
+    height: 100%;
+}
+
 #ajapaik-grid-map-container {
+    height: 95%;
+    position: fixed;
+    margin-top: 50px;
+    top: 0;
+    right: 0;
+    width: 100%;
+    webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    display: none;
+    z-index: 1001;
+}
+
+#ajapaik-game-map-container {
     height: 95%;
     position: fixed;
     margin-top: 50px;
@@ -286,3 +305,131 @@ a.fullscreen {
 #ajapaik-grid-container {
     margin-top: 75px;
 }
+
+.score_container {
+    position: absolute;
+    right: 8%;
+    top: -18px;
+    width: 300px;
+    /* 	margin-left: -125px; */
+    padding: 25px 0 7px 0;
+    background: #fff;
+    z-index: 1050;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid silver;
+}
+
+.single .score_container {
+    position: static;
+    margin-left: 20px;
+    width: 400px;
+}
+
+.score_container h2 {
+    color: #ccc;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+    display: none;
+    margin: 3px 0 4px;
+}
+
+.score_container ul.scoreboard {
+    margin: 0;
+    padding: 0;
+}
+
+.score_container ul.scoreboard li {
+    position: relative;
+    font-size: 12px;
+    line-height: 1;
+    list-style: none;
+    clear: both;
+    display: none;
+    border-bottom: 1px solid #efefef;
+    padding: 0 15px;
+    height: 29px;
+}
+
+.single .score_container ul.scoreboard li {
+    display: block;
+    font-size: 12px;
+    list-style: none;
+    line-height: 12px;
+    border-bottom: 1px solid #efefef;
+    padding: 0 15px;
+    height: 31px;
+}
+
+.score_container ul.scoreboard li.you {
+    font-weight: 700;
+    display: list-item !important;
+    background: #efefef;
+}
+
+.score_container ul.scoreboard li.first {
+    padding-bottom: 10px;
+}
+
+.score_container ul.scoreboard li span {
+    padding: 8px 0 0;
+}
+
+.score_container ul.scoreboard li .position {
+    float: left;
+    width: 27px;
+}
+
+.score_container ul.scoreboard li .name {
+    float: left;
+}
+
+.score_container ul.scoreboard li .photo {
+    /*
+        position: absolute;
+        right: -25px;
+        top: 2px;
+    */
+    line-height: 0;
+    float: right;
+    margin-right: -25px;
+    padding: 0;
+}
+
+.score_container ul.scoreboard li .photo img {
+    border: 3px solid #fff;
+    width: 23px;
+    height: 23px;
+}
+
+.score_container ul.scoreboard li .score {
+    float: right;
+    padding-right: 10px;
+}
+
+.score_container #facebook-connect {
+    font-size: 12px;
+    margin: 6px 15px;
+    display: none;
+}
+
+.score_container #facebook-connected p {
+    font-size: 12px;
+    margin: 6px 15px;
+}
+
+.score_container #facebook-connect p {
+    margin: 0 0 10px;
+}
+
+#facebook-connect a {
+    width: 169px;
+    height: 21px;
+    background: url(../images/connect-with-facebook.png) no-repeat;
+}
+
+.ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }

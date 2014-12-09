@@ -74,7 +74,8 @@
         photosDivSlidInPlace = false;
 
     updateLeaderboard = function () {
-        $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
+        var scoreContainer = $('.score_container');
+        scoreContainer.find('.scoreboard').load(leaderboardUpdateURL);
     };
 
     toggleTouchPhotoView = function () {
@@ -375,7 +376,7 @@
 
         marker.bindTo('position', window.map, 'center');
 
-        realMapElement = $("#map_canvas")[0];
+        realMapElement = $("#ajapaik-game-map-canvas")[0];
         realMapElement.addEventListener('mousewheel', wheelEventNonFF, true);
         realMapElement.addEventListener('DOMMouseScroll', wheelEventFF, true);
 
@@ -498,22 +499,22 @@
             _gaq.push(['_trackEvent', 'Game', 'Show description']);
         });
 
-        photosDiv.find('a.fullscreen').live('click', function (e) {
-            e.preventDefault();
-            if (BigScreen.enabled) {
-                BigScreen.request($('#game-full' + this.rel)[0]);
-                _gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-' + this.rel]);
-            }
-        });
+//        photosDiv.find('a.fullscreen').live('click', function (e) {
+//            e.preventDefault();
+//            if (BigScreen.enabled) {
+//                BigScreen.request($('#game-full' + this.rel)[0]);
+//                _gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-' + this.rel]);
+//            }
+//        });
+//
+//        $('.full-box div').live('click', function (e) {
+//            if (BigScreen.enabled) {
+//                e.preventDefault();
+//                BigScreen.exit();
+//            }
+//        });
 
-        $('.full-box div').live('click', function (e) {
-            if (BigScreen.enabled) {
-                e.preventDefault();
-                BigScreen.exit();
-            }
-        });
-
-        photosDiv.hoverIntent(function () {
+//        photosDiv.hoverIntent(function () {
 //            if (locationToolsOpen === true && !isMobile) {
 //                showPhotos();
 //            } else if (locationToolsOpen === false && !isMobile) {
@@ -525,16 +526,16 @@
 //            } else if (locationToolsOpen === false && !isMobile) {
 //                hideTools();
 //            }
-        });
+//        });
 
-        photosDiv.find('img').live('click', toggleTouchPhotoView).live('mouseover', function () {
-            if (locationToolsOpen && photosDivSlidInPlace) {
-                $('#photos').addClass('map-open-hide-photos');
-            }
-        });
+//        photosDiv.find('img').live('click', toggleTouchPhotoView).live('mouseover', function () {
+//            if (locationToolsOpen && photosDivSlidInPlace) {
+//                $('#photos').addClass('map-open-hide-photos');
+//            }
+//        });
 
 
-        $('#top').find('.score_container').hoverIntent(showScoreboard, hideScoreboard);
+        $('.score_container').hover(showScoreboard, hideScoreboard);
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
@@ -714,17 +715,17 @@
         }
 
         function showScoreboard() {
-            var topDiv = $('#top');
-            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideDown();
-            topDiv.find('.score_container #facebook-connect').slideDown();
-            topDiv.find('.score_container #google-plus-connect').slideDown();
+            var scoreContainer = $('.score_container');
+            scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
+            scoreContainer.find('#facebook-connect').slideDown();
+            scoreContainer.find('#google-plus-connect').slideDown();
         }
 
         function hideScoreboard() {
-            var topDiv = $('#top');
-            topDiv.find('.score_container .scoreboard li').not('.you').add('h2').slideUp();
-            topDiv.find('.score_container #facebook-connect').slideUp();
-            topDiv.find('.score_container #google-plus-connect').slideUp();
+            var scoreContainer = $('.score_container');
+            scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
+            scoreContainer.find('#facebook-connect').slideUp();
+            scoreContainer.find('#google-plus-connect').slideUp();
         }
     });
 }());

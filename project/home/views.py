@@ -375,7 +375,7 @@ def thegame(request):
 	filters.register(CityLookupFilterSpec, 'city')
 	ctx['filters'] = filters
 
-	return render_to_response('game.html', RequestContext(request, ctx))
+	return render_to_response('game_bootstrap.html', RequestContext(request, ctx))
 
 
 def frontpage(request):
