@@ -523,7 +523,6 @@
 //            } else if (locationToolsOpen === false && !isMobile) {
 //                hideTools();
 //            }
-
         });
 
         photosDiv.find('img').live('click', toggleTouchPhotoView).live('mouseover', function () {

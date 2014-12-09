@@ -115,7 +115,7 @@
                     mapOptions.streetPanorama = new google.maps.StreetViewPanorama(document.getElementById('ajapaik-grid-map-canvas'), streetViewOptions);
                     window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOptions);
                     window.map.setCenter(latlngbounds.getCenter());
-                    window.map.zoom = 15;
+                    window.map.zoom = 17;
                     if (result.estimated_location) {
                         estimatedLocation = new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]);
                         estimatedLocationMarker = new google.maps.Marker({
