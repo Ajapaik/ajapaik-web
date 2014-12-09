@@ -37,6 +37,7 @@
         lon,
         radianAngle,
         degreeAngle,
+        azimuthLineEndPoint,
         azimuthListenerActive = true,
         firstDragDone = false,
         saveDirection = false,
@@ -99,6 +100,7 @@
             toggleTouchPhotoView();
         }
         radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
+        azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
         degreeAngle = Math.degrees(radianAngle);
         if (azimuthListenerActive) {
             mapMousemoveListenerActive = false;
@@ -553,16 +555,17 @@
             };
 
             if (saveDirection) {
-                data['azimuth'] = degreeAngle;
+                data.azimuth = degreeAngle;
+                data.azimuth_line_end_point = azimuthLineEndPoint;
             }
 
             if (lat && lon) {
-                data['lat'] = lat;
-                data['lon'] = lon;
+                data.lat = lat;
+                data.lon = lon;
             }
 
             if (userFlippedPhoto) {
-                data['flip'] = !photos[currentPhotoIdx - 1].flip;
+                data.flip = !photos[currentPhotoIdx - 1].flip;
             }
 
             $.post(saveLocationURL, data, function (resp) {

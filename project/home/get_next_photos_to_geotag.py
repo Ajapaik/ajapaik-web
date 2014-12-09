@@ -114,7 +114,7 @@ def get_next_photos_to_geotag(user_id,nr_of_photos=5,city_id=None):
 	#			photod millel pole geotage ja mida on koige
 	#										vahem skipitud
 
-def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None):
+def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None, azimuth_line_end_point=None):
 	p = Photo.objects.get(pk=photo_id)
 
 	is_correct = None
@@ -143,13 +143,15 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 							is_correct=is_correct,
 							score=this_guess_score,
 							trustworthiness=trustworthiness,
-							zoom_level=zoom_level)
+							zoom_level=zoom_level, azimuth_line_end_lat=azimuth_line_end_point[0],
+							azimuth_line_end_lon=azimuth_line_end_point[1])
 
 		if azimuth:
 			new_geotag.azimuth = azimuth
 			if not p.azimuth:
 				new_geotag.azimuth_score = max(20, int(300 * trustworthiness))
 				azimuth_uncertain = True
+
 
 		if azimuth and p.azimuth:
 			degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]

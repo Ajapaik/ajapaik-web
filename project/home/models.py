@@ -97,11 +97,22 @@ class PhotoManager(models.Manager):
 		return self.model.QuerySet(self.model)
 
 
-import uuid
-def get_unique_image_file_name(filename):
-	ext = filename.split('.')[-1]
-	filename = "%s.%s" % (uuid.uuid4(), ext)
-	return filename
+from django.utils.deconstruct import deconstructible
+from uuid import uuid4
+@deconstructible
+class PathAndRename(object):
+	def __init__(self, sub_path):
+		self.path = sub_path
+
+	def __call__(self, instance, filename):
+		ext = filename.split('.')[-1]
+		# set filename as random string
+		filename = '{}.{}'.format(uuid4().hex, ext)
+		# return the whole path to the file
+		return os.path.join(self.path, filename)
+
+
+path_and_rename = PathAndRename("/uploads")
 
 
 class Photo(models.Model):
@@ -109,8 +120,8 @@ class Photo(models.Model):
 
 	id = models.AutoField(primary_key=True)
 	#Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-	image = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
-	image_unscaled = models.ImageField(upload_to=lambda instance, filename: 'uploads/{0}'.format(get_unique_image_file_name(filename)), blank=True, null=True)
+	image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
+	image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
 	flip = models.NullBooleanField()
 	date = models.DateField(null=True, blank=True)
 	date_text = models.CharField(max_length=100, blank=True, null=True)
@@ -512,6 +523,8 @@ class GeoTag(models.Model):
 	lat = models.FloatField()
 	lon = models.FloatField()
 	azimuth = models.FloatField(null=True, blank=True)
+	azimuth_line_end_lat = models.FloatField(null=True, blank=True)
+	azimuth_line_end_lon = models.FloatField(null=True, blank=True)
 	zoom_level = models.IntegerField(null=True, blank=True)
 	type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
 

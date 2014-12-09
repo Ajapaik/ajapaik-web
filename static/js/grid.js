@@ -13,6 +13,7 @@
     /*global google */
     /*global gettext */
     /*global isMobile */
+    /*global saveLocationURL */
     $(document).ready(function () {
         var galleryDiv = $('#gallery'),
             doGridAjaxQuery,
@@ -25,9 +26,11 @@
             marker,
             radianAngle,
             degreeAngle,
+            azimuthLineEndPoint,
             azimuthListenerActive = true,
             firstDragDone = false,
             saveDirection = false,
+            disableSave = true,
             centerMarker,
             mapClickListenerFunction,
             mapDragstartListenerFunction,
@@ -38,6 +41,8 @@
             mapIdleListenerActive,
             mapMousemoveListenerActive,
             guessLocationStarted = false,
+            saveLocation,
+            currentlyOpenPhotoId,
             streetViewOptions = {
                 panControl: true,
                 panControlOptions: {
@@ -93,6 +98,104 @@
             headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
         });
 
+        saveLocation = function () {
+            var lat = marker.getPosition().lat(),
+                lon = marker.getPosition().lng(),
+                data = {
+                    photo_id: currentlyOpenPhotoId,
+                    hint_used: true,
+                    zoom_level: window.map.zoom
+                };
+
+            if (lat && lon) {
+                data.lat = lat;
+                data.lon = lon;
+            }
+
+            if (saveDirection) {
+                data.azimuth = degreeAngle;
+            }
+
+//            if (userFlippedPhoto) {
+//                data.flip = !photos[currentPhotoIdx - 1].flip;
+//            }
+
+            $.post(saveLocationURL, data, function (resp) {
+                var message = '',
+                    hide_feedback = false;
+                if (resp['is_correct'] == true) {
+                    message = gettext('Looks right!');
+                    hide_feedback = false;
+                    _gaq.push(['_trackEvent', 'Grid', 'Correct coordinates']);
+                    if (resp['azimuth_false']) {
+                        message = gettext('The location seems right, but not the azimuth.');
+                    }
+                    if (resp['azimuth_uncertain']) {
+                        message = gettext('The location seems right, but the azimuth is yet uncertain.');
+                    }
+                    if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
+                        message = gettext('The location seems right, your azimuth was first.');
+                    }
+                } else if (resp['location_is_unclear']) {
+                    message = gettext('Correct location is not certain yet.');
+                    _gaq.push(['_trackEvent', 'Grid', 'Coordinates uncertain']);
+                } else if (resp['is_correct'] == false) {
+                    message = gettext('We doubt about it.');
+                    hide_feedback = true;
+                    _gaq.push(['_trackEvent', 'Grid', 'Wrong coordinates']);
+                } else {
+                    message = gettext('Your guess was first.');
+                }
+                noticeDiv = $("#notice");
+                if (hide_feedback) {
+                    noticeDiv.find(".difficulty-message").hide();
+                    noticeDiv.find("#difficulty-form").hide();
+                }
+                noticeDiv.find(".message").text(message);
+                noticeDiv.find(".points-gained-message").text(gettext("Points awarded") + ": " + resp["current_score"]);
+                noticeDiv.find(".geotag-count-message").text(gettext("Amount of geotags for this photo") + ": " + resp["heatmap_points"].length);
+                noticeDiv.find(".azimuth-count-message").text(gettext("Amount of azimuths for this photo") + ": " + resp["azimuth_tags"]);
+                noticeDiv.modal({escClose: false, autoPosition: false, modal: false});
+                disableContinue = false;
+                if (resp.heatmap_points) {
+                    marker.setMap(null);
+                    $(".center-marker").hide();
+                    mapMousemoveListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'mousemove');
+                    mapIdleListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'idle');
+                    mapClickListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'click');
+                    mapDragstartListenerActive = false;
+                    google.maps.event.clearListeners(window.map, 'dragstart');
+                    playerLatlng = new google.maps.LatLng(data.lat, data.lon);
+                    var markerImage = {
+                        url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(8, 8),
+                        scaledSize: new google.maps.Size(16, 16)
+                    };
+                    playerMarker = new google.maps.Marker({
+                        position: playerLatlng,
+                        map: window.map,
+                        title: gettext("Your guess"),
+                        draggable: false,
+                        icon: markerImage
+                    });
+                    taxiData = [];
+                    for (i = 0; i < resp.heatmap_points.length; i += 1) {
+                        taxiData.push(new google.maps.LatLng(resp.heatmap_points[i][0], resp.heatmap_points[i][1]));
+                    }
+                    pointArray = new google.maps.MVCArray(taxiData);
+                    heatmap = new google.maps.visualization.HeatmapLayer({
+                        data: pointArray
+                    });
+                    heatmap.setOptions({radius: 50, dissipating: true});
+                    heatmap.setMap(window.map);
+                }
+            }, 'json');
+        }
+
         window.showHeatmap = function (photoId) {
             $.ajax({
                 cache: false,
@@ -105,7 +208,7 @@
                         estimatedLocation,
                         estimatedLocationMarker,
                         newLatLng,
-                        latlngbounds = new google.maps.LatLngBounds(),
+                        latLngBounds = new google.maps.LatLngBounds(),
                         guessPhoto,
                         guessPhotoBack,
                         mainPhoto,
@@ -115,7 +218,7 @@
                     for (i = 0; i < totalGeotags; i += 1) {
                         newLatLng = new google.maps.LatLng(result.heatmap_points[i][0], result.heatmap_points[i][1]);
                         points.push(newLatLng);
-                        latlngbounds.extend(newLatLng);
+                        latLngBounds.extend(newLatLng);
                         if (result.heatmap_points[i][2]) {
                             geotagsWithAzimuth += 1;
                         }
@@ -129,8 +232,6 @@
                     heatmap.setOptions({radius: 50, dissipating: true});
                     mapOptions.streetPanorama = new google.maps.StreetViewPanorama(document.getElementById('ajapaik-grid-map-canvas'), streetViewOptions);
                     window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOptions);
-                    window.map.setCenter(latlngbounds.getCenter());
-                    window.map.setZoom(17);
                     if (result.estimated_location) {
                         estimatedLocation = new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]);
                         estimatedLocationMarker = new google.maps.Marker({
@@ -140,6 +241,12 @@
                             draggable: false,
                             icon: '/static/images/ajapaik_marker_35px.png'
                         });
+                    }
+                    if (estimatedLocation) {
+                        window.map.setCenter(estimatedLocation);
+                        window.map.setZoom(17);
+                    } else {
+                        window.map.fitBounds(latLngBounds);
                     }
                     heatmap.setMap(window.map);
                     guessPhoto = $('#ajapaik-grid-guess-photo');
@@ -156,12 +263,13 @@
 
         mapClickListenerFunction = function (e) {
             radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
+            azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
             degreeAngle = Math.degrees(radianAngle);
             if (azimuthListenerActive) {
                 mapMousemoveListenerActive = false;
                 google.maps.event.clearListeners(window.map, 'mousemove');
                 saveDirection = true;
-                $('.ajapaik-grid-save-location').text(gettext('Save location and direction'));
+                $('.ajapaik-grid-save-location-button').text(gettext('Save location and direction'));
                 window.dottedAzimuthLine.icons[0].repeat = '2px';
                 window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
                 window.dottedAzimuthLine.setVisible(true);
@@ -193,7 +301,25 @@
             }
         };
 
+        mapDragstartListenerFunction = function () {
+//            if (mobileMapMinimized) {
+//                toggleTouchPhotoView();
+//            }
+            window.dottedAzimuthLine.setVisible(false);
+            centerMarker
+                .css('background-image', 'url("/static/images/ajapaik_marker_35px_cross.png")')
+                .css('margin-left', '-17px')
+                .css('margin-top', '-55px')
+                .css('height', '60px');
+            $('.ajapaik-grid-save-location-button').text(gettext('Save location only'));
+            azimuthListenerActive = false;
+            window.dottedAzimuthLine.setVisible(false);
+            mapMousemoveListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'mousemove');
+        };
+
         mapIdleListenerFunction = function () {
+            console.log('idle');
             if (firstDragDone) {
                 marker.position = window.map.center;
                 azimuthListenerActive = true;
@@ -225,7 +351,32 @@
                     that.data('win').open(window.map);
                 });
                 centerMarker = $('.center-marker');
-                $('.ajapaik-grid-guess-location').hide();
+                $('.ajapaik-grid-guess-location-button').hide();
+                $('.ajapaik-grid-save-location-button').show();
+                if (window.map) {
+                    if (!mapClickListenerActive) {
+                        google.maps.event.addListener(window.map, 'click', mapClickListenerFunction);
+                        mapClickListenerActive = true;
+                    }
+                    if (!mapIdleListenerActive) {
+                        google.maps.event.addListener(window.map, 'idle', mapIdleListenerFunction);
+                        mapIdleListenerActive = true;
+                    }
+                    if (!mapDragstartListenerActive) {
+                        google.maps.event.addListener(window.map, 'dragstart', mapDragstartListenerFunction);
+                        mapDragstartListenerActive = true;
+                    }
+                    if (!mapMousemoveListenerActive) {
+                        google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
+                        mapMousemoveListenerActive = true;
+                    }
+                }
+                google.maps.event.addListener(window.map, 'drag', function () {
+                    firstDragDone = true;
+                });
+                google.maps.event.addListener(marker, 'position_changed', function () {
+                    disableSave = false;
+                });
                 guessLocationStarted = true;
             }
         };
@@ -321,6 +472,7 @@
                     if (FB !== undefined) {
                         FB.XFBML.parse();
                     }
+                    currentlyOpenPhotoId = id;
 //                    $('a.iframe').fancybox({
 //                        'width': '75%',
 //                        'height': '75%',
@@ -404,6 +556,22 @@
             e.preventDefault();
             var targetId = e.target.dataset.id;
             window.loadPhoto(targetId);
+        });
+
+        $('.ajapaik-grid-save-location-button').on('click', function (e) {
+            firstDragDone = false;
+            e.preventDefault();
+            if (disableSave) {
+                _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
+                alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
+            } else {
+                saveLocation();
+                if (saveDirection) {
+                    _gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
+                } else {
+                    _gaq.push(['_trackEvent', 'Game', 'Save location only']);
+                }
+            }
         });
 
         photoDrawerElement.delegate('#ajapaik-close-photo-drawer', 'click', function (e) {

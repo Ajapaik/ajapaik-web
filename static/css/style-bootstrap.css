@@ -163,11 +163,19 @@ body {
     z-index: 1002;
 }
 
-.ajapaik-grid-guess-location {
+.ajapaik-grid-guess-location-button {
     position: absolute;
     bottom: 75px;
     right: 25px;
     z-index: 1002;
+}
+
+.ajapaik-grid-save-location-button {
+    position: absolute;
+    bottom: 75px;
+    right: 150px;
+    z-index: 1002;
+    display: none;
 }
 
 .ajapaik-flip-photo-button:hover {
