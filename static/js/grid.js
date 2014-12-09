@@ -40,8 +40,12 @@
             mapDragstartListenerActive,
             mapIdleListenerActive,
             mapMousemoveListenerActive,
+            moveOrCreateHeatmapEstimatedLocationMarker,
             guessLocationStarted = false,
             saveLocation,
+            noticeDiv,
+            estimatedLocation,
+            estimatedLocationMarker,
             currentlyOpenPhotoId,
             streetViewOptions = {
                 panControl: true,
@@ -98,12 +102,27 @@
             headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
         });
 
+        moveOrCreateHeatmapEstimatedLocationMarker = function (position) {
+            if (estimatedLocationMarker) {
+                estimatedLocationMarker.setPosition(position);
+            } else {
+                estimatedLocationMarker = new google.maps.Marker({
+                    position: position,
+                    map: window.map,
+                    title: gettext("The peoples' guess"),
+                    draggable: false,
+                    icon: '/static/images/ajapaik_marker_35px.png'
+                });
+            }
+        };
+
         saveLocation = function () {
             var lat = marker.getPosition().lat(),
                 lon = marker.getPosition().lng(),
                 data = {
                     photo_id: currentlyOpenPhotoId,
                     hint_used: true,
+                    non_game_guess: true,
                     zoom_level: window.map.zoom
                 };
 
@@ -114,89 +133,59 @@
 
             if (saveDirection) {
                 data.azimuth = degreeAngle;
+                data.azimuth_line_end_point = azimuthLineEndPoint;
             }
 
-//            if (userFlippedPhoto) {
-//                data.flip = !photos[currentPhotoIdx - 1].flip;
-//            }
+            //if (userFlippedPhoto) {
+            //    data.flip = !photos[currentPhotoIdx - 1].flip;
+            //}
 
             $.post(saveLocationURL, data, function (resp) {
-                var message = '',
-                    hide_feedback = false;
                 if (resp['is_correct'] == true) {
-                    message = gettext('Looks right!');
-                    hide_feedback = false;
                     _gaq.push(['_trackEvent', 'Grid', 'Correct coordinates']);
-                    if (resp['azimuth_false']) {
-                        message = gettext('The location seems right, but not the azimuth.');
-                    }
-                    if (resp['azimuth_uncertain']) {
-                        message = gettext('The location seems right, but the azimuth is yet uncertain.');
-                    }
-                    if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
-                        message = gettext('The location seems right, your azimuth was first.');
-                    }
                 } else if (resp['location_is_unclear']) {
-                    message = gettext('Correct location is not certain yet.');
                     _gaq.push(['_trackEvent', 'Grid', 'Coordinates uncertain']);
                 } else if (resp['is_correct'] == false) {
-                    message = gettext('We doubt about it.');
-                    hide_feedback = true;
                     _gaq.push(['_trackEvent', 'Grid', 'Wrong coordinates']);
-                } else {
-                    message = gettext('Your guess was first.');
                 }
-                noticeDiv = $("#notice");
-                if (hide_feedback) {
-                    noticeDiv.find(".difficulty-message").hide();
-                    noticeDiv.find("#difficulty-form").hide();
-                }
-                noticeDiv.find(".message").text(message);
-                noticeDiv.find(".points-gained-message").text(gettext("Points awarded") + ": " + resp["current_score"]);
-                noticeDiv.find(".geotag-count-message").text(gettext("Amount of geotags for this photo") + ": " + resp["heatmap_points"].length);
-                noticeDiv.find(".azimuth-count-message").text(gettext("Amount of azimuths for this photo") + ": " + resp["azimuth_tags"]);
-                noticeDiv.modal({escClose: false, autoPosition: false, modal: false});
-                disableContinue = false;
-                if (resp.heatmap_points) {
-                    marker.setMap(null);
-                    $(".center-marker").hide();
-                    mapMousemoveListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'mousemove');
-                    mapIdleListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'idle');
-                    mapClickListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'click');
-                    mapDragstartListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'dragstart');
-                    playerLatlng = new google.maps.LatLng(data.lat, data.lon);
-                    var markerImage = {
-                        url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(8, 8),
-                        scaledSize: new google.maps.Size(16, 16)
-                    };
-                    playerMarker = new google.maps.Marker({
-                        position: playerLatlng,
-                        map: window.map,
-                        title: gettext("Your guess"),
-                        draggable: false,
-                        icon: markerImage
-                    });
-                    taxiData = [];
-                    for (i = 0; i < resp.heatmap_points.length; i += 1) {
-                        taxiData.push(new google.maps.LatLng(resp.heatmap_points[i][0], resp.heatmap_points[i][1]));
-                    }
-                    pointArray = new google.maps.MVCArray(taxiData);
-                    heatmap = new google.maps.visualization.HeatmapLayer({
-                        data: pointArray
-                    });
-                    heatmap.setOptions({radius: 50, dissipating: true});
-                    heatmap.setMap(window.map);
+                noticeDiv = $('#ajapaik-grid-guess-notice');
+                noticeDiv.modal();
+                marker.setMap(null);
+                $(".center-marker").hide();
+                mapMousemoveListenerActive = false;
+                google.maps.event.clearListeners(window.map, 'mousemove');
+                mapIdleListenerActive = false;
+                google.maps.event.clearListeners(window.map, 'idle');
+                mapClickListenerActive = false;
+                google.maps.event.clearListeners(window.map, 'click');
+                mapDragstartListenerActive = false;
+                google.maps.event.clearListeners(window.map, 'dragstart');
+                $('#ajapaik-grid-map-geotag-count').html(resp.heatmap_points.length);
+                $('#ajapaik-grid-map-geotag-with-azimuth-count').html(resp.azimuth_tags);
+                $('.ajapaik-grid-save-location-button').hide();
+                var playerLatlng = new google.maps.LatLng(data.lat, data.lon);
+                var markerImage = {
+                    url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(8, 8),
+                    scaledSize: new google.maps.Size(16, 16)
+                };
+                var playerMarker = new google.maps.Marker({
+                    position: playerLatlng,
+                    map: window.map,
+                    title: gettext("Your guess"),
+                    draggable: false,
+                    icon: markerImage
+                });
+                if (resp.new_estimated_location) {
+                    moveOrCreateHeatmapEstimatedLocationMarker(new google.maps.LatLng(resp.new_estimated_location[0], resp.new_estimated_location[1]));
                 }
             }, 'json');
-        }
+        };
 
         window.showHeatmap = function (photoId) {
+            guessLocationStarted = false;
+            $('.ajapaik-grid-guess-location-button').show();
             $.ajax({
                 cache: false,
                 url: '/heatmap_data/',
@@ -205,8 +194,6 @@
                     var points = [],
                         heatmap,
                         i,
-                        estimatedLocation,
-                        estimatedLocationMarker,
                         newLatLng,
                         latLngBounds = new google.maps.LatLngBounds(),
                         guessPhoto,
@@ -233,16 +220,9 @@
                     mapOptions.streetPanorama = new google.maps.StreetViewPanorama(document.getElementById('ajapaik-grid-map-canvas'), streetViewOptions);
                     window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOptions);
                     if (result.estimated_location) {
-                        estimatedLocation = new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]);
-                        estimatedLocationMarker = new google.maps.Marker({
-                            position: estimatedLocation,
-                            map: window.map,
-                            title: gettext('Your guess'),
-                            draggable: false,
-                            icon: '/static/images/ajapaik_marker_35px.png'
-                        });
+                        moveOrCreateHeatmapEstimatedLocationMarker(new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]));
                     }
-                    if (estimatedLocation) {
+                    if (estimatedLocationMarker) {
                         window.map.setCenter(estimatedLocation);
                         window.map.setZoom(17);
                     } else {
@@ -319,7 +299,6 @@
         };
 
         mapIdleListenerFunction = function () {
-            console.log('idle');
             if (firstDragDone) {
                 marker.position = window.map.center;
                 azimuthListenerActive = true;
@@ -449,7 +428,7 @@
 
         openPhotoDrawer = function (content) {
             photoDrawerElement.html(content);
-            photoDrawerElement.animate({ top: '10%' });
+            photoDrawerElement.animate({ top: '0' });
         };
 
         closePhotoDrawer = function () {
@@ -572,6 +551,10 @@
                     _gaq.push(['_trackEvent', 'Game', 'Save location only']);
                 }
             }
+        });
+
+        $('.ajapaik-grid-close-notice-button').on('click', function (e) {
+            noticeDiv.hide();
         });
 
         photoDrawerElement.delegate('#ajapaik-close-photo-drawer', 'click', function (e) {

@@ -637,7 +637,7 @@ def get_leaderboard(request):
 
 def geotag_add(request):
 	data = request.POST
-	is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain, heatmap_points, azimuth_tag_count = get_next_photos_to_geotag.submit_guess(
+	is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain, heatmap_points, azimuth_tag_count, new_estimated_location = get_next_photos_to_geotag.submit_guess(
 		request.get_user().profile, data.get('photo_id'), data.get('lon'), data.get('lat'),
 		hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'), azimuth_line_end_point=data.getlist('azimuth_line_end_point[]'))
 	flip = data.get("flip", None)
@@ -652,15 +652,16 @@ def geotag_add(request):
 		flip_feedback.save()
 
 	return HttpResponse(json.dumps({
-		'is_correct': is_correct,
-		'current_score': current_score,
-		'total_score': total_score,
-		'leaderboard_update': leaderboard_update,
-		'location_is_unclear': location_is_unclear,
-		'azimuth_false': azimuth_false,
-		'azimuth_uncertain': azimuth_uncertain,
-		'heatmap_points': heatmap_points,
-		'azimuth_tags': azimuth_tag_count
+	'is_correct': is_correct,
+	'current_score': current_score,
+	'total_score': total_score,
+	'leaderboard_update': leaderboard_update,
+	'location_is_unclear': location_is_unclear,
+	'azimuth_false': azimuth_false,
+	'azimuth_uncertain': azimuth_uncertain,
+	'heatmap_points': heatmap_points,
+	'azimuth_tags': azimuth_tag_count,
+	'new_estimated_location': new_estimated_location
 	}), content_type="application/json")
 
 
@@ -895,5 +896,5 @@ def grid_infinite_scroll(request):
 	filters = FilterSpecCollection(qs, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
 	start = int(get_params['start'])
-	data = filters.get_filtered_qs().get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
+	data = filters.get_filtered_qs().get_old_photos_for_grid_view(0, start + settings.GRID_VIEW_PAGE_SIZE)
 	return HttpResponse(json.dumps(data), content_type="application/json")

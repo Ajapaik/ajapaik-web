@@ -185,8 +185,9 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 	all_geotags_with_azimuth_for_this_photo = all_geotags_latlng_for_this_photo.filter(azimuth__isnull=False)
 	all_geotags_latlng_for_this_photo = [[g[0], g[1]] for g in all_geotags_latlng_for_this_photo.values_list("lat", "lon")]
 	all_geotag_ids_with_azimuth_for_this_photo = all_geotags_with_azimuth_for_this_photo.values_list("id", flat=True)
+	new_estimated_location = [p.lat, p.lon]
 
-	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain, all_geotags_latlng_for_this_photo, len(all_geotag_ids_with_azimuth_for_this_photo)
+	return is_correct, this_guess_score, user.score, leaderboard, location_is_unclear, azimuth_false, azimuth_uncertain, all_geotags_latlng_for_this_photo, len(all_geotag_ids_with_azimuth_for_this_photo), new_estimated_location
 
 #
 # DEPRICATED see models.Photo

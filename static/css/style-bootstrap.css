@@ -117,6 +117,7 @@ body {
     display: inline-block;
     position: relative;
     margin-bottom: 10px;
+    margin-top: 50px;
 }
 
 #ajapaik-block-photoview-main-photo {
@@ -267,4 +268,28 @@ a.fullscreen {
     height: 47px;
     width: 35px;
     cursor: pointer;
+}
+
+#ajapaik-grid-guess-notice {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 1004;
+}
+
+#ajapaik-grid-guess-notice .panel-body {
+    padding: 30px;
+}
+
+.modal-backdrop {
+    display: none !important;
+}
+
+.ajapaik-grid-close-notice-button {
+    margin-top: 20px;
+}
+
+#ajapaik-grid-container {
+    margin-top: 75px;
 }
