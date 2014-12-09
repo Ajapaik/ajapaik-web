@@ -144,7 +144,7 @@ body {
     width: 48px;
     height: 48px;
     position: absolute;
-    bottom: 5px;
+    top: 5px;
     right: 5px;
 }
 
@@ -154,7 +154,7 @@ body {
     height: 48px;
     position: absolute;
     bottom: 5px;
-    left: 5px;
+    right: 5px;
 }
 
 .ajapaik-grid-close-map-button {
