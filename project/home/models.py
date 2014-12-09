@@ -376,7 +376,7 @@ class Photo(models.Model):
 		valid_geotags = self.geotags.filter()
 		data = []
 		for each in valid_geotags:
-			data.append([each.lat, each.lon])
+			data.append([each.lat, each.lon, each.azimuth])
 		return data
 
 	def set_calculated_fields(self):

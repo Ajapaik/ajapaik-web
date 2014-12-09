@@ -21,6 +21,8 @@
             openPhotoDrawer,
             closePhotoDrawer,
             photoId,
+            marker,
+            guessLocationStarted = false,
             streetViewOptions = {
                 panControl: true,
                 panControlOptions: {
@@ -54,7 +56,9 @@
                 streetViewControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_TOP
                 }
-            };
+            },
+            lastMapHoverPhotoHide,
+            now;
 
         galleryDiv.justifiedGallery({
             rowHeight: 120,
@@ -80,16 +84,31 @@
                 url: '/heatmap_data/',
                 data: {photo_id: photoId},
                 success: function (result) {
+                    var points = [],
+                        heatmap,
+                        i,
+                        estimatedLocation,
+                        estimatedLocationMarker,
+                        newLatLng,
+                        latlngbounds = new google.maps.LatLngBounds(),
+                        guessPhoto,
+                        guessPhotoBack,
+                        mainPhoto,
+                        totalGeotags = result.heatmap_points.length,
+                        geotagsWithAzimuth = 0;
                     $('#ajapaik-grid-map-container').show();
-                    var points = [];
-                    var latlngbounds = new google.maps.LatLngBounds();
-                    for (var i = 0; i < result.heatmap_points.length; i += 1) {
-                        var newLatLng = new google.maps.LatLng(result.heatmap_points[i][0], result.heatmap_points[i][1]);
+                    for (i = 0; i < totalGeotags; i += 1) {
+                        newLatLng = new google.maps.LatLng(result.heatmap_points[i][0], result.heatmap_points[i][1]);
                         points.push(newLatLng);
                         latlngbounds.extend(newLatLng);
+                        if (result.heatmap_points[i][2]) {
+                            geotagsWithAzimuth += 1;
+                        }
                     }
+                    $('#ajapaik-grid-map-geotag-count').html(totalGeotags);
+                    $('#ajapaik-grid-map-geotag-with-azimuth-count').html(geotagsWithAzimuth);
                     points = new google.maps.MVCArray(points);
-                    var heatmap = new google.maps.visualization.HeatmapLayer({
+                    heatmap = new google.maps.visualization.HeatmapLayer({
                         data: points
                     });
                     heatmap.setOptions({radius: 50, dissipating: true});
@@ -98,28 +117,46 @@
                     window.map.setCenter(latlngbounds.getCenter());
                     window.map.zoom = 15;
                     if (result.estimated_location) {
-                        var playerLatlng = new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]);
-                        var markerImage = {
-                            url: '/static/images/ajapaik_marker_35px.png'
-                        };
-                        var playerMarker = new google.maps.Marker({
-                            position: playerLatlng,
+                        estimatedLocation = new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]);
+                        estimatedLocationMarker = new google.maps.Marker({
+                            position: estimatedLocation,
                             map: window.map,
-                            title: gettext("Your guess"),
+                            title: gettext('Your guess'),
                             draggable: false,
-                            icon: markerImage
+                            icon: '/static/images/ajapaik_marker_35px.png'
                         });
                     }
                     heatmap.setMap(window.map);
-                    var guessPhoto = $('#ajapaik-grid-guess-photo');
-                    guessPhoto.attr('src', ($('#ajapaik-block-photoview-main-photo').attr('src')));
+                    guessPhoto = $('#ajapaik-grid-guess-photo');
+                    mainPhoto = $('#ajapaik-block-photoview-main-photo');
+                    guessPhoto.attr('src', mainPhoto.attr('src'));
                     guessPhoto.show();
-                    var guessPhotoBack = $('#ajapaik-grid-guess-photo-back');
-                    guessPhotoBack.attr('src', ($('#ajapaik-block-photoview-main-photo').attr('src')));
+                    guessPhotoBack = $('#ajapaik-grid-guess-photo-back');
+                    guessPhotoBack.attr('src', mainPhoto.attr('src'));
                     guessPhotoBack.show();
                     $('#photo-drawer').hide();
                 }
             });
+        };
+
+        window.startGuessLocation = function () {
+            if (!guessLocationStarted) {
+                marker = new google.maps.Marker({
+                    map: window.map,
+                    draggable: false,
+                    position: window.map.getCenter(),
+                    visible: false
+                });
+                marker.bindTo('position', window.map, 'center');
+                $('<div/>').addClass('center-marker').appendTo(window.map.getDiv()).click(function () {
+                    var that = $(this);
+                    if (!that.data('win')) {
+                        that.data('win').bindTo('position', window.map, 'center');
+                    }
+                    that.data('win').open(window.map);
+                });
+                guessLocationStarted = true;
+            }
         };
 
         $('.ajapaik-grid-close-map-button').click(function () {
@@ -130,7 +167,11 @@
         });
 
         $('#ajapaik-grid-guess-photo').hover(function () {
-            $(this).hide();
+            now = new Date().getTime();
+            if (((lastMapHoverPhotoHide + 1000) < now) || !lastMapHoverPhotoHide) {
+                $(this).hide();
+                lastMapHoverPhotoHide = new Date().getTime();
+            }
         });
 
         $('#ajapaik-grid-guess-photo-back').hover(function () {

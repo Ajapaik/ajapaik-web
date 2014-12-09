@@ -110,6 +110,7 @@ body {
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     z-index: 1000;
+    padding-top: 20px;
 }
 
 #ajapaik-photo-drawer-photo-container {
@@ -193,8 +194,8 @@ body {
 
 #ajapaik-grid-map-info-panel {
     position: absolute;
-    top: 15px;
-    left: 25px;
+    bottom: 35px;
+    left: 35px;
     z-index: 1003;
 }
 
@@ -245,4 +246,17 @@ a.fullscreen {
     opacity: 0;
     cursor: -webkit-zoom-out;
     cursor: -moz-zoom-out;
+}
+
+.center-marker {
+    position: absolute;
+    background: url('../images/ajapaik_marker_35px.png') no-repeat;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    margin-left: -17px;
+    margin-top: -47px;
+    height: 47px;
+    width: 35px;
+    cursor: pointer;
 }

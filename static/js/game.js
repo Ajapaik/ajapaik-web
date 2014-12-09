@@ -35,7 +35,6 @@
         noticeDiv,
         lat,
         lon,
-        relativeVector = {},
         radianAngle,
         degreeAngle,
         azimuthListenerActive = true,
@@ -54,12 +53,9 @@
         mapDragstartListenerActive,
         mapIdleListenerActive,
         mapMousemoveListenerActive,
-        reCalculateAzimuthOfMouseAndMarker,
         updateLeaderboard,
         marker,
         location,
-        dottedLineSymbol,
-        line,
         lastTriggeredWheeling,
         now,
         realMapElement,
@@ -78,16 +74,6 @@
 
     updateLeaderboard = function () {
         $('#top').find('.score_container .scoreboard').load(leaderboardUpdateURL);
-    };
-
-    reCalculateAzimuthOfMouseAndMarker = function (e) {
-        relativeVector.x = e.latLng.lat() - marker.position.lat();
-        relativeVector.y = e.latLng.lng() - marker.position.lng();
-        radianAngle = Math.atan2(relativeVector.y, relativeVector.x);
-        degreeAngle = radianAngle * (180 / Math.PI);
-        if (degreeAngle < 0) {
-            degreeAngle += 360;
-        }
     };
 
     toggleTouchPhotoView = function () {
@@ -112,15 +98,16 @@
         if (mobileMapMinimized) {
             toggleTouchPhotoView();
         }
-        reCalculateAzimuthOfMouseAndMarker(e);
+        radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
+        degreeAngle = window.radiansToDegrees(radianAngle);
         if (azimuthListenerActive) {
             mapMousemoveListenerActive = false;
             google.maps.event.clearListeners(window.map, 'mousemove');
             saveDirection = true;
             $('#save-location').text(gettext('Save location and direction')).removeClass('medium').addClass('green');
-            line.icons[0].repeat = '2px';
-            line.setPath([marker.position, e.latLng]);
-            line.setVisible(true);
+            window.dottedAzimuthLine.icons[0].repeat = '2px';
+            window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
+            window.dottedAzimuthLine.setVisible(true);
         } else {
             if (!mapMousemoveListenerActive) {
                 google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
@@ -135,15 +122,17 @@
         // The mouse is moving, therefore we haven't locked on a direction
         $('#save-location').text(gettext('Save location only')).removeClass('medium').addClass('green');
         saveDirection = false;
-        reCalculateAzimuthOfMouseAndMarker(e);
+        radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
+        degreeAngle = window.radiansToDegrees(radianAngle);
         if (!isMobile) {
-            line.setPath([marker.position, e.latLng]);
-            line.icons = [
-                {icon: dottedLineSymbol, offset: '0', repeat: '7px'}
+            window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
+            window.dottedAzimuthLine.setMap(window.map);
+            window.dottedAzimuthLine.icons = [
+                {icon: window.dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
             ];
-            line.setVisible(true);
+            window.dottedAzimuthLine.setVisible(true);
         } else {
-            line.setVisible(false);
+            window.dottedAzimuthLine.setVisible(false);
         }
     };
 
@@ -168,7 +157,7 @@
         if (mobileMapMinimized) {
             toggleTouchPhotoView();
         }
-        line.setVisible(false);
+        window.dottedAzimuthLine.setVisible(false);
         if (infowindow !== undefined) {
             centerMarker.show();
             infowindow.close();
@@ -181,7 +170,7 @@
             .css('height', '60px');
         $('#save-location').text(gettext('Save location only')).removeClass('medium').addClass('green');
         azimuthListenerActive = false;
-        line.setVisible(false);
+        window.dottedAzimuthLine.setVisible(false);
         mapMousemoveListenerActive = false;
         google.maps.event.clearListeners(window.map, 'mousemove');
     };
@@ -255,8 +244,8 @@
         mapMousemoveListenerActive = false;
         hideTools();
         google.maps.event.clearListeners(window.map, 'mousemove');
-        if (line !== undefined) {
-            line.setVisible(false);
+        if (window.dottedAzimuthLine !== undefined) {
+            window.dottedAzimuthLine.setVisible(false);
         }
         if (photos.length > currentPhotoIdx) {
             disableNext = true;
@@ -380,29 +369,6 @@
             draggable: false,
             position: location,
             visible: false
-        });
-
-        dottedLineSymbol = {
-            path: google.maps.SymbolPath.CIRCLE,
-            strokeOpacity: 1,
-            strokeWeight: 1.5,
-            strokeColor: 'red',
-            scale: 0.75
-        };
-
-        line = new google.maps.Polyline({
-            geodesic: true,
-            strokeOpacity: 0,
-            icons: [
-                {
-                    icon: dottedLineSymbol,
-                    offset: '0',
-                    repeat: '7px'
-                }
-            ],
-            visible: false,
-            map: window.map,
-            clickable: false
         });
 
         marker.bindTo('position', window.map, 'center');

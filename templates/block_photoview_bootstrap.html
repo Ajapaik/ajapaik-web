@@ -46,7 +46,8 @@
         if (window.currentlySelectedMarkerId) {
             window.highlightSelected(window.currentlySelectedMarkerId, false);
         }
-        History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
+        //TODO: Restore
+        //History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
         $('.filter-box').hide();
         _gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
         $(".ajapaik-flip-photo-button").click(function () {
@@ -59,6 +60,9 @@
         });
         $(".ajapaik-open-heatmap-button").click(function (e) {
             window.showHeatmap(e.target.dataset.id);
+        });
+        $(".ajapaik-grid-guess-location").click(function () {
+            window.startGuessLocation();
         });
     });
 </script>

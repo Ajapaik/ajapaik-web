@@ -486,12 +486,12 @@ def heatmap_data(request):
 	res = {}
 	photo_id = request.GET.get("photo_id") or None
 	if photo_id:
-		targetPhoto = Photo.objects.filter(pk=photo_id).get()
-		if hasattr(targetPhoto, "rephoto_of") and targetPhoto.rephoto_of is not None:
-			targetPhoto = targetPhoto.rephoto_of
-		if targetPhoto.lat and targetPhoto.lon:
-			res["estimated_location"] = [targetPhoto.lat, targetPhoto.lon]
-		res["heatmap_points"] = targetPhoto.get_heatmap_points()
+		target_photo = Photo.objects.filter(pk=photo_id).get()
+		if hasattr(target_photo, "rephoto_of") and target_photo.rephoto_of is not None:
+			target_photo = target_photo.rephoto_of
+		if target_photo.lat and target_photo.lon:
+			res["estimated_location"] = [target_photo.lat, target_photo.lon]
+		res["heatmap_points"] = target_photo.get_heatmap_points()
 	return HttpResponse(json.dumps(res), content_type="application/json")
 
 def photoslug(request, photo_id, pseudo_slug):

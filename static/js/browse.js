@@ -26,26 +26,6 @@
         maxIndex = 2,
         lastHighlightedMarker,
         lastSelectedPaneElement,
-        dottedLineSymbol = {
-            path: google.maps.SymbolPath.CIRCLE,
-            strokeOpacity: 1,
-            strokeWeight: 1.5,
-            strokeColor: 'red',
-            scale: 0.75
-        },
-        line = new google.maps.Polyline({
-            geodesic: true,
-            strokeOpacity: 0,
-            icons: [
-                {
-                    icon: dottedLineSymbol,
-                    offset: '0',
-                    repeat: '7px'
-                }
-            ],
-            visible: false,
-            clickable: false
-        }),
         lineLength = 0.01,
         lastSelectedMarkerId,
         currentlySelectedMarkerId,
@@ -254,11 +234,11 @@
                 maxIndex += 1;
                 markerTemp = markers[i];
                 if (markers[i].azimuth) {
-                    line.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
-                    line.setMap(window.map);
-                    line.setVisible(true);
+                    window.dottedAzimuthLine.setPath([markers[i].position, calculateLineEndPoint(markers[i].azimuth, markers[i].position)]);
+                    window.dottedAzimuthLine.setMap(window.map);
+                    window.dottedAzimuthLine.setVisible(true);
                 } else {
-                    line.setVisible(false);
+                    window.dottedAzimuthLine.setVisible(false);
                 }
                 setCorrectMarkerIcon(markers[i]);
                 break;
