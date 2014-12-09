@@ -367,17 +367,17 @@
             $('#ajapaik-grid-map-container').hide();
         });
 
-        $('#ajapaik-grid-guess-photo').hover(function () {
+//        $('#ajapaik-grid-guess-photo').hover(function () {
 //            now = new Date().getTime();
 //            if (((lastMapHoverPhotoHide + 1000) < now) || !lastMapHoverPhotoHide) {
 //                $(this).hide();
 //                lastMapHoverPhotoHide = new Date().getTime();
 //            }
-        });
-
-        $('#ajapaik-grid-guess-photo-back').hover(function () {
-            $('#ajapaik-grid-guess-photo').show();
-        });
+//        });
+//
+//        $('#ajapaik-grid-guess-photo-back').hover(function () {
+//            $('#ajapaik-grid-guess-photo').show();
+//        });
 
         doGridAjaxQuery = function () {
             var i,

@@ -216,15 +216,7 @@ body {
     left: 2%;
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     display: none;
-}
-
-#ajapaik-grid-guess-photo-back {
-    position: fixed;
-    top: 15%;
-    z-index: 1000;
-    left: 2%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    display: none;
+    max-width: 33%;
 }
 
 a.fullscreen {
