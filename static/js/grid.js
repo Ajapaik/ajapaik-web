@@ -368,11 +368,11 @@
         });
 
         $('#ajapaik-grid-guess-photo').hover(function () {
-            now = new Date().getTime();
-            if (((lastMapHoverPhotoHide + 1000) < now) || !lastMapHoverPhotoHide) {
-                $(this).hide();
-                lastMapHoverPhotoHide = new Date().getTime();
-            }
+//            now = new Date().getTime();
+//            if (((lastMapHoverPhotoHide + 1000) < now) || !lastMapHoverPhotoHide) {
+//                $(this).hide();
+//                lastMapHoverPhotoHide = new Date().getTime();
+//            }
         });
 
         $('#ajapaik-grid-guess-photo-back').hover(function () {
