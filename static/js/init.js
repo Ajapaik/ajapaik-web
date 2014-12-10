@@ -47,7 +47,12 @@
             visible: false
         };
 
-        streetPanorama = new google.maps.StreetViewPanorama(document.getElementById("map_canvas"), streetViewOptions);
+        //TODO: Remove redundant
+        if (document.getElementById("ajapaik-game-map-canvas")) {
+            streetPanorama = new google.maps.StreetViewPanorama(document.getElementById("ajapaik-game-map-canvas"), streetViewOptions);
+        } else {
+            streetPanorama = new google.maps.StreetViewPanorama(document.getElementById("map_canvas"), streetViewOptions);
+        }
 
         mapOpts = {
             zoom: zoomLevel,

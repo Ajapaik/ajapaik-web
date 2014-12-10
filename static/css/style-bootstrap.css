@@ -148,6 +148,13 @@ body {
     right: 5px;
 }
 
+.ajapaik-game-flip-photo-button {
+    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+
 .ajapaik-photoview-open-heatmap-button {
     background: #fff url(../images/material-design-icons/ic_location_on_24px.svg) no-repeat center !important;
     width: 48px;
@@ -508,5 +515,11 @@ a.fullscreen {
 }
 
 #ajapaik-game-modal-photo-container img {
+    margin: 0 auto;
+}
 
+.img-responsive-height {
+  display: block;
+  width: auto;
+  max-height: 100%
 }

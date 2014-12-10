@@ -254,13 +254,11 @@
         }
         if (photos.length > currentPhotoIdx) {
             disableNext = true;
-            $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
+            $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
+            $('#ajapaik-game-full-screen-image').prop('src', mediaUrl + photos[currentPhotoIdx].large.url);
             disableNext = true;
-            if (typeof FB !== 'undefined') {
-                FB.XFBML.parse();
-            }
             /*$('.skip-photo').animate({ 'opacity': 0.4 });
             $(currentPhoto).find('img').animate({ 'opacity': 0.4 });
             $(currentPhoto).find('.show-description').hide();
@@ -272,6 +270,9 @@
                 newFullscreenImage = document.createElement('img');
             if (photos[currentPhotoIdx].flip) {
                 $(newFullscreenImage).addClass('flip-photo');
+            }
+            if (typeof FB !== 'undefined') {
+                FB.XFBML.parse();
             }
             $(newFullscreenImage).attr('src', mediaUrl + photos[currentPhotoIdx].big.url);
             $(newFullscreen).attr('rel', photos[currentPhotoIdx].id).append(newFullscreenImage);
@@ -345,17 +346,17 @@
 
     window.flipPhoto = function () {
         userFlippedPhoto = !userFlippedPhoto;
-        var photoElement = $('.photo' + (currentPhotoIdx - 1)).find('img'),
-            photoFullscreenElement = $('#game-full' + photos[currentPhotoIdx - 1].id).find('img');
-        if (photoElement.hasClass('flip-photo')) {
-            photoElement.removeClass('flip-photo');
+        var photoElement = $('#ajapaik-game-modal-photo'),
+            guessPhotoElement = $('#ajapaik-game-guess-photo');
+        if (photoElement.hasClass('ajapaik-photo-flipped')) {
+            photoElement.removeClass('ajapaik-photo-flipped');
         } else {
-            photoElement.addClass('flip-photo');
+            photoElement.addClass('ajapaik-photo-flipped');
         }
-        if (photoFullscreenElement.hasClass('flip-photo')) {
-            photoFullscreenElement.removeClass('flip-photo');
+        if (guessPhotoElement.hasClass('ajapaik-photo-flipped')) {
+            guessPhotoElement.removeClass('ajapaik-photo-flipped');
         } else {
-            photoFullscreenElement.addClass('flip-photo');
+            guessPhotoElement.addClass('ajapaik-photo-flipped');
         }
     };
 
@@ -557,6 +558,25 @@
 
         $('.ajapaik-game-feedback-next-button').click(function () {
 
+        });
+
+        $('.ajapaik-game-flip-photo-button ').click(function () {
+            flipPhoto();
+        });
+
+        $('.full-box div').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.exit();
+            }
+        });
+
+        $('#full-thumb1').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.request($('#full-large1')[0]);
+                _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
+            }
         });
 
         //TODO: Restore necessary parts
