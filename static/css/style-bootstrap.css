@@ -493,9 +493,6 @@ a.fullscreen {
     .modal-dialog-center {
         width: 100%;
     }
-    #ajapaik-game-modal-photo-container img {
-        max-height: 300px;
-    }
 }
 
 #ajapaik-game-modal-photo-container {
@@ -511,6 +508,5 @@ a.fullscreen {
 }
 
 #ajapaik-game-modal-photo-container img {
-    margin: 0 auto;
-    max-height: 500px;
+
 }
