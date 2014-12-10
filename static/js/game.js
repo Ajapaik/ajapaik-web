@@ -593,7 +593,7 @@
         });*/
 
 
-        $('#ajapaik-header').find('.score_container').hover(window.showScoreboard, window.hideScoreboard);
+        $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         function saveLocation() {
             lat = marker.getPosition().lat();
