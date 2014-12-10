@@ -276,6 +276,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     display: none;
     max-width: 33%;
+    max-height: 50%;
 }
 
 a.fullscreen {
