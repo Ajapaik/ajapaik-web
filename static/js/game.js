@@ -254,6 +254,7 @@
         }
         if (photos.length > currentPhotoIdx) {
             disableNext = true;
+            console.log(photos[currentPhotoIdx].large.url);
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
@@ -511,6 +512,7 @@
             if (disableNext == false) {
                 var data = {photo_id: photos[currentPhotoIdx].id};
                 $.post(saveLocationURL, data, function () {
+                    currentPhotoIdx += 1;
                     nextPhoto();
                 });
                 $('#ajapaik-game-photo-modal').modal();
