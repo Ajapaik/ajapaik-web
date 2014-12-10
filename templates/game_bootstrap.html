@@ -48,9 +48,11 @@
         </div>
     </div>
     <div id="ajapaik-game-map-container">
+        <button class="btn btn-primary ajapaik-game-skip-photo-button">{% trans "Skip" %}</button>
         <button class="btn btn-primary ajapaik-game-save-location-button">{% trans "Save location only" %}</button>
         <div id="ajapaik-game-map-canvas"></div>
     </div>
+    <img src="" class="img-responsive" id="ajapaik-game-guess-photo" />
     <script>
         var saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
             leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',

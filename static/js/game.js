@@ -65,7 +65,7 @@
         toggleTouchPhotoView,
         i,
         playerLatlng,
-        centerMarker,
+        centerMarker = $('.center-marker'),
         showNothingMoreToShowMessage,
         showSeenAllMessage,
         nextPhoto,
@@ -257,8 +257,11 @@
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
-            /*disableNext = true;
-            $('.skip-photo').animate({ 'opacity': 0.4 });
+            disableNext = true;
+            if (typeof FB !== 'undefined') {
+                FB.XFBML.parse();
+            }
+            /*$('.skip-photo').animate({ 'opacity': 0.4 });
             $(currentPhoto).find('img').animate({ 'opacity': 0.4 });
             $(currentPhoto).find('.show-description').hide();
             photosDiv = $('#photos');
@@ -283,9 +286,6 @@
                     scrollPhotos();
                 });
             });
-            if (typeof FB !== 'undefined') {
-                FB.XFBML.parse();
-            }
             $('#full-photos').append('<div class="full-box" style="*//*chrome fullscreen fix*//*"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
             prepareFullscreen();
             currentPhotoIdx += 1;*/
@@ -497,8 +497,28 @@
             continueGame();
         });
 
-        $('ajapaik-game-specify-location-button').click(function () {
+        $('.ajapaik-game-specify-location-button').click(function () {
+            $('#ajapaik-game-photo-modal').modal('hide');
+            $('#ajapaik-game-guess-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).show();
+            $('.ajapaik-game-save-location-button').show();
+            $('.ajapaik-game-skip-photo-button').show();
+            disableNext = false;
+        });
 
+        $('.ajapaik-game-skip-photo-button').click(function (e) {
+            firstDragDone = false;
+            e.preventDefault();
+            if (disableNext == false) {
+                var data = {photo_id: photos[currentPhotoIdx].id};
+                $.post(saveLocationURL, data, function () {
+                    nextPhoto();
+                });
+                $('#ajapaik-game-photo-modal').modal();
+                $('#ajapaik-game-guess-photo').hide();
+                $('.ajapaik-game-save-location-button').hide();
+                $('.ajapaik-game-skip-photo-button').hide();
+                _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+            }
         });
 
         $('#full_leaderboard').bind('click', function (e) {
