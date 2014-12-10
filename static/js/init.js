@@ -71,7 +71,8 @@
             streetViewControlOptions: {
                 position: google.maps.ControlPosition.RIGHT_TOP
             },
-            streetView: streetPanorama
+            streetView: streetPanorama,
+            draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto'
         };
 
         //TODO: Remove redundant

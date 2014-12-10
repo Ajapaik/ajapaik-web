@@ -15,6 +15,7 @@
     /*global isMobile */
     /*global $ */
     /*global URI */
+    /*global BigScreen */
 
     var photos = [],
         gameOffset = 0,
@@ -129,7 +130,7 @@
         radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
         degreeAngle = Math.degrees(radianAngle);
         if (!isMobile) {
-            window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
+            window.dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
             window.dottedAzimuthLine.setMap(window.map);
             window.dottedAzimuthLine.icons = [
                 {icon: window.dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
@@ -257,7 +258,11 @@
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
-            $('#ajapaik-game-full-screen-image').prop('src', mediaUrl + photos[currentPhotoIdx].large.url);
+            $('#ajapaik-game-full-screen-image').prop('src', '/foto_large/' + photos[currentPhotoIdx].id);
+            $('#ajapaik-game-full-screen-link').prop('rel', photos[currentPhotoIdx].id).prop('href', '/foto_large/' + photos[currentPhotoIdx].id);
+            $('#ajapaik-game-map-geotag-count').html(photos[currentPhotoIdx].total_geotags);
+            $('#ajapaik-game-map-geotag-with-azimuth-count').html(photos[currentPhotoIdx].geotags_with_azimuth);
+            prepareFullscreen();
             disableNext = true;
             /*$('.skip-photo').animate({ 'opacity': 0.4 });
             $(currentPhoto).find('img').animate({ 'opacity': 0.4 });
@@ -288,7 +293,7 @@
                 });
             });
             $('#full-photos').append('<div class="full-box" style="*//*chrome fullscreen fix*//*"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
-            prepareFullscreen();
+
             currentPhotoIdx += 1;*/
         } else {
             loadPhotos(1);
@@ -557,7 +562,21 @@
         });
 
         $('.ajapaik-game-feedback-next-button').click(function () {
-
+            var data = {
+                level: $('input[name=difficulty]:checked', 'ajapaik-game-guess-feedback-difficulty-form').val(),
+                photo_id: photos[currentPhotoIdx].id
+            };
+            $.post(difficultyFeedbackURL, data, function () {});
+            $('#ajapaik-game-guess-feedback-modal').modal('hide');
+            $('#ajapaik-game-photo-modal').modal();
+            $('#ajapaik-game-guess-photo').hide();
+            $('.ajapaik-game-save-location-button').hide();
+            $('.ajapaik-game-skip-photo-button').hide();
+            window.map.getStreetView().setVisible(false);
+            disableNext = false;
+            currentPhotoIdx += 1;
+            nextPhoto();
+            disableContinue = true;
         });
 
         $('.ajapaik-game-flip-photo-button ').click(function () {
@@ -571,11 +590,19 @@
             }
         });
 
-        $('#full-thumb1').on('click', function (e) {
+        $('#ajapaik-game-full-screen-link').on('click', function (e) {
             if (BigScreen.enabled) {
                 e.preventDefault();
-                BigScreen.request($('#full-large1')[0]);
+                BigScreen.request($('#ajapaik-game-fullscreen-image-container')[0]);
                 _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
+            }
+        });
+
+        $('a.fullscreen').on('click', function (e) {
+            e.preventDefault();
+            if (BigScreen.enabled) {
+                BigScreen.request($('#ajapaik-game-full-screen-image'));
+                _gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-' + this.rel]);
             }
         });
 
@@ -648,7 +675,7 @@
             }
 
             if (userFlippedPhoto) {
-                data.flip = !photos[currentPhotoIdx - 1].flip;
+                data.flip = !photos[currentPhotoIdx].flip;
             }
 
             $.post(saveLocationURL, data, function (resp) {
@@ -699,6 +726,8 @@
                     mapDragstartListenerActive = false;
                     google.maps.event.clearListeners(window.map, 'dragstart');
                     playerLatlng = new google.maps.LatLng(data.lat, data.lon);
+                    $('#ajapaik-game-map-geotag-count').html(resp.heatmap_points.length);
+                    $('#ajapaik-game-map-geotag-with-azimuth-count').html(resp.azimuth_tags);
                     var markerImage = {
                         url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
                         origin: new google.maps.Point(0, 0),
@@ -741,18 +770,6 @@
                 });
                 $('#open-location-tools').fadeOut();
             });
-        }
-
-        function continueGame() {
-            var data = {
-                level: $('input[name=difficulty]:checked', '#difficulty-form').val(),
-                photo_id: photos[currentPhotoIdx - 1].id
-            };
-            $.post(difficultyFeedbackURL, data, function () {
-            });
-            $.modal.close();
-            closeLocationTools(1);
-            disableContinue = true;
         }
 
         function closeLocationTools(next) {

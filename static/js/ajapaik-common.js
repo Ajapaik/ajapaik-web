@@ -33,7 +33,7 @@
         scale: 0.75
     };
     window.dottedAzimuthLine = new google.maps.Polyline({
-        geodesic: true,
+        geodesic: false,
         strokeOpacity: 0,
         icons: [
             {

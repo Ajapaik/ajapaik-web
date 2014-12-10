@@ -200,7 +200,9 @@ class Photo(models.Model):
 				"big": _make_thumbnail(photo, "700x400"),
 				"large": _make_fullscreen(photo),
 				"confidence": photo.confidence,
-				"distance_from_last": distance_from_last
+				"distance_from_last": distance_from_last,
+				"total_geotags": photo.geotags.count(),
+				"geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count()
 			}
 
 		def get_next_photo_to_geotag(self, request):

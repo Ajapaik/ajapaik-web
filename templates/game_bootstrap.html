@@ -19,7 +19,9 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div id="ajapaik-game-modal-photo-container">
-                        <img src="" class="img-responsive" id="ajapaik-game-modal-photo" />
+                        <a class="fullscreen" id="ajapaik-game-full-screen-link" rel="" href="">
+                            <img src="" class="img-responsive" id="ajapaik-game-modal-photo" />
+                        </a>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -79,11 +81,18 @@
     <div id="ajapaik-game-map-container">
         <button class="btn btn-primary ajapaik-game-skip-photo-button">{% trans "Skip" %}</button>
         <button class="btn btn-primary ajapaik-game-save-location-button">{% trans "Save location only" %}</button>
+        <div class="panel panel-default" id="ajapaik-game-map-info-panel">
+            <div class="panel-body">
+                {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
+                <br/>
+                {% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span>
+            </div>
+        </div>
         <div id="ajapaik-game-map-canvas"></div>
     </div>
     <div class="full-box">
-        <div class="full-pic" id="full-large1">
-            <img id="ajapaik-game-full-screen-image" src="" border="0" />
+        <div class="full-pic" id="ajapaik-game-fullscreen-image-container">
+            <img id="ajapaik-game-full-screen-image" src="" />
         </div>
     </div>
     <img src="" class="img-responsive" id="ajapaik-game-guess-photo" />
