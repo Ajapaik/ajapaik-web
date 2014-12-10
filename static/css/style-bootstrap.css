@@ -504,6 +504,7 @@ a.fullscreen {
     max-height: 100% !important;
     max-width: 100% !important;
     width: auto;
+    height: auto;
 }
 
 #ajapaik-game-modal-photo {
