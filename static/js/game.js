@@ -254,6 +254,10 @@
         }
         if (photos.length > currentPhotoIdx) {
             disableNext = true;
+            $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
+                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+            });
+            /*disableNext = true;
             $('.skip-photo').animate({ 'opacity': 0.4 });
             $(currentPhoto).find('img').animate({ 'opacity': 0.4 });
             $(currentPhoto).find('.show-description').hide();
@@ -282,9 +286,9 @@
             if (typeof FB !== 'undefined') {
                 FB.XFBML.parse();
             }
-            $('#full-photos').append('<div class="full-box" style="/*chrome fullscreen fix*/"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
+            $('#full-photos').append('<div class="full-box" style="*//*chrome fullscreen fix*//*"><div class="full-pic" id="game-full' + photos[currentPhotoIdx].id + '"><img ' + (photos[currentPhotoIdx].flip ? 'class="flip-photo "' : '') + 'src="' + mediaUrl + photos[currentPhotoIdx].large.url + '" border="0" /></div>');
             prepareFullscreen();
-            currentPhotoIdx += 1;
+            currentPhotoIdx += 1;*/
         } else {
             loadPhotos(1);
         }
@@ -367,6 +371,11 @@
             $("#random-photo").click();
         });
 
+        $('#ajapaik-game-photo-modal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
         loadPhotos();
 
         location = new google.maps.LatLng(start_location[1], start_location[0]);
@@ -410,7 +419,10 @@
         });
 
         //$(".center-marker").hide();
-        $(".center-marker").css("background-image", "url('http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png')").css("margin-left", "-8px").css("margin-top", "-9px");
+        $(".center-marker")
+            .css("background-image", "url('http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png')")
+            .css("margin-left", "-8px")
+            .css("margin-top", "-9px");
 
         $.jQee('space', function () {
             // If tools is open, continue game
@@ -448,7 +460,7 @@
             $('#skip-photo').click();
         });
 
-        $('.skip-photo').click(function (e) {
+        $('.ajapaik-game-next-photo-button').click(function (e) {
             firstDragDone = false;
             e.preventDefault();
             if (disableNext == false) {
@@ -485,6 +497,20 @@
             continueGame();
         });
 
+        $('ajapaik-game-specify-location-button').click(function () {
+
+        });
+
+        $('#full_leaderboard').bind('click', function (e) {
+            e.preventDefault();
+            $('#leaderboard_browser').find('.scoreboard').load(leaderboardFullURL, function () {
+                $('#ajapaik-game-full-leaderboard-modal').modal().on('shown.bs.modal', function () {
+                    $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                });
+            });
+            _gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
+        });
+
         $('#save-location').click(function (e) {
             firstDragDone = false;
             e.preventDefault();
@@ -501,7 +527,8 @@
             }
         });
 
-        photosDiv = $('#photos');
+        //TODO: Restore necessary parts
+        /*photosDiv = $('#photos');
 
         photosDiv.delegate('.show-description', 'click', function (e) {
             e.preventDefault();
@@ -510,51 +537,43 @@
             _gaq.push(['_trackEvent', 'Game', 'Show description']);
         });
 
-//        photosDiv.find('a.fullscreen').live('click', function (e) {
-//            e.preventDefault();
-//            if (BigScreen.enabled) {
-//                BigScreen.request($('#game-full' + this.rel)[0]);
-//                _gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-' + this.rel]);
-//            }
-//        });
-//
-//        $('.full-box div').live('click', function (e) {
-//            if (BigScreen.enabled) {
-//                e.preventDefault();
-//                BigScreen.exit();
-//            }
-//        });
-
-//        photosDiv.hoverIntent(function () {
-//            if (locationToolsOpen === true && !isMobile) {
-//                showPhotos();
-//            } else if (locationToolsOpen === false && !isMobile) {
-//                showTools();
-//            }
-//        }, function () {
-//            if (locationToolsOpen === true && !isMobile) {
-//                hidePhotos();
-//            } else if (locationToolsOpen === false && !isMobile) {
-//                hideTools();
-//            }
-//        });
-
-//        photosDiv.find('img').live('click', toggleTouchPhotoView).live('mouseover', function () {
-//            if (locationToolsOpen && photosDivSlidInPlace) {
-//                $('#photos').addClass('map-open-hide-photos');
-//            }
-//        });
-
-
-        $('.score_container').hover(showScoreboard, hideScoreboard);
-
-        $('#full_leaderboard').bind('click', function (e) {
+        photosDiv.find('a.fullscreen').live('click', function (e) {
             e.preventDefault();
-            $('#leaderboard_browser').find('.scoreboard').load(leaderboardFullURL, function () {
-                $('#leaderboard_browser').modal({overlayClose: true});
-            });
-            _gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
+            if (BigScreen.enabled) {
+                BigScreen.request($('#game-full' + this.rel)[0]);
+                _gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-' + this.rel]);
+            }
         });
+
+        $('.full-box div').live('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.exit();
+            }
+        });
+
+        photosDiv.hoverIntent(function () {
+            if (locationToolsOpen === true && !isMobile) {
+                showPhotos();
+            } else if (locationToolsOpen === false && !isMobile) {
+                showTools();
+            }
+        }, function () {
+            if (locationToolsOpen === true && !isMobile) {
+                hidePhotos();
+            } else if (locationToolsOpen === false && !isMobile) {
+                hideTools();
+            }
+        });
+
+        photosDiv.find('img').live('click', toggleTouchPhotoView).live('mouseover', function () {
+            if (locationToolsOpen && photosDivSlidInPlace) {
+                $('#photos').addClass('map-open-hide-photos');
+            }
+        });*/
+
+
+        $('#ajapaik-header').find('.score_container').hover(window.showScoreboard, window.hideScoreboard);
 
         function saveLocation() {
             lat = marker.getPosition().lat();
@@ -701,16 +720,17 @@
             });
         }
 
-        function showPhotos() {
+        //TODO: Restore necessary
+        /*function showPhotos() {
             //var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
             //$('#tools').animate({ left: photoWidthPercent + '%' });
             $("#photos").hide();
         }
 
         function showTools() {
-//            $("a.btn.flip").show();
-//            $(".fb-like").show();
-//            $(".show-description").show();
+            //$("a.btn.flip").show();
+            //$(".fb-like").show();
+            //$(".show-description").show();
             $(currentPhoto).find(".game-photo-tools").show();
         }
 
@@ -723,20 +743,6 @@
             $(currentPhoto).find('.show-description').fadeOut(function () {
                 $(this).parent().parent().find('.description').fadeIn();
             });
-        }
-
-        function showScoreboard() {
-            var scoreContainer = $('.score_container');
-            scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
-            scoreContainer.find('#facebook-connect').slideDown();
-            scoreContainer.find('#google-plus-connect').slideDown();
-        }
-
-        function hideScoreboard() {
-            var scoreContainer = $('.score_container');
-            scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
-            scoreContainer.find('#facebook-connect').slideUp();
-            scoreContainer.find('#google-plus-connect').slideUp();
-        }
+        }*/
     });
 }());

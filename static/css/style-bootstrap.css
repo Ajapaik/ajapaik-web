@@ -180,17 +180,11 @@ body {
 }
 
 .ajapaik-game-next-photo-button {
-    position: absolute;
-    bottom: 25px;
-    right: 25px;
-    z-index: 1002;
+
 }
 
 .ajapaik-game-specify-location-button {
-    position: absolute;
-    bottom: 75px;
-    right: 25px;
-    z-index: 1002;
+
 }
 
 .ajapaik-game-save-location-button {
@@ -315,8 +309,13 @@ a.fullscreen {
     padding: 30px;
 }
 
-.modal-backdrop {
+/* TODO: This is only needed in feedback div
+/*.modal-backdrop {
     display: none !important;
+}*/
+
+.modal-backdrop.in {
+    opacity: 0.8;
 }
 
 .ajapaik-grid-close-guess-notice-button {
@@ -454,4 +453,38 @@ a.fullscreen {
     background-repeat: no-repeat;
     text-align: left;
     direction: ltr;
+}
+
+/* Extra modal styles from http://codepen.io/dimbslmh/pen/mKfCc */
+.modal-dialog-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.modal-body {
+    overflow-y: auto;
+}
+
+.modal-footer {
+    margin-top: 0;
+}
+
+@media (max-width: 767px) {
+    .modal-dialog-center {
+        width: 100%;
+    }
+}
+
+#ajapaik-game-modal-photo-container {
+    text-align: center;
+}
+
+#ajapaik-game-modal-photo {
+
+}
+
+#ajapaik-game-photo-modal {
+    z-index: 1005;
 }

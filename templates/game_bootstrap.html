@@ -14,10 +14,41 @@
             <p>{% trans "We are now showing you random photos." %}</p>
         </div>
     </div>
+    <div class="modal fade" id="ajapaik-game-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="ajapaik-game-modal-photo-container">
+                        <img src="" id="ajapaik-game-modal-photo" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary ajapaik-game-specify-location-button">{% trans "Pick the shooting location!" %}</button>
+                    <button class="btn btn-primary ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ajapaik-game-full-leaderboard-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-game-full-leaderboard-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="leaderboard_browser">
+                        <div class="single">
+                            <div class="score_container">
+                                <ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="ajapaik-game-map-container">
         <button class="btn btn-primary ajapaik-game-save-location-button">{% trans "Save location only" %}</button>
-        <button class="btn btn-primary ajapaik-game-specify-location-button">{% trans "Pick the shooting location!" %}</button>
-        <button class="btn btn-primary ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
         <div id="ajapaik-game-map-canvas"></div>
     </div>
     <script>

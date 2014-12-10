@@ -70,4 +70,42 @@
             that.css('opacity', 1);
         });
     };
+    // Modal centering code from http://codepen.io/dimbslmh/pen/mKfCc
+    window.adjustModalMaxHeightAndPosition = function () {
+        $('.modal').each(function () {
+            if ($(this).hasClass('in') === false) {
+                $(this).show();
+            }
+            var contentHeight = $(window).height() - 60,
+                headerHeight = $(this).find('.modal-header').outerHeight() || 2,
+                footerHeight = $(this).find('.modal-footer').outerHeight() || 2;
+
+            $(this).find('.modal-content').css({
+                'max-height': function () {
+                    return contentHeight;
+                }
+            });
+
+            $(this).find('.modal-body').css({
+                'max-height': function () {
+                    return contentHeight - (headerHeight + footerHeight);
+                }
+            });
+
+            $(this).find('.modal-dialog').addClass('modal-dialog-center').css({
+                'margin-top': function () {
+                    return -($(this).outerHeight() / 2);
+                },
+                'margin-left': function () {
+                    return -($(this).outerWidth() / 2);
+                }
+            });
+            if ($(this).hasClass('in') === false) {
+                $(this).hide();
+            }
+        });
+    };
+    if ($(window).height() >= 320) {
+        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+    }
 }());
