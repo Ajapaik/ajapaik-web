@@ -540,7 +540,7 @@
             _gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
         });
 
-        $('.ajapaik-game-save-location-button').click(function (e) {
+        $('.ajapaik-game-save-location-button').click(function () {
             firstDragDone = false;
             if (disableSave) {
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
@@ -553,6 +553,10 @@
                     _gaq.push(['_trackEvent', 'Game', 'Save location only']);
                 }
             }
+        });
+
+        $('.ajapaik-game-feedback-next-button').click(function () {
+
         });
 
         //TODO: Restore necessary parts
@@ -608,7 +612,7 @@
             lon = marker.getPosition().lng();
 
             var data = {
-                photo_id: photos[currentPhotoIdx - 1].id,
+                photo_id: photos[currentPhotoIdx].id,
                 hint_used: hintUsed,
                 zoom_level: window.map.zoom
             };
@@ -654,16 +658,14 @@
                 } else {
                     message = gettext('Your guess was first.');
                 }
-                noticeDiv = $("#notice");
+                noticeDiv = $("#ajapaik-game-guess-feedback-modal");
                 if (hide_feedback) {
-                    noticeDiv.find(".difficulty-message").hide();
-                    noticeDiv.find("#difficulty-form").hide();
+                    noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-prompt").hide();
+                    noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-form").hide();
                 }
-                noticeDiv.find(".message").text(message);
-                noticeDiv.find(".points-gained-message").text(gettext("Points awarded") + ": " + resp["current_score"]);
-                noticeDiv.find(".geotag-count-message").text(gettext("Amount of geotags for this photo") + ": " + resp["heatmap_points"].length);
-                noticeDiv.find(".azimuth-count-message").text(gettext("Amount of azimuths for this photo") + ": " + resp["azimuth_tags"]);
-                noticeDiv.modal({escClose: false, autoPosition: false, modal: false});
+                noticeDiv.find("#ajapaik-game-guess-feedback-message").text(message);
+                noticeDiv.find("#ajapaik-game-guess-feedback-points-gained").text(gettext("Points awarded") + ": " + resp["current_score"]);
+                noticeDiv.modal({backdrop: 'static', keyboard: false});
                 disableContinue = false;
                 if (resp.heatmap_points) {
                     marker.setMap(null);

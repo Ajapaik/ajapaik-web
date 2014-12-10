@@ -42,33 +42,39 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
     </div>
-    {% comment %}<div id="notice" style="display: none;">
-        <h2>{% trans "Thank you!" %}</h2>
-        <p class="message"></p>
-        <p class="points-gained-message"></p>
-        <p class="geotag-count-message"></p>
-        <p class="azimuth-count-message"></p>
-        <p class="difficulty-message" style="margin: 0 0 5px;">
-            {% trans "In your opinion to geotag this photo is" %}
-        </p>
-        <form id="difficulty-form">
-            <span style="margin-right: 10px;">
-                {% trans "easy" %}
-            </span>
-            <input type="radio" name="difficulty" value="1">
-            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
-            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
-            <span style="margin-left: 10px;">
-                {% trans "hard" %}
-            </span>
-        </form>
-        <a id="continue-game" href="" class="btn small">{% trans "Next photo" %}</a>
-    </div>{% endcomment %}
+    <div class="modal fade" id="ajapaik-game-guess-feedback-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-game-guess-feedback-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2>{% trans "Thank you!" %}</h2>
+                    <p id="ajapaik-game-guess-feedback-message"></p>
+                    <p id="ajapaik-game-guess-feedback-points-gained"></p>
+                    <p id="ajapaik-game-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
+                        {% trans "In your opinion to geotag this photo is" %}
+                    </p>
+                    <form id="ajapaik-game-guess-feedback-difficulty-form">
+                        <span style="margin-right: 10px;">
+                            {% trans "easy" %}
+                        </span>
+                        <input type="radio" name="difficulty" value="1">
+                        <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
+                        <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
+                        <span style="margin-left: 10px;">
+                            {% trans "hard" %}
+                        </span>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default ajapaik-game-feedback-next-button">{% trans "Next photo" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="ajapaik-game-map-container">
         <button class="btn btn-primary ajapaik-game-skip-photo-button">{% trans "Skip" %}</button>
         <button class="btn btn-primary ajapaik-game-save-location-button">{% trans "Save location only" %}</button>
