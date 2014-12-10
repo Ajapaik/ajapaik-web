@@ -495,22 +495,14 @@ a.fullscreen {
     }
 }
 
-/*#ajapaik-game-modal-photo-container {
-    text-align: center;
-}
+#ajapaik-game-modal-photo-container {
 
-#ajapaik-game-modal-photo-container img {
-    margin: 0 auto;
-    max-height: 100% !important;
-    max-width: 100% !important;
-    width: auto;
-    height: auto;
-}*/
+}
 
 .img-responsive-height {
   display: block;
   width: auto;
-  max-height: 100%
+  max-height: 100%;
 }
 
 #ajapaik-game-modal-photo {
@@ -519,4 +511,8 @@ a.fullscreen {
 
 #ajapaik-game-photo-modal {
     z-index: 1005;
+}
+
+#ajapaik-game-modal-photo-container img {
+    margin: 0 auto;
 }
