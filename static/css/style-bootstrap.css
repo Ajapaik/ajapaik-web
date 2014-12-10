@@ -495,9 +495,14 @@ a.fullscreen {
     }
 }
 
+#ajapaik-game-modal-photo-container {
+    text-align: center;
+}
+
 #ajapaik-game-modal-photo-container img {
     margin: 0 auto;
     max-height: 100% !important;
+    max-width: 100% !important;
     width: auto;
 }
 
