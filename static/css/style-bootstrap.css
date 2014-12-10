@@ -495,8 +495,8 @@ a.fullscreen {
     }
 }
 
-#ajapaik-game-modal-photo-container {
-    text-align: center;
+#ajapaik-game-modal-photo-container img {
+    margin: 0 auto;
 }
 
 #ajapaik-game-modal-photo {

@@ -254,7 +254,6 @@
         }
         if (photos.length > currentPhotoIdx) {
             disableNext = true;
-            console.log(photos[currentPhotoIdx].large.url);
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
@@ -447,7 +446,7 @@
         $.jQee('enter', function () {
             // Save location only if Tools open and no result window
             if (locationToolsOpen && disableContinue) {
-                $('#save-location').click();
+                $('.ajapaik-game-save-location-button').click();
             } else {
                 continueGame();
             }
@@ -506,10 +505,9 @@
             disableNext = false;
         });
 
-        $('.ajapaik-game-skip-photo-button').click(function (e) {
+        $('.ajapaik-game-skip-photo-button').click(function () {
             firstDragDone = false;
-            e.preventDefault();
-            if (disableNext == false) {
+            if (!disableNext) {
                 var data = {photo_id: photos[currentPhotoIdx].id};
                 $.post(saveLocationURL, data, function () {
                     currentPhotoIdx += 1;
@@ -523,6 +521,15 @@
             }
         });
 
+        $('.ajapaik-game-next-photo-button').click(function () {
+            var data = {photo_id: photos[currentPhotoIdx].id};
+            $.post(saveLocationURL, data, function () {
+                currentPhotoIdx += 1;
+                nextPhoto();
+            });
+            _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+        });
+
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
             $('#leaderboard_browser').find('.scoreboard').load(leaderboardFullURL, function () {
@@ -533,9 +540,8 @@
             _gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
         });
 
-        $('#save-location').click(function (e) {
+        $('.ajapaik-game-save-location-button').click(function (e) {
             firstDragDone = false;
-            e.preventDefault();
             if (disableSave) {
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
                 alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
