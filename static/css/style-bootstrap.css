@@ -507,6 +507,12 @@ a.fullscreen {
     height: auto;
 }*/
 
+.img-responsive-height {
+  display: block;
+  width: auto;
+  max-height: 100%
+}
+
 #ajapaik-game-modal-photo {
 
 }
