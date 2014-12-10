@@ -18,11 +18,11 @@
                         </a>
                     {% endfor %}
                 </div>
-                <div id="ajapaik-grid-load-more">
+                <div id="ajapaik-grid-load-more-container">
                     <a id="ajapaik-grid-load-more-link" href="javascript:void(0);">
                         {% trans "Load more photos" %}
                     </a>
-                    <p id="ajapaik-grid-no-more-photos" style="display: none;">
+                    <p id="ajapaik-grid-no-more-photos-message" style="display: none;">
                         {% trans "No more photos to show" %}
                     </p>
                 </div>
@@ -39,15 +39,15 @@
             </div>
         </div>
         <button class="btn btn-primary ajapaik-grid-save-location-button">{% trans "Save location only" %}</button>
-        <button class="btn btn-primary ajapaik-grid-guess-location-button">{% trans "Specify location" %}</button>
+        <button class="btn btn-primary ajapaik-grid-specify-location-button">{% trans "Specify location" %}</button>
         <button class="btn btn-primary ajapaik-grid-close-map-button">{% trans "Close map" %}</button>
         <div id="ajapaik-grid-map-canvas"></div>
     </div>
-    <div id="ajapaik-grid-guess-notice">
+    <div id="ajapaik-grid-guess-notice-container">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">{% trans "Thank you!" %}</div>
-                <div class="row"><button class="btn btn-primary ajapaik-grid-close-notice-button">{% trans "You're welcome" %}</button></div>
+                <div class="row"><button class="btn btn-primary ajapaik-grid-close-guess-notice-button">{% trans "You're welcome" %}</button></div>
             </div>
         </div>
     </div>

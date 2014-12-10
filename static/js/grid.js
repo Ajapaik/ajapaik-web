@@ -40,7 +40,7 @@
             mapDragstartListenerActive,
             mapIdleListenerActive,
             mapMousemoveListenerActive,
-            moveOrCreateHeatmapEstimatedLocationMarker,
+            placeEstimatedLocationMarker,
             guessLocationStarted = false,
             saveLocation,
             noticeDiv,
@@ -98,22 +98,14 @@
             }
         });
 
-        $.ajaxSetup({
-            headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
-        });
-
-        moveOrCreateHeatmapEstimatedLocationMarker = function (position) {
-            if (estimatedLocationMarker) {
-                estimatedLocationMarker.setPosition(position);
-            } else {
-                estimatedLocationMarker = new google.maps.Marker({
-                    position: position,
-                    map: window.map,
-                    title: gettext("The peoples' guess"),
-                    draggable: false,
-                    icon: '/static/images/ajapaik_marker_35px.png'
-                });
-            }
+        placeEstimatedLocationMarker = function (position) {
+            estimatedLocationMarker = new google.maps.Marker({
+                position: position,
+                map: window.map,
+                title: gettext("The peoples' guess"),
+                draggable: false,
+                icon: '/static/images/ajapaik_marker_35px.png'
+            });
         };
 
         saveLocation = function () {
@@ -148,7 +140,7 @@
                 } else if (resp['is_correct'] == false) {
                     _gaq.push(['_trackEvent', 'Grid', 'Wrong coordinates']);
                 }
-                noticeDiv = $('#ajapaik-grid-guess-notice');
+                noticeDiv = $('#ajapaik-grid-guess-notice-container');
                 noticeDiv.modal();
                 marker.setMap(null);
                 $(".center-marker").hide();
@@ -178,7 +170,7 @@
                     icon: markerImage
                 });
                 if (resp.new_estimated_location) {
-                    moveOrCreateHeatmapEstimatedLocationMarker(new google.maps.LatLng(resp.new_estimated_location[0], resp.new_estimated_location[1]));
+                    placeEstimatedLocationMarker(new google.maps.LatLng(resp.new_estimated_location[0], resp.new_estimated_location[1]));
                 }
             }, 'json');
         };
@@ -220,7 +212,7 @@
                     mapOptions.streetPanorama = new google.maps.StreetViewPanorama(document.getElementById('ajapaik-grid-map-canvas'), streetViewOptions);
                     window.map = new google.maps.Map(document.getElementById('ajapaik-grid-map-canvas'), mapOptions);
                     if (result.estimated_location) {
-                        moveOrCreateHeatmapEstimatedLocationMarker(new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]));
+                        placeEstimatedLocationMarker(new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]));
                     }
                     if (estimatedLocationMarker) {
                         window.map.setCenter(estimatedLocationMarker.getPosition());
@@ -265,7 +257,7 @@
 
         mapMousemoveListenerFunction = function (e) {
             // The mouse is moving, therefore we haven't locked on a direction
-            $('.ajapaik-grid-save-location').text(gettext('Save location only'));
+            $('.ajapaik-grid-save-location-button').text(gettext('Save location only'));
             saveDirection = false;
             radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
             degreeAngle = Math.degrees(radianAngle);
@@ -417,7 +409,7 @@
             }
             if (window.start > window.totalPhotoCount) {
                 loadMoreLink.hide();
-                $('#ajapaik-grid-no-more-photos').show();
+                $('#ajapaik-grid-no-more-photos-message').show();
             }
         };
 
@@ -459,25 +451,6 @@
 //                        'hideOnContentClick': false
 //                    });
                 }
-            });
-        };
-
-        window.prepareFullscreen = function () {
-            $('.full-box img').load(function () {
-                var that = $(this),
-                    aspectRatio = that.width() / that.height(),
-                    newWidth = parseInt(screen.height * aspectRatio, 10),
-                    newHeight = parseInt(screen.width / aspectRatio, 10);
-                if (newWidth > screen.width) {
-                    newWidth = screen.width;
-                } else {
-                    newHeight = screen.height;
-                }
-                that.css('margin-left', (screen.width - newWidth) / 2 + 'px');
-                that.css('margin-top', (screen.height - newHeight) / 2 + 'px');
-                that.css('width', newWidth);
-                that.css('height', newHeight);
-                that.css('opacity', 1);
             });
         };
 
@@ -553,25 +526,13 @@
             }
         });
 
-        $('.ajapaik-grid-close-notice-button').on('click', function (e) {
+        $('.ajapaik-grid-close-guess-notice-button').on('click', function () {
             noticeDiv.hide();
         });
 
-        photoDrawerElement.delegate('#ajapaik-close-photo-drawer', 'click', function (e) {
+        photoDrawerElement.delegate('#ajapaik-photoview-close-photo-drawer', 'click', function (e) {
             e.preventDefault();
             closePhotoDrawer();
-        });
-
-        photoDrawerElement.delegate('a.add-rephoto', 'click', function (e) {
-            e.preventDefault();
-            $('#notice').modal();
-            _gaq.push(['_trackEvent', 'Map', 'Add rephoto']);
-        });
-
-        photoDrawerElement.delegate('#random-photo', 'click', function (e) {
-            e.preventDefault();
-            var imagesOnPage = $('.ajapaik-grid-image');
-            window.loadPhoto(imagesOnPage[Math.floor(Math.random() * imagesOnPage.length)].dataset.id);
         });
     });
 }());

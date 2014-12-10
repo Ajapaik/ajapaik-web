@@ -74,12 +74,12 @@
         photosDivSlidInPlace = false;
 
     updateLeaderboard = function () {
-        var scoreContainer = $('.score_container');
-        scoreContainer.find('.scoreboard').load(leaderboardUpdateURL);
+        $('.score_container').find('.scoreboard').load(leaderboardUpdateURL);
     };
 
     toggleTouchPhotoView = function () {
-        if (isMobile && locationToolsOpen) {
+        //TODO: Renew
+        /*if (isMobile && locationToolsOpen) {
             if (mobileMapMinimized) {
                 $('#tools').css({left: '15%'});
                 mobileMapMinimized = false;
@@ -88,7 +88,8 @@
                 $('#tools').css({left: photoWidthPercent + '%'});
                 mobileMapMinimized = true;
             }
-        }
+        }*/
+        $.noop();
     };
 
     mapClickListenerFunction = function (e) {
@@ -107,7 +108,7 @@
             mapMousemoveListenerActive = false;
             google.maps.event.clearListeners(window.map, 'mousemove');
             saveDirection = true;
-            $('#save-location').text(gettext('Save location and direction')).removeClass('medium').addClass('green');
+            $('.ajapaik-game-save-location-button').text(gettext('Save location and direction'));
             window.dottedAzimuthLine.icons[0].repeat = '2px';
             window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
             window.dottedAzimuthLine.setVisible(true);
@@ -123,7 +124,7 @@
 
     mapMousemoveListenerFunction = function (e) {
         // The mouse is moving, therefore we haven't locked on a direction
-        $('#save-location').text(gettext('Save location only')).removeClass('medium').addClass('green');
+        $('.ajapaik-game-save-location-button').text(gettext('Save location only'));
         saveDirection = false;
         radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
         degreeAngle = Math.degrees(radianAngle);
@@ -147,7 +148,7 @@
                 .css('background-image', 'url("http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png")')
                 .css('margin-left', '-8px')
                 .css('margin-top', '-9px');
-            //TODO: Maybe this one?
+            //TODO: This is probably causing a bug with the azimuth line appearing/disappearing abnormally
             if (!mapMousemoveListenerActive) {
                 google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
@@ -171,14 +172,14 @@
             .css('margin-left', '-17px')
             .css('margin-top', '-55px')
             .css('height', '60px');
-        $('#save-location').text(gettext('Save location only')).removeClass('medium').addClass('green');
+        $('.ajapaik-game-save-location-button').text(gettext('Save location only'));
         azimuthListenerActive = false;
         window.dottedAzimuthLine.setVisible(false);
         mapMousemoveListenerActive = false;
         google.maps.event.clearListeners(window.map, 'mousemove');
     };
 
-    // Our own custom zooming functions to fix the otherwise laggy zooming
+    // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
     wheelEventFF = function (e) {
         now = new Date().getTime();
         if (!lastTriggeredWheeling) {
@@ -214,38 +215,39 @@
     };
 
     showNothingMoreToShowMessage = function () {
-        $('#user-message-container').show();
-        $('#user-seen-all').hide();
-        $('#nothing-more-to-show').show();
+        $('#ajapaik-game-user-message-container').show();
+        $('#ajapaik-game-user-seen-all-message').hide();
+        $('#ajapaik-game-nothing-more-to-show-message').show();
     };
 
     showSeenAllMessage = function () {
-        $('#user-message-container').show();
-        $('#nothing-more-to-show').hide();
-        $('#user-seen-all').show();
+        $('#ajapaik-game-user-message-container').show();
+        $('#ajapaik-game-nothing-more-to-show-message').hide();
+        $('#ajapaik-game-user-seen-all-message').show();
     };
 
-    hideTools = function () {
+    //TODO: Remove?
+    /*hideTools = function () {
         $(currentPhoto).find('.game-photo-tools').hide();
-    };
+    };*/
 
-    scrollPhotos = function () {
+    /*scrollPhotos = function () {
         gameOffset = ($(document).width() / 2) + ($(currentPhoto).width() / 2) - gameWidth;
         $('#photos').animate({ left: gameOffset }, 1000, function () {
             disableNext = false;
             $('.skip-photo').animate({ 'opacity': 1 });
         });
-    };
+    };*/
 
     nextPhoto = function () {
         hintUsed = 0;
         disableSave = true;
-        photosDivSlidInPlace = false;
-        photosDiv.removeClass('map-open-hide-photos');
+        //photosDivSlidInPlace = false;
+        //photosDiv.removeClass('map-open-hide-photos');
         azimuthListenerActive = false;
         window.map.setZoom(16);
         mapMousemoveListenerActive = false;
-        hideTools();
+        //hideTools();
         google.maps.event.clearListeners(window.map, 'mousemove');
         if (window.dottedAzimuthLine !== undefined) {
             window.dottedAzimuthLine.setVisible(false);
@@ -355,6 +357,15 @@
 
     $(document).ready(function () {
         updateLeaderboard();
+
+        $.jQee("esc", function () {
+            $("#close-photo-drawer").click();
+            $("#close-location-tools").click();
+        });
+
+        $.jQee("shift+r", function () {
+            $("#random-photo").click();
+        });
 
         loadPhotos();
 

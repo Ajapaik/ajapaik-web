@@ -6,17 +6,17 @@
 {% endblock %}
 
 {% block layout %}
-    <div id="user-message-container" style="display: none;">
-        <div id="user-seen-all">
+    <div id="ajapaik-game-user-message-container">
+        <div id="ajapaik-game-user-seen-all-message">
             <p>{% trans "You have seen all the pictures we have for this area." %}</p>
         </div>
-        <div id="nothing-more-to-show">
+        <div id="ajapaik-game-nothing-more-to-show-message">
             <p>{% trans "We are now showing you random photos." %}</p>
         </div>
     </div>
     <div id="ajapaik-game-map-container">
         <button class="btn btn-primary ajapaik-game-save-location-button">{% trans "Save location only" %}</button>
-        <button class="btn btn-primary ajapaik-game-guess-location-button">{% trans "Pick the shooting location!" %}</button>
+        <button class="btn btn-primary ajapaik-game-specify-location-button">{% trans "Pick the shooting location!" %}</button>
         <button class="btn btn-primary ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
         <div id="ajapaik-game-map-canvas"></div>
     </div>
@@ -41,50 +41,6 @@
 {% endblock %}
 
 {% comment %}
-{% load thumbnail i18n %}
-    <div id="game">
-
-        <div id="top">
-            <h1 class="ir">
-                <a href="/?city__pk={{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}">
-                    {% trans "Timepatch (Ajapaik)" %}
-                </a>
-            </h1>
-            <div class="score_container">
-                <h2>
-                    <a id="full_leaderboard" href="#">
-                        {% trans "Leaderboard" %}
-                    </a>
-                </h2>
-                <ul class="scoreboard"></ul>
-                {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
-                    {% with profile=request.user.profile user=request.user %}
-                        <div id="facebook-connected">
-                            <p>
-                                {% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
-                                    Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click
-                                    here{{ link_close }}.{% endblocktrans %}
-                            </p>
-                        </div>
-                    {% endwith %}
-                {% else %}
-                    <div id="facebook-connect">
-                        <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                    </div>
-                    {% endcomment %}
-{% comment %}<div id="google-plus-connect">
-                        <p>{% trans "Connect with Google plus to save your score and continue later." %}</p>
-
-                        <a id="google-plus-login-button" href="/google_login" class="ir">{% trans "Connect with Google+" %}</a>
-				    </div>{% endcomment %}{% comment %}
-
-                {% endif %}
-            </div>
-            <div class="filter-box">
-                {{ filters.get_form.as_p }}
-            </div>
-        </div>
         <div id="tools">
             <a id="save-location" href="#" class="btn medium">{% trans "Save location only" %}</a>
             <a id="close-location-tools" href="#" class="btn medium">{% trans "Close map" %}</a>

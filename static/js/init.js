@@ -69,7 +69,12 @@
             streetView: streetPanorama
         };
 
-        window.map = new google.maps.Map(document.getElementById("ajapaik-game-map-canvas"), mapOpts);
+        //TODO: Remove redundant
+        if (document.getElementById("ajapaik-game-map-canvas")) {
+            window.map = new google.maps.Map(document.getElementById("ajapaik-game-map-canvas"), mapOpts);
+        } else {
+            window.map = new google.maps.Map(document.getElementById("map_canvas"), mapOpts);
+        }
 
         if (isGameMap) {
             $("<div/>").addClass("center-marker").appendTo(window.map.getDiv()).click(function () {
@@ -99,62 +104,4 @@
             }
         });
     };
-
-    window.prepareFullscreen = function() {
-        $(".full-box img").load(function () {
-            var that = $(this),
-                aspectRatio = that.width() / that.height(),
-                newWidth = parseInt(screen.height * aspectRatio),
-                newHeight = parseInt(screen.width / aspectRatio);
-            if (newWidth > screen.width) {
-                newWidth = screen.width;
-            } else {
-                newHeight = screen.height;
-            }
-            that.css("margin-left", (screen.width - newWidth) / 2 + "px");
-            that.css("margin-top", (screen.height - newHeight) / 2 + "px");
-            that.css("width", newWidth);
-            that.css("height", newHeight);
-            that.css("opacity", 1);
-        });
-    };
-
-    window.getQueryParameterByName = function (name) {
-        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-    };
-
-    $(document).ready(function () {
-        $.jQee("esc", function () {
-            $("#close-photo-drawer").click();
-            $("#close-location-tools").click();
-        });
-
-        $.jQee("shift+r", function () {
-            $("#random-photo").click();
-        });
-
-        $.ajaxSetup({
-            headers: { 'X-CSRFToken': docCookies.getItem('csrftoken') }
-        });
-
-        $(".filter-box select").change(function () {
-            var uri = new URI(location.href),
-                newQ = URI.parseQuery($(this).val()),
-                isFilterEmpty = false;
-
-            uri.removeQuery(Object.keys(newQ));
-            $.each(newQ, function (i, ii) {
-                isFilterEmpty = ii == "";
-            });
-
-            if (!isFilterEmpty) {
-                uri = uri.addQuery(newQ);
-            }
-
-            uri.addQuery("fromSelect", 1);
-
-            location.href = uri.toString();
-        });
-    });
 }());

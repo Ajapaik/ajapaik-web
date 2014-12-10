@@ -10,8 +10,8 @@
                 <img id="ajapaik-block-photoview-main-photo"
                      class="{% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                      src="{% url 'project.home.views.photo_url' photo.id %}"/>
-                <button class="btn btn-default ajapaik-flip-photo-button"></button>
-                <button class="btn btn-default ajapaik-open-heatmap-button" data-id="{{ photo.id }}"></button>
+                <button class="btn btn-default ajapaik-photoview-flip-photo-button"></button>
+                <button class="btn btn-default ajapaik-photoview-open-heatmap-button" data-id="{{ photo.id }}"></button>
             </div>
             {% if photo.description %}
                 <div class="row">
@@ -30,7 +30,7 @@
                 </div>
             {% endif %}
             <div class="row" id="ajapaik-photo-drawer-buttons">
-                <button id="ajapaik-close-photo-drawer" type="button" class="btn btn-primary">{% trans "Close photo" %}</button>
+                <button id="ajapaik-photoview-close-photo-drawer" type="button" class="btn btn-primary">{% trans "Close photo" %}</button>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         //History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
         //$('.filter-box').hide();
         _gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
-        $(".ajapaik-flip-photo-button").click(function () {
+        $(".ajapaik-photoview-flip-photo-button").click(function () {
             var target = $("#ajapaik-block-photoview-main-photo");
             if (target.hasClass("ajapaik-photo-flipped")) {
                 target.removeClass("ajapaik-photo-flipped");
@@ -58,10 +58,10 @@
                 target.addClass("ajapaik-photo-flipped");
             }
         });
-        $(".ajapaik-open-heatmap-button").click(function (e) {
+        $(".ajapaik-photoview-open-heatmap-button").click(function (e) {
             window.showHeatmap(e.target.dataset.id);
         });
-        $(".ajapaik-grid-guess-location-button").click(function () {
+        $(".ajapaik-grid-specify-location-button").click(function () {
             window.startGuessLocation();
         });
     });

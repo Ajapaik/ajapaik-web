@@ -77,24 +77,6 @@
         $(".ajapaik-open-heatmap-button").click(function (e) {
             window.showHeatmap(e.target.dataset.id);
         });
-        var prepareFullscreen = function() {
-            $(".full-box img").load(function () {
-                var that = $(this),
-                    aspectRatio = that.width() / that.height(),
-                    newWidth = parseInt(screen.height * aspectRatio),
-                    newHeight = parseInt(screen.width / aspectRatio);
-                if (newWidth > screen.width) {
-                    newWidth = screen.width;
-                } else {
-                    newHeight = screen.height;
-                }
-                that.css("margin-left", (screen.width - newWidth) / 2 + "px");
-                that.css("margin-top", (screen.height - newHeight) / 2 + "px");
-                that.css("width", newWidth);
-                that.css("height", newHeight);
-                that.css("opacity", 1);
-            });
-        };
 
         $('.full-box div').on('click', function (e) {
             if (BigScreen.enabled) {
