@@ -2,15 +2,17 @@
 <svg width="24" height="33" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <g>
   <title>Layer 1</title>
-  <circle fill="black" id="svg_1" r="3.2" cy="12" cx="12"/>
-  <path fill="black" id="svg_2" d="m9,2l-1.83,2l-3.17,0c-1.1,0 -2,0.9 -2,2l0,12c0,1.1 0.9,2 2,2l16,0c1.1,0 2,-0.9 2,-2l0,-12c0,-1.1 -0.9,-2 -2,-2l-3.17,0l-1.83,-2l-6,0zm3,15c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5s5,2.24 5,5s-2.24,5 -5,5z"/>
-  <path id="svg_3" fill="none" d="m0,0l24,0l0,24l-24,0l0,-24z"/>
-  <use x="-5.880055" y="-32.946413" transform="matrix(1.6213138611445976,0,0,2.232595873095163,2.0776471730989563,72.96406125772457) " xlink:href="#svg_4" id="svg_5"/>
+  <g stroke="null" id="svg_8">
+   <circle stroke="null" cx="12" cy="12" r="3.2" id="svg_1" fill="black"/>
+   <path stroke="null" d="m9,2l-1.83,2l-3.17,0c-1.1,0 -2,0.9 -2,2l0,12c0,1.1 0.9,2 2,2l16,0c1.1,0 2,-0.9 2,-2l0,-12c0,-1.1 -0.9,-2 -2,-2l-3.17,0l-1.83,-2l-6,0zm3,15c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5s5,2.24 5,5s-2.24,5 -5,5z" id="svg_2" fill="black"/>
+   <path stroke="null" d="m0,0l24,0l0,24l-24,0l0,-24z" fill="none" id="svg_3"/>
+   <use stroke="null" id="svg_5" xlink:href="#svg_4" transform="matrix(1.6213138611445976,0,0,2.3324320584950167,2.0776471730989563,73.85457196804926) " y="-37.034492" x="-5.787433"/>
+  </g>
  </g>
  <defs>
-  <symbol id="svg_4" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-   <path d="m7,10l5,5l5,-5l-10,0z"/>
-   <path fill="none" d="m0,0l24,0l0,24l-24,0l0,-24z"/>
+  <symbol viewBox="0 0 24 24" id="svg_4" xmlns="http://www.w3.org/2000/svg">
+   <path id="svg_6" d="m7,10l5,5l5,-5l-10,0z"/>
+   <path id="svg_7" d="m0,0l24,0l0,24l-24,0l0,-24z" fill="none"/>
   </symbol>
  </defs>
 </svg>

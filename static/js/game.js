@@ -67,7 +67,8 @@
         panoramaMarker,
         setCursorToPanorama,
         setCursorToAuto,
-        guessPhotoFloatPanelInitialized = false;
+        guessPhotoFloatPanelInitialized = false,
+        feedbackPanel;
 
     updateLeaderboard = function () {
         $('.score_container').find('.scoreboard').load(leaderboardUpdateURL);
@@ -89,11 +90,11 @@
     };
 
     setCursorToPanorama = function () {
-        window.map.setOptions({draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto'});
+        window.map.setOptions({draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto', draggingCursor: 'auto'});
     };
 
     setCursorToAuto = function () {
-        window.map.setOptions({draggableCursor: 'auto'});
+        window.map.setOptions({draggableCursor: 'auto', draggingCursor: 'auto'});
     };
 
     mapClickListenerFunction = function (e) {
@@ -535,7 +536,8 @@
                     title: false,
                     header: false,
                     draggable: {handle: '.panel-body'},
-                    size: {width: 'auto', height: 'auto'}
+                    size: {width: 'auto', height: 'auto'},
+                    id: 'ajapaik-game-guess-photo-js-panel'
                 });
                 guessPhotoFloatPanelInitialized = true;
             } else {
@@ -600,17 +602,20 @@
             }
         });
 
-        $('.ajapaik-game-feedback-next-button').click(function () {
+        $(document).on('click', '.ajapaik-game-feedback-next-button', function () {
             var data = {
                 level: $('input[name=difficulty]:checked', 'ajapaik-game-guess-feedback-difficulty-form').val(),
                 photo_id: photos[currentPhotoIdx].id
             };
-            $.post(difficultyFeedbackURL, data, function () {});
-            $('#ajapaik-game-guess-feedback-modal').modal('hide');
+            $.post(difficultyFeedbackURL, data, function () {
+            });
             $('#ajapaik-game-photo-modal').modal();
-            $('#ajapaik-game-guess-photo').hide();
             $('.ajapaik-game-save-location-button').hide();
             $('.ajapaik-game-skip-photo-button').hide();
+            $('#ajapaik-game-guess-photo-js-panel').hide();
+            if (feedbackPanel) {
+                feedbackPanel.close();
+            }
             window.map.getStreetView().setVisible(false);
             disableNext = false;
             currentPhotoIdx += 1;
@@ -698,15 +703,23 @@
                 } else {
                     message = gettext('Your guess was first.');
                 }
-                noticeDiv = $("#ajapaik-game-guess-feedback-modal");
+                noticeDiv = $("#js-panel-content");
                 if (hide_feedback) {
                     noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-prompt").hide();
                     noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-form").hide();
                 }
                 noticeDiv.find("#ajapaik-game-guess-feedback-message").text(message);
                 noticeDiv.find("#ajapaik-game-guess-feedback-points-gained").text(gettext("Points awarded") + ": " + resp["current_score"]);
-                noticeDiv.modal({backdrop: 'static', keyboard: false});
-                disableContinue = false;
+                feedbackPanel = $('#ajapaik-game-map-container').jsPanel({
+                    content: $('#js-panel-content').html(),
+                    controls: {buttons: false},
+                    title: false,
+                    header: false,
+                    size: {width: function () {return $(window).width() / 4;}, height: 'auto'},
+                    resizable: false,
+                    position: {bottom: 0, right: 0},
+                    id: 'ajapaik-game-feedback-panel'
+                });
                 if (resp.heatmap_points) {
                     marker.setMap(null);
                     $(".center-marker").hide();
@@ -724,8 +737,8 @@
                     var markerImage = {
                         url: '/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg',
                         origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(8, 8),
-                        scaledSize: new google.maps.Size(16, 16)
+                        anchor: new google.maps.Point(0, 16),
+                        scaledSize: new google.maps.Size(24, 33)
                     };
                     playerMarker = new google.maps.Marker({
                         position: playerLatlng,
