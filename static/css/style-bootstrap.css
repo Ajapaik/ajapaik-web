@@ -149,19 +149,34 @@ body {
 }
 
 .ajapaik-game-flip-photo-button {
-    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
+    background-image: url(../images/material-design-icons/ic_flip_24px.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
     width: 48px;
     height: 48px;
     float: left;
 }
 
 .ajapaik-game-map-flip-photo-button {
-    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
+    background-image: url(../images/material-design-icons/ic_flip_24px.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
     width: 48px;
     height: 48px;
     position: absolute;
     left: 5px;
     bottom: 5px;
+}
+
+.ajapaik-game-map-fullscreen-button {
+    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
 }
 
 .ajapaik-photoview-open-heatmap-button {

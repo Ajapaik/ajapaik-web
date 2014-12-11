@@ -245,6 +245,7 @@
     };
 
     nextPhoto = function () {
+        window.map.getStreetView().setVisible(false);
         hintUsed = 0;
         disableSave = true;
         azimuthListenerActive = false;
@@ -257,6 +258,7 @@
         if (photos.length > currentPhotoIdx) {
             disableNext = true;
             $('img').removeClass('ajapaik-photo-flipped');
+            $('.btn').removeClass('active');
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
@@ -325,7 +327,8 @@
     window.flipPhoto = function () {
         userFlippedPhoto = !userFlippedPhoto;
         var photoElement = $('#ajapaik-game-modal-photo'),
-            guessPhotoElement = $('#ajapaik-game-guess-photo-js-panel').find('img');
+            guessPhotoElement = $('#ajapaik-game-guess-photo-js-panel').find('img'),
+            fullscreenPhotoElement = $('#ajapaik-game-full-screen-image');
         if (photoElement.hasClass('ajapaik-photo-flipped')) {
             photoElement.removeClass('ajapaik-photo-flipped');
         } else {
@@ -335,6 +338,11 @@
             guessPhotoElement.removeClass('ajapaik-photo-flipped');
         } else {
             guessPhotoElement.addClass('ajapaik-photo-flipped');
+        }
+        if (fullscreenPhotoElement.hasClass('ajapaik-photo-flipped')) {
+            fullscreenPhotoElement.removeClass('ajapaik-photo-flipped');
+        } else {
+            fullscreenPhotoElement.addClass('ajapaik-photo-flipped');
         }
     };
 
@@ -580,10 +588,37 @@
         });
 
         $(document).on('click', '.ajapaik-game-map-flip-photo-button', function () {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
+            }
+            if ($('.ajapaik-game-flip-photo-button').hasClass('active')) {
+                $('.ajapaik-game-flip-photo-button').removeClass('active');
+            } else {
+                $('.ajapaik-game-flip-photo-button').addClass('active');
+            }
             flipPhoto();
         });
 
+        $(document).on('click', '.ajapaik-game-map-fullscreen-button', function () {
+            if (BigScreen.enabled) {
+                BigScreen.request($('#ajapaik-game-fullscreen-image-container')[0]);
+                _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
+            }
+        });
+
         $('.ajapaik-game-flip-photo-button').click(function () {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
+            }
+            if ($('.ajapaik-game-map-flip-photo-button').hasClass('active')) {
+                $('.ajapaik-game-map-flip-photo-button').removeClass('active');
+            } else {
+                $('.ajapaik-game-map-flip-photo-button').addClass('active');
+            }
             flipPhoto();
         });
 
@@ -675,7 +710,6 @@
                     controls: {buttons: false},
                     title: false,
                     header: false,
-                    draggable: {handle: '.panel-body'},
                     size: {width: function () {return $(window).width() / 4;}, height: 'auto'},
                     position: {bottom: 0, right: 0},
                     id: 'ajapaik-game-feedback-panel'
