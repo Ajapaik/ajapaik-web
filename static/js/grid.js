@@ -278,11 +278,11 @@
 //                toggleTouchPhotoView();
 //            }
             window.dottedAzimuthLine.setVisible(false);
-            centerMarker
-                .css('background-image', 'url("/static/images/ajapaik_marker_35px_cross.png")')
-                .css('margin-left', '-17px')
-                .css('margin-top', '-55px')
-                .css('height', '60px');
+//            centerMarker
+//                .css('background-image', 'url("/static/images/ajapaik_marker_35px_cross.png")')
+//                .css('margin-left', '-17px')
+//                .css('margin-top', '-55px')
+//                .css('height', '60px');
             $('.ajapaik-grid-save-location-button').text(gettext('Save location only'));
             azimuthListenerActive = false;
             window.dottedAzimuthLine.setVisible(false);
@@ -294,10 +294,10 @@
             if (firstDragDone) {
                 marker.position = window.map.center;
                 azimuthListenerActive = true;
-                centerMarker
-                    .css('background-image', 'url("http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png")')
-                    .css('margin-left', '-8px')
-                    .css('margin-top', '-9px');
+//                centerMarker
+//                    .css('background-image', 'url("http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png")')
+//                    .css('margin-left', '-8px')
+//                    .css('margin-top', '-9px');
                 if (!mapMousemoveListenerActive) {
                     google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
                     mapMousemoveListenerActive = true;

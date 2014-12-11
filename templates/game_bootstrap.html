@@ -6,17 +6,12 @@
 {% endblock %}
 
 {% block layout %}
-    <div id="ajapaik-game-user-message-container">
-        <div id="ajapaik-game-user-seen-all-message">
-            <p>{% trans "You have seen all the pictures we have for this area." %}</p>
-        </div>
-        <div id="ajapaik-game-nothing-more-to-show-message">
-            <p>{% trans "We are now showing you random photos." %}</p>
-        </div>
-    </div>
     <div class="modal fade" id="ajapaik-game-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="ajapaik-game-photo-modal-label">Modal title</h4>
+                </div>
                 <div class="modal-body">
                     <div id="ajapaik-game-modal-photo-container">
                         <a class="fullscreen" id="ajapaik-game-full-screen-link" rel="" href="">
@@ -95,7 +90,21 @@
             <img id="ajapaik-game-full-screen-image" src="" />
         </div>
     </div>
-    <img src="" class="img-responsive" id="ajapaik-game-guess-photo" />
+    <div id="ajapaik-game-guess-photo-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">LoL</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="" class="img-responsive" id="ajapaik-game-guess-photo" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary ajapaik-game-show-description-button">{% trans "Show description" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         var saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
             leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',

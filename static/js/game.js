@@ -18,10 +18,7 @@
     /*global BigScreen */
 
     var photos = [],
-        gameOffset = 0,
-        gameWidth = 0,
         currentPhotoIdx = 0,
-        currentPhoto,
         hintUsed = 0,
         mediaUrl = '',
         streamUrl = '/stream/',
@@ -32,7 +29,6 @@
         locationToolsOpen = false,
         mobileMapMinimized = false,
         infowindow,
-        photosDiv,
         noticeDiv,
         lat,
         lon,
@@ -67,19 +63,17 @@
         i,
         playerLatlng,
         centerMarker = $('.center-marker'),
-        showNothingMoreToShowMessage,
-        showSeenAllMessage,
         nextPhoto,
-        hideTools,
-        scrollPhotos,
-        photosDivSlidInPlace = false;
+        panoramaMarker,
+        setCursorToPanorama,
+        setCursorToAuto;
 
     updateLeaderboard = function () {
         $('.score_container').find('.scoreboard').load(leaderboardUpdateURL);
     };
 
     toggleTouchPhotoView = function () {
-        //TODO: Renew
+        // TODO: Renew
         /*if (isMobile && locationToolsOpen) {
             if (mobileMapMinimized) {
                 $('#tools').css({left: '15%'});
@@ -91,6 +85,14 @@
             }
         }*/
         $.noop();
+    };
+
+    setCursorToPanorama = function () {
+        window.map.draggableCursor = 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto';
+    };
+
+    setCursorToAuto = function () {
+        window.map.draggableCursor = 'auto';
     };
 
     mapClickListenerFunction = function (e) {
@@ -113,6 +115,22 @@
             window.dottedAzimuthLine.icons[0].repeat = '2px';
             window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
             window.dottedAzimuthLine.setVisible(true);
+            if (panoramaMarker) {
+                panoramaMarker.setMap(null);
+            }
+            var markerImage = {
+                url: '/static/images/material-design-icons/ajapaik_custom_size_panorama.svg',
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(18, 18),
+                scaledSize: new google.maps.Size(36, 36)
+            };
+            panoramaMarker = new google.maps.Marker({
+                map: window.map,
+                draggable: false,
+                position: e.latLng,
+                icon: markerImage
+            });
+            setCursorToAuto();
         } else {
             if (!mapMousemoveListenerActive) {
                 google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
@@ -129,6 +147,10 @@
         saveDirection = false;
         radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
         degreeAngle = Math.degrees(radianAngle);
+        if (panoramaMarker) {
+            panoramaMarker.setMap(null);
+        }
+        setCursorToPanorama();
         if (!isMobile) {
             window.dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
             window.dottedAzimuthLine.setMap(window.map);
@@ -145,12 +167,12 @@
         if (firstDragDone) {
             marker.position = window.map.center;
             azimuthListenerActive = true;
-            centerMarker
-                .css('background-image', 'url("http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png")')
-                .css('margin-left', '-8px')
-                .css('margin-top', '-9px');
-            //TODO: This is probably causing a bug with the azimuth line appearing/disappearing abnormally
-            if (!mapMousemoveListenerActive) {
+//            centerMarker
+//                .css('background-image', 'url("/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg")')
+//                .css('margin-left', '-8px')
+//                .css('margin-top', '-9px');
+            //TODO: This is probably causing a bug with the azimuth line unlocking abnormally
+            if (!mapMousemoveListenerActive && !saveDirection) {
                 google.maps.event.addListener(window.map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
             }
@@ -159,20 +181,25 @@
 
     mapDragstartListenerFunction = function () {
         centerMarker = $('.center-marker');
+        saveDirection = false;
         if (mobileMapMinimized) {
             toggleTouchPhotoView();
         }
+        if (panoramaMarker) {
+            panoramaMarker.setMap(null);
+        }
+        setCursorToPanorama();
         window.dottedAzimuthLine.setVisible(false);
         if (infowindow !== undefined) {
             centerMarker.show();
             infowindow.close();
             infowindow = undefined;
         }
-        centerMarker
-            .css('background-image', 'url("/static/images/ajapaik_marker_35px_cross.png")')
-            .css('margin-left', '-17px')
-            .css('margin-top', '-55px')
-            .css('height', '60px');
+//        centerMarker
+//            .css('background-image', 'url("/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg")')
+//            .css('margin-left', '-11px')
+//            .css('margin-top', '-31px')
+//            .css('height', '33px');
         $('.ajapaik-game-save-location-button').text(gettext('Save location only'));
         azimuthListenerActive = false;
         window.dottedAzimuthLine.setVisible(false);
@@ -215,18 +242,6 @@
         }
     };
 
-    showNothingMoreToShowMessage = function () {
-        $('#ajapaik-game-user-message-container').show();
-        $('#ajapaik-game-user-seen-all-message').hide();
-        $('#ajapaik-game-nothing-more-to-show-message').show();
-    };
-
-    showSeenAllMessage = function () {
-        $('#ajapaik-game-user-message-container').show();
-        $('#ajapaik-game-nothing-more-to-show-message').hide();
-        $('#ajapaik-game-user-seen-all-message').show();
-    };
-
     //TODO: Remove?
     /*hideTools = function () {
         $(currentPhoto).find('.game-photo-tools').hide();
@@ -258,8 +273,8 @@
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
-            $('#ajapaik-game-full-screen-image').prop('src', '/foto_large/' + photos[currentPhotoIdx].id);
-            $('#ajapaik-game-full-screen-link').prop('rel', photos[currentPhotoIdx].id).prop('href', '/foto_large/' + photos[currentPhotoIdx].id);
+            $('#ajapaik-game-full-screen-image').prop('src', mediaUrl + photos[currentPhotoIdx].large.url);
+            $('#ajapaik-game-full-screen-link').prop('rel', photos[currentPhotoIdx].id).prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
             $('#ajapaik-game-map-geotag-count').html(photos[currentPhotoIdx].total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(photos[currentPhotoIdx].geotags_with_azimuth);
             prepareFullscreen();
@@ -337,11 +352,14 @@
         }
 
         $.getJSON(streamUrl, $.extend({'b': date.getTime()}, qs), function (data) {
+            console.log(data);
             $.merge(photos, data.photos);
             if (data.nothing_more_to_show) {
-                showNothingMoreToShowMessage();
+                $('#ajapaik-game-photo-modal-label').html(gettext('We are now showing you random photos.'));
             } else if (data.user_seen_all) {
-                showSeenAllMessage();
+                $('#ajapaik-game-photo-modal-label').html(gettext('You have seen all the pictures we have for this area.'));
+            } else {
+                $('#ajapaik-game-photo-modal-label').hide();
             }
             if (next || currentPhotoIdx <= 0) {
                 nextPhoto();
@@ -425,10 +443,10 @@
         });
 
         //$(".center-marker").hide();
-        $(".center-marker")
-            .css("background-image", "url('http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png')")
-            .css("margin-left", "-8px")
-            .css("margin-top", "-9px");
+//        $(".center-marker")
+//            .css("background-image", "url('/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg')")
+//            .css("margin-left", "-8px")
+//            .css("margin-top", "-9px");
 
         $.jQee('space', function () {
             // If tools is open, continue game
@@ -506,6 +524,7 @@
         $('.ajapaik-game-specify-location-button').click(function () {
             $('#ajapaik-game-photo-modal').modal('hide');
             $('#ajapaik-game-guess-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).show();
+            $('#ajapaik-game-guess-photo-modal').modal({backdrop: 'static'}).draggable({handle: '.modal-header'}).find('.modal-backdrop').css('display', 'none');
             $('.ajapaik-game-save-location-button').show();
             $('.ajapaik-game-skip-photo-button').show();
             disableNext = false;
@@ -606,52 +625,6 @@
             }
         });
 
-        //TODO: Restore necessary parts
-        /*photosDiv = $('#photos');
-
-        photosDiv.delegate('.show-description', 'click', function (e) {
-            e.preventDefault();
-            hintUsed = 1;
-            showDescription();
-            _gaq.push(['_trackEvent', 'Game', 'Show description']);
-        });
-
-        photosDiv.find('a.fullscreen').live('click', function (e) {
-            e.preventDefault();
-            if (BigScreen.enabled) {
-                BigScreen.request($('#game-full' + this.rel)[0]);
-                _gaq.push(['_trackEvent', 'Game', 'Full-screen', 'historic-' + this.rel]);
-            }
-        });
-
-        $('.full-box div').live('click', function (e) {
-            if (BigScreen.enabled) {
-                e.preventDefault();
-                BigScreen.exit();
-            }
-        });
-
-        photosDiv.hoverIntent(function () {
-            if (locationToolsOpen === true && !isMobile) {
-                showPhotos();
-            } else if (locationToolsOpen === false && !isMobile) {
-                showTools();
-            }
-        }, function () {
-            if (locationToolsOpen === true && !isMobile) {
-                hidePhotos();
-            } else if (locationToolsOpen === false && !isMobile) {
-                hideTools();
-            }
-        });
-
-        photosDiv.find('img').live('click', toggleTouchPhotoView).live('mouseover', function () {
-            if (locationToolsOpen && photosDivSlidInPlace) {
-                $('#photos').addClass('map-open-hide-photos');
-            }
-        });*/
-
-
         $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         function saveLocation() {
@@ -729,7 +702,7 @@
                     $('#ajapaik-game-map-geotag-count').html(resp.heatmap_points.length);
                     $('#ajapaik-game-map-geotag-with-azimuth-count').html(resp.azimuth_tags);
                     var markerImage = {
-                        url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
+                        url: '/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(8, 8),
                         scaledSize: new google.maps.Size(16, 16)
@@ -754,62 +727,5 @@
                 }
             }, 'json');
         }
-
-        function openLocationTools() {
-            disableNext = true;
-            if (infowindow !== undefined) {
-                // Show info window when the map is opened the first time
-                infowindow.open(window.map, marker);
-            }
-            $("#photos").addClass("map-open-show-photos");
-            $('#tools').animate({ left: '15%' }, function () {
-                locationToolsOpen = true;
-                var photosLeft = gameOffset - ($(document).width() / 2) + ($(currentPhoto).width() / 2);
-                $('#photos').animate({ left: photosLeft + 'px' }, function () {
-                    photosDivSlidInPlace = true;
-                });
-                $('#open-location-tools').fadeOut();
-            });
-        }
-
-        function closeLocationTools(next) {
-            locationToolsOpen = false;
-            $("#photos").removeClass("map-open-show-photos");
-            $('#photos').animate({ left: gameOffset });
-            $('#tools').animate({ left: '100%' }, function () {
-                var panorama = window.map.getStreetView();
-                panorama.setVisible(false);
-                disableNext = false;
-                $('#open-location-tools').fadeIn();
-                if (parseInt(next) === 1) {
-                    nextPhoto();
-                }
-            });
-        }
-
-        //TODO: Restore necessary
-        /*function showPhotos() {
-            //var photoWidthPercent = Math.round(($(currentPhoto).width()) / ($(document).width()) * 100);
-            //$('#tools').animate({ left: photoWidthPercent + '%' });
-            $("#photos").hide();
-        }
-
-        function showTools() {
-            //$("a.btn.flip").show();
-            //$(".fb-like").show();
-            //$(".show-description").show();
-            $(currentPhoto).find(".game-photo-tools").show();
-        }
-
-        function hidePhotos() {
-            $('#tools').animate({ left: '15%' });
-            $("#photos").show();
-        }
-
-        function showDescription() {
-            $(currentPhoto).find('.show-description').fadeOut(function () {
-                $(this).parent().parent().find('.description').fadeIn();
-            });
-        }*/
     });
 }());

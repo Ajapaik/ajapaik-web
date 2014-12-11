@@ -276,14 +276,14 @@ body {
 }
 
 #ajapaik-game-guess-photo {
-    position: fixed;
-    top: 15%;
-    z-index: 1003;
-    left: 2%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    display: none;
-    max-width: 33%;
-    max-height: 50%;
+    /*position: fixed;*/
+    /*top: 15%;*/
+    /*z-index: 1003;*/
+    /*left: 2%;*/
+    /*box-shadow: 0 0 20px rgba(0, 0, 0, .5);*/
+    /*display: none;*/
+    /*max-width: 33%;*/
+    /*max-height: 50%;*/
 }
 
 a.fullscreen {
@@ -319,14 +319,14 @@ a.fullscreen {
 
 .center-marker {
     position: absolute;
-    background: url('../images/ajapaik_marker_35px.png') no-repeat;
+    background: url('../images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg') no-repeat;
     top: 50%;
     left: 50%;
     z-index: 1;
-    margin-left: -17px;
-    margin-top: -47px;
-    height: 47px;
-    width: 35px;
+    margin-left: -11px;
+    margin-top: -31px;
+    height: 33px;
+    width: 24px;
     cursor: pointer;
 }
 
