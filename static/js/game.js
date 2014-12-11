@@ -89,11 +89,11 @@
     };
 
     setCursorToPanorama = function () {
-        window.map.draggableCursor = 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto';
+        window.map.setOptions({draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto'});
     };
 
     setCursorToAuto = function () {
-        window.map.draggableCursor = 'auto';
+        window.map.setOptions({draggableCursor: 'auto'});
     };
 
     mapClickListenerFunction = function (e) {
@@ -434,6 +434,7 @@
 
         google.maps.event.addListener(window.map, 'drag', function () {
             firstDragDone = true;
+            setCursorToPanorama();
         });
         google.maps.event.addListener(marker, 'position_changed', function () {
             disableSave = false;
@@ -487,6 +488,7 @@
 
         $('.ajapaik-game-next-photo-button').click(function (e) {
             firstDragDone = false;
+            setCursorToAuto();
             e.preventDefault();
             if (disableNext == false) {
                 var data = {photo_id: photos[currentPhotoIdx - 1].id};
@@ -525,6 +527,7 @@
 
         $('.ajapaik-game-specify-location-button').click(function () {
             $('#ajapaik-game-photo-modal').modal('hide');
+            setCursorToAuto();
             if (!guessPhotoFloatPanelInitialized) {
                 $('#ajapaik-game-map-container').jsPanel({
                     content: '<img src="" class="img-responsive" id="ajapaik-game-guess-photo" />',
@@ -546,6 +549,7 @@
 
         $('.ajapaik-game-skip-photo-button').click(function () {
             firstDragDone = false;
+            setCursorToAuto();
             if (!disableNext) {
                 var data = {photo_id: photos[currentPhotoIdx].id};
                 $.post(saveLocationURL, data, function () {
@@ -582,6 +586,7 @@
 
         $('.ajapaik-game-save-location-button').click(function () {
             firstDragDone = false;
+            setCursorToAuto();
             if (disableSave) {
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
                 alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
