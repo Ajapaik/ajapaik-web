@@ -66,7 +66,8 @@
         nextPhoto,
         panoramaMarker,
         setCursorToPanorama,
-        setCursorToAuto;
+        setCursorToAuto,
+        guessPhotoFloatPanelInitialized = false;
 
     updateLeaderboard = function () {
         $('.score_container').find('.scoreboard').load(leaderboardUpdateURL);
@@ -521,10 +522,22 @@
             continueGame();
         });
 
+
         $('.ajapaik-game-specify-location-button').click(function () {
             $('#ajapaik-game-photo-modal').modal('hide');
-            $('#ajapaik-game-guess-photo').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).show();
-            $('#ajapaik-game-guess-photo-modal').modal({backdrop: 'static'}).draggable({handle: '.modal-header'}).find('.modal-backdrop').css('display', 'none');
+            if (!guessPhotoFloatPanelInitialized) {
+                $('#ajapaik-game-map-container').jsPanel({
+                    content: '<img src="" class="img-responsive" id="ajapaik-game-guess-photo" />',
+                    controls: {buttons: false},
+                    title: false,
+                    header: false,
+                    draggable: {handle: '.panel-body'}
+                });
+                guessPhotoFloatPanelInitialized = true;
+            } else {
+                $('.jsPanel').show();
+            }
+            $('#ajapaik-game-guess-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).show();
             $('.ajapaik-game-save-location-button').show();
             $('.ajapaik-game-skip-photo-button').show();
             disableNext = false;
@@ -542,6 +555,7 @@
                 $('#ajapaik-game-guess-photo').hide();
                 $('.ajapaik-game-save-location-button').hide();
                 $('.ajapaik-game-skip-photo-button').hide();
+                $('.jsPanel').hide();
                 _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
             }
         });

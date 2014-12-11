@@ -1,0 +1,391 @@
+/* Version 1.4.0 2014-05-02 10:43 */
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; /* Firefox */
+}
+.jsPanel{
+    overflow: hidden;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 0 6px rgba(0, 33, 50, 0.1), 0 7px 25px rgba(17, 38, 60, 0.4);
+}
+.jsPanel .navbar{
+    border-radius: 4px 4px 0 0;
+    cursor: move;
+    margin-bottom: 0;
+    min-height: 30px;
+}
+.jsPanel-header{
+    width: calc(100% - 70px);
+    overflow: hidden;
+}
+.jsPanel .navbar-brand{
+    /*float: left;*/
+    height: 21px;
+    line-height: 14px;
+    padding: 5px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.jsPanel .navbar-nav > li > a {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 0;
+    padding-right: 5px;
+}
+.jsPanel-content {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 12px;
+    height: 100%;
+    margin-bottom: 0;
+    position: relative;
+    padding: 15px;
+}
+
+.jsPanel-resize0 { height: calc( 100% ); }
+.jsPanel-resize30{
+    height: calc(100% - 30px);  /* has to be adjusted according to .jsPanel-hdr height */
+}
+.jsPanel-resize32{
+    height: calc(100% - 32px);  /* has to be adjusted according to .jsPanel-hdr height */
+}
+.jsPanel-resize40{
+    height: calc(100% - 40px);  /* has to be adjusted according to .jsPanel-hdr height */
+}
+.jsPanel-resize52{
+    height: calc(100% - 52px); /* has to be adjusted according to .jsPanel-hdr height + header toolbar */
+}
+.jsPanel-resize72{
+    height: calc(100% - 72px);   /* has to be adjusted according to .jsPanel-hdr & footer toolbar */
+}
+.jsPanel-resize92{
+    height: calc(100% - 92px);   /* has to be adjusted according to .jsPanel-hdr & header toolbar & footer toolbar  */
+}
+.ui-icon, .ui-widget-content .ui-icon {
+    background-image: url("images/ui-icons_454545_256x240.png");
+}
+.ui-icon-gripsmall-diagonal-se {
+    background-position: -81px -224px;
+}
+.jsPanel-hdr-tb span, .jsPanel-hdr-tb i {
+    cursor: pointer;
+    padding: 0 0 0 5px;
+}
+.jsPanel-ftr{
+    font-size: 12px;
+    height: 40px;
+    text-align: right;
+}
+.jsPanel-ftr button{
+    margin: 0 5px 0 0;
+}
+/* footer has always standard default styling */
+.jsPanel-ftr .navbar,
+.jsPanel-ftr .navbar-default {
+    min-height: 40px;
+    background-color: #f8f8f8;
+    background-image: none;
+    border-color: #e7e7e7;
+    border-radius: 0;
+    padding-bottom: 3px;
+    padding-top: 5px;
+}
+.jsPanel-ftr .navbar-default .navbar-brand {
+    color: #777;
+}
+.jsPanel-ftr .navbar-default .navbar-brand:hover,
+.jsPanel-ftr .navbar-default .navbar-brand:focus {
+    color: #5e5e5e;
+    background-color: transparent;
+}
+.jsPanel-ftr .navbar-default .navbar-text {
+    color: #777;
+}
+.jsPanel-ftr .navbar-default .navbar-nav > li > a {
+    color: #777;
+}
+.jsPanel-ftr .navbar-default .navbar-nav > li > a:hover,
+.jsPanel-ftr .navbar-default .navbar-nav > li > a:focus {
+    color: #333;
+    background-color: transparent;
+}
+.jsPanel-ftr .navbar-default .navbar-nav > .active > a,
+.jsPanel-ftr .navbar-default .navbar-nav > .active > a:hover,
+.jsPanel-ftr .navbar-default .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+.jsPanel-ftr .navbar-default .navbar-nav > .disabled > a,
+.jsPanel-ftr .navbar-default .navbar-nav > .disabled > a:hover,
+.jsPanel-ftr .navbar-default .navbar-nav > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+}
+.jsPanel-ftr .navbar-default .navbar-toggle {
+    border-color: #ddd;
+}
+.jsPanel-ftr .navbar-default .navbar-toggle:hover,
+.jsPanel-ftr .navbar-default .navbar-toggle:focus {
+    background-color: #ddd;
+}
+.jsPanel-ftr .navbar-default .navbar-toggle .icon-bar {
+    background-color: #888;
+}
+.jsPanel-ftr .navbar-default .navbar-collapse,
+.jsPanel-ftr .navbar-default .navbar-form {
+    border-color: #e7e7e7;
+}
+.jsPanel-ftr .navbar-default .navbar-nav > .open > a,
+.jsPanel-ftr .navbar-default .navbar-nav > .open > a:hover,
+.jsPanel-ftr .navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+@media (max-width: 767px) {
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #333;
+        background-color: transparent;
+    }
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #555;
+        background-color: #e7e7e7;
+    }
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+    .jsPanel-ftr .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+        color: #ccc;
+        background-color: transparent;
+    }
+}
+.jsPanel-ftr .navbar-default .navbar-link {
+    color: #777;
+}
+.jsPanel-ftr .navbar-default .navbar-link:hover {
+    color: #333;
+}
+.jsPanel-ftr .navbar-nav.navbar-right:last-child {
+    margin-right: 0;
+}
+
+.jsPanel-content.panel-default {
+    border: none;
+}
+.jsPanel-content.panel .panel-body {
+    height: 100%;
+    padding: 0;
+}
+
+
+/* container that takes the minified jsPanels */
+#jsPanel-min-container{
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:26px;
+    background:transparent;
+}
+
+/* css für den modal backdrop --------------------------- */
+.jsPanel-backdrop{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:10000;
+    width:100%;
+    background:rgba(0,0,0,0.9);
+}
+.jsPanel-backdrop-inner{
+    position:absolute;
+    width:100%;
+}
+
+/* css für den tooltip wrapper ---------------------------- */
+.jsPanel-tooltip-wrapper{
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+.jsPanel-tooltip-wrapper .jsPanel{
+    border-radius: 4px;
+}
+
+
+/**
+ * CSS3 Tips v1.0.1
+ *
+ * A stylesheet for creating tooltips without using anything other than CSS3.
+ *
+ * created by c.bavota
+ * released under GPL v2
+ *
+ * March 21st, 2014
+ *
+ * HTML example code for the tooltip
+ * <a href="http://bavotasan.com" class="top-tip" data-tips="Go to bavotasan.com">bavotasan.com</a>
+*/
+
+[data-tips] {
+    position: relative;
+    text-decoration: none;
+}
+
+[data-tips]:after,
+[data-tips]:before {
+    position: absolute;
+    z-index: 100;
+    opacity: 0;
+}
+
+[data-tips]:after {
+    content: attr(data-tips);
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background: #3276B1;
+    border-radius: 4px;
+    /*text-shadow: 0 0 5px #000;*/
+    -moz-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+[data-tips]:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-style: solid;
+}
+
+[data-tips]:hover:after,
+[data-tips]:hover:before {
+    opacity: 1;
+}
+
+/* Top tips */
+[data-tips].top-tip:after,
+[data-tips].top-tip:before {
+    -webkit-transition: bottom 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    -moz-transition: bottom 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    transition: bottom 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    bottom: 90%;
+    left: -9999px;
+    margin-bottom: 12px;
+}
+
+[data-tips].top-tip:before {
+    border-color: #3276B1 transparent transparent transparent;
+    margin-bottom: 0;
+}
+
+[data-tips].top-tip:hover:after,
+[data-tips].top-tip:hover:before {
+    bottom: 100%;
+    left: 0;
+}
+
+[data-tips].top-tip:hover:before {
+    left: 15px;
+}
+
+/* Bottom tip */
+[data-tips].bottom-tip:after,
+[data-tips].bottom-tip:before {
+    -webkit-transition: top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    -moz-transition: top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    transition: top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    top: 90%;
+    left: -9999px;
+    margin-top: 12px;
+}
+
+[data-tips].bottom-tip:before {
+    border-color: transparent transparent #3276B1 transparent;
+    margin-top: 0;
+}
+
+[data-tips].bottom-tip:hover:after,
+[data-tips].bottom-tip:hover:before {
+    top: 100%;
+    left: 0;
+}
+
+[data-tips].bottom-tip:hover:before {
+    left: 15px;
+}
+
+/* Right tip */
+[data-tips].right-tip:after,
+[data-tips].right-tip:before {
+    -webkit-transition: left 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    -moz-transition: left 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    transition: left 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    top: -9999px;
+    left: 96%;
+    margin-left: 12px;
+}
+
+[data-tips].right-tip:before {
+    border-color: transparent #3276B1 transparent transparent;
+    margin-left: 0;
+}
+
+[data-tips].right-tip:hover:after,
+[data-tips].right-tip:hover:before {
+    left: 100%;
+    top: 0;
+}
+
+[data-tips].right-tip:hover:before {
+    top: 7px;
+}
+
+/* Left tip */
+[data-tips].left-tip:after,
+[data-tips].left-tip:before {
+    -webkit-transition: right 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    -moz-transition: right 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    transition: right 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    top: -9999px;
+    right: 96%;
+    margin-right: 12px;
+}
+
+[data-tips].left-tip:before {
+    border-color: transparent transparent transparent #3276B1;
+    margin-right: 0;
+}
+
+[data-tips].left-tip:hover:after,
+[data-tips].left-tip:hover:before {
+    right: 100%;
+    top: 0;
+}
+
+[data-tips].left-tip:hover:before {
+    top: 7px;
+}
+

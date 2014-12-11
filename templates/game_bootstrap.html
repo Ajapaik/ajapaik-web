@@ -3,15 +3,13 @@
 
 {% block header %}
     {% include "header_city_selection_scoreboard_bootstrap.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jsPanel.css"/>
 {% endblock %}
 
 {% block layout %}
     <div class="modal fade" id="ajapaik-game-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="ajapaik-game-photo-modal-label">Modal title</h4>
-                </div>
                 <div class="modal-body">
                     <div id="ajapaik-game-modal-photo-container">
                         <a class="fullscreen" id="ajapaik-game-full-screen-link" rel="" href="">
@@ -90,12 +88,9 @@
             <img id="ajapaik-game-full-screen-image" src="" />
         </div>
     </div>
-    <div id="ajapaik-game-guess-photo-modal" class="modal fade">
+{% comment %}    <div id="ajapaik-game-guess-photo-modal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">LoL</h4>
-                </div>
                 <div class="modal-body">
                     <img src="" class="img-responsive" id="ajapaik-game-guess-photo" />
                 </div>
@@ -104,7 +99,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>{% endcomment %}
     <script>
         var saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
             leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
@@ -122,6 +117,7 @@
     <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     <script src="{{ STATIC_URL }}js/init.js"></script>
+    <script src="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jquery.jspanel.bs-1.4.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/game.js"></script>
 {% endblock %}
 

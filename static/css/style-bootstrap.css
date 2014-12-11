@@ -276,14 +276,7 @@ body {
 }
 
 #ajapaik-game-guess-photo {
-    /*position: fixed;*/
-    /*top: 15%;*/
-    /*z-index: 1003;*/
-    /*left: 2%;*/
-    /*box-shadow: 0 0 20px rgba(0, 0, 0, .5);*/
-    /*display: none;*/
-    /*max-width: 33%;*/
-    /*max-height: 50%;*/
+    margin: 0 auto;
 }
 
 a.fullscreen {
@@ -561,4 +554,9 @@ a.fullscreen {
     opacity: 0;
     cursor: -webkit-zoom-out;
     cursor: -moz-zoom-out;
+}
+
+#ajapaik-game-guess-photo-modal {
+    max-height: 50%;
+    max-width: 50%;
 }
