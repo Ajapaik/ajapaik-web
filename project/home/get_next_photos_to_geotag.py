@@ -143,8 +143,11 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 							is_correct=is_correct,
 							score=this_guess_score,
 							trustworthiness=trustworthiness,
-							zoom_level=zoom_level, azimuth_line_end_lat=azimuth_line_end_point[0],
-							azimuth_line_end_lon=azimuth_line_end_point[1])
+							zoom_level=zoom_level)
+
+		if azimuth_line_end_point:
+			new_geotag.azimuth_line_end_lat=azimuth_line_end_point[0]
+			new_geotag.azimuth_line_end_lon=azimuth_line_end_point[1]
 
 		if azimuth:
 			new_geotag.azimuth = azimuth

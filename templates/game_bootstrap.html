@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div id="js-panel-content" style="display: none;">
+    <div id="ajapaik-game-feedback-js-panel-content" style="display: none;">
         <h2>{% trans "Thank you!" %}</h2>
         <p id="ajapaik-game-guess-feedback-message"></p>
         <p id="ajapaik-game-guess-feedback-points-gained"></p>
@@ -67,6 +67,12 @@
             </span>
         </form>
         <button class="btn btn-primary ajapaik-game-feedback-next-button pull-right">{% trans "Next photo" %}</button>
+    </div>
+    <div id="ajapaik-game-guess-photo-js-panel-content" style="display: none;">
+        <div id="ajapaik-game-guess-photo-container">
+            <img class="img-responsive" src="" />
+            <button class="btn btn-default ajapaik-game-map-flip-photo-button"></button>
+        </div>
     </div>
     <div id="ajapaik-game-map-container">
         <button class="btn btn-primary ajapaik-game-skip-photo-button">{% trans "Skip" %}</button>

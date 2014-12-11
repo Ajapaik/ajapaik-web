@@ -155,6 +155,15 @@ body {
     float: left;
 }
 
+.ajapaik-game-map-flip-photo-button {
+    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+}
+
 .ajapaik-photoview-open-heatmap-button {
     background: #fff url(../images/material-design-icons/ic_location_on_24px.svg) no-repeat center !important;
     width: 48px;
@@ -556,12 +565,7 @@ a.fullscreen {
     cursor: -moz-zoom-out;
 }
 
-#ajapaik-game-guess-photo-modal {
-    max-height: 50%;
-    max-width: 50%;
-}
-
-.jsPanel {
+#ajapaik-game-guess-photo-js-panel {
     max-height: 50%;
     max-width: 33%;
 }
