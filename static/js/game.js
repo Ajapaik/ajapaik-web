@@ -531,7 +531,8 @@
                     controls: {buttons: false},
                     title: false,
                     header: false,
-                    draggable: {handle: '.panel-body'}
+                    draggable: {handle: '.panel-body'},
+                    size: {width: 'auto', height: 'auto'}
                 });
                 guessPhotoFloatPanelInitialized = true;
             } else {
