@@ -137,6 +137,8 @@
                             content: response,
                             controls: {buttons: false},
                             title: false,
+                            position: {top: 35, left: 35},
+                            size: { height: function(){ return $(window).height()/1.5; } },
                             draggable: {handle: '.jsPanel-header'},
                             overflow: { horizontal: 'hidden', vertical: 'auto' },
                             id: 'ajapaik-mapview-photo-panel'
