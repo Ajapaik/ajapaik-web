@@ -22,6 +22,7 @@
         photoDrawerElement = $('#photo-drawer'),
         photoPaneContainer = $('#photo-pane-container'),
         photoPane = $('#photo-pane'),
+        photoPanel,
         i = 0,
         maxIndex = 2,
         lastHighlightedMarker,
@@ -70,12 +71,12 @@
                 if (FB !== undefined) {
                     FB.XFBML.parse();
                 }
-                $('a.iframe').fancybox({
+/*                $('a.iframe').fancybox({
                     'width': '75%',
                     'height': '75%',
                     'autoScale': false,
                     'hideOnContentClick': false
-                });
+                });*/
             }
         });
     };
@@ -114,18 +115,6 @@
         }
     };
 
-    window.showScoreboard = function () {
-        $('.top .score_container .scoreboard li').not('.you').add('h2').slideDown();
-        $('.top .score_container #facebook-connect').slideDown();
-        $('.top .score_container #google-plus-connect').slideDown();
-    };
-
-    window.hideScoreboard = function () {
-        $('.top .score_container .scoreboard li').not('.you').add('h2').slideUp();
-        $('.top .score_container #facebook-connect').slideUp();
-        $('.top .score_container #google-plus-connect').slideUp();
-    };
-
     toggleVisiblePaneElements = function () {
         if (window.map) {
             if (cityId) {
@@ -149,9 +138,17 @@
                     photoPane.empty();
                     photoPane.html(response);
                     photoPane.justifiedGallery(justifiedGallerySettings);
-                    setTimeout(function () {
-                        $()
-                    });
+                    if (photoPanel) {
+                        photoPanel.content.html(response);
+                    } else {
+                        photoPanel = $('#ajapaik-mapview-map-container').jsPanel({
+                            content: response,
+                            controls: {buttons: false},
+                            title: false,
+                            header: false,
+                            draggable: {handle: '.panel-body'}
+                        });
+                    }
                 });
             }
 //            for (i = 0; i < markers.length; i += 1) {
@@ -351,7 +348,7 @@
     };
 
     $(document).ready(function () {
-        $('.top .score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
+        $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $('#open-photo-drawer').click(function (e) {
             e.preventDefault();
@@ -432,18 +429,18 @@
             window.map.scrollwheel = true;
         }
 
-        $('a.iframe').fancybox({
+/*        $('a.iframe').fancybox({
 
-        });
+        });*/
 
-        $('.full-box div').live('click', function (e) {
+        $('.full-box div').on('click', function (e) {
             if (BigScreen.enabled) {
                 e.preventDefault();
                 BigScreen.exit();
             }
         });
 
-        $('#full-thumb1').live('click', function (e) {
+        $('#full-thumb1').on('click', function (e) {
             if (BigScreen.enabled) {
                 e.preventDefault();
                 BigScreen.request($('#full-large1')[0]);
@@ -451,7 +448,7 @@
             }
         });
 
-        $('#full-thumb2').live('click', function (e) {
+        $('#full-thumb2').on('click', function (e) {
             if (BigScreen.enabled) {
                 e.preventDefault();
                 BigScreen.request($('#full-large2')[0]);
@@ -459,7 +456,7 @@
             }
         });
 
-        $('#full_leaderboard').live('click', function (e) {
+        $('#full_leaderboard').on('click', function (e) {
             e.preventDefault();
             $('#leaderboard_browser').find('.scoreboard').load(leaderboardFullURL, function () {
                 $('#leaderboard_browser').modal({overlayClose: true});

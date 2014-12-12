@@ -28,23 +28,3 @@
         </form>
     </div>
 </nav>
-
-<script>
-    $('.filter-box select').change(function () {
-        var uri = new URI(location.href),
-            newQ = URI.parseQuery($(this).val()),
-            isFilterEmpty = false;
-
-        uri.removeQuery(Object.keys(newQ));
-        $.each(newQ, function (i, ii) {
-            ii = String(ii);
-            isFilterEmpty = ii === '';
-        });
-
-        if (!isFilterEmpty) {
-            uri = uri.addQuery(newQ);
-        }
-
-        location.href = uri.toString();
-    });
-</script>

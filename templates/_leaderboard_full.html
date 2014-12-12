@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
+     aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="leaderboard_browser">
+                    <div class="single">
+                        <div class="score_container">
+                            <ul class="scoreboard"
+                                style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </div>
+</div>

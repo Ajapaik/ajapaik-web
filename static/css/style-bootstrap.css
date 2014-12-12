@@ -248,6 +248,11 @@ body {
     height: 100%;
 }
 
+#ajapaik-mapview-map-canvas {
+    width: 100%;
+    height: 100%;
+}
+
 #ajapaik-grid-map-container {
     height: 95%;
     position: fixed;
@@ -263,6 +268,19 @@ body {
 }
 
 #ajapaik-game-map-container {
+    height: 95%;
+    position: fixed;
+    margin-top: 50px;
+    top: 0;
+    right: 0;
+    width: 100%;
+    webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    z-index: 1001;
+}
+
+#ajapaik-mapview-map-container {
     height: 95%;
     position: fixed;
     margin-top: 50px;
@@ -583,4 +601,38 @@ a.fullscreen {
 #ajapaik-game-guess-photo-js-panel {
     max-height: 50%;
     max-width: 33%;
+}
+
+.ajapaik-eye-open {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background: rgba(128, 128, 128, 0.5) url("../images/eye_open_20px_white.png") no-repeat center;
+}
+
+.ajapaik-eye-open-light-bg {
+    background-color: rgba(225, 225, 225, 0.5) !important;
+}
+
+.ajapaik-azimuth {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: rgba(128, 128, 128, 0.5) url("../images/direction_20px_white.png") no-repeat center;
+}
+
+.ajapaik-rephoto-count {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background: rgba(0, 169, 231, 0.5);
 }

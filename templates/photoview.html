@@ -1,3 +1,103 @@
+{% extends "base_bootstrap.html" %}
+{% load thumbnail i18n %}
+{#<link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.1.custom/jquery-ui.min.css">#}
+<link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.8.0/css/jquery.fileupload.css">
+
+{% block layout %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-5" id="ajapaik-photo-drawer-photo-column">
+            <div class="row" id="ajapaik-photo-drawer-photo-container">
+                <a class="fullscreen" id="full-thumb1" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}">
+                    <img id="ajapaik-block-photoview-main-photo" class="img-responsive {% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}" />
+                </a>
+                <button class="btn btn-default ajapaik-flip-photo-button"></button>
+                <button class="btn btn-default ajapaik-open-heatmap-button" data-id="{{ photo.id }}"></button>
+            </div>
+            {% if photo.description %}
+                <div class="row">
+                    <p>{{ photo.description }}</p>
+                </div>
+            {% endif %}
+            {% if photo.source_url %}
+                <div class="row">
+                    <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                    </a>
+                </div>
+            {% elif photo.source.description %}
+                <div class="row" id="ajapaik-photo-drawer-description">
+                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-5">
+
+        </div>
+        <div class="col-xs-2">
+            {% for rephoto in photo.rephotos.all %}
+                <div class="row"><a href="{{ rephoto.get_absolute_url }}" title="{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}"><img class="img-responsive" src="{% url 'project.home.views.photo_thumb' rephoto.id %}" width="50" /></a></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div id="ajapaik-grid-map-container">
+    <div class="panel panel-default" id="ajapaik-grid-map-info-panel">
+        <div class="panel-body">
+            {% trans "Geotags" %}: <span id="ajapaik-grid-map-geotag-count"></span>
+            <br/>
+            {% trans "With azimuth" %}: <span id="ajapaik-grid-map-geotag-with-azimuth-count"></span>
+        </div>
+    </div>
+    <button class="btn btn-primary ajapaik-grid-guess-location-button">{% trans "Guess location" %}</button>
+    <button class="btn btn-primary ajapaik-grid-close-map-button">{% trans "Close map" %}</button>
+    <div id="ajapaik-grid-map-canvas"></div>
+</div>
+<img src="{% url 'project.home.views.photo_url' photo.id %}" id="ajapaik-grid-guess-photo" />
+<img src="{% url 'project.home.views.photo_url' photo.id %}" id="ajapaik-grid-guess-photo-back" />
+<div class="full-box">
+	<div class="full-pic" id="full-large1">
+		<img class="{% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}" border="0" />
+	</div>
+</div>
+<script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
+<script>
+    $(document).ready(function () {
+        window.barePhotoview = true;
+        _gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
+        $(".ajapaik-flip-photo-button").click(function () {
+            var target = $("#ajapaik-block-photoview-main-photo");
+            if (target.hasClass("ajapaik-photo-flipped")) {
+                target.removeClass("ajapaik-photo-flipped");
+            } else {
+                target.addClass("ajapaik-photo-flipped");
+            }
+        });
+        $(".ajapaik-open-heatmap-button").click(function (e) {
+            window.showHeatmap(e.target.dataset.id);
+        });
+
+        $('.full-box div').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.exit();
+            }
+        });
+
+        $('#full-thumb1').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.request($('#full-large1')[0]);
+                _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
+            }
+        });
+
+        prepareFullscreen();
+    });
+</script>
+{% endblock %}
+
+{% comment %}
 {% extends 'base.html' %}
 {% load thumbnail i18n %}
 {% block layout %}
@@ -138,10 +238,12 @@
                                 <p>{% trans "Rephoto uploading requires connecting your account with Facebook." %}</p>
                                 <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
                             </div>
-                            {% comment %}<div id="google-plus-connect" align="center">
+                            {% endcomment %}
+{% comment %}<div id="google-plus-connect" align="center">
                                 <p>{% trans "You can also connect your Rephoto account with Google Plus." %}</p>
                                 <a id="google-plus-login-button" href="/google_login">{% trans "Connect with Google+" %}</a>
-                            </div>{% endcomment %}
+                            </div>{% endcomment %}{% comment %}
+
                         {% endif %}
 
                         <div class="tools">
@@ -171,7 +273,7 @@
             <li><a href="#">{% trans "Selected rephoto" %} (<fb:comments-count href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments-count>)</a></li>
 			{% endif %}
         </ul>
-        
+
         <div class="panes">
             <div class="pane">
                 <div class="photo-socials">
@@ -236,4 +338,4 @@ $(function() {
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/init.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/browse.js"></script>
-{% endblock %}
+{% endblock %}{% endcomment %}

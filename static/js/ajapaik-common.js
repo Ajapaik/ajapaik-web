@@ -4,6 +4,7 @@
     /*global google */
     /*global $ */
     /*global docCookies */
+    /*global URI */
     window.getAzimuthBetweenMouseAndMarker = function (e, marker) {
         var x = e.latLng.lat() - marker.position.lat(),
             y = e.latLng.lng() - marker.position.lng();
@@ -108,4 +109,31 @@
     if ($(window).height() >= 320) {
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
     }
+    window.showScoreboard = function () {
+        var scoreContainer = $('#ajapaik-header').find('.score_container');
+        scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
+        scoreContainer.find('#facebook-connect').slideDown();
+        scoreContainer.find('#google-plus-connect').slideDown();
+    };
+    window.hideScoreboard = function () {
+        var scoreContainer = $('#ajapaik-header').find('.score_container');
+        scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
+        scoreContainer.find('#facebook-connect').slideUp();
+        scoreContainer.find('#google-plus-connect').slideUp();
+    };
+    $('.filter-box select').change(function () {
+        var uri = new URI(location.href),
+            newQ = URI.parseQuery($(this).val()),
+            isFilterEmpty = false;
+        uri.removeQuery(Object.keys(newQ));
+        $.each(newQ, function (i, ii) {
+            ii = String(ii);
+            isFilterEmpty = ii === '';
+        });
+
+        if (!isFilterEmpty) {
+            uri = uri.addQuery(newQ);
+        }
+        location.href = uri.toString();
+    });
 }());

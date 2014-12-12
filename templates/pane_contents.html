@@ -1,5 +1,5 @@
 {% for element in data %}
-    <a id="element{{ element.0 }}"
+    <div id="element{{ element.0 }}"
        data-id="{{ element.0 }}"
        onclick="window.highlightSelected({{ element.0 }}, false);">
         <img src=""
@@ -36,5 +36,5 @@
             {{ element.2 }}
         </div>
         {% endif %}
-    </a>
+    </div>
 {% endfor %}

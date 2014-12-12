@@ -1,9 +1,18 @@
-{% extends "base.html" %}
+{% extends "base_bootstrap.html" %}
 {% load i18n %}
 
+{% block header %}
+    {% include "_header_city_selection_rephoto_scoreboard.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jsPanel.css"/>
+{% endblock %}
 {% block layout %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
-    <script type="text/javascript">
+    <div id="photo-drawer"></div>
+
+    <div id="ajapaik-mapview-map-container">
+        <div id="ajapaik-mapview-map-canvas"></div>
+    </div>
+    <script>
         var leaderboardFullURL = "{% url "project.home.views.rephoto_top50" %}",
                 geotaggedPhotos = {{ json_data|safe }},
                 userAlreadySeenPhotoIds = {{ user_seen_photo_ids|safe }},
@@ -28,11 +37,11 @@
             }
             {% if filters.filters_by_name.city_lookup_filter.get_option_object.lat and filters.filters_by_name.city_lookup_filter.get_option_object.lon %}
                 window.getMap(
-                    [
-                        {{ filters.filters_by_name.city_lookup_filter.get_option_object.lon | safe }},
-                        {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat | safe }}
-                    ],
-                    13
+                        [
+                            {{ filters.filters_by_name.city_lookup_filter.get_option_object.lon | safe }},
+                            {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat | safe }}
+                        ],
+                        13
                 );
             {% else %}
                 window.getMap();
@@ -70,6 +79,21 @@
         }
         $(document).ready(initialize);
     </script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
+    <script src="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jquery.jspanel.bs-1.4.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/lazysizes-0.5.1.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+    <script src="{{ STATIC_URL }}js/init.js"></script>
+    <script src="{{ STATIC_URL }}js/browse.js"></script>
+{% endblock %}
+
+
+{% comment %}
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block layout %}
 
     <div id="browse">
         <div class="top">
@@ -79,44 +103,7 @@
                 </a>
             </h1>
             <ul id="nav"></ul>
-            <div class="score_container">
-                <h2><a id="full_leaderboard" href="#">{% trans "Rephoto Leaderboard" %}</a></h2>
-                <ul class="scoreboard">
-                    {% for pos in leaderboard %}
-                        <li class="clearfix{% if pos.1 %} you{% endif %}">
-                            <span class="position">{{ pos.0 }}.</span>
-                            <span class="photo">{% if pos.3 %}
-                                <img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square"/>{% endif %}</span>
-                            <span class="name">{% if pos.4 %}{{ pos.4 }}{% else %}
-                                {% trans "Your points" %}{% endif %}</span>
-                            <span class="score">{{ pos.2 }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% if request.user.is_authenticated and request.user.profile.fb_id %}
-                    {% with profile=request.user.profile user=request.user %}
-                        <div id="facebook-connected">
-                            <p>
-                                {% blocktrans with "<a id='logout-button' href='/logout'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
-                                    Account ({{ account_name }}) connected. If it"s not you then {{ link_open }}click
-                                    here{{ link_close }}.{% endblocktrans %}</p>
-                        </div>
-                    {% endwith %}
-                {% else %}
-                    <div id="facebook-connect">
-                        <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                    </div>
-                    {% comment %}
-                    <div id="google-plus-connect">
-                        <p>{% trans "Connect with Google plus to save your score and continue later." %}</p>
-                        <a id="google-plus-login-button" href="/google_login" class="ir">
-                            {% trans "Connect with Google+" %}
-                        </a>
-				    </div>
-				    {% endcomment %}
-                {% endif %}
-            </div>
+
             <div class="filter-box">
                 {{ filters.get_form.as_p }}
             </div>
@@ -143,10 +130,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lazysizes-0.5.1.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/init.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/browse.js"></script>
-{% endblock layout %}
+
+{% endblock layout %}{% endcomment %}

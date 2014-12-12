@@ -375,16 +375,18 @@ def thegame(request):
 	filters.register(CityLookupFilterSpec, 'city')
 	ctx['filters'] = filters
 
-	return render_to_response('game_bootstrap.html', RequestContext(request, ctx))
+	return render_to_response('game.html', RequestContext(request, ctx))
 
 
 def frontpage(request):
-	try:
-		example = random.choice(Photo.objects.filter(
-			id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
-			rephoto_of__isnull=False))
-	except ObjectDoesNotExist:
-		example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
+	# TODO: Restore
+	# try:
+	# 	example = random.choice(Photo.objects.filter(
+	# 		id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
+	# 		rephoto_of__isnull=False))
+	# except ObjectDoesNotExist:
+	# 	example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
+	example = random.choice(Photo.objects.filter(pk__gt=6100, rephoto_of__isnull=False)[:8])
 	example_source = Photo.objects.get(pk=example.rephoto_of.id)
 	city_select_form = CitySelectForm(request.GET)
 
@@ -511,7 +513,7 @@ def photoslug(request, photo_id, pseudo_slug):
 		photo_obj = photo_obj.rephoto_of
 
 	site = Site.objects.get_current()
-	template = ['', 'block_photoview_bootstrap.html', 'photoview_bootstrap.html'][request.is_ajax() and 1 or 2]
+	template = ['', '_block_photoview.html', 'photoview.html'][request.is_ajax() and 1 or 2]
 	if not photo_obj.description:
 		title = "Unknown photo"
 	else:
@@ -668,7 +670,7 @@ def geotag_add(request):
 def leaderboard(request):
 	# leaderboard with first position, one in front of you, your score and one after you
 	leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
-	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+	template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
 	return render_to_response(template, RequestContext(request, {
 	'leaderboard': leaderboard,
 	'title': _('Leaderboard'),
@@ -678,7 +680,7 @@ def leaderboard(request):
 def top50(request):
 	# leaderboard with top 50 scores
 	leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().profile.pk)
-	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+	template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
 	return render_to_response(template, RequestContext(request, {
 	'leaderboard': leaderboard,
 	'title': _('Leaderboard'),
@@ -688,7 +690,7 @@ def top50(request):
 def rephoto_top50(request):
 	# leaderboard with top 50 scores
 	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard50(request.get_user().profile.pk)
-	template = ['', 'block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+	template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
 	return render_to_response(template, RequestContext(request, {
 	'leaderboard': leaderboard,
 	'title': _('Leaderboard'),
@@ -880,7 +882,7 @@ def grid(request):
 	filters.register(CityLookupFilterSpec, 'city')
 	data = filters.get_filtered_qs().get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
 	photo_count = filters.get_filtered_qs().get_old_photo_count_for_grid_view()
-	return render_to_response('grid_bootstrap.html', RequestContext(request, {
+	return render_to_response('grid.html', RequestContext(request, {
 		"data": data,
 	    "photo_count": photo_count,
 		"city_id": city_id,

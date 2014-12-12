@@ -1,0 +1,54 @@
+{% load i18n %}
+
+<nav id="ajapaik-header" class="navbar navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+    </div>
+    <div class="filter-box">
+        {{ filters.get_form.as_p }}
+    </div>
+    <div class="score_container">
+        <h2><a id="full_leaderboard" href="#">{% trans "Rephoto Leaderboard" %}</a></h2>
+        <ul class="scoreboard">
+            {% for pos in leaderboard %}
+                <li class="clearfix{% if pos.1 %} you{% endif %}">
+                    <span class="position">{{ pos.0 }}.</span>
+                    <span class="photo">
+                        {% if pos.3 %}
+                            <img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square"/>
+                        {% endif %}
+                    </span>
+                    <span class="name">
+                        {% if pos.4 %}
+                            {{ pos.4 }}
+                        {% else %}
+                            {% trans "Your points" %}
+                        {% endif %}
+                    </span>
+                    <span class="score">{{ pos.2 }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if request.user.is_authenticated and request.user.profile.fb_id %}
+            {% with profile=request.user.profile user=request.user %}
+                <div id="facebook-connected">
+                    <p>
+                        {% blocktrans with "<a id='logout-button' href='/logout'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
+                            Account ({{ account_name }}) connected. If it"s not you then {{ link_open }}click
+                            here{{ link_close }}.{% endblocktrans %}</p>
+                </div>
+            {% endwith %}
+        {% else %}
+            <div id="facebook-connect">
+                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+            </div>
+            {% comment %}<div id="google-plus-connect">
+                <p>{% trans "Connect with Google plus to save your score and continue later." %}</p>
+                <a id="google-plus-login-button" href="/google_login" class="ir">
+                    {% trans "Connect with Google+" %}
+                </a>
+            </div>{% endcomment %}
+        {% endif %}
+    </div>
+</nav>
