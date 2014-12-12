@@ -21,7 +21,6 @@
     var photoId,
         photoDrawerElement = $('#photo-drawer'),
         photoPaneContainer = $('#photo-pane-container'),
-        photoPane = $('#photo-pane'),
         photoPanel,
         i = 0,
         maxIndex = 2,
@@ -135,11 +134,9 @@
             }
             if (window.map.zoom > 15) {
                 $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
-                    photoPane.empty();
-                    photoPane.html(response);
-                    photoPane.justifiedGallery(justifiedGallerySettings);
                     if (photoPanel) {
                         photoPanel.content.html(response);
+                        photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
                     } else {
                         photoPanel = $('#ajapaik-mapview-map-container').jsPanel({
                             content: response,
@@ -147,8 +144,10 @@
                             title: false,
                             header: false,
                             draggable: {handle: '.panel-body'},
-                            overflow: { horizontal: 'hidden', vertical: 'scroll' }
+                            overflow: { horizontal: 'hidden', vertical: 'scroll' },
+                            id: 'ajapaik-mapview-photo-panel'
                         });
+                        photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
                     }
                 });
             }
@@ -169,6 +168,11 @@
 //            photoPaneContainer.trigger('scroll');
         }
     };
+
+/*    $(document).on('jspanelstatechange', '#ajapaik-mapview-photo-panel', function () {
+        console.log('asd');
+        photoPanel.justifiedGallery(justifiedGallerySettings);
+    });*/
 
     window.highlightSelected = function (markerId, fromMarker) {
         currentlySelectedMarkerId = markerId;
