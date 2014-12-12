@@ -20,8 +20,10 @@
 
     var photoId,
         photoDrawerElement = $('#photo-drawer'),
-        photoPaneContainer = $('#photo-pane-container'),
         photoPanel,
+        currentPanelWidth,
+        lastPanelWidth,
+        recurringCheckPanelSize,
         i = 0,
         maxIndex = 2,
         lastHighlightedMarker,
@@ -148,6 +150,15 @@
                             id: 'ajapaik-mapview-photo-panel'
                         });
                         photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
+                    }
+                    if (!recurringCheckPanelSize) {
+                        recurringCheckPanelSize = setInterval(function () {
+                            currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
+                            if (currentPanelWidth !== lastPanelWidth) {
+                                photoPanel.find('.panel-body').justifiedGallery();
+                            }
+                            lastPanelWidth = currentPanelWidth;
+                        }, 500);
                     }
                 });
             }
