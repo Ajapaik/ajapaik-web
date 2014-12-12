@@ -644,3 +644,7 @@ a.fullscreen {
 .ajapaik-mapview-pane-photo-container {
 
 }
+
+#ajapaik-mapview-photo-panel .jsPanel-content {
+    overflow-y: scroll;
+}
