@@ -146,7 +146,8 @@
                             controls: {buttons: false},
                             title: false,
                             header: false,
-                            draggable: {handle: '.panel-body'}
+                            draggable: {handle: '.panel-body'},
+                            overflow: { horizontal: 'hidden', vertical: 'scroll' }
                         });
                     }
                 });
