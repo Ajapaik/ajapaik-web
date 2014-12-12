@@ -134,6 +134,9 @@
         if (!isFilterEmpty) {
             uri = uri.addQuery(newQ);
         }
+
+        uri = uri.addQuery({fromSelect: 1});
+
         location.href = uri.toString();
     });
 }());

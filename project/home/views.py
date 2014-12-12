@@ -869,6 +869,7 @@ def pane_contents(request):
 			data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]])
 		except IOError:
 			pass
+
 	return render_to_response('pane_contents.html', RequestContext(request, {"data": data}))
 
 
