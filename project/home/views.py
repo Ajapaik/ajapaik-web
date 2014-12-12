@@ -379,14 +379,12 @@ def thegame(request):
 
 
 def frontpage(request):
-	# TODO: Restore
-	# try:
-	# 	example = random.choice(Photo.objects.filter(
-	# 		id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
-	# 		rephoto_of__isnull=False))
-	# except ObjectDoesNotExist:
-	# 	example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
-	example = random.choice(Photo.objects.filter(pk__gt=6100, rephoto_of__isnull=False)[:8])
+	try:
+		example = random.choice(Photo.objects.filter(
+			id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
+			rephoto_of__isnull=False))
+	except ObjectDoesNotExist:
+		example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
 	example_source = Photo.objects.get(pk=example.rephoto_of.id)
 	city_select_form = CitySelectForm(request.GET)
 
