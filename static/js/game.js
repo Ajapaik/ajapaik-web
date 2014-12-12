@@ -311,12 +311,13 @@
 
         $.getJSON(streamUrl, $.extend({'b': date.getTime()}, qs), function (data) {
             $.merge(photos, data.photos);
+            var textTarget = $('#ajapaik-game-status-message');
             if (data.nothing_more_to_show) {
-                $('#ajapaik-game-photo-modal-label').html(gettext('We are now showing you random photos.'));
+                textTarget.html(gettext('We are now showing you random photos.'));
             } else if (data.user_seen_all) {
-                $('#ajapaik-game-photo-modal-label').html(gettext('You have seen all the pictures we have for this area.'));
+                textTarget.html(gettext('You have seen all the pictures we have for this area.'));
             } else {
-                $('#ajapaik-game-photo-modal-label').hide();
+                textTarget.hide();
             }
             if (next || currentPhotoIdx <= 0) {
                 nextPhoto();

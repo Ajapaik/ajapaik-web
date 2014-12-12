@@ -58,7 +58,6 @@
         blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png';
 
 
-
     window.loadPhoto = function (id) {
         $.post('/log_user_map_action/', {user_action: 'opened_drawer', photo_id: id}, function () {
             $.noop();
@@ -72,22 +71,16 @@
                 if (FB !== undefined) {
                     FB.XFBML.parse();
                 }
-/*                $('a.iframe').fancybox({
-                    'width': '75%',
-                    'height': '75%',
-                    'autoScale': false,
-                    'hideOnContentClick': false
-                });*/
             }
         });
     };
 
     openPhotoDrawer = function (content) {
         photoDrawerElement.html(content);
-        photoDrawerElement.animate({ top: '7%' });
+        photoDrawerElement.animate({ top: '0' });
     };
 
-    closePhotoDrawer = function () {
+    window.closePhotoDrawer = function () {
         photoDrawerElement.animate({ top: '-1000px' });
         var historyReplacementString = '/kaart/?city__pk=' + cityId + '&lat=' + window.map.getCenter().lat() + '&lng=' + window.map.getCenter().lng();
         if (currentlySelectedMarkerId) {
@@ -145,8 +138,8 @@
                             controls: {buttons: false},
                             title: false,
                             header: false,
-                            draggable: {handle: '.panel-body'},
-                            overflow: { horizontal: 'hidden', vertical: 'scroll' },
+                            draggable: {handle: '.jsPanel-content'},
+                            overflow: { horizontal: 'hidden', vertical: 'auto' },
                             id: 'ajapaik-mapview-photo-panel'
                         });
                         photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
@@ -180,10 +173,10 @@
         }
     };
 
-/*    $(document).on('jspanelstatechange', '#ajapaik-mapview-photo-panel', function () {
-        console.log('asd');
-        photoPanel.justifiedGallery(justifiedGallerySettings);
-    });*/
+    /*    $(document).on('jspanelstatechange', '#ajapaik-mapview-photo-panel', function () {
+     console.log('asd');
+     photoPanel.justifiedGallery(justifiedGallerySettings);
+     });*/
 
     window.highlightSelected = function (markerId, fromMarker) {
         currentlySelectedMarkerId = markerId;
@@ -202,7 +195,7 @@
                 targetTop;
             if (targetPos) {
                 targetTop = targetPos.top;
-                photoPaneContainer.scrollTop(targetTop);
+                //photoPaneContainer.scrollTop(targetTop);
             }
             _gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
@@ -220,7 +213,8 @@
         if (lastSelectedMarkerId) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
-        $.post('/log_user_map_action/', {user_action: 'saw_marker', photo_id: markerId}, function () {});
+        $.post('/log_user_map_action/', {user_action: 'saw_marker', photo_id: markerId}, function () {
+        });
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         markerTemp = undefined;
@@ -266,77 +260,6 @@
         } else {
             photoFullscreenElement.addClass('flip-photo');
         }
-    };
-
-    //TODO: There has to be a better way
-    window.paneImageHoverIn = function (e) {
-        var myParent = $(e).parent();
-        myParent.find('.ajapaik-eye-open').show();
-        myParent.find('.ajapaik-azimuth').show();
-        myParent.find('.ajapaik-rephoto-count').show();
-    };
-
-    window.paneImageHoverOut = function (e) {
-        if (e.dataset.id != currentlySelectedMarkerId) {
-            var myParent = $(e).parent();
-            myParent.find('.ajapaik-eye-open').hide();
-            myParent.find('.ajapaik-azimuth').hide();
-            myParent.find('.ajapaik-rephoto-count').hide();
-        }
-    };
-
-    window.paneEyeHoverIn = function (e) {
-        var myParent = $(e).parent();
-        myParent.find('.ajapaik-eye-open').show();
-        myParent.find('.ajapaik-azimuth').show();
-        myParent.find('.ajapaik-rephoto-count').show();
-        return false;
-    };
-
-    window.paneEyeHoverOut = function (e) {
-        if (e.dataset.id != currentlySelectedMarkerId) {
-            var myParent = $(e).parent();
-            myParent.find('.ajapaik-eye-open').hide();
-            myParent.find('.ajapaik-azimuth').hide();
-            myParent.find('.ajapaik-rephoto-count').hide();
-        }
-        return false;
-    };
-
-    window.paneAzimuthHoverIn = function (e) {
-        var myParent = $(e).parent();
-        myParent.find('.ajapaik-eye-open').show();
-        myParent.find('.ajapaik-azimuth').show();
-        myParent.find('.ajapaik-rephoto-count').show();
-        return false;
-    };
-
-    window.paneAzimuthHoverOut = function (e) {
-        if (e.dataset.id != currentlySelectedMarkerId) {
-            var myParent = $(e).parent();
-            myParent.find('.ajapaik-eye-open').hide();
-            myParent.find('.ajapaik-azimuth').hide();
-            myParent.find('.ajapaik-rephoto-count').hide();
-        }
-        return false;
-    };
-
-    window.paneRephotoCountHoverIn = function (e) {
-        var myParent = $(e).parent();
-        myParent.find('.ajapaik-eye-open').show();
-        myParent.find('.ajapaik-azimuth').show();
-        myParent.find('.ajapaik-rephoto-count').show();
-        return false;
-    };
-
-    window.paneRephotoCountHoverOut = function (e) {
-        if (e.dataset.id != currentlySelectedMarkerId) {
-            var myParent = $(e).parent();
-            myParent.find('.ajapaik-eye-open').hide();
-            myParent.find('.ajapaik-azimuth').hide();
-            myParent.find('.ajapaik-rephoto-count').hide();
-        }
-        return false;
     };
 
     setCorrectMarkerIcon = function (marker) {
@@ -445,10 +368,6 @@
             window.map.scrollwheel = true;
         }
 
-/*        $('a.iframe').fancybox({
-
-        });*/
-
         $('.full-box div').on('click', function (e) {
             if (BigScreen.enabled) {
                 e.preventDefault();
@@ -479,5 +398,69 @@
             });
             _gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
         });
+
+        //TODO: There has to be a better way
+        window.paneImageHoverIn = function (e) {
+            var myParent = $(e).parent();
+            myParent.find('.ajapaik-eye-open').show();
+            myParent.find('.ajapaik-azimuth').show();
+            myParent.find('.ajapaik-rephoto-count').show();
+        };
+        window.paneImageHoverOut = function (e) {
+            if (e.dataset.id != currentlySelectedMarkerId) {
+                var myParent = $(e).parent();
+                myParent.find('.ajapaik-eye-open').hide();
+                myParent.find('.ajapaik-azimuth').hide();
+                myParent.find('.ajapaik-rephoto-count').hide();
+            }
+        };
+        window.paneEyeHoverIn = function (e) {
+            var myParent = $(e).parent();
+            myParent.find('.ajapaik-eye-open').show();
+            myParent.find('.ajapaik-azimuth').show();
+            myParent.find('.ajapaik-rephoto-count').show();
+            return false;
+        };
+        window.paneEyeHoverOut = function (e) {
+            if (e.dataset.id != currentlySelectedMarkerId) {
+                var myParent = $(e).parent();
+                myParent.find('.ajapaik-eye-open').hide();
+                myParent.find('.ajapaik-azimuth').hide();
+                myParent.find('.ajapaik-rephoto-count').hide();
+            }
+            return false;
+        };
+        window.paneAzimuthHoverIn = function (e) {
+            var myParent = $(e).parent();
+            myParent.find('.ajapaik-eye-open').show();
+            myParent.find('.ajapaik-azimuth').show();
+            myParent.find('.ajapaik-rephoto-count').show();
+            return false;
+        };
+        window.paneAzimuthHoverOut = function (e) {
+            if (e.dataset.id != currentlySelectedMarkerId) {
+                var myParent = $(e).parent();
+                myParent.find('.ajapaik-eye-open').hide();
+                myParent.find('.ajapaik-azimuth').hide();
+                myParent.find('.ajapaik-rephoto-count').hide();
+            }
+            return false;
+        };
+        window.paneRephotoCountHoverIn = function (e) {
+            var myParent = $(e).parent();
+            myParent.find('.ajapaik-eye-open').show();
+            myParent.find('.ajapaik-azimuth').show();
+            myParent.find('.ajapaik-rephoto-count').show();
+            return false;
+        };
+        window.paneRephotoCountHoverOut = function (e) {
+            if (e.dataset.id != currentlySelectedMarkerId) {
+                var myParent = $(e).parent();
+                myParent.find('.ajapaik-eye-open').hide();
+                myParent.find('.ajapaik-azimuth').hide();
+                myParent.find('.ajapaik-rephoto-count').hide();
+            }
+            return false;
+        };
     });
 }());

@@ -109,7 +109,7 @@ body {
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    z-index: 1000;
+    z-index: 1005;
     padding-top: 20px;
 }
 
@@ -305,6 +305,10 @@ body {
     bottom: 35px;
     left: 35px;
     z-index: 1003;
+}
+
+#ajapaik-game-status-message {
+    margin-top: 10px;
 }
 
 #ajapaik-grid-guess-photo {

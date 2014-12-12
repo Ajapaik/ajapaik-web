@@ -529,10 +529,5 @@
         $('.ajapaik-grid-close-guess-notice-button').on('click', function () {
             noticeDiv.hide();
         });
-
-        photoDrawerElement.delegate('#ajapaik-photoview-close-photo-drawer', 'click', function (e) {
-            e.preventDefault();
-            closePhotoDrawer();
-        });
     });
 }());
