@@ -21,6 +21,7 @@
     var photoId,
         photoDrawerElement = $('#photo-drawer'),
         photoPanel,
+        photoPanelInitialized = false,
         currentPanelWidth,
         lastPanelWidth,
         recurringCheckPanelSize,
@@ -110,6 +111,7 @@
     };
 
     toggleVisiblePaneElements = function () {
+        console.log(markers);
         if (window.map) {
             if (cityId) {
                 var historyReplacementString = '/kaart/?city__pk=' + cityId + '&lat=' + window.map.getCenter().lat() + '&lng=' + window.map.getCenter().lng();
@@ -129,7 +131,7 @@
             }
             if (window.map.zoom > 15) {
                 $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
-                    if (photoPanel) {
+                    if (photoPanelInitialized) {
                         photoPanel.content.html(response);
                         photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
                     } else {
@@ -143,11 +145,12 @@
                             }},
                             draggable: {
                                 handle: '.jsPanel-header',
-                                containment: "#ajapaik-mapview-map-container"
+                                containment: '#ajapaik-mapview-map-container'
                             },
                             overflow: { horizontal: 'hidden', vertical: 'auto' },
                             id: 'ajapaik-mapview-photo-panel'
                         });
+                        photoPanelInitialized = true;
                         photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
                     }
                     if (!recurringCheckPanelSize) {
@@ -160,6 +163,10 @@
                         }, 500);
                     }
                 });
+            } else {
+                if (photoPanelInitialized) {
+                    photoPanel.close();
+                }
             }
 //            for (i = 0; i < markers.length; i += 1) {
 //                if (window.map.getBounds().contains(markers[i].getPosition())) {

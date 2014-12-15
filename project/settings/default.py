@@ -127,6 +127,7 @@ CORE_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.gis',
 )
 
 EXTERNAL_APPS = (

@@ -13,6 +13,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.gis.geos import Polygon
 import hashlib
 
 from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView
@@ -587,6 +588,10 @@ def mapview(request):
 	city = None
 	get_params = request.GET.copy()
 	city_id = get_params.get('city__pk', 0)
+	sw_lat = get_params.get('sw_lat')
+	sw_lon = get_params.get('sw_lon')
+	ne_lat = get_params.get('ne_lat')
+	ne_lon = get_params.get('ne_lon')
 
 	if int(city_id) == 0:
 		# backwards compatible with old city parameter
@@ -608,7 +613,11 @@ def mapview(request):
 	filters.register(CityLookupFilterSpec, 'city')
 	# filters.register(DateFieldFilterSpec, 'created')
 	# filters.register(SourceLookupFilterSpec, 'source')
-	data = filters.get_filtered_qs().get_geotagged_photos_list()
+	#data = filters.get_filtered_qs().get_geotagged_photos_list()
+	bounding_box = None
+	if sw_lat and sw_lon and ne_lat and ne_lon:
+		bounding_box = Polygon.from_bbox((sw_lat, sw_lon, ne_lat, ne_lon))
+	data = qs.get_geotagged_photos_list(bounding_box)
 	photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list('photo_id', flat=True)
 	keys = {}
 	for e in photo_ids_user_has_looked_at:

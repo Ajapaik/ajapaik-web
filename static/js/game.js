@@ -68,7 +68,9 @@
         setCursorToPanorama,
         setCursorToAuto,
         guessPhotoPanel,
-        feedbackPanel;
+        feedbackPanel,
+        alertDivStart,
+        saveLocationButton =  $('.ajapaik-game-save-location-button');
 
     updateLeaderboard = function () {
         $('.score_container').find('.scoreboard').load(leaderboardUpdateURL);
@@ -113,7 +115,11 @@
             mapMousemoveListenerActive = false;
             google.maps.event.clearListeners(window.map, 'mousemove');
             saveDirection = true;
-            $('.ajapaik-game-save-location-button').text(gettext('Save location and direction'));
+            saveLocationButton.removeAttr("disabled");
+            saveLocationButton.removeClass("btn-default");
+            saveLocationButton.removeClass("btn-warning");
+            saveLocationButton.addClass("btn-success");
+            saveLocationButton.text(gettext('Save location and direction'));
             window.dottedAzimuthLine.icons[0].repeat = '2px';
             window.dottedAzimuthLine.setPath([marker.position, e.latLng]);
             window.dottedAzimuthLine.setVisible(true);
@@ -145,7 +151,10 @@
 
     mapMousemoveListenerFunction = function (e) {
         // The mouse is moving, therefore we haven't locked on a direction
-        $('.ajapaik-game-save-location-button').text(gettext('Save location only'));
+        saveLocationButton.removeAttr('disabled');
+        saveLocationButton.removeClass("btn-default");
+        saveLocationButton.addClass("btn-warning");
+        saveLocationButton.text(gettext('Save location only'));
         saveDirection = false;
         radianAngle = window.getAzimuthBetweenMouseAndMarker(e, marker);
         degreeAngle = Math.degrees(radianAngle);
@@ -202,7 +211,10 @@
 //            .css('margin-left', '-11px')
 //            .css('margin-top', '-31px')
 //            .css('height', '33px');
-        $('.ajapaik-game-save-location-button').text(gettext('Save location only'));
+        saveLocationButton.removeAttr('disabled');
+        saveLocationButton.removeClass("btn-default");
+        saveLocationButton.addClass("btn-warning");
+        saveLocationButton.text(gettext('Save location only'));
         azimuthListenerActive = false;
         window.dottedAzimuthLine.setVisible(false);
         mapMousemoveListenerActive = false;
@@ -251,6 +263,8 @@
         azimuthListenerActive = false;
         window.map.setZoom(16);
         mapMousemoveListenerActive = false;
+        saveLocationButton.removeClass("btn-primary").removeClass("btn-warning").removeClass("btn-success")
+            .addClass("btn-default").text(gettext("Save location only")).attr("disabled", "disabled");
         google.maps.event.clearListeners(window.map, 'mousemove');
         if (window.dottedAzimuthLine !== undefined) {
             window.dottedAzimuthLine.setVisible(false);
@@ -263,10 +277,11 @@
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
             $('#ajapaik-game-full-screen-image').prop('src', mediaUrl + photos[currentPhotoIdx].large.url);
+            console.log(photos[currentPhotoIdx]);
             $('#ajapaik-game-full-screen-link').prop('rel', photos[currentPhotoIdx].id).prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
             $('#ajapaik-game-map-geotag-count').html(photos[currentPhotoIdx].total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(photos[currentPhotoIdx].geotags_with_azimuth);
-            prepareFullscreen();
+            window.prepareFullscreen(photos[currentPhotoIdx].large.size[0], photos[currentPhotoIdx].large.size[1]);
             disableNext = true;
         } else {
             loadPhotos(1);
@@ -497,7 +512,10 @@
                 controls: {buttons: false},
                 title: false,
                 header: false,
-                draggable: {handle: '.panel-body'},
+                draggable: {
+                    handle: '.panel-body',
+                    containment: '#ajapaik-game-map-container'
+                },
                 size: {width: 'auto', height: 'auto'},
                 id: 'ajapaik-game-guess-photo-js-panel'
             });
@@ -648,6 +666,12 @@
 
         $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
+        $('#ajapaik-game-modal-body').hoverIntent(function () {
+            $('.ajapaik-game-flip-photo-button').show();
+        }, function () {
+            $('.ajapaik-game-flip-photo-button').hide();
+        });
+
         function saveLocation() {
             lat = marker.getPosition().lat();
             lon = marker.getPosition().lng();
@@ -678,33 +702,40 @@
                     hide_feedback = false;
                 if (resp['is_correct'] == true) {
                     message = gettext('Looks right!');
+                    alertDivStart = "<div class='alert alert-success'>";
                     hide_feedback = false;
                     _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
                     if (resp['azimuth_false']) {
                         message = gettext('The location seems right, but not the azimuth.');
+                        alertDivStart = "<div class='alert alert-success'>";
                     }
                     if (resp['azimuth_uncertain']) {
                         message = gettext('The location seems right, but the azimuth is yet uncertain.');
+                        alertDivStart = "<div class='alert alert-success'>";
                     }
                     if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
                         message = gettext('The location seems right, your azimuth was first.');
+                        alertDivStart = "<div class='alert alert-success'>";
                     }
                 } else if (resp['location_is_unclear']) {
                     message = gettext('Correct location is not certain yet.');
+                    alertDivStart = "<div class='alert alert-info'>";
                     _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
                 } else if (resp['is_correct'] == false) {
                     message = gettext('We doubt about it.');
                     hide_feedback = true;
+                    alertDivStart = "<div class='alert alert-danger'>";
                     _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
                 } else {
                     message = gettext('Your guess was first.');
+                    alertDivStart = "<div class='alert alert-info'>";
                 }
                 noticeDiv = $("#ajapaik-game-feedback-js-panel-content");
                 if (hide_feedback) {
                     noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-prompt").hide();
                     noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-form").hide();
                 }
-                noticeDiv.find("#ajapaik-game-guess-feedback-message").text(message);
+                noticeDiv.find("#ajapaik-game-guess-feedback-message").html(alertDivStart + message + "</div>");
                 noticeDiv.find("#ajapaik-game-guess-feedback-points-gained").text(gettext("Points awarded") + ": " + resp["current_score"]);
                 feedbackPanel = $('#ajapaik-game-map-container').jsPanel({
                     content: $('#ajapaik-game-feedback-js-panel-content').html(),

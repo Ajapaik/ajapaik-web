@@ -11,15 +11,15 @@
          aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body">
+                <div class="modal-body" id="ajapaik-game-modal-body">
                     <div id="ajapaik-game-modal-photo-container">
                         <a class="fullscreen" id="ajapaik-game-full-screen-link" rel="" href="">
                             <img src="" class="img-responsive" id="ajapaik-game-modal-photo"/>
                         </a>
+                        <button class="btn btn-default ajapaik-game-flip-photo-button"></button>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary ajapaik-game-flip-photo-button"></button>
                     <button class="btn btn-primary ajapaik-game-specify-location-button">
                         {% trans "Pick the shooting location!" %}
                     </button>
@@ -58,7 +58,7 @@
     </div>
     <div id="ajapaik-game-map-container">
         <button class="btn btn-primary ajapaik-game-skip-photo-button">{% trans "Skip" %}</button>
-        <button class="btn btn-primary ajapaik-game-save-location-button">{% trans "Save location only" %}</button>
+        <button class="btn btn-default ajapaik-game-save-location-button" disabled="disabled">{% trans "Save location only" %}</button>
         <div class="panel panel-default" id="ajapaik-game-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
@@ -70,7 +70,7 @@
     </div>
     <div class="full-box">
         <div class="full-pic" id="ajapaik-game-fullscreen-image-container">
-            <img id="ajapaik-game-full-screen-image" src=""/>
+            <img id="ajapaik-game-full-screen-image" src="" width="" height=""/>
         </div>
     </div>
     <script>

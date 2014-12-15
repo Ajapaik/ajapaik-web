@@ -1,6 +1,9 @@
 from PIL import Image
 from django.core.files import File
-from django.db import models, connection
+#from django.db import models, connection
+#from django.db.models import Count, Sum
+from django.contrib.gis.db import models
+from django.db import connection
 from django.db.models import Count, Sum
 from operator import attrgetter
 from django.core.cache import cache
@@ -28,6 +31,7 @@ from oauth2client.django_orm import CredentialsField
 
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail import ImageField
+from django.contrib.gis.geos import Point
 
 import math
 import datetime
@@ -92,7 +96,7 @@ class AlbumPhoto(models.Model):
 	class Meta:
 		app_label = "project"
 
-class PhotoManager(models.Manager):
+class PhotoManager(models.GeoManager):
 	def get_queryset(self):
 		return self.model.QuerySet(self.model)
 
@@ -134,6 +138,7 @@ class Photo(models.Model):
 
 	lat = models.FloatField(null=True, blank=True)
 	lon = models.FloatField(null=True, blank=True)
+	geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
 	bounding_circle_radius = models.FloatField(null=True, blank=True)
 	azimuth = models.FloatField(null=True, blank=True)
 	confidence = models.FloatField(default=0)
@@ -162,13 +167,16 @@ class Photo(models.Model):
 		app_label = "project"
 
 	class QuerySet(models.query.QuerySet):
-		def get_geotagged_photos_list(self):
-			cache_key = "ajapaik_geotagged_photos_list_response_%d" % self[0].city_id
-			cached_response = cache.get(cache_key)
-			if cached_response:
-				return cached_response
+		def get_geotagged_photos_list(self, bounding_box = None):
+			#cache_key = "ajapaik_geotagged_photos_list_response_%d" % self[0].city_id
+			#cached_response = cache.get(cache_key)
+			#if cached_response:
+				#return cached_response
 			data = []
-			for p in self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True):
+			qs = self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+			if bounding_box:
+				qs = qs.filter(geography__intersects=bounding_box)
+			for p in qs:
 				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
 				im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
 				try:
@@ -180,7 +188,7 @@ class Photo(models.Model):
 					data.append([p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]])
 				except IOError:
 					pass
-			cache.set(cache_key, data)
+			#cache.set(cache_key, data)
 			return data
 
 
@@ -476,6 +484,7 @@ class Photo(models.Model):
 				if unique_correct_guesses_ratio > 0.63:
 					self.lon = lon_sum / float(correct_guesses_weight)
 					self.lat = lat_sum / float(correct_guesses_weight)
+					self.geography = Point(self.lat, self.lon)
 					if unique_azimuth_correct_ratio > 0.63:
 						self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
 						self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
