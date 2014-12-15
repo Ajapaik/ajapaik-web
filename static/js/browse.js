@@ -144,7 +144,7 @@
                         });
                         (function (id) {
                             google.maps.event.addListener(marker, "click", function () {
-                                highlightSelected(id, true);
+                                window.highlightSelected(id, true);
                             });
                         })(p[0]);
                         markers.push(marker);
