@@ -588,10 +588,6 @@ def mapview(request):
 	city = None
 	get_params = request.GET.copy()
 	city_id = get_params.get('city__pk', 0)
-	sw_lat = get_params.get('sw_lat')
-	sw_lon = get_params.get('sw_lon')
-	ne_lat = get_params.get('ne_lat')
-	ne_lon = get_params.get('ne_lon')
 
 	if int(city_id) == 0:
 		# backwards compatible with old city parameter
@@ -607,35 +603,41 @@ def mapview(request):
 	else:
 		title = _('Browse photos on map')
 
-	qs = Photo.objects.all()
+	# qs = Photo.objects.all()
 
-	filters = FilterSpecCollection(qs, get_params)
+	filters = FilterSpecCollection(None, get_params)
 	filters.register(CityLookupFilterSpec, 'city')
-	# filters.register(DateFieldFilterSpec, 'created')
-	# filters.register(SourceLookupFilterSpec, 'source')
-	#data = filters.get_filtered_qs().get_geotagged_photos_list()
-	bounding_box = None
-	if sw_lat and sw_lon and ne_lat and ne_lon:
-		bounding_box = Polygon.from_bbox((sw_lat, sw_lon, ne_lat, ne_lon))
-	data = qs.get_geotagged_photos_list(bounding_box)
-	photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list('photo_id', flat=True)
+
+	photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
+		'photo_id', flat=True)
 	keys = {}
 	for e in photo_ids_user_has_looked_at:
 		keys[e] = 1
 	photo_ids_user_has_looked_at = keys
-	# data = filters.get_filtered_qs()
 
-	leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().profile.pk)
+	leaderboard_response = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().profile.pk)
 
 	return render_to_response('mapview.html', RequestContext(request, {
-		'json_data': json.dumps(data),
 		'city': city,
 		'title': title,
 		'filters': filters,
-		'leaderboard': leaderboard,
-	    'user_seen_photo_ids': photo_ids_user_has_looked_at,
-	    'city_id': city_id
+		'leaderboard': leaderboard_response,
+		'user_seen_photo_ids': photo_ids_user_has_looked_at,
+		'city_id': city_id
 	}))
+
+
+def map_objects_by_bounding_box(request):
+	data = request.POST
+	print data
+
+	qs = Photo.objects.all()
+
+	bounding_box = Polygon.from_bbox((data.get('sw_lat'), data.get('sw_lon'), data.get('ne_lat'), data.get('ne_lon')))
+
+	data = qs.get_geotagged_photos_list(bounding_box)
+
+	return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def get_leaderboard(request):

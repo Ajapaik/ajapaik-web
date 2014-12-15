@@ -14,35 +14,36 @@ router.register(r'api/cities', CityViewSet)
 router.register(r'api/sources', SourceViewSet)
 
 urlpatterns = patterns('project.home.views',
-	url(r'^logout/', 'logout'),
-	url(r'^stream/', 'fetch_stream'),
-	url(r'^difficulty_feedback/', 'difficulty_feedback'),
-	url(r'^log_user_map_action/', 'log_user_map_action'),
-	url(r'^geotag/add/', 'geotag_add'),
-	url(r'^ajapaikaja/$', 'thegame'),
-	url(r'^kaart/$', 'mapview'),
-	url(r'^leaderboard/$', 'leaderboard'),
-	url(r'^top50/$', 'top50'),
-	url(r'^rephoto_top50/$', 'rephoto_top50'),
-	url(r'^heatmap/$', 'heatmap'),
-    url(r'^heatmap_data/$', 'heatmap_data'),
-	url(r'^heatmap/(?P<photo_id>\d+)/$', 'photo_heatmap'),
-	url(r'^heatmap/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug_heatmap'),
-	url(r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
-	url(r'^foto/(?P<photo_id>\d+)/$', 'photo'),
-	url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug'),
-	url(r'^foto_large/(?P<photo_id>\d+)/$', 'photo_large'),
-	url(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
-	url(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
-	url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>.*)/', 'photo_thumb'),
-    url(r'^grid/$', 'grid'),
-    url(r'^grid_infinity/$', 'grid_infinite_scroll'),
-	url(r'^public_photo_upload/$', 'public_photo_upload'),
-	url(r'^public_photo_upload_handler/$', 'public_photo_upload_handler'),
-    url(r'^csv_upload/$', 'csv_upload'),
-	url(r'^europeana/$', 'europeana'),
-    url(r'^pane_contents/$', 'pane_contents'),
-	url(r'^$', 'frontpage')
+   url(r'^logout/', 'logout'),
+   url(r'^stream/', 'fetch_stream'),
+   url(r'^difficulty_feedback/', 'difficulty_feedback'),
+   url(r'^log_user_map_action/', 'log_user_map_action'),
+   url(r'^geotag/add/', 'geotag_add'),
+   url(r'^ajapaikaja/$', 'thegame'),
+   url(r'^kaart/$', 'mapview'),
+   url(r'^map_data/$', 'map_objects_by_bounding_box'),
+   url(r'^leaderboard/$', 'leaderboard'),
+   url(r'^top50/$', 'top50'),
+   url(r'^rephoto_top50/$', 'rephoto_top50'),
+   url(r'^heatmap/$', 'heatmap'),
+   url(r'^heatmap_data/$', 'heatmap_data'),
+   url(r'^heatmap/(?P<photo_id>\d+)/$', 'photo_heatmap'),
+   url(r'^heatmap/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug_heatmap'),
+   url(r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
+   url(r'^foto/(?P<photo_id>\d+)/$', 'photo'),
+   url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug'),
+   url(r'^foto_large/(?P<photo_id>\d+)/$', 'photo_large'),
+   url(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
+   url(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
+   url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>.*)/', 'photo_thumb'),
+   url(r'^grid/$', 'grid'),
+   url(r'^grid_infinity/$', 'grid_infinite_scroll'),
+   url(r'^public_photo_upload/$', 'public_photo_upload'),
+   url(r'^public_photo_upload_handler/$', 'public_photo_upload_handler'),
+   url(r'^csv_upload/$', 'csv_upload'),
+   url(r'^europeana/$', 'europeana'),
+   url(r'^pane_contents/$', 'pane_contents'),
+   url(r'^$', 'frontpage')
 )
 
 urlpatterns += patterns('',
@@ -63,12 +64,9 @@ handler500 = 'project.home.views.custom_500'
 handler404 = 'project.home.views.custom_404'
 
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
-	urlpatterns += patterns('', (
-	r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')), )
+	urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')), )
 else:
-	urlpatterns += patterns('', (
-	r'^robots\.txt$', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')), )
+	urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')), )
 
 if settings.DEBUG:
-	urlpatterns += patterns('', (
-	r'^media/(.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}), )
+	urlpatterns += patterns('', (r'^media/(.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}), )

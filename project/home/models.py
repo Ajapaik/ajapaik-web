@@ -179,15 +179,16 @@ class Photo(models.Model):
 			for p in qs:
 				rephoto_count = len(list(self.filter(rephoto_of=p.id)))
 				im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
-				try:
-					if p.image._get_width() >= p.image._get_height():
-						thumb_str = "%d"
-					else:
-						thumb_str = "x%d"
-					im = get_thumbnail(p.image, thumb_str % 150, crop="center")
-					data.append([p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]])
-				except IOError:
-					pass
+				# try:
+				# 	if p.image._get_width() >= p.image._get_height():
+				# 		thumb_str = "%d"
+				# 	else:
+				# 		thumb_str = "x%d"
+				# 	im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+				# 	data.append([p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]])
+				# except IOError:
+				# 	pass
+				data.append([p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, 400, 400])
 			#cache.set(cache_key, data)
 			return data
 
