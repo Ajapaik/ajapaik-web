@@ -149,7 +149,7 @@
                         markers.push(marker);
                     }
                 }
-                 var mc = new MarkerClusterer(window.map, markers);
+                 var mc = new MarkerClusterer(window.map, markers, {maxZoom: 17});
             });
 //            var currentBounds = window.map.getBounds(),
 //                markerIdsWithinBounds = [];
