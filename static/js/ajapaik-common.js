@@ -127,7 +127,7 @@
     };
     $('.filter-box select').change(function () {
         var uri = new URI(location.href),
-            newQ = URI.parseQuery($(this).val()),
+            newQ = {city: $(this).val()},
             isFilterEmpty = false;
         uri.removeQuery(Object.keys(newQ));
         $.each(newQ, function (i, ii) {
@@ -143,4 +143,8 @@
 
         location.href = uri.toString();
     });
+    // Firefox and Opera cannot handle modal taking over focus
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {
+        $.noop();
+    };
 }());

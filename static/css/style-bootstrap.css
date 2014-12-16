@@ -78,6 +78,7 @@ body {
 
 .filter-box {
     margin-top: 10px;
+    padding-left: 10px;
     overflow: hidden;
 }
 
@@ -684,4 +685,8 @@ a.fullscreen {
 
 #ajapaik-mapview-photo-panel .jsPanel-content {
     overflow-y: scroll;
+}
+
+ul.errorlist {
+    display: none;
 }

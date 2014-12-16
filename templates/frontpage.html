@@ -148,18 +148,16 @@ p {
 		</div>
 		</div>
 
-		<!--
 		<div>
 			{{ city_select_form.as_p }}
 		</div>
-		-->
 
-		<div>
-			{{ filters.get_form.as_p }}
-		</div>
+{#		<div>#}
+{#			{{ filters.get_form.as_p }}#}
+{#		</div>#}
         
 		<div class="buttons">
-			<a href="{% url 'project.home.views.thegame' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
+			<a href="{% url 'project.home.views.game' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
 			<a href="{% url 'project.home.views.mapview' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
 
 		</div>
@@ -171,16 +169,9 @@ p {
         <script type="text/javascript">
 			function submitWithCity(href) {
 				//location.href = $(href).attr('href') + '?city__pk=' + $('#id_city').val();
-				location.href = $(href).attr('href') + '?' + $('#id_city_lookup_filter').val();
+				location.href = $(href).attr('href') + '?city=' + $('#id_city').val();
 				return false;
 			}
-			$('#id_source_lookup_filter').live('change', function() {
-				if ($(this).val())
-				{
-					location.href = '{% url 'project.home.views.mapview' %}?' + $(this).val();
-				}
-				return false;
-			});
         </script>
 
 		<div style="background-color:whitesmoke;">

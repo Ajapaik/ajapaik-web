@@ -20,7 +20,7 @@ ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
 if not ABSOLUTE_PROJECT_ROOT in sys.path:
     sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
-STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
+STATIC_ROOT = '%s/static' % ABSOLUTE_PROJECT_ROOT
 MEDIA_ROOT = '%s/media' % ABSOLUTE_PROJECT_ROOT
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'

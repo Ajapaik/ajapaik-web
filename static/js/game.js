@@ -277,7 +277,6 @@
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
             $('#ajapaik-game-full-screen-image').prop('src', mediaUrl + photos[currentPhotoIdx].large.url);
-            console.log(photos[currentPhotoIdx]);
             $('#ajapaik-game-full-screen-link').prop('rel', photos[currentPhotoIdx].id).prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
             $('#ajapaik-game-map-geotag-count').html(photos[currentPhotoIdx].total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(photos[currentPhotoIdx].geotags_with_azimuth);
