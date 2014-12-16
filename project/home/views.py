@@ -478,7 +478,10 @@ def map_objects_by_bounding_box(request):
 
     bounding_box = Polygon.from_bbox((data.get('sw_lat'), data.get('sw_lon'), data.get('ne_lat'), data.get('ne_lon')))
 
-    data = qs.get_geotagged_photos_list(bounding_box)
+    if data.get('zoom') > 15:
+        data = qs.get_geotagged_photos_list(bounding_box, True)
+    else:
+        data = qs.get_geotagged_photos_list(bounding_box, False)
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
