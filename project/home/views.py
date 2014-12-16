@@ -79,149 +79,6 @@ def _get_exif_data(img):
     return exif_data
 
 
-class FilterSpecCollection(object):  # selectbox type, choice based
-    def __init__(self, qs, params):
-        self.qs = qs
-        self.params = params
-        self.filters = []
-        self.filters_by_name = {}
-
-    def register(self, filter_spec, field):
-        filter_obj = filter_spec(self.params, field)
-        self.filters.append(filter_obj)
-        self.filters_by_name[filter_obj.get_slug_name()] = filter_obj
-
-    def out(self):
-        for f in self.filters:
-            pass
-
-    def get_filtered_qs(self):
-        for item in self.filters:
-            if hasattr(item, "get_qs_exclude"):
-                if item.get_qs_exclude():
-                    self.qs = self.qs.exclude(**dict(item.get_qs_exclude()))
-            if hasattr(item, "get_qs_filter"):
-                if item.get_qs_filter():
-                    self.qs = self.qs.filter(**dict(item.get_qs_filter()))
-        return self.qs
-
-    def get_form(self):
-        class DynaForm(Form):
-            def __init__(self, *args, **kwargs):
-                args = list(args)
-                filters = args.pop(0)
-
-                super(DynaForm, self).__init__(*args, **kwargs)
-                for item in filters:
-                    choices = [(i['query_string'], i['display']) for i in list(item.choices())]
-                    self.fields[item.get_slug_name()] = ChoiceField(choices=choices, label=item.get_label())
-
-        initial = {}
-        for item in self.filters:
-            selected = [i['query_string'] for i in item.choices() if i['selected']] or ["", ]
-            initial[item.get_slug_name()] = selected.pop(0)
-
-        return DynaForm(self.filters, initial=initial)
-
-
-class FilterSpec(object):
-    def get_qs_filter(self):
-        for title, param_dict in self.links:
-            if param_dict == self.selected_params:
-                return self.selected_params
-        return False
-
-    def choices(self):
-        for title, param_dict in self.links:
-            yield {'selected': self.selected_params == param_dict,
-                   'query_string': urllib.urlencode(param_dict),
-                   'display': title
-            }
-
-
-class DateFieldFilterSpec(FilterSpec):
-    def __init__(self, params, field_path):
-        self.field_path = field_path
-        self.field_generic = '%s__' % field_path
-        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
-
-        today = datetime.date.today()
-        one_week_ago = today - datetime.timedelta(days=7)
-        one_month_ago = today - datetime.timedelta(days=30)
-        today_str = today.strftime('%Y-%m-%d 23:59:59')
-
-        self.links = (
-        (_('All pictures'), {
-        '%s__gte' % self.field_path: "",
-        '%s__lte' % self.field_path: "",
-        }),
-        (_('Added last week'), {
-        '%s__gte' % self.field_path: one_week_ago.strftime('%Y-%m-%d'),
-        '%s__lte' % self.field_path: today_str,
-        }),
-        (_('Added last month'), {
-        '%s__gte' % self.field_path: one_month_ago.strftime('%Y-%m-%d'),
-        '%s__lte' % self.field_path: today_str,
-        }),
-        )
-
-    def get_slug_name(self):
-        return u'creation_date_filter'
-
-    def get_option_object(self):
-        return None
-
-    def get_label(self):
-        return _('Choose range')
-
-
-class CityLookupFilterSpec(FilterSpec):
-    def __init__(self, params, field_path):
-        self.field_path = field_path
-        self.field_generic = '%s__' % field_path
-        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
-        self.lookup = '%s__pk' % self.field_path
-
-        self.links = []
-        for city in City.objects.filter(lat__isnull=False, lon__isnull=False):
-            self.links.append((city.name, {self.lookup: u'%s' % city.pk}))
-
-        # Initial and default value
-        if not self.get_qs_filter():
-            self.selected_params = {self.lookup: u'%s' % settings.DEFAULT_CITY_ID}
-
-    def get_option_object(self):
-        return City.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
-
-    def get_slug_name(self):
-        return u'city_lookup_filter'
-
-    def get_label(self):
-        return _('Choose city')
-
-
-class SourceLookupFilterSpec(FilterSpec):
-    def __init__(self, params, field_path):
-        self.field_path = field_path
-        self.field_generic = '%s__' % field_path
-        self.selected_params = dict([(k, v) for k, v in params.items() if k.startswith(self.field_generic)])
-        self.lookup = '%s__eq' % self.field_path
-
-        self.links = []
-        self.links.append(('--', ''))
-        for source in Source.objects.all():
-            self.links.append((source.description, {self.lookup: u'%s' % source.pk}))
-
-    def get_option_object(self):
-        return Source.objects.get(**dict({"pk": self.selected_params[self.lookup]}))
-
-    def get_slug_name(self):
-        return u'source_lookup_filter'
-
-    def get_label(self):
-        return _('Choose source')
-
-
 def handle_uploaded_file(f):
     return ContentFile(f.read())
 
@@ -586,28 +443,15 @@ def heatmap(request):
 
 
 def mapview(request):
+    city_selection_form = CitySelectionForm(request.GET)
     city = None
-    get_params = request.GET.copy()
-    city_id = get_params.get('city__pk', 0)
-
-    if int(city_id) == 0:
-        # backwards compatible with old city parameter
-        city_id = get_params.get('city', 0)
-        if int(city_id) > 0:
-            get_params['city__pk'] = city_id
-
-    if int(city_id) > 0:
-        city = City.objects.get(pk=city_id)
+    if city_selection_form.is_valid():
+        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
 
     if city:
         title = city.name + ' - ' + _('Browse photos on map')
     else:
         title = _('Browse photos on map')
-
-    # qs = Photo.objects.all()
-
-    filters = FilterSpecCollection(None, get_params)
-    filters.register(CityLookupFilterSpec, 'city')
 
     photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
         'photo_id', flat=True)
@@ -619,12 +463,11 @@ def mapview(request):
     leaderboard_response = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().profile.pk)
 
     return render_to_response('mapview.html', RequestContext(request, {
-    'city': city,
-    'title': title,
-    'filters': filters,
-    'leaderboard': leaderboard_response,
-    'user_seen_photo_ids': photo_ids_user_has_looked_at,
-    'city_id': city_id
+        'city': city,
+        'title': title,
+        'city_selection_form': city_selection_form,
+        'leaderboard': leaderboard_response,
+        'user_seen_photo_ids': photo_ids_user_has_looked_at,
     }))
 
 
@@ -892,28 +735,32 @@ def pane_contents(request):
 
 
 def grid(request):
-    qs = Photo.objects.all()
-    get_params = request.GET.copy()
-    city_id = get_params.get('city__pk', 1)
-    filters = FilterSpecCollection(qs, get_params)
-    filters.register(CityLookupFilterSpec, 'city')
-    data = filters.get_filtered_qs().get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
-    photo_count = filters.get_filtered_qs().get_old_photo_count_for_grid_view()
-    return render_to_response('grid.html', RequestContext(request, {
-    "data": data,
-    "photo_count": photo_count,
-    "city_id": city_id,
-    "start": 0,
-    "filters": filters,
-    "page_size": settings.GRID_VIEW_PAGE_SIZE
-    }))
+    city_selection_form = CitySelectionForm(request.GET)
+
+    if city_selection_form.is_valid():
+        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+        qs = Photo.objects.filter(city_id=city.id)
+
+        data = qs.get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
+        photo_count = qs.get_old_photo_count_for_grid_view()
+
+        return render_to_response('grid.html', RequestContext(request, {
+            "data": data,
+            "photo_count": photo_count,
+            "city": city,
+            "start": 0,
+            "city_selection_form": city_selection_form,
+            "page_size": settings.GRID_VIEW_PAGE_SIZE
+        }))
 
 
 def grid_infinite_scroll(request):
-    qs = Photo.objects.all()
-    get_params = request.GET.copy()
-    filters = FilterSpecCollection(qs, get_params)
-    filters.register(CityLookupFilterSpec, 'city')
-    start = int(get_params['start'])
-    data = filters.get_filtered_qs().get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
+    city_selection_form = CitySelectionForm(request.GET)
+
+    data = []
+    if city_selection_form.is_valid():
+        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+        qs = Photo.objects.filter(city_id=city.id)
+        start = int(request.GET.get('start'))
+        data = qs.get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
     return HttpResponse(json.dumps(data), content_type="application/json")

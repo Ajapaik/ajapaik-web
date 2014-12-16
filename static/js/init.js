@@ -4,8 +4,6 @@
     /*global google */
     /*global _gaq */
     /*global $ */
-    /*global URI */
-    /*global docCookies */
 
     window.flipFeedbackURL = "/flip_feedback/";
 
