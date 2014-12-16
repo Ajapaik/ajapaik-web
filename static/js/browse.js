@@ -75,19 +75,16 @@
             cache: false,
             url: '/foto/' + id + '/',
             success: function (result) {
-                console.log("asd");
-                console.log(result);
-                //openPhotoDrawer(result);
-                //if (FB !== undefined) {
-                //    FB.XFBML.parse();
-                //}
+                openPhotoDrawer(result);
+                if (FB !== undefined) {
+                    FB.XFBML.parse();
+                }
             }
         });
     };
 
     openPhotoDrawer = function (content) {
-        photoDrawerElement.html(content);
-        photoDrawerElement.animate({ top: '0' });
+        $('#ajapaik-photo-modal').html(content).modal();
     };
 
     window.closePhotoDrawer = function () {
@@ -153,7 +150,6 @@
                         icon = blackMarkerIcon20;
                     }
                     var marker = new google.maps.Marker({
-                        map: window.map,
                         id: p[0],
                         icon: icon,
                         rephotoCount: p[4],
@@ -252,8 +248,7 @@
         if (lastSelectedMarkerId) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
-        $.post('/log_user_map_action/', {user_action: 'saw_marker', photo_id: markerId}, function () {
-        });
+        $.post('/log_user_map_action/', {user_action: 'saw_marker', photo_id: markerId}, function () {});
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         markerTemp = undefined;

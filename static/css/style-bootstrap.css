@@ -690,3 +690,16 @@ a.fullscreen {
 ul.errorlist {
     display: none;
 }
+
+.ajapaik-flip-photo-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#ajapaik-modal-photo {
+    margin: 0 auto;
+}
