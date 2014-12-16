@@ -66,6 +66,7 @@
 
 
     window.loadPhoto = function (id) {
+        // TODO: No double request, this could get logged in /foto/ anyway
         $.post('/log_user_map_action/', {user_action: 'opened_drawer', photo_id: id}, function () {
             $.noop();
         });
@@ -74,10 +75,12 @@
             cache: false,
             url: '/foto/' + id + '/',
             success: function (result) {
-                openPhotoDrawer(result);
-                if (FB !== undefined) {
-                    FB.XFBML.parse();
-                }
+                console.log("asd");
+                console.log(result);
+                //openPhotoDrawer(result);
+                //if (FB !== undefined) {
+                //    FB.XFBML.parse();
+                //}
             }
         });
     };
