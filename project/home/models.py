@@ -39,6 +39,17 @@ def distance_in_meters(lon1, lat1, lon2, lat2):
     return (2 * 6350e3 * 3.1415 / 360) * math.sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
 
 
+def _make_thumbnail(photo, size):
+    image = get_thumbnail(photo.image, size)
+    return {'url': image.url,
+            'size': [image.width, image.height]}
+
+
+def _make_fullscreen(photo):
+    image = get_thumbnail(photo.image, '1024x1024', upscale=False)
+    return {'url': image.url,
+            'size': [image.width, image.height]}
+
 models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 
@@ -194,7 +205,7 @@ class Photo(models.Model):
             # TODO: proper JSON serialization
             if not distance_from_last:
                 distance_from_last = "Unknown"
-            from get_next_photos_to_geotag import _make_thumbnail, _make_fullscreen
+
 
             assert isinstance(photo, Photo)
             return {
