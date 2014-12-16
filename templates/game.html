@@ -80,8 +80,8 @@
             permalinkURL = '{{ hostname }}/foto/',
             cityId = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}',
             language_code = '{{ LANGUAGE_CODE }}';
-        {% if filters.filters_by_name.city_lookup_filter.get_option_object %}
-            start_location = [{{ filters.filters_by_name.city_lookup_filter.get_option_object.lon|safe }}, {{ filters.filters_by_name.city_lookup_filter.get_option_object.lat|safe }}];
+        {% if city %}
+            start_location = [{{ city.lon|safe }}, {{ city.lat|safe }}];
         {% else %}
             start_location = [26, 59];
         {% endif %}

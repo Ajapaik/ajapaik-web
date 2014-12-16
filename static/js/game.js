@@ -382,7 +382,7 @@
 
         location = new google.maps.LatLng(start_location[1], start_location[0]);
 
-        if (cityId) {
+        if (location) {
             window.getMap(start_location, 15, true);
         } else {
             window.getMap(undefined, undefined, true);

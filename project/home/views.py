@@ -393,14 +393,10 @@ def frontpage(request):
     if not city_select_form.is_valid():
         city_select_form = CitySelectionForm()
 
-    filters = FilterSpecCollection(None, request.GET)
-    filters.register(CityLookupFilterSpec, 'city')
-
     return render_to_response('frontpage.html', RequestContext(request, {
-    'city_select_form': city_select_form,
-    'filters': filters,
-    'example': example,
-    'example_source': example_source,
+        'city_select_form': city_select_form,
+        'example': example,
+        'example_source': example_source,
     }))
 
 

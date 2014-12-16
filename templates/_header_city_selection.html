@@ -5,7 +5,8 @@
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
     <div class="filter-box">
-        {{ filters.get_form.as_p }}
+        {% csrf_token %}
+        {{ city_selection_form.as_p }}
     </div>
     {% get_language_info for LANGUAGE_CODE as lang %}
     <div id="ajapaik-language-box">
