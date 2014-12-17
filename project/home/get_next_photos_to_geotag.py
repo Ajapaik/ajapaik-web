@@ -108,6 +108,7 @@ def get_next_photos_to_geotag(user_id, nr_of_photos=5, city_id=None):
 
 def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None,
                  azimuth_line_end_point=None):
+    print photo_id
     p = Photo.objects.get(pk=photo_id)
 
     is_correct = None

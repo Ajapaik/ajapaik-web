@@ -102,35 +102,6 @@ body {
     color: black;
 }
 
-#photo-drawer {
-    position: fixed;
-    top: -1000px;
-    width: 100%;
-    background: #fff url(../images/bg-subtle-grunge.png) center center;
-    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    z-index: 1005;
-    padding-top: 20px;
-}
-
-#ajapaik-photo-drawer-photo-container {
-    display: inline-block;
-    position: relative;
-    margin-bottom: 10px;
-    margin-top: 50px;
-}
-
-#ajapaik-block-photoview-main-photo {
-    display: block;
-    margin: 0 auto;
-}
-
-#ajapaik-photo-drawer-buttons {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
 .ajapaik-photo-flipped {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
@@ -138,67 +109,6 @@ body {
     transform: scaleX(-1);
     filter: FlipH;
     -ms-filter: "FlipH";
-}
-
-.ajapaik-photoview-flip-photo-button {
-    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-
-.ajapaik-game-flip-photo-button {
-    background-image: url(../images/material-design-icons/ic_flip_24px.svg) !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-color: #fff;
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: none;
-}
-
-.ajapaik-game-flip-photo-button:hover {
-    background-color: #fff !important;
-}
-
-.ajapaik-game-flip-photo-button:active {
-    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-game-flip-photo-button.active {
-    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-game-flip-photo-button.active:focus {
-    outline: none;
-}
-
-.ajapaik-game-flip-photo-button:focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
-.ajapaik-game-flip-photo-button.focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
-.ajapaik-game-map-flip-photo-button {
-    background-image: url(../images/material-design-icons/ic_flip_24px.svg) !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    left: 5px;
-    bottom: 5px;
 }
 
 #ajapaik-game-fullscreen-image-container {
@@ -213,17 +123,8 @@ body {
     width: 48px;
     height: 48px;
     position: absolute;
-    right: 5px;
-    top: 5px;
-}
-
-.ajapaik-photoview-open-heatmap-button {
-    background: #fff url(../images/material-design-icons/ic_location_on_24px.svg) no-repeat center !important;
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
+    right: 15px;
+    bottom: 15px;
 }
 
 .ajapaik-grid-close-map-button {
@@ -270,10 +171,6 @@ body {
     right: 125px;
     z-index: 1002;
     display: none;
-}
-
-.ajapaik-flip-photo-button:hover {
-    background-position: center;
 }
 
 #ajapaik-grid-map-canvas {
@@ -418,11 +315,6 @@ a.fullscreen {
 #ajapaik-grid-guess-notice-container .panel-body {
     padding: 30px;
 }
-
-/* TODO: This is only needed in feedback div
-/*.modal-backdrop {
-    display: none !important;
-}*/
 
 .modal-backdrop.in {
     opacity: 0.8;
@@ -700,6 +592,38 @@ ul.errorlist {
     right: 5px;
 }
 
+.ajapaik-flip-photo-overlay-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button:active {
+    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button.active {
+    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-flip-photo-overlay-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
 #ajapaik-modal-photo {
     margin: 0 auto;
+}
+
+.ajapaik-photo-modal-row {
+    margin-right: 0;
 }

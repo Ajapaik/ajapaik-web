@@ -5,6 +5,8 @@
     /*global $ */
     /*global docCookies */
     /*global URI */
+    /*global gettext */
+    var saveLocationCallback;
     window.getAzimuthBetweenMouseAndMarker = function (e, marker) {
         var x = e.latLng.lat() - marker.position.lat(),
             y = e.latLng.lng() - marker.position.lng();
@@ -124,6 +126,93 @@
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
         scoreContainer.find('#facebook-connect').slideUp();
         scoreContainer.find('#google-plus-connect').slideUp();
+    };
+    window.updateLeaderboard = function () {
+        $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
+    };
+    saveLocationCallback = function (resp) {
+        var message = '',
+            hideFeedback = false,
+            heatmapPoints,
+            currentScore,
+            tagsWithAzimuth,
+            alertDivStart,
+            newEstimatedLocation;
+        if (resp.is_correct == true) {
+            message = gettext('Looks right!');
+            alertDivStart = "<div class='alert alert-success'>";
+            hideFeedback = false;
+            _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
+            if (resp['azimuth_false']) {
+                message = gettext('The location seems right, but not the azimuth.');
+                alertDivStart = "<div class='alert alert-success'>";
+            }
+            if (resp['azimuth_uncertain']) {
+                message = gettext('The location seems right, but the azimuth is yet uncertain.');
+                alertDivStart = "<div class='alert alert-success'>";
+            }
+            if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
+                message = gettext('The location seems right, your azimuth was first.');
+                alertDivStart = "<div class='alert alert-success'>";
+            }
+        } else if (resp['location_is_unclear']) {
+            message = gettext('Correct location is not certain yet.');
+            alertDivStart = "<div class='alert alert-info'>";
+            _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
+        } else if (resp['is_correct'] == false) {
+            message = gettext('We doubt about it.');
+            hideFeedback = true;
+            alertDivStart = "<div class='alert alert-danger'>";
+            _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
+        } else {
+            message = gettext('Your guess was first.');
+            alertDivStart = "<div class='alert alert-info'>";
+        }
+        if (resp.heatmap_points) {
+            heatmapPoints = resp.heatmap_points;
+        }
+        if (resp.azimuth_tags) {
+            tagsWithAzimuth = resp.azimuth_tags;
+        }
+        if (resp.current_score) {
+            currentScore = resp.current_score;
+        }
+        if (resp.new_estimated_location) {
+            newEstimatedLocation = resp.new_estimated_location;
+        }
+        window.handleGuessResponse({feedbackMessage: alertDivStart + message + '</div>', hideFeedback: hideFeedback,
+            heatmapPoints: heatmapPoints, currentScore: currentScore, tagsWithAzimuth: tagsWithAzimuth,
+            newEstimatedLocation: newEstimatedLocation});
+    };
+    window.saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint) {
+        var lat = marker.getPosition().lat(),
+            lon = marker.getPosition().lng(),
+            data = {
+                photo_id: photoId,
+                hint_used: hintUsed,
+                zoom_level: window.map.zoom
+            };
+        if (degreeAngle) {
+            data.azimuth = degreeAngle;
+        }
+        if (azimuthLineEndPoint) {
+            data.azimuth_line_end_point = azimuthLineEndPoint;
+        }
+        if (lat && lon) {
+            data.lat = lat;
+            data.lon = lon;
+        }
+        if (userFlippedPhoto) {
+            data.flip = photoFlipStatus;
+        }
+        $.ajax({
+            url: window.saveLocationURL,
+            data: data,
+            method: 'POST',
+            success: function (resp) {
+                saveLocationCallback(resp);
+            }
+        });
     };
     $('.filter-box select').change(function () {
         var uri = new URI(location.href),

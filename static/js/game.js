@@ -28,6 +28,7 @@
         disableContinue = true,
         locationToolsOpen = false,
         mobileMapMinimized = false,
+        guessResponse,
         infowindow,
         noticeDiv,
         lat,
@@ -51,7 +52,6 @@
         mapDragstartListenerActive,
         mapIdleListenerActive,
         mapMousemoveListenerActive,
-        updateLeaderboard,
         marker,
         location,
         lastTriggeredWheeling,
@@ -71,10 +71,6 @@
         feedbackPanel,
         alertDivStart,
         saveLocationButton =  $('.ajapaik-game-save-location-button');
-
-    updateLeaderboard = function () {
-        $('.score_container').find('.scoreboard').load(leaderboardUpdateURL);
-    };
 
     toggleTouchPhotoView = function () {
         // TODO: Renew
@@ -342,8 +338,10 @@
     window.flipPhoto = function () {
         userFlippedPhoto = !userFlippedPhoto;
         var photoElement = $('#ajapaik-game-modal-photo'),
-            guessPhotoElement = $('#ajapaik-game-guess-photo-js-panel').find('img'),
+            guessPhotoElement = $('#ajapaik-game-guess-photo-container').find('img'),
+            guessPhotoElementDynamic = $('#ajapaik-game-guess-photo-js-panel').find('img'),
             fullscreenPhotoElement = $('#ajapaik-game-full-screen-image');
+        console.log(guessPhotoElement);
         if (photoElement.hasClass('ajapaik-photo-flipped')) {
             photoElement.removeClass('ajapaik-photo-flipped');
         } else {
@@ -354,6 +352,11 @@
         } else {
             guessPhotoElement.addClass('ajapaik-photo-flipped');
         }
+        if (guessPhotoElementDynamic.hasClass('ajapaik-photo-flipped')) {
+            guessPhotoElementDynamic.removeClass('ajapaik-photo-flipped');
+        } else {
+            guessPhotoElementDynamic.addClass('ajapaik-photo-flipped');
+        }
         if (fullscreenPhotoElement.hasClass('ajapaik-photo-flipped')) {
             fullscreenPhotoElement.removeClass('ajapaik-photo-flipped');
         } else {
@@ -361,8 +364,76 @@
         }
     };
 
+    window.handleGuessResponse = function (guessResponse) {
+        window.updateLeaderboard();
+        noticeDiv = $('#ajapaik-game-feedback-js-panel-content');
+        if (guessResponse.hideFeedback) {
+            noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-prompt').hide();
+            noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-form').hide();
+        }
+        noticeDiv.find('#ajapaik-game-guess-feedback-message').html(guessResponse.feedbackMessage);
+        noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').text(gettext('Points awarded') + ': ' + guessResponse.currentScore);
+        feedbackPanel = $('#ajapaik-game-map-container').jsPanel({
+            content: noticeDiv.html(),
+            controls: {
+                buttons: false
+            },
+            title: false,
+            header: false,
+            size: {
+                width: function () {
+                    return $(window).width() / 4;
+                },
+                height: 'auto'
+            },
+            position: {
+                bottom: 0,
+                right: 0
+            },
+            id: 'ajapaik-game-feedback-panel'
+        });
+        if (guessResponse.heatmapPoints) {
+            marker.setMap(null);
+            $('.center-marker').hide();
+            mapMousemoveListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'mousemove');
+            mapIdleListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'idle');
+            mapClickListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'click');
+            mapDragstartListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'dragstart');
+            playerLatlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
+            $('#ajapaik-game-map-geotag-count').html(guessResponse.heatmapPoints.length);
+            $('#ajapaik-game-map-geotag-with-azimuth-count').html(guessResponse.tagsWithAzimuth);
+            var markerImage = {
+                url: '/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg',
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(0, 16),
+                scaledSize: new google.maps.Size(24, 33)
+            };
+            playerMarker = new google.maps.Marker({
+                position: playerLatlng,
+                map: window.map,
+                title: gettext('Your guess'),
+                draggable: false,
+                icon: markerImage
+            });
+            taxiData = [];
+            for (i = 0; i < guessResponse.heatmapPoints.length; i += 1) {
+                taxiData.push(new google.maps.LatLng(guessResponse.heatmapPoints[i][0], guessResponse.heatmapPoints[i][1]));
+            }
+            pointArray = new google.maps.MVCArray(taxiData);
+            heatmap = new google.maps.visualization.HeatmapLayer({
+                data: pointArray
+            });
+            heatmap.setOptions({radius: 50, dissipating: true});
+            heatmap.setMap(window.map);
+        }
+    };
+
     $(document).ready(function () {
-        updateLeaderboard();
+        window.updateLeaderboard();
 
         $.jQee("esc", function () {
             $("#close-photo-drawer").click();
@@ -469,7 +540,7 @@
             e.preventDefault();
             if (disableNext == false) {
                 var data = {photo_id: photos[currentPhotoIdx - 1].id};
-                $.post(saveLocationURL, data, function () {
+                $.post(window.saveLocationURL, data, function () {
                     nextPhoto();
                 });
                 _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
@@ -528,7 +599,7 @@
             setCursorToAuto();
             if (!disableNext) {
                 var data = {photo_id: photos[currentPhotoIdx].id};
-                $.post(saveLocationURL, data, function () {
+                $.post(window.saveLocationURL, data, function () {
                     currentPhotoIdx += 1;
                     nextPhoto();
                 });
@@ -548,7 +619,7 @@
 
         $('.ajapaik-game-next-photo-button').click(function () {
             var data = {photo_id: photos[currentPhotoIdx].id};
-            $.post(saveLocationURL, data, function () {
+            $.post(window.saveLocationURL, data, function () {
                 currentPhotoIdx += 1;
                 nextPhoto();
             });
@@ -557,10 +628,15 @@
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
-            $('#leaderboard_browser').find('.scoreboard').load(leaderboardFullURL, function () {
-                $('#ajapaik-game-full-leaderboard-modal').modal().on('shown.bs.modal', function () {
-                    $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                });
+            $.ajax({
+                url: leaderboardFullURL,
+                success: function (response) {
+                    var modalWindow = $('#ajapaik-full-leaderboard-modal');
+                    modalWindow.find('.scoreboard').html(response);
+                    modalWindow.modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
             });
             _gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
         });
@@ -572,7 +648,7 @@
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
                 alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
-                saveLocation();
+                window.saveLocation(marker, photos[currentPhotoIdx].id, photos[currentPhotoIdx].flip, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint);
                 if (saveDirection) {
                     _gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {
@@ -605,18 +681,17 @@
             disableContinue = true;
         });
 
-        $(document).on('click', '.ajapaik-game-map-flip-photo-button', function () {
-            if ($(this).hasClass('active')) {
-                $(this).removeClass('active');
-            } else {
-                $(this).addClass('active');
+        $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
+            var targets = $('.ajapaik-flip-photo-overlay-button'),
+                i;
+            for (i = 0; i < targets.length; i += 1) {
+                if ($(targets[i]).hasClass('active')) {
+                    $(targets[i]).removeClass('active');
+                } else {
+                    $(targets[i]).addClass('active');
+                }
             }
-            if ($('.ajapaik-game-flip-photo-button').hasClass('active')) {
-                $('.ajapaik-game-flip-photo-button').removeClass('active');
-            } else {
-                $('.ajapaik-game-flip-photo-button').addClass('active');
-            }
-            flipPhoto();
+            window.flipPhoto();
         });
 
         $(document).on('click', '.ajapaik-game-map-fullscreen-button', function () {
@@ -624,20 +699,6 @@
                 BigScreen.request($('#ajapaik-game-fullscreen-image-container')[0]);
                 _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
             }
-        });
-
-        $('.ajapaik-game-flip-photo-button').click(function () {
-            if ($(this).hasClass('active')) {
-                $(this).removeClass('active');
-            } else {
-                $(this).addClass('active');
-            }
-            if ($('.ajapaik-game-map-flip-photo-button').hasClass('active')) {
-                $('.ajapaik-game-map-flip-photo-button').removeClass('active');
-            } else {
-                $('.ajapaik-game-map-flip-photo-button').addClass('active');
-            }
-            flipPhoto();
         });
 
         $('.full-box div').on('click', function (e) {
@@ -666,124 +727,23 @@
         $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $('#ajapaik-game-modal-body').hoverIntent(function () {
-            $('.ajapaik-game-flip-photo-button').show();
+            $('.ajapaik-flip-photo-overlay-button').show();
         }, function () {
-            $('.ajapaik-game-flip-photo-button').hide();
+            $('.ajapaik-flip-photo-overlay-button').hide();
         });
 
-        function saveLocation() {
-            lat = marker.getPosition().lat();
-            lon = marker.getPosition().lng();
+//        $('#ajapaik-game-guess-photo-js-panel-content').hoverIntent(function () {
+//            $('.ajapaik-flip-photo-overlay-button').show();
+//        }, function () {
+//            $('.ajapaik-flip-photo-overlay-button').hide();
+//        });
 
-            var data = {
-                photo_id: photos[currentPhotoIdx].id,
-                hint_used: hintUsed,
-                zoom_level: window.map.zoom
-            };
+        $(document).on('mouseover', '#ajapaik-game-guess-photo-js-panel', function () {
+            $('.ajapaik-flip-photo-overlay-button').show();
+        });
 
-            if (saveDirection) {
-                data.azimuth = degreeAngle;
-                data.azimuth_line_end_point = azimuthLineEndPoint;
-            }
-
-            if (lat && lon) {
-                data.lat = lat;
-                data.lon = lon;
-            }
-
-            if (userFlippedPhoto) {
-                data.flip = !photos[currentPhotoIdx].flip;
-            }
-
-            $.post(saveLocationURL, data, function (resp) {
-                updateLeaderboard();
-                var message = '',
-                    hide_feedback = false;
-                if (resp['is_correct'] == true) {
-                    message = gettext('Looks right!');
-                    alertDivStart = "<div class='alert alert-success'>";
-                    hide_feedback = false;
-                    _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
-                    if (resp['azimuth_false']) {
-                        message = gettext('The location seems right, but not the azimuth.');
-                        alertDivStart = "<div class='alert alert-success'>";
-                    }
-                    if (resp['azimuth_uncertain']) {
-                        message = gettext('The location seems right, but the azimuth is yet uncertain.');
-                        alertDivStart = "<div class='alert alert-success'>";
-                    }
-                    if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
-                        message = gettext('The location seems right, your azimuth was first.');
-                        alertDivStart = "<div class='alert alert-success'>";
-                    }
-                } else if (resp['location_is_unclear']) {
-                    message = gettext('Correct location is not certain yet.');
-                    alertDivStart = "<div class='alert alert-info'>";
-                    _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
-                } else if (resp['is_correct'] == false) {
-                    message = gettext('We doubt about it.');
-                    hide_feedback = true;
-                    alertDivStart = "<div class='alert alert-danger'>";
-                    _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
-                } else {
-                    message = gettext('Your guess was first.');
-                    alertDivStart = "<div class='alert alert-info'>";
-                }
-                noticeDiv = $("#ajapaik-game-feedback-js-panel-content");
-                if (hide_feedback) {
-                    noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-prompt").hide();
-                    noticeDiv.find("#ajapaik-game-guess-feedback-difficulty-form").hide();
-                }
-                noticeDiv.find("#ajapaik-game-guess-feedback-message").html(alertDivStart + message + "</div>");
-                noticeDiv.find("#ajapaik-game-guess-feedback-points-gained").text(gettext("Points awarded") + ": " + resp["current_score"]);
-                feedbackPanel = $('#ajapaik-game-map-container').jsPanel({
-                    content: $('#ajapaik-game-feedback-js-panel-content').html(),
-                    controls: {buttons: false},
-                    title: false,
-                    header: false,
-                    size: {width: function () {return $(window).width() / 4;}, height: 'auto'},
-                    position: {bottom: 0, right: 0},
-                    id: 'ajapaik-game-feedback-panel'
-                });
-                if (resp.heatmap_points) {
-                    marker.setMap(null);
-                    $(".center-marker").hide();
-                    mapMousemoveListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'mousemove');
-                    mapIdleListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'idle');
-                    mapClickListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'click');
-                    mapDragstartListenerActive = false;
-                    google.maps.event.clearListeners(window.map, 'dragstart');
-                    playerLatlng = new google.maps.LatLng(data.lat, data.lon);
-                    $('#ajapaik-game-map-geotag-count').html(resp.heatmap_points.length);
-                    $('#ajapaik-game-map-geotag-with-azimuth-count').html(resp.azimuth_tags);
-                    var markerImage = {
-                        url: '/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg',
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(0, 16),
-                        scaledSize: new google.maps.Size(24, 33)
-                    };
-                    playerMarker = new google.maps.Marker({
-                        position: playerLatlng,
-                        map: window.map,
-                        title: gettext("Your guess"),
-                        draggable: false,
-                        icon: markerImage
-                    });
-                    taxiData = [];
-                    for (i = 0; i < resp.heatmap_points.length; i += 1) {
-                        taxiData.push(new google.maps.LatLng(resp.heatmap_points[i][0], resp.heatmap_points[i][1]));
-                    }
-                    pointArray = new google.maps.MVCArray(taxiData);
-                    heatmap = new google.maps.visualization.HeatmapLayer({
-                        data: pointArray
-                    });
-                    heatmap.setOptions({radius: 50, dissipating: true});
-                    heatmap.setMap(window.map);
-                }
-            }, 'json');
-        }
+        $(document).on('mouseout', '#ajapaik-game-guess-photo-js-panel', function () {
+            $('.ajapaik-flip-photo-overlay-button').hide();
+        });
     });
 }());

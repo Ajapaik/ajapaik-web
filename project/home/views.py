@@ -510,16 +510,16 @@ def geotag_add(request):
         flip_feedback.save()
 
     return HttpResponse(json.dumps({
-    'is_correct': is_correct,
-    'current_score': current_score,
-    'total_score': total_score,
-    'leaderboard_update': leaderboard_update,
-    'location_is_unclear': location_is_unclear,
-    'azimuth_false': azimuth_false,
-    'azimuth_uncertain': azimuth_uncertain,
-    'heatmap_points': heatmap_points,
-    'azimuth_tags': azimuth_tag_count,
-    'new_estimated_location': new_estimated_location
+        'is_correct': is_correct,
+        'current_score': current_score,
+        'total_score': total_score,
+        'leaderboard_update': leaderboard_update,
+        'location_is_unclear': location_is_unclear,
+        'azimuth_false': azimuth_false,
+        'azimuth_uncertain': azimuth_uncertain,
+        'heatmap_points': heatmap_points,
+        'azimuth_tags': azimuth_tag_count,
+        'new_estimated_location': new_estimated_location
     }), content_type="application/json")
 
 

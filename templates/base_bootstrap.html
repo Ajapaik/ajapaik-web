@@ -81,6 +81,8 @@
     <script>
         var isMobile = '{{ request.mobile }}';
         isMobile = isMobile === 'True';
+        window.saveLocationURL = '{% url 'project.home.views.geotag_add' %}';
+        window.leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}';
     </script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
     <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>

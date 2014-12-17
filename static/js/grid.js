@@ -42,7 +42,6 @@
             mapMousemoveListenerActive,
             placeEstimatedLocationMarker,
             guessLocationStarted = false,
-            saveLocation,
             noticeDiv,
             estimatedLocation,
             estimatedLocationMarker,
@@ -108,71 +107,48 @@
             });
         };
 
-        saveLocation = function () {
-            var lat = marker.getPosition().lat(),
-                lon = marker.getPosition().lng(),
-                data = {
-                    photo_id: currentlyOpenPhotoId,
-                    hint_used: true,
-                    non_game_guess: true,
-                    zoom_level: window.map.zoom
-                };
-
-            if (lat && lon) {
-                data.lat = lat;
-                data.lon = lon;
-            }
-
-            if (saveDirection) {
-                data.azimuth = degreeAngle;
-                data.azimuth_line_end_point = azimuthLineEndPoint;
-            }
-
-            //if (userFlippedPhoto) {
-            //    data.flip = !photos[currentPhotoIdx - 1].flip;
+        window.handleGuessResponse = function (guessResponse) {
+            window.updateLeaderboard();
+            // TODO: How broken are GA events?
+            //if (resp['is_correct'] == true) {
+            //    _gaq.push(['_trackEvent', 'Grid', 'Correct coordinates']);
+            //} else if (resp['location_is_unclear']) {
+            //    _gaq.push(['_trackEvent', 'Grid', 'Coordinates uncertain']);
+            //} else if (resp['is_correct'] == false) {
+            //    _gaq.push(['_trackEvent', 'Grid', 'Wrong coordinates']);
             //}
-
-            $.post(saveLocationURL, data, function (resp) {
-                if (resp['is_correct'] == true) {
-                    _gaq.push(['_trackEvent', 'Grid', 'Correct coordinates']);
-                } else if (resp['location_is_unclear']) {
-                    _gaq.push(['_trackEvent', 'Grid', 'Coordinates uncertain']);
-                } else if (resp['is_correct'] == false) {
-                    _gaq.push(['_trackEvent', 'Grid', 'Wrong coordinates']);
-                }
-                noticeDiv = $('#ajapaik-grid-guess-notice-container');
-                noticeDiv.modal();
-                marker.setMap(null);
-                $(".center-marker").hide();
-                mapMousemoveListenerActive = false;
-                google.maps.event.clearListeners(window.map, 'mousemove');
-                mapIdleListenerActive = false;
-                google.maps.event.clearListeners(window.map, 'idle');
-                mapClickListenerActive = false;
-                google.maps.event.clearListeners(window.map, 'click');
-                mapDragstartListenerActive = false;
-                google.maps.event.clearListeners(window.map, 'dragstart');
-                $('#ajapaik-grid-map-geotag-count').html(resp.heatmap_points.length);
-                $('#ajapaik-grid-map-geotag-with-azimuth-count').html(resp.azimuth_tags);
-                $('.ajapaik-grid-save-location-button').hide();
-                var playerLatlng = new google.maps.LatLng(data.lat, data.lon);
-                var markerImage = {
-                    url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(8, 8),
-                    scaledSize: new google.maps.Size(16, 16)
-                };
-                var playerMarker = new google.maps.Marker({
-                    position: playerLatlng,
-                    map: window.map,
-                    title: gettext("Your guess"),
-                    draggable: false,
-                    icon: markerImage
-                });
-                if (resp.new_estimated_location) {
-                    placeEstimatedLocationMarker(new google.maps.LatLng(resp.new_estimated_location[0], resp.new_estimated_location[1]));
-                }
-            }, 'json');
+            noticeDiv = $('#ajapaik-grid-guess-notice-container');
+            noticeDiv.modal();
+            marker.setMap(null);
+            $(".center-marker").hide();
+            mapMousemoveListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'mousemove');
+            mapIdleListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'idle');
+            mapClickListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'click');
+            mapDragstartListenerActive = false;
+            google.maps.event.clearListeners(window.map, 'dragstart');
+            $('#ajapaik-grid-map-geotag-count').html(guessResponse.heatmapPoints.length);
+            $('#ajapaik-grid-map-geotag-with-azimuth-count').html(guessResponse.tagsWithAzimuth);
+            $('.ajapaik-grid-save-location-button').hide();
+            var playerLatlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
+            var markerImage = {
+                url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(8, 8),
+                scaledSize: new google.maps.Size(16, 16)
+            };
+            var playerMarker = new google.maps.Marker({
+                position: playerLatlng,
+                map: window.map,
+                title: gettext("Your guess"),
+                draggable: false,
+                icon: markerImage
+            });
+            if (guessResponse.newEstimatedLocation) {
+                placeEstimatedLocationMarker(new google.maps.LatLng(guessResponse.newEstimatedLocation[0], guessResponse.newEstimatedLocation[1]));
+            }
         };
 
         window.showHeatmap = function (photoId) {
@@ -517,7 +493,8 @@
                 _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
                 alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
-                saveLocation();
+                // TODO: Flip status
+                window.saveLocation(marker, currentlyOpenPhotoId, false, true, false, degreeAngle, azimuthLineEndPoint);
                 if (saveDirection) {
                     _gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {
