@@ -221,6 +221,7 @@
     };
 
     nextPhoto = function () {
+        $('#ajapaik-game-photo-description').hide();
         photoContainer = $('#ajapaik-game-modal-photo-container');
         photoContainer.css('visibility', 'hidden');
         window.map.getStreetView().setVisible(false);
@@ -242,8 +243,14 @@
             $('.btn').removeClass('active');
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                 photoContainer.css('visibility', 'visible');
+                photoContainer.css('visibility', 'visible');
             });
+            if (photos[currentPhotoIdx].description) {
+                $('#ajapaik-game-photo-description').html(photos[currentPhotoIdx].description);
+                $('.ajapaik-game-show-description-button').show();
+            } else {
+                $('.ajapaik-game-show-description-button').hide();
+            }
             $('#ajapaik-game-full-screen-image').prop('src', mediaUrl + photos[currentPhotoIdx].large.url);
             $('#ajapaik-game-full-screen-link').prop('rel', photos[currentPhotoIdx].id)
                 .prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
@@ -490,9 +497,11 @@
             }
         });
 
-        //$.jQee('up', function () {
-        //    $('.show-description').click();
-        //});
+        $.jQee('up', function () {
+            if (!locationToolsOpen) {
+                $('.ajapaik-game-show-description-button').click();
+            }
+        });
 
         $.jQee('right', function () {
             if (!locationToolsOpen) {
@@ -677,6 +686,12 @@
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
             }
+        });
+
+        $('.ajapaik-game-show-description-button').click(function () {
+            $(this).hide();
+            hintUsed = true;
+            $('#ajapaik-game-photo-description').show();
         });
 
         $(document).on('mouseover', '#ajapaik-game-guess-photo-js-panel', function () {

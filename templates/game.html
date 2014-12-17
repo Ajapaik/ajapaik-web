@@ -20,10 +20,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary ajapaik-game-specify-location-button">
-                        {% trans "Pick the shooting location!" %}
-                    </button>
-                    <button class="btn btn-primary ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
+                    <div class="row ajapaik-photo-modal-row">
+                        <button class="btn btn-default pull-left ajapaik-game-show-description-button">
+                            {% trans "Show description" %}
+                        </button>
+                        <div id="ajapaik-game-photo-description" class="pull-left"></div>
+                    </div>
+                    <div class="row ajapaik-photo-modal-row">
+                        <button class="btn btn-primary ajapaik-game-specify-location-button">
+                            {% trans "Pick the shooting location!" %}
+                        </button>
+                        <button class="btn btn-primary ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
+                    </div>
                     <p id="ajapaik-game-status-message"></p>
                 </div>
             </div>
