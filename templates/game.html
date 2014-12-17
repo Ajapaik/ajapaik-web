@@ -49,11 +49,11 @@
         </form>
         <button class="btn btn-primary ajapaik-game-feedback-next-button pull-right">{% trans "Next photo" %}</button>
     </div>
-    <div id="ajapaik-game-guess-photo-js-panel-content" style="display: none;">
+    <div id="ajapaik-game-guess-photo-js-panel-content">
         <div id="ajapaik-game-guess-photo-container">
             <img class="img-responsive" src="" />
             <button class="btn btn-primary ajapaik-flip-photo-overlay-button"></button>
-            <button class="btn btn-default ajapaik-game-map-fullscreen-button"></button>
+            <button class="btn btn-default ajapaik-fullscreen-overlay-button"></button>
         </div>
     </div>
     <div id="ajapaik-game-map-container">
@@ -81,8 +81,7 @@
                     <div id="leaderboard_browser">
                         <div class="single">
                             <div class="score_container">
-                                <ul class="scoreboard"
-                                    style="max-height:300px;overflow-y:auto;padding-right:10px;"></ul>
+                                <ul class="scoreboard"></ul>
                             </div>
                         </div>
                     </div>

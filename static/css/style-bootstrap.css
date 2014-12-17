@@ -116,17 +116,6 @@ body {
     height: 100%;
 }
 
-.ajapaik-game-map-fullscreen-button {
-    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
-}
-
 .ajapaik-grid-close-map-button {
     position: absolute;
     bottom: 25px;
@@ -361,7 +350,9 @@ a.fullscreen {
 
 .score_container ul.scoreboard {
     margin: 0;
-    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 10px 0 0;
 }
 
 .score_container ul.scoreboard li {
@@ -588,8 +579,8 @@ ul.errorlist {
     width: 48px;
     height: 48px;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 15px;
+    right: 15px;
 }
 
 .ajapaik-flip-photo-overlay-button:hover {
@@ -616,6 +607,45 @@ ul.errorlist {
 }
 
 .ajapaik-flip-photo-overlay-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-fullscreen-overlay-button {
+    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+.ajapaik-fullscreen-overlay-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-fullscreen-overlay-button:active {
+    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-fullscreen-overlay-button.active {
+    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-fullscreen-overlay-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-fullscreen-overlay-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-fullscreen-overlay-button.focus {
     outline: none;
     background-color: #fff !important;
 }
