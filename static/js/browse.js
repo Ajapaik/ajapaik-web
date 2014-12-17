@@ -2,7 +2,6 @@
     'use strict';
     /*jslint nomen: true */
     /*global FB */
-    /*global geotaggedPhotos */
     /*global _gaq */
     /*global cityId */
     /*global google */
@@ -11,17 +10,11 @@
     /*global History */
     /*global BigScreen */
     /*global leaderboardFullURL */
-    /*global rephotoImgHref */
-    /*global rephotoImgSrc */
-    /*global rephotoImgSrcFs */
-    /*global rephotoMeta */
-    /*global rephotoComment */
     /*global MarkerClusterer */
     /*global gettext */
     /*global isMobile */
 
     var photoId,
-        photoDrawerElement = $('#photo-drawer'),
         currentMapBounds,
         ne,
         sw,
@@ -87,9 +80,9 @@
 
     window.loadPhoto = function (id) {
         // TODO: No double request, this could get logged in /foto/ anyway
-        $.post('/log_user_map_action/', {user_action: 'opened_drawer', photo_id: id}, function () {
-            $.noop();
-        });
+        //$.post('/log_user_map_action/', {user_action: 'opened_drawer', photo_id: id}, function () {
+        //    $.noop();
+        //});
         photoId = id;
         $.ajax({
             cache: false,
@@ -456,11 +449,6 @@
     $(document).ready(function () {
         $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
-        $('#open-photo-drawer').click(function (e) {
-            e.preventDefault();
-            openPhotoDrawer();
-        });
-
         if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom') && !window.fromSelect && !window.barePhotoview) {
             window.map.setCenter(new google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')));
             window.map.setZoom(parseInt(window.getQueryParameterByName('zoom'), 10));
@@ -484,52 +472,42 @@
             _gaq.push(['_trackEvent', 'Map', 'Logout']);
         });
 
-        photoDrawerElement.delegate('#close-photo-drawer', 'click', function (e) {
-            e.preventDefault();
-            closePhotoDrawer();
-        });
+        //photoDrawerElement.delegate('ul.thumbs li.photo a', 'click', function (e) {
+        //    e.preventDefault();
+        //    var rephotoContentElement = $('#rephoto_content'),
+        //        fullLargeElement = $('#full-large2'),
+        //        that = $(this);
+        //    $('ul.thumbs li.photo').removeClass('current');
+        //    that.parent().addClass('current');
+        //    rephotoContentElement.find('a').attr('href', rephotoImgHref[that.attr('rel')]);
+        //    rephotoContentElement.find('a').attr('rel', that.attr('rel'));
+        //    rephotoContentElement.find('img').attr('src', rephotoImgSrc[that.attr('rel')]);
+        //    fullLargeElement.find('img').attr('src', rephotoImgSrcFs[that.attr('rel')]);
+        //    $('#meta_content').html(rephotoMeta[that.attr('rel')]);
+        //    $('#add-comment').html(rephotoComment[that.attr('rel')]);
+        //    if (typeof FB !== 'undefined') {
+        //        FB.XFBML.parse();
+        //    }
+        //    History.replaceState(null, window.document.title, that.attr('href'));
+        //    _gaq.push(['_trackPageview', that.attr('href')]);
+        //});
 
-        photoDrawerElement.delegate('#random-photo', 'click', function (e) {
-            e.preventDefault();
-            window.loadPhoto(geotaggedPhotos[Math.floor(Math.random() * geotaggedPhotos.length)][0]);
-        });
+        //photoDrawerElement.delegate('a.add-rephoto', 'click', function (e) {
+        //    e.preventDefault();
+        //    $('#notice').modal();
+        //    _gaq.push(['_trackEvent', 'Map', 'Add rephoto']);
+        //});
 
-        photoDrawerElement.delegate('ul.thumbs li.photo a', 'click', function (e) {
-            e.preventDefault();
-            var rephotoContentElement = $('#rephoto_content'),
-                fullLargeElement = $('#full-large2'),
-                that = $(this);
-            $('ul.thumbs li.photo').removeClass('current');
-            that.parent().addClass('current');
-            rephotoContentElement.find('a').attr('href', rephotoImgHref[that.attr('rel')]);
-            rephotoContentElement.find('a').attr('rel', that.attr('rel'));
-            rephotoContentElement.find('img').attr('src', rephotoImgSrc[that.attr('rel')]);
-            fullLargeElement.find('img').attr('src', rephotoImgSrcFs[that.attr('rel')]);
-            $('#meta_content').html(rephotoMeta[that.attr('rel')]);
-            $('#add-comment').html(rephotoComment[that.attr('rel')]);
-            if (typeof FB !== 'undefined') {
-                FB.XFBML.parse();
-            }
-            History.replaceState(null, window.document.title, that.attr('href'));
-            _gaq.push(['_trackPageview', that.attr('href')]);
-        });
-
-        photoDrawerElement.delegate('a.add-rephoto', 'click', function (e) {
-            e.preventDefault();
-            $('#notice').modal();
-            _gaq.push(['_trackEvent', 'Map', 'Add rephoto']);
-        });
-
-        $('.single .original').hoverIntent(function () {
-            $('.original .tools').addClass('hovered');
-        }, function () {
-            $('.original .tools').removeClass('hovered');
-        });
-        $('.single .rephoto .container').hoverIntent(function () {
-            $('.rephoto .container .meta').addClass('hovered');
-        }, function () {
-            $('.rephoto .container .meta ').removeClass('hovered');
-        });
+        //$('.single .original').hoverIntent(function () {
+        //    $('.original .tools').addClass('hovered');
+        //}, function () {
+        //    $('.original .tools').removeClass('hovered');
+        //});
+        //$('.single .rephoto .container').hoverIntent(function () {
+        //    $('.rephoto .container .meta').addClass('hovered');
+        //}, function () {
+        //    $('.rephoto .container .meta ').removeClass('hovered');
+        //});
 
         if (window.map !== undefined) {
             window.map.scrollwheel = true;
@@ -558,10 +536,17 @@
             }
         });
 
-        $('#full_leaderboard').on('click', function (e) {
+        $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
-            $('#leaderboard_browser').find('.scoreboard').load(leaderboardFullURL, function () {
-                $('#leaderboard_browser').modal({overlayClose: true});
+            $.ajax({
+                url: leaderboardFullURL,
+                success: function (response) {
+                    var modalWindow = $('#ajapaik-full-leaderboard-modal');
+                    modalWindow.find('.scoreboard').html(response);
+                    modalWindow.modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
             });
             _gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
         });

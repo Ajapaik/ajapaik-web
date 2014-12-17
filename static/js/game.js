@@ -21,6 +21,7 @@
         disableSave = true,
         locationToolsOpen = false,
         guessResponseReceived = false,
+        photoHasDescription = false,
         infowindow,
         photoContainer,
         noticeDiv,
@@ -60,7 +61,7 @@
         setCursorToAuto,
         guessPhotoPanel,
         feedbackPanel,
-        jsPanelContent,
+        lastStatusMessage,
         saveLocationButton =  $('.ajapaik-game-save-location-button');
 
     setCursorToPanorama = function () {
@@ -221,11 +222,11 @@
     };
 
     nextPhoto = function () {
+        photoHasDescription = false;
         $('#ajapaik-game-photo-description').hide();
         photoContainer = $('#ajapaik-game-modal-photo-container');
         photoContainer.css('visibility', 'hidden');
         window.map.getStreetView().setVisible(false);
-        hintUsed = 0;
         disableSave = true;
         locationToolsOpen = false;
         azimuthListenerActive = false;
@@ -242,10 +243,12 @@
             $('img').removeClass('ajapaik-photo-flipped');
             $('.btn').removeClass('active');
             $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).on('load', function () {
+                hintUsed = 0;
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                 photoContainer.css('visibility', 'visible');
             });
             if (photos[currentPhotoIdx].description) {
+                photoHasDescription = true;
                 $('#ajapaik-game-photo-description').html(photos[currentPhotoIdx].description);
                 $('.ajapaik-game-show-description-button').show();
             } else {
@@ -301,14 +304,19 @@
 
         $.getJSON(streamUrl, $.extend({'b': date.getTime()}, qs), function (data) {
             $.merge(photos, data.photos);
-            var textTarget = $('#ajapaik-game-status-message');
+            var textTarget = $('#ajapaik-game-status-message'),
+                message;
+            textTarget.hide();
             if (data.nothing_more_to_show) {
-                textTarget.html(gettext('We are now showing you random photos.'));
+                message = gettext('We are now showing you random photos.');
             } else if (data.user_seen_all) {
-                textTarget.html(gettext('You have seen all the pictures we have for this area.'));
-            } else {
-                textTarget.hide();
+                message = gettext('You have seen all the pictures we have for this area.');
             }
+            if (message !== lastStatusMessage) {
+                textTarget.html(message);
+                textTarget.show();
+            }
+            lastStatusMessage = message;
             if (next || currentPhotoIdx <= 0) {
                 nextPhoto();
             }
@@ -689,9 +697,11 @@
         });
 
         $('.ajapaik-game-show-description-button').click(function () {
-            $(this).hide();
-            hintUsed = true;
-            $('#ajapaik-game-photo-description').show();
+            if (!hintUsed && photoHasDescription) {
+                $(this).hide();
+                hintUsed = true;
+                $('#ajapaik-game-photo-description').show();
+            }
         });
 
         $(document).on('mouseover', '#ajapaik-game-guess-photo-js-panel', function () {

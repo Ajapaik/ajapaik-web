@@ -11,6 +11,25 @@
     <div id="ajapaik-mapview-map-container">
         <div id="ajapaik-mapview-map-canvas"></div>
     </div>
+    <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
+         aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="leaderboard_browser">
+                        <div class="single">
+                            <div class="score_container">
+                                <ul class="scoreboard"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
     <script src="{{ STATIC_URL }}js/markerclusterer-2.0.3.min.js"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
@@ -22,7 +41,7 @@
                 initialize = function () {
                     if (window.getQueryParameterByName("fromSelect")) {
                         window.fromSelect = true;
-                        History.replaceState(null, null, "/kaart/?city__pk=" + cityId);
+                        History.replaceState(null, null, "/kaart/?city=" + cityId);
                     } else {
                         window.fromSelect = false;
                     }
