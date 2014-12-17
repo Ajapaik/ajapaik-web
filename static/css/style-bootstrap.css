@@ -666,3 +666,9 @@ ul.errorlist {
 .ajapaik-game-show-description-button {
     margin-left: 15px;
 }
+
+#ajapaik-game-feedback-panel {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}

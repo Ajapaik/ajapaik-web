@@ -747,13 +747,21 @@ def grid(request):
         data = qs.get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
         photo_count = qs.get_old_photo_count_for_grid_view()
 
+        photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
+            'photo_id', flat=True)
+        keys = {}
+        for e in photo_ids_user_has_looked_at:
+            keys[e] = 1
+        photo_ids_user_has_looked_at = keys
+
         return render_to_response('grid.html', RequestContext(request, {
             "data": data,
             "photo_count": photo_count,
             "city": city,
             "start": 0,
             "city_selection_form": city_selection_form,
-            "page_size": settings.GRID_VIEW_PAGE_SIZE
+            "page_size": settings.GRID_VIEW_PAGE_SIZE,
+            "user_seen_photo_ids": photo_ids_user_has_looked_at,
         }))
 
 

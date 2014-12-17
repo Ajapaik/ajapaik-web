@@ -32,6 +32,7 @@
             saveDirection = false,
             disableSave = true,
             centerMarker,
+            realMapElement,
             mapClickListenerFunction,
             mapDragstartListenerFunction,
             mapIdleListenerFunction,
@@ -106,6 +107,10 @@
                 icon: '/static/images/ajapaik_marker_35px.png'
             });
         };
+
+        realMapElement = $("#ajapaik-grid-map-canvas")[0];
+        realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+        realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
 
         window.handleGuessResponse = function (guessResponse) {
             window.updateLeaderboard();
@@ -283,6 +288,7 @@
 
         window.startGuessLocation = function () {
             if (!guessLocationStarted) {
+                //window.showHeatmap();
                 marker = new google.maps.Marker({
                     map: window.map,
                     draggable: false,
@@ -324,11 +330,15 @@
                 google.maps.event.addListener(marker, 'position_changed', function () {
                     disableSave = false;
                 });
+                $('#ajapaik-grid-map-container').show();
+                $('#ajapaik-photo-modal').modal('toggle');
+                google.maps.event.trigger(window.map, 'resize');
                 guessLocationStarted = true;
             }
         };
 
         $('.ajapaik-grid-close-map-button').click(function () {
+            guessLocationStarted = false;
             $('#photo-drawer').show();
             $('#ajapaik-grid-guess-photo').hide();
             $('#ajapaik-grid-guess-photo-back').hide();
@@ -395,21 +405,20 @@
         }
 
         openPhotoDrawer = function (content) {
-            photoDrawerElement.html(content);
-            photoDrawerElement.animate({ top: '0' });
+            $('#ajapaik-photo-modal').html(content).modal().find('img').on('load', function () {
+                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+            });
         };
 
-        closePhotoDrawer = function () {
-            var historyReplacementString = '/grid/?city__pk=' + window.cityId;
-            photoDrawerElement.animate({ top: '-1000px' });
-            //$('.filter-box').show();
-            History.replaceState(null, null, historyReplacementString);
+        window.closePhotoDrawer = function () {
+            $('#ajapaik-photo-modal').modal('toggle');
+            $('.filter-box').show();
         };
 
         window.loadPhoto = function (id) {
-            $.post('/log_user_map_action/', {user_action: 'opened_drawer', photo_id: id}, function () {
-                $.noop();
-            });
+            //$.post('/log_user_map_action/', {user_action: 'opened_drawer', photo_id: id}, function () {
+            //    $.noop();
+            //});
             photoId = id;
             $.ajax({
                 cache: false,
@@ -419,13 +428,6 @@
                     if (FB !== undefined) {
                         FB.XFBML.parse();
                     }
-                    currentlyOpenPhotoId = id;
-//                    $('a.iframe').fancybox({
-//                        'width': '75%',
-//                        'height': '75%',
-//                        'autoScale': false,
-//                        'hideOnContentClick': false
-//                    });
                 }
             });
         };
@@ -472,18 +474,6 @@
             if ($(window).scrollTop() - ($(window).height()) > 0 && !ajaxQueryInProgress && window.start <= window.totalPhotoCount) {
                 doGridAjaxQuery();
             }
-        });
-
-        $('.ajapaik-grid-image-container').on('click', function (e) {
-            e.preventDefault();
-            var targetId = e.target.dataset.id;
-            window.loadPhoto(targetId);
-        });
-
-        $('.ajapaik-grid-image').on('click', function (e) {
-            e.preventDefault();
-            var targetId = e.target.dataset.id;
-            window.loadPhoto(targetId);
         });
 
         $('.ajapaik-grid-save-location-button').on('click', function (e) {

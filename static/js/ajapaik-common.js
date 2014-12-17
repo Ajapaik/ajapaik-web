@@ -136,37 +136,29 @@
             heatmapPoints,
             currentScore,
             tagsWithAzimuth,
-            alertDivStart,
             newEstimatedLocation;
         if (resp.is_correct == true) {
             message = gettext('Looks right!');
-            alertDivStart = "<div class='alert alert-success'>";
             hideFeedback = false;
             _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
             if (resp['azimuth_false']) {
                 message = gettext('The location seems right, but not the azimuth.');
-                alertDivStart = "<div class='alert alert-success'>";
             }
             if (resp['azimuth_uncertain']) {
                 message = gettext('The location seems right, but the azimuth is yet uncertain.');
-                alertDivStart = "<div class='alert alert-success'>";
             }
             if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
                 message = gettext('The location seems right, your azimuth was first.');
-                alertDivStart = "<div class='alert alert-success'>";
             }
         } else if (resp['location_is_unclear']) {
             message = gettext('Correct location is not certain yet.');
-            alertDivStart = "<div class='alert alert-info'>";
             _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
         } else if (resp['is_correct'] == false) {
             message = gettext('We doubt about it.');
             hideFeedback = true;
-            alertDivStart = "<div class='alert alert-danger'>";
             _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
         } else {
             message = gettext('Your guess was first.');
-            alertDivStart = "<div class='alert alert-info'>";
         }
         if (resp.heatmap_points) {
             heatmapPoints = resp.heatmap_points;
@@ -180,7 +172,7 @@
         if (resp.new_estimated_location) {
             newEstimatedLocation = resp.new_estimated_location;
         }
-        window.handleGuessResponse({feedbackMessage: alertDivStart + message + '</div>', hideFeedback: hideFeedback,
+        window.handleGuessResponse({feedbackMessage: message, hideFeedback: hideFeedback,
             heatmapPoints: heatmapPoints, currentScore: currentScore, tagsWithAzimuth: tagsWithAzimuth,
             newEstimatedLocation: newEstimatedLocation});
     };
@@ -235,5 +227,38 @@
     // Firefox and Opera cannot handle modal taking over focus
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
         $.noop();
+    };
+    // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
+    window.wheelEventFF = function (e) {
+        window.now = new Date().getTime();
+        if (!window.lastTriggeredWheeling) {
+            window.lastTriggeredWheeling = window.now - 250;
+        }
+        if (window.now - 250 > window.lastTriggeredWheeling) {
+            window.lastTriggeredWheeling = window.now;
+            if (e.detail > 0) {
+                window.map.setZoom(window.map.zoom + 1);
+            } else {
+                if (window.map.zoom > 14) {
+                    window.map.setZoom(window.map.zoom - 1);
+                }
+            }
+        }
+    };
+    window.wheelEventNonFF = function (e) {
+        window.now = new Date().getTime();
+        if (!window.lastTriggeredWheeling) {
+            window.lastTriggeredWheeling = window.now - 100;
+        }
+        if (window.now - 100 > window.lastTriggeredWheeling) {
+            window.lastTriggeredWheeling = window.now;
+            if (e.wheelDelta > 0) {
+                window.map.setZoom(window.map.zoom + 1);
+            } else {
+                if (window.map.zoom > 14) {
+                    window.map.setZoom(window.map.zoom - 1);
+                }
+            }
+        }
     };
 }());

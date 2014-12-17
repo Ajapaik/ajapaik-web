@@ -49,8 +49,6 @@
         lastTriggeredWheeling,
         now,
         realMapElement,
-        wheelEventFF,
-        wheelEventNonFF,
         i,
         loadPhotos,
         playerLatlng,
@@ -186,41 +184,6 @@
         google.maps.event.clearListeners(window.map, 'mousemove');
     };
 
-    // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
-    wheelEventFF = function (e) {
-        now = new Date().getTime();
-        if (!lastTriggeredWheeling) {
-            lastTriggeredWheeling = now - 250;
-        }
-        if (now - 250 > lastTriggeredWheeling) {
-            lastTriggeredWheeling = now;
-            if (e.detail > 0) {
-                window.map.setZoom(window.map.zoom + 1);
-            } else {
-                if (window.map.zoom > 14) {
-                    window.map.setZoom(window.map.zoom - 1);
-                }
-            }
-        }
-    };
-
-    wheelEventNonFF = function (e) {
-        now = new Date().getTime();
-        if (!lastTriggeredWheeling) {
-            lastTriggeredWheeling = now - 100;
-        }
-        if (now - 100 > lastTriggeredWheeling) {
-            lastTriggeredWheeling = now;
-            if (e.wheelDelta > 0) {
-                window.map.setZoom(window.map.zoom + 1);
-            } else {
-                if (window.map.zoom > 14) {
-                    window.map.setZoom(window.map.zoom - 1);
-                }
-            }
-        }
-    };
-
     nextPhoto = function () {
         photoHasDescription = false;
         $('#ajapaik-game-photo-description').hide();
@@ -233,6 +196,9 @@
         guessResponseReceived = false;
         window.map.setZoom(16);
         mapMousemoveListenerActive = false;
+        if (panoramaMarker) {
+            panoramaMarker.setMap(null);
+        }
         saveLocationButton.removeClass('btn-primary').removeClass('btn-warning').removeClass('btn-success')
             .addClass('btn-default').text(gettext('Save location only')).attr('disabled', 'disabled');
         google.maps.event.clearListeners(window.map, 'mousemove');
@@ -375,12 +341,8 @@
                 },
                 height: 'auto'
             },
-            position: {
-                bottom: 0,
-                right: 0
-            },
             id: 'ajapaik-game-feedback-panel'
-        });
+        }).css('top', 'auto').css('left', 'auto');
         if (guessResponse.heatmapPoints) {
             marker.setMap(null);
             $('.center-marker').hide();
@@ -509,6 +471,10 @@
             if (!locationToolsOpen) {
                 $('.ajapaik-game-show-description-button').click();
             }
+        });
+
+        $.jQee('f', function () {
+            $('.ajapaik-flip-photo-overlay-button')[0].click();
         });
 
         $.jQee('right', function () {

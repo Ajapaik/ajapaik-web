@@ -40,6 +40,7 @@
         disableSave = true,
         guessLocationStarted = false,
         currentPanelWidth,
+        realMapElement,
         lastPanelWidth,
         recurringCheckPanelSize,
         i = 0,
@@ -97,7 +98,9 @@
     };
 
     openPhotoDrawer = function (content) {
-        $('#ajapaik-photo-modal').html(content).modal();
+        $('#ajapaik-photo-modal').html(content).modal().find('img').on('load', function () {
+            $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+        });
     };
 
     mapClickListenerFunction = function (e) {
@@ -460,6 +463,10 @@
             }, 1000);
         }
 
+        realMapElement = $("#ajapaik-mapview-map-canvas")[0];
+        realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+        realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
+
         if (window.map !== undefined) {
             google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);
         }
@@ -549,6 +556,18 @@
                 }
             });
             _gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
+        });
+
+        $(document).on('mouseover', '#ajapaik-photo-modal', function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').show();
+            }
+        });
+
+        $(document).on('mouseout', '#ajapaik-photo-modal', function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').hide();
+            }
         });
 
         //TODO: There has to be a better way

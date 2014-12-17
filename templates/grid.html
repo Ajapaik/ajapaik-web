@@ -6,7 +6,7 @@
 {% endblock %}
 {% block layout %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
-    <div id="photo-drawer"></div>
+    <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
     <div class="container" id="ajapaik-grid-container">
         <div class="row">
             <div class="col-xs-offset-3"></div>
@@ -61,8 +61,25 @@
         window.start = {{ start | safe }};
         window.pageSize = {{ page_size | safe }};
         window.totalPhotoCount = {{ photo_count | safe }};
+        var leaderboardFullURL = "{% url "project.home.views.rephoto_top50" %}",
+            userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},
+            initialize = function () {
+                if (window.getQueryParameterByName("fromSelect")) {
+                    window.fromSelect = true;
+                    History.replaceState(null, null, "/grid/?city=" + cityId);
+                } else {
+                    window.fromSelect = false;
+                }
+                {% if city.lat and city.lon %}
+                    window.getMap([{{ city.lon | safe }}, {{ city.lat | safe }}], 13);
+                {% else %}
+                    window.getMap();
+                {% endif %}
+            };
+        $(document).ready(initialize);
     </script>
     <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+    <script src="{{ STATIC_URL }}js/init.js"></script>
     <script src="{{ STATIC_URL }}js/grid.js"></script>
 {% endblock layout %}

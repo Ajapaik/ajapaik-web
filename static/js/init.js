@@ -50,6 +50,8 @@
             streetPanorama = new google.maps.StreetViewPanorama(document.getElementById("ajapaik-game-map-canvas"), streetViewOptions);
         } else if (document.getElementById("ajapaik-mapview-map-canvas")) {
             streetPanorama = new google.maps.StreetViewPanorama(document.getElementById("ajapaik-mapview-map-canvas"), streetViewOptions);
+        } else if (document.getElementById("ajapaik-grid-map-canvas")) {
+            streetPanorama = new google.maps.StreetViewPanorama(document.getElementById("ajapaik-grid-map-canvas"), streetViewOptions);
         } else {
             streetPanorama = new google.maps.StreetViewPanorama(document.getElementById("map_canvas"), streetViewOptions);
         }
@@ -79,6 +81,8 @@
             window.map = new google.maps.Map(document.getElementById("ajapaik-game-map-canvas"), mapOpts);
         } else if (document.getElementById("ajapaik-mapview-map-canvas")) {
             window.map = new google.maps.Map(document.getElementById("ajapaik-mapview-map-canvas"), mapOpts);
+        } else if (document.getElementById("ajapaik-grid-map-canvas")) {
+            window.map = new google.maps.Map(document.getElementById("ajapaik-grid-map-canvas"), mapOpts);
         } else {
             window.map = new google.maps.Map(document.getElementById("map_canvas"), mapOpts);
         }
