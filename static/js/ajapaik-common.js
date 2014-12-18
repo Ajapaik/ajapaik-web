@@ -379,7 +379,7 @@ var map,
         }
         if (now - 250 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
-            if (e.detail > 0) {
+            if (e.detail < 0) {
                 map.setZoom(map.zoom + 1);
             } else {
                 if (map.zoom > 14) {
