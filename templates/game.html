@@ -65,8 +65,14 @@
         </div>
     </div>
     <div id="ajapaik-map-container">
-        <button class="btn btn-primary ajapaik-game-skip-photo-button">{% trans "Skip" %}</button>
-        <button class="btn btn-default ajapaik-save-location-button" disabled="disabled">{% trans "Save location only" %}</button>
+        <div id="ajapaik-map-button-container">
+            <div class="row">
+                <button class="btn btn-default ajapaik-save-location-button pull-right" disabled="disabled">{% trans "Save location only" %}</button>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary ajapaik-game-skip-photo-button pull-right">{% trans "Skip" %}</button>
+            </div>
+        </div>
         <div class="panel panel-default" id="ajapaik-game-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>

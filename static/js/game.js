@@ -356,8 +356,7 @@
                 size: {width: 'auto', height: 'auto'},
                 id: 'ajapaik-game-guess-photo-js-panel'
             });
-            $('.ajapaik-save-location-button').show();
-            $('.ajapaik-game-skip-photo-button').show();
+            $('#ajapaik-map-button-container').show();
             disableNext = false;
             locationToolsOpen = true;
         });
@@ -373,8 +372,7 @@
                 });
                 $('#ajapaik-game-photo-modal').modal();
                 $('#ajapaik-game-guess-photo').hide();
-                $('.ajapaik-save-location-button').hide();
-                $('.ajapaik-game-skip-photo-button').hide();
+                $('#ajapaik-map-button-container').hide();
                 if (feedbackPanel) {
                     feedbackPanel.close();
                 }
@@ -437,8 +435,7 @@
                 $.noop();
             });
             $('#ajapaik-game-photo-modal').modal();
-            $('.ajapaik-save-location-button').hide();
-            $('.ajapaik-game-skip-photo-button').hide();
+            $('#ajapaik-map-button-container').hide();
             $('#ajapaik-game-guess-photo-js-panel').hide();
             if (feedbackPanel) {
                 feedbackPanel.close();

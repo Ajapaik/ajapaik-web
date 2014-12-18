@@ -151,11 +151,7 @@ body {
 }
 
 .ajapaik-game-skip-photo-button {
-    position: fixed;
-    bottom: 75px;
-    right: 50px;
-    z-index: 1002;
-    display: none;
+
 }
 
 .ajapaik-mapview-skip-photo-button {
