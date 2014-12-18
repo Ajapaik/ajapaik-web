@@ -138,7 +138,7 @@ body {
     position: fixed;
     bottom: 5%;
     right: 5%;
-    z-index: 1003;
+    z-index: 1000;
     display: none;
 }
 
@@ -580,6 +580,43 @@ ul.errorlist {
 }
 
 .ajapaik-flip-photo-overlay-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-game-map-show-description-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_description_24px.svg) no-repeat center !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+}
+
+.ajapaik-game-map-show-description-overlay-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-game-map-show-description-overlay-button:active {
+    background-image: url(../images/material-design-icons/ic_description_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-game-map-show-description-overlay-button.active {
+    background-image: url(../images/material-design-icons/ic_description_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-game-map-show-description-overlay-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-game-map-show-description-overlay-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-game-map-show-description-overlay-button.focus {
     outline: none;
     background-color: #fff !important;
 }

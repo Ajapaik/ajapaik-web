@@ -343,6 +343,7 @@
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('.ajapaik-fullscreen-overlay-button').hide();
+                $('.ajapaik-game-map-show-description-overlay-button').hide();
             }
             guessPhotoPanel = $('#ajapaik-map-container').jsPanel({
                 content: $('#ajapaik-game-guess-photo-js-panel-content').html(),
@@ -368,6 +369,7 @@
                 var data = {photo_id: photos[currentPhotoIdx].id};
                 $.post(window.saveLocationURL, data, function () {
                     currentPhotoIdx += 1;
+                    console.log(currentPhotoIdx);
                     nextPhoto();
                 });
                 $('#ajapaik-game-photo-modal').modal();
@@ -390,6 +392,7 @@
             var data = {photo_id: photos[currentPhotoIdx].id};
             $.post(window.saveLocationURL, data, function () {
                 currentPhotoIdx += 1;
+                console.log(currentPhotoIdx);
                 nextPhoto();
             });
             _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
@@ -446,6 +449,7 @@
             window.map.getStreetView().setVisible(false);
             disableNext = false;
             currentPhotoIdx += 1;
+            console.log(currentPhotoIdx);
             nextPhoto();
         });
 
@@ -508,6 +512,7 @@
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 $('.ajapaik-fullscreen-overlay-button').show();
+                $('.ajapaik-game-map-show-description-overlay-button').show();
             }
         });
 
@@ -515,6 +520,7 @@
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('.ajapaik-fullscreen-overlay-button').hide();
+                $('.ajapaik-game-map-show-description-overlay-button').hide();
             }
         });
     });
