@@ -90,7 +90,7 @@
             $('.center-marker').show();
         }
 
-        if (window.map) {
+/*        if (window.map) {
             if (!window.mapClickListenerActive) {
                 window.google.maps.event.addListener(window.map, 'click', window.mapClickListenerFunction);
                 window.mapClickListenerActive = true;
@@ -107,7 +107,7 @@
                 window.google.maps.event.addListener(window.map, 'mousemove', window.mapMousemoveListenerFunction);
                 window.mapMousemoveListenerActive = true;
             }
-        }
+        }*/
 
         if (heatmap) {
             heatmap.setMap(null);
