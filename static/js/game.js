@@ -118,6 +118,7 @@
         }
 
         $.getJSON(streamUrl, $.extend({'b': date.getTime()}, qs), function (data) {
+            console.log(data);
             $.merge(photos, data.photos);
             var textTarget = $('#ajapaik-game-status-message'),
                 message;
