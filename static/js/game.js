@@ -29,7 +29,17 @@
         guessPhotoPanel,
         feedbackPanel,
         lastStatusMessage,
-        flipPhoto;
+        flipPhoto,
+        photoLoadModalResizeHandler,
+        photoLoadModalResizeFunction,
+        modalPhoto,
+        fullScreenImage;
+
+    photoLoadModalResizeFunction = function () {
+        hintUsed = 0;
+        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+        photoContainer.css('visibility', 'visible');
+    };
 
     nextPhoto = function () {
         photoHasDescription = false;
@@ -56,11 +66,10 @@
         if (photos.length > currentPhotoIdx) {
             $('img').removeClass('ajapaik-photo-flipped');
             $('.btn').removeClass('active');
-            $('#ajapaik-game-modal-photo').prop('src', mediaUrl + photos[currentPhotoIdx].big.url).on('load', function () {
-                hintUsed = 0;
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                photoContainer.css('visibility', 'visible');
-            });
+            modalPhoto = $('#ajapaik-game-modal-photo');
+            modalPhoto.unbind('load');
+            modalPhoto.prop('src', mediaUrl + photos[currentPhotoIdx].big.url);
+            photoLoadModalResizeHandler = modalPhoto.on('load', photoLoadModalResizeFunction);
             if (photos[currentPhotoIdx].description) {
                 photoHasDescription = true;
                 $('#ajapaik-game-photo-description').html(photos[currentPhotoIdx].description);
@@ -68,7 +77,9 @@
             } else {
                 $('.ajapaik-game-show-description-button').hide();
             }
-            $('#ajapaik-full-screen-image').prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
+            fullScreenImage = $('#ajapaik-full-screen-image');
+            fullScreenImage.unbind('load');
+            fullScreenImage.prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
                 window.prepareFullscreen(photos[currentPhotoIdx].large.size[0], photos[currentPhotoIdx].large.size[1]);
             });
             $('#ajapaik-full-screen-link').prop('rel', photos[currentPhotoIdx].id)
@@ -90,7 +101,7 @@
             $('.center-marker').show();
         }
 
-/*        if (window.map) {
+        if (window.map) {
             if (!window.mapClickListenerActive) {
                 window.google.maps.event.addListener(window.map, 'click', window.mapClickListenerFunction);
                 window.mapClickListenerActive = true;
@@ -107,7 +118,7 @@
                 window.google.maps.event.addListener(window.map, 'mousemove', window.mapMousemoveListenerFunction);
                 window.mapMousemoveListenerActive = true;
             }
-        }*/
+        }
 
         if (heatmap) {
             heatmap.setMap(null);
@@ -118,7 +129,6 @@
         }
 
         $.getJSON(streamUrl, $.extend({'b': date.getTime()}, qs), function (data) {
-            console.log(data);
             $.merge(photos, data.photos);
             var textTarget = $('#ajapaik-game-status-message'),
                 message;
@@ -370,7 +380,6 @@
                 var data = {photo_id: photos[currentPhotoIdx].id};
                 $.post(window.saveLocationURL, data, function () {
                     currentPhotoIdx += 1;
-                    console.log(currentPhotoIdx);
                     nextPhoto();
                 });
                 $('#ajapaik-game-photo-modal').modal();
@@ -393,7 +402,6 @@
             var data = {photo_id: photos[currentPhotoIdx].id};
             $.post(window.saveLocationURL, data, function () {
                 currentPhotoIdx += 1;
-                console.log(currentPhotoIdx);
                 nextPhoto();
             });
             _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
@@ -450,7 +458,6 @@
             window.map.getStreetView().setVisible(false);
             disableNext = false;
             currentPhotoIdx += 1;
-            console.log(currentPhotoIdx);
             nextPhoto();
         });
 
