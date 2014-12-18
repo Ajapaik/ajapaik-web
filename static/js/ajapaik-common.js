@@ -55,14 +55,10 @@
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
-    window.prepareFullscreen = function (width, height) {
-        if (!width || !height) {
-            width = $(this).width();
-            height = $(this).height();
-        }
+    window.prepareFullscreen = function () {
         $('.full-box img').load(function () {
             var that = $(this),
-                aspectRatio = width / height,
+                aspectRatio = that.width() / that.height(),
                 newWidth = parseInt(screen.height * aspectRatio, 10),
                 newHeight = parseInt(screen.width / aspectRatio, 10);
             if (newWidth > screen.width) {

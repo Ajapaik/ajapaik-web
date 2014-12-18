@@ -358,10 +358,7 @@
             $('#ajapaik-game-map-geotag-count').html(guessResponse.heatmapPoints.length);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(guessResponse.tagsWithAzimuth);
             var markerImage = {
-                url: '/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg',
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 16),
-                scaledSize: new google.maps.Size(24, 33)
+                url: '/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg'
             };
             playerMarker = new google.maps.Marker({
                 position: playerLatlng,

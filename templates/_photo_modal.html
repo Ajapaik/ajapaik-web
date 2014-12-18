@@ -5,7 +5,9 @@
         <div class="modal-body" id="ajapaik-modal-body">
             <div id="ajapaik-modal-photo-container">
                 <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="">
-                    <img src="{% url 'project.home.views.photo_url' photo.id %}" class="img-responsive {% if photo.flip %}ajapaik-photo-flipped{% endif %}" id="ajapaik-modal-photo"/>
+                    <img src="{% url 'project.home.views.photo_url' photo.id %}"
+                         class="img-responsive {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
+                         id="ajapaik-modal-photo"/>
                 </a>
                 <button class="btn btn-default ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}"></button>
             </div>
@@ -16,7 +18,8 @@
             {% endif %}
             {% if photo.source_url %}
                 <div class="row ajapaik-photo-modal-row">
-                    <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
+                    <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
+                       target="_blank">
                         {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
                     </a>
                 </div>
@@ -27,9 +30,16 @@
             {% endif %}
             <div class="row ajapaik-photo-modal-row">
                 <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
-                <button id="ajapaik-photo-modal-close-button" type="button" class="btn btn-primary">{% trans "Close photo" %}</button>
+                <button id="ajapaik-photo-modal-close-button" type="button"
+                        class="btn btn-primary">{% trans "Close photo" %}</button>
             </div>
         </div>
+    </div>
+</div>
+<div class="full-box">
+    <div class="full-pic" id="ajapaik-fullscreen-image-container">
+        <img id="ajapaik-fullscreen-image" src="{{ fullscreen.url }}" width="{{ fullscreen.size.0 }}"
+             height="{{ fullscreen.size.1 }}"/>
     </div>
 </div>
 <script>
@@ -58,5 +68,30 @@
             e.preventDefault();
             window.closePhotoDrawer();
         });
+        $('.full-box div').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                BigScreen.exit();
+            }
+        });
+        $(document).on('click', 'a.fullscreen', function (e) {
+            e.preventDefault();
+            if (BigScreen.enabled) {
+                BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+                _gaq.push(['_trackEvent', 'Map', 'Full-screen', 'historic-' + this.rel]);
+            }
+        });
+        $('#ajapaik-modal-body').hoverIntent(function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').show();
+            }
+        }, function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').hide();
+            }
+        });
+        if (!isMobile) {
+            $('.ajapaik-flip-photo-overlay-button').hide();
+        }
     });
 </script>

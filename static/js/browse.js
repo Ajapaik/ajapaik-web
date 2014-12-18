@@ -36,6 +36,7 @@
         mapDragstartListenerFunction,
         mapIdleListenerFunction,
         mapMousemoveListenerFunction,
+        lastRequestedPaneMarkersIds,
         firstDragDone = false,
         disableSave = true,
         guessLocationStarted = false,
@@ -57,6 +58,7 @@
         markers = [],
         mc,
         currentMapDataRequest,
+        currentPaneDataRequest,
         justifiedGallerySettings = {
             waitThumbnailsLoad: false,
             rowHeight: 120,
@@ -98,8 +100,9 @@
     };
 
     openPhotoDrawer = function (content) {
-        $('#ajapaik-photo-modal').html(content).modal().find('img').on('load', function () {
+        $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+            window.prepareFullscreen();
         });
     };
 
@@ -219,6 +222,9 @@
             google.maps.event.addListener(marker, 'position_changed', function () {
                 disableSave = false;
             });
+            $('#ajapaik-mapview-map-container').show();
+            $('#ajapaik-photo-modal').modal('toggle');
+            google.maps.event.trigger(window.map, 'resize');
             guessLocationStarted = true;
         }
     };
@@ -308,38 +314,45 @@
                     for (i = 0; i < markers.length; i += 1) {
                         markerIdsWithinBounds.push(markers[i].id);
                     }
-                    $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
-                        if (photoPanel) {
-                            photoPanel.content.html(response);
-                            photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
-                        } else {
-                            photoPanel = $('#ajapaik-mapview-map-container').jsPanel({
-                                content: response,
-                                controls: {buttons: false},
-                                title: false,
-                                position: {top: 35, left: 35},
-                                size: { height: function () {
-                                    return $(window).height() / 1.5;
-                                }},
-                                draggable: {
-                                    handle: '.jsPanel-header',
-                                    containment: '#ajapaik-mapview-map-container'
-                                },
-                                overflow: { horizontal: 'hidden', vertical: 'auto' },
-                                id: 'ajapaik-mapview-photo-panel'
-                            });
-                            photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
+                    if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
+                        if (currentPaneDataRequest) {
+                            currentPaneDataRequest.abort();
                         }
-                        if (!recurringCheckPanelSize) {
-                            recurringCheckPanelSize = setInterval(function () {
-                                currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
-                                if (photoPanel && currentPanelWidth !== lastPanelWidth) {
-                                    photoPanel.find('.panel-body').justifiedGallery();
-                                }
-                                lastPanelWidth = currentPanelWidth;
-                            }, 500);
-                        }
-                    });
+                        currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds}, function (response) {
+                            if (photoPanel) {
+                                photoPanel.content.html(response);
+                                photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
+                            } else {
+                                photoPanel = $('#ajapaik-mapview-map-container').jsPanel({
+                                    content: response,
+                                    controls: {buttons: false},
+                                    title: false,
+                                    position: {top: 35, left: 35},
+                                    size: { height: function () {
+                                        return $(window).height() / 1.5;
+                                    }},
+                                    draggable: {
+                                        handle: '.jsPanel-header',
+                                        containment: '#ajapaik-mapview-map-container'
+                                    },
+                                    overflow: { horizontal: 'hidden', vertical: 'auto' },
+                                    id: 'ajapaik-mapview-photo-panel'
+                                });
+                                photoPanel.find('.panel-body').justifiedGallery(justifiedGallerySettings);
+                            }
+                            if (!recurringCheckPanelSize) {
+                                recurringCheckPanelSize = setInterval(function () {
+                                    currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
+                                    if (photoPanel && currentPanelWidth !== lastPanelWidth) {
+                                        photoPanel.find('.panel-body').justifiedGallery();
+                                    }
+                                    lastPanelWidth = currentPanelWidth;
+                                }, 500);
+                            }
+                            currentPaneDataRequest = undefined;
+                            lastRequestedPaneMarkersIds = markerIdsWithinBounds;
+                        });
+                    }
                 } else {
                     if (photoPanel) {
                         photoPanel.close();
@@ -517,31 +530,8 @@
         //});
 
         if (window.map !== undefined) {
-            window.map.scrollwheel = true;
+            window.map.scrollwheel = false;
         }
-
-        $('.full-box div').on('click', function (e) {
-            if (BigScreen.enabled) {
-                e.preventDefault();
-                BigScreen.exit();
-            }
-        });
-
-        $('#full-thumb1').on('click', function (e) {
-            if (BigScreen.enabled) {
-                e.preventDefault();
-                BigScreen.request($('#full-large1')[0]);
-                _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
-            }
-        });
-
-        $('#full-thumb2').on('click', function (e) {
-            if (BigScreen.enabled) {
-                e.preventDefault();
-                BigScreen.request($('#full-large2')[0]);
-                _gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'rephoto-' + this.rel]);
-            }
-        });
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
