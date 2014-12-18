@@ -30,7 +30,7 @@
             <div class="col-xs-offset-3"></div>
         </div>
     </div>
-    <div id="ajapaik-grid-map-container">
+    <div id="ajapaik-map-container">
         <div class="panel panel-default" id="ajapaik-grid-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-grid-map-geotag-count"></span>
@@ -38,10 +38,10 @@
                 {% trans "With azimuth" %}: <span id="ajapaik-grid-map-geotag-with-azimuth-count"></span>
             </div>
         </div>
-        <button class="btn btn-primary ajapaik-grid-save-location-button">{% trans "Save location only" %}</button>
+        <button class="btn btn-primary ajapaik-save-location-button">{% trans "Save location only" %}</button>
         <button class="btn btn-primary ajapaik-grid-specify-location-button">{% trans "Specify location" %}</button>
         <button class="btn btn-primary ajapaik-grid-close-map-button">{% trans "Close map" %}</button>
-        <div id="ajapaik-grid-map-canvas"></div>
+        <div id="ajapaik-map-canvas"></div>
     </div>
     <div id="ajapaik-grid-guess-notice-container">
         <div class="panel panel-default">
@@ -79,6 +79,5 @@
         $(document).ready(initialize);
     </script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-    <script src="{{ STATIC_URL }}js/init.js"></script>
     <script src="{{ STATIC_URL }}js/grid.js"></script>
 {% endblock layout %}

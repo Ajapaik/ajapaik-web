@@ -64,9 +64,9 @@
             <button class="btn btn-default ajapaik-fullscreen-overlay-button"></button>
         </div>
     </div>
-    <div id="ajapaik-game-map-container">
+    <div id="ajapaik-map-container">
         <button class="btn btn-primary ajapaik-game-skip-photo-button">{% trans "Skip" %}</button>
-        <button class="btn btn-default ajapaik-game-save-location-button" disabled="disabled">{% trans "Save location only" %}</button>
+        <button class="btn btn-default ajapaik-save-location-button" disabled="disabled">{% trans "Save location only" %}</button>
         <div class="panel panel-default" id="ajapaik-game-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
@@ -74,11 +74,11 @@
                 {% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span>
             </div>
         </div>
-        <div id="ajapaik-game-map-canvas"></div>
+        <div id="ajapaik-map-canvas"></div>
     </div>
     <div class="full-box">
-        <div class="full-pic" id="ajapaik-game-fullscreen-image-container">
-            <img id="ajapaik-game-full-screen-image" src="" width="" height=""/>
+        <div class="full-pic" id="ajapaik-fullscreen-image-container">
+            <img id="ajapaik-full-screen-image" src=""/>
         </div>
     </div>
     <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
@@ -113,7 +113,6 @@
     </script>
     <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-    <script src="{{ STATIC_URL }}js/init.js"></script>
     <script src="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jquery.jspanel.bs-1.4.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/game.js"></script>
 {% endblock %}

@@ -130,12 +130,20 @@ body {
     z-index: 1002;
 }
 
-.ajapaik-grid-save-location-button {
-    position: absolute;
-    bottom: 75px;
-    right: 175px;
-    z-index: 1002;
+.ajapaik-save-location-button {
+
+}
+
+#ajapaik-map-button-container {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: 1003;
     display: none;
+}
+
+#ajapaik-map-button-container .row {
+    margin-bottom: 15px;
 }
 
 .ajapaik-game-next-photo-button {
@@ -143,68 +151,29 @@ body {
 }
 
 .ajapaik-game-skip-photo-button {
-    position: absolute;
+    position: fixed;
     bottom: 75px;
     right: 50px;
     z-index: 1002;
     display: none;
 }
 
+.ajapaik-mapview-skip-photo-button {
+
+}
+
 .ajapaik-game-specify-location-button {
 
 }
 
-.ajapaik-game-save-location-button {
-    position: absolute;
-    bottom: 75px;
-    right: 125px;
-    z-index: 1002;
-    display: none;
-}
 
-#ajapaik-grid-map-canvas {
+
+#ajapaik-map-canvas {
     width: 100%;
     height: 100%;
 }
 
-#ajapaik-game-map-canvas {
-    width: 100%;
-    height: 100%;
-}
-
-#ajapaik-mapview-map-canvas {
-    width: 100%;
-    height: 100%;
-}
-
-#ajapaik-grid-map-container {
-    height: 95%;
-    position: fixed;
-    margin-top: 50px;
-    top: 0;
-    right: 0;
-    width: 100%;
-    webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    display: none;
-    z-index: 1001;
-}
-
-#ajapaik-game-map-container {
-    height: 95%;
-    position: fixed;
-    margin-top: 50px;
-    top: 0;
-    right: 0;
-    width: 100%;
-    webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    z-index: 1001;
-}
-
-#ajapaik-mapview-map-container {
+#ajapaik-map-container {
     height: 95%;
     position: fixed;
     margin-top: 50px;
@@ -229,6 +198,14 @@ body {
     bottom: 35px;
     left: 35px;
     z-index: 1003;
+}
+
+#ajapaik-mapview-map-info-panel {
+    position: absolute;
+    bottom: 35px;
+    left: 35px;
+    z-index: 1003;
+    display: none;
 }
 
 #ajapaik-game-status-message {
@@ -333,7 +310,7 @@ a.fullscreen {
 
 .single .score_container {
     position: static;
-    margin-left: 20px;
+    margin: 0 auto;
     width: 400px;
 }
 

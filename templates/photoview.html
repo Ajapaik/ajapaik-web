@@ -41,7 +41,7 @@
         </div>
     </div>
 </div>
-<div id="ajapaik-grid-map-container">
+<div id="ajapaik-map-container">
     <div class="panel panel-default" id="ajapaik-grid-map-info-panel">
         <div class="panel-body">
             {% trans "Geotags" %}: <span id="ajapaik-grid-map-geotag-count"></span>
@@ -51,7 +51,7 @@
     </div>
     <button class="btn btn-primary ajapaik-grid-guess-location-button">{% trans "Guess location" %}</button>
     <button class="btn btn-primary ajapaik-grid-close-map-button">{% trans "Close map" %}</button>
-    <div id="ajapaik-grid-map-canvas"></div>
+    <div id="ajapaik-map-canvas"></div>
 </div>
 <img src="{% url 'project.home.views.photo_url' photo.id %}" id="ajapaik-grid-guess-photo" />
 <img src="{% url 'project.home.views.photo_url' photo.id %}" id="ajapaik-grid-guess-photo-back" />
@@ -91,7 +91,7 @@
             }
         });
 
-        window.prepareFullscreen();
+        //window.prepareFullscreen();
     });
 </script>
 {% endblock %}
@@ -334,6 +334,5 @@ $(function() {
 	prepareFullscreen();
 });
 </script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/init.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/browse.js"></script>
 {% endblock %}{% endcomment %}
