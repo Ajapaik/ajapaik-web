@@ -67,7 +67,8 @@ var map,
     mapDragendListenerFunction,
     markerLocked = true,
     mapMarkerDragListenerFunction,
-    mapMarkerDragendListenerFunction;
+    mapMarkerDragendListenerFunction,
+    windowResizeListenerFunction;
 
 (function ($) {
     'use strict';
@@ -424,6 +425,16 @@ var map,
         }
     };
 
+    windowResizeListenerFunction = function () {
+        console.log("resize");
+        if (markerLocked) {
+            window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+            mapMousemoveListenerActive = true;
+            dottedAzimuthLine.setVisible(false);
+            panoramaMarker.setVisible(false);
+        }
+    };
+
     mapMousemoveListenerFunction = function (e) {
         console.log("mousemove");
         // The mouse is moving, therefore we haven't locked on a direction
@@ -432,8 +443,10 @@ var map,
         saveLocationButton.addClass('btn-warning');
         saveLocationButton.text(window.gettext('Save location only'));
         saveDirection = false;
-        radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
-        degreeAngle = Math.degrees(radianAngle);
+        if (e) {
+            radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
+            degreeAngle = Math.degrees(radianAngle);
+        }
         if (panoramaMarker) {
             panoramaMarker.setMap(null);
         }
@@ -515,9 +528,9 @@ var map,
         if (firstDragDone) {
             if (markerLocked) {
                 console.log("set center");
+                azimuthListenerActive = true;
                 marker.setPosition(map.getCenter());
             }
-            azimuthListenerActive = true;
             if (!mapMousemoveListenerActive && !saveDirection) {
                 window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
@@ -583,6 +596,7 @@ var map,
     mapMarkerDragendListenerFunction = function () {
         console.log("marker dragend");
         if (saveDirection) {
+            dottedAzimuthLine.setPath([marker.position, panoramaMarker.position]);
             dottedAzimuthLine.icons[0].repeat = '2px';
         } else {
             dottedAzimuthLine.setVisible(false);

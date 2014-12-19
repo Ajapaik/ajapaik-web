@@ -172,7 +172,7 @@ body {
 #ajapaik-map-button-container {
     position: fixed;
     bottom: 5%;
-    right: 5%;
+    right: 35px;
     z-index: 1000;
     display: none;
 }
@@ -585,8 +585,8 @@ ul.errorlist {
     width: 48px;
     height: 48px;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 0;
+    right: 0;
 }
 
 .ajapaik-flip-photo-overlay-button:hover {
@@ -622,8 +622,8 @@ ul.errorlist {
     width: 48px;
     height: 48px;
     position: absolute;
-    bottom: 15px;
-    left: 15px;
+    bottom: 0;
+    left: 0;
 }
 
 .ajapaik-game-map-show-description-overlay-button:hover {
@@ -661,8 +661,8 @@ ul.errorlist {
     width: 48px;
     height: 48px;
     position: absolute;
-    right: 15px;
-    bottom: 15px;
+    right: 0;
+    bottom: 0;
 }
 
 .ajapaik-fullscreen-overlay-button:hover {

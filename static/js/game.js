@@ -300,6 +300,8 @@
 
         window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
 
+        window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
+
         window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             disableSave = false;
         });
