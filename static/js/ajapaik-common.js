@@ -163,9 +163,12 @@ var map,
     };
 
     Math.getAzimuthBetweenTwoMarkers = function (marker1, marker2) {
-        var x = marker2.position.lat() - marker1.position.lat(),
-            y = marker2.position.lng() - marker1.position.lng();
-        return Math.atan2(y, x);
+        if (marker1 && marker2) {
+            var x = marker2.position.lat() - marker1.position.lat(),
+                y = marker2.position.lng() - marker1.position.lng();
+            return Math.atan2(y, x);
+        }
+        return false;
     };
 
     Math.degrees = function (rad) {
