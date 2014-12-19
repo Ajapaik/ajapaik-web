@@ -724,3 +724,8 @@ ul.errorlist {
 #ajapaik-photo-modal-source {
     text-align: left;
 }
+
+#ajapaik-game-guess-photo-container {
+    display: inline-block;
+    position: relative;
+}

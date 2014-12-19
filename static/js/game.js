@@ -42,6 +42,9 @@
     };
 
     nextPhoto = function () {
+        if (!window.markerLocked) {
+            $('.ajapaik-marker-center-lock-button').click();
+        }
         photoHasDescription = false;
         photoDescription = $('#ajapaik-game-photo-description');
         photoDescription.hide();
@@ -197,12 +200,12 @@
             },
             title: false,
             header: false,
-            size: {
-                width: function () {
-                    return $(window).width() / 4;
-                },
-                height: 'auto'
-            },
+//            size: {
+//                width: function () {
+//                    return $(window).width() / 3;
+//                },
+//                height: 'auto'
+//            },
             draggable: false,
             resizable: false,
             id: 'ajapaik-game-feedback-panel'
@@ -547,8 +550,12 @@
                 window.centerMarker.show();
                 window.marker.setVisible(false);
                 window.marker.set('draggable', false);
+                window.map.set('scrollwheel', false);
+                realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+                realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
                 window.google.maps.event.clearListeners(window.marker, 'drag');
                 window.google.maps.event.clearListeners(window.marker, 'dragend');
+                window.azimuthListenerActive = false;
                 window.map.setCenter(window.marker.position);
                 window.setCursorToPanorama();
                 window.markerLocked = true;
@@ -557,6 +564,9 @@
                 window.centerMarker.hide();
                 window.marker.setVisible(true);
                 window.marker.set('draggable', true);
+                window.map.set('scrollwheel', true);
+                realMapElement.removeEventListener('mousewheel', window.wheelEventNonFF, true);
+                realMapElement.removeEventListener('DOMMouseScroll', window.wheelEventFF, true);
                 window.google.maps.event.addListener(window.marker, 'drag', window.mapMarkerDragListenerFunction);
                 window.google.maps.event.addListener(window.marker, 'dragend', window.mapMarkerDragendListenerFunction);
                 window.setCursorToAuto();
