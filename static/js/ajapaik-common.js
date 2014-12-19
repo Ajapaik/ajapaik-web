@@ -313,7 +313,7 @@ var map,
             message = gettext('Correct location is not certain yet.');
             _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
         } else if (resp['is_correct'] == false) {
-            message = gettext('We doubt about it.');
+            message = gettext('Other users have different opinion.');
             hideFeedback = true;
             _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
         } else {
