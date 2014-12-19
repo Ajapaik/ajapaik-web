@@ -227,6 +227,8 @@ def game(request):
 
     if city_selection_form.is_valid():
         ctx['city'] = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    else:
+        ctx['city'] = City.objects.get(pk=settings.DEFAULT_CITY_ID)
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
