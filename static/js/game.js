@@ -76,6 +76,7 @@
             if (photos[currentPhotoIdx].description) {
                 photoHasDescription = true;
                 $('#ajapaik-game-photo-description').html(photos[currentPhotoIdx].description);
+                $('#ajapaik-game-guess-photo-description').html(photos[currentPhotoIdx].description);
                 if (window.languageCode === 'et') {
                     $('.ajapaik-game-show-description-button').show();
                 }
@@ -200,12 +201,12 @@
             },
             title: false,
             header: false,
-//            size: {
-//                width: function () {
-//                    return $(window).width() / 3;
-//                },
-//                height: 'auto'
-//            },
+            size: {
+                width: function () {
+                    return $('#ajapaik-game-guess-photo-container').find('img').width();
+                },
+                height: 'auto'
+            },
             draggable: false,
             resizable: false,
             id: 'ajapaik-game-feedback-panel'

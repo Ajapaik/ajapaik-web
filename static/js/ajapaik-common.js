@@ -431,7 +431,9 @@ var map,
             window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
             mapMousemoveListenerActive = true;
             dottedAzimuthLine.setVisible(false);
-            panoramaMarker.setVisible(false);
+            if (panoramaMarker) {
+                panoramaMarker.setVisible(false);
+            }
         }
     };
 
