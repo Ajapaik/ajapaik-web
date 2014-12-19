@@ -203,7 +203,7 @@
             header: false,
             size: {
                 width: function () {
-                    return $('#ajapaik-game-guess-photo-container').find('img').width();
+                    return $(window).width() / 3;
                 },
                 height: 'auto'
             },
@@ -379,6 +379,7 @@
                 size: {width: 'auto', height: 'auto'},
                 id: 'ajapaik-game-guess-photo-js-panel'
             });
+            guessPhotoPanel.footer = $('ajapaik-game-guess-photo-js-panel-footer').html();
             $('#ajapaik-map-button-container').show();
             disableNext = false;
             locationToolsOpen = true;

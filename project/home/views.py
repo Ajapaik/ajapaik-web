@@ -559,7 +559,14 @@ def rephoto_top50(request):
 
 
 def fetch_stream(request):
-    qs = Photo.objects.filter(city_id=int(request.GET.get('city')))
+    city_selection_form = CitySelectionForm(request.GET)
+
+    if city_selection_form.is_valid():
+        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    else:
+        city = City.objects.get(pk=settings.DEFAULT_CITY_ID)
+
+    qs = Photo.objects.filter(city_id=city.id)
 
     data = {}
     data["photos"], data["user_seen_all"], data["nothing_more_to_show"] = qs.get_next_photo_to_geotag(request)
