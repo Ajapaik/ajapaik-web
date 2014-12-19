@@ -549,8 +549,6 @@
                 window.marker.set('draggable', false);
                 window.google.maps.event.clearListeners(window.marker, 'drag');
                 window.google.maps.event.clearListeners(window.marker, 'dragend');
-                window.dottedAzimuthLine.setVisible(false);
-                window.panoramaMarker.setVisible(false);
                 window.map.setCenter(window.marker.position);
                 window.setCursorToPanorama();
                 window.markerLocked = true;
