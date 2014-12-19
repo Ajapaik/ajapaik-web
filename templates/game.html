@@ -20,13 +20,17 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    {% if LANGUAGE_CODE == 'et' %}
+                        <div class="row ajapaik-photo-modal-row">
+                            <div id="ajapaik-game-photo-description" class="pull-left"></div>
+                        </div>
+                    {% endif %}
                     <div class="row ajapaik-photo-modal-row">
-                        <div id="ajapaik-game-photo-description" class="pull-left"></div>
-                    </div>
-                    <div class="row ajapaik-photo-modal-row">
-                        <button class="btn btn-default pull-left ajapaik-game-show-description-button">
-                            {% trans "Show description" %}
-                        </button>
+                        {% if LANGUAGE_CODE == 'et' %}
+                            <button class="btn btn-default pull-left ajapaik-game-show-description-button">
+                                {% trans "Show description" %}
+                            </button>
+                        {% endif %}
                         <button class="btn btn-primary ajapaik-game-specify-location-button">
                             {% trans "Pick the shooting location!" %}
                         </button>
@@ -66,14 +70,7 @@
         </div>
     </div>
     <div id="ajapaik-map-container">
-        <div id="ajapaik-map-button-container">
-            <div class="row">
-                <button class="btn btn-default ajapaik-save-location-button pull-right" disabled="disabled">{% trans "Save location only" %}</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-primary ajapaik-game-skip-photo-button pull-right">{% trans "Skip" %}</button>
-            </div>
-        </div>
+        {% include "_map_lower_right_buttons.html" %}
         <div class="panel panel-default" id="ajapaik-game-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
@@ -110,8 +107,7 @@
     <script>
         var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
             permalinkURL = '{{ hostname }}/foto/',
-            cityId = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}',
-            language_code = '{{ LANGUAGE_CODE }}';
+            cityId = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}';
         {% if city %}
             start_location = [{{ city.lon|safe }}, {{ city.lat|safe }}];
         {% else %}

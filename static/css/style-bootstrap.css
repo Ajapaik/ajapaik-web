@@ -134,6 +134,41 @@ body {
 
 }
 
+.ajapaik-marker-center-lock-button {
+    background: #fff url(../images/material-design-icons/ic_lock_outline_24px.svg) no-repeat center !important;
+    width: 36px;
+    height: 36px;
+    margin-right: 25px;
+}
+
+.ajapaik-marker-center-lock-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button:active {
+    background-image: url(../images/material-design-icons/ic_lock_open_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button.active {
+    background-image: url(../images/material-design-icons/ic_lock_open_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-marker-center-lock-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
 #ajapaik-map-button-container {
     position: fixed;
     bottom: 5%;
@@ -161,8 +196,6 @@ body {
 .ajapaik-game-specify-location-button {
 
 }
-
-
 
 #ajapaik-map-canvas {
     width: 100%;
@@ -255,7 +288,7 @@ a.fullscreen {
 
 .center-marker {
     position: absolute;
-    background: url('../images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg') no-repeat;
+    background: url('../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
     top: 50%;
     left: 50%;
     z-index: 1;
@@ -666,6 +699,7 @@ ul.errorlist {
 
 .ajapaik-photo-modal-row {
     margin-right: 0;
+    margin-left: 0;
 }
 
 #ajapaik-game-photo-description {
@@ -681,4 +715,12 @@ ul.errorlist {
     position: fixed;
     bottom: 15px;
     right: 15px;
+}
+
+#ajapaik-photo-modal-description {
+    text-align: left;
+}
+
+#ajapaik-photo-modal-source {
+    text-align: left;
 }

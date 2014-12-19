@@ -73,7 +73,9 @@
             if (photos[currentPhotoIdx].description) {
                 photoHasDescription = true;
                 $('#ajapaik-game-photo-description').html(photos[currentPhotoIdx].description);
-                $('.ajapaik-game-show-description-button').show();
+                if (window.languageCode === 'et') {
+                    $('.ajapaik-game-show-description-button').show();
+                }
             } else {
                 $('.ajapaik-game-show-description-button').hide();
             }
@@ -220,7 +222,7 @@
             $('#ajapaik-game-map-geotag-count').html(guessResponse.heatmapPoints.length);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(guessResponse.tagsWithAzimuth);
             var markerImage = {
-                url: '/static/images/material-design-icons/ajapaik_photo_camera_arror_drop_down_mashup.svg'
+                url: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg'
             };
             playerMarker = new window.google.maps.Marker({
                 position: playerLatlng,
@@ -271,10 +273,11 @@
             map: window.map,
             draggable: false,
             position: location,
-            visible: false
+            visible: false,
+            icon: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg'
         });
 
-        window.marker.bindTo('position', window.map, 'center');
+        //window.marker.bindTo('position', window.map, 'center');
 
         realMapElement = $('#ajapaik-map-canvas')[0];
         realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
@@ -291,6 +294,8 @@
             window.firstDragDone = true;
             window.setCursorToPanorama();
         });
+
+        window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
 
         window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             disableSave = false;
@@ -324,7 +329,7 @@
         });
 
         $.jQee('up', function () {
-            if (!locationToolsOpen) {
+            if (!locationToolsOpen && window.languageCode === 'et') {
                 $('.ajapaik-game-show-description-button').click();
             }
         });
@@ -509,7 +514,7 @@
         });
 
         $('.ajapaik-game-show-description-button').click(function () {
-            if (!hintUsed && photoHasDescription) {
+            if (!hintUsed && photoHasDescription && window.languageCode === 'et') {
                 $(this).hide();
                 hintUsed = true;
                 $('#ajapaik-game-photo-description').show();
@@ -520,7 +525,9 @@
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 $('.ajapaik-fullscreen-overlay-button').show();
-                $('.ajapaik-game-map-show-description-overlay-button').show();
+                if (window.languageCode === 'et') {
+                    $('.ajapaik-game-map-show-description-overlay-button').show();
+                }
             }
         });
 
@@ -529,6 +536,33 @@
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('.ajapaik-fullscreen-overlay-button').hide();
                 $('.ajapaik-game-map-show-description-overlay-button').hide();
+            }
+        });
+
+        $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
+            var t = $(this);
+            window.centerMarker = $('.center-marker');
+            if (t.hasClass('active')) {
+                t.removeClass('active');
+                window.centerMarker.show();
+                window.marker.setVisible(false);
+                window.marker.set('draggable', false);
+                window.google.maps.event.clearListeners(window.marker, 'drag');
+                window.google.maps.event.clearListeners(window.marker, 'dragend');
+                window.dottedAzimuthLine.setVisible(false);
+                window.panoramaMarker.setVisible(false);
+                window.map.setCenter(window.marker.position);
+                window.setCursorToPanorama();
+                window.markerLocked = true;
+            } else {
+                t.addClass('active');
+                window.centerMarker.hide();
+                window.marker.setVisible(true);
+                window.marker.set('draggable', true);
+                window.google.maps.event.addListener(window.marker, 'drag', window.mapMarkerDragListenerFunction);
+                window.google.maps.event.addListener(window.marker, 'dragend', window.mapMarkerDragendListenerFunction);
+                window.setCursorToAuto();
+                window.markerLocked = false;
             }
         });
     });

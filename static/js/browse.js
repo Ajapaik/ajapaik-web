@@ -125,6 +125,15 @@
             photoPanel.close();
             $('#ajapaik-mapview-map-info-panel').show();
             $('#ajapaik-map-button-container').show();
+            mc.clearMarkers();
+            $.ajax({
+                url: '/heatmap_data/',
+                data: {photo_id: photoId},
+                cache: false,
+                success: function (response) {
+                    console.log(response);
+                }
+            });
             guessLocationStarted = true;
         }
     };
@@ -188,7 +197,7 @@
 //    };
 
     toggleVisiblePaneElements = function () {
-        if (window.map) {
+        if (window.map && !guessLocationStarted) {
             if (cityId) {
                 var historyReplacementString = '/kaart/?city=' + cityId + '&lat=' + window.map.getCenter().lat() + '&lng=' + window.map.getCenter().lng();
                 if (currentlySelectedMarkerId) {

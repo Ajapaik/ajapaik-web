@@ -33,7 +33,6 @@ var map,
         enableCloseButton: true,
         visible: false
     },
-    getAzimuthBetweenMouseAndMarker,
     dottedAzimuthLineSymbol,
     dottedAzimuthLine,
     getQueryParameterByName,
@@ -62,7 +61,13 @@ var map,
     mapDragListener,
     mapPositionChangedListener,
     mapVisibleChangedListener,
-    mapPanoChangedListener;
+    mapPanoChangedListener,
+    mapDisplayHeatmapWithEstimatedLocation,
+    lockButton,
+    mapDragendListenerFunction,
+    markerLocked = true,
+    mapMarkerDragListenerFunction,
+    mapMarkerDragendListenerFunction;
 
 (function ($) {
     'use strict';
@@ -116,6 +121,11 @@ var map,
 
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
+        lockButton = document.createElement('button');
+        $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
+
+        map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
+
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
                 var that = $(this);
@@ -145,9 +155,15 @@ var map,
         });
     };
 
-    getAzimuthBetweenMouseAndMarker = function (e, marker) {
+    Math.getAzimuthBetweenMouseAndMarker = function (e, marker) {
         var x = e.latLng.lat() - marker.position.lat(),
             y = e.latLng.lng() - marker.position.lng();
+        return Math.atan2(y, x);
+    };
+
+    Math.getAzimuthBetweenTwoMarkers = function (marker1, marker2) {
+        var x = marker2.position.lat() - marker1.position.lat(),
+            y = marker2.position.lng() - marker1.position.lng();
         return Math.atan2(y, x);
     };
 
@@ -411,9 +427,9 @@ var map,
         saveLocationButton.removeAttr('disabled');
         saveLocationButton.removeClass('btn-default');
         saveLocationButton.addClass('btn-warning');
-        saveLocationButton.text(gettext('Save location only'));
+        saveLocationButton.text(window.gettext('Save location only'));
         saveDirection = false;
-        radianAngle = getAzimuthBetweenMouseAndMarker(e, marker);
+        radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
         degreeAngle = Math.degrees(radianAngle);
         if (panoramaMarker) {
             panoramaMarker.setMap(null);
@@ -437,7 +453,7 @@ var map,
             infoWindow.close();
             infoWindow = undefined;
         }
-        radianAngle = getAzimuthBetweenMouseAndMarker(e, marker);
+        radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
         azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
         degreeAngle = Math.degrees(radianAngle);
         if (window.isMobile) {
@@ -488,10 +504,12 @@ var map,
 
     mapIdleListenerFunction = function () {
         if (firstDragDone) {
-            marker.position = map.center;
+            if (markerLocked) {
+                marker.setPosition(map.getCenter());
+            }
             azimuthListenerActive = true;
             if (!mapMousemoveListenerActive && !saveDirection) {
-                google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+                window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
             }
         }
@@ -506,25 +524,51 @@ var map,
     };
 
     mapDragstartListenerFunction = function () {
-        centerMarker = $('.center-marker');
-        saveDirection = false;
-        if (panoramaMarker) {
-            panoramaMarker.setMap(null);
+        if (markerLocked) {
+            centerMarker = $('.center-marker');
+            saveDirection = false;
+            if (panoramaMarker) {
+                panoramaMarker.setMap(null);
+            }
+            setCursorToPanorama();
+            dottedAzimuthLine.setVisible(false);
+            if (infoWindow !== undefined) {
+                centerMarker.show();
+                infoWindow.close();
+                infoWindow = undefined;
+            }
+            saveLocationButton.removeAttr('disabled');
+            saveLocationButton.removeClass('btn-default');
+            saveLocationButton.addClass('btn-warning');
+            saveLocationButton.text(window.gettext('Save location only'));
+            azimuthListenerActive = false;
+            dottedAzimuthLine.setVisible(false);
+            mapMousemoveListenerActive = false;
+            window.google.maps.event.clearListeners(map, 'mousemove');
         }
-        setCursorToPanorama();
-        dottedAzimuthLine.setVisible(false);
-        if (infoWindow !== undefined) {
-            centerMarker.show();
-            infoWindow.close();
-            infoWindow = undefined;
+    };
+
+    mapDragendListenerFunction = function () {
+        if (markerLocked) {
+            console.log("123");
+            marker.setPosition(map.getCenter());
         }
-        saveLocationButton.removeAttr('disabled');
-        saveLocationButton.removeClass('btn-default');
-        saveLocationButton.addClass('btn-warning');
-        saveLocationButton.text(window.gettext('Save location only'));
-        azimuthListenerActive = false;
-        dottedAzimuthLine.setVisible(false);
-        mapMousemoveListenerActive = false;
-        google.maps.event.clearListeners(map, 'mousemove');
+    };
+
+    mapMarkerDragListenerFunction = function () {
+        radianAngle = Math.getAzimuthBetweenTwoMarkers(marker, panoramaMarker);
+        degreeAngle = Math.degrees(radianAngle);
+        dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, panoramaMarker.position, 0.05)]);
+        dottedAzimuthLine.icons = [
+            {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
+        ];
+    };
+
+    mapMarkerDragendListenerFunction = function () {
+        dottedAzimuthLine.icons[0].repeat = '2px';
+    };
+
+    mapDisplayHeatmapWithEstimatedLocation = function () {
+
     };
 }(jQuery));
