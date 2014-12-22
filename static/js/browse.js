@@ -45,9 +45,9 @@
         openPhotoDrawer,
         toggleVisiblePaneElements,
         setCorrectMarkerIcon,
-        blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
+        blackMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_transparent.png',
         blackMarkerIcon35 = '/static/images/ajapaik_marker_35px.png',
-        blueMarkerIcon20 = '/static/images/ajapaik_marker_20px_blue.png',
+        blueMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_blue_transparent.png',
         blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png',
         ffWheelListener,
         nonFFWheelListener,
@@ -56,12 +56,7 @@
         currentPhotoWidth,
         guessResponseReceived,
         noticeDiv,
-        feedbackPanel,
-        playerLatlng,
-        playerMarker,
-        heatmap,
-        taxiData,
-        pointArray;
+        feedbackPanel;
 
 
     window.loadPhoto = function (id) {
@@ -92,6 +87,7 @@
 
     window.startGuessLocation = function () {
         if (!guessLocationStarted) {
+            guessLocationStarted = true;
             window.marker = new window.google.maps.Marker({
                 map: window.map,
                 draggable: false,
@@ -173,10 +169,9 @@
                 data: {photo_id: photoId},
                 cache: false,
                 success: function (response) {
-                    console.log(response);
+                    window.mapDisplayHeatmapWithEstimatedLocation(response);
                 }
             });
-            guessLocationStarted = true;
         }
     };
 
@@ -213,20 +208,26 @@
 
     window.stopGuessLocation = function () {
         window.marker.setMap(null);
+        window.heatmap.setMap(null);
+        window.heatmapEstimatedLocationMarker.setMap(null);
         window.map.set('scrollwheel', true);
         window.google.maps.event.removeListener(nonFFWheelListener);
         window.google.maps.event.removeListener(ffWheelListener);
         window.centerMarker.hide();
         window.google.maps.event.clearListeners(window.map, 'mousemove');
+        window.mapMousemoveListenerActive = false;
         window.google.maps.event.clearListeners(window.map, 'click');
+        window.mapClickListenerActive = false;
         window.google.maps.event.clearListeners(window.map, 'dragstart');
+        window.mapDragstartListenerActive = false;
         window.google.maps.event.clearListeners(window.map, 'idle');
+        window.mapIdleListenerActive = false;
         window.google.maps.event.clearListeners(window.map, 'drag');
         window.google.maps.event.clearListeners(window.map, 'position_changed');
         $('#ajapaik-photo-modal').modal('toggle');
         $('#ajapaik-mapview-map-info-panel').hide();
         $('#ajapaik-map-button-container').hide();
-        window.setCursorAuto();
+        window.setCursorToAuto();
         window.dottedAzimuthLine.setMap(null);
         guessLocationStarted = false;
     };
@@ -290,9 +291,9 @@
                 for (j = 0; j < response.length; j += 1) {
                     p = response[j];
                     if (p[4]) {
-                        icon = blueMarkerIcon20;
+                        icon = blueMarkerIcon20Transparent;
                     } else {
-                        icon = blackMarkerIcon20;
+                        icon = blackMarkerIcon20Transparent;
                     }
                     var marker = new google.maps.Marker({
                         id: p[0],
@@ -424,7 +425,8 @@
                     window.dottedAzimuthLine.setVisible(false);
                 }
                 setCorrectMarkerIcon(markers[i]);
-                break;
+            } else {
+                setCorrectMarkerIcon(markers[i]);
             }
         }
         if (markerTemp) {
@@ -453,19 +455,22 @@
             if (marker.id == currentlySelectedMarkerId) {
                 marker.setIcon(blueMarkerIcon35);
             } else {
-                marker.setIcon(blueMarkerIcon20);
+                marker.setIcon(blueMarkerIcon20Transparent);
             }
         } else {
             if (marker.id == currentlySelectedMarkerId) {
                 marker.setIcon(blackMarkerIcon35);
             } else {
-                marker.setIcon(blackMarkerIcon20);
+                marker.setIcon(blackMarkerIcon20Transparent);
             }
         }
     };
 
     $(document).ready(function () {
         window.realMapElement = $('#ajapaik-map-canvas')[0];
+        window.mapInfoPanelGeotagCountElement = $('#ajapaik-mapview-map-geotag-count');
+        window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');
+
         if (window.getQueryParameterByName('fromSelect') && window.cityId) {
             window.fromSelect = true;
             window.History.replaceState(null, null, '/kaart/?city=' + window.cityId);

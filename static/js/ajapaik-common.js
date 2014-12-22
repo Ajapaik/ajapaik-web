@@ -69,7 +69,9 @@ var map,
     mapMarkerDragListenerFunction,
     mapMarkerDragendListenerFunction,
     windowResizeListenerFunction,
-    realMapElement;
+    realMapElement,
+    heatmap,
+    heatmapEstimatedLocationMarker;
 
 (function ($) {
     'use strict';
@@ -616,8 +618,44 @@ var map,
         }
     };
 
-    mapDisplayHeatmapWithEstimatedLocation = function () {
-
+    mapDisplayHeatmapWithEstimatedLocation = function (heatmapData) {
+        var totalHeatmapGeotags = 0,
+            totalHeatmapGeotagsWithAzimuth = 0,
+            latLngBounds = new window.google.maps.LatLngBounds(),
+            newLatLng,
+            heatmapPoints = [];
+        for (var i = 0; i < heatmapData.heatmap_points.length; i += 1) {
+            if (heatmapData.heatmap_points[i][2]) {
+                totalHeatmapGeotagsWithAzimuth += 1;
+            }
+            totalHeatmapGeotags += 1;
+            newLatLng = new window.google.maps.LatLng(heatmapData.heatmap_points[i][0], heatmapData.heatmap_points[i][1]);
+            heatmapPoints.push(newLatLng);
+            latLngBounds.extend(newLatLng);
+        }
+        window.mapInfoPanelGeotagCountElement.html(totalHeatmapGeotags);
+        window.mapInfoPanelAzimuthCountElement.html(totalHeatmapGeotagsWithAzimuth);
+        heatmapPoints = new window.google.maps.MVCArray(heatmapPoints);
+        heatmap = new window.google.maps.visualization.HeatmapLayer({
+            data: heatmapPoints
+        });
+        heatmap.setMap(window.map);
+        heatmap.setOptions({radius: 50, dissipating: true});
+        if (heatmapData.estimated_location) {
+            heatmapEstimatedLocationMarker = new window.google.maps.Marker({
+                position: new google.maps.LatLng(heatmapData.estimated_location[0], heatmapData.estimated_location[1]),
+                map: window.map,
+                title: window.gettext("The peoples' guess"),
+                draggable: false,
+                icon: '/static/images/ajapaik_marker_35px.png'
+            });
+        }
+        if (heatmapEstimatedLocationMarker) {
+            window.map.setCenter(heatmapEstimatedLocationMarker.getPosition());
+            window.map.setZoom(17);
+        } else {
+            window.map.fitBounds(latLngBounds);
+        }
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
