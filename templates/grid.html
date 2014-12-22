@@ -30,7 +30,7 @@
             <div class="col-xs-offset-3"></div>
         </div>
     </div>
-    <div id="ajapaik-map-container">
+    <div id="ajapaik-map-container" style="display: none;">
         <div class="panel panel-default" id="ajapaik-grid-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-grid-map-geotag-count"></span>
@@ -71,7 +71,8 @@
                     window.fromSelect = false;
                 }
                 {% if city.lat and city.lon %}
-                    window.getMap([{{ city.lon | safe }}, {{ city.lat | safe }}], 13);
+                    var startLocation = new window.google.maps.LatLng({{ city.lon | safe }}, {{ city.lat | safe }});
+                    window.getMap(startLocation, 13);
                 {% else %}
                     window.getMap();
                 {% endif %}

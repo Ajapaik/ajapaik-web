@@ -27,7 +27,7 @@
                     {% endif %}
                     <div class="row ajapaik-photo-modal-row">
                         {% if LANGUAGE_CODE == 'et' %}
-                            <button class="btn btn-default pull-left ajapaik-game-show-description-button">
+                            <button class="btn btn-default pull-left ajapaik-game-show-description-button" data-toggle="popover">
                                 {% trans "Show description" %}
                             </button>
                         {% endif %}
@@ -69,7 +69,7 @@
             <button class="btn btn-default ajapaik-game-map-show-description-overlay-button"></button>
         </div>
         <div id="ajapaik-game-guess-photo-js-panel-footer">
-            <div id="ajapaik-game-guess-photo-description" class="pull-left"></div>
+            <div id="ajapaik-game-guess-photo-description" class="row ajapaik-photo-modal-row pull-left"></div>
         </div>
     </div>
     <div id="ajapaik-map-container">

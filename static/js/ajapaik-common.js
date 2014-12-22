@@ -68,7 +68,8 @@ var map,
     markerLocked = true,
     mapMarkerDragListenerFunction,
     mapMarkerDragendListenerFunction,
-    windowResizeListenerFunction;
+    windowResizeListenerFunction,
+    realMapElement;
 
 (function ($) {
     'use strict';
@@ -144,6 +145,8 @@ var map,
                 } else {
                     _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
                 }
+                // Currently we are not displaying the save button when Street View is open
+                saveLocationButton.hide();
             }
         });
 
@@ -153,6 +156,11 @@ var map,
             } else {
                 _gaq.push(['_trackEvent', 'Map', 'Street View Movement']);
             }
+        });
+
+        window.google.maps.event.addListener(streetPanorama, 'closeclick', function () {
+            // Closing Street View from the X button must also show the save button again
+            saveLocationButton.show();
         });
     };
 
@@ -611,4 +619,36 @@ var map,
     mapDisplayHeatmapWithEstimatedLocation = function () {
 
     };
+
+    $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
+        var t = $(this);
+        window.centerMarker = $('.center-marker');
+        if (t.hasClass('active')) {
+            t.removeClass('active');
+            window.centerMarker.show();
+            window.marker.setVisible(false);
+            window.marker.set('draggable', false);
+            window.map.set('scrollwheel', false);
+            window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+            window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
+            window.google.maps.event.clearListeners(window.marker, 'drag');
+            window.google.maps.event.clearListeners(window.marker, 'dragend');
+            window.azimuthListenerActive = false;
+            window.map.setCenter(window.marker.position);
+            window.setCursorToPanorama();
+            window.markerLocked = true;
+        } else {
+            t.addClass('active');
+            window.centerMarker.hide();
+            window.marker.setVisible(true);
+            window.marker.set('draggable', true);
+            window.map.set('scrollwheel', true);
+            window.realMapElement.removeEventListener('mousewheel', window.wheelEventNonFF, true);
+            window.realMapElement.removeEventListener('DOMMouseScroll', window.wheelEventFF, true);
+            window.google.maps.event.addListener(window.marker, 'drag', window.mapMarkerDragListenerFunction);
+            window.google.maps.event.addListener(window.marker, 'dragend', window.mapMarkerDragendListenerFunction);
+            window.setCursorToAuto();
+            window.markerLocked = false;
+        }
+    });
 }(jQuery));

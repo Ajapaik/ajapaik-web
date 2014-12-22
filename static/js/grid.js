@@ -43,40 +43,6 @@
             estimatedLocation,
             estimatedLocationMarker,
             currentlyOpenPhotoId,
-            streetViewOptions = {
-                panControl: true,
-                panControlOptions: {
-                    position: google.maps.ControlPosition.LEFT_CENTER
-                },
-                zoomControl: true,
-                zoomControlOptions: {
-                    position: google.maps.ControlPosition.LEFT_CENTER
-                },
-                addressControl: false,
-                linksControl: true,
-                linksControlOptions: {
-                    position: google.maps.ControlPosition.BOTTOM_CENTER
-                },
-                enableCloseButton: true,
-                visible: false
-            },
-            mapOptions = {
-                zoom: 14,
-                center: new google.maps.LatLng(59, 26),
-                mapTypeControl: true,
-                panControl: true,
-                panControlOptions: {
-                    position: google.maps.ControlPosition.RIGHT_TOP
-                },
-                zoomControl: true,
-                zoomControlOptions: {
-                    position: google.maps.ControlPosition.RIGHT_TOP
-                },
-                streetViewControl: true,
-                streetViewControlOptions: {
-                    position: google.maps.ControlPosition.RIGHT_TOP
-                }
-            },
             lastMapHoverPhotoHide,
             now;
 
