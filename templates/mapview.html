@@ -55,6 +55,26 @@
             <div id="ajapaik-mapview-guess-photo-description" class="row ajapaik-photo-modal-row pull-left"></div>
         </div>
     </div>
+    <div id="ajapaik-mapview-feedback-js-panel-content" style="display: none;">
+        <h2>{% trans "Thank you!" %}</h2>
+        <p id="ajapaik-mapview-guess-feedback-message"></p>
+        <p id="ajapaik-mapview-guess-feedback-points-gained"></p>
+        <p id="ajapaik-mapview-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
+            {% trans "In your opinion to geotag this photo is" %}
+        </p>
+        <form id="ajapaik-mapview-guess-feedback-difficulty-form">
+            <span style="margin-right: 10px;">
+                {% trans "easy" %}
+            </span>
+            <input type="radio" name="difficulty" value="1">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
+            <span style="margin-left: 10px;">
+                {% trans "hard" %}
+            </span>
+        </form>
+        <button class="btn btn-primary ajapaik-mapview-feedback-next-button pull-right">{% trans "Next photo" %}</button>
+    </div>
     <script src="{{ STATIC_URL }}js/markerclusterer-2.0.3.min.js"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     <script>

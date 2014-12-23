@@ -57,10 +57,13 @@ var map,
     mapClickListener,
     mapDragstartListener,
     mapIdleListener,
+    mapBoundsChangedListener,
     mapMousemoveListener,
     mapDragListener,
     mapPositionChangedListener,
-    mapVisibleChangedListener,
+    streetviewVisibleChangedListener,
+    streetviewPanoChangedListener,
+    streetviewCloseclickListener,
     mapPanoChangedListener,
     mapDisplayHeatmapWithEstimatedLocation,
     lockButton,
@@ -68,7 +71,11 @@ var map,
     markerLocked = true,
     mapMarkerDragListenerFunction,
     mapMarkerDragendListenerFunction,
+    mapMarkerDragListener,
+    mapMarkerDragendListener,
+    mapMarkerPositionChangedListener,
     windowResizeListenerFunction,
+    windowResizeListener,
     realMapElement,
     heatmap,
     heatmapEstimatedLocationMarker;
@@ -140,7 +147,7 @@ var map,
             });
         }
 
-        mapVisibleChangedListener = window.google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
+        streetviewVisibleChangedListener = window.google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             if (streetPanorama.getVisible()) {
                 if (isGameMap) {
                     _gaq.push(['_trackEvent', 'Game', 'Opened Street View']);
@@ -152,7 +159,7 @@ var map,
             }
         });
 
-        window.google.maps.event.addListener(streetPanorama, 'pano_changed', function () {
+        streetviewPanoChangedListener = window.google.maps.event.addListener(streetPanorama, 'pano_changed', function () {
             if (isGameMap) {
                 _gaq.push(['_trackEvent', 'Game', 'Street View Movement']);
             } else {
@@ -160,7 +167,7 @@ var map,
             }
         });
 
-        window.google.maps.event.addListener(streetPanorama, 'closeclick', function () {
+        streetviewCloseclickListener = window.google.maps.event.addListener(streetPanorama, 'closeclick', function () {
             // Closing Street View from the X button must also show the save button again
             saveLocationButton.show();
         });
@@ -197,18 +204,18 @@ var map,
         azimuth = Math.radians(azimuth);
         var newX = Math.cos(azimuth) * lineLength + startPoint.lat(),
             newY = Math.sin(azimuth) * lineLength + startPoint.lng();
-        return new google.maps.LatLng(newX, newY);
+        return new window.google.maps.LatLng(newX, newY);
     };
 
     dottedAzimuthLineSymbol = {
-        path: google.maps.SymbolPath.CIRCLE,
+        path: window.google.maps.SymbolPath.CIRCLE,
         strokeOpacity: 1,
         strokeWeight: 1.5,
         strokeColor: 'red',
         scale: 0.75
     };
 
-    dottedAzimuthLine = new google.maps.Polyline({
+    dottedAzimuthLine = new window.google.maps.Polyline({
         geodesic: false,
         strokeOpacity: 0,
         icons: [
@@ -441,7 +448,7 @@ var map,
     windowResizeListenerFunction = function () {
         console.log("resize");
         if (markerLocked) {
-            window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+            mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
             mapMousemoveListenerActive = true;
             dottedAzimuthLine.setVisible(false);
             if (panoramaMarker) {
@@ -523,14 +530,14 @@ var map,
                 position: e.latLng,
                 icon: markerImage
             });
-            // We
-            window.google.maps.event.addListener(map, 'bounds_changed', function () {
+            // TODO: What was this about? : )
+            mapBoundsChangedListener = window.google.maps.event.addListener(map, 'bounds_changed', function () {
 
             });
             setCursorToAuto();
         } else {
             if (!mapMousemoveListenerActive) {
-                window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+                mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
                 window.google.maps.event.trigger(map, 'mousemove', e);
             }
@@ -547,18 +554,10 @@ var map,
                 marker.setPosition(map.getCenter());
             }
             if (!mapMousemoveListenerActive && !saveDirection) {
-                window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+                mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
                 mapMousemoveListenerActive = true;
             }
         }
-    };
-
-    setCursorToPanorama = function () {
-        map.setOptions({draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto', draggingCursor: 'auto'});
-    };
-
-    setCursorToAuto = function () {
-        map.setOptions({draggableCursor: 'auto', draggingCursor: 'auto'});
     };
 
     mapDragstartListenerFunction = function () {
@@ -618,18 +617,34 @@ var map,
         }
     };
 
+    setCursorToPanorama = function () {
+        map.setOptions({draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto', draggingCursor: 'auto'});
+    };
+
+    setCursorToAuto = function () {
+        map.setOptions({draggableCursor: 'auto', draggingCursor: 'auto'});
+    };
+
     mapDisplayHeatmapWithEstimatedLocation = function (heatmapData) {
         var totalHeatmapGeotags = 0,
             totalHeatmapGeotagsWithAzimuth = 0,
             latLngBounds = new window.google.maps.LatLngBounds(),
             newLatLng,
-            heatmapPoints = [];
-        for (var i = 0; i < heatmapData.heatmap_points.length; i += 1) {
-            if (heatmapData.heatmap_points[i][2]) {
+            heatmapPoints = [],
+            inputHeatmapPoints,
+            inputEstimatedLocation,
+            i;
+        if (heatmapData.heatmap_points) {
+            inputHeatmapPoints = heatmapData.heatmap_points;
+        } else {
+            inputHeatmapPoints = heatmapData.heatmapPoints;
+        }
+        for (i = 0; i < inputHeatmapPoints.length; i += 1) {
+            if (inputHeatmapPoints[i][2]) {
                 totalHeatmapGeotagsWithAzimuth += 1;
             }
             totalHeatmapGeotags += 1;
-            newLatLng = new window.google.maps.LatLng(heatmapData.heatmap_points[i][0], heatmapData.heatmap_points[i][1]);
+            newLatLng = new window.google.maps.LatLng(inputHeatmapPoints[i][0], inputHeatmapPoints[i][1]);
             heatmapPoints.push(newLatLng);
             latLngBounds.extend(newLatLng);
         }
@@ -642,8 +657,13 @@ var map,
         heatmap.setMap(window.map);
         heatmap.setOptions({radius: 50, dissipating: true});
         if (heatmapData.estimated_location) {
+            inputEstimatedLocation = heatmapData.estimated_location;
+        } else {
+            inputEstimatedLocation = heatmapData.estimatedLocation;
+        }
+        if (inputEstimatedLocation) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
-                position: new google.maps.LatLng(heatmapData.estimated_location[0], heatmapData.estimated_location[1]),
+                position: new google.maps.LatLng(inputEstimatedLocation[0], inputEstimatedLocation[1]),
                 map: window.map,
                 title: window.gettext("The peoples' guess"),
                 draggable: false,
@@ -652,6 +672,7 @@ var map,
         }
         if (heatmapEstimatedLocationMarker) {
             window.map.setCenter(heatmapEstimatedLocationMarker.getPosition());
+            window.marker.setPosition(heatmapEstimatedLocationMarker.getPosition());
             window.map.setZoom(17);
         } else {
             window.map.fitBounds(latLngBounds);
@@ -683,8 +704,8 @@ var map,
             window.map.set('scrollwheel', true);
             window.realMapElement.removeEventListener('mousewheel', window.wheelEventNonFF, true);
             window.realMapElement.removeEventListener('DOMMouseScroll', window.wheelEventFF, true);
-            window.google.maps.event.addListener(window.marker, 'drag', window.mapMarkerDragListenerFunction);
-            window.google.maps.event.addListener(window.marker, 'dragend', window.mapMarkerDragendListenerFunction);
+            mapMarkerDragListener = window.google.maps.event.addListener(window.marker, 'drag', window.mapMarkerDragListenerFunction);
+            mapMarkerDragendListener = window.google.maps.event.addListener(window.marker, 'dragend', window.mapMarkerDragendListenerFunction);
             window.setCursorToAuto();
             window.markerLocked = false;
         }

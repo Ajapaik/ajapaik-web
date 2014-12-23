@@ -101,8 +101,8 @@
             window.map.set('scrollwheel', false);
             nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
             ffWheelListener = window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
-            window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
-            window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
+            window.mapDragendListenerFunction = window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
+            window.windowResizeListener = window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
             $('<div/>').addClass('center-marker').appendTo(window.map.getDiv()).click(function () {
                 var that = $(this);
                 if (!that.data('win')) {
@@ -112,26 +112,26 @@
             });
             if (window.map) {
                 if (!window.mapClickListenerActive) {
-                    window.google.maps.event.addListener(window.map, 'click', window.mapClickListenerFunction);
+                    window.mapClickListener = window.google.maps.event.addListener(window.map, 'click', window.mapClickListenerFunction);
                     window.mapClickListenerActive = true;
                 }
                 if (!window.mapIdleListenerActive) {
-                    window.google.maps.event.addListener(window.map, 'idle', window.mapIdleListenerFunction);
+                    window.mapIdleListener = window.google.maps.event.addListener(window.map, 'idle', window.mapIdleListenerFunction);
                     window.mapIdleListenerActive = true;
                 }
                 if (!window.mapDragstartListenerActive) {
-                    window.google.maps.event.addListener(window.map, 'dragstart', window.mapDragstartListenerFunction);
+                    window.mapDragstartListener = window.google.maps.event.addListener(window.map, 'dragstart', window.mapDragstartListenerFunction);
                     window.mapDragstartListenerActive = true;
                 }
                 if (!window.mapMousemoveListenerActive) {
-                    window.google.maps.event.addListener(window.map, 'mousemove', window.mapMousemoveListenerFunction);
+                    window.mapMousemoveListener = window.google.maps.event.addListener(window.map, 'mousemove', window.mapMousemoveListenerFunction);
                     window.mapMousemoveListenerActive = true;
                 }
             }
-            window.google.maps.event.addListener(window.map, 'drag', function () {
+            window.mapDragListener = window.google.maps.event.addListener(window.map, 'drag', function () {
                 window.firstDragDone = true;
             });
-            window.google.maps.event.addListener(window.marker, 'position_changed', function () {
+            window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
                 disableSave = false;
             });
             $('#ajapaik-photo-modal').modal('toggle');
@@ -180,6 +180,15 @@
 
     // TODO: Incomplete
     window.handleGuessResponse = function (guessResponse) {
+        window.centerMarker.hide();
+        window.google.maps.event.removeListener(window.mapMousemoveListener);
+        window.mapMousemoveListenerActive = false;
+        window.google.maps.event.removeListener(window.mapClickListener);
+        window.mapClickListenerActive = false;
+        window.google.maps.event.removeListener(window.mapDragstartListener);
+        window.mapDragstartListenerActive = false;
+        window.google.maps.event.removeListener(window.mapIdleListener);
+        window.mapIdleListenerActive = false;
         guessResponseReceived = true;
         window.updateLeaderboard();
         noticeDiv = $('#ajapaik-mapview-feedback-js-panel-content');
@@ -207,27 +216,35 @@
             resizable: false,
             id: 'ajapaik-mapview-feedback-panel'
         }).css('top', 'auto').css('left', 'auto');
+        if (guessResponse.heatmapPoints && guessResponse.newEstimatedLocation) {
+            window.mapDisplayHeatmapWithEstimatedLocation(guessResponse);
+        }
     };
 
     window.stopGuessLocation = function () {
         window.marker.setMap(null);
         window.heatmap.setMap(null);
+        guessPhotoPanel.close();
+        photoPanel = undefined;
         $('.ajapaik-marker-center-lock-button').hide();
         window.heatmapEstimatedLocationMarker.setMap(null);
         window.map.set('scrollwheel', true);
         window.google.maps.event.removeListener(nonFFWheelListener);
         window.google.maps.event.removeListener(ffWheelListener);
+        if (!window.centerMarker) {
+            window.centerMarker = $('.center-marker');
+        }
         window.centerMarker.hide();
-        window.google.maps.event.clearListeners(window.map, 'mousemove');
+        window.google.maps.event.removeListener(window.mapMousemoveListener);
         window.mapMousemoveListenerActive = false;
-        window.google.maps.event.clearListeners(window.map, 'click');
+        window.google.maps.event.removeListener(window.mapClickListener);
         window.mapClickListenerActive = false;
-        window.google.maps.event.clearListeners(window.map, 'dragstart');
+        window.google.maps.event.removeListener(window.mapDragstartListener);
         window.mapDragstartListenerActive = false;
-        window.google.maps.event.clearListeners(window.map, 'idle');
+        window.google.maps.event.removeListener(window.mapIdleListener);
         window.mapIdleListenerActive = false;
-        window.google.maps.event.clearListeners(window.map, 'drag');
-        window.google.maps.event.clearListeners(window.map, 'position_changed');
+        //window.google.maps.event.removeListener(window.map, 'drag');
+        //window.google.maps.event.removeListener(window.map, 'position_changed');
         $('#ajapaik-photo-modal').modal('toggle');
         $('#ajapaik-mapview-map-info-panel').hide();
         $('#ajapaik-map-button-container').hide();
@@ -555,7 +572,7 @@
         }
 
         if (window.map !== undefined) {
-            window.google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);
+            window.mapIdleListener = window.google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);
         }
 
         $('#google-plus-login-button').click(function () {
