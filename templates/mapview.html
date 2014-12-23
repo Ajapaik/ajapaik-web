@@ -73,12 +73,13 @@
                 {% trans "hard" %}
             </span>
         </form>
-        <button class="btn btn-primary ajapaik-mapview-feedback-next-button pull-right">{% trans "Next photo" %}</button>
+        <button class="btn btn-primary ajapaik-mapview-feedback-next-button pull-right">{% trans "You're welcome!" %}</button>
     </div>
     <script src="{{ STATIC_URL }}js/markerclusterer-2.0.3.min.js"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     <script>
         var leaderboardFullURL = "{% url "project.home.views.rephoto_top50" %}",
+            difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},
             cityId = {{ city.id | safe }};
             {% if city.lat and city.lon %}

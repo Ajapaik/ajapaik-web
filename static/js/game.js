@@ -171,7 +171,7 @@
         var photoElement = $('#ajapaik-game-modal-photo'),
             guessPhotoElement = $('#ajapaik-game-guess-photo-container').find('img'),
             guessPhotoElementDynamic = $('#ajapaik-game-guess-photo-js-panel').find('img'),
-            fullscreenPhotoElement = $('#ajapaik-game-full-screen-image');
+            fullscreenPhotoElement = $('#ajapaik-full-screen-image');
         if (photoElement.hasClass('ajapaik-photo-flipped')) {
             photoElement.removeClass('ajapaik-photo-flipped');
         } else {

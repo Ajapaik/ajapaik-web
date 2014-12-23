@@ -56,7 +56,8 @@ var map,
     mapMousemoveListenerActive = false,
     mapClickListener,
     mapDragstartListener,
-    mapIdleListener,
+    mapGameIdleListener,
+    mapMapviewIdleListener,
     mapBoundsChangedListener,
     mapMousemoveListener,
     mapDragListener,
@@ -648,9 +649,15 @@ var map,
             heatmapPoints.push(newLatLng);
             latLngBounds.extend(newLatLng);
         }
+        if (heatmapData.tagsWithAzimuth) {
+            totalHeatmapGeotagsWithAzimuth = heatmapData.tagsWithAzimuth;
+        }
         window.mapInfoPanelGeotagCountElement.html(totalHeatmapGeotags);
         window.mapInfoPanelAzimuthCountElement.html(totalHeatmapGeotagsWithAzimuth);
         heatmapPoints = new window.google.maps.MVCArray(heatmapPoints);
+        if (heatmap) {
+            heatmap.setMap(null);
+        }
         heatmap = new window.google.maps.visualization.HeatmapLayer({
             data: heatmapPoints
         });
@@ -663,7 +670,7 @@ var map,
         }
         if (inputEstimatedLocation) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
-                position: new google.maps.LatLng(inputEstimatedLocation[0], inputEstimatedLocation[1]),
+                position: new window.google.maps.LatLng(inputEstimatedLocation[0], inputEstimatedLocation[1]),
                 map: window.map,
                 title: window.gettext("The peoples' guess"),
                 draggable: false,
@@ -672,8 +679,8 @@ var map,
         }
         if (heatmapEstimatedLocationMarker) {
             window.map.setCenter(heatmapEstimatedLocationMarker.getPosition());
-            window.marker.setPosition(heatmapEstimatedLocationMarker.getPosition());
-            window.map.setZoom(17);
+            //window.marker.setPosition(heatmapEstimatedLocationMarker.getPosition());
+            //window.map.setZoom(17);
         } else {
             window.map.fitBounds(latLngBounds);
         }

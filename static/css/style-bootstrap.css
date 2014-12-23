@@ -717,6 +717,12 @@ ul.errorlist {
     right: 15px;
 }
 
+#ajapaik-mapview-feedback-panel {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+
 #ajapaik-photo-modal-description {
     text-align: left;
 }
