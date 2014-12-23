@@ -420,7 +420,7 @@
             window.firstDragDone = false;
             window.setCursorToAuto();
             if (!disableNext) {
-                var data = {photo_id: photos[currentPhotoIdx].id};
+                var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game'};
                 $.post(window.saveLocationURL, data, function () {
                     currentPhotoIdx += 1;
                     nextPhoto();
@@ -442,7 +442,7 @@
             window.firstDragDone = false;
             window.setCursorToAuto();
             e.preventDefault();
-            var data = {photo_id: photos[currentPhotoIdx].id};
+            var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game'};
             $.post(window.saveLocationURL, data, function () {
                 currentPhotoIdx += 1;
                 nextPhoto();
@@ -472,7 +472,7 @@
                 window._gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
-                window.saveLocation(window.marker, photos[currentPhotoIdx].id, photos[currentPhotoIdx].flip, hintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint);
+                window.saveLocation(window.marker, photos[currentPhotoIdx].id, photos[currentPhotoIdx].flip, hintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {

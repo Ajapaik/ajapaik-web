@@ -552,9 +552,15 @@ class UserMapView(models.Model):
 class GeoTag(models.Model):
     MAP, EXIF, GPS = range(3)
     TYPE_CHOICES = (
-    (MAP, 'Map'),
-    (EXIF, 'EXIF'),
-    (GPS, 'GPS'),
+        (MAP, 'Map'),
+        (EXIF, 'EXIF'),
+        (GPS, 'GPS'),
+    )
+    GAME, MAP, GRID = range(3)
+    ORIGIN_CHOICES = (
+        (GAME, 'Game'),
+        (MAP, 'Map'),
+        (GRID, 'Grid'),
     )
 
     lat = models.FloatField()
@@ -563,6 +569,7 @@ class GeoTag(models.Model):
     azimuth_line_end_lat = models.FloatField(null=True, blank=True)
     azimuth_line_end_lon = models.FloatField(null=True, blank=True)
     zoom_level = models.IntegerField(null=True, blank=True)
+    origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
 
     user = models.ForeignKey('Profile', related_name='geotags')

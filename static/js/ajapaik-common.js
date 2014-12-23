@@ -354,13 +354,14 @@ var map,
             newEstimatedLocation: newEstimatedLocation});
     };
 
-    saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint) {
+    saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
         var lat = marker.getPosition().lat(),
             lon = marker.getPosition().lng(),
             data = {
                 photo_id: photoId,
                 hint_used: hintUsed,
-                zoom_level: map.zoom
+                zoom_level: map.zoom,
+                origin: origin
             };
         if (degreeAngle) {
             data.azimuth = degreeAngle;

@@ -107,9 +107,10 @@ def get_next_photos_to_geotag(user_id, nr_of_photos=5, city_id=None):
 #										vahem skipitud
 
 def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None,
-                 azimuth_line_end_point=None):
+                 azimuth_line_end_point=None, origin=GeoTag.GAME):
     p = Photo.objects.get(pk=photo_id)
 
+    print origin
     is_correct = None
     location_is_unclear = 0
     this_guess_score = 0

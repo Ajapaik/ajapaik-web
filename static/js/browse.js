@@ -229,7 +229,9 @@
 
     window.stopGuessLocation = function () {
         window.marker.setMap(null);
-        window.heatmap.setMap(null);
+        if (window.heatmap) {
+            window.heatmap.setMap(null);
+        }
         if (window.panoramaMarker) {
             window.panoramaMarker.setMap(null);
         }
@@ -564,7 +566,7 @@
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
                 // TODO: Flip data and stuff
-                window.saveLocation(window.marker, photoId, null, true, null, window.degreeAngle, window.azimuthLineEndPoint);
+                window.saveLocation(window.marker, photoId, null, true, null, window.degreeAngle, window.azimuthLineEndPoint, 'Map');
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Mapview', 'Save location and direction']);
                 } else {
