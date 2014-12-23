@@ -398,7 +398,7 @@
             lastSelectedPaneElement.find('.ajapaik-eye-open').hide();
             lastSelectedPaneElement.find('.ajapaik-rephoto-count').hide();
         }
-        if (lastSelectedMarkerId) {
+        if (lastSelectedMarkerId && lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
         $.post('/log_user_map_action/', {user_action: 'saw_marker', photo_id: markerId}, function () {});
@@ -451,17 +451,19 @@
     };
 
     setCorrectMarkerIcon = function (marker) {
-        if (marker.rephotoCount) {
-            if (marker.id == currentlySelectedMarkerId) {
-                marker.setIcon(blueMarkerIcon35);
+        if (marker) {
+            if (marker.rephotoCount) {
+                if (marker.id == currentlySelectedMarkerId) {
+                    marker.setIcon(blueMarkerIcon35);
+                } else {
+                    marker.setIcon(blueMarkerIcon20Transparent);
+                }
             } else {
-                marker.setIcon(blueMarkerIcon20Transparent);
-            }
-        } else {
-            if (marker.id == currentlySelectedMarkerId) {
-                marker.setIcon(blackMarkerIcon35);
-            } else {
-                marker.setIcon(blackMarkerIcon20Transparent);
+                if (marker.id == currentlySelectedMarkerId) {
+                    marker.setIcon(blackMarkerIcon35);
+                } else {
+                    marker.setIcon(blackMarkerIcon20Transparent);
+                }
             }
         }
     };
