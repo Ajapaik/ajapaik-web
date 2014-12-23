@@ -45,8 +45,10 @@
         openPhotoDrawer,
         toggleVisiblePaneElements,
         setCorrectMarkerIcon,
+        blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
         blackMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_transparent.png',
         blackMarkerIcon35 = '/static/images/ajapaik_marker_35px.png',
+        blueMarkerIcon20 = '/static/images/ajapaik_marker_20px_blue.png',
         blueMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_blue_transparent.png',
         blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png',
         ffWheelListener,
@@ -88,6 +90,7 @@
     window.startGuessLocation = function () {
         if (!guessLocationStarted) {
             guessLocationStarted = true;
+            $('.ajapaik-marker-center-lock-button').show();
             window.marker = new window.google.maps.Marker({
                 map: window.map,
                 draggable: false,
@@ -161,9 +164,9 @@
             $('#ajapaik-mapview-map-info-panel').show();
             $('#ajapaik-map-button-container').show();
             mc.clearMarkers();
-            for (i = 0; i < markers.length; i += 1) {
-                markers[i].setMap(null);
-            }
+//            for (i = 0; i < markers.length; i += 1) {
+//                markers[i].setMap(null);
+//            }
             $.ajax({
                 url: '/heatmap_data/',
                 data: {photo_id: photoId},
@@ -209,6 +212,7 @@
     window.stopGuessLocation = function () {
         window.marker.setMap(null);
         window.heatmap.setMap(null);
+        $('.ajapaik-marker-center-lock-button').hide();
         window.heatmapEstimatedLocationMarker.setMap(null);
         window.map.set('scrollwheel', true);
         window.google.maps.event.removeListener(nonFFWheelListener);
@@ -287,13 +291,16 @@
                 currentMapDataRequest.abort();
             }
             currentMapDataRequest = $.post('/map_data/', { sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom}, function (response) {
+                if (mc) {
+                    mc.clearMarkers();
+                }
                 markers = [];
                 for (j = 0; j < response.length; j += 1) {
                     p = response[j];
                     if (p[4]) {
-                        icon = blueMarkerIcon20Transparent;
+                        icon = blueMarkerIcon20;
                     } else {
-                        icon = blackMarkerIcon20Transparent;
+                        icon = blackMarkerIcon20;
                     }
                     var marker = new google.maps.Marker({
                         id: p[0],
@@ -301,7 +308,8 @@
                         rephotoCount: p[4],
                         position: new google.maps.LatLng(p[3], p[2]),
                         zIndex: 1,
-                        azimuth: p[7]
+                        azimuth: p[7],
+                        map: null
                     });
                     (function (id) {
                         google.maps.event.addListener(marker, 'click', function () {
@@ -312,10 +320,11 @@
                 }
                 mc = new MarkerClusterer(window.map, markers, {maxZoom: 15});
                 // TODO: Make neat, no extra request
+                var clusterMarkers = mc.getMarkers();
                 if (window.map.zoom > 15) {
                     markerIdsWithinBounds = [];
-                    for (i = 0; i < markers.length; i += 1) {
-                        markerIdsWithinBounds.push(markers[i].id);
+                    for (i = 0; i < clusterMarkers.length; i += 1) {
+                        markerIdsWithinBounds.push(clusterMarkers[i].id);
                     }
                     if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
                         if (currentPaneDataRequest) {
@@ -405,7 +414,32 @@
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         markerTemp = undefined;
-        for (i = 0; i < markers.length; i += 1) {
+        var clusterMarkers = mc.getMarkers();
+        for (i = 0; i < clusterMarkers.length; i += 1) {
+            if (clusterMarkers[i].id == markerId) {
+                targetPaneElement.find('img').attr('src', clusterMarkers[i].thumb);
+                targetPaneElement.find('.ajapaik-azimuth').show();
+                targetPaneElement.find('.ajapaik-eye-open').show();
+                targetPaneElement.find('.ajapaik-rephoto-count').show();
+                if (!targetPaneElement.find('.ajapaik-eye-open').hasClass('ajapaik-eye-open-light-bg')) {
+                    targetPaneElement.find('.ajapaik-eye-open').addClass('ajapaik-eye-open-light-bg');
+                }
+                clusterMarkers[i].setZIndex(maxIndex);
+                maxIndex += 1;
+                markerTemp = clusterMarkers[i];
+                if (clusterMarkers[i].azimuth) {
+                    window.dottedAzimuthLine.setPath([clusterMarkers[i].position, Math.calculateMapLineEndPoint(clusterMarkers[i].azimuth, clusterMarkers[i].position, lineLength)]);
+                    window.dottedAzimuthLine.setMap(window.map);
+                    window.dottedAzimuthLine.setVisible(true);
+                } else {
+                    window.dottedAzimuthLine.setVisible(false);
+                }
+                setCorrectMarkerIcon(clusterMarkers[i]);
+            } else {
+                setCorrectMarkerIcon(clusterMarkers[i]);
+            }
+        }
+/*        for (i = 0; i < markers.length; i += 1) {
             if (markers[i].id == markerId) {
                 targetPaneElement.find('img').attr('src', markers[i].thumb);
                 targetPaneElement.find('.ajapaik-azimuth').show();
@@ -428,7 +462,7 @@
             } else {
                 setCorrectMarkerIcon(markers[i]);
             }
-        }
+        }*/
         if (markerTemp) {
             lastHighlightedMarker = markerTemp;
             markerTemp = undefined;
@@ -472,6 +506,8 @@
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-mapview-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');
+
+        $('.ajapaik-marker-center-lock-button').hide();
 
         if (window.getQueryParameterByName('fromSelect') && window.cityId) {
             window.fromSelect = true;
