@@ -504,7 +504,7 @@ def geotag_add(request):
     is_correct, current_score, total_score, leaderboard_update, location_is_unclear, azimuth_false, azimuth_uncertain, heatmap_points, azimuth_tag_count, new_estimated_location = get_next_photos_to_geotag.submit_guess(
         request.get_user().profile, data.get('photo_id'), data.get('lon'), data.get('lat'),
         hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'),
-        azimuth_line_end_point=data.getlist('azimuth_line_end_point[]', origin=data.get('origin')))
+        azimuth_line_end_point=data.getlist('azimuth_line_end_point[]'), origin=data.get('origin'))
     flip = data.get("flip", None)
     if flip is not None:
         flip_feedback = FlipFeedback()
