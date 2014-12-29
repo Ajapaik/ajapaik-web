@@ -84,10 +84,6 @@ var map,
 (function ($) {
     'use strict';
 
-    $.ajaxSetup({
-        headers: { 'X-CSRFToken': window.docCookies.getItem('csrftoken') }
-    });
-
     if ($(window).height() >= 320) {
         $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
     }

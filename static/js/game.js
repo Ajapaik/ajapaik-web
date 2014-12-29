@@ -262,6 +262,10 @@
     $(document).ready(function () {
         window.updateLeaderboard();
 
+        $.ajaxSetup({
+            headers: { 'X-CSRFToken': window.docCookies.getItem('csrftoken') }
+        });
+
         window.saveLocationButton =  $('.ajapaik-save-location-button');
 
         if (!window.isMobile) {

@@ -535,6 +535,10 @@
     };
 
     $(document).ready(function () {
+        $.ajaxSetup({
+            headers: { 'X-CSRFToken': window.docCookies.getItem('csrftoken') }
+        });
+
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-mapview-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');

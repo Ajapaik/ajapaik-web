@@ -46,6 +46,10 @@
             lastMapHoverPhotoHide,
             now;
 
+        $.ajaxSetup({
+            headers: { 'X-CSRFToken': window.docCookies.getItem('csrftoken') }
+        });
+
         galleryDiv.justifiedGallery({
             rowHeight: 120,
             waitThumbnailsLoad: false,
