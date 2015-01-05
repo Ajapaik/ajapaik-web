@@ -110,7 +110,6 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
                  azimuth_line_end_point=None, origin=GeoTag.GAME):
     p = Photo.objects.get(pk=photo_id)
 
-    print origin
     is_correct = None
     location_is_unclear = 0
     this_guess_score = 0
@@ -137,7 +136,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
                             is_correct=is_correct,
                             score=this_guess_score,
                             trustworthiness=trustworthiness,
-                            zoom_level=zoom_level)
+                            zoom_level=zoom_level, origin=origin)
 
         if azimuth_line_end_point:
             new_geotag.azimuth_line_end_lat = azimuth_line_end_point[0]

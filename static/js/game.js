@@ -583,6 +583,8 @@
 
         $(document).on('click', '.ajapaik-game-map-show-description-overlay-button', function () {
             // Weird selector to fix display remaining 'none' despite show()
+            $(this).hide();
+            hintUsed = true;
             $('#ajapaik-game-guess-photo-js-panel-footer div').show();
         });
     });

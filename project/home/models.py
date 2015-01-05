@@ -485,6 +485,7 @@ class Photo(models.Model):
                             if current_distance < distance_in_meters(user_geotags_map[g.user_id].lon,
                                                                      user_geotags_map[g.user_id].lat, lon, lat):
                                 user_geotags_map[g.user_id] = g
+                    total_weight += g.trustworthiness
                 for v in user_geotags_map.values():
                     correct_guesses_weight += v.trustworthiness
                     lon_sum += v.lon * v.trustworthiness
@@ -497,7 +498,6 @@ class Photo(models.Model):
                             azimuth_sum += v.azimuth * v.trustworthiness
                             azimuth_correct_guesses_weight += v.trustworthiness
                         azimuth_total_guesses_weight += v.trustworthiness
-                    total_weight += v.trustworthiness
                 unique_correct_guesses_ratio = 0
                 if total_weight > 0:
                     unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)

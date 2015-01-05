@@ -477,7 +477,8 @@ a.fullscreen {
 }
 
 #ajapaik-game-modal-photo-container {
-
+    display: inline-block;
+    position: relative;
 }
 
 #ajapaik-game-modal-photo {
@@ -740,4 +741,22 @@ ul.errorlist {
 #ajapaik-game-guess-photo-container {
     display: inline-block;
     position: relative;
+}
+
+#ajapaik-mapview-guess-photo-container {
+    position: relative;
+    display: inline-block;
+}
+
+#ajapaik-modal-photo-container {
+    position: relative;
+    display: inline-block;
+}
+
+#ajapaik-modal-body {
+    text-align: center;
+}
+
+#ajapaik-game-modal-body {
+    text-align: center;
 }

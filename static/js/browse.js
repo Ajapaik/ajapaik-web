@@ -80,6 +80,12 @@
     };
 
     openPhotoDrawer = function (content) {
+//        fullScreenImage = $('#ajapaik-full-screen-image');
+//        fullScreenImage.unbind('load');
+//        fullScreenImage.prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
+//            window.prepareFullscreen(photos[currentPhotoIdx].large.size[0], photos[currentPhotoIdx].large.size[1]);
+//        });
+//        $('#ajapaik-full-screen-link').prop('rel', photos[currentPhotoIdx].id).prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
@@ -445,29 +451,31 @@
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         markerTemp = undefined;
-        var clusterMarkers = mc.getMarkers();
-        for (i = 0; i < clusterMarkers.length; i += 1) {
-            if (clusterMarkers[i].id == markerId) {
-                targetPaneElement.find('img').attr('src', clusterMarkers[i].thumb);
-                targetPaneElement.find('.ajapaik-azimuth').show();
-                targetPaneElement.find('.ajapaik-eye-open').show();
-                targetPaneElement.find('.ajapaik-rephoto-count').show();
-                if (!targetPaneElement.find('.ajapaik-eye-open').hasClass('ajapaik-eye-open-light-bg')) {
-                    targetPaneElement.find('.ajapaik-eye-open').addClass('ajapaik-eye-open-light-bg');
-                }
-                clusterMarkers[i].setZIndex(maxIndex);
-                maxIndex += 1;
-                markerTemp = clusterMarkers[i];
-                if (clusterMarkers[i].azimuth) {
-                    window.dottedAzimuthLine.setPath([clusterMarkers[i].position, Math.calculateMapLineEndPoint(clusterMarkers[i].azimuth, clusterMarkers[i].position, lineLength)]);
-                    window.dottedAzimuthLine.setMap(window.map);
-                    window.dottedAzimuthLine.setVisible(true);
+        if (mc) {
+            var clusterMarkers = mc.getMarkers();
+            for (i = 0; i < clusterMarkers.length; i += 1) {
+                if (clusterMarkers[i].id == markerId) {
+                    targetPaneElement.find('img').attr('src', clusterMarkers[i].thumb);
+                    targetPaneElement.find('.ajapaik-azimuth').show();
+                    targetPaneElement.find('.ajapaik-eye-open').show();
+                    targetPaneElement.find('.ajapaik-rephoto-count').show();
+                    if (!targetPaneElement.find('.ajapaik-eye-open').hasClass('ajapaik-eye-open-light-bg')) {
+                        targetPaneElement.find('.ajapaik-eye-open').addClass('ajapaik-eye-open-light-bg');
+                    }
+                    clusterMarkers[i].setZIndex(maxIndex);
+                    maxIndex += 1;
+                    markerTemp = clusterMarkers[i];
+                    if (clusterMarkers[i].azimuth) {
+                        window.dottedAzimuthLine.setPath([clusterMarkers[i].position, Math.calculateMapLineEndPoint(clusterMarkers[i].azimuth, clusterMarkers[i].position, lineLength)]);
+                        window.dottedAzimuthLine.setMap(window.map);
+                        window.dottedAzimuthLine.setVisible(true);
+                    } else {
+                        window.dottedAzimuthLine.setVisible(false);
+                    }
+                    setCorrectMarkerIcon(clusterMarkers[i]);
                 } else {
-                    window.dottedAzimuthLine.setVisible(false);
+                    setCorrectMarkerIcon(clusterMarkers[i]);
                 }
-                setCorrectMarkerIcon(clusterMarkers[i]);
-            } else {
-                setCorrectMarkerIcon(clusterMarkers[i]);
             }
         }
 /*        for (i = 0; i < markers.length; i += 1) {
@@ -501,18 +509,7 @@
     };
 
     window.flipPhoto = function () {
-        var photoFullscreenElement = $('#ajapaik-full-screen-image'),
-            guessPhotoElement = $('#ajapaik-mapview-guess-photo-container').find('img');
-        if (guessPhotoElement.hasClass('ajapaik-photo-flipped')) {
-            guessPhotoElement.removeClass('ajapaik-photo-flipped');
-        } else {
-            guessPhotoElement.addClass('ajapaik-photo-flipped');
-        }
-        if (photoFullscreenElement.hasClass('ajapaik-photo-flipped')) {
-            photoFullscreenElement.removeClass('ajapaik-photo-flipped');
-        } else {
-            photoFullscreenElement.addClass('ajapaik-photo-flipped');
-        }
+
     };
 
     setCorrectMarkerIcon = function (marker) {
@@ -670,6 +667,40 @@
         $(document).on('mouseout', '#ajapaik-photo-modal', function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
+            }
+        });
+
+        $(document).on('mouseover', '#ajapaik-mapview-guess-photo-container', function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').show();
+                $('.ajapaik-fullscreen-overlay-button').show();
+            }
+        });
+
+        $(document).on('mouseout', '#ajapaik-mapview-guess-photo-container', function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').hide();
+                $('.ajapaik-fullscreen-overlay-button').hide();
+            }
+        });
+
+        $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
+            var targets = $('.ajapaik-flip-photo-overlay-button'),
+                k;
+            for (k = 0; k < targets.length; k += 1) {
+                if ($(targets[k]).hasClass('active')) {
+                    $(targets[k]).removeClass('active');
+                } else {
+                    $(targets[k]).addClass('active');
+                }
+            }
+            window.flipPhoto();
+        });
+
+        $(document).on('click', '.ajapaik-fullscreen-overlay-button', function () {
+            if (window.BigScreen.enabled) {
+                window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+                window._gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
             }
         });
 
