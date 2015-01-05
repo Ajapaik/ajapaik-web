@@ -15,7 +15,10 @@
             ffWheelListener,
             guessPhotoPanelContent,
             currentPhotoWidth,
-            guessPhotoPanel;
+            guessPhotoPanel,
+            guessResponseReceived,
+            feedbackPanel,
+            photoPanel;
 
         window.saveLocationButton = $('.ajapaik-save-location-button');
         window.realMapElement = $('#ajapaik-map-canvas')[0];
@@ -42,12 +45,56 @@
             }
         });
 
-        realMapElement = $("#ajapaik-map-canvas")[0];
-        realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
-        realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
+        window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+        window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
 
         window.handleGuessResponse = function (guessResponse) {
-            window.updateLeaderboard();
+            window.centerMarker.hide();
+            window.marker.setVisible(true);
+            window.google.maps.event.removeListener(window.mapMousemoveListener);
+            window.mapMousemoveListenerActive = false;
+            window.google.maps.event.removeListener(window.mapClickListener);
+            window.mapClickListenerActive = false;
+            window.google.maps.event.removeListener(window.mapDragstartListener);
+            window.mapDragstartListenerActive = false;
+            window.google.maps.event.removeListener(window.mapGameIdleListener);
+            window.mapIdleListenerActive = false;
+            window.google.maps.event.removeListener(window.mapMarkerDragListener);
+            window.google.maps.event.removeListener(window.mapMarkerDragendListener);
+            window.google.maps.event.removeListener(window.mapDragendListener);
+            window.google.maps.event.removeListener(window.windowResizeListener);
+            guessResponseReceived = true;
+            // TODO: What to do about rephoto and game leaderboard mixing up?
+            //window.updateLeaderboard();
+            noticeDiv = $('#ajapaik-grid-feedback-js-panel-content');
+            if (guessResponse.hideFeedback) {
+                noticeDiv.find('#ajapaik-grid-guess-feedback-difficulty-prompt').hide();
+                noticeDiv.find('#ajapaik-grid-guess-feedback-difficulty-form').hide();
+                noticeDiv.find('#ajapaik-grid-guess-feedback-points-gained').hide();
+            }
+            noticeDiv.find('#ajapaik-grid-guess-feedback-message').html(guessResponse.feedbackMessage);
+            noticeDiv.find('#ajapaik-grid-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
+            feedbackPanel = $('#ajapaik-map-container').jsPanel({
+                content: noticeDiv.html(),
+                controls: {
+                    buttons: false
+                },
+                title: false,
+                header: false,
+                size: {
+                    width: function () {
+                        return $(window).width() / 3;
+                    },
+                    height: 'auto'
+                },
+                draggable: false,
+                resizable: false,
+                id: 'ajapaik-grid-feedback-panel'
+            }).css('top', 'auto').css('left', 'auto');
+            if (guessResponse.heatmapPoints && guessResponse.newEstimatedLocation) {
+                window.mapDisplayHeatmapWithEstimatedLocation(guessResponse);
+            }
+            /*window.updateLeaderboard();
             // TODO: How broken are GA events?
             //if (resp['is_correct'] == true) {
             //    _gaq.push(['_trackEvent', 'Grid', 'Correct coordinates']);
@@ -70,7 +117,7 @@
             google.maps.event.clearListeners(window.map, 'dragstart');
             $('#ajapaik-grid-map-geotag-count').html(guessResponse.heatmapPoints.length);
             $('#ajapaik-grid-map-geotag-with-azimuth-count').html(guessResponse.tagsWithAzimuth);
-            $('.ajapaik-save-location-button').hide();
+            window.saveLocationButton.hide();
             var playerLatlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
             var markerImage = {
                 url: 'http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png',
@@ -87,71 +134,14 @@
             });
             if (guessResponse.newEstimatedLocation) {
                 placeEstimatedLocationMarker(new google.maps.LatLng(guessResponse.newEstimatedLocation[0], guessResponse.newEstimatedLocation[1]));
-            }
-        };
-
-        window.showHeatmap = function (photoId) {
-            guessLocationStarted = false;
-            $('.ajapaik-grid-guess-location-button').show();
-            $.ajax({
-                cache: false,
-                url: '/heatmap_data/',
-                data: {photo_id: photoId},
-                success: function (result) {
-                    var points = [],
-                        heatmap,
-                        i,
-                        newLatLng,
-                        latLngBounds = new google.maps.LatLngBounds(),
-                        guessPhoto,
-                        guessPhotoBack,
-                        mainPhoto,
-                        totalGeotags = result.heatmap_points.length,
-                        geotagsWithAzimuth = 0;
-                    $('#ajapaik-map-container').show();
-                    for (i = 0; i < totalGeotags; i += 1) {
-                        newLatLng = new google.maps.LatLng(result.heatmap_points[i][0], result.heatmap_points[i][1]);
-                        points.push(newLatLng);
-                        latLngBounds.extend(newLatLng);
-                        if (result.heatmap_points[i][2]) {
-                            geotagsWithAzimuth += 1;
-                        }
-                    }
-                    $('#ajapaik-grid-map-geotag-count').html(totalGeotags);
-                    $('#ajapaik-grid-map-geotag-with-azimuth-count').html(geotagsWithAzimuth);
-                    points = new google.maps.MVCArray(points);
-                    heatmap = new google.maps.visualization.HeatmapLayer({
-                        data: points
-                    });
-                    heatmap.setOptions({radius: 50, dissipating: true});
-                    mapOptions.streetPanorama = new google.maps.StreetViewPanorama(document.getElementById('ajapaik-map-canvas'), streetViewOptions);
-                    window.map = new google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOptions);
-                    if (result.estimated_location) {
-                        placeEstimatedLocationMarker(new google.maps.LatLng(result.estimated_location[0], result.estimated_location[1]));
-                    }
-                    if (estimatedLocationMarker) {
-                        window.map.setCenter(estimatedLocationMarker.getPosition());
-                        window.map.setZoom(17);
-                    } else {
-                        window.map.fitBounds(latLngBounds);
-                    }
-                    heatmap.setMap(window.map);
-                    guessPhoto = $('#ajapaik-grid-guess-photo');
-                    mainPhoto = $('#ajapaik-block-photoview-main-photo');
-                    guessPhoto.attr('src', mainPhoto.attr('src'));
-                    guessPhoto.show();
-                    guessPhotoBack = $('#ajapaik-grid-guess-photo-back');
-                    guessPhotoBack.attr('src', mainPhoto.attr('src'));
-                    guessPhotoBack.show();
-                    $('#photo-drawer').hide();
-                }
-            });
+            }*/
         };
 
         window.startGuessLocation = function () {
             if (!guessLocationStarted) {
                 guessLocationStarted = true;
                 $('#ajapaik-map-container').show();
+                $('#ajapaik-grid-map-info-panel').show();
                 $('.ajapaik-marker-center-lock-button').show();
                 window.marker = new window.google.maps.Marker({
                     map: window.map,
@@ -203,6 +193,7 @@
                     $('.ajapaik-flip-photo-overlay-button').hide();
                     $('.ajapaik-fullscreen-overlay-button').hide();
                 }
+                window.google.maps.event.trigger(window.map, 'resize');
                 currentPhotoWidth = $('#ajapaik-grid-guess-photo-container').find('img').width();
                 guessPhotoPanel = $('#ajapaik-map-container').jsPanel({
                     content: guessPhotoPanelContent.html(),
@@ -221,7 +212,6 @@
                     },
                     id: 'ajapaik-game-guess-photo-js-panel'
                 });
-                window.getMap(null, null, true);
                 $(guessPhotoPanel).css('max-width', currentPhotoWidth + 'px');
                 //photoPanel.close();
                 $('#ajapaik-mapview-map-info-panel').show();
@@ -236,6 +226,50 @@
                     }
                 });
             }
+        };
+
+        window.stopGuessLocation = function () {
+            $('#ajapaik-map-container').hide();
+            $('#ajapaik-grid-guess-photo-js-panel-content').hide();
+            window.marker.setMap(null);
+            if (window.heatmap) {
+                window.heatmap.setMap(null);
+            }
+            if (window.panoramaMarker) {
+                window.panoramaMarker.setMap(null);
+            }
+            guessPhotoPanel.close();
+            if (feedbackPanel) {
+                feedbackPanel.close();
+            }
+            photoPanel = undefined;
+            $('.ajapaik-marker-center-lock-button').hide();
+            window.heatmapEstimatedLocationMarker.setMap(null);
+            window.map.set('scrollwheel', true);
+            window.realMapElement.removeEventListener(nonFFWheelListener);
+            window.realMapElement.removeEventListener(ffWheelListener);
+            if (!window.centerMarker) {
+                window.centerMarker = $('.center-marker');
+            }
+            window.centerMarker.hide();
+            window.google.maps.event.removeListener(window.mapMousemoveListener);
+            window.mapMousemoveListenerActive = false;
+            window.google.maps.event.removeListener(window.mapClickListener);
+            window.mapClickListenerActive = false;
+            window.google.maps.event.removeListener(window.mapDragstartListener);
+            window.mapDragstartListenerActive = false;
+            window.google.maps.event.removeListener(window.mapGameIdleListener);
+            window.mapIdleListenerActive = false;
+            window.google.maps.event.removeListener(window.mapMarkerDragListener);
+            window.google.maps.event.removeListener(window.mapMarkerDragendListener);
+            window.google.maps.event.removeListener(window.mapDragendListener);
+            window.google.maps.event.removeListener(window.windowResizeListener);
+            //$('#ajapaik-photo-modal').modal('toggle');
+            $('#ajapaik-grid-map-info-panel').hide();
+            $('#ajapaik-map-button-container').hide();
+            window.setCursorToAuto();
+            window.dottedAzimuthLine.setMap(null);
+            guessLocationStarted = false;
         };
 
         $('.ajapaik-grid-close-map-button').click(function () {
@@ -377,25 +411,42 @@
             }
         });
 
-        $('.ajapaik-save-location-button').on('click', function (e) {
-            firstDragDone = false;
-            e.preventDefault();
+        window.saveLocationButton.on('click', function () {
+            window.firstDragDone = false;
+            window.setCursorToAuto();
             if (disableSave) {
-                _gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
-                alert(gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
+                window._gaq.push(['_trackEvent', 'Grid', 'Forgot to move marker']);
+                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
-                // TODO: Flip status
-                window.saveLocation(marker, currentlyOpenPhotoId, false, true, false, degreeAngle, azimuthLineEndPoint);
-                if (saveDirection) {
-                    _gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
+                // TODO: Flip data and stuff
+                window.saveLocation(window.marker, photoId, null, true, null, window.degreeAngle, window.azimuthLineEndPoint, 'Grid');
+                if (window.saveDirection) {
+                    window._gaq.push(['_trackEvent', 'Grid', 'Save location and direction']);
                 } else {
-                    _gaq.push(['_trackEvent', 'Game', 'Save location only']);
+                    window._gaq.push(['_trackEvent', 'Grid', 'Save location only']);
                 }
             }
         });
 
-        $('.ajapaik-grid-close-guess-notice-button').on('click', function () {
-            noticeDiv.hide();
+        $(document).on('click', '.ajapaik-grid-feedback-next-button', function () {
+            var data = {
+                level: $('input[name=difficulty]:checked', 'ajapaik-grid-guess-feedback-difficulty-form').val(),
+                photo_id: photoId
+            };
+            $.post(window.difficultyFeedbackURL, data, function () {
+                $.noop();
+            });
+            window.stopGuessLocation();
+            //$('#ajapaik-mapview-photo-modal').modal();
+            //$('#ajapaik-map-button-container').hide();
+            //$('#ajapaik-game-guess-photo-js-panel').hide();
+            //if (feedbackPanel) {
+            //    feedbackPanel.close();
+            //}
+            //if (guessPhotoPanel) {
+            //    guessPhotoPanel.close();
+            //}
+            //window.map.getStreetView().setVisible(false);
         });
     });
 }(jQuery));

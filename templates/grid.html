@@ -3,9 +3,10 @@
 
 {% block header %}
     {% include "_header_city_selection.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jsPanel.css"/>
 {% endblock %}
 {% block layout %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery.min.css" />
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
     <div class="container" id="ajapaik-grid-container">
         <div class="row">
@@ -48,13 +49,35 @@
         </div>
         <div id="ajapaik-map-canvas"></div>
     </div>
-    <div id="ajapaik-grid-guess-notice-container">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">{% trans "Thank you!" %}</div>
-                <div class="row"><button class="btn btn-primary ajapaik-grid-close-guess-notice-button">{% trans "You're welcome" %}</button></div>
-            </div>
+    <div id="ajapaik-grid-guess-photo-js-panel-content">
+        <div id="ajapaik-grid-guess-photo-container">
+            <img class="img-responsive" src="" />
+            <button class="btn btn-primary ajapaik-flip-photo-overlay-button"></button>
+            <button class="btn btn-default ajapaik-fullscreen-overlay-button"></button>
         </div>
+        <div id="ajapaik-grid-guess-photo-js-panel-footer">
+            <div id="ajapaik-grid-guess-photo-description" class="row ajapaik-photo-modal-row pull-left"></div>
+        </div>
+    </div>
+    <div id="ajapaik-grid-feedback-js-panel-content" style="display: none;">
+        <h2>{% trans "Thank you!" %}</h2>
+        <p id="ajapaik-grid-guess-feedback-message"></p>
+        <p id="ajapaik-grid-guess-feedback-points-gained"></p>
+        <p id="ajapaik-grid-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
+            {% trans "In your opinion to geotag this photo is" %}
+        </p>
+        <form id="ajapaik-grid-guess-feedback-difficulty-form">
+            <span style="margin-right: 10px;">
+                {% trans "easy" %}
+            </span>
+            <input type="radio" name="difficulty" value="1">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
+            <span style="margin-left: 10px;">
+                {% trans "hard" %}
+            </span>
+        </form>
+        <button class="btn btn-primary ajapaik-grid-feedback-next-button pull-right">{% trans "You're welcome!" %}</button>
     </div>
     <img src="" class="img-responsive" id="ajapaik-grid-guess-photo" />
     <script src="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jquery.jspanel.bs-1.4.0.min.js"></script>
@@ -69,6 +92,7 @@
         window.totalPhotoCount = {{ photo_count | safe }};
         var leaderboardFullURL = "{% url "project.home.views.rephoto_top50" %}",
             userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},
+            difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             initialize = function () {
                 if (window.getQueryParameterByName("fromSelect")) {
                     window.fromSelect = true;
