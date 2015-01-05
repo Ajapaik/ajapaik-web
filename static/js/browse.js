@@ -164,9 +164,6 @@
             $('#ajapaik-mapview-map-info-panel').show();
             $('#ajapaik-map-button-container').show();
             mc.clearMarkers();
-//            for (i = 0; i < markers.length; i += 1) {
-//                markers[i].setMap(null);
-//            }
             $.ajax({
                 url: '/heatmap_data/',
                 data: {photo_id: photoId},
@@ -352,7 +349,7 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                mc = new MarkerClusterer(window.map, markers, {maxZoom: 15});
+                mc = new MarkerClusterer(window.map, markers, {maxZoom: 15, minimumClusterSize: 5});
                 // TODO: Make neat, no extra request
                 var clusterMarkers = mc.getMarkers();
                 if (window.map.zoom > 15) {
