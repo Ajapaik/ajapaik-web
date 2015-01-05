@@ -51,8 +51,8 @@
         blueMarkerIcon20 = '/static/images/ajapaik_marker_20px_blue.png',
         blueMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_blue_transparent.png',
         blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png',
-        //ffWheelListener,
-        //nonFFWheelListener,
+        ffWheelListener,
+        nonFFWheelListener,
         guessPhotoPanel,
         guessPhotoPanelContent,
         currentPhotoWidth,
@@ -99,8 +99,8 @@
                 icon: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg'
             });
             window.map.set('scrollwheel', false);
-            //nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
-            //ffWheelListener = window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
+            nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+            ffWheelListener = window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
             window.mapDragendListener = window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
             window.windowResizeListener = window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
             $('<div/>').addClass('center-marker').appendTo(window.map.getDiv()).click(function () {
@@ -240,8 +240,8 @@
         $('.ajapaik-marker-center-lock-button').hide();
         window.heatmapEstimatedLocationMarker.setMap(null);
         window.map.set('scrollwheel', true);
-        //window.realMapElement.removeEventListener(nonFFWheelListener);
-        //window.realMapElement.removeEventListener(ffWheelListener);
+        window.realMapElement.removeEventListener(nonFFWheelListener);
+        window.realMapElement.removeEventListener(ffWheelListener);
         if (!window.centerMarker) {
             window.centerMarker = $('.center-marker');
         }
