@@ -31,6 +31,14 @@
         </div>
     </div>
     <div id="ajapaik-map-container" style="display: none;">
+        <div id="ajapaik-map-button-container">
+            <div class="row">
+                <button class="btn btn-default ajapaik-save-location-button pull-right" disabled="disabled">{% trans "Save location only" %}</button>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary ajapaik-grid-skip-photo-button pull-right">{% trans "Cancel" %}</button>
+            </div>
+        </div>
         <div class="panel panel-default" id="ajapaik-grid-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-grid-map-geotag-count"></span>
@@ -38,9 +46,6 @@
                 {% trans "With azimuth" %}: <span id="ajapaik-grid-map-geotag-with-azimuth-count"></span>
             </div>
         </div>
-        <button class="btn btn-primary ajapaik-save-location-button">{% trans "Save location only" %}</button>
-        <button class="btn btn-primary ajapaik-grid-specify-location-button">{% trans "Specify location" %}</button>
-        <button class="btn btn-primary ajapaik-grid-close-map-button">{% trans "Close map" %}</button>
         <div id="ajapaik-map-canvas"></div>
     </div>
     <div id="ajapaik-grid-guess-notice-container">
@@ -52,6 +57,7 @@
         </div>
     </div>
     <img src="" class="img-responsive" id="ajapaik-grid-guess-photo" />
+    <script src="{{ STATIC_URL }}libs/jsPanel-bootstrap-1.4.0/source/jquery.jspanel.bs-1.4.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.4.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/lazysizes-0.5.1.min.js"></script>
     <script>
