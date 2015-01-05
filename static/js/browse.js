@@ -101,7 +101,7 @@
             window.map.set('scrollwheel', false);
             nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
             ffWheelListener = window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
-            window.mapDragendListenerFunction = window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
+            window.mapDragendListener = window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
             window.windowResizeListener = window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
             $('<div/>').addClass('center-marker').appendTo(window.map.getDiv()).click(function () {
                 var that = $(this);
@@ -192,7 +192,7 @@
         window.mapIdleListenerActive = false;
         window.google.maps.event.removeListener(window.mapMarkerDragListener);
         window.google.maps.event.removeListener(window.mapMarkerDragendListener);
-        window.google.maps.event.removeListener(window.mapDragendListenerFunction);
+        window.google.maps.event.removeListener(window.mapDragendListener);
         window.google.maps.event.removeListener(window.windowResizeListener);
         guessResponseReceived = true;
         // TODO: What to do about rephoto and game leaderboard mixing up?
@@ -236,7 +236,9 @@
             window.panoramaMarker.setMap(null);
         }
         guessPhotoPanel.close();
-        feedbackPanel.close();
+        if (feedbackPanel) {
+            feedbackPanel.close();
+        }
         photoPanel = undefined;
         $('.ajapaik-marker-center-lock-button').hide();
         window.heatmapEstimatedLocationMarker.setMap(null);
@@ -257,7 +259,7 @@
         window.mapIdleListenerActive = false;
         window.google.maps.event.removeListener(window.mapMarkerDragListener);
         window.google.maps.event.removeListener(window.mapMarkerDragendListener);
-        window.google.maps.event.removeListener(window.mapDragendListenerFunction);
+        window.google.maps.event.removeListener(window.mapDragendListener);
         window.google.maps.event.removeListener(window.windowResizeListener);
         //$('#ajapaik-photo-modal').modal('toggle');
         $('#ajapaik-mapview-map-info-panel').hide();

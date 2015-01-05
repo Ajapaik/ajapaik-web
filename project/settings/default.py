@@ -1,6 +1,8 @@
 import os
 import sys
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 gettext = lambda s: s
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
