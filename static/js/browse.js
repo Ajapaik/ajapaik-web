@@ -413,6 +413,10 @@
     };
 
     window.highlightSelected = function (markerId, fromMarker) {
+        if (currentlySelectedMarkerId == markerId && fromMarker) {
+            window.loadPhoto(markerId);
+            return true;
+        }
         currentlySelectedMarkerId = markerId;
         if (cityId) {
             var historyReplacementString = '/kaart/?city=' + cityId + '&lat=' + window.map.getCenter().lat() + '&lng=' + window.map.getCenter().lng();
