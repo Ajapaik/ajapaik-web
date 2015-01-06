@@ -80,6 +80,7 @@ var map,
     realMapElement,
     photoModalFullscreenImageUrl,
     photoModalFullscreenImageSize,
+    photoModalRephotoArray,
     heatmap,
     heatmapEstimatedLocationMarker;
 

@@ -103,7 +103,6 @@
             window.marker = new window.google.maps.Marker({
                 map: window.map,
                 draggable: false,
-                position: window.map.getCenter(),
                 visible: false,
                 icon: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg'
             });
@@ -208,23 +207,25 @@
         }
         noticeDiv.find('#ajapaik-mapview-guess-feedback-message').html(guessResponse.feedbackMessage);
         noticeDiv.find('#ajapaik-mapview-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
-        feedbackPanel = $('#ajapaik-map-container').jsPanel({
-            content: noticeDiv.html(),
-            controls: {
-                buttons: false
-            },
-            title: false,
-            header: false,
-            size: {
-                width: function () {
-                    return $(window).width() / 3;
+        setTimeout(function () {
+            feedbackPanel = $('#ajapaik-map-container').jsPanel({
+                content: noticeDiv.html(),
+                controls: {
+                    buttons: false
                 },
-                height: 'auto'
-            },
-            draggable: false,
-            resizable: false,
-            id: 'ajapaik-mapview-feedback-panel'
-        }).css('top', 'auto').css('left', 'auto');
+                title: false,
+                header: false,
+                size: {
+                    width: function () {
+                        return $(window).width() / 3;
+                    },
+                    height: 'auto'
+                },
+                draggable: false,
+                resizable: false,
+                id: 'ajapaik-mapview-feedback-panel'
+            }).css('top', 'auto').css('left', 'auto');
+        }, 0);
         if (guessResponse.heatmapPoints && guessResponse.newEstimatedLocation) {
             window.mapDisplayHeatmapWithEstimatedLocation(guessResponse);
         }

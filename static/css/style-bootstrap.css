@@ -464,6 +464,7 @@ a.fullscreen {
 
 .modal-body {
     overflow-y: auto;
+    max-height: 800px;
 }
 
 .modal-footer {
@@ -620,78 +621,75 @@ ul.errorlist {
 
 .ajapaik-game-map-show-description-overlay-button {
     background: #fff url(../images/material-design-icons/ic_description_24px.svg) no-repeat center !important;
-    width: 48px;
-    height: 48px;
-    position: absolute;
     bottom: 0;
     left: 0;
 }
 
-.ajapaik-game-map-show-description-overlay-button:hover {
+.ajapaik-overlay-button {
     background-color: #fff !important;
-}
-
-.ajapaik-game-map-show-description-overlay-button:active {
-    background-image: url(../images/material-design-icons/ic_description_24px.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-game-map-show-description-overlay-button.active {
-    background-image: url(../images/material-design-icons/ic_description_24px.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-game-map-show-description-overlay-button.active:focus {
-    outline: none;
-}
-
-.ajapaik-game-map-show-description-overlay-button:focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
-.ajapaik-game-map-show-description-overlay-button.focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
-.ajapaik-fullscreen-overlay-button {
-    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
     width: 48px;
     height: 48px;
     position: absolute;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button {
+    background-color: #fff !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    bottom: 0;
+    right: 0;
+}
+
+.ajapaik-close-rephoto-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_close_24px.svg) no-repeat center !important;
+    top: 0;
+    right: 0;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-1 {
+    background-image: url(../images/material-design-icons/ic_filter_1_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-2 {
+    background-image: url(../images/material-design-icons/ic_filter_2_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-3 {
+    background-image: url(../images/material-design-icons/ic_filter_3_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-4 {
+    background-image: url(../images/material-design-icons/ic_filter_4_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-5 {
+    background-image: url(../images/material-design-icons/ic_filter_5_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-6 {
+    background-image: url(../images/material-design-icons/ic_filter_6_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-7 {
+    background-image: url(../images/material-design-icons/ic_filter_7_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-8 {
+    background-image: url(../images/material-design-icons/ic_filter_8_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-9 {
+    background-image: url(../images/material-design-icons/ic_filter_9_24px.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-9-plus {
+    background-image: url(../images/material-design-icons/ic_filter_9_plus_24px.svg) !important;
+}
+
+.ajapaik-fullscreen-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_settings_overscan_24px.svg) no-repeat center !important;
     right: 0;
     bottom: 0;
-}
-
-.ajapaik-fullscreen-overlay-button:hover {
-    background-color: #fff !important;
-}
-
-.ajapaik-fullscreen-overlay-button:active {
-    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-fullscreen-overlay-button.active {
-    background-image: url(../images/material-design-icons/ic_settings_overscan_24px.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-fullscreen-overlay-button.active:focus {
-    outline: none;
-}
-
-.ajapaik-fullscreen-overlay-button:focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
-.ajapaik-fullscreen-overlay-button.focus {
-    outline: none;
-    background-color: #fff !important;
 }
 
 #ajapaik-modal-photo {
@@ -753,10 +751,19 @@ ul.errorlist {
     display: inline-block;
 }
 
+#ajapaik-modal-rephoto-container {
+    position: relative;
+    display: inline-block;
+}
+
 #ajapaik-modal-body {
     text-align: center;
 }
 
 #ajapaik-game-modal-body {
     text-align: center;
+}
+
+.ajapaik-photo-modal-rephoto-thumb {
+    margin-bottom: 2%;
 }

@@ -162,9 +162,11 @@ p {
 
 		</div>
 
+        {% if grid_view_enabled %}
         <div class="buttons">
             <a href="{% url 'project.home.views.grid' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "View gallery" %}</a>
         </div>
+        {% endif %}
         
         <script type="text/javascript">
 			function submitWithCity(href) {

@@ -257,6 +257,7 @@ def frontpage(request):
         'city_select_form': city_select_form,
         'example': example,
         'example_source': example_source,
+        'grid_view-enabled': settings.GRID_VIEW_ENABLED
     }))
 
 
@@ -295,18 +296,15 @@ def photo_url(request, photo_id):
     return response
 
 
-def photo_thumb(request, photo_id, thumb_size=None):
-    cache_key = "ajapaik_pane_photo_thumb_response_%s" % photo_id
+def photo_thumb(request, photo_id, thumb_size=150):
+    cache_key = "ajapaik_pane_photo_thumb_response_%s_%s" % (photo_id, thumb_size)
     cached_response = cache.get(cache_key)
     if cached_response:
         return cached_response
     p = get_object_or_404(Photo, id=photo_id)
     image_to_use = p.image_unscaled or p.image
-    if image_to_use._get_width() >= image_to_use._get_height():
-        thumb_str = "%d"
-    else:
-        thumb_str = "x%d"
-    im = get_thumbnail(image_to_use, thumb_str % 150, crop="center")
+    thumb_str = str(thumb_size) + 'x' + str(thumb_size)
+    im = get_thumbnail(image_to_use, thumb_str, upscale=False)
     content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')

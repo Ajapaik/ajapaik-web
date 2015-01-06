@@ -14,6 +14,7 @@ DEFER_JAVASCRIPT = False
 
 DEFAULT_CITY_ID = 1
 
+GRID_VIEW_ENABLED = False
 GRID_VIEW_PAGE_SIZE = 25
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))

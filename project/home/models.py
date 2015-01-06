@@ -123,7 +123,7 @@ class PathAndRename(object):
         return os.path.join(self.path, filename)
 
 
-path_and_rename = PathAndRename("/uploads")
+path_and_rename = PathAndRename("uploads")
 
 
 class Photo(models.Model):
@@ -131,6 +131,7 @@ class Photo(models.Model):
 
     id = models.AutoField(primary_key=True)
     #Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
+    #image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     flip = models.NullBooleanField()
