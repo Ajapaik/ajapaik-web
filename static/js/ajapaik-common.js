@@ -133,7 +133,7 @@ var map,
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
         lockButton = document.createElement('button');
-        $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
+        $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button').css('display', 'none');
 
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
 

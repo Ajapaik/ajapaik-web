@@ -544,8 +544,6 @@
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-mapview-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');
 
-        $('.ajapaik-marker-center-lock-button').hide();
-
         if (window.getQueryParameterByName('fromSelect') && window.cityId) {
             window.fromSelect = true;
             window.History.replaceState(null, null, '/kaart/?city=' + window.cityId);
