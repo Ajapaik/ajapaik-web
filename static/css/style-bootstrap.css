@@ -464,7 +464,6 @@ a.fullscreen {
 
 .modal-body {
     overflow-y: auto;
-    max-height: 800px;
 }
 
 .modal-footer {
@@ -765,5 +764,5 @@ ul.errorlist {
 }
 
 .ajapaik-photo-modal-rephoto-thumb {
-    margin-bottom: 2%;
+    margin-bottom: 3%;
 }
