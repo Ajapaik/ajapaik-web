@@ -52,16 +52,15 @@
         {% else %}
             window.currentPhotoDescription = false;
         {% endif %}
+        window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
         window.photoModalFullscreenImageSize = {{ fullscreen.size }};
         _gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
         $(".ajapaik-flip-photo-overlay-button").click(function () {
             var target = $("#ajapaik-modal-photo"),
                 fullScreenImage = $('#ajapaik-full-screen-image');
-            console.log($(this));
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active');
             } else {
-                console.log('add active');
                 $(this).addClass('active');
             }
             if (target.hasClass("ajapaik-photo-flipped")) {

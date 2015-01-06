@@ -78,6 +78,8 @@ var map,
     windowResizeListenerFunction,
     windowResizeListener,
     realMapElement,
+    photoModalFullscreenImageUrl,
+    photoModalFullscreenImageSize,
     heatmap,
     heatmapEstimatedLocationMarker;
 
@@ -232,8 +234,11 @@ var map,
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
 
-    prepareFullscreen = function (width, height) {
-        var that = $('#ajapaik-full-screen-image'),
+    prepareFullscreen = function (width, height, customSelector) {
+        if (!customSelector) {
+            customSelector = '#ajapaik-full-screen-image';
+        }
+        var that = $(customSelector),
             aspectRatio = width / height,
             newWidth = parseInt(screen.height * aspectRatio, 10),
             newHeight = parseInt(screen.width / aspectRatio, 10);
@@ -357,7 +362,8 @@ var map,
                 photo_id: photoId,
                 hint_used: hintUsed,
                 zoom_level: map.zoom,
-                origin: origin
+                origin: origin,
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
         if (degreeAngle) {
             data.azimuth = degreeAngle;
@@ -681,6 +687,7 @@ var map,
         } else {
             window.map.fitBounds(latLngBounds);
         }
+        marker.setPosition(map.getCenter());
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {

@@ -262,10 +262,6 @@
     $(document).ready(function () {
         window.updateLeaderboard();
 
-        $.ajaxSetup({
-            headers: { 'X-CSRFToken': window.docCookies.getItem('csrftoken') }
-        });
-
         window.saveLocationButton =  $('.ajapaik-save-location-button');
 
         if (!window.isMobile) {
@@ -424,7 +420,7 @@
             window.firstDragDone = false;
             window.setCursorToAuto();
             if (!disableNext) {
-                var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game'};
+                var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
                 $.post(window.saveLocationURL, data, function () {
                     currentPhotoIdx += 1;
                     nextPhoto();
@@ -446,7 +442,7 @@
             window.firstDragDone = false;
             window.setCursorToAuto();
             e.preventDefault();
-            var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game'};
+            var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
             $.post(window.saveLocationURL, data, function () {
                 currentPhotoIdx += 1;
                 nextPhoto();

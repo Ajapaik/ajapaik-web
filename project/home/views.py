@@ -14,6 +14,7 @@ from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Polygon
+from django.views.decorators.csrf import ensure_csrf_cookie
 import hashlib
 
 from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, \
@@ -220,7 +221,7 @@ def logout(request):
     logout(request)
     return redirect(request.META['HTTP_REFERER'])
 
-
+@ensure_csrf_cookie
 def game(request):
     ctx = {}
     city_selection_form = CitySelectionForm(request.GET)
@@ -448,7 +449,7 @@ def heatmap(request):
 
     }))
 
-
+@ensure_csrf_cookie
 def mapview(request):
     city_selection_form = CitySelectionForm(request.GET)
     city = None
@@ -757,7 +758,7 @@ def pane_contents(request):
 
     return render_to_response('pane_contents.html', RequestContext(request, {"data": data}))
 
-
+@ensure_csrf_cookie
 def grid(request):
     city_selection_form = CitySelectionForm(request.GET)
 

@@ -25,10 +25,6 @@
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-grid-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-grid-map-geotag-with-azimuth-count');
 
-        $.ajaxSetup({
-            headers: { 'X-CSRFToken': window.docCookies.getItem('csrftoken') }
-        });
-
         $('.ajapaik-marker-center-lock-button').hide();
 
         galleryDiv.justifiedGallery({
