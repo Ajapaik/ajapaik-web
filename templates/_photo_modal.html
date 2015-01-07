@@ -15,7 +15,7 @@
                                  class="img-responsive {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                                  id="ajapaik-modal-photo"/>
                         </a>
-                        <button class="btn btn-default ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}"></button>
+                        <button class="btn btn-default ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}" style="display: none;"></button>
                         {% if photo.rephotos.all.0 %}
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-show-rephoto-selection-overlay-button ajapaik-show-rephoto-selection-overlay-button-{{ photo.rephotos.all | length }}" id="ajapaik-show-rephoto-selection-overlay-button" style="display: none;"></button>
                         {% endif %}
@@ -31,7 +31,7 @@
                             <a class="fullscreen-rephoto" id="ajapaik-rephoto-full-screen-link" rel="" href="">
                                 <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive" id="ajapaik-modal-rephoto"/>
                             </a>
-                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button"></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" style="display: none;"></button>
                         </div>
                     </div>
                     {% if photo.rephotos.all|length > 1 %}
@@ -47,22 +47,38 @@
             </div>
         </div>
         <div class="modal-footer">
-            {% if photo.description %}
-                <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
-            {% endif %}
-            {% if photo.source_url %}
-                <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                    <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
-                       target="_blank">
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                    </a>
+            <div class="row">
+                <div class="col-xs-5">
+                    {% if photo.description %}
+                        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
+                    {% endif %}
+                    {% if photo.source_url %}
+                        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
+                            <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
+                               target="_blank">
+                                {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                            </a>
+                        </div>
+                    {% elif photo.source.description %}
+                        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
+                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                        </div>
+                    {% endif %}
                 </div>
-            {% elif photo.source.description %}
-                <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                <div class="col-xs-5">
+                    {% if photo.rephotos.all.0 %}
+                        <div class="row ajapaik-photo-modal-row">
+                            {% trans "Rephotograph by" %} <a href="{{ photo.rephotos.all.0.user.fb_link }}">
+                                {{ photo.rephotos.all.0.user.fb_name }} <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+                            </a>
+                        </div>
+                        <div class="row ajapaik-photo-modal-row">
+                            {% trans "Date taken" %} {{ photo.rephotos.all.0.date }}
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-            <div class="row ajapaik-photo-modal-row">
+            </div>
+            <div class="row" style="margin-right: 0;">
                 <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
                 <button id="ajapaik-photo-modal-close-button" type="button"
                         class="btn btn-primary">{% trans "Close photo" %}</button>
@@ -78,9 +94,14 @@
 <script>
     window.photoModalRephotoArray = [];
     {% for rephoto in photo.rephotos.all %}
-        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}']);
+        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}']);
     {% endfor %}
     $(document).ready(function () {
+        if (window.userClosedRephotoTools) {
+            $('#ajapaik-rephoto-selection').hide();
+            $('#ajapaik-photo-modal-rephoto-column').hide();
+            $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+        }
         //TODO: Restore?
         //History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
         //$('.filter-box').hide();
@@ -135,6 +156,7 @@
         });
         $(document).on('click', '#ajapaik-show-rephoto-selection-overlay-button', function () {
             $(this).hide();
+            window.userClosedRephotoTools = false;
             var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column');
             if (window.photoModalRephotoArray.length > 1) {
                 $('#ajapaik-rephoto-selection').show();
@@ -161,18 +183,33 @@
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-show-rephoto-selection-overlay-button').show();
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            window.userClosedRephotoTools = true;
         });
-        $('#ajapaik-modal-body').hoverIntent(function () {
+        $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
+                if (window.userClosedRephotoTools) {
+                    $('#ajapaik-show-rephoto-selection-overlay-button').show();
+                }
             }
         }, function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
+                $('#ajapaik-show-rephoto-selection-overlay-button').hide();
             }
         });
-        if (!isMobile) {
-            $('.ajapaik-flip-photo-overlay-button').hide();
-        }
+        $('#ajapaik-photo-modal-rephoto-column').hoverIntent(function () {
+            if (!isMobile) {
+                if (!window.userClosedRephotoTools) {
+                    $('#ajapaik-close-rephoto-overlay-button').show();
+                }
+            }
+        }, function () {
+            if (!isMobile) {
+                if (!window.userClosedRephotoTools) {
+                    $('#ajapaik-close-rephoto-overlay-button').hide();
+                }
+            }
+        });
     });
 </script>

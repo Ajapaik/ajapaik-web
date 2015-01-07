@@ -661,17 +661,17 @@
             _gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
         });
 
-        $(document).on('mouseover', '#ajapaik-photo-modal', function () {
-            if (!isMobile) {
-                $('.ajapaik-flip-photo-overlay-button').show();
-            }
-        });
+//        $(document).on('mouseover', '#ajapaik-photo-modal', function () {
+//            if (!isMobile) {
+//                $('.ajapaik-flip-photo-overlay-button').show();
+//            }
+//        });
 
-        $(document).on('mouseout', '#ajapaik-photo-modal', function () {
-            if (!isMobile) {
-                $('.ajapaik-flip-photo-overlay-button').hide();
-            }
-        });
+//        $(document).on('mouseout', '#ajapaik-photo-modal', function () {
+//            if (!isMobile) {
+//                $('.ajapaik-flip-photo-overlay-button').hide();
+//            }
+//        });
 
         $(document).on('mouseover', '#ajapaik-mapview-guess-photo-container', function () {
             if (!isMobile) {

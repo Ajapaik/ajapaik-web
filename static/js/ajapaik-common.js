@@ -81,6 +81,7 @@ var map,
     photoModalFullscreenImageUrl,
     photoModalFullscreenImageSize,
     photoModalRephotoArray,
+    userClosedRephotoTools = false,
     heatmap,
     heatmapEstimatedLocationMarker;
 

@@ -696,8 +696,8 @@ ul.errorlist {
 }
 
 .ajapaik-photo-modal-row {
-    margin-right: 0;
     margin-left: 0;
+    text-align: left;
 }
 
 #ajapaik-game-photo-description {
@@ -764,5 +764,5 @@ ul.errorlist {
 }
 
 .ajapaik-photo-modal-rephoto-thumb {
-    margin-bottom: 3%;
+    margin: 0 auto 3%;
 }
