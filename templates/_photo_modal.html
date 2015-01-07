@@ -1,10 +1,12 @@
-{% load thumbnail i18n %}
+{% load thumbnail i18n l10n %}
 
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-body" id="ajapaik-modal-body">
             <div class="row">
-                {% if photo.rephotos.all|length > 1 %}
+                {% if photo.rephotos.all|length == 0 %}
+                    <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-column">
+                {% elif photo.rephotos.all|length > 1 %}
                     <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-column">
                 {% else %}
                     <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-column">
@@ -28,9 +30,7 @@
                         <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-column">
                     {% endif %}
                         <div id="ajapaik-modal-rephoto-container">
-                            <a class="fullscreen-rephoto" id="ajapaik-rephoto-full-screen-link" rel="" href="">
-                                <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive" id="ajapaik-modal-rephoto"/>
-                            </a>
+                            <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive" id="ajapaik-modal-rephoto"/>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" style="display: none;"></button>
                         </div>
                     </div>
@@ -48,7 +48,13 @@
         </div>
         <div class="modal-footer">
             <div class="row">
-                <div class="col-xs-5">
+                {% if photo.rephotos.all|length > 1 %}
+                    <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-info-column">
+                {% elif photo.rephotos.all|length == 0 %}
+                    <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-info-column">
+                {% else %}
+                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
+                {% endif %}
                     {% if photo.description %}
                         <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
                     {% endif %}
@@ -65,18 +71,24 @@
                         </div>
                     {% endif %}
                 </div>
-                <div class="col-xs-5">
-                    {% if photo.rephotos.all.0 %}
-                        <div class="row ajapaik-photo-modal-row">
-                            {% trans "Rephotograph by" %} <a href="{{ photo.rephotos.all.0.user.fb_link }}">
-                                {{ photo.rephotos.all.0.user.fb_name }} <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
-                            </a>
-                        </div>
-                        <div class="row ajapaik-photo-modal-row">
-                            {% trans "Date taken" %} {{ photo.rephotos.all.0.date }}
-                        </div>
+                {% if photo.rephotos.all|length > 0 %}
+                    {% if photo.rephotos.all|length > 1 %}
+                        <div class="col-xs-5" id="ajapaik-photo-modal-rephoto-info-column">
+                    {% else %}
+                        <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-info-column">
                     {% endif %}
-                </div>
+                        {% if photo.rephotos.all.0 %}
+                            <div class="row ajapaik-photo-modal-row">
+                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">
+                                    {{ photo.rephotos.all.0.user.fb_name }}<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+                                </a>
+                            </div>
+                            <div class="row ajapaik-photo-modal-row">
+                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
             <div class="row" style="margin-right: 0;">
                 <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
@@ -100,6 +112,8 @@
         if (window.userClosedRephotoTools) {
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-photo-modal-rephoto-column').hide();
+            $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            $('#ajapaik-photo-modal-rephoto-info-column').hide();
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
         }
         //TODO: Restore?
@@ -157,14 +171,21 @@
         $(document).on('click', '#ajapaik-show-rephoto-selection-overlay-button', function () {
             $(this).hide();
             window.userClosedRephotoTools = false;
-            var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column');
+            var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
+                rephotoInfoColumn = $('#ajapaik-photo-modal-rephoto-info-column'),
+                originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
             if (window.photoModalRephotoArray.length > 1) {
                 $('#ajapaik-rephoto-selection').show();
                 $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-5');
+                rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
+                originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
             } else {
                 $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-6');
                 rephotoColumn.removeClass('col-xs-5').addClass('col-xs-6');
+                rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
+                originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
             }
+            rephotoInfoColumn.show();
             rephotoColumn.show();
             $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[0][1]);
 
@@ -174,6 +195,8 @@
             for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
                 if (window.photoModalRephotoArray[i][0] == e.target.dataset.id) {
                     $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
+                    $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
+                    $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);
                     break;
                 }
             }
@@ -183,6 +206,8 @@
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-show-rephoto-selection-overlay-button').show();
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            $('#ajapaik-photo-modal-rephoto-info-column').hide();
+            $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
             window.userClosedRephotoTools = true;
         });
         $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {

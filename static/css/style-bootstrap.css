@@ -766,3 +766,17 @@ ul.errorlist {
 .ajapaik-photo-modal-rephoto-thumb {
     margin: 0 auto 3%;
 }
+
+#ajapaik-cc-by-sa-image {
+    margin-left: 5px;
+}
+
+#ajapaik-photo-modal-rephoto-date-taken {
+    display: inline;
+}
+
+@media (max-width: 1920px) {
+    .modal-lg {
+        width: 1200px;
+    }
+}
