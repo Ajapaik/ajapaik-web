@@ -663,7 +663,8 @@ class Profile(models.Model):
 
     def update_rephoto_score(self):
         rephotos = Photo.objects.filter(rephoto_of__isnull=False, user=self.user)
-        total = rephotos.count()
+        total = rephotos\
+            .count()
         if total == 0:
             return False
 

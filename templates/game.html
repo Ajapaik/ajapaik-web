@@ -16,7 +16,7 @@
                         <a class="fullscreen" id="ajapaik-game-full-screen-link" rel="" href="">
                             <img src="" class="img-responsive" id="ajapaik-game-modal-photo"/>
                         </a>
-                        <button class="btn btn-default ajapaik-flip-photo-overlay-button"></button>
+                        <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -25,7 +25,7 @@
                             <div id="ajapaik-game-photo-description" class="pull-left"></div>
                         </div>
                     {% endif %}
-                    <div class="row ajapaik-photo-modal-row">
+                    <div class="row ajapaik-photo-modal-row" style="text-align: right; margin-right: 0;">
                         {% if LANGUAGE_CODE == 'et' %}
                             <button class="btn btn-default pull-left ajapaik-game-show-description-button" data-toggle="popover">
                                 {% trans "Show description" %}
@@ -64,7 +64,7 @@
     <div id="ajapaik-game-guess-photo-js-panel-content">
         <div id="ajapaik-game-guess-photo-container">
             <img class="img-responsive" src="" />
-            <button class="btn btn-primary ajapaik-flip-photo-overlay-button"></button>
+            <button class="btn btn-primary ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
             <button class="btn btn-default ajapaik-overlay-button ajapaik-fullscreen-overlay-button"></button>
             <button class="btn btn-default ajapaik-overlay-button ajapaik-game-map-show-description-overlay-button"></button>
         </div>

@@ -329,6 +329,7 @@
             if (!locationToolsOpen) {
                 if (window.BigScreen.enabled) {
                     window.BigScreen.exit();
+                    window.fullscreenEnabled = false;
                 }
                 $('.ajapaik-game-specify-location-button').click();
             }
@@ -524,6 +525,7 @@
 
         $(document).on('click', '.ajapaik-fullscreen-overlay-button', function () {
             if (window.BigScreen.enabled) {
+                window.fullscreenEnabled = true;
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 window._gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
             }
@@ -533,12 +535,14 @@
             if (window.BigScreen.enabled) {
                 e.preventDefault();
                 window.BigScreen.exit();
+                window.fullscreenEnabled = false;
             }
         });
 
         $(document).on('click', 'a.fullscreen', function (e) {
             e.preventDefault();
             if (window.BigScreen.enabled) {
+                window.fullscreenEnabled = true;
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 window._gaq.push(['_trackEvent', 'Map', 'Full-screen', 'historic-' + this.rel]);
             }

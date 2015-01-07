@@ -79,10 +79,12 @@ var map,
     windowResizeListener,
     realMapElement,
     photoModalCurrentlyOpenPhotoId,
+    currentlySelectedRephotoId,
     photoModalFullscreenImageUrl,
     photoModalFullscreenImageSize,
     photoModalRephotoArray,
     userClosedRephotoTools = false,
+    fullscreenEnabled = false,
     heatmap,
     heatmapEstimatedLocationMarker;
 
@@ -454,7 +456,8 @@ var map,
 
     windowResizeListenerFunction = function () {
         console.log("resize");
-        if (markerLocked) {
+        if (markerLocked && !fullscreenEnabled) {
+            console.log("resize allowed");
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
             mapMousemoveListenerActive = true;
             dottedAzimuthLine.setVisible(false);
@@ -472,7 +475,7 @@ var map,
         saveLocationButton.addClass('btn-warning');
         saveLocationButton.text(window.gettext('Save location only'));
         saveDirection = false;
-        if (e) {
+        if (e && marker.position) {
             radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
             degreeAngle = Math.degrees(radianAngle);
         }
@@ -480,15 +483,17 @@ var map,
             panoramaMarker.setMap(null);
         }
         setCursorToPanorama();
-        if (!window.isMobile) {
-            dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
-            dottedAzimuthLine.setMap(map);
-            dottedAzimuthLine.icons = [
-                {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
-            ];
-            dottedAzimuthLine.setVisible(true);
-        } else {
-            dottedAzimuthLine.setVisible(false);
+        if (marker.position) {
+            if (!window.isMobile) {
+                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
+                dottedAzimuthLine.setMap(map);
+                dottedAzimuthLine.icons = [
+                    {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
+                ];
+                dottedAzimuthLine.setVisible(true);
+            } else {
+                dottedAzimuthLine.setVisible(false);
+            }
         }
     };
 
