@@ -79,8 +79,7 @@
                     {% endif %}
                         {% if photo.rephotos.all.0 %}
                             <div class="row ajapaik-photo-modal-row">
-                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">
-                                    {{ photo.rephotos.all.0.user.fb_name }}<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
                                 </a>
                             </div>
                             <div class="row ajapaik-photo-modal-row">
