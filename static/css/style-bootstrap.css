@@ -775,8 +775,6 @@ ul.errorlist {
     display: inline;
 }
 
-@media (max-width: 1920px) {
-    .modal-lg {
-        width: 1200px;
-    }
+#mapview-photo-modal-dialog {
+    width: 75%;
 }

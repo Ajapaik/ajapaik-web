@@ -697,6 +697,12 @@ def csv_upload(request):
     return HttpResponse("OK")
 
 
+def mapview_photo_upload_modal(request, photo_id):
+    photo = get_object_or_404(Photo, pk=photo_id)
+    return render_to_response('_photo_upload_modal.html', RequestContext(request, {
+        'photo': photo
+    }))
+
 def public_photo_upload(request):
     all_cities = City.objects.all()
     return render_to_response('photo_upload.html', RequestContext(request, {

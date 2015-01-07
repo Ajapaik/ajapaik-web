@@ -1,6 +1,6 @@
 {% load thumbnail i18n l10n %}
 
-<div class="modal-dialog modal-lg">
+<div class="modal-dialog" id="mapview-photo-modal-dialog">
     <div class="modal-content">
         <div class="modal-body" id="ajapaik-modal-body">
             <div class="row">
@@ -90,9 +90,9 @@
                 {% endif %}
             </div>
             <div class="row" style="margin-right: 0;">
+                <button class="btn btn-primary ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
                 <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
-                <button id="ajapaik-photo-modal-close-button" type="button"
-                        class="btn btn-primary">{% trans "Close photo" %}</button>
+                <button id="ajapaik-photo-modal-close-button" type="button" class="btn btn-primary">{% trans "Close photo" %}</button>
             </div>
         </div>
     </div>
@@ -104,6 +104,7 @@
 </div>
 <script>
     window.photoModalRephotoArray = [];
+    window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
         window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}']);
     {% endfor %}
@@ -115,6 +116,17 @@
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
         }
+        var openPhotoUploadModal = function () {
+            $.ajax({
+                cache: false,
+                url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
+                success: function (result) {
+                    $('#ajapaik-rephoto-upload-modal').html(result).modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+        };
         //TODO: Restore?
         //History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
         //$('.filter-box').hide();
@@ -221,6 +233,9 @@
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('#ajapaik-show-rephoto-selection-overlay-button').hide();
             }
+        });
+        $(document).on('click', '.ajapaik-photo-modal-add-rephoto-button', function () {
+            openPhotoUploadModal();
         });
         $('#ajapaik-photo-modal-rephoto-column').hoverIntent(function () {
             if (!isMobile) {

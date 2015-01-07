@@ -286,21 +286,23 @@
     };
 
     window.uploadCompleted = function (response) {
-        $.modal.close();
-        if (photoId === undefined) {
-            if (response && response.new_id !== undefined && response.new_id) {
-                window.location.href = '/foto/' + response.new_id + '/';
-            } else {
-                window.location.reload();
-            }
-        } else {
-            closePhotoDrawer();
-            if (response && response.new_id !== undefined && response.new_id) {
-                window.loadPhoto(response.new_id);
-            } else {
-                window.loadPhoto(photoId);
-            }
-        }
+        console.log(response);
+        $('#ajapaik-rephoto-upload-modal').modal('toggle');
+        //$.modal.close();
+        //if (photoId === undefined) {
+        //    if (response && response.new_id !== undefined && response.new_id) {
+        //        //window.location.href = '/foto/' + response.new_id + '/';
+        //    } else {
+        //        //window.location.reload();
+        //    }
+        //} else {
+        //    //closePhotoDrawer();
+        //    if (response && response.new_id !== undefined && response.new_id) {
+        //        window.loadPhoto(response.new_id);
+        //    } else {
+        //        window.loadPhoto(photoId);
+        //    }
+        //}
     };
 
 //    var buildPaneElement = function (marker) {
@@ -579,14 +581,15 @@
         });
 
         if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom') && !window.fromSelect && !window.barePhotoview) {
-            window.map.setCenter(new google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')));
+            window.map.setCenter(new window.google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')));
             window.map.setZoom(parseInt(window.getQueryParameterByName('zoom'), 10));
         }
 
         if (window.getQueryParameterByName('selectedPhoto') && !window.fromSelect && !window.barePhotoview) {
             setTimeout(function () {
+                console.log("asd");
                 window.highlightSelected(window.getQueryParameterByName('selectedPhoto'), true);
-            }, 1000);
+            }, 3000);
         }
 
         if (window.map !== undefined) {
