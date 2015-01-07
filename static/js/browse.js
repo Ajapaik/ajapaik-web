@@ -26,6 +26,7 @@
         targetPaneElement,
         markerTemp,
         markers = [],
+        syncMapStateToURL,
         mc,
         currentMapDataRequest,
         currentPaneDataRequest,
@@ -42,6 +43,7 @@
                 'lt1024': ''
             }
         },
+        photoDrawerOpen = false,
         openPhotoDrawer,
         toggleVisiblePaneElements,
         setCorrectMarkerIcon,
@@ -58,7 +60,8 @@
         currentPhotoWidth,
         guessResponseReceived,
         noticeDiv,
-        feedbackPanel;
+        feedbackPanel,
+        markerIdToHighlightAfterPageLoad = false;
 
 
     window.loadPhoto = function (id) {
@@ -82,6 +85,8 @@
     openPhotoDrawer = function (content) {
         var fullScreenImage = $('#ajapaik-mapview-full-screen-image');
         fullScreenImage.unbind('load');
+        syncMapStateToURL();
+        photoDrawerOpen = true;
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             fullScreenImage.prop('src', window.photoModalFullscreenImageUrl).on('load', function () {
@@ -91,6 +96,22 @@
             });
             $('#ajapaik-mapview-guess-photo-description').html(window.currentPhotoDescription);
         });
+    };
+
+    syncMapStateToURL = function () {
+        var historyReplacementString = '/kaart/?city=' + window.cityId;
+        if (window.map) {
+            historyReplacementString += '&lat=' + window.map.getCenter().lat();
+            historyReplacementString += '&lng=' + window.map.getCenter().lng();
+            historyReplacementString += '&zoom=' + window.map.zoom;
+        }
+        if (currentlySelectedMarkerId) {
+            historyReplacementString += '&selectedPhoto=' + currentlySelectedMarkerId;
+        }
+        if (photoDrawerOpen) {
+            historyReplacementString += '&photoModalOpen=1';
+        }
+        History.replaceState(null, null, historyReplacementString);
     };
 
     window.startGuessLocation = function () {
@@ -275,18 +296,12 @@
 
     window.closePhotoDrawer = function () {
         $('#ajapaik-photo-modal').modal('toggle');
-        //photoDrawerElement.animate({ top: '-1000px' });
-        //var historyReplacementString = '/kaart/?city=' + cityId + '&lat=' + window.map.getCenter().lat() + '&lng=' + window.map.getCenter().lng();
-        //if (currentlySelectedMarkerId) {
-        //    historyReplacementString += '&selectedPhoto=' + currentlySelectedMarkerId;
-        //}
-        //historyReplacementString += '&zoom=' + window.map.zoom;
-        //History.replaceState(null, null, historyReplacementString);
+        photoDrawerOpen = false;
+        syncMapStateToURL();
         $('.filter-box').show();
     };
 
     window.uploadCompleted = function (response) {
-        console.log(response);
         $('#ajapaik-rephoto-upload-modal').modal('toggle');
         //$.modal.close();
         //if (photoId === undefined) {
@@ -304,14 +319,6 @@
         //    }
         //}
     };
-
-//    var buildPaneElement = function (marker) {
-//        var a = document.createElement('a');
-//        $(a).addClass('ajapaik-mapview-pane-photo-container').prop('id', 'element' + marker.id)
-//            .prop('data-id', 'element' + marker.id).click(function () {
-//                window.highlightSelected(marker.id, false);
-//            });
-//    };
 
     toggleVisiblePaneElements = function () {
         if (window.map && !guessLocationStarted) {
@@ -399,6 +406,10 @@
                                     }
                                     lastPanelWidth = currentPanelWidth;
                                 }, 500);
+                            }
+                            if (markerIdToHighlightAfterPageLoad) {
+                                window.highlightSelected(markerIdToHighlightAfterPageLoad);
+                                markerIdToHighlightAfterPageLoad = false;
                             }
                             currentPaneDataRequest = undefined;
                             lastRequestedPaneMarkersIds = markerIdsWithinBounds;
@@ -580,16 +591,16 @@
             }
         });
 
-        if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom') && !window.fromSelect && !window.barePhotoview) {
+        if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom') && !window.fromSelect) {
             window.map.setCenter(new window.google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')));
             window.map.setZoom(parseInt(window.getQueryParameterByName('zoom'), 10));
         }
 
-        if (window.getQueryParameterByName('selectedPhoto') && !window.fromSelect && !window.barePhotoview) {
-            setTimeout(function () {
-                console.log("asd");
-                window.highlightSelected(window.getQueryParameterByName('selectedPhoto'), true);
-            }, 3000);
+        if (window.getQueryParameterByName('selectedPhoto') && !window.fromSelect) {
+            currentlySelectedMarkerId = window.getQueryParameterByName('selectedPhoto');
+            if (window.map.zoom > 15) {
+                markerIdToHighlightAfterPageLoad = window.getQueryParameterByName('selectedPhoto');
+            }
         }
 
         if (window.map !== undefined) {

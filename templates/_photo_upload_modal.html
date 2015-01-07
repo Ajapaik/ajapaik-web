@@ -16,6 +16,7 @@
                             url: url,
                             dataType: 'json',
                             autoUpload: false,
+                            formData: {csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')},
                             done: function (e, data) {
                                 uploadCompleted($.parseJSON(data));
                             },

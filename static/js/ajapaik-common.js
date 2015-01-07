@@ -690,7 +690,7 @@ var map,
         } else {
             window.map.fitBounds(latLngBounds);
         }
-        marker.setPosition(map.getCenter());
+        //marker.setPosition(map.getCenter());
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
