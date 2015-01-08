@@ -780,7 +780,10 @@ ul.errorlist {
     width: 75%;
 }
 
-.jsPanel-content {
+#ajapaik-mapview-photo-panel {
+    padding: 10px !important;
+}
+
+#ajapaik-mapview-photo-panel .jsPanel-content {
     outline: none !important;
-    margin: 10px !important;
 }

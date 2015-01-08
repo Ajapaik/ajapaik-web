@@ -83,15 +83,13 @@
 
     openPhotoDrawer = function (content) {
         var fullScreenImage = $('#ajapaik-mapview-full-screen-image');
-        fullScreenImage.unbind('load');
+        //fullScreenImage.unbind('load');
         //window.syncMapStateToURL();
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-            fullScreenImage.prop('src', window.photoModalFullscreenImageUrl).on('load', function () {
-                //$('#ajapaik-full-screen-link').prop('rel', photos[currentPhotoIdx].id).prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
-                window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
-                window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-mapview-full-screen-image');
-            });
+            fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
+            window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
+            window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-mapview-full-screen-image');
             $('#ajapaik-mapview-guess-photo-description').html(window.currentPhotoDescription);
         });
     };
@@ -101,7 +99,7 @@
             projection = window.map.getProjection(),
             edgePixelCoordinates = projection.fromLatLngToPoint(edge),
             currentPaneWidth = $('#ajapaik-mapview-photo-panel').width();
-        edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + currentPaneWidth) / scale;
+        edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + currentPaneWidth + 50) / scale;
         return projection.fromPointToLatLng(edgePixelCoordinates);
     };
 
