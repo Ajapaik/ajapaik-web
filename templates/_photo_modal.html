@@ -204,22 +204,30 @@
             $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[0][1]);
 
         });
-        $(document).on('load', '.img-responsive', function () {
-            console.log("kaak");
-        });
         $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function (e) {
+            var targetId = e.target.dataset.id;
+            if (!targetId) {
+                targetId = window.selectedRephotoId;
+                if (!targetId) {
+                    targetId = window.currentlySelectedRephotoId;
+                }
+            }
             $('#ajapaik-photo-modal-rephoto-column').show();
             for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
-                if (window.photoModalRephotoArray[i][0] == e.target.dataset.id) {
+                if (window.photoModalRephotoArray[i][0] == targetId) {
                     $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
                     $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
                     $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);
-                    window.currentlySelectedRephotoId = e.target.dataset.id;
+                    window.currentlySelectedRephotoId = targetId;
                     window.syncMapStateToURL();
                     break;
                 }
             }
         });
+{#        if (window.selectedRephotoId) {#}
+{#           $('#ajapaik-rephoto-thumb-' + window.selectedRephotoId).click();#}
+{#            window.selectedRephotoId = false;#}
+{#        }#}
         $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
             $('#ajapaik-photo-modal-rephoto-column').hide();
             $('#ajapaik-rephoto-selection').hide();

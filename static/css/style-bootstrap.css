@@ -570,7 +570,8 @@ a.fullscreen {
 }
 
 .ajapaik-mapview-pane-photo-container {
-
+    display: inline-block;
+    position: relative;
 }
 
 #ajapaik-mapview-photo-panel .jsPanel-content {
@@ -696,7 +697,7 @@ ul.errorlist {
 }
 
 .ajapaik-photo-modal-row {
-    margin-left: 0;
+    margin-left: 15px;
     text-align: left;
 }
 
@@ -777,4 +778,9 @@ ul.errorlist {
 
 #mapview-photo-modal-dialog {
     width: 75%;
+}
+
+.jsPanel-content {
+    outline: none !important;
+    margin: 10px !important;
 }

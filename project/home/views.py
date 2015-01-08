@@ -448,7 +448,7 @@ def heatmap(request):
     }))
 
 @ensure_csrf_cookie
-def mapview(request):
+def mapview(request, photo_id=None, rephoto_id=None):
     city_selection_form = CitySelectionForm(request.GET)
     city = None
     if city_selection_form.is_valid():
@@ -458,6 +458,23 @@ def mapview(request):
         title = city.name + ' - ' + _('Browse photos on map')
     else:
         title = _('Browse photos on map')
+
+    selected_photo = None
+    if photo_id:
+        try:
+            selected_photo = Photo.objects.get(pk=photo_id)
+        except ObjectDoesNotExist:
+            pass
+
+    if selected_photo and not city:
+        city = City.objects.get(pk=selected_photo.city.id)
+
+    selected_rephoto = None
+    if rephoto_id:
+        try:
+            selected_rephoto = Photo.objects.get(pk=rephoto_id, rephoto_of__isnull=False)
+        except ObjectDoesNotExist:
+            pass
 
     photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
         'photo_id', flat=True)
@@ -474,6 +491,8 @@ def mapview(request):
         'city_selection_form': city_selection_form,
         'leaderboard': leaderboard_response,
         'user_seen_photo_ids': photo_ids_user_has_looked_at,
+        'selected_photo': selected_photo,
+        'selected_rephoto': selected_rephoto
     }))
 
 

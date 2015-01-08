@@ -1,40 +1,42 @@
-{% for element in data %}
-    <a id="element{{ element.0 }}" class=".ajapaik-mapview-pane-photo-container"
-       data-id="{{ element.0 }}"
-       onclick="window.highlightSelected({{ element.0 }}, false);">
-        <img src=""
-             data-src="{{ element.1 }}"
-             title="{{ element.4 }}"
-             data-id="{{ element.0 }}"
-             class="lazyload img-responsive"
-             height="{{ element.7 }}"
-             width="{{ element.6 }}"
-             onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
-             onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"/>
-        <div class="ajapaik-eye-open {% if element.0 in user_seen_photo_ids %}ajapaik-eye-open-light-bg{% endif %}"
-             data-id="{{ element.0 }}"
-             id="eye{{ element.0 }}"
-             style="display: none;"
-             onclick="(function(e) {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.dataset.id);})(this)"
-             onmouseover="(function(e) {window.paneEyeHoverIn(e)})(this)"
-             onmouseout="(function(e) {window.paneEyeHoverOut(e)})(this)">
-        </div>
-        {% if element.5 %}
-        <div class="ajapaik-azimuth"
-             data-id="{{ element.0 }}"
-             style="display: none;"
-             onmouseover="(function(e) {window.paneAzimuthHoverIn(e)})(this)"
-             onmouseout="(function(e) {window.paneAzimuthHoverOut(e)})(this)">
-        </div>
-        {% endif %}
-        {% if element.2 %}
-        <div class="ajapaik-rephoto-count"
-             data-id="{{ element.0 }}"
-             style="display: none;"
-             onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
-             onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
-            {{ element.2 }}
-        </div>
-        {% endif %}
-    </a>
-{% endfor %}
+<div id="ajapaik-photo-pane-content-container">
+    {% for element in data %}
+        <a id="element{{ element.0 }}" class="ajapaik-mapview-pane-photo-container"
+           data-id="{{ element.0 }}"
+           onclick="window.highlightSelected({{ element.0 }}, false);">
+            <img src=""
+                 data-src="{{ element.1 }}"
+                 title="{{ element.4 }}"
+                 data-id="{{ element.0 }}"
+                 class="lazyload img-responsive"
+                 height="{{ element.7 }}"
+                 width="{{ element.6 }}"
+                 onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
+                 onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"/>
+            <div class="ajapaik-eye-open {% if element.0 in user_seen_photo_ids %}ajapaik-eye-open-light-bg{% endif %}"
+                 data-id="{{ element.0 }}"
+                 id="eye{{ element.0 }}"
+                 style="display: none;"
+                 onclick="(function(e) {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.dataset.id);})(this)"
+                 onmouseover="(function(e) {window.paneEyeHoverIn(e)})(this)"
+                 onmouseout="(function(e) {window.paneEyeHoverOut(e)})(this)">
+            </div>
+            {% if element.5 %}
+            <div class="ajapaik-azimuth"
+                 data-id="{{ element.0 }}"
+                 style="display: none;"
+                 onmouseover="(function(e) {window.paneAzimuthHoverIn(e)})(this)"
+                 onmouseout="(function(e) {window.paneAzimuthHoverOut(e)})(this)">
+            </div>
+            {% endif %}
+            {% if element.2 %}
+            <div class="ajapaik-rephoto-count"
+                 data-id="{{ element.0 }}"
+                 style="display: none;"
+                 onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
+                 onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
+                {{ element.2 }}
+            </div>
+            {% endif %}
+        </a>
+    {% endfor %}
+</div>
