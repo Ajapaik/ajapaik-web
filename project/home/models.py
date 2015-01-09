@@ -455,9 +455,9 @@ class Photo(models.Model):
         # 	self.flip = False
 
         if not self.bounding_circle_radius:
-            self.confidence = 0
-            self.lon = None
-            self.lat = None
+            #self.confidence = 0
+            #self.lon = None
+            #self.lat = None
 
             geotags = list(GeoTag.objects.filter(photo__id=self.id, trustworthiness__gt=0.2))
             geotags_with_azimuth = []
