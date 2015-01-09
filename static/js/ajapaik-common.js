@@ -671,7 +671,7 @@ var map,
             inputEstimatedLocation = heatmapData.estimated_location;
         } else if (heatmapData.newEstimatedLocation) {
             inputEstimatedLocation = heatmapData.newEstimatedLocation;
-        } else {
+        } else if (heatmapData.estimatedLocation) {
             inputEstimatedLocation = heatmapData.estimatedLocation;
         }
         if (inputEstimatedLocation) {
