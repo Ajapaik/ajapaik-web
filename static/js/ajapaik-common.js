@@ -354,8 +354,8 @@ var map,
         if (resp.current_score) {
             currentScore = resp.current_score;
         }
-        if (resp.new_estimated_location) {
-            newEstimatedLocation = resp.new_estimated_location;
+        if (resp.estimated_location) {
+            newEstimatedLocation = resp.estimated_location;
         }
         window.handleGuessResponse({feedbackMessage: message, hideFeedback: hideFeedback,
             heatmapPoints: heatmapPoints, currentScore: currentScore, tagsWithAzimuth: tagsWithAzimuth,
@@ -655,6 +655,7 @@ var map,
         }
         window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
         window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
+        console.log(heatmapData);
         if (heatmapData.newEstimatedLocation && heatmapData.newEstimatedLocation[0] && heatmapData.newEstimatedLocation[1]) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),
