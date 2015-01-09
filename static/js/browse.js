@@ -406,9 +406,9 @@
                                     title: false,
                                     position: 'top left',
                                     size: { height: function () {
-                                        return $(window).height();
+                                        return $(document).height();
                                     }, width: function () {
-                                        return $(window).width() / 6;
+                                        return $(document).width() / 6;
                                     }},
                                     draggable: false,
                                     removeHeader: true,
