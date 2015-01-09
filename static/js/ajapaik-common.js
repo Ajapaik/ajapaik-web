@@ -86,7 +86,9 @@ var map,
     userClosedRephotoTools = false,
     fullscreenEnabled = false,
     heatmap,
-    heatmapEstimatedLocationMarker;
+    guessResponseReceived = false,
+    heatmapEstimatedLocationMarker,
+    estimatedLocationMarkerDeletionWorkaroundArray = [];
 
 (function ($) {
     'use strict';
@@ -456,7 +458,7 @@ var map,
 
     windowResizeListenerFunction = function () {
         console.log("resize");
-        if (markerLocked && !fullscreenEnabled) {
+        if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
             console.log("resize allowed");
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
             mapMousemoveListenerActive = true;
@@ -665,17 +667,10 @@ var map,
         }
         window.mapInfoPanelGeotagCountElement.html(totalHeatmapGeotags);
         window.mapInfoPanelAzimuthCountElement.html(totalHeatmapGeotagsWithAzimuth);
-        heatmapPoints = new window.google.maps.MVCArray(heatmapPoints);
-        if (heatmap) {
-            heatmap.setMap(null);
-        }
-        heatmap = new window.google.maps.visualization.HeatmapLayer({
-            data: heatmapPoints
-        });
-        heatmap.setMap(window.map);
-        heatmap.setOptions({radius: 50, dissipating: true});
         if (heatmapData.estimated_location) {
             inputEstimatedLocation = heatmapData.estimated_location;
+        } else if (heatmapData.newEstimatedLocation) {
+            inputEstimatedLocation = heatmapData.newEstimatedLocation;
         } else {
             inputEstimatedLocation = heatmapData.estimatedLocation;
         }
@@ -696,6 +691,16 @@ var map,
             window.map.fitBounds(latLngBounds);
         }
         //marker.setPosition(map.getCenter());
+        marker.setZIndex(window.google.maps.Marker.MAX_ZINDEX + 1);
+        heatmapPoints = new window.google.maps.MVCArray(heatmapPoints);
+        if (heatmap) {
+            heatmap.setMap(null);
+        }
+        heatmap = new window.google.maps.visualization.HeatmapLayer({
+            data: heatmapPoints
+        });
+        heatmap.setMap(window.map);
+        heatmap.setOptions({radius: 50, dissipating: true});
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {

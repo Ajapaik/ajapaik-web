@@ -714,12 +714,26 @@ ul.errorlist {
     position: fixed;
     bottom: 15px;
     right: 15px;
+    top: auto !important;
+    left: auto !important;
+    padding: 10px !important;
+}
+
+#ajapaik-game-feedback-panel .jsPanel-content {
+    outline: none !important;
 }
 
 #ajapaik-mapview-feedback-panel {
     position: fixed;
     bottom: 15px;
     right: 15px;
+    top: auto !important;
+    left: auto !important;
+    padding: 10px !important;
+}
+
+#ajapaik-mapview-feedback-panel .jsPanel-content {
+    outline: none !important;
 }
 
 #ajapaik-grid-feedback-panel {
@@ -790,5 +804,4 @@ ul.errorlist {
 
 .ui-resizable-e {
     width: 25px;
-    z-index: 1000 !important;
 }

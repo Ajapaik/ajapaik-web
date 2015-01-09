@@ -16,7 +16,6 @@
             guessPhotoPanelContent,
             currentPhotoWidth,
             guessPhotoPanel,
-            guessResponseReceived,
             feedbackPanel,
             photoPanel;
 
@@ -59,7 +58,7 @@
             window.google.maps.event.removeListener(window.mapMarkerDragendListener);
             window.google.maps.event.removeListener(window.mapDragendListener);
             window.google.maps.event.removeListener(window.windowResizeListener);
-            guessResponseReceived = true;
+            window.guessResponseReceived = true;
             // TODO: What to do about rephoto and game leaderboard mixing up?
             //window.updateLeaderboard();
             noticeDiv = $('#ajapaik-grid-feedback-js-panel-content');
@@ -70,7 +69,8 @@
             }
             noticeDiv.find('#ajapaik-grid-guess-feedback-message').html(guessResponse.feedbackMessage);
             noticeDiv.find('#ajapaik-grid-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
-            feedbackPanel = $('#ajapaik-map-container').jsPanel({
+            feedbackPanel = $.jsPanel({
+                selector: '#ajapaik-map-container',
                 content: noticeDiv.html(),
                 controls: {
                     buttons: false
@@ -191,7 +191,8 @@
                 }
                 window.google.maps.event.trigger(window.map, 'resize');
                 currentPhotoWidth = $('#ajapaik-grid-guess-photo-container').find('img').width();
-                guessPhotoPanel = $('#ajapaik-map-container').jsPanel({
+                guessPhotoPanel = $.jsPanel({
+                    selector: '#ajapaik-map-container',
                     content: guessPhotoPanelContent.html(),
                     controls: {buttons: false},
                     title: false,

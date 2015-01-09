@@ -57,7 +57,6 @@
         guessPhotoPanel,
         guessPhotoPanelContent,
         currentPhotoWidth,
-        guessResponseReceived,
         noticeDiv,
         feedbackPanel,
         markerIdToHighlightAfterPageLoad,
@@ -236,7 +235,7 @@
         window.google.maps.event.removeListener(window.mapMarkerDragendListener);
         window.google.maps.event.removeListener(window.mapDragendListener);
         window.google.maps.event.removeListener(window.windowResizeListener);
-        guessResponseReceived = true;
+        window.guessResponseReceived = true;
         // TODO: What to do about rephoto and game leaderboard mixing up?
         //window.updateLeaderboard();
         noticeDiv = $('#ajapaik-mapview-feedback-js-panel-content');
@@ -256,6 +255,7 @@
                 },
                 title: false,
                 header: false,
+                removeHeader: true,
                 size: {
                     width: function () {
                         return $(window).width() / 3;
@@ -276,6 +276,7 @@
         window.marker.setMap(null);
         if (window.heatmap) {
             window.heatmap.setMap(null);
+            window.heatmapEstimatedLocationMarker.setMap(null);
         }
         if (window.panoramaMarker) {
             window.panoramaMarker.setMap(null);
@@ -288,7 +289,6 @@
         photoPanel = undefined;
         lastRequestedPaneMarkersIds = undefined;
         $('.ajapaik-marker-center-lock-button').hide();
-        window.heatmapEstimatedLocationMarker.setMap(null);
         window.map.set('scrollwheel', true);
         window.realMapElement.removeEventListener(nonFFWheelListener);
         window.realMapElement.removeEventListener(ffWheelListener);
@@ -405,7 +405,7 @@
                                     title: false,
                                     position: 'top left',
                                     size: { height: function () {
-                                        return $(document).height();
+                                        return $(document).height() * 0.75;
                                     }, width: function () {
                                         return $(document).width() / 6;
                                     }},
