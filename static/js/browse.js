@@ -417,13 +417,13 @@
                                 photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                             }
                             if (!recurringCheckPanelSize) {
-                                recurringCheckPanelSize = setInterval(function () {
-                                    currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
-                                    if (photoPanel && currentPanelWidth !== lastPanelWidth) {
-                                        photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
-                                    }
-                                    lastPanelWidth = currentPanelWidth;
-                                }, 500);
+//                                recurringCheckPanelSize = setInterval(function () {
+//                                    currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
+//                                    if (photoPanel && currentPanelWidth !== lastPanelWidth) {
+//                                        photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
+//                                    }
+//                                    lastPanelWidth = currentPanelWidth;
+//                                }, 3000);
                             }
                             if (markerIdToHighlightAfterPageLoad && window.map.zoom > 15) {
                                 window.highlightSelected(markerIdToHighlightAfterPageLoad);
