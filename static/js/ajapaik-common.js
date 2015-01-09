@@ -322,7 +322,7 @@ var map,
             currentScore,
             tagsWithAzimuth,
             newEstimatedLocation;
-        if (resp.is_correct == true) {
+        if (resp.is_correct) {
             message = gettext('Looks right!');
             hideFeedback = false;
             _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
@@ -332,13 +332,13 @@ var map,
             if (resp.azimuth_uncertain) {
                 message = gettext('The location seems right, but the azimuth is yet uncertain.');
             }
-            if (resp['azimuth_uncertain'] && resp['azimuth_tags'] < 2) {
+            if (resp.azimuth_uncertain && resp.azimuth_tags < 2) {
                 message = gettext('The location seems right, your azimuth was first.');
             }
-        } else if (resp['location_is_unclear']) {
+        } else if (resp.location_is_unclear) {
             message = gettext('Correct location is not certain yet.');
             _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
-        } else if (resp['is_correct'] == false) {
+        } else if (!resp.is_correct) {
             message = gettext('Other users have different opinion.');
             hideFeedback = true;
             _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
@@ -640,44 +640,24 @@ var map,
     };
 
     mapDisplayHeatmapWithEstimatedLocation = function (heatmapData) {
-        var totalHeatmapGeotags = 0,
-            totalHeatmapGeotagsWithAzimuth = 0,
-            latLngBounds = new window.google.maps.LatLngBounds(),
+        var latLngBounds = new window.google.maps.LatLngBounds(),
             newLatLng,
             heatmapPoints = [],
-            inputHeatmapPoints,
-            inputEstimatedLocation,
             i;
-        heatmapEstimatedLocationMarker = undefined;
-        if (heatmapData.heatmap_points) {
-            inputHeatmapPoints = heatmapData.heatmap_points;
-        } else {
-            inputHeatmapPoints = heatmapData.heatmapPoints;
+        if (heatmapEstimatedLocationMarker) {
+            heatmapEstimatedLocationMarker.setMap(null);
         }
-        for (i = 0; i < inputHeatmapPoints.length; i += 1) {
-            if (inputHeatmapPoints[i][2]) {
-                totalHeatmapGeotagsWithAzimuth += 1;
-            }
-            totalHeatmapGeotags += 1;
-            newLatLng = new window.google.maps.LatLng(inputHeatmapPoints[i][0], inputHeatmapPoints[i][1]);
+        heatmapEstimatedLocationMarker = undefined;
+        for (i = 0; i < heatmapData.heatmapPoints.length; i += 1) {
+            newLatLng = new window.google.maps.LatLng(heatmapData.heatmapPoints[i][0], heatmapData.heatmapPoints[i][1]);
             heatmapPoints.push(newLatLng);
             latLngBounds.extend(newLatLng);
         }
-        if (heatmapData.tagsWithAzimuth) {
-            totalHeatmapGeotagsWithAzimuth = heatmapData.tagsWithAzimuth;
-        }
-        window.mapInfoPanelGeotagCountElement.html(totalHeatmapGeotags);
-        window.mapInfoPanelAzimuthCountElement.html(totalHeatmapGeotagsWithAzimuth);
-        if (heatmapData.estimated_location) {
-            inputEstimatedLocation = heatmapData.estimated_location;
-        } else if (heatmapData.newEstimatedLocation) {
-            inputEstimatedLocation = heatmapData.newEstimatedLocation;
-        } else if (heatmapData.estimatedLocation) {
-            inputEstimatedLocation = heatmapData.estimatedLocation;
-        }
-        if (inputEstimatedLocation) {
+        window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
+        window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
+        if (heatmapData.newEstimatedLocation) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
-                position: new window.google.maps.LatLng(inputEstimatedLocation[0], inputEstimatedLocation[1]),
+                position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),
                 map: window.map,
                 title: window.gettext("The peoples' guess"),
                 draggable: false,
@@ -686,12 +666,9 @@ var map,
         }
         if (heatmapEstimatedLocationMarker) {
             window.map.setCenter(heatmapEstimatedLocationMarker.getPosition());
-            //window.marker.setPosition(heatmapEstimatedLocationMarker.getPosition());
-            //window.map.setZoom(17);
         } else {
             window.map.fitBounds(latLngBounds);
         }
-        //marker.setPosition(map.getCenter());
         marker.setZIndex(window.google.maps.Marker.MAX_ZINDEX + 1);
         heatmapPoints = new window.google.maps.MVCArray(heatmapPoints);
         if (heatmap) {

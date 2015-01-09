@@ -134,6 +134,7 @@
     window.startGuessLocation = function () {
         if (!guessLocationStarted) {
             guessLocationStarted = true;
+            window.dottedAzimuthLine.setVisible(false);
             $('.ajapaik-marker-center-lock-button').show();
             window.map.set('scrollwheel', false);
             nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, false);
@@ -213,7 +214,13 @@
                 data: {photo_id: photoId},
                 cache: false,
                 success: function (response) {
-                    window.mapDisplayHeatmapWithEstimatedLocation(response);
+                    var transformedResponse = {
+                        currentScore: response.current_score,
+                        heatmapPoints: response.heatmap_points,
+                        newEstimatedLocation: response.new_estimated_location,
+                        tagsWithAzimuth: response.azimuth_tags
+                    };
+                    window.mapDisplayHeatmapWithEstimatedLocation(transformedResponse);
                 }
             });
         }
@@ -244,7 +251,7 @@
             noticeDiv.find('#ajapaik-mapview-guess-feedback-difficulty-form').hide();
             noticeDiv.find('#ajapaik-mapview-guess-feedback-points-gained').hide();
         }
-        noticeDiv.find('#ajapaik-mapview-guess-feedback-message').html(guessResponse.feedbackMessage);
+        //noticeDiv.find('#ajapaik-mapview-guess-feedback-message').html(guessResponse.feedbackMessage);
         noticeDiv.find('#ajapaik-mapview-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
         setTimeout(function () {
             feedbackPanel = $.jsPanel({
@@ -276,6 +283,8 @@
         window.marker.setMap(null);
         if (window.heatmap) {
             window.heatmap.setMap(null);
+        }
+        if (window.heatmapEstimatedLocationMarker) {
             window.heatmapEstimatedLocationMarker.setMap(null);
         }
         if (window.panoramaMarker) {
