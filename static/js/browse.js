@@ -402,7 +402,6 @@
                                 photoPanel = $.jsPanel({
                                     selector: '#ajapaik-map-container',
                                     content: response,
-                                    //controls: {buttons: false},
                                     title: false,
                                     position: 'top left',
                                     size: { height: function () {

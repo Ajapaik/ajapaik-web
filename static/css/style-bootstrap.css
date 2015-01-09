@@ -787,3 +787,8 @@ ul.errorlist {
 #ajapaik-mapview-photo-panel .jsPanel-content {
     outline: none !important;
 }
+
+.ui-resizable-e {
+    width: 25px;
+    z-index: 1000 !important;
+}
