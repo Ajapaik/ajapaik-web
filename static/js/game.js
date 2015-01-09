@@ -70,6 +70,12 @@
         if (window.panoramaMarker) {
             window.panoramaMarker.setMap(null);
         }
+        if (window.heatmap) {
+            window.heatmap.setMap(null);
+        }
+        if (window.heatmapEstimatedLocationMarker) {
+            window.heatmapEstimatedLocationMarker.setMap(null);
+        }
         window.saveLocationButton.removeClass('btn-primary').removeClass('btn-warning').removeClass('btn-success')
             .addClass('btn-default').text(window.gettext('Save location only')).attr('disabled', 'disabled');
         window.google.maps.event.clearListeners(window.map, 'mousemove');
