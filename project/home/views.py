@@ -551,7 +551,7 @@ def geotag_add(request):
         'azimuth_uncertain': azimuth_uncertain,
         'heatmap_points': heatmap_points,
         'azimuth_tags': azimuth_tag_count,
-        'new_estimated_location': new_estimated_location
+        'estimated_location': new_estimated_location
     }), content_type="application/json")
 
 

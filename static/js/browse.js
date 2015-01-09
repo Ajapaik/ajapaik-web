@@ -217,7 +217,7 @@
                     var transformedResponse = {
                         currentScore: response.current_score,
                         heatmapPoints: response.heatmap_points,
-                        newEstimatedLocation: response.new_estimated_location,
+                        newEstimatedLocation: response.estimated_location,
                         tagsWithAzimuth: response.azimuth_tags
                     };
                     window.mapDisplayHeatmapWithEstimatedLocation(transformedResponse);
