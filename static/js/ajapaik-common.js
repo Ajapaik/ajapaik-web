@@ -648,6 +648,7 @@ var map,
             inputHeatmapPoints,
             inputEstimatedLocation,
             i;
+        heatmapEstimatedLocationMarker = null;
         if (heatmapData.heatmap_points) {
             inputHeatmapPoints = heatmapData.heatmap_points;
         } else {
