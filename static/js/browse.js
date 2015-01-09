@@ -470,7 +470,7 @@
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.find('.ajapaik-azimuth').hide();
             lastSelectedPaneElement.find('.ajapaik-eye-open').hide();
-            lastSelectedPaneElement.find('.ajapaik-rephoto-count').hide();
+            //lastSelectedPaneElement.find('.ajapaik-rephoto-count').hide();
         }
         if (lastSelectedMarkerId && lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
@@ -486,7 +486,7 @@
                     targetPaneElement.find('img').attr('src', clusterMarkers[i].thumb);
                     targetPaneElement.find('.ajapaik-azimuth').show();
                     targetPaneElement.find('.ajapaik-eye-open').show();
-                    targetPaneElement.find('.ajapaik-rephoto-count').show();
+                    //targetPaneElement.find('.ajapaik-rephoto-count').show();
                     if (!targetPaneElement.find('.ajapaik-eye-open').hasClass('ajapaik-eye-open-light-bg')) {
                         targetPaneElement.find('.ajapaik-eye-open').addClass('ajapaik-eye-open-light-bg');
                     }
@@ -776,21 +776,21 @@
             var myParent = $(e).parent();
             myParent.find('.ajapaik-eye-open').show();
             myParent.find('.ajapaik-azimuth').show();
-            myParent.find('.ajapaik-rephoto-count').show();
+            //myParent.find('.ajapaik-rephoto-count').show();
         };
         window.paneImageHoverOut = function (e) {
             if (e.dataset.id != currentlySelectedMarkerId) {
                 var myParent = $(e).parent();
                 myParent.find('.ajapaik-eye-open').hide();
                 myParent.find('.ajapaik-azimuth').hide();
-                myParent.find('.ajapaik-rephoto-count').hide();
+                //myParent.find('.ajapaik-rephoto-count').hide();
             }
         };
         window.paneEyeHoverIn = function (e) {
             var myParent = $(e).parent();
             myParent.find('.ajapaik-eye-open').show();
             myParent.find('.ajapaik-azimuth').show();
-            myParent.find('.ajapaik-rephoto-count').show();
+            //myParent.find('.ajapaik-rephoto-count').show();
             return false;
         };
         window.paneEyeHoverOut = function (e) {
@@ -798,7 +798,7 @@
                 var myParent = $(e).parent();
                 myParent.find('.ajapaik-eye-open').hide();
                 myParent.find('.ajapaik-azimuth').hide();
-                myParent.find('.ajapaik-rephoto-count').hide();
+                //myParent.find('.ajapaik-rephoto-count').hide();
             }
             return false;
         };
@@ -806,7 +806,7 @@
             var myParent = $(e).parent();
             myParent.find('.ajapaik-eye-open').show();
             myParent.find('.ajapaik-azimuth').show();
-            myParent.find('.ajapaik-rephoto-count').show();
+            //myParent.find('.ajapaik-rephoto-count').show();
             return false;
         };
         window.paneAzimuthHoverOut = function (e) {
@@ -814,7 +814,7 @@
                 var myParent = $(e).parent();
                 myParent.find('.ajapaik-eye-open').hide();
                 myParent.find('.ajapaik-azimuth').hide();
-                myParent.find('.ajapaik-rephoto-count').hide();
+                //myParent.find('.ajapaik-rephoto-count').hide();
             }
             return false;
         };
@@ -822,7 +822,7 @@
             var myParent = $(e).parent();
             myParent.find('.ajapaik-eye-open').show();
             myParent.find('.ajapaik-azimuth').show();
-            myParent.find('.ajapaik-rephoto-count').show();
+            //myParent.find('.ajapaik-rephoto-count').show();
             return false;
         };
         window.paneRephotoCountHoverOut = function (e) {
@@ -830,7 +830,7 @@
                 var myParent = $(e).parent();
                 myParent.find('.ajapaik-eye-open').hide();
                 myParent.find('.ajapaik-azimuth').hide();
-                myParent.find('.ajapaik-rephoto-count').hide();
+                //myParent.find('.ajapaik-rephoto-count').hide();
             }
             return false;
         };
