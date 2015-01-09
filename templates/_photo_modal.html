@@ -60,7 +60,7 @@
                     {% endif %}
                     {% if photo.source_url %}
                         <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                            <a onclick="_gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
+                            <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
                                target="_blank">
                                 {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
                             </a>
@@ -103,6 +103,7 @@
     </div>
 </div>
 <script>
+    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal');
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
@@ -121,8 +122,8 @@
                 cache: false,
                 url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
                 success: function (result) {
-                    $('#ajapaik-rephoto-upload-modal').data('bs.modal', null);
-                    $('#ajapaik-rephoto-upload-modal').html(result).modal().on('shown.bs.modal', function () {
+                    rephotoUploadModal.data('bs.modal', null);
+                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
                         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                     });
                 }
@@ -139,7 +140,7 @@
         {% endif %}
         window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
         window.photoModalFullscreenImageSize = {{ fullscreen.size }};
-        _gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
+        window._gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
         $(".ajapaik-flip-photo-overlay-button").click(function () {
             var target = $("#ajapaik-modal-photo"),
                 fullScreenImage = $('#ajapaik-full-screen-image');
@@ -201,16 +202,15 @@
             }
             rephotoInfoColumn.show();
             rephotoColumn.show();
+            window.currentlySelectedRephotoId = window.photoModalRephotoArray[0][0];
+            window.syncMapStateToURL();
             $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[0][1]);
 
         });
         $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function (e) {
             var targetId = e.target.dataset.id;
             if (!targetId) {
-                targetId = window.selectedRephotoId;
-                if (!targetId) {
-                    targetId = window.currentlySelectedRephotoId;
-                }
+                targetId = window.currentlySelectedRephotoId;
             }
             $('#ajapaik-photo-modal-rephoto-column').show();
             for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
@@ -224,10 +224,6 @@
                 }
             }
         });
-{#        if (window.selectedRephotoId) {#}
-{#           $('#ajapaik-rephoto-thumb-' + window.selectedRephotoId).click();#}
-{#            window.selectedRephotoId = false;#}
-{#        }#}
         $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
             $('#ajapaik-photo-modal-rephoto-column').hide();
             $('#ajapaik-rephoto-selection').hide();
@@ -235,6 +231,8 @@
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
             $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            window.currentlySelectedRephotoId = false;
+            window.syncMapStateToURL();
             window.userClosedRephotoTools = true;
         });
         $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
@@ -266,5 +264,6 @@
                 }
             }
         });
+        $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
     });
 </script>

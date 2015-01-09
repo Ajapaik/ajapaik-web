@@ -43,6 +43,7 @@
             }
         },
         openPhotoDrawer,
+        photoDrawerOpen = false,
         toggleVisiblePaneElements,
         setCorrectMarkerIcon,
         blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
@@ -82,9 +83,9 @@
     };
 
     openPhotoDrawer = function (content) {
+        photoDrawerOpen = true;
+        window.syncMapStateToURL();
         var fullScreenImage = $('#ajapaik-mapview-full-screen-image');
-        //fullScreenImage.unbind('load');
-        //window.syncMapStateToURL();
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
@@ -108,18 +109,25 @@
         if (currentlySelectedMarkerId) {
             historyReplacementString += 'photo/' + currentlySelectedMarkerId + '/';
         } else {
-            if (window.selectedPhotoId) {
-                historyReplacementString += 'photo/' + window.selectedPhotoId + '/';
-            }
+//            if (window.preselectPhotoId) {
+//                historyReplacementString += 'photo/' + window.preselectPhotoId + '/';
+//            }
         }
         if (window.currentlySelectedRephotoId) {
             historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
+        } else {
+//            if (window.preselectRephotoId) {
+//                historyReplacementString += 'rephoto/' + window.preselectRephotoId + '/';
+//            }
         }
         historyReplacementString += '?city=' + window.cityId;
         if (window.map) {
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
             historyReplacementString += '&lng=' + window.map.getCenter().lng();
             historyReplacementString += '&zoom=' + window.map.zoom;
+        }
+        if (photoDrawerOpen) {
+            historyReplacementString += '&photoModalOpen=1';
         }
         window.History.replaceState(null, null, historyReplacementString);
     };
@@ -308,7 +316,8 @@
 
     window.closePhotoDrawer = function () {
         $('#ajapaik-photo-modal').modal('toggle');
-        //window.syncMapStateToURL();
+        photoDrawerOpen = false;
+        window.syncMapStateToURL();
         $('.filter-box').show();
     };
 
@@ -333,10 +342,11 @@
 
     toggleVisiblePaneElements = function () {
         if (window.map && !guessLocationStarted) {
-            currentlySelectedMarkerId = false;
-            window.selectedPhotoId = false;
             window.dottedAzimuthLine.setVisible(false);
-            //window.syncMapStateToURL();
+            if (!window.preselectPhotoId) {
+                currentlySelectedMarkerId = false;
+            }
+            window.syncMapStateToURL();
             currentMapBounds = window.map.getBounds();
             ne = currentMapBounds.getNorthEast();
             sw = currentMapBounds.getSouthWest();
@@ -409,11 +419,8 @@
                             }
                             if (!recurringCheckPanelSize) {
                                 recurringCheckPanelSize = setInterval(function () {
-                                    console.log("check");
                                     currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
-                                    console.log(currentPanelWidth);
                                     if (photoPanel && currentPanelWidth !== lastPanelWidth) {
-                                        console.log("justifying");
                                         photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
                                     }
                                     lastPanelWidth = currentPanelWidth;
@@ -442,7 +449,7 @@
             window.loadPhoto(markerId);
         }
         currentlySelectedMarkerId = markerId;
-        //window.syncMapStateToURL();
+        window.syncMapStateToURL();
         targetPaneElement = $('#element' + markerId);
         userAlreadySeenPhotoIds[markerId] = 1;
         if (fromMarker && targetPaneElement) {
@@ -557,41 +564,42 @@
     };
 
     window.initializeMapStateFromOptionalURLParameters = function () {
-        if (window.preselectPhotoId) {
-            // There's a selected photo specified in the URL, select when ready
-            currentlySelectedMarkerId = window.preselectPhotoId;
-            markerIdToHighlightAfterPageLoad = window.preselectPhotoId;
-            window.preselectPhotoId = false;
-        }
-        if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
-            // User has very specific parameters, allow to take precedence
-            window.getMap(new window.google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')), parseInt(window.getQueryParameterByName('zoom'), false));
+        if (window.getQueryParameterByName('fromSelect') && window.cityLatLng) {
+            window.getMap(window.cityLatLng, 13, false);
         } else {
-            if (window.preselectPhotoLat && window.preselectPhotoLng) {
-                // We know the location of the photo, let's build the map accordingly
-                window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 13, false);
-            } else if (window.cityLatLng) {
-                // There's nothing preselected, but we do know the city the photo's in
-                window.getMap(window.cityLatLng, 13, false);
-            } else {
-                // No idea
-                window.getMap(null, 13, false);
-            }
-        }
-        if (window.preselectRephotoId || (window.getQueryParameterByName('photoModalOpen') && window.preselectPhotoId)) {
-            // A previously selected rephoto ID exists in the URL or the user has landed on an URL where the modal is open, load it
-            window.loadPhoto(window.preselectPhotoId);
             if (window.preselectPhotoId) {
-                window.currentlySelectedRephotoId = window.preselectPhotoId;
+                // There's a selected photo specified in the URL, select when ready
+                currentlySelectedMarkerId = window.preselectPhotoId;
+                markerIdToHighlightAfterPageLoad = window.preselectPhotoId;
+            }
+            if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
+                // User has very specific parameters, allow to take precedence
+                window.getMap(new window.google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')), parseInt(window.getQueryParameterByName('zoom'), false));
+            } else {
+                if (window.preselectPhotoLat && window.preselectPhotoLng) {
+                    // We know the location of the photo, let's build the map accordingly
+                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 13, false);
+                } else if (window.cityLatLng) {
+                    // There's nothing preselected, but we do know the city the photo's in
+                    window.getMap(window.cityLatLng, 13, false);
+                } else {
+                    // No idea
+                    window.getMap(null, 13, false);
+                }
+            }
+            if (window.preselectRephotoId) {
+                window.loadPhoto(window.preselectPhotoId);
+                window.currentlySelectedRephotoId = window.preselectRephotoId;
+                photoDrawerOpen = true;
+            } else if (window.getQueryParameterByName('photoModalOpen') && window.preselectPhotoId) {
+                window.userClosedRephotoTools = true;
+                window.loadPhoto(window.preselectPhotoId);
+                photoDrawerOpen = true;
             }
         }
-        //if (window.getQueryParameterByName('fromSelect') && window.cityId) {
-        //    window.fromSelect = true;
-        //    window.History.replaceState(null, null, '/map/?city=' + window.cityId);
-        //} else {
-        //    window.fromSelect = false;
-        //}
-        //
+        window.preselectPhotoId = false;
+        window.preselectRephotoId = false;
+        window.syncMapStateToURL();
     };
 
     $(document).ready(function () {
@@ -600,13 +608,18 @@
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');
         window.saveLocationButton = $('.ajapaik-save-location-button');
 
+        if (window.preselectPhotoId) {
+            currentlySelectedMarkerId = window.preselectPhotoId;
+        }
+
         window.initializeMapStateFromOptionalURLParameters();
 
         $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $(document).on('hidden.bs.modal', '#ajapaik-photo-modal', function () {
             window.currentlySelectedRephotoId = false;
-            //window.syncMapStateToURL();
+            photoDrawerOpen = false;
+            window.syncMapStateToURL();
         });
 
         window.saveLocationButton.on('click', function () {
