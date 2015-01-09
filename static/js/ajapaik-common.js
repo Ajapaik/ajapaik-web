@@ -655,6 +655,7 @@ var map,
         }
         window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
         window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
+        console.log(heatmapData);
         if (heatmapData.newEstimatedLocation) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),
