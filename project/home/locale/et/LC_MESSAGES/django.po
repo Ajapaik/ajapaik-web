@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 17:48+0200\n"
-"PO-Revision-Date: 2015-01-12 17:25+0200\n"
+"PO-Revision-Date: 2015-01-12 18:00+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -124,13 +124,13 @@ msgstr "Vali keel"
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
 msgid "User"
-msgstr ""
+msgstr "Kasutaja"
 
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
 msgid "Log out"
-msgstr ""
+msgstr "Logi välja"
 
 #: templates/_header_city_selection_game_scoreboard.html:26
 #: templates/_header_city_selection_rephoto_scoreboard.html:41
@@ -273,6 +273,8 @@ msgid ""
 "Using the description to place an image in the game view will only earn you "
 "75%% of the points you would have gotten otherwise"
 msgstr ""
+"Kirjelduse vaatamine vähendab pildile tehtava asukohapakkumise eest "
+"saadavaid punkte veerandi võrra."
 
 #: templates/admin/project/csvphoto/change_list.html:6
 msgid "Home"
@@ -429,16 +431,16 @@ msgstr "Sulge kaart"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -450,8 +452,8 @@ msgstr "Sulge kaart"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
