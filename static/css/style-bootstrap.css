@@ -1,3 +1,7 @@
+html {
+    overflow: hidden;
+}
+
 body {
     background: #fff url(../images/bg-subtle-grunge.png) center center;
 }
@@ -165,6 +169,42 @@ body {
 }
 
 .ajapaik-marker-center-lock-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button {
+    background: #fff url(../images/material-design-icons/ic_help_24px.svg) no-repeat center !important;
+    width: 36px;
+    height: 36px;
+    margin-right: 25px;
+    margin-top: 5px;
+}
+
+.ajapaik-show-tutorial-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button:active {
+    background-image: url(../images/material-design-icons/ic_help_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button.active {
+    background-image: url(../images/material-design-icons/ic_help_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-show-tutorial-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button.focus {
     outline: none;
     background-color: #fff !important;
 }
@@ -804,4 +844,16 @@ ul.errorlist {
 
 .ui-resizable-e {
     width: 25px;
+}
+
+.tutorial-item {
+
+}
+
+.tutorial-item img {
+    display: inline;
+}
+
+.tutorial-item p {
+    display: inline;
 }

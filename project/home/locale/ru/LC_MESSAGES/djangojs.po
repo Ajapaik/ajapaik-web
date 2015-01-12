@@ -1,43 +1,89 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-17 23:49+0000\n"
+"POT-Creation-Date: 2015-01-12 13:50+0200\n"
 "PO-Revision-Date: 2014-05-21 19:37+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : ((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
+"((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: media/js/game.js:64 media/js/game.js.c:102
-msgid "Point the marker to where the picture was taken from."
-msgstr "Перетяни маркер на то место, откуда сделана фотография."
+#: static/js/ajapaik-common.js:479 static/js/ajapaik-common.js.c:599
+#: static/js/game.js:80
+msgid "Save location only"
+msgstr ""
 
-#: media/js/game.js:176
-msgid "Looks right!"
-msgstr "Похоже на правду!"
+#: static/js/ajapaik-common.js:530
+msgid "Save location and direction"
+msgstr ""
 
-#: media/js/game.js:180
-msgid "Correct location is not certain yet."
-msgstr "Здесь еще не выбрано точное расположение места."
+#: static/js/ajapaik-common.js:668
+msgid "The peoples' guess"
+msgstr ""
 
-#: media/js/game.js:184
-msgid "We doubt about it."
-msgstr "Другие думают иначе."
+#: static/js/browse.js:260 static/js/game.js:214 static/js/grid.js:72
+msgid "Points awarded"
+msgstr ""
 
-#: media/js/game.js:187
-msgid "Your guess was first."
+#: static/js/browse.js:646 static/js/game.js:518
+msgid ""
+"Drag the map so that the marker is where the photographer was standing. You "
+"can then set the direction of the view. You should also zoom the map before "
+"submitting your geotag."
+msgstr ""
+
+#: static/js/game.js:46
+msgid "Vihje vaatamine"
+msgstr ""
+
+#: static/js/game.js:48
+msgid ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+msgstr ""
+
+#: static/js/game.js:159
+msgid "We are now showing you random photos."
+msgstr ""
+
+#: static/js/game.js:161
+msgid "You have seen all the pictures we have for this area."
+msgstr ""
+
+#: static/js/game.js:253
+#, fuzzy
+#| msgid "Your guess was first."
+msgid "Your guess"
 msgstr "Твоё предположение было первым."
 
-#: media/js/game.js:284
-msgid "Show hint"
-msgstr "Покажи подсказку"
+#: static/js/grid.js:419
+msgid ""
+"Drag the map so that the marker is where the photographer was standing. You "
+"can then set the direction of the view."
+msgstr ""
+
+#~ msgid "Point the marker to where the picture was taken from."
+#~ msgstr "Перетяни маркер на то место, откуда сделана фотография."
+
+#~ msgid "Looks right!"
+#~ msgstr "Похоже на правду!"
+
+#~ msgid "Correct location is not certain yet."
+#~ msgstr "Здесь еще не выбрано точное расположение места."
+
+#~ msgid "We doubt about it."
+#~ msgstr "Другие думают иначе."
+
+#~ msgid "Show hint"
+#~ msgstr "Покажи подсказку"
 
 #~ msgid "You have selected one photo for uploading. Continue?"
 #~ msgid_plural "You have selected %s photos for uploading. Continue?"

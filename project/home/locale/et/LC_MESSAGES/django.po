@@ -1,159 +1,275 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-17 23:49+0000\n"
+"POT-Creation-Date: 2015-01-12 13:49+0200\n"
 "PO-Revision-Date: 2014-05-18 09:04+0000\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: forms.py:13 views.py:143
+#: project/home/forms.py:8
 msgid "Choose city"
 msgstr "Vali linn"
 
-#: global_settings.py:18
-msgid "Estonian"
-msgstr "Eesti"
+#: project/home/get_next_photos_to_geotag.py:185
+msgid "Looks right!"
+msgstr ""
 
-#: global_settings.py:19
-msgid "English"
-msgstr "Inglise"
+#: project/home/get_next_photos_to_geotag.py:187
+msgid "The location seems right, but not the azimuth."
+msgstr ""
 
-#: global_settings.py:20
-msgid "Russian"
-msgstr "Vene"
+#: project/home/get_next_photos_to_geotag.py:189
+msgid ""
+"The location seems right. Try submitting an azimuth to earn even more points!"
+msgstr ""
 
-#: views.py:97
-msgid "All pictures"
-msgstr "Kõik pildid"
+#: project/home/get_next_photos_to_geotag.py:191
+msgid "The location seems right, but the azimuth is yet uncertain."
+msgstr ""
 
-#: views.py:101
-msgid "Added last week"
-msgstr "Lisatud viimasel nädalal"
+#: project/home/get_next_photos_to_geotag.py:193
+msgid "The location seems right, your azimuth was first."
+msgstr ""
 
-#: views.py:105
-msgid "Added last month"
-msgstr "Lisatud viimasel kuul"
+#: project/home/get_next_photos_to_geotag.py:195
+msgid "Other users have different opinion."
+msgstr ""
 
-#: views.py:118
-msgid "Choose range"
-msgstr "Vali vahemik"
+#: project/home/get_next_photos_to_geotag.py:197
+msgid "Correct location is not certain yet."
+msgstr ""
 
-#: views.py:164
-msgid "Choose source"
-msgstr "Vali allikas"
+#: project/home/get_next_photos_to_geotag.py:199
+msgid "Your guess was first."
+msgstr ""
 
-#: views.py:236 templates/frontpage.html:167
+#: project/home/views.py:236 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: views.py:340 templates/block_photoview.html:30 templates/photoview.html:76
-#: templates/photoview.html.py:160
+#: project/home/views.py:421
 msgid "Heat map"
 msgstr "Asukoht kaardil"
 
-#: views.py:379 views.py:381 templates/frontpage.html:168
+#: project/home/views.py:458 project/home/views.py:460
+#: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: views.py:423 views.py:432 views.py:441 templates/game.html:29
+#: project/home/views.py:561 project/home/views.py:571
+#: project/home/views.py:581
+#: templates/_header_city_selection_game_scoreboard.html:14
 msgid "Leaderboard"
 msgstr "Osavamad Ajapaikajad"
 
-#: templates/base.html:4 templates/base.html.py:41 templates/base_viz.html:5
-#: templates/block_photoview.html:6 templates/frontpage.html:8
-#: templates/game.html:25 templates/mapview.html:105
-#: templates/photoview.html:7
-msgid "Timepatch (Ajapaik)"
-msgstr "Ajapaik"
+#: project/settings/default.py:63
+msgid "Estonian"
+msgstr "Eesti"
 
-#: templates/block_leaderboard.html:6 templates/leaderboard.html:15
-#: templates/mapview.html:129
+#: project/settings/default.py:64
+msgid "English"
+msgstr "Inglise"
+
+#: project/settings/default.py:65
+msgid "Russian"
+msgstr "Vene"
+
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
+msgid "Back"
+msgstr ""
+
+#: templates/_block_leaderboard.html:9
+#: templates/_header_city_selection_rephoto_scoreboard.html:26
+#: templates/leaderboard.html:17
 msgid "Your points"
 msgstr "Sinu punktid"
 
-#: templates/block_photoview.html:28 templates/block_photoview.html.py:29
-#: templates/block_photoview.html:192 templates/photoview.html:75
-#: templates/photoview.html.py:133 templates/photoview.html:159
-msgid "Add rephoto"
-msgstr "Lisa ülepildistus"
-
-#: templates/block_photoview.html:33 templates/block_photoview.html.py:40
-#: templates/photoview.html:168
-msgid "Add comment"
-msgstr "Kommenteeri"
-
-#: templates/block_photoview.html:35
+#: templates/_block_photoview.html:33 templates/_photo_modal.html:95
 msgid "Close photo"
 msgstr "Sulge foto"
 
-#: templates/block_photoview.html:36
-msgid "Random"
-msgstr "Suvaline"
+#: templates/_block_photoview.html:50 templates/_header.html:5
+#: templates/_header_city_selection.html:5
+#: templates/_header_city_selection_game_scoreboard.html:5
+#: templates/_header_city_selection_rephoto_scoreboard.html:5
+#: templates/_photo_modal.html:133 templates/base.html:7
+#: templates/base.html.py:9 templates/base.html.py:48
+#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
+#: templates/base_bootstrap.html:48 templates/frontpage.html:8
+msgid "Timepatch (Ajapaik)"
+msgstr "Ajapaik"
 
-#: templates/block_photoview.html:113 templates/block_photoview.html.py:183
-#: templates/photoview.html:124
-msgid ""
-"Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it."
-msgstr ""
-"Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia"
-" ajaloolise pildi kõrvale."
+#: templates/_header.html:24 templates/_header_city_selection.html:28
+#: templates/frontpage.html:27
+msgid "Choose language"
+msgstr "Vali keel"
 
-#: templates/block_photoview.html:187 templates/game.html:37
-#: templates/mapview.html:138 templates/photoview.html:128
-#, python-format
+#: templates/_header_city_selection_game_scoreboard.html:22
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
 msgid ""
-"Account (%(account_name)s) connected with Facebook. If it's not you then "
-"%(link_open)sclick here%(link_close)s."
+"\n"
+"                            Account (%(account_name)s) connected. If it's "
+"not you then %(link_open)sclick\n"
+"                            here%(link_close)s."
 msgstr ""
 "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
 "%(link_open)svajuta siia%(link_close)s."
 
-#: templates/block_photoview.html:203 templates/photoview.html:144
-msgid "Rephoto uploading requires connecting your account with Facebook."
-msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
+#: templates/_header_city_selection_game_scoreboard.html:30
+#: templates/_header_city_selection_rephoto_scoreboard.html:44
+msgid "Facebook Connect to save your score and continue later."
+msgstr ""
+"Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/block_photoview.html:204 templates/game.html:43
-#: templates/mapview.html:144 templates/photoview.html:145
+#: templates/_header_city_selection_game_scoreboard.html:31
+#: templates/_header_city_selection_rephoto_scoreboard.html:45
+#: templates/_photo_upload_modal.html:62
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
-#: templates/block_photoview.html:209 templates/game.html:82
-#: templates/mapview.html:187 templates/mapview.html.py:191
+#: templates/_header_city_selection_rephoto_scoreboard.html:12
+msgid "Rephoto Leaderboard"
+msgstr "Aktiivsemad ülepildistajad"
+
+#: templates/_header_city_selection_rephoto_scoreboard.html:37
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                            Account (%(account_name)s) connected. If it\"s "
+"not you then %(link_open)sclick\n"
+"                            here%(link_close)s."
+msgstr ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+
+#: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
+#: templates/mapview.html:15
+#, fuzzy
+#| msgid "Save location"
+msgid "Save location only"
+msgstr "Salvesta asukoht"
+
+#: templates/_map_lower_right_buttons.html:8
+msgid "Skip"
+msgstr ""
+
+#: templates/_photo_modal.html:82
+msgid "Rephotograph by"
+msgstr ""
+
+#: templates/_photo_modal.html:86
+msgid "Date taken"
+msgstr ""
+
+#: templates/_photo_modal.html:93
+msgid "Add rephoto"
+msgstr "Lisa ülepildistus"
+
+#: templates/_photo_modal.html:94
+#, fuzzy
+#| msgid "Save location"
+msgid "Specify location"
+msgstr "Salvesta asukoht"
+
+#: templates/_photo_upload_modal.html:26
+#, fuzzy
+#| msgid "Selected rephoto"
+msgid "Selected file"
+msgstr "valitud ülepildistust"
+
+#: templates/_photo_upload_modal.html:26
+msgid "upload?"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:40
+msgid ""
+"Make a contemporary rephoto from the very same place where the historic "
+"picture was taken and upload it."
+msgstr ""
+"Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
+"ajaloolise pildi kõrvale."
+
+#: templates/_photo_upload_modal.html:45
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                Account (%(account_name)s) connected. If "
+"it's not you then %(link_open)sclick here\n"
+"                                %(link_close)s."
+msgstr ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+
+#: templates/_photo_upload_modal.html:49
+msgid "Select file..."
+msgstr ""
+
+#: templates/_photo_upload_modal.html:61
+msgid "Rephoto uploading requires connecting your account with Facebook."
+msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
+
+#: templates/_photo_upload_modal.html:66 templates/game.html:116
+#: templates/mapview.html:44
 msgid "Close"
 msgstr "Sulge"
 
-#: templates/block_photoview.html:214 templates/game.html:74
-msgid "Thank you!"
-msgstr "Aitäh!"
+#: templates/admin/project/csvphoto/change_list.html:6
+msgid "Home"
+msgstr ""
 
-#: templates/block_photoview.html:216
-msgid "Your rephoto has been uploaded."
-msgstr "Teie ülepildistus on lisatud."
+#: templates/admin/project/csvphoto/change_list.html:7
+msgid "Upload photos via CSV file"
+msgstr ""
 
-#: templates/frontpage.html:27 templates/mapview.html:169
-#: templates/photoview.html:26
-msgid "Choose language"
-msgstr "Vali keel"
+#: templates/admin/project/csvphoto/change_list.html:15
+msgid "CSV"
+msgstr ""
 
-#: templates/frontpage.html:93
+#: templates/admin/project/csvphoto/change_list.html:17
+msgid "ZIP"
+msgstr ""
+
+#: templates/admin/project/csvphoto/change_list.html:19
+msgid "Submit"
+msgstr ""
+
+#: templates/base.html:91 templates/base_bootstrap.html:98
+msgid ""
+"We use cookies for best performance of the site. By using the site you agree "
+"to that."
+msgstr ""
+
+#: templates/frontpage.html:88
 msgid "Where is history located?"
 msgstr "Kus ajalugu asub?"
 
-#: templates/frontpage.html:94
+#: templates/frontpage.html:89
 msgid "Discover, geotag and make the rephoto."
 msgstr "Uuri, avasta, märgi kaardil ja pildista üle."
 
-#: templates/frontpage.html:97
+#: templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
@@ -161,43 +277,137 @@ msgstr ""
 "Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et "
 "oleks põnevam, siis võistled kõigi teiste osalejatega."
 
-#: templates/frontpage.html:99
+#: templates/frontpage.html:94
 msgid "Read more"
 msgstr "Loe lähemalt"
 
-#: templates/game.html:42 templates/mapview.html:143
-msgid "Facebook Connect to save your score and continue later."
+#: templates/frontpage.html:167
+msgid "View gallery"
 msgstr ""
-"Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/game.html:56
-msgid "Save location"
-msgstr "Salvesta asukoht"
+#: templates/game.html:31
+msgid "Show description"
+msgstr ""
 
-#: templates/game.html:57
-msgid "Close map"
-msgstr "Sulge kaart"
-
-#: templates/game.html:63 templates/game.html.py:76
-msgid "Next photo"
-msgstr "Järgmine foto"
-
-#: templates/game.html:65
-msgid "Back to home page"
-msgstr "Tagasi esilehele"
-
-#: templates/game.html:69
+#: templates/game.html:35
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: templates/mapview.html:122
-msgid "Rephoto Leaderboard"
-msgstr "Aktiivsemad ülepildistajad"
+#: templates/game.html:37 templates/game.html.py:62
+msgid "Next photo"
+msgstr "Järgmine foto"
 
-#: templates/photoview.html:170
-msgid "Historic photo"
-msgstr "ajaloolist fotot"
+#: templates/game.html:45 templates/grid.html:63 templates/mapview.html:60
+msgid "Thank you!"
+msgstr "Aitäh!"
 
-#: templates/photoview.html:173
-msgid "Selected rephoto"
-msgstr "valitud ülepildistust"
+#: templates/game.html:49 templates/grid.html:67
+msgid "In your opinion to geotag this photo is"
+msgstr ""
+
+#: templates/game.html:53 templates/grid.html:71
+msgid "easy"
+msgstr ""
+
+#: templates/game.html:59 templates/grid.html:77
+msgid "hard"
+msgstr ""
+
+#: templates/game.html:79
+msgid "This icon indicates where you think the photo was taken."
+msgstr ""
+
+#: templates/game.html:84
+msgid "Got it!"
+msgstr ""
+
+#: templates/game.html:90 templates/grid.html:45 templates/mapview.html:23
+#: templates/photoview.html:47
+msgid "Geotags"
+msgstr ""
+
+#: templates/game.html:92 templates/grid.html:47 templates/mapview.html:25
+#: templates/photoview.html:49
+msgid "With azimuth"
+msgstr ""
+
+#: templates/grid.html:24
+#, fuzzy
+#| msgid "Add rephoto"
+msgid "Load more photos"
+msgstr "Lisa ülepildistus"
+
+#: templates/grid.html:27
+msgid "No more photos to show"
+msgstr ""
+
+#: templates/grid.html:40 templates/mapview.html:18
+msgid "Cancel"
+msgstr ""
+
+#: templates/grid.html:80
+msgid "You're welcome!"
+msgstr ""
+
+#: templates/mapview.html:62
+#, fuzzy
+#| msgid "Back to home page"
+msgid "Back to map"
+msgstr "Tagasi esilehele"
+
+#: templates/photo_upload.html:18
+msgid "Add files..."
+msgstr ""
+
+#: templates/photo_upload.html:23
+msgid "Start upload"
+msgstr ""
+
+#: templates/photo_upload.html:27
+msgid "Cancel upload"
+msgstr ""
+
+#: templates/photo_upload.html:31
+msgid "Delete"
+msgstr ""
+
+#: templates/photo_upload.html:44
+msgid "Place"
+msgstr ""
+
+#: templates/photoview.html:52
+#, fuzzy
+#| msgid "Guess the location"
+msgid "Guess location"
+msgstr "Arva ära asukoht"
+
+#: templates/photoview.html:53
+msgid "Close map"
+msgstr "Sulge kaart"
+
+#~ msgid "All pictures"
+#~ msgstr "Kõik pildid"
+
+#~ msgid "Added last week"
+#~ msgstr "Lisatud viimasel nädalal"
+
+#~ msgid "Added last month"
+#~ msgstr "Lisatud viimasel kuul"
+
+#~ msgid "Choose range"
+#~ msgstr "Vali vahemik"
+
+#~ msgid "Choose source"
+#~ msgstr "Vali allikas"
+
+#~ msgid "Add comment"
+#~ msgstr "Kommenteeri"
+
+#~ msgid "Random"
+#~ msgstr "Suvaline"
+
+#~ msgid "Your rephoto has been uploaded."
+#~ msgstr "Teie ülepildistus on lisatud."
+
+#~ msgid "Historic photo"
+#~ msgstr "ajaloolist fotot"

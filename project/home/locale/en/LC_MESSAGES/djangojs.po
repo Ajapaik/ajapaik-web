@@ -2,42 +2,73 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-17 23:49+0000\n"
+"POT-Creation-Date: 2015-01-12 13:50+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: media/js/game.js:64 media/js/game.js.c:102
-msgid "Point the marker to where the picture was taken from."
+#: static/js/ajapaik-common.js:479 static/js/ajapaik-common.js.c:599
+#: static/js/game.js:80
+msgid "Save location only"
 msgstr ""
 
-#: media/js/game.js:176
-msgid "Looks right!"
+#: static/js/ajapaik-common.js:530
+msgid "Save location and direction"
 msgstr ""
 
-#: media/js/game.js:180
-msgid "Correct location is not certain yet."
+#: static/js/ajapaik-common.js:668
+msgid "The peoples' guess"
 msgstr ""
 
-#: media/js/game.js:184
-msgid "We doubt about it."
-msgstr "Others have different opinion."
-
-#: media/js/game.js:187
-msgid "Your guess was first."
+#: static/js/browse.js:260 static/js/game.js:214 static/js/grid.js:72
+msgid "Points awarded"
 msgstr ""
 
-#: media/js/game.js:284
-msgid "Show hint"
+#: static/js/browse.js:646 static/js/game.js:518
+msgid ""
+"Drag the map so that the marker is where the photographer was standing. You "
+"can then set the direction of the view. You should also zoom the map before "
+"submitting your geotag."
 msgstr ""
+
+#: static/js/game.js:46
+msgid "Vihje vaatamine"
+msgstr ""
+
+#: static/js/game.js:48
+msgid ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+msgstr ""
+
+#: static/js/game.js:159
+msgid "We are now showing you random photos."
+msgstr ""
+
+#: static/js/game.js:161
+msgid "You have seen all the pictures we have for this area."
+msgstr ""
+
+#: static/js/game.js:253
+msgid "Your guess"
+msgstr ""
+
+#: static/js/grid.js:419
+msgid ""
+"Drag the map so that the marker is where the photographer was standing. You "
+"can then set the direction of the view."
+msgstr ""
+
+#~ msgid "We doubt about it."
+#~ msgstr "Others have different opinion."

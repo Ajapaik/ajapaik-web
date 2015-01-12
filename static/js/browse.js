@@ -9,7 +9,6 @@
         photoPanel,
         icon,
         lastRequestedPaneMarkersIds,
-        disableSave = true,
         guessLocationStarted = false,
         currentPanelWidth,
         lastPanelWidth,
@@ -133,9 +132,13 @@
 
     window.startGuessLocation = function () {
         if (!guessLocationStarted) {
+            if (window.map.zoom < 16) {
+                window.map.setZoom(16);
+            }
             guessLocationStarted = true;
             window.dottedAzimuthLine.setVisible(false);
             $('.ajapaik-marker-center-lock-button').show();
+            $('.ajapaik-show-tutorial-button').show();
             window.map.set('scrollwheel', false);
             nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, false);
             ffWheelListener = window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, false);
@@ -176,7 +179,7 @@
                 window.firstDragDone = true;
             });
             window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
-                disableSave = false;
+                window.disableSave = false;
             });
             $('#ajapaik-photo-modal').modal('toggle');
             guessPhotoPanelContent = $('#ajapaik-mapview-guess-photo-js-panel-content');
@@ -205,7 +208,9 @@
                 id: 'ajapaik-mapview-guess-photo-js-panel'
             });
             $(guessPhotoPanel).css('max-width', currentPhotoWidth + 'px');
-            photoPanel.close();
+            if (photoPanel) {
+                photoPanel.close();
+            }
             $('#ajapaik-mapview-map-info-panel').show();
             $('#ajapaik-map-button-container').show();
             mc.clearMarkers();
@@ -246,11 +251,11 @@
         // TODO: What to do about rephoto and game leaderboard mixing up?
         //window.updateLeaderboard();
         noticeDiv = $('#ajapaik-mapview-feedback-js-panel-content');
-        if (guessResponse.hideFeedback) {
-            noticeDiv.find('#ajapaik-mapview-guess-feedback-difficulty-prompt').hide();
-            noticeDiv.find('#ajapaik-mapview-guess-feedback-difficulty-form').hide();
-            noticeDiv.find('#ajapaik-mapview-guess-feedback-points-gained').hide();
-        }
+        //if (guessResponse.hideFeedback) {
+        //    noticeDiv.find('#ajapaik-mapview-guess-feedback-difficulty-prompt').hide();
+        //    noticeDiv.find('#ajapaik-mapview-guess-feedback-difficulty-form').hide();
+        //    noticeDiv.find('#ajapaik-mapview-guess-feedback-points-gained').hide();
+        //}
         //noticeDiv.find('#ajapaik-mapview-guess-feedback-message').html(guessResponse.feedbackMessage);
         noticeDiv.find('#ajapaik-mapview-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
         setTimeout(function () {
@@ -298,6 +303,7 @@
         photoPanel = undefined;
         lastRequestedPaneMarkersIds = undefined;
         $('.ajapaik-marker-center-lock-button').hide();
+        $('.ajapaik-show-tutorial-button').hide();
         window.map.set('scrollwheel', true);
         window.realMapElement.removeEventListener(nonFFWheelListener);
         window.realMapElement.removeEventListener(ffWheelListener);
@@ -355,6 +361,8 @@
             if (!window.preselectPhotoId) {
                 currentlySelectedMarkerId = false;
             }
+            $('.ajapaik-marker-center-lock-button').hide();
+            $('.ajapaik-show-tutorial-button').hide();
             window.syncMapStateToURL();
             currentMapBounds = window.map.getBounds();
             ne = currentMapBounds.getNorthEast();
@@ -633,9 +641,9 @@
         window.saveLocationButton.on('click', function () {
             window.firstDragDone = false;
             window.setCursorToAuto();
-            if (disableSave) {
+            if (window.disableSave) {
                 window._gaq.push(['_trackEvent', 'Mapview', 'Forgot to move marker']);
-                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
+                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
             } else {
                 // TODO: Flip data and stuff
                 window.saveLocation(window.marker, photoId, null, true, null, window.degreeAngle, window.azimuthLineEndPoint, 'Map');

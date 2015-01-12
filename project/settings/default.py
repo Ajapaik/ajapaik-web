@@ -34,6 +34,10 @@ STATICFILES_DIRS = (
     '%s/static' % ABSOLUTE_PROJECT_ROOT,
 )
 
+LOCALE_PATHS = (
+    '%s/project/home/locale' % ABSOLUTE_PROJECT_ROOT,
+)
+
 ADMINS = (
     ('Lauri Elias', 'lauri.elias@ajapaik.ee'),
 )

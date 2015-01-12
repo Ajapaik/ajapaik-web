@@ -25,6 +25,7 @@
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-grid-map-geotag-with-azimuth-count');
 
         $('.ajapaik-marker-center-lock-button').hide();
+        $('.ajapaik-show-tutorial-button').hide();
 
         galleryDiv.justifiedGallery({
             rowHeight: 120,
@@ -139,6 +140,7 @@
                 $('#ajapaik-map-container').show();
                 $('#ajapaik-grid-map-info-panel').show();
                 $('.ajapaik-marker-center-lock-button').show();
+                $('.ajapaik-show-tutorial-button').show();
                 window.marker = new window.google.maps.Marker({
                     map: window.map,
                     draggable: false,
@@ -241,6 +243,7 @@
             }
             photoPanel = undefined;
             $('.ajapaik-marker-center-lock-button').hide();
+            $('.ajapaik-show-tutorial-button').hide();
             window.heatmapEstimatedLocationMarker.setMap(null);
             window.map.set('scrollwheel', true);
             window.realMapElement.removeEventListener(nonFFWheelListener);

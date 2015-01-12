@@ -1,4 +1,5 @@
 var map,
+    disableSave = true,
     streetPanorama,
     infoWindow,
     getMap,
@@ -68,6 +69,7 @@ var map,
     mapPanoChangedListener,
     mapDisplayHeatmapWithEstimatedLocation,
     lockButton,
+    tutorialButton,
     mapDragendListenerFunction,
     markerLocked = true,
     mapMarkerDragListenerFunction,
@@ -88,7 +90,10 @@ var map,
     heatmap,
     guessResponseReceived = false,
     heatmapEstimatedLocationMarker,
-    estimatedLocationMarkerDeletionWorkaroundArray = [];
+    estimatedLocationMarkerDeletionWorkaroundArray = [],
+    userUsedZoom = false,
+    userClosedTutorial = false,
+    tutorialPanel;
 
 (function ($) {
     'use strict';
@@ -139,9 +144,13 @@ var map,
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
         lockButton = document.createElement('button');
-        $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button').css('display', 'none');
+        $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
+
+        tutorialButton = document.createElement('button');
+        $(tutorialButton).addClass('btn').addClass('btn-default').addClass('ajapaik-show-tutorial-button');
 
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
+        map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(tutorialButton);
 
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
@@ -358,10 +367,10 @@ var map,
                 origin: origin,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
-        if (degreeAngle) {
+        if (degreeAngle && saveDirection) {
             data.azimuth = degreeAngle;
         }
-        if (azimuthLineEndPoint) {
+        if (azimuthLineEndPoint && saveDirection) {
             data.azimuth_line_end_point = azimuthLineEndPoint;
         }
         if (lat && lon) {
@@ -415,9 +424,11 @@ var map,
         if (now - 250 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
             if (e.detail < 0) {
+                userUsedZoom = true;
                 map.setZoom(map.zoom + 1);
             } else {
                 if (map.zoom > 14) {
+                    userUsedZoom = true;
                     map.setZoom(map.zoom - 1);
                 }
             }
@@ -433,9 +444,11 @@ var map,
         if (now - 100 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
             if (e.wheelDelta > 0) {
+                userUsedZoom = true;
                 map.setZoom(map.zoom + 1);
             } else {
                 if (map.zoom > 14) {
+                    userUsedZoom = true;
                     map.setZoom(map.zoom - 1);
                 }
             }
@@ -458,11 +471,13 @@ var map,
     mapMousemoveListenerFunction = function (e) {
         console.log("mousemove");
         // The mouse is moving, therefore we haven't locked on a direction
-        saveLocationButton.removeAttr('disabled');
-        saveLocationButton.removeClass('btn-default');
-        saveLocationButton.addClass('btn-warning');
-        saveLocationButton.text(window.gettext('Save location only'));
         saveDirection = false;
+        if (!disableSave) {
+            saveLocationButton.removeAttr('disabled');
+            saveLocationButton.removeClass('btn-default');
+            saveLocationButton.addClass('btn-warning');
+            saveLocationButton.text(window.gettext('Save location only'));
+        }
         if (e && marker.position) {
             radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
             degreeAngle = Math.degrees(radianAngle);
@@ -507,11 +522,13 @@ var map,
             mapMousemoveListenerActive = false;
             window.google.maps.event.clearListeners(map, 'mousemove');
             saveDirection = true;
-            saveLocationButton.removeAttr('disabled');
-            saveLocationButton.removeClass('btn-default');
-            saveLocationButton.removeClass('btn-warning');
-            saveLocationButton.addClass('btn-success');
-            saveLocationButton.text(window.gettext('Save location and direction'));
+            if (!disableSave) {
+                saveLocationButton.removeAttr('disabled');
+                saveLocationButton.removeClass('btn-default');
+                saveLocationButton.removeClass('btn-warning');
+                saveLocationButton.addClass('btn-success');
+                saveLocationButton.text(window.gettext('Save location and direction'));
+            }
             dottedAzimuthLine.icons[0].repeat = '2px';
             dottedAzimuthLine.setPath([marker.position, e.latLng]);
             dottedAzimuthLine.setVisible(true);
@@ -575,10 +592,12 @@ var map,
                 infoWindow.close();
                 infoWindow = undefined;
             }
-            saveLocationButton.removeAttr('disabled');
-            saveLocationButton.removeClass('btn-default');
-            saveLocationButton.addClass('btn-warning');
-            saveLocationButton.text(window.gettext('Save location only'));
+            if (!disableSave) {
+                saveLocationButton.removeAttr('disabled');
+                saveLocationButton.removeClass('btn-default');
+                saveLocationButton.addClass('btn-warning');
+                saveLocationButton.text(window.gettext('Save location only'));
+            }
             azimuthListenerActive = false;
             dottedAzimuthLine.setVisible(false);
             mapMousemoveListenerActive = false;
@@ -698,5 +717,33 @@ var map,
             window.setCursorToAuto();
             window.markerLocked = false;
         }
+    });
+
+    $(document).on('click', '.ajapaik-show-tutorial-button', function () {
+        // TODO: Make universal
+        var tutorialPanelContent =  $('#ajapaik-game-tutorial-js-panel-content');
+        tutorialPanel = $.jsPanel({
+            selector: '#ajapaik-map-container',
+            content: tutorialPanelContent.html(),
+            removeHeader: true,
+            position: {
+                top: 50,
+                right: 100
+            },
+            draggable: {
+                handle: '.jsPanel-content',
+                containment: '#ajapaik-map-container'
+            },
+            toolbarFooter: $('#ajapaik-game-tutorial-js-panel-footer').html(),
+            id: 'ajapaik-game-tutorial-js-panel'
+        });
+    });
+
+    $(document).on('click', '#ajapaik-game-tutorial-close-tutorial-button', function () {
+        if (tutorialPanel) {
+            tutorialPanel.close();
+        }
+        window.userClosedTutorial = true;
+        window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
     });
 }(jQuery));

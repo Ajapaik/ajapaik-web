@@ -9,7 +9,6 @@
         streamUrl = '/stream/',
         difficultyFeedbackURL = '/difficulty_feedback/',
         disableNext = false,
-        disableSave = true,
         locationToolsOpen = false,
         photoHasDescription = false,
         photoContainer,
@@ -33,7 +32,8 @@
         photoLoadModalResizeHandler,
         photoLoadModalResizeFunction,
         modalPhoto,
-        fullScreenImage;
+        fullScreenImage,
+        tutorialPanelContent;
 
     photoLoadModalResizeFunction = function () {
         hintUsed = 0;
@@ -61,7 +61,7 @@
         photoContainer = $('#ajapaik-game-modal-photo-container');
         photoContainer.css('visibility', 'hidden');
         window.map.getStreetView().setVisible(false);
-        disableSave = true;
+        window.disableSave = true;
         locationToolsOpen = false;
         window.azimuthListenerActive = false;
         window.guessResponseReceived = false;
@@ -149,7 +149,7 @@
         if (playerMarker) {
             playerMarker.setMap(null);
         }
-
+        // TODO: We don't need to keep these photos any more, currently they're just wasting resources or even causing bugs if the index gets corrupted somehow
         $.getJSON(streamUrl, $.extend({'b': date.getTime()}, qs), function (data) {
             $.merge(photos, data.photos);
             var textTarget = $('#ajapaik-game-status-message'),
@@ -273,6 +273,10 @@
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
 
+        if (window.docCookies.getItem('ajapaik_closed_tutorial')) {
+            window.userClosedTutorial = true;
+        }
+
         window.saveLocationButton =  $('.ajapaik-save-location-button');
 
         if (!window.isMobile) {
@@ -326,7 +330,10 @@
         window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
 
         window.google.maps.event.addListener(window.marker, 'position_changed', function () {
-            disableSave = false;
+            if (window.userUsedZoom) {
+                console.log(window.userUsedZoom);
+                window.disableSave = false;
+            }
         });
 
         // TODO: Re-implement
@@ -398,6 +405,7 @@
             $('#ajapaik-game-photo-modal').modal('hide');
             window.setCursorToAuto();
             $('.ajapaik-marker-center-lock-button').show();
+            $('.ajapaik-show-tutorial-button').show();
             guessPhotoPanelContent = $('#ajapaik-game-guess-photo-js-panel-content');
             guessPhotoPanelContent.find('img').prop('src', mediaUrl + photos[currentPhotoIdx].big.url);
             if (!hintUsed) {
@@ -412,9 +420,6 @@
             guessPhotoPanel = $.jsPanel({
                 selector: '#ajapaik-map-container',
                 content: guessPhotoPanelContent.html(),
-                controls: {buttons: false},
-                title: false,
-                header: false,
                 removeHeader: true,
                 position: {
                     top: 50,
@@ -432,6 +437,24 @@
                 },
                 id: 'ajapaik-game-guess-photo-js-panel'
             });
+            tutorialPanelContent =  $('#ajapaik-game-tutorial-js-panel-content');
+            if (!window.userClosedTutorial) {
+                window.tutorialPanel = $.jsPanel({
+                    selector: '#ajapaik-map-container',
+                    content: tutorialPanelContent.html(),
+                    removeHeader: true,
+                    position: {
+                        top: 50,
+                        right: 100
+                    },
+                    draggable: {
+                        handle: '.jsPanel-content',
+                        containment: '#ajapaik-map-container'
+                    },
+                    toolbarFooter: $('#ajapaik-game-tutorial-js-panel-footer').html(),
+                    id: 'ajapaik-game-tutorial-js-panel'
+                });
+            }
             $(guessPhotoPanel).css('max-width', currentPhotoWidth + 'px');
             $('#ajapaik-map-button-container').show();
             disableNext = false;
@@ -490,9 +513,9 @@
         saveLocationButton.click(function () {
             window.firstDragDone = false;
             window.setCursorToAuto();
-            if (disableSave) {
+            if (window.disableSave) {
                 window._gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
-                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
+                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
             } else {
                 window.saveLocation(window.marker, photos[currentPhotoIdx].id, photos[currentPhotoIdx].flip, hintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
                 if (window.saveDirection) {
@@ -525,6 +548,12 @@
             disableNext = false;
             currentPhotoIdx += 1;
             nextPhoto();
+        });
+
+        $(document).on('click', '#ajapaik-game-tutorial-close-tutorial-button', function () {
+            window.tutorialPanel.close();
+            window.userClosedTutorial = true;
+            window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
         });
 
         $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {

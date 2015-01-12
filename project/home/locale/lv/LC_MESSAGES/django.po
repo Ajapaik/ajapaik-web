@@ -2,109 +2,209 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-17 23:49+0000\n"
+"POT-Creation-Date: 2015-01-12 13:49+0200\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: forms.py:13 views.py:143
+#: project/home/forms.py:8
 msgid "Choose city"
 msgstr "Izvēlies pielsētu"
 
-#: global_settings.py:18
-msgid "Estonian"
-msgstr "Igauņu"
+#: project/home/get_next_photos_to_geotag.py:185
+msgid "Looks right!"
+msgstr ""
 
-#: global_settings.py:19
-msgid "English"
-msgstr "Angļu"
+#: project/home/get_next_photos_to_geotag.py:187
+msgid "The location seems right, but not the azimuth."
+msgstr ""
 
-#: global_settings.py:20
-msgid "Russian"
-msgstr "Krievu"
+#: project/home/get_next_photos_to_geotag.py:189
+msgid ""
+"The location seems right. Try submitting an azimuth to earn even more points!"
+msgstr ""
 
-#: views.py:97
-msgid "All pictures"
-msgstr "Visi attēli"
+#: project/home/get_next_photos_to_geotag.py:191
+msgid "The location seems right, but the azimuth is yet uncertain."
+msgstr ""
 
-#: views.py:101
-msgid "Added last week"
-msgstr "Pievienots iepriekšējā nedēļā"
+#: project/home/get_next_photos_to_geotag.py:193
+msgid "The location seems right, your azimuth was first."
+msgstr ""
 
-#: views.py:105
-msgid "Added last month"
-msgstr "Pievienots iepriekšējā mēnesī"
+#: project/home/get_next_photos_to_geotag.py:195
+msgid "Other users have different opinion."
+msgstr ""
 
-#: views.py:118
-msgid "Choose range"
-msgstr "Izvēlies apgabalu"
+#: project/home/get_next_photos_to_geotag.py:197
+msgid "Correct location is not certain yet."
+msgstr ""
 
-#: views.py:164
-msgid "Choose source"
-msgstr "Izvēlies avotu"
+#: project/home/get_next_photos_to_geotag.py:199
+msgid "Your guess was first."
+msgstr ""
 
-#: views.py:236 templates/frontpage.html:167
+#: project/home/views.py:236 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Minēt atrašanās vietu"
 
-#: views.py:340 templates/block_photoview.html:30 templates/photoview.html:76
-#: templates/photoview.html.py:160
+#: project/home/views.py:421
 msgid "Heat map"
 msgstr "Atrašanās vieta kartē"
 
-#: views.py:379 views.py:381 templates/frontpage.html:168
+#: project/home/views.py:458 project/home/views.py:460
+#: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
-#: views.py:423 views.py:432 views.py:441 templates/game.html:29
+#: project/home/views.py:561 project/home/views.py:571
+#: project/home/views.py:581
+#: templates/_header_city_selection_game_scoreboard.html:14
 msgid "Leaderboard"
 msgstr "Līderu tabula"
 
-#: templates/base.html:4 templates/base.html.py:41 templates/base_viz.html:5
-#: templates/block_photoview.html:6 templates/frontpage.html:8
-#: templates/game.html:25 templates/mapview.html:105
-#: templates/photoview.html:7
-msgid "Timepatch (Ajapaik)"
-msgstr "Timepatch (Ajapaik)"
+#: project/settings/default.py:63
+msgid "Estonian"
+msgstr "Igauņu"
 
-#: templates/block_leaderboard.html:6 templates/leaderboard.html:15
-#: templates/mapview.html:129
+#: project/settings/default.py:64
+msgid "English"
+msgstr "Angļu"
+
+#: project/settings/default.py:65
+msgid "Russian"
+msgstr "Krievu"
+
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
+msgid "Back"
+msgstr ""
+
+#: templates/_block_leaderboard.html:9
+#: templates/_header_city_selection_rephoto_scoreboard.html:26
+#: templates/leaderboard.html:17
 msgid "Your points"
 msgstr "Tavi punkti"
 
-#: templates/block_photoview.html:28 templates/block_photoview.html.py:29
-#: templates/block_photoview.html:192 templates/photoview.html:75
-#: templates/photoview.html.py:133 templates/photoview.html:159
-msgid "Add rephoto"
-msgstr "Pievieno mūsdienu attēlu"
-
-#: templates/block_photoview.html:33 templates/block_photoview.html.py:40
-#: templates/photoview.html:168
-msgid "Add comment"
-msgstr "Pievienot komentāru"
-
-#: templates/block_photoview.html:35
+#: templates/_block_photoview.html:33 templates/_photo_modal.html:95
 msgid "Close photo"
 msgstr "Aizvērt"
 
-#: templates/block_photoview.html:36
-msgid "Random"
-msgstr "Nejaušs"
+#: templates/_block_photoview.html:50 templates/_header.html:5
+#: templates/_header_city_selection.html:5
+#: templates/_header_city_selection_game_scoreboard.html:5
+#: templates/_header_city_selection_rephoto_scoreboard.html:5
+#: templates/_photo_modal.html:133 templates/base.html:7
+#: templates/base.html.py:9 templates/base.html.py:48
+#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
+#: templates/base_bootstrap.html:48 templates/frontpage.html:8
+msgid "Timepatch (Ajapaik)"
+msgstr "Timepatch (Ajapaik)"
 
-#: templates/block_photoview.html:113 templates/block_photoview.html.py:183
-#: templates/photoview.html:124
+#: templates/_header.html:24 templates/_header_city_selection.html:28
+#: templates/frontpage.html:27
+msgid "Choose language"
+msgstr "Izvēlies valodu"
+
+#: templates/_header_city_selection_game_scoreboard.html:22
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                            Account (%(account_name)s) connected. If it's "
+"not you then %(link_open)sclick\n"
+"                            here%(link_close)s."
+msgstr ""
+"Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
+"%(link_open)sklišini šeit%(link_close)s."
+
+#: templates/_header_city_selection_game_scoreboard.html:30
+#: templates/_header_city_selection_rephoto_scoreboard.html:44
+msgid "Facebook Connect to save your score and continue later."
+msgstr "Pieslēdzies ar Facebook, lai saglabātu punktus un turpinātu vēlāk."
+
+#: templates/_header_city_selection_game_scoreboard.html:31
+#: templates/_header_city_selection_rephoto_scoreboard.html:45
+#: templates/_photo_upload_modal.html:62
+msgid "Connect with Facebook"
+msgstr "Pieslēgties ar Facebook"
+
+#: templates/_header_city_selection_rephoto_scoreboard.html:12
+msgid "Rephoto Leaderboard"
+msgstr "Mūsdienu attēlu līderu tabula"
+
+#: templates/_header_city_selection_rephoto_scoreboard.html:37
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                            Account (%(account_name)s) connected. If it\"s "
+"not you then %(link_open)sclick\n"
+"                            here%(link_close)s."
+msgstr ""
+"Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
+"%(link_open)sklišini šeit%(link_close)s."
+
+#: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
+#: templates/mapview.html:15
+#, fuzzy
+#| msgid "Save location"
+msgid "Save location only"
+msgstr "Saglabāt atrašanās vietu"
+
+#: templates/_map_lower_right_buttons.html:8
+msgid "Skip"
+msgstr ""
+
+#: templates/_photo_modal.html:82
+msgid "Rephotograph by"
+msgstr ""
+
+#: templates/_photo_modal.html:86
+msgid "Date taken"
+msgstr ""
+
+#: templates/_photo_modal.html:93
+msgid "Add rephoto"
+msgstr "Pievieno mūsdienu attēlu"
+
+#: templates/_photo_modal.html:94
+#, fuzzy
+#| msgid "Save location"
+msgid "Specify location"
+msgstr "Saglabāt atrašanās vietu"
+
+#: templates/_photo_upload_modal.html:26
+#, fuzzy
+#| msgid "Selected rephoto"
+msgid "Selected file"
+msgstr "Izvēlētie mūsdienu attēli"
+
+#: templates/_photo_upload_modal.html:26
+msgid "upload?"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:40
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
 "picture was taken and upload it."
@@ -112,96 +212,206 @@ msgstr ""
 "Izveido mūsdienu fotogrāfiju šajā pašā vietā, kur tika uzņemta pagātnes "
 "fotogrāfija, un augšupielādē."
 
-#: templates/block_photoview.html:187 templates/game.html:37
-#: templates/mapview.html:138 templates/photoview.html:128
-#, python-format
+#: templates/_photo_upload_modal.html:45
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
 msgid ""
-"Account (%(account_name)s) connected with Facebook. If it's not you then "
-"%(link_open)sclick here%(link_close)s."
+"\n"
+"                                Account (%(account_name)s) connected. If "
+"it's not you then %(link_open)sclick here\n"
+"                                %(link_close)s."
 msgstr ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/block_photoview.html:203 templates/photoview.html:144
-msgid "Rephoto uploading requires connecting your account with Facebook."
+#: templates/_photo_upload_modal.html:49
+msgid "Select file..."
 msgstr ""
-"Lai augšupielādētu attēlu vajadzīgs pieslēgties tavam Facebook kontam."
 
-#: templates/block_photoview.html:204 templates/game.html:43
-#: templates/mapview.html:144 templates/photoview.html:145
-msgid "Connect with Facebook"
-msgstr "Pieslēgties ar Facebook"
+#: templates/_photo_upload_modal.html:61
+msgid "Rephoto uploading requires connecting your account with Facebook."
+msgstr "Lai augšupielādētu attēlu vajadzīgs pieslēgties tavam Facebook kontam."
 
-#: templates/block_photoview.html:209 templates/game.html:82
-#: templates/mapview.html:187 templates/mapview.html.py:191
+#: templates/_photo_upload_modal.html:66 templates/game.html:116
+#: templates/mapview.html:44
 msgid "Close"
 msgstr "Aizvērt"
 
-#: templates/block_photoview.html:214 templates/game.html:74
-msgid "Thank you!"
-msgstr "Paldies!"
+#: templates/admin/project/csvphoto/change_list.html:6
+msgid "Home"
+msgstr ""
 
-#: templates/block_photoview.html:216
-msgid "Your rephoto has been uploaded."
-msgstr "Tavs attēls ir augšupielādēts."
+#: templates/admin/project/csvphoto/change_list.html:7
+msgid "Upload photos via CSV file"
+msgstr ""
 
-#: templates/frontpage.html:27 templates/mapview.html:169
-#: templates/photoview.html:26
-msgid "Choose language"
-msgstr "Izvēlies valodu"
+#: templates/admin/project/csvphoto/change_list.html:15
+msgid "CSV"
+msgstr ""
 
-#: templates/frontpage.html:93
+#: templates/admin/project/csvphoto/change_list.html:17
+msgid "ZIP"
+msgstr ""
+
+#: templates/admin/project/csvphoto/change_list.html:19
+msgid "Submit"
+msgstr ""
+
+#: templates/base.html:91 templates/base_bootstrap.html:98
+msgid ""
+"We use cookies for best performance of the site. By using the site you agree "
+"to that."
+msgstr ""
+
+#: templates/frontpage.html:88
 msgid "Where is history located?"
 msgstr "Kur ir vēsturiskā atrašanās vieta?"
 
-#: templates/frontpage.html:94
+#: templates/frontpage.html:89
 msgid "Discover, geotag and make the rephoto."
 msgstr "Atklāj, pievieno atrašanās vietu un izveido mūsdienu attēlu."
 
-#: templates/frontpage.html:97
+#: templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
 msgstr ""
-"Apskati un pievieno metadatus vēsturiskajiem attēliem. Sacenšoties ar citiem"
-" būs aizraujoši."
+"Apskati un pievieno metadatus vēsturiskajiem attēliem. Sacenšoties ar citiem "
+"būs aizraujoši."
 
-#: templates/frontpage.html:99
+#: templates/frontpage.html:94
 msgid "Read more"
 msgstr "Lasīt tālāk"
 
-#: templates/game.html:42 templates/mapview.html:143
-msgid "Facebook Connect to save your score and continue later."
-msgstr "Pieslēdzies ar Facebook, lai saglabātu punktus un turpinātu vēlāk."
+#: templates/frontpage.html:167
+msgid "View gallery"
+msgstr ""
 
-#: templates/game.html:56
-msgid "Save location"
-msgstr "Saglabāt atrašanās vietu"
+#: templates/game.html:31
+msgid "Show description"
+msgstr ""
 
-#: templates/game.html:57
-msgid "Close map"
-msgstr "Aizvērt karti"
-
-#: templates/game.html:63 templates/game.html.py:76
-msgid "Next photo"
-msgstr "Nākošais attēls"
-
-#: templates/game.html:65
-msgid "Back to home page"
-msgstr "Uz sākumu"
-
-#: templates/game.html:69
+#: templates/game.html:35
 msgid "Pick the shooting location!"
 msgstr "Izvēlies attēla uzņemšanas vietu!"
 
-#: templates/mapview.html:122
-msgid "Rephoto Leaderboard"
-msgstr "Mūsdienu attēlu līderu tabula"
+#: templates/game.html:37 templates/game.html.py:62
+msgid "Next photo"
+msgstr "Nākošais attēls"
 
-#: templates/photoview.html:170
-msgid "Historic photo"
-msgstr "Vēsturiskie attēli"
+#: templates/game.html:45 templates/grid.html:63 templates/mapview.html:60
+msgid "Thank you!"
+msgstr "Paldies!"
 
-#: templates/photoview.html:173
-msgid "Selected rephoto"
-msgstr "Izvēlētie mūsdienu attēli"
+#: templates/game.html:49 templates/grid.html:67
+msgid "In your opinion to geotag this photo is"
+msgstr ""
+
+#: templates/game.html:53 templates/grid.html:71
+msgid "easy"
+msgstr ""
+
+#: templates/game.html:59 templates/grid.html:77
+msgid "hard"
+msgstr ""
+
+#: templates/game.html:79
+msgid "This icon indicates where you think the photo was taken."
+msgstr ""
+
+#: templates/game.html:84
+msgid "Got it!"
+msgstr ""
+
+#: templates/game.html:90 templates/grid.html:45 templates/mapview.html:23
+#: templates/photoview.html:47
+msgid "Geotags"
+msgstr ""
+
+#: templates/game.html:92 templates/grid.html:47 templates/mapview.html:25
+#: templates/photoview.html:49
+msgid "With azimuth"
+msgstr ""
+
+#: templates/grid.html:24
+#, fuzzy
+#| msgid "Add rephoto"
+msgid "Load more photos"
+msgstr "Pievieno mūsdienu attēlu"
+
+#: templates/grid.html:27
+msgid "No more photos to show"
+msgstr ""
+
+#: templates/grid.html:40 templates/mapview.html:18
+msgid "Cancel"
+msgstr ""
+
+#: templates/grid.html:80
+msgid "You're welcome!"
+msgstr ""
+
+#: templates/mapview.html:62
+#, fuzzy
+#| msgid "Back to home page"
+msgid "Back to map"
+msgstr "Uz sākumu"
+
+#: templates/photo_upload.html:18
+msgid "Add files..."
+msgstr ""
+
+#: templates/photo_upload.html:23
+msgid "Start upload"
+msgstr ""
+
+#: templates/photo_upload.html:27
+msgid "Cancel upload"
+msgstr ""
+
+#: templates/photo_upload.html:31
+msgid "Delete"
+msgstr ""
+
+#: templates/photo_upload.html:44
+msgid "Place"
+msgstr ""
+
+#: templates/photoview.html:52
+#, fuzzy
+#| msgid "Guess the location"
+msgid "Guess location"
+msgstr "Minēt atrašanās vietu"
+
+#: templates/photoview.html:53
+msgid "Close map"
+msgstr "Aizvērt karti"
+
+#~ msgid "All pictures"
+#~ msgstr "Visi attēli"
+
+#~ msgid "Added last week"
+#~ msgstr "Pievienots iepriekšējā nedēļā"
+
+#~ msgid "Added last month"
+#~ msgstr "Pievienots iepriekšējā mēnesī"
+
+#~ msgid "Choose range"
+#~ msgstr "Izvēlies apgabalu"
+
+#~ msgid "Choose source"
+#~ msgstr "Izvēlies avotu"
+
+#~ msgid "Add comment"
+#~ msgstr "Pievienot komentāru"
+
+#~ msgid "Random"
+#~ msgstr "Nejaušs"
+
+#~ msgid "Your rephoto has been uploaded."
+#~ msgstr "Tavs attēls ir augšupielādēts."
+
+#~ msgid "Historic photo"
+#~ msgstr "Vēsturiskie attēli"
