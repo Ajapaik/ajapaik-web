@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 16:49+0200\n"
-"PO-Revision-Date: 2015-01-12 16:26+0200\n"
+"PO-Revision-Date: 2015-01-12 17:18+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -239,12 +239,10 @@ msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
 msgstr ""
-"Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades olete "
-"sellega nõus."
+"Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades peate "
+"sellega nõus olema."
 
 #: templates/base_bootstrap.html:106
-#, fuzzy
-#| msgid "This icon indicates where you think the photo was taken."
 msgid ""
 "The marker with this icon indicates where you think the photo was taken."
 msgstr "See ikoon tähistab kohta, kust foto on tehtud."
@@ -256,18 +254,22 @@ msgid ""
 "coordinates. While the line is dotted, it means you haven't yet locked it in "
 "and only the location will be submitted."
 msgstr ""
+"Punktiirjoon tähistab vaate suunda, mis ei ole veel lukustatud. Klikk "
+"kaardil lukustab vaate suuna."
 
 #: templates/base_bootstrap.html:114
 msgid ""
 "When the red dotted line turns solid, it means the angle is now locked and "
 "will be submitted along with the coordinates."
 msgstr ""
+"Punane pidevjoon tähistab lukustatud vaate suunda (avamiseks uus klikk "
+"kaardil)."
 
 #: templates/base_bootstrap.html:118
-#, fuzzy
-#| msgid "This icon indicates where you think the photo was taken."
 msgid "This marker with this icon indicates the actual object on the photo."
-msgstr "See ikoon tähistab kohta, kust foto on tehtud."
+msgstr ""
+"Selle ikooniga tuleb märkida pildi keskele jääv objekt ehk see, mida on "
+"pildistatud."
 
 #: templates/base_bootstrap.html:122
 msgid ""
@@ -276,28 +278,34 @@ msgid ""
 "this may not be desirable and this button unlocks the marker, enabling it to "
 "be dragged as usual."
 msgstr ""
+"Vaikimisi on asukohamarker kaardi keskele lukustatud ja asukoha määramiseks "
+"tuleb liigutada ja suumida kaarti markeri all. Kaardi režiimi muutmisel "
+"liigub marker koos kaardiga kaasa, markerit saab teise kohta tõsta (see on "
+"võimalik ka pärast objekti ja suuna lukustamist)."
 
 #: templates/base_bootstrap.html:126
 msgid ""
 "If you ever feel like looking at this tutorial again, this button will re-"
 "open it."
-msgstr ""
+msgstr "Käesoleva spikri avamiseks."
 
 #: templates/base_bootstrap.html:130
 msgid "Buttons with this icon flip the current image."
 msgstr ""
+"Pildi peegelpilti keeramine. Kui asukoha salvestamisel on pilt peegelpilti "
+"keeratud, siis salvestame ka selle info."
 
 #: templates/base_bootstrap.html:134
 msgid ""
 "Buttons with this icon make the current image occupy the whole screen where "
 "available."
-msgstr ""
+msgstr "Foto täisekraanvaade."
 
 #: templates/base_bootstrap.html:138
 msgid ""
 "Buttons with this icon display the description of the current photo where "
 "available."
-msgstr ""
+msgstr "Foto kirjelduse nupp."
 
 #: templates/frontpage.html:88
 msgid "Where is history located?"
@@ -414,16 +422,16 @@ msgid "Close map"
 msgstr "Sulge kaart"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -435,8 +443,8 @@ msgstr "Sulge kaart"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
