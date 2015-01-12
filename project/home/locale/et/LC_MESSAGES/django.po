@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 16:49+0200\n"
-"PO-Revision-Date: 2015-01-12 17:18+0200\n"
+"PO-Revision-Date: 2015-01-12 17:25+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -124,25 +124,25 @@ msgstr "Vali keel"
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
 msgid "connected"
-msgstr ""
+msgstr "seotud"
 
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
 msgid "If it's not you then"
-msgstr ""
+msgstr "Kui see ei ole Sina, siis"
 
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
 msgid "click here"
-msgstr ""
+msgstr "vajuta siia"
 
 #: templates/_header_city_selection_game_scoreboard.html:26
 #: templates/_header_city_selection_rephoto_scoreboard.html:41
