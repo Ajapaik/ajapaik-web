@@ -41,10 +41,7 @@
 
                 {% if request.user.is_authenticated and request.user.profile.fb_id %}
                     {% with profile=request.user.profile user=request.user %}
-                        <p>
-                            {% blocktrans with "<a href='/logout' id='logout-button'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
-                                Account ({{ account_name }}) connected. If it's not you then {{ link_open }}click here
-                                {{ link_close }}.{% endblocktrans %}</p>
+                        <p>{% trans "Account" %} ({{ user.get_full_name }}) {% trans "connected" %}. {% trans "If it's not you then" %} <a href='/logout' id='logout-button'>{% trans "click here" %}</a>.</p>
                         <span class="btn btn-success fileinput-button">
                     <span>{% trans "Select file..." %}</span>
                     <input id="fileupload" type="file" name="user_file[]">

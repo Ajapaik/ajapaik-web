@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 13:49+0200\n"
+"POT-Creation-Date: 2015-01-12 16:49+0200\n"
 "PO-Revision-Date: 2015-01-12 16:26+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -19,39 +19,39 @@ msgstr ""
 msgid "Choose city"
 msgstr "Vali linn"
 
-#: project/home/get_next_photos_to_geotag.py:185
+#: project/home/get_next_photos_to_geotag.py:186
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: project/home/get_next_photos_to_geotag.py:187
+#: project/home/get_next_photos_to_geotag.py:188
 msgid "The location seems right, but not the azimuth."
 msgstr "Asukoht tundub õige, aga mitte vaate suund."
 
-#: project/home/get_next_photos_to_geotag.py:189
+#: project/home/get_next_photos_to_geotag.py:190
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Asukoht tundub õige. Proovi määrata ka vaate suund, et saada veelgi rohkem "
 "punkte."
 
-#: project/home/get_next_photos_to_geotag.py:191
+#: project/home/get_next_photos_to_geotag.py:192
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 "Asukoht tundub õige, vaate suuna osas ei ole kasutajatel üksmeelt tekkinud."
 
-#: project/home/get_next_photos_to_geotag.py:193
+#: project/home/get_next_photos_to_geotag.py:194
 msgid "The location seems right, your azimuth was first."
 msgstr "Asukoht tundub õige, Sinu pakutud suund oli esimene."
 
-#: project/home/get_next_photos_to_geotag.py:195
-msgid "Other users have different opinion."
-msgstr "Teised kasutajad on teisiti arvanud."
-
-#: project/home/get_next_photos_to_geotag.py:197
+#: project/home/get_next_photos_to_geotag.py:196
 msgid "Correct location is not certain yet."
 msgstr "Selle pildi puhul ei ole asukoht veel selgeks saanud."
 
-#: project/home/get_next_photos_to_geotag.py:199
+#: project/home/get_next_photos_to_geotag.py:198
+msgid "Other users have different opinion."
+msgstr "Teised kasutajad on teisiti arvanud."
+
+#: project/home/get_next_photos_to_geotag.py:200
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
@@ -120,43 +120,45 @@ msgstr "Ajapaik"
 msgid "Choose language"
 msgstr "Vali keel"
 
-#: templates/_header_city_selection_game_scoreboard.html:22
-#, python-format
-msgid ""
-"\n"
-"                            Account (%(account_name)s) connected. If it's "
-"not you then %(link_open)sclick\n"
-"                            here%(link_close)s."
+#: templates/_header_city_selection_game_scoreboard.html:21
+#: templates/_header_city_selection_rephoto_scoreboard.html:36
+#: templates/_photo_upload_modal.html:44
+msgid "Account"
 msgstr ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
 
-#: templates/_header_city_selection_game_scoreboard.html:30
-#: templates/_header_city_selection_rephoto_scoreboard.html:44
+#: templates/_header_city_selection_game_scoreboard.html:21
+#: templates/_header_city_selection_rephoto_scoreboard.html:36
+#: templates/_photo_upload_modal.html:44
+msgid "connected"
+msgstr ""
+
+#: templates/_header_city_selection_game_scoreboard.html:21
+#: templates/_header_city_selection_rephoto_scoreboard.html:36
+#: templates/_photo_upload_modal.html:44
+msgid "If it's not you then"
+msgstr ""
+
+#: templates/_header_city_selection_game_scoreboard.html:21
+#: templates/_header_city_selection_rephoto_scoreboard.html:36
+#: templates/_photo_upload_modal.html:44
+msgid "click here"
+msgstr ""
+
+#: templates/_header_city_selection_game_scoreboard.html:26
+#: templates/_header_city_selection_rephoto_scoreboard.html:41
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/_header_city_selection_game_scoreboard.html:31
-#: templates/_header_city_selection_rephoto_scoreboard.html:45
-#: templates/_photo_upload_modal.html:62
+#: templates/_header_city_selection_game_scoreboard.html:27
+#: templates/_header_city_selection_rephoto_scoreboard.html:42
+#: templates/_photo_upload_modal.html:59
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
 #: templates/_header_city_selection_rephoto_scoreboard.html:12
 msgid "Rephoto Leaderboard"
 msgstr "Aktiivsemad ülepildistajad"
-
-#: templates/_header_city_selection_rephoto_scoreboard.html:37
-#, python-format
-msgid ""
-"\n"
-"                            Account (%(account_name)s) connected. If it\"s "
-"not you then %(link_open)sclick\n"
-"                            here%(link_close)s."
-msgstr ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
 
 #: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
 #: templates/mapview.html:15
@@ -199,26 +201,15 @@ msgstr ""
 "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
 "ajaloolise pildi kõrvale."
 
-#: templates/_photo_upload_modal.html:45
-#, python-format
-msgid ""
-"\n"
-"                                Account (%(account_name)s) connected. If "
-"it's not you then %(link_open)sclick here\n"
-"                                %(link_close)s."
-msgstr ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s. 333"
-
-#: templates/_photo_upload_modal.html:49
+#: templates/_photo_upload_modal.html:46
 msgid "Select file..."
 msgstr "Vali fail..."
 
-#: templates/_photo_upload_modal.html:61
+#: templates/_photo_upload_modal.html:58
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
 
-#: templates/_photo_upload_modal.html:66 templates/game.html:116
+#: templates/_photo_upload_modal.html:63 templates/game.html:105
 #: templates/mapview.html:44
 msgid "Close"
 msgstr "Sulge"
@@ -250,6 +241,63 @@ msgid ""
 msgstr ""
 "Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades olete "
 "sellega nõus."
+
+#: templates/base_bootstrap.html:106
+#, fuzzy
+#| msgid "This icon indicates where you think the photo was taken."
+msgid ""
+"The marker with this icon indicates where you think the photo was taken."
+msgstr "See ikoon tähistab kohta, kust foto on tehtud."
+
+#: templates/base_bootstrap.html:110
+msgid ""
+"If you know which way the photographer was facing when the photo was taken, "
+"you can earn extra points by submitting the line of sight along with the "
+"coordinates. While the line is dotted, it means you haven't yet locked it in "
+"and only the location will be submitted."
+msgstr ""
+
+#: templates/base_bootstrap.html:114
+msgid ""
+"When the red dotted line turns solid, it means the angle is now locked and "
+"will be submitted along with the coordinates."
+msgstr ""
+
+#: templates/base_bootstrap.html:118
+#, fuzzy
+#| msgid "This icon indicates where you think the photo was taken."
+msgid "This marker with this icon indicates the actual object on the photo."
+msgstr "See ikoon tähistab kohta, kust foto on tehtud."
+
+#: templates/base_bootstrap.html:122
+msgid ""
+"By default, the location marker is locked to the center of the map. To "
+"change its location, the map itself must be dragged underneath. Sometimes "
+"this may not be desirable and this button unlocks the marker, enabling it to "
+"be dragged as usual."
+msgstr ""
+
+#: templates/base_bootstrap.html:126
+msgid ""
+"If you ever feel like looking at this tutorial again, this button will re-"
+"open it."
+msgstr ""
+
+#: templates/base_bootstrap.html:130
+msgid "Buttons with this icon flip the current image."
+msgstr ""
+
+#: templates/base_bootstrap.html:134
+msgid ""
+"Buttons with this icon make the current image occupy the whole screen where "
+"available."
+msgstr ""
+
+#: templates/base_bootstrap.html:138
+msgid ""
+"Buttons with this icon display the description of the current photo where "
+"available."
+msgstr ""
 
 #: templates/frontpage.html:88
 msgid "Where is history located?"
@@ -303,20 +351,12 @@ msgstr "lihtne"
 msgid "hard"
 msgstr "keeruline"
 
-#: templates/game.html:79
-msgid "This icon indicates where you think the photo was taken."
-msgstr "See ikoon tähistab kohta, kust foto on tehtud."
-
-#: templates/game.html:84
-msgid "Got it!"
-msgstr ""
-
-#: templates/game.html:90 templates/grid.html:45 templates/mapview.html:23
+#: templates/game.html:79 templates/grid.html:45 templates/mapview.html:23
 #: templates/photoview.html:47
 msgid "Geotags"
 msgstr "Asukohapakkumisi"
 
-#: templates/game.html:92 templates/grid.html:47 templates/mapview.html:25
+#: templates/game.html:81 templates/grid.html:47 templates/mapview.html:25
 #: templates/photoview.html:49
 msgid "With azimuth"
 msgstr "Neist suunaga"
@@ -372,6 +412,39 @@ msgstr "Arva ära asukoht"
 #: templates/photoview.html:53
 msgid "Close map"
 msgstr "Sulge kaart"
+
+#~ msgid ""
+#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~ "sclick here%(link_close)s."
+#~ msgstr ""
+#~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
+#~ "%(link_open)svajuta siia%(link_close)s."
+
+#, fuzzy
+#~| msgid ""
+#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
+#~| "sclick here%(link_close)s."
+#~ msgid ""
+#~ "\n"
+#~ "                            Account (%(account_name)s) connected. If it"
+#~ "\"s not you then %(link_open)sclick\n"
+#~ "                            here%(link_close)s."
+#~ msgstr ""
+#~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
+#~ "%(link_open)svajuta siia%(link_close)s."
+
+#, fuzzy
+#~| msgid ""
+#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~| "sclick here %(link_close)s."
+#~ msgid ""
+#~ "\n"
+#~ "                                Account (%(account_name)s) connected. If "
+#~ "it's not you then %(link_open)sclick here\n"
+#~ "                                %(link_close)s."
+#~ msgstr ""
+#~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+#~ "%(link_open)svajuta siia%(link_close)s."
 
 #~ msgid "All pictures"
 #~ msgstr "Kõik pildid"

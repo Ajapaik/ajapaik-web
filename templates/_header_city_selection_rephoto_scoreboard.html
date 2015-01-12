@@ -33,10 +33,7 @@
         {% if request.user.is_authenticated and request.user.profile.fb_id %}
             {% with profile=request.user.profile user=request.user %}
                 <div id="facebook-connected">
-                    <p>
-                        {% blocktrans with "<a id='logout-button' href='/logout'>" as link_open and "</a>" as link_close and user.get_full_name as account_name %}
-                            Account ({{ account_name }}) connected. If it"s not you then {{ link_open }}click
-                            here{{ link_close }}.{% endblocktrans %}</p>
+                    <p>{% trans "Account" %} ({{ user.get_full_name }}) {% trans "connected" %}. {% trans "If it's not you then" %} <a href='/logout' id='logout-button'>{% trans "click here" %}</a>.</p>
                 </div>
             {% endwith %}
         {% else %}
