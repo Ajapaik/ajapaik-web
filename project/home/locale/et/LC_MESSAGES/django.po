@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 17:48+0200\n"
-"PO-Revision-Date: 2015-01-12 18:00+0200\n"
+"PO-Revision-Date: 2015-01-12 18:20+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -282,7 +282,7 @@ msgstr ""
 
 #: templates/admin/project/csvphoto/change_list.html:7
 msgid "Upload photos via CSV file"
-msgstr ""
+msgstr "Lae fotosid koos CSV-andmefailiga"
 
 #: templates/admin/project/csvphoto/change_list.html:15
 msgid "CSV"
@@ -367,10 +367,8 @@ msgid "With azimuth"
 msgstr "Neist suunaga"
 
 #: templates/grid.html:24
-#, fuzzy
-#| msgid "Add rephoto"
 msgid "Load more photos"
-msgstr "Lisa ülepildistus"
+msgstr "Laadi juurde"
 
 #: templates/grid.html:27
 msgid "No more photos to show"
@@ -378,7 +376,7 @@ msgstr ""
 
 #: templates/grid.html:40 templates/mapview.html:20
 msgid "Cancel"
-msgstr "Tühista"
+msgstr "Loobu"
 
 #: templates/grid.html:80
 msgid "You're welcome!"

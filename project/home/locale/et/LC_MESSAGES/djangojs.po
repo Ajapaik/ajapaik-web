@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 17:48+0200\n"
-"PO-Revision-Date: 2015-01-12 14:58+0200\n"
+"PO-Revision-Date: 2015-01-12 18:08+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -26,11 +26,11 @@ msgstr "Salvesta asukoht ja vaate suund"
 
 #: static/js/ajapaik-common.js:668
 msgid "Median guess"
-msgstr ""
+msgstr "Keskmine pakkumine"
 
 #: static/js/ajapaik-common.js:737
 msgid "Tutorial"
-msgstr ""
+msgstr "Abi"
 
 #: static/js/browse.js:260 static/js/game.js:214 static/js/grid.js:72
 msgid "Points awarded"
@@ -52,6 +52,8 @@ msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 
 #: static/js/game.js:159
 msgid "We are now showing you random photos."
