@@ -431,8 +431,10 @@ class Photo(models.Model):
             weighted_level_sum += float(each.level) * each.trustworthiness
             total_weight = each.trustworthiness
         if total_weight != 0:
+            # TODO: Bad math
             self.guess_level = round(round(weighted_level_sum, 2) / round(total_weight, 2), 2)
 
+        # TODO: Currently not needed
         # photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
         # flip_feedback_user_dict = {}
         # for each in photo_flip_feedback:
@@ -455,6 +457,7 @@ class Photo(models.Model):
         # 	self.flip = False
 
         if not self.bounding_circle_radius:
+            # TODO: What was the purpose of this?
             #self.confidence = 0
             #self.lon = None
             #self.lat = None

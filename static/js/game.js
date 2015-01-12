@@ -201,6 +201,7 @@
 
     // TODO: Lots of duplicate code in this function in every mode
     window.handleGuessResponse = function (guessResponse) {
+        console.log(guessResponse.currentScore);
         window.guessResponseReceived = true;
         window.updateLeaderboard();
         noticeDiv = $('#ajapaik-game-feedback-js-panel-content');

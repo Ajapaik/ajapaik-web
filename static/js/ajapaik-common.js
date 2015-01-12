@@ -316,34 +316,20 @@ var map,
     };
 
     saveLocationCallback = function (resp) {
-        var message = '',
+        var message = resp.feedback_message,
             hideFeedback = false,
             heatmapPoints,
             currentScore,
             tagsWithAzimuth,
             newEstimatedLocation;
         if (resp.is_correct) {
-            message = gettext('Looks right!');
             hideFeedback = false;
-            _gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
-            if (resp.azimuth_false) {
-                message = gettext('The location seems right, but not the azimuth.');
-            }
-            if (resp.azimuth_uncertain) {
-                message = gettext('The location seems right, but the azimuth is yet uncertain.');
-            }
-            if (resp.azimuth_uncertain && resp.azimuth_tags < 2) {
-                message = gettext('The location seems right, your azimuth was first.');
-            }
+            window._gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
         } else if (resp.location_is_unclear) {
-            message = gettext('Correct location is not certain yet.');
-            _gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
+            window._gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
         } else if (!resp.is_correct) {
-            message = gettext('Other users have different opinion.');
             hideFeedback = true;
-            _gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
-        } else {
-            message = gettext('Your guess was first.');
+            window._gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
         }
         if (resp.heatmap_points) {
             heatmapPoints = resp.heatmap_points;
