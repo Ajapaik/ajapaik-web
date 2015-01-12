@@ -624,6 +624,8 @@
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');
         window.saveLocationButton = $('.ajapaik-save-location-button');
 
+        $('#ajapaik-game-description-viewing-warning').hide();
+
         if (window.preselectPhotoId) {
             currentlySelectedMarkerId = window.preselectPhotoId;
         }

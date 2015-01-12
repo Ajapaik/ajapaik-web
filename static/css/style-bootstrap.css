@@ -844,6 +844,12 @@ ul.errorlist {
 
 .ui-resizable-e {
     width: 25px;
+    top: 25px;
+}
+
+.ui-resizable-w {
+    width: 25px;
+    top: 25px;
 }
 
 .tutorial-item {
@@ -856,4 +862,8 @@ ul.errorlist {
 
 .tutorial-item p {
     display: inline;
+}
+
+#ajapaik-tutorial-list {
+    margin-right: 15px !important;
 }

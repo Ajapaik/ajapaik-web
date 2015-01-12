@@ -720,30 +720,37 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        // TODO: Make universal
-        var tutorialPanelContent =  $('#ajapaik-game-tutorial-js-panel-content');
-        tutorialPanel = $.jsPanel({
-            selector: '#ajapaik-map-container',
-            content: tutorialPanelContent.html(),
-            removeHeader: true,
-            position: {
-                top: 50,
-                right: 100
-            },
-            draggable: {
-                handle: '.jsPanel-content',
-                containment: '#ajapaik-map-container'
-            },
-            toolbarFooter: $('#ajapaik-game-tutorial-js-panel-footer').html(),
-            id: 'ajapaik-game-tutorial-js-panel'
-        });
+        if (!tutorialPanel) {
+            var tutorialPanelContent =  $('#ajapaik-tutorial-js-panel-content');
+            tutorialPanel = $.jsPanel({
+                selector: '#ajapaik-map-container',
+                content: tutorialPanelContent.html(),
+                position: {
+                    top: 50,
+                    right: 100
+                },
+                controls: {
+                    buttons: 'closeonly'
+                },
+                title: window.gettext('Tutorial'),
+                draggable: {
+                    handle: '.jsPanel-hdr, .jsPanel-content',
+                    containment: '#ajapaik-map-container'
+                },
+                size: {
+                    height: 'auto'
+                },
+                id: 'ajapaik-tutorial-js-panel'
+            });
+        }
     });
 
-    $(document).on('click', '#ajapaik-game-tutorial-close-tutorial-button', function () {
-        if (tutorialPanel) {
-            tutorialPanel.close();
+    $('body').on('jspanelclosed', function closeHandler(event, id) {
+        if (id === 'ajapaik-tutorial-js-panel') {
+            window.userClosedTutorial = true;
+            tutorialPanel = undefined;
+            window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
+            $('body').off('jspanelclosed', closeHandler);
         }
-        window.userClosedTutorial = true;
-        window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
     });
 }(jQuery));
