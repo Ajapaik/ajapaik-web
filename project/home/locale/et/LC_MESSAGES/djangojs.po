@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 13:50+0200\n"
-"PO-Revision-Date: 2014-05-21 18:16+0000\n"
+"PO-Revision-Date: 2015-01-12 14:00+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -12,17 +12,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: static/js/ajapaik-common.js:479 static/js/ajapaik-common.js.c:599
 #: static/js/game.js:80
 msgid "Save location only"
-msgstr ""
+msgstr "Salvesta ainult asukoht"
 
 #: static/js/ajapaik-common.js:530
 msgid "Save location and direction"
-msgstr ""
+msgstr "Salvesta asukoht ja vaate suund"
 
 #: static/js/ajapaik-common.js:668
 msgid "The peoples' guess"
