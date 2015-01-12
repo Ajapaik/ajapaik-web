@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 13:49+0200\n"
-"PO-Revision-Date: 2015-01-12 15:08+0200\n"
+"PO-Revision-Date: 2015-01-12 16:15+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -121,10 +121,7 @@ msgid "Choose language"
 msgstr "Vali keel"
 
 #: templates/_header_city_selection_game_scoreboard.html:22
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                            Account (%(account_name)s) connected. If it's "
@@ -132,7 +129,7 @@ msgid ""
 "                            here%(link_close)s."
 msgstr ""
 "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"%(link_open)svajuta siia%(link_close)s. !?!1"
 
 #: templates/_header_city_selection_game_scoreboard.html:30
 #: templates/_header_city_selection_rephoto_scoreboard.html:44
@@ -151,10 +148,7 @@ msgid "Rephoto Leaderboard"
 msgstr "Aktiivsemad ülepildistajad"
 
 #: templates/_header_city_selection_rephoto_scoreboard.html:37
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                            Account (%(account_name)s) connected. If it\"s "
@@ -162,7 +156,7 @@ msgid ""
 "                            here%(link_close)s."
 msgstr ""
 "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"%(link_open)svajuta siia%(link_close)s. !?!2"
 
 #: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
 #: templates/mapview.html:15
@@ -179,7 +173,7 @@ msgstr "Ülepildistus:"
 
 #: templates/_photo_modal.html:86
 msgid "Date taken"
-msgstr "Jäädvustamise kuupäev"
+msgstr "Kuupäev"
 
 #: templates/_photo_modal.html:93
 msgid "Add rephoto"
@@ -316,7 +310,7 @@ msgstr "keeruline"
 
 #: templates/game.html:79
 msgid "This icon indicates where you think the photo was taken."
-msgstr ""
+msgstr "See ikoon tähistab kohta, kust foto on tehtud."
 
 #: templates/game.html:84
 msgid "Got it!"
@@ -344,7 +338,7 @@ msgstr ""
 
 #: templates/grid.html:40 templates/mapview.html:18
 msgid "Cancel"
-msgstr ""
+msgstr "Tühista"
 
 #: templates/grid.html:80
 msgid "You're welcome!"
