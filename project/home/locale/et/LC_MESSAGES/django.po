@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-12 13:49+0200\n"
-"PO-Revision-Date: 2014-05-18 09:04+0000\n"
+"PO-Revision-Date: 2015-01-12 15:08+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: project/home/forms.py:8
@@ -21,36 +21,39 @@ msgstr "Vali linn"
 
 #: project/home/get_next_photos_to_geotag.py:185
 msgid "Looks right!"
-msgstr ""
+msgstr "Tundub õige!"
 
 #: project/home/get_next_photos_to_geotag.py:187
 msgid "The location seems right, but not the azimuth."
-msgstr ""
+msgstr "Asukoht tundub õige, aga mitte vaate suund."
 
 #: project/home/get_next_photos_to_geotag.py:189
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
+"Asukoht tundub õige. Proovi määrata ka vaate suund, et saada veelgi rohkem "
+"punkte."
 
 #: project/home/get_next_photos_to_geotag.py:191
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
+"Asukoht tundub õige, vaate suuna osas ei ole kasutajatel üksmeelt tekkinud."
 
 #: project/home/get_next_photos_to_geotag.py:193
 msgid "The location seems right, your azimuth was first."
-msgstr ""
+msgstr "Asukoht tundub õige, Sinu pakutud suund oli esimene."
 
 #: project/home/get_next_photos_to_geotag.py:195
 msgid "Other users have different opinion."
-msgstr ""
+msgstr "Teised kasutajad on teisiti arvanud."
 
 #: project/home/get_next_photos_to_geotag.py:197
 msgid "Correct location is not certain yet."
-msgstr ""
+msgstr "Selle pildi puhul ei ole asukoht veel selgeks saanud."
 
 #: project/home/get_next_photos_to_geotag.py:199
 msgid "Your guess was first."
-msgstr ""
+msgstr "Sinu pakkumine oli esimene."
 
 #: project/home/views.py:236 templates/frontpage.html:160
 msgid "Guess the location"
@@ -85,11 +88,11 @@ msgstr "Vene"
 
 #: templates/404.html:5 templates/404.html.py:11
 msgid "Page Not Found"
-msgstr ""
+msgstr "Lehekülge ei leitud"
 
 #: templates/404.html:14
 msgid "Back"
-msgstr ""
+msgstr "Tagasi"
 
 #: templates/_block_leaderboard.html:9
 #: templates/_header_city_selection_rephoto_scoreboard.html:26
@@ -163,32 +166,28 @@ msgstr ""
 
 #: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
 #: templates/mapview.html:15
-#, fuzzy
-#| msgid "Save location"
 msgid "Save location only"
-msgstr "Salvesta asukoht"
+msgstr "Salvesta asukoht (?)"
 
 #: templates/_map_lower_right_buttons.html:8
 msgid "Skip"
-msgstr ""
+msgstr "Jäta vahele"
 
 #: templates/_photo_modal.html:82
 msgid "Rephotograph by"
-msgstr ""
+msgstr "Ülepildistus:"
 
 #: templates/_photo_modal.html:86
 msgid "Date taken"
-msgstr ""
+msgstr "Jäädvustamise kuupäev"
 
 #: templates/_photo_modal.html:93
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
 #: templates/_photo_modal.html:94
-#, fuzzy
-#| msgid "Save location"
 msgid "Specify location"
-msgstr "Salvesta asukoht"
+msgstr "Täpsusta asukohta"
 
 #: templates/_photo_upload_modal.html:26
 #, fuzzy
@@ -224,7 +223,7 @@ msgstr ""
 
 #: templates/_photo_upload_modal.html:49
 msgid "Select file..."
-msgstr ""
+msgstr "Vali fail..."
 
 #: templates/_photo_upload_modal.html:61
 msgid "Rephoto uploading requires connecting your account with Facebook."
@@ -260,6 +259,8 @@ msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
 msgstr ""
+"Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades olete "
+"sellega nõus."
 
 #: templates/frontpage.html:88
 msgid "Where is history located?"
@@ -287,7 +288,7 @@ msgstr ""
 
 #: templates/game.html:31
 msgid "Show description"
-msgstr ""
+msgstr "Vaata kirjeldust"
 
 #: templates/game.html:35
 msgid "Pick the shooting location!"
@@ -303,15 +304,15 @@ msgstr "Aitäh!"
 
 #: templates/game.html:49 templates/grid.html:67
 msgid "In your opinion to geotag this photo is"
-msgstr ""
+msgstr "Selle pildi asukoha tuvastamine on"
 
 #: templates/game.html:53 templates/grid.html:71
 msgid "easy"
-msgstr ""
+msgstr "lihtne"
 
 #: templates/game.html:59 templates/grid.html:77
 msgid "hard"
-msgstr ""
+msgstr "keeruline"
 
 #: templates/game.html:79
 msgid "This icon indicates where you think the photo was taken."
@@ -324,12 +325,12 @@ msgstr ""
 #: templates/game.html:90 templates/grid.html:45 templates/mapview.html:23
 #: templates/photoview.html:47
 msgid "Geotags"
-msgstr ""
+msgstr "Asukohapakkumisi"
 
 #: templates/game.html:92 templates/grid.html:47 templates/mapview.html:25
 #: templates/photoview.html:49
 msgid "With azimuth"
-msgstr ""
+msgstr "Neist suunaga"
 
 #: templates/grid.html:24
 #, fuzzy
@@ -350,10 +351,8 @@ msgid "You're welcome!"
 msgstr ""
 
 #: templates/mapview.html:62
-#, fuzzy
-#| msgid "Back to home page"
 msgid "Back to map"
-msgstr "Tagasi esilehele"
+msgstr "Tagasi kaardile"
 
 #: templates/photo_upload.html:18
 msgid "Add files..."
