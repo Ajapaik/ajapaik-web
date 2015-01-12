@@ -99,46 +99,6 @@
         <p id="cookie-notice-close" onclick="setEUCookie();">X</p>
     </div>
 </div>
-<div id="ajapaik-tutorial-js-panel-content" style="display: none;">
-    <ul class="list" id="ajapaik-tutorial-list">
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg" />
-            <p>{% trans "The marker with this icon indicates where you think the photo was taken." %}</p>
-        </li>
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/ajapaik-tutorial-red-dots.svg" />
-            <p>{% trans "If you know which way the photographer was facing when the photo was taken, you can earn extra points by submitting the line of sight along with the coordinates. While the line is dotted, it means you haven't yet locked it in and only the location will be submitted." %}</p>
-        </li>
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/ajapaik-tutorial-red-line.svg" />
-            <p>{% trans "When the red dotted line turns solid, it means the angle is now locked and will be submitted along with the coordinates." %}</p>
-        </li>
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/material-design-icons/ajapaik_custom_size_panorama.svg" />
-            <p>{% trans "This marker with this icon indicates the actual object on the photo." %}</p>
-        </li>
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/material-design-icons/ic_lock_outline_24px.svg" />
-            <p>{% trans "By default, the location marker is locked to the center of the map. To change its location, the map itself must be dragged underneath. Sometimes this may not be desirable and this button unlocks the marker, enabling it to be dragged as usual." %}</p>
-        </li>
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/material-design-icons/ic_help_24px.svg" />
-            <p>{% trans "If you ever feel like looking at this tutorial again, this button will re-open it." %}</p>
-        </li>
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/material-design-icons/ic_flip_24px.svg" />
-            <p>{% trans "Buttons with this icon flip the current image." %}</p>
-        </li>
-        <li class="tutorial-item">
-            <img src="{{ STATIC_URL }}/images/material-design-icons/ic_settings_overscan_24px.svg" />
-            <p>{% trans "Buttons with this icon make the current image occupy the whole screen where available." %}</p>
-        </li>
-        <li class="tutorial-item" id="ajapaik-description-button-tutorial" {% if LANGUAGE_CODE != "et" %}style="display: none;"{% endif %}>
-            <img src="{{ STATIC_URL }}/images/material-design-icons/ic_description_24px.svg" />
-            <p>{% trans "Buttons with this icon display the description of the current photo where available." %}&nbsp;<b id="ajapaik-game-description-viewing-warning">Using the description to place an image in the game view will only earn you 75% of the points you would have gotten otherwise.</b></p>
-        </li>
-    </ul>
-</div>
 <div id="fb-root"></div>
 <script>
     window.fbAsyncInit = function () {

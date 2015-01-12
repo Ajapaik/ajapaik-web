@@ -665,7 +665,7 @@ var map,
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),
                 map: window.map,
-                title: window.gettext("The peoples' guess"),
+                title: window.gettext("Median guess"),
                 draggable: false,
                 icon: '/static/images/ajapaik_marker_35px.png'
             });
@@ -730,8 +730,10 @@ var map,
                     right: 100
                 },
                 controls: {
-                    buttons: 'closeonly'
+                    buttons: 'closeonly',
+                    iconfont: 'bootstrap'
                 },
+                bootstrap: 'default',
                 title: window.gettext('Tutorial'),
                 draggable: {
                     handle: '.jsPanel-hdr, .jsPanel-content',

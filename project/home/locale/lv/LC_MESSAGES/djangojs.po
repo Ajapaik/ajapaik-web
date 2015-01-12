@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 16:49+0200\n"
+"POT-Creation-Date: 2015-01-12 17:48+0200\n"
 "PO-Revision-Date: 2014-05-21 18:18+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,10 +30,10 @@ msgid "Save location and direction"
 msgstr ""
 
 #: static/js/ajapaik-common.js:668
-msgid "The peoples' guess"
+msgid "Median guess"
 msgstr ""
 
-#: static/js/ajapaik-common.js:735
+#: static/js/ajapaik-common.js:737
 msgid "Tutorial"
 msgstr ""
 

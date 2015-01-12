@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 16:49+0200\n"
+"POT-Creation-Date: 2015-01-12 17:48+0200\n"
 "PO-Revision-Date: 2014-05-18 09:36+0000\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -121,25 +121,13 @@ msgstr "Выбери язык"
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
-msgid "Account"
+msgid "User"
 msgstr ""
 
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
 #: templates/_photo_upload_modal.html:44
-msgid "connected"
-msgstr ""
-
-#: templates/_header_city_selection_game_scoreboard.html:21
-#: templates/_header_city_selection_rephoto_scoreboard.html:36
-#: templates/_photo_upload_modal.html:44
-msgid "If it's not you then"
-msgstr ""
-
-#: templates/_header_city_selection_game_scoreboard.html:21
-#: templates/_header_city_selection_rephoto_scoreboard.html:36
-#: templates/_photo_upload_modal.html:44
-msgid "click here"
+msgid "Log out"
 msgstr ""
 
 #: templates/_header_city_selection_game_scoreboard.html:26
@@ -159,7 +147,7 @@ msgid "Rephoto Leaderboard"
 msgstr "Самые активные пользователи"
 
 #: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
-#: templates/mapview.html:15
+#: templates/mapview.html:17
 #, fuzzy
 #| msgid "Save location"
 msgid "Save location only"
@@ -213,10 +201,70 @@ msgstr ""
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
 
-#: templates/_photo_upload_modal.html:63 templates/game.html:105
-#: templates/mapview.html:44
+#: templates/_photo_upload_modal.html:63 templates/game.html:106
+#: templates/mapview.html:46
 msgid "Close"
 msgstr "Закрыть"
+
+#: templates/_tutorial.html:7
+msgid ""
+"The marker with this icon indicates where you think the photo was taken."
+msgstr ""
+
+#: templates/_tutorial.html:11
+msgid ""
+"If you know which way the photographer was facing when the photo was taken, "
+"you can earn extra points by submitting the line of sight along with the "
+"coordinates. While the line is dotted, it means you haven't yet locked it in "
+"and only the location will be submitted."
+msgstr ""
+
+#: templates/_tutorial.html:15
+msgid ""
+"When the red dotted line turns solid, it means the angle is now locked and "
+"will be submitted along with the coordinates."
+msgstr ""
+
+#: templates/_tutorial.html:19
+msgid "This marker with this icon indicates the actual object on the photo."
+msgstr ""
+
+#: templates/_tutorial.html:23
+msgid ""
+"By default, the location marker is locked to the center of the map. To "
+"change its location, the map itself must be dragged underneath. Sometimes "
+"this may not be desirable and this button unlocks the marker, enabling it to "
+"be dragged as usual."
+msgstr ""
+
+#: templates/_tutorial.html:27
+msgid ""
+"If you ever feel like looking at this tutorial again, this button will re-"
+"open it."
+msgstr ""
+
+#: templates/_tutorial.html:31
+msgid "Buttons with this icon flip the current image."
+msgstr ""
+
+#: templates/_tutorial.html:35
+msgid ""
+"Buttons with this icon make the current image occupy the whole screen where "
+"available."
+msgstr ""
+
+#: templates/_tutorial.html:39
+msgid ""
+"Buttons with this icon display the description of the current photo where "
+"available."
+msgstr ""
+
+#: templates/_tutorial.html:39
+#, python-format
+msgid ""
+"Using the description to place an image in the game view will only earn you "
+"75%% of the points you would have gotten otherwise"
+msgstr ""
 
 #: templates/admin/project/csvphoto/change_list.html:6
 msgid "Home"
@@ -244,59 +292,6 @@ msgid ""
 "to that."
 msgstr ""
 
-#: templates/base_bootstrap.html:106
-msgid ""
-"The marker with this icon indicates where you think the photo was taken."
-msgstr ""
-
-#: templates/base_bootstrap.html:110
-msgid ""
-"If you know which way the photographer was facing when the photo was taken, "
-"you can earn extra points by submitting the line of sight along with the "
-"coordinates. While the line is dotted, it means you haven't yet locked it in "
-"and only the location will be submitted."
-msgstr ""
-
-#: templates/base_bootstrap.html:114
-msgid ""
-"When the red dotted line turns solid, it means the angle is now locked and "
-"will be submitted along with the coordinates."
-msgstr ""
-
-#: templates/base_bootstrap.html:118
-msgid "This marker with this icon indicates the actual object on the photo."
-msgstr ""
-
-#: templates/base_bootstrap.html:122
-msgid ""
-"By default, the location marker is locked to the center of the map. To "
-"change its location, the map itself must be dragged underneath. Sometimes "
-"this may not be desirable and this button unlocks the marker, enabling it to "
-"be dragged as usual."
-msgstr ""
-
-#: templates/base_bootstrap.html:126
-msgid ""
-"If you ever feel like looking at this tutorial again, this button will re-"
-"open it."
-msgstr ""
-
-#: templates/base_bootstrap.html:130
-msgid "Buttons with this icon flip the current image."
-msgstr ""
-
-#: templates/base_bootstrap.html:134
-msgid ""
-"Buttons with this icon make the current image occupy the whole screen where "
-"available."
-msgstr ""
-
-#: templates/base_bootstrap.html:138
-msgid ""
-"Buttons with this icon display the description of the current photo where "
-"available."
-msgstr ""
-
 #: templates/frontpage.html:88
 msgid "Where is history located?"
 msgstr "Где находится история?"
@@ -322,40 +317,40 @@ msgstr "Подробнее"
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:31
+#: templates/game.html:32
 msgid "Show description"
 msgstr ""
 
-#: templates/game.html:35
+#: templates/game.html:36
 msgid "Pick the shooting location!"
 msgstr "Знаю где сделано фото!"
 
-#: templates/game.html:37 templates/game.html.py:62
+#: templates/game.html:38 templates/game.html.py:63
 msgid "Next photo"
 msgstr "Следующее фото"
 
-#: templates/game.html:45 templates/grid.html:63 templates/mapview.html:60
+#: templates/game.html:46 templates/grid.html:63 templates/mapview.html:62
 msgid "Thank you!"
 msgstr "Спасибо!"
 
-#: templates/game.html:49 templates/grid.html:67
+#: templates/game.html:50 templates/grid.html:67
 msgid "In your opinion to geotag this photo is"
 msgstr ""
 
-#: templates/game.html:53 templates/grid.html:71
+#: templates/game.html:54 templates/grid.html:71
 msgid "easy"
 msgstr ""
 
-#: templates/game.html:59 templates/grid.html:77
+#: templates/game.html:60 templates/grid.html:77
 msgid "hard"
 msgstr ""
 
-#: templates/game.html:79 templates/grid.html:45 templates/mapview.html:23
+#: templates/game.html:80 templates/grid.html:45 templates/mapview.html:25
 #: templates/photoview.html:47
 msgid "Geotags"
 msgstr ""
 
-#: templates/game.html:81 templates/grid.html:47 templates/mapview.html:25
+#: templates/game.html:82 templates/grid.html:47 templates/mapview.html:27
 #: templates/photoview.html:49
 msgid "With azimuth"
 msgstr ""
@@ -370,7 +365,7 @@ msgstr "Добавить новое фото"
 msgid "No more photos to show"
 msgstr ""
 
-#: templates/grid.html:40 templates/mapview.html:18
+#: templates/grid.html:40 templates/mapview.html:20
 msgid "Cancel"
 msgstr ""
 
@@ -378,7 +373,7 @@ msgstr ""
 msgid "You're welcome!"
 msgstr ""
 
-#: templates/mapview.html:62
+#: templates/mapview.html:64
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
