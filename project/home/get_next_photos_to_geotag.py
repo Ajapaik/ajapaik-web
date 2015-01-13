@@ -184,14 +184,14 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 
     if location_correct:
         feedback_message = _("Looks right!")
-        if not azimuth_correct:
-            feedback_message = _("The location seems right, but not the azimuth.")
-            if not azimuth:
-                feedback_message = _("The location seems right. Try submitting an azimuth to earn even more points!")
-        elif azimuth_uncertain:
+        if azimuth_uncertain:
             feedback_message = _("The location seems right, but the azimuth is yet uncertain.")
             if azimuth_tags_count == 1:
                 feedback_message = _("The location seems right, your azimuth was first.")
+        elif not azimuth_correct:
+            feedback_message = _("The location seems right, but not the azimuth.")
+            if not azimuth:
+                feedback_message = _("The location seems right. Try submitting an azimuth to earn even more points!")
     elif location_uncertain:
         feedback_message = _("Correct location is not certain yet.")
     elif not location_correct:
