@@ -82,8 +82,11 @@
                                 {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
                                 </a>
                             </div>
-                            <div class="row ajapaik-photo-modal-row">
-                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date }}</div>
+                            <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
+                                {% trans "Date taken" %}&nbsp;
+                                <div id="ajapaik-photo-modal-rephoto-date-taken">
+                                    {{ photo.rephotos.all.0.date }}
+                                </div>
                             </div>
                         {% endif %}
                     </div>
@@ -116,6 +119,9 @@
             $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+        }
+        if (window.photoModalRephotoArray[0][2] !== 'None') {
+            $('#ajapaik-photo-modal-date-row').show();
         }
         var openPhotoUploadModal = function () {
             $.ajax({
@@ -217,7 +223,12 @@
                 if (window.photoModalRephotoArray[i][0] == targetId) {
                     $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
                     $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
-                    $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);
+                    if (window.photoModalRephotoArray[i][2] !== 'None') {
+                        $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);
+                        $('#ajapaik-photo-modal-date-row').show();
+                    } else {
+                        $('#ajapaik-photo-modal-date-row').hide();
+                    }
                     window.currentlySelectedRephotoId = targetId;
                     window.syncMapStateToURL();
                     break;
