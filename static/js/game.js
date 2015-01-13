@@ -127,6 +127,7 @@
                 .prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
             $('#ajapaik-game-map-geotag-count').html(photos[currentPhotoIdx].total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(photos[currentPhotoIdx].geotags_with_azimuth);
+            $('#ajapaik-game-map-confidence').html(photos[currentPhotoIdx].confidence.toFixed(2));
             disableNext = true;
         } else {
             loadPhotos(1);
@@ -291,6 +292,7 @@
 
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
+        window.mapInfoPanelConfidenceElement = $('#ajapaik-game-map-confidence');
 
         if (window.docCookies.getItem('ajapaik_closed_tutorial')) {
             window.userClosedTutorial = true;

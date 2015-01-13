@@ -350,7 +350,12 @@ def heatmap_data(request):
             target_photo = target_photo.rephoto_of
         if target_photo.lat and target_photo.lon:
             res["estimated_location"] = [target_photo.lat, target_photo.lon]
+        res["confidence"] = target_photo.confidence
         res["heatmap_points"] = target_photo.get_heatmap_points()
+        res["azimuth_tags"] = 0
+        for point in res["heatmap_points"]:
+            if point[2]:
+                res["azimuth_tags"] += 1
     return HttpResponse(json.dumps(res), content_type="application/json")
 
 def _make_fullscreen(photo):
@@ -526,7 +531,7 @@ def geotag_add(request):
         origin = GeoTag.MAP
     else:
         origin = GeoTag.GAME
-    location_correct, location_uncertain, this_guess_score, feedback_message, all_geotags_latlng_for_this_photo, azimuth_tags_count, new_estimated_location = get_next_photos_to_geotag.submit_guess(
+    location_correct, location_uncertain, this_guess_score, feedback_message, all_geotags_latlng_for_this_photo, azimuth_tags_count, new_estimated_location, confidence = get_next_photos_to_geotag.submit_guess(
         request.get_user().profile, data.get('photo_id'), data.get('lon'), data.get('lat'),
         hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'),
         azimuth_line_end_point=data.getlist('azimuth_line_end_point[]'), origin=origin)
@@ -545,6 +550,7 @@ def geotag_add(request):
         'is_correct': location_correct,
         'location_is_unclear': location_uncertain,
         'current_score': this_guess_score,
+        'confidence': confidence,
         'heatmap_points': all_geotags_latlng_for_this_photo,
         'feedback_message': feedback_message,
         'azimuth_tags': azimuth_tags_count,

@@ -120,8 +120,6 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
     if lon is not None and lat is not None:
         trustworthiness = calc_trustworthiness(user.pk)
 
-        print trustworthiness
-
         if p.confidence >= 0.3:
             error_in_meters = distance_in_meters(p.lon, p.lat, float(lon), float(lat))
             this_guess_score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
@@ -130,8 +128,6 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
             this_guess_score = max(20, int(300 * trustworthiness))
             if not p.lat and not p.lon:
                 location_uncertain = True
-
-        print this_guess_score
 
         if hint_used:
             this_guess_score *= 0.75
@@ -152,8 +148,6 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
             if not p.azimuth:
                 if location_correct:
                     new_geotag.azimuth_score = max(20, int(300 * trustworthiness))
-                    print new_geotag.azimuth_score
-                    print "-----"
                 azimuth_uncertain = True
 
         if azimuth and p.azimuth:
@@ -205,7 +199,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
     elif len(all_geotags_latlng_for_this_photo) == 1:
         feedback_message = _("Your guess was first.")
 
-    return location_correct, location_uncertain, this_guess_score, feedback_message, all_geotags_latlng_for_this_photo, azimuth_tags_count, new_estimated_location
+    return location_correct, location_uncertain, this_guess_score, feedback_message, all_geotags_latlng_for_this_photo, azimuth_tags_count, new_estimated_location, p.confidence
 
 
 #

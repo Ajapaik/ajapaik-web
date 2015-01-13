@@ -174,8 +174,6 @@ var map,
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(tutorialButton);
 
-        $(lockButton).hide();
-
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
                 var that = $(this);
@@ -353,8 +351,9 @@ var map,
             hideFeedback = false,
             heatmapPoints,
             currentScore,
-            tagsWithAzimuth,
-            newEstimatedLocation;
+            tagsWithAzimuth = 0,
+            newEstimatedLocation,
+            confidence = 0;
         if (resp.is_correct) {
             hideFeedback = false;
             window._gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
@@ -376,9 +375,12 @@ var map,
         if (resp.estimated_location) {
             newEstimatedLocation = resp.estimated_location;
         }
+        if (resp.confidence) {
+            confidence = resp.confidence;
+        }
         window.handleGuessResponse({feedbackMessage: message, hideFeedback: hideFeedback,
             heatmapPoints: heatmapPoints, currentScore: currentScore, tagsWithAzimuth: tagsWithAzimuth,
-            newEstimatedLocation: newEstimatedLocation});
+            newEstimatedLocation: newEstimatedLocation, confidence: confidence});
     };
 
     saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
@@ -680,6 +682,7 @@ var map,
         }
         window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
         window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
+        window.mapInfoPanelConfidenceElement.html(heatmapData.confidence.toFixed(2));
         console.log(heatmapData);
         if (heatmapData.newEstimatedLocation && heatmapData.newEstimatedLocation[0] && heatmapData.newEstimatedLocation[1]) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({

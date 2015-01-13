@@ -208,17 +208,17 @@ class Photo(models.Model):
 
             assert isinstance(photo, Photo)
             return {
-            "id": photo.id,
-            "description": photo.description,
-            "date_text": photo.date_text,
-            "source_key": photo.source_key,
-            "flip": photo.flip,
-            "big": _make_thumbnail(photo, "700x400"),
-            "large": _make_fullscreen(photo),
-            "confidence": photo.confidence,
-            "distance_from_last": distance_from_last,
-            "total_geotags": photo.geotags.count(),
-            "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count()
+                "id": photo.id,
+                "description": photo.description,
+                "date_text": photo.date_text,
+                "source_key": photo.source_key,
+                "flip": photo.flip,
+                "big": _make_thumbnail(photo, "700x400"),
+                "large": _make_fullscreen(photo),
+                "confidence": photo.confidence,
+                "distance_from_last": distance_from_last,
+                "total_geotags": photo.geotags.count(),
+                "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
             }
 
         def get_next_photo_to_geotag(self, request):

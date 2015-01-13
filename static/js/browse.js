@@ -163,7 +163,7 @@
             guessLocationStarted = true;
             window.dottedAzimuthLine.setVisible(false);
             $('.ajapaik-marker-center-lock-button').show();
-            $('.ajapaik-show-tutorial-button').show();
+            window.google.maps.event.trigger(window.map, 'resize');
             window.map.set('scrollwheel', false);
             nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, false);
             ffWheelListener = window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, false);
@@ -236,7 +236,8 @@
                         currentScore: response.current_score,
                         heatmapPoints: response.heatmap_points,
                         newEstimatedLocation: response.estimated_location,
-                        tagsWithAzimuth: response.azimuth_tags
+                        tagsWithAzimuth: response.azimuth_tags,
+                        confidence: response.confidence
                     };
                     window.mapDisplayHeatmapWithEstimatedLocation(transformedResponse);
                 }
@@ -386,6 +387,7 @@
             if (currentMapDataRequest) {
                 currentMapDataRequest.abort();
             }
+            $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
             currentMapDataRequest = $.post('/map_data/', { sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (mc) {
@@ -630,6 +632,7 @@
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-mapview-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');
+        window.mapInfoPanelConfidenceElement = $('#ajapaik-mapview-map-confidence');
         window.saveLocationButton = $('.ajapaik-save-location-button');
 
         $('#ajapaik-game-description-viewing-warning').hide();
