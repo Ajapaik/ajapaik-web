@@ -111,7 +111,9 @@
             if (window.currentlySelectedRephotoId) {
                 historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
             }
-            historyReplacementString += '?city=' + window.cityId;
+            if (window.cityId) {
+                historyReplacementString += '?city=' + window.cityId;
+            }
             if (window.map) {
                 historyReplacementString += '&lat=' + window.map.getCenter().lat();
                 historyReplacementString += '&lng=' + window.map.getCenter().lng();
