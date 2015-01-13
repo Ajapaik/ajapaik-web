@@ -836,6 +836,7 @@ ul.errorlist {
 
 #ajapaik-mapview-photo-panel {
     padding: 10px !important;
+    height: 100%;
 }
 
 #ajapaik-mapview-photo-panel .jsPanel-content {
