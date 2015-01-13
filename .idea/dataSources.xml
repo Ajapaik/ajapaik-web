@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2237507425">
+    <data-source source="LOCAL" name="Django default" uuid="b9ef137d-6798-461b-ad55-a609faacf490">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/rephoto_dev</jdbc-url>
+      <user-name>rephoto</user-name>
+      <user-password>dfd8dfcfdfdadfc2df9adfdedf9adfd9dfdbdfc6dfdfdfd9dfcfdfd8</user-password>
+      <libraries />
+      <ssh-properties>
+        <enabled>false</enabled>
+        <proxy-host>ajapaik.ee</proxy-host>
+        <proxy-port>22</proxy-port>
+        <user>lauri</user>
+        <use-password>true</use-password>
+        <password>dff9dfc9dfc2dfd8dfcfdfc9dfc1dfc4df99dfdedf98df99</password>
+        <private-key-path />
+        <passphrase />
+      </ssh-properties>
+    </data-source>
+    <data-source source="LOCAL" name="PostgreSQL - rephoto@ajapaik.ee" uuid="aace76d3-c6c5-4f1b-9e23-c1651573c1ad">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/rephoto</jdbc-url>
+      <user-name>rephoto</user-name>
+      <user-password>dfd8dfcfdfdadfc2df9adfdedf9adfd9dfdbdfc6dfdfdfd9dfcfdfd8</user-password>
+      <libraries />
+      <ssh-properties>
+        <enabled>false</enabled>
+        <proxy-host>ajapaik.ee</proxy-host>
+        <proxy-port>22</proxy-port>
+        <user>lauri</user>
+        <use-password>true</use-password>
+        <password>dff9dfc9dfc2dfd8dfcfdfc9dfc1dfc4df99dfdedf98df99</password>
+        <private-key-path />
+        <passphrase />
+      </ssh-properties>
+    </data-source>
+    <data-source source="LOCAL" name="PostgreSQL - poidatabase@localhost" uuid="e4eef931-6dee-4d74-8faf-ec81788debd2">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/poidatabase</jdbc-url>
+      <user-name>gisuser</user-name>
+      <user-password>dfc7dfcfdfc6dfc6dfc5dfc4</user-password>
+      <schema-pattern>poidatabase.information_schema poidatabase.pg_catalog poidatabase.public</schema-pattern>
+      <default-schemas>poidatabase.information_schema poidatabase.pg_catalog poidatabase.public</default-schemas>
+      <libraries />
+      <ssh-properties>
+        <enabled>true</enabled>
+        <proxy-host>ajapaik.ee</proxy-host>
+        <proxy-port>22</proxy-port>
+        <user>lauri</user>
+        <use-password>true</use-password>
+        <password>dff9dfc9dfc2dfd8dfcfdfc9dfc1dfc4df99dfdedf98df99</password>
+        <private-key-path />
+        <passphrase />
+      </ssh-properties>
+    </data-source>
+  </component>
+</project>
+

@@ -4,7 +4,7 @@
 {% block header %}
     {% include "_header_city_selection_rephoto_scoreboard.html" %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery-3.5.1.min.css"/>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/jsPanel-2.2.3/source/jquery.jspanel.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
 {% endblock %}
 
 {% block layout %}
@@ -89,7 +89,7 @@
             var preselectRephotoId = '{{ selected_rephoto.id }}';
         {% endif %}
     </script>
-    <script src="{{ STATIC_URL }}libs/jsPanel-2.2.3/source/jquery.jspanel.min.js"></script>
+    <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
     <script src="{{ STATIC_URL }}js/lazysizes-0.5.1.min.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.1.min.js"></script>
     <script src="{{ STATIC_URL }}js/browse.js"></script>
