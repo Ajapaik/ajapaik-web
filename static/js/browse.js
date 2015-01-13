@@ -323,8 +323,8 @@
         //$('.ajapaik-marker-center-lock-button').hide();
         //$('.ajapaik-show-tutorial-button').hide();
         window.map.set('scrollwheel', true);
-        window.realMapElement.removeEventListener(nonFFWheelListener);
-        window.realMapElement.removeEventListener(ffWheelListener);
+        window.realMapElement.removeEventListener('mousewheel', nonFFWheelListener);
+        window.realMapElement.removeEventListener('DOMMouseScroll', ffWheelListener);
         $('.center-marker').hide();
         window.google.maps.event.removeListener(window.mapMousemoveListener);
         window.mapMousemoveListenerActive = false;
