@@ -37,8 +37,6 @@
                     });
                 </script>
 
-                <p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it." %}</p>
-
                 {% if request.user.is_authenticated and request.user.profile.fb_id %}
                     {% with profile=request.user.profile user=request.user %}
                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
@@ -59,6 +57,9 @@
                         <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
                     </div>
                 {% endif %}
+
+                <p>{% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the" %}&nbsp;<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>&nbsp;{% trans "licence" %}.</p>
+
                 <p></p>
                 <a href="javascript:void(0);" onclick="uploadCompleted();">{% trans "Close" %}</a>
             </div>
