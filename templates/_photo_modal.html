@@ -107,6 +107,9 @@
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
+        if (!window.currentlySelectedRephotoId) {
+            window.currentlySelectedRephotoId = '{{ rephoto.id }}';
+        }
         window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}']);
     {% endfor %}
     $(document).ready(function () {

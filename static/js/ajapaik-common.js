@@ -91,7 +91,6 @@ var map,
     guessResponseReceived = false,
     heatmapEstimatedLocationMarker,
     estimatedLocationMarkerDeletionWorkaroundArray = [],
-    userUsedZoom = false,
     userClosedTutorial = false,
     tutorialPanel;
 
@@ -424,11 +423,9 @@ var map,
         if (now - 250 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
             if (e.detail < 0) {
-                userUsedZoom = true;
                 map.setZoom(map.zoom + 1);
             } else {
                 if (map.zoom > 14) {
-                    userUsedZoom = true;
                     map.setZoom(map.zoom - 1);
                 }
             }
@@ -444,11 +441,9 @@ var map,
         if (now - 100 > lastTriggeredWheeling) {
             lastTriggeredWheeling = now;
             if (e.wheelDelta > 0) {
-                userUsedZoom = true;
                 map.setZoom(map.zoom + 1);
             } else {
                 if (map.zoom > 14) {
-                    userUsedZoom = true;
                     map.setZoom(map.zoom - 1);
                 }
             }

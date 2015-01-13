@@ -330,10 +330,7 @@
         window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
 
         window.google.maps.event.addListener(window.marker, 'position_changed', function () {
-            if (window.userUsedZoom) {
-                console.log(window.userUsedZoom);
-                window.disableSave = false;
-            }
+            window.disableSave = false;
         });
 
         // TODO: Re-implement
@@ -402,6 +399,9 @@
         });
 
         $('.ajapaik-game-specify-location-button').click(function () {
+            if (window.map.zoom < 17) {
+                window.map.setZoom(17);
+            }
             $('#ajapaik-game-photo-modal').modal('hide');
             window.setCursorToAuto();
             $('.ajapaik-marker-center-lock-button').show();

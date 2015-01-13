@@ -104,36 +104,30 @@
 
     window.syncMapStateToURL = function () {
         var historyReplacementString = '/map/';
-        if (currentlySelectedMarkerId) {
-            historyReplacementString += 'photo/' + currentlySelectedMarkerId + '/';
-        } else {
-//            if (window.preselectPhotoId) {
-//                historyReplacementString += 'photo/' + window.preselectPhotoId + '/';
-//            }
-        }
-        if (window.currentlySelectedRephotoId) {
-            historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
-        } else {
-//            if (window.preselectRephotoId) {
-//                historyReplacementString += 'rephoto/' + window.preselectRephotoId + '/';
-//            }
-        }
-        historyReplacementString += '?city=' + window.cityId;
-        if (window.map) {
-            historyReplacementString += '&lat=' + window.map.getCenter().lat();
-            historyReplacementString += '&lng=' + window.map.getCenter().lng();
-            historyReplacementString += '&zoom=' + window.map.zoom;
-        }
-        if (photoDrawerOpen) {
-            historyReplacementString += '&photoModalOpen=1';
+        if (!guessLocationStarted) {
+            if (currentlySelectedMarkerId) {
+                historyReplacementString += 'photo/' + currentlySelectedMarkerId + '/';
+            }
+            if (window.currentlySelectedRephotoId) {
+                historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
+            }
+            historyReplacementString += '?city=' + window.cityId;
+            if (window.map) {
+                historyReplacementString += '&lat=' + window.map.getCenter().lat();
+                historyReplacementString += '&lng=' + window.map.getCenter().lng();
+                historyReplacementString += '&zoom=' + window.map.zoom;
+            }
+            if (photoDrawerOpen) {
+                historyReplacementString += '&photoModalOpen=1';
+            }
         }
         window.History.replaceState(null, null, historyReplacementString);
     };
 
     window.startGuessLocation = function () {
         if (!guessLocationStarted) {
-            if (window.map.zoom < 16) {
-                window.map.setZoom(16);
+            if (window.map.zoom < 17) {
+                window.map.setZoom(17);
             }
             guessLocationStarted = true;
             window.dottedAzimuthLine.setVisible(false);
@@ -228,6 +222,7 @@
                     window.mapDisplayHeatmapWithEstimatedLocation(transformedResponse);
                 }
             });
+            window.syncMapStateToURL();
         }
     };
 
