@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 17:48+0200\n"
+"POT-Creation-Date: 2015-01-13 16:16+0200\n"
 "PO-Revision-Date: 2014-05-18 09:36+0000\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -20,36 +20,36 @@ msgstr ""
 msgid "Choose city"
 msgstr "Выбери город"
 
-#: project/home/get_next_photos_to_geotag.py:186
+#: project/home/get_next_photos_to_geotag.py:192
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:188
+#: project/home/get_next_photos_to_geotag.py:194
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:190
+#: project/home/get_next_photos_to_geotag.py:196
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:192
+#: project/home/get_next_photos_to_geotag.py:198
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:194
+#: project/home/get_next_photos_to_geotag.py:200
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:196
+#: project/home/get_next_photos_to_geotag.py:202
 msgid "Correct location is not certain yet."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:198
+#: project/home/get_next_photos_to_geotag.py:204
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:200
+#: project/home/get_next_photos_to_geotag.py:206
 msgid "Your guess was first."
 msgstr ""
 
@@ -120,13 +120,13 @@ msgstr "Выбери язык"
 
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
-#: templates/_photo_upload_modal.html:44
+#: templates/_photo_upload_modal.html:42
 msgid "User"
 msgstr ""
 
 #: templates/_header_city_selection_game_scoreboard.html:21
 #: templates/_header_city_selection_rephoto_scoreboard.html:36
-#: templates/_photo_upload_modal.html:44
+#: templates/_photo_upload_modal.html:42
 msgid "Log out"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 
 #: templates/_header_city_selection_game_scoreboard.html:27
 #: templates/_header_city_selection_rephoto_scoreboard.html:42
-#: templates/_photo_upload_modal.html:59
+#: templates/_photo_upload_modal.html:57
 msgid "Connect with Facebook"
 msgstr "Соединить с Facebook-ом."
 
@@ -185,23 +185,32 @@ msgstr "Выбери новое фото"
 msgid "upload?"
 msgstr ""
 
-#: templates/_photo_upload_modal.html:40
+#: templates/_photo_upload_modal.html:44
+msgid "Select file..."
+msgstr ""
+
+#: templates/_photo_upload_modal.html:56
+msgid "Rephoto uploading requires connecting your account with Facebook."
+msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
+
+#: templates/_photo_upload_modal.html:61
+#, fuzzy
+#| msgid ""
+#| "Make a contemporary rephoto from the very same place where the historic "
+#| "picture was taken and upload it."
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it."
+"picture was taken and upload it. Uploaded rephotograph will be attributed to "
+"you under the"
 msgstr ""
 "Cделай как можно более похожую современную фотографию того же места и "
 "загрузи её."
 
-#: templates/_photo_upload_modal.html:46
-msgid "Select file..."
+#: templates/_photo_upload_modal.html:61
+msgid "licence"
 msgstr ""
 
-#: templates/_photo_upload_modal.html:58
-msgid "Rephoto uploading requires connecting your account with Facebook."
-msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
-
-#: templates/_photo_upload_modal.html:63 templates/game.html:106
+#: templates/_photo_upload_modal.html:64 templates/game.html:106
 #: templates/mapview.html:46
 msgid "Close"
 msgstr "Закрыть"
@@ -212,6 +221,10 @@ msgid ""
 msgstr ""
 
 #: templates/_tutorial.html:11
+msgid "This marker with this icon indicates the actual object on the photo."
+msgstr ""
+
+#: templates/_tutorial.html:15
 msgid ""
 "If you know which way the photographer was facing when the photo was taken, "
 "you can earn extra points by submitting the line of sight along with the "
@@ -219,14 +232,10 @@ msgid ""
 "and only the location will be submitted."
 msgstr ""
 
-#: templates/_tutorial.html:15
+#: templates/_tutorial.html:19
 msgid ""
 "When the red dotted line turns solid, it means the angle is now locked and "
 "will be submitted along with the coordinates."
-msgstr ""
-
-#: templates/_tutorial.html:19
-msgid "This marker with this icon indicates the actual object on the photo."
 msgstr ""
 
 #: templates/_tutorial.html:23
@@ -238,32 +247,32 @@ msgid ""
 msgstr ""
 
 #: templates/_tutorial.html:27
-msgid ""
-"If you ever feel like looking at this tutorial again, this button will re-"
-"open it."
-msgstr ""
-
-#: templates/_tutorial.html:31
 msgid "Buttons with this icon flip the current image."
 msgstr ""
 
-#: templates/_tutorial.html:35
+#: templates/_tutorial.html:31
 msgid ""
 "Buttons with this icon make the current image occupy the whole screen where "
 "available."
 msgstr ""
 
-#: templates/_tutorial.html:39
+#: templates/_tutorial.html:35
 msgid ""
 "Buttons with this icon display the description of the current photo where "
 "available."
 msgstr ""
 
-#: templates/_tutorial.html:39
+#: templates/_tutorial.html:35
 #, python-format
 msgid ""
 "Using the description to place an image in the game view will only earn you "
 "75%% of the points you would have gotten otherwise"
+msgstr ""
+
+#: templates/_tutorial.html:39
+msgid ""
+"If you ever feel like looking at this tutorial again, this button will re-"
+"open it."
 msgstr ""
 
 #: templates/admin/project/csvphoto/change_list.html:6
@@ -286,7 +295,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:98
+#: templates/base.html:91 templates/base_bootstrap.html:99
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
