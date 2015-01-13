@@ -376,7 +376,7 @@
     toggleVisiblePaneElements = function () {
         if (window.map && !guessLocationStarted) {
             window.dottedAzimuthLine.setVisible(false);
-            if (!window.preselectPhotoId) {
+            if (window.urlParamsInitialized) {
                 currentlySelectedMarkerId = false;
             }
             window.syncMapStateToURL();
@@ -623,6 +623,7 @@
         window.preselectPhotoId = false;
         window.preselectRephotoId = false;
         window.syncMapStateToURL();
+        window.urlParamsInitialized = true;
     };
 
     $(document).ready(function () {
