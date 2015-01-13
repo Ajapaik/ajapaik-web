@@ -424,9 +424,9 @@
                                     title: false,
                                     position: 'top left',
                                     size: { height: function () {
-                                        return $(document).height() * 0.75;
+                                        return $(window).height();
                                     }, width: function () {
-                                        return $(document).width() / 6;
+                                        return $(window).width() / 6;
                                     }},
                                     draggable: false,
                                     removeHeader: true,
