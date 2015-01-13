@@ -350,7 +350,7 @@ var map,
         var message = resp.feedback_message,
             hideFeedback = false,
             heatmapPoints,
-            currentScore,
+            currentScore = 0,
             tagsWithAzimuth = 0,
             newEstimatedLocation,
             confidence = 0;

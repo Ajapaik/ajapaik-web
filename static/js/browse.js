@@ -250,6 +250,7 @@
 
     // TODO: Incomplete
     window.handleGuessResponse = function (guessResponse) {
+        console.log(guessResponse);
         window.centerMarker.hide();
         window.marker.setVisible(true);
         window.google.maps.event.removeListener(window.mapMousemoveListener);
@@ -469,6 +470,13 @@
         }
     };
 
+    window.deselectMarker = function () {
+        console.log("123");
+        //currentlySelectedMarkerId = undefined;
+        //window.currentlySelectedRephotoId = undefined;
+        //window.syncMapStateToURL();
+    };
+
     window.highlightSelected = function (markerId, fromMarker) {
         if (currentlySelectedMarkerId == markerId && fromMarker) {
             window.loadPhoto(markerId);
@@ -637,6 +645,8 @@
         window.mapInfoPanelConfidenceElement = $('#ajapaik-mapview-map-confidence');
         window.saveLocationButton = $('.ajapaik-save-location-button');
 
+        $('#ajapaik-map-canvas')
+
         $('#ajapaik-game-description-viewing-warning').hide();
 
         if (window.preselectPhotoId) {
@@ -676,6 +686,8 @@
 
         if (window.map !== undefined) {
             window.mapMapviewIdleListener = window.google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);
+            console.log("asd");
+            //window.mapMapviewClickListener = window.google.maps.event.addListener(window.map, 'click', window.deselectMarker());
         }
 
         //$('#google-plus-login-button').click(function () {
