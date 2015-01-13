@@ -872,3 +872,10 @@ ul.errorlist {
 .jsPanel-title {
     font-variant: normal !important;
 }
+
+.ajapaik-mapview-pane-photo-container-selected-image {
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+    border: 15px solid red !important;
+}

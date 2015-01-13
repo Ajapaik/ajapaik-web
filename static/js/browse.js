@@ -476,6 +476,7 @@
         currentlySelectedMarkerId = markerId;
         window.syncMapStateToURL();
         targetPaneElement = $('#element' + markerId);
+        targetPaneElement.find('img').addClass('ajapaik-mapview-pane-photo-container-selected-image');
         userAlreadySeenPhotoIds[markerId] = 1;
         if (fromMarker && targetPaneElement) {
             var targetPos = targetPaneElement.position(),
@@ -495,6 +496,7 @@
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.find('.ajapaik-azimuth').hide();
             lastSelectedPaneElement.find('.ajapaik-eye-open').hide();
+            lastSelectedPaneElement.find('img').removeClass('ajapaik-mapview-pane-photo-container-selected-image');
             //lastSelectedPaneElement.find('.ajapaik-rephoto-count').hide();
         }
         if (lastSelectedMarkerId && lastHighlightedMarker) {
