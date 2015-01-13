@@ -33,7 +33,26 @@
         photoLoadModalResizeFunction,
         modalPhoto,
         fullScreenImage,
-        tutorialPanelContent;
+        tutorialPanelContent,
+        guessPhotoPanelSettings = {
+            selector: '#ajapaik-map-container',
+            removeHeader: true,
+            position: {
+                top: 50,
+                left: 50
+            },
+            draggable: {
+                handle: '.jsPanel-content',
+                containment: '#ajapaik-map-container'
+            },
+            size: {
+                width: function () {
+                    return $(window).width() / 3;
+                },
+                height: 'auto'
+            },
+            id: 'ajapaik-game-guess-photo-js-panel'
+        };
 
     photoLoadModalResizeFunction = function () {
         hintUsed = 0;
@@ -417,29 +436,16 @@
                 $('.ajapaik-game-map-show-description-overlay-button').hide();
             }
             currentPhotoWidth = $('#ajapaik-game-guess-photo-container').find('img').width();
-            guessPhotoPanel = $.jsPanel({
-                selector: '#ajapaik-map-container',
-                content: guessPhotoPanelContent.html(),
-                removeHeader: true,
-                position: {
-                    top: 50,
-                    left: 50
-                },
-                draggable: {
-                    handle: '.jsPanel-content',
-                    containment: '#ajapaik-map-container'
-                },
-                size: {
-                    width: function () {
-                        return currentPhotoWidth;
-                    },
-                    height: 'auto'
-                },
-                id: 'ajapaik-game-guess-photo-js-panel'
-            });
+            guessPhotoPanelSettings.content = guessPhotoPanelContent.html();
+            if (window.isMobile) {
+                // TODO: Make draggable and resizable also work on mobile
+                guessPhotoPanelSettings.draggable = false;
+                guessPhotoPanelSettings.resizable = false;
+            }
+            guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
             tutorialPanelContent =  $('#ajapaik-game-tutorial-js-panel-content');
             if (!window.userClosedTutorial) {
-                // TODO: Show jsPanel
+                window.openTutorialPanel();
             }
             $(guessPhotoPanel).css('max-width', currentPhotoWidth + 'px');
             $('#ajapaik-map-button-container').show();

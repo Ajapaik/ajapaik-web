@@ -17,9 +17,9 @@
                                  class="img-responsive {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                                  id="ajapaik-modal-photo"/>
                         </a>
-                        <button class="btn btn-default ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}" style="display: none;"></button>
+                        <button class="btn btn-default ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         {% if photo.rephotos.all.0 %}
-                            <button class="btn btn-default ajapaik-overlay-button ajapaik-show-rephoto-selection-overlay-button ajapaik-show-rephoto-selection-overlay-button-{{ photo.rephotos.all | length }}" id="ajapaik-show-rephoto-selection-overlay-button" style="display: none;"></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-show-rephoto-selection-overlay-button ajapaik-show-rephoto-selection-overlay-button-{{ photo.rephotos.all | length }}" id="ajapaik-show-rephoto-selection-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         {% endif %}
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     {% endif %}
                         <div id="ajapaik-modal-rephoto-container">
                             <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive" id="ajapaik-modal-rephoto"/>
-                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" style="display: none;"></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         </div>
                     </div>
                     {% if photo.rephotos.all|length > 1 %}
@@ -107,9 +107,6 @@
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
-        if (!window.currentlySelectedRephotoId) {
-            window.currentlySelectedRephotoId = '{{ rephoto.id }}';
-        }
         window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}']);
     {% endfor %}
     $(document).ready(function () {

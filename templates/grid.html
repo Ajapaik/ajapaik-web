@@ -85,7 +85,7 @@
     <script src="{{ STATIC_URL }}js/lazysizes-0.5.1.min.js"></script>
     <script>
         {% if city %}
-            window.cityId = {{ city.id | safe }};
+            window.cityId = '{{ city.id | safe }}';
         {% endif %}
         window.start = {{ start | safe }};
         window.pageSize = {{ page_size | safe }};

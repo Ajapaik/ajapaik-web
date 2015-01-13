@@ -1,3 +1,5 @@
+// TODO: Remove debug stuff prelive
+
 var map,
     disableSave = true,
     streetPanorama,
@@ -92,7 +94,28 @@ var map,
     heatmapEstimatedLocationMarker,
     estimatedLocationMarkerDeletionWorkaroundArray = [],
     userClosedTutorial = false,
-    tutorialPanel;
+    tutorialPanel,
+    tutorialPanelSettings = {
+        selector: '#ajapaik-map-container',
+        position: {
+            top: 50,
+            right: 100
+        },
+        controls: {
+            buttons: 'closeonly',
+            iconfont: 'bootstrap'
+        },
+        bootstrap: 'default',
+        title: window.gettext('Tutorial'),
+        draggable: {
+            handle: '.jsPanel-hdr, .jsPanel-content',
+            containment: '#ajapaik-map-container'
+        },
+        size: {
+            height: 'auto'
+        },
+        id: 'ajapaik-tutorial-js-panel'
+    };
 
 (function ($) {
     'use strict';
@@ -150,6 +173,8 @@ var map,
 
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(tutorialButton);
+
+        $(lockButton).hide();
 
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
@@ -543,9 +568,9 @@ var map,
                 icon: markerImage
             });
             // TODO: What was this about? : )
-            mapBoundsChangedListener = window.google.maps.event.addListener(map, 'bounds_changed', function () {
-
-            });
+            //mapBoundsChangedListener = window.google.maps.event.addListener(map, 'bounds_changed', function () {
+            //
+            //});
             setCursorToAuto();
         } else {
             if (!mapMousemoveListenerActive) {
@@ -716,34 +741,21 @@ var map,
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
         if (!tutorialPanel) {
-            var tutorialPanelContent =  $('#ajapaik-tutorial-js-panel-content');
-            tutorialPanel = $.jsPanel({
-                selector: '#ajapaik-map-container',
-                content: tutorialPanelContent.html(),
-                position: {
-                    top: 50,
-                    right: 100
-                },
-                controls: {
-                    buttons: 'closeonly',
-                    iconfont: 'bootstrap'
-                },
-                bootstrap: 'default',
-                title: window.gettext('Tutorial'),
-                draggable: {
-                    handle: '.jsPanel-hdr, .jsPanel-content',
-                    containment: '#ajapaik-map-container'
-                },
-                size: {
-                    height: 'auto'
-                },
-                id: 'ajapaik-tutorial-js-panel'
-            });
+            window.openTutorialPanel();
         } else {
             tutorialPanel.close();
             tutorialPanel = undefined;
         }
     });
+
+    window.openTutorialPanel = function () {
+        tutorialPanelSettings.content = $('#ajapaik-tutorial-js-panel-content').html();
+        if (window.isMobile) {
+            tutorialPanelSettings.resizable = false;
+            tutorialPanelSettings.draggable = false;
+        }
+        tutorialPanel = $.jsPanel(tutorialPanelSettings);
+    };
 
     $('body').on('jspanelclosed', function closeHandler(event, id) {
         if (id === 'ajapaik-tutorial-js-panel') {

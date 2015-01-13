@@ -74,7 +74,11 @@
         var leaderboardFullURL = "{% url "project.home.views.rephoto_top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},
-            cityId = {{ city.id | safe }};
+            {% if city %}
+                cityId = '{{ city.id | safe }}';
+            {% else %}
+                cityId = 1;
+            {% endif %}
             {% if city.lat and city.lon %}
                 var cityLatLng = new window.google.maps.LatLng({{ city.lat | safe }}, {{ city.lon | safe }});
             {% endif %}
