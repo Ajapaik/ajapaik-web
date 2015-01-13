@@ -873,9 +873,7 @@ ul.errorlist {
     font-variant: normal !important;
 }
 
-.ajapaik-mapview-pane-photo-container-selected-image {
-    box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    -webkit-box-sizing: border-box !important;
-    border: 15px solid red !important;
+.translucent-pane-element {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
 }
