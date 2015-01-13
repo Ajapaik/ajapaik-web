@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-13 16:16+0200\n"
-"PO-Revision-Date: 2015-01-13 22:31+0200\n"
+"PO-Revision-Date: 2015-01-13 22:54+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -197,11 +197,11 @@ msgid ""
 msgstr ""
 "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
 "ajaloolise pildi kõrvale. Üleslaetud ülepildistus on omistatud Sulle kui "
-"autorile "
+"autorile"
 
 #: templates/_photo_upload_modal.html:61
 msgid "licence"
-msgstr "litsentsi alusel."
+msgstr "litsentsi alusel"
 
 #: templates/_photo_upload_modal.html:64 templates/game.html:106
 #: templates/mapview.html:46
