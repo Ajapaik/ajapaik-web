@@ -667,7 +667,7 @@ var map,
                 map: window.map,
                 title: window.gettext("Median guess"),
                 draggable: false,
-                icon: '/static/images/ajapaik_marker_35px.png'
+                icon: '/static/images/ajapaik_marker_35px_transparent.png'
             });
         }
         if (heatmapEstimatedLocationMarker) {

@@ -299,8 +299,10 @@
         if (feedbackPanel) {
             feedbackPanel.close();
         }
-        photoPanel.close();
-        photoPanel = undefined;
+        if (photoPanel) {
+            photoPanel.close();
+            photoPanel = undefined;
+        }
         lastRequestedPaneMarkersIds = undefined;
         $('.ajapaik-marker-center-lock-button').hide();
         $('.ajapaik-show-tutorial-button').hide();

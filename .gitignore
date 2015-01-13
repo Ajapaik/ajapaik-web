@@ -3,3 +3,4 @@
 *.pyo
 .idea
 project/settings/local.py
+static-collected
