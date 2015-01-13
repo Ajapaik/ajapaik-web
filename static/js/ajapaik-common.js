@@ -739,6 +739,9 @@ var map,
                 },
                 id: 'ajapaik-tutorial-js-panel'
             });
+        } else {
+            tutorialPanel.close();
+            tutorialPanel = undefined;
         }
     });
 
