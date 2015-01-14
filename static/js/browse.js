@@ -19,6 +19,7 @@
         lastHighlightedMarker,
         lastSelectedPaneElement,
         markerIdsWithinBounds,
+        refreshPane,
         lineLength = 0.01,
         lastSelectedMarkerId,
         currentlySelectedMarkerId,
@@ -28,6 +29,7 @@
         mc,
         currentMapDataRequest,
         currentPaneDataRequest,
+        clusteringEndedListener,
         justifiedGallerySettings = {
             waitThumbnailsLoad: false,
             rowHeight: 120,
@@ -250,7 +252,6 @@
 
     // TODO: Incomplete
     window.handleGuessResponse = function (guessResponse) {
-        console.log(guessResponse);
         window.centerMarker.hide();
         window.marker.setVisible(true);
         window.google.maps.event.removeListener(window.mapMousemoveListener);
@@ -419,53 +420,59 @@
                     markers.push(marker);
                 }
                 mc = new MarkerClusterer(window.map, markers, {maxZoom: 15, minimumClusterSize: 5});
-                // TODO: Make neat, no extra request
-                var clusterMarkers = mc.getMarkers();
-                if (window.map.zoom > 15) {
-                    markerIdsWithinBounds = [];
-                    for (i = 0; i < clusterMarkers.length; i += 1) {
-                        markerIdsWithinBounds.push(clusterMarkers[i].id);
-                    }
-                    if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
-                        if (currentPaneDataRequest) {
-                            currentPaneDataRequest.abort();
-                        }
-                        currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
-                            if (photoPanel) {
-                                photoPanel.content.html(response);
-                                //photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
-                            } else {
-                                galleryPanelSettings.content = response;
-                                if (window.isMobile) {
-                                    // TODO: Fix resizable and draggable for mobile, without breaking the overlay buttons, mind you!
-                                    galleryPanelSettings.resizable = false;
+                markerIdsWithinBounds = [];
+                if (!clusteringEndedListener) {
+                    clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
+                        var clusters = mc.getClusters(),
+                            currentMarkers;
+                        for (var i = 0; i < clusters.length; i += 1) {
+                            currentMarkers = clusters[i].markers_;
+                            if (currentMarkers.length === 1) {
+                                for (var j = 0; j < currentMarkers.length; j += 1) {
+                                    markerIdsWithinBounds.push(currentMarkers[j].id);
                                 }
-                                photoPanel = $.jsPanel(galleryPanelSettings);
-                                //photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                             }
-                            if (!recurringCheckPanelSize) {
-                                recurringCheckPanelSize = setInterval(function () {
-                                    currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
-                                    if (photoPanel && currentPanelWidth !== lastPanelWidth) {
-                                        photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
-                                    }
-                                    lastPanelWidth = currentPanelWidth;
-                                }, 3000);
-                            }
-                            if (markerIdToHighlightAfterPageLoad && window.map.zoom > 15) {
-                                window.highlightSelected(markerIdToHighlightAfterPageLoad);
-                                markerIdToHighlightAfterPageLoad = false;
-                            }
-                            currentPaneDataRequest = undefined;
-                            lastRequestedPaneMarkersIds = markerIdsWithinBounds;
-                        });
-                    }
-                } else {
-                    if (photoPanel) {
-                        photoPanel.close();
-                        photoPanel = undefined;
-                    }
+                        }
+                        refreshPane(markerIdsWithinBounds);
+                    });
                 }
+            });
+        }
+    };
+
+    refreshPane = function (markerIdsWithinBounds) {
+        if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
+            if (currentPaneDataRequest) {
+                currentPaneDataRequest.abort();
+            }
+            currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+                if (photoPanel) {
+                    photoPanel.content.html(response);
+                    photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                } else {
+                    galleryPanelSettings.content = response;
+                    if (window.isMobile) {
+                        // TODO: Fix resizable and draggable for mobile, without breaking the overlay buttons, mind you!
+                        galleryPanelSettings.resizable = false;
+                    }
+                    photoPanel = $.jsPanel(galleryPanelSettings);
+                    photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                }
+                if (!recurringCheckPanelSize) {
+                    recurringCheckPanelSize = setInterval(function () {
+                        currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
+                        if (photoPanel && currentPanelWidth !== lastPanelWidth) {
+                            photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                        }
+                        lastPanelWidth = currentPanelWidth;
+                    }, 3000);
+                }
+                if (markerIdToHighlightAfterPageLoad && window.map.zoom > 15) {
+                    window.highlightSelected(markerIdToHighlightAfterPageLoad);
+                    markerIdToHighlightAfterPageLoad = false;
+                }
+                currentPaneDataRequest = undefined;
+                lastRequestedPaneMarkersIds = markerIdsWithinBounds;
             });
         }
     };
