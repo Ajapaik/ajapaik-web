@@ -471,7 +471,7 @@
                         lastPanelWidth = currentPanelWidth;
                     }, 3000);
                 }
-                if (markerIdToHighlightAfterPageLoad && window.map.zoom > 15) {
+                if (markerIdToHighlightAfterPageLoad) {
                     window.highlightSelected(markerIdToHighlightAfterPageLoad);
                     markerIdToHighlightAfterPageLoad = false;
                 }
