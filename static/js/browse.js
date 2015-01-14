@@ -419,7 +419,7 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                mc = new MarkerClusterer(window.map, markers, {minimumClusterSize: 2});
+                mc = new MarkerClusterer(window.map, markers, {minimumClusterSize: 2, maxZoom: 18});
                 markerIdsWithinBounds = [];
                 if (!clusteringEndedListener) {
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
