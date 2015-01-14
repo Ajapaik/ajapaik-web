@@ -616,6 +616,7 @@
                 hintUsed = true;
                 $('#ajapaik-game-photo-description').show();
                 $('#ajapaik-game-full-screen-description').html(photos[currentPhotoIdx].description).show();
+                $('#ajapaik-game-full-screen-show-description-button').hide();
             }
         });
 
