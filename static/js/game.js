@@ -130,6 +130,7 @@
         } else {
             loadPhotos(1);
         }
+        nextPhotoLoading = false;
     };
 
     loadPhotos = function (next) {
