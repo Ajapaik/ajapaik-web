@@ -392,6 +392,7 @@
                     window.streetPanorama.setVisible(false);
                 }
                 if (window.fullscreenEnabled) {
+                    locationToolsOpen = false;
                     $('.ajapaik-game-specify-location-button').click();
                 }
             }
