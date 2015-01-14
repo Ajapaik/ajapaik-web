@@ -424,12 +424,10 @@
                 if (!clusteringEndedListener) {
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
                         var clusters = mc.getClusters(),
-                            currentMarkers,
-                            n = 0;
+                            currentMarkers;
                         for (var i = 0; i < clusters.length; i += 1) {
                             currentMarkers = clusters[i].markers_;
                             if (currentMarkers.length === 1) {
-                                n += 1;
                                 for (var j = 0; j < currentMarkers.length; j += 1) {
                                     markerIdsWithinBounds.push(currentMarkers[j].id);
                                 }
@@ -445,6 +443,8 @@
     refreshPane = function (markerIdsWithinBounds) {
         console.log('Markers IDs within bounds that are not clustered');
         console.log(markerIdsWithinBounds);
+        console.log('Last requested marker IDs');
+        console.log(lastRequestedPaneMarkersIds);
         if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
             if (currentPaneDataRequest) {
                 currentPaneDataRequest.abort();
