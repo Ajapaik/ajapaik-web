@@ -46,6 +46,10 @@
         openPhotoDrawer,
         photoDrawerOpen = false,
         toggleVisiblePaneElements,
+        markerClustererSettings = {
+            minimumClusterSize: 2,
+            maxZoom: 17
+        },
         setCorrectMarkerIcon,
         blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
         blackMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_transparent.png',
@@ -419,7 +423,12 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                mc = new MarkerClusterer(window.map, markers, {minimumClusterSize: 2, maxZoom: 17});
+                if (window.map.zoom > 17) {
+                    markerClustererSettings.gridSize = 1;
+                } else {
+                    markerClustererSettings.gridSize = 60;
+                }
+                mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
                 if (!clusteringEndedListener) {
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
