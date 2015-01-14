@@ -48,7 +48,7 @@
         toggleVisiblePaneElements,
         markerClustererSettings = {
             minimumClusterSize: 2,
-            maxZoom: 17
+            maxZoom: 18
         },
         setCorrectMarkerIcon,
         blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
@@ -423,7 +423,7 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                if (window.map.zoom > 17) {
+                if (window.map.zoom > 18) {
                     markerClustererSettings.gridSize = 1;
                 } else {
                     markerClustererSettings.gridSize = 60;
