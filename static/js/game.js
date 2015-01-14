@@ -99,7 +99,7 @@
         if (window.dottedAzimuthLine !== undefined) {
             window.dottedAzimuthLine.setVisible(false);
         }
-        if (photos.length > currentPhotoIdx) {
+        if (photos.length > currentPhotoIdx && photos[currentPhotoIdx]) {
             $('img').removeClass('ajapaik-photo-flipped');
             $('.btn').removeClass('active');
             modalPhoto = $('#ajapaik-game-modal-photo');
