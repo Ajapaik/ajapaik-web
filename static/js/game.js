@@ -409,7 +409,7 @@
                 $('.ajapaik-game-next-photo-button').click();
             } else {
                 if (window.fullscreenEnabled) {
-                    $('.ajapaik-game-next-photo-button').click();
+                    $('.ajapaik-game-skip-photo-button').click();
                 }
             }
         });
