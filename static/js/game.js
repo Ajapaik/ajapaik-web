@@ -117,9 +117,9 @@
                 $('.ajapaik-game-show-description-button').hide();
             }
             fullScreenImage = $('#ajapaik-full-screen-image');
-            fullScreenImage.unbind('load');
             fullScreenImage.prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
                 window.prepareFullscreen(photos[currentPhotoIdx].large.size[0], photos[currentPhotoIdx].large.size[1]);
+                fullScreenImage.unbind('load');
             });
             $('#ajapaik-full-screen-link').prop('rel', photos[currentPhotoIdx].id)
                 .prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
