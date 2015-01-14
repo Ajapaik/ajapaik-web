@@ -487,7 +487,7 @@
         });
 
         $('.ajapaik-game-next-photo-button').click(function (e) {
-            if (!nextPhotoLoading) {
+            if (!nextPhotoLoading && photos[currentPhotoIdx]) {
                 window.firstDragDone = false;
                 window.setCursorToAuto();
                 e.preventDefault();
