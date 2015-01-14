@@ -924,3 +924,8 @@ ul.errorlist {
     left: 2%;
     bottom: 2%;
 }
+
+#ajapaik-game-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
