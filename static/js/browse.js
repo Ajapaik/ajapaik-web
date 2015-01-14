@@ -433,7 +433,7 @@
                         currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                             if (photoPanel) {
                                 photoPanel.content.html(response);
-                                photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                                //photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                             } else {
                                 galleryPanelSettings.content = response;
                                 if (window.isMobile) {
@@ -441,13 +441,13 @@
                                     galleryPanelSettings.resizable = false;
                                 }
                                 photoPanel = $.jsPanel(galleryPanelSettings);
-                                photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                                //photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                             }
                             if (!recurringCheckPanelSize) {
                                 recurringCheckPanelSize = setInterval(function () {
                                     currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
                                     if (photoPanel && currentPanelWidth !== lastPanelWidth) {
-                                        photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
+                                        //photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
                                     }
                                     lastPanelWidth = currentPanelWidth;
                                 }, 3000);
