@@ -877,3 +877,27 @@ ul.errorlist {
     opacity: 0.4;
     filter: alpha(opacity=40);
 }
+
+#ajapaik-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-rephoto-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-rephoto-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.ajapaik-photo-modal-rephoto-thumb img {
+    margin: 0 auto;
+}
