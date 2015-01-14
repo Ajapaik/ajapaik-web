@@ -522,7 +522,8 @@ a.fullscreen {
 }
 
 #ajapaik-game-modal-photo {
-
+    padding-right: 0 !important;
+    padding-left: 0 !important;
 }
 
 #ajapaik-game-photo-modal {
