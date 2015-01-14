@@ -419,7 +419,7 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                mc = new MarkerClusterer(window.map, markers, {maxZoom: 15, minimumClusterSize: 5});
+                mc = new MarkerClusterer(window.map, markers, {minimumClusterSize: 2});
                 markerIdsWithinBounds = [];
                 if (!clusteringEndedListener) {
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
@@ -427,6 +427,7 @@
                             currentMarkers,
                             n = 0;
                         for (var i = 0; i < clusters.length; i += 1) {
+                            console.log(clusters[i]);
                             currentMarkers = clusters[i].markers_;
                             if (currentMarkers.length === 1) {
                                 n += 1;
@@ -435,7 +436,6 @@
                                 }
                             }
                         }
-                        console.log(n);
                         refreshPane(markerIdsWithinBounds);
                     });
                 }
