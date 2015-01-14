@@ -386,14 +386,11 @@
                 // Skipping photo on close Street View would be confusing
                 if (!window.streetPanorama.getVisible()) {
                     $('.ajapaik-game-skip-photo-button').click();
+                    $('.ajapaik-game-specify-location-button').click();
                 } else {
                     // Using escape to close street view must also show save button
                     window.saveLocationButton.show();
                     window.streetPanorama.setVisible(false);
-                }
-                if (window.fullscreenEnabled) {
-                    locationToolsOpen = false;
-                    $('.ajapaik-game-specify-location-button').click();
                 }
             }
         });
