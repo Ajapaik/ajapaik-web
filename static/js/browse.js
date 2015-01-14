@@ -447,7 +447,7 @@
                                 recurringCheckPanelSize = setInterval(function () {
                                     currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
                                     if (photoPanel && currentPanelWidth !== lastPanelWidth) {
-                                        photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
+                                        photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                                     }
                                     lastPanelWidth = currentPanelWidth;
                                 }, 3000);
