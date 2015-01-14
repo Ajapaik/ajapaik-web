@@ -427,7 +427,6 @@
                             currentMarkers,
                             n = 0;
                         for (var i = 0; i < clusters.length; i += 1) {
-                            console.log(clusters[i]);
                             currentMarkers = clusters[i].markers_;
                             if (currentMarkers.length === 1) {
                                 n += 1;
@@ -444,6 +443,7 @@
     };
 
     refreshPane = function (markerIdsWithinBounds) {
+        console.log('Markers IDs within bounds that are not clustered');
         console.log(markerIdsWithinBounds);
         if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
             if (currentPaneDataRequest) {
