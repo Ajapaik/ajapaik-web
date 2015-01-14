@@ -45,6 +45,7 @@
                 handle: '.jsPanel-content',
                 containment: '#ajapaik-map-container'
             },
+            size: 'auto',
             id: 'ajapaik-game-guess-photo-js-panel'
         };
 
