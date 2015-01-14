@@ -645,6 +645,8 @@
             $(this).hide();
             hintUsed = true;
             $('#ajapaik-game-guess-photo-js-panel-footer div').show();
+            $('#ajapaik-game-full-screen-description').html(photos[currentPhotoIdx].description).show();
+            $('#ajapaik-game-full-screen-show-description-button').hide();
         });
     });
 }(jQuery));
