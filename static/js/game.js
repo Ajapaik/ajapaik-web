@@ -77,6 +77,7 @@
         photoHasDescription = false;
         photoDescription = $('#ajapaik-game-photo-description');
         photoDescription.hide();
+        $('#ajapaik-game-full-screen-description').hide();
         photoContainer = $('#ajapaik-game-modal-photo-container');
         photoContainer.css('visibility', 'hidden');
         window.map.getStreetView().setVisible(false);

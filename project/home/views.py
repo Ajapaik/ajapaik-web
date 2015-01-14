@@ -223,6 +223,7 @@ def logout(request):
 
 @ensure_csrf_cookie
 def game(request):
+    request.get_user().profile.update_rephoto_score()
     ctx = {}
     city_selection_form = CitySelectionForm(request.GET)
 

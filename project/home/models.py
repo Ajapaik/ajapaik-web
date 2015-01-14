@@ -665,22 +665,35 @@ class Profile(models.Model):
         return self.user_id
 
     def update_rephoto_score(self):
-        rephotos = Photo.objects.filter(rephoto_of__isnull=False, user=self.user)
-        total = rephotos\
-            .count()
-        if total == 0:
-            return False
+        print self.user.id
+        photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+        original_photos = Photo.objects.filter(id__in=photo_ids_rephotographed_by_this_user)
 
-        # every photo gives 2 points
-        total *= 2
-        distinct = rephotos.values('rephoto_of').order_by().annotate(rephoto_count=Count("user"))
-        for p in distinct:
-            # every last upload per photo gives 3 extra points
-            sp = Photo.objects.filter(rephoto_of=p['rephoto_of']).values('user').order_by('-id')[:1].get()
-            if sp and sp['user'] == self.user.id:
-                total += 3
+        user_rephoto_score = 0
 
-        self.score_rephoto = total
+        for p in original_photos:
+            oldest_rephoto = None
+            oldest_rephoto_by_user = None
+            user_rephoto_count_for_this_photo = 0
+            for rp in p.rephotos.all():
+                if rp.user.id == self.user.id:
+                    user_rephoto_count_for_this_photo += 1
+                    if not oldest_rephoto_by_user or rp.created < oldest_rephoto_by_user.created:
+                        oldest_rephoto_by_user = rp
+                if not oldest_rephoto or rp.created < oldest_rephoto.created:
+                    oldest_rephoto = rp
+            if oldest_rephoto.user.id == self.user.id:
+                # This user made the oldest rephoto, award 1250 points and 250 for any other she's made
+                user_rephoto_score += 1250
+            else:
+                # This user did not make the first rephoto, award 1000 points and 250 for the rest
+                user_rephoto_score += 1000
+            # Don't double count
+            user_rephoto_count_for_this_photo -= 1
+            if user_rephoto_count_for_this_photo > 0:
+                user_rephoto_score += 250 * user_rephoto_count_for_this_photo
+
+        self.score_rephoto = user_rephoto_score
         self.save()
         return True
 

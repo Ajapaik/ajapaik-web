@@ -794,6 +794,13 @@ ul.errorlist {
 #ajapaik-game-guess-photo-container {
     display: inline-block;
     position: relative;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-game-guess-photo-container img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
 }
 
 #ajapaik-mapview-guess-photo-container {
