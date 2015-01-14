@@ -424,15 +424,18 @@
                 if (!clusteringEndedListener) {
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
                         var clusters = mc.getClusters(),
-                            currentMarkers;
+                            currentMarkers,
+                            n = 0;
                         for (var i = 0; i < clusters.length; i += 1) {
                             currentMarkers = clusters[i].markers_;
                             if (currentMarkers.length === 1) {
+                                n += 1;
                                 for (var j = 0; j < currentMarkers.length; j += 1) {
                                     markerIdsWithinBounds.push(currentMarkers[j].id);
                                 }
                             }
                         }
+                        console.log(n);
                         refreshPane(markerIdsWithinBounds);
                     });
                 }
@@ -441,6 +444,7 @@
     };
 
     refreshPane = function (markerIdsWithinBounds) {
+        console.log(markerIdsWithinBounds);
         if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
             if (currentPaneDataRequest) {
                 currentPaneDataRequest.abort();
