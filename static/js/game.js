@@ -404,6 +404,10 @@
         $.jQee('right', function () {
             if (!locationToolsOpen) {
                 $('.ajapaik-game-next-photo-button').click();
+            } else {
+                if (window.fullscreenEnabled) {
+                    $('.ajapaik-game-next-photo-button').click();
+                }
             }
         });
 
