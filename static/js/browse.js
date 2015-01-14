@@ -450,10 +450,10 @@
     };
 
     refreshPane = function (markerIdsWithinBounds) {
-        console.log('Markers IDs within bounds that are not clustered');
-        console.log(markerIdsWithinBounds);
-        console.log('Last requested marker IDs');
-        console.log(lastRequestedPaneMarkersIds);
+        //console.log('Markers IDs within bounds that are not clustered');
+        //console.log(markerIdsWithinBounds);
+        //console.log('Last requested marker IDs');
+        //console.log(lastRequestedPaneMarkersIds);
         if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
             if (currentPaneDataRequest) {
                 currentPaneDataRequest.abort();

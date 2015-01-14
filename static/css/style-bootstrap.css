@@ -901,3 +901,26 @@ ul.errorlist {
 .ajapaik-photo-modal-rephoto-thumb img {
     margin: 0 auto;
 }
+
+#ajapaik-game-full-screen-button-container {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+}
+
+#ajapaik-game-full-screen-button-container .row {
+    margin-bottom: 10px;
+}
+
+#ajapaik-game-full-screen-description {
+    position: fixed;
+    bottom: 2%;
+    left: 2%;
+    color: white;
+}
+
+#ajapaik-game-full-screen-show-description-button {
+    position: fixed;
+    left: 2%;
+    bottom: 2%;
+}
