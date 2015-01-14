@@ -681,7 +681,7 @@ class Profile(models.Model):
                         oldest_rephoto_by_user = rp
                 if not oldest_rephoto or rp.created < oldest_rephoto.created:
                     oldest_rephoto = rp
-            if oldest_rephoto.user.id == self.user.id:
+            if oldest_rephoto.user and oldest_rephoto.user.id == self.user.id:
                 # This user made the oldest rephoto, award 1250 points and 250 for any other she's made
                 user_rephoto_score += 1250
             else:
