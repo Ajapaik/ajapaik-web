@@ -25,6 +25,7 @@
         currentlySelectedMarkerId,
         targetPaneElement,
         markerTemp,
+        markers = [],
         //mc,
         currentMapDataRequest,
         currentPaneDataRequest,
@@ -398,7 +399,7 @@
                 //if (mc) {
                 //    mc.clearMarkers();
                 //}
-                var markers = [];
+                markers = [];
                 for (j = 0; j < response.length; j += 1) {
                     p = response[j];
                     if (p[4]) {
@@ -537,31 +538,23 @@
         lastSelectedMarkerId = markerId;
         lastSelectedPaneElement = targetPaneElement;
         markerTemp = undefined;
-        if (mc) {
-            var clusterMarkers = mc.getMarkers();
-            for (i = 0; i < clusterMarkers.length; i += 1) {
-                if (clusterMarkers[i].id == markerId) {
-                    targetPaneElement.find('img').attr('src', clusterMarkers[i].thumb);
-                    targetPaneElement.find('.ajapaik-azimuth').show();
-                    //targetPaneElement.find('.ajapaik-eye-open').show();
-                    //targetPaneElement.find('.ajapaik-rephoto-count').show();
-                    //if (!targetPaneElement.find('.ajapaik-eye-open').hasClass('ajapaik-eye-open-light-bg')) {
-                    //    targetPaneElement.find('.ajapaik-eye-open').addClass('ajapaik-eye-open-light-bg');
-                    //}
-                    clusterMarkers[i].setZIndex(maxIndex);
-                    maxIndex += 1;
-                    markerTemp = clusterMarkers[i];
-                    if (clusterMarkers[i].azimuth) {
-                        window.dottedAzimuthLine.setPath([clusterMarkers[i].position, Math.calculateMapLineEndPoint(clusterMarkers[i].azimuth, clusterMarkers[i].position, lineLength)]);
-                        window.dottedAzimuthLine.setMap(window.map);
-                        window.dottedAzimuthLine.setVisible(true);
-                    } else {
-                        window.dottedAzimuthLine.setVisible(false);
-                    }
-                    setCorrectMarkerIcon(clusterMarkers[i]);
+        for (i = 0; i < markers.length; i += 1) {
+            if (markers[i].id == markerId) {
+                targetPaneElement.find('img').attr('src', markers[i].thumb);
+                targetPaneElement.find('.ajapaik-azimuth').show();
+                markers[i].setZIndex(maxIndex);
+                maxIndex += 1;
+                markerTemp = markers[i];
+                if (markers[i].azimuth) {
+                    window.dottedAzimuthLine.setPath([markers[i].position, Math.calculateMapLineEndPoint(markers[i].azimuth, markers[i].position, lineLength)]);
+                    window.dottedAzimuthLine.setMap(window.map);
+                    window.dottedAzimuthLine.setVisible(true);
                 } else {
-                    setCorrectMarkerIcon(clusterMarkers[i]);
+                    window.dottedAzimuthLine.setVisible(false);
                 }
+                setCorrectMarkerIcon(markers[i]);
+            } else {
+                setCorrectMarkerIcon(markers[i]);
             }
         }
         if (markerTemp) {
