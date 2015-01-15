@@ -376,7 +376,7 @@
                 window.BigScreen.exit();
                 window.fullscreenEnabled = false;
             }
-            if (!locationToolsOpen) {
+            if (!locationToolsOpen && !nextPhotoLoading) {
                 if (window.map.zoom < 17) {
                     window.map.setZoom(17);
                 }
