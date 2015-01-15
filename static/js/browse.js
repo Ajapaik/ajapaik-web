@@ -436,6 +436,9 @@
                         var clusters = mc.getClusters(),
                             currentMarkers;
                         if (!clusters || clusters.length === 0) {
+                            mc.clearMarkers();
+                            markerClustererSettings.gridSize = 1;
+                            mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                             for (var k = 0; k < markers.length; k += 1) {
                                 markerIdsWithinBounds.push(markers[k].id);
                             }
