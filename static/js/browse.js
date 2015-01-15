@@ -434,16 +434,8 @@
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
                         var clusters = mc.getClusters(),
                             currentMarkers;
-                        console.log('Clusters');
+                        console.log("Clusters");
                         console.log(clusters);
-//                        if (!clusters || clusters.length === 0) {
-//                            mc.clearMarkers();
-//                            markerClustererSettings.gridSize = 1;
-//                            mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
-//                            for (var k = 0; k < markers.length; k += 1) {
-//                                markerIdsWithinBounds.push(markers[k].id);
-//                            }
-//                        }
                         for (var i = 0; i < clusters.length; i += 1) {
                             currentMarkers = clusters[i].markers_;
                             console.log("Cluster markers");
