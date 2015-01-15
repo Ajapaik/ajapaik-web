@@ -19,6 +19,10 @@
         feedbackPanel,
         lastStatusMessage,
         flipPhoto,
+        showDescriptions,
+        hideDescriptions,
+        showDescriptionButtons,
+        hideDescriptionButtons,
         photoLoadModalResizeFunction,
         modalPhoto,
         fullScreenImage,
@@ -73,8 +77,8 @@
         if (!window.markerLocked) {
             $('.ajapaik-marker-center-lock-button').click();
         }
-        $('#ajapaik-game-photo-description').hide();
-        $('#ajapaik-game-full-screen-description').hide();
+        hideDescriptions();
+        showDescriptionButtons();
         window.map.getStreetView().setVisible(false);
         window.disableSave = true;
         window.guessResponseReceived = false;
@@ -125,16 +129,12 @@
             modalPhoto.on('load', photoLoadModalResizeFunction);
             if (currentPhoto.description) {
                 $('#ajapaik-game-photo-description').html(currentPhoto.description);
-                $('#ajapaik-game-guess-photo-description').html(currentPhoto.description);
-                if (window.languageCode === 'et') {
-                    $('.ajapaik-game-show-description-button').show();
-                }
-            } else {
-                $('.ajapaik-game-show-description-button').hide();
+                $('#ajapaik-game-guess-photo-js-panel-content').find('.row').html(currentPhoto.description);
             }
             fullScreenImage = $('#ajapaik-full-screen-image');
             fullScreenImage.prop('src', mediaUrl + currentPhoto.large.url).on('load', function () {
                 window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
+                $('#ajapaik-game-full-screen-description').html(currentPhoto.description);
                 fullScreenImage.unbind('load');
             });
             $('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
@@ -216,6 +216,37 @@
                 icon: markerImage
             });
         }
+    };
+
+    showDescriptions = function () {
+        if (!nextPhotoLoading && window.languageCode === 'et') {
+            hintUsed = true;
+            $('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').show();
+            $('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').show();
+            $('#ajapaik-game-full-screen-description').show();
+            $('#ajapaik-game-photo-description').show();
+        }
+    };
+
+    showDescriptionButtons = function () {
+        if (window.languageCode === 'et') {
+            $('.ajapaik-game-show-description-button').show();
+            $('.ajapaik-game-map-show-description-overlay-button').show();
+            $('#ajapaik-game-full-screen-show-description-button').show();
+        }
+    };
+
+    hideDescriptions = function () {
+        $('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').hide();
+        $('#ajapaik-game-full-screen-description').hide();
+        $('#ajapaik-game-photo-description').hide();
+        $('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').hide();
+    };
+
+    hideDescriptionButtons = function () {
+        $('.ajapaik-game-show-description-button').hide();
+        $('.ajapaik-game-map-show-description-overlay-button').hide();
+        $('#ajapaik-game-full-screen-show-description-button').hide();
     };
 
     $(document).ready(function () {
@@ -322,9 +353,7 @@
         });
 
         $.jQee('up', function () {
-            if (window.languageCode === 'et') {
-                $('.ajapaik-game-show-description-button')[0].click();
-            }
+            showDescriptions();
         });
 
         $.jQee('f', function () {
@@ -390,30 +419,8 @@
                     nextPhoto();
                 });
                 window._gaq.push(['_trackEvent', 'Game', 'Skip photo']);
-                //$('#ajapaik-game-photo-modal').modal();
-                //$('#ajapaik-game-guess-photo').hide();
-                //$('#ajapaik-map-button-container').hide();
-                //if (feedbackPanel) {
-                //    feedbackPanel.close();
-                //}
-                //if (guessPhotoPanel) {
-                //    guessPhotoPanel.close();
-                //}
             }
         });
-
-        //$('.ajapaik-game-next-photo-button').click(function (e) {
-        //    if (!nextPhotoLoading && currentPhoto) {
-        //        window.firstDragDone = false;
-        //        window.setCursorToAuto();
-        //        e.preventDefault();
-        //        var data = {photo_id: currentPhoto.id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
-        //        $.post(window.saveLocationURL, data, function () {
-        //            nextPhoto();
-        //        });
-        //        _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
-        //    }
-        //});
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
@@ -473,11 +480,6 @@
             if (window.BigScreen.enabled) {
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
-                if (hintUsed) {
-                    $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
-                } else {
-                    $('#ajapaik-game-full-screen-show-description-button').show();
-                }
                 window.fullscreenEnabled = true;
                 window._gaq.push(['_trackEvent', 'Photo', 'Full-screen']);
             }
@@ -488,11 +490,6 @@
             if (window.BigScreen.enabled) {
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
-                if (hintUsed) {
-                    $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
-                } else {
-                    $('#ajapaik-game-full-screen-show-description-button').show();
-                }
                 window.fullscreenEnabled = true;
                 window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
             }
@@ -507,24 +504,13 @@
         });
 
         $(document).on('click', '.ajapaik-game-show-description-button', function () {
-            if (window.languageCode === 'et') {
-                hintUsed = true;
-                $('.ajapaik-game-show-description-button').hide();
-                $('#ajapaik-game-photo-description').show();
-                $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
-                $('#ajapaik-game-full-screen-show-description-button').hide();
-            }
+            showDescriptions();
+            hideDescriptionButtons();
         });
 
         $(document).on('click', '.ajapaik-game-map-show-description-overlay-button', function () {
-            if (window.languageCode === 'et') {
-                $(this).hide();
-                hintUsed = true;
-                // Weird selector to fix display remaining 'none' despite show()
-                $('#ajapaik-game-guess-photo-js-panel-footer div').show();
-                $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
-                $('#ajapaik-game-full-screen-show-description-button').hide();
-            }
+            showDescriptions();
+            hideDescriptionButtons();
         });
 
         $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
