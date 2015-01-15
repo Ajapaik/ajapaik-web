@@ -432,7 +432,7 @@
                 markerIdsWithinBounds = [];
                 if (!clusteringEndedListener) {
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
-                        var clusters = mc.getClusters(),
+                        var clusters = mc.clusters_,
                             currentMarkers;
                         console.log("Clusters");
                         console.log(clusters);
