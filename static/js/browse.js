@@ -25,8 +25,7 @@
         currentlySelectedMarkerId,
         targetPaneElement,
         markerTemp,
-        markers = [],
-        //mc,
+        mc,
         currentMapDataRequest,
         currentPaneDataRequest,
         clusteringEndedListener,
@@ -58,6 +57,7 @@
         blueMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_blue_transparent.png',
         blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png',
         ffWheelListener,
+        markers = [],
         nonFFWheelListener,
         guessPhotoPanel,
         guessPhotoPanelContent,
@@ -232,7 +232,9 @@
             }
             $('#ajapaik-mapview-map-info-panel').show();
             $('#ajapaik-map-button-container').show();
-            //mc.clearMarkers();
+            if (mc) {
+                mc.clearMarkers();
+            }
             $.ajax({
                 url: '/heatmap_data/',
                 data: {photo_id: photoId},
@@ -386,6 +388,7 @@
             if (window.urlParamsInitialized) {
                 currentlySelectedMarkerId = false;
             }
+            window.deselectMarker();
             window.syncMapStateToURL();
             currentMapBounds = window.map.getBounds();
             ne = currentMapBounds.getNorthEast();
@@ -396,10 +399,10 @@
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
             currentMapDataRequest = $.post('/map_data/', { sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
-                //if (mc) {
-                //    mc.clearMarkers();
-                //}
-                markers = [];
+                if (mc) {
+                    mc.clearMarkers();
+                }
+                markers.length = 0;
                 for (j = 0; j < response.length; j += 1) {
                     p = response[j];
                     if (p[4]) {
@@ -428,7 +431,10 @@
                 } else {
                     markerClustererSettings.gridSize = 60;
                 }
-                var mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
+                if (mc && mc.clusters_) {
+                    mc.clusters_.length = 0;
+                }
+                mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
                 clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
                     var clusters = mc.clusters_,
