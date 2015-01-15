@@ -1,39 +1,27 @@
 (function ($) {
     'use strict';
 
-    var photos = [],
-        photoDescription,
-        currentPhotoIdx = 0,
+    var currentPhoto,
+        initializeGuessingState,
         hintUsed = false,
         mediaUrl = '',
         streamUrl = '/stream/',
         difficultyFeedbackURL = '/difficulty_feedback/',
-        disableNext = false,
         locationToolsOpen = false,
-        photoHasDescription = false,
-        photoContainer,
         noticeDiv,
         userFlippedPhoto = false,
-        taxiData = [],
-        pointArray,
-        heatmap,
         playerMarker,
         location,
-        i,
-        loadPhotos,
         playerLatlng,
         nextPhoto,
         guessPhotoPanel,
         guessPhotoPanelContent,
-        currentPhotoWidth,
         feedbackPanel,
         lastStatusMessage,
         flipPhoto,
-        photoLoadModalResizeHandler,
         photoLoadModalResizeFunction,
         modalPhoto,
         fullScreenImage,
-        tutorialPanelContent,
         guessPhotoPanelSettings = {
             selector: '#ajapaik-map-container',
             removeHeader: true,
@@ -51,9 +39,8 @@
         nextPhotoLoading = false;
 
     photoLoadModalResizeFunction = function () {
-        hintUsed = 0;
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-        photoContainer.css('visibility', 'visible');
+        // Show information about viewing hints to Estonians that haven't seen it before (hints are in Estonian)
         if (!window.docCookies.getItem('ajapaik_seen_hint_view_popover') && window.languageCode === 'et') {
             $('[data-toggle="popover"]').popover({
                 trigger: 'hover',
@@ -62,28 +49,36 @@
                 html: true,
                 content: window.gettext('Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra.')
             });
+            // TODO: What if he didn't hover over it still?
             window.docCookies.setItem('ajapaik_seen_hint_view_popover', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
         }
     };
 
-    nextPhoto = function () {
-        nextPhotoLoading = true;
+    initializeGuessingState = function () {
+        if (window.marker) {
+            window.marker.setVisible(false);
+            $('.center-marker').hide();
+        }
+        hintUsed = false;
+        $('#ajapaik-game-photo-modal').modal();
+        $('#ajapaik-map-button-container').hide();
+        $('#ajapaik-game-guess-photo-js-panel').hide();
+        if (feedbackPanel) {
+            feedbackPanel.close();
+        }
+        if (guessPhotoPanel) {
+            guessPhotoPanel.close();
+        }
+        window.map.getStreetView().setVisible(false);
         if (!window.markerLocked) {
             $('.ajapaik-marker-center-lock-button').click();
         }
-        photoHasDescription = false;
-        photoDescription = $('#ajapaik-game-photo-description');
-        photoDescription.hide();
+        $('#ajapaik-game-photo-description').hide();
         $('#ajapaik-game-full-screen-description').hide();
-        photoContainer = $('#ajapaik-game-modal-photo-container');
-        photoContainer.css('visibility', 'hidden');
         window.map.getStreetView().setVisible(false);
         window.disableSave = true;
-        locationToolsOpen = false;
-        window.azimuthListenerActive = false;
         window.guessResponseReceived = false;
-        window.map.setZoom(16);
-        window.mapMousemoveListenerActive = false;
+        window.firstDragDone = false;
         if (window.panoramaMarker) {
             window.panoramaMarker.setMap(null);
         }
@@ -93,84 +88,26 @@
         if (window.heatmapEstimatedLocationMarker) {
             window.heatmapEstimatedLocationMarker.setMap(null);
         }
-        window.saveLocationButton.removeClass('btn-primary').removeClass('btn-warning').removeClass('btn-success')
-            .addClass('btn-default').text(window.gettext('Save location only')).attr('disabled', 'disabled');
-        window.google.maps.event.clearListeners(window.map, 'mousemove');
         if (window.dottedAzimuthLine !== undefined) {
             window.dottedAzimuthLine.setVisible(false);
         }
-        if (photos.length > currentPhotoIdx && photos[currentPhotoIdx]) {
-            $('img').removeClass('ajapaik-photo-flipped');
-            $('.btn').removeClass('active');
-            modalPhoto = $('#ajapaik-game-modal-photo');
-            modalPhoto.unbind('load');
-            modalPhoto.prop('src', mediaUrl + photos[currentPhotoIdx].big.url);
-            photoLoadModalResizeHandler = modalPhoto.on('load', photoLoadModalResizeFunction);
-            if (photos[currentPhotoIdx].description) {
-                photoHasDescription = true;
-                $('#ajapaik-game-photo-description').html(photos[currentPhotoIdx].description);
-                $('#ajapaik-game-guess-photo-description').html(photos[currentPhotoIdx].description);
-                if (window.languageCode === 'et') {
-                    $('.ajapaik-game-show-description-button').show();
-                }
-            } else {
-                $('.ajapaik-game-show-description-button').hide();
-            }
-            fullScreenImage = $('#ajapaik-full-screen-image');
-            fullScreenImage.prop('src', mediaUrl + photos[currentPhotoIdx].large.url).on('load', function () {
-                window.prepareFullscreen(photos[currentPhotoIdx].large.size[0], photos[currentPhotoIdx].large.size[1]);
-                fullScreenImage.unbind('load');
-            });
-            $('#ajapaik-full-screen-link').prop('rel', photos[currentPhotoIdx].id)
-                .prop('href', mediaUrl + photos[currentPhotoIdx].large.url);
-            $('#ajapaik-game-map-geotag-count').html(photos[currentPhotoIdx].total_geotags);
-            $('#ajapaik-game-map-geotag-with-azimuth-count').html(photos[currentPhotoIdx].geotags_with_azimuth);
-            $('#ajapaik-game-map-confidence').html(photos[currentPhotoIdx].confidence.toFixed(2));
-            //disableNext = true;
-        } else {
-            loadPhotos(1);
-        }
-        nextPhotoLoading = false;
-    };
-
-    loadPhotos = function (next) {
-        // IE needs a different URL, sending seconds
-        var date = new Date(),
-            qs = window.URI.parseQuery(window.location.search);
-        if (window.marker) {
-            window.marker.setMap(window.map);
-            $('.center-marker').show();
-        }
-
-        if (window.map) {
-            if (!window.mapClickListenerActive) {
-                window.google.maps.event.addListener(window.map, 'click', window.mapClickListenerFunction);
-                window.mapClickListenerActive = true;
-            }
-            if (!window.mapIdleListenerActive) {
-                window.google.maps.event.addListener(window.map, 'idle', window.mapIdleListenerFunction);
-                window.mapIdleListenerActive = true;
-            }
-            if (!window.mapDragstartListenerActive) {
-                window.google.maps.event.addListener(window.map, 'dragstart', window.mapDragstartListenerFunction);
-                window.mapDragstartListenerActive = true;
-            }
-            if (!window.mapMousemoveListenerActive) {
-                window.google.maps.event.addListener(window.map, 'mousemove', window.mapMousemoveListenerFunction);
-                window.mapMousemoveListenerActive = true;
-            }
-        }
-
-        if (heatmap) {
-            heatmap.setMap(null);
-        }
-
         if (playerMarker) {
             playerMarker.setMap(null);
         }
-        // TODO: We don't need to keep these photos any more, currently they're just wasting resources or even causing bugs if the index gets corrupted somehow
-        $.getJSON(streamUrl, $.extend({'b': date.getTime()}, qs), function (data) {
-            $.merge(photos, data.photos);
+        window.saveLocationButton.removeClass('btn-primary').removeClass('btn-warning').removeClass('btn-success')
+            .addClass('btn-default').text(window.gettext('Save location only')).attr('disabled', 'disabled');
+        $('img').removeClass('ajapaik-photo-flipped');
+        $('.btn').removeClass('active');
+        locationToolsOpen = false;
+    };
+
+    nextPhoto = function () {
+        nextPhotoLoading = true;
+        initializeGuessingState();
+        modalPhoto = $('#ajapaik-game-modal-photo');
+        modalPhoto.unbind('load');
+        $.getJSON(streamUrl, $.extend({'b': new Date().getTime()}, window.URI.parseQuery(window.location.search)), function (data) {
+            currentPhoto = data.photo;
             var textTarget = $('#ajapaik-game-status-message'),
                 message;
             textTarget.hide();
@@ -184,9 +121,27 @@
                 textTarget.show();
             }
             lastStatusMessage = message;
-            if (next || currentPhotoIdx <= 0) {
-                nextPhoto();
+            modalPhoto.prop('src', mediaUrl + currentPhoto.big.url);
+            modalPhoto.on('load', photoLoadModalResizeFunction);
+            if (currentPhoto.description) {
+                $('#ajapaik-game-photo-description').html(currentPhoto.description);
+                $('#ajapaik-game-guess-photo-description').html(currentPhoto.description);
+                if (window.languageCode === 'et') {
+                    $('.ajapaik-game-show-description-button').show();
+                }
+            } else {
+                $('.ajapaik-game-show-description-button').hide();
             }
+            fullScreenImage = $('#ajapaik-full-screen-image');
+            fullScreenImage.prop('src', mediaUrl + currentPhoto.large.url).on('load', function () {
+                window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
+                fullScreenImage.unbind('load');
+            });
+            $('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
+            $('#ajapaik-game-map-geotag-count').html(currentPhoto.total_geotags);
+            $('#ajapaik-game-map-geotag-with-azimuth-count').html(currentPhoto.geotags_with_azimuth);
+            $('#ajapaik-game-map-confidence').html(currentPhoto.confidence.toFixed(2));
+            nextPhotoLoading = false;
         });
     };
 
@@ -220,7 +175,6 @@
 
     // TODO: Lots of duplicate code in this function in every mode
     window.handleGuessResponse = function (guessResponse) {
-        console.log(guessResponse.currentScore);
         window.guessResponseReceived = true;
         window.updateLeaderboard();
         noticeDiv = $('#ajapaik-game-feedback-js-panel-content');
@@ -231,38 +185,26 @@
         }
         noticeDiv.find('#ajapaik-game-guess-feedback-message').html(guessResponse.feedbackMessage);
         noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
-        setTimeout(function () {
-            feedbackPanel = $.jsPanel({
-                selector: '#ajapaik-map-container',
-                content: noticeDiv.html(),
-                removeHeader: true,
-                title: false,
-                size: {
-                    width: function () {
-                        return $(window).width() / 3;
-                    },
-                    height: 'auto'
+        feedbackPanel = $.jsPanel({
+            selector: '#ajapaik-map-container',
+            content: noticeDiv.html(),
+            removeHeader: true,
+            title: false,
+            size: {
+                width: function () {
+                    return $(window).width() / 3;
                 },
-                draggable: false,
-                resizable: false,
-                id: 'ajapaik-game-feedback-panel'
-            });
-        }, 0);
+                height: 'auto'
+            },
+            draggable: false,
+            resizable: false,
+            id: 'ajapaik-game-feedback-panel'
+        });
         if (guessResponse.heatmapPoints) {
             window.mapDisplayHeatmapWithEstimatedLocation(guessResponse);
             window.marker.setMap(null);
             $('.center-marker').hide();
-            window.mapMousemoveListenerActive = false;
-            window.google.maps.event.clearListeners(window.map, 'mousemove');
-            window.mapIdleListenerActive = false;
-            window.google.maps.event.clearListeners(window.map, 'idle');
-            window.mapClickListenerActive = false;
-            window.google.maps.event.clearListeners(window.map, 'click');
-            window.mapDragstartListenerActive = false;
-            window.google.maps.event.clearListeners(window.map, 'dragstart');
             playerLatlng = new window.google.maps.LatLng(window.marker.getPosition().lat(), window.marker.getPosition().lng());
-            //$('#ajapaik-game-map-geotag-count').html(guessResponse.heatmapPoints.length);
-            //$('#ajapaik-game-map-geotag-with-azimuth-count').html(guessResponse.tagsWithAzimuth);
             var markerImage = {
                 url: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg'
             };
@@ -273,16 +215,6 @@
                 draggable: false,
                 icon: markerImage
             });
-//            taxiData = [];
-//            for (i = 0; i < guessResponse.heatmapPoints.length; i += 1) {
-//                taxiData.push(new window.google.maps.LatLng(guessResponse.heatmapPoints[i][0], guessResponse.heatmapPoints[i][1]));
-//            }
-//            pointArray = new window.google.maps.MVCArray(taxiData);
-//            heatmap = new window.google.maps.visualization.HeatmapLayer({
-//                data: pointArray
-//            });
-//            heatmap.setOptions({radius: 50, dissipating: true});
-//            heatmap.setMap(window.map);
         }
     };
 
@@ -308,8 +240,6 @@
             keyboard: false
         });
 
-        loadPhotos();
-
         location = new window.google.maps.LatLng(window.start_location[1], window.start_location[0]);
 
         if (location) {
@@ -317,6 +247,8 @@
         } else {
             window.getMap(undefined, undefined, true);
         }
+
+        nextPhoto();
 
         // To support touchscreens, we have an invisible marker underneath a fake one (otherwise it's laggy)
         window.marker = new window.google.maps.Marker({
@@ -327,29 +259,24 @@
             icon: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg'
         });
 
-        //window.marker.bindTo('position', window.map, 'center');
-
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
         window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
 
         window.mapClickListenerActive = true;
-        window.google.maps.event.addListener(window.map, 'click', window.mapClickListenerFunction);
+        window.mapClickListener = window.google.maps.event.addListener(window.map, 'click', window.mapClickListenerFunction);
         window.mapIdleListenerActive = true;
-        window.google.maps.event.addListener(window.map, 'idle', window.mapIdleListenerFunction);
+        window.mapGameIdleListener = window.google.maps.event.addListener(window.map, 'idle', window.mapIdleListenerFunction);
         window.mapDragstartListenerActive = true;
-        window.google.maps.event.addListener(window.map, 'dragstart', window.mapDragstartListenerFunction);
-
-        window.google.maps.event.addListener(window.map, 'drag', function () {
+        window.mapDragstartListener = window.google.maps.event.addListener(window.map, 'dragstart', window.mapDragstartListenerFunction);
+        window.mapDragListenerActive = true;
+        window.mapDragListener = window.google.maps.event.addListener(window.map, 'drag', function () {
             window.firstDragDone = true;
             window.setCursorToPanorama();
         });
-
-        window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
-
-        window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
-
-        window.google.maps.event.addListener(window.marker, 'position_changed', function () {
+        window.mapDragendListener = window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
+        window.windowResizeListener = window.google.maps.event.addDomListener(window, 'resize', window.windowResizeListenerFunction);
+        window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             window.disableSave = false;
         });
 
@@ -359,45 +286,44 @@
         //});
 
         $.jQee('space', function () {
-            if (window.BigScreen.enabled) {
+            if (window.fullscreenEnabled) {
                 window.BigScreen.exit();
                 window.fullscreenEnabled = false;
             }
             if (!locationToolsOpen) {
-                $('.ajapaik-game-specify-location-button').click();
+                $('.ajapaik-game-specify-location-button')[0].click();
             }
         });
 
         $.jQee('enter', function () {
             if (locationToolsOpen) {
                 if (window.guessResponseReceived) {
-                    $('.ajapaik-game-feedback-next-button').click();
+                    $('.ajapaik-game-feedback-next-button')[0].click();
                 } else {
                     if (!window.streetPanorama.getVisible()) {
                         // No saving in Street View
-                        $('.ajapaik-save-location-button').click();
+                        $('.ajapaik-save-location-button')[0].click();
                     }
                 }
             }
         });
 
         $.jQee('esc', function () {
-            console.log("esc");
             if (locationToolsOpen) {
                 // Skipping photo on close Street View would be confusing
                 if (!window.streetPanorama.getVisible()) {
-                    $('.ajapaik-game-skip-photo-button').click();
+                    $('.ajapaik-game-next-photo-button')[0].click();
                 } else {
                     // Using escape to close street view must also show save button
-                    window.saveLocationButton.show();
+                    //window.saveLocationButton.show();
                     window.streetPanorama.setVisible(false);
                 }
             }
         });
 
         $.jQee('up', function () {
-            if (!locationToolsOpen && window.languageCode === 'et') {
-                $('.ajapaik-game-show-description-button').click();
+            if (window.languageCode === 'et') {
+                $('.ajapaik-game-show-description-button')[0].click();
             }
         });
 
@@ -406,25 +332,18 @@
         });
 
         $.jQee('right', function () {
-            if (!locationToolsOpen) {
-                $('.ajapaik-game-next-photo-button').click();
-            } else {
-                if (window.fullscreenEnabled) {
-                    $('.ajapaik-game-skip-photo-button').click();
-                }
+            if (!nextPhotoLoading) {
+                //Many buttons, click only 1
+                $('.ajapaik-game-next-photo-button')[0].click();
             }
         });
 
-        //$('#google-plus-login-button').click(function () {
-        //    _gaq.push(['_trackEvent', 'Game', 'Google+ login']);
-        //});
-
         $('#logout-button').click(function () {
-            _gaq.push(['_trackEvent', 'Game', 'Logout']);
+            window._gaq.push(['_trackEvent', 'Game', 'Logout']);
         });
 
         $('.ajapaik-game-specify-location-button').click(function () {
-            if (window.BigScreen.enabled) {
+            if (window.fullscreenEnabled) {
                 window.BigScreen.exit();
                 window.fullscreenEnabled = false;
             }
@@ -432,12 +351,13 @@
                 if (window.map.zoom < 17) {
                     window.map.setZoom(17);
                 }
+                $('.center-marker').show();
                 $('#ajapaik-game-photo-modal').modal('hide');
                 window.setCursorToAuto();
                 $('.ajapaik-marker-center-lock-button').show();
-                $('.ajapaik-show-tutorial-button').show();
+                //$('.ajapaik-show-tutorial-button').show();
                 guessPhotoPanelContent = $('#ajapaik-game-guess-photo-js-panel-content');
-                guessPhotoPanelContent.find('img').prop('src', mediaUrl + photos[currentPhotoIdx].big.url);
+                guessPhotoPanelContent.find('img').prop('src', mediaUrl + currentPhoto.big.url);
                 if (!hintUsed) {
                     $('#ajapaik-game-guess-photo-description').hide();
                 }
@@ -446,60 +366,54 @@
                     $('.ajapaik-fullscreen-overlay-button').hide();
                     $('.ajapaik-game-map-show-description-overlay-button').hide();
                 }
-                currentPhotoWidth = $('#ajapaik-game-guess-photo-container').find('img').width();
                 guessPhotoPanelSettings.content = guessPhotoPanelContent.html();
                 if (window.isMobile) {
                     // TODO: Make draggable and resizable also work on mobile
                     guessPhotoPanelSettings.draggable = false;
                     guessPhotoPanelSettings.resizable = false;
                 }
-                guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', currentPhotoWidth + 'px').css('max-height', $(window).height() - 200);
-                tutorialPanelContent =  $('#ajapaik-game-tutorial-js-panel-content');
+                guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', guessPhotoPanelContent.find('img').width() + 'px').css('max-height', $(window).height() - 200);
                 if (!window.userClosedTutorial) {
                     window.openTutorialPanel();
                 }
-                $(guessPhotoPanel).css('max-width', currentPhotoWidth + 'px');
                 $('#ajapaik-map-button-container').show();
-                disableNext = false;
                 locationToolsOpen = true;
             }
         });
 
-        $('.ajapaik-game-skip-photo-button').click(function () {
-            window.firstDragDone = false;
-            window.setCursorToAuto();
-            if (!disableNext) {
-                var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
+        $(document).on('click', '.ajapaik-game-next-photo-button', function () {
+            if (!nextPhotoLoading) {
+                //window.firstDragDone = false;
+                //window.setCursorToAuto();
+                var data = {photo_id: currentPhoto.id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
                 $.post(window.saveLocationURL, data, function () {
-                    currentPhotoIdx += 1;
                     nextPhoto();
                 });
-                $('#ajapaik-game-photo-modal').modal();
-                $('#ajapaik-game-guess-photo').hide();
-                $('#ajapaik-map-button-container').hide();
-                if (feedbackPanel) {
-                    feedbackPanel.close();
-                }
-                if (guessPhotoPanel) {
-                    guessPhotoPanel.close();
-                }
                 window._gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+                //$('#ajapaik-game-photo-modal').modal();
+                //$('#ajapaik-game-guess-photo').hide();
+                //$('#ajapaik-map-button-container').hide();
+                //if (feedbackPanel) {
+                //    feedbackPanel.close();
+                //}
+                //if (guessPhotoPanel) {
+                //    guessPhotoPanel.close();
+                //}
             }
         });
 
-        $('.ajapaik-game-next-photo-button').click(function (e) {
-            if (!nextPhotoLoading && photos[currentPhotoIdx]) {
-                window.firstDragDone = false;
-                window.setCursorToAuto();
-                e.preventDefault();
-                var data = {photo_id: photos[currentPhotoIdx].id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
-                $.post(window.saveLocationURL, data, function () {
-                    currentPhotoIdx += 1;
-                    nextPhoto();
-                });
-                _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
-            }
-        });
+        //$('.ajapaik-game-next-photo-button').click(function (e) {
+        //    if (!nextPhotoLoading && currentPhoto) {
+        //        window.firstDragDone = false;
+        //        window.setCursorToAuto();
+        //        e.preventDefault();
+        //        var data = {photo_id: currentPhoto.id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
+        //        $.post(window.saveLocationURL, data, function () {
+        //            nextPhoto();
+        //        });
+        //        _gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+        //    }
+        //});
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
@@ -516,14 +430,12 @@
             window._gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
         });
 
-        saveLocationButton.click(function () {
-            window.firstDragDone = false;
-            window.setCursorToAuto();
+        window.saveLocationButton.click(function () {
             if (window.disableSave) {
-                window._gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
+                window._gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
             } else {
-                window.saveLocation(window.marker, photos[currentPhotoIdx].id, photos[currentPhotoIdx].flip, hintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
+                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, hintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {
@@ -535,24 +447,12 @@
         $(document).on('click', '.ajapaik-game-feedback-next-button', function () {
             var data = {
                 level: $('input[name=difficulty]:checked', 'ajapaik-game-guess-feedback-difficulty-form').val(),
-                photo_id: photos[currentPhotoIdx].id,
+                photo_id: currentPhoto.id,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
             $.post(difficultyFeedbackURL, data, function () {
                 $.noop();
             });
-            $('#ajapaik-game-photo-modal').modal();
-            $('#ajapaik-map-button-container').hide();
-            $('#ajapaik-game-guess-photo-js-panel').hide();
-            if (feedbackPanel) {
-                feedbackPanel.close();
-            }
-            if (guessPhotoPanel) {
-                guessPhotoPanel.close();
-            }
-            window.map.getStreetView().setVisible(false);
-            disableNext = false;
-            currentPhotoIdx += 1;
             nextPhoto();
         });
 
@@ -571,38 +471,59 @@
 
         $(document).on('click', '.ajapaik-fullscreen-overlay-button', function () {
             if (window.BigScreen.enabled) {
-                window.fullscreenEnabled = true;
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
-                window._gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
                 $('#ajapaik-game-full-screen-flip-button').show();
                 if (hintUsed) {
-                    $('#ajapaik-game-full-screen-description').html(photos[currentPhotoIdx].description).show();
+                    $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
                 } else {
                     $('#ajapaik-game-full-screen-show-description-button').show();
                 }
-            }
-        });
-
-        $('.full-box img').on('click', function (e) {
-            if (window.BigScreen.enabled) {
-                e.preventDefault();
-                window.BigScreen.exit();
-                window.fullscreenEnabled = false;
+                window.fullscreenEnabled = true;
+                window._gaq.push(['_trackEvent', 'Photo', 'Full-screen']);
             }
         });
 
         $(document).on('click', 'a.fullscreen', function (e) {
             e.preventDefault();
             if (window.BigScreen.enabled) {
-                window.fullscreenEnabled = true;
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
                 if (hintUsed) {
-                    $('#ajapaik-game-full-screen-description').html(photos[currentPhotoIdx].description).show();
+                    $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
                 } else {
                     $('#ajapaik-game-full-screen-show-description-button').show();
                 }
-                window._gaq.push(['_trackEvent', 'Map', 'Full-screen', 'historic-' + this.rel]);
+                window.fullscreenEnabled = true;
+                window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
+            }
+        });
+
+        $('.full-box img').on('click', function (e) {
+            e.preventDefault();
+            if (window.BigScreen.enabled) {
+                window.BigScreen.exit();
+                window.fullscreenEnabled = false;
+            }
+        });
+
+        $(document).on('click', '.ajapaik-game-show-description-button', function () {
+            if (window.languageCode === 'et') {
+                hintUsed = true;
+                $('.ajapaik-game-show-description-button').hide();
+                $('#ajapaik-game-photo-description').show();
+                $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
+                $('#ajapaik-game-full-screen-show-description-button').hide();
+            }
+        });
+
+        $(document).on('click', '.ajapaik-game-map-show-description-overlay-button', function () {
+            if (window.languageCode === 'et') {
+                $(this).hide();
+                hintUsed = true;
+                // Weird selector to fix display remaining 'none' despite show()
+                $('#ajapaik-game-guess-photo-js-panel-footer div').show();
+                $('#ajapaik-game-full-screen-description').html(currentPhoto.description).show();
+                $('#ajapaik-game-full-screen-show-description-button').hide();
             }
         });
 
@@ -618,21 +539,11 @@
             }
         });
 
-        $('.ajapaik-game-show-description-button').click(function () {
-            if (!hintUsed && photoHasDescription && window.languageCode === 'et') {
-                $('.ajapaik-game-show-description-button').hide();
-                hintUsed = true;
-                $('#ajapaik-game-photo-description').show();
-                $('#ajapaik-game-full-screen-description').html(photos[currentPhotoIdx].description).show();
-                $('#ajapaik-game-full-screen-show-description-button').hide();
-            }
-        });
-
         $(document).on('mouseover', '#ajapaik-game-guess-photo-js-panel', function () {
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 $('.ajapaik-fullscreen-overlay-button').show();
-                if (window.languageCode === 'et' && photoHasDescription && !hintUsed) {
+                if (window.languageCode === 'et' && currentPhoto.description && !hintUsed) {
                     $('.ajapaik-game-map-show-description-overlay-button').show();
                 }
             }
@@ -646,15 +557,6 @@
                 $('.ajapaik-fullscreen-overlay-button').hide();
                 $('.ajapaik-game-map-show-description-overlay-button').hide();
             }
-        });
-
-        $(document).on('click', '.ajapaik-game-map-show-description-overlay-button', function () {
-            // Weird selector to fix display remaining 'none' despite show()
-            $(this).hide();
-            hintUsed = true;
-            $('#ajapaik-game-guess-photo-js-panel-footer div').show();
-            $('#ajapaik-game-full-screen-description').html(photos[currentPhotoIdx].description).show();
-            $('#ajapaik-game-full-screen-show-description-button').hide();
         });
     });
 }(jQuery));

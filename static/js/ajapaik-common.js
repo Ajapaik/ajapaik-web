@@ -722,8 +722,8 @@ var map,
             window.map.set('scrollwheel', false);
             window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
             window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
-            window.google.maps.event.clearListeners(window.marker, 'drag');
-            window.google.maps.event.clearListeners(window.marker, 'dragend');
+            window.google.maps.event.removeListener(mapMarkerDragListener);
+            window.google.maps.event.removeListener(mapMarkerDragendListener);
             window.azimuthListenerActive = false;
             window.map.setCenter(window.marker.position);
             window.setCursorToPanorama();

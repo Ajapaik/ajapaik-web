@@ -225,16 +225,16 @@ body {
 
 }
 
-.ajapaik-game-skip-photo-button {
-
-}
-
 .ajapaik-mapview-skip-photo-button {
 
 }
 
 .ajapaik-game-specify-location-button {
 
+}
+
+#ajapaik-game-guess-photo-description {
+    display: inline;
 }
 
 #ajapaik-map-canvas {

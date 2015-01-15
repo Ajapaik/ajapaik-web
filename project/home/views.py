@@ -598,8 +598,9 @@ def fetch_stream(request):
 
     qs = Photo.objects.filter(city_id=city.id)
 
-    data = {}
-    data["photos"], data["user_seen_all"], data["nothing_more_to_show"] = qs.get_next_photo_to_geotag(request)
+    # TODO: [0][0] Wtf?
+    data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
+            "nothing_more_to_show": qs.get_next_photo_to_geotag(request)[2]}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
