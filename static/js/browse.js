@@ -481,7 +481,7 @@
                     }, 3000);
                 }
                 if (markerIdToHighlightAfterPageLoad) {
-                    window.highlightSelected(markerIdToHighlightAfterPageLoad);
+                    window.highlightSelected(markerIdToHighlightAfterPageLoad, true);
                     markerIdToHighlightAfterPageLoad = false;
                 }
                 currentPaneDataRequest = undefined;
