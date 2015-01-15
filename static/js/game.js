@@ -23,6 +23,8 @@
         hideDescriptions,
         showDescriptionButtons,
         hideDescriptionButtons,
+        clearBothersomeListeners,
+        reinstateBothersomeListeners,
         photoLoadModalResizeFunction,
         modalPhoto,
         fullScreenImage,
@@ -56,6 +58,35 @@
             // TODO: What if he didn't hover over it still?
             window.docCookies.setItem('ajapaik_seen_hint_view_popover', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
         }
+    };
+
+    clearBothersomeListeners = function () {
+        window.google.maps.event.clearListeners(window.map, 'mousemove');
+        window.mapMousemoveListenerActive = false;
+        window.google.maps.event.clearListeners(window.map, 'idle');
+        window.mapIdleListenerActive = false;
+        window.google.maps.event.clearListeners(window.map, 'dragstart');
+        window.mapDragstartListenerActive = false;
+        window.google.maps.event.clearListeners(window.map, 'dragend');
+        window.mapDragendListenerActive = false;
+        window.google.maps.event.clearListeners(window.map, 'drag');
+        window.mapDragListenerActive = false;
+    };
+
+    reinstateBothersomeListeners = function () {
+        window.google.maps.event.addListener(window.map, 'mousemove', window.mapMousemoveListenerFunction);
+        window.mapMousemoveListenerActive = true;
+        window.google.maps.event.addListener(window.map, 'idle', window.mapIdleListenerFunction);
+        window.mapIdleListenerActive = true;
+        window.google.maps.event.addListener(window.map, 'dragstart', window.mapDragstartListenerFunction);
+        window.mapDragstartListenerActive = true;
+        window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
+        window.mapDragendListenerActive = true;
+        window.google.maps.event.addListener(window.map, 'drag', function () {
+            window.firstDragDone = true;
+            window.setCursorToPanorama();
+        });
+        window.mapDragListenerActive = true;
     };
 
     initializeGuessingState = function () {
@@ -141,6 +172,7 @@
             $('#ajapaik-game-map-geotag-count').html(currentPhoto.total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(currentPhoto.geotags_with_azimuth);
             $('#ajapaik-game-map-confidence').html(currentPhoto.confidence.toFixed(2));
+            reinstateBothersomeListeners();
             nextPhotoLoading = false;
         });
     };
@@ -442,6 +474,8 @@
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
                 window._gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
             } else {
+                window.setCursorToAuto();
+                clearBothersomeListeners();
                 window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, hintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Game', 'Save location and direction']);

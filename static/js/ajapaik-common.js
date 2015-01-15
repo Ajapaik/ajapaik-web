@@ -57,6 +57,7 @@ var map,
     mapDragstartListenerActive = false,
     mapIdleListenerActive = false,
     mapMousemoveListenerActive = false,
+    mapDragendListenerActive = false,
     mapClickListener,
     mapDragstartListener,
     mapGameIdleListener,
@@ -396,6 +397,8 @@ var map,
             };
         if (degreeAngle && saveDirection) {
             data.azimuth = degreeAngle;
+        } else {
+            dottedAzimuthLine.setVisible(false);
         }
         if (azimuthLineEndPoint && saveDirection) {
             data.azimuth_line_end_point = azimuthLineEndPoint;
