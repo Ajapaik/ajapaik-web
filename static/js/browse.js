@@ -432,19 +432,22 @@
                 markerIdsWithinBounds = [];
                 if (!clusteringEndedListener) {
                     clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
-                        console.log("Clustering ended");
                         var clusters = mc.getClusters(),
                             currentMarkers;
-                        if (!clusters || clusters.length === 0) {
-                            mc.clearMarkers();
-                            markerClustererSettings.gridSize = 1;
-                            mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
-                            for (var k = 0; k < markers.length; k += 1) {
-                                markerIdsWithinBounds.push(markers[k].id);
-                            }
-                        }
+                        console.log('Clusters');
+                        console.log(clusters);
+//                        if (!clusters || clusters.length === 0) {
+//                            mc.clearMarkers();
+//                            markerClustererSettings.gridSize = 1;
+//                            mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
+//                            for (var k = 0; k < markers.length; k += 1) {
+//                                markerIdsWithinBounds.push(markers[k].id);
+//                            }
+//                        }
                         for (var i = 0; i < clusters.length; i += 1) {
                             currentMarkers = clusters[i].markers_;
+                            console.log("Cluster markers");
+                            console.log(currentMarkers);
                             if (currentMarkers.length === 1) {
                                 for (var j = 0; j < currentMarkers.length; j += 1) {
                                     markerIdsWithinBounds.push(currentMarkers[j].id);
