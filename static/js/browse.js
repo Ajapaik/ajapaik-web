@@ -25,8 +25,7 @@
         currentlySelectedMarkerId,
         targetPaneElement,
         markerTemp,
-        markers = [],
-        mc,
+        //mc,
         currentMapDataRequest,
         currentPaneDataRequest,
         clusteringEndedListener,
@@ -232,7 +231,7 @@
             }
             $('#ajapaik-mapview-map-info-panel').show();
             $('#ajapaik-map-button-container').show();
-            mc.clearMarkers();
+            //mc.clearMarkers();
             $.ajax({
                 url: '/heatmap_data/',
                 data: {photo_id: photoId},
@@ -396,10 +395,10 @@
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
             currentMapDataRequest = $.post('/map_data/', { sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
-                if (mc) {
-                    mc.clearMarkers();
-                }
-                markers = [];
+                //if (mc) {
+                //    mc.clearMarkers();
+                //}
+                var markers = [];
                 for (j = 0; j < response.length; j += 1) {
                     p = response[j];
                     if (p[4]) {
@@ -428,27 +427,25 @@
                 } else {
                     markerClustererSettings.gridSize = 60;
                 }
-                mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
+                var mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
-                if (!clusteringEndedListener) {
-                    clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
-                        var clusters = mc.clusters_,
-                            currentMarkers;
-                        console.log("Clusters");
-                        console.log(clusters);
-                        for (var i = 0; i < clusters.length; i += 1) {
-                            currentMarkers = clusters[i].markers_;
-                            console.log("Cluster markers");
-                            console.log(currentMarkers);
-                            if (currentMarkers.length === 1) {
-                                for (var j = 0; j < currentMarkers.length; j += 1) {
-                                    markerIdsWithinBounds.push(currentMarkers[j].id);
-                                }
+                clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
+                    var clusters = mc.clusters_,
+                        currentMarkers;
+                    console.log("Clusters");
+                    console.log(clusters);
+                    for (var i = 0; i < clusters.length; i += 1) {
+                        currentMarkers = clusters[i].markers_;
+                        console.log("Cluster markers");
+                        console.log(currentMarkers);
+                        if (currentMarkers.length === 1) {
+                            for (var j = 0; j < currentMarkers.length; j += 1) {
+                                markerIdsWithinBounds.push(currentMarkers[j].id);
                             }
                         }
-                        refreshPane(markerIdsWithinBounds);
-                    });
-                }
+                    }
+                    refreshPane(markerIdsWithinBounds);
+                });
             });
         }
     };
@@ -567,30 +564,6 @@
                 }
             }
         }
-/*        for (i = 0; i < markers.length; i += 1) {
-            if (markers[i].id == markerId) {
-                targetPaneElement.find('img').attr('src', markers[i].thumb);
-                targetPaneElement.find('.ajapaik-azimuth').show();
-                targetPaneElement.find('.ajapaik-eye-open').show();
-                targetPaneElement.find('.ajapaik-rephoto-count').show();
-                if (!targetPaneElement.find('.ajapaik-eye-open').hasClass('ajapaik-eye-open-light-bg')) {
-                    targetPaneElement.find('.ajapaik-eye-open').addClass('ajapaik-eye-open-light-bg');
-                }
-                markers[i].setZIndex(maxIndex);
-                maxIndex += 1;
-                markerTemp = markers[i];
-                if (markers[i].azimuth) {
-                    window.dottedAzimuthLine.setPath([markers[i].position, Math.calculateMapLineEndPoint(markers[i].azimuth, markers[i].position, lineLength)]);
-                    window.dottedAzimuthLine.setMap(window.map);
-                    window.dottedAzimuthLine.setVisible(true);
-                } else {
-                    window.dottedAzimuthLine.setVisible(false);
-                }
-                setCorrectMarkerIcon(markers[i]);
-            } else {
-                setCorrectMarkerIcon(markers[i]);
-            }
-        }*/
         if (markerTemp) {
             lastHighlightedMarker = markerTemp;
             markerTemp = undefined;
