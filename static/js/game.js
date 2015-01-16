@@ -434,6 +434,9 @@
                     guessPhotoPanelSettings.resizable = false;
                 }
                 guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', guessPhotoPanelContent.find('img').width() + 'px').css('max-height', $(window).height() - 200);
+                guessPhotoPanel.on('jspanelloaded', function () {
+                    $('#ajapaik-game-guess-photo-js-panel').find('img').show();
+                });
                 if (!window.userClosedTutorial) {
                     window.openTutorialPanel();
                 }

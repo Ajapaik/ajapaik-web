@@ -10,7 +10,7 @@
                         <a class="fullscreen" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}">
                             <img id="ajapaik-photoview-main-photo" class="img-responsive {% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}" />
                         </a>
-                        <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
+                        <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;"></button>
                     </div>
                 </div>
                 {% if photo.description %}
@@ -18,17 +18,24 @@
                         <p>{{ photo.description }}</p>
                     </div>
                 {% endif %}
-                {% if photo.source_url %}
-                    <div class="row">
-                        <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
+                <div class="col-xs-6">
+                    {% if photo.source_url %}
+                        <div class="row">
+                            <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
+                                {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                            </a>
+                        </div>
+                    {% elif photo.source.description %}
+                        <div class="row">
                             {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                        </a>
-                    </div>
-                {% elif photo.source.description %}
-                    <div class="row">
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                    </div>
-                {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-xs-6">
+                    {% if photo.rephotos.0 %}
+                        <p>{{ photo.rephotos.all.0.user.fb_name }}}</p>
+                    {% endif %}
+                </div>
                 <div class="row">
                     <fb:comments href="{{ hostname }}{{ photo.get_detail_url }}"></fb:comments>
                 </div>
@@ -54,6 +61,19 @@
                 mainPhoto.removeClass('ajapaik-photo-flipped');
             } else {
                 mainPhoto.addClass('ajapaik-photo-flipped');
+            }
+        });
+        if (window.isMobile) {
+            $('.ajapaik-flip-photo-overlay-button').show();
+        }
+        $(document).on('mouseover', '#ajapaik-photoview-main-photo-container', function () {
+            if (!window.isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').show();
+            }
+        });
+        $(document).on('mouseout', '#ajapaik-photoview-main-photo-container', function () {
+            if (!window.isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').hide();
             }
         });
     });
