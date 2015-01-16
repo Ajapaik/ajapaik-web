@@ -85,10 +85,7 @@
                                 </a>
                             </div>
                             <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
-                                {% trans "Date taken" %}&nbsp;
-                                <div id="ajapaik-photo-modal-rephoto-date-taken">
-                                    {{ photo.rephotos.all.0.date }}
-                                </div>
+                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date }}</div>
                             </div>
                         {% endif %}
                     </div>

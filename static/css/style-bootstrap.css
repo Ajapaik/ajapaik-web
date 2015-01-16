@@ -933,3 +933,12 @@ ul.errorlist {
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
+
+#ajapaik-fileupload-datepicker-container {
+    display: inline-block;
+}
+
+#ajapaik-rephoto-selection {
+    overflow-y: scroll;
+    max-height: 300px;
+}

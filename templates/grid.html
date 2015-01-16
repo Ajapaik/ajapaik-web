@@ -91,7 +91,7 @@
         window.pageSize = {{ page_size | safe }};
         window.totalPhotoCount = {{ photo_count | safe }};
         var leaderboardFullURL = "{% url "project.home.views.rephoto_top50" %}",
-            userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},
+            {#userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},#}
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             initialize = function () {
                 if (window.getQueryParameterByName("fromSelect")) {

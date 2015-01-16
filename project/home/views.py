@@ -104,8 +104,8 @@ def photo_upload(request, photo_id):
 
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
-                if f.name.split()[-1] not in ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG"]:
-                    pass
+                #if f.name.split()[-1] not in ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG"]:
+                    #continue
                 fileobj = handle_uploaded_file(f)
                 data = request.POST
                 re_photo = Photo(
@@ -165,7 +165,7 @@ def photo_upload(request, photo_id):
                         re_photo.device = device
                         re_photo.save()
 
-                    if 'DateTimeOriginal' in exif_data:
+                    if 'DateTimeOriginal' in exif_data and not re_photo.date:
                         date_taken = exif_data.get('DateTimeOriginal')
                         try:
                             parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
