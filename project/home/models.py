@@ -135,7 +135,7 @@ class Photo(models.Model):
     image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     flip = models.NullBooleanField()
-    date = models.DateField(null=True, blank=True)
+    date = models.DateTimeField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(null=True, blank=True, max_length=2047)
 

@@ -365,6 +365,11 @@
 
     window.uploadCompleted = function (response) {
         $('#ajapaik-rephoto-upload-modal').modal('toggle');
+        if (response && response.new_id) {
+            window.currentlySelectedRephotoId = response.new_id;
+            window.syncMapStateToURL();
+            window.location.reload();
+        }
         //$.modal.close();
         //if (photoId === undefined) {
         //    if (response && response.new_id !== undefined && response.new_id) {

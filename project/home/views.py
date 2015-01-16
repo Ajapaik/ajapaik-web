@@ -108,6 +108,7 @@ def photo_upload(request, photo_id):
                     #continue
                 fileobj = handle_uploaded_file(f)
                 data = request.POST
+                date_taken = data.get('dateTaken', None)
                 re_photo = Photo(
                     rephoto_of=photo,
                     city=photo.city,
@@ -121,6 +122,9 @@ def photo_upload(request, photo_id):
                     cam_pitch=data.get('pitch'),
                     cam_roll=data.get('roll'),
                 )
+                if date_taken:
+                    parsed_date_taken = strptime(date_taken, "%d.%m.%Y %H:%M")
+                    re_photo.date = strftime("%Y-%m-%d %H:%M", parsed_date_taken)
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()

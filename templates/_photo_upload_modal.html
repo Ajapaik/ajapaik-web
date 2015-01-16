@@ -27,10 +27,10 @@
                     </div>
                 {% endif %}
                 <p>
-                    {% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the" %}&nbsp;
+                    {% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the" %}
                     <a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
                         <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"/>
-                    </a>&nbsp;{% trans "licence" %}.
+                    </a>{% trans "licence" %}.
                 </p>
                 <a href="javascript:void(0);" onclick="uploadCompleted();">{% trans "Close" %}</a>
             </div>
@@ -103,21 +103,11 @@
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#progress .progress-bar').css('width', progress + '%');
         }).on('fileuploaddone', function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                if (file.url) {
-                    var link = $('<a>').attr('target', '_blank').prop('href', file.url);
-                    $(data.context.children()[index]).wrap(link);
-                } else if (file.error) {
-                    var error = $('<span class="text-danger"/>').text(file.error);
-                    $(data.context.children()[index]).append('<br>').append(error);
-                }
-            });
+            window.uploadCompleted(data.result);
         }).on('fileuploadfail', function (e, data) {
             $.each(data.files, function (index) {
                 var error = $('<span class="text-danger"/>').text(window.gettext('File upload failed.'));
-                $(data.context.children()[index])
-                        .append('<br>')
-                        .append(error);
+                $(data.context.children()[index]).append('<br>').append(error);
             });
         }).on('fileuploadsubmit', function (e, data) {
             data.formData = {
