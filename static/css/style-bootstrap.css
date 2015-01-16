@@ -517,6 +517,11 @@ a.fullscreen {
     position: relative;
 }
 
+#ajapaik-photoview-main-photo-container {
+    display: inline-block;
+    position: relative;
+}
+
 #ajapaik-game-modal-photo {
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -941,4 +946,8 @@ ul.errorlist {
 #ajapaik-rephoto-selection {
     overflow-y: scroll;
     max-height: 300px;
+}
+
+#ajapaik-photoview-container {
+    padding-top: 70px;
 }
