@@ -527,6 +527,7 @@
                 targetTop;
             if (targetPos) {
                 targetTop = targetPos.top;
+                console.log(targetTop);
                 $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
             }
             _gaq.push(['_trackEvent', 'Map', 'Marker click']);
