@@ -125,11 +125,13 @@
             );
             FB.Event.subscribe('comment.create',
                     function (response) {
+                        commentCallback(response);
                         _gaq.push(['_trackEvent', 'Facebook', 'Comment added', response.href]);
                     }
             );
             FB.Event.subscribe('comment.remove',
                     function (response) {
+                        commentCallback(response);
                         _gaq.push(['_trackEvent', 'Facebook', 'Comment removed', response.href]);
                     }
             );
@@ -150,6 +152,7 @@
             );
         }
         catch (err) {
+            console.log(err);
         }
     };
     (function () {
@@ -158,6 +161,9 @@
         e.src = document.location.protocol + '//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js';
         document.getElementById('fb-root').appendChild(e);
     }());
+    var commentCallback = function () {
+        console.log("asdsad");
+    }
 </script>
 {% block header %}
     {% include "_header.html" %}

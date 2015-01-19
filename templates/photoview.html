@@ -1,8 +1,15 @@
 {% extends "base_bootstrap.html" %}
 {% load thumbnail i18n %}
 
+{% block header %}
+    {% include "_header.html" %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
+{% endblock %}
+
 {% block layout %}
-    <div class="container-fluid" id="ajapaik-photoview-container">
+    <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
+    <div class="{% if rephoto %}container-fluid{% else %}container{% endif %}" id="ajapaik-photoview-container">
         <div class="row ajapaik-no-left-margin-row">
             <div class="col-xs-10">
                 {% if rephoto %}
@@ -60,7 +67,14 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% include "_comments.html" %}
+                    <button class="btn btn-primary pull-right" id="ajapaik-photoview-map-button">{% trans "Map" %}</button>
+                    <span class="btn btn-success pull-right" id="ajapaik-photoview-add-rephoto-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>{% trans "Add rephoto" %}</span>
+                    </span>
+                    <div class="col-xs-10 col-lg6">
+                        {% include "_comments.html" %}
+                    </div>
                 {% else %}
                     <div class="row ajapaik-no-left-margin-row">
                         <div id="ajapaik-photoview-main-photo-container">
@@ -93,20 +107,40 @@
                             {% endif %}
                         </div>
                     </div>
+                    <button class="btn btn-primary pull-right" id="ajapaik-photoview-map-button">{% trans "Map" %}</button>
+                    <span class="btn btn-success pull-right" id="ajapaik-photoview-add-rephoto-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>{% trans "Add rephoto" %}</span>
+                    </span>
                     {% include "_comments.html" %}
                 {% endif %}
             </div>
             <div class="col-xs-2">
-                {% for rephoto in photo.rephotos.all %}
-                    <a href="{% url 'project.home.views.photo' rephoto.id %}">
-                        <img src="{% url 'project.home.views.photo_thumb' rephoto.id %}" class="img-responsive ajapaik-photoview-rephoto-thumb" />
-                    </a>
-                {% endfor %}
+                <div class="row col-xs-12" id="ajapaik-photoview-rephoto-selection">
+                    {% for rephoto in photo.rephotos.all %}
+                        <div class="row ajapaik-no-left-margin-row" style="display: inline-block;">
+                            <a href="{% url 'project.home.views.photo' rephoto.id %}">
+                                <img src="{% url 'project.home.views.photo_thumb' rephoto.id %}" class="img-responsive ajapaik-photoview-rephoto-thumb" />
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+    <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.js"></script>
+    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.js"></script>
+    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js"></script>
+    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js"></script>
+    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js"></script>
+    <script src="{{ STATIC_URL }}/libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ STATIC_URL }}/js/ajapaik-common.js"></script>
     <script>
     $(document).ready(function () {
+        var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal');
         var mainPhoto = $('#ajapaik-photoview-main-photo');
         $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
             var $this = $(this);
@@ -134,11 +168,31 @@
                 $('.ajapaik-flip-photo-overlay-button').hide();
             }
         });
+        $(document).on('click', '#ajapaik-photoview-add-rephoto-button', function () {
+            $.ajax({
+                cache: false,
+                url: '/photo_upload_modal/' + {{ photo.id }} + '/',
+                success: function (result) {
+                    rephotoUploadModal.data('bs.modal', null);
+                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+        });
+        $(document).on('click', '#ajapaik-photoview-map-button', function () {
+             window.location.href = '/map/photo/' + {{ photo.id }};
+        });
         $('#ajapaik-comment-tabs a').click(function (e) {
             e.preventDefault();
-            console.log('asd');
             $(this).tab('show')
         });
+        window.uploadCompleted = function (response) {
+            $('#ajapaik-rephoto-upload-modal').modal('toggle');
+            if (response && response.new_id) {
+                window.location.reload();
+            }
+        };
     });
 </script>
 {% endblock %}

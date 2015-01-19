@@ -949,7 +949,7 @@ ul.errorlist {
 }
 
 #ajapaik-photoview-container {
-    padding-top: 70px;
+    padding-top: 100px;
 }
 
 #ajapaik-comments-row {
@@ -966,4 +966,14 @@ ul.errorlist {
 
 #ajapaik-photoview-date-taken {
     display: inline;
+}
+
+#ajapaik-photoview-rephoto-selection {
+    text-align: center;
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+#ajapaik-photoview-map-button {
+    margin-left: 1%;
 }
