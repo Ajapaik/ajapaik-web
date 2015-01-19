@@ -616,9 +616,6 @@ a.fullscreen {
     position: relative;
 }
 
-#ajapaik-mapview-photo-panel .jsPanel-content {
-    overflow-y: scroll;
-}
 
 ul.errorlist {
     display: none;
@@ -846,11 +843,15 @@ ul.errorlist {
 #ajapaik-mapview-photo-panel {
     padding-right: 10px !important;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #ajapaik-mapview-photo-panel .jsPanel-content {
     outline: none !important;
+    overflow-y: scroll;
+    background-color: rgba(0, 0, 0, 0);
 }
+
 
 .ui-resizable-e {
     width: 25px;
@@ -977,3 +978,4 @@ ul.errorlist {
 #ajapaik-photoview-map-button {
     margin-left: 1%;
 }
+
