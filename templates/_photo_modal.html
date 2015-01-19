@@ -31,7 +31,7 @@
                     {% endif %}
                         <div id="ajapaik-modal-rephoto-container">
                             {#<a class="fullscreen col-xs-12" id="ajapaik-rephoto-full-screen-link" rel="" href="">#}
-                            <a class="col-xs-12" id="ajapaik-rephoto-full-screen-link" rel="" href="">
+                            <a class="col-xs-12" id="ajapaik-rephoto-full-screen-link" rel="">
                                 <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
                                 <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                             </a>
@@ -243,7 +243,8 @@
                 }
             }
         });
-        $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
+        $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
+            e.preventDefault();
             $('#ajapaik-photo-modal-rephoto-column').hide();
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-show-rephoto-selection-overlay-button').show();
