@@ -85,8 +85,7 @@
                     {% endif %}
                         {% if photo.rephotos.all.0 %}
                             <div class="row ajapaik-photo-modal-row">
-                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
-                                </a>
+                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;{% include '_creative_commons.html' %}
                             </div>
                             <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
                                 {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date }}</div>

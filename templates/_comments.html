@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<div class="row" id="ajapaik-comments-row">
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist" id="ajapaik-comment-tabs">
+            <li role="presentation" class="active">
+                <a href="#ajapaik-original-photo-comments" aria-controls="ajapaik-original-photo-comments" role="tab" data-toggle="tab">{% trans "Original photo" %}</a>
+            </li>
+            {% if rephoto %}
+                <li role="presentation">
+                    <a href="#ajapaik-rephoto-comments" aria-controls="ajapaik-rephoto-comments" role="tab" data-toggle="tab">{% trans "Rephoto" %}</a>
+                </li>
+            {% endif %}
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="ajapaik-original-photo-comments">
+                <fb:comments href="{{ hostname }}{{ photo.get_detail_url }}"></fb:comments>
+            </div>
+            {% if rephoto %}
+                <div role="tabpanel" class="tab-pane" id="ajapaik-rephoto-comments">
+                    <fb:comments href="{{ hostname }}{{ photo.rephotos.0.get_detail_url }}"></fb:comments>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
