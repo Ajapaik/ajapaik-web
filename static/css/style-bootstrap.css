@@ -522,6 +522,11 @@ a.fullscreen {
     position: relative;
 }
 
+#ajapaik-photoview-rephoto-container {
+    display: inline-block;
+    position: relative;
+}
+
 #ajapaik-game-modal-photo {
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -908,6 +913,26 @@ ul.errorlist {
     padding-left: 0 !important;
 }
 
+#ajapaik-photoview-original-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-photoview-original-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-photoview-rephoto-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-photoview-rephoto-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
 .ajapaik-photo-modal-rephoto-thumb img {
     margin: 0 auto;
 }
@@ -955,6 +980,7 @@ ul.errorlist {
 
 #ajapaik-comments-row {
     padding-top: 3%;
+    min-height: 400px;
 }
 
 .ajapaik-photoview-rephoto-thumb {
