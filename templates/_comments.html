@@ -18,7 +18,7 @@
             </div>
             {% if rephoto %}
                 <div role="tabpanel" class="tab-pane" id="ajapaik-rephoto-comments">
-                    <fb:comments href="{{ hostname }}{{ photo.rephotos.0.get_detail_url }}"></fb:comments>
+                    <fb:comments href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments>
                 </div>
             {% endif %}
         </div>
