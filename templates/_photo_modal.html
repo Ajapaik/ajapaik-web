@@ -58,21 +58,24 @@
                 {% else %}
                     <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
                 {% endif %}
-                    {% if photo.description %}
-                        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
-                    {% endif %}
-                    {% if photo.source_url %}
-                        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                            <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
-                               target="_blank">
-                                {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                            </a>
-                        </div>
-                    {% elif photo.source.description %}
-                        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
+                {% if photo.description %}
+                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
+                {% endif %}
+                {% if photo.source_url %}
+                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
+                        <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
+                           target="_blank">
                             {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                        </div>
-                    {% endif %}
+                        </a>
+                    </div>
+                {% elif photo.source.description %}
+                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                    </div>
+                {% endif %}
+{#                <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-original-photo-permalink-container">#}
+{#                    <a id="ajapaik-photo-modal-original-photo-permalink" href="{% url 'project.home.views.photo' photo.id %}">{% trans "Permalink" %}</a>#}
+{#                </div>#}
                 </div>
                 {% if photo.rephotos.all|length > 0 %}
                     {% if photo.rephotos.all|length > 1 %}
@@ -82,17 +85,21 @@
                     {% endif %}
                         {% if photo.rephotos.all.0 %}
                             <div class="row ajapaik-photo-modal-row">
-                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;<a id="ajapaik-cc-by-sa-image" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
                                 </a>
                             </div>
                             <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
                                 {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date }}</div>
                             </div>
+{#                            <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row">#}
+{#                                <a id="ajapaik-photo-modal-rephoto-permalink" href="{% url 'project.home.views.photo' photo.rephotos.all.0.id %}">{% trans "Permalink" %}</a>#}
+{#                            </div>#}
                         {% endif %}
                     </div>
                 {% endif %}
             </div>
             <div class="row" style="margin-right: 0;">
+                <button class="btn btn-primary ajapaik-photo-modal-comment-button">{% trans "Discuss" %}</button>
                 <button class="btn btn-primary ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
                 <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
                 <button id="ajapaik-photo-modal-close-button" type="button" class="btn btn-primary">{% trans "Close photo" %}</button>
@@ -110,7 +117,7 @@
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
-        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}']);
+        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}']);
     {% endfor %}
     $(document).ready(function () {
         if (window.userClosedRephotoTools) {
@@ -224,6 +231,7 @@
                 if (window.photoModalRephotoArray[i][0] == targetId) {
                     $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
                     $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
+                    $('#ajapaik-photo-modal-rephoto-permalink').attr('href', window.photoModalRephotoArray[i][7]);
                     if (window.photoModalRephotoArray[i][2] !== 'None') {
                         $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);
                         $('#ajapaik-photo-modal-date-row').show();
@@ -246,6 +254,9 @@
             window.currentlySelectedRephotoId = false;
             window.syncMapStateToURL();
             window.userClosedRephotoTools = true;
+        });
+        $(document).on('click', '.ajapaik-photo-modal-comment-button', function () {
+            window.location.href = '{% url 'project.home.views.photo' photo.id %}';
         });
         $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
             if (!isMobile) {

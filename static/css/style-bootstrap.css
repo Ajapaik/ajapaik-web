@@ -951,3 +951,11 @@ ul.errorlist {
 #ajapaik-photoview-container {
     padding-top: 70px;
 }
+
+#ajapaik-comments-row {
+    padding-top: 3%;
+}
+
+.ajapaik-photoview-rephoto-thumb {
+    margin-bottom: 2%;
+}

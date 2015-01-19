@@ -468,22 +468,28 @@ def mapview(request, photo_id=None, rephoto_id=None):
     else:
         title = _('Browse photos on map')
 
-    selected_photo = None
-    if photo_id:
-        try:
-            selected_photo = Photo.objects.get(pk=photo_id)
-        except ObjectDoesNotExist:
-            pass
-
-    if selected_photo and not city:
-        city = City.objects.get(pk=selected_photo.city.id)
-
     selected_rephoto = None
     if rephoto_id:
         try:
             selected_rephoto = Photo.objects.get(pk=rephoto_id, rephoto_of__isnull=False)
         except ObjectDoesNotExist:
             pass
+
+    selected_photo = None
+    if photo_id:
+        try:
+            selected_photo = Photo.objects.get(pk=photo_id)
+        except ObjectDoesNotExist:
+            pass
+    else:
+        if selected_rephoto:
+            try:
+                selected_photo = Photo.objects.get(pk=selected_rephoto.rephoto_of.id)
+            except ObjectDoesNotExist:
+                pass
+
+    if selected_photo and not city:
+        city = City.objects.get(pk=selected_photo.city.id)
 
     photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
         'photo_id', flat=True)
