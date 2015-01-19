@@ -3,7 +3,7 @@
 
 {% block layout %}
     <div class="container-fluid" id="ajapaik-photoview-container">
-        <div class="row">
+        <div class="row ajapaik-no-left-margin-row">
             <div class="col-xs-10">
                 {% if rephoto %}
                     <div class="row">
@@ -19,10 +19,10 @@
                                     <p>{{ photo.description }}</p>
                                 </div>
                             {% endif %}
-                            <div class="row">
+                            <div class="row ajapaik-no-left-margin-row">
                                 <div class="col-xs-12">
                                     {% if photo.source_url %}
-                                        <div class="row ajapaik-no-left-margin-row">
+                                        <div class="row">
                                             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
                                                href='{{ photo.source_url }}' target="_blank">
                                                 {{ photo.source.description }}{% if photo.source_key %}
@@ -30,7 +30,7 @@
                                             </a>
                                         </div>
                                     {% elif photo.source.description %}
-                                        <div class="row ajapaik-no-left-margin-row">
+                                        <div class="row">
                                             {{ photo.source.description }}{% if photo.source_key %}
                                                 {{ photo.source_key }}{% endif %}
                                         </div>
@@ -62,7 +62,7 @@
                     </div>
                     {% include "_comments.html" %}
                 {% else %}
-                    <div class="row">
+                    <div class="row ajapaik-no-left-margin-row">
                         <div id="ajapaik-photoview-main-photo-container">
                             <a class="fullscreen" rel="{{ photo.id }}" href="{{ photo.get_absolute_url }}">
                                 <img id="ajapaik-photoview-main-photo" class="img-responsive {% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}"/>
@@ -71,11 +71,11 @@
                         </div>
                     </div>
                     {% if photo.description %}
-                        <div class="row">
+                        <div class="row ajapaik-no-left-margin-row">
                             <p>{{ photo.description }}</p>
                         </div>
                     {% endif %}
-                    <div class="row">
+                    <div class="row ajapaik-no-left-margin-row">
                         <div class="col-xs-6">
                             {% if photo.source_url %}
                                 <div class="row">
