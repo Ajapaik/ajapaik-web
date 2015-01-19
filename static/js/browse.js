@@ -66,6 +66,8 @@
         feedbackPanel,
         markerIdToHighlightAfterPageLoad,
         updateBoundingEdge,
+        maxGalleryWidth = $(window).width() * 0.66,
+        maxGalleryHeight = $('#ajapaik-map-canvas').height(),
         galleryPanelSettings = {
             selector: '#ajapaik-map-container',
             title: false,
@@ -76,6 +78,10 @@
                 return $(window).width() / 5;
             }},
             draggable: false,
+            resizable: {
+                maxWidth: maxGalleryWidth,
+                maxHeight: maxGalleryHeight
+            },
             removeHeader: true,
             overflow: { horizontal: 'hidden', vertical: 'auto' },
             id: 'ajapaik-mapview-photo-panel'
