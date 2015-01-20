@@ -12,7 +12,7 @@
         guessLocationStarted = false,
         currentPanelWidth,
         lastPanelWidth,
-        recurringCheckPanelSize,
+        //recurringCheckPanelSize,
         i = 0,
         j = 0,
         maxIndex = 2,
@@ -142,6 +142,9 @@
             projection = window.map.getProjection(),
             edgePixelCoordinates = projection.fromLatLngToPoint(edge),
             currentPaneWidth = $('#ajapaik-mapview-photo-panel').width();
+        if (!currentPaneWidth) {
+            currentPaneWidth = $(window).width() / 5;
+        }
         edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + currentPaneWidth + 50) / scale;
         return projection.fromPointToLatLng(edgePixelCoordinates);
     };
@@ -479,7 +482,6 @@
             currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (photoPanel) {
                     photoPanel.content.html(response);
-                    console.log("justify");
                     photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                 } else {
                     galleryPanelSettings.content = response;
@@ -488,20 +490,19 @@
                         galleryPanelSettings.resizable = false;
                     }
                     photoPanel = $.jsPanel(galleryPanelSettings);
-                    console.log("justify");
                     photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                 }
-                if (!recurringCheckPanelSize) {
-                    recurringCheckPanelSize = setInterval(function () {
-                        currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
-                        if (photoPanel && currentPanelWidth !== lastPanelWidth) {
+                //if (!recurringCheckPanelSize) {
+                    //recurringCheckPanelSize = setInterval(function () {
+                        //currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
+                        //if (photoPanel && currentPanelWidth !== lastPanelWidth) {
                             //console.log("justify");
                             //photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
-                            toggleVisiblePaneElements();
-                        }
-                        lastPanelWidth = currentPanelWidth;
-                    }, 3000);
-                }
+                            //toggleVisiblePaneElements();
+                        //}
+                        //lastPanelWidth = currentPanelWidth;
+                    //}, 3000);
+                //}
                 if (markerIdToHighlightAfterPageLoad) {
                     window.highlightSelected(markerIdToHighlightAfterPageLoad, true);
                     markerIdToHighlightAfterPageLoad = false;
