@@ -1011,3 +1011,7 @@ ul.errorlist {
 #ajapaik-photoview-map-button {
     margin-left: 1%;
 }
+
+.ajapaik-photo-modal-comment-button {
+    margin-left: 5px !important;
+}

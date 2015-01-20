@@ -97,11 +97,32 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="row" style="margin-right: 0;">
-                <button class="btn btn-primary ajapaik-photo-modal-comment-button">{% trans "Discuss" %}</button>
-                <button class="btn btn-primary ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
-                <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
-                <button id="ajapaik-photo-modal-close-button" type="button" class="btn btn-primary">{% trans "Close photo" %}</button>
+            <div class="row ajapaik-no-left-margin-row" style="margin-top: 10px;">
+                <div class="col-xs-6">
+                    <div class="dropdown">
+                        <button id="ajapaik-sharing-dropdown-button" class="btn btn-primary ajapaik-photo-modal-share-button pull-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% trans "Share" %}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:void(0)" id="ajapaik-grab-link" data-clipboard-text="asdasdasd">{% trans "Grab link" %}</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %}</button>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-primary ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
+                    <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
+                    <button id="ajapaik-photo-modal-close-button" type="button" class="btn btn-default">{% trans "Close photo" %}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -119,6 +140,10 @@
         window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}']);
     {% endfor %}
     $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+        var client = new window.ZeroClipboard($('#ajapaik-grab-link'), {
+            moviePath: 'https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf'
+        });
         if (window.userClosedRephotoTools) {
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-photo-modal-rephoto-column').hide();
