@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-20 10:59+0200\n"
-"PO-Revision-Date: 2015-01-20 12:31+0200\n"
+"PO-Revision-Date: 2015-01-20 13:02+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -421,7 +421,7 @@ msgstr ""
 
 #: templates/photoview.html:76 templates/photoview.html.py:116
 msgid "Map"
-msgstr ""
+msgstr "Kaart"
 
 #~ msgid "Skip"
 #~ msgstr "Jäta vahele"
