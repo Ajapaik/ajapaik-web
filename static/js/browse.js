@@ -496,7 +496,7 @@
                         currentPanelWidth = $('#ajapaik-mapview-photo-panel').width();
                         if (photoPanel && currentPanelWidth !== lastPanelWidth) {
                             console.log("justify");
-                            photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                            photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
                         }
                         lastPanelWidth = currentPanelWidth;
                     }, 3000);
