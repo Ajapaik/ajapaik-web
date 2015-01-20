@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-20 10:59+0200\n"
-"PO-Revision-Date: 2015-01-13 22:54+0200\n"
+"PO-Revision-Date: 2015-01-20 12:31+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -117,13 +117,11 @@ msgstr "Ajapaik"
 
 #: templates/_comments.html:7
 msgid "Original photo"
-msgstr ""
+msgstr "Ajalooline foto"
 
 #: templates/_comments.html:11
-#, fuzzy
-#| msgid "Next photo"
 msgid "Rephoto"
-msgstr "Järgmine foto"
+msgstr "Ülepildistus"
 
 #: templates/_header.html:24 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
@@ -178,7 +176,7 @@ msgstr "Kuupäev"
 
 #: templates/_photo_modal.html:101
 msgid "Discuss"
-msgstr ""
+msgstr "Kommenteeri"
 
 #: templates/_photo_modal.html:102 templates/photoview.html:79
 #: templates/photoview.html.py:119
@@ -191,7 +189,7 @@ msgstr "Täpsusta asukohta"
 
 #: templates/_photo_upload_modal.html:10
 msgid "Taken"
-msgstr ""
+msgstr "Kuupäev"
 
 #: templates/_photo_upload_modal.html:14
 msgid "Select file..."
@@ -208,12 +206,11 @@ msgid ""
 "you under the"
 msgstr ""
 "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
-"ajaloolise pildi kõrvale. Üleslaetud ülepildistus on omistatud Sulle kui "
-"autorile"
+"ajaloolise pildi kõrvale. Foto üleslaadimisega nõustud selle lubama"
 
 #: templates/_photo_upload_modal.html:31
 msgid "licence"
-msgstr "litsentsi alusel"
+msgstr "litsentsi alla"
 
 #: templates/_photo_upload_modal.html:33 templates/game.html:121
 #: templates/mapview.html:50
@@ -380,7 +377,7 @@ msgstr "Neist suunaga"
 
 #: templates/game.html:84 templates/mapview.html:31
 msgid "Confidence"
-msgstr ""
+msgstr "Asukoha usaldusväärsus"
 
 #: templates/grid.html:24
 msgid "Load more photos"
@@ -456,16 +453,16 @@ msgstr ""
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -477,8 +474,8 @@ msgstr ""
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
