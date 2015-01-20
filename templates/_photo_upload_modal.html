@@ -65,6 +65,7 @@
         }).on('fileuploadadd', function (e, data) {
             data.context = $('#files');
             $('#ajapaik-fileupload-datepicker-container').show();
+            $('.fileinput-button').find('span').html(window.gettext('Select new file...'));
             window.loadImage.parseMetaData(data.files[0], function (metadata) {
                 if (metadata.exif) {
                     var exif = metadata.exif.getAll();

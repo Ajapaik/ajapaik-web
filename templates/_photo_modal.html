@@ -105,14 +105,15 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="javascript:void(0)" id="ajapaik-grab-link" data-clipboard-text="asdasdasd">{% trans "Grab link" %}</a>
+                            <li role="presentation" class="disabled-link">
+                                <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                    <input type="text" class="form-control" value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a>
-                            </li>
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a>
+                                <a role="menuitem" tabindex="-1">
+                                    <fb:like href="{{ hostname }}{{ photo.get_absolute_url }}" send="true" show_faces="true" action="recommend"></fb:like>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -141,8 +142,9 @@
     {% endfor %}
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
-        var client = new window.ZeroClipboard($('#ajapaik-grab-link'), {
-            moviePath: 'https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf'
+        $('.disabled-link').click(function (event) {
+            event.preventDefault();
+            event.stopPropagation();
         });
         if (window.userClosedRephotoTools) {
             $('#ajapaik-rephoto-selection').hide();
