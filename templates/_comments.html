@@ -15,11 +15,11 @@
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane {% if not rephoto %}active{% endif %}" id="ajapaik-original-photo-comments">
-                    <fb:comments href="{{ hostname }}{{ photo.get_detail_url }}"></fb:comments>
+                    <div class="fb-comments" data-href="{{ hostname }}{{ photo.get_detail_url }}" data-colorscheme="light"></div>
                 </div>
                 {% if rephoto %}
                     <div role="tabpanel" class="tab-pane active" id="ajapaik-rephoto-comments">
-                        <fb:comments href="{{ hostname }}{{ rephoto.get_detail_url }}"></fb:comments>
+                        <div class="fb-comments" data-href="{{ hostname }}{{ rephoto.get_detail_url }}" data-colorscheme="light"></div>
                     </div>
                 {% endif %}
             </div>

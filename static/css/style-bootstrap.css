@@ -971,7 +971,7 @@ ul.errorlist {
     padding-left: 0 !important;
 }
 
-#ajapaik-fileupload-datepicker-container {
+.ajapaik-fileupload-datepicker-container {
     display: inline-block;
 }
 
@@ -1014,4 +1014,17 @@ ul.errorlist {
 
 .ajapaik-photo-modal-comment-button {
     margin-left: 5px !important;
+}
+
+.ajapaik-upload-photo-button {
+    margin-left: 5px !important;
+    display: inline-block;
+}
+
+.dropdown .fb_iframe_widget span,
+.dropdown iframe.fb_iframe_widget_lift,
+.dropdown .fb_iframe_widget iframe {
+    width:500px !important;
+    height:20px !important;
+    position:relative;
 }

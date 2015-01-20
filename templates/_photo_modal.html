@@ -102,7 +102,6 @@
                     <div class="dropdown">
                         <button id="ajapaik-sharing-dropdown-button" class="btn btn-primary ajapaik-photo-modal-share-button pull-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% trans "Share" %}
-                            <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                             <li role="presentation" class="disabled-link">
@@ -112,7 +111,7 @@
                             </li>
                             <li role="presentation">
                                 <a role="menuitem" tabindex="-1">
-                                    <fb:like href="{{ hostname }}{{ photo.get_absolute_url }}" send="true" show_faces="true" action="recommend"></fb:like>
+                                    <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 </a>
                             </li>
                         </ul>
@@ -134,11 +133,13 @@
     </div>
 </div>
 <script>
-    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal');
+    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
+        hostname = '{{ hostname }}',
+        originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
-        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}']);
+        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}', '{{ rephoto.get_absolute_url }}']);
     {% endfor %}
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
@@ -254,6 +255,7 @@
             $('#ajapaik-photo-modal-rephoto-column').show();
             for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
                 if (window.photoModalRephotoArray[i][0] == targetId) {
+                    $('#ajapaik-grab-link').find('input').prop('value', hostname + window.photoModalRephotoArray[i][8]);
                     $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
                     $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
                     $('#ajapaik-photo-modal-rephoto-permalink').attr('href', window.photoModalRephotoArray[i][7]);
@@ -274,6 +276,7 @@
             $('#ajapaik-photo-modal-rephoto-column').hide();
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-show-rephoto-selection-overlay-button').show();
+            $('#ajapaik-grab-link').find('input').prop('value', hostname + originalPhotoAbsoluteURL);
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
             $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
