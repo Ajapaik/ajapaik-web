@@ -363,9 +363,10 @@ def heatmap_data(request):
     return HttpResponse(json.dumps(res), content_type="application/json")
 
 def _make_fullscreen(photo):
-    image = get_thumbnail(photo.image, '1024x1024', upscale=False)
-    return {'url': image.url,
-            'size': [image.width, image.height]}
+    if photo:
+        image = get_thumbnail(photo.image, '1024x1024', upscale=False)
+        return {'url': image.url,
+                'size': [image.width, image.height]}
 
 def photoslug(request, photo_id, pseudo_slug):
     photo_obj = get_object_or_404(Photo, id=photo_id)
@@ -392,6 +393,7 @@ def photoslug(request, photo_id, pseudo_slug):
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
         'fullscreen': _make_fullscreen(photo_obj),
+        'rephoto_fullscreen': _make_fullscreen(rephoto),
         'title': title,
         'description': photo_obj.description,
         'rephoto': rephoto,

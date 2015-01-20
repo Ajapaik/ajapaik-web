@@ -317,6 +317,7 @@
 
     window.stopGuessLocation = function () {
         window.marker.setMap(null);
+        window.comingBackFromGuessLocation = true;
         if (window.heatmap) {
             window.heatmap.setMap(null);
         }
@@ -396,10 +397,15 @@
     toggleVisiblePaneElements = function () {
         if (window.map && !guessLocationStarted) {
             window.dottedAzimuthLine.setVisible(false);
+            if (!window.comingBackFromGuessLocation) {
+                window.deselectMarker();
+            } else {
+                markerIdToHighlightAfterPageLoad = currentlySelectedMarkerId;
+                window.comingBackFromGuessLocation = false;
+            }
             if (window.urlParamsInitialized) {
                 currentlySelectedMarkerId = false;
             }
-            window.deselectMarker();
             window.syncMapStateToURL();
             currentMapBounds = window.map.getBounds();
             ne = currentMapBounds.getNorthEast();
@@ -527,7 +533,6 @@
                 targetTop;
             if (targetPos) {
                 targetTop = targetPos.top;
-                console.log(targetTop);
                 $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
             }
             _gaq.push(['_trackEvent', 'Map', 'Marker click']);

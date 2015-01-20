@@ -189,7 +189,6 @@
         });
         $(document).on('click', 'a.fullscreen', function (e) {
             e.preventDefault();
-            console.log("fullscreen click");
             if (BigScreen.enabled) {
                 BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 window.fullscreenEnabled = true;

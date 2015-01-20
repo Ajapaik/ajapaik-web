@@ -117,7 +117,8 @@ var map,
             height: 'auto'
         },
         id: 'ajapaik-tutorial-js-panel'
-    };
+    },
+    comingBackFromGuessLocation = false;
 
 (function ($) {
     'use strict';
