@@ -12,14 +12,6 @@
                  width="{{ element.6 }}"
                  onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
                  onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"/>
-                {#<div class="ajapaik-eye-open {% if element.0 in user_seen_photo_ids %}ajapaik-eye-open-light-bg{% endif %}"#}
-                {#     data-id="{{ element.0 }}"#}
-                {#     id="eye{{ element.0 }}"#}
-                {#     style="display: none;"#}
-                {#     onclick="(function(e) {_gaq.push(['_trackEvent', 'Map', 'Pane photo eye click']); window.loadPhoto(e.dataset.id);})(this)"#}
-                {#     onmouseover="(function(e) {window.paneEyeHoverIn(e)})(this)"#}
-                {#     onmouseout="(function(e) {window.paneEyeHoverOut(e)})(this)">#}
-                {#</div>#}
             {% if element.5 %}
             <div class="ajapaik-azimuth"
                  data-id="{{ element.0 }}"

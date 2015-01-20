@@ -623,7 +623,7 @@
             } else {
                 if (window.preselectPhotoLat && window.preselectPhotoLng) {
                     // We know the location of the photo, let's build the map accordingly
-                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 17, false);
+                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 19, false);
                 } else if (window.cityLatLng) {
                     // There's nothing preselected, but we do know the city the photo's in
                     window.getMap(window.cityLatLng, 13, false);
