@@ -65,6 +65,7 @@
         noticeDiv,
         feedbackPanel,
         markerIdToHighlightAfterPageLoad,
+        targetTopToScrollToAfterPaneLoad,
         updateBoundingEdge,
         maxGalleryWidth = $(window).width() * 0.66,
         maxGalleryHeight = $('#ajapaik-map-canvas').height(),
@@ -501,6 +502,9 @@
                     window.highlightSelected(markerIdToHighlightAfterPageLoad, true);
                     markerIdToHighlightAfterPageLoad = false;
                 }
+                if (targetTopToScrollToAfterPaneLoad) {
+                    $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTopToScrollToAfterPaneLoad);
+                }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
             });
@@ -530,12 +534,14 @@
         //window.userAlreadySeenPhotoIds[markerId] = 1;
         var targetPos,
             targetTop;
+        targetTopToScrollToAfterPaneLoad = false;
         if (fromMarker && targetPaneElement) {
             targetPos = targetPaneElement.position();
             console.log(targetPos);
             if (targetPos) {
                 targetTop = targetPos.top;
-                //$('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
+                targetTopToScrollToAfterPaneLoad = targetTop;
+                $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
             }
             _gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
@@ -579,11 +585,6 @@
         if (markerTemp) {
             lastHighlightedMarker = markerTemp;
             markerTemp = undefined;
-        }
-        if (targetTop) {
-            setTimeout(function () {
-                $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
-            }, 0);
         }
     };
 
