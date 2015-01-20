@@ -531,6 +531,7 @@
         if (fromMarker && targetPaneElement) {
             var targetPos = targetPaneElement.position(),
                 targetTop;
+            console.log(targetPos);
             if (targetPos) {
                 targetTop = targetPos.top;
                 $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
