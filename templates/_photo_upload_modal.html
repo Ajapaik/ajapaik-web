@@ -7,8 +7,8 @@
                 {% if request.user.is_authenticated and request.user.profile.fb_id %}
                     {% with profile=request.user.profile user=request.user %}
                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
-                        <p id="ajapaik-fileupload-datepicker-container" style="display: none;">{% trans "Taken" %}: <input type="text" id="ajapaik-fileupload-datepicker" data-date-format="DD.MM.YYYY HH:mm"></p>
                         <div id="files" class="files"></div>
+                        <p id="ajapaik-fileupload-datepicker-container" style="display: none;">{% trans "Taken" %}: <input type="text" id="ajapaik-fileupload-datepicker" data-date-format="DD.MM.YYYY HH:mm"></p>
                         <span class="btn btn-success fileinput-button">
                             <i class="glyphicon glyphicon-plus"></i>
                             <span>{% trans "Select file..." %}</span>

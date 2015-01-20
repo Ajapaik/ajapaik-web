@@ -730,7 +730,7 @@ ul.errorlist {
 }
 
 .ajapaik-fullscreen-overlay-button {
-    background: #fff url(../images/material-design-icons/ic_settings_overscan_24px.svg) no-repeat center !important;
+    background: #fff url(../images/material-design-icons/ic_fullscreen_24px.svg) no-repeat center !important;
     right: 0;
     bottom: 0;
 }
@@ -808,6 +808,13 @@ ul.errorlist {
 #ajapaik-mapview-guess-photo-container {
     position: relative;
     display: inline-block;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#ajapaik-mapview-guess-photo-container img {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 #ajapaik-modal-photo-container {
@@ -970,6 +977,7 @@ ul.errorlist {
 
 #ajapaik-rephoto-selection {
     overflow-y: scroll;
+    overflow-x: hidden;
     max-height: 300px;
 }
 
@@ -1003,4 +1011,3 @@ ul.errorlist {
 #ajapaik-photoview-map-button {
     margin-left: 1%;
 }
-

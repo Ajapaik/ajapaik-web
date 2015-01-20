@@ -96,6 +96,10 @@
                 handle: '.jsPanel-content',
                 containment: '#ajapaik-map-container'
             },
+            resizable: {
+                maxWidth: maxGalleryWidth,
+                maxHeight: maxGalleryHeight
+            },
             size: {
                 width: function () {
                     return $(window).width() / 3;
@@ -237,6 +241,7 @@
             }
             guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
             $(guessPhotoPanel).css('max-width', currentPhotoWidth + 'px');
+            guessPhotoPanel.find('img').show();
             if (photoPanel) {
                 photoPanel.close();
             }
