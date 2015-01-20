@@ -532,19 +532,6 @@
         $('.ajapaik-mapview-pane-photo-container').find('img').addClass('translucent-pane-element');
         targetPaneElement.find('img').removeClass('translucent-pane-element');
         //window.userAlreadySeenPhotoIds[markerId] = 1;
-        var targetPos,
-            targetTop;
-        targetTopToScrollToAfterPaneLoad = false;
-        if (fromMarker && targetPaneElement) {
-            targetPos = targetPaneElement.position();
-            console.log(targetPos);
-            if (targetPos) {
-                targetTop = targetPos.top;
-                targetTopToScrollToAfterPaneLoad = targetTop;
-                $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
-            }
-            _gaq.push(['_trackEvent', 'Map', 'Marker click']);
-        }
         if (!fromMarker) {
             _gaq.push(['_trackEvent', 'Map', 'Pane photo click']);
         }
@@ -585,6 +572,17 @@
         if (markerTemp) {
             lastHighlightedMarker = markerTemp;
             markerTemp = undefined;
+        }
+        var targetPos,
+        targetTop;
+        if (fromMarker && targetPaneElement) {
+            targetPos = targetPaneElement.position();
+            console.log(targetPos);
+            if (targetPos) {
+                targetTop = targetPos.top;
+                $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
+            }
+            _gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
     };
 
