@@ -497,6 +497,7 @@
                         if (photoPanel && currentPanelWidth !== lastPanelWidth) {
                             //console.log("justify");
                             //photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery();
+                            toggleVisiblePaneElements();
                         }
                         lastPanelWidth = currentPanelWidth;
                     }, 3000);
