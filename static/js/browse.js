@@ -582,6 +582,7 @@
             if (targetPos) {
                 targetTop = targetPos.top;
                 targetTopToScrollToAfterPaneLoad = targetTop;
+                console.log("SCROLL!");
                 $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').animate({scrollTop: targetTop}, 800);
             }
             _gaq.push(['_trackEvent', 'Map', 'Marker click']);
