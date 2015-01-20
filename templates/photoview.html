@@ -47,27 +47,33 @@
                             {{ photo.source.description }}{% if photo.source_key %}{{ photo.source_key }}{% endif %}
                         </div>
                     {% endif %}
-                    <button class="btn btn-primary pull-right" id="ajapaik-photoview-map-button">{% trans "Map" %}</button>
-                    <span class="btn btn-success pull-right" id="ajapaik-photoview-add-rephoto-button">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        <span>{% trans "Add rephoto" %}</span>
-                    </span>
-                    <div class="dropdown">
-                        <button id="ajapaik-sharing-dropdown-button" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {% trans "Share" %}
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
-                            <li role="presentation" class="disabled-link">
-                                <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                    <input type="text" class="form-control" value="{{ hostname }}{{ photo.get_absolute_url }}">
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1" id="asdasdasd">
-                                    <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                </a>
-                            </li>
-                        </ul>
+                    <div class="row-fluid" style="margin-top: 10px;">
+                        <div class="col-xs-6" style="padding-left: 0;">
+                            <div class="dropdown">
+                                <button id="ajapaik-sharing-dropdown-button pull-left" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {% trans "Share" %}
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                                    <li role="presentation" class="disabled-link">
+                                        <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                            <input type="text" class="form-control" value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1">
+                                            <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-6" style="text-align: right;">
+                            <span class="btn btn-success" id="ajapaik-photoview-add-rephoto-button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>{% trans "Add rephoto" %}</span>
+                            </span>
+                            <button class="btn btn-primary" id="ajapaik-photoview-map-button">{% trans "Map" %}</button>
+                        </div>
                     </div>
                     {% include "_comments.html" %}
                 </div>
@@ -157,6 +163,13 @@
                 originalFullscreen.removeClass('ajapaik-photo-flipped');
             } else {
                 originalFullscreen.addClass('ajapaik-photo-flipped');
+            }
+        });
+        $('.full-box div').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                window.fullscreenEnabled = false;
+                BigScreen.exit();
             }
         });
         if (window.isMobile) {

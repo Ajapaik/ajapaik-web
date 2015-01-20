@@ -386,6 +386,7 @@
 
         $.jQee('up', function () {
             showDescriptions();
+            hideDescriptionButtons();
         });
 
         $.jQee('f', function () {
