@@ -503,8 +503,8 @@
                     markerIdToHighlightAfterPageLoad = false;
                 }
                 if (targetTopToScrollToAfterPaneLoad) {
-                    $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').animate({scrollTop: targetTopToScrollToAfterPaneLoad}, 800);
-                    targetTopToScrollToAfterPaneLoad = false;
+                    //$('#ajapaik-mapview-photo-panel').find('.jsPanel-content').animate({scrollTop: targetTopToScrollToAfterPaneLoad}, 800);
+                    //targetTopToScrollToAfterPaneLoad = false;
                 }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
