@@ -580,7 +580,9 @@
             console.log(targetPos);
             if (targetPos) {
                 targetTop = targetPos.top;
-                $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
+                setTimeout(function () {
+                    $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').scrollTop(targetTop);
+                }, 100);
             }
             _gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
