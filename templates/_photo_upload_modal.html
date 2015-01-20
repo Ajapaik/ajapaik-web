@@ -73,7 +73,8 @@
                         var dateParts = exif.DateTimeOriginal.split(' ')[0].split(':'),
                             timeParts = exif.DateTimeOriginal.split(' ')[1].split(':'),
                             dateTaken = new Date(dateParts[0] + '-' + dateParts[1] + '-' + dateParts[2] + ' ' + timeParts[0] + ':' + timeParts[1]);
-                        $('.ajapaik-fileupload-datepicker').datetimepicker().data("DateTimePicker").setDate(dateTaken);
+                        $('.ajapaik-fileupload-datepicker').datetimepicker();
+                        $('.ajapaik-fileupload-datepicker').data("DateTimePicker").setDate(dateTaken);
                         data.formData = dateTaken;
                     }
                 }
