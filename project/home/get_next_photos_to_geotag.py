@@ -4,7 +4,6 @@ from sorl.thumbnail import get_thumbnail
 from django.utils.translation import ugettext as _
 import random
 
-
 def calc_trustworthiness(user_id):
     total_tries = 0
     correct_tries = 0
@@ -17,13 +16,6 @@ def calc_trustworthiness(user_id):
         return 0
 
     return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
-
-
-def calculate_recent_activity_scores():
-    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
-    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
-    for each in recent_actions:
-        Profile.objects.filter(user_id=each['user_id']).update(score_recent_activity=each['total_points'])
 
 #
 # DEPRICATED see models.Photo
