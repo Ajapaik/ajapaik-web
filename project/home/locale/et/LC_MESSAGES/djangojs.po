@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 10:59+0200\n"
+"POT-Creation-Date: 2015-01-21 11:08+0200\n"
 "PO-Revision-Date: 2015-01-20 13:03+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
@@ -32,11 +32,11 @@ msgstr "Salvesta asukoht ja vaate suund"
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
-#: static/js/browse.js:291 static/js/game.js:219 static/js/grid.js:72
+#: static/js/browse.js:300 static/js/game.js:219 static/js/grid.js:72
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
-#: static/js/browse.js:682 static/js/game.js:477
+#: static/js/browse.js:699 static/js/game.js:478
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "

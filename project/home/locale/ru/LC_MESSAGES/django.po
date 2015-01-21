@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 10:59+0200\n"
+"POT-Creation-Date: 2015-01-21 11:07+0200\n"
 "PO-Revision-Date: 2014-05-18 09:36+0000\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Your points"
 msgstr "Твои очки"
 
-#: templates/_block_photoview.html:33 templates/_photo_modal.html:104
+#: templates/_block_photoview.html:33
 msgid "Close photo"
 msgstr "Закрыть фото"
 
@@ -106,18 +106,18 @@ msgstr "Закрыть фото"
 #: templates/_header_city_selection.html:5
 #: templates/_header_city_selection_game_scoreboard.html:5
 #: templates/_header_city_selection_rephoto_scoreboard.html:5
-#: templates/_photo_modal.html:145 templates/base.html:7
+#: templates/_photo_modal.html:173 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:48
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
 msgstr "Аяпаик (Ajapaik)"
 
-#: templates/_comments.html:7
+#: templates/_comments.html:8
 msgid "Original photo"
 msgstr ""
 
-#: templates/_comments.html:11
+#: templates/_comments.html:12
 #, fuzzy
 #| msgid "Next photo"
 msgid "Rephoto"
@@ -148,7 +148,7 @@ msgstr ""
 
 #: templates/_header_city_selection_game_scoreboard.html:27
 #: templates/_header_city_selection_rephoto_scoreboard.html:42
-#: templates/_photo_upload_modal.html:26
+#: templates/_photo_upload_modal.html:25
 msgid "Connect with Facebook"
 msgstr "Соединить с Facebook-ом."
 
@@ -168,42 +168,46 @@ msgstr "Сохранить расположение"
 msgid "Next photo"
 msgstr "Следующее фото"
 
-#: templates/_photo_modal.html:88 templates/photoview.html:66
+#: templates/_photo_modal.html:88 templates/photoview.html:89
 msgid "Rephotograph by"
 msgstr ""
 
-#: templates/_photo_modal.html:91 templates/photoview.html:70
+#: templates/_photo_modal.html:91 templates/photoview.html:93
 msgid "Date taken"
 msgstr ""
 
-#: templates/_photo_modal.html:101
+#: templates/_photo_modal.html:104 templates/photoview.html:54
+msgid "Share"
+msgstr ""
+
+#: templates/_photo_modal.html:119
 msgid "Discuss"
 msgstr ""
 
-#: templates/_photo_modal.html:102 templates/photoview.html:79
-#: templates/photoview.html.py:119
+#: templates/_photo_modal.html:122 templates/photoview.html:73
 msgid "Add rephoto"
 msgstr "Добавить новое фото"
 
-#: templates/_photo_modal.html:103
+#: templates/_photo_modal.html:123
 #, fuzzy
 #| msgid "Save location"
 msgid "Specify location"
 msgstr "Сохранить расположение"
 
-#: templates/_photo_upload_modal.html:10
-msgid "Taken"
-msgstr ""
+#: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:32
+#: templates/game.html:121 templates/mapview.html:50
+msgid "Close"
+msgstr "Закрыть"
 
-#: templates/_photo_upload_modal.html:14
+#: templates/_photo_upload_modal.html:13
 msgid "Select file..."
 msgstr ""
 
-#: templates/_photo_upload_modal.html:25
+#: templates/_photo_upload_modal.html:24
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
 
-#: templates/_photo_upload_modal.html:30
+#: templates/_photo_upload_modal.html:29
 #, fuzzy
 #| msgid ""
 #| "Make a contemporary rephoto from the very same place where the historic "
@@ -216,14 +220,9 @@ msgstr ""
 "Cделай как можно более похожую современную фотографию того же места и "
 "загрузи её."
 
-#: templates/_photo_upload_modal.html:31
+#: templates/_photo_upload_modal.html:30
 msgid "licence"
 msgstr ""
-
-#: templates/_photo_upload_modal.html:33 templates/game.html:121
-#: templates/mapview.html:50
-msgid "Close"
-msgstr "Закрыть"
 
 #: templates/_tutorial.html:7
 msgid ""
@@ -416,7 +415,7 @@ msgstr ""
 msgid "Place"
 msgstr ""
 
-#: templates/photoview.html:76 templates/photoview.html.py:116
+#: templates/photoview.html:75
 msgid "Map"
 msgstr ""
 

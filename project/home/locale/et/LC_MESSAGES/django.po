@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 10:59+0200\n"
+"POT-Creation-Date: 2015-01-21 11:07+0200\n"
 "PO-Revision-Date: 2015-01-20 13:02+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -100,7 +100,7 @@ msgstr "Tagasi"
 msgid "Your points"
 msgstr "Sinu punktid"
 
-#: templates/_block_photoview.html:33 templates/_photo_modal.html:104
+#: templates/_block_photoview.html:33
 msgid "Close photo"
 msgstr "Sulge foto"
 
@@ -108,18 +108,18 @@ msgstr "Sulge foto"
 #: templates/_header_city_selection.html:5
 #: templates/_header_city_selection_game_scoreboard.html:5
 #: templates/_header_city_selection_rephoto_scoreboard.html:5
-#: templates/_photo_modal.html:145 templates/base.html:7
+#: templates/_photo_modal.html:173 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:48
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
-#: templates/_comments.html:7
+#: templates/_comments.html:8
 msgid "Original photo"
 msgstr "Ajalooline foto"
 
-#: templates/_comments.html:11
+#: templates/_comments.html:12
 msgid "Rephoto"
 msgstr "Ülepildistus"
 
@@ -148,7 +148,7 @@ msgstr ""
 
 #: templates/_header_city_selection_game_scoreboard.html:27
 #: templates/_header_city_selection_rephoto_scoreboard.html:42
-#: templates/_photo_upload_modal.html:26
+#: templates/_photo_upload_modal.html:25
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
@@ -166,40 +166,44 @@ msgstr "Salvesta asukoht"
 msgid "Next photo"
 msgstr "Järgmine foto"
 
-#: templates/_photo_modal.html:88 templates/photoview.html:66
+#: templates/_photo_modal.html:88 templates/photoview.html:89
 msgid "Rephotograph by"
 msgstr "Ülepildistus:"
 
-#: templates/_photo_modal.html:91 templates/photoview.html:70
+#: templates/_photo_modal.html:91 templates/photoview.html:93
 msgid "Date taken"
 msgstr "Kuupäev"
 
-#: templates/_photo_modal.html:101
+#: templates/_photo_modal.html:104 templates/photoview.html:54
+msgid "Share"
+msgstr ""
+
+#: templates/_photo_modal.html:119
 msgid "Discuss"
 msgstr "Kommenteeri"
 
-#: templates/_photo_modal.html:102 templates/photoview.html:79
-#: templates/photoview.html.py:119
+#: templates/_photo_modal.html:122 templates/photoview.html:73
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
-#: templates/_photo_modal.html:103
+#: templates/_photo_modal.html:123
 msgid "Specify location"
 msgstr "Täpsusta asukohta"
 
-#: templates/_photo_upload_modal.html:10
-msgid "Taken"
-msgstr "Kuupäev"
+#: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:32
+#: templates/game.html:121 templates/mapview.html:50
+msgid "Close"
+msgstr "Sulge"
 
-#: templates/_photo_upload_modal.html:14
+#: templates/_photo_upload_modal.html:13
 msgid "Select file..."
 msgstr "Vali fail..."
 
-#: templates/_photo_upload_modal.html:25
+#: templates/_photo_upload_modal.html:24
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
 
-#: templates/_photo_upload_modal.html:30
+#: templates/_photo_upload_modal.html:29
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
 "picture was taken and upload it. Uploaded rephotograph will be attributed to "
@@ -208,14 +212,9 @@ msgstr ""
 "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
 "ajaloolise pildi kõrvale. Foto üleslaadimisega nõustud selle lubama"
 
-#: templates/_photo_upload_modal.html:31
+#: templates/_photo_upload_modal.html:30
 msgid "licence"
 msgstr "litsentsi alla"
-
-#: templates/_photo_upload_modal.html:33 templates/game.html:121
-#: templates/mapview.html:50
-msgid "Close"
-msgstr "Sulge"
 
 #: templates/_tutorial.html:7
 msgid ""
@@ -419,9 +418,12 @@ msgstr ""
 msgid "Place"
 msgstr ""
 
-#: templates/photoview.html:76 templates/photoview.html.py:116
+#: templates/photoview.html:75
 msgid "Map"
 msgstr "Kaart"
+
+#~ msgid "Taken"
+#~ msgstr "Kuupäev"
 
 #~ msgid "Skip"
 #~ msgstr "Jäta vahele"
@@ -453,16 +455,16 @@ msgstr "Kaart"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then "
-#~ "%(link_open)sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~ "sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then "
-#~| "%(link_open)sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
+#~| "sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -474,8 +476,8 @@ msgstr "Kaart"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then "
-#~| "%(link_open)sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~| "sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
