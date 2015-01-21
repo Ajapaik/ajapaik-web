@@ -22,8 +22,7 @@ def calc_trustworthiness(user_id):
 def calculate_recent_activity_scores():
     thousand_actions_ago = Points.objects.order_by('-created')[1000].created
     recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
-    print [i['user_id'] for i in recent_actions]
-
+    Profile.objects.filter(user_id__in=[i['user_id'] for i in recent_actions]).update(score_recent_activity=recent_actions[i]['total_points'])
 
 #
 # DEPRICATED see models.Photo
