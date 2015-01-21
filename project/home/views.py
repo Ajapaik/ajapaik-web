@@ -567,7 +567,7 @@ def geotag_add(request):
         elif flip == "false":
             flip_feedback.flip = False
         flip_feedback.save()
-
+    calculate_recent_activity_scores()
     return HttpResponse(json.dumps({
         'is_correct': location_correct,
         'location_is_unclear': location_uncertain,
