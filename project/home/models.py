@@ -27,10 +27,9 @@ from django.contrib.gis.geos import Point
 import math
 import datetime
 
+from get_next_photos_to_geotag import calculate_recent_activity_scores
+
 # Create profile automatically
-from project.home.get_next_photos_to_geotag import calculate_recent_activity_scores
-
-
 def user_post_save(sender, instance, **kwargs):
     profile, new = Profile.objects.get_or_create(user=instance)
 
