@@ -11,7 +11,7 @@
                         <span class="btn btn-success fileinput-button">
                             <i class="glyphicon glyphicon-plus"></i>
                             <span>{% trans "Select file..." %}</span>
-                            <input id="ajapaik-fileupload" type="file" name="user_file[]">
+                            <input id="ajapaik-fileupload" type="file" name="user_file">
                         </span>
                         <p></p>
                         <div id="progress" class="progress">
@@ -51,8 +51,7 @@
                     $this.remove();
                 });
             }),
-            datetimePicker = $('<p/>').addClass('ajapaik-fileupload-datepicker-container')
-                    .html(window.gettext('Taken') + ': ' + '<input type="text" class="ajapaik-fileupload-datepicker" data-date-format="DD.MM.YYYY HH:mm">');
+            datetimePicker = $('<p/>').addClass('ajapaik-fileupload-datepicker-container').html(window.gettext('Taken') + ': ' + '<input type="text" class="ajapaik-fileupload-datepicker" data-date-format="DD.MM.YYYY HH:mm">');
         $('#ajapaik-fileupload').fileupload({
             url: url,
             dataType: 'json',
@@ -73,24 +72,19 @@
                         var dateParts = exif.DateTimeOriginal.split(' ')[0].split(':'),
                             timeParts = exif.DateTimeOriginal.split(' ')[1].split(':'),
                             dateTaken = new Date(dateParts[0] + '-' + dateParts[1] + '-' + dateParts[2] + ' ' + timeParts[0] + ':' + timeParts[1]);
-                        $('.ajapaik-fileupload-datepicker').datetimepicker().data("DateTimePicker").setDate(dateTaken);
-                        data.formData = dateTaken;
+                        $('.ajapaik-fileupload-datepicker').data("DateTimePicker").setDate(dateTaken);
                     }
-                } else {
-                    $('.ajapaik-fileupload-datepicker').datetimepicker();
                 }
             });
-            $.each(data.files, function (index, file) {
-                var node = $('<p/>').append($('<span/>').text(file.name));
-                if (!index) {
-                    node.append('<br>').append(datetimePicker.clone(true));
-                    node.append(uploadButton.clone(true).data(data));
-                }
-                data.context.html(node);
-            });
+            var node = $('<p/>').append($('<span/>').text(data.files[0].name));
+            if (!index) {
+                node.append('<br>').append(datetimePicker.clone(true).datetimepicker());
+                node.append(uploadButton.clone(true).data(data));
+            }
+            data.context.html(node);
         }).on('fileuploadprocessalways', function (e, data) {
             var index = data.index,
-                file = data.files[index],
+                file = data.file,
                 node = $(data.context.children()[index]);
             if (file.preview) {
                 node.prepend('<br>').prepend(file.preview);
@@ -114,7 +108,7 @@
         }).on('fileuploadsubmit', function (e, data) {
             data.formData = {
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                dateTaken: $('#ajapaik-fileupload-datepicker').val()
+                dateTaken: $('.ajapaik-fileupload-datepicker').val()
             };
         }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
     });

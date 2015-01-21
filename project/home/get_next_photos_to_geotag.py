@@ -19,6 +19,12 @@ def calc_trustworthiness(user_id):
     return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
 
 
+def calculate_recent_activity_scores():
+    recent_actions = Points.objects.order_by('-created')[:10]
+    for action in recent_actions:
+        print action.created
+
+
 #
 # DEPRICATED see models.Photo
 #
@@ -131,7 +137,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
             if hint_used:
                 this_guess_score *= 0.75
         else:
-            this_guess_score = trustworthiness * 100
+            this_guess_score = int(trustworthiness * 100)
 
 
         new_geotag = GeoTag(user=user, photo_id=p.id, type=type,
@@ -168,6 +174,8 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
         if new_geotag.azimuth_score:
             new_geotag.score += new_geotag.azimuth_score
         new_geotag.save()
+        new_action = Points(user=user, action=Points.GEOTAG, action_reference=new_geotag.id, points=new_geotag.score, created=datetime.datetime.now())
+        new_action.save()
     else:
         Skip(user=user, photo_id=p.id).save()
 

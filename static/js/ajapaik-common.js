@@ -716,34 +716,36 @@ var map,
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
-        var t = $(this);
-        window.centerMarker = $('.center-marker');
-        if (t.hasClass('active')) {
-            t.removeClass('active');
-            window.centerMarker.show();
-            window.marker.setVisible(false);
-            window.marker.set('draggable', false);
-            window.map.set('scrollwheel', false);
-            window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
-            window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
-            window.google.maps.event.removeListener(mapMarkerDragListener);
-            window.google.maps.event.removeListener(mapMarkerDragendListener);
-            window.azimuthListenerActive = false;
-            window.map.setCenter(window.marker.position);
-            window.setCursorToPanorama();
-            window.markerLocked = true;
-        } else {
-            t.addClass('active');
-            window.centerMarker.hide();
-            window.marker.setVisible(true);
-            window.marker.set('draggable', true);
-            window.map.set('scrollwheel', true);
-            window.realMapElement.removeEventListener('mousewheel', window.wheelEventNonFF, true);
-            window.realMapElement.removeEventListener('DOMMouseScroll', window.wheelEventFF, true);
-            mapMarkerDragListener = window.google.maps.event.addListener(window.marker, 'drag', window.mapMarkerDragListenerFunction);
-            mapMarkerDragendListener = window.google.maps.event.addListener(window.marker, 'dragend', window.mapMarkerDragendListenerFunction);
-            window.setCursorToAuto();
-            window.markerLocked = false;
+        if (firstDragDone) {
+            var t = $(this);
+            window.centerMarker = $('.center-marker');
+            if (t.hasClass('active')) {
+                t.removeClass('active');
+                window.centerMarker.show();
+                window.marker.setVisible(false);
+                window.marker.set('draggable', false);
+                window.map.set('scrollwheel', false);
+                window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+                window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
+                window.google.maps.event.removeListener(mapMarkerDragListener);
+                window.google.maps.event.removeListener(mapMarkerDragendListener);
+                window.azimuthListenerActive = false;
+                window.map.setCenter(window.marker.position);
+                window.setCursorToPanorama();
+                window.markerLocked = true;
+            } else {
+                t.addClass('active');
+                window.centerMarker.hide();
+                window.marker.setVisible(true);
+                window.marker.set('draggable', true);
+                window.map.set('scrollwheel', true);
+                window.realMapElement.removeEventListener('mousewheel', window.wheelEventNonFF, true);
+                window.realMapElement.removeEventListener('DOMMouseScroll', window.wheelEventFF, true);
+                mapMarkerDragListener = window.google.maps.event.addListener(window.marker, 'drag', window.mapMarkerDragListenerFunction);
+                mapMarkerDragendListener = window.google.maps.event.addListener(window.marker, 'dragend', window.mapMarkerDragendListenerFunction);
+                window.setCursorToAuto();
+                window.markerLocked = false;
+            }
         }
     });
 

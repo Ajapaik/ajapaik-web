@@ -515,10 +515,13 @@ class Photo(models.Model):
                     self.geography = Point(self.lat, self.lon)
                     if unique_azimuth_correct_ratio > 0.63:
                         self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
-                        self.azimuth_confidence = unique_azimuth_correct_ratio * min(1,
-                                                                                     azimuth_correct_guesses_weight / 2)
+                        self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
                     self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
 
+def save_photo_activity(sender, instance, created, **kwargs):
+    print "post save photo"
+
+models.signals.post_save.connect(save_photo_activity, sender=Photo, dispatch_uid="some.unique.string.id")
 
 class DifficultyFeedback(models.Model):
     photo = models.ForeignKey('Photo')
@@ -752,14 +755,9 @@ class Profile(models.Model):
         return True
 
     def set_calculated_fields(self):
-        last_1000_geotag_ids = GeoTag.objects.order_by("-created")[:1000].values_list("id", flat=True)
-        last_1000_score = 0
         all_time_score = 0
         for g in self.geotags.all():
             all_time_score += g.score
-            if g.id in last_1000_geotag_ids:
-                last_1000_score += g.score
-        self.score_last_1000_geotags = last_1000_score
         self.score = all_time_score + self.score_rephoto
 
     def __unicode__(self):
