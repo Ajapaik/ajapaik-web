@@ -21,13 +21,13 @@ from django.core.urlresolvers import reverse
 
 from oauth2client.django_orm import FlowField
 
+from get_next_photos_to_geotag import calculate_recent_activity_scores
+
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point
 
 import math
 import datetime
-
-from get_next_photos_to_geotag import calculate_recent_activity_scores
 
 # Create profile automatically
 def user_post_save(sender, instance, **kwargs):
@@ -765,9 +765,8 @@ class Profile(models.Model):
         return True
 
     def set_calculated_fields(self):
-        from get_next_photos_to_geotag import calculate_recent_activity_scores
-
         calculate_recent_activity_scores()
+
         all_time_score = 0
         for g in self.geotags.all():
             all_time_score += g.score
