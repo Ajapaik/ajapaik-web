@@ -21,7 +21,7 @@ from django.core.urlresolvers import reverse
 
 from oauth2client.django_orm import FlowField
 
-from get_next_photos_to_geotag import calculate_recent_activity_scores
+#from get_next_photos_to_geotag import calculate_recent_activity_scores
 
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point
