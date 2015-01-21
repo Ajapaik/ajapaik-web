@@ -553,6 +553,23 @@ class UserMapView(models.Model):
         app_label = "project"
 
 
+class Points(models.Model):
+    GEOTAG, REPHOTO = range(2)
+    ACTION_CHOICES = (
+        (GEOTAG, 'Geotag'),
+        (REPHOTO, 'Rephoto')
+    )
+
+    user = models.ForeignKey('Profile', related_name='points')
+    action = models.PositiveSmallIntegerField(choices=ACTION_CHOICES)
+    action_reference = models.PositiveIntegerField()
+    points = models.PositiveSmallIntegerField(null=True, blank=True)
+    created = models.DateTimeField(db_index=True)
+
+    class Meta:
+        app_label = "project"
+
+
 class GeoTag(models.Model):
     MAP, EXIF, GPS = range(3)
     TYPE_CHOICES = (
@@ -664,38 +681,6 @@ class Profile(models.Model):
     def id(self):
         return self.user_id
 
-    def update_rephoto_score(self):
-        photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
-        original_photos = Photo.objects.filter(id__in=photo_ids_rephotographed_by_this_user)
-
-        user_rephoto_score = 0
-
-        for p in original_photos:
-            oldest_rephoto = None
-            oldest_rephoto_by_user = None
-            user_rephoto_count_for_this_photo = 0
-            for rp in p.rephotos.all():
-                if rp.user and rp.user.id == self.user.id:
-                    user_rephoto_count_for_this_photo += 1
-                    if not oldest_rephoto_by_user or rp.created < oldest_rephoto_by_user.created:
-                        oldest_rephoto_by_user = rp
-                if not oldest_rephoto or rp.created < oldest_rephoto.created:
-                    oldest_rephoto = rp
-            if oldest_rephoto.user and oldest_rephoto.user.id == self.user.id:
-                # This user made the oldest rephoto, award 1250 points and 250 for any other she's made
-                user_rephoto_score += 1250
-            else:
-                # This user did not make the first rephoto, award 1000 points and 250 for the rest
-                user_rephoto_score += 1000
-            # Don't double count
-            user_rephoto_count_for_this_photo -= 1
-            if user_rephoto_count_for_this_photo > 0:
-                user_rephoto_score += 250 * user_rephoto_count_for_this_photo
-
-        self.score_rephoto = user_rephoto_score
-        self.save()
-        return True
-
     def update_from_fb_data(self, token, data):
         self.user.first_name = data.get("first_name")
         self.user.last_name = data.get("last_name")
@@ -734,14 +719,48 @@ class Profile(models.Model):
         other.skips.update(user=self)
         other.geotags.update(user=self)
 
+    def update_rephoto_score(self):
+        photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+        original_photos = Photo.objects.filter(id__in=photo_ids_rephotographed_by_this_user)
+
+        user_rephoto_score = 0
+
+        for p in original_photos:
+            oldest_rephoto = None
+            oldest_rephoto_by_user = None
+            user_rephoto_count_for_this_photo = 0
+            for rp in p.rephotos.all():
+                if rp.user and rp.user.id == self.user.id:
+                    user_rephoto_count_for_this_photo += 1
+                    if not oldest_rephoto_by_user or rp.created < oldest_rephoto_by_user.created:
+                        oldest_rephoto_by_user = rp
+                if not oldest_rephoto or rp.created < oldest_rephoto.created:
+                    oldest_rephoto = rp
+            if oldest_rephoto.user and oldest_rephoto.user.id == self.user.id:
+                # This user made the oldest rephoto, award 1250 points and 250 for any other she's made
+                user_rephoto_score += 1250
+            else:
+                # This user did not make the first rephoto, award 1000 points and 250 for the rest
+                user_rephoto_score += 1000
+            # Don't double count
+            user_rephoto_count_for_this_photo -= 1
+            if user_rephoto_count_for_this_photo > 0:
+                user_rephoto_score += 250 * user_rephoto_count_for_this_photo
+
+        self.score_rephoto = user_rephoto_score
+        self.save()
+        return True
+
     def set_calculated_fields(self):
         last_1000_geotag_ids = GeoTag.objects.order_by("-created")[:1000].values_list("id", flat=True)
-        score = 0
+        last_1000_score = 0
+        all_time_score = 0
         for g in self.geotags.all():
+            all_time_score += g.score
             if g.id in last_1000_geotag_ids:
-                score += g.score
-        self.score_last_1000_geotags = score
-        self.score = self.geotags.aggregate(total_score=models.Sum('score'))['total_score'] or 0
+                last_1000_score += g.score
+        self.score_last_1000_geotags = last_1000_score
+        self.score = all_time_score + self.score_rephoto
 
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
