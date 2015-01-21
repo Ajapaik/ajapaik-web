@@ -21,7 +21,7 @@ from django.core.urlresolvers import reverse
 
 from oauth2client.django_orm import FlowField
 
-#from get_next_photos_to_geotag import calculate_recent_activity_scores
+from project.home.get_next_photos_to_geotag import calculate_recent_activity_scores
 
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point
@@ -720,7 +720,7 @@ class Profile(models.Model):
         other.geotags.update(user=self)
 
     def update_rephoto_score(self):
-        #calculate_recent_activity_scores()
+        calculate_recent_activity_scores()
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
         original_photos = Photo.objects.filter(id__in=photo_ids_rephotographed_by_this_user)
 
@@ -765,7 +765,7 @@ class Profile(models.Model):
         return True
 
     def set_calculated_fields(self):
-        #calculate_recent_activity_scores()
+        calculate_recent_activity_scores()
 
         all_time_score = 0
         for g in self.geotags.all():
