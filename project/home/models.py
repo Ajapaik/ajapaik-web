@@ -28,6 +28,9 @@ import math
 import datetime
 
 # Create profile automatically
+from project.home.get_next_photos_to_geotag import calculate_recent_activity_scores
+
+
 def user_post_save(sender, instance, **kwargs):
     profile, new = Profile.objects.get_or_create(user=instance)
 
@@ -718,6 +721,7 @@ class Profile(models.Model):
         other.geotags.update(user=self)
 
     def update_rephoto_score(self):
+        calculate_recent_activity_scores()
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
         original_photos = Photo.objects.filter(id__in=photo_ids_rephotographed_by_this_user)
 
