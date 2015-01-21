@@ -7,7 +7,18 @@
                 {% if request.user.is_authenticated and request.user.profile.fb_id %}
                     {% with profile=request.user.profile user=request.user %}
                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
-                        <div id="files" class="files"></div>
+                        <div id="files" class="files">
+                            <p>
+                                <span id="ajapaik-file-upload-file-preview"></span>
+                                <br/>
+                                <span id="ajapaik-file-upload-file-name">Name</span>
+                                <br/>
+                                <p class="ajapaik-fileupload-datepicker-container">
+                                    {% trans "Taken" %}: <input type="text" id="ajapaik-fileupload-datepicker" data-date-format="DD.MM.YYYY HH:mm">
+                                </p>
+                                <button class="btn btn-primary ajapaik-upload-photo-button" id="ajapaik-upload-photo-button" disabled="disabled">{% trans "Upload" %}</button>
+                            </p>
+                        </div>
                         <span class="btn btn-success fileinput-button">
                             <i class="glyphicon glyphicon-plus"></i>
                             <span>{% trans "Select file..." %}</span>
@@ -39,19 +50,20 @@
     /*global window, $ */
     $(function () {
         'use strict';
-        var url = '{% url 'project.home.views.photo_upload' photo.pk %}',
-            uploadButton = $('<button/>').addClass('btn btn-primary ajapaik-upload-photo-button').prop('disabled', true).text(window.gettext('Processing...')).on('click', function () {
-                var $this = $(this),
-                    data = $this.data();
-                $this.off('click').text(window.gettext('Abort')).on('click', function () {
-                    $this.remove();
-                    data.abort();
-                });
-                data.submit().always(function () {
-                    $this.remove();
-                });
-            }),
-            datetimePicker = $('<p/>').addClass('ajapaik-fileupload-datepicker-container').html(window.gettext('Taken') + ': ' + '<input type="text" class="ajapaik-fileupload-datepicker" data-date-format="DD.MM.YYYY HH:mm">');
+        var url = '{% url 'project.home.views.photo_upload' photo.pk %}';
+        $('#ajapaik-fileupload-datepicker').datetimepicker();
+        $('#ajapaik-upload-photo-button').on('click', function () {
+            var $this = $(this),
+                data = $this.data();
+            $this.off('click').text(window.gettext('Abort')).on('click', function () {
+                $this.remove();
+                data.abort();
+            });
+            data.submit().always(function () {
+                //$this.remove();
+                $this.hide();
+            });
+        });
         $('#ajapaik-fileupload').fileupload({
             url: url,
             dataType: 'json',
@@ -60,7 +72,8 @@
             maxFileSize: 15000000,
             disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
             previewMaxWidth: 200,
-            previewMaxHeight: 100
+            previewMaxHeight: 100,
+            maxNumberOfFiles: 1
         }).on('fileuploadadd', function (e, data) {
             data.context = $('#files');
             $('.ajapaik-fileupload-datepicker-container').show();
@@ -72,29 +85,21 @@
                         var dateParts = exif.DateTimeOriginal.split(' ')[0].split(':'),
                             timeParts = exif.DateTimeOriginal.split(' ')[1].split(':'),
                             dateTaken = new Date(dateParts[0] + '-' + dateParts[1] + '-' + dateParts[2] + ' ' + timeParts[0] + ':' + timeParts[1]);
-                        $('.ajapaik-fileupload-datepicker').data("DateTimePicker").setDate(dateTaken);
+                        $('#ajapaik-fileupload-datepicker').data("DateTimePicker").setDate(dateTaken);
                     }
                 }
             });
-            var node = $('<p/>').append($('<span/>').text(data.files[0].name));
-            if (!index) {
-                node.append('<br>').append(datetimePicker.clone(true).datetimepicker());
-                node.append(uploadButton.clone(true).data(data));
-            }
-            data.context.html(node);
+            $('#ajapaik-file-upload-file-name').html(data.files[0].name);
+            $('#ajapaik-upload-photo-button').data(data);
         }).on('fileuploadprocessalways', function (e, data) {
-            var index = data.index,
-                file = data.file,
-                node = $(data.context.children()[index]);
+            var file = data.files[0];
             if (file.preview) {
-                node.prepend('<br>').prepend(file.preview);
+                $('#ajapaik-file-upload-file-preview').html(file.preview);
             }
             if (file.error) {
-                node.append('<br>').append($('<span class="text-danger"/>').text(file.error));
+                $('#ajapaik-file-upload-file-preview').html($('<span class="text-danger"/>').text(file.error));
             }
-            if (index + 1 === data.files.length) {
-                data.context.find('button').text(window.gettext('Upload')).prop('disabled', !!data.files.error);
-            }
+            data.context.find('button').text(window.gettext('Upload')).prop('disabled', !!data.files.error);
         }).on('fileuploadprogressall', function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#progress .progress-bar').css('width', progress + '%');
@@ -108,7 +113,7 @@
         }).on('fileuploadsubmit', function (e, data) {
             data.formData = {
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                dateTaken: $('.ajapaik-fileupload-datepicker').val()
+                dateTaken: $('#ajapaik-fileupload-datepicker').val()
             };
         }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
     });

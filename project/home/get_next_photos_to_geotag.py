@@ -20,9 +20,9 @@ def calc_trustworthiness(user_id):
 
 
 def calculate_recent_activity_scores():
-    recent_actions = Points.objects.order_by('-created')[:10]
-    for action in recent_actions:
-        print action.created
+    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
+    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
+    print [i['user_id'] for i in recent_actions]
 
 
 #
@@ -268,10 +268,10 @@ def get_all_geotag_submits(photo_id=None):
 
 def get_leaderboard(user_id):
     scores_list = list(enumerate(Profile.objects.filter(
-        Q(fb_name__isnull=False, score_last_1000_geotags__gt=0) | Q(google_plus_name__isnull=False,
-                                                                    score_last_1000_geotags__gt=0) | Q(
-            pk=user_id)).values_list('pk', 'score_last_1000_geotags', 'fb_id', 'fb_name', 'google_plus_name',
-                                     'google_plus_picture').order_by('-score_last_1000_geotags')))
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False,
+                                                                    score_recent_activity__gt=0) | Q(
+            pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name', 'google_plus_name',
+                                     'google_plus_picture').order_by('-score_recent_activity')))
     leaderboard = [scores_list[0]]
     self_user_idx = filter(lambda (idx, data): data[0] == user_id, scores_list)[0][0]
     if self_user_idx - 1 > 0:
@@ -288,11 +288,11 @@ def get_leaderboard(user_id):
 
 def get_leaderboard50(user_id):
     scores_list = list(enumerate(Profile.objects.filter(
-        Q(fb_name__isnull=False, score_last_1000_geotags__gt=0) | Q(google_plus_name__isnull=False,
-                                                                    score_last_1000_geotags__gt=0) | Q(pk=user_id)). \
-                                     values_list('pk', 'score_last_1000_geotags', 'fb_id', 'fb_name',
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False,
+                                                                    score_recent_activity__gt=0) | Q(pk=user_id)). \
+                                     values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
                                                  'google_plus_name', 'google_plus_picture'). \
-                                     order_by('-score_last_1000_geotags')))
+                                     order_by('-score_recent_activity')))
     leaderboard = scores_list[:50]
     self_user_idx = filter(lambda (idx, data): data[0] == user_id,
                            scores_list)[0][0]

@@ -518,11 +518,6 @@ class Photo(models.Model):
                         self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
                     self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
 
-def save_photo_activity(sender, instance, created, **kwargs):
-    print "post save photo"
-
-models.signals.post_save.connect(save_photo_activity, sender=Photo, dispatch_uid="some.unique.string.id")
-
 class DifficultyFeedback(models.Model):
     photo = models.ForeignKey('Photo')
     user_profile = models.ForeignKey('Profile')
@@ -675,7 +670,7 @@ class Profile(models.Model):
 
     score = models.PositiveIntegerField(default=0)
     score_rephoto = models.PositiveIntegerField(default=0)
-    score_last_1000_geotags = models.PositiveIntegerField(default=0)
+    score_recent_activity = models.PositiveIntegerField(default=0)
 
     class Meta:
         app_label = "project"
@@ -730,31 +725,46 @@ class Profile(models.Model):
 
         for p in original_photos:
             oldest_rephoto = None
-            oldest_rephoto_by_user = None
-            user_rephoto_count_for_this_photo = 0
+            rephotos_by_this_user = []
             for rp in p.rephotos.all():
                 if rp.user and rp.user.id == self.user.id:
-                    user_rephoto_count_for_this_photo += 1
-                    if not oldest_rephoto_by_user or rp.created < oldest_rephoto_by_user.created:
-                        oldest_rephoto_by_user = rp
+                    rephotos_by_this_user.append(rp)
                 if not oldest_rephoto or rp.created < oldest_rephoto.created:
                     oldest_rephoto = rp
-            if oldest_rephoto.user and oldest_rephoto.user.id == self.user.id:
-                # This user made the oldest rephoto, award 1250 points and 250 for any other she's made
+            oldest_rephoto_is_from_this_user = oldest_rephoto.user == self.user
+            user_first_bonus_earned = False
+            if oldest_rephoto_is_from_this_user:
+                user_first_bonus_earned = True
                 user_rephoto_score += 1250
-            else:
-                # This user did not make the first rephoto, award 1000 points and 250 for the rest
-                user_rephoto_score += 1000
-            # Don't double count
-            user_rephoto_count_for_this_photo -= 1
-            if user_rephoto_count_for_this_photo > 0:
-                user_rephoto_score += 250 * user_rephoto_count_for_this_photo
+                try:
+                    existing_record = Points.objects.filter(action_reference=oldest_rephoto.id)
+                except ObjectDoesNotExist:
+                    new_record = Points(user=oldest_rephoto.user, action=Points.REPHOTO, action_reference=oldest_rephoto.id, points=1250, created=oldest_rephoto.created)
+                    new_record.save()
+            for rp in rephotos_by_this_user:
+                current_score = 250
+                if rp.id == oldest_rephoto.id:
+                    continue
+                else:
+                    if not user_first_bonus_earned:
+                        current_score = 1000
+                        user_first_bonus_earned = True
+                    # Check that we have a record in the scoring table
+                    try:
+                        existing_record = Points.objects.filter(action_reference=rp.id)
+                    except ObjectDoesNotExist:
+                        new_record = Points(user=rp.user, action=Points.REPHOTO, action_reference=rp.id, points=current_score, created=rp.created)
+                        new_record.save()
+                user_rephoto_score += current_score
 
         self.score_rephoto = user_rephoto_score
         self.save()
         return True
 
     def set_calculated_fields(self):
+        from get_next_photos_to_geotag import calculate_recent_activity_scores
+
+        calculate_recent_activity_scores()
         all_time_score = 0
         for g in self.geotags.all():
             all_time_score += g.score
