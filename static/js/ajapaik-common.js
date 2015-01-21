@@ -335,14 +335,14 @@ var map,
         var scoreContainer = $('#ajapaik-header').find('.score_container');
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
         scoreContainer.find('#facebook-connect').slideDown();
-        //scoreContainer.find('#google-plus-connect').slideDown();
+        scoreContainer.find('#google-plus-connect').slideDown();
     };
 
     hideScoreboard = function () {
         var scoreContainer = $('#ajapaik-header').find('.score_container');
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
         scoreContainer.find('#facebook-connect').slideUp();
-        //scoreContainer.find('#google-plus-connect').slideUp();
+        scoreContainer.find('#google-plus-connect').slideUp();
     };
 
     updateLeaderboard = function () {

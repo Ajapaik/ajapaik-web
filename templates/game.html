@@ -22,7 +22,7 @@
                 </div>
                 <div class="modal-footer">
                     {% if LANGUAGE_CODE == 'et' %}
-                        <div class="row ajapaik-photo-modal-row">
+                        <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row">
                             <div id="ajapaik-game-photo-description" class="pull-left"></div>
                         </div>
                     {% endif %}
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div id="ajapaik-game-feedback-js-panel-content" style="display: none;">
-        <h2>{% trans "Thank you!" %}</h2>
+        <h3>{% trans "Thank you!" %}</h3>
         <p id="ajapaik-game-guess-feedback-message"></p>
         <p id="ajapaik-game-guess-feedback-points-gained"></p>
         <p id="ajapaik-game-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">

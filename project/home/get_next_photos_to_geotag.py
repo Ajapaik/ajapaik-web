@@ -165,6 +165,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, type=GeoTag.MAP, hint_used=
 
         if new_geotag.azimuth_score:
             new_geotag.score += new_geotag.azimuth_score
+        this_guess_score = new_geotag.score
         new_geotag.save()
         new_action = Points(user=user, action=Points.GEOTAG, action_reference=new_geotag.id, points=new_geotag.score, created=datetime.datetime.now())
         new_action.save()
