@@ -53,18 +53,6 @@ def _make_fullscreen(photo):
 models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 
-def calculate_recent_activity_scores():
-    print "CALCULATING RECENT SCORES"
-    print datetime.datetime.now()
-    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
-    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
-    for each in recent_actions:
-        profile = Profile.objects.filter(user_id=each['user_id'])[:1].get()
-        profile.score_recent_activity = each['total_points']
-        profile.save()
-    print "DONE"
-    print datetime.datetime.now()
-
 class City(models.Model):
     name = models.TextField()
     lat = models.FloatField(null=True)
@@ -730,7 +718,6 @@ class Profile(models.Model):
         other.geotags.update(user=self)
 
     def update_rephoto_score(self):
-        calculate_recent_activity_scores()
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
         original_photos = Photo.objects.filter(id__in=photo_ids_rephotographed_by_this_user)
 
@@ -775,8 +762,6 @@ class Profile(models.Model):
         return True
 
     def set_calculated_fields(self):
-        calculate_recent_activity_scores()
-
         all_time_score = 0
         for g in self.geotags.all():
             all_time_score += g.score

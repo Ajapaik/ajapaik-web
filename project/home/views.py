@@ -1,6 +1,7 @@
 # encoding: utf-8
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.urlresolvers import reverse
+from django.db.models import Sum
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -534,6 +535,14 @@ def get_leaderboard(request):
         get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)),
                         content_type="application/json")
 
+def calculate_recent_activity_scores():
+    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
+    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
+    for each in recent_actions:
+        profile = Profile.objects.filter(user_id=each['user_id'])[:1].get()
+        profile.score_recent_activity = each['total_points']
+        profile.save()
+
 
 def geotag_add(request):
     data = request.POST
@@ -558,6 +567,7 @@ def geotag_add(request):
         elif flip == "false":
             flip_feedback.flip = False
         flip_feedback.save()
+
     return HttpResponse(json.dumps({
         'is_correct': location_correct,
         'location_is_unclear': location_uncertain,
