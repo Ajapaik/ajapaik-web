@@ -98,7 +98,7 @@
             },
             resizable: {
                 maxWidth: maxGalleryWidth,
-                maxHeight: maxGalleryHeight
+                maxHeight: maxGalleryHeight - 100
             },
             size: {
                 width: function () {
@@ -182,7 +182,7 @@
             }
             guessLocationStarted = true;
             window.dottedAzimuthLine.setVisible(false);
-            $('.ajapaik-marker-center-lock-button').show();
+            //$('.ajapaik-marker-center-lock-button').show();
             window.google.maps.event.trigger(window.map, 'resize');
             window.map.set('scrollwheel', false);
             nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, false);
@@ -222,6 +222,7 @@
             }
             window.mapDragListener = window.google.maps.event.addListener(window.map, 'drag', function () {
                 window.firstDragDone = true;
+                $('.ajapaik-marker-center-lock-button').show();
             });
             window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
                 window.disableSave = false;
@@ -693,6 +694,7 @@
 
         window.saveLocationButton.on('click', function () {
             window.firstDragDone = false;
+            $('.ajapaik-marker-center-lock-button').hide();
             window.setCursorToAuto();
             if (window.disableSave) {
                 window._gaq.push(['_trackEvent', 'Mapview', 'Forgot to move marker']);

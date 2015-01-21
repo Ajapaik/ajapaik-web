@@ -84,6 +84,7 @@
         window.mapDragendListenerActive = true;
         window.google.maps.event.addListener(window.map, 'drag', function () {
             window.firstDragDone = true;
+            $('.ajapaik-marker-center-lock-button').show();
             window.setCursorToPanorama();
         });
         window.mapDragListenerActive = true;
@@ -114,6 +115,7 @@
         window.disableSave = true;
         window.guessResponseReceived = false;
         window.firstDragDone = false;
+        $('.ajapaik-marker-center-lock-button').hide();
         if (window.panoramaMarker) {
             window.panoramaMarker.setMap(null);
         }
@@ -335,6 +337,7 @@
         window.mapDragListenerActive = true;
         window.mapDragListener = window.google.maps.event.addListener(window.map, 'drag', function () {
             window.firstDragDone = true;
+            $('.ajapaik-marker-center-lock-button').show();
             window.setCursorToPanorama();
         });
         window.mapDragendListener = window.google.maps.event.addListener(window.map, 'dragend', window.mapDragendListenerFunction);
