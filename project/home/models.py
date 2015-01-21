@@ -2,7 +2,7 @@ from PIL import Image
 from django.core.files import File
 from django.contrib.gis.db import models
 from django.db import connection
-from django.db.models import Count
+from django.db.models import Count, Sum
 
 from django.contrib.auth.models import User as BaseUser
 from django.contrib.contenttypes.models import ContentType
@@ -20,8 +20,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 
 from oauth2client.django_orm import FlowField
-
-from global_stuff import calculate_recent_activity_scores
 
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point
@@ -53,6 +51,13 @@ def _make_fullscreen(photo):
             'size': [image.width, image.height]}
 
 models.signals.post_save.connect(user_post_save, sender=BaseUser)
+
+
+def calculate_recent_activity_scores():
+    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
+    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
+    for each in recent_actions:
+        Profile.objects.filter(user_id=each['user_id']).update(score_recent_activity=each['total_points'])
 
 
 class City(models.Model):
