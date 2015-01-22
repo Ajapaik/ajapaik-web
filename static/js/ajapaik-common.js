@@ -1,5 +1,3 @@
-// TODO: Remove debug stuff prelive
-
 var map,
     disableSave = true,
     streetPanorama,
@@ -446,7 +444,6 @@ var map,
 
     // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
     wheelEventFF = function (e) {
-        console.log("wheel event FF");
         now = new Date().getTime();
         if (!lastTriggeredWheeling) {
             lastTriggeredWheeling = now - 250;
@@ -464,7 +461,6 @@ var map,
     };
 
     wheelEventNonFF = function (e) {
-        console.log("wheel event non FF");
         now = new Date().getTime();
         if (!lastTriggeredWheeling) {
             lastTriggeredWheeling = now - 100;
@@ -482,9 +478,7 @@ var map,
     };
 
     windowResizeListenerFunction = function () {
-        console.log("resize");
         if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
-            console.log("resize allowed");
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
             mapMousemoveListenerActive = true;
             dottedAzimuthLine.setVisible(false);
@@ -495,7 +489,6 @@ var map,
     };
 
     mapMousemoveListenerFunction = function (e) {
-        console.log("mousemove");
         // The mouse is moving, therefore we haven't locked on a direction
         saveDirection = false;
         if (!disableSave) {
@@ -527,7 +520,6 @@ var map,
     };
 
     mapClickListenerFunction = function (e) {
-        console.log("click");
         if (infoWindow !== undefined) {
             centerMarker.show();
             infoWindow.close();
@@ -573,10 +565,6 @@ var map,
                 position: e.latLng,
                 icon: markerImage
             });
-            // TODO: What was this about? : )
-            //mapBoundsChangedListener = window.google.maps.event.addListener(map, 'bounds_changed', function () {
-            //
-            //});
             setCursorToAuto();
         } else {
             if (!mapMousemoveListenerActive) {
@@ -589,10 +577,8 @@ var map,
     };
 
     mapIdleListenerFunction = function () {
-        console.log("idle");
         if (firstDragDone) {
             if (markerLocked) {
-                console.log("set center");
                 azimuthListenerActive = true;
                 marker.setPosition(map.getCenter());
             }
@@ -604,7 +590,6 @@ var map,
     };
 
     mapDragstartListenerFunction = function () {
-        console.log("dragstart");
         if (markerLocked) {
             centerMarker = $('.center-marker');
             saveDirection = false;
@@ -632,14 +617,12 @@ var map,
     };
 
     mapDragendListenerFunction = function () {
-        console.log("dragend");
         if (markerLocked) {
             marker.setPosition(map.getCenter());
         }
     };
 
     mapMarkerDragListenerFunction = function () {
-        console.log("marker drag");
         radianAngle = Math.getAzimuthBetweenTwoMarkers(marker, panoramaMarker);
         degreeAngle = Math.degrees(radianAngle);
         if (saveDirection) {
@@ -653,7 +636,6 @@ var map,
     };
 
     mapMarkerDragendListenerFunction = function () {
-        console.log("marker dragend");
         if (saveDirection) {
             dottedAzimuthLine.setPath([marker.position, panoramaMarker.position]);
             dottedAzimuthLine.icons[0].repeat = '2px';
@@ -687,7 +669,6 @@ var map,
         window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
         window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
         window.mapInfoPanelConfidenceElement.html(heatmapData.confidence.toFixed(2));
-        console.log(heatmapData);
         if (heatmapData.newEstimatedLocation && heatmapData.newEstimatedLocation[0] && heatmapData.newEstimatedLocation[1]) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),

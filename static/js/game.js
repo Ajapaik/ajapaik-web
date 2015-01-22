@@ -46,7 +46,6 @@
 
     photoLoadModalResizeFunction = function () {
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-        // Show information about viewing hints to Estonians that haven't seen it before (hints are in Estonian)
         if (window.languageCode === 'et') {
             var trigger = 'manual';
             if (!window.docCookies.getItem('ajapaik_seen_hint_view_popover')) {
@@ -59,7 +58,6 @@
                 html: true,
                 content: window.gettext('Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra.')
             });
-            // TODO: What if he didn't hover over it still?
             window.docCookies.setItem('ajapaik_seen_hint_view_popover', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
         }
     };
@@ -349,11 +347,6 @@
         window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             window.disableSave = false;
         });
-
-        // TODO: Re-implement
-        //window.infoWindow = new google.maps.InfoWindow({
-        //    content: '<div style="overflow:hidden;white-space:nowrap;">' + window.gettext('Point the marker to where the picture was taken from.') + '</div>'
-        //});
 
         $.jQee('space', function () {
             if (window.fullscreenEnabled) {

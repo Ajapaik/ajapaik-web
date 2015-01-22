@@ -60,8 +60,6 @@
             window.google.maps.event.removeListener(window.mapDragendListener);
             window.google.maps.event.removeListener(window.windowResizeListener);
             window.guessResponseReceived = true;
-            // TODO: What to do about rephoto and game leaderboard mixing up?
-            //window.updateLeaderboard();
             noticeDiv = $('#ajapaik-grid-feedback-js-panel-content');
             if (guessResponse.hideFeedback) {
                 noticeDiv.find('#ajapaik-grid-guess-feedback-difficulty-prompt').hide();
