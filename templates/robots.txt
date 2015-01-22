@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /ajapaikaja/
+Disallow: /game/
 Disallow: /kaart/
-Disallow: /heatmap/
+Disallow: /map/
 Disallow: /facebook/
 Disallow: /leaderboard/
