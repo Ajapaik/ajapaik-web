@@ -54,7 +54,7 @@
             $('[data-toggle="popover"]').popover({
                 trigger: trigger,
                 'placement': 'bottom',
-                title: window.gettext('Vihje vaatamine'),
+                title: window.gettext('Open description'),
                 html: true,
                 content: window.gettext('Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra.')
             });

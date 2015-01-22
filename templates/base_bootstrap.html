@@ -57,26 +57,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/0.4.3/mobile-detect.min.js"></script>
-    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
-    <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
     <script>
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
-        _gaq.push(['_trackPageview']);
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
+        var _gaq=_gaq||[];_gaq.push(["_setAccount","{{ analytics.google_analytics_key }}"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();
     </script>
     <script>
         var isMobile = '{{ request.mobile }}',
@@ -86,6 +68,14 @@
             languageCode = '{{ LANGUAGE_CODE }}';
         isMobile = isMobile === 'True';
     </script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/0.4.3/mobile-detect.min.js"></script>
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+    <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
     <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
     <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
@@ -100,65 +90,9 @@
 </div>
 <div id="fb-root"></div>
 <script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '201052296573134',
-            status: true,
-            cookie: true,
-            xfbml: true
-        });
-        try {
-            FB.Event.subscribe('edge.create',
-                    function (response) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Like added', response]);
-                    }
-            );
-            FB.Event.subscribe('edge.remove',
-                    function (response) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Like removed', response]);
-                    }
-            );
-            FB.Event.subscribe('message.send',
-                    function (response) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Message sent', response]);
-                    }
-            );
-            FB.Event.subscribe('comment.create',
-                    function (response) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Comment added', response.href]);
-                    }
-            );
-            FB.Event.subscribe('comment.remove',
-                    function (response) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Comment removed', response.href]);
-                    }
-            );
-            FB.Event.subscribe('auth.prompt',
-                    function () {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Login prompt']);
-                    }
-            );
-            FB.Event.subscribe('auth.login',
-                    function () {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Login success']);
-                    }
-            );
-            FB.Event.subscribe('auth.logout',
-                    function () {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Logged out']);
-                    }
-            );
-        }
-        catch (err) {
-            console.log(err);
-        }
-    };
-    (function () {
-        var e = document.createElement('script');
-        e.async = true;
-        e.src = document.location.protocol + '//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js';
-        document.getElementById('fb-root').appendChild(e);
-    }());
+    window.fbAsyncInit=function(){FB.init({appId:"201052296573134",status:!0,cookie:!0,xfbml:!0});try{FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackEvent","Facebook","Like added",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackEvent","Facebook","Like removed",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackEvent","Facebook","Message sent",a])}),FB.Event.subscribe("comment.create",function(a){_gaq.push(["_trackEvent","Facebook","Comment added",
+    a.href])}),FB.Event.subscribe("comment.remove",function(a){_gaq.push(["_trackEvent","Facebook","Comment removed",a.href])}),FB.Event.subscribe("auth.prompt",function(){_gaq.push(["_trackEvent","Facebook","Login prompt"])}),FB.Event.subscribe("auth.login",function(){_gaq.push(["_trackEvent","Facebook","Login success"])}),FB.Event.subscribe("auth.logout",function(){_gaq.push(["_trackEvent","Facebook","Logged out"])})}catch(b){console.log(b)}};
+    (function(){var b=document.createElement("script");b.async=!0;b.src=document.location.protocol+"//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js";document.getElementById("fb-root").appendChild(b)})();
 </script>
 {% block header %}
     {% include "_header.html" %}
