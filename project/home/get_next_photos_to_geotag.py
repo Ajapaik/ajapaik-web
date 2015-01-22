@@ -281,17 +281,21 @@ def get_leaderboard(user_id):
 
 def get_leaderboard50(user_id):
     scores_list = list(enumerate(Profile.objects.filter(
-        Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False,
-                                                                    score_recent_activity__gt=0) | Q(pk=user_id)). \
-                                     values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
-                                                 'google_plus_name', 'google_plus_picture'). \
-                                     order_by('-score_recent_activity')))
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+        Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
+        Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name', 'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
     leaderboard = scores_list[:50]
-    self_user_idx = filter(lambda (idx, data): data[0] == user_id,
-                           scores_list)[0][0]
+    leaderboard = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in leaderboard]
+    return leaderboard
 
-    leaderboard = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) \
-                   for idx, data in leaderboard]
+
+def get_all_time_leaderboard50(user_id):
+    scores_list = list(enumerate(Profile.objects.filter(
+        Q(fb_name__isnull=False, score__gt=0) |
+        Q(google_plus_name__isnull=False, score__gt=0) |
+        Q(pk=user_id)).values_list('pk', 'score', 'fb_id', 'fb_name', 'google_plus_name', 'google_plus_picture').order_by('-score')))
+    leaderboard = scores_list[:50]
+    leaderboard = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in leaderboard]
     return leaderboard
 
 

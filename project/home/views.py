@@ -582,31 +582,25 @@ def geotag_add(request):
 
 def leaderboard(request):
     # leaderboard with first position, one in front of you, your score and one after you
-    leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
+    response = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
     template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
-    'leaderboard': leaderboard,
-    'title': _('Leaderboard'),
+        'leaderboard': response,
+        'title': _('Leaderboard'),
+        'is_top_50': False
     }))
 
 
 def top50(request):
     # leaderboard with top 50 scores
-    leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().profile.pk)
+    activity_leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().profile.pk)
+    all_time_leaderboard = get_next_photos_to_geotag.get_all_time_leaderboard50(request.get_user().profile.pk)
     template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     return render_to_response(template, RequestContext(request, {
-    'leaderboard': leaderboard,
-    'title': _('Leaderboard'),
-    }))
-
-
-def rephoto_top50(request):
-    # leaderboard with top 50 scores
-    leaderboard = get_next_photos_to_geotag.get_rephoto_leaderboard50(request.get_user().profile.pk)
-    template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
-    return render_to_response(template, RequestContext(request, {
-    'leaderboard': leaderboard,
-    'title': _('Leaderboard'),
+        'activity_leaderboard': activity_leaderboard,
+        'all_time_leaderboard': all_time_leaderboard,
+        'title': _('Leaderboard'),
+        'is_top_50': True
     }))
 
 

@@ -375,7 +375,7 @@ a.fullscreen {
 .single .score_container {
     position: static;
     margin: 0 auto;
-    width: 400px;
+    width: 100%;
 }
 
 .score_container h2 {

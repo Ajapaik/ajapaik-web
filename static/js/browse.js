@@ -672,6 +672,8 @@
         window.mapInfoPanelConfidenceElement = $('#ajapaik-mapview-map-confidence');
         window.saveLocationButton = $('.ajapaik-save-location-button');
 
+        window.updateLeaderboard();
+
         $('#ajapaik-game-description-viewing-warning').hide();
 
         if (window.preselectPhotoId) {
