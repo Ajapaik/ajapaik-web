@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-22 11:45+0200\n"
-"PO-Revision-Date: 2015-01-20 13:03+0200\n"
+"PO-Revision-Date: 2015-01-22 11:55+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -66,10 +66,8 @@ msgid "You have seen all the pictures we have for this area."
 msgstr "Oled sellest kohast näinud kõiki pilte."
 
 #: static/js/game.js:248
-#, fuzzy
-#| msgid "Your guess was first."
 msgid "Your guess"
-msgstr "Sinu pakkumine oli esimene."
+msgstr "Sinu pakkumine"
 
 #: static/js/grid.js:419
 msgid ""
