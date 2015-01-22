@@ -47,10 +47,7 @@
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
         if (window.languageCode === 'et') {
             var trigger = 'manual';
-            if (!window.docCookies.getItem('ajapaik_seen_hint_view_popover')) {
-                trigger += ' hover';
-            }
-            $('[data-toggle="popover"]').popover({
+            window.popover = $('[data-toggle="popover"]').popover({
                 trigger: trigger,
                 'placement': 'bottom',
                 title: window.gettext('Vihje vaatamine'),
@@ -141,6 +138,10 @@
 
     nextPhoto = function () {
         nextPhotoLoading = true;
+        if (window.popoverShown) {
+            $('[data-toggle="popover"]').popover('hide');
+            window.popoverShown = false;
+        }
         initializeGuessingState();
         modalPhoto = $('#ajapaik-game-modal-photo');
         modalPhoto.unbind('load');
@@ -254,6 +255,10 @@
     };
 
     showDescriptions = function () {
+        if (window.popoverShown) {
+            $('[data-toggle="popover"]').popover('hide');
+            window.popoverShown = false;
+        }
         if (!nextPhotoLoading && window.languageCode === 'et') {
             window.gameHintUsed = true;
             $('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').show();

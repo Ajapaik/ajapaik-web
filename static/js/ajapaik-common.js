@@ -12,6 +12,8 @@ var map,
     azimuthListenerActive = false,
     azimuthLineEndPoint,
     marker,
+    popover,
+    popoverShown = false,
     panoramaMarker,
     centerMarker,
     setCursorToPanorama,
@@ -103,7 +105,7 @@ var map,
             right: 100
         },
         controls: {
-            buttons: 'closeonly',
+            buttons: 'none',
             iconfont: 'bootstrap'
         },
         bootstrap: 'default',
@@ -746,8 +748,12 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        if (window.languageCode === 'et' && !gameHintUsed) {
-            $('[data-toggle="popover"]').popover('toggle');
+        if (window.languageCode === 'et' && !gameHintUsed && !popoverShown) {
+            $('[data-toggle="popover"]').popover('show');
+            popoverShown = true;
+        } else if (window.languageCode === 'et' && !gameHintUsed && popoverShown) {
+            $('[data-toggle="popover"]').popover('hide');
+            popoverShown = false;
         }
         if (!tutorialPanel) {
             window.openTutorialPanel();
