@@ -1,24 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
 {% load i18n %}
 
 {% block layout %}
-    <div id="game">
-        <div id="top"></div>
-        <div class="single" style="top:7%;">
-            <div class="score_container">
-                <ul class="scoreboard" style="max-height:300px;overflow-y:auto;padding-right:10px;">
-                    {% for pos in leaderboard %}
-                        <li class="clearfix{% if pos.1 %} you{% endif %}">
-                            <span class="position">{{ pos.0 }}.</span>
-                            <span class="photo">{% if pos.3 %}
-                                <img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square"/>
-                                {% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</span>
-                            <span class="name">{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}
-                                {% trans "Your points" %}{% endif %}</span>
-                            <span class="score">{{ pos.2 }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
+    <div class="container" style="padding-top: 100px;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="single">
+                    <div class="score_container">
+                        <ul class="scoreboard" style="overflow-y:auto;padding-right:10px;">
+                            {% include "_block_leaderboard.html" %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-xs-12">
+                <a href="/">{% trans "Back home" %}</a>
             </div>
         </div>
     </div>
