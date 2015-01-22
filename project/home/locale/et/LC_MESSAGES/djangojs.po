@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-22 16:01+0200\n"
-"PO-Revision-Date: 2015-01-22 11:55+0200\n"
+"PO-Revision-Date: 2015-01-22 16:04+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: static/js/game.js:57
 msgid "Open description"
-msgstr ""
+msgstr "Kirjelduse avamine"
 
 #: static/js/game.js:59
 msgid ""
