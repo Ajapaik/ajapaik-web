@@ -255,6 +255,7 @@
             if (!window.userClosedTutorial) {
                 window.openTutorialPanel();
             }
+            window._gaq.push(['_trackEvent', 'Map', 'Specify location']);
         }
     };
 
@@ -492,7 +493,7 @@
         $('.ajapaik-mapview-pane-photo-container').find('img').addClass('translucent-pane-element');
         targetPaneElement.find('img').removeClass('translucent-pane-element');
         if (!fromMarker) {
-            _gaq.push(['_trackEvent', 'Map', 'Pane photo click']);
+            window._gaq.push(['_trackEvent', 'Map', 'Pane photo click']);
         }
         if (lastSelectedPaneElement) {
             lastSelectedPaneElement.find('.ajapaik-azimuth').hide();
@@ -537,7 +538,7 @@
                 targetTopToScrollToAfterPaneLoad = targetTop;
                 $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').animate({scrollTop: targetTop}, 800);
             }
-            _gaq.push(['_trackEvent', 'Map', 'Marker click']);
+            window._gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
     };
 
@@ -663,11 +664,12 @@
         }
 
         $('#logout-button').click(function () {
-            _gaq.push(['_trackEvent', 'Map', 'Logout']);
+            window._gaq.push(['_trackEvent', 'Map', 'Logout']);
         });
 
-        $('.ajapaik-mapview-skip-photo-button').click(function () {
+        $('.ajapaik-game-next-photo-button').click(function () {
             window.stopGuessLocation();
+            window._gaq.push(['_trackEvent', 'Map', 'Next photo']);
         });
 
         if (window.map !== undefined) {
@@ -686,7 +688,7 @@
                     });
                 }
             });
-            _gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
+            window._gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
         });
 
         $(document).on('mouseover', '#ajapaik-mapview-guess-photo-container', function () {
@@ -707,7 +709,7 @@
             if (window.BigScreen.enabled) {
                 window.fullscreenEnabled = true;
                 window.BigScreen.request($('#ajapaik-mapview-full-screen-image')[0]);
-                window._gaq.push(['_trackEvent', 'Photo', 'Full-screen', 'historic-' + this.rel]);
+                window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
             }
         });
 

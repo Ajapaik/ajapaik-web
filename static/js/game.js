@@ -260,6 +260,7 @@
             $('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').show();
             $('#ajapaik-game-full-screen-description').show();
             $('#ajapaik-game-photo-description').show();
+            window._gaq.push(['_trackEvent', 'Game', 'Show description']);
         }
     };
 
@@ -416,7 +417,6 @@
                 $('#ajapaik-game-photo-modal').modal('hide');
                 window.setCursorToAuto();
                 $('.ajapaik-marker-center-lock-button').show();
-                //$('.ajapaik-show-tutorial-button').show();
                 guessPhotoPanelContent = $('#ajapaik-game-guess-photo-js-panel-content');
                 guessPhotoPanelContent.find('img').prop('src', mediaUrl + currentPhoto.big.url);
                 if (!window.gameHintUsed) {
@@ -444,6 +444,7 @@
                 }
                 $('#ajapaik-map-button-container').show();
                 locationToolsOpen = true;
+                window._gaq.push(['_trackEvent', 'Game', 'Specify location']);
             }
         });
 
@@ -455,7 +456,7 @@
                 $.post(window.saveLocationURL, data, function () {
                     nextPhoto();
                 });
-                window._gaq.push(['_trackEvent', 'Game', 'Skip photo']);
+                window._gaq.push(['_trackEvent', 'Game', 'Next photo']);
             }
         });
 
@@ -520,7 +521,7 @@
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
                 window.fullscreenEnabled = true;
-                window._gaq.push(['_trackEvent', 'Photo', 'Full-screen']);
+                window._gaq.push(['_trackEvent', 'Game', 'Full-screen']);
             }
         });
 
@@ -530,7 +531,7 @@
                 window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
                 window.fullscreenEnabled = true;
-                window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
+                window._gaq.push(['_trackEvent', 'Game', 'Full-screen']);
             }
         });
 

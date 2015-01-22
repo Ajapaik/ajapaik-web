@@ -226,6 +226,7 @@
                 window.location.reload();
             }
         };
+        window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
     });
 </script>
 {% endblock %}

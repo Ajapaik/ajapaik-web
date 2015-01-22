@@ -180,7 +180,7 @@
         {% endif %}
         window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
         window.photoModalFullscreenImageSize = {{ fullscreen.size }};
-        window._gaq.push(['_trackPageview', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}']);
+        window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         $(".ajapaik-flip-photo-overlay-button").click(function () {
             var target = $("#ajapaik-modal-photo"),
                 fullScreenImage = $('#ajapaik-full-screen-image');
@@ -220,7 +220,7 @@
             if (BigScreen.enabled) {
                 BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 window.fullscreenEnabled = true;
-                _gaq.push(['_trackEvent', 'Map', 'Full-screen', 'historic-' + this.rel]);
+                window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
             }
         });
         $(document).on('click', '#ajapaik-show-rephoto-selection-overlay-button', function () {

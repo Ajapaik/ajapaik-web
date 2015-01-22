@@ -44,6 +44,7 @@ var map,
     hideScoreboard,
     updateLeaderboard,
     now,
+    gameMap,
     lastTriggeredWheeling,
     wheelEventFF,
     wheelEventNonFF,
@@ -129,6 +130,8 @@ var map,
         var latLng,
             zoomLevel;
 
+        gameMap = isGameMap;
+
         if (!startPoint) {
             latLng = new window.google.maps.LatLng(59, 26);
             startingZoom = 8;
@@ -184,9 +187,9 @@ var map,
         streetviewVisibleChangedListener = window.google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             if (streetPanorama.getVisible()) {
                 if (isGameMap) {
-                    _gaq.push(['_trackEvent', 'Game', 'Opened Street View']);
+                    window._gaq.push(['_trackEvent', 'Game', 'Opened Street View']);
                 } else {
-                    _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
+                    window._gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
                 }
                 // Currently we are not displaying the save button when Street View is open
                 saveLocationButton.hide();
@@ -199,9 +202,9 @@ var map,
 
         streetviewPanoChangedListener = window.google.maps.event.addListener(streetPanorama, 'pano_changed', function () {
             if (isGameMap) {
-                _gaq.push(['_trackEvent', 'Game', 'Street View Movement']);
+                window._gaq.push(['_trackEvent', 'Game', 'Street View Movement']);
             } else {
-                _gaq.push(['_trackEvent', 'Map', 'Street View Movement']);
+                window._gaq.push(['_trackEvent', 'Map', 'Street View Movement']);
             }
         });
 
@@ -357,12 +360,24 @@ var map,
             confidence = 0;
         if (resp.is_correct) {
             hideFeedback = false;
-            window._gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
+            if (gameMap) {
+                window._gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
+            } else {
+                window._gaq.push(['_trackEvent', 'Map', 'Correct coordinates']);
+            }
         } else if (resp.location_is_unclear) {
-            window._gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
+            if (gameMap) {
+                window._gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
+            } else {
+                window._gaq.push(['_trackEvent', 'Map', 'Coordinates uncertain']);
+            }
         } else if (!resp.is_correct) {
             hideFeedback = true;
-            window._gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
+            if (gameMap) {
+                window._gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
+            } else {
+                window._gaq.push(['_trackEvent', 'Map', 'Wrong coordinates']);
+            }
         }
         if (resp.heatmap_points) {
             heatmapPoints = resp.heatmap_points;
