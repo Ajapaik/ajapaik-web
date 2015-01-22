@@ -98,9 +98,9 @@ var map,
     userClosedTutorial = false,
     tutorialPanel,
     tutorialPanelSettings = {
-        selector: '#ajapaik-map-container',
+        selector: 'body',
         position: {
-            top: 50,
+            top: 100,
             right: 100
         },
         controls: {
@@ -171,11 +171,11 @@ var map,
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
-        tutorialButton = document.createElement('button');
-        $(tutorialButton).addClass('btn').addClass('btn-default').addClass('ajapaik-show-tutorial-button');
+        tutorialButton = $('ajapaik-show-tutorial-button');
+        //$(tutorialButton).addClass('btn').addClass('btn-default').addClass('ajapaik-show-tutorial-button');
 
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
-        map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(tutorialButton);
+        //map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(tutorialButton);
 
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {

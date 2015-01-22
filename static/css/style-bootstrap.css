@@ -177,8 +177,9 @@ body {
     background: #fff url(../images/material-design-icons/ic_help_24px.svg) no-repeat center !important;
     width: 36px;
     height: 36px;
-    margin-right: 25px;
-    margin-top: 5px;
+    position: fixed;
+    top: 5px;
+    right: 5px;
 }
 
 .ajapaik-show-tutorial-button:hover {
@@ -1026,4 +1027,8 @@ ul.errorlist {
     width:500px !important;
     height:20px !important;
     position:relative;
+}
+
+#ajapaik-tutorial-js-panel {
+    z-index: 10000;
 }
