@@ -191,6 +191,10 @@ var map,
                 }
                 // Currently we are not displaying the save button when Street View is open
                 saveLocationButton.hide();
+                $('.ajapaik-close-streetview-button').show().parent().show();
+            } else {
+                $('.ajapaik-close-streetview-button').hide().parent().hide();
+                saveLocationButton.show();
             }
         });
 
@@ -751,6 +755,10 @@ var map,
             tutorialPanel.close();
             tutorialPanel = undefined;
         }
+    });
+
+    $(document).on('click', '.ajapaik-close-streetview-button', function () {
+        map.getStreetView().setVisible(false);
     });
 
     window.openTutorialPanel = function () {

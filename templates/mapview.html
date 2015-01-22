@@ -14,14 +14,7 @@
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
     <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
     <div id="ajapaik-map-container">
-        <div id="ajapaik-map-button-container">
-            <div class="row">
-                <button class="btn btn-default ajapaik-save-location-button pull-right" disabled="disabled">{% trans "Save location only" %}</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-primary ajapaik-mapview-skip-photo-button pull-right">{% trans "Cancel" %}</button>
-            </div>
-        </div>
+        {% include "_map_lower_right_buttons.html" %}
         <div class="panel panel-default" id="ajapaik-mapview-map-info-panel">
             <div class="panel-body">
                 {% trans "Geotags" %}: <span id="ajapaik-mapview-map-geotag-count"></span>
