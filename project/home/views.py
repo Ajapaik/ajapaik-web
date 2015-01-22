@@ -217,6 +217,7 @@ def photo_upload(request, photo_id):
                 uploader.update_rephoto_score()
 
             profile.update_rephoto_score()
+            calculate_recent_activity_scores()
 
     return HttpResponse(json.dumps({'new_id': new_id}), content_type="application/json")
 
