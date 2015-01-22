@@ -771,6 +771,9 @@ var map,
             tutorialPanel = undefined;
             window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
             $('body').off('jspanelclosed', closeHandler);
+            if (window.languageCode === 'et') {
+                $('[data-toggle="popover"]').popover('toggle');
+            }
         }
     });
 }(jQuery));
