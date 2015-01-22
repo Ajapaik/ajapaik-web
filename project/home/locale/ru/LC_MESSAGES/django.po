@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 11:45+0200\n"
+"POT-Creation-Date: 2015-01-22 16:00+0200\n"
 "PO-Revision-Date: 2014-05-18 09:36+0000\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -92,7 +92,7 @@ msgid "Back"
 msgstr ""
 
 #: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:24
-#: templates/_block_leaderboard.html:37 templates/leaderboard.html:17
+#: templates/_block_leaderboard.html:37
 msgid "Your points"
 msgstr "Твои очки"
 
@@ -108,20 +108,6 @@ msgstr "Самые активные пользователи"
 msgid "All time leaderboard"
 msgstr "Лучшие игроки"
 
-#: templates/_block_photoview.html:33
-msgid "Close photo"
-msgstr "Закрыть фото"
-
-#: templates/_block_photoview.html:50 templates/_header.html:5
-#: templates/_header_city_selection.html:5
-#: templates/_header_city_selection_scoreboard.html:5
-#: templates/_photo_modal.html:173 templates/base.html:7
-#: templates/base.html.py:9 templates/base.html.py:48
-#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
-#: templates/base_bootstrap.html:48 templates/frontpage.html:8
-msgid "Timepatch (Ajapaik)"
-msgstr "Аяпаик (Ajapaik)"
-
 #: templates/_comments.html:8
 msgid "Original photo"
 msgstr ""
@@ -131,6 +117,15 @@ msgstr ""
 #| msgid "Next photo"
 msgid "Rephoto"
 msgstr "Следующее фото"
+
+#: templates/_header.html:5 templates/_header_city_selection.html:5
+#: templates/_header_city_selection_scoreboard.html:5
+#: templates/_photo_modal.html:173 templates/base.html:7
+#: templates/base.html.py:9 templates/base.html.py:48
+#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
+#: templates/base_bootstrap.html:48 templates/frontpage.html:8
+msgid "Timepatch (Ajapaik)"
+msgstr "Аяпаик (Ajapaik)"
 
 #: templates/_header.html:24 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
@@ -158,13 +153,16 @@ msgid "Connect with Facebook"
 msgstr "Соединить с Facebook-ом."
 
 #: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
-#: templates/mapview.html:19
 #, fuzzy
 #| msgid "Save location"
 msgid "Save location only"
 msgstr "Сохранить расположение"
 
-#: templates/_map_lower_right_buttons.html:8 templates/game.html:38
+#: templates/_map_lower_right_buttons.html:8
+msgid "Close Street View"
+msgstr ""
+
+#: templates/_map_lower_right_buttons.html:11 templates/game.html:38
 #: templates/game.html.py:63 templates/game.html:100
 msgid "Next photo"
 msgstr "Следующее фото"
@@ -196,7 +194,7 @@ msgid "Specify location"
 msgstr "Сохранить расположение"
 
 #: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:43
-#: templates/game.html:121 templates/mapview.html:50
+#: templates/game.html:121 templates/mapview.html:43
 msgid "Close"
 msgstr "Закрыть"
 
@@ -313,7 +311,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:97
+#: templates/base.html:91 templates/base_bootstrap.html:87
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -352,7 +350,7 @@ msgstr ""
 msgid "Pick the shooting location!"
 msgstr "Знаю где сделано фото!"
 
-#: templates/game.html:46 templates/grid.html:63 templates/mapview.html:66
+#: templates/game.html:46 templates/grid.html:63 templates/mapview.html:59
 msgid "Thank you!"
 msgstr "Спасибо!"
 
@@ -368,15 +366,15 @@ msgstr ""
 msgid "hard"
 msgstr ""
 
-#: templates/game.html:80 templates/grid.html:45 templates/mapview.html:27
+#: templates/game.html:80 templates/grid.html:45 templates/mapview.html:20
 msgid "Geotags"
 msgstr ""
 
-#: templates/game.html:82 templates/grid.html:47 templates/mapview.html:29
+#: templates/game.html:82 templates/grid.html:47 templates/mapview.html:22
 msgid "With azimuth"
 msgstr ""
 
-#: templates/game.html:84 templates/mapview.html:31
+#: templates/game.html:84 templates/mapview.html:24
 msgid "Confidence"
 msgstr ""
 
@@ -390,7 +388,7 @@ msgstr "Добавить новое фото"
 msgid "No more photos to show"
 msgstr ""
 
-#: templates/grid.html:40 templates/mapview.html:22
+#: templates/grid.html:40
 msgid "Cancel"
 msgstr ""
 
@@ -398,7 +396,13 @@ msgstr ""
 msgid "You're welcome!"
 msgstr ""
 
-#: templates/mapview.html:68
+#: templates/leaderboard.html:19
+#, fuzzy
+#| msgid "Back to home page"
+msgid "Back home"
+msgstr "Назад на главную"
+
+#: templates/mapview.html:61
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
@@ -427,6 +431,9 @@ msgstr ""
 #: templates/photoview.html:75
 msgid "Map"
 msgstr ""
+
+#~ msgid "Close photo"
+#~ msgstr "Закрыть фото"
 
 #, fuzzy
 #~| msgid "Selected rephoto"

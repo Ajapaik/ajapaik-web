@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 11:45+0200\n"
+"POT-Creation-Date: 2015-01-22 16:01+0200\n"
 "PO-Revision-Date: 2014-05-21 19:37+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
@@ -16,59 +16,59 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:111
+#: static/js/ajapaik-common.js:108
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:506 static/js/ajapaik-common.js.c:626
-#: static/js/game.js:135
+#: static/js/ajapaik-common.js:498 static/js/ajapaik-common.js.c:610
+#: static/js/game.js:137
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:557
+#: static/js/ajapaik-common.js:548
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:696
+#: static/js/ajapaik-common.js:676
 msgid "Median guess"
 msgstr ""
 
-#: static/js/browse.js:292 static/js/game.js:221 static/js/grid.js:72
+#: static/js/browse.js:278 static/js/game.js:223 static/js/grid.js:70
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/browse.js:697 static/js/game.js:481
+#: static/js/browse.js:646 static/js/game.js:478
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
 "submitting your geotag."
 msgstr ""
 
-#: static/js/game.js:54
-msgid "Vihje vaatamine"
+#: static/js/game.js:57
+msgid "Open description"
 msgstr ""
 
-#: static/js/game.js:56
+#: static/js/game.js:59
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
 
-#: static/js/game.js:152
+#: static/js/game.js:154
 msgid "We are now showing you random photos."
 msgstr ""
 
-#: static/js/game.js:154
+#: static/js/game.js:156
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:248
+#: static/js/game.js:250
 #, fuzzy
 #| msgid "Your guess was first."
 msgid "Your guess"
 msgstr "Твоё предположение было первым."
 
-#: static/js/grid.js:419
+#: static/js/grid.js:417
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 11:45+0200\n"
+"POT-Creation-Date: 2015-01-22 16:00+0200\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgid "Back"
 msgstr ""
 
 #: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:24
-#: templates/_block_leaderboard.html:37 templates/leaderboard.html:17
+#: templates/_block_leaderboard.html:37
 msgid "Your points"
 msgstr "Tavi punkti"
 
@@ -112,20 +112,6 @@ msgstr "Mūsdienu attēlu līderu tabula"
 msgid "All time leaderboard"
 msgstr "Līderu tabula"
 
-#: templates/_block_photoview.html:33
-msgid "Close photo"
-msgstr "Aizvērt"
-
-#: templates/_block_photoview.html:50 templates/_header.html:5
-#: templates/_header_city_selection.html:5
-#: templates/_header_city_selection_scoreboard.html:5
-#: templates/_photo_modal.html:173 templates/base.html:7
-#: templates/base.html.py:9 templates/base.html.py:48
-#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
-#: templates/base_bootstrap.html:48 templates/frontpage.html:8
-msgid "Timepatch (Ajapaik)"
-msgstr "Timepatch (Ajapaik)"
-
 #: templates/_comments.html:8
 msgid "Original photo"
 msgstr ""
@@ -135,6 +121,15 @@ msgstr ""
 #| msgid "Next photo"
 msgid "Rephoto"
 msgstr "Nākošais attēls"
+
+#: templates/_header.html:5 templates/_header_city_selection.html:5
+#: templates/_header_city_selection_scoreboard.html:5
+#: templates/_photo_modal.html:173 templates/base.html:7
+#: templates/base.html.py:9 templates/base.html.py:48
+#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
+#: templates/base_bootstrap.html:48 templates/frontpage.html:8
+msgid "Timepatch (Ajapaik)"
+msgstr "Timepatch (Ajapaik)"
 
 #: templates/_header.html:24 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
@@ -161,13 +156,16 @@ msgid "Connect with Facebook"
 msgstr "Pieslēgties ar Facebook"
 
 #: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
-#: templates/mapview.html:19
 #, fuzzy
 #| msgid "Save location"
 msgid "Save location only"
 msgstr "Saglabāt atrašanās vietu"
 
-#: templates/_map_lower_right_buttons.html:8 templates/game.html:38
+#: templates/_map_lower_right_buttons.html:8
+msgid "Close Street View"
+msgstr ""
+
+#: templates/_map_lower_right_buttons.html:11 templates/game.html:38
 #: templates/game.html.py:63 templates/game.html:100
 msgid "Next photo"
 msgstr "Nākošais attēls"
@@ -199,7 +197,7 @@ msgid "Specify location"
 msgstr "Saglabāt atrašanās vietu"
 
 #: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:43
-#: templates/game.html:121 templates/mapview.html:50
+#: templates/game.html:121 templates/mapview.html:43
 msgid "Close"
 msgstr "Aizvērt"
 
@@ -316,7 +314,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:97
+#: templates/base.html:91 templates/base_bootstrap.html:87
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -354,7 +352,7 @@ msgstr ""
 msgid "Pick the shooting location!"
 msgstr "Izvēlies attēla uzņemšanas vietu!"
 
-#: templates/game.html:46 templates/grid.html:63 templates/mapview.html:66
+#: templates/game.html:46 templates/grid.html:63 templates/mapview.html:59
 msgid "Thank you!"
 msgstr "Paldies!"
 
@@ -370,15 +368,15 @@ msgstr ""
 msgid "hard"
 msgstr ""
 
-#: templates/game.html:80 templates/grid.html:45 templates/mapview.html:27
+#: templates/game.html:80 templates/grid.html:45 templates/mapview.html:20
 msgid "Geotags"
 msgstr ""
 
-#: templates/game.html:82 templates/grid.html:47 templates/mapview.html:29
+#: templates/game.html:82 templates/grid.html:47 templates/mapview.html:22
 msgid "With azimuth"
 msgstr ""
 
-#: templates/game.html:84 templates/mapview.html:31
+#: templates/game.html:84 templates/mapview.html:24
 msgid "Confidence"
 msgstr ""
 
@@ -392,7 +390,7 @@ msgstr "Pievieno mūsdienu attēlu"
 msgid "No more photos to show"
 msgstr ""
 
-#: templates/grid.html:40 templates/mapview.html:22
+#: templates/grid.html:40
 msgid "Cancel"
 msgstr ""
 
@@ -400,7 +398,13 @@ msgstr ""
 msgid "You're welcome!"
 msgstr ""
 
-#: templates/mapview.html:68
+#: templates/leaderboard.html:19
+#, fuzzy
+#| msgid "Back to home page"
+msgid "Back home"
+msgstr "Uz sākumu"
+
+#: templates/mapview.html:61
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
@@ -429,6 +433,9 @@ msgstr ""
 #: templates/photoview.html:75
 msgid "Map"
 msgstr ""
+
+#~ msgid "Close photo"
+#~ msgstr "Aizvērt"
 
 #, fuzzy
 #~| msgid "Selected rephoto"
