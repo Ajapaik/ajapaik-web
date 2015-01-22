@@ -98,7 +98,7 @@
             },
             resizable: {
                 maxWidth: maxGalleryWidth,
-                maxHeight: maxGalleryHeight - 100
+                maxHeight: maxGalleryHeight
             },
             size: {
                 width: function () {
@@ -241,7 +241,7 @@
                 guessPhotoPanelSettings.draggable = false;
             }
             guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
-            $(guessPhotoPanel).css('max-width', currentPhotoWidth + 'px');
+            $(guessPhotoPanel).css('max-width', $(window).width * 0.4 + 'px').css('max-height', maxGalleryHeight - 100);
             guessPhotoPanel.find('img').show();
             if (photoPanel) {
                 photoPanel.close();
@@ -326,6 +326,9 @@
     };
 
     window.stopGuessLocation = function () {
+        if (!window.markerLocked) {
+            $('.ajapaik-marker-center-lock-button')[0].click();
+        }
         window.marker.setMap(null);
         window.comingBackFromGuessLocation = true;
         if (window.heatmap) {
