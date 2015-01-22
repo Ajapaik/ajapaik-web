@@ -97,8 +97,8 @@
                 containment: '#ajapaik-map-container'
             },
             resizable: {
-                maxWidth: maxGalleryWidth,
-                maxHeight: maxGalleryHeight
+                maxWidth: maxGalleryWidth * 0.6,
+                maxHeight: maxGalleryHeight * 0.75
             },
             size: {
                 width: function () {
