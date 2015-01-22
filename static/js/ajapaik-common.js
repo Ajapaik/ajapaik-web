@@ -749,6 +749,9 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
+        if (window.languageCode === 'et') {
+            $('[data-toggle="popover"]').popover('toggle');
+        }
         if (!tutorialPanel) {
             window.openTutorialPanel();
         } else {
@@ -766,9 +769,6 @@ var map,
         if (window.isMobile) {
             tutorialPanelSettings.resizable = false;
             tutorialPanelSettings.draggable = false;
-        }
-        if (window.languageCode === 'et') {
-            $('[data-toggle="popover"]').popover('toggle');
         }
         tutorialPanel = $.jsPanel(tutorialPanelSettings);
     };
