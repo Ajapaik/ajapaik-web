@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 11:08+0200\n"
+"POT-Creation-Date: 2015-01-22 11:45+0200\n"
 "PO-Revision-Date: 2014-05-21 19:37+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
@@ -21,7 +21,7 @@ msgid "Tutorial"
 msgstr ""
 
 #: static/js/ajapaik-common.js:506 static/js/ajapaik-common.js.c:626
-#: static/js/game.js:133
+#: static/js/game.js:135
 msgid "Save location only"
 msgstr ""
 
@@ -33,11 +33,11 @@ msgstr ""
 msgid "Median guess"
 msgstr ""
 
-#: static/js/browse.js:300 static/js/game.js:219 static/js/grid.js:72
+#: static/js/browse.js:292 static/js/game.js:221 static/js/grid.js:72
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/browse.js:699 static/js/game.js:478
+#: static/js/browse.js:697 static/js/game.js:481
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
@@ -54,15 +54,15 @@ msgid ""
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
 
-#: static/js/game.js:150
+#: static/js/game.js:152
 msgid "We are now showing you random photos."
 msgstr ""
 
-#: static/js/game.js:152
+#: static/js/game.js:154
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:246
+#: static/js/game.js:248
 #, fuzzy
 #| msgid "Your guess was first."
 msgid "Your guess"
