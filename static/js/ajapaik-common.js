@@ -73,7 +73,6 @@ var map,
     mapPanoChangedListener,
     mapDisplayHeatmapWithEstimatedLocation,
     lockButton,
-    tutorialButton,
     mapDragendListenerFunction,
     markerLocked = true,
     mapMarkerDragListenerFunction,
@@ -171,11 +170,7 @@ var map,
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
-        tutorialButton = $('ajapaik-show-tutorial-button');
-        //$(tutorialButton).addClass('btn').addClass('btn-default').addClass('ajapaik-show-tutorial-button');
-
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
-        //map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(tutorialButton);
 
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
@@ -763,6 +758,9 @@ var map,
         if (window.isMobile) {
             tutorialPanelSettings.resizable = false;
             tutorialPanelSettings.draggable = false;
+        }
+        if (window.languageCode === 'et') {
+            $('[data-toggle="popover"]').popover('toggle');
         }
         tutorialPanel = $.jsPanel(tutorialPanelSettings);
     };

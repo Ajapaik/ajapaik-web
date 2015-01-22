@@ -49,7 +49,7 @@
         // Show information about viewing hints to Estonians that haven't seen it before (hints are in Estonian)
         if (!window.docCookies.getItem('ajapaik_seen_hint_view_popover') && window.languageCode === 'et') {
             $('[data-toggle="popover"]').popover({
-                trigger: 'hover',
+                trigger: 'hover manual',
                 'placement': 'bottom',
                 title: window.gettext('Vihje vaatamine'),
                 html: true,
