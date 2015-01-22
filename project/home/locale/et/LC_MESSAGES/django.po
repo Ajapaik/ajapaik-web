@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-22 16:00+0200\n"
-"PO-Revision-Date: 2015-01-22 11:55+0200\n"
+"PO-Revision-Date: 2015-01-22 16:18+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -154,7 +154,7 @@ msgstr "Salvesta asukoht"
 
 #: templates/_map_lower_right_buttons.html:8
 msgid "Close Street View"
-msgstr ""
+msgstr "Sulge Street View"
 
 #: templates/_map_lower_right_buttons.html:11 templates/game.html:38
 #: templates/game.html.py:63 templates/game.html:100
@@ -167,7 +167,7 @@ msgstr "Ülepildistus:"
 
 #: templates/_photo_modal.html:91 templates/photoview.html:93
 msgid "Date taken"
-msgstr "Kuupäev"
+msgstr "Kuupäev:"
 
 #: templates/_photo_modal.html:104 templates/photoview.html:54
 msgid "Share"
@@ -291,7 +291,7 @@ msgstr ""
 msgid ""
 "If you ever feel like looking at this tutorial again, this button will re-"
 "open it."
-msgstr "Käesoleva spikri avamiseks."
+msgstr "Käesoleva spikri avamiseks ja sulgemiseks."
 
 #: templates/admin/project/csvphoto/change_list.html:6
 msgid "Home"
@@ -375,7 +375,7 @@ msgstr "Asukohapakkumisi"
 
 #: templates/game.html:82 templates/grid.html:47 templates/mapview.html:22
 msgid "With azimuth"
-msgstr "Neist suunaga"
+msgstr "Suunaga pakkumisi"
 
 #: templates/game.html:84 templates/mapview.html:24
 msgid "Confidence"
@@ -387,7 +387,7 @@ msgstr "Laadi juurde"
 
 #: templates/grid.html:27
 msgid "No more photos to show"
-msgstr ""
+msgstr "Sellest kohast ei ole rohkem pilte, mida Sa poleks näinud"
 
 #: templates/grid.html:40
 msgid "Cancel"
@@ -461,16 +461,16 @@ msgstr "Kaart"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -482,8 +482,8 @@ msgstr "Kaart"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
