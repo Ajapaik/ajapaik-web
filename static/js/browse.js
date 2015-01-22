@@ -241,7 +241,7 @@
                 guessPhotoPanelSettings.draggable = false;
             }
             guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
-            $(guessPhotoPanel).css('max-width', $(window).width * 0.4 + 'px').css('max-height', maxGalleryHeight - 100);
+            $(guessPhotoPanel).css('max-width', $(window).width * 0.4 + 'px').css('max-height', maxGalleryHeight * 0.75);
             guessPhotoPanel.find('img').show();
             if (photoPanel) {
                 photoPanel.close();
