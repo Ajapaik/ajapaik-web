@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-22 11:45+0200\n"
-"PO-Revision-Date: 2015-01-22 11:52+0200\n"
+"PO-Revision-Date: 2015-01-22 11:55+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -71,7 +71,7 @@ msgstr "Vaata fotosid kaardil"
 #: project/home/views.py:590 project/home/views.py:603
 #: templates/_header_city_selection_scoreboard.html:14
 msgid "Leaderboard"
-msgstr "Osavamad Ajapaikajad"
+msgstr "Edetabel"
 
 #: project/settings/default.py:63
 msgid "Estonian"
