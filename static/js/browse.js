@@ -96,16 +96,7 @@
                 handle: '.jsPanel-content',
                 containment: '#ajapaik-map-container'
             },
-            resizable: {
-                maxWidth: maxGalleryWidth * 0.6,
-                maxHeight: maxGalleryHeight * 0.75
-            },
-            size: {
-                width: function () {
-                    return $(window).width() / 3;
-                },
-                height: 'auto'
-            },
+            size: 'auto',
             id: 'ajapaik-mapview-guess-photo-js-panel'
         };
 
@@ -241,7 +232,7 @@
                 guessPhotoPanelSettings.draggable = false;
             }
             guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
-            $(guessPhotoPanel).css('max-width', $(window).width * 0.4 + 'px').css('max-height', maxGalleryHeight * 0.75);
+            //$(guessPhotoPanel).css('max-width', $(window).width * 0.4 + 'px').css('max-height', maxGalleryHeight * 0.75);
             guessPhotoPanel.find('img').show();
             if (photoPanel) {
                 photoPanel.close();
