@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 16:00+0200\n"
+"POT-Creation-Date: 2015-01-22 16:53+0200\n"
 "PO-Revision-Date: 2014-05-18 09:36+0000\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -203,6 +203,7 @@ msgid "Taken"
 msgstr ""
 
 #: templates/_photo_upload_modal.html:19
+#: templates/_photo_upload_modal.html:102
 msgid "Upload"
 msgstr ""
 
@@ -229,6 +230,20 @@ msgstr ""
 
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:58
+msgid "Abort"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:80
+#, fuzzy
+#| msgid "Selected rephoto"
+msgid "Select new file..."
+msgstr "Выбери новое фото"
+
+#: templates/_photo_upload_modal.html:110
+msgid "File upload failed."
 msgstr ""
 
 #: templates/_tutorial.html:7
@@ -311,7 +326,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:87
+#: templates/base.html:91 templates/base_bootstrap.html:64
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -434,11 +449,6 @@ msgstr ""
 
 #~ msgid "Close photo"
 #~ msgstr "Закрыть фото"
-
-#, fuzzy
-#~| msgid "Selected rephoto"
-#~ msgid "Selected file"
-#~ msgstr "Выбери новое фото"
 
 #, fuzzy
 #~| msgid "Guess the location"

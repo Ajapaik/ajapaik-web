@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 16:01+0200\n"
+"POT-Creation-Date: 2015-01-22 16:53+0200\n"
 "PO-Revision-Date: 2014-05-21 18:18+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,53 +20,53 @@ msgstr ""
 "2);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:108
+#: static/js/ajapaik-common.js:109
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:498 static/js/ajapaik-common.js.c:610
-#: static/js/game.js:137
+#: static/js/ajapaik-common.js:499 static/js/ajapaik-common.js.c:611
+#: static/js/game.js:136
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:548
+#: static/js/ajapaik-common.js:549
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:676
+#: static/js/ajapaik-common.js:677
 msgid "Median guess"
 msgstr ""
 
-#: static/js/browse.js:278 static/js/game.js:223 static/js/grid.js:70
+#: static/js/browse.js:278 static/js/game.js:222 static/js/grid.js:70
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/browse.js:646 static/js/game.js:478
+#: static/js/browse.js:646 static/js/game.js:479
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
 "submitting your geotag."
 msgstr ""
 
-#: static/js/game.js:57
-msgid "Open description"
+#: static/js/game.js:56
+msgid "Vihje vaatamine"
 msgstr ""
 
-#: static/js/game.js:59
+#: static/js/game.js:58
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
 
-#: static/js/game.js:154
+#: static/js/game.js:153
 msgid "We are now showing you random photos."
 msgstr ""
 
-#: static/js/game.js:156
+#: static/js/game.js:155
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:250
+#: static/js/game.js:249
 #, fuzzy
 #| msgid "Your guess was first."
 msgid "Your guess"

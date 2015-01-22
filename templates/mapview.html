@@ -65,12 +65,14 @@
             <img id="ajapaik-mapview-full-screen-image" src=""/>
         </div>
     </div>
+{% endblock %}
+
+{% block specific_js %}
     <script src="{{ STATIC_URL }}js/markerclustererplus-2.1.2.min.js"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     <script>
         var leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
-            {#userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},#}
             {% if city %}
                 cityId = '{{ city.id | safe }}';
             {% else %}

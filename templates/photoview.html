@@ -90,7 +90,7 @@
                         </div>
                         {% if rephoto.date %}
                             <div class="row-fluid">
-                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photoview-date-taken">{{ rephoto.date }}</div>
+                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photoview-date-taken">{{ rephoto.date|date:"d.m.Y." }}</div>
                             </div>
                         {% endif %}
                     </div>
@@ -109,6 +109,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block specific_js %}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
     <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>

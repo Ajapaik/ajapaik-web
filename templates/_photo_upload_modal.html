@@ -55,7 +55,7 @@
         $('#ajapaik-upload-photo-button').on('click', function () {
             var $this = $(this),
                 data = $this.data();
-            $this.off('click').text(window.gettext('Abort')).on('click', function () {
+            $this.off('click').text({% trans "Abort" %}).on('click', function () {
                 $this.remove();
                 data.abort();
             });
@@ -77,7 +77,7 @@
         }).on('fileuploadadd', function (e, data) {
             data.context = $('#files');
             $('.ajapaik-fileupload-datepicker-container').show();
-            $('.fileinput-button').find('span').html(window.gettext('Select new file...'));
+            $('.fileinput-button').find('span').html({% trans "Select new file..." %});
             window.loadImage.parseMetaData(data.files[0], function (metadata) {
                 if (metadata.exif) {
                     var exif = metadata.exif.getAll();
@@ -99,7 +99,7 @@
             if (file.error) {
                 $('#ajapaik-file-upload-file-preview').html($('<span class="text-danger"/>').text(file.error));
             }
-            data.context.find('button').text(window.gettext('Upload')).prop('disabled', !!data.files.error);
+            data.context.find('button').text({% trans "Upload" %}).prop('disabled', !!data.files.error);
         }).on('fileuploadprogressall', function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#progress .progress-bar').css('width', progress + '%');
@@ -107,7 +107,7 @@
             window.uploadCompleted(data.result);
         }).on('fileuploadfail', function (e, data) {
             $.each(data.files, function (index) {
-                var error = $('<span class="text-danger"/>').text(window.gettext('File upload failed.'));
+                var error = $('<span class="text-danger"/>').text({% trans "File upload failed." %});
                 $(data.context.children()[index]).append('<br>').append(error);
             });
         }).on('fileuploadsubmit', function (e, data) {

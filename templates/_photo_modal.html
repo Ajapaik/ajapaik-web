@@ -88,7 +88,7 @@
                                 {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;{% include '_creative_commons.html' %}
                             </div>
                             <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
-                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date }}</div>
+                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date|date:"d.m.Y." }}</div>
                             </div>
 {#                            <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row">#}
 {#                                <a id="ajapaik-photo-modal-rephoto-permalink" href="{% url 'project.home.views.photo' photo.rephotos.all.0.id %}">{% trans "Permalink" %}</a>#}
@@ -139,7 +139,7 @@
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
-        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}', '{{ rephoto.get_absolute_url }}']);
+        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date|date:"d.m.Y." }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}', '{{ rephoto.get_absolute_url }}']);
     {% endfor %}
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();

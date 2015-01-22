@@ -90,6 +90,7 @@ var map,
     fullscreenEnabled = false,
     heatmap,
     guessResponseReceived = false,
+    gameHintUsed = false,
     heatmapEstimatedLocationMarker,
     estimatedLocationMarkerDeletionWorkaroundArray = [],
     userClosedTutorial = false,
@@ -730,7 +731,7 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        if (window.languageCode === 'et') {
+        if (window.languageCode === 'et' && !gameHintUsed) {
             $('[data-toggle="popover"]').popover('toggle');
         }
         if (!tutorialPanel) {

@@ -3,7 +3,6 @@
 
     var currentPhoto,
         initializeGuessingState,
-        hintUsed = false,
         mediaUrl = '',
         streamUrl = '/stream/',
         difficultyFeedbackURL = '/difficulty_feedback/',
@@ -54,7 +53,7 @@
             $('[data-toggle="popover"]').popover({
                 trigger: trigger,
                 'placement': 'bottom',
-                title: window.gettext('Open description'),
+                title: window.gettext('Vihje vaatamine'),
                 html: true,
                 content: window.gettext('Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra.')
             });
@@ -97,7 +96,7 @@
             window.marker.setVisible(false);
             $('.center-marker').hide();
         }
-        hintUsed = false;
+        window.gameHintUsed = false;
         $('#ajapaik-game-photo-modal').modal();
         $('#ajapaik-map-button-container').hide();
         $('#ajapaik-game-guess-photo-js-panel').hide();
@@ -256,7 +255,7 @@
 
     showDescriptions = function () {
         if (!nextPhotoLoading && window.languageCode === 'et') {
-            hintUsed = true;
+            window.gameHintUsed = true;
             $('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').show();
             $('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').show();
             $('#ajapaik-game-full-screen-description').show();
@@ -420,7 +419,7 @@
                 //$('.ajapaik-show-tutorial-button').show();
                 guessPhotoPanelContent = $('#ajapaik-game-guess-photo-js-panel-content');
                 guessPhotoPanelContent.find('img').prop('src', mediaUrl + currentPhoto.big.url);
-                if (!hintUsed) {
+                if (!window.gameHintUsed) {
                     $('#ajapaik-game-guess-photo-description').hide();
                 }
                 if (!window.isMobile) {
@@ -434,7 +433,9 @@
                     guessPhotoPanelSettings.draggable = false;
                     guessPhotoPanelSettings.resizable = false;
                 }
-                guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', ($(window).width * 0.4) + 'px').css('max-height', $(window).height() - 200);
+                var maxWidth = parseInt($(window).width() * 0.4, 10),
+                    maxHeight = parseInt($(window).height() * 0.75, 10);
+                guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', maxWidth + 'px').css('max-height', maxHeight + 'px');
                 guessPhotoPanel.on('jspanelloaded', function () {
                     $('#ajapaik-game-guess-photo-js-panel').find('img').show();
                 });
@@ -480,7 +481,7 @@
             } else {
                 window.setCursorToAuto();
                 clearBothersomeListeners();
-                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, hintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
+                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {
@@ -567,7 +568,7 @@
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 $('.ajapaik-fullscreen-overlay-button').show();
-                if (window.languageCode === 'et' && currentPhoto.description && !hintUsed) {
+                if (window.languageCode === 'et' && currentPhoto.description && !window.gameHintUsed) {
                     $('.ajapaik-game-map-show-description-overlay-button').show();
                 }
             }
