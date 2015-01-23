@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 16:53+0200\n"
+"POT-Creation-Date: 2015-01-23 12:42+0200\n"
 "PO-Revision-Date: 2015-01-22 16:18+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -59,17 +59,17 @@ msgstr "Sinu pakkumine oli esimene."
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: project/home/views.py:435
+#: project/home/views.py:436
 msgid "Heat map"
 msgstr "Asukoht kaardil"
 
-#: project/home/views.py:472 project/home/views.py:474
+#: project/home/views.py:473 project/home/views.py:475
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:590 project/home/views.py:603
-#: templates/_header_city_selection_scoreboard.html:14
+#: project/home/views.py:592 project/home/views.py:605
+#: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Edetabel"
 
@@ -128,27 +128,36 @@ msgstr "Ajapaik"
 msgid "Choose language"
 msgstr "Vali keel"
 
-#: templates/_header_city_selection_scoreboard.html:21
+#: templates/_header_city_selection_scoreboard.html:12
+#: templates/photoview.html:75
+msgid "Map"
+msgstr "Kaart"
+
+#: templates/_header_city_selection_scoreboard.html:14
+msgid "Geotagging game"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
 msgid "User"
 msgstr "Kasutaja"
 
-#: templates/_header_city_selection_scoreboard.html:21
+#: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
 msgid "Log out"
 msgstr "Logi välja"
 
-#: templates/_header_city_selection_scoreboard.html:26
+#: templates/_header_city_selection_scoreboard.html:33
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/_header_city_selection_scoreboard.html:27
+#: templates/_header_city_selection_scoreboard.html:34
 #: templates/_photo_upload_modal.html:36
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
-#: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
+#: templates/_map_lower_right_buttons.html:5
 msgid "Save location only"
 msgstr "Salvesta asukoht"
 
@@ -156,8 +165,8 @@ msgstr "Salvesta asukoht"
 msgid "Close Street View"
 msgstr "Sulge Street View"
 
-#: templates/_map_lower_right_buttons.html:11 templates/game.html:38
-#: templates/game.html.py:63 templates/game.html:100
+#: templates/_map_lower_right_buttons.html:11 templates/game.html:37
+#: templates/game.html.py:62 templates/game.html:99
 msgid "Next photo"
 msgstr "Järgmine foto"
 
@@ -186,7 +195,7 @@ msgid "Specify location"
 msgstr "Täpsusta asukohta"
 
 #: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:43
-#: templates/game.html:121 templates/mapview.html:43
+#: templates/game.html:120 templates/mapview.html:39
 msgid "Close"
 msgstr "Sulge"
 
@@ -328,7 +337,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:64
+#: templates/base.html:91 templates/base_bootstrap.html:68
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -360,57 +369,41 @@ msgstr "Loe lähemalt"
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:32 templates/game.html.py:103
+#: templates/game.html:31 templates/game.html.py:102
 msgid "Show description"
 msgstr "Vaata kirjeldust"
 
-#: templates/game.html:36 templates/game.html.py:96
+#: templates/game.html:35 templates/game.html.py:95
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: templates/game.html:46 templates/grid.html:63 templates/mapview.html:59
+#: templates/game.html:45 templates/mapview.html:55
 msgid "Thank you!"
 msgstr "Aitäh!"
 
-#: templates/game.html:50 templates/grid.html:67
+#: templates/game.html:49
 msgid "In your opinion to geotag this photo is"
 msgstr "Selle pildi asukoha tuvastamine on"
 
-#: templates/game.html:54 templates/grid.html:71
+#: templates/game.html:53
 msgid "easy"
 msgstr "lihtne"
 
-#: templates/game.html:60 templates/grid.html:77
+#: templates/game.html:59
 msgid "hard"
 msgstr "keeruline"
 
-#: templates/game.html:80 templates/grid.html:45 templates/mapview.html:20
+#: templates/game.html:79 templates/mapview.html:16
 msgid "Geotags"
 msgstr "Asukohapakkumisi"
 
-#: templates/game.html:82 templates/grid.html:47 templates/mapview.html:22
+#: templates/game.html:81 templates/mapview.html:18
 msgid "With azimuth"
 msgstr "Suunaga pakkumisi"
 
-#: templates/game.html:84 templates/mapview.html:24
+#: templates/game.html:83 templates/mapview.html:20
 msgid "Confidence"
 msgstr "Asukoha usaldusväärsus"
-
-#: templates/grid.html:24
-msgid "Load more photos"
-msgstr "Laadi juurde"
-
-#: templates/grid.html:27
-msgid "No more photos to show"
-msgstr "Sellest kohast ei ole rohkem pilte, mida Sa poleks näinud"
-
-#: templates/grid.html:40
-msgid "Cancel"
-msgstr "Loobu"
-
-#: templates/grid.html:80
-msgid "You're welcome!"
-msgstr ""
 
 #: templates/leaderboard.html:19
 #, fuzzy
@@ -418,33 +411,27 @@ msgstr ""
 msgid "Back home"
 msgstr "Tagasi kaardile"
 
-#: templates/mapview.html:61
+#: templates/mapview.html:57
 msgid "Back to map"
 msgstr "Tagasi kaardile"
 
-#: templates/photo_upload.html:18
-msgid "Add files..."
-msgstr "Vali fail..."
+#~ msgid "Load more photos"
+#~ msgstr "Laadi juurde"
 
-#: templates/photo_upload.html:23
-msgid "Start upload"
-msgstr "Lae üles"
+#~ msgid "No more photos to show"
+#~ msgstr "Sellest kohast ei ole rohkem pilte, mida Sa poleks näinud"
 
-#: templates/photo_upload.html:27
-msgid "Cancel upload"
-msgstr "Tühista"
+#~ msgid "Cancel"
+#~ msgstr "Loobu"
 
-#: templates/photo_upload.html:31
-msgid "Delete"
-msgstr ""
+#~ msgid "Add files..."
+#~ msgstr "Vali fail..."
 
-#: templates/photo_upload.html:44
-msgid "Place"
-msgstr ""
+#~ msgid "Start upload"
+#~ msgstr "Lae üles"
 
-#: templates/photoview.html:75
-msgid "Map"
-msgstr "Kaart"
+#~ msgid "Cancel upload"
+#~ msgstr "Tühista"
 
 #~ msgid "Close photo"
 #~ msgstr "Sulge foto"

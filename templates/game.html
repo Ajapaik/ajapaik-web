@@ -127,7 +127,7 @@
     <script>
         var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
             permalinkURL = '{{ hostname }}/foto/',
-            cityId = '{{ filters.filters_by_name.city_lookup_filter.get_option_object.id }}';
+            cityId = '{{ city.id|safe }}';
         {% if city %}
             start_location = [{{ city.lon|safe }}, {{ city.lat|safe }}];
         {% else %}

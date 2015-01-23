@@ -241,6 +241,7 @@ def game(request):
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
     ctx['title'] = _('Guess the location')
+    ctx['is_game'] = True
 
     ctx['city_selection_form'] = city_selection_form
 
@@ -512,7 +513,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
         'leaderboard': leaderboard_response,
         'user_seen_photo_ids': photo_ids_user_has_looked_at,
         'selected_photo': selected_photo,
-        'selected_rephoto': selected_rephoto
+        'selected_rephoto': selected_rephoto,
+        'is_mapview': True
     }))
 
 

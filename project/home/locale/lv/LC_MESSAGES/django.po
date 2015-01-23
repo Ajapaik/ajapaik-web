@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 16:53+0200\n"
+"POT-Creation-Date: 2015-01-23 12:42+0200\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,17 +61,17 @@ msgstr ""
 msgid "Guess the location"
 msgstr "Minēt atrašanās vietu"
 
-#: project/home/views.py:435
+#: project/home/views.py:436
 msgid "Heat map"
 msgstr "Atrašanās vieta kartē"
 
-#: project/home/views.py:472 project/home/views.py:474
+#: project/home/views.py:473 project/home/views.py:475
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
-#: project/home/views.py:590 project/home/views.py:603
-#: templates/_header_city_selection_scoreboard.html:14
+#: project/home/views.py:592 project/home/views.py:605
+#: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Līderu tabula"
 
@@ -136,26 +136,35 @@ msgstr "Timepatch (Ajapaik)"
 msgid "Choose language"
 msgstr "Izvēlies valodu"
 
-#: templates/_header_city_selection_scoreboard.html:21
+#: templates/_header_city_selection_scoreboard.html:12
+#: templates/photoview.html:75
+msgid "Map"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:14
+msgid "Geotagging game"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
 msgid "User"
 msgstr ""
 
-#: templates/_header_city_selection_scoreboard.html:21
+#: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
 msgid "Log out"
 msgstr ""
 
-#: templates/_header_city_selection_scoreboard.html:26
+#: templates/_header_city_selection_scoreboard.html:33
 msgid "Facebook Connect to save your score and continue later."
 msgstr "Pieslēdzies ar Facebook, lai saglabātu punktus un turpinātu vēlāk."
 
-#: templates/_header_city_selection_scoreboard.html:27
+#: templates/_header_city_selection_scoreboard.html:34
 #: templates/_photo_upload_modal.html:36
 msgid "Connect with Facebook"
 msgstr "Pieslēgties ar Facebook"
 
-#: templates/_map_lower_right_buttons.html:5 templates/grid.html:37
+#: templates/_map_lower_right_buttons.html:5
 #, fuzzy
 #| msgid "Save location"
 msgid "Save location only"
@@ -165,8 +174,8 @@ msgstr "Saglabāt atrašanās vietu"
 msgid "Close Street View"
 msgstr ""
 
-#: templates/_map_lower_right_buttons.html:11 templates/game.html:38
-#: templates/game.html.py:63 templates/game.html:100
+#: templates/_map_lower_right_buttons.html:11 templates/game.html:37
+#: templates/game.html.py:62 templates/game.html:99
 msgid "Next photo"
 msgstr "Nākošais attēls"
 
@@ -197,7 +206,7 @@ msgid "Specify location"
 msgstr "Saglabāt atrašanās vietu"
 
 #: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:43
-#: templates/game.html:121 templates/mapview.html:43
+#: templates/game.html:120 templates/mapview.html:39
 msgid "Close"
 msgstr "Aizvērt"
 
@@ -329,7 +338,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:64
+#: templates/base.html:91 templates/base_bootstrap.html:68
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -359,58 +368,40 @@ msgstr "Lasīt tālāk"
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:32 templates/game.html.py:103
+#: templates/game.html:31 templates/game.html.py:102
 msgid "Show description"
 msgstr ""
 
-#: templates/game.html:36 templates/game.html.py:96
+#: templates/game.html:35 templates/game.html.py:95
 msgid "Pick the shooting location!"
 msgstr "Izvēlies attēla uzņemšanas vietu!"
 
-#: templates/game.html:46 templates/grid.html:63 templates/mapview.html:59
+#: templates/game.html:45 templates/mapview.html:55
 msgid "Thank you!"
 msgstr "Paldies!"
 
-#: templates/game.html:50 templates/grid.html:67
+#: templates/game.html:49
 msgid "In your opinion to geotag this photo is"
 msgstr ""
 
-#: templates/game.html:54 templates/grid.html:71
+#: templates/game.html:53
 msgid "easy"
 msgstr ""
 
-#: templates/game.html:60 templates/grid.html:77
+#: templates/game.html:59
 msgid "hard"
 msgstr ""
 
-#: templates/game.html:80 templates/grid.html:45 templates/mapview.html:20
+#: templates/game.html:79 templates/mapview.html:16
 msgid "Geotags"
 msgstr ""
 
-#: templates/game.html:82 templates/grid.html:47 templates/mapview.html:22
+#: templates/game.html:81 templates/mapview.html:18
 msgid "With azimuth"
 msgstr ""
 
-#: templates/game.html:84 templates/mapview.html:24
+#: templates/game.html:83 templates/mapview.html:20
 msgid "Confidence"
-msgstr ""
-
-#: templates/grid.html:24
-#, fuzzy
-#| msgid "Add rephoto"
-msgid "Load more photos"
-msgstr "Pievieno mūsdienu attēlu"
-
-#: templates/grid.html:27
-msgid "No more photos to show"
-msgstr ""
-
-#: templates/grid.html:40
-msgid "Cancel"
-msgstr ""
-
-#: templates/grid.html:80
-msgid "You're welcome!"
 msgstr ""
 
 #: templates/leaderboard.html:19
@@ -419,35 +410,16 @@ msgstr ""
 msgid "Back home"
 msgstr "Uz sākumu"
 
-#: templates/mapview.html:61
+#: templates/mapview.html:57
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
 msgstr "Uz sākumu"
 
-#: templates/photo_upload.html:18
-msgid "Add files..."
-msgstr ""
-
-#: templates/photo_upload.html:23
-msgid "Start upload"
-msgstr ""
-
-#: templates/photo_upload.html:27
-msgid "Cancel upload"
-msgstr ""
-
-#: templates/photo_upload.html:31
-msgid "Delete"
-msgstr ""
-
-#: templates/photo_upload.html:44
-msgid "Place"
-msgstr ""
-
-#: templates/photoview.html:75
-msgid "Map"
-msgstr ""
+#, fuzzy
+#~| msgid "Add rephoto"
+#~ msgid "Load more photos"
+#~ msgstr "Pievieno mūsdienu attēlu"
 
 #~ msgid "Close photo"
 #~ msgstr "Aizvērt"

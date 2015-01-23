@@ -455,6 +455,14 @@ var map,
         location.href = uri.toString();
     });
 
+    $(document).on('click', '#ajapaik-header-map-button', function () {
+       location.href = '/map?city=' + window.cityId;
+    });
+
+    $(document).on('click', '#ajapaik-header-game-button', function () {
+        window.location.href = '/game?city=' + window.cityId;
+    });
+
     // Firefox and Opera cannot handle modal taking over focus
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
         $.noop();
