@@ -16,7 +16,7 @@ body {
 }
 
 #ajapaik-header {
-    height: 40px;
+    height: 5%;
     background: transparent url(../images/footer_bg.jpg) center bottom;
     border-color: transparent;
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
@@ -855,6 +855,7 @@ ul.errorlist {
     position: absolute;
     right: 0;
     bottom: 0;
+    cursor: se-resize;
 }
 
 .ui-resizable-e {
@@ -863,6 +864,7 @@ ul.errorlist {
     top: 0;
     width: 25px;
     height: 100%;
+    cursor: e-resize;
 }
 
 .tutorial-item td {
