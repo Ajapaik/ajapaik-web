@@ -480,9 +480,8 @@
 
     window.highlightSelected = function (markerId, fromMarker, event) {
         if (event) {
-
+            event.stopPropagation();
         }
-        e
         if (currentlySelectedMarkerId == markerId) {
             window.loadPhoto(markerId);
         }
