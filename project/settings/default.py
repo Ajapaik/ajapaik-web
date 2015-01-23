@@ -76,6 +76,7 @@ USE_TZ = True
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 SECRET_KEY = '!!! paste your own secret key here !!!'
@@ -141,6 +142,7 @@ EXTERNAL_APPS = (
     'django_extensions',
     'sorl.thumbnail',
     'rest_framework',
+    'compressor',
 )
 
 LOCAL_APPS = (
