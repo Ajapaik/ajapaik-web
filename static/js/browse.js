@@ -480,9 +480,9 @@
 
     window.highlightSelected = function (markerId, fromMarker, event) {
         if (event) {
-            event.stopPropagation();
-        }
 
+        }
+        e
         if (currentlySelectedMarkerId == markerId) {
             window.loadPhoto(markerId);
         }
@@ -629,10 +629,7 @@
 
         window.initializeMapStateFromOptionalURLParameters();
 
-        var scoreContainer = $('#ajapaik-header').find('.score_container');
-
-        $(document).on('mouseover', scoreContainer, window.showScoreboard);
-        $(document).on('mouseout', scoreContainer, window.hideScoreboard);
+        $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $(document).on('hidden.bs.modal', '#ajapaik-photo-modal', function () {
             window.currentlySelectedRephotoId = false;

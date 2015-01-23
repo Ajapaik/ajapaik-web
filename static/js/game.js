@@ -558,20 +558,13 @@
             hideDescriptionButtons();
         });
 
-        var scoreContainer = $('#ajapaik-header').find('.score_container');
+        $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
-        $(document).on('mouseover', scoreContainer, window.showScoreboard);
-        $(document).on('mouseout', scoreContainer, window.hideScoreboard);
-
-
-        var modalBody = $('#ajapaik-game-modal-body');
-
-        $(document).on('mouseover', modalBody, function () {
+        $('#ajapaik-game-modal-body').hoverIntent(function () {
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
             }
-        });
-        $(document).on('mouseout', modalBody, function () {
+        }, function () {
             if (!window.isMobile && !window.fullscreenEnabled) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
             }

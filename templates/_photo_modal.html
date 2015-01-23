@@ -30,6 +30,7 @@
                         <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-column">
                     {% endif %}
                         <div id="ajapaik-modal-rephoto-container">
+
                             <a class="col-xs-12" id="ajapaik-rephoto-full-screen-link" rel="">
                                 <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
                                 <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
@@ -280,16 +281,14 @@
         $(document).on('click', '.ajapaik-photo-modal-comment-button', function () {
             window.location.href = '{% url 'project.home.views.photo' photo.id %}';
         });
-        var photoColumn = $('#ajapaik-photo-modal-original-photo-column');
-        $(document).on('mouseover', photoColumn, function () {
+        $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 if (window.userClosedRephotoTools) {
                     $('#ajapaik-show-rephoto-selection-overlay-button').show();
                 }
             }
-        });
-        $(document).on('mouseout', photoColumn, function () {
+        }, function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('#ajapaik-show-rephoto-selection-overlay-button').hide();
@@ -298,15 +297,13 @@
         $(document).on('click', '.ajapaik-photo-modal-add-rephoto-button', function () {
             openPhotoUploadModal();
         });
-        var rePhotoColumn = $('#ajapaik-photo-modal-rephoto-column');
-        $(document).on('mouseover', rePhotoColumn, function () {
+        $('#ajapaik-photo-modal-rephoto-column').hoverIntent(function () {
             if (!isMobile) {
                 if (!window.userClosedRephotoTools) {
                     $('#ajapaik-close-rephoto-overlay-button').show();
                 }
             }
-        });
-        $(document).on('mouseout', rePhotoColumn, function () {
+        }, function () {
             if (!isMobile) {
                 if (!window.userClosedRephotoTools) {
                     $('#ajapaik-close-rephoto-overlay-button').hide();
