@@ -862,7 +862,7 @@ ul.errorlist {
     position: absolute;
     right: 0;
     top: 0;
-    width: 25px;
+    width: 10px;
     height: 100%;
     cursor: e-resize;
 }
