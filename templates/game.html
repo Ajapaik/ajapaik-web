@@ -124,7 +124,7 @@
     </div>
 {% endblock %}
 {% block specific_js %}
-    {% compress %}
+    {% compress js %}
         <script>
             var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
                 permalinkURL = '{{ hostname }}/foto/',
