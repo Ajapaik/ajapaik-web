@@ -16,10 +16,8 @@ from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Polygon
 from django.views.decorators.csrf import ensure_csrf_cookie
-import hashlib
 
-from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, \
-    UserMapView, Points
+from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points
 from project.home.forms import CitySelectionForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
@@ -33,13 +31,9 @@ from copy import deepcopy
 import get_next_photos_to_geotag
 import random
 import datetime
-import urllib
 import json
 
-from django.forms.forms import Form
-from django.forms.fields import ChoiceField
 from europeana import Search, BoundingBox
-
 
 def _convert_to_degress(value):
     d0 = value[0][0]
@@ -294,7 +288,6 @@ def photo_url(request, photo_id):
         im = get_thumbnail(photo.image, str(im.width) + 'x' + str(im.height), crop="center")
     else:
         im = get_thumbnail(photo.image, '700x400')
-    # return redirect(im.url)
     content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')
@@ -405,63 +398,6 @@ def photoslug(request, photo_id, pseudo_slug):
     }))
 
 
-def photo_heatmap(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    pseudo_slug = photo.get_pseudo_slug()
-    # slug not needed if not enough data for slug or ajax request
-    if pseudo_slug != "" and not request.is_ajax():
-        return photoslug_heatmap(request, photo.id, "")
-    else:
-        return photoslug_heatmap(request, photo.id, pseudo_slug)
-
-
-def photoslug_heatmap(request, photo_id, pseudo_slug):
-    photo_obj = get_object_or_404(Photo, id=photo_id)
-    user_profile = request.get_user().profile
-    _add_log_entry_if_necessary(user_profile, photo_id, "opened_heatmap")
-    # redirect if slug in url doesn't match with our pseudo slug
-    if photo_obj.get_pseudo_slug() != pseudo_slug:
-        response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
-        response["Location"] = photo_obj.get_heatmap_url()
-        return response
-
-    # load heatmap data always from original photo
-    if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
-        photo_obj = photo_obj.rephoto_of
-
-    data = get_next_photos_to_geotag.get_all_geotag_submits(photo_obj.id)
-    if not photo_obj.description:
-        title = "Unknown"
-    else:
-        title = ' '.join(photo_obj.description.split(' ')[:5])[:50] + ' - ' + _("Heat map")
-    return render_to_response('heatmap.html', RequestContext(request, {
-    'json_data': json.dumps(data),
-    'city': photo_obj.city,
-    'title': title,
-    'description': photo_obj.description,
-    'photo_lon': photo_obj.lon,
-    'photo_lat': photo_obj.lat,
-    }))
-
-
-def heatmap(request):
-    city_select_form = CitySelectionForm(request.GET)
-    city_id = city = None
-
-    if city_select_form.is_valid():
-        city_id = city_select_form.cleaned_data['city']
-        city = City.objects.get(pk=city_id)
-    else:
-        city_select_form = CitySelectionForm()
-
-    data = get_next_photos_to_geotag.get_all_geotagged_photos(city_id)
-    return render_to_response('heatmap.html', RequestContext(request, {
-    'json_data': json.dumps(data),
-    'city': city,
-    'city_select_form': city_select_form,
-
-    }))
-
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
     city_selection_form = CitySelectionForm(request.GET)
@@ -504,13 +440,10 @@ def mapview(request, photo_id=None, rephoto_id=None):
         keys[e] = 1
     photo_ids_user_has_looked_at = keys
 
-    leaderboard_response = get_next_photos_to_geotag.get_rephoto_leaderboard(request.get_user().profile.pk)
-
     return render_to_response('mapview.html', RequestContext(request, {
         'city': city,
         'title': title,
         'city_selection_form': city_selection_form,
-        'leaderboard': leaderboard_response,
         'user_seen_photo_ids': photo_ids_user_has_looked_at,
         'selected_photo': selected_photo,
         'selected_rephoto': selected_rephoto,
@@ -534,9 +467,7 @@ def map_objects_by_bounding_box(request):
 
 
 def get_leaderboard(request):
-    return HttpResponse(json.dumps(
-        get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)),
-                        content_type="application/json")
+    return HttpResponse(json.dumps(get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)), content_type="application/json")
 
 def calculate_recent_activity_scores():
     thousand_actions_ago = Points.objects.order_by('-created')[1000].created

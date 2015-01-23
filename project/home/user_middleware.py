@@ -5,7 +5,6 @@ from project.home import models
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from functools import partial
-import sys
 
 def get_user(request):
     if request.user.is_authenticated():

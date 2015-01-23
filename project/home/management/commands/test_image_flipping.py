@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from project.models import Photo
+from project.home.models import Photo
 
 class Command(BaseCommand):
 	help = "For testing horizontal flip on images"

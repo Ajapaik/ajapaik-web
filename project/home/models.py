@@ -622,10 +622,10 @@ class FacebookManager(models.Manager):
         except ObjectDoesNotExist:
             return None, data,
 
+# TODO: For Google?
 #from south.modelsinspector import add_introspection_rules
 from oauth2client.django_orm import CredentialsField
 #add_introspection_rules([], ["^oauth2client\.django_orm\.CredentialsField", "^oauth2client\.django_orm\.FlowField"])
-
 
 class CredentialsModel(models.Model):
     id = models.ForeignKey(BaseUser, primary_key=True)
@@ -801,17 +801,14 @@ class Device(models.Model):
 
 
 class Skip(models.Model):
+    user = models.ForeignKey(Profile, related_name='skips')
+    photo = models.ForeignKey(Photo)
+    created = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         verbose_name = 'Skip'
         verbose_name_plural = 'Skips'
-
-    user = models.ForeignKey(Profile, related_name='skips')
-    photo = models.ForeignKey(Photo)
-
-    class Meta:
         app_label = "project"
-
-    created = models.DateTimeField(auto_now_add=True)
 
 
 class Action(models.Model):
