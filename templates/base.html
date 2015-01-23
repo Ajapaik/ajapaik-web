@@ -59,33 +59,35 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
     {% endcompress %}
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold' rel='stylesheet' type='text/css'>
-    <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js"></script>
-    <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.tools-1.2.7.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
-    <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
-    <script src="{{ STATIC_URL }}libs/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.simplemodal.1.4.3.min.js"></script>
-    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
-    <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
-    <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
-    <script>
-         var _gaq = _gaq || [];
-         _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
-         _gaq.push(['_trackPageview']);
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.tools-1.2.7.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
+        <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.simplemodal.1.4.3.min.js"></script>
+        <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+        <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
+        <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
+        <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
+        <script>
+             var _gaq = _gaq || [];
+             _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
+             _gaq.push(['_trackPageview']);
 
-         (function() {
-           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-           ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-         })();
-    </script>
-    <script>
-        var isMobile = '{{ request.mobile }}';
-        isMobile = isMobile === 'True';
-    </script>
+             (function() {
+               var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+               ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+        <script>
+            var isMobile = '{{ request.mobile }}';
+            isMobile = isMobile === 'True';
+        </script>
+    {% endcompress %}
 </head>
 <body>
     <div id="cookie-notice-container" style="display: none;">
