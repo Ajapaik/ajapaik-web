@@ -115,9 +115,9 @@
 
 {% block specific_js %}
     {% compress js %}
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-        <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
-        <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+        <script src="{{ STATIC_URL }}js/moment-2.9.0.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>
         <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
         <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
         <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>

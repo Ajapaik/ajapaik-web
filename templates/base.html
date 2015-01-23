@@ -67,7 +67,6 @@
         <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.simplemodal.1.4.3.min.js"></script>
-        <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
         <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
@@ -88,6 +87,7 @@
             isMobile = isMobile === 'True';
         </script>
     {% endcompress %}
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
 </head>
 <body>
     <div id="cookie-notice-container" style="display: none;">
