@@ -478,7 +478,10 @@
         window.dottedAzimuthLine.setVisible(false);
     };
 
-    window.highlightSelected = function (markerId, fromMarker) {
+    window.highlightSelected = function (markerId, fromMarker, event) {
+        if (event) {
+            event.stopPropagation();
+        }
         if (currentlySelectedMarkerId == markerId) {
             window.loadPhoto(markerId);
         }

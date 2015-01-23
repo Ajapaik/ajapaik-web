@@ -2,7 +2,7 @@
     {% for element in data %}
         <a id="element{{ element.0 }}" class="ajapaik-mapview-pane-photo-container"
            data-id="{{ element.0 }}"
-           onclick="window.highlightSelected({{ element.0 }}, false);">
+           onclick="window.highlightSelected({{ element.0 }}, false, event);">
             <img src=""
                  data-src="{{ element.1 }}"
                  title="{{ element.4 }}"
