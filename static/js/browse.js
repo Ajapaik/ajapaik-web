@@ -63,16 +63,16 @@
         markerIdToHighlightAfterPageLoad,
         targetTopToScrollToAfterPaneLoad,
         updateBoundingEdge,
-        maxGalleryWidth = $(window).width() * 0.66,
+        maxGalleryWidth = $(window).width() * 0.2,
         maxGalleryHeight = $('#ajapaik-map-canvas').height(),
         galleryPanelSettings = {
             selector: '#ajapaik-map-container',
             title: false,
             position: 'top left',
             size: { height: function () {
-                return $(window).height() - 100;
+                return maxGalleryHeight;
             }, width: function () {
-                return $(window).width() / 5;
+                return maxGalleryWidth;
             }},
             draggable: false,
             removeHeader: true,
