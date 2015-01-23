@@ -67,6 +67,7 @@ var map,
     mapBoundsChangedListener,
     mapMousemoveListener,
     mapDragListener,
+    guessLocationStarted = false,
     mapPositionChangedListener,
     streetviewVisibleChangedListener,
     streetviewPanoChangedListener,
@@ -194,9 +195,14 @@ var map,
                     window._gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
                 }
                 // Currently we are not displaying the save button when Street View is open
+                console.log("Street View open");
                 saveLocationButton.hide();
+                $('#ajapaik-map-button-container').show();
                 $('.ajapaik-close-streetview-button').show().parent().show();
             } else {
+                if (!guessLocationStarted) {
+                    $('#ajapaik-map-button-container').hide();
+                }
                 $('.ajapaik-close-streetview-button').hide().parent().hide();
                 saveLocationButton.show();
             }

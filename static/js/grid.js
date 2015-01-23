@@ -9,7 +9,6 @@
             openPhotoDrawer,
             photoId,
             disableSave = true,
-            guessLocationStarted = false,
             noticeDiv,
             nonFFWheelListener,
             ffWheelListener,
@@ -133,8 +132,8 @@
         };
 
         window.startGuessLocation = function () {
-            if (!guessLocationStarted) {
-                guessLocationStarted = true;
+            if (!window.guessLocationStarted) {
+                window.guessLocationStarted = true;
                 $('#ajapaik-map-container').show();
                 $('#ajapaik-grid-map-info-panel').show();
                 $('.ajapaik-marker-center-lock-button').show();
@@ -267,11 +266,11 @@
             $('#ajapaik-map-button-container').hide();
             window.setCursorToAuto();
             window.dottedAzimuthLine.setMap(null);
-            guessLocationStarted = false;
+            window.guessLocationStarted = false;
         };
 
         $('.ajapaik-grid-close-map-button').click(function () {
-            guessLocationStarted = false;
+            window.guessLocationStarted = false;
             $('#photo-drawer').show();
             $('#ajapaik-grid-guess-photo').hide();
             $('#ajapaik-grid-guess-photo-back').hide();

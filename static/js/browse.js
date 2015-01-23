@@ -9,7 +9,6 @@
         photoPanel,
         icon,
         lastRequestedPaneMarkersIds,
-        guessLocationStarted = false,
         i = 0,
         j = 0,
         maxIndex = 2,
@@ -153,18 +152,18 @@
             historyReplacementString += '&lng=' + window.map.getCenter().lng();
             historyReplacementString += '&zoom=' + window.map.zoom;
         }
-        if (photoDrawerOpen || guessLocationStarted) {
+        if (photoDrawerOpen || window.guessLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
         }
         window.History.replaceState(null, null, historyReplacementString);
     };
 
     window.startGuessLocation = function () {
-        if (!guessLocationStarted) {
+        if (!window.guessLocationStarted) {
             if (window.map.zoom < 17) {
                 window.map.setZoom(17);
             }
-            guessLocationStarted = true;
+            window.guessLocationStarted = true;
             window.dottedAzimuthLine.setVisible(false);
             window.google.maps.event.trigger(window.map, 'resize');
             window.map.set('scrollwheel', false);
@@ -344,7 +343,7 @@
         $('#ajapaik-map-button-container').hide();
         window.setCursorToAuto();
         window.dottedAzimuthLine.setMap(null);
-        guessLocationStarted = false;
+        window.guessLocationStarted = false;
         toggleVisiblePaneElements();
     };
 
@@ -365,7 +364,7 @@
     };
 
     toggleVisiblePaneElements = function () {
-        if (window.map && !guessLocationStarted) {
+        if (window.map && !window.guessLocationStarted) {
             window.dottedAzimuthLine.setVisible(false);
             if (!window.comingBackFromGuessLocation) {
                 window.deselectMarker();
