@@ -81,7 +81,7 @@ body {
 }
 
 .filter-box {
-    margin-top: 10px;
+    margin-top: 7px;
     padding-left: 10px;
     overflow: hidden;
 }
@@ -855,6 +855,14 @@ ul.errorlist {
     position: absolute;
     right: 0;
     bottom: 0;
+}
+
+.ui-resizable-e {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25px;
+    height: 100%;
 }
 
 .tutorial-item td {

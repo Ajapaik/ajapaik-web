@@ -155,7 +155,7 @@
         if (photoDrawerOpen || window.guessLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
         }
-        window.History.replaceState(null, null, historyReplacementString);
+        window.History.replaceState(null, window.title, historyReplacementString);
     };
 
     window.startGuessLocation = function () {

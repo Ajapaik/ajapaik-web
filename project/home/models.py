@@ -2,7 +2,6 @@ from PIL import Image
 from django.core.files import File
 from django.contrib.gis.db import models
 from django.db import connection
-from django.db.models import Count, Sum
 
 from django.contrib.auth.models import User as BaseUser
 from django.contrib.contenttypes.models import ContentType
@@ -39,16 +38,15 @@ def distance_in_meters(lon1, lat1, lon2, lat2):
     return (2 * 6350e3 * 3.1415 / 360) * math.sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
 
 
+#TODO: Are these really needed?
 def _make_thumbnail(photo, size):
     image = get_thumbnail(photo.image, size)
-    return {'url': image.url,
-            'size': [image.width, image.height]}
+    return {'url': image.url, 'size': [image.width, image.height]}
 
 
 def _make_fullscreen(photo):
     image = get_thumbnail(photo.image, '1024x1024', upscale=False)
-    return {'url': image.url,
-            'size': [image.width, image.height]}
+    return {'url': image.url, 'size': [image.width, image.height]}
 
 models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
@@ -516,7 +514,6 @@ class Photo(models.Model):
                 if unique_correct_guesses_ratio > 0.63:
                     self.lon = lon_sum / float(correct_guesses_weight)
                     self.lat = lat_sum / float(correct_guesses_weight)
-                    self.geography = Point(self.lat, self.lon)
                     if unique_azimuth_correct_ratio > 0.63:
                         self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
                         self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)

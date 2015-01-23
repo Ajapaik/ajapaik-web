@@ -67,7 +67,8 @@
     <script src="{{ STATIC_URL }}js/markerclustererplus-2.1.2.min.js"></script>
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     <script>
-        var leaderboardFullURL = "{% url "project.home.views.top50" %}",
+        var title = '{{ title }}',
+            leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             {% if city %}
                 cityId = '{{ city.id | safe }}';
