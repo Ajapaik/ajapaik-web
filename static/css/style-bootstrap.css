@@ -846,7 +846,7 @@ ul.errorlist {
 
 #ajapaik-mapview-photo-panel .jsPanel-content {
     outline: none !important;
-    overflow-y: scroll !important;
+    /*overflow-y: scroll !important;*/
     background-color: rgba(0, 0, 0, 0);
 }
 
