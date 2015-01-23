@@ -186,7 +186,7 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'ERROR',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': 'staging.ajapaik.ee.log',
             'formatter': 'verbose'
@@ -196,11 +196,11 @@ LOGGING = {
         'django': {
             'handlers':['file'],
             'propagate': True,
-            'level':'ERROR',
+            'level':'INFO',
         },
         'MYAPP': {
             'handlers': ['file'],
-            'level': 'ERROR',
+            'level': 'INFO',
         },
     }
 }
