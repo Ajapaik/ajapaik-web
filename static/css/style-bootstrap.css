@@ -581,19 +581,6 @@ a.fullscreen {
     max-width: 50%;
 }
 
-/*.ajapaik-eye-open {*/
-    /*position: absolute;*/
-    /*bottom: 0;*/
-    /*left: 0;*/
-    /*width: 30px;*/
-    /*height: 30px;*/
-    /*background: rgba(128, 128, 128, 0.5) url("../images/eye_open_20px_white.png") no-repeat center;*/
-/*}*/
-
-/*.ajapaik-eye-open-light-bg {*/
-    /*background-color: rgba(225, 225, 225, 0.5) !important;*/
-/*}*/
-
 .ajapaik-azimuth {
     position: absolute;
     top: 0;
@@ -864,14 +851,10 @@ ul.errorlist {
 }
 
 
-.ui-resizable-e {
-    width: 25px;
-    top: 25px;
-}
-
-.ui-resizable-w {
-    width: 25px;
-    top: 25px;
+.ui-resizable-se {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .tutorial-item td {

@@ -55,11 +55,12 @@
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.1.min.css"/>
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.1.min.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
 </head>
 <body>
 <div id="cookie-notice-container" style="display: none;">
@@ -91,8 +92,8 @@
         isMobile = isMobile === 'True';
     </script>
     <script src="{{ STATIC_URL }}js/jquery-2.1.3.min.js"></script>
-    <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>
     <script src="{{ STATIC_URL }}libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>
     <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
     <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>

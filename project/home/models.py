@@ -422,6 +422,12 @@ class Photo(models.Model):
             data.append([each.lat, each.lon, each.azimuth])
         return data
 
+    def save(self, *args, **kwargs):
+        # Update POSTGIS data on save
+        if self.lat and self.lon:
+            self.geography = Point(self.lat, self.lon)
+        super(Photo, self).save(*args, **kwargs)
+
     def set_calculated_fields(self):
         photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
         weighted_level_sum, total_weight = 0, 0

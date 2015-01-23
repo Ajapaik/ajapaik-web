@@ -58,7 +58,7 @@
         nonFFWheelListener,
         guessPhotoPanel,
         guessPhotoPanelContent,
-        currentPhotoWidth,
+        //currentPhotoWidth,
         noticeDiv,
         feedbackPanel,
         markerIdToHighlightAfterPageLoad,
@@ -76,10 +76,6 @@
                 return $(window).width() / 5;
             }},
             draggable: false,
-            resizable: {
-                maxWidth: maxGalleryWidth,
-                maxHeight: maxGalleryHeight
-            },
             removeHeader: true,
             overflow: { horizontal: 'hidden', vertical: 'auto' },
             id: 'ajapaik-mapview-photo-panel'
@@ -221,14 +217,14 @@
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('.ajapaik-fullscreen-overlay-button').hide();
             }
-            currentPhotoWidth = $('#ajapaik-mapview-guess-photo-container').find('img').width();
+            //currentPhotoWidth = $('#ajapaik-mapview-guess-photo-container').find('img').width();
             guessPhotoPanelSettings.content = guessPhotoPanelContent.html();
             if (window.isMobile) {
                 guessPhotoPanelSettings.resizable = false;
                 guessPhotoPanelSettings.draggable = false;
             }
             guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
-            guessPhotoPanel.find('img').show();
+            //guessPhotoPanel.find('img').show();
             if (photoPanel) {
                 photoPanel.close();
             }
