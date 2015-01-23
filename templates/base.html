@@ -71,22 +71,22 @@
         <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
         <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
-        <script>
-             var _gaq = _gaq || [];
-             _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
-             _gaq.push(['_trackPageview']);
-
-             (function() {
-               var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-               ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-             })();
-        </script>
-        <script>
-            var isMobile = '{{ request.mobile }}';
-            isMobile = isMobile === 'True';
-        </script>
     {% endcompress %}
+    <script>
+         var _gaq = _gaq || [];
+         _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
+         _gaq.push(['_trackPageview']);
+
+         (function() {
+           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+           ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+    </script>
+    <script>
+        var isMobile = '{{ request.mobile }}';
+        isMobile = isMobile === 'True';
+    </script>
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
 </head>
 <body>

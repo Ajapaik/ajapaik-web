@@ -124,17 +124,17 @@
     </div>
 {% endblock %}
 {% block specific_js %}
+    <script>
+        var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
+            permalinkURL = '{{ hostname }}/foto/',
+            cityId = '{{ city.id|safe }}';
+        {% if city %}
+            start_location = [{{ city.lon|safe }}, {{ city.lat|safe }}];
+        {% else %}
+            start_location = [26, 59];
+        {% endif %}
+    </script>
     {% compress js %}
-        <script>
-            var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
-                permalinkURL = '{{ hostname }}/foto/',
-                cityId = '{{ city.id|safe }}';
-            {% if city %}
-                start_location = [{{ city.lon|safe }}, {{ city.lat|safe }}];
-            {% else %}
-                start_location = [26, 59];
-            {% endif %}
-        </script>
         <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
         <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>

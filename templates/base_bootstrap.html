@@ -77,23 +77,23 @@
 {% endblock header %}
 {% block layout %}{% endblock layout %}
 {% block global_js %}
+    <script>
+        window.fbAsyncInit=function(){FB.init({appId:"201052296573134",status:!0,cookie:!0,xfbml:!0});try{FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackEvent","Facebook","Like added",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackEvent","Facebook","Like removed",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackEvent","Facebook","Message sent",a])}),FB.Event.subscribe("comment.create",function(a){_gaq.push(["_trackEvent","Facebook","Comment added",
+        a.href])}),FB.Event.subscribe("comment.remove",function(a){_gaq.push(["_trackEvent","Facebook","Comment removed",a.href])}),FB.Event.subscribe("auth.prompt",function(){_gaq.push(["_trackEvent","Facebook","Login prompt"])}),FB.Event.subscribe("auth.login",function(){_gaq.push(["_trackEvent","Facebook","Login success"])}),FB.Event.subscribe("auth.logout",function(){_gaq.push(["_trackEvent","Facebook","Logged out"])})}catch(b){console.log(b)}};
+        (function(){var b=document.createElement("script");b.async=!0;b.src=document.location.protocol+"//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js";document.getElementById("fb-root").appendChild(b)})();
+    </script>
+    <script>
+        var _gaq=_gaq||[];_gaq.push(["_setAccount","{{ analytics.google_analytics_key }}"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();
+    </script>
+    <script>
+        var isMobile = '{{ request.mobile }}',
+            saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
+            leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
+            flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',
+            languageCode = '{{ LANGUAGE_CODE }}';
+        isMobile = isMobile === 'True';
+    </script>
     {% compress js %}
-        <script>
-            window.fbAsyncInit=function(){FB.init({appId:"201052296573134",status:!0,cookie:!0,xfbml:!0});try{FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackEvent","Facebook","Like added",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackEvent","Facebook","Like removed",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackEvent","Facebook","Message sent",a])}),FB.Event.subscribe("comment.create",function(a){_gaq.push(["_trackEvent","Facebook","Comment added",
-            a.href])}),FB.Event.subscribe("comment.remove",function(a){_gaq.push(["_trackEvent","Facebook","Comment removed",a.href])}),FB.Event.subscribe("auth.prompt",function(){_gaq.push(["_trackEvent","Facebook","Login prompt"])}),FB.Event.subscribe("auth.login",function(){_gaq.push(["_trackEvent","Facebook","Login success"])}),FB.Event.subscribe("auth.logout",function(){_gaq.push(["_trackEvent","Facebook","Logged out"])})}catch(b){console.log(b)}};
-            (function(){var b=document.createElement("script");b.async=!0;b.src=document.location.protocol+"//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js";document.getElementById("fb-root").appendChild(b)})();
-        </script>
-        <script>
-            var _gaq=_gaq||[];_gaq.push(["_setAccount","{{ analytics.google_analytics_key }}"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();
-        </script>
-        <script>
-            var isMobile = '{{ request.mobile }}',
-                saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
-                leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
-                flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',
-                languageCode = '{{ LANGUAGE_CODE }}';
-            isMobile = isMobile === 'True';
-        </script>
         <script src="{{ STATIC_URL }}js/jquery-2.1.3.min.js"></script>
         <script src="{{ STATIC_URL }}libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>
