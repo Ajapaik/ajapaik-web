@@ -1,10 +1,12 @@
 {% extends "base_bootstrap.html" %}
-{% load thumbnail i18n %}
+{% load thumbnail i18n compress %}
 
 {% block header %}
     {% include "_header.html" %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
+    {% endcompress %}
 {% endblock %}
 
 {% block layout %}
@@ -112,121 +114,123 @@
 {% endblock %}
 
 {% block specific_js %}
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-    <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
-    <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="{{ STATIC_URL }}/js/ajapaik-common.js"></script>
-    <script>
-    $(document).ready(function () {
-        var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
-            mainPhoto = $('#ajapaik-photoview-main-photo'),
-            originalFullscreen = $('#ajapaik-photoview-original-full-screen-image');
-        $('.dropdown-toggle').dropdown();
-        $('.disabled-link').click(function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        });
-        window.prepareFullscreen({{ fullscreen.size.0 }}, {{ fullscreen.size.1 }}, '#ajapaik-photoview-original-full-screen-image');
-        {% if rephoto %}
-            window.prepareFullscreen({{ rephoto_fullscreen.size.0 }}, {{ rephoto_fullscreen.size.1 }}, '#ajapaik-photoview-rephoto-full-screen-image');
-        {% endif %}
-        $(document).on('click', '#ajapaik-photoview-original-full-screen-link', function (e) {
-            e.preventDefault();
-            if (window.BigScreen.enabled) {
-                window.BigScreen.request($('#ajapaik-photoview-original-fullscreen-container')[0]);
-                window._gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
-            }
-        });
-        $(document).on('click', '#ajapaik-photoview-rephoto-full-screen-link', function (e) {
-            e.preventDefault();
-            if (window.BigScreen.enabled) {
-                window.BigScreen.request($('#ajapaik-photoview-rephoto-fullscreen-container')[0]);
-                window._gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
-            }
-        });
-        $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
-            var $this = $(this);
-            if ($this.hasClass('active')) {
-                $this.removeClass('active');
-            } else {
-                $this.addClass('active');
-            }
-            if (mainPhoto.hasClass('ajapaik-photo-flipped')) {
-                mainPhoto.removeClass('ajapaik-photo-flipped');
-            } else {
-                mainPhoto.addClass('ajapaik-photo-flipped');
-            }
-            if (originalFullscreen.hasClass('ajapaik-photo-flipped')) {
-                originalFullscreen.removeClass('ajapaik-photo-flipped');
-            } else {
-                originalFullscreen.addClass('ajapaik-photo-flipped');
-            }
-        });
-        $('.full-box div').on('click', function (e) {
-            if (BigScreen.enabled) {
-                e.preventDefault();
-                window.fullscreenEnabled = false;
-                BigScreen.exit();
-            }
-        });
-        if (window.isMobile) {
-            $('.ajapaik-flip-photo-overlay-button').show();
-        }
-        $(document).on('mouseover', '#ajapaik-photoview-main-photo-container', function () {
-            if (!window.isMobile) {
-                $('.ajapaik-flip-photo-overlay-button').show();
-            }
-        });
-        $(document).on('mouseout', '#ajapaik-photoview-main-photo-container', function () {
-            if (!window.isMobile) {
-                $('.ajapaik-flip-photo-overlay-button').hide();
-            }
-        });
-        $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
-            if (!window.isMobile) {
-                $('#ajapaik-close-rephoto-overlay-button').show();
-            }
-        });
-        $(document).on('mouseout', '#ajapaik-photoview-rephoto-container', function () {
-            if (!window.isMobile) {
-                $('#ajapaik-close-rephoto-overlay-button').hide();
-            }
-        });
-        $(document).on('click', '#ajapaik-photoview-add-rephoto-button', function () {
-            $.ajax({
-                cache: false,
-                url: '/photo_upload_modal/' + {{ photo.id }} + '/',
-                success: function (result) {
-                    rephotoUploadModal.data('bs.modal', null);
-                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
+    {% compress js %}
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+        <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+        <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="{{ STATIC_URL }}/js/ajapaik-common.js"></script>
+        <script>
+            $(document).ready(function () {
+                var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
+                    mainPhoto = $('#ajapaik-photoview-main-photo'),
+                    originalFullscreen = $('#ajapaik-photoview-original-full-screen-image');
+                $('.dropdown-toggle').dropdown();
+                $('.disabled-link').click(function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                });
+                window.prepareFullscreen({{ fullscreen.size.0 }}, {{ fullscreen.size.1 }}, '#ajapaik-photoview-original-full-screen-image');
+                {% if rephoto %}
+                    window.prepareFullscreen({{ rephoto_fullscreen.size.0 }}, {{ rephoto_fullscreen.size.1 }}, '#ajapaik-photoview-rephoto-full-screen-image');
+                {% endif %}
+                $(document).on('click', '#ajapaik-photoview-original-full-screen-link', function (e) {
+                    e.preventDefault();
+                    if (window.BigScreen.enabled) {
+                        window.BigScreen.request($('#ajapaik-photoview-original-fullscreen-container')[0]);
+                        window._gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
+                    }
+                });
+                $(document).on('click', '#ajapaik-photoview-rephoto-full-screen-link', function (e) {
+                    e.preventDefault();
+                    if (window.BigScreen.enabled) {
+                        window.BigScreen.request($('#ajapaik-photoview-rephoto-fullscreen-container')[0]);
+                        window._gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
+                    }
+                });
+                $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
+                    var $this = $(this);
+                    if ($this.hasClass('active')) {
+                        $this.removeClass('active');
+                    } else {
+                        $this.addClass('active');
+                    }
+                    if (mainPhoto.hasClass('ajapaik-photo-flipped')) {
+                        mainPhoto.removeClass('ajapaik-photo-flipped');
+                    } else {
+                        mainPhoto.addClass('ajapaik-photo-flipped');
+                    }
+                    if (originalFullscreen.hasClass('ajapaik-photo-flipped')) {
+                        originalFullscreen.removeClass('ajapaik-photo-flipped');
+                    } else {
+                        originalFullscreen.addClass('ajapaik-photo-flipped');
+                    }
+                });
+                $('.full-box div').on('click', function (e) {
+                    if (BigScreen.enabled) {
+                        e.preventDefault();
+                        window.fullscreenEnabled = false;
+                        BigScreen.exit();
+                    }
+                });
+                if (window.isMobile) {
+                    $('.ajapaik-flip-photo-overlay-button').show();
                 }
+                $(document).on('mouseover', '#ajapaik-photoview-main-photo-container', function () {
+                    if (!window.isMobile) {
+                        $('.ajapaik-flip-photo-overlay-button').show();
+                    }
+                });
+                $(document).on('mouseout', '#ajapaik-photoview-main-photo-container', function () {
+                    if (!window.isMobile) {
+                        $('.ajapaik-flip-photo-overlay-button').hide();
+                    }
+                });
+                $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
+                    if (!window.isMobile) {
+                        $('#ajapaik-close-rephoto-overlay-button').show();
+                    }
+                });
+                $(document).on('mouseout', '#ajapaik-photoview-rephoto-container', function () {
+                    if (!window.isMobile) {
+                        $('#ajapaik-close-rephoto-overlay-button').hide();
+                    }
+                });
+                $(document).on('click', '#ajapaik-photoview-add-rephoto-button', function () {
+                    $.ajax({
+                        cache: false,
+                        url: '/photo_upload_modal/' + {{ photo.id }} + '/',
+                        success: function (result) {
+                            rephotoUploadModal.data('bs.modal', null);
+                            rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
+                                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                            });
+                        }
+                    });
+                });
+                $(document).on('click', '#ajapaik-photoview-map-button', function () {
+                     window.location.href = '/map/photo/' + {{ photo.id }};
+                });
+                $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
+                    window.location.href = '/foto/' + {{ photo.id }};
+                });
+                $('#ajapaik-comment-tabs a').click(function (e) {
+                    e.preventDefault();
+                    $(this).tab('show')
+                });
+                window.uploadCompleted = function (response) {
+                    $('#ajapaik-rephoto-upload-modal').modal('toggle');
+                    if (response && response.new_id) {
+                        window.location.reload();
+                    }
+                };
+                window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
             });
-        });
-        $(document).on('click', '#ajapaik-photoview-map-button', function () {
-             window.location.href = '/map/photo/' + {{ photo.id }};
-        });
-        $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
-            window.location.href = '/foto/' + {{ photo.id }};
-        });
-        $('#ajapaik-comment-tabs a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show')
-        });
-        window.uploadCompleted = function (response) {
-            $('#ajapaik-rephoto-upload-modal').modal('toggle');
-            if (response && response.new_id) {
-                window.location.reload();
-            }
-        };
-        window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
-    });
-</script>
+        </script>
+    {% endcompress %}
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "base_bootstrap.html" %}
-{% load i18n %}
+{% load i18n compress %}
 
 {% block header %}
     {% include "_header_city_selection_scoreboard.html" %}
@@ -64,42 +64,44 @@
 {% endblock %}
 
 {% block specific_js %}
-    <script src="{{ STATIC_URL }}js/markerclustererplus-2.1.2.min.js"></script>
-    <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-    <script>
-        var title = '{{ title }}',
-            leaderboardFullURL = "{% url "project.home.views.top50" %}",
-            difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
-            {% if city %}
-                cityId = '{{ city.id | safe }}';
-            {% else %}
-                cityId = 1;
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/markerclustererplus-2.1.2.min.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+        <script>
+            var title = '{{ title }}',
+                leaderboardFullURL = "{% url "project.home.views.top50" %}",
+                difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
+                {% if city %}
+                    cityId = '{{ city.id | safe }}';
+                {% else %}
+                    cityId = 1;
+                {% endif %}
+                {% if city.lat and city.lon %}
+                    var cityLatLng = new window.google.maps.LatLng({{ city.lat | safe }}, {{ city.lon | safe }});
+                {% endif %}
+            {% if selected_photo %}
+                var preselectPhotoId = '{{ selected_photo.id }}';
+                {% if selected_photo.lat and selected_photo.lon %}
+                    var preselectPhotoLat = '{{ selected_photo.lat | safe }}',
+                        preselectPhotoLng = '{{ selected_photo.lon | safe }}';
+                {% endif %}
             {% endif %}
-            {% if city.lat and city.lon %}
-                var cityLatLng = new window.google.maps.LatLng({{ city.lat | safe }}, {{ city.lon | safe }});
+            {% if selected_rephoto %}
+                var preselectRephotoId = '{{ selected_rephoto.id }}';
             {% endif %}
-        {% if selected_photo %}
-            var preselectPhotoId = '{{ selected_photo.id }}';
-            {% if selected_photo.lat and selected_photo.lon %}
-                var preselectPhotoLat = '{{ selected_photo.lat | safe }}',
-                    preselectPhotoLng = '{{ selected_photo.lon | safe }}';
-            {% endif %}
-        {% endif %}
-        {% if selected_rephoto %}
-            var preselectRephotoId = '{{ selected_rephoto.id }}';
-        {% endif %}
-    </script>
-    <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
-    <script src="{{ STATIC_URL }}js/lazysizes-0.7.2.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.1.min.js"></script>
-    <script src="{{ STATIC_URL }}js/browse.js"></script>
-    <script src="{{ STATIC_URL }}js/moment-2.9.0.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
-    <script src="{{ STATIC_URL }}/libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+        </script>
+        <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
+        <script src="{{ STATIC_URL }}js/lazysizes-0.7.2.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.1.min.js"></script>
+        <script src="{{ STATIC_URL }}js/browse.js"></script>
+        <script src="{{ STATIC_URL }}js/moment-2.9.0.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
+        <script src="{{ STATIC_URL }}/libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+    {% endcompress %}
 {% endblock %}
