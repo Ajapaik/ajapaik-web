@@ -6,5 +6,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         cursor = connection.cursor()
-        cursor.execute('''INSERT INTO project_action SELECT actions.id, actions.type, actions.related_type_id, actions.related_id, params FROM dblink('dbname=rephoto_backup user=rephoto password=reph0t0sqluser', 'SELECT id, type, related_type_id, related_id, params FROM project_action')
+        cursor.execute('''INSERT INTO project_action SELECT actions.id, actions.type, actions.related_type_id, actions.related_id, actions.params FROM dblink('dbname=rephoto_backup user=rephoto password=reph0t0sqluser', 'SELECT id, type, related_type_id, related_id, params FROM project_action')
     AS actions(id integer, type VARCHAR(255), related_type_id integer, related_id integer, params VARCHAR);''')
