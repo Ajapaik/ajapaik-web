@@ -590,7 +590,7 @@ class GeoTag(models.Model):
     azimuth_line_end_lon = models.FloatField(null=True, blank=True)
     zoom_level = models.IntegerField(null=True, blank=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
-    type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
+    type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
 
     user = models.ForeignKey('Profile', related_name='geotags')
     photo = models.ForeignKey('Photo', related_name='geotags')
