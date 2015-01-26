@@ -1,5 +1,0 @@
-
-      # -*- Entry points: -*-
-      [zc.buildout]
-      default = djangorecipe.recipe:Recipe
-      

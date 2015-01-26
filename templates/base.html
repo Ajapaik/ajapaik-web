@@ -1,0 +1,145 @@
+{% load i18n cache thumbnail compress %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
+<head>
+    <title>
+        {% if title %}
+            {{ title }} - {% trans "Timepatch (Ajapaik)" %}
+        {% else %}
+            {% trans "Timepatch (Ajapaik)" %}
+        {% endif %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is" />
+    <meta property="fb:app_id" content="201052296573134" />
+    <meta name="msApplication-ID" content="Ajapaik.Ajapaik"/>
+    <meta name="msApplication-PackageFamilyName" content="Ajapaik.Ajapaik_a85z4fx5ppqzw"/>
+    <meta name="msApplication-MinVersion" content="1.0.0.8"/>
+    <meta name="application-name" content="Ajapaik"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-notification" content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=5; cycle=1"/>
+    <meta charset="UTF-8" />
+    {% if title %}
+        <meta property="og:title" content="{{ title }}" />
+        {% if description %}
+            <meta property="og:description" content="{{ description }}" />
+        {% endif %}
+        <meta property="og:type" content="website" />
+        {% if photo or rephoto %}
+            <meta property="og:url" content="{{ hostname }}{{ request.path }}" />
+        {% endif %}
+        {% if rephoto %}
+            {% thumbnail rephoto.image "700x400" as im %}
+                <meta property="og:image" content="{{ hostname }}{{ im.url }}" />
+                <meta property="og:image:type" content="image/jpeg" />
+            {% endthumbnail %}
+        {% else %}
+            {% if photo %}
+                {% thumbnail photo.image "700x400" as im %}
+                    <meta property="og:image" content="{{ hostname }}{{ im.url }}" />
+                    <meta property="og:image:type" content="image/jpeg" />
+                {% endthumbnail %}
+            {% endif %}
+        {% endif %}
+        <meta property="og:locale" content="et_EE" />
+        <meta property="og:locale:alternate" content="ru_RU" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}" />
+    {% endif %}
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}css/favicon.ico" />
+    <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik" />
+    <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/" />
+    {% compress css %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/carte-blanche.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
+    {% endcompress %}
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold' rel='stylesheet' type='text/css'>
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.simplemodal.1.4.3.min.js"></script>
+        <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
+        <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
+    {% endcompress %}
+    <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
+    <script src="{{ STATIC_URL }}libs/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.tools-1.2.7.min.js"></script>
+    <script>
+         var _gaq = _gaq || [];
+         _gaq.push(['_setAccount', '{{ analytics.google_analytics_key }}']);
+         _gaq.push(['_trackPageview']);
+
+         (function() {
+           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+           ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+    </script>
+    <script>
+        var isMobile = '{{ request.mobile }}';
+        isMobile = isMobile === 'True';
+    </script>
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+</head>
+<body>
+    <div id="cookie-notice-container" style="display: none;">
+        <div id="cookie-notice">
+            <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
+            <p id="cookie-notice-close" onclick="setEUCookie();">X</p>
+        </div>
+    </div>
+    <div id="fb-root"></div>
+    <script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId: '201052296573134',
+				status: true,
+				cookie: true,
+				xfbml: true
+			});
+			try {
+				FB.Event.subscribe('edge.create',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Like added', response]);}
+				);
+				FB.Event.subscribe('edge.remove',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Like removed', response]);}
+				);
+				FB.Event.subscribe('message.send',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Message sent', response]);}
+				);
+				FB.Event.subscribe('comment.create',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Comment added', response.href]);}
+				);
+				FB.Event.subscribe('comment.remove',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Comment removed', response.href]);}
+				);
+				FB.Event.subscribe('auth.prompt',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Login prompt']);}
+				);
+				FB.Event.subscribe('auth.login',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Login success']);}
+				);
+				FB.Event.subscribe('auth.logout',
+					function(response) {_gaq.push(['_trackEvent', 'Facebook', 'Logged out']);}
+				);
+			}
+			catch (err) {}
+		};
+		(function() {
+            var e = document.createElement('script');
+            e.async = true;
+            e.src = document.location.protocol + '//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js';
+            document.getElementById('fb-root').appendChild(e);
+		}());
+    </script>
+    {% block layout %}{% endblock layout %}
+</body>
+</html>

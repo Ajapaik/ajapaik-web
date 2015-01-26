@@ -1,0 +1,315 @@
+{% load thumbnail i18n %}
+
+<div class="modal-dialog" id="mapview-photo-modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body" id="ajapaik-modal-body">
+            <div class="row">
+                {% if photo.rephotos.all|length == 0 %}
+                    <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-column">
+                {% elif photo.rephotos.all|length > 1 %}
+                    <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-column">
+                {% else %}
+                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-column">
+                {% endif %}
+                    <div id="ajapaik-modal-photo-container">
+                        <a class="fullscreen col-xs-12" id="ajapaik-full-screen-link" rel="" href="">
+                            <img src="{% url 'project.home.views.photo_url' photo.id %}"
+                                 class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
+                                 id="ajapaik-modal-photo"/>
+                        </a>
+                        <button class="btn btn-default ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                        {% if photo.rephotos.all.0 %}
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-show-rephoto-selection-overlay-button {% if photo.rephotos.all|length < 10 %}ajapaik-show-rephoto-selection-overlay-button-{{ photo.rephotos.all | length }}{% else %}ajapaik-show-rephoto-selection-overlay-button-9-plus{% endif %}" id="ajapaik-show-rephoto-selection-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if photo.rephotos.all.0 %}
+                    {% if photo.rephotos.all|length > 1 %}
+                        <div class="col-xs-5" id="ajapaik-photo-modal-rephoto-column">
+                    {% else %}
+                        <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-column">
+                    {% endif %}
+                        <div id="ajapaik-modal-rephoto-container">
+
+                            <a class="col-xs-12" id="ajapaik-rephoto-full-screen-link" rel="">
+                                <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
+                                <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                            </a>
+                        </div>
+                    </div>
+                    {% if photo.rephotos.all|length > 1 %}
+                        <div class="col-xs-2" id="ajapaik-rephoto-selection">
+                            {% for rephoto in photo.rephotos.all %}
+                                <div class="row ajapaik-photo-modal-rephoto-thumb" id="ajapaik-rephoto-thumb-{{ rephoto.id }}">
+                                    <img class="img-responsive" src="{% url 'project.home.views.photo_thumb' rephoto.id 100 %}" data-id="{{ rephoto.id }}" />
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                {% if photo.rephotos.all|length > 1 %}
+                    <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-info-column">
+                {% elif photo.rephotos.all|length == 0 %}
+                    <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-info-column">
+                {% else %}
+                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
+                {% endif %}
+                {% if photo.description %}
+                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
+                {% endif %}
+                {% if photo.source_url %}
+                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
+                        <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
+                           target="_blank">
+                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                        </a>
+                    </div>
+                {% elif photo.source.description %}
+                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                    </div>
+                {% endif %}
+                </div>
+                {% if photo.rephotos.all|length > 0 %}
+                    {% if photo.rephotos.all|length > 1 %}
+                        <div class="col-xs-5" id="ajapaik-photo-modal-rephoto-info-column">
+                    {% else %}
+                        <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-info-column">
+                    {% endif %}
+                        {% if photo.rephotos.all.0 %}
+                            <div class="row ajapaik-photo-modal-row">
+                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;{% include '_creative_commons.html' %}
+                            </div>
+                            <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
+                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date|date:"d.m.Y" }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="row ajapaik-no-left-margin-row" style="margin-top: 10px;">
+                <div class="col-xs-6">
+                    <div class="dropdown">
+                        <button id="ajapaik-sharing-dropdown-button" class="btn btn-primary ajapaik-photo-modal-share-button pull-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% trans "Share" %}
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                            <li role="presentation" class="disabled-link">
+                                <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                    <input type="text" class="form-control" value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1">
+                                    <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %}</button>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-primary ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
+                    <button class="btn btn-primary ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
+                    <button id="ajapaik-photo-modal-close-button" type="button" class="btn btn-default">{% trans "Close" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="full-box">
+    <div class="full-pic" id="ajapaik-fullscreen-image-container">
+        <img id="ajapaik-full-screen-image" src="{{ fullscreen.url }}"/>
+    </div>
+</div>
+<script>
+    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
+        hostname = '{{ hostname }}',
+        originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
+    window.photoModalRephotoArray = [];
+    window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
+    {% for rephoto in photo.rephotos.all %}
+        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date|date:"d.m.Y." }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}', '{{ rephoto.get_absolute_url }}']);
+    {% endfor %}
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+        $('.disabled-link').click(function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        });
+        if (window.userClosedRephotoTools) {
+            $('#ajapaik-rephoto-selection').hide();
+            $('#ajapaik-photo-modal-rephoto-column').hide();
+            $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            $('#ajapaik-photo-modal-rephoto-info-column').hide();
+            $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+        }
+        if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None') {
+            $('#ajapaik-photo-modal-date-row').show();
+        }
+        var openPhotoUploadModal = function () {
+            $.ajax({
+                cache: false,
+                url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
+                success: function (result) {
+                    rephotoUploadModal.data('bs.modal', null);
+                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+        };
+        //TODO: Restore?
+        //History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
+        //$('.filter-box').hide();
+        window.currentPhotoURL = '{% url 'project.home.views.photo_url' photo.id %}';
+        {% if description %}
+            window.currentPhotoDescription = '{{ description }}';
+        {% else %}
+            window.currentPhotoDescription = false;
+        {% endif %}
+        window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
+        window.photoModalFullscreenImageSize = {{ fullscreen.size }};
+        window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
+        $(".ajapaik-flip-photo-overlay-button").click(function () {
+            var target = $("#ajapaik-modal-photo"),
+                fullScreenImage = $('#ajapaik-full-screen-image');
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
+            }
+            if (target.hasClass("ajapaik-photo-flipped")) {
+                target.removeClass("ajapaik-photo-flipped");
+            } else {
+                target.addClass("ajapaik-photo-flipped");
+            }
+            if (fullScreenImage.hasClass("ajapaik-photo-flipped")) {
+                fullScreenImage.removeClass("ajapaik-photo-flipped");
+            } else {
+                fullScreenImage.addClass("ajapaik-photo-flipped");
+            }
+            window.flipPhoto();
+        });
+        $(".ajapaik-photo-modal-specify-location-button").click(function () {
+            window.startGuessLocation();
+        });
+        $('#ajapaik-photo-modal-close-button').click(function (e) {
+            e.preventDefault();
+            window.closePhotoDrawer();
+        });
+        $('.full-box div').on('click', function (e) {
+            if (BigScreen.enabled) {
+                e.preventDefault();
+                window.fullscreenEnabled = false;
+                BigScreen.exit();
+            }
+        });
+        $(document).on('click', 'a.fullscreen', function (e) {
+            e.preventDefault();
+            if (BigScreen.enabled) {
+                BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+                window.fullscreenEnabled = true;
+                window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
+            }
+        });
+        $(document).on('click', '#ajapaik-show-rephoto-selection-overlay-button', function () {
+            $(this).hide();
+            window.userClosedRephotoTools = false;
+            var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
+                rephotoInfoColumn = $('#ajapaik-photo-modal-rephoto-info-column'),
+                originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+            if (window.photoModalRephotoArray.length > 1) {
+                $('#ajapaik-rephoto-selection').show();
+                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-5');
+                rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
+                originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
+            } else {
+                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-6');
+                rephotoColumn.removeClass('col-xs-5').addClass('col-xs-6');
+                rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
+                originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
+            }
+            rephotoInfoColumn.show();
+            rephotoColumn.show();
+            window.currentlySelectedRephotoId = window.photoModalRephotoArray[0][0];
+            window.syncMapStateToURL();
+            $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[0][1]);
+
+        });
+        $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function (e) {
+            var targetId = e.target.dataset.id;
+            if (!targetId) {
+                targetId = window.currentlySelectedRephotoId;
+            }
+            $('#ajapaik-photo-modal-rephoto-column').show();
+            for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
+                if (window.photoModalRephotoArray[i][0] == targetId) {
+                    $('#ajapaik-grab-link').find('input').prop('value', hostname + window.photoModalRephotoArray[i][8]);
+                    $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
+                    $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
+                    $('#ajapaik-photo-modal-rephoto-permalink').attr('href', window.photoModalRephotoArray[i][7]);
+                    if (window.photoModalRephotoArray[i][2] !== 'None') {
+                        $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);
+                        $('#ajapaik-photo-modal-date-row').show();
+                    } else {
+                        $('#ajapaik-photo-modal-date-row').hide();
+                    }
+                    window.currentlySelectedRephotoId = targetId;
+                    window.syncMapStateToURL();
+                    break;
+                }
+            }
+        });
+        $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
+            e.preventDefault();
+            $('#ajapaik-photo-modal-rephoto-column').hide();
+            $('#ajapaik-rephoto-selection').hide();
+            $('#ajapaik-show-rephoto-selection-overlay-button').show();
+            $('#ajapaik-grab-link').find('input').prop('value', hostname + originalPhotoAbsoluteURL);
+            $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            $('#ajapaik-photo-modal-rephoto-info-column').hide();
+            $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            window.currentlySelectedRephotoId = false;
+            window.syncMapStateToURL();
+            window.userClosedRephotoTools = true;
+        });
+        $(document).on('click', '.ajapaik-photo-modal-comment-button', function () {
+            window.location.href = '{% url 'project.home.views.photo' photo.id %}';
+        });
+        $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').show();
+                if (window.userClosedRephotoTools) {
+                    $('#ajapaik-show-rephoto-selection-overlay-button').show();
+                }
+            }
+        }, function () {
+            if (!isMobile) {
+                $('.ajapaik-flip-photo-overlay-button').hide();
+                $('#ajapaik-show-rephoto-selection-overlay-button').hide();
+            }
+        });
+        $(document).on('click', '.ajapaik-photo-modal-add-rephoto-button', function () {
+            openPhotoUploadModal();
+        });
+        $('#ajapaik-photo-modal-rephoto-column').hoverIntent(function () {
+            if (!isMobile) {
+                if (!window.userClosedRephotoTools) {
+                    $('#ajapaik-close-rephoto-overlay-button').show();
+                }
+            }
+        }, function () {
+            if (!isMobile) {
+                if (!window.userClosedRephotoTools) {
+                    $('#ajapaik-close-rephoto-overlay-button').hide();
+                }
+            }
+        });
+        $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
+    });
+</script>

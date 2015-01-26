@@ -1,0 +1,39 @@
+{% load i18n %}
+
+<nav id="ajapaik-header" class="navbar navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+    </div>
+    <div class="filter-box">
+        {% csrf_token %}
+        {{ city_selection_form.as_p }}
+        <div>
+            {% if is_game %}
+                <button class="btn btn-success" id="ajapaik-header-map-button">{% trans "Map" %}</button>
+            {% elif is_mapview %}
+                <button class="btn btn-success" id="ajapaik-header-game-button">{% trans "Geotagging game" %}</button>
+            {% endif %}
+        </div>
+    </div>
+    <div class="score_container">
+        <h2>
+            <a id="full_leaderboard" href="#">
+                {% trans "Leaderboard" %}
+            </a>
+        </h2>
+        <ul class="scoreboard"></ul>
+        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+            {% with profile=request.user.profile user=request.user %}
+                <div id="facebook-connected">
+                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
+                </div>
+            {% endwith %}
+        {% else %}
+            <div id="facebook-connect">
+                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+            </div>
+        {% endif %}
+    </div>
+    <button class="btn btn-default ajapaik-show-tutorial-button"></button>
+</nav>

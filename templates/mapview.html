@@ -1,0 +1,107 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress %}
+
+{% block header %}
+    {% include "_header_city_selection_scoreboard.html" %}
+{% endblock %}
+
+{% block layout %}
+    {% include "_tutorial.html" %}
+    <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
+    <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
+    <div id="ajapaik-map-container">
+        {% include "_map_lower_right_buttons.html" %}
+        <div class="panel panel-default" id="ajapaik-mapview-map-info-panel">
+            <div class="panel-body">
+                {% trans "Geotags" %}: <span id="ajapaik-mapview-map-geotag-count"></span>
+                <br/>
+                {% trans "With azimuth" %}: <span id="ajapaik-mapview-map-geotag-with-azimuth-count"></span>
+                <br/>
+                {% trans "Confidence" %}: <span id="ajapaik-mapview-map-confidence"></span>
+            </div>
+        </div>
+        <div id="ajapaik-map-canvas"></div>
+    </div>
+    <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
+         aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
+        <div class="modal-dialog" style="width: 75%;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="leaderboard_browser">
+                        <div class="single">
+                            <div class="score_container">
+                                <ul class="scoreboard"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ajapaik-mapview-guess-photo-js-panel-content" style="overflow: hidden;">
+        <div id="ajapaik-mapview-guess-photo-container" class="col-xs-12">
+            <img class="img-responsive col-xs-12" src=""/>
+            <button class="btn btn-primary ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
+            <button class="btn btn-default ajapaik-overlay-button ajapaik-fullscreen-overlay-button"></button>
+        </div>
+        <div id="ajapaik-mapview-guess-photo-js-panel-footer">
+            <div id="ajapaik-mapview-guess-photo-description" class="row ajapaik-photo-modal-row pull-left"></div>
+        </div>
+    </div>
+    <div id="ajapaik-mapview-feedback-js-panel-content" style="display: none;">
+        <h2>{% trans "Thank you!" %}</h2>
+        <p id="ajapaik-mapview-guess-feedback-points-gained"></p>
+        <button class="btn btn-primary ajapaik-mapview-feedback-next-button pull-right">{% trans "Back to map" %}</button>
+    </div>
+    <div class="full-box">
+        <div class="full-pic" id="ajapaik-fullscreen-image-container">
+            <img id="ajapaik-mapview-full-screen-image" src=""/>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        var title = '{{ title }}',
+            leaderboardFullURL = "{% url "project.home.views.top50" %}",
+            difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
+            {% if city %}
+                cityId = '{{ city.id | safe }}';
+            {% else %}
+                cityId = 1;
+            {% endif %}
+            {% if city.lat and city.lon %}
+                var cityLatLng = new window.google.maps.LatLng({{ city.lat | safe }}, {{ city.lon | safe }});
+            {% endif %}
+        {% if selected_photo %}
+            var preselectPhotoId = '{{ selected_photo.id }}';
+            {% if selected_photo.lat and selected_photo.lon %}
+                var preselectPhotoLat = '{{ selected_photo.lat | safe }}',
+                    preselectPhotoLng = '{{ selected_photo.lon | safe }}';
+            {% endif %}
+        {% endif %}
+        {% if selected_rephoto %}
+            var preselectRephotoId = '{{ selected_rephoto.id }}';
+        {% endif %}
+    </script>
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/markerclustererplus-2.1.2.min.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+        <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
+        <script src="{{ STATIC_URL }}js/lazysizes-0.7.2.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.1.min.js"></script>
+        <script src="{{ STATIC_URL }}js/browse.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
+    {% endcompress %}
+    <script src="{{ STATIC_URL }}js/moment-2.9.0.min.js"></script>
+    <script src="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+{% endblock %}

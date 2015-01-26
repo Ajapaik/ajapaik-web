@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <circle id="svg_1" r="2" cy="12.5" cx="5" fill="#FF2626"/>
+  <circle id="svg_2" r="2" cy="12.5" cx="12.5" fill="#FF2626"/>
+  <circle id="svg_3" r="2" cy="12.5" cx="20" fill="#FF2626"/>
+ </g>
+</svg>

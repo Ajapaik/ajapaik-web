@@ -1,0 +1,390 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-23 12:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: project/home/forms.py:8
+msgid "Choose city"
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:190
+msgid "Looks right!"
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:192
+msgid "The location seems right, but the azimuth is yet uncertain."
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:194
+msgid "The location seems right, your azimuth was first."
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:196
+msgid "The location seems right, but not the azimuth."
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:198
+msgid ""
+"The location seems right. Try submitting an azimuth to earn even more points!"
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:200
+msgid "Correct location is not certain yet."
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:202
+msgid "Other users have different opinion."
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:204
+msgid "Your guess was first."
+msgstr ""
+
+#: project/home/views.py:243 templates/frontpage.html:160
+msgid "Guess the location"
+msgstr ""
+
+#: project/home/views.py:436
+msgid "Heat map"
+msgstr ""
+
+#: project/home/views.py:473 project/home/views.py:475
+#: templates/frontpage.html:161
+msgid "Browse photos on map"
+msgstr ""
+
+#: project/home/views.py:592 project/home/views.py:605
+#: templates/_header_city_selection_scoreboard.html:21
+msgid "Leaderboard"
+msgstr ""
+
+#: project/settings/default.py:63
+msgid "Estonian"
+msgstr ""
+
+#: project/settings/default.py:64
+msgid "English"
+msgstr ""
+
+#: project/settings/default.py:65
+msgid "Russian"
+msgstr ""
+
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
+msgid "Back"
+msgstr ""
+
+#: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:24
+#: templates/_block_leaderboard.html:37
+msgid "Your points"
+msgstr ""
+
+#: templates/_block_leaderboard.html:17
+msgid "Recent activity leaderboard"
+msgstr ""
+
+#: templates/_block_leaderboard.html:30
+msgid "All time leaderboard"
+msgstr ""
+
+#: templates/_comments.html:8
+msgid "Original photo"
+msgstr ""
+
+#: templates/_comments.html:12
+msgid "Rephoto"
+msgstr ""
+
+#: templates/_header.html:5 templates/_header_city_selection.html:5
+#: templates/_header_city_selection_scoreboard.html:5
+#: templates/_photo_modal.html:173 templates/base.html:7
+#: templates/base.html.py:9 templates/base.html.py:48
+#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
+#: templates/base_bootstrap.html:48 templates/frontpage.html:8
+msgid "Timepatch (Ajapaik)"
+msgstr ""
+
+#: templates/_header.html:24 templates/_header_city_selection.html:28
+#: templates/frontpage.html:27
+msgid "Choose language"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:12
+#: templates/photoview.html:75
+msgid "Map"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:14
+msgid "Geotagging game"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:28
+#: templates/_photo_upload_modal.html:9
+msgid "User"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:28
+#: templates/_photo_upload_modal.html:9
+msgid "Log out"
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:33
+msgid "Facebook Connect to save your score and continue later."
+msgstr ""
+
+#: templates/_header_city_selection_scoreboard.html:34
+#: templates/_photo_upload_modal.html:36
+msgid "Connect with Facebook"
+msgstr ""
+
+#: templates/_map_lower_right_buttons.html:5
+msgid "Save location only"
+msgstr ""
+
+#: templates/_map_lower_right_buttons.html:8
+msgid "Close Street View"
+msgstr ""
+
+#: templates/_map_lower_right_buttons.html:11 templates/game.html:37
+#: templates/game.html.py:62 templates/game.html:99
+msgid "Next photo"
+msgstr ""
+
+#: templates/_photo_modal.html:88 templates/photoview.html:89
+msgid "Rephotograph by"
+msgstr ""
+
+#: templates/_photo_modal.html:91 templates/photoview.html:93
+msgid "Date taken"
+msgstr ""
+
+#: templates/_photo_modal.html:104 templates/photoview.html:54
+msgid "Share"
+msgstr ""
+
+#: templates/_photo_modal.html:119
+msgid "Discuss"
+msgstr ""
+
+#: templates/_photo_modal.html:122 templates/photoview.html:73
+msgid "Add rephoto"
+msgstr ""
+
+#: templates/_photo_modal.html:123
+msgid "Specify location"
+msgstr ""
+
+#: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:43
+#: templates/game.html:120 templates/mapview.html:39
+msgid "Close"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:17
+msgid "Taken"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:19
+#: templates/_photo_upload_modal.html:102
+msgid "Upload"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:24
+msgid "Select file..."
+msgstr ""
+
+#: templates/_photo_upload_modal.html:35
+msgid "Rephoto uploading requires connecting your account with Facebook."
+msgstr ""
+
+#: templates/_photo_upload_modal.html:40
+msgid ""
+"Make a contemporary rephoto from the very same place where the historic "
+"picture was taken and upload it. Uploaded rephotograph will be attributed to "
+"you under the"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:41
+msgid "licence"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:58
+msgid "Abort"
+msgstr ""
+
+#: templates/_photo_upload_modal.html:80
+msgid "Select new file..."
+msgstr ""
+
+#: templates/_photo_upload_modal.html:110
+msgid "File upload failed."
+msgstr ""
+
+#: templates/_tutorial.html:7
+msgid ""
+"The marker with this icon indicates where you think the photo was taken."
+msgstr ""
+
+#: templates/_tutorial.html:11
+msgid "This marker with this icon indicates the actual object on the photo."
+msgstr ""
+
+#: templates/_tutorial.html:15
+msgid ""
+"If you know which way the photographer was facing when the photo was taken, "
+"you can earn extra points by submitting the line of sight along with the "
+"coordinates. While the line is dotted, it means you haven't yet locked it in "
+"and only the location will be submitted."
+msgstr ""
+
+#: templates/_tutorial.html:19
+msgid ""
+"When the red dotted line turns solid, it means the angle is now locked and "
+"will be submitted along with the coordinates."
+msgstr ""
+
+#: templates/_tutorial.html:23
+msgid ""
+"By default, the location marker is locked to the center of the map. To "
+"change its location, the map itself must be dragged underneath. Sometimes "
+"this may not be desirable and this button unlocks the marker, enabling it to "
+"be dragged as usual."
+msgstr ""
+
+#: templates/_tutorial.html:27
+msgid "Buttons with this icon flip the current image."
+msgstr ""
+
+#: templates/_tutorial.html:31
+msgid ""
+"Buttons with this icon make the current image occupy the whole screen where "
+"available."
+msgstr ""
+
+#: templates/_tutorial.html:35
+msgid ""
+"Buttons with this icon display the description of the current photo where "
+"available."
+msgstr ""
+
+#: templates/_tutorial.html:35
+#, python-format
+msgid ""
+"Using the description to place an image in the game view will only earn you "
+"75%% of the points you would have gotten otherwise"
+msgstr ""
+
+#: templates/_tutorial.html:39
+msgid ""
+"If you ever feel like looking at this tutorial again, this button will re-"
+"open it."
+msgstr ""
+
+#: templates/admin/project/csvphoto/change_list.html:6
+msgid "Home"
+msgstr ""
+
+#: templates/admin/project/csvphoto/change_list.html:7
+msgid "Upload photos via CSV file"
+msgstr ""
+
+#: templates/admin/project/csvphoto/change_list.html:15
+msgid "CSV"
+msgstr ""
+
+#: templates/admin/project/csvphoto/change_list.html:17
+msgid "ZIP"
+msgstr ""
+
+#: templates/admin/project/csvphoto/change_list.html:19
+msgid "Submit"
+msgstr ""
+
+#: templates/base.html:91 templates/base_bootstrap.html:68
+msgid ""
+"We use cookies for best performance of the site. By using the site you agree "
+"to that."
+msgstr ""
+
+#: templates/frontpage.html:88
+msgid "Where is history located?"
+msgstr ""
+
+#: templates/frontpage.html:89
+msgid "Discover, geotag and make the rephoto."
+msgstr ""
+
+#: templates/frontpage.html:92
+msgid ""
+"Look around and add metadata to historical photos. Competing with others "
+"adds more excitement."
+msgstr ""
+
+#: templates/frontpage.html:94
+msgid "Read more"
+msgstr ""
+
+#: templates/frontpage.html:167
+msgid "View gallery"
+msgstr ""
+
+#: templates/game.html:31 templates/game.html.py:102
+msgid "Show description"
+msgstr ""
+
+#: templates/game.html:35 templates/game.html.py:95
+msgid "Pick the shooting location!"
+msgstr ""
+
+#: templates/game.html:45 templates/mapview.html:55
+msgid "Thank you!"
+msgstr ""
+
+#: templates/game.html:49
+msgid "In your opinion to geotag this photo is"
+msgstr ""
+
+#: templates/game.html:53
+msgid "easy"
+msgstr ""
+
+#: templates/game.html:59
+msgid "hard"
+msgstr ""
+
+#: templates/game.html:79 templates/mapview.html:16
+msgid "Geotags"
+msgstr ""
+
+#: templates/game.html:81 templates/mapview.html:18
+msgid "With azimuth"
+msgstr ""
+
+#: templates/game.html:83 templates/mapview.html:20
+msgid "Confidence"
+msgstr ""
+
+#: templates/leaderboard.html:19
+msgid "Back home"
+msgstr ""
+
+#: templates/mapview.html:57
+msgid "Back to map"
+msgstr ""

@@ -1,6 +1,0 @@
-User-agent: *
-Disallow: /ajapaikaja/
-Disallow: /kaart/
-Disallow: /heatmap/
-Disallow: /facebook/
-Disallow: /leaderboard/

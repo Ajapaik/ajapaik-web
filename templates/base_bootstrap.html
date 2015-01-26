@@ -1,0 +1,113 @@
+{% load i18n cache thumbnail compress %}
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
+<head>
+    <title>
+        {% if title %}
+            {{ title }} - {% trans "Timepatch (Ajapaik)" %}
+        {% else %}
+            {% trans "Timepatch (Ajapaik)" %}
+        {% endif %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
+    <meta property="fb:app_id" content="201052296573134"/>
+    <meta name="msApplication-ID" content="Ajapaik.Ajapaik"/>
+    <meta name="msApplication-PackageFamilyName" content="Ajapaik.Ajapaik_a85z4fx5ppqzw"/>
+    <meta name="msApplication-MinVersion" content="1.0.0.8"/>
+    <meta name="application-name" content="Ajapaik"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-notification" content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=5; cycle=1"/>
+    <meta charset="UTF-8"/>
+    {% if title %}
+        <meta property="og:title" content="{{ title }}"/>
+        {% if description %}
+            <meta property="og:description" content="{{ description }}"/>
+        {% endif %}
+        <meta property="og:type" content="website"/>
+        {% if photo or rephoto %}
+            <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+        {% endif %}
+        {% if rephoto %}
+            {% thumbnail rephoto.image "700x400" as im %}
+                <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
+                <meta property="og:image:type" content="image/jpeg"/>
+            {% endthumbnail %}
+        {% else %}
+            {% if photo %}
+                {% thumbnail photo.image "700x400" as im %}
+                    <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                {% endthumbnail %}
+            {% endif %}
+        {% endif %}
+        <meta property="og:locale" content="et_EE"/>
+        <meta property="og:locale:alternate" content="ru_RU"/>
+        <meta property="og:locale:alternate" content="en_US"/>
+        <meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}"/>
+    {% endif %}
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}css/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
+    <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.theme.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.1.min.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
+    {% endcompress %}
+</head>
+<body>
+<div id="cookie-notice-container" style="display: none;">
+    <div id="cookie-notice">
+        <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
+        <p id="cookie-notice-close" onclick="setEUCookie();">X</p>
+    </div>
+</div>
+<div id="fb-root"></div>
+{% block header %}
+    {% include "_header.html" %}
+{% endblock header %}
+{% block layout %}{% endblock layout %}
+{% block global_js %}
+    <script>
+        window.fbAsyncInit=function(){FB.init({appId:"201052296573134",status:!0,cookie:!0,xfbml:!0});try{FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackEvent","Facebook","Like added",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackEvent","Facebook","Like removed",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackEvent","Facebook","Message sent",a])}),FB.Event.subscribe("comment.create",function(a){_gaq.push(["_trackEvent","Facebook","Comment added",
+        a.href])}),FB.Event.subscribe("comment.remove",function(a){_gaq.push(["_trackEvent","Facebook","Comment removed",a.href])}),FB.Event.subscribe("auth.prompt",function(){_gaq.push(["_trackEvent","Facebook","Login prompt"])}),FB.Event.subscribe("auth.login",function(){_gaq.push(["_trackEvent","Facebook","Login success"])}),FB.Event.subscribe("auth.logout",function(){_gaq.push(["_trackEvent","Facebook","Logged out"])})}catch(b){console.log(b)}};
+        (function(){var b=document.createElement("script");b.async=!0;b.src=document.location.protocol+"//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js";document.getElementById("fb-root").appendChild(b)})();
+    </script>
+    <script>
+        var _gaq=_gaq||[];_gaq.push(["_setAccount","{{ analytics.google_analytics_key }}"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();
+    </script>
+    <script>
+        var isMobile = '{{ request.mobile }}',
+            saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
+            leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
+            flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',
+            languageCode = '{{ LANGUAGE_CODE }}';
+        isMobile = isMobile === 'True';
+    </script>
+    <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-2.1.3.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+        <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
+        <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
+        <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
+    {% endcompress %}
+    <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
+{% endblock %}
+{% block specific_js %}{% endblock %}
+</body>
+</html>

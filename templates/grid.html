@@ -1,0 +1,115 @@
+{% comment %}
+{% extends "base_bootstrap.html" %}
+{% load i18n %}
+
+{% block header %}
+    {% include "_header_city_selection.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery-3.5.1.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
+{% endblock %}
+{% block layout %}
+    <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
+    <div class="container" id="ajapaik-grid-container">
+        <div class="row">
+            <div class="col-xs-offset-3"></div>
+            <div class="col-xs-12">
+                <div id="gallery">
+                    {% for photo in data %}
+                        <a href="{{ photo.1 }}" class="ajapaik-grid-image-container">
+                            <img alt="{{ photo.0 }}" src="" data-src="{{ photo.1 }}" width="{{ photo.2 }}" height="{{ photo.3 }}" class="ajapaik-grid-image lazyload" data-id="{{ photo.0 }}"/>
+                        </a>
+                    {% endfor %}
+                </div>
+                <div id="ajapaik-grid-load-more-container">
+                    <a id="ajapaik-grid-load-more-link" href="javascript:void(0);">
+                        {% trans "Load more photos" %}
+                    </a>
+                    <p id="ajapaik-grid-no-more-photos-message" style="display: none;">
+                        {% trans "No more photos to show" %}
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-offset-3"></div>
+        </div>
+    </div>
+    <div id="ajapaik-map-container" style="display: none;">
+        <div id="ajapaik-map-button-container">
+            <div class="row">
+                <button class="btn btn-default ajapaik-save-location-button pull-right" disabled="disabled">{% trans "Save location only" %}</button>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary ajapaik-grid-skip-photo-button pull-right">{% trans "Cancel" %}</button>
+            </div>
+        </div>
+        <div class="panel panel-default" id="ajapaik-grid-map-info-panel">
+            <div class="panel-body">
+                {% trans "Geotags" %}: <span id="ajapaik-grid-map-geotag-count"></span>
+                <br/>
+                {% trans "With azimuth" %}: <span id="ajapaik-grid-map-geotag-with-azimuth-count"></span>
+            </div>
+        </div>
+        <div id="ajapaik-map-canvas"></div>
+    </div>
+    <div id="ajapaik-grid-guess-photo-js-panel-content">
+        <div id="ajapaik-grid-guess-photo-container">
+            <img class="img-responsive" src="" />
+            <button class="btn btn-primary ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
+            <button class="btn btn-default ajapaik-overlay-button ajapaik-fullscreen-overlay-button"></button>
+        </div>
+        <div id="ajapaik-grid-guess-photo-js-panel-footer">
+            <div id="ajapaik-grid-guess-photo-description" class="row ajapaik-photo-modal-row pull-left"></div>
+        </div>
+    </div>
+    <div id="ajapaik-grid-feedback-js-panel-content" style="display: none;">
+        <h2>{% trans "Thank you!" %}</h2>
+        <p id="ajapaik-grid-guess-feedback-message"></p>
+        <p id="ajapaik-grid-guess-feedback-points-gained"></p>
+        <p id="ajapaik-grid-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
+            {% trans "In your opinion to geotag this photo is" %}
+        </p>
+        <form id="ajapaik-grid-guess-feedback-difficulty-form">
+            <span style="margin-right: 10px;">
+                {% trans "easy" %}
+            </span>
+            <input type="radio" name="difficulty" value="1">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
+            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
+            <span style="margin-left: 10px;">
+                {% trans "hard" %}
+            </span>
+        </form>
+        <button class="btn btn-primary ajapaik-grid-feedback-next-button pull-right">{% trans "You're welcome!" %}</button>
+    </div>
+    <img src="" class="img-responsive" id="ajapaik-grid-guess-photo" />
+    <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.1.min.js"></script>
+    <script src="{{ STATIC_URL }}js/lazysizes-0.5.1.min.js"></script>
+    <script>
+        {% if city %}
+            window.cityId = '{{ city.id | safe }}';
+        {% endif %}
+        window.start = {{ start | safe }};
+        window.pageSize = {{ page_size | safe }};
+        window.totalPhotoCount = {{ photo_count | safe }};
+        var leaderboardFullURL = "{% url "project.home.views.top50" %}",
+            {#userAlreadySeenPhotoIds = {{ user_seen_photo_ids | safe }},#}
+            difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
+            initialize = function () {
+                if (window.getQueryParameterByName("fromSelect")) {
+                    window.fromSelect = true;
+                    History.replaceState(null, null, "/grid/?city=" + cityId);
+                } else {
+                    window.fromSelect = false;
+                }
+                {% if city.lat and city.lon %}
+                    var startLocation = new window.google.maps.LatLng({{ city.lon | safe }}, {{ city.lat | safe }});
+                    window.getMap(startLocation, 13);
+                {% else %}
+                    window.getMap();
+                {% endif %}
+            };
+        $(document).ready(initialize);
+    </script>
+    <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+    <script src="{{ STATIC_URL }}js/grid.js"></script>
+{% endblock layout %}{% endcomment %}

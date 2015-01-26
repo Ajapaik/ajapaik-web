@@ -1,6 +1,0 @@
-[zc.buildout]
-default = infrae.subversion:Recipe
-
-[zc.buildout.uninstall]
-default = infrae.subversion:uninstall
-

@@ -1,0 +1,23 @@
+{% extends 'base_bootstrap.html' %}
+{% load i18n %}
+
+{% block layout %}
+    <div class="container" style="padding-top: 100px;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="single">
+                    <div class="score_container">
+                        <ul class="scoreboard" style="overflow-y:auto;padding-right:10px;">
+                            {% include "_block_leaderboard.html" %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-xs-12">
+                <a href="/">{% trans "Back home" %}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
