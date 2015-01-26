@@ -163,6 +163,7 @@
             if (window.map.zoom < 17) {
                 window.map.setZoom(17);
             }
+            window.userFlippedPhoto = false;
             window.guessLocationStarted = true;
             window.dottedAzimuthLine.setVisible(false);
             window.google.maps.event.trigger(window.map, 'resize');
@@ -541,6 +542,8 @@
     };
 
     window.flipPhoto = function () {
+        window.photoModalCurrentPhotoFlipStatus = !window.photoModalCurrentPhotoFlipStatus;
+        window.userFlippedPhoto = true;
         var fullScreenPhoto = $('#ajapaik-mapview-full-screen-image');
         if (fullScreenPhoto.hasClass('ajapaik-photo-flipped')) {
             fullScreenPhoto.removeClass('ajapaik-photo-flipped');
@@ -645,7 +648,7 @@
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
             } else {
                 // TODO: Flip data and stuff
-                window.saveLocation(window.marker, photoId, null, true, null, window.degreeAngle, window.azimuthLineEndPoint, 'Map');
+                window.saveLocation(window.marker, photoId, window.photoModalCurrentPhotoFlipStatus, true, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Map');
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Mapview', 'Save location and direction']);
                 } else {

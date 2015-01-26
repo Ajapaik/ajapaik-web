@@ -8,7 +8,6 @@
         difficultyFeedbackURL = '/difficulty_feedback/',
         locationToolsOpen = false,
         noticeDiv,
-        userFlippedPhoto = false,
         playerMarker,
         location,
         playerLatlng,
@@ -138,6 +137,7 @@
 
     nextPhoto = function () {
         nextPhotoLoading = true;
+        window.userFlippedPhoto = false;
         if (window.popoverShown) {
             $('[data-toggle="popover"]').popover('hide');
             window.popoverShown = false;
@@ -182,7 +182,8 @@
     };
 
     flipPhoto = function () {
-        userFlippedPhoto = !userFlippedPhoto;
+        window.userFlippedPhoto = !userFlippedPhoto;
+        currentPhoto.flip = !currentPhoto.flip;
         var photoElement = $('#ajapaik-game-modal-photo'),
             guessPhotoElement = $('#ajapaik-game-guess-photo-container').find('img'),
             guessPhotoElementDynamic = $('#ajapaik-game-guess-photo-js-panel').find('img'),
@@ -487,7 +488,7 @@
             } else {
                 window.setCursorToAuto();
                 clearBothersomeListeners();
-                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
+                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {

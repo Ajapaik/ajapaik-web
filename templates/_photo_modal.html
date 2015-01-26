@@ -130,6 +130,11 @@
     var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
         hostname = '{{ hostname }}',
         originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
+    {% if photo.flip %}
+        window.photoModalCurrentPhotoFlipStatus = true;
+    {% else %}
+        window.photoModalCurrentPhotoFlipStatus = false;
+    {% endif %}
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
