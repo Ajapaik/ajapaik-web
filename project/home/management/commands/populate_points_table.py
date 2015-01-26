@@ -59,3 +59,4 @@ class Command(BaseCommand):
                 created=geotag.created
             )
             geotag_points_item.save()
+            print geotag_points_item.id
