@@ -89,6 +89,8 @@ var map,
     currentlySelectedRephotoId,
     photoModalFullscreenImageUrl,
     photoModalFullscreenImageSize,
+    photoModalCurrentPhotoFlipStatus,
+    userFlippedPhoto = false,
     photoModalRephotoArray,
     userClosedRephotoTools = false,
     fullscreenEnabled = false,
@@ -195,7 +197,6 @@ var map,
                     window._gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
                 }
                 // Currently we are not displaying the save button when Street View is open
-                console.log("Street View open");
                 saveLocationButton.hide();
                 $('#ajapaik-map-button-container').show();
                 $('.ajapaik-close-streetview-button').show().parent().show();
