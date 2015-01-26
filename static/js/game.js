@@ -219,6 +219,10 @@
             noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-prompt').hide();
             noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-form').hide();
             noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').hide();
+        } else {
+            noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-prompt').show();
+            noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-form').show();
+            noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').show();
         }
         noticeDiv.find('#ajapaik-game-guess-feedback-message').html(guessResponse.feedbackMessage);
         noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
