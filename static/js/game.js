@@ -183,6 +183,7 @@
 
     flipPhoto = function () {
         userFlippedPhoto = !userFlippedPhoto;
+        currentPhoto.flip = !currentPhoto.flip;
         var photoElement = $('#ajapaik-game-modal-photo'),
             guessPhotoElement = $('#ajapaik-game-guess-photo-container').find('img'),
             guessPhotoElementDynamic = $('#ajapaik-game-guess-photo-js-panel').find('img'),
