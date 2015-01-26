@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-23 12:42+0200\n"
-"PO-Revision-Date: 2014-05-18 09:36+0000\n"
+"PO-Revision-Date: 2015-01-26 16:21+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: project/home/forms.py:8
@@ -22,19 +22,19 @@ msgstr "Выбери город"
 
 #: project/home/get_next_photos_to_geotag.py:190
 msgid "Looks right!"
-msgstr ""
+msgstr "Выглядит правильно!"
 
 #: project/home/get_next_photos_to_geotag.py:192
 msgid "The location seems right, but the azimuth is yet uncertain."
-msgstr ""
+msgstr "Место выглядит правильно, но направление ещё не определено."
 
 #: project/home/get_next_photos_to_geotag.py:194
 msgid "The location seems right, your azimuth was first."
-msgstr ""
+msgstr "Место выглядит правильно, ваше направление было первым."
 
 #: project/home/get_next_photos_to_geotag.py:196
 msgid "The location seems right, but not the azimuth."
-msgstr ""
+msgstr "Место выглядит правильно, но направление - нет."
 
 #: project/home/get_next_photos_to_geotag.py:198
 msgid ""
@@ -43,15 +43,15 @@ msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:200
 msgid "Correct location is not certain yet."
-msgstr ""
+msgstr "Правильное место ещё не определено."
 
 #: project/home/get_next_photos_to_geotag.py:202
 msgid "Other users have different opinion."
-msgstr ""
+msgstr "У остальных пользователей другое мнение."
 
 #: project/home/get_next_photos_to_geotag.py:204
 msgid "Your guess was first."
-msgstr ""
+msgstr "Ваша догадка была первой."
 
 #: project/home/views.py:243 templates/frontpage.html:160
 msgid "Guess the location"
@@ -85,11 +85,11 @@ msgstr "Русский"
 
 #: templates/404.html:5 templates/404.html.py:11
 msgid "Page Not Found"
-msgstr ""
+msgstr "Страница не найдена."
 
 #: templates/404.html:14
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 #: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:24
 #: templates/_block_leaderboard.html:37
@@ -103,20 +103,16 @@ msgid "Recent activity leaderboard"
 msgstr "Самые активные пользователи"
 
 #: templates/_block_leaderboard.html:30
-#, fuzzy
-#| msgid "Leaderboard"
 msgid "All time leaderboard"
-msgstr "Лучшие игроки"
+msgstr "Лучшие игроки за всё время"
 
 #: templates/_comments.html:8
 msgid "Original photo"
-msgstr ""
+msgstr "Оригинальная фотография"
 
 #: templates/_comments.html:12
-#, fuzzy
-#| msgid "Next photo"
 msgid "Rephoto"
-msgstr "Следующее фото"
+msgstr "Переснимок"
 
 #: templates/_header.html:5 templates/_header_city_selection.html:5
 #: templates/_header_city_selection_scoreboard.html:5
@@ -135,7 +131,7 @@ msgstr "Выбери язык"
 #: templates/_header_city_selection_scoreboard.html:12
 #: templates/photoview.html:75
 msgid "Map"
-msgstr ""
+msgstr "Карта"
 
 #: templates/_header_city_selection_scoreboard.html:14
 msgid "Geotagging game"
@@ -144,17 +140,17 @@ msgstr ""
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
 msgid "User"
-msgstr ""
+msgstr "Пользователь"
 
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
 msgid "Log out"
-msgstr ""
+msgstr "Выйти"
 
 #: templates/_header_city_selection_scoreboard.html:33
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
-"Чтобы сохранить результат  и продолжит позже соедини аккаун с Facebook-ом."
+"Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-ом."
 
 #: templates/_header_city_selection_scoreboard.html:34
 #: templates/_photo_upload_modal.html:36
@@ -162,14 +158,12 @@ msgid "Connect with Facebook"
 msgstr "Соединить с Facebook-ом."
 
 #: templates/_map_lower_right_buttons.html:5
-#, fuzzy
-#| msgid "Save location"
 msgid "Save location only"
-msgstr "Сохранить расположение"
+msgstr "Сохранить только расположение"
 
 #: templates/_map_lower_right_buttons.html:8
 msgid "Close Street View"
-msgstr ""
+msgstr "Закрыть Street View"
 
 #: templates/_map_lower_right_buttons.html:11 templates/game.html:37
 #: templates/game.html.py:62 templates/game.html:99
@@ -182,15 +176,15 @@ msgstr ""
 
 #: templates/_photo_modal.html:91 templates/photoview.html:93
 msgid "Date taken"
-msgstr ""
+msgstr "Дата фотографии"
 
 #: templates/_photo_modal.html:104 templates/photoview.html:54
 msgid "Share"
-msgstr ""
+msgstr "Поделиться"
 
 #: templates/_photo_modal.html:119
 msgid "Discuss"
-msgstr ""
+msgstr "Обсудить"
 
 #: templates/_photo_modal.html:122 templates/photoview.html:73
 msgid "Add rephoto"
@@ -209,26 +203,22 @@ msgstr "Закрыть"
 
 #: templates/_photo_upload_modal.html:17
 msgid "Taken"
-msgstr ""
+msgstr "Снято"
 
 #: templates/_photo_upload_modal.html:19
 #: templates/_photo_upload_modal.html:102
 msgid "Upload"
-msgstr ""
+msgstr "Загрузить"
 
 #: templates/_photo_upload_modal.html:24
 msgid "Select file..."
-msgstr ""
+msgstr "Выбрать файл..."
 
 #: templates/_photo_upload_modal.html:35
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
 
 #: templates/_photo_upload_modal.html:40
-#, fuzzy
-#| msgid ""
-#| "Make a contemporary rephoto from the very same place where the historic "
-#| "picture was taken and upload it."
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
 "picture was taken and upload it. Uploaded rephotograph will be attributed to "
@@ -435,8 +425,8 @@ msgstr "Назад на главную"
 #~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
 #~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
 #~ "%(link_open)sнажми сюда%(link_close)s."
