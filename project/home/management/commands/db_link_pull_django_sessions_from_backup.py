@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.db import connection
 
 class Command(BaseCommand):
-    help = "Will copy over user permissions from backup"
+    help = "Will copy over django sessions from backup"
 
     def handle(self, *args, **options):
         cursor = connection.cursor()
