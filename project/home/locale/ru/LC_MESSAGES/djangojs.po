@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-23 12:42+0200\n"
-"PO-Revision-Date: 2014-05-21 19:37+0000\n"
+"PO-Revision-Date: 2015-01-26 17:01+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -13,21 +13,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: static/js/ajapaik-common.js:112
 msgid "Tutorial"
-msgstr ""
+msgstr "Обучение"
 
 #: static/js/ajapaik-common.js:524 static/js/ajapaik-common.js.c:636
 #: static/js/game.js:133
 msgid "Save location only"
-msgstr ""
+msgstr "Сохранить только местоположение"
 
 #: static/js/ajapaik-common.js:574
 msgid "Save location and direction"
-msgstr ""
+msgstr "Сохранить местоположение и направление"
 
 #: static/js/ajapaik-common.js:702
 msgid "Median guess"
@@ -56,17 +56,15 @@ msgstr ""
 
 #: static/js/game.js:154
 msgid "We are now showing you random photos."
-msgstr ""
+msgstr "Мы показываем фото в случайном порядке."
 
 #: static/js/game.js:156
 msgid "You have seen all the pictures we have for this area."
-msgstr ""
+msgstr "Вы посмотрели все фото для этого места"
 
 #: static/js/game.js:250
-#, fuzzy
-#| msgid "Your guess was first."
 msgid "Your guess"
-msgstr "Твоё предположение было первым."
+msgstr "Твоё предположение"
 
 #: static/js/grid.js:417
 msgid ""
