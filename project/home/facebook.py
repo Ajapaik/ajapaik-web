@@ -2,6 +2,7 @@ from __future__ import with_statement
 
 from urllib import urlencode
 from urllib2 import quote, urlopen
+from project.home.get_next_photos_to_geotag import calculate_recent_activity_scores
 from project.home.models import Profile
 from contextlib import closing
 
@@ -72,6 +73,7 @@ def facebook_handler(request, stage):
                 if request.user.is_authenticated():
                     request.log_action("facebook.merge", {'id': data.get("id")}, profile)
                     profile.merge_from_other(request.user.profile)
+                    calculate_recent_activity_scores()
                 user = profile.user
                 request.set_user(user)
             except Profile.DoesNotExist:
