@@ -114,7 +114,7 @@ var map,
         bootstrap: 'default',
         title: window.gettext('Tutorial'),
         draggable: {
-            handle: '.jsPanel-hdr, .jsPanel-content',
+            handle: '.jsPanel-hdr',
             containment: '#ajapaik-map-container'
         },
         size: {
