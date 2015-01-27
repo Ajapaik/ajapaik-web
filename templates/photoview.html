@@ -215,7 +215,7 @@
                 });
             });
             $(document).on('click', '#ajapaik-photoview-map-button', function () {
-                 window.location.href = '/map/photo/' + {{ photo.id }};
+                 window.location.href = '/map/photo/' + {{ photo.id }} + '?city=' + {{ photo.city_id }};
             });
             $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
                 window.location.href = '/foto/' + {{ photo.id }};

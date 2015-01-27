@@ -409,9 +409,11 @@ def photoslug(request, photo_id, pseudo_slug):
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
     city_selection_form = CitySelectionForm(request.GET)
-    city = None
+
     if city_selection_form.is_valid():
         city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    else:
+        city = City.objects.get(pk=settings.DEFAULT_CITY_ID)
 
     if city:
         title = city.name + ' - ' + _('Browse photos on map')

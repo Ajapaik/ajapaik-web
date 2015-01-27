@@ -463,7 +463,7 @@ var map,
     });
 
     $(document).on('click', '#ajapaik-header-map-button', function () {
-       location.href = '/map?city=' + window.cityId;
+       window.location.href = '/map?city=' + window.cityId;
     });
 
     $(document).on('click', '#ajapaik-header-game-button', function () {
