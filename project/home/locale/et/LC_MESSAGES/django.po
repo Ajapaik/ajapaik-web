@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-27 16:49+0200\n"
-"PO-Revision-Date: 2015-01-22 16:18+0200\n"
+"PO-Revision-Date: 2015-01-27 16:57+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -231,27 +231,27 @@ msgstr "litsentsi alla"
 
 #: templates/_photo_upload_modal.html:58
 msgid "Abort"
-msgstr ""
+msgstr "Tühista"
 
 #: templates/_photo_upload_modal.html:80
-#, fuzzy
-#| msgid "Select file..."
 msgid "Select new file..."
-msgstr "Vali fail..."
+msgstr "Vali uus fail..."
 
 #: templates/_photo_upload_modal.html:110
 msgid "File upload failed."
-msgstr ""
+msgstr "Faili üleslaadimine ebaõnnestus."
 
 #: templates/_tutorial.html:7
 msgid ""
 "The marker with this icon indicates where you think the photo was taken."
-msgstr "See ikoon tähistab kohta, kust foto on tehtud."
+msgstr ""
+"Selle markeriga tuleb tähistada koht, kust foto on tehtud. Vaikimisi liigub "
+"kaart markeri all, aga lukumärgist on režiimi võimalik muuta (vt allpool)."
 
 #: templates/_tutorial.html:11
 msgid "This marker with this icon indicates the actual object on the photo."
 msgstr ""
-"Selle ikooniga tuleb märkida pildi keskele jääv objekt ehk see, mida on "
+"Selle markeriga tuleb märkida pildi keskele jääv objekt ehk see, mida on "
 "pildistatud."
 
 #: templates/_tutorial.html:15
@@ -303,10 +303,6 @@ msgid ""
 msgstr "Foto kirjelduse nupp."
 
 #: templates/_tutorial.html:35
-#, fuzzy
-#| msgid ""
-#| "Using the description to place an image in the game view will only earn "
-#| "you 75%% of the points you would have gotten otherwise"
 msgid ""
 "Using the description to place an image in the game view will only earn you "
 "75 percent of the points you would have gotten otherwise"
@@ -318,11 +314,11 @@ msgstr ""
 msgid ""
 "If you ever feel like looking at this tutorial again, this button will re-"
 "open it."
-msgstr "Käesoleva spikri avamiseks ja sulgemiseks."
+msgstr "Käesoleva spikri avamine ja sulgemine."
 
 #: templates/admin/project/csvphoto/change_list.html:6
 msgid "Home"
-msgstr ""
+msgstr "Avaleht"
 
 #: templates/admin/project/csvphoto/change_list.html:7
 msgid "Upload photos via CSV file"
@@ -405,10 +401,8 @@ msgid "With azimuth"
 msgstr "Suunaga pakkumisi"
 
 #: templates/leaderboard.html:19
-#, fuzzy
-#| msgid "Back to map"
 msgid "Back home"
-msgstr "Tagasi kaardile"
+msgstr "Tagasi avalehele"
 
 #~ msgid "Heat map"
 #~ msgstr "Asukoht kaardil"
@@ -464,16 +458,16 @@ msgstr "Tagasi kaardile"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -485,8 +479,8 @@ msgstr "Tagasi kaardile"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
