@@ -433,7 +433,7 @@ class Photo(models.Model):
         weighted_level_sum, total_weight = 0, 0
         for each in photo_difficulty_feedback:
             weighted_level_sum += float(each.level) * each.trustworthiness
-            total_weight = each.trustworthiness
+            total_weight += each.trustworthiness
         if total_weight != 0:
             self.guess_level = round((weighted_level_sum / total_weight), 2)
 
