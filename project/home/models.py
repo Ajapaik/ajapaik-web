@@ -435,8 +435,7 @@ class Photo(models.Model):
             weighted_level_sum += float(each.level) * each.trustworthiness
             total_weight = each.trustworthiness
         if total_weight != 0:
-            # TODO: Bad math
-            self.guess_level = round(round(weighted_level_sum, 2) / round(total_weight, 2), 2)
+            self.guess_level = round((weighted_level_sum / total_weight), 2)
 
         # TODO: Currently not needed
         # photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
@@ -520,6 +519,7 @@ class Photo(models.Model):
                         self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
                         self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
                     self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
+        self.save()
 
 class DifficultyFeedback(models.Model):
     photo = models.ForeignKey('Photo')
