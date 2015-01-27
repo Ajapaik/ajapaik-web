@@ -459,6 +459,7 @@ class Photo(models.Model):
         # else:
         # 	self.flip = False
 
+
         if not self.bounding_circle_radius:
             print "No bounding circle radius"
             # TODO: What was the purpose of this?
@@ -601,6 +602,7 @@ class GeoTag(models.Model):
 
     lat = models.FloatField()
     lon = models.FloatField()
+    geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     azimuth = models.FloatField(null=True, blank=True)
     azimuth_line_end_lat = models.FloatField(null=True, blank=True)
     azimuth_line_end_lon = models.FloatField(null=True, blank=True)
