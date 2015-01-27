@@ -701,7 +701,7 @@ var map,
         }
         window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
         window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
-        window.mapInfoPanelConfidenceElement.html(heatmapData.confidence.toFixed(2));
+        //window.mapInfoPanelConfidenceElement.html(heatmapData.confidence.toFixed(2));
         if (heatmapData.newEstimatedLocation && heatmapData.newEstimatedLocation[0] && heatmapData.newEstimatedLocation[1]) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),

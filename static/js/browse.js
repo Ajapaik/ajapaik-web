@@ -614,7 +614,7 @@
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-mapview-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-mapview-map-geotag-with-azimuth-count');
-        window.mapInfoPanelConfidenceElement = $('#ajapaik-mapview-map-confidence');
+        //window.mapInfoPanelConfidenceElement = $('#ajapaik-mapview-map-confidence');
         window.saveLocationButton = $('.ajapaik-save-location-button');
 
         window.updateLeaderboard();
