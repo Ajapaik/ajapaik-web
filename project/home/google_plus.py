@@ -3,6 +3,7 @@ import httplib2
 
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
+from project.home.get_next_photos_to_geotag import calculate_recent_activity_scores
 from project.home.models import CredentialsModel, Profile
 from project import settings
 from oauth2client import xsrfutil
@@ -45,6 +46,7 @@ def auth_return(request):
         if request.user.is_authenticated():
             request.log_action("google_plus.merge", {'id': content["id"]}, profile)
             profile.merge_from_other(request.user.profile)
+            calculate_recent_activity_scores()
         user = profile.user
         request.set_user(user)
     except Profile.DoesNotExist:

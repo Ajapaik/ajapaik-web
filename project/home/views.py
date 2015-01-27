@@ -211,7 +211,7 @@ def photo_upload(request, photo_id):
                 uploader.update_rephoto_score()
 
             profile.update_rephoto_score()
-            calculate_recent_activity_scores()
+            get_next_photos_to_geotag.calculate_recent_activity_scores()
 
     return HttpResponse(json.dumps({'new_id': new_id}), content_type="application/json")
 
@@ -469,14 +469,6 @@ def map_objects_by_bounding_box(request):
 def get_leaderboard(request):
     return HttpResponse(json.dumps(get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)), content_type="application/json")
 
-def calculate_recent_activity_scores():
-    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
-    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
-    for each in recent_actions:
-        profile = Profile.objects.filter(user_id=each['user_id'])[:1].get()
-        profile.score_recent_activity = each['total_points']
-        profile.save()
-
 
 def geotag_add(request):
     data = request.POST
@@ -501,7 +493,7 @@ def geotag_add(request):
         elif flip == "false":
             flip_feedback.flip = False
         flip_feedback.save()
-    calculate_recent_activity_scores()
+    get_next_photos_to_geotag.calculate_recent_activity_scores()
     return HttpResponse(json.dumps({
         'is_correct': location_correct,
         'location_is_unclear': location_uncertain,
