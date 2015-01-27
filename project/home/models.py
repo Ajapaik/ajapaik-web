@@ -717,6 +717,7 @@ class Profile(models.Model):
         other.photos.update(user=self)
         other.skips.update(user=self)
         other.geotags.update(user=self)
+        other.points.update(user=self)
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
