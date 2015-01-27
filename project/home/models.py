@@ -422,8 +422,10 @@ class Photo(models.Model):
 
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
-        if self.lat and self.lon:
-            self.geography = Point(self.lat, self.lon)
+        try:
+            self.geography = Point(float(self.lat), float(self.lon))
+        except:
+            pass
         super(Photo, self).save(*args, **kwargs)
 
     def set_calculated_fields(self):
