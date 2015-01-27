@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-23 12:42+0200\n"
+"POT-Creation-Date: 2015-01-27 16:49+0200\n"
 "PO-Revision-Date: 2014-05-21 18:18+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,39 +20,39 @@ msgstr ""
 "2);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:112
+#: static/js/ajapaik-common.js:115
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:524 static/js/ajapaik-common.js.c:636
-#: static/js/game.js:133
+#: static/js/ajapaik-common.js:531 static/js/ajapaik-common.js.c:643
+#: static/js/game.js:132
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:574
+#: static/js/ajapaik-common.js:581
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:702
+#: static/js/ajapaik-common.js:709
 msgid "Median guess"
 msgstr ""
 
-#: static/js/browse.js:275 static/js/game.js:223 static/js/grid.js:70
+#: static/js/browse.js:275 static/js/game.js:228 static/js/grid.js:69
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/browse.js:643 static/js/game.js:485
+#: static/js/browse.js:648 static/js/game.js:490
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
 "submitting your geotag."
 msgstr ""
 
-#: static/js/game.js:53
+#: static/js/game.js:52
 msgid "Vihje vaatamine"
 msgstr ""
 
-#: static/js/game.js:55
+#: static/js/game.js:54
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
@@ -66,13 +66,13 @@ msgstr ""
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:250
+#: static/js/game.js:255
 #, fuzzy
 #| msgid "Your guess was first."
 msgid "Your guess"
 msgstr "Tavs minējums ir pirmais."
 
-#: static/js/grid.js:417
+#: static/js/grid.js:416
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."

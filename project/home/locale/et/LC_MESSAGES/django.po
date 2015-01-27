@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-23 12:42+0200\n"
+"POT-Creation-Date: 2015-01-27 16:49+0200\n"
 "PO-Revision-Date: 2015-01-22 16:18+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -19,56 +19,52 @@ msgstr ""
 msgid "Choose city"
 msgstr "Vali linn"
 
-#: project/home/get_next_photos_to_geotag.py:190
+#: project/home/get_next_photos_to_geotag.py:101
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: project/home/get_next_photos_to_geotag.py:192
+#: project/home/get_next_photos_to_geotag.py:103
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 "Asukoht tundub õige, vaate suuna osas ei ole kasutajatel üksmeelt tekkinud."
 
-#: project/home/get_next_photos_to_geotag.py:194
+#: project/home/get_next_photos_to_geotag.py:105
 msgid "The location seems right, your azimuth was first."
 msgstr "Asukoht tundub õige, Sinu pakutud suund oli esimene."
 
-#: project/home/get_next_photos_to_geotag.py:196
+#: project/home/get_next_photos_to_geotag.py:107
 msgid "The location seems right, but not the azimuth."
 msgstr "Asukoht tundub õige, aga mitte vaate suund."
 
-#: project/home/get_next_photos_to_geotag.py:198
+#: project/home/get_next_photos_to_geotag.py:109
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Asukoht tundub õige. Proovi määrata ka vaate suund, et saada veelgi rohkem "
 "punkte."
 
-#: project/home/get_next_photos_to_geotag.py:200
+#: project/home/get_next_photos_to_geotag.py:111
 msgid "Correct location is not certain yet."
 msgstr "Selle pildi puhul ei ole asukoht veel selgeks saanud."
 
-#: project/home/get_next_photos_to_geotag.py:202
+#: project/home/get_next_photos_to_geotag.py:113
 msgid "Other users have different opinion."
 msgstr "Teised kasutajad on teisiti arvanud."
 
-#: project/home/get_next_photos_to_geotag.py:204
+#: project/home/get_next_photos_to_geotag.py:115
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/home/views.py:243 templates/frontpage.html:160
+#: project/home/views.py:245 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: project/home/views.py:436
-msgid "Heat map"
-msgstr "Asukoht kaardil"
-
-#: project/home/views.py:473 project/home/views.py:475
+#: project/home/views.py:417 project/home/views.py:419
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:592 project/home/views.py:605
+#: project/home/views.py:523 project/home/views.py:537
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Edetabel"
@@ -116,7 +112,7 @@ msgstr "Ülepildistus"
 
 #: templates/_header.html:5 templates/_header_city_selection.html:5
 #: templates/_header_city_selection_scoreboard.html:5
-#: templates/_photo_modal.html:173 templates/base.html:7
+#: templates/_photo_modal.html:172 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:48
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
@@ -129,7 +125,7 @@ msgid "Choose language"
 msgstr "Vali keel"
 
 #: templates/_header_city_selection_scoreboard.html:12
-#: templates/photoview.html:75
+#: templates/photoview.html:77
 msgid "Map"
 msgstr "Kaart"
 
@@ -170,31 +166,35 @@ msgstr "Sulge Street View"
 msgid "Next photo"
 msgstr "Järgmine foto"
 
-#: templates/_photo_modal.html:88 templates/photoview.html:89
+#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:57
+msgid "Back to map"
+msgstr "Tagasi kaardile"
+
+#: templates/_photo_modal.html:85 templates/photoview.html:91
 msgid "Rephotograph by"
 msgstr "Ülepildistus:"
 
-#: templates/_photo_modal.html:91 templates/photoview.html:93
+#: templates/_photo_modal.html:88 templates/photoview.html:95
 msgid "Date taken"
 msgstr "Kuupäev:"
 
-#: templates/_photo_modal.html:104 templates/photoview.html:54
+#: templates/_photo_modal.html:98 templates/photoview.html:56
 msgid "Share"
 msgstr "Jaga"
 
-#: templates/_photo_modal.html:119
+#: templates/_photo_modal.html:113
 msgid "Discuss"
 msgstr "Kommenteeri"
 
-#: templates/_photo_modal.html:122 templates/photoview.html:73
+#: templates/_photo_modal.html:116 templates/photoview.html:75
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
-#: templates/_photo_modal.html:123
+#: templates/_photo_modal.html:117
 msgid "Specify location"
 msgstr "Täpsusta asukohta"
 
-#: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:43
+#: templates/_photo_modal.html:118 templates/_photo_upload_modal.html:43
 #: templates/game.html:120 templates/mapview.html:39
 msgid "Close"
 msgstr "Sulge"
@@ -303,10 +303,13 @@ msgid ""
 msgstr "Foto kirjelduse nupp."
 
 #: templates/_tutorial.html:35
-#, python-format
+#, fuzzy
+#| msgid ""
+#| "Using the description to place an image in the game view will only earn "
+#| "you 75%% of the points you would have gotten otherwise"
 msgid ""
 "Using the description to place an image in the game view will only earn you "
-"75%% of the points you would have gotten otherwise"
+"75 percent of the points you would have gotten otherwise"
 msgstr ""
 "Kirjelduse vaatamine vähendab pildile tehtava asukohapakkumise eest "
 "saadavaid punkte veerandi võrra."
@@ -337,7 +340,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:68
+#: templates/base.html:95 templates/base_bootstrap.html:70
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -401,19 +404,17 @@ msgstr "Asukohapakkumisi"
 msgid "With azimuth"
 msgstr "Suunaga pakkumisi"
 
-#: templates/game.html:83 templates/mapview.html:20
-msgid "Confidence"
-msgstr "Asukoha usaldusväärsus"
-
 #: templates/leaderboard.html:19
 #, fuzzy
 #| msgid "Back to map"
 msgid "Back home"
 msgstr "Tagasi kaardile"
 
-#: templates/mapview.html:57
-msgid "Back to map"
-msgstr "Tagasi kaardile"
+#~ msgid "Heat map"
+#~ msgstr "Asukoht kaardil"
+
+#~ msgid "Confidence"
+#~ msgstr "Asukoha usaldusväärsus"
 
 #~ msgid "Load more photos"
 #~ msgstr "Laadi juurde"

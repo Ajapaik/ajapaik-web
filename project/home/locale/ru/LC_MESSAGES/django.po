@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-23 12:42+0200\n"
+"POT-Creation-Date: 2015-01-27 16:49+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -20,53 +20,49 @@ msgstr ""
 msgid "Choose city"
 msgstr "Выбери город"
 
-#: project/home/get_next_photos_to_geotag.py:190
+#: project/home/get_next_photos_to_geotag.py:101
 msgid "Looks right!"
 msgstr "Выглядит правильно!"
 
-#: project/home/get_next_photos_to_geotag.py:192
+#: project/home/get_next_photos_to_geotag.py:103
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr "Место выглядит правильно, но направление ещё не определено."
 
-#: project/home/get_next_photos_to_geotag.py:194
+#: project/home/get_next_photos_to_geotag.py:105
 msgid "The location seems right, your azimuth was first."
 msgstr "Место выглядит правильно, ваше направление было первым."
 
-#: project/home/get_next_photos_to_geotag.py:196
+#: project/home/get_next_photos_to_geotag.py:107
 msgid "The location seems right, but not the azimuth."
 msgstr "Место выглядит правильно, но направление - нет."
 
-#: project/home/get_next_photos_to_geotag.py:198
+#: project/home/get_next_photos_to_geotag.py:109
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:200
+#: project/home/get_next_photos_to_geotag.py:111
 msgid "Correct location is not certain yet."
 msgstr "Правильное место ещё не определено."
 
-#: project/home/get_next_photos_to_geotag.py:202
+#: project/home/get_next_photos_to_geotag.py:113
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/get_next_photos_to_geotag.py:204
+#: project/home/get_next_photos_to_geotag.py:115
 msgid "Your guess was first."
 msgstr "Ваша догадка была первой."
 
-#: project/home/views.py:243 templates/frontpage.html:160
+#: project/home/views.py:245 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Угадай место"
 
-#: project/home/views.py:436
-msgid "Heat map"
-msgstr "Карта предположений"
-
-#: project/home/views.py:473 project/home/views.py:475
+#: project/home/views.py:417 project/home/views.py:419
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:592 project/home/views.py:605
+#: project/home/views.py:523 project/home/views.py:537
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
@@ -114,7 +110,7 @@ msgstr "Переснимок"
 
 #: templates/_header.html:5 templates/_header_city_selection.html:5
 #: templates/_header_city_selection_scoreboard.html:5
-#: templates/_photo_modal.html:173 templates/base.html:7
+#: templates/_photo_modal.html:172 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:48
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
@@ -127,7 +123,7 @@ msgid "Choose language"
 msgstr "Выбери язык"
 
 #: templates/_header_city_selection_scoreboard.html:12
-#: templates/photoview.html:75
+#: templates/photoview.html:77
 msgid "Map"
 msgstr "Карта"
 
@@ -168,33 +164,39 @@ msgstr "Закрыть Street View"
 msgid "Next photo"
 msgstr "Следующее фото"
 
-#: templates/_photo_modal.html:88 templates/photoview.html:89
+#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:57
+#, fuzzy
+#| msgid "Back to home page"
+msgid "Back to map"
+msgstr "Назад на главную"
+
+#: templates/_photo_modal.html:85 templates/photoview.html:91
 msgid "Rephotograph by"
 msgstr ""
 
-#: templates/_photo_modal.html:91 templates/photoview.html:93
+#: templates/_photo_modal.html:88 templates/photoview.html:95
 msgid "Date taken"
 msgstr "Дата фотографии"
 
-#: templates/_photo_modal.html:104 templates/photoview.html:54
+#: templates/_photo_modal.html:98 templates/photoview.html:56
 msgid "Share"
 msgstr "Поделиться"
 
-#: templates/_photo_modal.html:119
+#: templates/_photo_modal.html:113
 msgid "Discuss"
 msgstr "Обсудить"
 
-#: templates/_photo_modal.html:122 templates/photoview.html:73
+#: templates/_photo_modal.html:116 templates/photoview.html:75
 msgid "Add rephoto"
 msgstr "Добавить новое фото"
 
-#: templates/_photo_modal.html:123
+#: templates/_photo_modal.html:117
 #, fuzzy
 #| msgid "Save location"
 msgid "Specify location"
 msgstr "Сохранить расположение"
 
-#: templates/_photo_modal.html:124 templates/_photo_upload_modal.html:43
+#: templates/_photo_modal.html:118 templates/_photo_upload_modal.html:43
 #: templates/game.html:120 templates/mapview.html:39
 msgid "Close"
 msgstr "Закрыть"
@@ -291,10 +293,9 @@ msgid ""
 msgstr ""
 
 #: templates/_tutorial.html:35
-#, python-format
 msgid ""
 "Using the description to place an image in the game view will only earn you "
-"75%% of the points you would have gotten otherwise"
+"75 percent of the points you would have gotten otherwise"
 msgstr ""
 
 #: templates/_tutorial.html:39
@@ -323,7 +324,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:91 templates/base_bootstrap.html:68
+#: templates/base.html:95 templates/base_bootstrap.html:70
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -386,21 +387,14 @@ msgstr ""
 msgid "With azimuth"
 msgstr ""
 
-#: templates/game.html:83 templates/mapview.html:20
-msgid "Confidence"
-msgstr ""
-
 #: templates/leaderboard.html:19
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back home"
 msgstr "Назад на главную"
 
-#: templates/mapview.html:57
-#, fuzzy
-#| msgid "Back to home page"
-msgid "Back to map"
-msgstr "Назад на главную"
+#~ msgid "Heat map"
+#~ msgstr "Карта предположений"
 
 #, fuzzy
 #~| msgid "Add rephoto"
@@ -423,8 +417,8 @@ msgstr "Назад на главную"
 #~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
 #~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then "
-#~ "%(link_open)sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~ "sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
 #~ "%(link_open)sнажми сюда%(link_close)s."

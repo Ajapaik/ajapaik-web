@@ -498,7 +498,7 @@ class Photo(models.Model):
                     total_weight += g.trustworthiness
                 print "User geotags map"
                 print user_geotags_map
-                for v in user_geotags_map.values():
+                for k, v in user_geotags_map.values():
                     correct_guesses_weight += v.trustworthiness
                     lon_sum += v.lon * v.trustworthiness
                     lat_sum += v.lat * v.trustworthiness
