@@ -2,15 +2,6 @@ from project.home.models import *
 from django.db.models import *
 from django.utils.translation import ugettext as _
 
-def calculate_recent_activity_scores():
-    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
-    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
-    for each in recent_actions:
-        profile = Profile.objects.filter(user_id=each['user_id'])[:1].get()
-        profile.score_recent_activity = each['total_points']
-        profile.save()
-
-
 def calc_trustworthiness(user_id):
     total_tries = 0
     correct_tries = 0
