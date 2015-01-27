@@ -98,120 +98,119 @@ def photo_upload(request, photo_id):
         if latest_upload:
             previous_uploader = latest_upload.values('user').order_by('-id')[:1].get()
 
-        if 'user_file' in request.FILES.keys():
-            #for f in request.FILES.getlist('user_file'):
-            f = request.FILES.get('user_file')
-            #if f.name.split()[-1] not in ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG"]:
-                #continue
-            fileobj = handle_uploaded_file(f)
-            data = request.POST
-            date_taken = data.get('dateTaken', None)
-            re_photo = Photo(
-                rephoto_of=photo,
-                city=photo.city,
-                description=data.get('description', photo.description),
-                lat=data.get('lat', None),
-                lon=data.get('lon', None),
-                date_text=data.get('date_text', None),
-                user=profile,
-                cam_scale_factor=data.get('scale_factor', None),
-                cam_yaw=data.get('yaw'),
-                cam_pitch=data.get('pitch'),
-                cam_roll=data.get('roll'),
-            )
-            if date_taken:
-                parsed_date_taken = strptime(date_taken, "%d.%m.%Y %H:%M")
-                re_photo.date = strftime("%Y-%m-%d %H:%M", parsed_date_taken)
-            if re_photo.cam_scale_factor:
-                re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
-            re_photo.save()
-            re_photo.image.save(f.name, fileobj)
-            new_id = re_photo.pk
+        if 'user_file[]' in request.FILES.keys():
+            for f in request.FILES.getlist('user_file[]'):
+                #if f.name.split()[-1] not in ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG"]:
+                    #continue
+                fileobj = handle_uploaded_file(f)
+                data = request.POST
+                date_taken = data.get('dateTaken', None)
+                re_photo = Photo(
+                    rephoto_of=photo,
+                    city=photo.city,
+                    description=data.get('description', photo.description),
+                    lat=data.get('lat', None),
+                    lon=data.get('lon', None),
+                    date_text=data.get('date_text', None),
+                    user=profile,
+                    cam_scale_factor=data.get('scale_factor', None),
+                    cam_yaw=data.get('yaw'),
+                    cam_pitch=data.get('pitch'),
+                    cam_roll=data.get('roll'),
+                )
+                if date_taken:
+                    parsed_date_taken = strptime(date_taken, "%d.%m.%Y %H:%M")
+                    re_photo.date = strftime("%Y-%m-%d %H:%M", parsed_date_taken)
+                if re_photo.cam_scale_factor:
+                    re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
+                re_photo.save()
+                re_photo.image.save(f.name, fileobj)
+                new_id = re_photo.pk
 
-            img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
-            exif_data = _get_exif_data(img)
-            if exif_data:
-                if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
-                    gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
-                    gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
-                    gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
-                    gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
+                img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
+                exif_data = _get_exif_data(img)
+                if exif_data:
+                    if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
+                        gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
+                        gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
+                        gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
+                        gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
 
-                    lat = _convert_to_degress(gps_latitude)
-                    if gps_latitude_ref != "N":
-                        lat = 0 - lat
+                        lat = _convert_to_degress(gps_latitude)
+                        if gps_latitude_ref != "N":
+                            lat = 0 - lat
 
-                    lon = _convert_to_degress(gps_longitude)
-                    if gps_longitude_ref != "E":
-                        lon = 0 - lon
+                        lon = _convert_to_degress(gps_longitude)
+                        if gps_longitude_ref != "E":
+                            lon = 0 - lon
 
-                    re_photo.lat = lat
-                    re_photo.lon = lon
-                    re_photo.save()
+                        re_photo.lat = lat
+                        re_photo.lon = lon
+                        re_photo.save()
 
-                if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data:
-                    camera_make = exif_data.get('Make')
-                    camera_model = exif_data.get('Model')
-                    lens_make = exif_data.get('LensMake')
-                    lens_model = exif_data.get('LensModel')
-                    software = exif_data.get('Software')
-                    try:
-                        device = Device.objects.get(camera_make=camera_make, camera_model=camera_model,
-                                                    lens_make=lens_make, lens_model=lens_model, software=software)
-                    except ObjectDoesNotExist:
-                        device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make,
-                                        lens_model=lens_model, software=software)
-                        device.save()
-
-                    re_photo.device = device
-                    re_photo.save()
-
-                if 'DateTimeOriginal' in exif_data and not re_photo.date:
-                    date_taken = exif_data.get('DateTimeOriginal')
-                    try:
-                        parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                    except ValueError:
-                        parsed_time = None
-                    if parsed_time:
-                        parsed_time = strftime("%H:%M:%S", parsed_time)
-
-                    # ignore default camera dates
-                    if parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00':
+                    if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data:
+                        camera_make = exif_data.get('Make')
+                        camera_model = exif_data.get('Model')
+                        lens_make = exif_data.get('LensMake')
+                        lens_model = exif_data.get('LensModel')
+                        software = exif_data.get('Software')
                         try:
-                            parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+                            device = Device.objects.get(camera_make=camera_make, camera_model=camera_model,
+                                                        lens_make=lens_make, lens_model=lens_model, software=software)
+                        except ObjectDoesNotExist:
+                            device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make,
+                                            lens_model=lens_model, software=software)
+                            device.save()
+
+                        re_photo.device = device
+                        re_photo.save()
+
+                    if 'DateTimeOriginal' in exif_data and not re_photo.date:
+                        date_taken = exif_data.get('DateTimeOriginal')
+                        try:
+                            parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
                         except ValueError:
-                            parsed_date = None
-                        if parsed_date:
-                            re_photo.date = strftime("%Y-%m-%d", parsed_date)
-                            re_photo.save()
+                            parsed_time = None
+                        if parsed_time:
+                            parsed_time = strftime("%H:%M:%S", parsed_time)
 
-            if re_photo.cam_scale_factor:
-                new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
-                output_file = StringIO()
+                        # ignore default camera dates
+                        if parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00':
+                            try:
+                                parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+                            except ValueError:
+                                parsed_date = None
+                            if parsed_date:
+                                re_photo.date = strftime("%Y-%m-%d", parsed_date)
+                                re_photo.save()
 
-                if re_photo.cam_scale_factor < 1:
-                    x0 = (img.size[0] - new_size[0]) / 2
-                    y0 = (img.size[1] - new_size[1]) / 2
-                    x1 = img.size[0] - x0
-                    y1 = img.size[1] - y0
-                    new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
-                    new_img.save(output_file, 'JPEG', quality=95)
-                    re_photo.image_unscaled = deepcopy(re_photo.image)
-                    re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-                elif re_photo.cam_scale_factor > 1:
-                    x0 = (new_size[0] - img.size[0]) / 2
-                    y0 = (new_size[1] - img.size[1]) / 2
-                    new_img = Image.new("RGB", new_size)
-                    new_img.paste(img, (x0, y0))
-                    new_img.save(output_file, 'JPEG', quality=95)
-                    re_photo.image_unscaled = deepcopy(re_photo.image)
-                    re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                if re_photo.cam_scale_factor:
+                    new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
+                    output_file = StringIO()
 
-            if previous_uploader and previous_uploader['user']:
-                uploader = Profile.objects.get(pk=previous_uploader['user'])
-                uploader.update_rephoto_score()
+                    if re_photo.cam_scale_factor < 1:
+                        x0 = (img.size[0] - new_size[0]) / 2
+                        y0 = (img.size[1] - new_size[1]) / 2
+                        x1 = img.size[0] - x0
+                        y1 = img.size[1] - y0
+                        new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
+                        new_img.save(output_file, 'JPEG', quality=95)
+                        re_photo.image_unscaled = deepcopy(re_photo.image)
+                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                    elif re_photo.cam_scale_factor > 1:
+                        x0 = (new_size[0] - img.size[0]) / 2
+                        y0 = (new_size[1] - img.size[1]) / 2
+                        new_img = Image.new("RGB", new_size)
+                        new_img.paste(img, (x0, y0))
+                        new_img.save(output_file, 'JPEG', quality=95)
+                        re_photo.image_unscaled = deepcopy(re_photo.image)
+                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
-            profile.update_rephoto_score()
+                if previous_uploader and previous_uploader['user']:
+                    uploader = Profile.objects.get(pk=previous_uploader['user'])
+                    uploader.update_rephoto_score()
+
+                profile.update_rephoto_score()
 
     return HttpResponse(json.dumps({'new_id': new_id}), content_type="application/json")
 
