@@ -503,7 +503,7 @@
 
         $(document).on('click', '.ajapaik-game-feedback-next-button', function () {
             var data = {
-                level: $('input[name=difficulty]:checked', 'ajapaik-game-guess-feedback-difficulty-form').val(),
+                level: $('input[name=difficulty]:checked').val(),
                 photo_id: currentPhoto.id,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
