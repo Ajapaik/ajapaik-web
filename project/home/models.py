@@ -741,8 +741,8 @@ class Profile(models.Model):
                 user_first_bonus_earned = True
                 user_rephoto_score += 1250
                 try:
-                    existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=oldest_rephoto.id)
-                except:
+                    existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=oldest_rephoto.id).get()
+                except ObjectDoesNotExist:
                     new_record = Points(user=oldest_rephoto.user, action=Points.REPHOTO, action_reference=oldest_rephoto.id, points=1250, created=oldest_rephoto.created)
                     new_record.save()
             for rp in rephotos_by_this_user:
@@ -755,8 +755,8 @@ class Profile(models.Model):
                         user_first_bonus_earned = True
                     # Check that we have a record in the scoring table
                     try:
-                        existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=rp.id)
-                    except:
+                        existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=rp.id).get()
+                    except ObjectDoesNotExist:
                         new_record = Points(user=rp.user, action=Points.REPHOTO, action_reference=rp.id, points=current_score, created=rp.created)
                         new_record.save()
                 user_rephoto_score += current_score
