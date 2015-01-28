@@ -132,6 +132,7 @@
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-photoview-original-full-screen-image');
             window.isPhotoview = true;
+            window.gameRedirectURI = '/game?city=' + '{{ photo.city_id }}';
             $('.dropdown-toggle').dropdown();
             $('.disabled-link').click(function (event) {
                 event.preventDefault();
