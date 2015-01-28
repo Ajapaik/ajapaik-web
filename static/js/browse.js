@@ -224,6 +224,9 @@
                 guessPhotoPanelSettings.draggable = false;
             }
             guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
+            guessPhotoPanel.on('jspanelloaded', function () {
+                $('#ajapaik-mapview-guess-photo-js-panel').find('img').show();
+            });
             //guessPhotoPanel.find('img').show();
             if (photoPanel) {
                 photoPanel.close();
