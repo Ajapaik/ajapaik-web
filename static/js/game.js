@@ -423,6 +423,7 @@
                 if (window.map.zoom < 17) {
                     window.map.setZoom(17);
                 }
+                window.guessLocationStarted = true;
                 $('.center-marker').show();
                 $('#ajapaik-game-photo-modal').modal('hide');
                 window.setCursorToAuto();

@@ -205,6 +205,8 @@ var map,
             } else {
                 if (!guessLocationStarted) {
                     $('#ajapaik-map-button-container').hide();
+                } else {
+                    $('#ajapaik-map-button-container').show();
                 }
                 $('.ajapaik-close-streetview-button').hide().parent().hide();
                 saveLocationButton.show();
