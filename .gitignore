@@ -4,3 +4,4 @@
 .idea
 project/settings/local.py
 static-collected
+project/home/client_secrets.json
