@@ -395,7 +395,9 @@ def photoslug(request, photo_id, pseudo_slug):
         title = "Unknown photo"
     else:
         title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
-    print site.domain
+
+    city_selection_form = CitySelectionForm({'city': photo_obj.city_id})
+
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
         'fullscreen': _make_fullscreen(photo_obj),
@@ -403,7 +405,9 @@ def photoslug(request, photo_id, pseudo_slug):
         'title': title,
         'description': photo_obj.description,
         'rephoto': rephoto,
-        'hostname': 'http://%s' % (site.domain, )
+        'hostname': 'http://%s' % (site.domain, ),
+        'city_selection_form': city_selection_form,
+        'is_photoview': True
     }))
 
 

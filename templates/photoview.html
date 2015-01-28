@@ -74,7 +74,7 @@
                                 <i class="glyphicon glyphicon-plus"></i>
                                 <span>{% trans "Add rephoto" %}</span>
                             </span>
-                            <button class="btn btn-primary" id="ajapaik-photoview-map-button">{% trans "Map" %}</button>
+                            <button class="btn btn-primary" id="ajapaik-photoview-map-button">{% trans "Location on the map" %}</button>
                         </div>
                     </div>
                     {% include "_comments.html" %}
@@ -131,6 +131,7 @@
             var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-photoview-original-full-screen-image');
+            window.isPhotoview = true;
             $('.dropdown-toggle').dropdown();
             $('.disabled-link').click(function (event) {
                 event.preventDefault();
@@ -219,6 +220,9 @@
             });
             $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
                 window.location.href = '/foto/' + {{ photo.id }};
+            });
+            $(document).on('click', '#ajapaik-header-game-button', function () {
+                window.location.href = window.gameRedirectURI;
             });
             $('#ajapaik-comment-tabs a').click(function (e) {
                 e.preventDefault();

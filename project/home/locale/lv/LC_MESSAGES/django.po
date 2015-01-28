@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-27 16:49+0200\n"
+"POT-Creation-Date: 2015-01-28 11:23+0200\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,12 +61,12 @@ msgstr ""
 msgid "Guess the location"
 msgstr "Minēt atrašanās vietu"
 
-#: project/home/views.py:417 project/home/views.py:419
+#: project/home/views.py:424 project/home/views.py:426
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
-#: project/home/views.py:523 project/home/views.py:537
+#: project/home/views.py:530 project/home/views.py:544
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Līderu tabula"
@@ -127,18 +127,18 @@ msgstr "Nākošais attēls"
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: templates/_header.html:24 templates/_header_city_selection.html:28
+#: templates/_header.html:12
+#: templates/_header_city_selection_scoreboard.html:14
+msgid "Geotagging game"
+msgstr ""
+
+#: templates/_header.html:33 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
 msgid "Choose language"
 msgstr "Izvēlies valodu"
 
 #: templates/_header_city_selection_scoreboard.html:12
-#: templates/photoview.html:77
 msgid "Map"
-msgstr ""
-
-#: templates/_header_city_selection_scoreboard.html:14
-msgid "Geotagging game"
 msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:28
@@ -406,6 +406,10 @@ msgstr ""
 #| msgid "Back to home page"
 msgid "Back home"
 msgstr "Uz sākumu"
+
+#: templates/photoview.html:77
+msgid "Location on the map"
+msgstr ""
 
 #~ msgid "Heat map"
 #~ msgstr "Atrašanās vieta kartē"

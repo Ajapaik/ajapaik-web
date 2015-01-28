@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-27 16:49+0200\n"
+"POT-Creation-Date: 2015-01-28 11:23+0200\n"
 "PO-Revision-Date: 2015-01-27 16:57+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -59,12 +59,12 @@ msgstr "Sinu pakkumine oli esimene."
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: project/home/views.py:417 project/home/views.py:419
+#: project/home/views.py:424 project/home/views.py:426
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:523 project/home/views.py:537
+#: project/home/views.py:530 project/home/views.py:544
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Edetabel"
@@ -119,19 +119,19 @@ msgstr "Ülepildistus"
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
-#: templates/_header.html:24 templates/_header_city_selection.html:28
+#: templates/_header.html:12
+#: templates/_header_city_selection_scoreboard.html:14
+msgid "Geotagging game"
+msgstr ""
+
+#: templates/_header.html:33 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
 msgid "Choose language"
 msgstr "Vali keel"
 
 #: templates/_header_city_selection_scoreboard.html:12
-#: templates/photoview.html:77
 msgid "Map"
 msgstr "Kaart"
-
-#: templates/_header_city_selection_scoreboard.html:14
-msgid "Geotagging game"
-msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
@@ -404,6 +404,10 @@ msgstr "Suunaga pakkumisi"
 msgid "Back home"
 msgstr "Tagasi avalehele"
 
+#: templates/photoview.html:77
+msgid "Location on the map"
+msgstr ""
+
 #~ msgid "Heat map"
 #~ msgstr "Asukoht kaardil"
 
@@ -458,16 +462,16 @@ msgstr "Tagasi avalehele"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then "
-#~ "%(link_open)sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~ "sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then "
-#~| "%(link_open)sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
+#~| "sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -479,8 +483,8 @@ msgstr "Tagasi avalehele"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then "
-#~| "%(link_open)sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~| "sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "

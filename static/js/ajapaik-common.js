@@ -47,6 +47,8 @@ var map,
     updateLeaderboard,
     now,
     gameMap,
+    isPhotoview,
+    gameRedirectURI,
     lastTriggeredWheeling,
     wheelEventFF,
     wheelEventNonFF,
@@ -444,7 +446,7 @@ var map,
     };
 
     $('.filter-box select').change(function () {
-        var uri = new URI(location.href),
+        var uri = new window.URI(location.href),
             newQ = {city: $(this).val()},
             isFilterEmpty = false;
         uri.removeQuery(Object.keys(newQ));
@@ -459,7 +461,13 @@ var map,
 
         uri = uri.addQuery({fromSelect: 1});
 
-        location.href = uri.toString();
+        if (isPhotoview) {
+            uri = new window.URI('/game');
+            uri.addQuery(newQ);
+            gameRedirectURI = uri.toString();
+        } else {
+            window.location.href = uri.toString();
+        }
     });
 
     $(document).on('click', '#ajapaik-header-map-button', function () {
