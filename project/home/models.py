@@ -723,7 +723,7 @@ class Profile(models.Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
-        original_photos = Photo.objects.filter(id__in=photo_ids_rephotographed_by_this_user)
+        original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0
 
@@ -759,7 +759,7 @@ class Profile(models.Model):
                     except ObjectDoesNotExist:
                         new_record = Points(user=rp.user, action=Points.REPHOTO, action_reference=rp.id, points=current_score, created=rp.created)
                         new_record.save()
-                user_rephoto_score += current_score
+                    user_rephoto_score += current_score
 
         self.score_rephoto = user_rephoto_score
         self.save()
