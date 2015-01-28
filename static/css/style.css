@@ -9,25 +9,6 @@ body {
     background: #fff url(../images/bg-subtle-grunge.png) center center;
 }
 
-#mobile_notice {
-    display: none;
-    top: 50%;
-    position: absolute;
-    left: 50%;
-    margin-left: -86px;
-    margin-top: -30px;
-}
-
-@media all and (max-width: 500px) {
-    #content.front-page {
-        display: none;
-    }
-
-    #mobile_notice {
-        display: block;
-    }
-}
-
 /* NOTICES */
 
 #notice {

@@ -4,13 +4,14 @@ from urllib import urlencode
 from urllib2 import quote, urlopen
 from project.home.models import Profile
 from contextlib import closing
+from django.conf import settings
 
 from django.shortcuts import redirect
 from json import loads
 
 APP_ID = '201052296573134'
-APP_KEY = '32d6e5e8fae03b1bdf1c1af0e685df35'
-APP_SECRET = 'c5958185bb5e148c9f4346d3b6d924e1'
+APP_KEY = settings.FACEBOOK_APP_KEY
+APP_SECRET = settings.FACEBOOK_APP_SECRET
 
 def url_read(uri):
     with closing(urlopen(uri)) as request:

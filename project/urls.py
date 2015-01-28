@@ -69,6 +69,7 @@ urlpatterns += patterns('',
 handler500 = 'project.home.views.custom_500'
 handler404 = 'project.home.views.custom_404'
 
+#TODO: Why?
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
     urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')), )
 else:

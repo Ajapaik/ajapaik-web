@@ -39,7 +39,7 @@ LOCALE_PATHS = (
 )
 
 ADMINS = (
-    ('Lauri Elias', 'lauri.elias@ajapaik.ee'),
+    ('Name Surname', 'admin@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -54,6 +54,9 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+FACEBOOK_APP_KEY = ''
+FACEBOOK_APP_SECRET = ''
 
 TIME_ZONE = 'Europe/Tallinn'
 
