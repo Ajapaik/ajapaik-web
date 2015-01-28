@@ -206,11 +206,7 @@ def photo_upload(request, photo_id):
                         re_photo.image_unscaled = deepcopy(re_photo.image)
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
-                if previous_uploader and previous_uploader['user']:
-                    uploader = Profile.objects.get(pk=previous_uploader['user'])
-                    uploader.update_rephoto_score()
-
-                profile.update_rephoto_score()
+        profile.update_rephoto_score()
 
     return HttpResponse(json.dumps({'new_id': new_id}), content_type="application/json")
 
