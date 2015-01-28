@@ -735,7 +735,7 @@ class Profile(models.Model):
                     rephotos_by_this_user.append(rp)
                 if not oldest_rephoto or rp.created < oldest_rephoto.created:
                     oldest_rephoto = rp
-            oldest_rephoto_is_from_this_user = oldest_rephoto.user.id == self.user.id
+            oldest_rephoto_is_from_this_user = oldest_rephoto.user and self.user and oldest_rephoto.user.id == self.user.id
             user_first_bonus_earned = False
             if oldest_rephoto_is_from_this_user:
                 user_first_bonus_earned = True
