@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-28 13:57+0200\n"
-"PO-Revision-Date: 2015-01-27 16:57+0200\n"
+"PO-Revision-Date: 2015-01-28 14:07+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -122,7 +122,7 @@ msgstr "Ajapaik"
 #: templates/_header.html:12
 #: templates/_header_city_selection_scoreboard.html:14
 msgid "Geotagging game"
-msgstr ""
+msgstr "Asukohapakkumiste mäng"
 
 #: templates/_header.html:33 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
@@ -410,10 +410,14 @@ msgid ""
 "Still your action may not have an immediate effect on the location of the "
 "image. Your trustworthiness will also not be affected."
 msgstr ""
+"Siitkaudu tehtud asukohapakkumine märgistatakse teisiti kui mängus tehtud "
+"pakkumised, ent see ei pruugi siiski veel pildi asukohta kaardil mõjutada. "
+"Samas ei muuda täpsustuse kaudu tehtud pakkumine erinevalt mängus tehtud "
+"pakkumistest Sinu usaldusväärsustaset. Veelkord suur tänu!"
 
 #: templates/photoview.html:77
 msgid "Location on the map"
-msgstr ""
+msgstr "Asukoht kaardil"
 
 #~ msgid "Heat map"
 #~ msgstr "Asukoht kaardil"
@@ -469,16 +473,16 @@ msgstr ""
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -490,8 +494,8 @@ msgstr ""
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
