@@ -118,7 +118,7 @@ def photo_upload(request, photo_id):
                     cam_pitch=data.get('pitch'),
                     cam_roll=data.get('roll'),
                 )
-                if date_taken:
+                if date_taken is not None:
                     parsed_date_taken = strptime(date_taken, "%d.%m.%Y %H:%M")
                     re_photo.date = strftime("%Y-%m-%d %H:%M", parsed_date_taken)
                 if re_photo.cam_scale_factor:
