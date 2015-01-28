@@ -395,6 +395,7 @@ def photoslug(request, photo_id, pseudo_slug):
         title = "Unknown photo"
     else:
         title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
+    print site.domain
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
         'fullscreen': _make_fullscreen(photo_obj),
