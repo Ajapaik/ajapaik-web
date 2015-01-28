@@ -723,9 +723,7 @@ class Profile(models.Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
-        print photo_ids_rephotographed_by_this_user
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
-        print original_photos
 
         user_rephoto_score = 0
 
@@ -737,7 +735,7 @@ class Profile(models.Model):
                     rephotos_by_this_user.append(rp)
                 if not oldest_rephoto or rp.created < oldest_rephoto.created:
                     oldest_rephoto = rp
-            oldest_rephoto_is_from_this_user = oldest_rephoto.user == self.user
+            oldest_rephoto_is_from_this_user = oldest_rephoto.user.id == self.user.id
             user_first_bonus_earned = False
             if oldest_rephoto_is_from_this_user:
                 user_first_bonus_earned = True
