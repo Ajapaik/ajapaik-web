@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-27 16:49+0200\n"
+"POT-Creation-Date: 2015-01-28 11:23+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:115
+#: static/js/ajapaik-common.js:117
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:531 static/js/ajapaik-common.js.c:643
+#: static/js/ajapaik-common.js:539 static/js/ajapaik-common.js.c:651
 #: static/js/game.js:132
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:581
+#: static/js/ajapaik-common.js:589
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:709
+#: static/js/ajapaik-common.js:717
 msgid "Median guess"
 msgstr ""
 

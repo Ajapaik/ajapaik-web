@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-27 16:49+0200\n"
+"POT-Creation-Date: 2015-01-28 11:23+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -57,12 +57,12 @@ msgstr "Ваша догадка была первой."
 msgid "Guess the location"
 msgstr "Угадай место"
 
-#: project/home/views.py:417 project/home/views.py:419
+#: project/home/views.py:424 project/home/views.py:426
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:523 project/home/views.py:537
+#: project/home/views.py:530 project/home/views.py:544
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
@@ -117,19 +117,19 @@ msgstr "Переснимок"
 msgid "Timepatch (Ajapaik)"
 msgstr "Аяпаик (Ajapaik)"
 
-#: templates/_header.html:24 templates/_header_city_selection.html:28
+#: templates/_header.html:12
+#: templates/_header_city_selection_scoreboard.html:14
+msgid "Geotagging game"
+msgstr ""
+
+#: templates/_header.html:33 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
 msgid "Choose language"
 msgstr "Выбери язык"
 
 #: templates/_header_city_selection_scoreboard.html:12
-#: templates/photoview.html:77
 msgid "Map"
 msgstr "Карта"
-
-#: templates/_header_city_selection_scoreboard.html:14
-msgid "Geotagging game"
-msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9
@@ -392,6 +392,10 @@ msgstr ""
 #| msgid "Back to home page"
 msgid "Back home"
 msgstr "Назад на главную"
+
+#: templates/photoview.html:77
+msgid "Location on the map"
+msgstr ""
 
 #~ msgid "Heat map"
 #~ msgstr "Карта предположений"
