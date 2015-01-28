@@ -723,7 +723,9 @@ class Profile(models.Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+        print photo_ids_rephotographed_by_this_user
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
+        print original_photos
 
         user_rephoto_score = 0
 
