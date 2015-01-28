@@ -759,8 +759,8 @@ var map,
             } else {
                 t.addClass('active');
                 window.centerMarker.hide();
-                window.marker.setIcon('/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg');
                 window.marker.setVisible(true);
+                window.marker.setMap(map);
                 window.marker.set('draggable', true);
                 window.map.set('scrollwheel', true);
                 window.realMapElement.removeEventListener('mousewheel', window.wheelEventNonFF, true);
