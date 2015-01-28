@@ -461,7 +461,6 @@ class Photo(models.Model):
 
 
         if not self.bounding_circle_radius:
-            print "No bounding circle radius"
             # TODO: What was the purpose of this?
             #self.confidence = 0
             #self.lon = None
@@ -481,8 +480,6 @@ class Photo(models.Model):
                 if len(geotags_with_azimuth) > 0:
                     azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
                     median_azimuth = azimuths[len(azimuths) / 2]
-                    print "Median azimuth"
-                    print median_azimuth
 
                 correct_guesses_weight, total_weight, azimuth_correct_guesses_weight, azimuth_total_guesses_weight = 0, 0, 0, 0
                 lon_sum, lat_sum, azimuth_sum = 0, 0, 0
@@ -497,9 +494,7 @@ class Photo(models.Model):
                                                                      user_geotags_map[g.user_id].lat, lon, lat):
                                 user_geotags_map[g.user_id] = g
                     total_weight += g.trustworthiness
-                print "User geotags map"
-                print user_geotags_map
-                for k, v in user_geotags_map.values():
+                for v in user_geotags_map.values():
                     correct_guesses_weight += v.trustworthiness
                     lon_sum += v.lon * v.trustworthiness
                     lat_sum += v.lat * v.trustworthiness
@@ -514,26 +509,15 @@ class Photo(models.Model):
                 unique_correct_guesses_ratio = 0
                 if total_weight > 0:
                     unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)
-                    print "Unique correct guesses ratio"
-                    print unique_correct_guesses_ratio
                 unique_azimuth_correct_ratio = False
                 if azimuth_correct_guesses_weight > 0 and azimuth_total_guesses_weight > 0:
                     unique_azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
-                    print "Unique azimuth correct ratio"
-                    print unique_azimuth_correct_ratio
-
                 if unique_correct_guesses_ratio > 0.63:
-                    print "Ratio over 0.63, correcting"
                     self.lon = lon_sum / float(correct_guesses_weight)
                     self.lat = lat_sum / float(correct_guesses_weight)
-                    print self.lon
-                    print self.lat
                     if unique_azimuth_correct_ratio > 0.63:
                         self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
                         self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
-                        print self.azimuth
-                        print self.azimuth_confidence
-                    print self.confidence
                     self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
 
 class DifficultyFeedback(models.Model):
