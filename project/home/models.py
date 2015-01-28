@@ -761,11 +761,8 @@ class Profile(models.Model):
                         new_record.save()
                     user_rephoto_score += current_score
 
-        print self.score_rephoto
         self.score_rephoto = user_rephoto_score
-        print self.score_rephoto
         self.save()
-        print self.score_rephoto
 
     def set_calculated_fields(self):
         all_time_score = 0
