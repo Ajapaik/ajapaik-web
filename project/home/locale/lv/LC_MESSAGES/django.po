@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-28 11:23+0200\n"
+"POT-Creation-Date: 2015-01-28 13:57+0200\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,16 +57,16 @@ msgstr ""
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:245 templates/frontpage.html:160
+#: project/home/views.py:241 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Minēt atrašanās vietu"
 
-#: project/home/views.py:424 project/home/views.py:426
+#: project/home/views.py:420 project/home/views.py:422
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
-#: project/home/views.py:530 project/home/views.py:544
+#: project/home/views.py:526 project/home/views.py:540
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Līderu tabula"
@@ -175,7 +175,7 @@ msgstr ""
 msgid "Next photo"
 msgstr "Nākošais attēls"
 
-#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:57
+#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:58
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
@@ -406,6 +406,13 @@ msgstr ""
 #| msgid "Back to home page"
 msgid "Back home"
 msgstr "Uz sākumu"
+
+#: templates/mapview.html:56
+msgid ""
+"This location specification will be tagged differently than in the game. "
+"Still your action may not have an immediate effect on the location of the "
+"image. Your trustworthiness will also not be affected."
+msgstr ""
 
 #: templates/photoview.html:77
 msgid "Location on the map"
