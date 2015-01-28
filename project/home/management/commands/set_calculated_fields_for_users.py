@@ -7,11 +7,12 @@ class Command(BaseCommand):
     args = "profile_id"
 
     def handle(self, *args, **options):
+        profile_id = None
         try:
             profile_id = args[0]
         except IndexError:
             pass
-        if profile_id:
+        if profile_id is not None:
             profile = Profile.objects.get(user_id=profile_id)
             profile.set_calculated_fields()
             profile.save()
