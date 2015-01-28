@@ -43,7 +43,7 @@
         toggleVisiblePaneElements,
         markerClustererSettings = {
             minimumClusterSize: 2,
-            maxZoom: 18
+            maxZoom: 17
         },
         setCorrectMarkerIcon,
         blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
@@ -413,7 +413,7 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                if (window.map.zoom > 18) {
+                if (window.map.zoom > 17) {
                     markerClustererSettings.gridSize = 1;
                 } else {
                     markerClustererSettings.gridSize = 60;
@@ -585,7 +585,7 @@
             } else {
                 if (window.preselectPhotoLat && window.preselectPhotoLng) {
                     // We know the location of the photo, let's build the map accordingly
-                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 19, false);
+                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false);
                 } else if (window.cityLatLng) {
                     // There's nothing preselected, but we do know the city the photo's in
                     window.getMap(window.cityLatLng, 13, false);
