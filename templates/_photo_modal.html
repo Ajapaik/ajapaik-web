@@ -153,7 +153,7 @@
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
         }
-        if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None') {
+        if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
             $('#ajapaik-photo-modal-date-row').show();
         }
         var openPhotoUploadModal = function () {
@@ -258,7 +258,7 @@
                     $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
                     $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
                     $('#ajapaik-photo-modal-rephoto-permalink').attr('href', window.photoModalRephotoArray[i][7]);
-                    if (window.photoModalRephotoArray[i][2] !== 'None') {
+                    if (window.photoModalRephotoArray[i][2] !== 'None' && window.photoModalRephotoArray[i][2] !== '') {
                         $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);
                         $('#ajapaik-photo-modal-date-row').show();
                     } else {
