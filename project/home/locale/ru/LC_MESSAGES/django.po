@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-28 11:23+0200\n"
+"POT-Creation-Date: 2015-01-28 13:57+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -53,16 +53,16 @@ msgstr "У остальных пользователей другое мнени
 msgid "Your guess was first."
 msgstr "Ваша догадка была первой."
 
-#: project/home/views.py:245 templates/frontpage.html:160
+#: project/home/views.py:241 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Угадай место"
 
-#: project/home/views.py:424 project/home/views.py:426
+#: project/home/views.py:420 project/home/views.py:422
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:530 project/home/views.py:544
+#: project/home/views.py:526 project/home/views.py:540
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
@@ -164,7 +164,7 @@ msgstr "Закрыть Street View"
 msgid "Next photo"
 msgstr "Следующее фото"
 
-#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:57
+#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:58
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
@@ -392,6 +392,13 @@ msgstr ""
 #| msgid "Back to home page"
 msgid "Back home"
 msgstr "Назад на главную"
+
+#: templates/mapview.html:56
+msgid ""
+"This location specification will be tagged differently than in the game. "
+"Still your action may not have an immediate effect on the location of the "
+"image. Your trustworthiness will also not be affected."
+msgstr ""
 
 #: templates/photoview.html:77
 msgid "Location on the map"
