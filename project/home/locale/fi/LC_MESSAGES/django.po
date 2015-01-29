@@ -1,40 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ajapaik\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-29 17:25+0200\n"
-"PO-Revision-Date: 2015-01-26 16:56+0200\n"
-"Last-Translator: Aleksejs Mjaliks <>\n"
-"Language-Team: \n"
-"Language: ru\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
-"((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
-"X-Generator: Poedit 1.7.3\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/home/forms.py:8
 msgid "Choose city"
-msgstr "Выбери город"
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:101
 msgid "Looks right!"
-msgstr "Выглядит правильно!"
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:103
 msgid "The location seems right, but the azimuth is yet uncertain."
-msgstr "Место выглядит правильно, но направление ещё не определено."
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:105
 msgid "The location seems right, your azimuth was first."
-msgstr "Место выглядит правильно, ваше направление было первым."
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:107
 msgid "The location seems right, but not the azimuth."
-msgstr "Место выглядит правильно, но направление - нет."
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:109
 msgid ""
@@ -43,29 +45,29 @@ msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:111
 msgid "Correct location is not certain yet."
-msgstr "Правильное место ещё не определено."
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:113
 msgid "Other users have different opinion."
-msgstr "У остальных пользователей другое мнение."
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:115
 msgid "Your guess was first."
-msgstr "Ваша догадка была первой."
+msgstr ""
 
 #: project/home/views.py:233 templates/frontpage.html:160
 msgid "Guess the location"
-msgstr "Угадай место"
+msgstr ""
 
 #: project/home/views.py:412 project/home/views.py:414
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
-msgstr "Смотри фото на карте"
+msgstr ""
 
 #: project/home/views.py:518 project/home/views.py:532
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
-msgstr "Лучшие игроки"
+msgstr ""
 
 #: project/home/views.py:734
 msgid "Error uploading file"
@@ -77,15 +79,15 @@ msgstr ""
 
 #: project/settings/default.py:66
 msgid "Estonian"
-msgstr "Эстонский"
+msgstr ""
 
 #: project/settings/default.py:67
 msgid "English"
-msgstr "Английский"
+msgstr ""
 
 #: project/settings/default.py:68
 msgid "Russian"
-msgstr "Русский"
+msgstr ""
 
 #: project/settings/default.py:69
 msgid "Finnish"
@@ -93,32 +95,32 @@ msgstr ""
 
 #: templates/404.html:5 templates/404.html.py:11
 msgid "Page Not Found"
-msgstr "Страница не найдена."
+msgstr ""
 
 #: templates/404.html:14
 msgid "Back"
-msgstr "Назад"
+msgstr ""
 
 #: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:24
 #: templates/_block_leaderboard.html:37
 msgid "Your points"
-msgstr "Твои очки"
+msgstr ""
 
 #: templates/_block_leaderboard.html:17
 msgid "Recent activity leaderboard"
-msgstr "Самые активные пользователи"
+msgstr ""
 
 #: templates/_block_leaderboard.html:30
 msgid "All time leaderboard"
-msgstr "Лучшие игроки за всё время"
+msgstr ""
 
 #: templates/_comments.html:8
 msgid "Original photo"
-msgstr "Оригинальная фотография"
+msgstr ""
 
 #: templates/_comments.html:12
 msgid "Rephoto"
-msgstr "Переснимок"
+msgstr ""
 
 #: templates/_header.html:5 templates/_header_city_selection.html:5
 #: templates/_header_city_selection_scoreboard.html:5
@@ -127,7 +129,7 @@ msgstr "Переснимок"
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
-msgstr "Аяпаик (Ajapaik)"
+msgstr ""
 
 #: templates/_header.html:12
 #: templates/_header_city_selection_scoreboard.html:14
@@ -137,50 +139,47 @@ msgstr ""
 #: templates/_header.html:33 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
 msgid "Choose language"
-msgstr "Выбери язык"
+msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:12
 msgid "Map"
-msgstr "Карта"
+msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
-msgstr "Пользователь"
+msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "Log out"
-msgstr "Выйти"
+msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:33
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
-"Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-ом."
 
 #: templates/_header_city_selection_scoreboard.html:34
 #: templates/_photo_upload_modal.html:36 templates/photo_upload.html:50
 msgid "Connect with Facebook"
-msgstr "Соединить с Facebook-ом."
+msgstr ""
 
 #: templates/_map_lower_right_buttons.html:5
 msgid "Save location only"
-msgstr "Сохранить только расположение"
+msgstr ""
 
 #: templates/_map_lower_right_buttons.html:8
 msgid "Close Street View"
-msgstr "Закрыть Street View"
+msgstr ""
 
 #: templates/_map_lower_right_buttons.html:11 templates/game.html:37
 #: templates/game.html.py:62 templates/game.html:99
 msgid "Next photo"
-msgstr "Следующее фото"
+msgstr ""
 
 #: templates/_map_lower_right_buttons.html:11 templates/mapview.html:58
-#, fuzzy
-#| msgid "Back to home page"
 msgid "Back to map"
-msgstr "Назад на главную"
+msgstr ""
 
 #: templates/_photo_modal.html:85 templates/photoview.html:91
 msgid "Rephotograph by"
@@ -188,47 +187,45 @@ msgstr ""
 
 #: templates/_photo_modal.html:88 templates/photoview.html:95
 msgid "Date taken"
-msgstr "Дата фотографии"
+msgstr ""
 
 #: templates/_photo_modal.html:98 templates/photoview.html:56
 msgid "Share"
-msgstr "Поделиться"
+msgstr ""
 
 #: templates/_photo_modal.html:113
 msgid "Discuss"
-msgstr "Обсудить"
+msgstr ""
 
 #: templates/_photo_modal.html:116 templates/photoview.html:75
 msgid "Add rephoto"
-msgstr "Добавить новое фото"
+msgstr ""
 
 #: templates/_photo_modal.html:117
-#, fuzzy
-#| msgid "Save location"
 msgid "Specify location"
-msgstr "Сохранить расположение"
+msgstr ""
 
 #: templates/_photo_modal.html:118 templates/_photo_upload_modal.html:43
 #: templates/game.html:120 templates/mapview.html:39
 msgid "Close"
-msgstr "Закрыть"
+msgstr ""
 
 #: templates/_photo_upload_modal.html:17
 msgid "Taken"
-msgstr "Снято"
+msgstr ""
 
 #: templates/_photo_upload_modal.html:19
 #: templates/_photo_upload_modal.html:102
 msgid "Upload"
-msgstr "Загрузить"
+msgstr ""
 
 #: templates/_photo_upload_modal.html:24
 msgid "Select file..."
-msgstr "Выбрать файл..."
+msgstr ""
 
 #: templates/_photo_upload_modal.html:35
 msgid "Rephoto uploading requires connecting your account with Facebook."
-msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
+msgstr ""
 
 #: templates/_photo_upload_modal.html:40
 msgid ""
@@ -236,8 +233,6 @@ msgid ""
 "picture was taken and upload it. Uploaded rephotograph will be attributed to "
 "you under the"
 msgstr ""
-"Cделай как можно более похожую современную фотографию того же места и "
-"загрузи её."
 
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
@@ -248,10 +243,8 @@ msgid "Abort"
 msgstr ""
 
 #: templates/_photo_upload_modal.html:80
-#, fuzzy
-#| msgid "Selected rephoto"
 msgid "Select new file..."
-msgstr "Выбери новое фото"
+msgstr ""
 
 #: templates/_photo_upload_modal.html:110
 msgid "File upload failed."
@@ -344,24 +337,21 @@ msgstr ""
 
 #: templates/frontpage.html:88
 msgid "Where is history located?"
-msgstr "Где находится история?"
+msgstr ""
 
 #: templates/frontpage.html:89
 msgid "Discover, geotag and make the rephoto."
 msgstr ""
-"Узнай где сделана фотографию и добавь современную фотографию этого места."
 
 #: templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
 msgstr ""
-"Добавь дополнительную информацию к старым фотографиям.Так будет интреснее "
-"соревноваться с другими."
 
 #: templates/frontpage.html:94
 msgid "Read more"
-msgstr "Подробнее"
+msgstr ""
 
 #: templates/frontpage.html:164
 msgid "Upload photos yourself"
@@ -377,11 +367,11 @@ msgstr ""
 
 #: templates/game.html:35 templates/game.html.py:95
 msgid "Pick the shooting location!"
-msgstr "Знаю где сделано фото!"
+msgstr ""
 
 #: templates/game.html:45 templates/mapview.html:55
 msgid "Thank you!"
-msgstr "Спасибо!"
+msgstr ""
 
 #: templates/game.html:49
 msgid "In your opinion to geotag this photo is"
@@ -404,10 +394,8 @@ msgid "With azimuth"
 msgstr ""
 
 #: templates/leaderboard.html:19
-#, fuzzy
-#| msgid "Back to home page"
 msgid "Back home"
-msgstr "Назад на главную"
+msgstr ""
 
 #: templates/mapview.html:56
 msgid ""
@@ -417,10 +405,8 @@ msgid ""
 msgstr ""
 
 #: templates/photo_upload.html:20
-#, fuzzy
-#| msgid "Select file..."
 msgid "Add files..."
-msgstr "Выбрать файл..."
+msgstr ""
 
 #: templates/photo_upload.html:25
 msgid "Start upload"
@@ -435,94 +421,9 @@ msgid "Selected city:"
 msgstr ""
 
 #: templates/photo_upload.html:49
-#, fuzzy
-#| msgid "Rephoto uploading requires connecting your account with Facebook."
 msgid "Photo uploading requires connecting your account with Facebook."
-msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
+msgstr ""
 
 #: templates/photoview.html:77
 msgid "Location on the map"
 msgstr ""
-
-#~ msgid "Heat map"
-#~ msgstr "Карта предположений"
-
-#, fuzzy
-#~| msgid "Add rephoto"
-#~ msgid "Load more photos"
-#~ msgstr "Добавить новое фото"
-
-#~ msgid "Close photo"
-#~ msgstr "Закрыть фото"
-
-#, fuzzy
-#~| msgid "Guess the location"
-#~ msgid "Guess location"
-#~ msgstr "Угадай место"
-
-#~ msgid "Close map"
-#~ msgstr "Закрыть карту"
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#~| "%(link_open)sclick here%(link_close)s."
-#~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
-#~ msgstr ""
-#~ "Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-#~ "%(link_open)sнажми сюда%(link_close)s."
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#~| "%(link_open)sclick here%(link_close)s."
-#~ msgid ""
-#~ "\n"
-#~ "                            Account (%(account_name)s) connected. If it"
-#~ "\"s not you then %(link_open)sclick\n"
-#~ "                            here%(link_close)s."
-#~ msgstr ""
-#~ "Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-#~ "%(link_open)sнажми сюда%(link_close)s."
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#~| "%(link_open)sclick here%(link_close)s."
-#~ msgid ""
-#~ "\n"
-#~ "                                Account (%(account_name)s) connected. If "
-#~ "it's not you then %(link_open)sclick here\n"
-#~ "                                %(link_close)s."
-#~ msgstr ""
-#~ "Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-#~ "%(link_open)sнажми сюда%(link_close)s."
-
-#~ msgid "All pictures"
-#~ msgstr "Все фотографии"
-
-#~ msgid "Added last week"
-#~ msgstr "Добавленные за последнюю неделю"
-
-#~ msgid "Added last month"
-#~ msgstr "Добавленные за последний месяц"
-
-#~ msgid "Choose range"
-#~ msgstr "Выберите промежуток"
-
-#~ msgid "Choose source"
-#~ msgstr "Выберите источник"
-
-#~ msgid "Add comment"
-#~ msgstr "Комментировать"
-
-#~ msgid "Random"
-#~ msgstr "Случайное"
-
-#~ msgid "Your rephoto has been uploaded."
-#~ msgstr "Файл загружен."
-
-#~ msgid "Historic photo"
-#~ msgstr "Историческое фото"

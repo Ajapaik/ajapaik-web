@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-28 13:57+0200\n"
+"POT-Creation-Date: 2015-01-29 17:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,30 +54,42 @@ msgstr ""
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:241 templates/frontpage.html:160
+#: project/home/views.py:233 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr ""
 
-#: project/home/views.py:420 project/home/views.py:422
+#: project/home/views.py:412 project/home/views.py:414
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:526 project/home/views.py:540
+#: project/home/views.py:518 project/home/views.py:532
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr ""
 
-#: project/settings/default.py:63
+#: project/home/views.py:734
+msgid "Error uploading file"
+msgstr ""
+
+#: project/home/views.py:741
+msgid "Insufficient data to save photo (no city, no photo or no user profile)"
+msgstr ""
+
+#: project/settings/default.py:66
 msgid "Estonian"
 msgstr ""
 
-#: project/settings/default.py:64
+#: project/settings/default.py:67
 msgid "English"
 msgstr ""
 
-#: project/settings/default.py:65
+#: project/settings/default.py:68
 msgid "Russian"
+msgstr ""
+
+#: project/settings/default.py:69
+msgid "Finnish"
 msgstr ""
 
 #: templates/404.html:5 templates/404.html.py:11
@@ -133,12 +145,12 @@ msgid "Map"
 msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:28
-#: templates/_photo_upload_modal.html:9
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
 msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:28
-#: templates/_photo_upload_modal.html:9
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "Log out"
 msgstr ""
 
@@ -147,7 +159,7 @@ msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 
 #: templates/_header_city_selection_scoreboard.html:34
-#: templates/_photo_upload_modal.html:36
+#: templates/_photo_upload_modal.html:36 templates/photo_upload.html:50
 msgid "Connect with Facebook"
 msgstr ""
 
@@ -316,7 +328,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:95 templates/base_bootstrap.html:70
+#: templates/base.html:95 templates/base_bootstrap.html:72
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -340,7 +352,11 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: templates/frontpage.html:167
+#: templates/frontpage.html:164
+msgid "Upload photos yourself"
+msgstr ""
+
+#: templates/frontpage.html:169
 msgid "View gallery"
 msgstr ""
 
@@ -385,6 +401,26 @@ msgid ""
 "This location specification will be tagged differently than in the game. "
 "Still your action may not have an immediate effect on the location of the "
 "image. Your trustworthiness will also not be affected."
+msgstr ""
+
+#: templates/photo_upload.html:20
+msgid "Add files..."
+msgstr ""
+
+#: templates/photo_upload.html:25
+msgid "Start upload"
+msgstr ""
+
+#: templates/photo_upload.html:29
+msgid "Cancel upload"
+msgstr ""
+
+#: templates/photo_upload.html:32
+msgid "Selected city:"
+msgstr ""
+
+#: templates/photo_upload.html:49
+msgid "Photo uploading requires connecting your account with Facebook."
 msgstr ""
 
 #: templates/photoview.html:77

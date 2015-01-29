@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-28 13:57+0200\n"
+"POT-Creation-Date: 2015-01-29 17:25+0200\n"
 "PO-Revision-Date: 2015-01-28 14:07+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -55,31 +55,45 @@ msgstr "Teised kasutajad on teisiti arvanud."
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/home/views.py:241 templates/frontpage.html:160
+#: project/home/views.py:233 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: project/home/views.py:420 project/home/views.py:422
+#: project/home/views.py:412 project/home/views.py:414
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:526 project/home/views.py:540
+#: project/home/views.py:518 project/home/views.py:532
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Edetabel"
 
-#: project/settings/default.py:63
+#: project/home/views.py:734
+#, fuzzy
+#| msgid "File upload failed."
+msgid "Error uploading file"
+msgstr "Faili üleslaadimine ebaõnnestus."
+
+#: project/home/views.py:741
+msgid "Insufficient data to save photo (no city, no photo or no user profile)"
+msgstr ""
+
+#: project/settings/default.py:66
 msgid "Estonian"
 msgstr "Eesti"
 
-#: project/settings/default.py:64
+#: project/settings/default.py:67
 msgid "English"
 msgstr "Inglise"
 
-#: project/settings/default.py:65
+#: project/settings/default.py:68
 msgid "Russian"
 msgstr "Vene"
+
+#: project/settings/default.py:69
+msgid "Finnish"
+msgstr ""
 
 #: templates/404.html:5 templates/404.html.py:11
 msgid "Page Not Found"
@@ -134,12 +148,12 @@ msgid "Map"
 msgstr "Kaart"
 
 #: templates/_header_city_selection_scoreboard.html:28
-#: templates/_photo_upload_modal.html:9
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
 msgstr "Kasutaja"
 
 #: templates/_header_city_selection_scoreboard.html:28
-#: templates/_photo_upload_modal.html:9
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "Log out"
 msgstr "Logi välja"
 
@@ -149,7 +163,7 @@ msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
 #: templates/_header_city_selection_scoreboard.html:34
-#: templates/_photo_upload_modal.html:36
+#: templates/_photo_upload_modal.html:36 templates/photo_upload.html:50
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
@@ -336,7 +350,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:95 templates/base_bootstrap.html:70
+#: templates/base.html:95 templates/base_bootstrap.html:72
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -364,7 +378,13 @@ msgstr ""
 msgid "Read more"
 msgstr "Loe lähemalt"
 
-#: templates/frontpage.html:167
+#: templates/frontpage.html:164
+#, fuzzy
+#| msgid "Upload photos via CSV file"
+msgid "Upload photos yourself"
+msgstr "Lae fotosid koos CSV-andmefailiga"
+
+#: templates/frontpage.html:169
 msgid "View gallery"
 msgstr ""
 
@@ -415,6 +435,30 @@ msgstr ""
 "Samas ei muuda täpsustuse kaudu tehtud pakkumine erinevalt mängus tehtud "
 "pakkumistest Sinu usaldusväärsustaset. Veelkord suur tänu!"
 
+#: templates/photo_upload.html:20
+msgid "Add files..."
+msgstr "Vali fail..."
+
+#: templates/photo_upload.html:25
+msgid "Start upload"
+msgstr "Lae üles"
+
+#: templates/photo_upload.html:29
+msgid "Cancel upload"
+msgstr "Tühista"
+
+#: templates/photo_upload.html:32
+#, fuzzy
+#| msgid "Selected file"
+msgid "Selected city:"
+msgstr "Valitud fail:"
+
+#: templates/photo_upload.html:49
+#, fuzzy
+#| msgid "Rephoto uploading requires connecting your account with Facebook."
+msgid "Photo uploading requires connecting your account with Facebook."
+msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
+
 #: templates/photoview.html:77
 msgid "Location on the map"
 msgstr "Asukoht kaardil"
@@ -434,23 +478,11 @@ msgstr "Asukoht kaardil"
 #~ msgid "Cancel"
 #~ msgstr "Loobu"
 
-#~ msgid "Add files..."
-#~ msgstr "Vali fail..."
-
-#~ msgid "Start upload"
-#~ msgstr "Lae üles"
-
-#~ msgid "Cancel upload"
-#~ msgstr "Tühista"
-
 #~ msgid "Close photo"
 #~ msgstr "Sulge foto"
 
 #~ msgid "Skip"
 #~ msgstr "Jäta vahele"
-
-#~ msgid "Selected file"
-#~ msgstr "Valitud fail:"
 
 #, fuzzy
 #~| msgid "Guess the location"
@@ -473,16 +505,16 @@ msgstr "Asukoht kaardil"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then "
-#~ "%(link_open)sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~ "sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then "
-#~| "%(link_open)sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
+#~| "sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -494,8 +526,8 @@ msgstr "Asukoht kaardil"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then "
-#~| "%(link_open)sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~| "sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "

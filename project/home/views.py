@@ -75,6 +75,59 @@ def _get_exif_data(img):
     return exif_data
 
 
+def _extract_and_save_data_from_exif(photo_with_exif):
+    img = Image.open(settings.MEDIA_ROOT + "/" + str(photo_with_exif.image))
+    exif_data = _get_exif_data(img)
+    if exif_data:
+        if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
+            gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
+            gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
+            gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
+            gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
+            lat = _convert_to_degress(gps_latitude)
+            if gps_latitude_ref != "N":
+                lat = 0 - lat
+            lon = _convert_to_degress(gps_longitude)
+            if gps_longitude_ref != "E":
+                lon = 0 - lon
+            photo_with_exif.lat = lat
+            photo_with_exif.lon = lon
+            photo_with_exif.save()
+        if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data:
+            camera_make = exif_data.get('Make')
+            camera_model = exif_data.get('Model')
+            lens_make = exif_data.get('LensMake')
+            lens_model = exif_data.get('LensModel')
+            software = exif_data.get('Software')
+            try:
+                device = Device.objects.get(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
+            except ObjectDoesNotExist:
+                device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
+                device.save()
+            photo_with_exif.device = device
+            photo_with_exif.save()
+        if 'DateTimeOriginal' in exif_data and not photo_with_exif.date:
+            date_taken = exif_data.get('DateTimeOriginal')
+            try:
+                parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+            except ValueError:
+                parsed_time = None
+            if parsed_time:
+                parsed_time = strftime("%H:%M:%S", parsed_time)
+            # ignore default camera dates
+            if parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00':
+                try:
+                    parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+                except ValueError:
+                    parsed_date = None
+                if parsed_date:
+                    photo_with_exif.date = strftime("%Y-%m-%d", parsed_date)
+                    photo_with_exif.save()
+        return True
+    else:
+        return False
+
+
 def handle_uploaded_file(f):
     return ContentFile(f.read())
 
@@ -93,15 +146,8 @@ def photo_upload(request, photo_id):
                 user = request.get_user()
                 profile = user.profile
                 profile.update_from_fb_data(token, fb_data)
-        latest_upload = Photo.objects.filter(rephoto_of=photo)
-        previous_uploader = None
-        if latest_upload:
-            previous_uploader = latest_upload.values('user').order_by('-id')[:1].get()
-
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
-                #if f.name.split()[-1] not in ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG"]:
-                    #continue
                 fileobj = handle_uploaded_file(f)
                 data = request.POST
                 date_taken = data.get('dateTaken', None)
@@ -128,61 +174,7 @@ def photo_upload(request, photo_id):
                 new_id = re_photo.pk
 
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
-                exif_data = _get_exif_data(img)
-                if exif_data:
-                    if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
-                        gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
-                        gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
-                        gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
-                        gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
-
-                        lat = _convert_to_degress(gps_latitude)
-                        if gps_latitude_ref != "N":
-                            lat = 0 - lat
-
-                        lon = _convert_to_degress(gps_longitude)
-                        if gps_longitude_ref != "E":
-                            lon = 0 - lon
-
-                        re_photo.lat = lat
-                        re_photo.lon = lon
-                        re_photo.save()
-
-                    if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data:
-                        camera_make = exif_data.get('Make')
-                        camera_model = exif_data.get('Model')
-                        lens_make = exif_data.get('LensMake')
-                        lens_model = exif_data.get('LensModel')
-                        software = exif_data.get('Software')
-                        try:
-                            device = Device.objects.get(camera_make=camera_make, camera_model=camera_model,
-                                                        lens_make=lens_make, lens_model=lens_model, software=software)
-                        except ObjectDoesNotExist:
-                            device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make,
-                                            lens_model=lens_model, software=software)
-                            device.save()
-
-                        re_photo.device = device
-                        re_photo.save()
-
-                    if 'DateTimeOriginal' in exif_data and not re_photo.date:
-                        date_taken = exif_data.get('DateTimeOriginal')
-                        try:
-                            parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                        except ValueError:
-                            parsed_time = None
-                        if parsed_time:
-                            parsed_time = strftime("%H:%M:%S", parsed_time)
-
-                        # ignore default camera dates
-                        if parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00':
-                            try:
-                                parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                            except ValueError:
-                                parsed_date = None
-                            if parsed_date:
-                                re_photo.date = strftime("%Y-%m-%d", parsed_date)
-                                re_photo.save()
+                _extract_and_save_data_from_exif(re_photo)
 
                 if re_photo.cam_scale_factor:
                     new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
@@ -682,42 +674,85 @@ def mapview_photo_upload_modal(request, photo_id):
     }))
 
 def public_photo_upload(request):
-    all_cities = City.objects.all()
+    city_selection_form = CitySelectionForm(request.GET)
+    if city_selection_form.is_valid():
+        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    else:
+        city = City.objects.get(pk=settings.DEFAULT_CITY_ID)
     return render_to_response('photo_upload.html', RequestContext(request, {
-    'cities': all_cities
+        'city': city,
+        'city_selection_form': city_selection_form
     }))
 
 
-def public_photo_upload_handler(request):
+@csrf_exempt
+def delete_public_photo(request, photo_id):
     user_profile = request.get_user().profile
-    uploaded_photos = request.FILES.getlist('files[]')
-    city_id = request.POST.get('city')
-    ret = {"files": []}
-    for each in uploaded_photos:
-        p = Photo()
-        p.image = each
-        p.city_id = city_id
-        p.save()
-        ret["files"].append({"name": p.image.name})
+    photo = None
+    thirty_minutes_ago = datetime.datetime.now() - datetime.timedelta(minutes=30)
+    try:
+        photo = Photo.objects.filter(pk=photo_id, created__gte=thirty_minutes_ago).get()
+    except ObjectDoesNotExist:
+        pass
+    if photo is not None:
+        if photo.user_id == user_profile.user.id:
+            photo.delete()
+    return HttpResponse(json.dumps("Ok"), content_type="application/json")
 
-    # {"files": [
-    # {
-    # "name": "picture1.jpg",
-    # "size": 902604,
-    # "url": "http:\/\/example.org\/files\/picture1.jpg",
-    # "thumbnailUrl": "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
-    # "deleteUrl": "http:\/\/example.org\/files\/picture1.jpg",
-    # "deleteType": "DELETE"
-    # },
-    # {
-    # "name": "picture2.jpg",
-    # "size": 841946,
-    # "url": "http:\/\/example.org\/files\/picture2.jpg",
-    # "thumbnailUrl": "http:\/\/example.org\/files\/thumbnail\/picture2.jpg",
-    # "deleteUrl": "http:\/\/example.org\/files\/picture2.jpg",
-    # "deleteType": "DELETE"
-    # }
-    # ]}
+
+def public_photo_upload_handler(request):
+    profile = request.get_user().profile
+    if "fb_access_token" in request.POST:
+        token = request.POST.get("fb_access_token")
+        profile, fb_data = Profile.facebook.get_user(token)
+        if profile is None:
+            user = request.get_user()
+            profile = user.profile
+            profile.update_from_fb_data(token, fb_data)
+    uploaded_file = request.FILES.get("files[]", None)
+    city_id = int(request.POST.get("cityId"))
+    city = None
+    error = None
+    uploaded_file_name = None
+    new_photo = None
+    try:
+        city = City.objects.filter(pk=city_id).get()
+    except ObjectDoesNotExist:
+        pass
+    if profile is not None and uploaded_file is not None and city is not None:
+        try:
+            uploaded_file_name = uploaded_file.name
+            fileobj = handle_uploaded_file(uploaded_file)
+            new_photo = Photo(
+                city = city,
+                user = profile
+            )
+            new_photo.save()
+            new_photo.image.save(uploaded_file.name, fileobj)
+        except:
+            new_photo.delete()
+            error = _("Error uploading file")
+        if new_photo is not None:
+            try:
+                _extract_and_save_data_from_exif(new_photo)
+            except:
+                pass
+    else:
+        error = _("Insufficient data to save photo (no city, no photo or no user profile)")
+    ret = {"files": []}
+    if error is None:
+        ret["files"].append({
+            "name": uploaded_file_name,
+            "url": reverse('project.home.views.photo', args=(new_photo.id,)),
+            "thumbnailUrl": reverse('project.home.views.photo_thumb', args=(new_photo.id,)),
+            "deleteUrl": reverse('project.home.views.delete_public_photo', args=(new_photo.id,)),
+            "deleteType": "POST"
+        })
+    else:
+        ret["files"].append({
+            "name": uploaded_file_name,
+            "error": error
+        })
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 

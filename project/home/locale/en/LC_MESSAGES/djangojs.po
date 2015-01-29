@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-28 13:58+0200\n"
+"POT-Creation-Date: 2015-01-29 17:25+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,24 +22,24 @@ msgstr ""
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:539 static/js/ajapaik-common.js.c:651
+#: static/js/ajapaik-common.js:541 static/js/ajapaik-common.js.c:653
 #: static/js/game.js:132
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:589
+#: static/js/ajapaik-common.js:591
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:717
+#: static/js/ajapaik-common.js:719
 msgid "Median guess"
 msgstr ""
 
-#: static/js/browse.js:275 static/js/game.js:228 static/js/grid.js:69
+#: static/js/browse.js:278 static/js/game.js:228 static/js/grid.js:69
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/browse.js:648 static/js/game.js:490
+#: static/js/browse.js:651 static/js/game.js:491
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "

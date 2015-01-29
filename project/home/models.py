@@ -66,9 +66,9 @@ class City(models.Model):
 class Album(models.Model):
     FRONTPAGE, FAVORITES, COLLECTION = range(3)
     TYPE_CHOICES = (
-    (FRONTPAGE, 'Frontpage'),
-    (FAVORITES, 'Favorites'),
-    (COLLECTION, 'Collection'),
+        (FRONTPAGE, 'Frontpage'),
+        (FAVORITES, 'Favorites'),
+        (COLLECTION, 'Collection'),
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField()
@@ -553,6 +553,7 @@ class UserMapView(models.Model):
         app_label = "project"
 
 
+#TODO: Should create ForeignKey fields here so Django knows to cascade deletes etc.
 class Points(models.Model):
     GEOTAG, REPHOTO = range(2)
     ACTION_CHOICES = (

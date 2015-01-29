@@ -159,7 +159,9 @@ p {
 		<div class="buttons">
 			<a href="{% url 'project.home.views.game' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
 			<a href="{% url 'project.home.views.mapview' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
-
+		</div>
+        <div class="buttons">
+			<a href="{% url 'project.home.views.public_photo_upload' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Upload photos yourself" %}</a>
 		</div>
 
         {% if grid_view_enabled %}
