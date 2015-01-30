@@ -170,7 +170,7 @@ class Photo(models.Model):
     source = models.ForeignKey('Source', null=True, blank=True)
     device = models.ForeignKey('Device', null=True, blank=True)
 
-    city = models.ForeignKey('City', related_name='cities')
+    city = models.ForeignKey('City', related_name='cities', null=True, blank=True)
     rephoto_of = models.ForeignKey('self', blank=True, null=True, related_name='rephotos')
 
     created = models.DateTimeField(auto_now_add=True)

@@ -1,7 +1,7 @@
 # encoding: utf-8
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.urlresolvers import reverse
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -19,7 +19,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto
-from project.home.forms import AlbumSelectionForm
+from project.home.forms import AlbumSelectionForm, AddAlbumForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 
@@ -680,15 +680,38 @@ def mapview_photo_upload_modal(request, photo_id):
         'photo': photo
     }))
 
+def public_add_album(request):
+    add_album_form = AddAlbumForm(request.POST)
+    if add_album_form.is_valid():
+        user_profile = request.get_user().profile
+        name = add_album_form.cleaned_data["name"]
+        description = add_album_form.cleaned_data["description"]
+        is_public = add_album_form.cleaned_data["is_public"]
+        is_public = is_public == "true"
+        lat = add_album_form.cleaned_data["lat"]
+        lon = add_album_form.cleaned_data["lon"]
+        if is_public is None:
+            is_public = False
+        if user_profile:
+            new_album = Album(name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=is_public, lat=lat, lon=lon)
+            new_album.save()
+            return HttpResponse(json.dumps("Ok"), content_type="application/json")
+    return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
+
 def public_photo_upload(request):
+    user_profile = request.get_user().profile
     album_selection_form = AlbumSelectionForm(request.GET)
+    add_album_form = AddAlbumForm()
     if album_selection_form.is_valid():
         album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
     else:
         album = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
+    selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
     return render_to_response('photo_upload.html', RequestContext(request, {
         'album': album,
-        'album_selection_form': album_selection_form
+        'selectable_albums': selectable_albums,
+        'add_album_form': add_album_form,
+        'title': _("Timepatch (Ajapaik) - upload photos")
     }))
 
 
@@ -717,16 +740,24 @@ def public_photo_upload_handler(request):
             profile = user.profile
             profile.update_from_fb_data(token, fb_data)
     uploaded_file = request.FILES.get("files[]", None)
-    album_id = int(request.POST.get("albumId"))
-    album = None
+    album_ids = request.POST.get("albumIds")
+    album_ids = [int(x) for x in album_ids.split(',')]
+    albums = None
     error = None
     uploaded_file_name = None
     new_photo = None
     try:
-        album = Album.objects.filter(pk=album_id).get()
+        albums = Album.objects.filter(pk__in=album_ids).all()
     except ObjectDoesNotExist:
         pass
-    if profile is not None and uploaded_file is not None and album is not None:
+    found_frontpage_album = False
+    only_one_frontpage_album = True
+    for album in albums:
+        if found_frontpage_album and album.atype == Album.FRONTPAGE:
+            only_one_frontpage_album = False
+        if album.atype == Album.FRONTPAGE:
+            found_frontpage_album = True
+    if profile is not None and uploaded_file is not None and albums is not None and only_one_frontpage_album:
         try:
             uploaded_file_name = uploaded_file.name
             fileobj = handle_uploaded_file(uploaded_file)
@@ -735,10 +766,12 @@ def public_photo_upload_handler(request):
             )
             new_photo.save()
             new_photo.image.save(uploaded_file.name, fileobj)
-            ap = AlbumPhoto(photo=new_photo, album=album)
-            ap.save()
+            for a in albums:
+                ap = AlbumPhoto(photo=new_photo, album=a)
+                ap.save()
         except:
-            new_photo.delete()
+            if new_photo:
+                new_photo.delete()
             error = _("Error uploading file")
         if new_photo is not None:
             try:
@@ -746,7 +779,7 @@ def public_photo_upload_handler(request):
             except:
                 pass
     else:
-        error = _("Insufficient data to save photo (no album, no photo or no user profile)")
+        error = _("Conflicting data submitted (no photos, no albums, no user or more than 1 frontpage album")
     ret = {"files": []}
     if error is None:
         ret["files"].append({

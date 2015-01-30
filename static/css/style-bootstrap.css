@@ -1029,3 +1029,7 @@ ul.errorlist {
 #ajapaik-tutorial-js-panel {
     z-index: 10000;
 }
+
+#ajapaik-create-album-modal .input-group-addon {
+    min-width: 200px;
+}

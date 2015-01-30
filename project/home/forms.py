@@ -15,3 +15,10 @@ class AlbumSelectionForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(AlbumSelectionForm, self).__init__(*args, **kwargs)
+
+class AddAlbumForm(forms.Form):
+    name = forms.CharField(max_length=255, required=True)
+    description = forms.CharField(widget=forms.Textarea)
+    is_public = forms.CharField()
+    lat = forms.FloatField()
+    lon = forms.FloatField()
