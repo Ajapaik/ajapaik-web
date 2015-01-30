@@ -17,8 +17,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Polygon
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
-from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points
-from project.home.forms import CitySelectionForm
+from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
+    Album, AlbumPhoto
+from project.home.forms import AlbumSelectionForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 
@@ -135,6 +136,7 @@ def handle_uploaded_file(f):
 @csrf_exempt
 def photo_upload(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
+    target_album = photo.albums.filter(atype=Album.FRONTPAGE)
     new_id = 0
 
     if request.method == 'POST':
@@ -171,6 +173,8 @@ def photo_upload(request, photo_id):
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
+                ap = AlbumPhoto(photo=re_photo, album=target_album)
+                ap.save()
                 new_id = re_photo.pk
 
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
@@ -221,19 +225,19 @@ def calculate_recent_activity_scores():
 @ensure_csrf_cookie
 def game(request):
     ctx = {}
-    city_selection_form = CitySelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
-    if city_selection_form.is_valid():
-        ctx['city'] = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    if album_selection_form.is_valid():
+        ctx['album'] = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
     else:
-        ctx['city'] = City.objects.get(pk=settings.DEFAULT_CITY_ID)
+        ctx['album'] = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
     ctx['title'] = _('Guess the location')
     ctx['is_game'] = True
 
-    ctx['city_selection_form'] = city_selection_form
+    ctx['album_selection_form'] = album_selection_form
 
     return render_to_response('game.html', RequestContext(request, ctx))
 
@@ -246,13 +250,13 @@ def frontpage(request):
     except ObjectDoesNotExist:
         example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
     example_source = Photo.objects.get(pk=example.rephoto_of.id)
-    city_select_form = CitySelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
-    if not city_select_form.is_valid():
-        city_select_form = CitySelectionForm()
+    if not album_selection_form.is_valid():
+        album_selection_form = AlbumSelectionForm()
 
     return render_to_response('frontpage.html', RequestContext(request, {
-        'city_select_form': city_select_form,
+        'album_selection_form': album_selection_form,
         'example': example,
         'example_source': example_source,
         'grid_view-enabled': settings.GRID_VIEW_ENABLED
@@ -384,32 +388,33 @@ def photoslug(request, photo_id, pseudo_slug):
     else:
         title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 
-    city_selection_form = CitySelectionForm({'city': photo_obj.city_id})
+    album = photo_obj.albums.all()
+    album = album[0]
 
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
+        'album': album,
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
         'title': title,
         'description': photo_obj.description,
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, ),
-        'city_selection_form': city_selection_form,
         'is_photoview': True
     }))
 
 
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
-    city_selection_form = CitySelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
-    if city_selection_form.is_valid():
-        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    if album_selection_form.is_valid():
+        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
     else:
-        city = City.objects.get(pk=settings.DEFAULT_CITY_ID)
+        album = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
 
-    if city:
-        title = city.name + ' - ' + _('Browse photos on map')
+    if album:
+        title = album.name + ' - ' + _('Browse photos on map')
     else:
         title = _('Browse photos on map')
 
@@ -433,8 +438,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
             except ObjectDoesNotExist:
                 pass
 
-    if selected_photo and not city:
-        city = City.objects.get(pk=selected_photo.city.id)
+    if selected_photo and not album:
+        album = Album.objects.get(pk=selected_photo.albums[0].id)
 
     photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
         'photo_id', flat=True)
@@ -444,9 +449,9 @@ def mapview(request, photo_id=None, rephoto_id=None):
     photo_ids_user_has_looked_at = keys
 
     return render_to_response('mapview.html', RequestContext(request, {
-        'city': city,
+        'album': album,
         'title': title,
-        'city_selection_form': city_selection_form,
+        'album_selection_form': album_selection_form,
         'user_seen_photo_ids': photo_ids_user_has_looked_at,
         'selected_photo': selected_photo,
         'selected_rephoto': selected_rephoto,
@@ -535,14 +540,14 @@ def top50(request):
 
 
 def fetch_stream(request):
-    city_selection_form = CitySelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
-    if city_selection_form.is_valid():
-        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    if album_selection_form.is_valid():
+        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
     else:
-        city = City.objects.get(pk=settings.DEFAULT_CITY_ID)
+        album = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
 
-    qs = Photo.objects.filter(city_id=city.id)
+    qs = album.photos.all()
 
     # TODO: [0][0] Wtf?
     data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
@@ -646,10 +651,10 @@ def csv_upload(request):
         fout.close()
         place_name = meta_for_this_image.get("place") or "Ajapaik"
         try:
-            city = City.objects.get(name=place_name)
+            album = Album.objects.get(name=place_name)
         except ObjectDoesNotExist:
-            city = City(name=place_name)
-            city.save()
+            album = Album(name=place_name, atype=Album.COLLECTION, is_public=True)
+            album.save()
         description = '; '.join(filter(None,
                                        [meta_for_this_image[sub_key].strip() for sub_key in ('description', 'title') if
                                         sub_key in meta_for_this_image]))
@@ -660,10 +665,12 @@ def csv_upload(request):
             source = Source(name=source_name, description=source_name)
             source.save()
         source_url = meta_for_this_image.get("url")
-        p = Photo(date_text=meta_for_this_image.get("date"), city=city, description=description, source=source,
+        p = Photo(date_text=meta_for_this_image.get("date"),description=description, source=source,
                   source_url=source_url, source_key=source_key)
         p.image.name = upload_file_name
         p.save()
+        ap = AlbumPhoto(album=album, photo=p)
+        ap.save()
     return HttpResponse("OK")
 
 
@@ -674,14 +681,14 @@ def mapview_photo_upload_modal(request, photo_id):
     }))
 
 def public_photo_upload(request):
-    city_selection_form = CitySelectionForm(request.GET)
-    if city_selection_form.is_valid():
-        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
+    album_selection_form = AlbumSelectionForm(request.GET)
+    if album_selection_form.is_valid():
+        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
     else:
-        city = City.objects.get(pk=settings.DEFAULT_CITY_ID)
+        album = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
     return render_to_response('photo_upload.html', RequestContext(request, {
-        'city': city,
-        'city_selection_form': city_selection_form
+        'album': album,
+        'album_selection_form': album_selection_form
     }))
 
 
@@ -710,25 +717,26 @@ def public_photo_upload_handler(request):
             profile = user.profile
             profile.update_from_fb_data(token, fb_data)
     uploaded_file = request.FILES.get("files[]", None)
-    city_id = int(request.POST.get("cityId"))
-    city = None
+    album_id = int(request.POST.get("albumId"))
+    album = None
     error = None
     uploaded_file_name = None
     new_photo = None
     try:
-        city = City.objects.filter(pk=city_id).get()
+        album = Album.objects.filter(pk=album_id).get()
     except ObjectDoesNotExist:
         pass
-    if profile is not None and uploaded_file is not None and city is not None:
+    if profile is not None and uploaded_file is not None and album is not None:
         try:
             uploaded_file_name = uploaded_file.name
             fileobj = handle_uploaded_file(uploaded_file)
             new_photo = Photo(
-                city = city,
                 user = profile
             )
             new_photo.save()
             new_photo.image.save(uploaded_file.name, fileobj)
+            ap = AlbumPhoto(photo=new_photo, album=album)
+            ap.save()
         except:
             new_photo.delete()
             error = _("Error uploading file")
@@ -738,7 +746,7 @@ def public_photo_upload_handler(request):
             except:
                 pass
     else:
-        error = _("Insufficient data to save photo (no city, no photo or no user profile)")
+        error = _("Insufficient data to save photo (no album, no photo or no user profile)")
     ret = {"files": []}
     if error is None:
         ret["files"].append({
@@ -777,11 +785,11 @@ def pane_contents(request):
 
 @ensure_csrf_cookie
 def grid(request):
-    city_selection_form = CitySelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
-    if city_selection_form.is_valid():
-        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
-        qs = Photo.objects.filter(city_id=city.id)
+    if album_selection_form.is_valid():
+        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+        qs = album.photos.all()
 
         data = qs.get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
         photo_count = qs.get_old_photo_count_for_grid_view()
@@ -796,21 +804,21 @@ def grid(request):
         return render_to_response('grid.html', RequestContext(request, {
             "data": data,
             "photo_count": photo_count,
-            "city": city,
+            "album": album,
             "start": 0,
-            "city_selection_form": city_selection_form,
+            "album_selection_form": album_selection_form,
             "page_size": settings.GRID_VIEW_PAGE_SIZE,
             "user_seen_photo_ids": photo_ids_user_has_looked_at,
         }))
 
 
 def grid_infinite_scroll(request):
-    city_selection_form = CitySelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
     data = []
-    if city_selection_form.is_valid():
-        city = City.objects.get(pk=city_selection_form.cleaned_data['city'].id)
-        qs = Photo.objects.filter(city_id=city.id)
+    if album_selection_form.is_valid():
+        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+        qs = album.photos.all()
         start = int(request.GET.get('start'))
         data = qs.get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
     return HttpResponse(json.dumps(data), content_type="application/json")

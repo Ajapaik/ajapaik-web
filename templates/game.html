@@ -2,7 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_city_selection_scoreboard.html" %}
+    {% include "_header_album_selection_scoreboard.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -127,9 +127,9 @@
     <script>
         var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
             permalinkURL = '{{ hostname }}/foto/',
-            cityId = '{{ city.id|safe }}';
-        {% if city %}
-            start_location = [{{ city.lon|safe }}, {{ city.lat|safe }}];
+            albumId = '{{ album.id|safe }}';
+        {% if album %}
+            start_location = [{{ album.lon|safe }}, {{ album.lat|safe }}];
         {% else %}
             start_location = [26, 59];
         {% endif %}

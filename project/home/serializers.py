@@ -1,4 +1,4 @@
-from models import Photo, City, Source
+from models import Photo, City, Source, Album
 from rest_framework import serializers
 
 class PhotoSerializer(serializers.ModelSerializer):
@@ -10,6 +10,11 @@ class CitySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = City
 		fields = ('id', 'name', 'lat', 'lon')
+
+class AlbumSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Album
+		fields = ('id', 'name', 'slug', 'description', 'atype', 'profile_id', 'is_public', 'lat', 'lon')
 
 class SourceSerializer(serializers.ModelSerializer):
 	class Meta:

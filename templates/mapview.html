@@ -2,7 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_city_selection_scoreboard.html" %}
+    {% include "_header_album_selection_scoreboard.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -69,13 +69,13 @@
         var title = '{{ title }}',
             leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
-            {% if city %}
-                cityId = '{{ city.id | safe }}';
+            {% if album %}
+                albumId = '{{ album.id | safe }}';
             {% else %}
-                cityId = 1;
+                albumId = 1;
             {% endif %}
-            {% if city.lat and city.lon %}
-                var cityLatLng = new window.google.maps.LatLng({{ city.lat | safe }}, {{ city.lon | safe }});
+            {% if album.lat and album.lon %}
+                var albumLatLng = new window.google.maps.LatLng({{ album.lat | safe }}, {{ album.lon | safe }});
             {% endif %}
         {% if selected_photo %}
             var preselectPhotoId = '{{ selected_photo.id }}';

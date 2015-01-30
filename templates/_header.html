@@ -4,15 +4,6 @@
     <div class="navbar-header">
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
-    {% if is_photoview %}
-        <div class="filter-box">
-            {% csrf_token %}
-            {{ city_selection_form.as_p }}
-            <div>
-                <button class="btn btn-success" id="ajapaik-header-game-button">{% trans "Geotagging game" %}</button>
-            </div>
-        </div>
-    {% endif %}
     {% get_language_info for LANGUAGE_CODE as lang %}
     <div id="ajapaik-language-box">
         <form action="/i18n/setlang/" method="post">

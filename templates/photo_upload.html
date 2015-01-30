@@ -2,7 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_city_selection.html" %}
+    {% include "_header_album_selection.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -29,7 +29,7 @@
                                 <span>{% trans "Cancel upload" %}</span>
                             </button>
                             <span id="ajapaik-photo-upload-destination-album">
-                                {% trans "Selected city:" %}&nbsp;<span>{{ city.name }}</span>
+                                {% trans "Selected album:" %}&nbsp;<span>{{ album.name }}</span>
                             </span>
                             <span class="fileupload-process"></span>
                         </div>
@@ -151,7 +151,7 @@
                     }).bind('fileuploadsubmit', function (e, data) {
                         data.formData = {
                             csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                            cityId: $("#id_city").val()
+                            albumId: $("#id_album").val()
                         };
                     });
                     fileuploadDiv.addClass('fileupload-processing');
@@ -166,7 +166,7 @@
                     });
                 }
                 $('.filter-box select').change(function () {
-                    $('#ajapaik-photo-upload-destination-album').find('span').html($("#id_city option:selected").text());
+                    $('#ajapaik-photo-upload-destination-album').find('span').html($("#id_album option:selected").text());
                 });
             });
         </script>

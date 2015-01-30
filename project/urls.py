@@ -5,7 +5,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
 from rest_framework import routers
-from project.home.photo_import import PhotoViewSet, CityViewSet, SourceViewSet
+from project.home.photo_import import PhotoViewSet, CityViewSet, SourceViewSet, AlbumViewSet
 from project.sitemaps import PhotoSitemap, StaticViewSitemap
 
 admin.autodiscover()
@@ -13,6 +13,7 @@ admin.autodiscover()
 router = routers.DefaultRouter()
 router.register(r'api/photos', PhotoViewSet)
 router.register(r'api/cities', CityViewSet)
+router.register(r'api/albums', AlbumViewSet)
 router.register(r'api/sources', SourceViewSet)
 
 # TODO: Locale specific URLs

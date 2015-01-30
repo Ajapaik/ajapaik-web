@@ -144,8 +144,8 @@
         if (window.currentlySelectedRephotoId) {
             historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
         }
-        if (window.cityId) {
-            historyReplacementString += '?city=' + window.cityId;
+        if (window.albumId) {
+            historyReplacementString += '?album=' + window.albumId;
         }
         if (window.map) {
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
@@ -574,8 +574,8 @@
     };
 
     window.initializeMapStateFromOptionalURLParameters = function () {
-        if (window.getQueryParameterByName('fromSelect') && window.cityLatLng) {
-            window.getMap(window.cityLatLng, 13, false);
+        if (window.getQueryParameterByName('fromSelect') && window.albumLatLng) {
+            window.getMap(window.albumLatLng, 13, false);
         } else {
             if (window.preselectPhotoId) {
                 // There's a selected photo specified in the URL, select when ready
@@ -589,9 +589,9 @@
                 if (window.preselectPhotoLat && window.preselectPhotoLng) {
                     // We know the location of the photo, let's build the map accordingly
                     window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false);
-                } else if (window.cityLatLng) {
-                    // There's nothing preselected, but we do know the city the photo's in
-                    window.getMap(window.cityLatLng, 13, false);
+                } else if (window.albumLatLng) {
+                    // There's nothing preselected, but we do know the album the photo's in
+                    window.getMap(window.albumLatLng, 13, false);
                 } else {
                     // No idea
                     window.getMap(null, 13, false);

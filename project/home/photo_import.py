@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, BasePermission
 from rest_framework.response import Response
-from models import Photo, City, Source
-from project.home.serializers import PhotoSerializer, CitySerializer, SourceSerializer
+from models import Photo, City, Source, Album
+from project.home.serializers import PhotoSerializer, CitySerializer, SourceSerializer, AlbumSerializer
 from rest_framework import status
 
 class CustomPermission(BasePermission):
@@ -38,6 +38,11 @@ class PhotoViewSet(viewsets.ModelViewSet):
 class CityViewSet(viewsets.ModelViewSet):
 	queryset = City.objects.all()
 	serializer_class = CitySerializer
+	permission_classes = (IsAdminUser, CustomPermission)
+
+class AlbumViewSet(viewsets.ModelViewSet):
+	queryset = Album.objects.all()
+	serializer_class = AlbumSerializer
 	permission_classes = (IsAdminUser, CustomPermission)
 
 class SourceViewSet(viewsets.ModelViewSet):

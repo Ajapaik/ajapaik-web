@@ -1,5 +1,5 @@
 from django import forms
-from .models import City
+from .models import City, Album
 from django.utils.translation import ugettext_lazy as _
 from project import settings
 
@@ -9,3 +9,9 @@ class CitySelectionForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(CitySelectionForm, self).__init__(*args, **kwargs)
+
+class AlbumSelectionForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.FRONTPAGE), label=_('Choose album'), initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
+
+    def __init__(self, *args, **kwargs):
+        super(AlbumSelectionForm, self).__init__(*args, **kwargs)
