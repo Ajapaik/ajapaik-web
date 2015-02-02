@@ -122,7 +122,7 @@
                         <span>{% trans "Read CSV..." %}</span>
                         <input type="file" name="csv_file" id="ajapaik-photo-upload-csv-file">
                     </span>
-                    <span>{% trans "(institution;number;image;title;description;date;url;licence in any order)" %}</span>
+                    <span>{% trans "(institution;number;image;title;description;date;url;place;licence in any order)" %}</span>
                 </div>
                 <div class="row">
                     <form id="fileupload" action="/public_photo_upload_handler/" method="POST" enctype="multipart/form-data">
@@ -213,6 +213,10 @@
                         <td>
                             <label>{%=gettext('Description')%}</label>
                             <input class="form-control ajapaik-file-upload-individual-description" type="text" data-file-name="{%=file.name%}">
+                        </td>
+                        <td>
+                            <label>{%=gettext('Place')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-place" type="text" data-file-name="{%=file.name%}">
                         </td>
                         <td>
                             <label>{%=gettext('Licence')%}</label>
@@ -307,6 +311,7 @@
                                         allDescriptionFields = $('.ajapaik-file-upload-individual-description'),
                                         allDateFields = $('.ajapaik-file-upload-individual-date'),
                                         allURLFields = $('.ajapaik-file-upload-individual-url'),
+                                        allPlaceFields = $('.ajapaik-file-upload-individual-place'),
                                         allLicenceFields = $('.ajapaik-file-upload-individual-licence');
                                     for (var i = 0; i < result.data.length; i += 1) {
                                         for (var j = 0; j < allDescriptionFields.length; j += 1) {
@@ -317,6 +322,7 @@
                                                 $(allDescriptionFields[j]).val(result.data[i]['description']);
                                                 $(allDateFields[j]).val(result.data[i]['date']);
                                                 $(allURLFields[j]).val(result.data[i]['url']);
+                                                $(allPlaceFields[j]).val(result.data[i]['place']);
                                                 $(allLicenceFields[j]).val(result.data[i]['licence']);
                                                 break;
                                             }
@@ -344,6 +350,7 @@
                             description: data.context.find('.ajapaik-file-upload-individual-description').val(),
                             date: data.context.find('.ajapaik-file-upload-individual-date').val(),
                             url: data.context.find('.ajapaik-file-upload-individual-url').val(),
+                            place: data.context.find('.ajapaik-file-upload-individual-place').val(),
                             licence: data.context.find('.ajapaik-file-upload-individual-licence').val()
                         };
                     });

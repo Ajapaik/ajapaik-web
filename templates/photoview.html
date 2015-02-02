@@ -132,7 +132,7 @@
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-photoview-original-full-screen-image');
             window.isPhotoview = true;
-            window.gameRedirectURI = '/game?album=' + '{{ album.id }}';
+            window.gameRedirectURI = '/game?area=' + '{{ area.id }}';
             $('.dropdown-toggle').dropdown();
             $('.disabled-link').click(function (event) {
                 event.preventDefault();
@@ -217,7 +217,7 @@
                 });
             });
             $(document).on('click', '#ajapaik-photoview-map-button', function () {
-                 window.location.href = '/map/photo/' + {{ photo.id }} + '?album=' + {{ album.id }};
+                 window.location.href = '/map/photo/' + {{ photo.id }} + '?area=' + {{ area.id }};
             });
             $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
                 window.location.href = '/foto/' + {{ photo.id }};

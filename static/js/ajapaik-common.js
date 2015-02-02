@@ -449,7 +449,7 @@ var map,
 
     $('.filter-box select').change(function () {
         var uri = new window.URI(location.href),
-            newQ = {album: $(this).val()},
+            newQ = {area: $(this).val()},
             isFilterEmpty = false;
         uri.removeQuery(Object.keys(newQ));
         $.each(newQ, function (i, ii) {
@@ -473,11 +473,11 @@ var map,
     });
 
     $(document).on('click', '#ajapaik-header-map-button', function () {
-       window.location.href = '/map?album=' + window.albumId;
+        window.location.href = '/map?area=' + window.areaId;
     });
 
     $(document).on('click', '#ajapaik-header-game-button', function () {
-        window.location.href = '/game?album=' + window.albumId;
+        window.location.href = '/game?area=' + window.areaId;
     });
 
     // Firefox and Opera cannot handle modal taking over focus

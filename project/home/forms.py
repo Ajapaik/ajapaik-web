@@ -1,27 +1,23 @@
 from django import forms
-from .models import City, Album
+from .models import Area
 from django.utils.translation import ugettext_lazy as _
 from project import settings
 
 # TODO: Make forms for everything, there's too much Javascript going on right now
-class CitySelectionForm(forms.Form):
-    city = forms.ModelChoiceField(queryset=City.objects.all(), label=_('Choose city'), initial=City.objects.filter(pk=settings.DEFAULT_CITY_ID))
+class AreaSelectionForm(forms.Form):
+    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), initial=Area.objects.filter(pk=settings.DEFAULT_AREA_ID))
 
     def __init__(self, *args, **kwargs):
-        super(CitySelectionForm, self).__init__(*args, **kwargs)
+        super(AreaSelectionForm, self).__init__(*args, **kwargs)
 
-class AlbumSelectionForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.FRONTPAGE), label=_('Choose album'), initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
-
-    def __init__(self, *args, **kwargs):
-        super(AlbumSelectionForm, self).__init__(*args, **kwargs)
+class AddAreaForm(forms.Form):
+    name = forms.CharField(max_length=255, required=True)
+    lat = forms.FloatField()
+    lon = forms.FloatField()
 
 class AddAlbumForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
     description = forms.CharField(widget=forms.Textarea)
-    is_public = forms.CharField()
-    lat = forms.FloatField()
-    lon = forms.FloatField()
 
 class PublicPhotoUploadForm(forms.Form):
     institution = forms.CharField(max_length=255, required=False)

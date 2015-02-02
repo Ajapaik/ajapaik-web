@@ -149,7 +149,7 @@ p {
 		</div>
 
 		<div>
-			{{ album_selection_form.as_p }}
+			{{ area_selection_form.as_p }}
 		</div>
 
 {#		<div>#}
@@ -173,7 +173,7 @@ p {
         <script type="text/javascript">
 			function submitWithAlbum(href) {
 				//location.href = $(href).attr('href') + '?city__pk=' + $('#id_city').val();
-				location.href = $(href).attr('href') + '?album=' + $('#id_album').val();
+				location.href = $(href).attr('href') + '?area=' + $('#id_area').val();
 				return false;
 			}
         </script>

@@ -51,7 +51,7 @@ def _make_fullscreen(photo):
 models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 
-class City(models.Model):
+class Area(models.Model):
     name = models.TextField()
     lat = models.FloatField(null=True)
     lon = models.FloatField(null=True)
@@ -73,10 +73,6 @@ class Album(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-
-    lat = models.FloatField(null=True, blank=True)
-    lon = models.FloatField(null=True, blank=True)
-    geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
 
     atype = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     profile = models.ForeignKey('Profile', related_name='albums', blank=True, null=True)
@@ -172,7 +168,7 @@ class Photo(models.Model):
     source = models.ForeignKey('Source', null=True, blank=True)
     device = models.ForeignKey('Device', null=True, blank=True)
 
-    city = models.ForeignKey('City', related_name='cities', null=True, blank=True)
+    area = models.ForeignKey('Area', related_name='areas', null=True, blank=True)
     rephoto_of = models.ForeignKey('self', blank=True, null=True, related_name='rephotos')
 
     created = models.DateTimeField(auto_now_add=True)

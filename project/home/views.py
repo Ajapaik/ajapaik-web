@@ -17,9 +17,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Polygon
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
-from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
-    Album, AlbumPhoto
-from project.home.forms import AlbumSelectionForm, AddAlbumForm, PublicPhotoUploadForm
+from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
+    Album, AlbumPhoto, Area
+from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 
@@ -136,7 +136,6 @@ def handle_uploaded_file(f):
 @csrf_exempt
 def photo_upload(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
-    target_album = AlbumPhoto.objects.filter(photo_id=photo.id)[:1].get().album
     new_id = 0
 
     if request.method == 'POST':
@@ -155,7 +154,7 @@ def photo_upload(request, photo_id):
                 date_taken = data.get('dateTaken', None)
                 re_photo = Photo(
                     rephoto_of=photo,
-                    city=photo.city,
+                    area=photo.area,
                     description=data.get('description', photo.description),
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
@@ -173,8 +172,6 @@ def photo_upload(request, photo_id):
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
                 re_photo.image.save(f.name, fileobj)
-                ap = AlbumPhoto(photo=re_photo, album=target_album)
-                ap.save()
                 new_id = re_photo.pk
 
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
@@ -225,19 +222,19 @@ def calculate_recent_activity_scores():
 @ensure_csrf_cookie
 def game(request):
     ctx = {}
-    album_selection_form = AlbumSelectionForm(request.GET)
+    area_selection_form = AreaSelectionForm(request.GET)
 
-    if album_selection_form.is_valid():
-        ctx['album'] = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    if area_selection_form.is_valid():
+        ctx['area'] = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
-        ctx['album'] = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
+        ctx['area'] = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
     ctx['title'] = _('Guess the location')
     ctx['is_game'] = True
 
-    ctx['album_selection_form'] = album_selection_form
+    ctx['area_selection_form'] = area_selection_form
 
     return render_to_response('game.html', RequestContext(request, ctx))
 
@@ -250,16 +247,17 @@ def frontpage(request):
     except ObjectDoesNotExist:
         example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
     example_source = Photo.objects.get(pk=example.rephoto_of.id)
-    album_selection_form = AlbumSelectionForm(request.GET)
+    area_selection_form = AreaSelectionForm(request.GET)
 
-    if not album_selection_form.is_valid():
-        album_selection_form = AlbumSelectionForm()
+    if not area_selection_form.is_valid():
+        area_selection_form = AreaSelectionForm()
 
     return render_to_response('frontpage.html', RequestContext(request, {
-        'album_selection_form': album_selection_form,
+        'area_selection_form': area_selection_form,
         'example': example,
         'example_source': example_source,
-        'grid_view-enabled': settings.GRID_VIEW_ENABLED
+        'grid_view-enabled': settings.GRID_VIEW_ENABLED,
+        'public_photo_upload_enabled': settings.PUBLIC_PHOTO_UPLOAD_ENABLED
     }))
 
 
@@ -388,12 +386,9 @@ def photoslug(request, photo_id, pseudo_slug):
     else:
         title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 
-    album = photo_obj.albums.all()
-    album = album[0]
-
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
-        'album': album,
+        'area': photo_obj.area,
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
         'title': title,
@@ -406,15 +401,15 @@ def photoslug(request, photo_id, pseudo_slug):
 
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
-    album_selection_form = AlbumSelectionForm(request.GET)
+    area_selection_form = AreaSelectionForm(request.GET)
 
-    if album_selection_form.is_valid():
-        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    if area_selection_form.is_valid():
+        area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
-        album = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
+        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 
-    if album:
-        title = album.name + ' - ' + _('Browse photos on map')
+    if area:
+        title = area.name + ' - ' + _('Browse photos on map')
     else:
         title = _('Browse photos on map')
 
@@ -438,8 +433,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
             except ObjectDoesNotExist:
                 pass
 
-    if selected_photo and not album:
-        album = Album.objects.get(pk=selected_photo.albums[0].id)
+    if selected_photo and not area:
+        area = Area.objects.get(pk=selected_photo.areas[0].id)
 
     photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
         'photo_id', flat=True)
@@ -449,9 +444,9 @@ def mapview(request, photo_id=None, rephoto_id=None):
     photo_ids_user_has_looked_at = keys
 
     return render_to_response('mapview.html', RequestContext(request, {
-        'album': album,
+        'area': area,
         'title': title,
-        'album_selection_form': album_selection_form,
+        'area_selection_form': area_selection_form,
         'user_seen_photo_ids': photo_ids_user_has_looked_at,
         'selected_photo': selected_photo,
         'selected_rephoto': selected_rephoto,
@@ -540,14 +535,14 @@ def top50(request):
 
 
 def fetch_stream(request):
-    album_selection_form = AlbumSelectionForm(request.GET)
+    area_selection_form = AreaSelectionForm(request.GET)
 
-    if album_selection_form.is_valid():
-        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    if area_selection_form.is_valid():
+        area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
-        album = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
+        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 
-    qs = album.photos.all()
+    qs = Photo.objects.filter(area_id=area.id)
 
     # TODO: [0][0] Wtf?
     data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
@@ -617,61 +612,62 @@ def europeana(request):
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name="csv_uploaders").count() == 0, login_url="/admin/")
 def csv_upload(request):
-    import csv, zipfile, hashlib
-
-    csv_file = request.FILES["csv_file"]
-    dialect = csv.Sniffer().sniff(csv_file.read(1024), delimiters=";,")
-    header_row = None
-    photos_metadata = {}
-    for row in csv.reader(csv_file, dialect):
-        if not header_row:
-            header_row = row
-            continue
-        row = dict(zip(header_row, row))
-        photos_metadata[row.get("image")] = row
-
-    zip_file = zipfile.ZipFile(request.FILES["zip_file"])
-
-    for key in photos_metadata.keys():
-        try:
-            image_file = zip_file.read(key)
-        except KeyError:
-            continue
-        meta_for_this_image = photos_metadata[key]
-        source_key = meta_for_this_image.get("number") or key
-        try:
-            existing_photo = Photo.objects.get(source_key=source_key)
-            continue
-        except ObjectDoesNotExist:
-            pass
-        extension = key.split(".")[-1]
-        upload_file_name = "uploads/%s.%s" % (hashlib.md5(key).hexdigest(), extension)
-        fout = open("/var/garage/" + upload_file_name, "w")
-        fout.write(image_file)
-        fout.close()
-        place_name = meta_for_this_image.get("place") or "Ajapaik"
-        try:
-            album = Album.objects.get(name=place_name)
-        except ObjectDoesNotExist:
-            album = Album(name=place_name, atype=Album.COLLECTION, is_public=True)
-            album.save()
-        description = '; '.join(filter(None,
-                                       [meta_for_this_image[sub_key].strip() for sub_key in ('description', 'title') if
-                                        sub_key in meta_for_this_image]))
-        source_name = meta_for_this_image.get("institution") or "Ajapaik"
-        try:
-            source = Source.objects.get(description=source_name)
-        except ObjectDoesNotExist:
-            source = Source(name=source_name, description=source_name)
-            source.save()
-        source_url = meta_for_this_image.get("url")
-        p = Photo(date_text=meta_for_this_image.get("date"),description=description, source=source,
-                  source_url=source_url, source_key=source_key)
-        p.image.name = upload_file_name
-        p.save()
-        ap = AlbumPhoto(album=album, photo=p)
-        ap.save()
-    return HttpResponse("OK")
+    pass
+    # import csv, zipfile, hashlib
+    #
+    # csv_file = request.FILES["csv_file"]
+    # dialect = csv.Sniffer().sniff(csv_file.read(1024), delimiters=";,")
+    # header_row = None
+    # photos_metadata = {}
+    # for row in csv.reader(csv_file, dialect):
+    #     if not header_row:
+    #         header_row = row
+    #         continue
+    #     row = dict(zip(header_row, row))
+    #     photos_metadata[row.get("image")] = row
+    #
+    # zip_file = zipfile.ZipFile(request.FILES["zip_file"])
+    #
+    # for key in photos_metadata.keys():
+    #     try:
+    #         image_file = zip_file.read(key)
+    #     except KeyError:
+    #         continue
+    #     meta_for_this_image = photos_metadata[key]
+    #     source_key = meta_for_this_image.get("number") or key
+    #     try:
+    #         existing_photo = Photo.objects.get(source_key=source_key)
+    #         continue
+    #     except ObjectDoesNotExist:
+    #         pass
+    #     extension = key.split(".")[-1]
+    #     upload_file_name = "uploads/%s.%s" % (hashlib.md5(key).hexdigest(), extension)
+    #     fout = open("/var/garage/" + upload_file_name, "w")
+    #     fout.write(image_file)
+    #     fout.close()
+    #     place_name = meta_for_this_image.get("place") or "Ajapaik"
+    #     try:
+    #         album = Album.objects.get(name=place_name)
+    #     except ObjectDoesNotExist:
+    #         album = Album(name=place_name, atype=Album.COLLECTION, is_public=True)
+    #         album.save()
+    #     description = '; '.join(filter(None,
+    #                                    [meta_for_this_image[sub_key].strip() for sub_key in ('description', 'title') if
+    #                                     sub_key in meta_for_this_image]))
+    #     source_name = meta_for_this_image.get("institution") or "Ajapaik"
+    #     try:
+    #         source = Source.objects.get(description=source_name)
+    #     except ObjectDoesNotExist:
+    #         source = Source(name=source_name, description=source_name)
+    #         source.save()
+    #     source_url = meta_for_this_image.get("url")
+    #     p = Photo(date_text=meta_for_this_image.get("date"),description=description, source=source,
+    #               source_url=source_url, source_key=source_key)
+    #     p.image.name = upload_file_name
+    #     p.save()
+    #     ap = AlbumPhoto(album=album, photo=p)
+    #     ap.save()
+    # return HttpResponse("OK")
 
 
 def mapview_photo_upload_modal(request, photo_id):
@@ -688,27 +684,31 @@ def public_add_album(request):
         description = add_album_form.cleaned_data["description"]
         is_public = add_album_form.cleaned_data["is_public"]
         is_public = is_public == "true"
-        lat = add_album_form.cleaned_data["lat"]
-        lon = add_album_form.cleaned_data["lon"]
         if is_public is None:
             is_public = False
         if user_profile:
-            new_album = Album(name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=is_public, lat=lat, lon=lon)
+            new_album = Album(name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=is_public)
             new_album.save()
             return HttpResponse(json.dumps("Ok"), content_type="application/json")
     return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
 
+
+def public_add_area(request):
+    pass
+
 def public_photo_upload(request):
     user_profile = request.get_user().profile
-    album_selection_form = AlbumSelectionForm(request.GET)
+    area_selection_form = AreaSelectionForm(request.GET)
     add_album_form = AddAlbumForm()
-    if album_selection_form.is_valid():
-        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    if area_selection_form.is_valid():
+        area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
-        album = Album.objects.get(pk=settings.DEFAULT_ALBUM_ID)
+        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
     selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
+    selectable_areas = Area.objects.all()
     return render_to_response('photo_upload.html', RequestContext(request, {
-        'album': album,
+        'area': area,
+        'selectable_areas': selectable_areas,
         'selectable_albums': selectable_albums,
         'add_album_form': add_album_form,
         'title': _("Timepatch (Ajapaik) - upload photos")
@@ -797,7 +797,7 @@ def public_photo_upload_handler(request):
                 except:
                     pass
         else:
-            error = _("Conflicting data submitted (no photos, no albums, no user or more than 1 city album)")
+            error = _("Conflicting data submitted (no photos, no user or faulty areas)")
         if error is None:
             ret["files"].append({
                 "name": uploaded_file_name,
@@ -840,11 +840,11 @@ def pane_contents(request):
 
 @ensure_csrf_cookie
 def grid(request):
-    album_selection_form = AlbumSelectionForm(request.GET)
+    area_selection_form = AreaSelectionForm(request.GET)
 
-    if album_selection_form.is_valid():
-        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
-        qs = album.photos.all()
+    if area_selection_form.is_valid():
+        area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
+        qs = Photo.objects.filter(area_id=area.id)
 
         data = qs.get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
         photo_count = qs.get_old_photo_count_for_grid_view()
@@ -859,21 +859,21 @@ def grid(request):
         return render_to_response('grid.html', RequestContext(request, {
             "data": data,
             "photo_count": photo_count,
-            "album": album,
+            "area": area,
             "start": 0,
-            "album_selection_form": album_selection_form,
+            "area_selection_form": area_selection_form,
             "page_size": settings.GRID_VIEW_PAGE_SIZE,
             "user_seen_photo_ids": photo_ids_user_has_looked_at,
         }))
 
 
 def grid_infinite_scroll(request):
-    album_selection_form = AlbumSelectionForm(request.GET)
+    area_selection_form = AreaSelectionForm(request.GET)
 
     data = []
-    if album_selection_form.is_valid():
-        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
-        qs = album.photos.all()
+    if area_selection_form.is_valid():
+        area = Album.objects.get(pk=area_selection_form.cleaned_data['area'].id)
+        qs = Photo.objects.filter(area_id=area.id)
         start = int(request.GET.get('start'))
         data = qs.get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
     return HttpResponse(json.dumps(data), content_type="application/json")

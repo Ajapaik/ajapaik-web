@@ -6,7 +6,7 @@
     </div>
     <div class="filter-box">
         {% csrf_token %}
-        {{ album_selection_form.as_p }}
+        {{ area_selection_form.as_p }}
         <div>
             {% if is_game %}
                 <button class="btn btn-success" id="ajapaik-header-map-button">{% trans "Map" %}</button>

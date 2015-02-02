@@ -5,14 +5,14 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
 from rest_framework import routers
-from project.home.photo_import import PhotoViewSet, CityViewSet, SourceViewSet, AlbumViewSet
+from project.home.photo_import import PhotoViewSet, AreaViewSet, SourceViewSet, AlbumViewSet
 from project.sitemaps import PhotoSitemap, StaticViewSitemap
 
 admin.autodiscover()
 
 router = routers.DefaultRouter()
 router.register(r'api/photos', PhotoViewSet)
-router.register(r'api/cities', CityViewSet)
+router.register(r'api/areas', AreaViewSet)
 router.register(r'api/albums', AlbumViewSet)
 router.register(r'api/sources', SourceViewSet)
 
@@ -49,6 +49,7 @@ urlpatterns = patterns('project.home.views',
    url(r'^public_photo_upload/$', 'public_photo_upload'),
    url(r'^public_photo_upload_handler/$', 'public_photo_upload_handler'),
    url(r'^public_album_create_handler/$', 'public_add_album'),
+   url(r'^public_area_create_handler/$', 'public_add_area'),
    url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
    # url(r'^csv_upload/$', 'csv_upload'),
    # url(r'^europeana/$', 'europeana'),
