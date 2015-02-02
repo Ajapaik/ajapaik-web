@@ -14,7 +14,7 @@ class CitySerializer(serializers.ModelSerializer):
 class AlbumSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Album
-		fields = ('id', 'name', 'slug', 'description', 'atype', 'profile_id', 'is_public', 'lat', 'lon')
+		fields = ('id', 'name', 'lat', 'lon')
 
 class SourceSerializer(serializers.ModelSerializer):
 	class Meta:

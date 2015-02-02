@@ -136,7 +136,7 @@ def handle_uploaded_file(f):
 @csrf_exempt
 def photo_upload(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
-    target_album = photo.albums.filter(atype=Album.FRONTPAGE)
+    target_album = AlbumPhoto.objects.filter(photo_id=photo.id)[:1].get().album
     new_id = 0
 
     if request.method == 'POST':

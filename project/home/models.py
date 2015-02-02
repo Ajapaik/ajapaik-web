@@ -64,15 +64,14 @@ class City(models.Model):
 
 
 class Album(models.Model):
-    FRONTPAGE, FAVORITES, COLLECTION, AREA = range(4)
+    FRONTPAGE, FAVORITES, COLLECTION = range(3)
     TYPE_CHOICES = (
         (FRONTPAGE, 'Frontpage'),
         (FAVORITES, 'Favorites'),
-        (COLLECTION, 'Collection'),
-        (AREA, 'Area'),
+        (COLLECTION, 'Collection')
     )
     name = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
     lat = models.FloatField(null=True, blank=True)
