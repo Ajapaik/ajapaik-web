@@ -3,124 +3,128 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-29 17:25+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-02-02 11:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.3\n"
 
 #: project/home/forms.py:8
 msgid "Choose city"
-msgstr ""
+msgstr "Valitse kaupunki"
 
 #: project/home/get_next_photos_to_geotag.py:101
 msgid "Looks right!"
-msgstr ""
+msgstr "Näyttää oikealta!"
 
 #: project/home/get_next_photos_to_geotag.py:103
 msgid "The location seems right, but the azimuth is yet uncertain."
-msgstr ""
+msgstr "Paikka vaikuttaa oikealta, mutta kamerkulma ei ole varma"
 
 #: project/home/get_next_photos_to_geotag.py:105
 msgid "The location seems right, your azimuth was first."
-msgstr ""
+msgstr "Paikka vaikuttaa oikealta, sinun kamerakulmasi oli ensin"
 
 #: project/home/get_next_photos_to_geotag.py:107
 msgid "The location seems right, but not the azimuth."
-msgstr ""
+msgstr "Paikka vaikuttaa oikealta, mutta kamerakulma ei"
 
 #: project/home/get_next_photos_to_geotag.py:109
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
+"Paikka vaikuttaa oikealta. Lisää seuraavalla kerralla myös kamerakulma ja "
+"saat lisää pisteitä!"
 
 #: project/home/get_next_photos_to_geotag.py:111
 msgid "Correct location is not certain yet."
-msgstr ""
+msgstr "Paikka ei ole vielä varmistettu."
 
 #: project/home/get_next_photos_to_geotag.py:113
 msgid "Other users have different opinion."
-msgstr ""
+msgstr "Muut käyttäjät ovat eri mieltä"
 
 #: project/home/get_next_photos_to_geotag.py:115
 msgid "Your guess was first."
-msgstr ""
+msgstr "Sinun arvauksesi oli ensin"
 
 #: project/home/views.py:233 templates/frontpage.html:160
 msgid "Guess the location"
-msgstr ""
+msgstr "Arvaa sijainti"
 
 #: project/home/views.py:412 project/home/views.py:414
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
-msgstr ""
+msgstr "Selaa kuvia kartalla"
 
 #: project/home/views.py:518 project/home/views.py:532
 #: templates/_header_city_selection_scoreboard.html:21
 msgid "Leaderboard"
-msgstr ""
+msgstr "Pistetaulukko"
 
 #: project/home/views.py:734
 msgid "Error uploading file"
-msgstr ""
+msgstr "Ongelma tiedostoa ladattaessa"
 
 #: project/home/views.py:741
 msgid "Insufficient data to save photo (no city, no photo or no user profile)"
 msgstr ""
+"Liian vähän tietoa kuvan tallentamiseksi (kaupunki, kuva tai "
+"käyttäjäprofiili puuttuu)"
 
 #: project/settings/default.py:66
 msgid "Estonian"
-msgstr ""
+msgstr "viro"
 
 #: project/settings/default.py:67
 msgid "English"
-msgstr ""
+msgstr "englanti"
 
 #: project/settings/default.py:68
 msgid "Russian"
-msgstr ""
+msgstr "venäjä"
 
 #: project/settings/default.py:69
 msgid "Finnish"
-msgstr ""
+msgstr "suomi"
 
 #: templates/404.html:5 templates/404.html.py:11
 msgid "Page Not Found"
-msgstr ""
+msgstr "Sivua ei löytynyt"
 
 #: templates/404.html:14
 msgid "Back"
-msgstr ""
+msgstr "Takaisin"
 
 #: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:24
 #: templates/_block_leaderboard.html:37
 msgid "Your points"
-msgstr ""
+msgstr "Sinun pisteesi"
 
 #: templates/_block_leaderboard.html:17
 msgid "Recent activity leaderboard"
-msgstr ""
+msgstr "Viimeaikaisen toiminnan pistetaulukko"
 
 #: templates/_block_leaderboard.html:30
 msgid "All time leaderboard"
-msgstr ""
+msgstr "Kaikkien aikojen pistetaulukko"
 
 #: templates/_comments.html:8
 msgid "Original photo"
-msgstr ""
+msgstr "Alkuperäinen valokuva"
 
 #: templates/_comments.html:12
 msgid "Rephoto"
-msgstr ""
+msgstr "Uuskuva"
 
 #: templates/_header.html:5 templates/_header_city_selection.html:5
 #: templates/_header_city_selection_scoreboard.html:5
@@ -129,103 +133,103 @@ msgstr ""
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
-msgstr ""
+msgstr "Timepatch (Ajapaik)"
 
 #: templates/_header.html:12
 #: templates/_header_city_selection_scoreboard.html:14
 msgid "Geotagging game"
-msgstr ""
+msgstr "Geotägäyspeli"
 
 #: templates/_header.html:33 templates/_header_city_selection.html:28
 #: templates/frontpage.html:27
 msgid "Choose language"
-msgstr ""
+msgstr "Valitse kieli"
 
 #: templates/_header_city_selection_scoreboard.html:12
 msgid "Map"
-msgstr ""
+msgstr "Kartta"
 
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
-msgstr ""
+msgstr "Käyttäjä"
 
 #: templates/_header_city_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "Log out"
-msgstr ""
+msgstr "Kirjaudu ulos"
 
 #: templates/_header_city_selection_scoreboard.html:33
 msgid "Facebook Connect to save your score and continue later."
-msgstr ""
+msgstr "Tallenna pisteesi Facebook Connectilla ja jatka myöhemmin."
 
 #: templates/_header_city_selection_scoreboard.html:34
 #: templates/_photo_upload_modal.html:36 templates/photo_upload.html:50
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Kirjaudu Facebookin avulla"
 
 #: templates/_map_lower_right_buttons.html:5
 msgid "Save location only"
-msgstr ""
+msgstr "Tallenna vain paikka"
 
 #: templates/_map_lower_right_buttons.html:8
 msgid "Close Street View"
-msgstr ""
+msgstr "Sulje Street View"
 
 #: templates/_map_lower_right_buttons.html:11 templates/game.html:37
 #: templates/game.html.py:62 templates/game.html:99
 msgid "Next photo"
-msgstr ""
+msgstr "Seuraava kuva"
 
 #: templates/_map_lower_right_buttons.html:11 templates/mapview.html:58
 msgid "Back to map"
-msgstr ""
+msgstr "Takaisin karttaan"
 
 #: templates/_photo_modal.html:85 templates/photoview.html:91
 msgid "Rephotograph by"
-msgstr ""
+msgstr "Uuskuvan tekijä"
 
 #: templates/_photo_modal.html:88 templates/photoview.html:95
 msgid "Date taken"
-msgstr ""
+msgstr "Kuvauspäivä"
 
 #: templates/_photo_modal.html:98 templates/photoview.html:56
 msgid "Share"
-msgstr ""
+msgstr "Jaa"
 
 #: templates/_photo_modal.html:113
 msgid "Discuss"
-msgstr ""
+msgstr "Keskustele"
 
 #: templates/_photo_modal.html:116 templates/photoview.html:75
 msgid "Add rephoto"
-msgstr ""
+msgstr "Lisää uuskuva"
 
 #: templates/_photo_modal.html:117
 msgid "Specify location"
-msgstr ""
+msgstr "Määritä paikka"
 
 #: templates/_photo_modal.html:118 templates/_photo_upload_modal.html:43
 #: templates/game.html:120 templates/mapview.html:39
 msgid "Close"
-msgstr ""
+msgstr "Sulje"
 
 #: templates/_photo_upload_modal.html:17
 msgid "Taken"
-msgstr ""
+msgstr "Otettu"
 
 #: templates/_photo_upload_modal.html:19
 #: templates/_photo_upload_modal.html:102
 msgid "Upload"
-msgstr ""
+msgstr "Lataa"
 
 #: templates/_photo_upload_modal.html:24
 msgid "Select file..."
-msgstr ""
+msgstr "Valitse tiedosto..."
 
 #: templates/_photo_upload_modal.html:35
 msgid "Rephoto uploading requires connecting your account with Facebook."
-msgstr ""
+msgstr "Uuskuvan lataaminen vaatii tilin yhdistämisen Facebookiin"
 
 #: templates/_photo_upload_modal.html:40
 msgid ""
@@ -233,31 +237,33 @@ msgid ""
 "picture was taken and upload it. Uploaded rephotograph will be attributed to "
 "you under the"
 msgstr ""
+"Ota uuskuva täsmälleen samasta paikasta, mistä historiallinen kuva on otettu "
+"ja lataa se. Ladatut kuvat merkitään nimiisi ja lisensoidaan"
 
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
-msgstr ""
+msgstr "lisenssillä"
 
 #: templates/_photo_upload_modal.html:58
 msgid "Abort"
-msgstr ""
+msgstr "Keskeytä"
 
 #: templates/_photo_upload_modal.html:80
 msgid "Select new file..."
-msgstr ""
+msgstr "Valitse uusi tiedosto..."
 
 #: templates/_photo_upload_modal.html:110
 msgid "File upload failed."
-msgstr ""
+msgstr "Tiedoston lataus epäonnistui."
 
 #: templates/_tutorial.html:7
 msgid ""
 "The marker with this icon indicates where you think the photo was taken."
-msgstr ""
+msgstr "Tämä merkitsin esittää paikkaa, missä kuva mielestäsi otettiin"
 
 #: templates/_tutorial.html:11
 msgid "This marker with this icon indicates the actual object on the photo."
-msgstr ""
+msgstr "Tämä merkitsin esittää kuvan kohdetta"
 
 #: templates/_tutorial.html:15
 msgid ""
@@ -266,12 +272,17 @@ msgid ""
 "coordinates. While the line is dotted, it means you haven't yet locked it in "
 "and only the location will be submitted."
 msgstr ""
+"Jos tiedät kuvaussuunnan, saat lisäpisteitä suunnan lisäämisestä "
+"koordinaattien lisäksi. Kun viiva on katkonainen, se tarkoittaa, ettet ole "
+"vielä lukinnut suuntaa ja vain sijainti lisätään."
 
 #: templates/_tutorial.html:19
 msgid ""
 "When the red dotted line turns solid, it means the angle is now locked and "
 "will be submitted along with the coordinates."
 msgstr ""
+"Kun katkoviiva muuttuu yhtenäiseksi, se tarkoittaa, että kuvaussuunta on "
+"lukittu ja lisätään koordinaattien lisäksi."
 
 #: templates/_tutorial.html:23
 msgid ""
@@ -280,122 +291,132 @@ msgid ""
 "this may not be desirable and this button unlocks the marker, enabling it to "
 "be dragged as usual."
 msgstr ""
+"Merkitsin on oletusarvoisesti lukittu kartan keskipisteeseen. Jos haluat "
+"vaihtaa merkitsimen paikkaa, itse karttaa täytyy siirtää. Joskus tämä ei ole "
+"toivottavaa. Tätä nappia painamalla merkitsin vapautuu ja sitä voi siirtää "
+"kuten tavallisesti."
 
 #: templates/_tutorial.html:27
 msgid "Buttons with this icon flip the current image."
-msgstr ""
+msgstr "Napit, joissa on tämä ikoni, muuttavat kuvan peilikuvaksi"
 
 #: templates/_tutorial.html:31
 msgid ""
 "Buttons with this icon make the current image occupy the whole screen where "
 "available."
-msgstr ""
+msgstr "Napit, joissa on tämä ikoni, suurentavat kuvan koko näytölle."
 
 #: templates/_tutorial.html:35
 msgid ""
 "Buttons with this icon display the description of the current photo where "
 "available."
-msgstr ""
+msgstr "Napit, joissa on tämä ikoni näyttävät kyseisen kuvan kuvailutekstin."
 
 #: templates/_tutorial.html:35
 msgid ""
 "Using the description to place an image in the game view will only earn you "
 "75 percent of the points you would have gotten otherwise"
 msgstr ""
+"Jos sijoitat kuvan pelkästään kuvailutekstin avulla, saat ainoastaan 75 "
+"prosenttia pisteistä, mitä olisit muuten saanut"
 
 #: templates/_tutorial.html:39
 msgid ""
 "If you ever feel like looking at this tutorial again, this button will re-"
 "open it."
 msgstr ""
+"Jos joskus haluat palata tähän opastukseen, pääset siihen tästä napista."
 
 #: templates/admin/project/csvphoto/change_list.html:6
 msgid "Home"
-msgstr ""
+msgstr "Koti"
 
 #: templates/admin/project/csvphoto/change_list.html:7
 msgid "Upload photos via CSV file"
-msgstr ""
+msgstr "Lataa kuvia CSV-tiedoston avulla"
 
 #: templates/admin/project/csvphoto/change_list.html:15
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #: templates/admin/project/csvphoto/change_list.html:17
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 #: templates/admin/project/csvphoto/change_list.html:19
 msgid "Submit"
-msgstr ""
+msgstr "Lähetä"
 
 #: templates/base.html:95 templates/base_bootstrap.html:72
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
 msgstr ""
+"Käytämme sivustolla evästeitä. Käyttämällä sivustoa hyväksyt niiden käytön."
 
 #: templates/frontpage.html:88
 msgid "Where is history located?"
-msgstr ""
+msgstr "Missä historia sijaitsee?"
 
 #: templates/frontpage.html:89
 msgid "Discover, geotag and make the rephoto."
-msgstr ""
+msgstr "Löydä, merkitse paikka ja tee uuskuva"
 
 #: templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
 msgstr ""
+"Katso ympärillesi ja lisää historiallista metadataa kuviin. Muiden kanssa "
+"kilpaileminen tekee siitä jännittävämpää."
 
 #: templates/frontpage.html:94
 msgid "Read more"
-msgstr ""
+msgstr "Lue lisää"
 
 #: templates/frontpage.html:164
 msgid "Upload photos yourself"
-msgstr ""
+msgstr "Lataa omia kuvia"
 
 #: templates/frontpage.html:169
 msgid "View gallery"
-msgstr ""
+msgstr "Galleria"
 
 #: templates/game.html:31 templates/game.html.py:102
 msgid "Show description"
-msgstr ""
+msgstr "Näytä kuvailu"
 
 #: templates/game.html:35 templates/game.html.py:95
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "Valitse kuvauspaikka"
 
 #: templates/game.html:45 templates/mapview.html:55
 msgid "Thank you!"
-msgstr ""
+msgstr "Kiitos!"
 
 #: templates/game.html:49
 msgid "In your opinion to geotag this photo is"
-msgstr ""
+msgstr "Mielestäni paikan merkitseminen tähän kuvaan on"
 
 #: templates/game.html:53
 msgid "easy"
-msgstr ""
+msgstr "helppoa"
 
 #: templates/game.html:59
 msgid "hard"
-msgstr ""
+msgstr "vaikeaa"
 
 #: templates/game.html:79 templates/mapview.html:16
 msgid "Geotags"
-msgstr ""
+msgstr "Paikkamerkinnät"
 
 #: templates/game.html:81 templates/mapview.html:18
 msgid "With azimuth"
-msgstr ""
+msgstr "Kamerakulmalla"
 
 #: templates/leaderboard.html:19
 msgid "Back home"
-msgstr ""
+msgstr "Takaisin kotiin"
 
 #: templates/mapview.html:56
 msgid ""
@@ -403,27 +424,30 @@ msgid ""
 "Still your action may not have an immediate effect on the location of the "
 "image. Your trustworthiness will also not be affected."
 msgstr ""
+"Kartalta sijoitettu kuva tägätään eri tavalla kuin pelissä. Valintasi eivät "
+"vaikuta kuvan sijaintiiin välittömästi. Kuvan sijoittaminen kartalta ei "
+"myöskään vaikuta luotettavuuteesi."
 
 #: templates/photo_upload.html:20
 msgid "Add files..."
-msgstr ""
+msgstr "Lisää tiedostoja..."
 
 #: templates/photo_upload.html:25
 msgid "Start upload"
-msgstr ""
+msgstr "Aloita lataus"
 
 #: templates/photo_upload.html:29
 msgid "Cancel upload"
-msgstr ""
+msgstr "Peru lataus"
 
 #: templates/photo_upload.html:32
 msgid "Selected city:"
-msgstr ""
+msgstr "Valittu kaupunki"
 
 #: templates/photo_upload.html:49
 msgid "Photo uploading requires connecting your account with Facebook."
-msgstr ""
+msgstr "Valokuvan lataaminen vaatii tilin yhdistämistä Facebookiin"
 
 #: templates/photoview.html:77
 msgid "Location on the map"
-msgstr ""
+msgstr "Paikka kartalla"
