@@ -3,41 +3,41 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-29 17:25+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-02-02 11:46+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.3\n"
 
 #: static/js/ajapaik-common.js:117
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutustumiskierros"
 
 #: static/js/ajapaik-common.js:541 static/js/ajapaik-common.js.c:653
 #: static/js/game.js:132
 msgid "Save location only"
-msgstr ""
+msgstr "Tallenna vain sijainti"
 
 #: static/js/ajapaik-common.js:591
 msgid "Save location and direction"
-msgstr ""
+msgstr "Tallenna sijainti ja suunta"
 
 #: static/js/ajapaik-common.js:719
 msgid "Median guess"
-msgstr ""
+msgstr "Mediaaniarvaus"
 
 #: static/js/browse.js:278 static/js/game.js:228 static/js/grid.js:69
 msgid "Points awarded"
-msgstr ""
+msgstr "Pistesaldo"
 
 #: static/js/browse.js:651 static/js/game.js:491
 msgid ""
@@ -45,31 +45,38 @@ msgid ""
 "can then set the direction of the view. You should also zoom the map before "
 "submitting your geotag."
 msgstr ""
+"Raahaa karttaa siten, että merkitsin on paikassa, jossa valokuvaaja seisoi. "
+"Sen jälkeen voit määritellä kamerakulman. Sinun kannattaa zoomata riittävän "
+"lähelle ennen kuin lisäät paikkamerkinnän."
 
 #: static/js/game.js:52
 msgid "Vihje vaatamine"
-msgstr ""
+msgstr "Katso kuvailu"
 
 #: static/js/game.js:54
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
+"Valokuvan kuvailu. Huomio! Kuvailu voi joskus olla virheellinen. Jos käytät "
+"kuvailua apunasi, saat 25% vähemmän pisteitä ehdotuksestasi."
 
 #: static/js/game.js:154
 msgid "We are now showing you random photos."
-msgstr ""
+msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
 
 #: static/js/game.js:156
 msgid "You have seen all the pictures we have for this area."
-msgstr ""
+msgstr "Olet nähnyt kaikki tämän alueen kuvat"
 
 #: static/js/game.js:255
 msgid "Your guess"
-msgstr ""
+msgstr "Arvauksesi"
 
 #: static/js/grid.js:416
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
+"Raahaa karttaa siten, että merkitsin on paikassa, jossa valokuvaaja seisoi. "
+"Sen jälkeen voit määritellä kamerakulman."
