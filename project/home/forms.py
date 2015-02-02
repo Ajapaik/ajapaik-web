@@ -22,3 +22,12 @@ class AddAlbumForm(forms.Form):
     is_public = forms.CharField()
     lat = forms.FloatField()
     lon = forms.FloatField()
+
+class PublicPhotoUploadForm(forms.Form):
+    institution = forms.CharField(max_length=255, required=False)
+    number = forms.CharField(max_length=100, required=False)
+    title = forms.CharField(max_length=255, required=False)
+    description = forms.CharField(max_length=2047, required=False)
+    date = forms.CharField(max_length=100, required=False)
+    url = forms.CharField(max_length=1023, required=False)
+    licence = forms.CharField(max_length=255, required=False)

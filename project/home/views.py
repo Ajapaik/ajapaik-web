@@ -19,7 +19,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 from project.home.models import Photo, City, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto
-from project.home.forms import AlbumSelectionForm, AddAlbumForm
+from project.home.forms import AlbumSelectionForm, AddAlbumForm, PublicPhotoUploadForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 
@@ -742,6 +742,7 @@ def public_photo_upload_handler(request):
     uploaded_file = request.FILES.get("files[]", None)
     album_ids = request.POST.get("albumIds")
     album_ids = [int(x) for x in album_ids.split(',')]
+    photo_upload_form = PublicPhotoUploadForm(request.POST)
     albums = None
     error = None
     uploaded_file_name = None
@@ -750,49 +751,70 @@ def public_photo_upload_handler(request):
         albums = Album.objects.filter(pk__in=album_ids).all()
     except ObjectDoesNotExist:
         pass
-    found_frontpage_album = False
-    only_one_frontpage_album = True
+    found_city_album = False
+    only_one_city_album = True
     for album in albums:
-        if found_frontpage_album and album.atype == Album.FRONTPAGE:
-            only_one_frontpage_album = False
-        if album.atype == Album.FRONTPAGE:
-            found_frontpage_album = True
-    if profile is not None and uploaded_file is not None and albums is not None and only_one_frontpage_album:
-        try:
-            uploaded_file_name = uploaded_file.name
-            fileobj = handle_uploaded_file(uploaded_file)
-            new_photo = Photo(
-                user = profile
-            )
-            new_photo.save()
-            new_photo.image.save(uploaded_file.name, fileobj)
-            for a in albums:
-                ap = AlbumPhoto(photo=new_photo, album=a)
-                ap.save()
-        except:
-            if new_photo:
-                new_photo.delete()
-            error = _("Error uploading file")
-        if new_photo is not None:
-            try:
-                _extract_and_save_data_from_exif(new_photo)
-            except:
-                pass
-    else:
-        error = _("Conflicting data submitted (no photos, no albums, no user or more than 1 frontpage album")
+        if found_city_album and album.atype == Album.AREA:
+            only_one_city_album = False
+        if album.atype == Album.AREA:
+            found_city_album = True
     ret = {"files": []}
-    if error is None:
-        ret["files"].append({
-            "name": uploaded_file_name,
-            "url": reverse('project.home.views.photo', args=(new_photo.id,)),
-            "thumbnailUrl": reverse('project.home.views.photo_thumb', args=(new_photo.id,)),
-            "deleteUrl": reverse('project.home.views.delete_public_photo', args=(new_photo.id,)),
-            "deleteType": "POST"
-        })
+    if photo_upload_form.is_valid():
+        if photo_upload_form.cleaned_data['institution']:
+            try:
+                source = Source.objects.get(description=photo_upload_form.cleaned_data['institution'])
+            except ObjectDoesNotExist:
+                source = Source(name=photo_upload_form.cleaned_data['institution'], description=photo_upload_form.cleaned_data['institution'])
+                source.save()
+        else:
+            source = Source.objects.get(name='AJP')
+        if profile is not None and uploaded_file is not None and albums is not None and only_one_city_album:
+            try:
+                uploaded_file_name = uploaded_file.name
+                fileobj = handle_uploaded_file(uploaded_file)
+                new_photo = Photo(
+                    user=profile,
+                    title=photo_upload_form.cleaned_data["title"],
+                    description=photo_upload_form.cleaned_data["description"],
+                    source=source,
+                    date_text=photo_upload_form.cleaned_data["date"],
+                    licence=photo_upload_form.cleaned_data["licence"],
+                    source_key=photo_upload_form.cleaned_data["number"],
+                    source_url=photo_upload_form.cleaned_data["source_url"]
+                )
+                new_photo.save()
+                new_photo.image.save(uploaded_file.name, fileobj)
+                for a in albums:
+                    ap = AlbumPhoto(photo=new_photo, album=a)
+                    ap.save()
+            except:
+                if new_photo:
+                    new_photo.delete()
+                error = _("Error uploading file")
+            if new_photo is not None:
+                try:
+                    _extract_and_save_data_from_exif(new_photo)
+                except:
+                    pass
+        else:
+            error = _("Conflicting data submitted (no photos, no albums, no user or more than 1 city album)")
+        if error is None:
+            ret["files"].append({
+                "name": uploaded_file_name,
+                "url": reverse('project.home.views.photo', args=(new_photo.id,)),
+                "thumbnailUrl": reverse('project.home.views.photo_thumb', args=(new_photo.id,)),
+                "deleteUrl": reverse('project.home.views.delete_public_photo', args=(new_photo.id,)),
+                "deleteType": "POST"
+            })
+        else:
+            ret["files"].append({
+                "name": uploaded_file_name,
+                "error": error
+            })
     else:
         ret["files"].append({
             "name": uploaded_file_name,
-            "error": error
+            "error": _("Invalid form data")
         })
     return HttpResponse(json.dumps(ret), content_type="application/json")
 

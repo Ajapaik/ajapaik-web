@@ -64,11 +64,12 @@ class City(models.Model):
 
 
 class Album(models.Model):
-    FRONTPAGE, FAVORITES, COLLECTION = range(3)
+    FRONTPAGE, FAVORITES, COLLECTION, AREA = range(4)
     TYPE_CHOICES = (
         (FRONTPAGE, 'Frontpage'),
         (FAVORITES, 'Favorites'),
         (COLLECTION, 'Collection'),
+        (AREA, 'Area'),
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField()
@@ -150,7 +151,9 @@ class Photo(models.Model):
     flip = models.NullBooleanField()
     date = models.DateTimeField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(null=True, blank=True, max_length=2047)
+    licence = models.CharField(null=True, blank=True, max_length=255)
 
     user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
 

@@ -115,46 +115,52 @@
                         </div>
                     </div>
                 </div>
-                <form id="fileupload" action="/public_photo_upload_handler/" method="POST" enctype="multipart/form-data">
-                    <div class="row fileupload-buttonbar">
-                        <div class="col-xs-12">
-                            <span class="btn btn-success fileinput-button">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                <span>{% trans "Add files..." %}</span>
-                                <input type="file" name="files[]" multiple>
-                            </span>
-                            <button type="submit" class="btn btn-primary start">
-                                <i class="glyphicon glyphicon-upload"></i>
-                                <span>{% trans "Start upload" %}</span>
-                            </button>
-                            <button type="reset" class="btn btn-warning cancel">
-                                <i class="glyphicon glyphicon-ban-circle"></i>
-                                <span>{% trans "Cancel upload" %}</span>
-                            </button>
-                            <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-open-album-modal">
-                                {% trans "Choose albums" %}
-                            </button>
-                            <span class="btn btn-success fileinput-button">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                <span>{% trans "Add CSV..." %}</span>
-                                <input type="file" name="csv_file">
-                            </span>
-                            <span class="fileupload-process"></span>
-                            <span id="ajapaik-photo-upload-destination-album">
-                                {% trans "Selected albums:" %}&nbsp;<span>{{ album.name }}</span>
-                            </span>
-                        </div>
-                        <div class="col-xs-5 fileupload-progress fade">
-                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                <div class="row" style="padding-bottom: 10px;">
+                    <h4>{% trans "After adding photos, a CSV file may be used for additional data" %}</h4>
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>{% trans "Read CSV..." %}</span>
+                        <input type="file" name="csv_file" id="ajapaik-photo-upload-csv-file">
+                    </span>
+                    <span>{% trans "(institution;number;image;title;description;date;url;licence in any order)" %}</span>
+                </div>
+                <div class="row">
+                    <form id="fileupload" action="/public_photo_upload_handler/" method="POST" enctype="multipart/form-data">
+                        <div class="row fileupload-buttonbar">
+                            <div class="col-xs-12">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>{% trans "Add files..." %}</span>
+                                    <input type="file" name="files[]" multiple>
+                                </span>
+                                <button type="submit" class="btn btn-primary start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>{% trans "Start upload" %}</span>
+                                </button>
+                                <button type="reset" class="btn btn-warning cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>{% trans "Cancel upload" %}</span>
+                                </button>
+                                <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-open-album-modal">
+                                    {% trans "Choose albums" %}
+                                </button>
+                                <span class="fileupload-process"></span>
+                                <span id="ajapaik-photo-upload-destination-album">
+                                    {% trans "Selected albums:" %}&nbsp;<span>{{ album.name }}</span>
+                                </span>
                             </div>
-                            <div class="progress-extended">&nbsp;</div>
+                            <div class="col-xs-5 fileupload-progress fade">
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                </div>
+                                <div class="progress-extended">&nbsp;</div>
+                            </div>
                         </div>
-                    </div>
-                    <table role="presentation" class="table table-striped">
-                        <tbody class="files"></tbody>
-                    </table>
-                </form>
+                        <table role="presentation" class="table table-striped">
+                            <tbody class="files"></tbody>
+                        </table>
+                    </form>
+                </div>
             {% else %}
                 <div id="facebook-connect">
                     <p>{% trans "Photo uploading requires connecting your account with Facebook." %}</p>
@@ -183,6 +189,34 @@
                         <td>
                             <p class="size">Processing...</p>
                             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+                        </td>
+                        <td>
+                            <label>{%=gettext('Institution')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-institution" type="text" data-file-name="{%=file.name%}">
+                        </td>
+                        <td>
+                            <label>{%=gettext('Number')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-number" type="text" data-file-name="{%=file.name%}">
+                        </td>
+                        <td>
+                            <label>{%=gettext('Date')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-date" type="text" data-file-name="{%=file.name%}">
+                        </td>
+                        <td>
+                            <label>{%=gettext('URL')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-url" type="text" data-file-name="{%=file.name%}">
+                        </td>
+                        <td>
+                            <label>{%=gettext('Title')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-title" type="text" data-file-name="{%=file.name%}">
+                        </td>
+                        <td>
+                            <label>{%=gettext('Description')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-description" type="text" data-file-name="{%=file.name%}">
+                        </td>
+                        <td>
+                            <label>{%=gettext('Licence')%}</label>
+                            <input class="form-control ajapaik-file-upload-individual-licence" type="text" data-file-name="{%=file.name%}">
                         </td>
                         <td>
                             {% if (!i && !o.options.autoUpload) { %}
@@ -254,6 +288,7 @@
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-ui.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/PapaParse-4.1.0/papaparse.min.js"></script>
         <script>
             $(function () {
                 'use strict';
@@ -261,6 +296,37 @@
                     if (window.getQueryParameterByName('albumChoiceOpen')) {
                         $('#ajapaik-photo-upload-open-album-modal').click();
                     }
+                    $('#ajapaik-photo-upload-csv-file').on('change', function () {
+                        $('#ajapaik-photo-upload-csv-file').parse({
+                            config: {
+                                header: true,
+                                complete: function (result, file) {
+                                    var allInstitutionFields = $('.ajapaik-file-upload-individual-institution'),
+                                        allNumberFields = $('.ajapaik-file-upload-individual-number'),
+                                        allTitleFields = $('.ajapaik-file-upload-individual-title'),
+                                        allDescriptionFields = $('.ajapaik-file-upload-individual-description'),
+                                        allDateFields = $('.ajapaik-file-upload-individual-date'),
+                                        allURLFields = $('.ajapaik-file-upload-individual-url'),
+                                        allLicenceFields = $('.ajapaik-file-upload-individual-licence');
+                                    for (var i = 0; i < result.data.length; i += 1) {
+                                        for (var j = 0; j < allDescriptionFields.length; j += 1) {
+                                            if (allDescriptionFields[j].dataset.fileName === result.data[i]['image']) {
+                                                $(allInstitutionFields[j]).val(result.data[i]['institution']);
+                                                $(allNumberFields[j]).val(result.data[i]['number']);
+                                                $(allTitleFields[j]).val(result.data[i]['title']);
+                                                $(allDescriptionFields[j]).val(result.data[i]['description']);
+                                                $(allDateFields[j]).val(result.data[i]['date']);
+                                                $(allURLFields[j]).val(result.data[i]['url']);
+                                                $(allLicenceFields[j]).val(result.data[i]['licence']);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    $('#ajapaik-photo-upload-csv-file').val(null);
+                                }
+                            }
+                        });
+                    })
                 });
                 var fileuploadDiv = $('#fileupload'),
                     selectedAlbums = [
@@ -271,7 +337,14 @@
                     }).bind('fileuploadsubmit', function (e, data) {
                         data.formData = {
                             csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                            albumIds: selectedAlbums
+                            albumIds: selectedAlbums,
+                            institution: data.context.find('.ajapaik-file-upload-individual-institution').val(),
+                            number: data.context.find('.ajapaik-file-upload-individual-number').val(),
+                            title: data.context.find('.ajapaik-file-upload-individual-title').val(),
+                            description: data.context.find('.ajapaik-file-upload-individual-description').val(),
+                            date: data.context.find('.ajapaik-file-upload-individual-date').val(),
+                            url: data.context.find('.ajapaik-file-upload-individual-url').val(),
+                            licence: data.context.find('.ajapaik-file-upload-individual-licence').val()
                         };
                     });
                     fileuploadDiv.addClass('fileupload-processing');
