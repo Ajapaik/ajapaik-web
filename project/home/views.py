@@ -785,7 +785,13 @@ def public_photo_upload_handler(request):
                 source.save()
         else:
             source = Source.objects.get(name='AJP')
-        if profile is not None and uploaded_file is not None and area is not None:
+        existing_photo = None
+        if photo_upload_form.cleaned_data["number"] and photo_upload_form.cleaned_data["number"] != "":
+            try:
+                existing_photo = Photo.objects.filter(source=source, source_key=photo_upload_form.cleaned_data["number"]).get()
+            except:
+                pass
+        if profile is not None and uploaded_file is not None and area is not None and existing_photo is None:
             try:
                 uploaded_file_name = uploaded_file.name
                 fileobj = handle_uploaded_file(uploaded_file)

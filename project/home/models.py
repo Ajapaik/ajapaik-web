@@ -148,6 +148,7 @@ class Photo(models.Model):
     date_text = models.CharField(max_length=100, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(null=True, blank=True, max_length=2047)
+    author = models.CharField(null=True, blank=True, max_length=255)
     licence = models.CharField(null=True, blank=True, max_length=255)
 
     user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
