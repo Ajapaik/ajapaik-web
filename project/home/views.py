@@ -795,6 +795,8 @@ def public_photo_upload_handler(request):
                     photo_upload_form.cleaned_data["description"] = None
                 if photo_upload_form.cleaned_data["licence"] == "":
                     photo_upload_form.cleaned_data["licence"] = None
+                if photo_upload_form.cleaned_data["date"] == "":
+                    photo_upload_form.cleaned_data["date"] = None
                 new_photo = Photo(
                     user=profile,
                     area_id=area_id,
