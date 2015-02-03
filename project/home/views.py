@@ -791,6 +791,7 @@ def public_photo_upload_handler(request):
                 fileobj = handle_uploaded_file(uploaded_file)
                 new_photo = Photo(
                     user=profile,
+                    area_id=area_id,
                     title=photo_upload_form.cleaned_data["title"],
                     description=photo_upload_form.cleaned_data["description"],
                     source=source,
