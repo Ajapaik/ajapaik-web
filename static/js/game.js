@@ -163,8 +163,11 @@
             modalPhoto.prop('src', mediaUrl + currentPhoto.big.url);
             modalPhoto.on('load', photoLoadModalResizeFunction);
             if (currentPhoto.description) {
-                $('#ajapaik-game-photo-description').html(currentPhoto.description);
-                $('#ajapaik-game-guess-photo-js-panel-content').find('.row').html(currentPhoto.description);
+                $('#ajapaik-game-photo-description').html(currentPhoto.description).show();
+                $('#ajapaik-game-guess-photo-js-panel-content').find('.row').html(currentPhoto.description).show();
+            } else {
+                $('#ajapaik-game-photo-description').hide();
+                $('#ajapaik-game-guess-photo-js-panel-content').find('.row').hide();
             }
             fullScreenImage = $('#ajapaik-full-screen-image');
             fullScreenImage.prop('src', mediaUrl + currentPhoto.large.url).on('load', function () {
