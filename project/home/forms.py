@@ -12,8 +12,8 @@ class AreaSelectionForm(forms.Form):
 
 class AddAreaForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
-    lat = forms.FloatField()
-    lon = forms.FloatField()
+    lat = forms.FloatField(required=True)
+    lon = forms.FloatField(required=True)
 
 class AddAlbumForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)

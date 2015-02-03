@@ -205,7 +205,9 @@
             }
             window.mapDragListener = window.google.maps.event.addListener(window.map, 'drag', function () {
                 window.firstDragDone = true;
-                $('.ajapaik-marker-center-lock-button').show();
+                if (window.guessLocationStarted) {
+                    $('.ajapaik-marker-center-lock-button').show();
+                }
             });
             window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
                 window.disableSave = false;

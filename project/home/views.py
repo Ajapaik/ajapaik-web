@@ -19,7 +19,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area
-from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm
+from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AddAreaForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 
@@ -682,24 +682,34 @@ def public_add_album(request):
         user_profile = request.get_user().profile
         name = add_album_form.cleaned_data["name"]
         description = add_album_form.cleaned_data["description"]
-        is_public = add_album_form.cleaned_data["is_public"]
-        is_public = is_public == "true"
-        if is_public is None:
-            is_public = False
         if user_profile:
-            new_album = Album(name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=is_public)
+            new_album = Album(name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=False)
             new_album.save()
             return HttpResponse(json.dumps("Ok"), content_type="application/json")
     return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
 
 
 def public_add_area(request):
-    pass
+    add_area_form = AddAreaForm(request.POST)
+    if add_area_form.is_valid():
+        try:
+            existing_area = Area.objects.filter(name=add_area_form.cleaned_data["name"]).get()
+        except ObjectDoesNotExist:
+            user_profile = request.get_user().profile
+            name = add_area_form.cleaned_data["name"]
+            lat = add_area_form.cleaned_data["lat"]
+            lon = add_area_form.cleaned_data["lon"]
+            if user_profile:
+                new_area = Area(name=name, lat=lat, lon=lon)
+                new_area.save()
+                return HttpResponse(json.dumps("Ok"), content_type="application/json")
+    return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
 
 def public_photo_upload(request):
     user_profile = request.get_user().profile
     area_selection_form = AreaSelectionForm(request.GET)
     add_album_form = AddAlbumForm()
+    add_area_form = AddAreaForm()
     if area_selection_form.is_valid():
         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
@@ -711,6 +721,7 @@ def public_photo_upload(request):
         'selectable_areas': selectable_areas,
         'selectable_albums': selectable_albums,
         'add_album_form': add_album_form,
+        'add_area_form': add_area_form,
         'title': _("Timepatch (Ajapaik) - upload photos")
     }))
 
@@ -740,24 +751,30 @@ def public_photo_upload_handler(request):
             profile = user.profile
             profile.update_from_fb_data(token, fb_data)
     uploaded_file = request.FILES.get("files[]", None)
+    area_id = int(request.POST.get("areaId"))
     album_ids = request.POST.get("albumIds")
-    album_ids = [int(x) for x in album_ids.split(',')]
+    album_ids_int = None
+    try:
+        album_ids_int = [int(x) for x in album_ids.split(',')]
+    except ValueError:
+        pass
     photo_upload_form = PublicPhotoUploadForm(request.POST)
     albums = None
+    area = None
     error = None
     uploaded_file_name = None
     new_photo = None
+    created_album_photo_links = []
     try:
-        albums = Album.objects.filter(pk__in=album_ids).all()
+        albums = Album.objects.filter(pk__in=album_ids_int).all()
     except ObjectDoesNotExist:
         pass
-    found_city_album = False
-    only_one_city_album = True
-    for album in albums:
-        if found_city_album and album.atype == Album.AREA:
-            only_one_city_album = False
-        if album.atype == Album.AREA:
-            found_city_album = True
+    except ValueError:
+        pass
+    try:
+        area = Area.objects.filter(pk=area_id).get()
+    except ObjectDoesNotExist:
+        pass
     ret = {"files": []}
     if photo_upload_form.is_valid():
         if photo_upload_form.cleaned_data['institution']:
@@ -768,7 +785,7 @@ def public_photo_upload_handler(request):
                 source.save()
         else:
             source = Source.objects.get(name='AJP')
-        if profile is not None and uploaded_file is not None and albums is not None and only_one_city_album:
+        if profile is not None and uploaded_file is not None and area is not None:
             try:
                 uploaded_file_name = uploaded_file.name
                 fileobj = handle_uploaded_file(uploaded_file)
@@ -780,16 +797,20 @@ def public_photo_upload_handler(request):
                     date_text=photo_upload_form.cleaned_data["date"],
                     licence=photo_upload_form.cleaned_data["licence"],
                     source_key=photo_upload_form.cleaned_data["number"],
-                    source_url=photo_upload_form.cleaned_data["source_url"]
+                    source_url=photo_upload_form.cleaned_data["url"]
                 )
                 new_photo.save()
                 new_photo.image.save(uploaded_file.name, fileobj)
-                for a in albums:
-                    ap = AlbumPhoto(photo=new_photo, album=a)
-                    ap.save()
+                if albums:
+                    for a in albums:
+                        ap = AlbumPhoto(photo=new_photo, album=a)
+                        ap.save()
+                        created_album_photo_links.append(ap)
             except:
                 if new_photo:
                     new_photo.delete()
+                for ap in created_album_photo_links:
+                    ap.delete()
                 error = _("Error uploading file")
             if new_photo is not None:
                 try:

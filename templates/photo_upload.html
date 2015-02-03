@@ -10,7 +10,7 @@
         <div class="col-xs-12">
             {% if request.user.is_authenticated and request.user.profile.fb_id %}
                 {% with profile=request.user.profile user=request.user %}
-                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
+                    <div class="row"><p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p></div>
                 {% endwith %}
                 <div class="modal fade" id="ajapaik-choose-albums-modal">
                     <div class="modal-dialog">
@@ -37,6 +37,35 @@
                                 <button type="button" class="btn btn-success" id="ajapaik-photo-upload-add-album-button"><i class="glyphicon glyphicon-plus"></i>{% trans "Add" %}</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
                                 <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-confirm-album-selection-button">{% trans "Save" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ajapaik-choose-area-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">{% trans "Choose area" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for a in selectable_areas %}
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input name="area" type="radio" value="{{ a.id }}" data-area-name="{{ a.name }}">
+                                                    </span>
+                                                    <label class="form-control">{{ a.name }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="ajapaik-photo-upload-add-area-button"><i class="glyphicon glyphicon-plus"></i>{% trans "Add" %}</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-confirm-area-selection-button">{% trans "Save" %}</button>
                             </div>
                         </div>
                     </div>
@@ -77,36 +106,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-photo-upload-add-album-is-public">{% trans "Is public?" %}</label>
-                                            </span>
-                                            <input type="checkbox" class="form-control" id="ajapaik-photo-upload-add-album-is-public">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-photo-upload-add-album-lat">{% trans "Latitude" %}</label>
-                                            </span>
-                                            <input type="text" class="form-control" id="ajapaik-photo-upload-add-album-lat">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-photo-upload-add-album-lon">{% trans "Longitude" %}</label>
-                                            </span>
-                                            <input type="text" class="form-control" id="ajapaik-photo-upload-add-album-lon">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
@@ -115,39 +114,100 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="padding-bottom: 10px;">
-                    <h4>{% trans "After adding photos, a CSV file may be used for additional data" %}</h4>
-                    <span class="btn btn-success fileinput-button">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        <span>{% trans "Read CSV..." %}</span>
-                        <input type="file" name="csv_file" id="ajapaik-photo-upload-csv-file">
-                    </span>
-                    <span>{% trans "(institution;number;image;title;description;date;url;place;licence in any order)" %}</span>
+                <div class="modal fade" id="ajapaik-create-area-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">{% trans "Create a new area" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12" id="ajapaik-photo-upload-add-area-error" style="display: none;">
+                                        <div class="alert alert-danger" role="alert">
+                                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                          {% trans "Error" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-photo-upload-add-area-name">{% trans "New area name" %}&nbsp;*</label>
+                                            </span>
+                                            <input class="form-control" type="text" id="ajapaik-photo-upload-add-area-name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-photo-upload-add-area-lat">{% trans "New area latitude" %}</label>
+                                            </span>
+                                            <input class="form-control" type="number" id="ajapaik-photo-upload-add-area-lat">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-photo-upload-add-area-lon">{% trans "New area longitude" %}</label>
+                                            </span>
+                                            <input class="form-control" type="number" id="ajapaik-photo-upload-add-area-lon">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-save-new-area-button">{% trans "Save" %}</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <form id="fileupload" action="/public_photo_upload_handler/" method="POST" enctype="multipart/form-data">
                         <div class="row fileupload-buttonbar">
                             <div class="col-xs-12">
-                                <span class="btn btn-success fileinput-button">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    <span>{% trans "Add files..." %}</span>
-                                    <input type="file" name="files[]" multiple>
-                                </span>
-                                <button type="submit" class="btn btn-primary start">
-                                    <i class="glyphicon glyphicon-upload"></i>
-                                    <span>{% trans "Start upload" %}</span>
-                                </button>
-                                <button type="reset" class="btn btn-warning cancel">
-                                    <i class="glyphicon glyphicon-ban-circle"></i>
-                                    <span>{% trans "Cancel upload" %}</span>
-                                </button>
-                                <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-open-album-modal">
-                                    {% trans "Choose albums" %}
-                                </button>
+                                <div class="row">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>{% trans "Add files..." %}</span>
+                                        <input id="ajapaik-photo-upload-photo-files" type="file" name="files[]" multiple>
+                                    </span>
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>{% trans "Read CSV..." %}</span>
+                                        <input type="file" name="csv_file" id="ajapaik-photo-upload-csv-file">
+                                    </span>
+                                    <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-open-area-modal">
+                                        {% trans "Choose area" %}
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="ajapaik-photo-upload-open-album-modal">
+                                        {% trans "Choose albums" %}
+                                    </button>
+                                    <button type="submit" class="btn btn-primary start">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span>{% trans "Start upload" %}</span>
+                                    </button>
+                                    <button type="reset" class="btn btn-warning cancel">
+                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                        <span>{% trans "Cancel upload" %}</span>
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <span>{% trans "CSV: institution;number;image;title;description;date;url;licence in any order" %}</span>
+                                </div>
                                 <span class="fileupload-process"></span>
-                                <span id="ajapaik-photo-upload-destination-album">
-                                    {% trans "Selected albums:" %}&nbsp;<span>{{ album.name }}</span>
-                                </span>
+                                <div class="row">
+                                    <span id="ajapaik-photo-upload-destination-album">{% trans "Selected albums:" %}&nbsp;<span>{{ album.name }}</span></span>
+                                </div>
+                                <div class="row">
+                                    <span id="ajapaik-photo-upload-destination-area">{% trans "Selected area:" %}&nbsp;<span>{{ area.name }}</span></span>
+                                </div>
                             </div>
                             <div class="col-xs-5 fileupload-progress fade">
                                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -213,10 +273,6 @@
                         <td>
                             <label>{%=gettext('Description')%}</label>
                             <input class="form-control ajapaik-file-upload-individual-description" type="text" data-file-name="{%=file.name%}">
-                        </td>
-                        <td>
-                            <label>{%=gettext('Place')%}</label>
-                            <input class="form-control ajapaik-file-upload-individual-place" type="text" data-file-name="{%=file.name%}">
                         </td>
                         <td>
                             <label>{%=gettext('Licence')%}</label>
@@ -311,7 +367,6 @@
                                         allDescriptionFields = $('.ajapaik-file-upload-individual-description'),
                                         allDateFields = $('.ajapaik-file-upload-individual-date'),
                                         allURLFields = $('.ajapaik-file-upload-individual-url'),
-                                        allPlaceFields = $('.ajapaik-file-upload-individual-place'),
                                         allLicenceFields = $('.ajapaik-file-upload-individual-licence');
                                     for (var i = 0; i < result.data.length; i += 1) {
                                         for (var j = 0; j < allDescriptionFields.length; j += 1) {
@@ -322,7 +377,6 @@
                                                 $(allDescriptionFields[j]).val(result.data[i]['description']);
                                                 $(allDateFields[j]).val(result.data[i]['date']);
                                                 $(allURLFields[j]).val(result.data[i]['url']);
-                                                $(allPlaceFields[j]).val(result.data[i]['place']);
                                                 $(allLicenceFields[j]).val(result.data[i]['licence']);
                                                 break;
                                             }
@@ -337,13 +391,17 @@
                 var fileuploadDiv = $('#fileupload'),
                     selectedAlbums = [
                         [{{ album.id}}]
-                    ];
+                    ],
+                    selectedArea = '{{ area.id }}',
+                    selectedAreaName = '{{ area.name }}';
                 if (fileuploadDiv.length > 0) {
                     fileuploadDiv.fileupload({
+                        fileInput: '#ajapaik-photo-upload-photo-files'
                     }).bind('fileuploadsubmit', function (e, data) {
                         data.formData = {
                             csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
                             albumIds: selectedAlbums,
+                            areaId: selectedArea,
                             institution: data.context.find('.ajapaik-file-upload-individual-institution').val(),
                             number: data.context.find('.ajapaik-file-upload-individual-number').val(),
                             title: data.context.find('.ajapaik-file-upload-individual-title').val(),
@@ -373,8 +431,21 @@
                         window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.public_photo_upload' %}' + '?album={{ album.id }}');
                     });
                 });
+                $(document).on('click', '#ajapaik-photo-upload-open-area-modal', function () {
+                    $('#ajapaik-choose-area-modal').modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                        window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.public_photo_upload' %}' + '?area={{ album.id }}&areaChoiceOpen=1');
+                    }).on('hidden.bs.modal', function () {
+                        window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.public_photo_upload' %}' + '?area={{ album.id }}');
+                    });
+                });
                 $(document).on('click', '#ajapaik-photo-upload-add-album-button', function () {
                     $('#ajapaik-create-album-modal').modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                });
+                $(document).on('click', '#ajapaik-photo-upload-add-area-button', function () {
+                    $('#ajapaik-create-area-modal').modal().on('shown.bs.modal', function () {
                         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                     });
                 });
@@ -389,17 +460,20 @@
                     $('#ajapaik-photo-upload-destination-album').find('span').html(selectedNames.join(', '));
                     $('#ajapaik-choose-albums-modal').modal('toggle');
                 });
+                $(document).on('click', '#ajapaik-photo-upload-confirm-area-selection-button', function () {
+                    var checked = $('input[name="area"]:checked');
+                    selectedArea = parseInt(checked[0].value, 10);
+                    selectedAreaName = checked[0].dataset.areaName;
+                    $('#ajapaik-photo-upload-destination-area').find('span').html(selectedAreaName);
+                    $('#ajapaik-choose-area-modal').modal('toggle');
+                });
                 $(document).on('click', '#ajapaik-photo-upload-save-new-album-button', function () {
                     $.ajax({
                         url: {% url 'project.home.views.public_add_album' %},
                         type: 'POST',
-                        singleFileUploads: false,
                         data: {
                             name: $('#ajapaik-photo-upload-add-album-name').val(),
                             description: $('#ajapaik-photo-upload-add-album-description').val(),
-                            is_public: $('#ajapaik-photo-upload-add-album-is-public').is(':checked'),
-                            lat: $('#ajapaik-photo-upload-add-album-lat').val(),
-                            lon: $('#ajapaik-photo-upload-add-album-lon').val(),
                             csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                         }
                     }).success(function () {
@@ -407,6 +481,23 @@
                         window.location.reload();
                     }).error(function () {
                         $('#ajapaik-photo-upload-add-album-error').show();
+                    });
+                });
+                $(document).on('click', '#ajapaik-photo-upload-save-new-area-button', function () {
+                    $.ajax({
+                        url: {% url 'project.home.views.public_add_area' %},
+                        type: 'POST',
+                        data: {
+                            name: $('#ajapaik-photo-upload-add-area-name').val(),
+                            lat: $('#ajapaik-photo-upload-add-area-lat').val(),
+                            lon: $('#ajapaik-photo-upload-add-area-lon').val(),
+                            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                        }
+                    }).success(function () {
+                        $('#ajapaik-photo-upload-add-area-error').hide();
+                        window.location.reload();
+                    }).error(function () {
+                        $('#ajapaik-photo-upload-add-area-error').show();
                     });
                 });
             });

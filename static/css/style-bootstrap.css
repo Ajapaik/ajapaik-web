@@ -1033,3 +1033,7 @@ ul.errorlist {
 #ajapaik-create-album-modal .input-group-addon {
     min-width: 200px;
 }
+
+#ajapaik-create-area-modal .input-group-addon {
+    min-width: 200px;
+}
