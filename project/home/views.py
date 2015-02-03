@@ -789,6 +789,12 @@ def public_photo_upload_handler(request):
             try:
                 uploaded_file_name = uploaded_file.name
                 fileobj = handle_uploaded_file(uploaded_file)
+                if photo_upload_form.cleaned_data["title"] == "":
+                    photo_upload_form.cleaned_data["title"] = None
+                if photo_upload_form.cleaned_data["description"] == "":
+                    photo_upload_form.cleaned_data["description"] = None
+                if photo_upload_form.cleaned_data["licence"] == "":
+                    photo_upload_form.cleaned_data["licence"] = None
                 new_photo = Photo(
                     user=profile,
                     area_id=area_id,
