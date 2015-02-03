@@ -774,10 +774,10 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        if (window.languageCode === 'et' && !gameHintUsed && !popoverShown) {
+        if (!gameHintUsed && !popoverShown) {
             $('[data-toggle="popover"]').popover('show');
             popoverShown = true;
-        } else if (window.languageCode === 'et' && !gameHintUsed && popoverShown) {
+        } else if (!gameHintUsed && popoverShown) {
             $('[data-toggle="popover"]').popover('hide');
             popoverShown = false;
         }

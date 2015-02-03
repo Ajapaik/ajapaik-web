@@ -20,17 +20,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {% if LANGUAGE_CODE == 'et' %}
-                        <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row">
-                            <div id="ajapaik-game-photo-description" class="pull-left"></div>
-                        </div>
-                    {% endif %}
+                    <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row">
+                        <div id="ajapaik-game-photo-description" class="pull-left"></div>
+                    </div>
                     <div class="row" style="text-align: right; margin-right: 0;">
-                        {% if LANGUAGE_CODE == 'et' %}
-                            <button class="btn btn-default pull-left ajapaik-game-show-description-button" data-toggle="popover">
-                                {% trans "Show description" %}
-                            </button>
-                        {% endif %}
+                        <button class="btn btn-default pull-left ajapaik-game-show-description-button" data-toggle="popover">
+                            {% trans "Show description" %}
+                        </button>
                         <button class="btn btn-primary ajapaik-game-specify-location-button">
                             {% trans "Pick the shooting location!" %}
                         </button>

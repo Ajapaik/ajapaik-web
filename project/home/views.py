@@ -256,8 +256,8 @@ def frontpage(request):
         'area_selection_form': area_selection_form,
         'example': example,
         'example_source': example_source,
-        'grid_view-enabled': settings.GRID_VIEW_ENABLED,
-        'public_photo_upload_enabled': settings.PUBLIC_PHOTO_UPLOAD_ENABLED
+        'grid_view_enabled': settings.GRID_VIEW_ENABLED,
+        'photo_upload_enabled': settings.PUBLIC_PHOTO_UPLOAD_ENABLED
     }))
 
 

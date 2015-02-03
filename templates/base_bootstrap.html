@@ -91,8 +91,7 @@
         var isMobile = '{{ request.mobile }}',
             saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
             leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
-            flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',
-            languageCode = '{{ LANGUAGE_CODE }}';
+            flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}';
         isMobile = isMobile === 'True';
     </script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>

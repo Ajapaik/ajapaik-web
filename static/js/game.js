@@ -44,17 +44,15 @@
 
     photoLoadModalResizeFunction = function () {
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-        if (window.languageCode === 'et') {
-            var trigger = 'manual';
-            window.popover = $('[data-toggle="popover"]').popover({
-                trigger: trigger,
-                'placement': 'bottom',
-                title: window.gettext('Vihje vaatamine'),
-                html: true,
-                content: window.gettext('Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra.')
-            });
-            window.docCookies.setItem('ajapaik_seen_hint_view_popover', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
-        }
+        var trigger = 'manual';
+        window.popover = $('[data-toggle="popover"]').popover({
+            trigger: trigger,
+            'placement': 'bottom',
+            title: window.gettext('Vihje vaatamine'),
+            html: true,
+            content: window.gettext('Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra.')
+        });
+        window.docCookies.setItem('ajapaik_seen_hint_view_popover', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
     };
 
     clearBothersomeListeners = function () {
@@ -267,7 +265,7 @@
             $('[data-toggle="popover"]').popover('hide');
             window.popoverShown = false;
         }
-        if (!nextPhotoLoading && window.languageCode === 'et') {
+        if (!nextPhotoLoading) {
             window.gameHintUsed = true;
             $('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').show();
             $('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').show();
@@ -278,11 +276,9 @@
     };
 
     showDescriptionButtons = function () {
-        if (window.languageCode === 'et') {
-            $('.ajapaik-game-show-description-button').show();
-            $('.ajapaik-game-map-show-description-overlay-button').show();
-            $('#ajapaik-game-full-screen-show-description-button').show();
-        }
+        $('.ajapaik-game-show-description-button').show();
+        $('.ajapaik-game-map-show-description-overlay-button').show();
+        $('#ajapaik-game-full-screen-show-description-button').show();
     };
 
     hideDescriptions = function () {
@@ -583,7 +579,7 @@
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 $('.ajapaik-fullscreen-overlay-button').show();
-                if (window.languageCode === 'et' && currentPhoto.description && !window.gameHintUsed) {
+                if (currentPhoto.description && !window.gameHintUsed) {
                     $('.ajapaik-game-map-show-description-overlay-button').show();
                 }
             }

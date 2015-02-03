@@ -72,6 +72,8 @@ LANGUAGES = (
     ('fi', gettext('Finnish')),
 )
 
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
+
 SITE_ID = 1
 
 USE_I18N = True
@@ -150,6 +152,7 @@ EXTERNAL_APPS = (
     'sorl.thumbnail',
     'rest_framework',
     'compressor',
+    'modeltranslation',
 )
 
 LOCAL_APPS = (

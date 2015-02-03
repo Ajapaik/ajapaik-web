@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from math import ceil
+from django.utils import translation
 from project.home.models import Source, Photo, Album, AlbumPhoto, Area
 from project.settings import ABSOLUTE_PROJECT_ROOT
 
@@ -72,6 +73,7 @@ class Command(BaseCommand):
                     ap.save()
 
     def handle(self, *args, **options):
+        translation.activate('fi')
         url = args[0]
         self.geoname = args[1]
         try:
