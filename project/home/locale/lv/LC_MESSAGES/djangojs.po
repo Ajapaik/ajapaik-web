@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-29 17:25+0200\n"
+"POT-Creation-Date: 2015-02-03 17:28+0200\n"
 "PO-Revision-Date: 2014-05-21 18:18+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgid "Tutorial"
 msgstr ""
 
 #: static/js/ajapaik-common.js:541 static/js/ajapaik-common.js.c:653
-#: static/js/game.js:132
+#: static/js/game.js:130
 msgid "Save location only"
 msgstr ""
 
@@ -37,36 +37,36 @@ msgstr ""
 msgid "Median guess"
 msgstr ""
 
-#: static/js/browse.js:278 static/js/game.js:228 static/js/grid.js:69
+#: static/js/browse.js:280 static/js/game.js:229 static/js/grid.js:69
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/browse.js:651 static/js/game.js:491
+#: static/js/browse.js:653 static/js/game.js:490
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
 "submitting your geotag."
 msgstr ""
 
-#: static/js/game.js:52
+#: static/js/game.js:51
 msgid "Vihje vaatamine"
 msgstr ""
 
-#: static/js/game.js:54
+#: static/js/game.js:53
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
 
-#: static/js/game.js:154
+#: static/js/game.js:152
 msgid "We are now showing you random photos."
 msgstr ""
 
-#: static/js/game.js:156
+#: static/js/game.js:154
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:255
+#: static/js/game.js:256
 #, fuzzy
 #| msgid "Your guess was first."
 msgid "Your guess"

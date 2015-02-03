@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-29 17:25+0200\n"
+"POT-Creation-Date: 2015-02-03 17:28+0200\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,12 @@ msgstr ""
 "2);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/home/forms.py:8
-msgid "Choose city"
-msgstr "Izvēlies pielsētu"
+#: project/home/forms.py:8 templates/photo_upload.html:49
+#: templates/photo_upload.html.py:187
+#, fuzzy
+#| msgid "Choose range"
+msgid "Choose area"
+msgstr "Izvēlies apgabalu"
 
 #: project/home/get_next_photos_to_geotag.py:101
 msgid "Looks right!"
@@ -57,7 +60,7 @@ msgstr ""
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:233 templates/frontpage.html:160
+#: project/home/views.py:234 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Minēt atrašanās vietu"
 
@@ -67,31 +70,41 @@ msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
 #: project/home/views.py:518 project/home/views.py:532
-#: templates/_header_city_selection_scoreboard.html:21
+#: templates/_header_area_selection_scoreboard.html:21
 msgid "Leaderboard"
 msgstr "Līderu tabula"
 
-#: project/home/views.py:734
+#: project/home/views.py:725
+#, fuzzy
+#| msgid "Timepatch (Ajapaik)"
+msgid "Timepatch (Ajapaik) - upload photos"
+msgstr "Timepatch (Ajapaik)"
+
+#: project/home/views.py:829
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:741
-msgid "Insufficient data to save photo (no city, no photo or no user profile)"
+#: project/home/views.py:836
+msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/settings/default.py:66
+#: project/home/views.py:853
+msgid "Invalid form data"
+msgstr ""
+
+#: project/settings/default.py:69
 msgid "Estonian"
 msgstr "Igauņu"
 
-#: project/settings/default.py:67
+#: project/settings/default.py:70
 msgid "English"
 msgstr "Angļu"
 
-#: project/settings/default.py:68
+#: project/settings/default.py:71
 msgid "Russian"
 msgstr "Krievu"
 
-#: project/settings/default.py:69
+#: project/settings/default.py:72
 msgid "Finnish"
 msgstr ""
 
@@ -130,8 +143,8 @@ msgstr ""
 msgid "Rephoto"
 msgstr "Nākošais attēls"
 
-#: templates/_header.html:5 templates/_header_city_selection.html:5
-#: templates/_header_city_selection_scoreboard.html:5
+#: templates/_header.html:5 templates/_header_area_selection.html:5
+#: templates/_header_area_selection_scoreboard.html:5
 #: templates/_photo_modal.html:172 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:48
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
@@ -139,36 +152,35 @@ msgstr "Nākošais attēls"
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: templates/_header.html:12
-#: templates/_header_city_selection_scoreboard.html:14
-msgid "Geotagging game"
-msgstr ""
-
-#: templates/_header.html:33 templates/_header_city_selection.html:28
+#: templates/_header.html:24 templates/_header_area_selection.html:28
 #: templates/frontpage.html:27
 msgid "Choose language"
 msgstr "Izvēlies valodu"
 
-#: templates/_header_city_selection_scoreboard.html:12
+#: templates/_header_area_selection_scoreboard.html:12
 msgid "Map"
 msgstr ""
 
-#: templates/_header_city_selection_scoreboard.html:28
+#: templates/_header_area_selection_scoreboard.html:14
+msgid "Geotagging game"
+msgstr ""
+
+#: templates/_header_area_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
 msgstr ""
 
-#: templates/_header_city_selection_scoreboard.html:28
+#: templates/_header_area_selection_scoreboard.html:28
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "Log out"
 msgstr ""
 
-#: templates/_header_city_selection_scoreboard.html:33
+#: templates/_header_area_selection_scoreboard.html:33
 msgid "Facebook Connect to save your score and continue later."
 msgstr "Pieslēdzies ar Facebook, lai saglabātu punktus un turpinātu vēlāk."
 
-#: templates/_header_city_selection_scoreboard.html:34
-#: templates/_photo_upload_modal.html:36 templates/photo_upload.html:50
+#: templates/_header_area_selection_scoreboard.html:34
+#: templates/_photo_upload_modal.html:36 templates/photo_upload.html:227
 msgid "Connect with Facebook"
 msgstr "Pieslēgties ar Facebook"
 
@@ -182,8 +194,8 @@ msgstr "Saglabāt atrašanās vietu"
 msgid "Close Street View"
 msgstr ""
 
-#: templates/_map_lower_right_buttons.html:11 templates/game.html:37
-#: templates/game.html.py:62 templates/game.html:99
+#: templates/_map_lower_right_buttons.html:11 templates/game.html:33
+#: templates/game.html.py:58 templates/game.html:95
 msgid "Next photo"
 msgstr "Nākošais attēls"
 
@@ -220,7 +232,9 @@ msgid "Specify location"
 msgstr "Saglabāt atrašanās vietu"
 
 #: templates/_photo_modal.html:118 templates/_photo_upload_modal.html:43
-#: templates/game.html:120 templates/mapview.html:39
+#: templates/game.html:116 templates/mapview.html:39
+#: templates/photo_upload.html:38 templates/photo_upload.html.py:67
+#: templates/photo_upload.html:111 templates/photo_upload.html.py:165
 msgid "Close"
 msgstr "Aizvērt"
 
@@ -377,43 +391,43 @@ msgstr ""
 msgid "Read more"
 msgstr "Lasīt tālāk"
 
-#: templates/frontpage.html:164
+#: templates/frontpage.html:166
 msgid "Upload photos yourself"
 msgstr ""
 
-#: templates/frontpage.html:169
+#: templates/frontpage.html:172
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:31 templates/game.html.py:102
+#: templates/game.html:28 templates/game.html.py:98
 msgid "Show description"
 msgstr ""
 
-#: templates/game.html:35 templates/game.html.py:95
+#: templates/game.html:31 templates/game.html.py:91
 msgid "Pick the shooting location!"
 msgstr "Izvēlies attēla uzņemšanas vietu!"
 
-#: templates/game.html:45 templates/mapview.html:55
+#: templates/game.html:41 templates/mapview.html:55
 msgid "Thank you!"
 msgstr "Paldies!"
 
-#: templates/game.html:49
+#: templates/game.html:45
 msgid "In your opinion to geotag this photo is"
 msgstr ""
 
-#: templates/game.html:53
+#: templates/game.html:49
 msgid "easy"
 msgstr ""
 
-#: templates/game.html:59
+#: templates/game.html:55
 msgid "hard"
 msgstr ""
 
-#: templates/game.html:79 templates/mapview.html:16
+#: templates/game.html:75 templates/mapview.html:16
 msgid "Geotags"
 msgstr ""
 
-#: templates/game.html:81 templates/mapview.html:18
+#: templates/game.html:77 templates/mapview.html:18
 msgid "With azimuth"
 msgstr ""
 
@@ -430,23 +444,83 @@ msgid ""
 "image. Your trustworthiness will also not be affected."
 msgstr ""
 
-#: templates/photo_upload.html:20
+#: templates/photo_upload.html:20 templates/photo_upload.html.py:190
+#, fuzzy
+#| msgid "Choose language"
+msgid "Choose albums"
+msgstr "Izvēlies valodu"
+
+#: templates/photo_upload.html:37 templates/photo_upload.html.py:66
+msgid "Add"
+msgstr ""
+
+#: templates/photo_upload.html:39 templates/photo_upload.html.py:68
+#: templates/photo_upload.html:112 templates/photo_upload.html.py:166
+msgid "Save"
+msgstr ""
+
+#: templates/photo_upload.html:78
+msgid "Create a new album"
+msgstr ""
+
+#: templates/photo_upload.html:85 templates/photo_upload.html.py:129
+msgid "Error"
+msgstr ""
+
+#: templates/photo_upload.html:93
+msgid "New album name"
+msgstr ""
+
+#: templates/photo_upload.html:103
+msgid "New album description"
+msgstr ""
+
+#: templates/photo_upload.html:122
+msgid "Create a new area"
+msgstr ""
+
+#: templates/photo_upload.html:137
+msgid "New area name"
+msgstr ""
+
+#: templates/photo_upload.html:147
+msgid "New area latitude"
+msgstr ""
+
+#: templates/photo_upload.html:157
+msgid "New area longitude"
+msgstr ""
+
+#: templates/photo_upload.html:178
 msgid "Add files..."
 msgstr ""
 
-#: templates/photo_upload.html:25
+#: templates/photo_upload.html:183
+msgid "Read CSV..."
+msgstr ""
+
+#: templates/photo_upload.html:194
 msgid "Start upload"
 msgstr ""
 
-#: templates/photo_upload.html:29
+#: templates/photo_upload.html:198
 msgid "Cancel upload"
 msgstr ""
 
-#: templates/photo_upload.html:32
-msgid "Selected city:"
+#: templates/photo_upload.html:202
+msgid ""
+"CSV: institution;number;image;title;description;date;url;licence in any order"
 msgstr ""
 
-#: templates/photo_upload.html:49
+#: templates/photo_upload.html:206
+msgid "Selected albums:"
+msgstr ""
+
+#: templates/photo_upload.html:209
+msgid "Selected area:"
+msgstr ""
+
+#: templates/photo_upload.html:226
 #, fuzzy
 #| msgid "Rephoto uploading requires connecting your account with Facebook."
 msgid "Photo uploading requires connecting your account with Facebook."
@@ -455,6 +529,9 @@ msgstr "Lai augšupielādētu attēlu vajadzīgs pieslēgties tavam Facebook kon
 #: templates/photoview.html:77
 msgid "Location on the map"
 msgstr ""
+
+#~ msgid "Choose city"
+#~ msgstr "Izvēlies pielsētu"
 
 #~ msgid "Heat map"
 #~ msgstr "Atrašanās vieta kartē"
@@ -520,9 +597,6 @@ msgstr ""
 
 #~ msgid "Added last month"
 #~ msgstr "Pievienots iepriekšējā mēnesī"
-
-#~ msgid "Choose range"
-#~ msgstr "Izvēlies apgabalu"
 
 #~ msgid "Choose source"
 #~ msgstr "Izvēlies avotu"
