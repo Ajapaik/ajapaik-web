@@ -124,6 +124,25 @@ var map,
         },
         id: 'ajapaik-tutorial-js-panel'
     },
+    geotagInfoPanel,
+    geotagInfoPanelSettings = {
+        selector: 'body',
+        position: 'center',
+        controls: {
+            buttons: 'closeonly',
+            iconfont: 'bootstrap'
+        },
+        bootstrap: 'default',
+        title: window.gettext('Geotag information'),
+        draggable: {
+            handle: '.jsPanel-hdr',
+            containment: '#ajapaik-map-container'
+        },
+        size: {
+            height: 'auto'
+        },
+        id: 'ajapaik-geotag-info-js-panel'
+    },
     comingBackFromGuessLocation = false;
 
 (function ($) {
@@ -789,6 +808,15 @@ var map,
         }
     });
 
+    $(document).on('click', '.ajapaik-header-info-button', function () {
+        if (!geotagInfoPanel) {
+            window.openGeotagInfoPanel();
+        } else {
+            geotagInfoPanel.close();
+            geotagInfoPanel = undefined;
+        }
+    });
+
     $(document).on('click', '.ajapaik-close-streetview-button', function () {
         map.getStreetView().setVisible(false);
     });
@@ -802,11 +830,24 @@ var map,
         tutorialPanel = $.jsPanel(tutorialPanelSettings);
     };
 
+    window.openGeotagInfoPanel = function () {
+        geotagInfoPanelSettings.content = $('#ajapaik-geotag-js-panel-content').html();
+        if (window.isMobile) {
+            geotagInfoPanelSettings.resizable = false;
+            geotagInfoPanelSettings.draggable = false;
+        }
+        geotagInfoPanel = $.jsPanel(geotagInfoPanelSettings);
+    };
+
     $('body').on('jspanelclosed', function closeHandler(event, id) {
         if (id === 'ajapaik-tutorial-js-panel') {
             window.userClosedTutorial = true;
             tutorialPanel = undefined;
             window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
+            $('body').off('jspanelclosed', closeHandler);
+        } else if (id === 'ajapaik-geotag-info-js-panel') {
+            geotagInfoPanel = undefined;
+            window.docCookies.setItem('ajapaik_closed_geotag_info_' + window.areaId, true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
             $('body').off('jspanelclosed', closeHandler);
         }
     });

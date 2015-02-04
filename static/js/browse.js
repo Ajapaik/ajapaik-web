@@ -390,13 +390,20 @@
             }
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
-            currentMapDataRequest = $.post('/map_data/', { sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+            currentMapDataRequest = $.post('/map_data/', { area_id: window.areaId, sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (mc) {
                     mc.clearMarkers();
                 }
                 markers.length = 0;
-                for (j = 0; j < response.length; j += 1) {
-                    p = response[j];
+                $('.ajapaik-geotag-info-panel-photo-amount').html(response.total_photo_count);
+                if (response.geotag_count === 0) {
+                    $('.ajapaik-geotag-info-panel-no-photos').show();
+                } else {
+                    $('.ajapaik-geotag-info-panel-no-photos').hide();
+                }
+                console.log(response);
+                for (j = 0; j < response.photos.length; j += 1) {
+                    p = response.photos[j];
                     if (p[4]) {
                         icon = blueMarkerIcon20;
                     } else {

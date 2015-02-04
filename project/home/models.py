@@ -187,6 +187,13 @@ class Photo(models.Model):
         app_label = "project"
 
     class QuerySet(models.query.QuerySet):
+        def get_area_photo_count_and_total_geotag_count(self, area_id=None, bounding_box=None):
+            qs = self.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
+            if area_id:
+                qs = qs.filter(area_id=area_id)
+            geotag_gs = GeoTag.objects.filter(photo_id__in=qs.values_list("id", flat=True))
+            return qs.count(), geotag_gs.count()
+
         def get_geotagged_photos_list(self, bounding_box=None, with_images=False):
             # TODO: Once we have regions, re-implement caching
             data = []
@@ -611,6 +618,14 @@ class GeoTag(models.Model):
 
     class Meta:
         app_label = "project"
+
+    def save(self, *args, **kwargs):
+        # Update POSTGIS data on save
+        try:
+            self.geography = Point(float(self.lat), float(self.lon))
+        except:
+            pass
+        super(GeoTag, self).save(*args, **kwargs)
 
 
 class FacebookManager(models.Manager):

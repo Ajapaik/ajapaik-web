@@ -25,6 +25,11 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
     azimuth_correct = False
     feedback_message = ""
 
+    if hint_used == "true":
+        hint_used = True
+    elif hint_used == "false":
+        hint_used = False
+
     if lon is not None and lat is not None:
         trustworthiness = calc_trustworthiness(user.pk)
 
@@ -46,7 +51,6 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
         new_geotag = GeoTag(user=user, photo_id=p.id, type=geotag_type,
                             lat=float(lat), lon=float(lon),
                             is_correct=location_correct,
-                            score=this_guess_score,
                             trustworthiness=trustworthiness,
                             zoom_level=zoom_level, origin=origin, hint_used=hint_used)
 
@@ -54,11 +58,12 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
             new_geotag.azimuth_line_end_lat = azimuth_line_end_point[0]
             new_geotag.azimuth_line_end_lon = azimuth_line_end_point[1]
 
+        azimuth_score = 0
         if azimuth:
             new_geotag.azimuth = azimuth
             if not p.azimuth:
                 if location_correct and origin == GeoTag.GAME:
-                    new_geotag.azimuth_score = max(20, int(300 * trustworthiness))
+                    azimuth_score = max(20, int(300 * trustworthiness))
                 azimuth_uncertain = True
 
         if azimuth and p.azimuth:
@@ -67,16 +72,14 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
             difference = max(p.azimuth, azimuth) - min(p.azimuth, azimuth)
             if difference > 180:
                 difference = 360 - difference
-            azimuth_score = 0
             if int(difference) <= 15:
                 azimuth_score = degree_error_point_array[int(difference)]
                 azimuth_correct = True
             if azimuth_correct and (location_correct or location_uncertain) and origin == GeoTag.GAME:
                 new_geotag.azimuth_score = azimuth_score
 
-        if new_geotag.azimuth_score:
-            new_geotag.score += new_geotag.azimuth_score
-        this_guess_score = int(new_geotag.score)
+        this_guess_score += azimuth_score
+        new_geotag.score = this_guess_score
         new_geotag.save()
         new_action = Points(user=user, action=Points.GEOTAG, action_reference=new_geotag.id, points=new_geotag.score, created=datetime.datetime.now())
         new_action.save()
@@ -107,12 +110,13 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
                 feedback_message = _("The location seems right, but not the azimuth.")
                 if not azimuth:
                     feedback_message = _("The location seems right. Try submitting an azimuth to earn even more points!")
+        elif len(all_geotags_latlng_for_this_photo) == 1:
+            feedback_message = _("Your guess was first.")
         elif location_uncertain:
             feedback_message = _("Correct location is not certain yet.")
         elif not location_correct:
             feedback_message = _("Other users have different opinion.")
-        elif len(all_geotags_latlng_for_this_photo) == 1:
-            feedback_message = _("Your guess was first.")
+
 
     return location_correct, location_uncertain, this_guess_score, feedback_message, all_geotags_latlng_for_this_photo, azimuth_tags_count, new_estimated_location, p.confidence
 

@@ -358,11 +358,14 @@
         });
 
         $.jQee('space', function () {
+            console.log("SPACE");
             if (window.fullscreenEnabled) {
+                console.log("CLOSING FULLSCREEN");
                 window.BigScreen.exit();
                 window.fullscreenEnabled = false;
             }
             if (!locationToolsOpen) {
+                console.log("CLICKING SPECIFY");
                 $('.ajapaik-game-specify-location-button')[0].click();
             }
         });

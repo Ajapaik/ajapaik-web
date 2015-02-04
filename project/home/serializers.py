@@ -5,7 +5,7 @@ from rest_framework import serializers
 class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
-        fields = ('id', 'image', 'date_text', 'description', 'source_key', 'source_url', 'source', 'city', 'lat', 'lon',
+        fields = ('id', 'image', 'date_text', 'title', 'description', 'source_key', 'source_url', 'source', 'area', 'lat', 'lon',
                   'azimuth', 'confidence', 'azimuth_confidence')
 
 
