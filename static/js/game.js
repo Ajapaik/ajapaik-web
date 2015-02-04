@@ -145,6 +145,7 @@
         modalPhoto.unbind('load');
         $.getJSON(streamUrl, $.extend({'b': new Date().getTime()}, window.URI.parseQuery(window.location.search)), function (data) {
             currentPhoto = data.photo;
+            window.currentPhotoDescription = data.photo.description;
             var textTarget = $('#ajapaik-game-status-message'),
                 message;
             textTarget.hide();

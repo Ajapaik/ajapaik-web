@@ -99,8 +99,8 @@ var map,
     heatmap,
     guessResponseReceived = false,
     gameHintUsed = false,
+    currentPhotoDescription = false,
     heatmapEstimatedLocationMarker,
-    estimatedLocationMarkerDeletionWorkaroundArray = [],
     userClosedTutorial = false,
     tutorialPanel,
     tutorialPanelSettings = {
@@ -793,10 +793,10 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        if (!gameHintUsed && !popoverShown) {
+        if (!gameHintUsed && !popoverShown && currentPhotoDescription) {
             $('[data-toggle="popover"]').popover('show');
             popoverShown = true;
-        } else if (!gameHintUsed && popoverShown) {
+        } else if (!gameHintUsed && popoverShown && currentPhotoDescription) {
             $('[data-toggle="popover"]').popover('hide');
             popoverShown = false;
         }
