@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-04 16:42+0200\n"
-"PO-Revision-Date: 2015-01-28 14:07+0200\n"
+"PO-Revision-Date: 2015-02-04 17:35+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -17,10 +17,8 @@ msgstr ""
 
 #: project/home/forms.py:8 templates/photo_upload.html:49
 #: templates/photo_upload.html.py:187
-#, fuzzy
-#| msgid "Choose range"
 msgid "Choose area"
-msgstr "Vali vahemik"
+msgstr "Vali koht"
 
 #: project/home/get_next_photos_to_geotag.py:104
 msgid "Looks right!"
@@ -73,16 +71,12 @@ msgid "Leaderboard"
 msgstr "Edetabel"
 
 #: project/home/views.py:730
-#, fuzzy
-#| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - upload photos"
-msgstr "Ajapaik"
+msgstr "Ajapaik - lae oma fotosid"
 
 #: project/home/views.py:840
-#, fuzzy
-#| msgid "File upload failed."
 msgid "Error uploading file"
-msgstr "Faili üleslaadimine ebaõnnestus."
+msgstr "Faili üleslaadimine ebaõnnestus"
 
 #: project/home/views.py:847
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
@@ -94,19 +88,19 @@ msgstr ""
 
 #: project/settings/default.py:69
 msgid "Estonian"
-msgstr "Eesti"
+msgstr "eesti"
 
 #: project/settings/default.py:70
 msgid "English"
-msgstr "Inglise"
+msgstr "inglise"
 
 #: project/settings/default.py:71
 msgid "Russian"
-msgstr "Vene"
+msgstr "vene"
 
 #: project/settings/default.py:72
 msgid "Finnish"
-msgstr ""
+msgstr "soome"
 
 #: templates/404.html:5 templates/404.html.py:11
 msgid "Page Not Found"
@@ -142,14 +136,16 @@ msgid ""
 "Pictures from this area have not yet received enough geotags to be displayed "
 "on the map."
 msgstr ""
+"Selle koha piltidele ei ole veel piisavalt asukohti pakutud, et pildid oleks "
+"kaardil."
 
 #: templates/_geotag_info.html:5
 msgid "Number of geotagged pictures from this area:"
-msgstr ""
+msgstr "Sellest piirkonnast kaardistatud pilte:"
 
 #: templates/_geotag_info.html:6
 msgid "Photos available for geotagging:"
-msgstr ""
+msgstr "Kaardistamata pilte:"
 
 #: templates/_geotag_info.html:7 templates/_header.html:12
 #: templates/_header_area_selection_scoreboard.html:15
@@ -408,10 +404,8 @@ msgid "Read more"
 msgstr "Loe lähemalt"
 
 #: templates/frontpage.html:166
-#, fuzzy
-#| msgid "Upload photos via CSV file"
 msgid "Upload photos yourself"
-msgstr "Lae fotosid koos CSV-andmefailiga"
+msgstr "Lae ise vanu fotosid"
 
 #: templates/frontpage.html:172
 msgid "View gallery"
@@ -465,10 +459,8 @@ msgstr ""
 "pakkumistest Sinu usaldusväärsustaset. Veelkord suur tänu!"
 
 #: templates/photo_upload.html:20 templates/photo_upload.html.py:190
-#, fuzzy
-#| msgid "Choose language"
 msgid "Choose albums"
-msgstr "Vali keel"
+msgstr "Vali album"
 
 #: templates/photo_upload.html:37 templates/photo_upload.html.py:66
 msgid "Add"
@@ -492,10 +484,8 @@ msgid "New album name"
 msgstr ""
 
 #: templates/photo_upload.html:103
-#, fuzzy
-#| msgid "Show description"
 msgid "New album description"
-msgstr "Vaata kirjeldust"
+msgstr "Uus albumi kirjeldus"
 
 #: templates/photo_upload.html:122
 msgid "Create a new area"
@@ -535,22 +525,16 @@ msgid ""
 msgstr ""
 
 #: templates/photo_upload.html:206
-#, fuzzy
-#| msgid "Selected file"
 msgid "Selected albums:"
-msgstr "Valitud fail:"
+msgstr "Valitud album(id):"
 
 #: templates/photo_upload.html:209
-#, fuzzy
-#| msgid "Selected file"
 msgid "Selected area:"
-msgstr "Valitud fail:"
+msgstr "Valitud koht:"
 
 #: templates/photo_upload.html:226
-#, fuzzy
-#| msgid "Rephoto uploading requires connecting your account with Facebook."
 msgid "Photo uploading requires connecting your account with Facebook."
-msgstr "Ülepildistuste lisamiseks ühenda konto kõigepealt Facebookiga."
+msgstr "Vanade fotode laadimiseks ühenda konto kõigepealt Facebookiga."
 
 #: templates/photoview.html:82
 msgid "Location on the map"
@@ -601,16 +585,16 @@ msgstr "Asukoht kaardil"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -622,8 +606,8 @@ msgstr "Asukoht kaardil"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
