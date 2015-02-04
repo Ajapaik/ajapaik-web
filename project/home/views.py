@@ -462,14 +462,14 @@ def map_objects_by_bounding_box(request):
     qs = Photo.objects.all()
 
     bounding_box = Polygon.from_bbox((data.get('sw_lat'), data.get('sw_lon'), data.get('ne_lat'), data.get('ne_lon')))
-    total_photo_count, geotag_count = qs.get_area_photo_count_and_total_geotag_count(data.get('area_id'), bounding_box)
+    ungeotagged_count, geotagged_count = qs.get_area_photo_count_and_total_geotag_count(data.get('area_id'))
 
     if data.get('zoom') > 15:
         data = qs.get_geotagged_photos_list(bounding_box, True)
     else:
         data = qs.get_geotagged_photos_list(bounding_box, False)
 
-    data = {'photos': data, 'geotag_count': geotag_count, 'total_photo_count': total_photo_count}
+    data = {'photos': data, 'geotagged_count': geotagged_count, 'ungeotagged_count': ungeotagged_count}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 

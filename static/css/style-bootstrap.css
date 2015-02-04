@@ -1048,3 +1048,7 @@ ul.errorlist {
 .filter-box p {
     margin-top: 5px;
 }
+
+#ajapaik-geotag-info-js-panel .jsPanel-content {
+    margin: 10px;
+}

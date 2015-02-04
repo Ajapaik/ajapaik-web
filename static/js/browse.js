@@ -395,13 +395,16 @@
                     mc.clearMarkers();
                 }
                 markers.length = 0;
-                $('.ajapaik-geotag-info-panel-photo-amount').html(response.total_photo_count);
-                if (response.geotag_count === 0) {
+                $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
+                $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
+                if (response.geotagged_count === 0) {
                     $('.ajapaik-geotag-info-panel-no-photos').show();
                 } else {
                     $('.ajapaik-geotag-info-panel-no-photos').hide();
                 }
-                console.log(response);
+                if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
+                    $('.ajapaik-header-info-button')[0].click();
+                }
                 for (j = 0; j < response.photos.length; j += 1) {
                     p = response.photos[j];
                     if (p[4]) {

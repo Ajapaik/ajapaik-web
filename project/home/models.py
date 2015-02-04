@@ -187,12 +187,10 @@ class Photo(models.Model):
         app_label = "project"
 
     class QuerySet(models.query.QuerySet):
-        def get_area_photo_count_and_total_geotag_count(self, area_id=None, bounding_box=None):
-            qs = self.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
-            if area_id:
-                qs = qs.filter(area_id=area_id)
-            geotag_gs = GeoTag.objects.filter(photo_id__in=qs.values_list("id", flat=True))
-            return qs.count(), geotag_gs.count()
+        def get_area_photo_count_and_total_geotag_count(self, area_id=None):
+            ungeotagged_qs = self.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True, area_id=area_id)
+            geotagged_qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, area_id=area_id)
+            return ungeotagged_qs.count(), geotagged_qs.count()
 
         def get_geotagged_photos_list(self, bounding_box=None, with_images=False):
             # TODO: Once we have regions, re-implement caching
