@@ -566,7 +566,9 @@ var map,
         if (panoramaMarker) {
             panoramaMarker.setMap(null);
         }
-        setCursorToPanorama();
+        if (firstDragDone) {
+            setCursorToPanorama();
+        }
         if (marker.position) {
             if (!window.isMobile && firstDragDone) {
                 dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
