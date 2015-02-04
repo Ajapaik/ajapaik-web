@@ -144,8 +144,8 @@
         if (window.currentlySelectedRephotoId) {
             historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
         }
-        if (window.cityId) {
-            historyReplacementString += '?city=' + window.cityId;
+        if (window.areaId) {
+            historyReplacementString += '?area=' + window.areaId;
         }
         if (window.map) {
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
@@ -205,7 +205,9 @@
             }
             window.mapDragListener = window.google.maps.event.addListener(window.map, 'drag', function () {
                 window.firstDragDone = true;
-                $('.ajapaik-marker-center-lock-button').show();
+                if (window.guessLocationStarted) {
+                    $('.ajapaik-marker-center-lock-button').show();
+                }
             });
             window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
                 window.disableSave = false;
@@ -388,13 +390,23 @@
             }
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
-            currentMapDataRequest = $.post('/map_data/', { sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+            currentMapDataRequest = $.post('/map_data/', { area_id: window.areaId, sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (mc) {
                     mc.clearMarkers();
                 }
                 markers.length = 0;
-                for (j = 0; j < response.length; j += 1) {
-                    p = response[j];
+                $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
+                $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
+                if (response.geotagged_count === 0) {
+                    $('.ajapaik-geotag-info-panel-no-photos').show();
+                } else {
+                    $('.ajapaik-geotag-info-panel-no-photos').hide();
+                }
+                if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
+                    $('.ajapaik-header-info-button')[0].click();
+                }
+                for (j = 0; j < response.photos.length; j += 1) {
+                    p = response.photos[j];
                     if (p[4]) {
                         icon = blueMarkerIcon20;
                     } else {
@@ -574,8 +586,8 @@
     };
 
     window.initializeMapStateFromOptionalURLParameters = function () {
-        if (window.getQueryParameterByName('fromSelect') && window.cityLatLng) {
-            window.getMap(window.cityLatLng, 13, false);
+        if (window.getQueryParameterByName('fromSelect') && window.areaLatLng) {
+            window.getMap(window.areaLatLng, 13, false);
         } else {
             if (window.preselectPhotoId) {
                 // There's a selected photo specified in the URL, select when ready
@@ -589,9 +601,9 @@
                 if (window.preselectPhotoLat && window.preselectPhotoLng) {
                     // We know the location of the photo, let's build the map accordingly
                     window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false);
-                } else if (window.cityLatLng) {
-                    // There's nothing preselected, but we do know the city the photo's in
-                    window.getMap(window.cityLatLng, 13, false);
+                } else if (window.areaLatLng) {
+                    // There's nothing preselected, but we do know the album the photo's in
+                    window.getMap(window.areaLatLng, 13, false);
                 } else {
                     // No idea
                     window.getMap(null, 13, false);

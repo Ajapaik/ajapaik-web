@@ -5,14 +5,15 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
 from rest_framework import routers
-from project.home.photo_import import PhotoViewSet, CityViewSet, SourceViewSet
+from project.home.photo_import import PhotoViewSet, AreaViewSet, SourceViewSet, AlbumViewSet
 from project.sitemaps import PhotoSitemap, StaticViewSitemap
 
 admin.autodiscover()
 
 router = routers.DefaultRouter()
 router.register(r'api/photos', PhotoViewSet)
-router.register(r'api/cities', CityViewSet)
+router.register(r'api/areas', AreaViewSet)
+router.register(r'api/albums', AlbumViewSet)
 router.register(r'api/sources', SourceViewSet)
 
 # TODO: Locale specific URLs
@@ -36,17 +37,20 @@ urlpatterns = patterns('project.home.views',
    url(r'^heatmap_data/$', 'heatmap_data'),
    url(r'^foto/(?P<photo_id>\d+)/upload/$', 'photo_upload'),
    url(r'^photo_upload_modal/(?P<photo_id>\d+)/$', 'mapview_photo_upload_modal'),
-   url(r'^foto/(?P<photo_id>\d+)/$', 'photo'),
+   url(r'^foto/(?P<photo_id>\d+)/$', 'photo', name="photo"),
    url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug'),
    url(r'^foto_large/(?P<photo_id>\d+)/$', 'photo_large'),
    url(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
-   url(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
-   url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>.*)/', 'photo_thumb'),
-   url(r'^$', 'frontpage', name='frontpage')
+   url(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb', name="photo_thumb"),
+   url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>.*)/', 'photo_thumb', name="photo_thumb"),
+   url(r'^$', 'frontpage', name='frontpage'),
    # url(r'^grid/$', 'grid'),
    # url(r'^grid_infinity/$', 'grid_infinite_scroll'),
-   # url(r'^public_photo_upload/$', 'public_photo_upload'),
-   # url(r'^public_photo_upload_handler/$', 'public_photo_upload_handler'),
+   url(r'^public_photo_upload/$', 'public_photo_upload'),
+   url(r'^public_photo_upload_handler/$', 'public_photo_upload_handler'),
+   url(r'^public_album_create_handler/$', 'public_add_album'),
+   url(r'^public_area_create_handler/$', 'public_add_area'),
+   url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
    # url(r'^csv_upload/$', 'csv_upload'),
    # url(r'^europeana/$', 'europeana'),
 )

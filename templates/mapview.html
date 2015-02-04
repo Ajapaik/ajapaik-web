@@ -2,11 +2,12 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_city_selection_scoreboard.html" %}
+    {% include "_header_area_selection_scoreboard.html" %}
 {% endblock %}
 
 {% block layout %}
     {% include "_tutorial.html" %}
+    {% include "_geotag_info.html" %}
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
     <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
     <div id="ajapaik-map-container">
@@ -69,13 +70,13 @@
         var title = '{{ title }}',
             leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
-            {% if city %}
-                cityId = '{{ city.id | safe }}';
+            {% if area %}
+                areaId = '{{ area.id | safe }}';
             {% else %}
-                cityId = 1;
+                areaId = 1;
             {% endif %}
-            {% if city.lat and city.lon %}
-                var cityLatLng = new window.google.maps.LatLng({{ city.lat | safe }}, {{ city.lon | safe }});
+            {% if area.lat and area.lon %}
+                var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});
             {% endif %}
         {% if selected_photo %}
             var preselectPhotoId = '{{ selected_photo.id }}';

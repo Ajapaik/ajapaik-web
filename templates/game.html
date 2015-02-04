@@ -2,7 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_city_selection_scoreboard.html" %}
+    {% include "_header_area_selection_scoreboard.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -20,17 +20,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {% if LANGUAGE_CODE == 'et' %}
-                        <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row">
-                            <div id="ajapaik-game-photo-description" class="pull-left"></div>
-                        </div>
-                    {% endif %}
+                    <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row">
+                        <div id="ajapaik-game-photo-description" class="pull-left" style="display: none;"></div>
+                    </div>
                     <div class="row" style="text-align: right; margin-right: 0;">
-                        {% if LANGUAGE_CODE == 'et' %}
-                            <button class="btn btn-default pull-left ajapaik-game-show-description-button" data-toggle="popover">
-                                {% trans "Show description" %}
-                            </button>
-                        {% endif %}
+                        <button class="btn btn-default pull-left ajapaik-game-show-description-button" data-toggle="popover" style="display: none;">
+                            {% trans "Show description" %}
+                        </button>
                         <button class="btn btn-primary ajapaik-game-specify-location-button">
                             {% trans "Pick the shooting location!" %}
                         </button>
@@ -127,9 +123,9 @@
     <script>
         var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
             permalinkURL = '{{ hostname }}/foto/',
-            cityId = '{{ city.id|safe }}';
-        {% if city %}
-            start_location = [{{ city.lon|safe }}, {{ city.lat|safe }}];
+            areaId = '{{ area.id|safe }}';
+        {% if area %}
+            start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
             start_location = [26, 59];
         {% endif %}

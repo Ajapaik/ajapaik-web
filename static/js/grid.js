@@ -298,7 +298,7 @@
                 $.ajax({
                     cache: false,
                     url: '/grid_infinity/',
-                    data: {city: window.cityId, start: window.start},
+                    data: {area: window.areaId, start: window.start},
                     success: function (result) {
                         for (i = 0; i < result.length; i += 1) {
                             newA = document.createElement('a');

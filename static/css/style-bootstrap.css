@@ -182,6 +182,12 @@ body {
     right: 5px;
 }
 
+.ajapaik-header-info-button {
+    background: #fff url(../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
+    width: 36px;
+    height: 36px;
+}
+
 .ajapaik-show-tutorial-button:hover {
     background-color: #fff !important;
 }
@@ -951,6 +957,7 @@ ul.errorlist {
     bottom: 2%;
     left: 2%;
     color: white;
+    width: 80%;
 }
 
 #ajapaik-game-full-screen-show-description-button {
@@ -975,6 +982,10 @@ ul.errorlist {
 }
 
 #ajapaik-photoview-container {
+    padding-top: 100px;
+}
+
+#ajapaik-photo-upload-container {
     padding-top: 100px;
 }
 
@@ -1024,4 +1035,20 @@ ul.errorlist {
 
 #ajapaik-tutorial-js-panel {
     z-index: 10000;
+}
+
+#ajapaik-create-album-modal .input-group-addon {
+    min-width: 200px;
+}
+
+#ajapaik-create-area-modal .input-group-addon {
+    min-width: 200px;
+}
+
+.filter-box p {
+    margin-top: 5px;
+}
+
+#ajapaik-geotag-info-js-panel .jsPanel-content {
+    margin: 10px;
 }

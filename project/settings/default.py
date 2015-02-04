@@ -12,10 +12,13 @@ TEMPLATE_DEBUG = DEBUG
 
 DEFER_JAVASCRIPT = False
 
-DEFAULT_CITY_ID = 1
+DEFAULT_AREA_ID = 1
+DEFAULT_ALBUM_ID = 1
 
 GRID_VIEW_ENABLED = False
 GRID_VIEW_PAGE_SIZE = 25
+
+PUBLIC_PHOTO_UPLOAD_ENABLED = True
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
@@ -66,7 +69,10 @@ LANGUAGES = (
     ('et', gettext('Estonian')),
     ('en', gettext('English')),
     ('ru', gettext('Russian')),
+    ('fi', gettext('Finnish')),
 )
+
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
 
 SITE_ID = 1
 
@@ -146,6 +152,7 @@ EXTERNAL_APPS = (
     'sorl.thumbnail',
     'rest_framework',
     'compressor',
+    'modeltranslation',
 )
 
 LOCAL_APPS = (

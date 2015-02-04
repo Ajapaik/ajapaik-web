@@ -99,8 +99,8 @@ var map,
     heatmap,
     guessResponseReceived = false,
     gameHintUsed = false,
+    currentPhotoDescription = false,
     heatmapEstimatedLocationMarker,
-    estimatedLocationMarkerDeletionWorkaroundArray = [],
     userClosedTutorial = false,
     tutorialPanel,
     tutorialPanelSettings = {
@@ -123,6 +123,25 @@ var map,
             height: 'auto'
         },
         id: 'ajapaik-tutorial-js-panel'
+    },
+    geotagInfoPanel,
+    geotagInfoPanelSettings = {
+        selector: 'body',
+        position: 'center',
+        controls: {
+            buttons: 'closeonly',
+            iconfont: 'bootstrap'
+        },
+        bootstrap: 'default',
+        title: window.gettext('Geotag information'),
+        draggable: {
+            handle: '.jsPanel-hdr',
+            containment: '#ajapaik-map-container'
+        },
+        size: {
+            height: 'auto'
+        },
+        id: 'ajapaik-geotag-info-js-panel'
     },
     comingBackFromGuessLocation = false;
 
@@ -449,7 +468,7 @@ var map,
 
     $('.filter-box select').change(function () {
         var uri = new window.URI(location.href),
-            newQ = {city: $(this).val()},
+            newQ = {area: $(this).val()},
             isFilterEmpty = false;
         uri.removeQuery(Object.keys(newQ));
         $.each(newQ, function (i, ii) {
@@ -473,11 +492,11 @@ var map,
     });
 
     $(document).on('click', '#ajapaik-header-map-button', function () {
-       window.location.href = '/map?city=' + window.cityId;
+        window.location.href = '/map?area=' + window.areaId;
     });
 
     $(document).on('click', '#ajapaik-header-game-button', function () {
-        window.location.href = '/game?city=' + window.cityId;
+        window.location.href = '/game?area=' + window.areaId;
     });
 
     // Firefox and Opera cannot handle modal taking over focus
@@ -774,10 +793,10 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        if (window.languageCode === 'et' && !gameHintUsed && !popoverShown) {
+        if (!gameHintUsed && !popoverShown && currentPhotoDescription) {
             $('[data-toggle="popover"]').popover('show');
             popoverShown = true;
-        } else if (window.languageCode === 'et' && !gameHintUsed && popoverShown) {
+        } else if (!gameHintUsed && popoverShown && currentPhotoDescription) {
             $('[data-toggle="popover"]').popover('hide');
             popoverShown = false;
         }
@@ -786,6 +805,15 @@ var map,
         } else {
             tutorialPanel.close();
             tutorialPanel = undefined;
+        }
+    });
+
+    $(document).on('click', '.ajapaik-header-info-button', function () {
+        if (!geotagInfoPanel) {
+            window.openGeotagInfoPanel();
+        } else {
+            geotagInfoPanel.close();
+            geotagInfoPanel = undefined;
         }
     });
 
@@ -802,11 +830,24 @@ var map,
         tutorialPanel = $.jsPanel(tutorialPanelSettings);
     };
 
+    window.openGeotagInfoPanel = function () {
+        geotagInfoPanelSettings.content = $('#ajapaik-geotag-js-panel-content').html();
+        if (window.isMobile) {
+            geotagInfoPanelSettings.resizable = false;
+            geotagInfoPanelSettings.draggable = false;
+        }
+        geotagInfoPanel = $.jsPanel(geotagInfoPanelSettings);
+    };
+
     $('body').on('jspanelclosed', function closeHandler(event, id) {
         if (id === 'ajapaik-tutorial-js-panel') {
             window.userClosedTutorial = true;
             tutorialPanel = undefined;
             window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
+            $('body').off('jspanelclosed', closeHandler);
+        } else if (id === 'ajapaik-geotag-info-js-panel') {
+            geotagInfoPanel = undefined;
+            window.docCookies.setItem('ajapaik_closed_geotag_info_' + window.areaId, true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
             $('body').off('jspanelclosed', closeHandler);
         }
     });

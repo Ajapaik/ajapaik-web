@@ -51,7 +51,7 @@ def _make_fullscreen(photo):
 models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 
-class City(models.Model):
+class Area(models.Model):
     name = models.TextField()
     lat = models.FloatField(null=True)
     lon = models.FloatField(null=True)
@@ -66,12 +66,12 @@ class City(models.Model):
 class Album(models.Model):
     FRONTPAGE, FAVORITES, COLLECTION = range(3)
     TYPE_CHOICES = (
-    (FRONTPAGE, 'Frontpage'),
-    (FAVORITES, 'Favorites'),
-    (COLLECTION, 'Collection'),
+        (FRONTPAGE, 'Frontpage'),
+        (FAVORITES, 'Favorites'),
+        (COLLECTION, 'Collection')
     )
     name = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
     atype = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
@@ -86,6 +86,17 @@ class Album(models.Model):
 
     class Meta:
         app_label = "project"
+
+    def __unicode__(self):
+        return u'%s' % self.name
+
+    def save(self, *args, **kwargs):
+        # Update POSTGIS data on save
+        try:
+            self.geography = Point(float(self.lat), float(self.lon))
+        except:
+            pass
+        super(Album, self).save(*args, **kwargs)
 
 
 class AlbumPhoto(models.Model):
@@ -135,7 +146,10 @@ class Photo(models.Model):
     flip = models.NullBooleanField()
     date = models.DateTimeField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(null=True, blank=True, max_length=2047)
+    author = models.CharField(null=True, blank=True, max_length=255)
+    licence = models.CharField(null=True, blank=True, max_length=255)
 
     user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
 
@@ -155,7 +169,7 @@ class Photo(models.Model):
     source = models.ForeignKey('Source', null=True, blank=True)
     device = models.ForeignKey('Device', null=True, blank=True)
 
-    city = models.ForeignKey('City', related_name='cities')
+    area = models.ForeignKey('Area', related_name='areas', null=True, blank=True)
     rephoto_of = models.ForeignKey('self', blank=True, null=True, related_name='rephotos')
 
     created = models.DateTimeField(auto_now_add=True)
@@ -173,6 +187,11 @@ class Photo(models.Model):
         app_label = "project"
 
     class QuerySet(models.query.QuerySet):
+        def get_area_photo_count_and_total_geotag_count(self, area_id=None):
+            ungeotagged_qs = self.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True, area_id=area_id)
+            geotagged_qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, area_id=area_id)
+            return ungeotagged_qs.count(), geotagged_qs.count()
+
         def get_geotagged_photos_list(self, bounding_box=None, with_images=False):
             # TODO: Once we have regions, re-implement caching
             data = []
@@ -225,36 +244,33 @@ class Photo(models.Model):
 
             user_trustworthiness = calc_trustworthiness(user_id)
 
-            city_photos_set = self.filter(rephoto_of_id=None)
-            city_photo_ids = frozenset([p.id for p in city_photos_set])
+            album_photos_set = self.filter(rephoto_of_id=None)
+            album_photo_ids = frozenset([p.id for p in album_photos_set])
 
-            user_geotags_in_city = GeoTag.objects.filter(user=user_id, photo_id__in=city_photo_ids)
-            user_skips_in_city = Skip.objects.filter(user=user_id, photo_id__in=city_photo_ids)
-            user_last_action = None
+            user_geotags_in_album = GeoTag.objects.filter(user=user_id, photo_id__in=album_photo_ids)
+            user_skips_in_album = Skip.objects.filter(user=user_id, photo_id__in=album_photo_ids)
             user_last_interacted_photo = None
             distance_between_photos = None
             user_last_geotag = None
             user_last_skip = None
-            if len(user_geotags_in_city) > 0:
-                user_last_geotag = user_geotags_in_city.order_by("-created")[0]
-            if len(user_skips_in_city) > 0:
-                user_last_skip = user_skips_in_city.order_by("-created")[0]
+            if len(user_geotags_in_album) > 0:
+                user_last_geotag = user_geotags_in_album.order_by("-created")[0]
+            if len(user_skips_in_album) > 0:
+                user_last_skip = user_skips_in_album.order_by("-created")[0]
             if user_last_skip and user_last_geotag and user_last_skip.created > user_last_geotag.created:
                 user_last_action = user_last_skip
             else:
                 user_last_action = user_last_geotag
-            if user_last_action is not None:
+            if user_last_action:
                 try:
-                    user_last_interacted_photo = city_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False,
-                                                                        lon__isnull=False)[:1].get()
+                    user_last_interacted_photo = album_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False)[:1].get()
                 except:
                     user_last_interacted_photo = None
 
-            user_geotagged_photo_ids = list(set(user_geotags_in_city.values_list("photo_id", flat=True)))
+            user_geotagged_photo_ids = list(set(user_geotags_in_album.values_list("photo_id", flat=True)))
             # TODO: Tidy up
-            user_skipped_photo_ids = set(list(user_skips_in_city.values_list("photo_id", flat=True)))
-            user_skipped_less_geotagged_photo_ids = list(
-                user_skipped_photo_ids - set(list(user_geotags_in_city.values_list("photo_id", flat=True))))
+            user_skipped_photo_ids = set(list(user_skips_in_album.values_list("photo_id", flat=True)))
+            user_skipped_less_geotagged_photo_ids = list(user_skipped_photo_ids - set(list(user_geotags_in_album.values_list("photo_id", flat=True))))
             user_skipped_photo_ids = list(user_skipped_photo_ids)
             user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_less_geotagged_photo_ids)
 
@@ -264,50 +280,45 @@ class Photo(models.Model):
             if "user_skip_array" not in request.session:
                 request.session["user_skip_array"] = []
 
-            cursor = connection.cursor()
-            cursor.execute(
-                "SELECT C.id, COUNT(G.id) AS geotags FROM project_city C INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
-            result = cursor.fetchall()
-            exception_city_ids = [i[0] for i in result if i[1] > 1000]
+            # TODO: Restore this maybe?
+            #cursor = connection.cursor()
+            #cursor.execute(
+                #"SELECT A.id, COUNT(G.id) AS geotags FROM project_album A INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
+            #result = cursor.fetchall()
+            #exception_city_ids = [i[0] for i in result if i[1] > 1000]
 
             if user_trustworthiness < 0.4:
                 # Novice users should only receive the easiest images to prove themselves
-                ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-guess_level", "-confidence")
+                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-guess_level", "-confidence")
                 if len(ret) == 0:
                     # If the user has seen all the photos, offer the easiest or at random
-                    user_seen_all = True
-                    if city_photos_set[0].city_id in exception_city_ids:
-                        ret = city_photos_set.order_by("-guess_level", "-confidence")
-                    else:
-                        nothing_more_to_show = True
-                        ret = city_photos_set.order_by("?")
+                    #user_seen_all = True
+                    #if city_photos_set[0].city_id in exception_city_ids:
+                        #ret = city_photos_set.order_by("-guess_level", "-confidence")
+                    #else:
+                    nothing_more_to_show = True
+                    ret = album_photos_set.order_by("?")
             else:
                 # Let's try to show the more experienced users photos they have not yet seen at all
-                ret = city_photos_set.exclude(id__in=user_has_seen_photo_ids)
+                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids)
                 if len(ret) == 0:
                     # If the user has seen them all, let's try showing her photos she has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
-                    user_geotags_without_azimuth_in_city = user_geotags_in_city.exclude(azimuth__isnull=False)
-                    user_geotagged_without_azimuth_photo_ids = list(
-                        set(user_geotags_without_azimuth_in_city.values_list("photo_id", flat=True)))
-                    ret = city_photos_set.filter(id__in=(
-                    user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(
-                        id__in=request.session["user_skip_array"])
+                    user_geotags_without_azimuth_in_album = user_geotags_in_album.exclude(azimuth__isnull=False)
+                    user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_album.values_list("photo_id", flat=True)))
+                    ret = album_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(id__in=request.session["user_skip_array"])
                     if len(ret) == 0:
+                        # TODO: This is half-disabled at the moment
                         # This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
                         # Don't do this for very small/fresh sets (<1000 geotags)
-                        if len(city_photos_set) > 0 and city_photos_set[0].city_id and city_photos_set[
-                            0].city_id in exception_city_ids:
-                            user_incorrect_geotags = user_geotags_in_city.filter(is_correct=False)
-                            user_correct_geotags = user_geotags_in_city.filter(is_correct=True)
-                            user_incorrectly_geotagged_photo_ids = set(
-                                user_incorrect_geotags.values_list("photo_id", flat=True))
-                            user_correctly_geotagged_photo_ids = set(
-                                user_correct_geotags.values_list("photo_id", flat=True))
-                            user_no_correct_geotags_photo_ids = list(
-                                user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-                            ret = city_photos_set.filter(
-                                Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+                        #if len(city_photos_set) > 0 and city_photos_set[0].city_id and city_photos_set[0].city_id in exception_city_ids:
+                        if len(album_photos_set) > 0:
+                            user_incorrect_geotags = user_geotags_in_album.filter(is_correct=False)
+                            user_correct_geotags = user_geotags_in_album.filter(is_correct=True)
+                            user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
+                            user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
+                            user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+                            ret = album_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
                         if len(ret) == 0:
                             nothing_more_to_show = True
                 good_candidates = []
@@ -316,8 +327,7 @@ class Photo(models.Model):
                     for p in ret:
                         distance_between_photos = None
                         if user_last_interacted_photo:
-                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon,
-                                                                         user_last_interacted_photo.lat)
+                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
                         if p.confidence > 0.7 and distance_between_photos and 250 <= distance_between_photos <= 1000:
                             good_candidates.append(p)
                         elif p.confidence > 0.7:
@@ -326,8 +336,7 @@ class Photo(models.Model):
                     for p in ret:
                         distance_between_photos = None
                         if user_last_interacted_photo:
-                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon,
-                                                                         user_last_interacted_photo.lat)
+                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
                         if 0.4 <= p.confidence <= 0.7 and distance_between_photos and 250 <= distance_between_photos <= 1000:
                             good_candidates.append(p)
                         elif 0.4 <= p.confidence <= 0.7:
@@ -336,8 +345,7 @@ class Photo(models.Model):
                     for p in ret:
                         distance_between_photos = None
                         if user_last_interacted_photo:
-                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon,
-                                                                         user_last_interacted_photo.lat)
+                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
                         if p.confidence < 0.4 and distance_between_photos and 250 <= distance_between_photos <= 1000:
                             good_candidates.append(p)
                         elif p.confidence < 0.4:
@@ -350,11 +358,9 @@ class Photo(models.Model):
                 request.session["user_skip_array"].append(ret[0].id)
                 request.session.modified = True
             if len(ret) == 0:
-                random_photo = self._get_game_json_format_photo(city_photos_set.order_by("?")[:1].get(),
-                                                                distance_between_photos)
+                random_photo = self._get_game_json_format_photo(album_photos_set.order_by("?")[:1].get(), distance_between_photos)
                 return [random_photo], True, True
-            return [self._get_game_json_format_photo(ret[0],
-                                                     distance_between_photos)], user_seen_all, nothing_more_to_show
+            return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
         def get_old_photos_for_grid_view(self, start, end):
             data = []
@@ -553,11 +559,13 @@ class UserMapView(models.Model):
         app_label = "project"
 
 
+#TODO: Should create ForeignKey fields here so Django knows to cascade deletes etc.
 class Points(models.Model):
-    GEOTAG, REPHOTO = range(2)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD = range(3)
     ACTION_CHOICES = (
         (GEOTAG, 'Geotag'),
-        (REPHOTO, 'Rephoto')
+        (REPHOTO, 'Rephoto'),
+        (PHOTO_UPLOAD, 'Photo upload')
     )
 
     user = models.ForeignKey('Profile', related_name='points')
@@ -593,6 +601,7 @@ class GeoTag(models.Model):
     zoom_level = models.IntegerField(null=True, blank=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
+    hint_used = models.NullBooleanField(null=True, blank=True, default=False)
 
     user = models.ForeignKey('Profile', related_name='geotags')
     photo = models.ForeignKey('Photo', related_name='geotags')
@@ -607,6 +616,14 @@ class GeoTag(models.Model):
 
     class Meta:
         app_label = "project"
+
+    def save(self, *args, **kwargs):
+        # Update POSTGIS data on save
+        try:
+            self.geography = Point(float(self.lat), float(self.lon))
+        except:
+            pass
+        super(GeoTag, self).save(*args, **kwargs)
 
 
 class FacebookManager(models.Manager):

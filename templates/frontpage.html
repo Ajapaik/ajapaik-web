@@ -149,7 +149,7 @@ p {
 		</div>
 
 		<div>
-			{{ city_select_form.as_p }}
+			{{ area_selection_form.as_p }}
 		</div>
 
 {#		<div>#}
@@ -157,21 +157,26 @@ p {
 {#		</div>#}
         
 		<div class="buttons">
-			<a href="{% url 'project.home.views.game' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Guess the location" %}</a>
-			<a href="{% url 'project.home.views.mapview' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "Browse photos on map" %}</a>
-
+			<a href="{% url 'project.home.views.game' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "Guess the location" %}</a>
+			<a href="{% url 'project.home.views.mapview' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "Browse photos on map" %}</a>
 		</div>
 
+        {% if photo_upload_enabled %}
+            <div class="buttons">
+                <a href="{% url 'project.home.views.public_photo_upload' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "Upload photos yourself" %}</a>
+            </div>
+        {% endif %}
+
         {% if grid_view_enabled %}
-        <div class="buttons">
-            <a href="{% url 'project.home.views.grid' %}" onclick="return submitWithCity(this);" class="btn green">{% trans "View gallery" %}</a>
-        </div>
+            <div class="buttons">
+                <a href="{% url 'project.home.views.grid' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "View gallery" %}</a>
+            </div>
         {% endif %}
         
         <script type="text/javascript">
-			function submitWithCity(href) {
+			function submitWithAlbum(href) {
 				//location.href = $(href).attr('href') + '?city__pk=' + $('#id_city').val();
-				location.href = $(href).attr('href') + '?city=' + $('#id_city').val();
+				location.href = $(href).attr('href') + '?area=' + $('#id_area').val();
 				return false;
 			}
         </script>

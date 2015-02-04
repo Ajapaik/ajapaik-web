@@ -7,7 +7,7 @@
     {% if is_photoview %}
         <div class="filter-box">
             {% csrf_token %}
-            {{ city_selection_form.as_p }}
+            {{ area_selection_form.as_p }}
             <div>
                 <button class="btn btn-success" id="ajapaik-header-game-button">{% trans "Geotagging game" %}</button>
             </div>
