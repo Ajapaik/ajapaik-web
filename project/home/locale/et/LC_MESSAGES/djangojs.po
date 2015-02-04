@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-03 17:28+0200\n"
+"POT-Creation-Date: 2015-02-04 16:42+0200\n"
 "PO-Revision-Date: 2015-01-22 16:04+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
@@ -19,16 +19,20 @@ msgstr ""
 msgid "Tutorial"
 msgstr "Abi"
 
-#: static/js/ajapaik-common.js:541 static/js/ajapaik-common.js.c:653
+#: static/js/ajapaik-common.js:136
+msgid "Geotag information"
+msgstr ""
+
+#: static/js/ajapaik-common.js:560 static/js/ajapaik-common.js.c:672
 #: static/js/game.js:130
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:591
+#: static/js/ajapaik-common.js:610
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: static/js/ajapaik-common.js:719
+#: static/js/ajapaik-common.js:738
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
@@ -36,7 +40,7 @@ msgstr "Keskmine pakkumine"
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
-#: static/js/browse.js:653 static/js/game.js:490
+#: static/js/browse.js:663 static/js/game.js:493
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
