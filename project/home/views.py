@@ -360,8 +360,7 @@ def heatmap_data(request):
 def _make_fullscreen(photo):
     if photo:
         image = get_thumbnail(photo.image, '1024x1024', upscale=False)
-        return {'url': image.url,
-                'size': [image.width, image.height]}
+        return {'url': image.url, 'size': [image.width, image.height]}
 
 def photoslug(request, photo_id, pseudo_slug):
     photo_obj = get_object_or_404(Photo, id=photo_id)
@@ -386,9 +385,12 @@ def photoslug(request, photo_id, pseudo_slug):
     else:
         title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 
+    area_selection_form = AreaSelectionForm({'area': photo_obj.area.id})
+
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
         'area': photo_obj.area,
+        'area_selection_form': area_selection_form,
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
         'title': title,
@@ -803,6 +805,10 @@ def public_photo_upload_handler(request):
                     photo_upload_form.cleaned_data["licence"] = None
                 if photo_upload_form.cleaned_data["date"] == "":
                     photo_upload_form.cleaned_data["date"] = None
+                if photo_upload_form.cleaned_data["number"] == "":
+                    photo_upload_form.cleaned_data["number"] = None
+                if photo_upload_form.cleaned_data["url"] == "":
+                    photo_upload_form.cleaned_data["url"] = None
                 new_photo = Photo(
                     user=profile,
                     area_id=area_id,
@@ -816,6 +822,8 @@ def public_photo_upload_handler(request):
                 )
                 new_photo.save()
                 new_photo.image.save(uploaded_file.name, fileobj)
+                points_for_uploading = Points(action=Points.PHOTO_UPLOAD, action_reference=new_photo.id, points=50, user=profile, created=new_photo.created)
+                points_for_uploading.save()
                 if albums:
                     for a in albums:
                         ap = AlbumPhoto(photo=new_photo, album=a)
@@ -840,6 +848,7 @@ def public_photo_upload_handler(request):
                 "url": reverse('project.home.views.photo', args=(new_photo.id,)),
                 "thumbnailUrl": reverse('project.home.views.photo_thumb', args=(new_photo.id,)),
                 "deleteUrl": reverse('project.home.views.delete_public_photo', args=(new_photo.id,)),
+                "points": 50,
                 "deleteType": "POST"
             })
         else:

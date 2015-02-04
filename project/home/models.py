@@ -556,10 +556,11 @@ class UserMapView(models.Model):
 
 #TODO: Should create ForeignKey fields here so Django knows to cascade deletes etc.
 class Points(models.Model):
-    GEOTAG, REPHOTO = range(2)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD = range(3)
     ACTION_CHOICES = (
         (GEOTAG, 'Geotag'),
-        (REPHOTO, 'Rephoto')
+        (REPHOTO, 'Rephoto'),
+        (PHOTO_UPLOAD, 'Photo upload')
     )
 
     user = models.ForeignKey('Profile', related_name='points')
@@ -595,6 +596,7 @@ class GeoTag(models.Model):
     zoom_level = models.IntegerField(null=True, blank=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
+    hint_used = models.NullBooleanField(null=True, blank=True, default=False)
 
     user = models.ForeignKey('Profile', related_name='geotags')
     photo = models.ForeignKey('Photo', related_name='geotags')

@@ -312,6 +312,9 @@
                                 {% } else { %}
                                     <span>{%=file.name%}</span>
                                 {% } %}
+                                {% if (file.points) { %}
+                                    <div><span class="label label-success">{%=gettext('Points')%}</span> {%=file.points%}</div>
+                                {% } %}
                             </p>
                             {% if (file.error) { %}
                                 <div><span class="label label-danger">Error</span> {%=file.error%}</div>
@@ -357,6 +360,9 @@
                 $(document).ready(function () {
                     if (window.getQueryParameterByName('albumChoiceOpen')) {
                         $('#ajapaik-photo-upload-open-album-modal').click();
+                    }
+                    if (window.getQueryParameterByName('areaChoiceOpen')) {
+                        $('#ajapaik-photo-upload-open-area-modal').click();
                     }
                     $('#ajapaik-photo-upload-csv-file').on('change', function () {
                         $('#ajapaik-photo-upload-csv-file').parse({

@@ -48,7 +48,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
                             is_correct=location_correct,
                             score=this_guess_score,
                             trustworthiness=trustworthiness,
-                            zoom_level=zoom_level, origin=origin)
+                            zoom_level=zoom_level, origin=origin, hint_used=hint_used)
 
         if azimuth_line_end_point:
             new_geotag.azimuth_line_end_lat = azimuth_line_end_point[0]

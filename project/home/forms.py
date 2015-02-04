@@ -17,7 +17,7 @@ class AddAreaForm(forms.Form):
 
 class AddAlbumForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
-    description = forms.CharField(widget=forms.Textarea)
+    description = forms.CharField(widget=forms.Textarea, required=False)
 
 class PublicPhotoUploadForm(forms.Form):
     institution = forms.CharField(max_length=255, required=False)
