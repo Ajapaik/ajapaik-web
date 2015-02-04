@@ -105,7 +105,7 @@
             $('.ajapaik-marker-center-lock-button').click();
         }
         hideDescriptions();
-        showDescriptionButtons();
+        //showDescriptionButtons();
         window.map.getStreetView().setVisible(false);
         window.disableSave = true;
         window.guessResponseReceived = false;
