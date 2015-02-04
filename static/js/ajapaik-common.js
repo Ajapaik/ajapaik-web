@@ -133,7 +133,7 @@ var map,
             iconfont: 'bootstrap'
         },
         bootstrap: 'default',
-        title: window.gettext('Geotag information'),
+        title: false,
         draggable: {
             handle: '.jsPanel-hdr',
             containment: '#ajapaik-map-container'
@@ -568,7 +568,7 @@ var map,
         }
         setCursorToPanorama();
         if (marker.position) {
-            if (!window.isMobile) {
+            if (!window.isMobile && firstDragDone) {
                 dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
                 dottedAzimuthLine.setMap(map);
                 dottedAzimuthLine.icons = [
