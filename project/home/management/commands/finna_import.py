@@ -73,7 +73,7 @@ class Command(BaseCommand):
                     ap.save()
 
     def handle(self, *args, **options):
-        translation.activate('fi')
+        translation.activate('se')
         url = args[0]
         self.geoname = args[1]
         try:
@@ -92,12 +92,12 @@ class Command(BaseCommand):
         items_per_page = 20
         page=1
         parser = etree.XMLParser()
-        #request = urllib2.Request(url)
-        #response = urllib2.urlopen(request)
-        #data = etree.fromstring(response.read(), parser=parser)
+        request = urllib2.Request(url)
+        response = urllib2.urlopen(request)
+        data = etree.fromstring(response.read(), parser=parser)
         # For testing
-        f = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/finna_import_test_xml.xml', 'r')
-        data = etree.fromstring(f.read(), parser=parser)
+        #f = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/finna_import_test_xml.xml', 'r')
+        #data = etree.fromstring(f.read(), parser=parser)
         xml_response = data.find("response")
         number_of_items = int(xml_response.find("numFound").text)
         pages_to_get = int(ceil(number_of_items / items_per_page))
