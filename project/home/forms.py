@@ -1,5 +1,5 @@
 from django import forms
-from .models import Area
+from .models import Area, Album
 from django.utils.translation import ugettext_lazy as _
 from project import settings
 
@@ -9,6 +9,12 @@ class AreaSelectionForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(AreaSelectionForm, self).__init__(*args, **kwargs)
+
+class AlbumSelectionForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
+
+    def __init__(self, *args, **kwargs):
+        super(AlbumSelectionForm, self).__init__(*args, **kwargs)
 
 class AddAreaForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)

@@ -62,7 +62,7 @@ class Command(BaseCommand):
                         date_text=elem.find("main_date_str").text,
                         author=elem.find("author").text,
                         source_url=elem.find("record_link").text,
-                        licence="CC BY-ND 4.0"
+                        licence="Public domain"
                     )
                     opener = urllib2.build_opener()
                     opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
@@ -73,7 +73,7 @@ class Command(BaseCommand):
                     ap.save()
 
     def handle(self, *args, **options):
-        translation.activate('fi')
+        translation.activate('se')
         url = args[0]
         self.geoname = args[1]
         try:

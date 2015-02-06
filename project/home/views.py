@@ -19,7 +19,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area
-from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AddAreaForm
+from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 
@@ -547,7 +547,18 @@ def fetch_stream(request):
     else:
         area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 
+    album_selection_form = AlbumSelectionForm(request.GET)
+
+    if album_selection_form.is_valid():
+        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    else:
+        album = None
+
     qs = Photo.objects.filter(area_id=area.id)
+
+    if album is not None:
+        photos_ids_in_album = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
+        qs.filter(id__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
     data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],

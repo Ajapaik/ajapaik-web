@@ -13,7 +13,7 @@ TEMPLATE_DEBUG = DEBUG
 DEFER_JAVASCRIPT = False
 
 DEFAULT_AREA_ID = 1
-DEFAULT_ALBUM_ID = 1
+DEFAULT_ALBUM_ID = None
 
 GRID_VIEW_ENABLED = False
 GRID_VIEW_PAGE_SIZE = 25
@@ -70,6 +70,7 @@ LANGUAGES = (
     ('en', gettext('English')),
     ('ru', gettext('Russian')),
     ('fi', gettext('Finnish')),
+    ('sv', gettext('Swedish')),
 )
 
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
