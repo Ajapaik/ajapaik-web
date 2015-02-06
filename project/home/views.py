@@ -558,6 +558,7 @@ def fetch_stream(request):
 
     if album is not None:
         photos_ids_in_album = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
+        print photos_ids_in_album
         qs.filter(id__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
