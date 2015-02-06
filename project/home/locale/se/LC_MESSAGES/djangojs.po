@@ -1,0 +1,74 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-06 14:51+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: static/js/ajapaik-common.js:117
+msgid "Tutorial"
+msgstr ""
+
+#: static/js/ajapaik-common.js:560 static/js/ajapaik-common.js.c:674
+#: static/js/game.js:130
+msgid "Save location only"
+msgstr ""
+
+#: static/js/ajapaik-common.js:612
+msgid "Save location and direction"
+msgstr ""
+
+#: static/js/ajapaik-common.js:740
+msgid "Median guess"
+msgstr ""
+
+#: static/js/browse.js:280 static/js/game.js:230 static/js/grid.js:69
+msgid "Points awarded"
+msgstr ""
+
+#: static/js/browse.js:663 static/js/game.js:494
+msgid ""
+"Drag the map so that the marker is where the photographer was standing. You "
+"can then set the direction of the view. You should also zoom the map before "
+"submitting your geotag."
+msgstr ""
+
+#: static/js/game.js:51
+msgid "Vihje vaatamine"
+msgstr ""
+
+#: static/js/game.js:53
+msgid ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+msgstr ""
+
+#: static/js/game.js:153
+msgid "We are now showing you random photos."
+msgstr ""
+
+#: static/js/game.js:155
+msgid "You have seen all the pictures we have for this area."
+msgstr ""
+
+#: static/js/game.js:257
+msgid "Your guess"
+msgstr ""
+
+#: static/js/grid.js:416
+msgid ""
+"Drag the map so that the marker is where the photographer was standing. You "
+"can then set the direction of the view."
+msgstr ""
