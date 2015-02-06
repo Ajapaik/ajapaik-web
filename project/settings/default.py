@@ -70,7 +70,7 @@ LANGUAGES = (
     ('en', gettext('English')),
     ('ru', gettext('Russian')),
     ('fi', gettext('Finnish')),
-    ('se', gettext('Swedish')),
+    ('sv', gettext('Swedish')),
 )
 
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
