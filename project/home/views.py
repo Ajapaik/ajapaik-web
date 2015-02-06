@@ -558,12 +558,11 @@ def fetch_stream(request):
 
     if album is not None:
         photos_ids_in_album = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
-        print photos_ids_in_album
         qs.filter(id__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
     data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
-            "nothing_more_to_show": qs.get_next_photo_to_geotag(request)[2]}
+            "nothing_more_to_show": qs.get_next_photo_to_geotag(request)[2], 'photos_ids_in_album': photos_ids_in_album}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
