@@ -123,7 +123,8 @@
     <script>
         var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
             permalinkURL = '{{ hostname }}/foto/',
-            areaId = '{{ area.id|safe }}';
+            areaId = '{{ area.id|safe }}',
+            albumId = '{{ album.id|safe }}';
         {% if area %}
             start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
