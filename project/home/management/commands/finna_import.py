@@ -62,7 +62,7 @@ class Command(BaseCommand):
                         date_text=elem.find("main_date_str").text,
                         author=elem.find("author").text,
                         source_url=elem.find("record_link").text,
-                        licence="CC BY-ND 4.0"
+                        licence="Public domain"
                     )
                     opener = urllib2.build_opener()
                     opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
@@ -92,12 +92,12 @@ class Command(BaseCommand):
         items_per_page = 20
         page=1
         parser = etree.XMLParser()
-        request = urllib2.Request(url)
-        response = urllib2.urlopen(request)
-        data = etree.fromstring(response.read(), parser=parser)
+        #request = urllib2.Request(url)
+        #response = urllib2.urlopen(request)
+        #data = etree.fromstring(response.read(), parser=parser)
         # For testing
-        #f = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/finna_import_test_xml.xml', 'r')
-        #data = etree.fromstring(f.read(), parser=parser)
+        f = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/finna_import_test_xml.xml', 'r')
+        data = etree.fromstring(f.read(), parser=parser)
         xml_response = data.find("response")
         number_of_items = int(xml_response.find("numFound").text)
         pages_to_get = int(ceil(number_of_items / items_per_page))
