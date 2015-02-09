@@ -154,7 +154,8 @@ var map,
 
     getMap = function (startPoint, startingZoom, isGameMap) {
         var latLng,
-            zoomLevel;
+            zoomLevel,
+            mapTypeIds;
 
         gameMap = isGameMap;
 
@@ -173,6 +174,15 @@ var map,
 
         streetPanorama = new window.google.maps.StreetViewPanorama(document.getElementById('ajapaik-map-canvas'), streetViewOptions);
 
+        mapTypeIds = [];
+        for (var type in window.google.maps.MapTypeId) {
+            if (window.google.maps.MapTypeId.hasOwnProperty(type)) {
+                mapTypeIds.push(window.google.maps.MapTypeId[type]);
+            }
+
+        }
+        mapTypeIds.push('OSM');
+
         mapOpts = {
             zoom: zoomLevel,
             scrollwheel: false,
@@ -190,10 +200,22 @@ var map,
             streetViewControlOptions: {
                 position: window.google.maps.ControlPosition.RIGHT_TOP
             },
-            streetView: streetPanorama
+            streetView: streetPanorama,
+            mapTypeControlOptions: {
+                mapTypeIds: mapTypeIds
+            }
         };
 
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
+
+        map.mapTypes.set('OSM', new google.maps.ImageMapType({
+            getTileUrl: function (coord, zoom) {
+                return 'http://tile.openstreetmap.org/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: 'OpenStreetMap',
+            maxZoom: 18
+        }));
 
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
