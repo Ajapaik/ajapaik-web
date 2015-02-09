@@ -282,7 +282,7 @@ class Photo(models.Model):
 
             cursor = connection.cursor()
             cursor.execute(
-                "SELECT A.id, COUNT(G.id) AS geotags FROM project_album A INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
+                "SELECT A.id, COUNT(G.id) AS geotags FROM project_area A INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.area_id = A.id GROUP BY A.id;")
             result = cursor.fetchall()
             exception_city_ids = [i[0] for i in result if i[1] > 1000]
 
