@@ -182,6 +182,11 @@ body {
     right: 5px;
 }
 
+.ajapaik-header-score-language .ajapaik-show-tutorial-button {
+    top: 3px;
+    right: 3.5%;
+}
+
 .ajapaik-header-info-button {
     background: #fff url(../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
     width: 36px;
