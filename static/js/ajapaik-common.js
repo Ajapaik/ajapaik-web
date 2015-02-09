@@ -154,7 +154,8 @@ var map,
 
     getMap = function (startPoint, startingZoom, isGameMap) {
         var latLng,
-            zoomLevel;
+            zoomLevel,
+            mapTypeIds;
 
         gameMap = isGameMap;
 
@@ -173,12 +174,14 @@ var map,
 
         streetPanorama = new window.google.maps.StreetViewPanorama(document.getElementById('ajapaik-map-canvas'), streetViewOptions);
 
-        var mapTypeIds = [];
-        for (var type in google.maps.MapTypeId) {
-            mapTypeIds.push(google.maps.MapTypeId[type]);
+        mapTypeIds = [];
+        for (var type in window.google.maps.MapTypeId) {
+            if (window.google.maps.MapTypeId.hasOwnProperty(type)) {
+                mapTypeIds.push(window.google.maps.MapTypeId[type]);
+            }
+
         }
         mapTypeIds.push('OSM');
-
 
         mapOpts = {
             zoom: zoomLevel,
