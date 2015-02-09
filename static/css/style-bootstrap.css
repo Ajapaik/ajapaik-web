@@ -184,7 +184,7 @@ body {
 
 .ajapaik-header-score-language .ajapaik-show-tutorial-button {
     top: 3px;
-    right: 3.5%;
+    right: 70px;
 }
 
 .ajapaik-header-info-button {
@@ -373,7 +373,7 @@ a.fullscreen {
 
 .score_container {
     position: absolute;
-    right: 8%;
+    right: 150px;
     top: -18px;
     width: 300px;
     padding: 25px 0 7px 0;

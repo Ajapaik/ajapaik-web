@@ -202,7 +202,8 @@ var map,
             },
             streetView: streetPanorama,
             mapTypeControlOptions: {
-                mapTypeIds: mapTypeIds
+                mapTypeIds: mapTypeIds,
+                position: window.google.maps.ControlPosition.BOTTOM_CENTER
             }
         };
 
