@@ -288,12 +288,12 @@ class Photo(models.Model):
 
             if user_trustworthiness < 0.4:
                 # Novice users should only receive the easiest images to prove themselves
-                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-guess_level", "-confidence")
+                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
                 if len(ret) == 0:
                     # If the user has seen all the photos, offer the easiest or at random
                     user_seen_all = True
-                    if album_photos_set[0].city_id in exception_city_ids:
-                        ret = album_photos_set.order_by("-guess_level", "-confidence")
+                    if album_photos_set[0].area_id in exception_city_ids:
+                        ret = album_photos_set.order_by("guess_level", "-confidence")
                     else:
                         nothing_more_to_show = True
                         ret = album_photos_set.order_by("?")
