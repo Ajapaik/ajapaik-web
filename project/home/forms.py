@@ -5,7 +5,7 @@ from project import settings
 
 # TODO: Make forms for everything, there's too much Javascript going on right now
 class AreaSelectionForm(forms.Form):
-    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), initial=Area.objects.filter(pk=settings.DEFAULT_AREA_ID))
+    area = forms.ModelChoiceField(queryset=Area.objects.order_by('name').all(), label=_('Choose area'), initial=Area.objects.filter(pk=settings.DEFAULT_AREA_ID))
 
     def __init__(self, *args, **kwargs):
         super(AreaSelectionForm, self).__init__(*args, **kwargs)
