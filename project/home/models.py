@@ -154,7 +154,7 @@ class Photo(models.Model):
     user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
 
     level = models.PositiveSmallIntegerField(default=0)
-    guess_level = models.FloatField(null=True, blank=True)
+    guess_level = models.FloatField(default=3)
 
     lat = models.FloatField(null=True, blank=True)
     lon = models.FloatField(null=True, blank=True)
@@ -280,24 +280,23 @@ class Photo(models.Model):
             if "user_skip_array" not in request.session:
                 request.session["user_skip_array"] = []
 
-            # TODO: Restore this maybe?
-            #cursor = connection.cursor()
-            #cursor.execute(
-                #"SELECT A.id, COUNT(G.id) AS geotags FROM project_album A INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
-            #result = cursor.fetchall()
-            #exception_city_ids = [i[0] for i in result if i[1] > 1000]
+            cursor = connection.cursor()
+            cursor.execute(
+                "SELECT A.id, COUNT(G.id) AS geotags FROM project_album A INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.city_id = C.id GROUP BY C.id;")
+            result = cursor.fetchall()
+            exception_city_ids = [i[0] for i in result if i[1] > 1000]
 
             if user_trustworthiness < 0.4:
                 # Novice users should only receive the easiest images to prove themselves
                 ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("-guess_level", "-confidence")
                 if len(ret) == 0:
                     # If the user has seen all the photos, offer the easiest or at random
-                    #user_seen_all = True
-                    #if city_photos_set[0].city_id in exception_city_ids:
-                        #ret = city_photos_set.order_by("-guess_level", "-confidence")
-                    #else:
-                    nothing_more_to_show = True
-                    ret = album_photos_set.order_by("?")
+                    user_seen_all = True
+                    if album_photos_set[0].city_id in exception_city_ids:
+                        ret = album_photos_set.order_by("-guess_level", "-confidence")
+                    else:
+                        nothing_more_to_show = True
+                        ret = album_photos_set.order_by("?")
             else:
                 # Let's try to show the more experienced users photos they have not yet seen at all
                 ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids)
@@ -308,11 +307,9 @@ class Photo(models.Model):
                     user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_album.values_list("photo_id", flat=True)))
                     ret = album_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(id__in=request.session["user_skip_array"])
                     if len(ret) == 0:
-                        # TODO: This is half-disabled at the moment
                         # This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
                         # Don't do this for very small/fresh sets (<1000 geotags)
-                        #if len(city_photos_set) > 0 and city_photos_set[0].city_id and city_photos_set[0].city_id in exception_city_ids:
-                        if len(album_photos_set) > 0:
+                        if len(album_photos_set) > 0 and album_photos_set[0].area_id and album_photos_set[0].area_id in exception_city_ids:
                             user_incorrect_geotags = user_geotags_in_album.filter(is_correct=False)
                             user_correct_geotags = user_geotags_in_album.filter(is_correct=True)
                             user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
