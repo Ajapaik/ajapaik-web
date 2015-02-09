@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<nav id="ajapaik-header" class="navbar navbar-fixed-top" role="navigation">
+<nav id="ajapaik-header" class="navbar navbar-fixed-top ajapaik-header-score-language" role="navigation">
     <div class="navbar-header">
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
@@ -35,6 +35,25 @@
                 <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
             </div>
         {% endif %}
+    </div>
+    {% get_language_info for LANGUAGE_CODE as lang %}
+    <div id="ajapaik-language-box">
+        <form action="/i18n/setlang/" method="post">
+            {% csrf_token %}
+            <div id="ajapaik-language-menu">
+                <div>{{ lang.code|upper }}</div>
+                <input name="next" type="hidden" value="{{ redirect_to }}"/>
+                <select id="ajapaik-language-select" name="language" onchange="this.form.submit();">
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"
+                                title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"
+                                {% if language.code == lang.code %}
+                                selected="selected"{% endif %}>{{ language.name_local|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
     </div>
     <button class="btn btn-default ajapaik-show-tutorial-button"></button>
 </nav>
