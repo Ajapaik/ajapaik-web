@@ -731,7 +731,7 @@ def public_photo_upload(request):
     else:
         area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
     selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
-    selectable_areas = Area.objects.all()
+    selectable_areas = Area.objects.order_by('name').all()
     return render_to_response('photo_upload.html', RequestContext(request, {
         'area': area,
         'selectable_areas': selectable_areas,
