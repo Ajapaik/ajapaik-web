@@ -40,8 +40,8 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
                 location_correct = (this_guess_score > 0)
             else:
                 this_guess_score = max(20, int(300 * trustworthiness))
-                if not p.lat and not p.lon:
-                    location_uncertain = True
+                #if not p.lat and not p.lon:
+                location_uncertain = True
             if hint_used:
                 this_guess_score *= 0.75
         else:
