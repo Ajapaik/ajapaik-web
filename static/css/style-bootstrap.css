@@ -476,6 +476,10 @@ a.fullscreen {
     display: none;
 }
 
+.score_container #facebook-connected {
+    display: none;
+}
+
 .score_container #facebook-connected p {
     font-size: 14px;
     margin: 6px 15px;
@@ -1081,7 +1085,6 @@ ul.errorlist {
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
-    margin-right: 15px;
 }
 
 #pac-input:focus {
