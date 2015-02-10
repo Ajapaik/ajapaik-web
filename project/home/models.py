@@ -288,7 +288,7 @@ class Photo(models.Model):
 
             if user_trustworthiness < 0.4:
                 # Novice users should only receive the easiest images to prove themselves
-                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
+                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence").all()
                 if len(ret) == 0:
                     # If the user has seen all the photos, offer the easiest or at random
                     user_seen_all = True
@@ -299,7 +299,7 @@ class Photo(models.Model):
                         ret = album_photos_set.order_by("?")
             else:
                 # Let's try to show the more experienced users photos they have not yet seen at all
-                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids)
+                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).all()
                 if len(ret) == 0:
                     # If the user has seen them all, let's try showing her photos she has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
