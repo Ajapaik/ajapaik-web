@@ -136,8 +136,11 @@ class Command(BaseCommand):
                         new_photo.description = query_result["items"][i]["title"][0]
                     opener = urllib2.build_opener()
                     opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-                    img_response = opener.open(query_result["items"][i]["edmIsShownBy"][0])
-                    new_photo.image.save("europeana.jpg", ContentFile(img_response.read()))
-                    new_photo.save()
-                    ap = AlbumPhoto(album=album, photo=new_photo)
-                    ap.save()
+                    try:
+                        img_response = opener.open(query_result["items"][i]["edmIsShownBy"][0])
+                        new_photo.image.save("europeana.jpg", ContentFile(img_response.read()))
+                        new_photo.save()
+                        ap = AlbumPhoto(album=album, photo=new_photo)
+                        ap.save()
+                    except:
+                        pass
