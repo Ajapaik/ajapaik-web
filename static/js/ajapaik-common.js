@@ -225,7 +225,7 @@ var map,
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
 
         var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-        map.controls[window.google.maps.ControlPosition.RIGHT_CENTER].push(input);
+        map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
 
         var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
 
@@ -418,6 +418,7 @@ var map,
         var scoreContainer = $('#ajapaik-header').find('.score_container');
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
         scoreContainer.find('#facebook-connect').slideDown();
+        scoreContainer.find('#facebook-connected').slideDown();
         scoreContainer.find('#google-plus-connect').slideDown();
     };
 
@@ -425,6 +426,7 @@ var map,
         var scoreContainer = $('#ajapaik-header').find('.score_container');
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
         scoreContainer.find('#facebook-connect').slideUp();
+        scoreContainer.find('#facebook-connected').slideUp();
         scoreContainer.find('#google-plus-connect').slideUp();
     };
 
