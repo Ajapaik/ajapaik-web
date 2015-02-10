@@ -189,7 +189,7 @@ var map,
             scrollwheel: false,
             center: latLng,
             mapTypeControl: true,
-            panControl: true,
+            panControl: false,
             panControlOptions: {
                 position: window.google.maps.ControlPosition.RIGHT_TOP
             },
@@ -225,7 +225,7 @@ var map,
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
 
         var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-        map.controls[window.google.maps.ControlPosition.TOP_CENTER].push(input);
+        map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
 
         var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
 

@@ -142,7 +142,7 @@ body {
     background: #fff url(../images/material-design-icons/ic_lock_outline_24px.svg) no-repeat center !important;
     width: 36px;
     height: 36px;
-    margin-right: 25px;
+    margin-right: 10px;
 }
 
 .ajapaik-marker-center-lock-button:hover {
@@ -1076,18 +1076,19 @@ ul.errorlist {
 #pac-input {
     background-color: #fff;
     padding: 0 11px 0 13px;
-    width: 400px;
+    width: 200px;
     font-family: Roboto;
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
+    margin-right: 15px;
 }
 
 #pac-input:focus {
     border-color: #4d90fe;
     margin-left: -1px;
     padding-left: 14px; /* Regular padding-left + 1. */
-    width: 401px;
+    width: 201px;
 }
 
 .pac-container {
