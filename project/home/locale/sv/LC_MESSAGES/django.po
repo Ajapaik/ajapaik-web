@@ -7,36 +7,36 @@ msgstr ""
 msgid "Choose album"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:104
+#: project/home/get_next_photos_to_geotag.py:110
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:106
+#: project/home/get_next_photos_to_geotag.py:112
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:108
+#: project/home/get_next_photos_to_geotag.py:114
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:110
+#: project/home/get_next_photos_to_geotag.py:116
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:112
+#: project/home/get_next_photos_to_geotag.py:118
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:114
+#: project/home/get_next_photos_to_geotag.py:120
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:116
+#: project/home/get_next_photos_to_geotag.py:122
 msgid "Correct location is not certain yet."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:118
+#: project/home/get_next_photos_to_geotag.py:124
 msgid "Other users have different opinion."
 msgstr ""
 
@@ -54,19 +54,19 @@ msgstr ""
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:741
+#: project/home/views.py:740
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr ""
 
-#: project/home/views.py:851
+#: project/home/views.py:850
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:858
+#: project/home/views.py:857
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:876
+#: project/home/views.py:875
 msgid "Invalid form data"
 msgstr ""
 
@@ -84,10 +84,6 @@ msgstr ""
 
 #: project/settings/default.py:72
 msgid "Finnish"
-msgstr ""
-
-#: project/settings/default.py:73
-msgid "Swedish"
 msgstr ""
 
 #: templates/404.html:5 templates/404.html.py:11
@@ -184,11 +180,11 @@ msgid "Close Street View"
 msgstr ""
 
 #: templates/_map_lower_right_buttons.html:11 templates/game.html:33
-#: templates/game.html.py:58 templates/game.html:95
+#: templates/game.html.py:58 templates/game.html:96
 msgid "Next photo"
 msgstr ""
 
-#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:59
+#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:60
 msgid "Back to map"
 msgstr ""
 
@@ -217,7 +213,7 @@ msgid "Specify location"
 msgstr ""
 
 #: templates/_photo_modal.html:121 templates/_photo_upload_modal.html:43
-#: templates/game.html:116 templates/mapview.html:40
+#: templates/game.html:117 templates/mapview.html:41
 #: templates/photo_upload.html:38 templates/photo_upload.html.py:67
 #: templates/photo_upload.html:111 templates/photo_upload.html.py:165
 msgid "Close"
@@ -374,15 +370,15 @@ msgstr ""
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:28 templates/game.html.py:98
+#: templates/game.html:28 templates/game.html.py:99
 msgid "Show description"
 msgstr ""
 
-#: templates/game.html:31 templates/game.html.py:91
+#: templates/game.html:31 templates/game.html.py:92
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: templates/game.html:41 templates/mapview.html:56
+#: templates/game.html:41 templates/mapview.html:57
 msgid "Thank you!"
 msgstr ""
 
@@ -398,11 +394,15 @@ msgstr ""
 msgid "hard"
 msgstr ""
 
-#: templates/game.html:75 templates/mapview.html:17
+#: templates/game.html:71 templates/mapview.html:13
+msgid "Search box"
+msgstr ""
+
+#: templates/game.html:76 templates/mapview.html:18
 msgid "Geotags"
 msgstr ""
 
-#: templates/game.html:77 templates/mapview.html:19
+#: templates/game.html:78 templates/mapview.html:20
 msgid "With azimuth"
 msgstr ""
 
@@ -410,7 +410,7 @@ msgstr ""
 msgid "Back home"
 msgstr ""
 
-#: templates/mapview.html:57
+#: templates/mapview.html:58
 msgid ""
 "This location specification will be tagged differently than in the game. "
 "Still your action may not have an immediate effect on the location of the "

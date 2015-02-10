@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-04 16:42+0200\n"
+"POT-Creation-Date: 2015-02-10 15:58+0200\n"
 "PO-Revision-Date: 2015-02-02 11:46+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,32 +18,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.3\n"
 
-#: static/js/ajapaik-common.js:117
+#: static/js/ajapaik-common.js:118
 msgid "Tutorial"
 msgstr "Tutustumiskierros"
 
-#: static/js/ajapaik-common.js:136
-msgid "Geotag information"
-msgstr ""
-
-#: static/js/ajapaik-common.js:560 static/js/ajapaik-common.js.c:672
+#: static/js/ajapaik-common.js:612 static/js/ajapaik-common.js.c:726
 #: static/js/game.js:130
 msgid "Save location only"
 msgstr "Tallenna vain sijainti"
 
-#: static/js/ajapaik-common.js:610
+#: static/js/ajapaik-common.js:664
 msgid "Save location and direction"
 msgstr "Tallenna sijainti ja suunta"
 
-#: static/js/ajapaik-common.js:738
+#: static/js/ajapaik-common.js:792
 msgid "Median guess"
 msgstr "Mediaaniarvaus"
 
-#: static/js/browse.js:280 static/js/game.js:229 static/js/grid.js:69
+#: static/js/browse.js:280 static/js/game.js:230 static/js/grid.js:69
 msgid "Points awarded"
 msgstr "Pistesaldo"
 
-#: static/js/browse.js:663 static/js/game.js:493
+#: static/js/browse.js:663 static/js/game.js:494
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
@@ -65,15 +61,15 @@ msgstr ""
 "Valokuvan kuvailu. Huomio! Kuvailu voi joskus olla virheellinen. Jos käytät "
 "kuvailua apunasi, saat 25% vähemmän pisteitä ehdotuksestasi."
 
-#: static/js/game.js:152
+#: static/js/game.js:153
 msgid "We are now showing you random photos."
 msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
 
-#: static/js/game.js:154
+#: static/js/game.js:155
 msgid "You have seen all the pictures we have for this area."
 msgstr "Olet nähnyt kaikki tämän alueen kuvat"
 
-#: static/js/game.js:256
+#: static/js/game.js:257
 msgid "Your guess"
 msgstr "Arvauksesi"
 

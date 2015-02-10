@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-04 16:42+0200\n"
+"POT-Creation-Date: 2015-02-10 15:58+0200\n"
 "PO-Revision-Date: 2015-02-04 17:35+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -20,39 +20,45 @@ msgstr ""
 msgid "Choose area"
 msgstr "Vali koht"
 
-#: project/home/get_next_photos_to_geotag.py:104
+#: project/home/forms.py:14
+#, fuzzy
+#| msgid "Choose albums"
+msgid "Choose album"
+msgstr "Vali album"
+
+#: project/home/get_next_photos_to_geotag.py:110
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: project/home/get_next_photos_to_geotag.py:106
+#: project/home/get_next_photos_to_geotag.py:112
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 "Asukoht tundub õige, vaate suuna osas ei ole kasutajatel üksmeelt tekkinud."
 
-#: project/home/get_next_photos_to_geotag.py:108
+#: project/home/get_next_photos_to_geotag.py:114
 msgid "The location seems right, your azimuth was first."
 msgstr "Asukoht tundub õige, Sinu pakutud suund oli esimene."
 
-#: project/home/get_next_photos_to_geotag.py:110
+#: project/home/get_next_photos_to_geotag.py:116
 msgid "The location seems right, but not the azimuth."
 msgstr "Asukoht tundub õige, aga mitte vaate suund."
 
-#: project/home/get_next_photos_to_geotag.py:112
+#: project/home/get_next_photos_to_geotag.py:118
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Asukoht tundub õige. Proovi määrata ka vaate suund, et saada veelgi rohkem "
 "punkte."
 
-#: project/home/get_next_photos_to_geotag.py:114
+#: project/home/get_next_photos_to_geotag.py:120
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/home/get_next_photos_to_geotag.py:116
+#: project/home/get_next_photos_to_geotag.py:122
 msgid "Correct location is not certain yet."
 msgstr "Selle pildi puhul ei ole asukoht veel selgeks saanud."
 
-#: project/home/get_next_photos_to_geotag.py:118
+#: project/home/get_next_photos_to_geotag.py:124
 msgid "Other users have different opinion."
 msgstr "Teised kasutajad on teisiti arvanud."
 
@@ -70,19 +76,19 @@ msgstr "Vaata fotosid kaardil"
 msgid "Leaderboard"
 msgstr "Edetabel"
 
-#: project/home/views.py:730
+#: project/home/views.py:740
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr "Ajapaik - lae oma fotosid"
 
-#: project/home/views.py:840
+#: project/home/views.py:850
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/home/views.py:847
+#: project/home/views.py:857
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:865
+#: project/home/views.py:875
 msgid "Invalid form data"
 msgstr ""
 
@@ -199,11 +205,11 @@ msgid "Close Street View"
 msgstr "Sulge Street View"
 
 #: templates/_map_lower_right_buttons.html:11 templates/game.html:33
-#: templates/game.html.py:58 templates/game.html:95
+#: templates/game.html.py:58 templates/game.html:96
 msgid "Next photo"
 msgstr "Järgmine foto"
 
-#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:59
+#: templates/_map_lower_right_buttons.html:11 templates/mapview.html:60
 msgid "Back to map"
 msgstr "Tagasi kaardile"
 
@@ -232,7 +238,7 @@ msgid "Specify location"
 msgstr "Täpsusta asukohta"
 
 #: templates/_photo_modal.html:121 templates/_photo_upload_modal.html:43
-#: templates/game.html:116 templates/mapview.html:40
+#: templates/game.html:117 templates/mapview.html:41
 #: templates/photo_upload.html:38 templates/photo_upload.html.py:67
 #: templates/photo_upload.html:111 templates/photo_upload.html.py:165
 msgid "Close"
@@ -411,15 +417,15 @@ msgstr "Lae ise vanu fotosid"
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:28 templates/game.html.py:98
+#: templates/game.html:28 templates/game.html.py:99
 msgid "Show description"
 msgstr "Vaata kirjeldust"
 
-#: templates/game.html:31 templates/game.html.py:91
+#: templates/game.html:31 templates/game.html.py:92
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: templates/game.html:41 templates/mapview.html:56
+#: templates/game.html:41 templates/mapview.html:57
 msgid "Thank you!"
 msgstr "Aitäh!"
 
@@ -435,11 +441,15 @@ msgstr "lihtne"
 msgid "hard"
 msgstr "keeruline"
 
-#: templates/game.html:75 templates/mapview.html:17
+#: templates/game.html:71 templates/mapview.html:13
+msgid "Search box"
+msgstr ""
+
+#: templates/game.html:76 templates/mapview.html:18
 msgid "Geotags"
 msgstr "Asukohapakkumisi"
 
-#: templates/game.html:77 templates/mapview.html:19
+#: templates/game.html:78 templates/mapview.html:20
 msgid "With azimuth"
 msgstr "Suunaga pakkumisi"
 
@@ -447,7 +457,7 @@ msgstr "Suunaga pakkumisi"
 msgid "Back home"
 msgstr "Tagasi avalehele"
 
-#: templates/mapview.html:57
+#: templates/mapview.html:58
 msgid ""
 "This location specification will be tagged differently than in the game. "
 "Still your action may not have an immediate effect on the location of the "
@@ -585,16 +595,16 @@ msgstr "Asukoht kaardil"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then "
-#~ "%(link_open)sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~ "sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then "
-#~| "%(link_open)sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
+#~| "sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -606,8 +616,8 @@ msgstr "Asukoht kaardil"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then "
-#~| "%(link_open)sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
+#~| "sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
