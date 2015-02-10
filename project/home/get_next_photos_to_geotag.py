@@ -47,6 +47,12 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
         else:
             this_guess_score = int(trustworthiness * 100)
 
+        all_photo_geotags = p.geotags.all()
+        if len(all_photo_geotags) == 1:
+            # This is the second geotag coming in, if it's near the first one, mark the first one correct
+            if distance_in_meters(all_photo_geotags[0].lat, all_photo_geotags[0].lon, float(lat), float(lon)) < 100:
+                all_photo_geotags[0].is_correct = True,
+                all_photo_geotags[0].save()
 
         new_geotag = GeoTag(user=user, photo_id=p.id, type=geotag_type,
                             lat=float(lat), lon=float(lon),
