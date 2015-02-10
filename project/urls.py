@@ -52,7 +52,7 @@ urlpatterns = patterns('project.home.views',
    url(r'^public_area_create_handler/$', 'public_add_area'),
    url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
    # url(r'^csv_upload/$', 'csv_upload'),
-   # url(r'^europeana/$', 'europeana'),
+   url(r'^europeana/$', 'europeana'),
 )
 
 urlpatterns += patterns('',

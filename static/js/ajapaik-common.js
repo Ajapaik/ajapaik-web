@@ -68,6 +68,7 @@ var map,
     mapMapviewClickListener,
     mapBoundsChangedListener,
     mapMousemoveListener,
+    mapTypeChangedListener,
     mapDragListener,
     guessLocationStarted = false,
     mapPositionChangedListener,
@@ -188,7 +189,7 @@ var map,
             scrollwheel: false,
             center: latLng,
             mapTypeControl: true,
-            panControl: true,
+            panControl: false,
             panControlOptions: {
                 position: window.google.maps.ControlPosition.RIGHT_TOP
             },
@@ -222,6 +223,24 @@ var map,
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
+
+        var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
+        map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
+
+        var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
+
+        window.google.maps.event.addListener(searchBox, 'places_changed', function () {
+            var places = searchBox.getPlaces();
+            if (places.length === 0) {
+                return;
+            }
+            map.setCenter(places[0].geometry.location);
+        });
+
+        window.google.maps.event.addListener(map, 'bounds_changed', function () {
+            var bounds = map.getBounds();
+            searchBox.setBounds(bounds);
+        });
 
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
@@ -266,6 +285,14 @@ var map,
         streetviewCloseclickListener = window.google.maps.event.addListener(streetPanorama, 'closeclick', function () {
             // Closing Street View from the X button must also show the save button again
             saveLocationButton.show();
+        });
+
+        mapTypeChangedListener = window.google.maps.event.addListener(map, 'maptypeid_changed', function () {
+            if (isGameMap) {
+                window._gaq.push(['_trackEvent', 'Game', 'Map type changed']);
+            } else {
+                window._gaq.push(['_trackEvent', 'Map', 'Map type changed']);
+            }
         });
     };
 

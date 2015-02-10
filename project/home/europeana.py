@@ -29,6 +29,7 @@ class Search(object):
             'profile': 'rich'
         }
         results = requests.get(query_url, params=arguments).json()
+        print results
 
         item_count = int(results["itemsCount"])
         ret = []
