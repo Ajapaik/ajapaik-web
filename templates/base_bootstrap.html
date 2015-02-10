@@ -107,7 +107,7 @@
     <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization,places"></script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
 </body>

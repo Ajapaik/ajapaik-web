@@ -224,6 +224,24 @@ var map,
 
         map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
 
+        var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
+        map.controls[window.google.maps.ControlPosition.TOP_CENTER].push(input);
+
+        var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
+
+        window.google.maps.event.addListener(searchBox, 'places_changed', function () {
+            var places = searchBox.getPlaces();
+            if (places.length === 0) {
+                return;
+            }
+            map.setCenter(places[0].geometry.location);
+        });
+
+        window.google.maps.event.addListener(map, 'bounds_changed', function () {
+            var bounds = map.getBounds();
+            searchBox.setBounds(bounds);
+        });
+
         if (isGameMap) {
             $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
                 var that = $(this);

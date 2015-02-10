@@ -617,11 +617,10 @@ def europeana(request):
     y2 = request.GET.get("y2", None)
     bounding_box = None
     if x1 and x2 and y1 and y2:
-        bounding_box = BoundingBox(x1, y1, x2, y2)
-    results = Search().query(request.GET.get("query", "Kose"), request.GET.get("refinement_terms", None), bounding_box,
-                             request.GET.get("start", 1), request.GET.get("size", 12))
+        bounding_box = BoundingBox(float(x1), float(y1), float(x2), float(y2))
+    results = Search().query(request.GET.get("query", "Kose"), request.GET.get("refinement_terms", None), bounding_box, request.GET.get("start", 1), request.GET.get("size", 12))
     return render_to_response("europeana.html", RequestContext(request, {
-    'results': results
+        'results': results
     }))
 
 
