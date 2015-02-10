@@ -622,6 +622,9 @@ class GeoTag(models.Model):
             pass
         super(GeoTag, self).save(*args, **kwargs)
 
+    def __unicode__(self):
+        return u'%s - %s - %s' % (self.photo.title, self.photo.description, self.user.fb_name)
+
 
 class FacebookManager(models.Manager):
     def url_read(self, uri):

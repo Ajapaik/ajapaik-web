@@ -1085,6 +1085,7 @@ ul.errorlist {
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
+    margin-right: 15px;
 }
 
 #pac-input:focus {
