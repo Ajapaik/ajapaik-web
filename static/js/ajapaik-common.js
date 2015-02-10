@@ -68,6 +68,7 @@ var map,
     mapMapviewClickListener,
     mapBoundsChangedListener,
     mapMousemoveListener,
+    mapTypeChangedListener,
     mapDragListener,
     guessLocationStarted = false,
     mapPositionChangedListener,
@@ -266,6 +267,14 @@ var map,
         streetviewCloseclickListener = window.google.maps.event.addListener(streetPanorama, 'closeclick', function () {
             // Closing Street View from the X button must also show the save button again
             saveLocationButton.show();
+        });
+
+        mapTypeChangedListener = window.google.maps.event.addListener(map, 'maptypeid_changed', function () {
+            if (isGameMap) {
+                window._gaq.push(['_trackEvent', 'Game', 'Map type changed']);
+            } else {
+                window._gaq.push(['_trackEvent', 'Map', 'Map type changed']);
+            }
         });
     };
 
