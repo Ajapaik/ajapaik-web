@@ -29,12 +29,12 @@ class Search(object):
             'profile': 'rich'
         }
         results = requests.get(query_url, params=arguments).json()
-        print results
+        return results
 
-        item_count = int(results["itemsCount"])
-        ret = []
-        for i in xrange(0, item_count):
-            if "edmIsShownBy" in results["items"][i]:
-                ret.append(results["items"][i])
-
-        return ret
+        # item_count = int(results["itemsCount"])
+        # ret = []
+        # for i in xrange(0, item_count):
+        #     if "edmIsShownBy" in results["items"][i]:
+        #         ret.append(results["items"][i])
+        #
+        # return ret

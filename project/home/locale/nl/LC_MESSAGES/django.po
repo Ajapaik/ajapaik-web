@@ -9,29 +9,23 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-10 15:58+0200\n"
-"PO-Revision-Date: 2014-05-19 20:01+0000\n"
-"Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/home/forms.py:8 templates/photo_upload.html:49
 #: templates/photo_upload.html.py:187
-#, fuzzy
-#| msgid "Choose range"
 msgid "Choose area"
-msgstr "Izvēlies apgabalu"
+msgstr ""
 
 #: project/home/forms.py:14
-#, fuzzy
-#| msgid "Choose language"
 msgid "Choose album"
-msgstr "Izvēlies valodu"
+msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:110
 msgid "Looks right!"
@@ -68,23 +62,21 @@ msgstr ""
 
 #: project/home/views.py:234 templates/frontpage.html:160
 msgid "Guess the location"
-msgstr "Minēt atrašanās vietu"
+msgstr ""
 
 #: project/home/views.py:414 project/home/views.py:416
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
-msgstr "Apskatīt attēlus kartē"
+msgstr ""
 
 #: project/home/views.py:523 project/home/views.py:537
 #: templates/_header_area_selection_scoreboard.html:22
 msgid "Leaderboard"
-msgstr "Līderu tabula"
+msgstr ""
 
 #: project/home/views.py:740
-#, fuzzy
-#| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - upload photos"
-msgstr "Timepatch (Ajapaik)"
+msgstr ""
 
 #: project/home/views.py:850
 msgid "Error uploading file"
@@ -100,15 +92,15 @@ msgstr ""
 
 #: project/settings/default.py:69
 msgid "Estonian"
-msgstr "Igauņu"
+msgstr ""
 
 #: project/settings/default.py:70
 msgid "English"
-msgstr "Angļu"
+msgstr ""
 
 #: project/settings/default.py:71
 msgid "Russian"
-msgstr "Krievu"
+msgstr ""
 
 #: project/settings/default.py:72
 msgid "Finnish"
@@ -125,29 +117,23 @@ msgstr ""
 #: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:24
 #: templates/_block_leaderboard.html:37
 msgid "Your points"
-msgstr "Tavi punkti"
+msgstr ""
 
 #: templates/_block_leaderboard.html:17
-#, fuzzy
-#| msgid "Rephoto Leaderboard"
 msgid "Recent activity leaderboard"
-msgstr "Mūsdienu attēlu līderu tabula"
+msgstr ""
 
 #: templates/_block_leaderboard.html:30
-#, fuzzy
-#| msgid "Leaderboard"
 msgid "All time leaderboard"
-msgstr "Līderu tabula"
+msgstr ""
 
 #: templates/_comments.html:8
 msgid "Original photo"
 msgstr ""
 
 #: templates/_comments.html:12
-#, fuzzy
-#| msgid "Next photo"
 msgid "Rephoto"
-msgstr "Nākošais attēls"
+msgstr ""
 
 #: templates/_geotag_info.html:4
 msgid ""
@@ -175,12 +161,12 @@ msgstr ""
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
-msgstr "Timepatch (Ajapaik)"
+msgstr ""
 
 #: templates/_header.html:33 templates/_header_area_selection.html:28
 #: templates/frontpage.html:27
 msgid "Choose language"
-msgstr "Izvēlies valodu"
+msgstr ""
 
 #: templates/_header_area_selection_scoreboard.html:12
 msgid "Map"
@@ -198,18 +184,16 @@ msgstr ""
 
 #: templates/_header_area_selection_scoreboard.html:34
 msgid "Facebook Connect to save your score and continue later."
-msgstr "Pieslēdzies ar Facebook, lai saglabātu punktus un turpinātu vēlāk."
+msgstr ""
 
 #: templates/_header_area_selection_scoreboard.html:35
 #: templates/_photo_upload_modal.html:36 templates/photo_upload.html:227
 msgid "Connect with Facebook"
-msgstr "Pieslēgties ar Facebook"
+msgstr ""
 
 #: templates/_map_lower_right_buttons.html:5
-#, fuzzy
-#| msgid "Save location"
 msgid "Save location only"
-msgstr "Saglabāt atrašanās vietu"
+msgstr ""
 
 #: templates/_map_lower_right_buttons.html:8
 msgid "Close Street View"
@@ -218,13 +202,11 @@ msgstr ""
 #: templates/_map_lower_right_buttons.html:11 templates/game.html:33
 #: templates/game.html.py:58 templates/game.html:96
 msgid "Next photo"
-msgstr "Nākošais attēls"
+msgstr ""
 
 #: templates/_map_lower_right_buttons.html:11 templates/mapview.html:60
-#, fuzzy
-#| msgid "Back to home page"
 msgid "Back to map"
-msgstr "Uz sākumu"
+msgstr ""
 
 #: templates/_photo_modal.html:88 templates/photoview.html:96
 msgid "Rephotograph by"
@@ -244,20 +226,18 @@ msgstr ""
 
 #: templates/_photo_modal.html:119 templates/photoview.html:80
 msgid "Add rephoto"
-msgstr "Pievieno mūsdienu attēlu"
+msgstr ""
 
 #: templates/_photo_modal.html:120
-#, fuzzy
-#| msgid "Save location"
 msgid "Specify location"
-msgstr "Saglabāt atrašanās vietu"
+msgstr ""
 
 #: templates/_photo_modal.html:121 templates/_photo_upload_modal.html:43
 #: templates/game.html:117 templates/mapview.html:41
 #: templates/photo_upload.html:38 templates/photo_upload.html.py:67
 #: templates/photo_upload.html:111 templates/photo_upload.html.py:165
 msgid "Close"
-msgstr "Aizvērt"
+msgstr ""
 
 #: templates/_photo_upload_modal.html:17
 msgid "Taken"
@@ -274,20 +254,14 @@ msgstr ""
 
 #: templates/_photo_upload_modal.html:35
 msgid "Rephoto uploading requires connecting your account with Facebook."
-msgstr "Lai augšupielādētu attēlu vajadzīgs pieslēgties tavam Facebook kontam."
+msgstr ""
 
 #: templates/_photo_upload_modal.html:40
-#, fuzzy
-#| msgid ""
-#| "Make a contemporary rephoto from the very same place where the historic "
-#| "picture was taken and upload it."
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
 "picture was taken and upload it. Uploaded rephotograph will be attributed to "
 "you under the"
 msgstr ""
-"Izveido mūsdienu fotogrāfiju šajā pašā vietā, kur tika uzņemta pagātnes "
-"fotogrāfija, un augšupielādē."
 
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
@@ -298,10 +272,8 @@ msgid "Abort"
 msgstr ""
 
 #: templates/_photo_upload_modal.html:80
-#, fuzzy
-#| msgid "Selected rephoto"
 msgid "Select new file..."
-msgstr "Izvēlētie mūsdienu attēli"
+msgstr ""
 
 #: templates/_photo_upload_modal.html:110
 msgid "File upload failed."
@@ -394,23 +366,21 @@ msgstr ""
 
 #: templates/frontpage.html:88
 msgid "Where is history located?"
-msgstr "Kur ir vēsturiskā atrašanās vieta?"
+msgstr ""
 
 #: templates/frontpage.html:89
 msgid "Discover, geotag and make the rephoto."
-msgstr "Atklāj, pievieno atrašanās vietu un izveido mūsdienu attēlu."
+msgstr ""
 
 #: templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
 msgstr ""
-"Apskati un pievieno metadatus vēsturiskajiem attēliem. Sacenšoties ar citiem "
-"būs aizraujoši."
 
 #: templates/frontpage.html:94
 msgid "Read more"
-msgstr "Lasīt tālāk"
+msgstr ""
 
 #: templates/frontpage.html:166
 msgid "Upload photos yourself"
@@ -426,11 +396,11 @@ msgstr ""
 
 #: templates/game.html:31 templates/game.html.py:92
 msgid "Pick the shooting location!"
-msgstr "Izvēlies attēla uzņemšanas vietu!"
+msgstr ""
 
 #: templates/game.html:41 templates/mapview.html:57
 msgid "Thank you!"
-msgstr "Paldies!"
+msgstr ""
 
 #: templates/game.html:45
 msgid "In your opinion to geotag this photo is"
@@ -457,10 +427,8 @@ msgid "With azimuth"
 msgstr ""
 
 #: templates/leaderboard.html:19
-#, fuzzy
-#| msgid "Back to home page"
 msgid "Back home"
-msgstr "Uz sākumu"
+msgstr ""
 
 #: templates/mapview.html:58
 msgid ""
@@ -470,10 +438,8 @@ msgid ""
 msgstr ""
 
 #: templates/photo_upload.html:20 templates/photo_upload.html.py:190
-#, fuzzy
-#| msgid "Choose language"
 msgid "Choose albums"
-msgstr "Izvēlies valodu"
+msgstr ""
 
 #: templates/photo_upload.html:37 templates/photo_upload.html.py:66
 msgid "Add"
@@ -546,94 +512,9 @@ msgid "Selected area:"
 msgstr ""
 
 #: templates/photo_upload.html:226
-#, fuzzy
-#| msgid "Rephoto uploading requires connecting your account with Facebook."
 msgid "Photo uploading requires connecting your account with Facebook."
-msgstr "Lai augšupielādētu attēlu vajadzīgs pieslēgties tavam Facebook kontam."
+msgstr ""
 
 #: templates/photoview.html:82
 msgid "Location on the map"
 msgstr ""
-
-#~ msgid "Choose city"
-#~ msgstr "Izvēlies pielsētu"
-
-#~ msgid "Heat map"
-#~ msgstr "Atrašanās vieta kartē"
-
-#, fuzzy
-#~| msgid "Add rephoto"
-#~ msgid "Load more photos"
-#~ msgstr "Pievieno mūsdienu attēlu"
-
-#~ msgid "Close photo"
-#~ msgstr "Aizvērt"
-
-#, fuzzy
-#~| msgid "Guess the location"
-#~ msgid "Guess location"
-#~ msgstr "Minēt atrašanās vietu"
-
-#~ msgid "Close map"
-#~ msgstr "Aizvērt karti"
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#~| "%(link_open)sclick here%(link_close)s."
-#~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
-#~ msgstr ""
-#~ "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
-#~ "%(link_open)sklišini šeit%(link_close)s."
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#~| "%(link_open)sclick here%(link_close)s."
-#~ msgid ""
-#~ "\n"
-#~ "                            Account (%(account_name)s) connected. If it"
-#~ "\"s not you then %(link_open)sclick\n"
-#~ "                            here%(link_close)s."
-#~ msgstr ""
-#~ "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
-#~ "%(link_open)sklišini šeit%(link_close)s."
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#~| "%(link_open)sclick here%(link_close)s."
-#~ msgid ""
-#~ "\n"
-#~ "                                Account (%(account_name)s) connected. If "
-#~ "it's not you then %(link_open)sclick here\n"
-#~ "                                %(link_close)s."
-#~ msgstr ""
-#~ "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
-#~ "%(link_open)sklišini šeit%(link_close)s."
-
-#~ msgid "All pictures"
-#~ msgstr "Visi attēli"
-
-#~ msgid "Added last week"
-#~ msgstr "Pievienots iepriekšējā nedēļā"
-
-#~ msgid "Added last month"
-#~ msgstr "Pievienots iepriekšējā mēnesī"
-
-#~ msgid "Choose source"
-#~ msgstr "Izvēlies avotu"
-
-#~ msgid "Add comment"
-#~ msgstr "Pievienot komentāru"
-
-#~ msgid "Random"
-#~ msgstr "Nejaušs"
-
-#~ msgid "Your rephoto has been uploaded."
-#~ msgstr "Tavs attēls ir augšupielādēts."
-
-#~ msgid "Historic photo"
-#~ msgstr "Vēsturiskie attēli"
