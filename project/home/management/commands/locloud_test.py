@@ -34,6 +34,10 @@ class Command(BaseCommand):
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
             for element in edmPlace:
-                print element.tag
+                if element.tag == 'lat':
+                    element['text'] = existing_resource.lat
+                if element.tag == 'lon':
+                    element['text'] = existing_resource.lon
+                    print "Changed lon"
         print etree.tostring(data)
         return etree.tostring(data)
