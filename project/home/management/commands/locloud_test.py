@@ -33,6 +33,7 @@ class Command(BaseCommand):
                 print "No such resource"
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
-            edmPlace.find('{http://www.w3.org/2003/01/geo/wgs84_pos#}lat')['text'] = str(existing_resource.lat)
+            new_sub_lat = lxml.etree.SubElement(edmPlace, '{http://www.w3.org/2003/01/geo/wgs84_pos#}lat')
+            edmPlace.replace('{http://www.w3.org/2003/01/geo/wgs84_pos#}lat', new_sub_lat)
         print etree.tostring(data)
         #return etree.tostring(data)
