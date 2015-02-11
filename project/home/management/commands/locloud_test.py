@@ -33,8 +33,7 @@ class Command(BaseCommand):
                 print "No such resource"
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
-            edmPlace.get('wgs84_pos:lat', namespaces)['text'] = existing_resource.lat
-            edmPlace.get('wgs84_pos:long', namespaces)['text'] = existing_resource.lon
-            print "Set new coordinates"
+            for element in edmPlace:
+                print element.tag
         print etree.tostring(data)
         return etree.tostring(data)
