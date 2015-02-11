@@ -34,5 +34,5 @@ class Command(BaseCommand):
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
             print edmPlace.find('lat')
-        print etree.tostring(data)
+        #print etree.tostring(data)
         return etree.tostring(data)
