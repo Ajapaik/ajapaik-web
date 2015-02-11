@@ -36,6 +36,16 @@ class Command(BaseCommand):
             old_sub_lat = edmPlace.find('{http://www.w3.org/2003/01/geo/wgs84_pos#}lat')
             new_sub_lat = etree.SubElement(edmPlace, '{http://www.w3.org/2003/01/geo/wgs84_pos#}lat')
             new_sub_lat.text = str(existing_resource.lat)
-            edmPlace.replace(old_sub_lat, new_sub_lat)
+            if old_sub_lat is None:
+                edmPlace.append(new_sub_lat)
+            else:
+                edmPlace.replace(old_sub_lat, new_sub_lat)
+            old_sub_lon = edmPlace.find('{http://www.w3.org/2003/01/geo/wgs84_pos#}long')
+            new_sub_lon = etree.SubElement(edmPlace, '{http://www.w3.org/2003/01/geo/wgs84_pos#}long')
+            new_sub_lon.text = str(existing_resource.lon)
+            if old_sub_lon is None:
+                edmPlace.append(new_sub_lon)
+            else:
+                edmPlace.replace(old_sub_lon, new_sub_lon)
         print etree.tostring(data)
         #return etree.tostring(data)
