@@ -36,5 +36,6 @@ class Command(BaseCommand):
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
             wgsLat = edmPlace.find('wgs84_pos:lat', namespaces)
+            print wgsLat
             wgsLat.set('text', existing_resource.lat)
         print data
