@@ -35,5 +35,6 @@ class Command(BaseCommand):
             edmPlace = data.find('edm:Place', namespaces)
             edmPlace.get('wgs84_pos:lat', namespaces)['text'] = existing_resource.lat
             edmPlace.get('wgs84_pos:long', namespaces)['text'] = existing_resource.lon
+            print "Set new coordinates"
         print etree.tostring(data)
         return etree.tostring(data)
