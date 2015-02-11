@@ -35,4 +35,4 @@ class Command(BaseCommand):
             edmPlace = data.find('edm:Place', namespaces)
             print edmPlace.find('lat')
         #print etree.tostring(data)
-        return etree.tostring(data)
+        #return etree.tostring(data)
