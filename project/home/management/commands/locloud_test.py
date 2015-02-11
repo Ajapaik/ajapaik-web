@@ -1,4 +1,5 @@
 from lxml import etree
+from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
     help = "Will test enriching Locloud XML"
