@@ -18,8 +18,8 @@ class Command(BaseCommand):
             'wgs84_pos': 'http://www.w3.org/2003/01/geo/wgs84_pos',
         }
         edmProvidedCHO = data.find('edm:ProvidedCHO', namespaces)
-        source = edmProvidedCHO.find('dc:source', namespaces)
-        identifier = edmProvidedCHO.find('dc:identifier', namespaces)
+        source = edmProvidedCHO.find('dc:source', namespaces).text
+        identifier = edmProvidedCHO.find('dc:identifier', namespaces).text
         print source
         print identifier
         existing_source = None
