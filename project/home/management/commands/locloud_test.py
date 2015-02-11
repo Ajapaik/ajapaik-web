@@ -20,8 +20,6 @@ class Command(BaseCommand):
         edmProvidedCHO = data.find('edm:ProvidedCHO', namespaces)
         source = edmProvidedCHO.find('dc:source', namespaces).text
         identifier = edmProvidedCHO.find('dc:identifier', namespaces).text
-        print source
-        print identifier
         existing_source = None
         try:
             existing_source = Source.objects.get(description=source)
@@ -37,4 +35,5 @@ class Command(BaseCommand):
             edmPlace = data.find('edm:Place', namespaces)
             edmPlace.get('wgs84_pos:lat', namespaces)['text'] = existing_resource.lat
             edmPlace.get('wgs84_pos:long', namespaces)['text'] = existing_resource.lon
-        print data.tostring()
+        print etree.tostring(data)
+        return etree.tostring(data)
