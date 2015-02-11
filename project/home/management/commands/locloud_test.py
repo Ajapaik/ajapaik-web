@@ -33,6 +33,8 @@ class Command(BaseCommand):
                 print "No such resource"
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
+            if edmPlace is None:
+                data.append(etree.SubElement(data, '{http://www.europeana.eu/schemas/edm/}Place'))
             old_sub_lat = edmPlace.find('{http://www.w3.org/2003/01/geo/wgs84_pos#}lat')
             new_sub_lat = etree.SubElement(edmPlace, '{http://www.w3.org/2003/01/geo/wgs84_pos#}lat')
             new_sub_lat.text = str(existing_resource.lat)
