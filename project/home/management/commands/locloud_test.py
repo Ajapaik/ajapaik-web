@@ -18,6 +18,8 @@ class Command(BaseCommand):
         edmProvidedCHO = data.find('edm:ProvidedCHO', namespaces)
         source = edmProvidedCHO.find('dc:source', namespaces)
         identifier = edmProvidedCHO.find('dc:identifier', namespaces)
+        print source
+        print identifier
         existing_source = None
         try:
             existing_source = Source.objects.get(description=source)
