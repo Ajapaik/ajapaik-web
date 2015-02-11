@@ -1,6 +1,8 @@
 from lxml import etree
 from django.core.management.base import BaseCommand
 from project.settings import ABSOLUTE_PROJECT_ROOT
+from django.core.exceptions import ObjectDoesNotExist
+from project.home.models import Source, Photo
 
 class Command(BaseCommand):
     help = "Will test enriching Locloud XML"
