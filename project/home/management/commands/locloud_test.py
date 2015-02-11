@@ -35,8 +35,6 @@ class Command(BaseCommand):
                 print "No such resource"
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
-            print edmPlace
-            wgsLat = edmPlace.find('wgs84_pos:lat', namespaces)
-            print wgsLat
-            wgsLat.set('text', existing_resource.lat)
-        print data
+            edmPlace.get('wgs84_pos:lat', namespaces)['text'] = existing_resource.lat
+            edmPlace.get('wgs84_pos:long', namespaces)['text'] = existing_resource.lon
+        print data.tostring()
