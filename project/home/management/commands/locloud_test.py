@@ -34,7 +34,8 @@ class Command(BaseCommand):
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
             for element in edmPlace:
-                if element.tag == 'lat':
+                print element.tag
+                if element.tag == 'wgs84_pos:lat':
                     print "Found lat!"
                     element['text'] = str(existing_resource.lat)
         #print etree.tostring(data)
