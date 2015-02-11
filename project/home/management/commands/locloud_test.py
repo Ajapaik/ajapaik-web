@@ -33,6 +33,7 @@ class Command(BaseCommand):
                 print "No such resource"
         if existing_resource is not None and existing_resource.lat and existing_resource.lon:
             edmPlace = data.find('edm:Place', namespaces)
+            print edmPlace.find('{http://www.w3.org/2003/01/geo/wgs84_pos#}lat')
             for element in edmPlace:
                 print element.tag
                 if element.tag == 'wgs84_pos:lat':
