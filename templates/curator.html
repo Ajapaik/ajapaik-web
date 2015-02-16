@@ -352,16 +352,12 @@
             $.ajax({
                 type: 'POST',
                 url: url,
-                dataType: 'jsonp',
+                dataType: 'json',
+                crossDomain: true,
                 contentType: 'application/json',
                 data: JSON.stringify(requestParams),
                 success: function (msg) {
                     console.log(msg);
-                    if (typeof msg.result != 'undefined' && typeof callback != 'undefined') {
-                        callback(msg.result);
-                    } else if (typeof msg.error != 'undefined') {
-                        alert('Error: ' + msg.error.message);
-                    }
                 }
             });
         });
