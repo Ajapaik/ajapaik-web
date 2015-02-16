@@ -349,21 +349,38 @@
                 'params': search,
                 'id': 0,
             };
-            $.ajax({
-                type : 'POST',
-                url : url,
-                dataType : "json",
-                contentType : 'application/json',
-                data : JSON.stringify(requestParams),
-                success : function(msg) {
-                    console.log(msg);
-                    if (typeof msg.result != 'undefined' && typeof callback != 'undefined') {
-                        callback(msg.result);
-                    } else if (typeof msg.error != 'undefined') {
-                        alert("Error: " + msg.error.message);
+            (function ($) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    async: false,
+                    jsonpCallback: 'jsonCallback',
+                    contentType: "application/json",
+                    dataType: 'jsonp',
+                    success: function (json) {
+                        console.log(json);
+                    },
+                    error: function (e) {
+                        console.log(e.message);
                     }
-                }
-            });
+                });
+
+            })(jQuery);
+{#            $.ajax({#}
+{#                type : 'POST',#}
+{#                url : url,#}
+{#                dataType : "json",#}
+{#                contentType : 'application/json',#}
+{#                data : JSON.stringify(requestParams),#}
+{#                success : function(msg) {#}
+{#                    console.log(msg);#}
+{#                    if (typeof msg.result != 'undefined' && typeof callback != 'undefined') {#}
+{#                        callback(msg.result);#}
+{#                    } else if (typeof msg.error != 'undefined') {#}
+{#                        alert("Error: " + msg.error.message);#}
+{#                    }#}
+{#                }#}
+{#            });#}
         });
         $(document).on('click', '#ajapaik-curator-save-new-area-button', function () {
             $.ajax({
