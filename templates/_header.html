@@ -13,24 +13,5 @@
             </div>
         </div>
     {% endif %}
-    {% get_language_info for LANGUAGE_CODE as lang %}
-    <div id="ajapaik-language-box">
-        <form action="/i18n/setlang/" method="post">
-            {% csrf_token %}
-            <div id="ajapaik-language-menu">
-                <div>{{ lang.code|upper }}</div>
-                <input name="next" type="hidden" value="{{ redirect_to }}"/>
-                <select id="ajapaik-language-select" name="language" onchange="this.form.submit();">
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                        <option value="{{ language.code }}"
-                                title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"
-                                {% if language.code == lang.code %}
-                                selected="selected"{% endif %}>{{ language.name_local|title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <label for="ajapaik-language-select" id="ajapaik-language-label">{% trans "Choose language" %}:</label>
-        </form>
-    </div>
+    {% include "_language_selection.html" %}
 </nav>
