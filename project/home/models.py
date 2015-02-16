@@ -93,7 +93,7 @@ class Album(models.Model):
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
         try:
-            self.geography = Point(float(self.lat), float(self.lon))
+            self.geography = Point(float(self.lon), float(self.lat))
         except:
             pass
         super(Album, self).save(*args, **kwargs)
@@ -426,7 +426,7 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
         try:
-            self.geography = Point(float(self.lat), float(self.lon))
+            self.geography = Point(float(self.lon), float(self.lat))
         except:
             pass
         super(Photo, self).save(*args, **kwargs)
@@ -617,7 +617,7 @@ class GeoTag(models.Model):
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
         try:
-            self.geography = Point(float(self.lat), float(self.lon))
+            self.geography = Point(float(self.lon), float(self.lat))
         except:
             pass
         super(GeoTag, self).save(*args, **kwargs)
