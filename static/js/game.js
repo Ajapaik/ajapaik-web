@@ -140,6 +140,10 @@
             $('[data-toggle="popover"]').popover('hide');
             window.popoverShown = false;
         }
+        if (window.tutorialPanel) {
+            window.tutorialPanel.close();
+            window.tutorialPanel = undefined;
+        }
         initializeGuessingState();
         modalPhoto = $('#ajapaik-game-modal-photo');
         modalPhoto.unbind('load');
@@ -447,7 +451,7 @@
                     guessPhotoPanelSettings.draggable = false;
                     guessPhotoPanelSettings.resizable = false;
                 }
-                var maxWidth = parseInt($(window).width() * 0.4, 10),
+                var maxWidth = parseInt($(window).width() * 0.33, 10),
                     maxHeight = parseInt($(window).height() * 0.75, 10);
                 guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', maxWidth + 'px').css('max-height', maxHeight + 'px');
                 guessPhotoPanel.on('jspanelloaded', function () {
