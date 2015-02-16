@@ -349,22 +349,15 @@
                 'params': search,
                 'id': 0,
             };
-            (function ($) {
+            (function($) {
                 $.ajax({
-                    type: 'GET',
+                   type: 'GET',
                     url: url,
                     async: false,
-                    jsonpCallback: 'jsonCallback',
                     contentType: "application/json",
                     dataType: 'jsonp',
-                    success: function (json) {
-                        console.log(json);
-                    },
-                    error: function (e) {
-                        console.log(e.message);
-                    }
+                    data: JSON.stringify(requestParams)
                 });
-
             })(jQuery);
 {#            $.ajax({#}
 {#                type : 'POST',#}
