@@ -93,7 +93,6 @@ def _extract_and_save_data_from_exif(photo_with_exif):
                 lon = 0 - lon
             photo_with_exif.lat = lat
             photo_with_exif.lon = lon
-            print photo_with_exif.__dict__
             photo_with_exif.save()
         if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data or 'Software' in exif_data:
             camera_make = exif_data.get('Make')
