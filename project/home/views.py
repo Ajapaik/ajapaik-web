@@ -935,3 +935,6 @@ def grid_infinite_scroll(request):
         start = int(request.GET.get('start'))
         data = qs.get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+def locloud_locator(request):
+    print request.POST

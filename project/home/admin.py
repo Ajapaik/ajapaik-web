@@ -70,9 +70,14 @@ class ProfileAdmin(ForeignKeyAutocompleteAdmin):
     }
 
 
+class PointsAdmin(ForeignKeyAutocompleteAdmin):
+    related_search_fields = {
+        'user': ('first_name', 'last_name', 'email'),
+    }
+
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
-admin.site.register(Points)
+admin.site.register(Points, PointsAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Source)
 admin.site.register(Skip, SkipAdmin)

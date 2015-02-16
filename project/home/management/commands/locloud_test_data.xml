@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:carare="http://www.carare.eu/carareSchema"
+         xmlns:edm="http://www.europeana.eu/schemas/edm/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:ore="http://www.openarchives.org/ore/terms/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#">
+    <edm:ProvidedCHO rdf:about="HA77405">
+        <dc:description xml:lang="cz">
+            ODŘEPSY, Oškobrh - hradiště na Hřebínku, vrcholová plošina - poškození vodní nádrží
+        </dc:description>
+        <dc:identifier>TLM Fn 37</dc:identifier>
+        <dc:language>cz</dc:language>
+        <dc:source>Tallinna Linnamuuseum</dc:source>
+        <dc:title xml:lang="cz">
+            ODŘEPSY, Oškobrh - hradiště na Hřebínku, vrcholová plošina - poškození vodní nádrží
+        </dc:title>
+        <dc:type>IMAGE</dc:type>
+        <dcterms:spatial rdf:resource="HA77405/SP.1"/>
+        <edm:type>IMAGE</edm:type>
+    </edm:ProvidedCHO>
+    <edm:WebResource rdf:about="&#xA;http://iispp.npu.cz/mis_public/preview.htm?id=77405&#xA;">
+        <dc:description xml:lang="cz">
+            ODŘEPSY, Oškobrh - hradiště na Hřebínku, vrcholová plošina - poškození vodní nádrží
+        </dc:description>
+        <dc:format>image/jpeg</dc:format>
+        <dc:rights>
+            Národní památkový ústav http://iispp.npu.cz/mis_public/homepage.htm
+        </dc:rights>
+        <dc:source>
+            Národní památkový ústav http://iispp.npu.cz/mis_public/homepage.htm
+        </dc:source>
+        <dcterms:extent>5355386 B</dcterms:extent>
+        <edm:rights rdf:resource="http://www.europeana.eu/rights/rr-f/"/>
+    </edm:WebResource>
+    <edm:Place rdf:about="HA77405/SP.1">
+        <wgs84_pos:lat>15.22490296</wgs84_pos:lat>
+        <wgs84_pos:long>50.14646491</wgs84_pos:long>
+        <skos:altLabel>Odřepsy</skos:altLabel>
+        <skos:note>Odřepsy, 28907, Czech Republic, Česká republika</skos:note>
+    </edm:Place>
+    <ore:Aggregation rdf:about="HA77405">
+        <edm:aggregatedCHO rdf:resource="HA77405"/>
+        <edm:dataProvider>
+            Národní památkový ústav http://iispp.npu.cz/mis_public/homepage.htm
+        </edm:dataProvider>
+        <edm:isShownAt rdf:resource="&#xA;http://iispp.npu.cz/mis_public/publicDocumentDetail.htm?id=77405&#xA;"/>
+        <edm:isShownBy rdf:resource="&#xA;http://iispp.npu.cz/mis_public/preview.htm?id=77405&#xA;"/>
+        <edm:object rdf:resource="&#xA;http://iispp.npu.cz/mis_public/thumbnail.htm?id=77405&#xA;"/>
+        <edm:provider>LoCloud</edm:provider>
+        <edm:rights rdf:resource="http://www.europeana.eu/rights/rr-f/"/>
+    </ore:Aggregation>
+</rdf:RDF>
