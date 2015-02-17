@@ -552,7 +552,11 @@ def fetch_stream(request):
     if area_selection_form.is_valid():
         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
-        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
+        old_city_id = request.GET.get('city__pk') or None
+        if old_city_id is not None:
+            area = Area.objects.get(pk=old_city_id)
+        else:
+            area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 
     album_selection_form = AlbumSelectionForm(request.GET)
 
