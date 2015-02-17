@@ -24,13 +24,22 @@
                         <div id="ajapaik-game-photo-description" class="pull-left" style="display: none;"></div>
                     </div>
                     <div class="row" style="text-align: right; margin-right: 0;">
-                        <button class="btn btn-default pull-left ajapaik-game-show-description-button" data-toggle="popover" style="display: none;">
-                            {% trans "Show description" %}
-                        </button>
-                        <button class="btn btn-primary ajapaik-game-specify-location-button">
-                            {% trans "Pick the shooting location!" %}
-                        </button>
-                        <button class="btn btn-primary ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
+                        <div class="col-xs-6">
+                            <button class="btn btn-default btn-block pull-left ajapaik-game-show-description-button" data-toggle="popover" style="display: none;">
+                                {% trans "Show description" %}
+                            </button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary btn-block ajapaik-game-specify-location-button">
+                                {% trans "Pick the shooting location!" %}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: right; margin-right: 0; margin-top: 5px;">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary btn-block ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
+                        </div>
                     </div>
                     <p id="ajapaik-game-status-message"></p>
                 </div>
@@ -71,15 +80,17 @@
     <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
         {% include "_map_lower_right_buttons.html" %}
-        <div class="panel panel-default" id="ajapaik-game-map-info-panel">
-            <div class="panel-body">
-                {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
-                <br/>
-                {% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span>
-                {#<br/>#}
-                {#{% trans "Confidence" %}: <span id="ajapaik-game-map-confidence"></span>#}
+        {% if not request.mobile %}
+            <div class="panel panel-default" id="ajapaik-game-map-info-panel">
+                <div class="panel-body">
+                    {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
+                    <br/>
+                    {% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span>
+                    {#<br/>#}
+                    {#{% trans "Confidence" %}: <span id="ajapaik-game-map-confidence"></span>#}
+                </div>
             </div>
-        </div>
+        {% endif %}
         <div id="ajapaik-map-canvas"></div>
     </div>
     <div class="full-box">
