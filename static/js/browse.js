@@ -430,7 +430,7 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                if (window.map.zoom > 17 || response.photos.length <= 50) {
+                if (window.map.zoom > 17 || window.map.zoom < 14 || response.photos.length <= 50) {
                     markerClustererSettings.gridSize = 1;
                 } else {
                     markerClustererSettings.gridSize = 60;
