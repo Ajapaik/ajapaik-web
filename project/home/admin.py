@@ -76,6 +76,11 @@ class PointsAdmin(ForeignKeyAutocompleteAdmin):
         'user': ('first_name', 'last_name', 'email'),
     }
 
+class AlbumAdmin(ForeignKeyAutocompleteAdmin):
+    related_search_fields = {
+        'user': ('first_name', 'last_name', 'email'),
+    }
+
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
 admin.site.register(Points, PointsAdmin)
@@ -83,7 +88,7 @@ admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Source)
 admin.site.register(Skip, SkipAdmin)
 admin.site.register(Action)
-admin.site.register(Album)
+admin.site.register(Album, AlbumAdmin)
 admin.site.register(AlbumPhoto)
 admin.site.register(Area)
 admin.site.register(Licence)
