@@ -1,4 +1,5 @@
 from PIL import Image
+from django.contrib.gis.gdal import Envelope
 from django.core.files import File
 from django.contrib.gis.db import models
 from django.db import connection
@@ -197,7 +198,7 @@ class Photo(models.Model):
             data = []
             qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
             if bounding_box:
-                qs = qs.filter(geography__intersects=bounding_box)
+                qs = qs.filter(geography__intersects=Envelope(bounding_box).wkt)
             for p in qs:
                 im_url = None
                 width = None
