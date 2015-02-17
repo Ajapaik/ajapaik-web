@@ -902,8 +902,7 @@ def public_photo_upload_handler(request):
 def pane_contents(request):
     marker_ids = request.POST.getlist('marker_ids[]')
     data = []
-    for p in Photo.objects.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True,
-                                  id__in=marker_ids):
+    for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids):
         rephoto_count = len(list(Photo.objects.filter(rephoto_of=p.id)))
         im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
         try:
