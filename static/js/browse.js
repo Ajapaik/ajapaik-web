@@ -433,7 +433,7 @@
                     }
                 }
                 if (window.map.zoom > 17 || response.photos.length <= 50) {
-                    markerClustererSettings.gridSize = 0;
+                    markerClustererSettings.gridSize = 1;
                     if (window.map.zoom < 14) {
                         markerClustererSettings.gridSize = 60;
                     }
