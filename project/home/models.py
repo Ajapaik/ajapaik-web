@@ -426,6 +426,8 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
         try:
+            print self.lat
+            print self.lon
             self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         except:
             pass
