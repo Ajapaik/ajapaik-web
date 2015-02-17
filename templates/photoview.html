@@ -46,12 +46,12 @@
                     {% if photo.source_url %}
                         <div class="row-fluid">
                             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
-                                {{ photo.source.description }} {% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}{% endif %}
+                                {{ photo.source.description }} {% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
                             </a>
                         </div>
                     {% elif photo.source.description %}
                         <div class="row-fluid">
-                            {{ photo.source.description }}{% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}&nbsp;{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}{% endif %}
+                            {{ photo.source.description }}{% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}&nbsp;{% include "_licence.html" with licence=photo.licence %}{% endif %}
                         </div>
                     {% endif %}
                     <div class="row-fluid" style="margin-top: 10px;">
