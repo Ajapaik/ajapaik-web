@@ -407,28 +407,30 @@
                 if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
                     $('.ajapaik-header-info-button')[0].click();
                 }
-                for (j = 0; j < response.photos.length; j += 1) {
-                    p = response.photos[j];
-                    if (p[4]) {
-                        icon = blueMarkerIcon20;
-                    } else {
-                        icon = blackMarkerIcon20;
-                    }
-                    var marker = new google.maps.Marker({
-                        id: p[0],
-                        icon: icon,
-                        rephotoCount: p[4],
-                        position: new google.maps.LatLng(p[3], p[2]),
-                        zIndex: 1,
-                        azimuth: p[7],
-                        map: null
-                    });
-                    (function (id) {
-                        window.google.maps.event.addListener(marker, 'click', function () {
-                            window.highlightSelected(id, true);
+                if (response.photos) {
+                    for (j = 0; j < response.photos.length; j += 1) {
+                        p = response.photos[j];
+                        if (p[4]) {
+                            icon = blueMarkerIcon20;
+                        } else {
+                            icon = blackMarkerIcon20;
+                        }
+                        var marker = new google.maps.Marker({
+                            id: p[0],
+                            icon: icon,
+                            rephotoCount: p[4],
+                            position: new google.maps.LatLng(p[3], p[2]),
+                            zIndex: 1,
+                            azimuth: p[7],
+                            map: null
                         });
-                    })(p[0]);
-                    markers.push(marker);
+                        (function (id) {
+                            window.google.maps.event.addListener(marker, 'click', function () {
+                                window.highlightSelected(id, true);
+                            });
+                        })(p[0]);
+                        markers.push(marker);
+                    }
                 }
                 if (window.map.zoom > 17 || response.photos.length <= 50) {
                     markerClustererSettings.gridSize = 0;
