@@ -389,7 +389,7 @@ def photoslug(request, photo_id, pseudo_slug):
 
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
-        'licence': Licence.objects.get(id=9),
+        'licence': Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         'area': photo_obj.area,
         'area_selection_form': area_selection_form,
         'fullscreen': _make_fullscreen(photo_obj),
@@ -689,7 +689,7 @@ def csv_upload(request):
 
 def mapview_photo_upload_modal(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
-    licence = Licence.objects.get(id=9)
+    licence = Licence.objects.get(name="Attribution-ShareAlike 4.0 International")
     return render_to_response('_photo_upload_modal.html', RequestContext(request, {
         'photo': photo,
         'licence': licence

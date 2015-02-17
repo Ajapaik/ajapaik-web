@@ -872,3 +872,6 @@ class Licence(models.Model):
 
     class Meta:
         app_label = "project"
+
+    def __unicode__(self):
+        return "%s" % self.name
