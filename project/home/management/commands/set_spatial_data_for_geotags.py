@@ -9,5 +9,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         geotags = GeoTag.objects.filter(geography__isnull=True)
         for g in geotags:
-            g.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+            g.geography = Point(x=float(g.lat), y=float(g.lon), srid=4326)
             g.save()

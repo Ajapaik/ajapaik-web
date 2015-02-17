@@ -21,7 +21,7 @@ from django.core.urlresolvers import reverse
 from oauth2client.django_orm import FlowField
 
 from sorl.thumbnail import get_thumbnail
-from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import Point, Polygon
 
 import math
 import datetime
@@ -93,7 +93,7 @@ class Album(models.Model):
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
         try:
-            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         except:
             pass
         super(Album, self).save(*args, **kwargs)
@@ -197,7 +197,7 @@ class Photo(models.Model):
             data = []
             qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
             if bounding_box:
-                qs = qs.filter(geography__intersects=bounding_box)
+                qs = qs.filter(geography__intersects=Polygon.from_bbox(bounding_box))
             for p in qs:
                 im_url = None
                 width = None
@@ -426,7 +426,7 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
         try:
-            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         except:
             pass
         super(Photo, self).save(*args, **kwargs)
@@ -617,7 +617,7 @@ class GeoTag(models.Model):
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
         try:
-            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         except:
             pass
         super(GeoTag, self).save(*args, **kwargs)
