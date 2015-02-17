@@ -79,6 +79,7 @@ class PointsAdmin(ForeignKeyAutocompleteAdmin):
 class AlbumAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
         'user': ('first_name', 'last_name', 'email'),
+        'photo': ('pk', 'description',)
     }
 
 admin.site.register(Photo, PhotoAdmin)
