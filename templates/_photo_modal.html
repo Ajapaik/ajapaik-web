@@ -68,12 +68,12 @@
                     <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
                         <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
                            target="_blank">
-                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% if photo.licence == "CC BY-ND 4.0" %}{% include "_creative_commons_by_nd.html" %}{% endif %}{% endif %}
+                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}{% endif %}
                         </a>
                     </div>
                 {% elif photo.source.description %}
                     <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% if photo.licence == "CC BY-ND 4.0" %}{% include "_creative_commons_by_nd.html" %}{% endif %}{% endif %}
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}{% endif %}
                     </div>
                 {% endif %}
                 </div>
@@ -85,7 +85,7 @@
                     {% endif %}
                         {% if photo.rephotos.all.0 %}
                             <div class="row ajapaik-photo-modal-row">
-                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;{% include '_creative_commons_by_sa.html' %}
+                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;{% include '_licence.html' with licence=photo.rephotos.all.0.licence %}
                             </div>
                             <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
                                 {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date|date:"d.m.Y" }}</div>
