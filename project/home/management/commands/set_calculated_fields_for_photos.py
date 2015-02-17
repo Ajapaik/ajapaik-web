@@ -17,6 +17,5 @@ class Command(BaseCommand):
             photo.save()
         else:
             for photo in Photo.objects.all():
-                print photo.id
                 photo.set_calculated_fields()
                 photo.save()
