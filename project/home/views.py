@@ -227,7 +227,12 @@ def game(request):
     if area_selection_form.is_valid():
         ctx['area'] = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
-        ctx['area'] = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
+        old_city_id = request.GET.get('city__pk') or None
+        if old_city_id is not None:
+            ctx['area'] = Area.objects.get(pk=old_city_id)
+        else:
+            ctx['area'] = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
+
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
