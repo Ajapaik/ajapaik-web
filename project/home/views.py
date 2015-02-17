@@ -461,7 +461,7 @@ def map_objects_by_bounding_box(request):
 
     qs = Photo.objects.all()
 
-    bounding_box = ((float(data.get('sw_lat')), float(data.get('sw_lon')), float(data.get('ne_lat')), float(data.get('ne_lon'), )))
+    bounding_box = Polygon.from_bbox((data.get('sw_lat'), data.get('sw_lon'), data.get('ne_lat'), data.get('ne_lon')))
 
     ungeotagged_count, geotagged_count = qs.get_area_photo_count_and_total_geotag_count(data.get('area_id'))
 
