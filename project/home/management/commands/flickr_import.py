@@ -29,11 +29,11 @@ class Command(BaseCommand):
         image_url_template = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg'
         #https://www.flickr.com/photos/{user-id}/{photo-id}
         reference_url_template = 'https://www.flickr.com/photos/%s/%s'
-        #request = urllib2.Request(search_url)
-        #response = urllib2.urlopen(request)
-        #data = response.read()
-        data = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/flickr_import_test.json', 'r').read()
-        data = json.loads(data)
+        request = urllib2.Request(search_url)
+        response = urllib2.urlopen(request)
+        data = response.read()
+        #data = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/flickr_import_test.json', 'r').read()
+        #data = json.loads(data)
         source = Source.objects.get(description='The British Library')
         licence = Licence.objects.get(name='No known copyright restrictions')
         album = Album.objects.get(name='The British Library Metropolitan Improvements')
