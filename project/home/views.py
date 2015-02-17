@@ -18,7 +18,7 @@ from django.contrib.gis.geos import Polygon
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
-    Album, AlbumPhoto, Area
+    Album, AlbumPhoto, Area, Licence
 from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
@@ -389,6 +389,7 @@ def photoslug(request, photo_id, pseudo_slug):
 
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
+        'licence': Licence.objects.get(id=9),
         'area': photo_obj.area,
         'area_selection_form': area_selection_form,
         'fullscreen': _make_fullscreen(photo_obj),
@@ -688,8 +689,10 @@ def csv_upload(request):
 
 def mapview_photo_upload_modal(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
+    licence = Licence.objects.get(id=9)
     return render_to_response('_photo_upload_modal.html', RequestContext(request, {
-        'photo': photo
+        'photo': photo,
+        'licence': licence
     }))
 
 def public_add_album(request):
