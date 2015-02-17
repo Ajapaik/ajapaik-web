@@ -225,7 +225,9 @@
                 guessPhotoPanelSettings.resizable = false;
                 guessPhotoPanelSettings.draggable = false;
             }
-            guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);
+            var maxWidth = parseInt($(window).width() * 0.33, 10),
+                maxHeight = parseInt($(window).height() * 0.75, 10);
+            guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', maxWidth + 'px').css('max-height', maxHeight + 'px');
             guessPhotoPanel.on('jspanelloaded', function () {
                 $('#ajapaik-mapview-guess-photo-js-panel').find('img').show();
             });
@@ -428,7 +430,7 @@
                     })(p[0]);
                     markers.push(marker);
                 }
-                if (window.map.zoom > 17) {
+                if (window.map.zoom > 17 || response.photos.length <= 50) {
                     markerClustererSettings.gridSize = 1;
                 } else {
                     markerClustererSettings.gridSize = 60;

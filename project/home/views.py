@@ -740,6 +740,28 @@ def public_photo_upload(request):
         'title': _("Timepatch (Ajapaik) - upload photos")
     }))
 
+def curator(request):
+    user_profile = request.get_user().profile
+    area_selection_form = AreaSelectionForm(request.GET)
+    add_album_form = AddAlbumForm()
+    add_area_form = AddAreaForm()
+    if area_selection_form.is_valid():
+        area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
+    else:
+        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
+    selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
+    selectable_areas = Area.objects.order_by('name').all()
+    return render_to_response('curator.html', RequestContext(request, {
+        'area': area,
+        'selectable_areas': selectable_areas,
+        'selectable_albums': selectable_albums,
+        'add_album_form': add_album_form,
+        'add_area_form': add_area_form,
+        'title': _("Timepatch (Ajapaik) - curate")
+    }))
+
+def curator_search(request):
+    return HttpResponse(json.dumps("Ok"), content_type="application/json")
 
 @csrf_exempt
 def delete_public_photo(request, photo_id):

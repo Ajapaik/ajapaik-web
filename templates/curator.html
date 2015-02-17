@@ -1,0 +1,382 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container" id="ajapaik-curator-container">
+        <div class="col-xs-12">
+            {% if request.user.is_authenticated and request.user.profile.fb_id %}
+                {% with profile=request.user.profile user=request.user %}
+                    <div class="row"><p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p></div>
+                {% endwith %}
+                <div class="modal fade" id="ajapaik-choose-albums-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">{% trans "Choose albums" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for a in selectable_albums %}
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input name="album_list[]" type="checkbox" value="{{ a.id }}"
+                                                               data-album-name="{{ a.name }}">
+                                                    </span>
+                                                <label class="form-control">{{ a.name }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success"
+                                        id="ajapaik-curator-add-album-button"><i
+                                        class="glyphicon glyphicon-plus"></i>{% trans "Add" %}</button>
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary"
+                                        id="ajapaik-curator-confirm-album-selection-button">{% trans "Save" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ajapaik-choose-area-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">{% trans "Choose area" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for a in selectable_areas %}
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input name="area" type="radio" value="{{ a.id }}"
+                                                               data-area-name="{{ a.name }}">
+                                                    </span>
+                                                <label class="form-control">{{ a.name }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="ajapaik-curator-add-area-button">
+                                    <i class="glyphicon glyphicon-plus"></i>{% trans "Add" %}</button>
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary"
+                                        id="ajapaik-curator-confirm-area-selection-button">{% trans "Save" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ajapaik-create-album-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">{% trans "Create a new album" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12" id="ajapaik-curator-add-album-error"
+                                         style="display: none;">
+                                        <div class="alert alert-danger" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign"
+                                                  aria-hidden="true"></span>
+                                            {% trans "Error" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-add-album-name">{% trans "New album name" %}&nbsp;*</label>
+                                            </span>
+                                            <input class="form-control" type="text"
+                                                   id="ajapaik-curator-add-album-name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-add-album-description">{% trans "New album description" %}</label>
+                                            </span>
+                                            <textarea class="form-control"
+                                                      id="ajapaik-curator-add-album-description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary"
+                                        id="ajapaik-curator-save-new-album-button">{% trans "Save" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ajapaik-create-area-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">{% trans "Create a new area" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12" id="ajapaik-curator-add-area-error"
+                                         style="display: none;">
+                                        <div class="alert alert-danger" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign"
+                                                  aria-hidden="true"></span>
+                                            {% trans "Error" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-add-area-name">{% trans "New area name" %}&nbsp;*</label>
+                                            </span>
+                                            <input class="form-control" type="text"
+                                                   id="ajapaik-curator-add-area-name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-add-area-lat">{% trans "New area latitude" %}</label>
+                                            </span>
+                                            <input class="form-control" type="number"
+                                                   id="ajapaik-curator-add-area-lat">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-add-area-lon">{% trans "New area longitude" %}</label>
+                                            </span>
+                                            <input class="form-control" type="number"
+                                                   id="ajapaik-curator-add-area-lon">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary"
+                                        id="ajapaik-curator-save-new-area-button">{% trans "Save" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" id="ajapaik-curator-full-search" placeholder="{% trans "Full search" %}">
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-search-button">
+                            {% trans "Search!" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-open-area-modal">
+                            {% trans "Choose area" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-open-album-modal">
+                            {% trans "Choose albums" %}
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <span id="ajapaik-curator-destination-album">{% trans "Selected albums:" %}&nbsp;<span>{{ album.name }}</span></span>
+                </div>
+                <div class="row">
+                    <span id="ajapaik-curator-destination-area">{% trans "Selected area:" %}&nbsp;<span>{{ area.name }}</span></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" id="ajapaik-curator-search-results"></div>
+                </div>
+            {% else %}
+                <div id="facebook-connect">
+                    <p>{% trans "Curating requires connecting your account with Facebook." %}</p>
+                    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock layout %}
+{% block specific_js %}
+{% compress js %}
+    <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+{% endcompress %}
+<script>
+    $(function () {
+        'use strict';
+        $(document).ready(function () {
+            if (window.getQueryParameterByName('albumChoiceOpen')) {
+                $('#ajapaik-curator-open-album-modal').click();
+            }
+            if (window.getQueryParameterByName('areaChoiceOpen')) {
+                $('#ajapaik-curator-open-area-modal').click();
+            }
+        });
+        var selectedAlbums = [[{{ album.id}}]],
+                selectedArea = '{{ area.id }}',
+                selectedAreaName = '{{ area.name }}';
+        $(document).on('click', '#ajapaik-curator-open-album-modal', function () {
+            $('#ajapaik-choose-albums-modal').modal().on('shown.bs.modal', function () {
+                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.curator' %}' + '?album={{ album.id }}&albumChoiceOpen=1');
+            }).on('hidden.bs.modal', function () {
+                window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.curator' %}' + '?album={{ album.id }}');
+            });
+        });
+        $(document).on('click', '#ajapaik-curator-open-area-modal', function () {
+            $('#ajapaik-choose-area-modal').modal().on('shown.bs.modal', function () {
+                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.curator' %}' + '?area={{ album.id }}&areaChoiceOpen=1');
+            }).on('hidden.bs.modal', function () {
+                window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.curator' %}' + '?area={{ album.id }}');
+            });
+        });
+        $(document).on('click', '#ajapaik-curator-add-album-button', function () {
+            $('#ajapaik-create-album-modal').modal().on('shown.bs.modal', function () {
+                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+            });
+        });
+        $(document).on('click', '#ajapaik-curator-add-area-button', function () {
+            $('#ajapaik-create-area-modal').modal().on('shown.bs.modal', function () {
+                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+            });
+        });
+        $(document).on('click', '#ajapaik-curator-confirm-album-selection-button', function () {
+            var checked = $('input[name="album_list[]"]:checked');
+            selectedAlbums = [];
+            var selectedNames = [];
+            for (var i = 0; i < checked.length; i += 1) {
+                selectedAlbums.push(parseInt(checked[i].value, 10));
+                selectedNames.push(checked[i].dataset.albumName);
+            }
+            $('#ajapaik-curator-destination-album').find('span').html(selectedNames.join(', '));
+            $('#ajapaik-choose-albums-modal').modal('toggle');
+        });
+        $(document).on('click', '#ajapaik-curator-confirm-area-selection-button', function () {
+            var checked = $('input[name="area"]:checked');
+            selectedArea = parseInt(checked[0].value, 10);
+            selectedAreaName = checked[0].dataset.areaName;
+            $('#ajapaik-curator-destination-area').find('span').html(selectedAreaName);
+            $('#ajapaik-choose-area-modal').modal('toggle');
+        });
+        $(document).on('click', '#ajapaik-curator-save-new-album-button', function () {
+            $.ajax({
+                url: {% url 'project.home.views.public_add_album' %},
+                type: 'POST',
+                data: {
+                    name: $('#ajapaik-curator-add-album-name').val(),
+                    description: $('#ajapaik-curator-add-album-description').val(),
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                }
+            }).success(function () {
+                $('#ajapaik-curator-add-album-error').hide();
+                window.location.reload();
+            }).error(function () {
+                $('#ajapaik-curator-add-album-error').show();
+            });
+        });
+        $(document).on('click', '#ajapaik-curator-search-button', function () {
+           console.log();
+            var search = {
+                'fullSearch' : {
+                    'value' : $('#ajapaik-curator-full-search').val()
+                },
+                {% comment %}'id' : {
+                    'value' : $('#id').val(),
+                    'type' : 'OR'
+                },
+                'what' : {
+                    'value' : $('#what').val()
+                },
+                'description' : {
+                    'value' : $('#description').val()
+                },
+                'who' : {
+                    'value' : $('#who').val()
+                },
+                'from' : {
+                    'value' : $('#from').val()
+                },
+                'number' : {
+                    'value' : $('#number').val()
+                },{% endcomment %}
+                
+                //'luceneQuery' : $('#luceneQuery').val() == '' ? null : $('#luceneQuery').val(),
+                //'institutionTypes' : [getValue('MUSEUM'), getValue('LIBRARY'), getValue('ARCHIVE')],
+                'institutionTypes' : [true, true, true],
+                
+                'pageSize' : 200,
+                'digital' : true,
+            },
+            url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json',
+            requestParams = {
+                'method': 'search',
+                'params': search,
+                'id': 0,
+            };
+            $.ajax({
+                type : 'POST',
+                url : url,
+                dataType : 'json',
+                contentType : 'application/json',
+                data : JSON.stringify(requestParams),
+                success : function(msg) {
+                    console.log(msg);
+                }
+            });
+        });
+        $(document).on('click', '#ajapaik-curator-save-new-area-button', function () {
+            $.ajax({
+                url: {% url 'project.home.views.public_add_area' %},
+                type: 'POST',
+                data: {
+                    name: $('#ajapaik-curator-add-area-name').val(),
+                    lat: $('#ajapaik-curator-add-area-lat').val(),
+                    lon: $('#ajapaik-curator-add-area-lon').val(),
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                }
+            }).success(function () {
+                $('#ajapaik-curator-add-area-error').hide();
+                window.location.reload();
+            }).error(function () {
+                $('#ajapaik-curator-add-area-error').show();
+            });
+        });
+    });
+</script>
+{% endblock %}

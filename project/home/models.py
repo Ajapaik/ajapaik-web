@@ -195,7 +195,7 @@ class Photo(models.Model):
         def get_geotagged_photos_list(self, bounding_box=None, with_images=False):
             # TODO: Once we have regions, re-implement caching
             data = []
-            qs = self.filter(confidence__gte=0.3, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+            qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
             if bounding_box:
                 qs = qs.filter(geography__intersects=bounding_box)
             for p in qs:
