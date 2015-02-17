@@ -68,12 +68,12 @@
                     <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
                         <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
                            target="_blank">
-                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}{% endif %}
+                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
                         </a>
                     </div>
                 {% elif photo.source.description %}
                     <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}{% endif %}
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
                     </div>
                 {% endif %}
                 </div>
