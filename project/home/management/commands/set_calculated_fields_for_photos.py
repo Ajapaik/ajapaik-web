@@ -7,13 +7,15 @@ class Command(BaseCommand):
     args = "photo_id"
 
     def handle(self, *args, **options):
-        photo_id = args[0]
+        try:
+            photo_id = args[0]
+        except:
+            photo_id = None
         if photo_id:
             photo = Photo.objects.get(pk=photo_id)
             photo.set_calculated_fields()
             photo.save()
         else:
             for photo in Photo.objects.all():
-                print photo.id
                 photo.set_calculated_fields()
                 photo.save()
