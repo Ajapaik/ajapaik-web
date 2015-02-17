@@ -33,7 +33,7 @@ class Command(BaseCommand):
         response = urllib2.urlopen(request)
         data = response.read()
         #data = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/flickr_import_test.json', 'r').read()
-        #data = json.loads(data)
+        data = json.loads(data)
         source = Source.objects.get(description='The British Library')
         licence = Licence.objects.get(name='No known copyright restrictions')
         album = Album.objects.get(name='The British Library Metropolitan Improvements')
