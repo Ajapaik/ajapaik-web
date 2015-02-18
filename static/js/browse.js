@@ -405,7 +405,10 @@
                     $('.ajapaik-geotag-info-panel-no-photos').hide();
                 }
                 if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
-                    $('.ajapaik-header-info-button')[0].click();
+                    var buttons = $('.ajapaik-header-info-button');
+                    if (buttons) {
+                        buttons[0].click();
+                    }
                 }
                 if (response.photos) {
                     for (j = 0; j < response.photos.length; j += 1) {
