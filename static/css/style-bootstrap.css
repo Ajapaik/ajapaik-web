@@ -748,7 +748,6 @@ ul.errorlist {
 
 #ajapaik-game-photo-description {
     margin-bottom: 15px;
-    margin-right: 0 !important;
 }
 
 .ajapaik-game-show-description-button {
@@ -1013,6 +1012,10 @@ ul.errorlist {
 
 .ajapaik-no-left-margin-row {
     margin-left: 0 !important;
+}
+
+.ajapaik-no-right-margin-row {
+    margin-right: 0 !important;
 }
 
 #ajapaik-photoview-date-taken {
