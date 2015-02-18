@@ -406,7 +406,7 @@
                 }
                 if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
                     var buttons = $('.ajapaik-header-info-button');
-                    if (buttons) {
+                    if (buttons.length > 0) {
                         buttons[0].click();
                     }
                 }
