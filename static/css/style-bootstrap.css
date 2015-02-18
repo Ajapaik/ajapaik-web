@@ -142,7 +142,7 @@ body {
     background: #fff url(../images/material-design-icons/ic_lock_outline_24px.svg) no-repeat center !important;
     width: 36px;
     height: 36px;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .ajapaik-marker-center-lock-button:hover {
@@ -222,15 +222,6 @@ body {
 }
 
 #ajapaik-map-button-container {
-    position: fixed;
-    bottom: 5%;
-    right: 35px;
-    z-index: 1000;
-    display: none;
-}
-
-#ajapaik-map-button-container .row {
-    margin-bottom: 15px;
 }
 
 .ajapaik-game-next-photo-button {
@@ -251,16 +242,28 @@ body {
 }
 
 #ajapaik-map-container {
-    height: 95%;
+    height: 94%;
     position: fixed;
     margin-top: 50px;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
     webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     z-index: 1001;
+}
+
+#ajapaik-guess-panel-container {
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 50px;
+}
+
+#ajapaik-guess-panel-photo {
+    margin: 0 auto;
 }
 
 #ajapaik-grid-map-info-panel {
@@ -750,9 +753,6 @@ ul.errorlist {
     margin-bottom: 15px;
 }
 
-.ajapaik-game-show-description-button {
-    margin-left: 15px;
-}
 
 #ajapaik-game-feedback-panel {
     position: fixed;
@@ -1086,13 +1086,14 @@ ul.errorlist {
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
-    margin-right: 15px;
+    margin-left: 50px;
+    margin-top: 50px;
 }
 
 #pac-input:focus {
     border-color: #4d90fe;
-    margin-left: -1px;
-    padding-left: 14px; /* Regular padding-left + 1. */
+    margin-right: -1px;
+    padding-right: 14px; /* Regular padding-left + 1. */
     width: 201px;
 }
 

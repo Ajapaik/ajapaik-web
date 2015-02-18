@@ -12,8 +12,8 @@
         location,
         playerLatlng,
         nextPhoto,
-        guessPhotoPanel,
-        guessPhotoPanelContent,
+        //guessPhotoPanel,
+        //guessPhotoPanelContent,
         feedbackPanel,
         lastStatusMessage,
         flipPhoto,
@@ -26,20 +26,12 @@
         photoLoadModalResizeFunction,
         modalPhoto,
         fullScreenImage,
-        guessPhotoPanelSettings = {
-            selector: '#ajapaik-map-container',
-            removeHeader: true,
-            position: {
-                top: 50,
-                left: 50
-            },
-            draggable: {
-                handle: '.jsPanel-content',
-                containment: '#ajapaik-map-container'
-            },
-            size: 'auto',
-            id: 'ajapaik-game-guess-photo-js-panel'
-        },
+        toggleFlipButtons,
+        //guessPhotoPanelSettings = {
+        //    selector: '#ajapaik-guess-panel-container',
+        //    removeHeader: true,
+        //    size: 'auto'
+        //},
         nextPhotoLoading = false;
 
     photoLoadModalResizeFunction = function () {
@@ -91,15 +83,19 @@
             $('.center-marker').hide();
         }
         window.gameHintUsed = false;
+        $('#ajapaik-map-container').animate({width: '100%'});
+        $('#ajapaik-guess-panel-container').animate({width: '0'}, {complete: function () {
+            window.google.maps.event.trigger(window.map, 'resize');
+        }});
         $('#ajapaik-game-photo-modal').modal();
-        $('#ajapaik-map-button-container').hide();
+        //$('#ajapaik-map-button-container').hide();
         $('#ajapaik-game-guess-photo-js-panel').hide();
         if (feedbackPanel) {
             feedbackPanel.close();
         }
-        if (guessPhotoPanel) {
-            guessPhotoPanel.close();
-        }
+        //if (guessPhotoPanel) {
+        //    guessPhotoPanel.close();
+        //}
         window.map.getStreetView().setVisible(false);
         if (!window.markerLocked) {
             $('.ajapaik-marker-center-lock-button').click();
@@ -166,8 +162,9 @@
             modalPhoto.prop('src', mediaUrl + currentPhoto.big.url);
             modalPhoto.on('load', photoLoadModalResizeFunction);
             if (currentPhoto.description) {
+                $('#ajapaik-guess-panel-description').html(currentPhoto.description);
                 $('#ajapaik-game-photo-description').html(currentPhoto.description);
-                $('#ajapaik-game-guess-photo-js-panel-content').find('.row').html(currentPhoto.description);
+                //$('#ajapaik-game-guess-photo-js-panel-content').find('.row').html(currentPhoto.description);
                 showDescriptionButtons();
             } else {
                 hideDescriptionButtons();
@@ -191,8 +188,8 @@
         window.userFlippedPhoto = !userFlippedPhoto;
         currentPhoto.flip = !currentPhoto.flip;
         var photoElement = $('#ajapaik-game-modal-photo'),
-            guessPhotoElement = $('#ajapaik-game-guess-photo-container').find('img'),
-            guessPhotoElementDynamic = $('#ajapaik-game-guess-photo-js-panel').find('img'),
+            guessPhotoElement = $('#ajapaik-guess-panel-photo'),
+            //guessPhotoElementDynamic = $('#ajapaik-game-guess-photo-js-panel').find('img'),
             fullscreenPhotoElement = $('#ajapaik-full-screen-image');
         if (photoElement.hasClass('ajapaik-photo-flipped')) {
             photoElement.removeClass('ajapaik-photo-flipped');
@@ -204,11 +201,11 @@
         } else {
             guessPhotoElement.addClass('ajapaik-photo-flipped');
         }
-        if (guessPhotoElementDynamic.hasClass('ajapaik-photo-flipped')) {
-            guessPhotoElementDynamic.removeClass('ajapaik-photo-flipped');
-        } else {
-            guessPhotoElementDynamic.addClass('ajapaik-photo-flipped');
-        }
+        //if (guessPhotoElementDynamic.hasClass('ajapaik-photo-flipped')) {
+        //    guessPhotoElementDynamic.removeClass('ajapaik-photo-flipped');
+        //} else {
+        //    guessPhotoElementDynamic.addClass('ajapaik-photo-flipped');
+        //}
         if (fullscreenPhotoElement.hasClass('ajapaik-photo-flipped')) {
             fullscreenPhotoElement.removeClass('ajapaik-photo-flipped');
         } else {
@@ -272,10 +269,11 @@
         }
         if (!nextPhotoLoading) {
             window.gameHintUsed = true;
-            $('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').show();
-            $('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').show();
-            $('#ajapaik-game-full-screen-description').show();
+            //$('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').show();
+            //$('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').show();
             $('#ajapaik-game-photo-description').show();
+            $('#ajapaik-game-full-screen-description').show();
+            $('#ajapaik-guess-panel-description').show();
             window._gaq.push(['_trackEvent', 'Game', 'Show description']);
         }
     };
@@ -287,10 +285,11 @@
     };
 
     hideDescriptions = function () {
-        $('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').hide();
+        //$('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').hide();
         $('#ajapaik-game-full-screen-description').hide();
+        $('#ajapaik-guess-panel-description').hide();
         $('#ajapaik-game-photo-description').hide();
-        $('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').hide();
+        //$('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').hide();
     };
 
     hideDescriptionButtons = function () {
@@ -312,9 +311,9 @@
 
         window.saveLocationButton =  $('.ajapaik-save-location-button');
 
-        if (!window.isMobile) {
-            $('.ajapaik-flip-photo-overlay-button').hide();
-        }
+        //if (!window.isMobile) {
+        //    $('.ajapaik-flip-photo-overlay-button').hide();
+        //}
 
         $('#ajapaik-game-photo-modal').modal({
             backdrop: 'static',
@@ -407,7 +406,7 @@
         });
 
         $.jQee('f', function () {
-            $('.ajapaik-flip-photo-overlay-button')[0].click();
+            $('#ajapaik-game-flip-photo-button').click();
         });
 
         $.jQee('right', function () {
@@ -430,37 +429,42 @@
                 if (window.map.zoom < 17) {
                     window.map.setZoom(17);
                 }
+                $('#ajapaik-map-container').animate({width: '75%'});
+                $('#ajapaik-guess-panel-container').animate({width: '25%'}, {complete: function () {
+                    window.google.maps.event.trigger(window.map, 'resize');
+                }});
+                window.google.maps.event.trigger(window.map, 'resize');
                 window.guessLocationStarted = true;
                 $('.center-marker').show();
                 $('#ajapaik-game-photo-modal').modal('hide');
                 window.setCursorToAuto();
                 $('.ajapaik-marker-center-lock-button').show();
-                guessPhotoPanelContent = $('#ajapaik-game-guess-photo-js-panel-content');
-                guessPhotoPanelContent.find('img').prop('src', mediaUrl + currentPhoto.big.url);
+                //guessPhotoPanelContent = $('#ajapaik-game-guess-photo-js-panel-content');
+                $('#ajapaik-guess-panel-photo').prop('src', mediaUrl + currentPhoto.big.url);
                 if (!window.gameHintUsed) {
-                    $('#ajapaik-game-guess-photo-description').hide();
+                    $('#ajapaik-guess-panel-description').hide();
                 }
-                if (!window.isMobile) {
-                    $('.ajapaik-flip-photo-overlay-button').hide();
-                    $('.ajapaik-fullscreen-overlay-button').hide();
-                    $('.ajapaik-game-map-show-description-overlay-button').hide();
-                }
-                guessPhotoPanelSettings.content = guessPhotoPanelContent.html();
-                if (window.isMobile) {
-                    // TODO: Make draggable and resizable also work on mobile
-                    guessPhotoPanelSettings.draggable = false;
-                    guessPhotoPanelSettings.resizable = false;
-                }
-                var maxWidth = parseInt($(window).width() * 0.33, 10),
-                    maxHeight = parseInt($(window).height() * 0.75, 10);
-                guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings).css('max-width', maxWidth + 'px').css('max-height', maxHeight + 'px');
-                guessPhotoPanel.on('jspanelloaded', function () {
-                    $('#ajapaik-game-guess-photo-js-panel').find('img').show();
-                });
+                //if (!window.isMobile) {
+                //    $('.ajapaik-flip-photo-overlay-button').hide();
+                //    $('.ajapaik-fullscreen-overlay-button').hide();
+                //    $('.ajapaik-game-map-show-description-overlay-button').hide();
+                //}
+                //guessPhotoPanelSettings.content = guessPhotoPanelContent.html();
+                //if (window.isMobile) {
+                //    // TODO: Make draggable and resizable also work on mobile
+                //    guessPhotoPanelSettings.draggable = false;
+                //    guessPhotoPanelSettings.resizable = false;
+                //}
+                //var maxWidth = parseInt($(window).width() * 0.33, 10),
+                //    maxHeight = parseInt($(window).height() * 0.75, 10);
+                //guessPhotoPanel = $.jsPanel(guessPhotoPanelSettings);//.css('max-width', maxWidth + 'px').css('max-height', maxHeight + 'px');
+                //guessPhotoPanel.on('jspanelloaded', function () {
+                //    $('#ajapaik-game-guess-photo-js-panel').find('img').show();
+                //});
                 if (!window.userClosedTutorial) {
                     window.openTutorialPanel();
                 }
-                $('#ajapaik-map-button-container').show();
+                //$('#ajapaik-map-button-container').show();
                 locationToolsOpen = true;
                 window._gaq.push(['_trackEvent', 'Game', 'Specify location']);
             }
@@ -521,8 +525,9 @@
             nextPhoto();
         });
 
-        $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
+        toggleFlipButtons = function () {
             var targets = $('.ajapaik-flip-photo-overlay-button'),
+                loneButton = $('#ajapaik-game-flip-photo-button'),
                 k;
             for (k = 0; k < targets.length; k += 1) {
                 if ($(targets[k]).hasClass('active')) {
@@ -531,6 +536,20 @@
                     $(targets[k]).addClass('active');
                 }
             }
+            if (loneButton.hasClass('active')) {
+                loneButton.removeClass('active');
+            } else {
+                loneButton.addClass('active');
+            }
+        };
+
+        $(document).on('click', '#ajapaik-game-flip-photo-button', function () {
+            toggleFlipButtons();
+            flipPhoto();
+        });
+
+        $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
+            toggleFlipButtons();
             flipPhoto();
         });
 
@@ -583,24 +602,24 @@
             }
         });
 
-        $(document).on('mouseover', '#ajapaik-game-guess-photo-js-panel', function () {
-            if (!window.isMobile) {
-                $('.ajapaik-flip-photo-overlay-button').show();
-                $('.ajapaik-fullscreen-overlay-button').show();
-                if (currentPhoto.description && !window.gameHintUsed) {
-                    $('.ajapaik-game-map-show-description-overlay-button').show();
-                }
-            }
-        });
-
-        $(document).on('mouseout', '#ajapaik-game-guess-photo-js-panel', function () {
-            if (!window.isMobile) {
-                if (!window.fullscreenEnabled) {
-                    $('.ajapaik-flip-photo-overlay-button').hide();
-                }
-                $('.ajapaik-fullscreen-overlay-button').hide();
-                $('.ajapaik-game-map-show-description-overlay-button').hide();
-            }
-        });
+        //$(document).on('mouseover', '#ajapaik-game-guess-photo-js-panel', function () {
+        //    if (!window.isMobile) {
+        //        $('.ajapaik-flip-photo-overlay-button').show();
+        //        $('.ajapaik-fullscreen-overlay-button').show();
+        //        if (currentPhoto.description && !window.gameHintUsed) {
+        //            $('.ajapaik-game-map-show-description-overlay-button').show();
+        //        }
+        //    }
+        //});
+        //
+        //$(document).on('mouseout', '#ajapaik-game-guess-photo-js-panel', function () {
+        //    if (!window.isMobile) {
+        //        if (!window.fullscreenEnabled) {
+        //            $('.ajapaik-flip-photo-overlay-button').hide();
+        //        }
+        //        $('.ajapaik-fullscreen-overlay-button').hide();
+        //        $('.ajapaik-game-map-show-description-overlay-button').hide();
+        //    }
+        //});
     });
 }(jQuery));

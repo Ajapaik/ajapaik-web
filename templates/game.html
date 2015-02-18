@@ -66,31 +66,43 @@
         </form>
         <button class="btn btn-primary ajapaik-game-feedback-next-button pull-right">{% trans "Next photo" %}</button>
     </div>
-    <div id="ajapaik-game-guess-photo-js-panel-content" style="overflow: hidden;">
-        <div class="col-xs-12 ajapaik-game-guess-photo-container">
-            <img class="img-responsive col-xs-12" src="" style="display: none;" />
-            <button class="btn btn-primary ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
-            <button class="btn btn-default ajapaik-overlay-button ajapaik-fullscreen-overlay-button"></button>
-            <button class="btn btn-default ajapaik-overlay-button ajapaik-game-map-show-description-overlay-button"></button>
+    <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
+    <div id="ajapaik-guess-panel-container" class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="">
+                    <img id="ajapaik-guess-panel-photo" class="img-responsive" src="http://www.placecage.com/g/200/300"/>
+                </a>
+            </div>
         </div>
-        <div class="ajapaik-game-guess-photo-js-panel-footer">
-            <div class="row ajapaik-photo-modal-row pull-left"></div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p id="ajapaik-guess-panel-description"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p>{% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p>{% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-block btn-default ajapaik-game-show-description-button">{% trans "Show description" %}</button>
+        </div>
+        <div class="row">
+            <button id="ajapaik-game-flip-photo-button" class="btn btn-block btn-default">{% trans "Flip" %}</button>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                {% include "_map_lower_right_buttons.html" %}
+            </div>
         </div>
     </div>
-    <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
-        {% include "_map_lower_right_buttons.html" %}
-        {% if not request.mobile %}
-            <div class="panel panel-default" id="ajapaik-game-map-info-panel">
-                <div class="panel-body">
-                    {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
-                    <br/>
-                    {% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span>
-                    {#<br/>#}
-                    {#{% trans "Confidence" %}: <span id="ajapaik-game-map-confidence"></span>#}
-                </div>
-            </div>
-        {% endif %}
         <div id="ajapaik-map-canvas"></div>
     </div>
     <div class="full-box">

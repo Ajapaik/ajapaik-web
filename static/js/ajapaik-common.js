@@ -2,6 +2,7 @@ var map,
     disableSave = true,
     streetPanorama,
     infoWindow,
+    geotagInfoPanel,
     getMap,
     saveLocation,
     saveLocationCallback,
@@ -120,25 +121,6 @@ var map,
         size: 'auto',
         id: 'ajapaik-tutorial-js-panel'
     },
-    geotagInfoPanel,
-    geotagInfoPanelSettings = {
-        selector: 'body',
-        position: 'center',
-        controls: {
-            buttons: 'closeonly',
-            iconfont: 'bootstrap'
-        },
-        bootstrap: 'default',
-        title: false,
-        draggable: {
-            handle: '.jsPanel-hdr',
-            containment: '#ajapaik-map-container'
-        },
-        size: {
-            height: 'auto'
-        },
-        id: 'ajapaik-geotag-info-js-panel'
-    },
     comingBackFromGuessLocation = false;
 
 (function ($) {
@@ -186,15 +168,15 @@ var map,
             mapTypeControl: true,
             panControl: false,
             panControlOptions: {
-                position: window.google.maps.ControlPosition.RIGHT_TOP
+                position: window.google.maps.ControlPosition.LEFT_CENTER
             },
             zoomControl: true,
             zoomControlOptions: {
-                position: window.google.maps.ControlPosition.RIGHT_TOP
+                position: window.google.maps.ControlPosition.LEFT_CENTER
             },
             streetViewControl: true,
             streetViewControlOptions: {
-                position: window.google.maps.ControlPosition.RIGHT_TOP
+                position: window.google.maps.ControlPosition.LEFT_CENTER
             },
             streetView: streetPanorama,
             mapTypeControlOptions: {
@@ -217,10 +199,10 @@ var map,
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
-        map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
+        map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
 
         var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-        map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
+        map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
 
         var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
 
@@ -256,14 +238,14 @@ var map,
                 }
                 // Currently we are not displaying the save button when Street View is open
                 saveLocationButton.hide();
-                $('#ajapaik-map-button-container').show();
+                //$('#ajapaik-map-button-container').show();
                 $('.ajapaik-close-streetview-button').show().parent().show();
             } else {
-                if (!guessLocationStarted) {
-                    $('#ajapaik-map-button-container').hide();
-                } else {
-                    $('#ajapaik-map-button-container').show();
-                }
+                //if (!guessLocationStarted) {
+                //    $('#ajapaik-map-button-container').hide();
+                //} else {
+                //    $('#ajapaik-map-button-container').show();
+                //}
                 $('.ajapaik-close-streetview-button').hide().parent().hide();
                 saveLocationButton.show();
             }
