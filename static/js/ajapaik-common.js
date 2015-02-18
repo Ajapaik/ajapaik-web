@@ -106,12 +106,9 @@ var map,
     tutorialPanel,
     tutorialPanelSettings = {
         selector: 'body',
-        position: {
-            top: 100,
-            right: 100
-        },
+        position: 'center',
         controls: {
-            buttons: 'none',
+            buttons: 'closeonly',
             iconfont: 'bootstrap'
         },
         bootstrap: 'default',
@@ -895,14 +892,16 @@ var map,
 
     $('body').on('jspanelclosed', function closeHandler(event, id) {
         if (id === 'ajapaik-tutorial-js-panel') {
+            $('[data-toggle="popover"]').popover('hide');
+            popoverShown = false;
             window.userClosedTutorial = true;
             tutorialPanel = undefined;
             window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
-            $('body').off('jspanelclosed', closeHandler);
+            //$('body').off('jspanelclosed', closeHandler);
         } else if (id === 'ajapaik-geotag-info-js-panel') {
             geotagInfoPanel = undefined;
             window.docCookies.setItem('ajapaik_closed_geotag_info_' + window.areaId, true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
-            $('body').off('jspanelclosed', closeHandler);
+            //$('body').off('jspanelclosed', closeHandler);
         }
     });
 }(jQuery));

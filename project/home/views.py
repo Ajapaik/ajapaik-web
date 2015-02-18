@@ -443,6 +443,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
     if area is not None:
         title = area.name + ' - ' + _('Browse photos on map')
+        area_selection_form = AreaSelectionForm(initial={'area': area})
     else:
         title = _('Browse photos on map')
 
