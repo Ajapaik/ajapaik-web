@@ -410,16 +410,10 @@ def photoslug(request, photo_id, pseudo_slug):
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
     area_selection_form = AreaSelectionForm(request.GET)
+    area = None
 
     if area_selection_form.is_valid():
         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
-    else:
-        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
-
-    if area:
-        title = area.name + ' - ' + _('Browse photos on map')
-    else:
-        title = _('Browse photos on map')
 
     selected_rephoto = None
     if rephoto_id:
@@ -441,8 +435,17 @@ def mapview(request, photo_id=None, rephoto_id=None):
             except ObjectDoesNotExist:
                 pass
 
-    if selected_photo and not area:
-        area = Area.objects.get(pk=selected_photo.areas[0].id)
+    if selected_photo and area is None:
+        area = Area.objects.get(pk=selected_photo.area_id)
+
+    if area is None:
+        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
+
+    if area is not None:
+        title = area.name + ' - ' + _('Browse photos on map')
+        area_selection_form = AreaSelectionForm(initial={'area': area})
+    else:
+        title = _('Browse photos on map')
 
     photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
         'photo_id', flat=True)
