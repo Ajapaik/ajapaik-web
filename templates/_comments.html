@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="row-fluid" id="ajapaik-comments-row">
+<div class="row" id="ajapaik-comments-row">
     <div class="col-xs-12">
         <div role="tabpanel">
             <ul class="nav nav-tabs" role="tablist" id="ajapaik-comment-tabs">
@@ -15,11 +15,11 @@
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane {% if not rephoto %}active{% endif %}" id="ajapaik-original-photo-comments">
-                    <div class="fb-comments" data-href="{{ hostname }}{{ photo.get_detail_url }}" data-colorscheme="light"></div>
+                    <div class="fb-comments" data-href="{{ hostname }}{{ photo.get_detail_url }}" data-width="100%" data-colorscheme="light"></div>
                 </div>
                 {% if rephoto %}
                     <div role="tabpanel" class="tab-pane active" id="ajapaik-rephoto-comments">
-                        <div class="fb-comments" data-href="{{ hostname }}{{ rephoto.get_detail_url }}" data-colorscheme="light"></div>
+                        <div class="fb-comments" data-href="{{ hostname }}{{ rephoto.get_detail_url }}" data-width="100%" data-colorscheme="light"></div>
                     </div>
                 {% endif %}
             </div>

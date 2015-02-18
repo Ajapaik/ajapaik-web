@@ -848,10 +848,6 @@ ul.errorlist {
     display: inline;
 }
 
-#mapview-photo-modal-dialog {
-    width: 75%;
-}
-
 #ajapaik-mapview-photo-panel {
     padding-right: 10px !important;
     height: 100%;
@@ -1002,7 +998,7 @@ ul.errorlist {
 }
 
 #ajapaik-comments-row {
-    padding-top: 60px;
+    padding-top: 100px;
     min-height: 400px;
 }
 
@@ -1026,14 +1022,6 @@ ul.errorlist {
     text-align: center;
     overflow-y: scroll;
     max-height: 500px;
-}
-
-#ajapaik-photoview-map-button {
-    margin-left: 1%;
-}
-
-.ajapaik-photo-modal-comment-button {
-    margin-left: 5px !important;
 }
 
 .ajapaik-upload-photo-button {
@@ -1121,4 +1109,13 @@ ul.errorlist {
 
 #target {
 width: 345px;
+}
+.btn {
+    white-space: normal;
+    overflow: hidden;
+}
+
+.ajapaik-less-column-padding {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
 }
