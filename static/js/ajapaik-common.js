@@ -117,9 +117,7 @@ var map,
             handle: '.jsPanel-hdr',
             containment: '#ajapaik-map-container'
         },
-        size: {
-            height: 'auto'
-        },
+        size: 'auto',
         id: 'ajapaik-tutorial-js-panel'
     },
     geotagInfoPanel,

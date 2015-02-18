@@ -1048,6 +1048,7 @@ ul.errorlist {
 
 #ajapaik-tutorial-js-panel {
     z-index: 10000;
+    max-width: 400px;
 }
 
 #ajapaik-create-album-modal .input-group-addon {
