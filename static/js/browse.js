@@ -237,6 +237,7 @@
             }
             $('#ajapaik-mapview-map-info-panel').show();
             $('#ajapaik-map-button-container').show();
+            $('#ajapaik-map-button-container-xs').show();
             if (mc) {
                 mc.clearMarkers();
             }
@@ -349,6 +350,7 @@
         //$('#ajapaik-photo-modal').modal('toggle');
         $('#ajapaik-mapview-map-info-panel').hide();
         $('#ajapaik-map-button-container').hide();
+        $('#ajapaik-map-button-container-xs').hide();
         window.setCursorToAuto();
         window.dottedAzimuthLine.setMap(null);
         window.guessLocationStarted = false;

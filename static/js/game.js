@@ -8,6 +8,7 @@
         difficultyFeedbackURL = '/difficulty_feedback/',
         locationToolsOpen = false,
         noticeDiv,
+        noticeDivXs,
         playerMarker,
         location,
         playerLatlng,
@@ -88,7 +89,9 @@
         }
         $('#ajapaik-game-photo-modal').modal();
         $('#ajapaik-map-button-container').show();
+        $('#ajapaik-map-button-container-xs').show();
         $('#ajapaik-guess-feedback-panel').hide();
+        $('#ajapaik-guess-feedback-panel-xs').hide();
         window.map.getStreetView().setVisible(false);
         if (!window.markerLocked) {
             $('.ajapaik-marker-center-lock-button').click();
@@ -155,6 +158,7 @@
             modalPhoto.on('load', photoLoadModalResizeFunction);
             if (currentPhoto.description) {
                 $('#ajapaik-guess-panel-description').html(currentPhoto.description);
+                $('#ajapaik-guess-panel-description-xs').html(currentPhoto.description);
                 $('#ajapaik-game-photo-description').html(currentPhoto.description);
                 //$('#ajapaik-game-guess-photo-js-panel-content').find('.row').html(currentPhoto.description);
                 showDescriptionButtons();
@@ -182,7 +186,7 @@
         currentPhoto.flip = !currentPhoto.flip;
         var photoElement = $('#ajapaik-game-modal-photo'),
             guessPhotoElement = $('#ajapaik-guess-panel-photo'),
-            guessPhotoElementXs = $('#ajapaik-guess-panel-photo-xs').find('img'),
+            guessPhotoElementXs = $('#ajapaik-guess-panel-photo-xs'),
             fullscreenPhotoElement = $('#ajapaik-full-screen-image');
         if (photoElement.hasClass('ajapaik-photo-flipped')) {
             photoElement.removeClass('ajapaik-photo-flipped');
@@ -211,18 +215,24 @@
         window.guessResponseReceived = true;
         window.updateLeaderboard();
         $('#ajapaik-map-button-container').hide();
+        $('#ajapaik-map-button-container-xs').hide();
         noticeDiv = $('#ajapaik-guess-feedback-panel');
+        noticeDivXs = $('#ajapaik-guess-feedback-panel-xs');
         if (guessResponse.hideFeedback) {
             noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-prompt').hide();
             noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-form').hide();
             noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').hide();
+            noticeDivXs.find('#ajapaik-game-guess-feedback-points-gained-xs').hide();
         } else {
             noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-prompt').show();
             noticeDiv.find('#ajapaik-game-guess-feedback-difficulty-form').show();
             noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').show();
+            noticeDivXs.find('#ajapaik-game-guess-feedback-points-gained-xs').show();
         }
         noticeDiv.find('#ajapaik-game-guess-feedback-message').html(guessResponse.feedbackMessage);
         noticeDiv.find('#ajapaik-game-guess-feedback-points-gained').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
+        noticeDivXs.find('#ajapaik-game-guess-feedback-message-xs').html(guessResponse.feedbackMessage);
+        noticeDivXs.find('#ajapaik-game-guess-feedback-points-gained-xs').text(window.gettext('Points awarded') + ': ' + guessResponse.currentScore);
         //feedbackPanel = $.jsPanel({
         //    selector: '#ajapaik-map-container',
         //    content: noticeDiv.html(),
@@ -239,6 +249,10 @@
         //    id: 'ajapaik-game-feedback-panel'
         //});
         noticeDiv.show();
+        var mq = window.matchMedia('(min-width: 600px)');
+        if (!mq.matches) {
+            noticeDivXs.show();
+        }
         if (guessResponse.heatmapPoints) {
             window.mapDisplayHeatmapWithEstimatedLocation(guessResponse);
             window.marker.setMap(null);
@@ -269,6 +283,7 @@
             $('#ajapaik-game-photo-description').show();
             $('#ajapaik-game-full-screen-description').show();
             $('#ajapaik-guess-panel-description').show();
+            $('#ajapaik-guess-panel-description-xs').show();
             window._gaq.push(['_trackEvent', 'Game', 'Show description']);
         }
     };
@@ -283,6 +298,7 @@
         //$('#ajapaik-game-guess-photo-js-panel').find('.ajapaik-photo-modal-row').hide();
         $('#ajapaik-game-full-screen-description').hide();
         $('#ajapaik-guess-panel-description').hide();
+        $('#ajapaik-guess-panel-description-xs').hide();
         $('#ajapaik-game-photo-description').hide();
         //$('#ajapaik-game-guess-photo-js-panel-content').find('.ajapaik-photo-modal-row').hide();
     };
@@ -452,12 +468,12 @@
                 $('.ajapaik-marker-center-lock-button').show();
                 //guessPhotoPanelContent = $('#ajapaik-game-guess-photo-js-panel-content');
                 $('#ajapaik-guess-panel-photo').prop('src', mediaUrl + currentPhoto.big.url);
-                var mq = window.matchMedia('(min-width: 600px)');
-                if (mq.matches) {
+                if (!mq.matches) {
                     $('#ajapaik-guess-panel-photo-xs').prop('src', mediaUrl + currentPhoto.big.url);
                 }
                 if (!window.gameHintUsed) {
                     $('#ajapaik-guess-panel-description').hide();
+                    $('#ajapaik-guess-panel-description-xs').hide();
                 }
                 //if (!window.isMobile) {
                 //    $('.ajapaik-flip-photo-overlay-button').hide();

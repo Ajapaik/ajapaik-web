@@ -31,6 +31,8 @@ body {
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     border-radius: 0;
+    width: 100%;
+    max-width: 100%;
 }
 
 #ajapaik-language-box {
@@ -245,14 +247,13 @@ body {
 #ajapaik-map-canvas {
     width: 100%;
     height: 100%;
+    margin-top: 50px;
 }
 
 #ajapaik-map-container {
-    height: 100%;
-    max-height: 100%;
+    height: 94%;
+    max-height: 94%;
     width: 100%;
-    overflow: hidden;
-    margin-top: 50px;
 }
 
 @media (max-width: 768px) {
@@ -291,6 +292,12 @@ body {
     max-height: 50%;
 }
 
+#ajapaik-guess-feedback-panel-xs {
+    display: none;
+    height: 100%;
+    max-height: 100%;
+}
+
 #ajapaik-map-button-container {
     height: 50%;
     max-height: 50%;
@@ -302,6 +309,15 @@ body {
     right: 25px;
     padding-left: 25px;
     width: 25%;
+}
+
+#ajapaik-map-button-container-xs {
+    height: auto;
+    max-width: 100%;
+}
+
+#ajapaik-map-button-container .btn {
+    margin-top: 5px;
 }
 
 #ajapaik-guess-feedback-panel .row {
@@ -596,12 +612,6 @@ a.fullscreen {
 
 #ajapaik-game-modal-photo-container img {
     margin: 0 auto;
-}
-
-.img-responsive-height {
-  display: block;
-  width: auto;
-  max-height: 100%
 }
 
 a.fullscreen {

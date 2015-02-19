@@ -1,89 +1,54 @@
-{#{% load i18n %}#}
-{##}
-{#<div id="ajapaik-guess-panel-info-panel-xs">#}
-{#    <div class="row">#}
-{#        <div class="col-xs-12">#}
-{#            <a class="fullscreen" id="ajapaik-full-screen-link-xs" rel="" href="">#}
-{#                <img id="ajapaik-guess-panel-photo-xs" class="img-responsive" src="http://www.placecage.com/g/200/300"/>#}
-{#            </a>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        <div class="col-xs-12">#}
-{#            <p id="ajapaik-guess-panel-description"></p>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        <div class="col-xs-12 col-lg-6 col-md-6 col-sm-12">#}
-{#            <button class="btn btn-block btn-default ajapaik-game-show-description-button">{% trans "Show description" %}</button>#}
-{#        </div>#}
-{#        <div class="col-xs-12 col-lg-6 col-md-6 col-sm-12">#}
-{#            <button id="ajapaik-game-flip-photo-button" class="btn btn-block btn-default">{% trans "Flip" %}</button>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        <div class="col-xs-12">#}
-{#            <div class="panel panel-primary">#}
-{#                <div class="panel-body">#}
-{#                    <p>{% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span></p>#}
-{##}
-{#                    <p>{% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span></p>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#<div id="ajapaik-guess-feedback-panel">#}
-{#    <div class="row">#}
-{#        <div class="col-xs-12">#}
-{#            <div class="panel panel-primary">#}
-{#                <div class="panel-heading">#}
-{#                    <h3 class="panel-title"><h3>{% trans "Thank you!" %}</h3></h3>#}
-{#                </div>#}
-{#                <div class="panel-body">#}
-{#                    <p id="ajapaik-game-guess-feedback-message"></p>#}
-{##}
-{#                    <p id="ajapaik-game-guess-feedback-points-gained"></p>#}
-{##}
-{#                    <div class="hidden-xs">#}
-{#                        <p id="ajapaik-game-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">#}
-{#                            {% trans "In your opinion to geotag this photo is" %}#}
-{#                        </p>#}
-{##}
-{#                        <form id="ajapaik-game-guess-feedback-difficulty-form">#}
-{#                            <span style="margin-right: 10px;">#}
-{#                                {% trans "easy" %}#}
-{#                            </span>#}
-{#                            <input type="radio" name="difficulty" value="1">#}
-{#                            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">#}
-{#                            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">#}
-{#                            <span style="margin-left: 10px;">#}
-{#                                {% trans "hard" %}#}
-{#                            </span>#}
-{#                        </form>#}
-{#                    </div>#}
-{#                    <div class="col-xs-12 col-sm-12 col-lg-offset-6 col-lg-6 col-md-offset-6 col-md-6">#}
-{#                        <button class="btn btn-primary btn-block ajapaik-game-feedback-next-button">{% trans "Next photo" %}</button>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#<div id="ajapaik-map-button-container">#}
-{#    <div class="row">#}
-{#        <div class="col-xs-12 col-lg-6 col-md-6 col-sm-12" style="display: none;">#}
-{#            <button class="btn btn-block btn-default ajapaik-close-streetview-button"#}
-{#                    style="display: none;">{% trans "Close Street View" %}</button>#}
-{#        </div>#}
-{#        <div class="col-xs-12 col-lg-6 col-md-6 col-sm-12">#}
-{#            <button class="btn btn-block btn-primary ajapaik-game-next-photo-button">#}
-{#                {% if is_game %}{% trans "Next photo" %}{% elif is_mapview %}#}
-{#                    {% trans "Back to map" %}{% endif %}</button>#}
-{#        </div>#}
-{#        <div class="col-xs-12 col-lg-6 col-md-6 col-sm-12">#}
-{#            <button class="btn btn-block btn-default ajapaik-save-location-button"#}
-{#                    disabled="disabled">{% trans "Save location only" %}</button>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
+{% load i18n %}
+
+<div id="ajapaik-guess-panel-info-panel-xs">
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="fullscreen" id="ajapaik-full-screen-link-xs" rel="" href="">
+                <img id="ajapaik-guess-panel-photo-xs" class="img-responsive" src="http://www.placecage.com/g/200/300"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <p id="ajapaik-guess-panel-description-xs"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-block btn-default ajapaik-game-show-description-button">{% trans "Show description" %}</button>
+        </div>
+    </div>
+</div>
+<div id="ajapaik-guess-feedback-panel-xs">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><h3>{% trans "Thank you!" %}</h3></h3>
+                </div>
+                <div class="panel-body">
+                    <p id="ajapaik-game-guess-feedback-message-xs"></p>
+                    <p id="ajapaik-game-guess-feedback-points-gained-xs"></p>
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary btn-block ajapaik-game-feedback-next-button">{% trans "Next photo" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ajapaik-map-button-container-xs">
+    <div class="row">
+        <div class="col-xs-12" style="display: none;">
+            <button class="btn btn-block btn-default ajapaik-close-streetview-button" style="display: none;">{% trans "Close Street View" %}</button>
+        </div>
+        <div class="col-xs-12">
+            <button class="btn btn-block btn-primary ajapaik-game-next-photo-button">
+                {% if is_game %}{% trans "Next photo" %}{% elif is_mapview %}{% trans "Back to map" %}{% endif %}</button>
+        </div>
+        <div class="col-xs-12">
+            <button class="btn btn-block btn-default ajapaik-save-location-button" disabled="disabled">{% trans "Save location only" %}</button>
+        </div>
+    </div>
+</div>
