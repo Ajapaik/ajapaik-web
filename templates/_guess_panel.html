@@ -1,0 +1,51 @@
+{% load i18n %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="">
+            <img id="ajapaik-guess-panel-photo" class="img-responsive" src="http://www.placecage.com/g/200/300"/>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p id="ajapaik-guess-panel-description"></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-block btn-default ajapaik-game-show-description-button">{% trans "Show description" %}</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <button id="ajapaik-game-flip-photo-button" class="btn btn-block btn-default">{% trans "Flip" %}</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p>{% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p>{% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span></p>
+    </div>
+</div>
+<div id="ajapaik-map-button-container">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-block btn-default ajapaik-save-location-button" disabled="disabled">{% trans "Save location only" %}</button>
+        </div>
+    </div>
+    <div class="row" style="display: none;">
+        <div class="col-xs-12">
+            <button class="btn btn-block btn-default ajapaik-close-streetview-button" style="display: none;">{% trans "Close Street View" %}</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-block btn-primary ajapaik-game-next-photo-button">{% if is_game %}{% trans "Next photo" %}{% elif is_mapview %}{% trans "Back to map" %}{% endif %}</button>
+        </div>
+    </div>
+</div>

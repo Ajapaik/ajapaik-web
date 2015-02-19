@@ -67,43 +67,11 @@
         <button class="btn btn-primary ajapaik-game-feedback-next-button pull-right">{% trans "Next photo" %}</button>
     </div>
     <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
-    <div id="ajapaik-guess-panel-container" class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="">
-                    <img id="ajapaik-guess-panel-photo" class="img-responsive" src="http://www.placecage.com/g/200/300"/>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <p id="ajapaik-guess-panel-description"></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <p>{% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <p>{% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span></p>
-            </div>
-        </div>
-        <div class="row">
-            <button class="btn btn-block btn-default ajapaik-game-show-description-button">{% trans "Show description" %}</button>
-        </div>
-        <div class="row">
-            <button id="ajapaik-game-flip-photo-button" class="btn btn-block btn-default">{% trans "Flip" %}</button>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                {% include "_map_lower_right_buttons.html" %}
-            </div>
-        </div>
-    </div>
     <div id="ajapaik-map-container">
         <div id="ajapaik-map-canvas"></div>
+    </div>
+    <div id="ajapaik-guess-panel-container" class="container">
+        {% include "_guess_panel.html" %}
     </div>
     <div class="full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">

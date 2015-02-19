@@ -27,11 +27,7 @@
         modalPhoto,
         fullScreenImage,
         toggleFlipButtons,
-        //guessPhotoPanelSettings = {
-        //    selector: '#ajapaik-guess-panel-container',
-        //    removeHeader: true,
-        //    size: 'auto'
-        //},
+        //guessPanel,
         nextPhotoLoading = false;
 
     photoLoadModalResizeFunction = function () {
@@ -83,6 +79,10 @@
             $('.center-marker').hide();
         }
         window.gameHintUsed = false;
+        //if (guessPanel) {
+        //    guessPanel.close();
+        //    guessPanel = undefined;
+        //}
         $('#ajapaik-map-container').animate({width: '100%'});
         $('#ajapaik-guess-panel-container').animate({width: '0'}, {complete: function () {
             window.google.maps.event.trigger(window.map, 'resize');
@@ -305,6 +305,9 @@
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
         //window.mapInfoPanelConfidenceElement = $('#ajapaik-game-map-confidence');
 
+        //$('#ajapaik-map-container').resizable({handles: 'e', alsoResize: '#ajapaik-guess-panel-container'});
+        //$('#ajapaik-guess-panel-container').resizable({handles: 'w', alsoResizeReverse: '#ajapaik-map-container'});
+
         if (window.docCookies.getItem('ajapaik_closed_tutorial')) {
             window.userClosedTutorial = true;
         }
@@ -429,6 +432,7 @@
                 if (window.map.zoom < 17) {
                     window.map.setZoom(17);
                 }
+                //guessPanel = $.jsPanel(guessPhotoPanelSettings);
                 $('#ajapaik-map-container').animate({width: '75%'});
                 $('#ajapaik-guess-panel-container').animate({width: '25%'}, {complete: function () {
                     window.google.maps.event.trigger(window.map, 'resize');
