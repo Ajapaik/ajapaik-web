@@ -845,7 +845,7 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        if (!gameHintUsed && !popoverShown && currentPhotoDescription) {
+        if (!gameHintUsed && !popoverShown && currentPhotoDescription && !window.isMobile) {
             $('[data-toggle="popover"]').popover('show');
             popoverShown = true;
         } else if (!gameHintUsed && popoverShown && currentPhotoDescription) {

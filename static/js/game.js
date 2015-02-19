@@ -455,7 +455,7 @@
                     }});
                     $('#ajapaik-geotag-info-panel-container').animate({width: '25%'});
                 } else {
-                    $('#ajapaik-map-container').animate({height: '60%'});
+                    $('#ajapaik-map-canvas').animate({height: '60%'});
                     $('#ajapaik-guess-panel-container-xs').animate({height: '40%'}, {complete: function () {
                         window.google.maps.event.trigger(window.map, 'resize');
                     }});
