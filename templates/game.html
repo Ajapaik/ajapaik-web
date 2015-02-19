@@ -46,31 +46,14 @@
             </div>
         </div>
     </div>
-    <div id="ajapaik-game-feedback-js-panel-content" style="display: none;">
-        <h3>{% trans "Thank you!" %}</h3>
-        <p id="ajapaik-game-guess-feedback-message"></p>
-        <p id="ajapaik-game-guess-feedback-points-gained"></p>
-        <p id="ajapaik-game-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
-            {% trans "In your opinion to geotag this photo is" %}
-        </p>
-        <form id="ajapaik-game-guess-feedback-difficulty-form">
-            <span style="margin-right: 10px;">
-                {% trans "easy" %}
-            </span>
-            <input type="radio" name="difficulty" value="1">
-            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
-            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
-            <span style="margin-left: 10px;">
-                {% trans "hard" %}
-            </span>
-        </form>
-        <button class="btn btn-primary ajapaik-game-feedback-next-button pull-right">{% trans "Next photo" %}</button>
-    </div>
     <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
         <div id="ajapaik-map-canvas"></div>
+        <div id="ajapaik-guess-panel-container-xs" class="visible-xs">
+            {% include "_guess_panel_xs.html" %}
+        </div>
     </div>
-    <div id="ajapaik-guess-panel-container" class="container">
+    <div id="ajapaik-guess-panel-container" class="container hidden-xs">
         {% include "_guess_panel.html" %}
     </div>
     <div class="full-box">
