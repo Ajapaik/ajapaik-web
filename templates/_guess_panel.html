@@ -34,38 +34,31 @@
     </div>
 </div>
 <div id="ajapaik-guess-feedback-panel">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><h3>{% trans "Thank you!" %}</h3></h3>
-                </div>
-                <div class="panel-body">
-                    <p id="ajapaik-game-guess-feedback-message"></p>
-
-                    <p id="ajapaik-game-guess-feedback-points-gained"></p>
-
-                    <div class="hidden-xs">
-                        <p id="ajapaik-game-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
-                            {% trans "In your opinion to geotag this photo is" %}
-                        </p>
-
-                        <form id="ajapaik-game-guess-feedback-difficulty-form">
-                            <span style="margin-right: 10px;">
-                                {% trans "easy" %}
-                            </span>
-                            <input type="radio" name="difficulty" value="1">
-                            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
-                            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
-                            <span style="margin-left: 10px;">
-                                {% trans "hard" %}
-                            </span>
-                        </form>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-lg-offset-6 col-lg-6 col-md-offset-6 col-md-6">
-                        <button class="btn btn-primary btn-block ajapaik-game-feedback-next-button">{% trans "Next photo" %}</button>
-                    </div>
-                </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><h3>{% trans "Thank you!" %}</h3></h3>
+        </div>
+        <div class="panel-body">
+            <p id="ajapaik-game-guess-feedback-message"></p>
+            <p id="ajapaik-game-guess-feedback-points-gained"></p>
+            <div class="hidden-xs">
+                <p id="ajapaik-game-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
+                    {% trans "In your opinion to geotag this photo is" %}
+                </p>
+                <form id="ajapaik-game-guess-feedback-difficulty-form">
+                    <span style="margin-right: 10px;">
+                        {% trans "easy" %}
+                    </span>
+                    <input type="radio" name="difficulty" value="1">
+                    <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
+                    <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
+                    <span style="margin-left: 10px;">
+                        {% trans "hard" %}
+                    </span>
+                </form>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-offset-6 col-lg-6 col-md-12" style="margin-top: 5px;">
+                <button class="btn btn-primary btn-block ajapaik-game-feedback-next-button">{% trans "Next photo" %}</button>
             </div>
         </div>
     </div>

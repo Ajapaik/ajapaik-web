@@ -12,54 +12,6 @@ class Command(BaseCommand):
     help = "Will download data from Europeana"
     args = "query geoname target_album text_language"
 
-    # @staticmethod
-    # def _resource_already_exists(xml_element):
-    #     if xml_element.find('institution') is not None:
-    #         try:
-    #             source = Source.objects.get(description=xml_element.find('institution').text)
-    #         except ObjectDoesNotExist:
-    #             source = Source(name=xml_element.find('institution').text, description=xml_element.find('institution').text)
-    #             source.save()
-    #             return False
-    #     else:
-    #         source = Source.objects.get(name='AJP')
-    #     if xml_element.find('identifier') is not None:
-    #         try:
-    #             existing_resource = Photo.objects.get(source=source, source_key=xml_element.find('identifier').text)
-    #             return True
-    #         except ObjectDoesNotExist:
-    #             return False
-    #     return False
-
-    # def _create_photos_from_xml_response(self, xml_response):
-    #     for elem in xml_response:
-    #         if elem.tag == "docs":
-    #             geo_facets = elem.findall("geographic_facet")
-    #             contains_correct_geoname = False
-    #             for f in geo_facets:
-    #                 if self.geoname in f.text:
-    #                     contains_correct_geoname = True
-    #                     break
-    #             if contains_correct_geoname and not self._resource_already_exists(elem):
-    #                 new_photo = Photo(
-    #                     title=elem.find("title").text,
-    #                     area=self.area,
-    #                     description=elem.find("title_sort").text,
-    #                     source=Source.objects.get(description=elem.find('institution').text),
-    #                     source_key=elem.find("identifier").text,
-    #                     date_text=elem.find("main_date_str").text,
-    #                     author=elem.find("author").text,
-    #                     source_url=elem.find("record_link").text,
-    #                     licence="Public domain"
-    #                 )
-    #                 opener = urllib2.build_opener()
-    #                 opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-    #                 img_response = opener.open(elem.find("image_links").text)
-    #                 new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
-    #                 new_photo.save()
-    #                 ap = AlbumPhoto(album=self.album, photo=new_photo)
-    #                 ap.save()
-
     @staticmethod
     def _resource_already_exists(provider=None, identifier=None):
         if provider is not None:

@@ -81,9 +81,10 @@
             $('.center-marker').hide();
         }
         window.gameHintUsed = false;
-        var mq = window.matchMedia('(min-width: 600px)');
-        if (mq.matches) {
-            $('#ajapaik-map-container').animate({height: '100%', complete: function () {
+        var mq = window.matchMedia('(min-width: 768px)');
+        if (!mq.matches) {
+            $('#ajapaik-guess-panel-container-xs').animate({height: 0});
+            $('#ajapaik-map-canvas').animate({height: '100%', complete: function () {
                 window.google.maps.event.trigger(window.map, 'resize');
             }});
         }
@@ -92,6 +93,8 @@
         $('#ajapaik-map-button-container-xs').show();
         $('#ajapaik-guess-feedback-panel').hide();
         $('#ajapaik-guess-feedback-panel-xs').hide();
+        $('#ajapaik-guess-panel-info-panel-xs').show();
+        $('#ajapaik-guess-panel-photo-container-xs').show();
         window.map.getStreetView().setVisible(false);
         if (!window.markerLocked) {
             $('.ajapaik-marker-center-lock-button').click();
@@ -216,6 +219,8 @@
         window.updateLeaderboard();
         $('#ajapaik-map-button-container').hide();
         $('#ajapaik-map-button-container-xs').hide();
+        $('#ajapaik-guess-panel-photo-container-xs').hide();
+        $('#ajapaik-guess-panel-info-panel-xs').hide();
         noticeDiv = $('#ajapaik-guess-feedback-panel');
         noticeDivXs = $('#ajapaik-guess-feedback-panel-xs');
         if (guessResponse.hideFeedback) {
@@ -249,7 +254,7 @@
         //    id: 'ajapaik-game-feedback-panel'
         //});
         noticeDiv.show();
-        var mq = window.matchMedia('(min-width: 600px)');
+        var mq = window.matchMedia('(min-width: 768px)');
         if (!mq.matches) {
             noticeDivXs.show();
         }
@@ -446,18 +451,19 @@
                     window.map.setZoom(17);
                 }
                 //guessPanel = $.jsPanel(guessPhotoPanelSettings);
-                var mq = window.matchMedia('(min-width: 600px)');
+                var mq = window.matchMedia('(min-width: 768px)');
                 if (mq.matches) {
-                    $('#ajapaik-map-container').animate({width: '75%'});
+                    $('#ajapaik-map-container').animate({width: '70%'});
                     guessPanelContainer.show();
-                    guessPanelContainer.animate({width: '25%'}, {complete: function () {
+                    guessPanelContainer.animate({width: '30%'}, {complete: function () {
                         window.google.maps.event.trigger(window.map, 'resize');
                     }});
-                    $('#ajapaik-geotag-info-panel-container').animate({width: '25%'});
+                    $('#ajapaik-geotag-info-panel-container').animate({width: '30%'});
                 } else {
-                    $('#ajapaik-map-canvas').animate({height: '60%'});
-                    $('#ajapaik-guess-panel-container-xs').animate({height: '40%'}, {complete: function () {
+                    $('#ajapaik-map-canvas').animate({height: '70%'});
+                    $('#ajapaik-guess-panel-container-xs').animate({height: '25%'}, {complete: function () {
                         window.google.maps.event.trigger(window.map, 'resize');
+                        $('#ajapaik-map-button-container-xs').show();
                     }});
                 }
                 window.google.maps.event.trigger(window.map, 'resize');
