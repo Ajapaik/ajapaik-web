@@ -133,6 +133,7 @@
     var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
         hostname = '{{ hostname }}',
         originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
+    window.photoModalCurrentImageUrl = '{% url 'project.home.views.photo_url' photo.id %}';
     {% if photo.flip %}
         window.photoModalCurrentPhotoFlipStatus = true;
     {% else %}

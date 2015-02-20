@@ -180,29 +180,49 @@ var map,
         }
         mapTypeIds.push('OSM');
 
-        mapOpts = {
-            zoom: zoomLevel,
-            scrollwheel: false,
-            center: latLng,
-            mapTypeControl: true,
-            panControl: false,
-            panControlOptions: {
-                position: window.google.maps.ControlPosition.LEFT_CENTER
-            },
-            zoomControl: true,
-            zoomControlOptions: {
-                position: window.google.maps.ControlPosition.LEFT_CENTER
-            },
-            streetViewControl: true,
-            streetViewControlOptions: {
-                position: window.google.maps.ControlPosition.LEFT_CENTER
-            },
-            streetView: streetPanorama,
-            mapTypeControlOptions: {
-                mapTypeIds: mapTypeIds,
-                position: window.google.maps.ControlPosition.BOTTOM_CENTER
-            }
-        };
+        if (isGameMap) {
+            mapOpts = {
+                zoom: zoomLevel,
+                scrollwheel: false,
+                center: latLng,
+                mapTypeControl: true,
+                zoomControl: true,
+                panControl: false,
+                zoomControlOptions: {
+                    position: window.google.maps.ControlPosition.LEFT_CENTER
+                },
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: window.google.maps.ControlPosition.LEFT_CENTER
+                },
+                streetView: streetPanorama,
+                mapTypeControlOptions: {
+                    mapTypeIds: mapTypeIds,
+                    position: window.google.maps.ControlPosition.BOTTOM_CENTER
+                }
+            };
+        } else {
+            mapOpts = {
+                zoom: zoomLevel,
+                scrollwheel: false,
+                center: latLng,
+                mapTypeControl: true,
+                panControl: false,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: window.google.maps.ControlPosition.RIGHT_CENTER
+                },
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: window.google.maps.ControlPosition.RIGHT_CENTER
+                },
+                streetView: streetPanorama,
+                mapTypeControlOptions: {
+                    mapTypeIds: mapTypeIds,
+                    position: window.google.maps.ControlPosition.BOTTOM_CENTER
+                }
+            };
+        }
 
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
@@ -218,10 +238,24 @@ var map,
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
-        map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
+        if (isGameMap) {
+            map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
+        } else {
+            map.controls[window.google.maps.ControlPosition.RIGHT_CENTER].push(lockButton);
+        }
 
-        var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-        map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+        if (isGameMap) {
+            var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
+            $(input).show();
+            map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
+        } else {
+            var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
+            $(input).show();
+            map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
+        }
+
 
         var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
 
@@ -258,14 +292,14 @@ var map,
                 // Currently we are not displaying the save button when Street View is open
                 saveLocationButton.hide();
                 //$('#ajapaik-map-button-container').show();
-                $('.ajapaik-close-streetview-button').show().parent().show();
+                $('.ajapaik-close-streetview-button').show();
             } else {
                 //if (!guessLocationStarted) {
                 //    $('#ajapaik-map-button-container').hide();
                 //} else {
                 //    $('#ajapaik-map-button-container').show();
                 //}
-                $('.ajapaik-close-streetview-button').hide().parent().hide();
+                $('.ajapaik-close-streetview-button').hide();
                 saveLocationButton.show();
             }
         });
