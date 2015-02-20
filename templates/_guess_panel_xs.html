@@ -36,7 +36,9 @@
                     <p id="ajapaik-game-guess-feedback-message-xs"></p>
                     <p id="ajapaik-game-guess-feedback-points-gained-xs"></p>
                     <div class="col-xs-12">
-                        <button class="btn btn-sm btn-primary btn-block ajapaik-game-feedback-next-button">{% trans "Next photo" %}</button>
+                        <button class="btn btn-sm btn-primary btn-block ajapaik-game-feedback-next-button">
+                            {% if is_game %}{% trans "Next photo" %}{% elif is_mapview %}
+                                {% trans "Back to map" %}{% endif %}</button>
                     </div>
                 </div>
             </div>
