@@ -5,7 +5,7 @@
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
     {% if is_photoview %}
-        <div class="hidden-xs hidden-sm">
+        <div class="hidden-xs">
             <div class="filter-box">
                 {% csrf_token %}
                 {{ area_selection_form.as_p }}
