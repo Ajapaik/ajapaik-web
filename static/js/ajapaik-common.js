@@ -222,11 +222,7 @@ var map,
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
-        if (isGameMap) {
-            map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
-        } else {
-            map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(lockButton);
-        }
+        map.controls[window.google.maps.ControlPosition.BOTTOM_LEFT].push(lockButton);
 
         if (isGameMap) {
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
@@ -658,9 +654,11 @@ var map,
         if (!firstDragDone) {
             window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
         }
-        radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
-        azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
-        degreeAngle = Math.degrees(radianAngle);
+        if (e && marker.position) {
+            radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
+            azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
+            degreeAngle = Math.degrees(radianAngle);
+        }
         if (window.isMobile) {
             dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
             dottedAzimuthLine.setMap(map);
@@ -681,8 +679,10 @@ var map,
                 saveLocationButton.text(window.gettext('Save location and direction'));
             }
             dottedAzimuthLine.icons[0].repeat = '2px';
-            dottedAzimuthLine.setPath([marker.position, e.latLng]);
-            dottedAzimuthLine.setVisible(true);
+            if (marker.position && e.latLng) {
+                dottedAzimuthLine.setPath([marker.position, e.latLng]);
+                dottedAzimuthLine.setVisible(true);
+            }
             if (panoramaMarker) {
                 panoramaMarker.setMap(null);
             }
@@ -860,8 +860,6 @@ var map,
                 window.setCursorToAuto();
                 window.markerLocked = false;
             }
-        } else {
-            window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
         }
     });
 
@@ -882,7 +880,9 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
-        $('#ajapaik-geotag-info-modal').modal();
+        $('#ajapaik-geotag-info-modal').modal().on('shown.bs.modal', function () {
+            $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
+        });
     });
 
     $(document).on('click', '.ajapaik-close-streetview-button', function () {

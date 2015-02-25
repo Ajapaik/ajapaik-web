@@ -213,16 +213,28 @@
                     $('#ajapaik-map-button-container-xs').show();
                 }});
             }
+            window.map.setOptions({
+                zoomControlOptions: {
+                    position: window.google.maps.ControlPosition.LEFT_CENTER
+                },
+                streetViewControlOptions: {
+                    position: window.google.maps.ControlPosition.LEFT_CENTER
+                }
+            });
             $('#ajapaik-guess-panel-stats').show();
             $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
             if (!mq.matches) {
+                if (window.currentPhotoDescription) {
+                    $('#ajapaik-guess-panel-description-xs').html(window.currentPhotoDescription);
+                    $('#ajapaik-guess-panel-info-panel-xs').show();
+                }
                 $('#ajapaik-guess-panel-photo-xs').prop('src', window.photoModalCurrentImageUrl);
             }
             switchSearchBoxPosition();
             window.userFlippedPhoto = false;
             window.guessLocationStarted = true;
             window.dottedAzimuthLine.setVisible(false);
-            window.google.maps.event.trigger(window.map, 'resize');
+            //window.google.maps.event.trigger(window.map, 'resize');
             window.map.set('scrollwheel', false);
             nonFFWheelListener = window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, false);
             ffWheelListener = window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, false);
@@ -389,6 +401,14 @@
             photoPanel.close();
             photoPanel = undefined;
         }
+        window.map.setOptions({
+            zoomControlOptions: {
+                position: window.google.maps.ControlPosition.RIGHT_CENTER
+            },
+            streetViewControlOptions: {
+                position: window.google.maps.ControlPosition.RIGHT_CENTER
+            }
+        });
         switchSearchBoxPosition();
         window.map.getStreetView().setVisible(false);
         $('#ajapaik-map-button-container').show();
@@ -740,8 +760,6 @@
             photoDrawerOpen = false;
             window.syncMapStateToURL();
         });
-
-        $('.ajapaik-marker-center-lock-button').addClass('ajapaik-marker-center-lock-button-right');
 
         window.saveLocationButton.on('click', function () {
             window.firstDragDone = false;
