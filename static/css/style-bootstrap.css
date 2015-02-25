@@ -1221,3 +1221,46 @@ width: 345px;
 .gm-style-cc { display:none; }
 
 a[href^="http://maps.google.com/maps"]{display:none !important}
+
+#cookie-notice-container {
+    z-index: 10000;
+    position: absolute;
+    top: 3%;
+    width: 100%;
+}
+
+#cookie-notice {
+    width: 50%;
+    background-color: white;
+    opacity: 0.9;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    position: relative;
+    font-family: 'Droid Serif', arial, sans-serif;
+}
+
+#cookie-notice span {
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 20px;
+    padding-top: 10px;
+    width: 75%;
+    padding-bottom: 5px;
+}
+
+#cookie-notice p {
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    padding: 3px 6px;
+    position: absolute;
+    top: -8px;
+    right: 11px;
+    margin: 0;
+    font-weight: bold;
+    font-family: 'Droid Serif', arial, sans-serif;
+    cursor: pointer;
+    font-size: 12px !important;
+    line-height: initial !important;
+}

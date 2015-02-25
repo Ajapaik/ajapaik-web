@@ -923,4 +923,13 @@ var map,
         }
         tutorialPanel = $.jsPanel(tutorialPanelSettings);
     };
+
+    $('body').on('jspanelclosed', function closeHandler(event, id) {
+        if (id === 'ajapaik-tutorial-js-panel') {
+            window.userClosedTutorial = true;
+            tutorialPanel = undefined;
+            window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
+            $('body').off('jspanelclosed', closeHandler);
+        }
+    });
 }(jQuery));
