@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 15:58+0200\n"
+"POT-Creation-Date: 2015-02-25 13:26+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,57 +18,59 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:118
+#: static/js/ajapaik-common.js:117
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:612 static/js/ajapaik-common.js.c:726
-#: static/js/game.js:130
+#: static/js/ajapaik-common.js:626 static/js/ajapaik-common.js.c:743
+#: static/js/game.js:123
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:664
-msgid "Save location and direction"
-msgstr ""
-
-#: static/js/ajapaik-common.js:792
-msgid "Median guess"
-msgstr ""
-
-#: static/js/browse.js:280 static/js/game.js:230 static/js/grid.js:69
-msgid "Points awarded"
-msgstr ""
-
-#: static/js/browse.js:663 static/js/game.js:494
+#: static/js/ajapaik-common.js:659 static/js/ajapaik-common.js.c:864
+#: static/js/browse.js:752 static/js/game.js:460
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view. You should also zoom the map before "
 "submitting your geotag."
 msgstr ""
 
-#: static/js/game.js:51
+#: static/js/ajapaik-common.js:681
+msgid "Save location and direction"
+msgstr ""
+
+#: static/js/ajapaik-common.js:809
+msgid "Median guess"
+msgstr ""
+
+#: static/js/browse.js:345 static/js/browse.js.c:346 static/js/game.js:233
+#: static/js/game.js.c:235 static/js/grid.js:69
+msgid "Points awarded"
+msgstr ""
+
+#: static/js/game.js:36
 msgid "Vihje vaatamine"
 msgstr ""
 
-#: static/js/game.js:53
+#: static/js/game.js:38
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
 
-#: static/js/game.js:153
+#: static/js/game.js:150
 msgid "We are now showing you random photos."
 msgstr ""
 
-#: static/js/game.js:155
+#: static/js/game.js:152
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:257
+#: static/js/game.js:252
 msgid "Your guess"
 msgstr ""
 
-#: static/js/grid.js:416
+#: static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
