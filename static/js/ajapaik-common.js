@@ -226,11 +226,9 @@ var map,
 
         if (isGameMap) {
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-            $(input).show();
             map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
         } else {
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
-            $(input).show();
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
         }
 
@@ -602,6 +600,7 @@ var map,
     };
 
     windowResizeListenerFunction = function () {
+        console.log("resize");
         if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
             mapMousemoveListenerActive = true;
@@ -613,6 +612,7 @@ var map,
     };
 
     mapMousemoveListenerFunction = function (e) {
+        console.log("mousemove");
         // The mouse is moving, therefore we haven't locked on a direction
         saveDirection = false;
         if (!disableSave) {
@@ -646,70 +646,73 @@ var map,
     };
 
     mapClickListenerFunction = function (e) {
+        console.log("click");
         if (infoWindow !== undefined) {
             centerMarker.show();
             infoWindow.close();
             infoWindow = undefined;
         }
-        if (!firstDragDone) {
+        if (!firstDragDone && !guessResponseReceived) {
             window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
+            return;
         }
-        if (e && marker.position) {
+        if (!window.guessResponseReceived) {
             radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
             azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
             degreeAngle = Math.degrees(radianAngle);
-        }
-        if (window.isMobile) {
-            dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
-            dottedAzimuthLine.setMap(map);
-            dottedAzimuthLine.icons = [
-                {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
-            ];
-            dottedAzimuthLine.setVisible(true);
-        }
-        if (azimuthListenerActive) {
-            mapMousemoveListenerActive = false;
-            window.google.maps.event.clearListeners(map, 'mousemove');
-            saveDirection = true;
-            if (!disableSave) {
-                saveLocationButton.removeAttr('disabled');
-                saveLocationButton.removeClass('btn-default');
-                saveLocationButton.removeClass('btn-warning');
-                saveLocationButton.addClass('btn-success');
-                saveLocationButton.text(window.gettext('Save location and direction'));
-            }
-            dottedAzimuthLine.icons[0].repeat = '2px';
-            if (marker.position && e.latLng) {
-                dottedAzimuthLine.setPath([marker.position, e.latLng]);
+            if (window.isMobile) {
+                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
+                dottedAzimuthLine.setMap(map);
+                dottedAzimuthLine.icons = [
+                    {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
+                ];
                 dottedAzimuthLine.setVisible(true);
             }
-            if (panoramaMarker) {
-                panoramaMarker.setMap(null);
+            if (azimuthListenerActive) {
+                mapMousemoveListenerActive = false;
+                window.google.maps.event.clearListeners(map, 'mousemove');
+                saveDirection = true;
+                if (!disableSave) {
+                    saveLocationButton.removeAttr('disabled');
+                    saveLocationButton.removeClass('btn-default');
+                    saveLocationButton.removeClass('btn-warning');
+                    saveLocationButton.addClass('btn-success');
+                    saveLocationButton.text(window.gettext('Save location and direction'));
+                }
+                dottedAzimuthLine.icons[0].repeat = '2px';
+                if (marker.position && e.latLng) {
+                    dottedAzimuthLine.setPath([marker.position, e.latLng]);
+                    dottedAzimuthLine.setVisible(true);
+                }
+                if (panoramaMarker) {
+                    panoramaMarker.setMap(null);
+                }
+                var markerImage = {
+                    url: '/static/images/material-design-icons/ajapaik_custom_size_panorama.svg',
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(18, 18),
+                    scaledSize: new window.google.maps.Size(36, 36)
+                };
+                panoramaMarker = new window.google.maps.Marker({
+                    map: map,
+                    draggable: false,
+                    position: e.latLng,
+                    icon: markerImage
+                });
+                setCursorToAuto();
+            } else {
+                if (!mapMousemoveListenerActive) {
+                    mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+                    mapMousemoveListenerActive = true;
+                    window.google.maps.event.trigger(map, 'mousemove', e);
+                }
             }
-            var markerImage = {
-                url: '/static/images/material-design-icons/ajapaik_custom_size_panorama.svg',
-                origin: new window.google.maps.Point(0, 0),
-                anchor: new window.google.maps.Point(18, 18),
-                scaledSize: new window.google.maps.Size(36, 36)
-            };
-            panoramaMarker = new window.google.maps.Marker({
-                map: map,
-                draggable: false,
-                position: e.latLng,
-                icon: markerImage
-            });
-            setCursorToAuto();
-        } else {
-            if (!mapMousemoveListenerActive) {
-                mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
-                mapMousemoveListenerActive = true;
-                window.google.maps.event.trigger(map, 'mousemove', e);
-            }
+            azimuthListenerActive = !azimuthListenerActive;
         }
-        azimuthListenerActive = !azimuthListenerActive;
     };
 
     mapIdleListenerFunction = function () {
+        console.log("idle");
         if (firstDragDone) {
             if (markerLocked) {
                 azimuthListenerActive = true;
@@ -723,6 +726,7 @@ var map,
     };
 
     mapDragstartListenerFunction = function () {
+        console.log("dragstart");
         if (markerLocked) {
             centerMarker = $('.center-marker');
             saveDirection = false;
@@ -750,12 +754,14 @@ var map,
     };
 
     mapDragendListenerFunction = function () {
+        console.log("dragend");
         if (markerLocked) {
             marker.setPosition(map.getCenter());
         }
     };
 
     mapMarkerDragListenerFunction = function () {
+        console.log("drag");
         radianAngle = Math.getAzimuthBetweenTwoMarkers(marker, panoramaMarker);
         degreeAngle = Math.degrees(radianAngle);
         if (saveDirection) {
@@ -769,6 +775,7 @@ var map,
     };
 
     mapMarkerDragendListenerFunction = function () {
+        console.log("marker dragend");
         if (saveDirection) {
             dottedAzimuthLine.setPath([marker.position, panoramaMarker.position]);
             dottedAzimuthLine.icons[0].repeat = '2px';
@@ -778,6 +785,7 @@ var map,
     };
 
     setCursorToPanorama = function () {
+        console.log("setting panorama cursor");
         map.setOptions({draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto', draggingCursor: 'auto'});
     };
 
@@ -829,10 +837,13 @@ var map,
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
+        console.log("lock click");
         if (firstDragDone) {
+            console.log("lock click first drag done");
             var t = $(this);
             window.centerMarker = $('.center-marker');
             if (t.hasClass('active')) {
+                console.log("lock click active");
                 t.removeClass('active');
                 window.centerMarker.show();
                 window.marker.setVisible(false);
@@ -847,6 +858,7 @@ var map,
                 window.setCursorToPanorama();
                 window.markerLocked = true;
             } else {
+                console.log("lock click inactive");
                 t.addClass('active');
                 window.centerMarker.hide();
                 window.marker.setVisible(true);
