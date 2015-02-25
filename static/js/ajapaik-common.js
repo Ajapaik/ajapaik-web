@@ -2,7 +2,8 @@ var map,
     disableSave = true,
     streetPanorama,
     infoWindow,
-    geotagInfoPanel,
+    input,
+    searchBox,
     getMap,
     saveLocation,
     saveLocationCallback,
@@ -121,26 +122,9 @@ var map,
         size: 'auto',
         id: 'ajapaik-tutorial-js-panel'
     },
-    geotagInfoPanel,
-    geotagInfoPanelSettings = {
-        selector: 'body',
-        position: 'center',
-        controls: {
-            buttons: 'closeonly',
-            iconfont: 'bootstrap'
-        },
-        bootstrap: 'default',
-        title: false,
-        draggable: {
-            handle: '.jsPanel-hdr',
-            containment: '#ajapaik-map-container'
-        },
-        size: {
-            height: 'auto'
-        },
-        id: 'ajapaik-geotag-info-js-panel'
-    },
-    comingBackFromGuessLocation = false;
+    comingBackFromGuessLocation = false,
+    hideUnlockedAzimuth,
+    showUnlockedAzimuth;
 
 (function ($) {
     'use strict';
@@ -241,23 +225,21 @@ var map,
         if (isGameMap) {
             map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
         } else {
-            map.controls[window.google.maps.ControlPosition.RIGHT_CENTER].push(lockButton);
+            map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(lockButton);
         }
 
-
-
         if (isGameMap) {
-            var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
+            input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
             $(input).show();
             map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
         } else {
-            var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
+            input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             $(input).show();
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
         }
 
 
-        var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
+        searchBox = new window.google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
 
         window.google.maps.event.addListener(searchBox, 'places_changed', function () {
             var places = searchBox.getPlaces();
@@ -673,6 +655,9 @@ var map,
             infoWindow.close();
             infoWindow = undefined;
         }
+        if (!firstDragDone) {
+            window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
+        }
         radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
         azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
         degreeAngle = Math.degrees(radianAngle);
@@ -875,6 +860,8 @@ var map,
                 window.setCursorToAuto();
                 window.markerLocked = false;
             }
+        } else {
+            window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
         }
     });
 
@@ -895,17 +882,26 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
-        if (!geotagInfoPanel) {
-            window.openGeotagInfoPanel();
-        } else {
-            geotagInfoPanel.close();
-            geotagInfoPanel = undefined;
-        }
+        $('#ajapaik-geotag-info-modal').modal();
     });
 
     $(document).on('click', '.ajapaik-close-streetview-button', function () {
         map.getStreetView().setVisible(false);
     });
+
+    hideUnlockedAzimuth = function () {
+        if (azimuthListenerActive) {
+            dottedAzimuthLine.setVisible(false);
+        }
+    };
+
+    showUnlockedAzimuth = function () {
+        if (azimuthListenerActive === false) {
+            dottedAzimuthLine.setVisible(true);
+        }
+    };
+
+    $('#ajapaik-guess-panel-container').hoverIntent(hideUnlockedAzimuth, showUnlockedAzimuth);
 
     window.openTutorialPanel = function () {
         tutorialPanelSettings.content = $('#ajapaik-tutorial-js-panel-content').html();
@@ -914,14 +910,5 @@ var map,
             tutorialPanelSettings.draggable = false;
         }
         tutorialPanel = $.jsPanel(tutorialPanelSettings);
-    };
-
-    window.openGeotagInfoPanel = function () {
-        geotagInfoPanelSettings.content = $('#ajapaik-geotag-js-panel-content').html();
-        if (window.isMobile) {
-            geotagInfoPanelSettings.resizable = false;
-            geotagInfoPanelSettings.draggable = false;
-        }
-        geotagInfoPanel = $.jsPanel(geotagInfoPanelSettings);
     };
 }(jQuery));

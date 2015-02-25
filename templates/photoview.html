@@ -108,7 +108,7 @@
                 {% for rephoto in photo.rephotos.all %}
                     <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
                         <a href="{% url 'project.home.views.photo' rephoto.id %}" class="col-xs-12">
-                            <img src="{% url 'project.home.views.photo_thumb' rephoto.id 250 %}" class="img-responsive col-xs-12 ajapaik-less-column-padding ajapaik-photoview-rephoto-thumb" />
+                            <img src="{% url 'project.home.views.photo_thumb' rephoto.id 250 %}" class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb" />
                         </a>
                     </div>
                 {% endfor %}

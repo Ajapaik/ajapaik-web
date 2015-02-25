@@ -136,6 +136,7 @@
             window.tutorialPanel.close();
             window.tutorialPanel = undefined;
         }
+        $('#ajapaik-guess-panel-stats').show();
         initializeGuessingState();
         modalPhoto = $('#ajapaik-game-modal-photo');
         modalPhoto.unbind('load');
@@ -459,6 +460,7 @@
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
                 window._gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
             } else {
+                $('#ajapaik-guess-panel-stats').hide();
                 window.setCursorToAuto();
                 clearBothersomeListeners();
                 window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');

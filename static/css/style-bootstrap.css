@@ -149,10 +149,15 @@ body {
 }
 
 .ajapaik-marker-center-lock-button {
-    background: #fff url(../images/material-design-icons/ic_lock_outline_24px.svg) no-repeat center !important;
-    width: 36px;
+    background: #fff url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg) no-repeat center !important;
+    width: 60px;
     height: 36px;
     margin-left: 10px;
+}
+
+.ajapaik-marker-center-lock-button-right {
+    margin-left: 0;
+    margin-right: 10px;
 }
 
 .ajapaik-marker-center-lock-button:hover {
@@ -160,12 +165,12 @@ body {
 }
 
 .ajapaik-marker-center-lock-button:active {
-    background-image: url(../images/material-design-icons/ic_lock_open_24px.svg) !important;
+    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg) !important;
     background-color: #fff !important;
 }
 
 .ajapaik-marker-center-lock-button.active {
-    background-image: url(../images/material-design-icons/ic_lock_open_24px.svg) !important;
+    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg) !important;
     background-color: #fff !important;
 }
 
@@ -300,6 +305,7 @@ body {
 #ajapaik-guess-panel-container {
     width: 0;
     height: 100%;
+    max-height: 100%;
     display: none;
     z-index: 2;
     background-color: #fff;
@@ -311,8 +317,8 @@ body {
 
 #ajapaik-guess-feedback-panel {
     display: none;
-    height: 50%;
-    max-height: 50%;
+    height: 40%;
+    max-height: 40%;
 }
 
 #ajapaik-guess-feedback-panel-xs {
@@ -372,12 +378,13 @@ body {
 }
 
 #ajapaik-guess-panel-info-panel {
-
+    height: 54%;
+    max-height: 54%;
 }
 
 #ajapaik-geotag-feedback-panel {
-    height: 50%;
-    max-height: 50%;
+    height: 46%;
+    max-height: 46%;
 }
 
 #ajapaik-guess-panel-photo {
