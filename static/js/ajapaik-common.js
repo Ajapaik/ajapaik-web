@@ -902,18 +902,18 @@ var map,
     });
 
     hideUnlockedAzimuth = function () {
-        if (azimuthListenerActive) {
+        if (!saveDirection) {
             dottedAzimuthLine.setVisible(false);
         }
     };
 
     showUnlockedAzimuth = function () {
-        if (azimuthListenerActive === false) {
+        if (!saveDirection) {
             dottedAzimuthLine.setVisible(true);
         }
     };
 
-    $('#ajapaik-guess-panel-container').hoverIntent(hideUnlockedAzimuth, showUnlockedAzimuth);
+    $('#ajapaik-guess-panel-container').hover(hideUnlockedAzimuth, showUnlockedAzimuth);
 
     window.openTutorialPanel = function () {
         tutorialPanelSettings.content = $('#ajapaik-tutorial-js-panel-content').html();

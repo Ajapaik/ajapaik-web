@@ -342,6 +342,7 @@
         });
         $(window.input).show();
         $.jQee('space', function () {
+            console.log("space");
             if (window.fullscreenEnabled) {
                 window.BigScreen.exit();
                 window.fullscreenEnabled = false;
