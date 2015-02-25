@@ -183,11 +183,11 @@
         });
         if (wasInTopRight) {
             topRightControls.removeAt(indexOfControl);
-            $(window.input).attr('id', 'pac-input');
+            $(window.input).prop('id', 'pac-input');
             topLeftControls.push(window.input);
         } else {
             topLeftControls.removeAt(indexOfControl);
-            $(window.input).attr('id', 'pac-input-mapview');
+            $(window.input).prop('id', 'pac-input-mapview');
             topRightControls.push(window.input);
         }
         window.searchBox = new window.google.maps.places.SearchBox(/** @type {HTMLInputElement} */(window.input));

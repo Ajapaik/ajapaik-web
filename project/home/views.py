@@ -399,7 +399,6 @@ def photoslug(request, photo_id, pseudo_slug):
         title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 
     area_selection_form = AreaSelectionForm({'area': photo_obj.area.id})
-
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
         'licence': Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),

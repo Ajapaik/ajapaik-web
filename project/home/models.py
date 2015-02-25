@@ -385,7 +385,7 @@ class Photo(models.Model):
 
     @models.permalink
     def get_detail_url(self):
-        return ('project.home.views.photo', [self.id, ])
+        return 'project.home.views.photo', [self.id, ]
 
     @models.permalink
     def get_absolute_url(self):

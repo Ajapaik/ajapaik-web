@@ -943,7 +943,7 @@ ul.errorlist {
 }
 
 .tutorial-item td img {
-    height: 25px;
+    height: 33px;
     width: 25px;
 }
 
@@ -1062,7 +1062,7 @@ ul.errorlist {
     padding-top: 100px;
 }
 
-#ajapaik-comments-row {
+.ajapaik-comments-row {
     padding-top: 100px;
     min-height: 400px;
 }
@@ -1105,6 +1105,7 @@ ul.errorlist {
 #ajapaik-tutorial-js-panel {
     z-index: 10000;
     max-width: 50%;
+    margin-top: 50px;
 }
 
 @media (max-width: 767px) {

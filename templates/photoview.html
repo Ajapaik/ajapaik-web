@@ -232,6 +232,7 @@
             });
             $('#ajapaik-comment-tabs a').click(function (e) {
                 e.preventDefault();
+                FB.XFBML.parse();
                 $(this).tab('show')
             });
             window.uploadCompleted = function (response) {
