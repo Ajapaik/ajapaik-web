@@ -14,7 +14,6 @@ var map,
     azimuthListenerActive = false,
     azimuthLineEndPoint,
     marker,
-    popover,
     popoverShown = false,
     panoramaMarker,
     centerMarker,
@@ -600,7 +599,6 @@ var map,
     };
 
     windowResizeListenerFunction = function () {
-        console.log("resize");
         if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
             mapMousemoveListenerActive = true;
@@ -612,7 +610,6 @@ var map,
     };
 
     mapMousemoveListenerFunction = function (e) {
-        console.log("mousemove");
         // The mouse is moving, therefore we haven't locked on a direction
         saveDirection = false;
         if (!disableSave) {
@@ -646,7 +643,6 @@ var map,
     };
 
     mapClickListenerFunction = function (e) {
-        console.log("click");
         if (infoWindow !== undefined) {
             centerMarker.show();
             infoWindow.close();
@@ -688,7 +684,7 @@ var map,
                     panoramaMarker.setMap(null);
                 }
                 var markerImage = {
-                    url: '/static/images/material-design-icons/ajapaik_custom_size_panorama.svg',
+                    url: '/static/images/material-design-icons/ajapaik_custom_size_panorama.png',
                     origin: new window.google.maps.Point(0, 0),
                     anchor: new window.google.maps.Point(18, 18),
                     scaledSize: new window.google.maps.Size(36, 36)
@@ -712,7 +708,6 @@ var map,
     };
 
     mapIdleListenerFunction = function () {
-        console.log("idle");
         if (firstDragDone) {
             if (markerLocked) {
                 azimuthListenerActive = true;
@@ -726,7 +721,6 @@ var map,
     };
 
     mapDragstartListenerFunction = function () {
-        console.log("dragstart");
         if (markerLocked) {
             centerMarker = $('.center-marker');
             saveDirection = false;
@@ -754,7 +748,6 @@ var map,
     };
 
     mapDragendListenerFunction = function () {
-        console.log("dragend");
         if (markerLocked) {
             marker.setPosition(map.getCenter());
         }
@@ -769,7 +762,6 @@ var map,
     };
 
     mapMarkerDragListenerFunction = function () {
-        console.log("drag");
         radianAngle = Math.getAzimuthBetweenTwoMarkers(marker, panoramaMarker);
         degreeAngle = Math.degrees(radianAngle);
         if (saveDirection) {
@@ -783,7 +775,6 @@ var map,
     };
 
     mapMarkerDragendListenerFunction = function () {
-        console.log("marker dragend");
         if (saveDirection) {
             dottedAzimuthLine.setPath([marker.position, panoramaMarker.position]);
             dottedAzimuthLine.icons[0].repeat = '2px';
@@ -793,7 +784,6 @@ var map,
     };
 
     setCursorToPanorama = function () {
-        console.log("setting panorama cursor");
         map.setOptions({draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto', draggingCursor: 'auto'});
     };
 
@@ -817,7 +807,6 @@ var map,
         }
         window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
         window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
-        //window.mapInfoPanelConfidenceElement.html(heatmapData.confidence.toFixed(2));
         if (heatmapData.newEstimatedLocation && heatmapData.newEstimatedLocation[0] && heatmapData.newEstimatedLocation[1]) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),
@@ -845,13 +834,10 @@ var map,
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
-        console.log("lock click");
         if (firstDragDone) {
-            console.log("lock click first drag done");
             var t = $(this);
             window.centerMarker = $('.center-marker');
             if (t.hasClass('active')) {
-                console.log("lock click active");
                 t.removeClass('active');
                 window.centerMarker.show();
                 window.marker.setVisible(false);
@@ -866,7 +852,6 @@ var map,
                 window.setCursorToPanorama();
                 window.markerLocked = true;
             } else {
-                console.log("lock click inactive");
                 t.addClass('active');
                 window.centerMarker.hide();
                 window.marker.setVisible(true);

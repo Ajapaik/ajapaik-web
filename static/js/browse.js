@@ -273,7 +273,6 @@
                 }
             }
             window.mapDragListener = window.google.maps.event.addListener(window.map, 'drag', function () {
-                console.log("drag");
                 if (!window.guessResponseReceived) {
                     window.firstDragDone = true;
                     if (window.guessLocationStarted) {
@@ -376,8 +375,6 @@
 
     window.stopGuessLocation = function () {
         if (!window.markerLocked) {
-            console.log("clicking lock button");
-            console.log($('.ajapaik-marker-center-lock-button'));
             $('.ajapaik-marker-center-lock-button')[0].click();
         }
         $('#pac-input').val(null);
