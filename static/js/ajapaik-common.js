@@ -759,8 +759,8 @@ var map,
             marker.setPosition(map.getCenter());
         }
         firstDragDone = true;
-        disableSave = false;
-        if (!azimuthListenerActive) {
+        if (disableSave) {
+            disableSave = false;
             saveLocationButton.removeAttr('disabled');
             saveLocationButton.removeClass('btn-default');
             saveLocationButton.addClass('btn-warning');
