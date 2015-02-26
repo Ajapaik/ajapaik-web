@@ -502,12 +502,12 @@
                 } else {
                     $('.ajapaik-geotag-info-panel-no-photos').hide();
                 }
-                if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
-                    var buttons = $('.ajapaik-header-info-button');
-                    if (buttons.length > 0) {
-                        buttons[0].click();
-                    }
-                }
+                //if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
+                //    var buttons = $('.ajapaik-header-info-button');
+                //    if (buttons.length > 0) {
+                //        buttons[0].click();
+                //    }
+                //}
                 if (response.photos) {
                     for (j = 0; j < response.photos.length; j += 1) {
                         p = response.photos[j];
