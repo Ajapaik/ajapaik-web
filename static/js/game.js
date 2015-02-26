@@ -130,6 +130,8 @@
     nextPhoto = function () {
         nextPhotoLoading = true;
         window.userFlippedPhoto = false;
+        $('#pac-input').val(null);
+        $('#pac-input-mapview').val(null);
         if (window.popoverShown) {
             $('[data-toggle="popover"]').popover('hide');
             window.popoverShown = false;
@@ -216,8 +218,6 @@
         window.guessResponseReceived = true;
         window.updateLeaderboard();
         $('input[name="difficulty"]').prop('checked', false);
-        $('#pac-input').val(null);
-        $('#pac-input-mapview').val(null);
         $('.ajapaik-marker-center-lock-button').hide();
         $('#ajapaik-map-button-container').hide();
         $('#ajapaik-map-button-container-xs').hide();

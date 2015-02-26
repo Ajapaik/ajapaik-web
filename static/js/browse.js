@@ -380,6 +380,8 @@
             console.log($('.ajapaik-marker-center-lock-button'));
             $('.ajapaik-marker-center-lock-button')[0].click();
         }
+        $('#pac-input').val(null);
+        $('#pac-input-mapview').val(null);
         window.marker.setMap(null);
         window.comingBackFromGuessLocation = true;
         if (window.heatmap) {
