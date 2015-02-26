@@ -451,9 +451,9 @@
                 if (!window.isMobile) {
                     $('.ajapaik-flip-photo-overlay-button').hide();
                 }
-                if (!window.userClosedTutorial) {
-                    window.openTutorialPanel();
-                }
+                //if (!window.userClosedTutorial) {
+                //    window.openTutorialPanel();
+                //}
                 locationToolsOpen = true;
                 window._gaq.push(['_trackEvent', 'Game', 'Specify location']);
             }

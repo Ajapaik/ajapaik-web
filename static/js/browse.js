@@ -327,9 +327,9 @@
                     window.mapDisplayHeatmapWithEstimatedLocation(transformedResponse);
                 }
             });
-            if (!window.userClosedTutorial) {
-                window.openTutorialPanel();
-            }
+            //if (!window.userClosedTutorial) {
+            //    window.openTutorialPanel();
+            //}
             window._gaq.push(['_trackEvent', 'Map', 'Specify location']);
         }
     };
