@@ -215,6 +215,7 @@
     window.handleGuessResponse = function (guessResponse) {
         window.guessResponseReceived = true;
         window.updateLeaderboard();
+        $('input[name="difficulty"]').prop('checked', false);
         $('.ajapaik-marker-center-lock-button').hide();
         $('#ajapaik-map-button-container').hide();
         $('#ajapaik-map-button-container-xs').hide();
