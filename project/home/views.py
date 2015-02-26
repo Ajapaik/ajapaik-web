@@ -18,6 +18,7 @@ from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Polygon
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+import requests
 
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area, Licence
@@ -788,18 +789,9 @@ def curator(request):
 
 def curator_search(request):
     url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
-    request_params = {
-        'method': 'search',
-        'params': [
-            {'fullSearch': {'value': 'vanalinn'}}
-        ]
-    }
-    req = urllib2.Request(url)
-    req.add_data(urllib.urlencode(request_params))
-    response = urllib2.urlopen(req)
-    data = response.read()
-    print data
-    return HttpResponse(json.dumps("OK"), content_type="application/json")
+    request_params = '{"method":"search","params":[{"fullSearch":{"value":"vanalinn"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":[null,null,null],"pageSize":200,"digital":true}],"id":0}'
+    response = requests.post(url, data=request_params)
+    return HttpResponse(response.text, content_type="application/json")
 
 @csrf_exempt
 def delete_public_photo(request, photo_id):
