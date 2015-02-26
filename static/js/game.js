@@ -258,7 +258,6 @@
                 markerImage.scaledSize = new window.google.maps.Size(24, 33);
             }
             markerImage.achor = new window.google.maps.Point(12, 33);
-            markerImage.optimized = false;
             playerMarker = new window.google.maps.Marker({
                 position: playerLatlng,
                 map: window.map,
