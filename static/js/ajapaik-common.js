@@ -760,10 +760,12 @@ var map,
         }
         firstDragDone = true;
         disableSave = false;
-        saveLocationButton.removeAttr('disabled');
-        saveLocationButton.removeClass('btn-default');
-        saveLocationButton.addClass('btn-warning');
-        saveLocationButton.text(window.gettext('Save location only'));
+        if (!azimuthListenerActive) {
+            saveLocationButton.removeAttr('disabled');
+            saveLocationButton.removeClass('btn-default');
+            saveLocationButton.addClass('btn-warning');
+            saveLocationButton.text(window.gettext('Save location only'));
+        }
     };
 
     mapMarkerDragListenerFunction = function () {

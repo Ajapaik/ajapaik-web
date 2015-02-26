@@ -142,7 +142,7 @@
         initializeGuessingState();
         modalPhoto = $('#ajapaik-game-modal-photo');
         modalPhoto.unbind('load');
-        $.getJSON(streamUrl, $.extend({'album': window.albumId, 'b': new Date().getTime(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, window.URI.parseQuery(window.location.search)), function (data) {
+        $.getJSON(streamUrl, $.extend({'album': window.albumId, 'b': new Date().getTime()}, window.URI.parseQuery(window.location.search)), function (data) {
             currentPhoto = data.photo;
             window.currentPhotoDescription = data.photo.description;
             var textTarget = $('#ajapaik-game-status-message'),
