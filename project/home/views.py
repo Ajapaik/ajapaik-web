@@ -784,6 +784,10 @@ def curator(request):
     }))
 
 def curator_search(request):
+    # url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
+    # request = urllib2.Request(search_url)
+    # response = urllib2.urlopen(request)
+    # data = response.read()
     return HttpResponse(json.dumps("Ok"), content_type="application/json")
 
 @csrf_exempt
