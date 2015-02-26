@@ -1,4 +1,6 @@
 # encoding: utf-8
+import urllib
+import urllib2
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q
@@ -763,6 +765,7 @@ def public_photo_upload(request):
         'title': _("Timepatch (Ajapaik) - upload photos")
     }))
 
+@ensure_csrf_cookie
 def curator(request):
     user_profile = request.get_user().profile
     area_selection_form = AreaSelectionForm(request.GET)
@@ -784,11 +787,19 @@ def curator(request):
     }))
 
 def curator_search(request):
-    # url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
-    # request = urllib2.Request(search_url)
-    # response = urllib2.urlopen(request)
-    # data = response.read()
-    return HttpResponse(json.dumps("Ok"), content_type="application/json")
+    url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
+    request_params = {
+        'method': 'search',
+        'params': [
+            {'fullSearch': {'value': 'vanalinn'}}
+        ]
+    }
+    req = urllib2.Request(url)
+    req.add_data(urllib.urlencode(request_params))
+    response = urllib2.urlopen(req)
+    data = response.read()
+    print data
+    return HttpResponse(json.dumps("OK"), content_type="application/json")
 
 @csrf_exempt
 def delete_public_photo(request, photo_id):

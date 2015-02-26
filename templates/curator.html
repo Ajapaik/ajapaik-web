@@ -343,18 +343,11 @@
                 'pageSize' : 200,
                 'digital' : true,
             },
-            url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json',
-            requestParams = {
-                'method': 'search',
-                'params': search,
-                'id': 0,
-            };
+            url = '/curator_search/';
             $.ajax({
                 type : 'POST',
                 url : url,
-                dataType : 'json',
-                contentType : 'application/json',
-                data : JSON.stringify(requestParams),
+                data: {csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')},
                 success : function(msg) {
                     console.log(msg);
                 }

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-25 13:26+0200\n"
+"POT-Creation-Date: 2015-02-26 12:30+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -63,41 +63,41 @@ msgstr "Правильное место ещё не определено."
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/views.py:247 templates/frontpage.html:160
+#: project/home/views.py:249 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Угадай место"
 
-#: project/home/views.py:453 project/home/views.py:456
+#: project/home/views.py:454 project/home/views.py:457
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:541 project/home/views.py:555
+#: project/home/views.py:542 project/home/views.py:556
 #: templates/_header_area_selection_scoreboard.html:25
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
-#: project/home/views.py:764
+#: project/home/views.py:765
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:784
+#: project/home/views.py:786
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:896
+#: project/home/views.py:910
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:903
+#: project/home/views.py:917
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:921
+#: project/home/views.py:935
 msgid "Invalid form data"
 msgstr ""
 
