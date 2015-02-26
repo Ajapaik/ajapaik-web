@@ -779,7 +779,7 @@
             window.setCursorToAuto();
             if (window.disableSave) {
                 window._gaq.push(['_trackEvent', 'Mapview', 'Forgot to move marker']);
-                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
+                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
                 // TODO: Flip data and stuff
                 window.saveLocation(window.marker, photoId, window.photoModalCurrentPhotoFlipStatus, true, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Map');

@@ -653,7 +653,7 @@ var map,
             infoWindow = undefined;
         }
         if (!firstDragDone && !guessResponseReceived) {
-            window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
+            window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             return;
         }
         if (!window.guessResponseReceived) {
@@ -758,6 +758,12 @@ var map,
         if (markerLocked) {
             marker.setPosition(map.getCenter());
         }
+        firstDragDone = true;
+        disableSave = false;
+        saveLocationButton.removeAttr('disabled');
+        saveLocationButton.removeClass('btn-default');
+        saveLocationButton.addClass('btn-warning');
+        saveLocationButton.text(window.gettext('Save location only'));
     };
 
     mapMarkerDragListenerFunction = function () {

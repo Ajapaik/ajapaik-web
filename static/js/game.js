@@ -477,7 +477,7 @@
         });
         window.saveLocationButton.click(function () {
             if (window.disableSave) {
-                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view. You should also zoom the map before submitting your geotag.'));
+                window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
                 window._gaq.push(['_trackEvent', 'Game', 'Forgot to move marker']);
             } else {
                 $('#ajapaik-guess-panel-stats').hide();
