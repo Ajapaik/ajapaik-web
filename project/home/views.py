@@ -788,11 +788,21 @@ def curator(request):
     }))
 
 def curator_search(request):
-    full_search = request.POST.get('fullSearch') or None
     url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
-    request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
-    response = requests.post(url, data=request_params)
-    return HttpResponse(response, content_type="application/json")
+    full_search = request.POST.get('fullSearch') or None
+    ids = request.POST.getlist('ids[]') or None
+    response = None
+    if ids is not None:
+        ids_str = ['"' + each + '"' for each in ids]
+        request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
+        response = requests.post(url, data=request_params)
+    if full_search is not None:
+        request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
+        response = requests.post(url, data=request_params)
+    if response is not None:
+        return HttpResponse(response, content_type="application/json")
+    else:
+        return HttpResponse([], content_type="application/json")
 
 @csrf_exempt
 def delete_public_photo(request, photo_id):

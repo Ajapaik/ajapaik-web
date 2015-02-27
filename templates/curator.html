@@ -213,6 +213,14 @@
                             {% trans "Choose albums" %}
                         </button>
                     </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
+                            {% trans "Load more" %}
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <span id="ajapaik-curator-result-count">{% trans "Results:" %}&nbsp;<span>0</span></span>
                 </div>
                 <div class="row">
                     <span id="ajapaik-curator-destination-album">{% trans "Selected albums:" %}&nbsp;<span>{{ album.name }}</span></span>
@@ -220,8 +228,34 @@
                 <div class="row">
                     <span id="ajapaik-curator-destination-area">{% trans "Selected area:" %}&nbsp;<span>{{ area.name }}</span></span>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12" id="ajapaik-curator-search-results"></div>
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
+                        <li role="presentation" class="active">
+                            <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab" data-toggle="tab">{% trans "Search results" %}</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab" role="tab" data-toggle="tab">{% trans "Selection" %}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
+                            <div class="row">
+                                <div class="col-xs-12" id="ajapaik-curator-search-results"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-offset-10 col-xs-2">
+                                    <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
+                                        {% trans "Load more" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
+                            <div class="row">
+                                <div class="col-xs-12" id="ajapaik-curator-selection">asd</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% else %}
                 <div id="facebook-connect">
@@ -248,8 +282,13 @@
             }
         });
         var selectedAlbums = [[{{ album.id}}]],
-                selectedArea = '{{ area.id }}',
-                selectedAreaName = '{{ area.name }}';
+            selectedArea = '{{ area.id }}',
+            selectedAreaName = '{{ area.name }}',
+            resultCount = 0,
+            url = '/curator_search/',
+            start = 200,
+            resultIds = [],
+            resultDiv = $('#ajapaik-curator-search-results');
         $(document).on('click', '#ajapaik-curator-open-album-modal', function () {
             $('#ajapaik-choose-albums-modal').modal().on('shown.bs.modal', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
@@ -310,39 +349,37 @@
                 $('#ajapaik-curator-add-album-error').show();
             });
         });
+        $(document).on('click', '.ajapaik-curator-load-more', function () {
+            var slice = resultIds.slice(start, start + 200);
+            start += 200;
+            console.log(slice);
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data: {
+                    ids: slice,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success : function(msg) {
+                    if (resultCount > start) {
+                        $('.ajapaik-curator-load-more').show();
+                    } else {
+                        $('.ajapaik-curator-load-more').hide();
+                    }
+                    for (var i = 0, l = msg.result.length; i < l; i += 1) {
+                        var item = msg.result[i],
+                            newResultItem = document.createElement('div'),
+                            newResultImage = document.createElement('img');
+                        $(newResultImage)
+                                .addClass('img-responsive')
+                                .prop('src', 'http://ajapaik.ee:8080/ajapaik-service/images/' + item.cachedThumbnailUrl);
+                        $(newResultItem).append(newResultImage).addClass('col-xs-2');
+                        resultDiv.append(newResultItem);
+                    }
+                }
+            });
+        });
         $(document).on('click', '#ajapaik-curator-search-button', function () {
-            var search = {
-                'fullSearch' : {
-                    'value' : $('#ajapaik-curator-full-search').val()
-                },
-                {% comment %}'id' : {
-                    'value' : $('#id').val(),
-                    'type' : 'OR'
-                },
-                'what' : {
-                    'value' : $('#what').val()
-                },
-                'description' : {
-                    'value' : $('#description').val()
-                },
-                'who' : {
-                    'value' : $('#who').val()
-                },
-                'from' : {
-                    'value' : $('#from').val()
-                },
-                'number' : {
-                    'value' : $('#number').val()
-                },{% endcomment %}
-                
-                //'luceneQuery' : $('#luceneQuery').val() == '' ? null : $('#luceneQuery').val(),
-                //'institutionTypes' : [getValue('MUSEUM'), getValue('LIBRARY'), getValue('ARCHIVE')],
-                'institutionTypes' : [true, true, true],
-                'pageSize' : 200,
-                'digital' : true,
-            },
-            url = '/curator_search/',
-            resultDiv = $('#ajapaik-curator-search-results');
             $.ajax({
                 type : 'POST',
                 url : url,
@@ -351,13 +388,21 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(msg) {
-                    for (var i = 0; i < msg.result.firstRecordViews.length; i += 1) {
+                    resultIds = msg.result.ids;
+                    resultCount = resultIds.length;
+                    $('#ajapaik-curator-result-count').find('span').html(resultCount);
+                    if (resultCount > 200) {
+                        $('.ajapaik-curator-load-more').show();
+                    } else {
+                        $('.ajapaik-curator-load-more').hide();
+                    }
+                    for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
                         var item = msg.result.firstRecordViews[i],
                             newResultItem = document.createElement('div'),
                             newResultImage = document.createElement('img');
                         $(newResultImage)
                                 .addClass('img-responsive')
-                                .prop('src', 'http://ajapaik.ee:8080/ajapaik-service/images/' + item.cachedThumbnailUrl)
+                                .prop('src', 'http://ajapaik.ee:8080/ajapaik-service/images/' + item.cachedThumbnailUrl);
                         $(newResultItem).append(newResultImage).addClass('col-xs-2');
                         resultDiv.append(newResultItem);
                     }

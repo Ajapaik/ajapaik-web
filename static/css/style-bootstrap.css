@@ -1064,6 +1064,10 @@ ul.errorlist {
     padding-top: 100px;
 }
 
+.ajapaik-curator-load-more {
+    display: none;
+}
+
 .ajapaik-comments-row {
     padding-top: 100px;
     min-height: 400px;
