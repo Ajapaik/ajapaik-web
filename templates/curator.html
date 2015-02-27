@@ -311,7 +311,6 @@
             });
         });
         $(document).on('click', '#ajapaik-curator-search-button', function () {
-           console.log();
             var search = {
                 'fullSearch' : {
                     'value' : $('#ajapaik-curator-full-search').val()
@@ -339,17 +338,29 @@
                 //'luceneQuery' : $('#luceneQuery').val() == '' ? null : $('#luceneQuery').val(),
                 //'institutionTypes' : [getValue('MUSEUM'), getValue('LIBRARY'), getValue('ARCHIVE')],
                 'institutionTypes' : [true, true, true],
-                
                 'pageSize' : 200,
                 'digital' : true,
             },
-            url = '/curator_search/';
+            url = '/curator_search/',
+            resultDiv = $('#ajapaik-curator-search-results');
             $.ajax({
                 type : 'POST',
                 url : url,
-                data: {csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')},
+                data: {
+                    fullSearch: $('#ajapaik-curator-full-search').val(),
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
                 success : function(msg) {
-                    console.log(msg);
+                    for (var i = 0; i < msg.result.firstRecordViews.length; i += 1) {
+                        var item = msg.result.firstRecordViews[i],
+                            newResultItem = document.createElement('div'),
+                            newResultImage = document.createElement('img');
+                        $(newResultImage)
+                                .addClass('img-responsive')
+                                .prop('src', 'http://ajapaik.ee:8080/ajapaik-service/images/' + item.cachedThumbnailUrl)
+                        $(newResultItem).append(newResultImage).addClass('col-xs-2');
+                        resultDiv.append(newResultItem);
+                    }
                 }
             });
         });

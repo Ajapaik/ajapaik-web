@@ -788,10 +788,11 @@ def curator(request):
     }))
 
 def curator_search(request):
+    full_search = request.POST.get('fullSearch') or None
     url = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
-    request_params = '{"method":"search","params":[{"fullSearch":{"value":"vanalinn"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":[null,null,null],"pageSize":200,"digital":true}],"id":0}'
+    request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
     response = requests.post(url, data=request_params)
-    return HttpResponse(response.text, content_type="application/json")
+    return HttpResponse(response, content_type="application/json")
 
 @csrf_exempt
 def delete_public_photo(request, photo_id):
