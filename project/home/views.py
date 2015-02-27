@@ -215,8 +215,8 @@ def logout(request):
 
 
 def calculate_recent_activity_scores():
-    thousand_actions_ago = Points.objects.order_by('-created')[1000].created
-    recent_actions = Points.objects.filter(created__gt=thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
+    five_thousand_actions_ago = Points.objects.order_by('-created')[5000].created
+    recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id').annotate(total_points=Sum('points'))
     recent_action_agent_ids = []
     for each in recent_actions:
         profile = Profile.objects.filter(user_id=each['user_id']).get()
