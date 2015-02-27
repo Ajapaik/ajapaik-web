@@ -24,12 +24,12 @@
         </div>
     {% endif %}
     <div class="container-fluid" id="ajapaik-photoview-container">
-        <div class="{% if rephoto %}col-xs-10{% else %}col-xs-6{% endif %} ajapaik-less-column-padding">
+        <div class="{% if rephoto %}col-xs-10{% else %}col-xs-6{% endif %}">
             <div class="row-fluid">
-                <div class="{% if rephoto %}col-xs-6{% else %}col-xs-12{% endif %} ajapaik-less-column-padding">
+                <div class="{% if rephoto %}col-xs-6{% else %}col-xs-12{% endif %}">
                     <div id="ajapaik-photoview-main-photo-container">
                         <a class="fullscreen" rel="{{ photo.id }}" id="ajapaik-photoview-original-full-screen-link">
-                            <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12 ajapaik-less-column-padding {% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}"/>
+                            <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12 {% if photo.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' photo.id %}"/>
                         </a>
                         <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;"></button>
                     </div>
@@ -55,7 +55,7 @@
                         </div>
                     {% endif %}
                     <div class="row-fluid" style="margin-top: 10px;">
-                        <div class="col-xs-6 col-sm-6 col-lg-4 col-md-4 ajapaik-less-column-padding">
+                        <div class="col-xs-6 col-sm-6 col-lg-4 col-md-4">
                             <div class="dropdown">
                                 <button id="ajapaik-sharing-dropdown-button pull-left" class="btn btn-block btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {% trans "Share" %}
@@ -74,7 +74,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 ajapaik-less-column-padding" style="text-align: right;">
+                        <div class="col-xs-6 col-sm-6 col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4" style="text-align: right;">
                             <span class="btn btn-block btn-success" id="ajapaik-photoview-add-rephoto-button">
                                 <i class="glyphicon glyphicon-plus"></i>
                                 <span>{% trans "Add rephoto" %}</span>
@@ -84,10 +84,10 @@
                     </div>
                 </div>
                 {% if rephoto %}
-                    <div class="col-xs-6 ajapaik-less-column-padding">
+                    <div class="col-xs-6">
                         <div id="ajapaik-photoview-rephoto-container">
                             <a class="fullscreen" rel="{{ rephoto.id }}" id="ajapaik-photoview-rephoto-full-screen-link">
-                                <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12 ajapaik-less-column-padding {% if rephoto.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' rephoto.id %}"/>
+                                <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12 {% if rephoto.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_large' rephoto.id %}"/>
                             </a>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         </div>
@@ -103,7 +103,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-xs-2 ajapaik-less-column-padding">
+        <div class="col-xs-2">
             <div id="ajapaik-photoview-rephoto-selection">
                 {% for rephoto in photo.rephotos.all %}
                     <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
