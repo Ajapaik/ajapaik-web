@@ -66,7 +66,7 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
     {% endcompress %}
 </head>
-<body>
+<body class="{% if is_mapview or is_game %}ajapaik-body-window-height{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>

@@ -2,6 +2,7 @@
 import urllib
 import urllib2
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q
 
@@ -726,7 +727,9 @@ def public_add_album(request):
         if user_profile:
             new_album = Album(name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=False)
             new_album.save()
-            return HttpResponse(json.dumps("Ok"), content_type="application/json")
+            selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
+            selectable_albums = [{'id': x.id, 'name': x.name} for x in selectable_albums]
+            return HttpResponse(json.dumps(selectable_albums), content_type="application/json")
     return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
 
 
@@ -743,7 +746,9 @@ def public_add_area(request):
             if user_profile:
                 new_area = Area(name=name, lat=lat, lon=lon)
                 new_area.save()
-                return HttpResponse(json.dumps("Ok"), content_type="application/json")
+                selectable_areas = Area.objects.order_by('name').all()
+                selectable_areas = [{'id': x.id, 'name': x.name} for x in selectable_areas]
+                return HttpResponse(json.dumps(selectable_areas), content_type="application/json")
     return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
 
 def public_photo_upload(request):
@@ -777,11 +782,13 @@ def curator(request):
     else:
         area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
     selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
+    selectable_albums = [{'id': x.id, 'name': x.name} for x in selectable_albums]
     selectable_areas = Area.objects.order_by('name').all()
+    selectable_areas = [{'id': x.id, 'name': x.name} for x in selectable_areas]
     return render_to_response('curator.html', RequestContext(request, {
         'area': area,
-        'selectable_areas': selectable_areas,
-        'selectable_albums': selectable_albums,
+        'selectable_areas': json.dumps(selectable_areas),
+        'selectable_albums': json.dumps(selectable_albums),
         'add_album_form': add_album_form,
         'add_area_form': add_area_form,
         'title': _("Timepatch (Ajapaik) - curate")
