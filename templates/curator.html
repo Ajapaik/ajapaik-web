@@ -419,6 +419,7 @@
             });
         });
         $(document).on('click', '#ajapaik-curator-search-button', function () {
+            $('#ajapaik-curator-search-results').empty();
             $.ajax({
                 type : 'POST',
                 url : url,

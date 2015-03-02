@@ -797,6 +797,7 @@ def curator_search(request):
         request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
         response = requests.post(url, data=request_params)
     if full_search is not None:
+        full_search = full_search.encode('utf-8')
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
         response = requests.post(url, data=request_params)
     if response is not None:
