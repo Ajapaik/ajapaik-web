@@ -1270,3 +1270,23 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     font-size: 12px !important;
     line-height: initial !important;
 }
+
+.ajapaik-curator-selected-image {
+    opacity: 0.5;
+}
+
+#ajapaik-curator-result-count-row {
+    margin-top: 10px;
+}
+
+#ajapaik-curator-tabpanel {
+    margin-top: 10px;
+}
+
+.ajapaik-result-item {
+    min-height: 100px;
+}
+
+.ajapaik-curator-selection-item {
+    margin-top: 10px;
+}

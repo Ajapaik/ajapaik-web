@@ -16,8 +16,9 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                                 <h4 class="modal-title">{% trans "Choose albums" %}</h4>
                             </div>
                             <div class="modal-body">
@@ -26,8 +27,7 @@
                                         <div class="col-xs-12">
                                             <div class="input-group">
                                                     <span class="input-group-addon">
-                                                        <input name="album_list[]" type="checkbox" value="{{ a.id }}"
-                                                               data-album-name="{{ a.name }}">
+                                                        <input name="album_list[]" type="checkbox" value="{{ a.id }}" data-album-name="{{ a.name }}">
                                                     </span>
                                                 <label class="form-control">{{ a.name }}</label>
                                             </div>
@@ -36,13 +36,15 @@
                                 {% endfor %}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success"
-                                        id="ajapaik-curator-add-album-button"><i
-                                        class="glyphicon glyphicon-plus"></i>{% trans "Add" %}</button>
-                                <button type="button" class="btn btn-default"
-                                        data-dismiss="modal">{% trans "Close" %}</button>
-                                <button type="button" class="btn btn-primary"
-                                        id="ajapaik-curator-confirm-album-selection-button">{% trans "Save" %}</button>
+                                <button type="button" class="btn btn-success" id="ajapaik-curator-add-album-button">
+                                    <i class="glyphicon glyphicon-plus"></i>{% trans "Add" %}
+                                </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    {% trans "Close" %}
+                                </button>
+                                <button type="button" class="btn btn-primary" id="ajapaik-curator-confirm-album-selection-button">
+                                    {% trans "Save" %}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -51,8 +53,9 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                                 <h4 class="modal-title">{% trans "Choose area" %}</h4>
                             </div>
                             <div class="modal-body">
@@ -61,8 +64,7 @@
                                         <div class="col-xs-12">
                                             <div class="input-group">
                                                     <span class="input-group-addon">
-                                                        <input name="area" type="radio" value="{{ a.id }}"
-                                                               data-area-name="{{ a.name }}">
+                                                        <input name="area" type="radio" value="{{ a.id }}" data-area-name="{{ a.name }}">
                                                     </span>
                                                 <label class="form-control">{{ a.name }}</label>
                                             </div>
@@ -72,11 +74,14 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" id="ajapaik-curator-add-area-button">
-                                    <i class="glyphicon glyphicon-plus"></i>{% trans "Add" %}</button>
-                                <button type="button" class="btn btn-default"
-                                        data-dismiss="modal">{% trans "Close" %}</button>
-                                <button type="button" class="btn btn-primary"
-                                        id="ajapaik-curator-confirm-area-selection-button">{% trans "Save" %}</button>
+                                    <i class="glyphicon glyphicon-plus"></i>{% trans "Add" %}
+                                </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    {% trans "Close" %}
+                                </button>
+                                <button type="button" class="btn btn-primary" id="ajapaik-curator-confirm-area-selection-button">
+                                    {% trans "Save" %}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -214,12 +219,17 @@
                         </button>
                     </div>
                     <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-clear-selection">
+                            {% trans "Clear selection" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2">
                         <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
                             {% trans "Load more" %}
                         </button>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="ajapaik-curator-result-count-row">
                     <span id="ajapaik-curator-result-count">{% trans "Results:" %}&nbsp;<span>0</span></span>
                 </div>
                 <div class="row">
@@ -228,7 +238,7 @@
                 <div class="row">
                     <span id="ajapaik-curator-destination-area">{% trans "Selected area:" %}&nbsp;<span>{{ area.name }}</span></span>
                 </div>
-                <div role="tabpanel">
+                <div role="tabpanel" id="ajapaik-curator-tabpanel">
                     <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
                         <li role="presentation" class="active">
                             <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab" data-toggle="tab">{% trans "Search results" %}</a>
@@ -252,7 +262,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
                             <div class="row">
-                                <div class="col-xs-12" id="ajapaik-curator-selection">asd</div>
+                                <div class="col-xs-12" id="ajapaik-curator-selection"></div>
                             </div>
                         </div>
                     </div>
@@ -269,6 +279,7 @@
 {% block specific_js %}
 {% compress js %}
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+    <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
 {% endcompress %}
 <script>
     $(function () {
@@ -280,6 +291,11 @@
             if (window.getQueryParameterByName('areaChoiceOpen')) {
                 $('#ajapaik-curator-open-area-modal').click();
             }
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                if ($(e.target).attr('href') === '#ajapaik-curator-selection-tab') {
+                    buildSelectionDiv();
+                }
+            })
         });
         var selectedAlbums = [[{{ album.id}}]],
             selectedArea = '{{ area.id }}',
@@ -288,6 +304,9 @@
             url = '/curator_search/',
             start = 200,
             resultIds = [],
+            fullResultSet = {},
+            selectedResults = {},
+            selectionDiv = $('#ajapaik-curator-selection'),
             resultDiv = $('#ajapaik-curator-search-results');
         $(document).on('click', '#ajapaik-curator-open-album-modal', function () {
             $('#ajapaik-choose-albums-modal').modal().on('shown.bs.modal', function () {
@@ -349,10 +368,36 @@
                 $('#ajapaik-curator-add-album-error').show();
             });
         });
+        var createResultElement = function (item) {
+            fullResultSet[item.id] = item;
+            var newResultItem = document.createElement('div'),
+                newResultA = document.createElement('a'),
+                newResultImage = document.createElement('img');
+            $(newResultImage)
+                    .addClass('img-responsive')
+                    .addClass('ajapaik-result-item')
+                    .attr('data-id', item.id)
+                    .prop('src', 'http://ajapaik.ee:8080/ajapaik-service/images/' + item.cachedThumbnailUrl);
+            $(newResultA)
+                    .append(newResultImage)
+                    .addClass('thumbnail');
+            $(newResultItem)
+                    .append(newResultA)
+                    .addClass('col-xs-2');
+            resultDiv.append(newResultItem);
+        };
+        var buildSelectionDiv = function () {
+            selectionDiv.empty();
+            for (var key in selectedResults) {
+                if (selectedResults.hasOwnProperty(key)) {
+                    var currentItem = selectedResults[key];
+                    selectionDiv.append(tmpl('ajapaik-curator-selection-template', currentItem));
+                }
+            }
+        };
         $(document).on('click', '.ajapaik-curator-load-more', function () {
             var slice = resultIds.slice(start, start + 200);
             start += 200;
-            console.log(slice);
             $.ajax({
                 type : 'POST',
                 url : url,
@@ -367,14 +412,8 @@
                         $('.ajapaik-curator-load-more').hide();
                     }
                     for (var i = 0, l = msg.result.length; i < l; i += 1) {
-                        var item = msg.result[i],
-                            newResultItem = document.createElement('div'),
-                            newResultImage = document.createElement('img');
-                        $(newResultImage)
-                                .addClass('img-responsive')
-                                .prop('src', 'http://ajapaik.ee:8080/ajapaik-service/images/' + item.cachedThumbnailUrl);
-                        $(newResultItem).append(newResultImage).addClass('col-xs-2');
-                        resultDiv.append(newResultItem);
+                        var item = msg.result[i];
+                        createResultElement(item);
                     }
                 }
             });
@@ -397,17 +436,26 @@
                         $('.ajapaik-curator-load-more').hide();
                     }
                     for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
-                        var item = msg.result.firstRecordViews[i],
-                            newResultItem = document.createElement('div'),
-                            newResultImage = document.createElement('img');
-                        $(newResultImage)
-                                .addClass('img-responsive')
-                                .prop('src', 'http://ajapaik.ee:8080/ajapaik-service/images/' + item.cachedThumbnailUrl);
-                        $(newResultItem).append(newResultImage).addClass('col-xs-2');
-                        resultDiv.append(newResultItem);
+                        var item = msg.result.firstRecordViews[i];
+                        createResultElement(item);
                     }
                 }
             });
+        });
+        $(document).on('click', '.ajapaik-result-item', function (e) {
+            var target = fullResultSet[e.target.dataset.id];
+            if (selectedResults[e.target.dataset.id]) {
+                delete selectedResults[e.target.dataset.id];
+                $(e.target).removeClass('ajapaik-curator-selected-image');
+            } else {
+                selectedResults[e.target.dataset.id] = target;
+                $(e.target).addClass('ajapaik-curator-selected-image');
+            }
+        });
+        $(document).on('click', '#ajapaik-curator-clear-selection', function () {
+            selectedResults = {};
+            buildSelectionDiv();
+            $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
         });
         $(document).on('click', '#ajapaik-curator-save-new-area-button', function () {
             $.ajax({
@@ -428,4 +476,24 @@
         });
     });
 </script>
+{% verbatim %}
+    <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
+        <div class="row ajapaik-curator-selection-item">
+            <img class="col-xs-6 img-responsive" src="{%=o.imageUrl%}">
+            <div class="col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{%=o.title%}</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">{%=gettext('Description')%} {%=o.description%}</li>
+                        <li class="list-group-item">{%=gettext('Author')%} {%=o.creators%}</li>
+                        <li class="list-group-item">{%=gettext('Width')%} {%=o.creators%}</li>
+                        <li class="list-group-item">{%=gettext('Height')%} {%=o.creators%}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </script>
+{% endverbatim %}
 {% endblock %}
