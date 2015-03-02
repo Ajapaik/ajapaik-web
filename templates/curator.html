@@ -2,16 +2,13 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header.html" %}
+    {% include "_header_area_selection_scoreboard.html" %}
 {% endblock %}
 
 {% block layout %}
     <div class="container" id="ajapaik-curator-container">
         <div class="col-xs-12">
             {% if request.user.is_authenticated and request.user.profile.fb_id %}
-                {% with profile=request.user.profile user=request.user %}
-                    <div class="row"><p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p></div>
-                {% endwith %}
                 <div class="modal fade" id="ajapaik-choose-albums-modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -261,6 +258,14 @@
                     buildSelectionDiv();
                 }
             });
+            var input = document.getElementById('ajapaik-curator-add-area-name');
+            var options = {
+                types: [],
+                componentRestrictions: {country: 'ee'}
+            };
+            var autocomplete = new window.google.maps.places.Autocomplete(input, options);
+            window.updateLeaderboard();
+            $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
         });
         var selectedAlbums = [[{{ album.id}}]],
             selectedArea = '{{ area.id }}',
@@ -481,7 +486,7 @@
         </div>
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
-        <a class="thumbnail col-xs-2">
+        <a class="thumbnail col-xs-2" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
             <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id={%=o.id %} class="img-responsive ajapaik-result-item">
         </a>
     </script>

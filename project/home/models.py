@@ -143,6 +143,8 @@ class Photo(models.Model):
     #image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
+    height = models.IntegerField(null=True, blank=True)
+    width = models.IntegerField(null=True, blank=True)
     flip = models.NullBooleanField()
     date = models.DateTimeField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
