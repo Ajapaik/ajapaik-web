@@ -164,6 +164,7 @@ p {
         {% if photo_upload_enabled %}
             <div class="buttons">
                 <a href="{% url 'project.home.views.public_photo_upload' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "Upload photos yourself" %}</a>
+                <a href="{% url 'project.home.views.curator' %}" class="btn green">{% trans "Curate content" %}</a>
             </div>
         {% endif %}
 
