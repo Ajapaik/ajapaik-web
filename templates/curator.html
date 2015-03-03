@@ -363,8 +363,11 @@
             });
         });
         var createResultElement = function (item) {
-            fullResultSet[item.id] = item;
-            resultDiv.append(tmpl('ajapaik-curator-result-template', item));
+            // No broken thumbs
+            if (item.cachedThumbnailUrl !== '14e5c228503ec8e7e004a13d48919768') {
+                fullResultSet[item.id] = item;
+                resultDiv.append(tmpl('ajapaik-curator-result-template', item));
+            }
         };
         var buildSelectionDiv = function () {
             selectionDiv.empty();
@@ -388,23 +391,6 @@
             for (var i = 0, l = selectableAreas.length; i < l; i +=1) {
                 targetDiv.append(tmpl('ajapaik-curator-selectable-area-template', selectableAreas[i]));
             }
-        };
-        var escapeRegExp = function(string) {
-            return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-        };
-        var replaceAll = function(string, find, replace) {
-            return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-        };
-        window.formatId = function (id) {
-            id = replaceAll(id, ':', '');
-            id = replaceAll(id, '.', '');
-            return id;
-        };
-        window.imageLoaded = function (id) {
-            var targetContainer = $('#ajapaik-curator-selection-item-' + window.formatId(id)),
-                targetImage = targetContainer.find('img')[0];
-            targetContainer.find('.ajapaik-curator-selection-image-width').html(targetImage.naturalWidth);
-            targetContainer.find('.ajapaik-curator-selection-image-height').html(targetImage.naturalHeight);
         };
         $(document).on('click', '.ajapaik-curator-load-more', function () {
             var slice = resultIds.slice(start, start + 200);
@@ -492,8 +478,8 @@
 </script>
 {% verbatim %}
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
-        <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
-            <img class="col-xs-6 img-responsive ajapaik-curator-selection-image" src="{%=o.imageUrl%}" onload="imageLoaded('{%=o.id%}')">
+        <div class="row ajapaik-curator-selection-item">
+            <img class="col-xs-6 img-responsive ajapaik-curator-selection-image" src="{%=o.imageUrl%}">
             <div class="col-xs-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -502,8 +488,8 @@
                     <ul class="list-group">
                         <li class="list-group-item">{%=gettext('Description')%}: {%=o.description%}</li>
                         <li class="list-group-item">{%=gettext('Author')%}: {%=o.creators%}</li>
-                        <li class="list-group-item">{%=gettext('Width')%}: <span class="ajapaik-curator-selection-image-width"></span></li>
-                        <li class="list-group-item">{%=gettext('Height')%}: <span class="ajapaik-curator-selection-image-height"></span></li>
+                        <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>
+                        <li class="list-group-item">{%=gettext('Source URL')%}: <a target="_blank" href="{%=o.urlToRecord%}">{%=o.urlToRecord%}</a></li>
                     </ul>
                 </div>
             </div>

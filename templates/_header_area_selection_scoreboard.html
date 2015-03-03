@@ -43,5 +43,7 @@
             </div>
         </div>
         {% include "_language_selection.html" %}
-        <button class="btn btn-default ajapaik-show-tutorial-button"></button>
+        {% if is_game or is_mapview %}
+            <button class="btn btn-default ajapaik-show-tutorial-button"></button>
+        {% endif %}
 </nav>

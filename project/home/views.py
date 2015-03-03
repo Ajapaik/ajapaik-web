@@ -841,36 +841,36 @@ def curator_photo_upload_handler(request):
     except ObjectDoesNotExist:
         pass
 
-    album_ids = request.POST.get("albumIds") or None
-    album_ids_int = None
+    album_ids = request.POST.getlist("albumIds[]") or None
     albums = None
-    default_album = None
     if album_ids is not None:
-        album_ids_int = [int(x) for x in album_ids.split(',')]
         try:
-            albums = Album.objects.filter(pk__in=album_ids_int).all()
+            albums = Album.objects.filter(pk__in=album_ids).all()
         except ObjectDoesNotExist:
             pass
-    else:
-        default_album = Album(
-            name=str(profile.id) + str(datetime.datetime.now()).split('.')[0],
-            atype=Album.COLLECTION,
-            profile=profile,
-            is_public=False
-        )
-        default_album.save()
+    default_album = Album(
+        name=str(profile.id) + str(datetime.datetime.now()).split('.')[0],
+        atype=Album.COLLECTION,
+        profile=profile,
+        is_public=False
+    )
+    default_album.save()
 
     selection_json = request.POST.get("selection") or None
     selection = None
     if selection_json is not None:
         selection = json.loads(selection_json)
 
-    ret = {}
+    total_points_for_curating = 0
+    ret = {
+        "default_album_id": default_album.id
+    }
 
     if selection is not None and profile is not None and area is not None:
         for (k, v) in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
+            awarded_curator_points = []
             if upload_form.is_valid():
                 if upload_form.cleaned_data['institution']:
                     upload_form.cleaned_data['institution'] = upload_form.cleaned_data['institution'].split(',')[0]
@@ -892,6 +892,7 @@ def curator_photo_upload_handler(request):
                         try:
                             new_photo = Photo(
                                 user=profile,
+                                author=upload_form.cleaned_data["creators"],
                                 area=area,
                                 description=upload_form.cleaned_data["title"],
                                 source=source,
@@ -909,22 +910,26 @@ def curator_photo_upload_handler(request):
                             new_photo.save()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50, user=profile, created=new_photo.created)
                             points_for_curating.save()
+                            awarded_curator_points.append(points_for_curating)
+                            total_points_for_curating += points_for_curating.points
                             if albums:
                                 for a in albums:
                                     ap = AlbumPhoto(photo=new_photo, album=a)
                                     ap.save()
                                     created_album_photo_links.append(ap)
-                            else:
-                                ap = AlbumPhoto(photo=new_photo, album=default_album)
-                                ap.save()
-                                created_album_photo_links.append(ap)
+                            ap = AlbumPhoto(photo=new_photo, album=default_album)
+                            ap.save()
+                            created_album_photo_links.append(ap)
                             ret[k] = {}
                             ret[k]["success"] = True
                         except:
                             if new_photo:
+                                new_photo.image.delete()
                                 new_photo.delete()
                             for ap in created_album_photo_links:
                                 ap.delete()
+                            for cp in awarded_curator_points:
+                                cp.delete()
                             ret[k] = {}
                             ret[k]["error"] = _("Error uploading file")
                     else:
@@ -933,11 +938,13 @@ def curator_photo_upload_handler(request):
                             for a in albums:
                                 ap = AlbumPhoto(photo=existing_photo, album=a)
                                 ap.save()
-                        else:
-                            ap = AlbumPhoto(photo=existing_photo, album=default_album)
-                            ap.save()
-                            created_album_photo_links.append(ap)
-
+                        ap = AlbumPhoto(photo=existing_photo, album=default_album)
+                        ap.save()
+                        created_album_photo_links.append(ap)
+                        ret[k] = {}
+                        ret[k]["success"] = True
+                        ret[k]["messages"] = _("Photo already exists in Ajapaik")
+    ret["total_points_for_curating"] = total_points_for_curating
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 def public_photo_upload_handler(request):

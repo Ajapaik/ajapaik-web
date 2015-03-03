@@ -109,6 +109,9 @@ class AlbumPhoto(models.Model):
     class Meta:
         app_label = "project"
 
+    def __unicode__(self):
+        return u'%d - %d' % (self.album.id, self.photo.id)
+
 
 class PhotoManager(models.GeoManager):
     def get_queryset(self):
@@ -578,6 +581,7 @@ class Points(models.Model):
 
     class Meta:
         app_label = "project"
+        verbose_name_plural = "Points"
 
     def __unicode__(self):
         return u'%d - %s - %d' % (self.user.id, self.action, self.points)
