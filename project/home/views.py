@@ -907,6 +907,12 @@ def curator_photo_upload_handler(request):
                             opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
                             img_response = opener.open(upload_form.cleaned_data["imageUrl"])
                             new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
+                            new_photo.width = new_photo.image.width
+                            new_photo.height = new_photo.image.height
+                            shortest_side = min(new_photo.width, new_photo.height)
+                            ret[k] = {}
+                            if shortest_side < 600:
+                                ret[k]["message"] = _("This picture is small, we've allowed you to add it to specified albums and you can mark it's location on the map, but it will be hidden from other users until we get a higher quality image from the institution.")
                             new_photo.save()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50, user=profile, created=new_photo.created)
                             points_for_curating.save()
@@ -920,7 +926,6 @@ def curator_photo_upload_handler(request):
                             ap = AlbumPhoto(photo=new_photo, album=default_album)
                             ap.save()
                             created_album_photo_links.append(ap)
-                            ret[k] = {}
                             ret[k]["success"] = True
                         except:
                             if new_photo:
