@@ -23,7 +23,8 @@ import requests
 
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area, Licence
-from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm
+from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
+    CuratorPhotoUploadForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 
@@ -826,6 +827,116 @@ def delete_public_photo(request, photo_id):
             photo.delete()
     return HttpResponse(json.dumps("Ok"), content_type="application/json")
 
+
+def curator_photo_upload_handler(request):
+    profile = request.get_user().profile
+    area_id = int(request.POST.get("areaId"))
+    album_ids = request.POST.get("albumIds")
+    album_ids_int = None
+    try:
+        album_ids_int = [int(x) for x in album_ids.split(',')]
+    except ValueError:
+        pass
+    photo_upload_form = CuratorPhotoUploadForm(request.POST)
+    albums = None
+    area = None
+    error = None
+    new_photo = None
+    created_album_photo_links = []
+    try:
+        albums = Album.objects.filter(pk__in=album_ids_int).all()
+    except ObjectDoesNotExist:
+        pass
+    except ValueError:
+        pass
+    try:
+        area = Area.objects.filter(pk=area_id).get()
+    except ObjectDoesNotExist:
+        pass
+    if photo_upload_form.is_valid():
+        if photo_upload_form.cleaned_data['source']:
+            try:
+                source = Source.objects.get(description=photo_upload_form.cleaned_data['source'])
+            except ObjectDoesNotExist:
+                source = Source(name=photo_upload_form.cleaned_data['source'], description=photo_upload_form.cleaned_data['source'])
+                source.save()
+        else:
+            source = Source.objects.get(name='AJP')
+        existing_photo = None
+        if photo_upload_form.cleaned_data["source_key"] and photo_upload_form.cleaned_data["source_key"] != "":
+            try:
+                existing_photo = Photo.objects.filter(source=source, source_key=photo_upload_form.cleaned_data["source_key"]).get()
+            except:
+                pass
+        if profile is not None and area is not None:
+            if photo_upload_form.cleaned_data["description"] == "":
+                photo_upload_form.cleaned_data["description"] = None
+            if photo_upload_form.cleaned_data["author"] == "":
+                photo_upload_form.cleaned_data["author"] = None
+            if photo_upload_form.cleaned_data["date_text"] == "":
+                photo_upload_form.cleaned_data["date_text"] = None
+            if photo_upload_form.cleaned_data["source_key"] == "":
+                photo_upload_form.cleaned_data["source_key"] = None
+            if photo_upload_form.cleaned_data["source_url"] == "":
+                photo_upload_form.cleaned_data["source_url"] = None
+            if not existing_photo:
+                try:
+                    new_photo = Photo(
+                        user=profile,
+                        area_id=area_id,
+                        description=photo_upload_form.cleaned_data["description"],
+                        source=source,
+                        date_text=photo_upload_form.cleaned_data["date"],
+                        licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
+                        source_key=photo_upload_form.cleaned_data["source_key"],
+                        source_url=photo_upload_form.cleaned_data["source_url"]
+                    )
+                    new_photo.save()
+                    opener = urllib2.build_opener()
+                    opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                    img_response = opener.open(photo_upload_form.cleaned_data["image_url"])
+                    new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
+                    new_photo.save()
+                    points_for_curating = Points(action=Points.PHOTO_CURATION, action_reference=new_photo.id, points=50, user=profile, created=new_photo.created)
+                    points_for_curating.save()
+                    if albums:
+                        for a in albums:
+                            ap = AlbumPhoto(photo=new_photo, album=a)
+                            ap.save()
+                            created_album_photo_links.append(ap)
+                except:
+                    if new_photo:
+                        new_photo.delete()
+                    for ap in created_album_photo_links:
+                        ap.delete()
+                    error = _("Error uploading file")
+            if new_photo is not None:
+                try:
+                    _extract_and_save_data_from_exif(new_photo)
+                except:
+                    pass
+        else:
+            error = _("Conflicting data submitted (no photos, no user or faulty areas)")
+        if error is None:
+            ret["files"].append({
+                "name": uploaded_file_name,
+                "url": reverse('project.home.views.photo', args=(new_photo.id,)),
+                "thumbnailUrl": reverse('project.home.views.photo_thumb', args=(new_photo.id,)),
+                "deleteUrl": reverse('project.home.views.delete_public_photo', args=(new_photo.id,)),
+                "points": 50,
+                "deleteType": "POST"
+            })
+        else:
+            ret["files"].append({
+                "name": uploaded_file_name,
+                "error": error
+            })
+    else:
+        ret["files"].append({
+            "name": uploaded_file_name,
+            "error": _("Invalid form data")
+        })
+    return HttpResponse(json.dumps(ret), content_type="application/json")
 
 def public_photo_upload_handler(request):
     profile = request.get_user().profile

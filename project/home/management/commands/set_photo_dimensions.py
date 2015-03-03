@@ -7,3 +7,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         photos = Photo.objects.all()
+        for p in photos:
+            p.save()

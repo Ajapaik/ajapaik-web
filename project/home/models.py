@@ -141,7 +141,7 @@ class Photo(models.Model):
     id = models.AutoField(primary_key=True)
     #Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
     #image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
-    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
+    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True, height_field='height', width_field='width')
     image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     height = models.IntegerField(null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
@@ -560,16 +560,19 @@ class UserMapView(models.Model):
 
 #TODO: Should create ForeignKey fields here so Django knows to cascade deletes etc.
 class Points(models.Model):
-    GEOTAG, REPHOTO, PHOTO_UPLOAD = range(3)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION = range(4)
     ACTION_CHOICES = (
         (GEOTAG, 'Geotag'),
         (REPHOTO, 'Rephoto'),
-        (PHOTO_UPLOAD, 'Photo upload')
+        (PHOTO_UPLOAD, 'Photo upload'),
+        (PHOTO_CURATION, 'Photo curation'),
     )
 
     user = models.ForeignKey('Profile', related_name='points')
     action = models.PositiveSmallIntegerField(choices=ACTION_CHOICES)
     action_reference = models.PositiveIntegerField()
+    photo = models.ForeignKey('Photo', null=True, blank=True)
+    geotag = models.ForeignKey('GeoTag', null=True, blank=True)
     points = models.PositiveSmallIntegerField(null=True, blank=True)
     created = models.DateTimeField(db_index=True)
 
