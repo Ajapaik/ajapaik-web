@@ -886,6 +886,7 @@ def curator_photo_upload_handler(request):
                         area_id=area_id,
                         description=photo_upload_form.cleaned_data["description"],
                         source=source,
+                        types=photo_upload_form.cleaned_data["types"],
                         date_text=photo_upload_form.cleaned_data["date"],
                         licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
                         source_key=photo_upload_form.cleaned_data["source_key"],

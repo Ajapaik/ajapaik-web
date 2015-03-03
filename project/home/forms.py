@@ -42,3 +42,4 @@ class CuratorPhotoUploadForm(forms.Form):
     source_url = forms.CharField(max_length=1023, required=False)
     source_key = forms.CharField(max_length=100)
     date_text = forms.CharField(max_length=100, required=False)
+    types = forms.CharField(max_length=255, required=False)

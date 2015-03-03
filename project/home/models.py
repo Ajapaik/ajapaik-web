@@ -152,6 +152,7 @@ class Photo(models.Model):
     description = models.TextField(null=True, blank=True, max_length=2047)
     author = models.CharField(null=True, blank=True, max_length=255)
     licence = models.ForeignKey('Licence', null=True, blank=True)
+    types = models.CharField(max_length=255, blank=True, null=True)
 
     user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
 
