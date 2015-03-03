@@ -570,7 +570,7 @@ class Points(models.Model):
 
     user = models.ForeignKey('Profile', related_name='points')
     action = models.PositiveSmallIntegerField(choices=ACTION_CHOICES)
-    action_reference = models.PositiveIntegerField()
+    action_reference = models.PositiveIntegerField(null=True, blank=True)
     photo = models.ForeignKey('Photo', null=True, blank=True)
     geotag = models.ForeignKey('GeoTag', null=True, blank=True)
     points = models.PositiveSmallIntegerField(null=True, blank=True)

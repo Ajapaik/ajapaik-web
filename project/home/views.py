@@ -844,12 +844,21 @@ def curator_photo_upload_handler(request):
     album_ids = request.POST.get("albumIds") or None
     album_ids_int = None
     albums = None
+    default_album = None
     if album_ids is not None:
         album_ids_int = [int(x) for x in album_ids.split(',')]
         try:
             albums = Album.objects.filter(pk__in=album_ids_int).all()
         except ObjectDoesNotExist:
             pass
+    else:
+        default_album = Album(
+            name=str(profile.id) + str(datetime.datetime.now()).split('.')[0],
+            atype=Album.COLLECTION,
+            profile=profile,
+            is_public=False
+        )
+        default_album.save()
 
     selection_json = request.POST.get("selection") or None
     selection = None
@@ -895,7 +904,6 @@ def curator_photo_upload_handler(request):
                             new_photo.save()
                             opener = urllib2.build_opener()
                             opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-                            print upload_form.cleaned_data["imageUrl"]
                             img_response = opener.open(upload_form.cleaned_data["imageUrl"])
                             new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
                             new_photo.save()
@@ -907,14 +915,7 @@ def curator_photo_upload_handler(request):
                                     ap.save()
                                     created_album_photo_links.append(ap)
                             else:
-                                a = Album(
-                                    name=str(profile.id) + str(datetime.datetime.now()).split('.')[0],
-                                    atype=Album.COLLECTION,
-                                    profile=profile,
-                                    is_public=False
-                                )
-                                a.save()
-                                ap = AlbumPhoto(photo=new_photo, album=a)
+                                ap = AlbumPhoto(photo=new_photo, album=default_album)
                                 ap.save()
                                 created_album_photo_links.append(ap)
                             ret[k] = {}
@@ -933,14 +934,7 @@ def curator_photo_upload_handler(request):
                                 ap = AlbumPhoto(photo=existing_photo, album=a)
                                 ap.save()
                         else:
-                            a = Album(
-                                name=str(profile.id) + str(datetime.datetime.now()).split('.')[0],
-                                atype=Album.COLLECTION,
-                                profile=profile,
-                                is_public=False
-                            )
-                            a.save()
-                            ap = AlbumPhoto(photo=existing_photo, album=a)
+                            ap = AlbumPhoto(photo=existing_photo, album=default_album)
                             ap.save()
                             created_album_photo_links.append(ap)
 
