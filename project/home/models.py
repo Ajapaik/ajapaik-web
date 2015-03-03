@@ -139,9 +139,8 @@ class Photo(models.Model):
     objects = PhotoManager()
 
     id = models.AutoField(primary_key=True)
-    #Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    #image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
-    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True, height_field='height', width_field='width')
+    # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
+    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     height = models.IntegerField(null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
@@ -580,6 +579,9 @@ class Points(models.Model):
     class Meta:
         app_label = "project"
 
+    def __unicode__(self):
+        return u'%d - %s - %d' % (self.user.id, self.action, self.points)
+
 
 class GeoTag(models.Model):
     MAP, EXIF, GPS = range(3)
@@ -764,9 +766,9 @@ class Profile(models.Model):
                 user_first_bonus_earned = True
                 user_rephoto_score += 1250
                 try:
-                    existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=oldest_rephoto.id).get()
+                    existing_record = Points.objects.filter(action=Points.REPHOTO, photo=oldest_rephoto).get()
                 except ObjectDoesNotExist:
-                    new_record = Points(user=oldest_rephoto.user, action=Points.REPHOTO, action_reference=oldest_rephoto.id, points=1250, created=oldest_rephoto.created)
+                    new_record = Points(user=oldest_rephoto.user, action=Points.REPHOTO, photo=oldest_rephoto, points=1250, created=oldest_rephoto.created)
                     new_record.save()
             for rp in rephotos_by_this_user:
                 current_score = 250
@@ -778,9 +780,9 @@ class Profile(models.Model):
                         user_first_bonus_earned = True
                     # Check that we have a record in the scoring table
                     try:
-                        existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=rp.id).get()
+                        existing_record = Points.objects.filter(action=Points.REPHOTO, photo=rp).get()
                     except ObjectDoesNotExist:
-                        new_record = Points(user=rp.user, action=Points.REPHOTO, action_reference=rp.id, points=current_score, created=rp.created)
+                        new_record = Points(user=rp.user, action=Points.REPHOTO, photo=rp, points=current_score, created=rp.created)
                         new_record.save()
                     user_rephoto_score += current_score
 

@@ -87,7 +87,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
         this_guess_score += azimuth_score
         new_geotag.score = this_guess_score
         new_geotag.save()
-        new_action = Points(user=user, action=Points.GEOTAG, action_reference=new_geotag.id, points=new_geotag.score, created=datetime.datetime.now())
+        new_action = Points(user=user, action=Points.GEOTAG, geotag=new_geotag, points=new_geotag.score, created=datetime.datetime.now())
         new_action.save()
     else:
         Skip(user=user, photo_id=p.id).save()

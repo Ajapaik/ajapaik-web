@@ -35,11 +35,11 @@ class PublicPhotoUploadForm(forms.Form):
     licence = forms.CharField(max_length=255, required=False)
 
 class CuratorPhotoUploadForm(forms.Form):
-    description = forms.CharField(required=False)
-    author = forms.CharField(max_length=255, required=False)
-    image_url = forms.CharField()
-    source = forms.CharField(max_length=255, required=False)
-    source_url = forms.CharField(max_length=1023, required=False)
-    source_key = forms.CharField(max_length=100)
-    date_text = forms.CharField(max_length=100, required=False)
+    title = forms.CharField(required=False)
+    creators = forms.CharField(max_length=255, required=False)
+    imageUrl = forms.CharField()
+    institution = forms.CharField(max_length=255, required=False)
+    urlToRecord = forms.CharField(max_length=1023, required=False)
+    identifyingNumber = forms.CharField(max_length=100)
+    date = forms.CharField(max_length=100, required=False)
     types = forms.CharField(max_length=255, required=False)
