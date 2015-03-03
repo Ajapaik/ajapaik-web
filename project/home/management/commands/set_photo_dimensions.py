@@ -11,6 +11,6 @@ class Command(BaseCommand):
             try:
                 print "Saving photo %d" % p.id
                 p.save()
-            except IOError, e:
+            except IOError as err:
                 print "Deleting photo %d" % p.id
                 p.delete()
