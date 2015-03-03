@@ -9,6 +9,6 @@ class Command(BaseCommand):
         photos = Photo.objects.all()
         for p in photos:
             try:
-                p.image.file
+                p.image
             except:
                 print "Exception %d" % p.id
