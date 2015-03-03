@@ -12,3 +12,4 @@ class Command(BaseCommand):
                 p.geotag_id = p.action_reference
             else:
                 p.photo_id = p.action_reference
+            p.save()
