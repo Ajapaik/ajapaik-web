@@ -288,7 +288,7 @@
             selectedAreaName = '{{ area.name }}',
             selectableAreas = {{ selectable_areas|safe }},
             selectableAlbums = {{ selectable_albums|safe }},
-            gameUrl = '{{ request.get_host }}{% url "project.home.views.game" %}',
+            gameUrl = '{% url "project.home.views.game" %}',
             resultCount = 0,
             url = '/curator_search/',
             start = 200,
