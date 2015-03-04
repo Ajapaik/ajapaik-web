@@ -43,3 +43,6 @@ class CuratorPhotoUploadForm(forms.Form):
     identifyingNumber = forms.CharField(max_length=100)
     date = forms.CharField(max_length=100, required=False)
     types = forms.CharField(max_length=255, required=False)
+    flip = forms.BooleanField(required=False)
+    invert = forms.BooleanField(required=False)
+    stereo = forms.BooleanField(required=False)

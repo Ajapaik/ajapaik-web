@@ -906,7 +906,10 @@ def curator_photo_upload_handler(request):
                                 date_text=upload_form.cleaned_data["date"],
                                 licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
                                 source_key=upload_form.cleaned_data["identifyingNumber"],
-                                source_url=upload_form.cleaned_data["urlToRecord"]
+                                source_url=upload_form.cleaned_data["urlToRecord"],
+                                flip=upload_form.cleaned_data["flip"],
+                                invert=upload_form.cleaned_data["invert"],
+                                stereo=upload_form.cleaned_data["stereo"],
                             )
                             new_photo.save()
                             opener = urllib2.build_opener()

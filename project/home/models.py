@@ -157,6 +157,8 @@ class Photo(models.Model):
     height = models.IntegerField(null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
     flip = models.NullBooleanField()
+    invert = models.NullBooleanField()
+    stereo = models.NullBooleanField()
     date = models.DateTimeField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)

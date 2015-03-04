@@ -412,7 +412,7 @@
                 type : 'POST',
                 url : url,
                 data: {
-                    //testing: true,
+                    testing: true,
                     ids: slice,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
@@ -437,7 +437,7 @@
                 type : 'POST',
                 url : url,
                 data: {
-                    //testing: true,
+                    testing: true,
                     fullSearch: $('#ajapaik-curator-full-search').val(),
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
@@ -475,6 +475,70 @@
             buildSelectionDiv();
             $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
         });
+        var escapeRegExp = function(string) {
+            return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+        };
+        var replaceAll = function(string, find, replace) {
+            return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+        };
+        window.formatId = function (id) {
+            id = replaceAll(id, ':', '');
+            id = replaceAll(id, '.', '');
+            return id;
+        };
+        var toggleButtonActive = function ($this) {
+            if ($this.hasClass('active')) {
+                $this.removeClass('active');
+            } else {
+                $this.addClass('active');
+            }
+        };
+        $(document).on('click', '.ajapaik-curator-invert-colors-button', function() {
+            var $this = $(this),
+                targetSelector = '#ajapaik-curator-selection-item-' + window.formatId($this[0].dataset.id),
+                target = $($(targetSelector).find('img')[0]);
+            toggleButtonActive($this);
+            if (target.hasClass('ajapaik-photo-inverted')) {
+                target.removeClass('ajapaik-photo-inverted');
+                selectedResults[$this[0].dataset.id].invert = false;
+            } else {
+                target.addClass('ajapaik-photo-inverted');
+                selectedResults[$this[0].dataset.id].invert = true;
+            }
+        });
+        $(document).on('click', '.ajapaik-curator-flip-button', function() {
+            var $this = $(this),
+                targetSelector = '#ajapaik-curator-selection-item-' + window.formatId($this[0].dataset.id),
+                target = $($(targetSelector).find('img')[0]);
+            toggleButtonActive($this);
+            if (target.hasClass('ajapaik-photo-flipped')) {
+                target.removeClass('ajapaik-photo-flipped');
+                selectedResults[$this[0].dataset.id].flip = false;
+            } else {
+                target.addClass('ajapaik-photo-flipped');
+                selectedResults[$this[0].dataset.id].flip = true;
+            }
+        });
+        $(document).on('click', '.ajapaik-curator-stereo-button', function() {
+            var $this = $(this);
+            toggleButtonActive($this);
+            selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
+        });
+        $(document).on('click', '.ajapaik-curator-delete-button', function() {
+            var targetId = $(this)[0].dataset.id,
+                targetResultItem = $('#ajapaik-result-item-' + window.formatId(targetId)),
+                targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
+            if (selectedResults[targetId]) {
+                delete selectedResults[targetId];
+                targetSelectionItem.remove();
+                targetResultItem.removeClass('ajapaik-curator-selected-image');
+                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+            } else {
+                selectedResults[e.target.dataset.id] = target;
+                targetResultItem.addClass('ajapaik-curator-selected-image');
+                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+            }
+        });
         $(document).on('click', '#ajapaik-curator-submit-selection', function () {
             $('#ajapaik-loading-overlay').show();
             $.ajax({
@@ -501,9 +565,26 @@
 </script>
 {% verbatim %}
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
-        <div class="row ajapaik-curator-selection-item">
+        <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
             <img class="col-xs-6 img-responsive ajapaik-curator-selection-image" src="{%=o.imageUrl%}">
             <div class="col-xs-6">
+                <div class="ajapaik-curator-selection-button-row">
+                    <div class="btn-group" role="group">
+                      <button title="{%=gettext('Invert colors')%}" type="button" class="btn btn-default ajapaik-curator-invert-colors-button" data-id="{%=o.id%}">
+                        <i class="glyphicon ajapaik-icon ajapaik-icon-invert-colors"></i>
+                      </button>
+                      <button title="{%=gettext('Flip')%}" type="button" class="btn btn-default ajapaik-curator-flip-button" data-id="{%=o.id%}">
+                        <i class="glyphicon ajapaik-icon ajapaik-icon-flip"></i>
+                      </button>
+                      <button title="{%=gettext('Mark stereophoto')%}" type="button" class="btn btn-default ajapaik-curator-stereo-button" data-id="{%=o.id%}">
+                        <i class="glyphicon ajapaik-icon ajapaik-icon-stereo"></i>
+                        <i class="glyphicon ajapaik-icon ajapaik-icon-stereo"></i>
+                      </button>
+                      <button title="{%=gettext('Remove from selection')%}" type="button" class="btn btn-default ajapaik-curator-delete-button" data-id="{%=o.id%}">
+                        <i class="glyphicon ajapaik-icon ajapaik-icon-delete"></i>
+                      </button>
+                    </div>
+                </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">{%=o.title%}</h3>
@@ -520,7 +601,7 @@
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
         <a class="thumbnail col-xs-2" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
-            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id={%=o.id %} class="img-responsive ajapaik-result-item">
+            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id={%=o.id %} class="img-responsive ajapaik-result-item" id="ajapaik-result-item-{%=formatId(o.id)%}">
         </a>
     </script>
     <script id="ajapaik-curator-selectable-area-template" type="text/x-tmpl">
