@@ -48,8 +48,8 @@ def _make_fullscreen(photo):
     image = get_thumbnail(photo.image, '1024x1024', upscale=False)
     return {'url': image.url, 'size': [image.width, image.height]}
 
-models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
+models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 class Area(models.Model):
     name = models.TextField()
@@ -112,6 +112,15 @@ class AlbumPhoto(models.Model):
     def __unicode__(self):
         return u'%d - %d' % (self.album.id, self.photo.id)
 
+
+def delete_parent(sender, **kwargs):
+    try:
+        if len(kwargs["instance"].album.photos.all()) == 1:
+            kwargs["instance"].album.delete()
+    except:
+        pass
+
+models.signals.pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 class PhotoManager(models.GeoManager):
     def get_queryset(self):

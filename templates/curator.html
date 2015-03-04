@@ -8,7 +8,7 @@
 {% block layout %}
     <div class="container" id="ajapaik-curator-container">
         <div class="col-xs-12">
-            {% if request.user.is_authenticated and request.user.profile.fb_id %}
+            {% if request.user.is_authenticated and request.user.profile.fb_id and request.user.profile.score > 5000 %}
                 <div class="modal fade" id="ajapaik-choose-albums-modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -134,28 +134,8 @@
                                             <input class="form-control" type="text"
                                                    id="ajapaik-curator-add-area-name">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-area-lat">{% trans "New area latitude" %}&nbsp;*</label>
-                                            </span>
-                                            <input class="form-control" type="number"
-                                                   id="ajapaik-curator-add-area-lat">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-area-lon">{% trans "New area longitude" %}&nbsp;*</label>
-                                            </span>
-                                            <input class="form-control" type="number"
-                                                   id="ajapaik-curator-add-area-lon">
-                                        </div>
+                                        <input type="hidden" id="ajapaik-curator-add-area-lat">
+                                        <input type="hidden" id="ajapaik-curator-add-area-lon">
                                     </div>
                                 </div>
                             </div>
@@ -164,6 +144,29 @@
                                         data-dismiss="modal">{% trans "Close" %}</button>
                                 <button type="button" class="btn btn-primary"
                                         id="ajapaik-curator-save-new-area-button">{% trans "Save" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ajapaik-curator-feedback-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">{% trans "Thank you!" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>{% trans "Your photos have now been added to Ajapaik and can be interacted with as usual." %}</p>
+                                <p>{% trans "You can view feedback on this page for each individual image." %}</p>
+                                <p>{% trans "Points awarded for curating" %}: <span id="ajapaik-curator-points-awarded"></span></p>
+                                <p>{% trans "You can start geotagging the new content here" %}: <a target="_blank" id="ajapaik-curator-album-play-link"></a></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    {% trans "Close" %}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -243,6 +246,7 @@
             {% else %}
                 <div id="facebook-connect">
                     <p>{% trans "Curating requires connecting your account with Facebook." %}</p>
+                    <p>{% trans "You also need to have more than 5000 points." %}</p>
                     <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
             {% endif %}
@@ -265,10 +269,17 @@
             });
             var input = document.getElementById('ajapaik-curator-add-area-name');
             var options = {
-                types: [],
+                types: ['geocode'],
                 componentRestrictions: {country: 'ee'}
             };
             var autocomplete = new window.google.maps.places.Autocomplete(input, options);
+            window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                //TODO: What if Google fails?
+                var place = autocomplete.getPlace();
+                $('#ajapaik-curator-add-area-name').val(place.name);
+                $('#ajapaik-curator-add-area-lat').val(place.geometry.location.lat());
+                $('#ajapaik-curator-add-area-lon').val(place.geometry.location.lng());
+            });
             window.updateLeaderboard();
             $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
         });
@@ -277,6 +288,7 @@
             selectedAreaName = '{{ area.name }}',
             selectableAreas = {{ selectable_areas|safe }},
             selectableAlbums = {{ selectable_albums|safe }},
+            gameUrl = '{{ request.get_host }}{% url "project.home.views.game" %}',
             resultCount = 0,
             url = '/curator_search/',
             start = 200,
@@ -393,6 +405,7 @@
             }
         };
         $(document).on('click', '.ajapaik-curator-load-more', function () {
+            $('#ajapaik-loading-overlay').show();
             var slice = resultIds.slice(start, start + 200);
             start += 200;
             $.ajax({
@@ -413,10 +426,12 @@
                         var item = msg.result[i];
                         createResultElement(item);
                     }
+                    $('#ajapaik-loading-overlay').hide();
                 }
             });
         });
         $(document).on('click', '#ajapaik-curator-search-button', function () {
+            $('#ajapaik-loading-overlay').show();
             $('#ajapaik-curator-search-results').empty();
             $.ajax({
                 type : 'POST',
@@ -427,6 +442,7 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(msg) {
+                    $('#ajapaik-loading-overlay').hide();
                     resultIds = msg.result.ids;
                     resultCount = resultIds.length;
                     $('#ajapaik-curator-result-count').html(resultCount);
@@ -460,6 +476,7 @@
             $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
         });
         $(document).on('click', '#ajapaik-curator-submit-selection', function () {
+            $('#ajapaik-loading-overlay').show();
             $.ajax({
                 type : 'POST',
                 url : '/curator_upload/',
@@ -469,8 +486,14 @@
                     areaId: selectedArea,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
-                success : function(msg) {
-                    console.log(msg);
+                success : function(response) {
+                    $('#ajapaik-loading-overlay').hide();
+                    $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
+                    var albumPlayLink = gameUrl + '?area=' + response.area_id + '&album=' + response.default_album_id;
+                    $('#ajapaik-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
+                    $('#ajapaik-curator-feedback-modal').modal('show').on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
                 }
             });
         });

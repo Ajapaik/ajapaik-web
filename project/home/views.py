@@ -585,6 +585,8 @@ def fetch_stream(request):
 
     if album is not None:
         photos_ids_in_album = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
+        print "Ids"
+        print photos_ids_in_album
         qs = qs.filter(pk__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
@@ -863,7 +865,9 @@ def curator_photo_upload_handler(request):
 
     total_points_for_curating = 0
     ret = {
-        "default_album_id": default_album.id
+        "default_album_id": default_album.id,
+        "area_id": area.id,
+        "photos": {}
     }
 
     if selection is not None and profile is not None and area is not None:
@@ -889,6 +893,8 @@ def curator_photo_upload_handler(request):
                         pass
                     if not existing_photo:
                         new_photo = None
+                        if upload_form.cleaned_data["date"] == "[]":
+                            upload_form.cleaned_data["date"] = None
                         try:
                             new_photo = Photo(
                                 user=profile,
@@ -910,9 +916,9 @@ def curator_photo_upload_handler(request):
                             new_photo.width = new_photo.image.width
                             new_photo.height = new_photo.image.height
                             shortest_side = min(new_photo.width, new_photo.height)
-                            ret[k] = {}
+                            ret["photos"][k] = {}
                             if shortest_side < 600:
-                                ret[k]["message"] = _("This picture is small, we've allowed you to add it to specified albums and you can mark it's location on the map, but it will be hidden from other users until we get a higher quality image from the institution.")
+                                ret["photos"][k]["message"] = _("This picture is small, we've allowed you to add it to specified albums and you can mark it's location on the map, but it will be hidden from other users until we get a higher quality image from the institution.")
                             new_photo.save()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50, user=profile, created=new_photo.created)
                             points_for_curating.save()
@@ -926,7 +932,7 @@ def curator_photo_upload_handler(request):
                             ap = AlbumPhoto(photo=new_photo, album=default_album)
                             ap.save()
                             created_album_photo_links.append(ap)
-                            ret[k]["success"] = True
+                            ret["photos"][k]["success"] = True
                         except:
                             if new_photo:
                                 new_photo.image.delete()
@@ -935,8 +941,8 @@ def curator_photo_upload_handler(request):
                                 ap.delete()
                             for cp in awarded_curator_points:
                                 cp.delete()
-                            ret[k] = {}
-                            ret[k]["error"] = _("Error uploading file")
+                            ret["photos"][k] = {}
+                            ret["photos"][k]["error"] = _("Error uploading file")
                     else:
                         # We already have the photo in our collection, let's add it to the requested albums anyway
                         if albums:
@@ -946,9 +952,9 @@ def curator_photo_upload_handler(request):
                         ap = AlbumPhoto(photo=existing_photo, album=default_album)
                         ap.save()
                         created_album_photo_links.append(ap)
-                        ret[k] = {}
-                        ret[k]["success"] = True
-                        ret[k]["messages"] = _("Photo already exists in Ajapaik")
+                        ret["photos"][k] = {}
+                        ret["photos"][k]["success"] = True
+                        ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
     ret["total_points_for_curating"] = total_points_for_curating
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
