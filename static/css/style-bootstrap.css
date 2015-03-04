@@ -1359,3 +1359,22 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-curator-selection-button-row {
     margin-bottom: 10px;
 }
+
+#ajapaik-curator-gallery-switch {
+    border: 1px solid;
+    padding: 2px;
+}
+
+#ajapaik-curator-list-switch {
+    border: 1px solid;
+    padding: 2px;
+}
+
+.ajapaik-curator-selection-image {
+
+}
+
+.ajapaik-curator-selection-image-min-max {
+    max-height: 100px;
+    min-height: 100px;
+}

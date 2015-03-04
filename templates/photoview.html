@@ -91,9 +91,11 @@
                             </a>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         </div>
-                        <div class="row-fluid">
-                            {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
-                        </div>
+                        {% if rephoto.user.fb_name %}
+                            <div class="row-fluid">
+                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
+                            </div>
+                        {% endif %}
                         {% if rephoto.date %}
                             <div class="row-fluid">
                                 {% trans "Date taken" %}&nbsp;<div id="ajapaik-photoview-date-taken">{{ rephoto.date|date:"d.m.Y" }}</div>

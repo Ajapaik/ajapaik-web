@@ -230,6 +230,10 @@
                                         {% trans "Submit to Ajapaik" %}
                                     </button>
                                 </div>
+                                <div class="col-xs-offset-2 col-xs-2">
+                                    <img src="{{ STATIC_URL }}images/large-thumbnails-48.png" id="ajapaik-curator-gallery-switch">
+                                    <img src="{{ STATIC_URL }}images/list-with-thumbnails-48.png" id="ajapaik-curator-list-switch">
+                                </div>
                             </div>
                             <div class="row">
                                 <span id="ajapaik-curator-destination-album">{% trans "Selected albums:" %}&nbsp;<span>{{ album.name }}</span></span>
@@ -355,6 +359,11 @@
                 $('#ajapaik-curator-add-album-error').show();
             });
         });
+        $('#ajapaik-curator-full-search').on('keypress', function (e) {
+            if (e.keyCode == 13) {
+                $('#ajapaik-curator-search-button').click();
+            }
+        });
         $(document).on('click', '#ajapaik-curator-save-new-area-button', function () {
             $.ajax({
                 url: {% url 'project.home.views.public_add_area' %},
@@ -377,6 +386,7 @@
         var createResultElement = function (item) {
             // No broken thumbs
             if (item.cachedThumbnailUrl !== '14e5c228503ec8e7e004a13d48919768') {
+                console.log(item.types);
                 fullResultSet[item.id] = item;
                 resultDiv.append(tmpl('ajapaik-curator-result-template', item));
             }
@@ -539,6 +549,16 @@
                 $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
             }
         });
+        $(document).on('click', '#ajapaik-curator-gallery-switch', function () {
+            $('.ajapaik-curator-selection-controls').hide();
+            $('.ajapaik-curator-selection-item').removeClass('row').addClass('thumbnail').addClass('col-xs-2');
+            $('.ajapaik-curator-selection-image').removeClass('col-xs-6').addClass('ajapaik-curator-selection-image-min-max');
+        });
+        $(document).on('click', '#ajapaik-curator-list-switch', function () {
+            $('.ajapaik-curator-selection-controls').show();
+            $('.ajapaik-curator-selection-item').addClass('row').removeClass('thumbnail').removeClass('col-xs-2');
+            $('.ajapaik-curator-selection-image').addClass('col-xs-6').removeClass('ajapaik-curator-selection-image-min-max');
+        });
         $(document).on('click', '#ajapaik-curator-submit-selection', function () {
             $('#ajapaik-loading-overlay').show();
             $.ajax({
@@ -567,7 +587,7 @@
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
         <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
             <img class="col-xs-6 img-responsive ajapaik-curator-selection-image" src="{%=o.imageUrl%}">
-            <div class="col-xs-6">
+            <div class="col-xs-6 ajapaik-curator-selection-controls">
                 <div class="ajapaik-curator-selection-button-row">
                     <div class="btn-group" role="group">
                       <button title="{%=gettext('Invert colors')%}" type="button" class="btn btn-default ajapaik-curator-invert-colors-button" data-id="{%=o.id%}">
