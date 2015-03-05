@@ -621,6 +621,7 @@
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
         <a class="thumbnail col-xs-2" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+            <p>{%=o.types%}</p>
             <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id={%=o.id %} class="img-responsive ajapaik-result-item" id="ajapaik-result-item-{%=formatId(o.id)%}">
         </a>
     </script>
