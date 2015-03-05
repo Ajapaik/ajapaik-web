@@ -145,12 +145,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <span id="ajapaik-curator-destination-album">{% trans "Selected album:" %}&nbsp;<span></span></span>
-                            </div>
-                            <div class="row">
-                                <span id="ajapaik-curator-destination-area">{% trans "Selected area:" %}&nbsp;<span></span></span>
-                            </div>
-                            <div class="row">
                                 <div class="col-xs-12" id="ajapaik-curator-selection"></div>
                             </div>
                         </div>
@@ -240,7 +234,7 @@
                 type : 'POST',
                 url : url,
                 data: {
-                    //testing: true,
+                    testing: true,
                     ids: slice,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
@@ -269,7 +263,7 @@
                 type : 'POST',
                 url : url,
                 data: {
-                    //testing: true,
+                    testing: true,
                     fullSearch: $('#ajapaik-curator-full-search').val(),
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
@@ -294,7 +288,9 @@
             });
         });
         $(document).on('click', '.ajapaik-result-item', function (e) {
-            var target = fullResultSet[e.target.dataset.id];
+            var target = fullResultSet[e.target.dataset.id],
+                institution = e.target.dataset.institution,
+                institutionKey = e.target.dataset.identifier;
             if (selectedResults[e.target.dataset.id]) {
                 delete selectedResults[e.target.dataset.id];
                 $(e.target).removeClass('ajapaik-curator-selected-image');
@@ -303,6 +299,20 @@
                 selectedResults[e.target.dataset.id] = target;
                 $(e.target).addClass('ajapaik-curator-selected-image');
                 $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
+                $.ajax({
+                    type : 'POST',
+                    url : '/check/',
+                    data: {
+                        source: institution,
+                        sourceKey: institutionKey,
+                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                    },
+                    success : function(response) {
+                        if (response) {
+                            selectedResults[e.target.dataset.id].inAjapaik = true;
+                        }
+                    }
+                });
             }
         });
         $(document).on('click', '#ajapaik-curator-clear-selection', function () {
@@ -321,6 +331,11 @@
             id = replaceAll(id, ':', '');
             id = replaceAll(id, '.', '');
             return id;
+        };
+        window.imageLoaded = function (id) {
+            var targetContainer = $('#ajapaik-curator-selection-item-' + window.formatId(id)),
+                targetImage = targetContainer.find('img')[0];
+            targetContainer.find('.ajapaik-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
         };
         var toggleButtonActive = function ($this) {
             if ($this.hasClass('active')) {
@@ -437,7 +452,7 @@
 {% verbatim %}
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
         <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
-            <img class="col-xs-6 img-responsive ajapaik-curator-selection-image {% if (o.invert) { %}ajapaik-photo-inverted{% } %} {% if (o.flip) { %}ajapaik-photo-flipped{% } %}" src="{%=o.imageUrl%}">
+            <img class="col-xs-6 img-responsive ajapaik-curator-selection-image {% if (o.invert) { %}ajapaik-photo-inverted{% } %} {% if (o.flip) { %}ajapaik-photo-flipped{% } %}" src="{%=o.imageUrl%}" onload="imageLoaded('{%=o.id%}')">
             <div class="col-xs-6 ajapaik-curator-selection-controls">
                 <div class="ajapaik-curator-selection-button-row">
                     <div class="btn-group" role="group">
@@ -455,6 +470,9 @@
                         <i class="glyphicon ajapaik-icon ajapaik-icon-delete"></i>
                       </button>
                     </div>
+                    {% if (o.inAjapaik) { %}
+                        <img class="img-responsive ajapaik-already-have-indicator" src="{% endverbatim %}{{ STATIC_URL }}images/ajapaik_marker_35px.png{% verbatim %}" title="{%=gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded')%}">
+                    {% } %}
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -465,6 +483,7 @@
                         <li class="list-group-item">{%=gettext('Author')%}: {%=o.creators%}</li>
                         <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>
                         <li class="list-group-item">{%=gettext('Source URL')%}: <a target="_blank" href="{%=o.urlToRecord%}">{%=o.urlToRecord%}</a></li>
+                        <li class="list-group-item">{%=gettext('Size')%}: <span class="ajapaik-curator-selection-image-size"></span></li>
                     </ul>
                 </div>
                 <div class="ajapaik-curator-selection-feedback-row">
@@ -476,7 +495,7 @@
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
         <a class="thumbnail col-xs-2" title="{%=o.title%}">
-            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id={%=o.id %} class="img-responsive ajapaik-result-item" id="ajapaik-result-item-{%=formatId(o.id)%}">
+            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}" class="img-responsive ajapaik-result-item" id="ajapaik-result-item-{%=formatId(o.id)%}">
         </a>
     </script>
 {% endverbatim %}

@@ -1384,3 +1384,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-curator-feedback-alert {
     display: none;
 }
+
+.ajapaik-already-have-indicator {
+    float: right;
+}

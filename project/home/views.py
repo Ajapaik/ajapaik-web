@@ -567,14 +567,13 @@ def top50(request):
 def fetch_stream(request):
     area_selection_form = AreaSelectionForm(request.GET)
 
+    area = None
     if area_selection_form.is_valid():
         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
     else:
         old_city_id = request.GET.get('city__pk') or None
         if old_city_id is not None:
             area = Area.objects.get(pk=old_city_id)
-        else:
-            area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 
     album_selection_form = AlbumSelectionForm(request.GET)
 
@@ -583,12 +582,12 @@ def fetch_stream(request):
     else:
         album = None
 
-    qs = Photo.objects.filter(area_id=area.id)
+    qs = Photo.objects.filter()
+    if area is not None:
+        qs = qs.filter(area_id=area.id)
 
     if album is not None:
         photos_ids_in_album = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
-        print "Ids"
-        print photos_ids_in_album
         qs = qs.filter(pk__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
@@ -819,6 +818,26 @@ def delete_public_photo(request, photo_id):
             photo.delete()
     return HttpResponse(json.dumps("Ok"), content_type="application/json")
 
+
+def check_if_photo_in_ajapaik(request):
+    source_desc = request.POST.get('source') or None
+    source_key = request.POST.get('sourceKey') or None
+    print source_desc
+    print source_key
+    if source_desc is not None and source_key is not None:
+        source_desc = source_desc.split(',')[0]
+        try:
+            source = Source.objects.get(description=source_desc)
+            if source:
+                try:
+                    photo_count = Photo.objects.filter(source=source, source_key=source_key).count()
+                    if photo_count > 0:
+                        return HttpResponse(json.dumps(True), content_type="application/json")
+                except ObjectDoesNotExist:
+                    pass
+        except ObjectDoesNotExist:
+            pass
+    return HttpResponse(json.dumps(False), content_type="application/json")
 
 def curator_photo_upload_handler(request):
     profile = request.get_user().profile
