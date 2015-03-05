@@ -276,7 +276,8 @@ def frontpage(request):
         'example': example,
         'example_source': example_source,
         'grid_view_enabled': settings.GRID_VIEW_ENABLED,
-        'photo_upload_enabled': settings.PUBLIC_PHOTO_UPLOAD_ENABLED
+        'photo_upload_enabled': settings.PUBLIC_PHOTO_UPLOAD_ENABLED,
+        'curator_enabled': settings.CURATOR_ENABLED,
     }))
 
 

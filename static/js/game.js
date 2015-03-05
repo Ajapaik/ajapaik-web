@@ -252,12 +252,8 @@
             playerLatlng = new window.google.maps.LatLng(window.marker.getPosition().lat(), window.marker.getPosition().lng());
             var markerImage = new window.google.maps.MarkerImage('/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.png');
             markerImage.size = new window.google.maps.Size(24, 33);
-            if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i)) {
-                markerImage.scaledSize = new window.google.maps.Size(33, 33);
-            } else {
-                markerImage.scaledSize = new window.google.maps.Size(24, 33);
-            }
-            markerImage.achor = new window.google.maps.Point(12, 33);
+            markerImage.scaledSize = new window.google.maps.Size(24, 33);
+            markerImage.anchor = new window.google.maps.Point(12, 33);
             playerMarker = new window.google.maps.Marker({
                 position: playerLatlng,
                 map: window.map,
