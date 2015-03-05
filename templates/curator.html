@@ -473,16 +473,17 @@
             if (selectedResults[e.target.dataset.id]) {
                 delete selectedResults[e.target.dataset.id];
                 $(e.target).removeClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
             } else {
                 selectedResults[e.target.dataset.id] = target;
                 $(e.target).addClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
             }
         });
         $(document).on('click', '#ajapaik-curator-clear-selection', function () {
             selectedResults = {};
             buildSelectionDiv();
+            $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
             $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
         });
         var escapeRegExp = function(string) {
