@@ -866,6 +866,7 @@ def curator_photo_upload_handler(request):
             is_public=False
         )
         default_album.save()
+        ret["album_id"] = album.id
         for (k, v) in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
@@ -918,9 +919,9 @@ def curator_photo_upload_handler(request):
                                 inverted_grayscale_image.save(photo_path)
                             new_photo.width = new_photo.image.width
                             new_photo.height = new_photo.image.height
-                            shortest_side = min(new_photo.width, new_photo.height)
+                            longest_side = max(new_photo.width, new_photo.height)
                             ret["photos"][k] = {}
-                            if shortest_side < 600:
+                            if longest_side < 600:
                                 ret["photos"][k]["message"] = _("This picture is small, we've allowed you to add it to specified album and you can mark it's location on the map, but it will be hidden from other users until we get a higher quality image from the institution.")
                             else:
                                 ret["photos"][k]["message"] = _("OK")
