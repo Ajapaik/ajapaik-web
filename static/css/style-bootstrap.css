@@ -125,13 +125,11 @@ body {
     -o-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
 }
 
 .ajapaik-photo-inverted {
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+    filter: invert(1) grayscale(1);
+    -webkit-filter: invert(1) grayscale(1);
 }
 
 #ajapaik-game-fullscreen-image-container {
@@ -1377,4 +1375,12 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-curator-selection-image-min-max {
     max-height: 100px;
     min-height: 100px;
+}
+
+#ajapaik-curator-destination-area {
+    display: none;
+}
+
+.ajapaik-curator-feedback-alert {
+    display: none;
 }

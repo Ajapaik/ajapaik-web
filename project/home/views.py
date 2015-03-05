@@ -39,6 +39,7 @@ import get_next_photos_to_geotag
 import random
 import datetime
 import json
+import PIL.ImageOps
 
 from europeana import Search, BoundingBox
 
@@ -778,25 +779,10 @@ def public_photo_upload(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    user_profile = request.get_user().profile
-    area_selection_form = AreaSelectionForm(request.GET)
-    add_album_form = AddAlbumForm()
-    add_area_form = AddAreaForm()
-    if area_selection_form.is_valid():
-        area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
-    else:
-        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
-    selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
-    selectable_albums = [{'id': x.id, 'name': x.name} for x in selectable_albums]
-    selectable_areas = Area.objects.order_by('name').all()
-    selectable_areas = [{'id': x.id, 'name': x.name} for x in selectable_areas]
+    curator_leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
     return render_to_response('curator.html', RequestContext(request, {
-        'area': area,
-        'selectable_areas': json.dumps(selectable_areas),
-        'selectable_albums': json.dumps(selectable_albums),
-        'add_album_form': add_album_form,
-        'add_area_form': add_area_form,
-        'title': _("Timepatch (Ajapaik) - curate")
+        'title': _("Timepatch (Ajapaik) - curate"),
+        'leaderboard': curator_leaderboard
     }))
 
 def curator_search(request):
@@ -837,41 +823,49 @@ def delete_public_photo(request, photo_id):
 def curator_photo_upload_handler(request):
     profile = request.get_user().profile
 
-    area_id = int(request.POST.get("areaId"))
+    area_name = request.POST.get("areaName")
+    area_lat = request.POST.get("areaLat")
+    area_lon = request.POST.get("areaLng")
     area = None
     try:
-        area = Area.objects.filter(pk=area_id).get()
+        area = Area.objects.filter(name=area_name).get()
     except ObjectDoesNotExist:
-        pass
+        if area_name and area_lat and area_lon:
+            area = Area(
+                name=area_name,
+                lat=area_lat,
+                lon=area_lon
+            )
+            area.save()
 
-    album_ids = request.POST.getlist("albumIds[]") or None
-    albums = None
-    if album_ids is not None:
-        try:
-            albums = Album.objects.filter(pk__in=album_ids).all()
-        except ObjectDoesNotExist:
-            pass
-    default_album = Album(
-        name=str(profile.id) + str(datetime.datetime.now()).split('.')[0],
-        atype=Album.COLLECTION,
-        profile=profile,
-        is_public=False
-    )
-    default_album.save()
+    album_name = request.POST.get("albumName")
 
     selection_json = request.POST.get("selection") or None
     selection = None
     if selection_json is not None:
         selection = json.loads(selection_json)
 
+    all_curating_points = []
     total_points_for_curating = 0
     ret = {
-        "default_album_id": default_album.id,
-        "area_id": area.id,
         "photos": {}
     }
 
-    if selection is not None and profile is not None and area is not None:
+    if selection is not None and profile is not None and album_name is not None:
+        album = Album(
+            name=album_name,
+            atype=Album.CURATED,
+            profile=profile,
+            is_public=True
+        )
+        album.save()
+        default_album = Album(
+            name=str(profile.id) + "-" + str(datetime.datetime.now()).split('.')[0],
+            atype=Album.AUTO,
+            profile=profile,
+            is_public=False
+        )
+        default_album.save()
         for (k, v) in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
@@ -890,7 +884,7 @@ def curator_photo_upload_handler(request):
                 if upload_form.cleaned_data["identifyingNumber"] and upload_form.cleaned_data["identifyingNumber"] != "":
                     try:
                         existing_photo = Photo.objects.filter(source=source, source_key=upload_form.cleaned_data["identifyingNumber"]).get()
-                    except:
+                    except ObjectDoesNotExist:
                         pass
                     if not existing_photo:
                         new_photo = None
@@ -899,8 +893,8 @@ def curator_photo_upload_handler(request):
                         try:
                             new_photo = Photo(
                                 user=profile,
-                                author=upload_form.cleaned_data["creators"],
                                 area=area,
+                                author=upload_form.cleaned_data["creators"],
                                 description=upload_form.cleaned_data["title"],
                                 source=source,
                                 types=upload_form.cleaned_data["types"],
@@ -917,26 +911,32 @@ def curator_photo_upload_handler(request):
                             opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
                             img_response = opener.open(upload_form.cleaned_data["imageUrl"])
                             new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
+                            if new_photo.invert:
+                                photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+                                img = Image.open(photo_path)
+                                inverted_grayscale_image = PIL.ImageOps.invert(img).convert('L')
+                                inverted_grayscale_image.save(photo_path)
                             new_photo.width = new_photo.image.width
                             new_photo.height = new_photo.image.height
                             shortest_side = min(new_photo.width, new_photo.height)
                             ret["photos"][k] = {}
                             if shortest_side < 600:
-                                ret["photos"][k]["message"] = _("This picture is small, we've allowed you to add it to specified albums and you can mark it's location on the map, but it will be hidden from other users until we get a higher quality image from the institution.")
+                                ret["photos"][k]["message"] = _("This picture is small, we've allowed you to add it to specified album and you can mark it's location on the map, but it will be hidden from other users until we get a higher quality image from the institution.")
+                            else:
+                                ret["photos"][k]["message"] = _("OK")
                             new_photo.save()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50, user=profile, created=new_photo.created)
                             points_for_curating.save()
                             awarded_curator_points.append(points_for_curating)
-                            total_points_for_curating += points_for_curating.points
-                            if albums:
-                                for a in albums:
-                                    ap = AlbumPhoto(photo=new_photo, album=a)
-                                    ap.save()
-                                    created_album_photo_links.append(ap)
+                            if album:
+                                ap = AlbumPhoto(photo=new_photo, album=album)
+                                ap.save()
+                                created_album_photo_links.append(ap)
                             ap = AlbumPhoto(photo=new_photo, album=default_album)
                             ap.save()
                             created_album_photo_links.append(ap)
                             ret["photos"][k]["success"] = True
+                            all_curating_points.append(points_for_curating)
                         except:
                             if new_photo:
                                 new_photo.image.delete()
@@ -948,18 +948,22 @@ def curator_photo_upload_handler(request):
                             ret["photos"][k] = {}
                             ret["photos"][k]["error"] = _("Error uploading file")
                     else:
-                        # We already have the photo in our collection, let's add it to the requested albums anyway
-                        if albums:
-                            for a in albums:
-                                ap = AlbumPhoto(photo=existing_photo, album=a)
-                                ap.save()
+                        # We already have the photo in our collection, let's add it to the requested album anyway
+                        if album:
+                            ap = AlbumPhoto(photo=existing_photo, album=album)
+                            ap.save()
                         ap = AlbumPhoto(photo=existing_photo, album=default_album)
                         ap.save()
-                        created_album_photo_links.append(ap)
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
-    ret["total_points_for_curating"] = total_points_for_curating
+        for cp in all_curating_points:
+            total_points_for_curating += cp.points
+        ret["total_points_for_curating"] = total_points_for_curating
+    else:
+        ret = {
+            "error": _("Not enough data submitted"),
+        }
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 def public_photo_upload_handler(request):

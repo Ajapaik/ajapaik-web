@@ -64,11 +64,11 @@ class Area(models.Model):
 
 
 class Album(models.Model):
-    FRONTPAGE, FAVORITES, COLLECTION = range(3)
+    CURATED, FAVORITES, AUTO = range(3)
     TYPE_CHOICES = (
-        (FRONTPAGE, 'Frontpage'),
+        (CURATED, 'Curated'),
         (FAVORITES, 'Favorites'),
-        (COLLECTION, 'Collection')
+        (AUTO, 'Auto')
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField(null=True, blank=True)
