@@ -453,21 +453,18 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if selected_photo and area is None:
         area = Area.objects.get(pk=selected_photo.area_id)
 
-    if area is None:
-        area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
-
     if area is not None:
         title = area.name + ' - ' + _('Browse photos on map')
         area_selection_form = AreaSelectionForm(initial={'area': area})
     else:
         title = _('Browse photos on map')
 
-    photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
-        'photo_id', flat=True)
-    keys = {}
-    for e in photo_ids_user_has_looked_at:
-        keys[e] = 1
-    photo_ids_user_has_looked_at = keys
+    # photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
+    #     'photo_id', flat=True)
+    # keys = {}
+    # for e in photo_ids_user_has_looked_at:
+    #     keys[e] = 1
+    # photo_ids_user_has_looked_at = keys
 
     return render_to_response('mapview.html', RequestContext(request, {
         'area': area,
