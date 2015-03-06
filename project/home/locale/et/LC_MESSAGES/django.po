@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-06 11:11+0200\n"
-"PO-Revision-Date: 2015-03-06 12:58+0200\n"
+"PO-Revision-Date: 2015-03-06 13:01+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -511,7 +511,7 @@ msgstr "Tühista valik"
 
 #: templates/curator.html:142
 msgid "Submit to Ajapaik"
-msgstr "Saada Ajapaik"
+msgstr "Saada Ajapaika"
 
 #: templates/curator.html:163
 msgid "Curating requires connecting your account with Facebook."
