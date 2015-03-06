@@ -242,6 +242,7 @@
                     $('#ajapaik-curator-my-albums-size').html(responseLength);
                     for (var i = 0; i < responseLength; i += 1) {
                         var albumPlayLink = gameUrl + '?album=' + response[i].id;
+                        response[i].gameLink = albumPlayLink;
                         targetDiv.append(tmpl('ajapaik-curator-my-album-template', response[i]));
                     }
                 }
@@ -520,7 +521,7 @@
         </a>
     </script>
     <script id="ajapaik-curator-my-album-template" type="text/x-tmpl">
-        <a href="{%=(gameUrl + o.id)%}">{%=o.name%} {%=o.created%}</a>
+        <a href="{%=o.gameLink%}">{%=o.name%} {%=o.created%}</a>
     </script>
 {% endverbatim %}
 {% endblock %}
