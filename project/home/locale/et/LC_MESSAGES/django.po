@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-06 11:11+0200\n"
-"PO-Revision-Date: 2015-03-06 13:01+0200\n"
+"PO-Revision-Date: 2015-03-06 13:12+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -483,7 +483,7 @@ msgstr "Lisatud albumi piltidele asukohtade määramine"
 
 #: templates/curator.html:96
 msgid "Search"
-msgstr "Otsi"
+msgstr "Otsing"
 
 #: templates/curator.html:99
 msgid "Selection"
