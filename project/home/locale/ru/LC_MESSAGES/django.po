@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-26 12:30+0200\n"
+"POT-Creation-Date: 2015-03-06 11:11+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -16,8 +16,7 @@ msgstr ""
 "X-Generator: Poedit 1.7.3\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/home/forms.py:8 templates/curator.html:56
-#: templates/curator.html.py:208 templates/photo_upload.html:58
+#: project/home/forms.py:8 templates/photo_upload.html:58
 #: templates/photo_upload.html.py:218
 #, fuzzy
 #| msgid "Choose range"
@@ -63,57 +62,76 @@ msgstr "Правильное место ещё не определено."
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/views.py:249 templates/frontpage.html:160
+#: project/home/views.py:254 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Угадай место"
 
-#: project/home/views.py:454 project/home/views.py:457
+#: project/home/views.py:457 project/home/views.py:460
 #: templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:542 project/home/views.py:556
-#: templates/_header_area_selection_scoreboard.html:25
+#: project/home/views.py:545 project/home/views.py:559
+#: templates/_header_area_selection_scoreboard.html:27
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
-#: project/home/views.py:765
+#: project/home/views.py:773
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:786
+#: project/home/views.py:780
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:910
+#: project/home/views.py:941
+msgid ""
+"This picture is small, we've allowed you to add it to specified album and "
+"you can mark it's location on the map, but it will be hidden from other "
+"users until we get a higher quality image from the institution."
+msgstr ""
+
+#: project/home/views.py:943
+msgid "OK"
+msgstr ""
+
+#: project/home/views.py:966 project/home/views.py:1077
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:917
+#: project/home/views.py:976
+msgid "Photo already exists in Ajapaik"
+msgstr ""
+
+#: project/home/views.py:982
+msgid "Not enough data submitted"
+msgstr ""
+
+#: project/home/views.py:1084
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:935
+#: project/home/views.py:1102
 msgid "Invalid form data"
 msgstr ""
 
-#: project/settings/default.py:69
+#: project/settings/default.py:70
 msgid "Estonian"
 msgstr "Эстонский"
 
-#: project/settings/default.py:70
+#: project/settings/default.py:71
 msgid "English"
 msgstr "Английский"
 
-#: project/settings/default.py:71
+#: project/settings/default.py:72
 msgid "Russian"
 msgstr "Русский"
 
-#: project/settings/default.py:72
+#: project/settings/default.py:73
 msgid "Finnish"
 msgstr ""
 
@@ -164,6 +182,7 @@ msgid "With azimuth"
 msgstr ""
 
 #: templates/_guess_panel.html:35 templates/_guess_panel_xs.html:33
+#: templates/curator.html:77
 msgid "Thank you!"
 msgstr "Спасибо!"
 
@@ -209,7 +228,7 @@ msgstr "Закрыть Street View"
 
 #: templates/_header.html:5 templates/_header_area_selection.html:5
 #: templates/_header_area_selection_scoreboard.html:5
-#: templates/_photo_modal.html:176 templates/base.html:7
+#: templates/_photo_modal.html:180 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:48
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
 #: templates/base_bootstrap.html:48 templates/frontpage.html:8
@@ -217,68 +236,64 @@ msgid "Timepatch (Ajapaik)"
 msgstr "Аяпаик (Ajapaik)"
 
 #: templates/_header.html:13
-#: templates/_header_area_selection_scoreboard.html:16
+#: templates/_header_area_selection_scoreboard.html:17
 #: templates/mapview.html:21
 msgid "Geotagging game"
 msgstr ""
 
-#: templates/_header_area_selection_scoreboard.html:13
+#: templates/_header_area_selection_scoreboard.html:14
 msgid "Map"
 msgstr "Карта"
 
-#: templates/_header_area_selection_scoreboard.html:32
-#: templates/_photo_upload_modal.html:9 templates/curator.html:13
-#: templates/photo_upload.html:13
+#: templates/_header_area_selection_scoreboard.html:38
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
 msgstr "Пользователь"
 
-#: templates/_header_area_selection_scoreboard.html:32
-#: templates/_photo_upload_modal.html:9 templates/curator.html:13
-#: templates/photo_upload.html:14
+#: templates/_header_area_selection_scoreboard.html:38
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:14
 msgid "Log out"
 msgstr "Выйти"
 
-#: templates/_header_area_selection_scoreboard.html:37
+#: templates/_header_area_selection_scoreboard.html:43
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-ом."
 
-#: templates/_header_area_selection_scoreboard.html:38
-#: templates/_photo_upload_modal.html:36 templates/curator.html:229
+#: templates/_header_area_selection_scoreboard.html:44
+#: templates/_photo_upload_modal.html:36 templates/curator.html:165
 #: templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Соединить с Facebook-ом."
 
-#: templates/_photo_modal.html:88 templates/photoview.html:95
+#: templates/_photo_modal.html:87 templates/photoview.html:96
 msgid "Rephotograph by"
 msgstr ""
 
-#: templates/_photo_modal.html:91 templates/photoview.html:99
+#: templates/_photo_modal.html:90 templates/photoview.html:101
 msgid "Date taken"
 msgstr "Дата фотографии"
 
-#: templates/_photo_modal.html:101 templates/photoview.html:61
+#: templates/_photo_modal.html:100 templates/photoview.html:61
 msgid "Share"
 msgstr "Поделиться"
 
-#: templates/_photo_modal.html:116
+#: templates/_photo_modal.html:115
 msgid "Discuss"
 msgstr "Обсудить"
 
-#: templates/_photo_modal.html:119 templates/photoview.html:80
+#: templates/_photo_modal.html:118 templates/photoview.html:80
 msgid "Add rephoto"
 msgstr "Добавить новое фото"
 
-#: templates/_photo_modal.html:120
+#: templates/_photo_modal.html:119
 #, fuzzy
 #| msgid "Save location"
 msgid "Specify location"
 msgstr "Сохранить расположение"
 
-#: templates/_photo_modal.html:121 templates/_photo_upload_modal.html:43
-#: templates/curator.html:43 templates/curator.html.py:77
-#: templates/curator.html:128 templates/curator.html.py:190
-#: templates/game.html:90 templates/mapview.html:51
+#: templates/_photo_modal.html:120 templates/_photo_upload_modal.html:43
+#: templates/curator.html:87 templates/game.html:90 templates/mapview.html:51
 #: templates/photo_upload.html:45 templates/photo_upload.html.py:79
 #: templates/photo_upload.html:130 templates/photo_upload.html.py:192
 msgid "Close"
@@ -289,7 +304,7 @@ msgid "Taken"
 msgstr "Снято"
 
 #: templates/_photo_upload_modal.html:19
-#: templates/_photo_upload_modal.html:102
+#: templates/_photo_upload_modal.html:102 templates/curator.html:64
 msgid "Upload"
 msgstr "Загрузить"
 
@@ -413,79 +428,95 @@ msgid ""
 "to that."
 msgstr ""
 
-#: templates/curator.html:21 templates/curator.html.py:213
-#: templates/photo_upload.html:23 templates/photo_upload.html.py:222
-#, fuzzy
-#| msgid "Choose language"
-msgid "Choose albums"
-msgstr "Выбери язык"
-
-#: templates/curator.html:41 templates/curator.html.py:75
-#: templates/photo_upload.html:43 templates/photo_upload.html.py:77
-msgid "Add"
+#: templates/curator.html:19
+msgid "Collection info"
 msgstr ""
 
-#: templates/curator.html:45 templates/curator.html.py:79
-#: templates/curator.html:130 templates/curator.html.py:192
-#: templates/photo_upload.html:47 templates/photo_upload.html.py:81
-#: templates/photo_upload.html:132 templates/photo_upload.html.py:194
-msgid "Save"
+#: templates/curator.html:26
+msgid "System error"
 msgstr ""
 
-#: templates/curator.html:90 templates/photo_upload.html:92
-msgid "Create a new album"
-msgstr ""
-
-#: templates/curator.html:99 templates/curator.html.py:150
-#: templates/photo_upload.html:101 templates/photo_upload.html.py:152
-msgid "Error"
-msgstr ""
-
-#: templates/curator.html:107 templates/photo_upload.html:109
+#: templates/curator.html:34 templates/photo_upload.html:109
 msgid "New album name"
 msgstr ""
 
-#: templates/curator.html:118 templates/photo_upload.html:120
-msgid "New album description"
+#: templates/curator.html:43
+msgid "If the photos are from the same place, specify a location here"
 msgstr ""
 
-#: templates/curator.html:141 templates/photo_upload.html:143
-msgid "Create a new area"
+#: templates/curator.html:50
+msgid "Place"
 msgstr ""
 
-#: templates/curator.html:158 templates/photo_upload.html:160
-msgid "New area name"
+#: templates/curator.html:61
+msgid "Cancel"
 msgstr ""
 
-#: templates/curator.html:169 templates/photo_upload.html:171
-msgid "New area latitude"
+#: templates/curator.html:80
+msgid ""
+"Your photos have now been added to Ajapaik and can be interacted with as "
+"usual."
 msgstr ""
 
-#: templates/curator.html:180 templates/photo_upload.html:182
-msgid "New area longitude"
+#: templates/curator.html:81
+msgid "You can view feedback on this page for each individual image."
 msgstr ""
 
-#: templates/curator.html:199
+#: templates/curator.html:82
+msgid "Points awarded for curating"
+msgstr ""
+
+#: templates/curator.html:83
+msgid "You can start geotagging the new content here"
+msgstr ""
+
+#: templates/curator.html:96
+msgid "Search"
+msgstr ""
+
+#: templates/curator.html:99
+#, fuzzy
+#| msgid "Save location"
+msgid "Selection"
+msgstr "Сохранить расположение"
+
+#: templates/curator.html:102
+#, fuzzy
+#| msgid "Choose language"
+msgid "My albums"
+msgstr "Выбери язык"
+
+#: templates/curator.html:109
 msgid "Full search"
 msgstr ""
 
-#: templates/curator.html:203
+#: templates/curator.html:113
 msgid "Search!"
 msgstr ""
 
-#: templates/curator.html:218 templates/photo_upload.html:239
-msgid "Selected albums:"
+#: templates/curator.html:118 templates/curator.html.py:128
+#, fuzzy
+#| msgid "Read more"
+msgid "Load more"
+msgstr "Подробнее"
+
+#: templates/curator.html:137
+msgid "Clear selection"
 msgstr ""
 
-#: templates/curator.html:221 templates/photo_upload.html:242
-msgid "Selected area:"
+#: templates/curator.html:142
+msgid "Submit to Ajapaik"
 msgstr ""
 
-#: templates/curator.html:228
+#: templates/curator.html:163
 #, fuzzy
 #| msgid "Rephoto uploading requires connecting your account with Facebook."
 msgid "Curating requires connecting your account with Facebook."
 msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
+
+#: templates/curator.html:164
+msgid "You also need to have more than 1000 points."
+msgstr ""
 
 #: templates/frontpage.html:27
 msgid "Choose language"
@@ -512,11 +543,15 @@ msgstr ""
 msgid "Read more"
 msgstr "Подробнее"
 
-#: templates/frontpage.html:166
+#: templates/frontpage.html:167
 msgid "Upload photos yourself"
 msgstr ""
 
-#: templates/frontpage.html:172
+#: templates/frontpage.html:170
+msgid "Curate content"
+msgstr ""
+
+#: templates/frontpage.html:177
 msgid "View gallery"
 msgstr ""
 
@@ -548,6 +583,49 @@ msgstr ""
 msgid "Pictures available for geotagging:"
 msgstr ""
 
+#: templates/photo_upload.html:23 templates/photo_upload.html.py:222
+#, fuzzy
+#| msgid "Choose language"
+msgid "Choose albums"
+msgstr "Выбери язык"
+
+#: templates/photo_upload.html:43 templates/photo_upload.html.py:77
+msgid "Add"
+msgstr ""
+
+#: templates/photo_upload.html:47 templates/photo_upload.html.py:81
+#: templates/photo_upload.html:132 templates/photo_upload.html.py:194
+msgid "Save"
+msgstr ""
+
+#: templates/photo_upload.html:92
+msgid "Create a new album"
+msgstr ""
+
+#: templates/photo_upload.html:101 templates/photo_upload.html.py:152
+msgid "Error"
+msgstr ""
+
+#: templates/photo_upload.html:120
+msgid "New album description"
+msgstr ""
+
+#: templates/photo_upload.html:143
+msgid "Create a new area"
+msgstr ""
+
+#: templates/photo_upload.html:160
+msgid "New area name"
+msgstr ""
+
+#: templates/photo_upload.html:171
+msgid "New area latitude"
+msgstr ""
+
+#: templates/photo_upload.html:182
+msgid "New area longitude"
+msgstr ""
+
 #: templates/photo_upload.html:207
 #, fuzzy
 #| msgid "Select file..."
@@ -569,6 +647,14 @@ msgstr ""
 #: templates/photo_upload.html:234
 msgid ""
 "CSV: institution;number;image;title;description;date;url;licence in any order"
+msgstr ""
+
+#: templates/photo_upload.html:239
+msgid "Selected albums:"
+msgstr ""
+
+#: templates/photo_upload.html:242
+msgid "Selected area:"
 msgstr ""
 
 #: templates/photo_upload.html:260
