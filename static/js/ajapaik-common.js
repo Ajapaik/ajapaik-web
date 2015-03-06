@@ -533,7 +533,7 @@ var map,
 
     $('.filter-box select').change(function () {
         var uri = new window.URI(location.href),
-            newQ = {area: $(this).val()},
+            newQ = {album: $(this).val()},
             isFilterEmpty = false;
         uri.removeQuery(Object.keys(newQ));
         $.each(newQ, function (i, ii) {
