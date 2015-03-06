@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-06 11:11+0200\n"
-"PO-Revision-Date: 2015-03-06 13:12+0200\n"
+"PO-Revision-Date: 2015-03-06 13:16+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -440,7 +440,7 @@ msgstr ""
 
 #: templates/curator.html:19
 msgid "Collection info"
-msgstr ""
+msgstr "Albumi info"
 
 #: templates/curator.html:26
 msgid "System error"
@@ -453,6 +453,8 @@ msgstr "Uus album"
 #: templates/curator.html:43
 msgid "If the photos are from the same place, specify a location here"
 msgstr ""
+"Kui albumisse valitud pildid on mingist ühest kohast (nt linnast, alevist, "
+"külast), siis saad siin koha määrata"
 
 #: templates/curator.html:50
 msgid "Place"
