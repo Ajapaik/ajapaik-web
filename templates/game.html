@@ -11,6 +11,9 @@
          aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                <div class="modal-header" id="ajapaik-game-modal-header">
+                    <button id="ajapaik-game-close-game-modal" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
                 <div class="modal-body" id="ajapaik-game-modal-body">
                     <div id="ajapaik-game-modal-photo-container">
                         <a class="fullscreen col-xs-12" id="ajapaik-game-full-screen-link" rel="" href="">
@@ -99,7 +102,9 @@
             permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
             albumId = '{{ album.id|safe }}';
-        {% if area %}
+        {% if random_album_photo %}
+            start_location = [{{ random_album_photo.lon|safe }}, {{ random_album_photo.lat|safe }}];
+        {% elif area %}
             start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
             start_location = [26, 59];

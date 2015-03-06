@@ -72,12 +72,16 @@
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             {% if area %}
                 areaId = '{{ area.id | safe }}',
-            {% else %}
-                areaId = 1,
+            {% endif %}
+            {% if album %}
+                albumId = '{{ album.id |safe }}',
             {% endif %}
             photoModalCurrentImageUrl;
             {% if area.lat and area.lon %}
                 var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});
+            {% endif %}
+            {% if random_album_photo %}
+                var albumLatLng = new window.google.maps.LatLng({{ random_album_photo.lat | safe }}, {{ random_album_photo.lon | safe }});
             {% endif %}
         {% if selected_photo %}
             var preselectPhotoId = '{{ selected_photo.id }}';

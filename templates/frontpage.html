@@ -149,7 +149,7 @@ p {
 		</div>
 
 		<div>
-			{{ area_selection_form.as_p }}
+			{{ album_selection_form.as_p }}
 		</div>
 
 {#		<div>#}
@@ -164,7 +164,7 @@ p {
         {% if photo_upload_enabled or curator_enabled %}
             <div class="buttons">
                 {% if photo_upload_enabled %}
-                    <a href="{% url 'project.home.views.public_photo_upload' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "Upload photos yourself" %}</a>
+                    <a href="{% url 'project.home.views.public_photo_upload' %}" class="btn green">{% trans "Upload photos yourself" %}</a>
                 {% endif %}
                 {% if curator_enabled %}
                     <a href="{% url 'project.home.views.curator' %}" class="btn green">{% trans "Curate content" %}</a>
@@ -181,7 +181,7 @@ p {
         <script type="text/javascript">
 			function submitWithAlbum(href) {
 				//location.href = $(href).attr('href') + '?city__pk=' + $('#id_city').val();
-				location.href = $(href).attr('href') + '?area=' + $('#id_area').val();
+				location.href = $(href).attr('href') + '?album=' + $('#id_album').val();
 				return false;
 			}
         </script>

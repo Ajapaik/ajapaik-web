@@ -8,10 +8,7 @@
         <div class="hidden-xs">
             <div class="filter-box">
                 {% csrf_token %}
-                {{ area_selection_form.as_p }}
-                <div>
-                    <button class="btn btn-success" id="ajapaik-header-game-button">{% trans "Geotagging game" %}</button>
-                </div>
+                {{ album_selection_form.as_p }}
             </div>
         </div>
     {% endif %}

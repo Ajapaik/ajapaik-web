@@ -125,7 +125,8 @@ var map,
     },
     comingBackFromGuessLocation = false,
     hideUnlockedAzimuth,
-    showUnlockedAzimuth;
+    showUnlockedAzimuth,
+    mapviewGameButton;
 
 (function ($) {
     'use strict';
@@ -231,6 +232,9 @@ var map,
         } else {
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
+            mapviewGameButton = document.createElement('button');
+            $(mapviewGameButton).addClass('btn').addClass('btn-success').addClass('ajapaik-mapview-game-button').html(window.gettext('Geotagging game'));
+            map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
         }
 
 
@@ -552,12 +556,8 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-header-map-button', function () {
-        window.location.href = '/map?area=' + window.areaId;
-    });
-
     $(document).on('click', '#ajapaik-header-game-button', function () {
-        window.location.href = '/game?area=' + window.areaId;
+        window.location.href = '/game?album=' + window.albumId;
     });
 
     // Firefox and Opera cannot handle modal taking over focus

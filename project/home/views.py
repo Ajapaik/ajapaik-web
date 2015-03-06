@@ -162,6 +162,7 @@ def photo_upload(request, photo_id):
                 re_photo = Photo(
                     rephoto_of=photo,
                     area=photo.area,
+                    licene=Licence.objects.get(name='Attribution-ShareAlike 4.0 International'),
                     description=data.get('description', photo.description),
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
@@ -238,23 +239,30 @@ def calculate_recent_activity_scores():
 def game(request):
     ctx = {}
     area_selection_form = AreaSelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
-    if area_selection_form.is_valid():
-        ctx['area'] = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
+    if album_selection_form.is_valid():
+        ctx['album'] = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+        try:
+            ctx['random_album_photo'] = ctx['album'].photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
+        except:
+            pass
     else:
-        old_city_id = request.GET.get('city__pk') or None
-        if old_city_id is not None:
-            ctx['area'] = Area.objects.get(pk=old_city_id)
+        if area_selection_form.is_valid():
+            ctx['area'] = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
         else:
-            ctx['area'] = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
-
+            old_city_id = request.GET.get('city__pk') or None
+            if old_city_id is not None:
+                ctx['area'] = Area.objects.get(pk=old_city_id)
+            else:
+                ctx['area'] = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
     ctx['title'] = _('Guess the location')
     ctx['is_game'] = True
-
     ctx['area_selection_form'] = area_selection_form
+    ctx['album_selection_form'] = album_selection_form
 
     return render_to_response('game.html', RequestContext(request, ctx))
 
@@ -267,13 +275,13 @@ def frontpage(request):
     except ObjectDoesNotExist:
         example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
     example_source = Photo.objects.get(pk=example.rephoto_of.id)
-    area_selection_form = AreaSelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
-    if not area_selection_form.is_valid():
-        area_selection_form = AreaSelectionForm()
+    if not album_selection_form.is_valid():
+        album_selection_form = AlbumSelectionForm()
 
     return render_to_response('frontpage.html', RequestContext(request, {
-        'area_selection_form': area_selection_form,
+        'album_selection_form': album_selection_form,
         'example': example,
         'example_source': example_source,
         'grid_view_enabled': settings.GRID_VIEW_ENABLED,
@@ -425,10 +433,15 @@ def photoslug(request, photo_id, pseudo_slug):
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
     area_selection_form = AreaSelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
     area = None
+    album = None
 
     if area_selection_form.is_valid():
         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
+
+    if album_selection_form.is_valid():
+        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
 
     selected_rephoto = None
     if rephoto_id:
@@ -453,24 +466,25 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if selected_photo and area is None:
         area = Area.objects.get(pk=selected_photo.area_id)
 
-    if area is not None:
+    random_album_photo = None
+    if album is not None:
+        title = album.name + ' - ' + _('Browse photos on map')
+        try:
+            random_album_photo = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
+            print random_album_photo
+        except:
+            pass
+    elif area is not None:
         title = area.name + ' - ' + _('Browse photos on map')
-        area_selection_form = AreaSelectionForm(initial={'area': area})
     else:
         title = _('Browse photos on map')
 
-    # photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
-    #     'photo_id', flat=True)
-    # keys = {}
-    # for e in photo_ids_user_has_looked_at:
-    #     keys[e] = 1
-    # photo_ids_user_has_looked_at = keys
-
     return render_to_response('mapview.html', RequestContext(request, {
         'area': area,
+        'album': album,
         'title': title,
-        'area_selection_form': area_selection_form,
-        #'user_seen_photo_ids': photo_ids_user_has_looked_at,
+        'album_selection_form': album_selection_form,
+        'random_album_photo': random_album_photo,
         'selected_photo': selected_photo,
         'selected_rephoto': selected_rephoto,
         'is_mapview': True
@@ -480,17 +494,21 @@ def mapview(request, photo_id=None, rephoto_id=None):
 def map_objects_by_bounding_box(request):
     data = request.POST
 
+    album_id = data.get('album_id') or None
+    limit_by_album = json.loads(data.get('limit_by_album')) or None
+
     qs = Photo.objects.all()
+
+    ungeotagged_count = None
+    geotagged_count = None
+    if album_id is not None and limit_by_album:
+        album_photo_ids = Album.objects.get(pk=album_id).photos.values_list('id', flat=True)
+        ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album_id)
+        qs = qs.filter(id__in=album_photo_ids)
 
     bounding_box = (float(data.get('sw_lat')), float(data.get('sw_lon')), float(data.get('ne_lat')), float(data.get('ne_lon')))
 
-    ungeotagged_count, geotagged_count = qs.get_area_photo_count_and_total_geotag_count(data.get('area_id'))
-
-    if data.get('zoom') > 15:
-        data = qs.get_geotagged_photos_list(bounding_box, True)
-    else:
-        data = qs.get_geotagged_photos_list(bounding_box, False)
-
+    data = qs.get_geotagged_photos_list(bounding_box)
     data = {'photos': data, 'geotagged_count': geotagged_count, 'ungeotagged_count': ungeotagged_count}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -563,7 +581,6 @@ def top50(request):
 
 def fetch_stream(request):
     area_selection_form = AreaSelectionForm(request.GET)
-
     area = None
     if area_selection_form.is_valid():
         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
@@ -573,18 +590,16 @@ def fetch_stream(request):
             area = Area.objects.get(pk=old_city_id)
 
     album_selection_form = AlbumSelectionForm(request.GET)
-
+    album = None
     if album_selection_form.is_valid():
         album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
-    else:
-        album = None
 
     qs = Photo.objects.filter()
     if area is not None:
         qs = qs.filter(area_id=area.id)
 
     if album is not None:
-        photos_ids_in_album = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
+        photos_ids_in_album = album.photos.values_list('id', flat=True)
         qs = qs.filter(pk__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?

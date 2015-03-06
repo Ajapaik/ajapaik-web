@@ -203,31 +203,22 @@ class Photo(models.Model):
         app_label = "project"
 
     class QuerySet(models.query.QuerySet):
-        def get_area_photo_count_and_total_geotag_count(self, area_id=None):
-            ungeotagged_qs = self.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True, area_id=area_id)
-            geotagged_qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, area_id=area_id)
-            return ungeotagged_qs.count(), geotagged_qs.count()
+        def get_album_photo_count_and_total_geotag_count(self, album_id=None):
+            if album_id is not None:
+                album_photos = Album.objects.get(pk=album_id).photos
+                ungeotagged_qs = album_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
+                geotagged_qs = album_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+                return ungeotagged_qs.count(), geotagged_qs.count()
+            return None, None
 
-        def get_geotagged_photos_list(self, bounding_box=None, with_images=False):
+        def get_geotagged_photos_list(self, bounding_box=None):
             # TODO: Once we have regions, re-implement caching
             data = []
             qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
             if bounding_box:
                 qs = qs.filter(geography__intersects=Polygon.from_bbox(bounding_box))
             for p in qs:
-                im_url = None
-                width = None
-                height = None
                 rephoto_count = len(list(self.filter(rephoto_of=p.id)))
-                # if with_images:
-                #     im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
-                #     try:
-                #         im = get_thumbnail(p.image, "150x150", upscale=False)
-                #         width = im._size[0]
-                #         height = im._size[1]
-                #     except IOError:
-                #         pass
-                #data.append([p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, width, height])
                 data.append([p.id, None, p.lon, p.lat, rephoto_count, None, None, p.azimuth, None, None])
             return data
 

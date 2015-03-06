@@ -150,8 +150,8 @@
         if (window.currentlySelectedRephotoId) {
             historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
         }
-        if (window.areaId) {
-            historyReplacementString += '?area=' + window.areaId;
+        if (window.albumId) {
+            historyReplacementString += '?album=' + window.albumId;
         }
         if (window.map) {
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
@@ -489,13 +489,19 @@
             }
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
-            currentMapDataRequest = $.post('/map_data/', { area_id: window.areaId, sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), zoom: window.map.zoom, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+            currentMapDataRequest = $.post('/map_data/', { album_id: window.albumId, limit_by_album: $('#ajapaik-mapview-show-only-album').is(':checked'), sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (mc) {
                     mc.clearMarkers();
                 }
                 markers.length = 0;
-                $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
-                $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
+                if (response.geotagged_count && response.ungeotagged_count) {
+                    $('.ajapaik-header-info-button').show();
+                    $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
+                    $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
+                } else {
+                    $('.ajapaik-header-info-button').hide();
+                }
+
                 if (response.geotagged_count === 0) {
                     $('.ajapaik-geotag-info-panel-no-photos').show();
                 } else {
@@ -701,8 +707,8 @@
     };
 
     window.initializeMapStateFromOptionalURLParameters = function () {
-        if (window.getQueryParameterByName('fromSelect') && window.areaLatLng) {
-            window.getMap(window.areaLatLng, 13, false);
+        if (window.getQueryParameterByName('fromSelect') && window.albumLatLng) {
+            window.getMap(window.albumLatLng, 13, false);
         } else {
             if (window.preselectPhotoId) {
                 // There's a selected photo specified in the URL, select when ready
@@ -716,9 +722,9 @@
                 if (window.preselectPhotoLat && window.preselectPhotoLng) {
                     // We know the location of the photo, let's build the map accordingly
                     window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false);
-                } else if (window.areaLatLng) {
+                } else if (window.albumLatLng) {
                     // There's nothing preselected, but we do know the album the photo's in
-                    window.getMap(window.areaLatLng, 13, false);
+                    window.getMap(window.albumLatLng, 13, false);
                 } else {
                     // No idea
                     window.getMap(null, 13, false);
@@ -755,6 +761,10 @@
 
         $('#ajapaik-game-description-viewing-warning').hide();
 
+        $('#ajapaik-mapview-show-only-album').change(function () {
+            toggleVisiblePaneElements();
+        });
+
         if (window.preselectPhotoId) {
             currentlySelectedMarkerId = window.preselectPhotoId;
         }
@@ -771,6 +781,10 @@
             window.currentlySelectedRephotoId = false;
             photoDrawerOpen = false;
             window.syncMapStateToURL();
+        });
+
+        $(document).on('click', '.ajapaik-mapview-game-button', function () {
+            window.location.href = '/game?album=' + window.albumId;
         });
 
         window.saveLocationButton.on('click', function () {

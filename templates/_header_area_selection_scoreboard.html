@@ -8,15 +8,14 @@
             <div class="hidden-xs">
                 <div class="filter-box">
                     {% csrf_token %}
-                    {{ area_selection_form.as_p }}
-                    <div>
-                        {% if is_game %}
-                            <button class="btn btn-success" id="ajapaik-header-map-button">{% trans "Map" %}</button>
-                        {% elif is_mapview %}
+                    {{ album_selection_form.as_p }}
+                    {% if is_mapview %}
+                        <p>
+                            <label for="ajapaik-mapview-show-only-album" id="ajapaik-mapview-show-only-album-label">{% trans "Limit to album" %}:&nbsp;</label>
+                            <input type="checkbox" id="ajapaik-mapview-show-only-album" checked="checked">
                             <button class="btn btn-default ajapaik-header-info-button"></button>
-                            <button class="btn btn-success" id="ajapaik-header-game-button">{% trans "Geotagging game" %}</button>
-                        {% endif %}
-                    </div>
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         {% endif %}

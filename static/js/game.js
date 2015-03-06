@@ -463,6 +463,9 @@
                 window._gaq.push(['_trackEvent', 'Game', 'Next photo']);
             }
         });
+        $(document).on('click', '#ajapaik-game-close-game-modal', function () {
+            window.location.href = '/map?album=' + window.albumId;
+        });
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
             $.ajax({

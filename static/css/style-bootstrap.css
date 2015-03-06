@@ -1289,6 +1289,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin-left: 5px;
 }
 
+#ajapaik-curator-my-albums-size {
+    margin-left: 5px;
+}
+
 #ajapaik-curator-tabpanel {
     margin-top: 10px;
 }
@@ -1386,4 +1390,31 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 .ajapaik-already-have-indicator {
     float: right;
+}
+
+#ajapaik-mapview-show-only-album-label {
+    color: white;
+    text-shadow: 2px 1px #8E5D2E;
+}
+
+#ajapaik-mapview-show-only-album {
+    position: relative;
+    top: 3px;
+}
+
+#ajapaik-photo-pane-content-container {
+    margin-bottom: 50px;
+}
+
+#ajapaik-game-modal-header {
+    border: none;
+}
+
+.ajapaik-mapview-game-button {
+    margin-bottom: 25px;
+    margin-right: 15px;
+}
+
+#id_album {
+    max-width: 150px;
 }
