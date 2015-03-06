@@ -151,11 +151,7 @@
                                 <div class="col-xs-12" id="ajapaik-curator-selection"></div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab">
-                            <div class="row">
-
-                            </div>
-                        </div>
+                        <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>
                     </div>
                 </div>
             {% else %}
@@ -196,7 +192,7 @@
                     areaLng = place.geometry.location.lng();
                 });
             }
-            //window.updateLeaderboard();
+            loadMyAlbums();
         });
         var gameUrl = '{% url "project.home.views.game" %}',
             resultCount = 0,
@@ -232,6 +228,24 @@
                     selectionDiv.append(tmpl('ajapaik-curator-selection-template', currentItem));
                 }
             }
+        };
+        var loadMyAlbums = function () {
+            $.ajax({
+                type : 'POST',
+                url : '/curator_album_list/',
+                data: {
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success : function(response) {
+                    var targetDiv = $('#ajapaik-curator-my-albums-tab'),
+                        responseLength = response.length;
+                    $('#ajapaik-curator-my-albums-size').html(responseLength);
+                    for (var i = 0; i < responseLength; i += 1) {
+                        var albumPlayLink = gameUrl + '?album=' + response[i].id;
+                        targetDiv.append(tmpl('ajapaik-curator-my-album-template', response[i]));
+                    }
+                }
+            });
         };
         $(document).on('click', '.ajapaik-curator-load-more', function () {
             $('#ajapaik-loading-overlay').show();
@@ -504,6 +518,9 @@
         <a class="thumbnail col-xs-2" title="{%=o.title%}">
             <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}" class="img-responsive ajapaik-result-item" id="ajapaik-result-item-{%=formatId(o.id)%}">
         </a>
+    </script>
+    <script id="ajapaik-curator-my-album-template" type="text/x-tmpl">
+        <a href="{%=(gameUrl + o.id)%}">{%=o.name%} {%=o.created%}</a>
     </script>
 {% endverbatim %}
 {% endblock %}

@@ -834,8 +834,6 @@ def delete_public_photo(request, photo_id):
 def check_if_photo_in_ajapaik(request):
     source_desc = request.POST.get('source') or None
     source_key = request.POST.get('sourceKey') or None
-    print source_desc
-    print source_key
     if source_desc is not None and source_key is not None:
         source_desc = source_desc.split(',')[0]
         try:
@@ -850,6 +848,15 @@ def check_if_photo_in_ajapaik(request):
         except ObjectDoesNotExist:
             pass
     return HttpResponse(json.dumps(False), content_type="application/json")
+
+
+def curator_my_album_list(request):
+    user_profile = request.get_user().profile
+    albums = Album.objects.filter(profile=user_profile, is_public=True).all()
+    ret = []
+    for a in albums:
+        ret.append({'id': a.id, 'name': a.name, 'created': str(a.created)})
+    return HttpResponse(json.dumps(ret), content_type="application/json")
 
 def curator_photo_upload_handler(request):
     profile = request.get_user().profile
