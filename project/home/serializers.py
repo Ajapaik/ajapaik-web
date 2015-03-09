@@ -18,8 +18,19 @@ class AreaSerializer(serializers.ModelSerializer):
 class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
-        fields = ('id', 'name', 'lat', 'lon')
+        fields = ('id', 'name')
 
+
+class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ('id', 'name')
+
+
+class CuratorMyAlbumListAlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ('id', 'name', 'created')
 
 class SourceSerializer(serializers.ModelSerializer):
     class Meta:

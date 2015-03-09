@@ -21,6 +21,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Polygon
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import requests
+from rest_framework.renderers import JSONRenderer
 
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area, Licence
@@ -28,6 +29,7 @@ from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectio
     CuratorPhotoUploadForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
+from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -471,9 +473,11 @@ def mapview(request, photo_id=None, rephoto_id=None):
         title = album.name + ' - ' + _('Browse photos on map')
         try:
             random_album_photo = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
-            print random_album_photo
         except:
-            pass
+            try:
+                random_album_photo = album.photos.filter(area_isnull=False).order_by('?')[0]
+            except:
+                pass
     elif area is not None:
         title = area.name + ' - ' + _('Browse photos on map')
     else:
@@ -716,6 +720,7 @@ def csv_upload(request):
             area = Area(name=place_name)
             area.save()
         description = '; '.join(filter(None, [meta_for_this_image[sub_key].strip() for sub_key in ('description', 'title') if sub_key in meta_for_this_image]))
+        description = description.strip(' \t\n\r')
         source_url = meta_for_this_image.get("url")
         p = Photo(
             area=area,
@@ -796,6 +801,7 @@ def public_photo_upload(request):
 
 @ensure_csrf_cookie
 def curator(request):
+    user_profile = request.get_user().profile
     curator_leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
     return render_to_response('curator.html', RequestContext(request, {
         'title': _("Timepatch (Ajapaik) - curate"),
@@ -858,11 +864,21 @@ def check_if_photo_in_ajapaik(request):
 
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
-    albums = Album.objects.filter(profile=user_profile, is_public=True).all()
-    ret = []
-    for a in albums:
-        ret.append({'id': a.id, 'name': a.name, 'created': str(a.created)})
-    return HttpResponse(json.dumps(ret), content_type="application/json")
+    serializer = CuratorMyAlbumListAlbumSerializer(
+        Album.objects.filter(profile=user_profile, is_public=True).order_by('-created').all(),
+        many=True
+    )
+    return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+
+
+def curator_selectable_albums(request):
+    user_profile = request.get_user().profile
+    serializer = CuratorAlbumSelectionAlbumSerializer(
+        Album.objects.filter(Q(is_public=True) | Q(profile=user_profile)).order_by('-created').all(),
+        many=True
+    )
+    return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+
 
 def curator_photo_upload_handler(request):
     profile = request.get_user().profile
@@ -882,7 +898,11 @@ def curator_photo_upload_handler(request):
             )
             area.save()
 
+    album_id = request.POST.get("albumId") or None
+    if album_id == "-1":
+        album_id = None
     album_name = request.POST.get("albumName")
+    album_description = request.POST.get("albumDescription")
 
     selection_json = request.POST.get("selection") or None
     selection = None
@@ -895,14 +915,18 @@ def curator_photo_upload_handler(request):
         "photos": {}
     }
 
-    if selection is not None and profile is not None and album_name is not None:
-        album = Album(
-            name=album_name,
-            atype=Album.CURATED,
-            profile=profile,
-            is_public=True
-        )
-        album.save()
+    if selection is not None and profile is not None and (album_name is not None or album_id is not None):
+        if album_id is not None:
+            album = Album.objects.get(pk=album_id)
+        else:
+            album = Album(
+                name=album_name,
+                description=album_description,
+                atype=Album.CURATED,
+                profile=profile,
+                is_public=True
+            )
+            album.save()
         default_album = Album(
             name=str(profile.id) + "-" + str(datetime.datetime.now()).split('.')[0],
             atype=Album.AUTO,
@@ -993,7 +1017,6 @@ def curator_photo_upload_handler(request):
                             ret["photos"][k] = {}
                             ret["photos"][k]["error"] = _("Error uploading file")
                     else:
-                        # We already have the photo in our collection, let's add it to the requested album anyway
                         if album:
                             ap = AlbumPhoto(photo=existing_photo, album=album)
                             ap.save()
