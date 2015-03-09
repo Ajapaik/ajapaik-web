@@ -26,7 +26,7 @@ from rest_framework.renderers import JSONRenderer
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area, Licence
 from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-    CuratorPhotoUploadForm
+    CuratorPhotoUploadForm, GameAlbumSelectionForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer
@@ -242,9 +242,10 @@ def game(request):
     ctx = {}
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
+    game_album_selection_form = GameAlbumSelectionForm(request.GET)
 
-    if album_selection_form.is_valid():
-        ctx['album'] = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    if game_album_selection_form.is_valid():
+        ctx['album'] = Album.objects.get(pk=game_album_selection_form.cleaned_data['album'].id)
         ctx['facebook_share_photos'] = ctx['album'].photos.all()
         try:
             ctx['random_album_photo'] = ctx['album'].photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]

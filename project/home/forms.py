@@ -11,10 +11,16 @@ class AreaSelectionForm(forms.Form):
         super(AreaSelectionForm, self).__init__(*args, **kwargs)
 
 class AlbumSelectionForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True).all(), label=_('Choose album'), initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
 
     def __init__(self, *args, **kwargs):
         super(AlbumSelectionForm, self).__init__(*args, **kwargs)
+
+class GameAlbumSelectionForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
+
+    def __init__(self, *args, **kwargs):
+        super(GameAlbumSelectionForm, self).__init__(*args, **kwargs)
 
 class AddAreaForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
