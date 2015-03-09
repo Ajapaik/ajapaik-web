@@ -177,7 +177,7 @@
             });
         };
         //TODO: Restore?
-        //History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');
+        {#History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');#}
         //$('.filter-box').hide();
         window.currentPhotoURL = '{% url 'project.home.views.photo_url' photo.id %}';
         {% if description %}
