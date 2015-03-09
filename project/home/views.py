@@ -438,14 +438,15 @@ def photoslug(request, photo_id, pseudo_slug):
 def mapview(request, photo_id=None, rephoto_id=None):
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
+    game_album_selection_form = GameAlbumSelectionForm(request.GET)
     area = None
     album = None
 
     if area_selection_form.is_valid():
         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
 
-    if album_selection_form.is_valid():
-        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    if game_album_selection_form.is_valid():
+        album = Album.objects.get(pk=game_album_selection_form.cleaned_data['album'].id)
 
     selected_rephoto = None
     if rephoto_id:
@@ -595,10 +596,10 @@ def fetch_stream(request):
         if old_city_id is not None:
             area = Area.objects.get(pk=old_city_id)
 
-    album_selection_form = AlbumSelectionForm(request.GET)
+    game_album_selection_form = GameAlbumSelectionForm(request.GET)
     album = None
-    if album_selection_form.is_valid():
-        album = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+    if game_album_selection_form.is_valid():
+        album = Album.objects.get(pk=game_album_selection_form.cleaned_data['album'].id)
 
     qs = Photo.objects.filter()
     if area is not None:

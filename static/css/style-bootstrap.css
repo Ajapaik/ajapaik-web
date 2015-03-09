@@ -1411,8 +1411,15 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 .ajapaik-mapview-game-button {
-    margin-bottom: 25px;
-    margin-right: 15px;
+    margin-bottom: 6%;
+    margin-right: 6%;
+}
+
+@media (max-width: 767px) {
+    .ajapaik-mapview-game-button {
+        margin-bottom: 5px;
+        margin-right: 5px;
+    }
 }
 
 #id_album {
