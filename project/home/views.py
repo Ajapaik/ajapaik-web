@@ -667,64 +667,70 @@ def europeana(request):
 
 
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name="csv_uploaders").count() == 0, login_url="/admin/")
+@user_passes_test(lambda u: u.groups.filter(name="csv_uploaders").count() == 1, login_url="/admin/")
 def csv_upload(request):
-    pass
-    # import csv, zipfile, hashlib
-    #
-    # csv_file = request.FILES["csv_file"]
-    # dialect = csv.Sniffer().sniff(csv_file.read(1024), delimiters=";,")
-    # header_row = None
-    # photos_metadata = {}
-    # for row in csv.reader(csv_file, dialect):
-    #     if not header_row:
-    #         header_row = row
-    #         continue
-    #     row = dict(zip(header_row, row))
-    #     photos_metadata[row.get("image")] = row
-    #
-    # zip_file = zipfile.ZipFile(request.FILES["zip_file"])
-    #
-    # for key in photos_metadata.keys():
-    #     try:
-    #         image_file = zip_file.read(key)
-    #     except KeyError:
-    #         continue
-    #     meta_for_this_image = photos_metadata[key]
-    #     source_key = meta_for_this_image.get("number") or key
-    #     try:
-    #         existing_photo = Photo.objects.get(source_key=source_key)
-    #         continue
-    #     except ObjectDoesNotExist:
-    #         pass
-    #     extension = key.split(".")[-1]
-    #     upload_file_name = "uploads/%s.%s" % (hashlib.md5(key).hexdigest(), extension)
-    #     fout = open("/var/garage/" + upload_file_name, "w")
-    #     fout.write(image_file)
-    #     fout.close()
-    #     place_name = meta_for_this_image.get("place") or "Ajapaik"
-    #     try:
-    #         album = Album.objects.get(name=place_name)
-    #     except ObjectDoesNotExist:
-    #         album = Album(name=place_name, atype=Album.COLLECTION, is_public=True)
-    #         album.save()
-    #     description = '; '.join(filter(None,
-    #                                    [meta_for_this_image[sub_key].strip() for sub_key in ('description', 'title') if
-    #                                     sub_key in meta_for_this_image]))
-    #     source_name = meta_for_this_image.get("institution") or "Ajapaik"
-    #     try:
-    #         source = Source.objects.get(description=source_name)
-    #     except ObjectDoesNotExist:
-    #         source = Source(name=source_name, description=source_name)
-    #         source.save()
-    #     source_url = meta_for_this_image.get("url")
-    #     p = Photo(date_text=meta_for_this_image.get("date"),description=description, source=source,
-    #               source_url=source_url, source_key=source_key)
-    #     p.image.name = upload_file_name
-    #     p.save()
-    #     ap = AlbumPhoto(album=album, photo=p)
-    #     ap.save()
-    # return HttpResponse("OK")
+    import csv, zipfile, hashlib
+
+    csv_file = request.FILES["csv_file"]
+    dialect = csv.Sniffer().sniff(csv_file.read(1024), delimiters=";,")
+    header_row = None
+    photos_metadata = {}
+    for row in csv.reader(csv_file, dialect):
+        if not header_row:
+            header_row = row
+            continue
+        row = dict(zip(header_row, row))
+        photos_metadata[row.get("number")] = row
+
+    zip_file = zipfile.ZipFile(request.FILES["zip_file"])
+    album_id = request.POST.get('album_id')
+    album = Album.objects.get(pk=album_id)
+    licence = Licence.objects.get(name="Public domain")
+
+    for key in photos_metadata.keys():
+        try:
+            image_file = zip_file.read(key + ".jpeg")
+        except KeyError:
+            continue
+        meta_for_this_image = photos_metadata[key]
+        source_name = meta_for_this_image.get("institution") or "Ajapaik"
+        try:
+            source = Source.objects.get(description=source_name)
+        except ObjectDoesNotExist:
+            source = Source(name=source_name, description=source_name)
+            source.save()
+        try:
+            Photo.objects.get(source=source, source_key=key)
+            continue
+        except ObjectDoesNotExist:
+            pass
+        extension = "jpeg"
+        upload_file_name = "uploads/%s.%s" % (hashlib.md5(key).hexdigest(), extension)
+        fout = open("/var/garage/" + upload_file_name, "w")
+        fout.write(image_file)
+        fout.close()
+        place_name = meta_for_this_image.get("place") or "Ajapaik"
+        try:
+            area = Area.objects.get(name=place_name)
+        except ObjectDoesNotExist:
+            area = Area(name=place_name)
+            area.save()
+        description = '; '.join(filter(None, [meta_for_this_image[sub_key].strip() for sub_key in ('description', 'title') if sub_key in meta_for_this_image]))
+        source_url = meta_for_this_image.get("url")
+        p = Photo(
+            area=area,
+            licence=licence,
+            date_text=meta_for_this_image.get("date"),
+            description=description,
+            source=source,
+            source_url=source_url,
+            source_key=key,
+            author=meta_for_this_image.get("author")
+        )
+        p.image.name = upload_file_name
+        p.save()
+        ap = AlbumPhoto(album=album, photo=p).save()
+    return HttpResponse("OK")
 
 
 def mapview_photo_upload_modal(request, photo_id):

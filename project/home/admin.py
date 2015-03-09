@@ -46,28 +46,28 @@ class PhotoAdmin(ForeignKeyAutocompleteAdmin):
         obj.save()
 
     related_search_fields = {
-    'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
-    'rephoto_of': ('pk', 'description',)
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'rephoto_of': ('pk', 'description',)
     }
 
 
 class SkipAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-    'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
-    'photo': ('pk', 'description',)
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'photo': ('pk', 'description',)
     }
 
 
 class GeoTagAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-    'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
-    'photo': ('pk', 'description',)
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'photo': ('pk', 'description',)
     }
 
 
 class ProfileAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-    'user': ('first_name', 'last_name', 'email'),
+        'user': ('first_name', 'last_name', 'email'),
     }
 
 
@@ -76,10 +76,12 @@ class PointsAdmin(ForeignKeyAutocompleteAdmin):
         'user': ('first_name', 'last_name', 'email'),
     }
 
+
 class AlbumAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
         'profile': ('first_name', 'last_name', 'email'),
     }
+
 
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
@@ -92,4 +94,4 @@ admin.site.register(Album, AlbumAdmin)
 admin.site.register(AlbumPhoto)
 admin.site.register(Area)
 admin.site.register(Licence)
-# admin.site.register(CSVPhoto, CSVUploadAdmin)
+admin.site.register(CSVPhoto, CSVUploadAdmin)
