@@ -42,6 +42,13 @@
                 {% endthumbnail %}
             {% endif %}
         {% endif %}
+        {% if facebook_share_photos %}
+            {% for p in facebook_share_photos %}
+                {% thumbnail p.image "700x400" as im %}
+                    <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
+                {% endthumbnail %}
+            {% endfor %}
+        {% endif %}
         <meta property="og:locale" content="et_EE"/>
         <meta property="og:locale:alternate" content="ru_RU"/>
         <meta property="og:locale:alternate" content="en_US"/>

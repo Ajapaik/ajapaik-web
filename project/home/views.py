@@ -245,6 +245,7 @@ def game(request):
 
     if album_selection_form.is_valid():
         ctx['album'] = Album.objects.get(pk=album_selection_form.cleaned_data['album'].id)
+        ctx['facebook_share_photos'] = ctx['album'].photos
         try:
             ctx['random_album_photo'] = ctx['album'].photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
         except:
@@ -934,7 +935,7 @@ def curator_photo_upload_handler(request):
             is_public=False
         )
         default_album.save()
-        ret["album_id"] = album.id
+        ret["album_id"] = default_album.id
         for (k, v) in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
