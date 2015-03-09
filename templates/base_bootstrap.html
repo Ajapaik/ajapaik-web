@@ -44,7 +44,7 @@
         {% endif %}
         {% if facebook_share_photos %}
             {% for p in facebook_share_photos %}
-                {% url 'project.home.views.photo_large' p.id %}
+                <meta property="og:image" content="{% url 'project.home.views.photo_large' p.id %}"/>
             {% endfor %}
         {% endif %}
         <meta property="og:locale" content="et_EE"/>
