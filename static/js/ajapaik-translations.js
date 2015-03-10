@@ -19,4 +19,5 @@
     window.gettext('Points');
     window.gettext('System error');
     window.gettext('Not selected');
+    window.gettext('photos');
 }());
