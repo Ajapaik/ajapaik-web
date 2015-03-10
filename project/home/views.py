@@ -512,10 +512,11 @@ def map_objects_by_bounding_box(request):
 
     ungeotagged_count = 0
     geotagged_count = 0
-    if album_id is not None and limit_by_album:
-        album_photo_ids = Album.objects.get(pk=album_id).photos.values_list('id', flat=True)
+    if album_id is not None:
         ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album_id)
-        qs = qs.filter(id__in=album_photo_ids)
+        if limit_by_album:
+            album_photo_ids = Album.objects.get(pk=album_id).photos.values_list('id', flat=True)
+            qs = qs.filter(id__in=album_photo_ids)
 
     bounding_box = (float(data.get('sw_lat')), float(data.get('sw_lon')), float(data.get('ne_lat')), float(data.get('ne_lon')))
 
