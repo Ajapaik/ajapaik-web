@@ -195,6 +195,7 @@
 
     window.startGuessLocation = function () {
         if (!window.guessLocationStarted) {
+            $('.ajapaik-mapview-game-button').hide();
             window.guessResponseReceived = false;
             if (window.map.zoom < 17) {
                 window.map.setZoom(17);
@@ -377,6 +378,7 @@
         if (!window.markerLocked) {
             $('.ajapaik-marker-center-lock-button')[0].click();
         }
+        $('.ajapaik-mapview-game-button').show();
         $('#pac-input').val(null);
         $('#pac-input-mapview').val(null);
         window.marker.setMap(null);
