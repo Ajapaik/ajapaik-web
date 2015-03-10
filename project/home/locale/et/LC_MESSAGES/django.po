@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-10 15:34+0200\n"
-"PO-Revision-Date: 2015-03-10 15:36+0200\n"
+"PO-Revision-Date: 2015-03-10 15:41+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -482,7 +482,7 @@ msgstr ""
 
 #: templates/curator.html:113
 msgid "Points awarded for curating"
-msgstr "Kureerimise eest saadud punktid:"
+msgstr "Kureerimise eest saadud punktid"
 
 #: templates/curator.html:114
 msgid "You can start geotagging the new content here"
