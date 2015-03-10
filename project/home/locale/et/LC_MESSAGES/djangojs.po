@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-10 12:23+0200\n"
-"PO-Revision-Date: 2015-02-26 13:39+0200\n"
+"PO-Revision-Date: 2015-03-10 13:46+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -47,47 +47,47 @@ msgstr "Keskmine pakkumine"
 
 #: static/js/ajapaik-translations.js:3
 msgid "Invert colors"
-msgstr ""
+msgstr "Keera negatiivi"
 
 #: static/js/ajapaik-translations.js:4
 msgid "Flip"
-msgstr ""
+msgstr "Peegelpilti"
 
 #: static/js/ajapaik-translations.js:5
 msgid "Mark stereophoto"
-msgstr ""
+msgstr "Märgista stereofoto"
 
 #: static/js/ajapaik-translations.js:6
 msgid "Remove from selection"
-msgstr ""
+msgstr "Eemalda valikust"
 
 #: static/js/ajapaik-translations.js:7
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
 msgstr ""
+"Pilt on juba Ajapaigas. Selle saab albumisse lisada, aga selle eest ei saa "
+"kureerimise punkte"
 
 #: static/js/ajapaik-translations.js:8
-#, fuzzy
-#| msgid "Open description"
 msgid "Description"
-msgstr "Kirjelduse avamine"
+msgstr "Kirjeldus"
 
 #: static/js/ajapaik-translations.js:9
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: static/js/ajapaik-translations.js:10
 msgid "Source"
-msgstr ""
+msgstr "Allikas"
 
 #: static/js/ajapaik-translations.js:11
 msgid "Source URL"
-msgstr ""
+msgstr "Allika URL"
 
 #: static/js/ajapaik-translations.js:12
 msgid "Size"
-msgstr ""
+msgstr "Suurus"
 
 #: static/js/ajapaik-translations.js:13
 msgid "Institution"
@@ -114,10 +114,8 @@ msgid "Licence"
 msgstr ""
 
 #: static/js/ajapaik-translations.js:19
-#, fuzzy
-#| msgid "Points awarded"
 msgid "Points"
-msgstr "Saadud punktid"
+msgstr "Punktid"
 
 #: static/js/ajapaik-translations.js:20
 msgid "System error"
