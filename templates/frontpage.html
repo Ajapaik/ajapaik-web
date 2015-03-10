@@ -163,10 +163,10 @@ p {
 
         {% if photo_upload_enabled or curator_enabled %}
             <div class="buttons">
-                {% if photo_upload_enabled %}
+                {% if photo_upload_enabled and not request.mobile %}
                     <a href="{% url 'project.home.views.public_photo_upload' %}" class="btn green">{% trans "Upload photos yourself" %}</a>
                 {% endif %}
-                {% if curator_enabled %}
+                {% if curator_enabled and not request.mobile %}
                     <a href="{% url 'project.home.views.curator' %}" class="btn green">{% trans "Curate content" %}</a>
                 {% endif %}
             </div>
