@@ -5,7 +5,7 @@ import urllib2
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core import serializers
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Count
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -868,8 +868,7 @@ def check_if_photo_in_ajapaik(request):
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
     serializer = CuratorMyAlbumListAlbumSerializer(
-        Album.objects.filter(profile=user_profile, is_public=True).order_by('-created').all(),
-        many=True
+        Album.objects.filter(profile=user_profile, is_public=True).order_by('-created'), many=True
     )
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
 
@@ -878,7 +877,7 @@ def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
         Album.objects.filter(
-            (Q(is_public=True) & Q(is_public_mutable=True)) |
+            # (Q(is_public=True) & Q(is_public_mutable=True)) |
             (Q(profile=user_profile) & Q(is_public=True)))
         .order_by('-created').all(), many=True
     )
@@ -918,8 +917,9 @@ def curator_photo_upload_handler(request):
     }
 
     if selection is not None and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
+        album = None
         if curator_album_select_form.is_valid():
-            if curator_album_select_form.cleaned_data['album'].profile == profile or curator_album_select_form.cleaned_data['album'].is_public_mutable == True:
+            if curator_album_select_form.cleaned_data['album'].profile == profile: #or curator_album_select_form.cleaned_data['album'].is_public_mutable == True:
                 album = Album.objects.get(pk=curator_album_select_form.cleaned_data['album'].id)
         else:
             album = Album(
@@ -936,10 +936,11 @@ def curator_photo_upload_handler(request):
             atype=Album.AUTO,
             profile=profile,
             is_public=False,
-            is_public_mutable=False
+            is_public_mutable=False,
+            subalbum_of=album
         )
         default_album.save()
-        ret["album_id"] = default_album.id
+        ret["album_id"] = album.id
         for (k, v) in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []

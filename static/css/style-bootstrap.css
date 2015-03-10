@@ -1426,6 +1426,6 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     max-width: 150px;
 }
 
-#ajapaik-curator-results-tab {
-    z-index: 3000;
+#ajapaik-curator-results-tab-tab {
+    z-index: 3000 !important;
 }

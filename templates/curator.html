@@ -43,7 +43,7 @@
                                     <div class="col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-album-name">{% trans "New album name" %}</label>
+                                                <label for="ajapaik-curator-add-album-name">{% trans "New album name" %}&nbsp;*</label>
                                             </span>
                                             <input class="form-control" type="text" id="ajapaik-curator-add-album-name">
                                         </div>
@@ -59,16 +59,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-album-public-mutable">{% trans "Can anyone add photos?" %}</label>
-                                            </span>
-                                            <input class="form-control" type="checkbox" id="ajapaik-curator-add-album-public-mutable">
-                                        </div>
-                                    </div>
-                                </div>
+                                {#<div class="row">#}
+                                {#    <div class="col-xs-12">#}
+                                {#        <div class="input-group">#}
+                                {#            <span class="input-group-addon">#}
+                                {#                <label for="ajapaik-curator-add-album-public-mutable">{% trans "Can anyone add photos?" %}</label>#}
+                                {#            </span>#}
+                                {#            <input class="form-control" type="checkbox" id="ajapaik-curator-add-album-public-mutable">#}
+                                {#        </div>#}
+                                {#    </div>#}
+                                {#</div>#}
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-12">
@@ -125,7 +125,7 @@
                 </div>
                 <div role="tabpanel" id="ajapaik-curator-tabpanel">
                     <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
-                        <li role="presentation" class="active">
+                        <li id="ajapaik-curator-results-tab-tab" role="presentation" class="active">
                             <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab" data-toggle="tab">{% trans "Search" %}<span class="badge" id="ajapaik-curator-result-count">0</span></a>
                         </li>
                         <li role="presentation">
@@ -586,7 +586,7 @@
         </a>
     </script>
     <script id="ajapaik-curator-my-album-template" type="text/x-tmpl">
-        <a class="row" href="{%=o.gameLink%}">{%=o.name%} {%=o.created%}</a>
+        <a class="row" href="{%=o.gameLink%}">{%=o.name%} - {%=o.photo_count%} photos</a>
     </script>
     <script id="ajapaik-curator-my-album-select-option" type="text/x-tmpl">
         <option value="{%=o.id%}">{%=o.name%}</option>

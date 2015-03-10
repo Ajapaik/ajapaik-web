@@ -1,0 +1,22 @@
+(function () {
+    'use strict';
+    window.gettext('Invert colors');
+    window.gettext('Flip');
+    window.gettext('Mark stereophoto');
+    window.gettext('Remove from selection');
+    window.gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded');
+    window.gettext('Description');
+    window.gettext('Author');
+    window.gettext('Source');
+    window.gettext('Source URL');
+    window.gettext('Size');
+    window.gettext('Institution');
+    window.gettext('Number');
+    window.gettext('Date');
+    window.gettext('URL');
+    window.gettext('Title');
+    window.gettext('Licence');
+    window.gettext('Points');
+    window.gettext('System error');
+    window.gettext('Not selected');
+}());

@@ -73,6 +73,7 @@ class Album(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    subalbum_of = models.ForeignKey('self', blank=True, null=True, related_name='subalbums')
 
     atype = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     profile = models.ForeignKey('Profile', related_name='albums', blank=True, null=True)

@@ -233,7 +233,7 @@ var map,
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
             mapviewGameButton = document.createElement('button');
-            $(mapviewGameButton).addClass('btn').addClass('btn-success').addClass('ajapaik-mapview-game-button').html(window.gettext('Geotagging game'));
+            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button').html(window.gettext('Geotagging game'));
             map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
         }
 
