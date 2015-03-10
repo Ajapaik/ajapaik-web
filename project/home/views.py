@@ -479,7 +479,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
             random_album_photo = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
         except:
             try:
-                random_album_photo = album.photos.filter(area_isnull=False).order_by('?')[0]
+                random_album_photo = album.photos.filter(area__isnull=False).order_by('?')[0]
             except:
                 pass
     elif area is not None:
