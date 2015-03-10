@@ -1031,6 +1031,7 @@ def curator_photo_upload_handler(request):
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
+        requests.post('https://graph.facebook.com/?id="' + (request.build_absolute_uri(reverse('project.home.views.game')) + '?album=' + str(album.id)) + '"&scrape=true')
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
@@ -1038,7 +1039,6 @@ def curator_photo_upload_handler(request):
         ret = {
             "error": _("Not enough data submitted"),
         }
-    requests.post('https://graph.facebook.com/?id="' + (request.build_absolute_uri(reverse('project.home.views.game')) + '?album=' + str(album.id)) + '"&scrape=true')
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 def public_photo_upload_handler(request):
