@@ -114,6 +114,7 @@
                                 <p>{% trans "Points awarded for curating" %}: <span id="ajapaik-curator-points-awarded"></span></p>
                                 <p>{% trans "You can start geotagging the new content here" %}: <a target="_blank" id="ajapaik-curator-album-play-link"></a></p>
                                 <p>{% trans "Tell your friends on Facebook" %}:</p>
+                                <p id="ajapaik-curator-share-button-container"></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -268,6 +269,7 @@
                 success : function(response) {
                     var targetDiv = $('#ajapaik-curator-my-albums-tab'),
                         responseLength = response.length;
+                    targetDiv.empty();
                     $('#ajapaik-curator-my-albums-size').html(responseLength);
                     for (var i = 0; i < responseLength; i += 1) {
                         response[i].gameLink = gameUrl + '?album=' + response[i].id;
@@ -509,7 +511,7 @@
                         $('#ajapaik-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
                         $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
                         feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
-                            $($(this).find('.modal-body')[0]).append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
+                            $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
                             $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                             FB.XFBML.parse();
                         });
