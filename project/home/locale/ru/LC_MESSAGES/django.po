@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 12:23+0200\n"
+"POT-Creation-Date: 2015-03-10 14:46+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -62,21 +62,21 @@ msgstr "Правильное место ещё не определено."
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/views.py:266 templates/frontpage.html:160
+#: project/home/views.py:267 templates/frontpage.html:160
 msgid "Guess the location"
 msgstr "Угадай место"
 
-#: project/home/views.py:476 project/home/views.py:485
-#: project/home/views.py:487 templates/frontpage.html:161
+#: project/home/views.py:477 project/home/views.py:486
+#: project/home/views.py:488 templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:570 project/home/views.py:584
+#: project/home/views.py:571 project/home/views.py:585
 #: templates/_header_area_selection_scoreboard.html:28
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
-#: project/home/views.py:802
+#: project/home/views.py:803
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - upload photos"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1024 project/home/views.py:1134
+#: project/home/views.py:1024 project/home/views.py:1136
 msgid "Error uploading file"
 msgstr ""
 
@@ -107,15 +107,15 @@ msgstr ""
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1039
+#: project/home/views.py:1041
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1141
+#: project/home/views.py:1143
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1159
+#: project/home/views.py:1161
 msgid "Invalid form data"
 msgstr ""
 
@@ -230,7 +230,7 @@ msgstr "Закрыть Street View"
 #: templates/_header_area_selection_scoreboard.html:5 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:48
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
-#: templates/base_bootstrap.html:53 templates/frontpage.html:8
+#: templates/base_bootstrap.html:55 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
 msgstr "Аяпаик (Ajapaik)"
 
@@ -419,7 +419,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:95 templates/base_bootstrap.html:77
+#: templates/base.html:95 templates/base_bootstrap.html:79
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -434,11 +434,13 @@ msgid "System error"
 msgstr ""
 
 #: templates/curator.html:32
-msgid "Existing album"
-msgstr ""
+#, fuzzy
+#| msgid "Choose language"
+msgid "Choose an existing album"
+msgstr "Выбери язык"
 
 #: templates/curator.html:39
-msgid "Fill if you need to create a new album"
+msgid "Or create a new one"
 msgstr ""
 
 #: templates/curator.html:46 templates/photo_upload.html:109
@@ -468,18 +470,14 @@ msgid ""
 msgstr ""
 
 #: templates/curator.html:113
-msgid "You can view feedback on this page for each individual image."
-msgstr ""
-
-#: templates/curator.html:114
 msgid "Points awarded for curating"
 msgstr ""
 
-#: templates/curator.html:115
+#: templates/curator.html:114
 msgid "You can start geotagging the new content here"
 msgstr ""
 
-#: templates/curator.html:116
+#: templates/curator.html:115
 msgid "Tell your friends on Facebook"
 msgstr ""
 
