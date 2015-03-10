@@ -25,6 +25,7 @@ body {
     margin: 10px 0 0 20px;
     background-size: 133px 73px;
     text-indent: -999em;
+    z-index: 1031;
 }
 
 #ajapaik-header {
@@ -1427,5 +1428,5 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 #ajapaik-curator-results-tab-tab {
-    z-index: 3000 !important;
+    z-index: 1032 !important;
 }

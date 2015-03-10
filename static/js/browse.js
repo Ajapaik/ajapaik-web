@@ -494,16 +494,12 @@
                     mc.clearMarkers();
                 }
                 markers.length = 0;
-                if (response.geotagged_count && response.ungeotagged_count) {
-                    $('.ajapaik-header-info-button').show();
-                    $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
-                    $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
-                } else {
-                    $('.ajapaik-header-info-button').hide();
-                }
+                $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
+                $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
 
                 if (response.geotagged_count === 0) {
                     $('.ajapaik-geotag-info-panel-no-photos').show();
+                    $('.ajapaik-header-info-button')[0].click();
                 } else {
                     $('.ajapaik-geotag-info-panel-no-photos').hide();
                 }
