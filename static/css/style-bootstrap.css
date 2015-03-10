@@ -1418,7 +1418,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 @media (max-width: 767px) {
     .ajapaik-mapview-game-button {
-        margin-bottom: 5px;
+        margin-bottom: 15px;
         margin-right: 5px;
     }
 }
