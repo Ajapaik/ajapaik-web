@@ -536,7 +536,7 @@ def geotag_add(request):
     else:
         origin = GeoTag.GAME
     location_correct, location_uncertain, this_guess_score, feedback_message, all_geotags_latlng_for_this_photo, azimuth_tags_count, new_estimated_location, confidence = get_next_photos_to_geotag.submit_guess(
-        request.get_user().profile, data.get('photo_id'), data.get('lon'), data.get('lat'),
+        request.get_user().profile, data.get('photo_id'), data.get('lon'), data.get('lat'), GeoTag.MAP,
         hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'),
         azimuth_line_end_point=data.getlist('azimuth_line_end_point[]'), origin=origin)
     flip = data.get("flip", None)
