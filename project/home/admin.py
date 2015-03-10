@@ -67,19 +67,19 @@ class GeoTagAdmin(ForeignKeyAutocompleteAdmin):
 
 class ProfileAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'user': ('user__first_name', 'last_name', 'email'),
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
     }
 
 
 class PointsAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'user': ('user__first_name', 'last_name', 'email'),
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
     }
 
 
 class AlbumAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'profile': ('user__first_name', 'last_name', 'email'),
+        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
     }
 
 
