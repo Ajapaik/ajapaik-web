@@ -805,7 +805,6 @@ def public_photo_upload(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    user_profile = request.get_user().profile
     curator_leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
     return render_to_response('curator.html', RequestContext(request, {
         'title': _("Timepatch (Ajapaik) - curate"),
