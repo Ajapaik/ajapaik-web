@@ -29,7 +29,7 @@
         {% if photo or rephoto %}
             <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
         {% elif album %}
-            <meta property="og:url" content="{% url 'project.home.views.game' %}?album={{ album.id }}"/>
+            <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.game' %}?album={{ album.id }}"/>
         {% endif %}
         {% if rephoto %}
             {% thumbnail rephoto.image "700x400" as im %}
