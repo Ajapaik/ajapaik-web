@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 14:46+0200\n"
+"POT-Creation-Date: 2015-03-10 15:34+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -62,9 +62,9 @@ msgstr "Правильное место ещё не определено."
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/views.py:267 templates/frontpage.html:160
-msgid "Guess the location"
-msgstr "Угадай место"
+#: project/home/views.py:267
+msgid "Put pictures on the map"
+msgstr ""
 
 #: project/home/views.py:477 project/home/views.py:486
 #: project/home/views.py:488 templates/frontpage.html:161
@@ -99,7 +99,7 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1024 project/home/views.py:1136
+#: project/home/views.py:1024 project/home/views.py:1135
 msgid "Error uploading file"
 msgstr ""
 
@@ -107,15 +107,15 @@ msgstr ""
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1041
+#: project/home/views.py:1040
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1143
+#: project/home/views.py:1142
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1161
+#: project/home/views.py:1160
 msgid "Invalid form data"
 msgstr ""
 
@@ -549,6 +549,10 @@ msgstr ""
 #: templates/frontpage.html:94
 msgid "Read more"
 msgstr "Подробнее"
+
+#: templates/frontpage.html:160
+msgid "Guess the location"
+msgstr "Угадай место"
 
 #: templates/frontpage.html:167
 msgid "Upload photos yourself"

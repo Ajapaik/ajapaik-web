@@ -264,7 +264,7 @@ def game(request):
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
-    ctx['title'] = _('Guess the location')
+    ctx['title'] = _('Put pictures on the map')
     ctx['is_game'] = True
     ctx['area_selection_form'] = area_selection_form
     ctx['album_selection_form'] = album_selection_form

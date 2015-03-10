@@ -1354,3 +1354,7 @@ a.btn.flip {
     bottom: 15px;
     right: 100px;
 }
+
+#id_album {
+    max-width: 150px;
+}

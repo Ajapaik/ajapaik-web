@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 14:46+0200\n"
+"POT-Creation-Date: 2015-03-10 15:34+0200\n"
 "PO-Revision-Date: 2015-02-02 11:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,9 +66,11 @@ msgstr "Paikka ei ole vielä varmistettu."
 msgid "Other users have different opinion."
 msgstr "Muut käyttäjät ovat eri mieltä"
 
-#: project/home/views.py:267 templates/frontpage.html:160
-msgid "Guess the location"
-msgstr "Arvaa sijainti"
+#: project/home/views.py:267
+#, fuzzy
+#| msgid "Location on the map"
+msgid "Put pictures on the map"
+msgstr "Paikka kartalla"
 
 #: project/home/views.py:477 project/home/views.py:486
 #: project/home/views.py:488 templates/frontpage.html:161
@@ -103,7 +105,7 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1024 project/home/views.py:1136
+#: project/home/views.py:1024 project/home/views.py:1135
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
@@ -111,15 +113,15 @@ msgstr "Ongelma tiedostoa ladattaessa"
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1041
+#: project/home/views.py:1040
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1143
+#: project/home/views.py:1142
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1161
+#: project/home/views.py:1160
 msgid "Invalid form data"
 msgstr ""
 
@@ -565,6 +567,10 @@ msgstr ""
 #: templates/frontpage.html:94
 msgid "Read more"
 msgstr "Lue lisää"
+
+#: templates/frontpage.html:160
+msgid "Guess the location"
+msgstr "Arvaa sijainti"
 
 #: templates/frontpage.html:167
 msgid "Upload photos yourself"

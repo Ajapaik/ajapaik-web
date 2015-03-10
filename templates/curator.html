@@ -502,6 +502,7 @@
                         $('#ajapaik-curator-upload-error').show();
                         $('#ajapaik-curator-upload-error-message').html(response.error);
                     } else {
+                        window.updateLeaderboard();
                         $('#ajapaik-curator-upload-error').hide();
                         $('#ajapaik-curator-upload-error-message').html(window.gettext('System error'));
                         $('#ajapaik-choose-albums-modal').modal('hide');

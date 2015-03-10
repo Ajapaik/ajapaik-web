@@ -40,8 +40,8 @@ msgstr ""
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:267 templates/frontpage.html:160
-msgid "Guess the location"
+#: project/home/views.py:267
+msgid "Put pictures on the map"
 msgstr ""
 
 #: project/home/views.py:477 project/home/views.py:486
@@ -73,7 +73,7 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1024 project/home/views.py:1136
+#: project/home/views.py:1024 project/home/views.py:1135
 msgid "Error uploading file"
 msgstr ""
 
@@ -81,15 +81,15 @@ msgstr ""
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1041
+#: project/home/views.py:1040
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1143
+#: project/home/views.py:1142
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1161
+#: project/home/views.py:1160
 msgid "Invalid form data"
 msgstr ""
 
@@ -500,6 +500,10 @@ msgstr ""
 
 #: templates/frontpage.html:94
 msgid "Read more"
+msgstr ""
+
+#: templates/frontpage.html:160
+msgid "Guess the location"
 msgstr ""
 
 #: templates/frontpage.html:167
