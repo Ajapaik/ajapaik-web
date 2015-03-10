@@ -696,7 +696,7 @@ def csv_upload(request):
     zip_file = zipfile.ZipFile(request.FILES["zip_file"])
     album_id = request.POST.get('album_id')
     album = Album.objects.get(pk=album_id)
-    licence = Licence.objects.get(name="Public domain")
+    licence = Licence.objects.get(name="Attribution-ShareAlike 4.0 International")
 
     for key in photos_metadata.keys():
         try:
