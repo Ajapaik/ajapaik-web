@@ -1425,3 +1425,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #id_album {
     max-width: 150px;
 }
+
+#ajapaik-curator-results-tab {
+    z-index: 3000;
+}

@@ -59,6 +59,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-add-album-public-mutable">{% trans "Can anyone add photos?" %}</label>
+                                            </span>
+                                            <input class="form-control" type="checkbox" id="ajapaik-curator-add-album-public-mutable">
+                                        </div>
+                                    </div>
+                                </div>
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-12">
@@ -468,17 +478,6 @@
             });
             loadSelectableAlbums();
         });
-        {% comment %}var createOpenGraphAction = function (id) {
-            var itemUrl = gameUrl + '?album=' + id,
-                ogUrl = 'https://graph.facebook.com/me/ajapaik:curate?method=POST&ajapaik_collection=' + itemUrl;
-            $.ajax({
-                type: 'POST',
-                url: ogUrl,
-                success: function (response) {
-                    console.log(response);
-                }
-            });
-        };{% endcomment %}
         $(document).on('click', '#ajapaik-curator-confirm-area-selection-button', function () {
             $('#ajapaik-loading-overlay').show();
             $.ajax({
@@ -486,9 +485,10 @@
                 url : '/curator_upload/',
                 data: {
                     selection: JSON.stringify(selectedResults),
-                    albumId: $('#ajapaik-curator-album-select').val(),
-                    albumName: $('#ajapaik-curator-add-album-name').val(),
-                    albumDescription: $('#ajapaik-curator-add-album-description').val(),
+                    album: $('#ajapaik-curator-album-select').val(),
+                    name: $('#ajapaik-curator-add-album-name').val(),
+                    description: $('#ajapaik-curator-add-album-description').val(),
+                    is_public_mutable: $('#ajapaik-curator-add-album-public-mutable').val(),
                     areaName: $('#ajapaik-curator-add-area-name').val(),
                     areaLat: areaLat,
                     areaLng: areaLng,
@@ -496,24 +496,28 @@
                 },
                 success : function(response) {
                     $('#ajapaik-loading-overlay').hide();
-                    $('#ajapaik-choose-albums-modal').modal('hide');
-                    var albumPlayLink = gameUrl + '?album=' + response.album_id,
-                        feedbackModalDiv = $('#ajapaik-curator-feedback-modal');
-                    $('#ajapaik-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
-                    $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
-                    feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
-                        $($(this).find('.modal-body')[0]).append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                        FB.XFBML.parse();
-                    });
-                    for (var key in response.photos) {
-                        if (response.photos.hasOwnProperty(key)) {
-                            var targetDiv = $($('#ajapaik-curator-selection-item-' + window.formatId(key)).find('.ajapaik-curator-selection-feedback-row')[0]),
-                                item = response.photos[key];
-                            if (item.error) {
-                                $(targetDiv.find('.alert-danger')[0]).html(item.error).show();
-                            } else {
-                                $(targetDiv.find('.alert-success')[0]).html(item.message).show();
+                    if (response.error) {
+                        $('#ajapaik-curator-upload-error').show();
+                    } else {
+                        $('#ajapaik-choose-albums-modal').modal('hide');
+                        var albumPlayLink = gameUrl + '?album=' + response.album_id,
+                            feedbackModalDiv = $('#ajapaik-curator-feedback-modal');
+                        $('#ajapaik-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
+                        $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
+                        feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
+                            $($(this).find('.modal-body')[0]).append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
+                            $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                            FB.XFBML.parse();
+                        });
+                        for (var key in response.photos) {
+                            if (response.photos.hasOwnProperty(key)) {
+                                var targetDiv = $($('#ajapaik-curator-selection-item-' + window.formatId(key)).find('.ajapaik-curator-selection-feedback-row')[0]),
+                                    item = response.photos[key];
+                                if (item.error) {
+                                    $(targetDiv.find('.alert-danger')[0]).html(item.error).show();
+                                } else {
+                                    $(targetDiv.find('.alert-success')[0]).html(item.message).show();
+                                }
                             }
                         }
                     }

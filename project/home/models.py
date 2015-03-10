@@ -78,6 +78,7 @@ class Album(models.Model):
     profile = models.ForeignKey('Profile', related_name='albums', blank=True, null=True)
 
     is_public = models.BooleanField(default=True)
+    is_public_mutable = models.BooleanField(default=False)
 
     photos = models.ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
 

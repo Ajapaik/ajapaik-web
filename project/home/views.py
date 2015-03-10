@@ -26,7 +26,7 @@ from rest_framework.renderers import JSONRenderer
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area, Licence
 from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-    CuratorPhotoUploadForm, GameAlbumSelectionForm
+    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer
@@ -877,8 +877,10 @@ def curator_my_album_list(request):
 def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
-        Album.objects.filter(Q(is_public=True) | Q(profile=user_profile)).order_by('-created').all(),
-        many=True
+        Album.objects.filter(
+            (Q(is_public=True) & Q(is_public_mutable=True)) |
+            (Q(profile=user_profile) & Q(is_public=True)))
+        .order_by('-created').all(), many=True
     )
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
 
@@ -901,11 +903,8 @@ def curator_photo_upload_handler(request):
             )
             area.save()
 
-    album_id = request.POST.get("albumId") or None
-    if album_id == "-1":
-        album_id = None
-    album_name = request.POST.get("albumName")
-    album_description = request.POST.get("albumDescription")
+    curator_album_select_form = CuratorAlbumSelectionForm(profile, request.POST)
+    curator_album_create_form = AddAlbumForm(request.POST)
 
     selection_json = request.POST.get("selection") or None
     selection = None
@@ -918,23 +917,25 @@ def curator_photo_upload_handler(request):
         "photos": {}
     }
 
-    if selection is not None and profile is not None and (album_name is not None or album_id is not None):
-        if album_id is not None:
-            album = Album.objects.get(pk=album_id)
+    if selection is not None and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
+        if curator_album_select_form.is_valid():
+            album = Album.objects.get(pk=curator_album_select_form.cleaned_data['album'].id)
         else:
             album = Album(
-                name=album_name,
-                description=album_description,
+                name=curator_album_create_form.cleaned_data['name'],
+                description=curator_album_create_form.cleaned_data['description'],
                 atype=Album.CURATED,
                 profile=profile,
-                is_public=True
+                is_public=True,
+                is_public_mutable=curator_album_create_form.cleaned_data['is_public_mutable']
             )
             album.save()
         default_album = Album(
             name=str(profile.id) + "-" + str(datetime.datetime.now()).split('.')[0],
             atype=Album.AUTO,
             profile=profile,
-            is_public=False
+            is_public=False,
+            is_public_mutable=False
         )
         default_album.save()
         ret["album_id"] = default_album.id
