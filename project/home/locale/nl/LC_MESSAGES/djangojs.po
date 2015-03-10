@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 15:34+0200\n"
+"POT-Creation-Date: 2015-03-10 17:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,6 +122,10 @@ msgstr ""
 
 #: static/js/ajapaik-translations.js:21
 msgid "Not selected"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:22
+msgid "photos"
 msgstr ""
 
 #: static/js/browse.js:362 static/js/browse.js.c:363 static/js/game.js:240

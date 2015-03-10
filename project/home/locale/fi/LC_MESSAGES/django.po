@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 15:34+0200\n"
+"POT-Creation-Date: 2015-03-10 17:38+0200\n"
 "PO-Revision-Date: 2015-02-02 11:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,97 +31,97 @@ msgstr "Valitse kieli"
 msgid "Choose album"
 msgstr "Valitse kieli"
 
-#: project/home/get_next_photos_to_geotag.py:110
+#: project/home/get_next_photos_to_geotag.py:113
 msgid "Looks right!"
 msgstr "Näyttää oikealta!"
 
-#: project/home/get_next_photos_to_geotag.py:112
+#: project/home/get_next_photos_to_geotag.py:115
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Paikka vaikuttaa oikealta. Lisää seuraavalla kerralla myös kamerakulma ja "
 "saat lisää pisteitä!"
 
-#: project/home/get_next_photos_to_geotag.py:114
+#: project/home/get_next_photos_to_geotag.py:117
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr "Paikka vaikuttaa oikealta, mutta kamerkulma ei ole varma"
 
-#: project/home/get_next_photos_to_geotag.py:116
+#: project/home/get_next_photos_to_geotag.py:119
 msgid "The location seems right, your azimuth was first."
 msgstr "Paikka vaikuttaa oikealta, sinun kamerakulmasi oli ensin"
 
-#: project/home/get_next_photos_to_geotag.py:118
+#: project/home/get_next_photos_to_geotag.py:121
 msgid "The location seems right, but not the azimuth."
 msgstr "Paikka vaikuttaa oikealta, mutta kamerakulma ei"
 
-#: project/home/get_next_photos_to_geotag.py:120
+#: project/home/get_next_photos_to_geotag.py:123
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensin"
 
-#: project/home/get_next_photos_to_geotag.py:122
+#: project/home/get_next_photos_to_geotag.py:125
 msgid "Correct location is not certain yet."
 msgstr "Paikka ei ole vielä varmistettu."
 
-#: project/home/get_next_photos_to_geotag.py:124
+#: project/home/get_next_photos_to_geotag.py:127
 msgid "Other users have different opinion."
 msgstr "Muut käyttäjät ovat eri mieltä"
 
-#: project/home/views.py:267
+#: project/home/views.py:270
 #, fuzzy
 #| msgid "Location on the map"
 msgid "Put pictures on the map"
 msgstr "Paikka kartalla"
 
-#: project/home/views.py:477 project/home/views.py:486
-#: project/home/views.py:488 templates/frontpage.html:161
+#: project/home/views.py:480 project/home/views.py:489
+#: project/home/views.py:491 templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: project/home/views.py:571 project/home/views.py:585
+#: project/home/views.py:575 project/home/views.py:589
 #: templates/_header_area_selection_scoreboard.html:28
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
-#: project/home/views.py:803
+#: project/home/views.py:807
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:810
+#: project/home/views.py:814
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:999
+#: project/home/views.py:1003
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1001
+#: project/home/views.py:1005
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1024 project/home/views.py:1135
+#: project/home/views.py:1028 project/home/views.py:1139
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
-#: project/home/views.py:1033
+#: project/home/views.py:1037
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1040
+#: project/home/views.py:1044
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1142
+#: project/home/views.py:1146
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1160
+#: project/home/views.py:1164
 msgid "Invalid form data"
 msgstr ""
 

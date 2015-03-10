@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 15:34+0200\n"
+"POT-Creation-Date: 2015-03-10 17:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,89 +26,89 @@ msgstr ""
 msgid "Choose album"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:110
+#: project/home/get_next_photos_to_geotag.py:113
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:112
+#: project/home/get_next_photos_to_geotag.py:115
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:114
+#: project/home/get_next_photos_to_geotag.py:117
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:116
+#: project/home/get_next_photos_to_geotag.py:119
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:118
+#: project/home/get_next_photos_to_geotag.py:121
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:120
+#: project/home/get_next_photos_to_geotag.py:123
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:122
+#: project/home/get_next_photos_to_geotag.py:125
 msgid "Correct location is not certain yet."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:124
+#: project/home/get_next_photos_to_geotag.py:127
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:267
+#: project/home/views.py:270
 msgid "Put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:477 project/home/views.py:486
-#: project/home/views.py:488 templates/frontpage.html:161
+#: project/home/views.py:480 project/home/views.py:489
+#: project/home/views.py:491 templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:571 project/home/views.py:585
+#: project/home/views.py:575 project/home/views.py:589
 #: templates/_header_area_selection_scoreboard.html:28
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:803
+#: project/home/views.py:807
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr ""
 
-#: project/home/views.py:810
+#: project/home/views.py:814
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:999
+#: project/home/views.py:1003
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1001
+#: project/home/views.py:1005
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1024 project/home/views.py:1135
+#: project/home/views.py:1028 project/home/views.py:1139
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1033
+#: project/home/views.py:1037
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1040
+#: project/home/views.py:1044
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1142
+#: project/home/views.py:1146
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1160
+#: project/home/views.py:1164
 msgid "Invalid form data"
 msgstr ""
 
