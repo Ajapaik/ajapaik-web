@@ -251,7 +251,10 @@ def game(request):
         try:
             ctx['random_album_photo'] = ctx['album'].photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
         except:
-            pass
+            try:
+                ctx['random_album_photo'] = ctx['album'].photos.filter(area__isnull=False).order_by('?')[0]
+            except:
+                pass
     else:
         if area_selection_form.is_valid():
             ctx['area'] = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
