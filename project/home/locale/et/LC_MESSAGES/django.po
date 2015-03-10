@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-10 14:46+0200\n"
-"PO-Revision-Date: 2015-03-10 13:36+0200\n"
+"PO-Revision-Date: 2015-03-10 14:51+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -444,16 +444,12 @@ msgid "System error"
 msgstr ""
 
 #: templates/curator.html:32
-#, fuzzy
-#| msgid "Existing album"
 msgid "Choose an existing album"
-msgstr "Olemasolev album"
+msgstr "Vali mõni oma olemasolev album..."
 
 #: templates/curator.html:39
-#, fuzzy
-#| msgid "Create a new area"
 msgid "Or create a new one"
-msgstr "Loo uus koht"
+msgstr "või loo uus album"
 
 #: templates/curator.html:46 templates/photo_upload.html:109
 msgid "New album name"
@@ -606,12 +602,12 @@ msgstr "Vali album"
 
 #: templates/photo_upload.html:43 templates/photo_upload.html.py:77
 msgid "Add"
-msgstr ""
+msgstr "Lisa"
 
 #: templates/photo_upload.html:47 templates/photo_upload.html.py:81
 #: templates/photo_upload.html:132 templates/photo_upload.html.py:194
 msgid "Save"
-msgstr ""
+msgstr "Salvesta"
 
 #: templates/photo_upload.html:92
 msgid "Create a new album"
@@ -725,16 +721,16 @@ msgstr "Asukoht kaardil"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -746,8 +742,8 @@ msgstr "Asukoht kaardil"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
