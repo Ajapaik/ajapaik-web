@@ -422,16 +422,22 @@ def photoslug(request, photo_id, pseudo_slug):
     else:
         title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 
-    ap = AlbumPhoto.objects.filter(photo_id=photo_obj.id)[0]
-    album = Album.objects.get(pk=ap.album_id)
+    album = None
+    try:
+        ap = AlbumPhoto.objects.filter(photo_id=photo_obj.id)[0]
+        album = Album.objects.get(pk=ap.album_id)
+    except:
+        pass
 
-    area_selection_form = AreaSelectionForm({'area': photo_obj.area.id})
+    #if photo_obj.area:
+        #area_selection_form = AreaSelectionForm({'area': photo_obj.area.id})
+
     return render_to_response(template, RequestContext(request, {
         'photo': photo_obj,
         'licence': Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         'area': photo_obj.area,
         'album': album,
-        'area_selection_form': area_selection_form,
+        #'area_selection_form': area_selection_form,
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
         'title': title,
