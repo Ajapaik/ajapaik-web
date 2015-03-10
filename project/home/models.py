@@ -92,13 +92,13 @@ class Album(models.Model):
     def __unicode__(self):
         return u'%s' % self.name
 
-    def save(self, *args, **kwargs):
-        # Update POSTGIS data on save
-        try:
-            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
-        except:
-            pass
-        super(Album, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # Update POSTGIS data on save
+    #     try:
+    #         self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
+    #     except:
+    #         pass
+    #     super(Album, self).save(*args, **kwargs)
 
 
 class AlbumPhoto(models.Model):
