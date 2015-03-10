@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-10 12:23+0200\n"
-"PO-Revision-Date: 2015-03-06 13:18+0200\n"
+"PO-Revision-Date: 2015-03-10 13:36+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -103,7 +103,7 @@ msgstr "pilt on juba Ajapaigas"
 
 #: project/home/views.py:1039
 msgid "Not enough data submitted"
-msgstr ""
+msgstr "Osa vajalikke välju täitmata"
 
 #: project/home/views.py:1141
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
@@ -232,7 +232,7 @@ msgstr "Ajapaik"
 
 #: templates/_header_area_selection_scoreboard.html:14
 msgid "Limit to album"
-msgstr ""
+msgstr "Näita kaardil ainult valitud albumi pilte"
 
 #: templates/_header_area_selection_scoreboard.html:39
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
@@ -445,19 +445,19 @@ msgstr ""
 
 #: templates/curator.html:32
 msgid "Existing album"
-msgstr ""
+msgstr "Olemasolev album"
 
 #: templates/curator.html:39
 msgid "Fill if you need to create a new album"
-msgstr ""
+msgstr "Uue albumi loomiseks vajalikud andmed"
 
 #: templates/curator.html:46 templates/photo_upload.html:109
 msgid "New album name"
-msgstr "Uus album"
+msgstr "Uue albumi pealkiri"
 
 #: templates/curator.html:56 templates/photo_upload.html:120
 msgid "New album description"
-msgstr "Uus albumi kirjeldus"
+msgstr "Uue albumi kirjeldus"
 
 #: templates/curator.html:75
 msgid "If the photos are from the same place, specify a location here"
@@ -494,7 +494,7 @@ msgstr "Lisatud albumi piltidele asukohtade määramine"
 
 #: templates/curator.html:116
 msgid "Tell your friends on Facebook"
-msgstr ""
+msgstr "Jaga Facebookis"
 
 #: templates/curator.html:129
 msgid "Search"
@@ -589,10 +589,8 @@ msgstr ""
 "kaardil."
 
 #: templates/mapview.html:16
-#, fuzzy
-#| msgid "Number of geotagged pictures from this area:"
 msgid "Number of geotagged pictures in this album:"
-msgstr "Sellest piirkonnast kaardistatud pilte:"
+msgstr "Sellest albumist kaardistatud pilte:"
 
 #: templates/mapview.html:18
 msgid "Pictures available for geotagging:"
@@ -617,7 +615,7 @@ msgstr ""
 
 #: templates/photo_upload.html:92
 msgid "Create a new album"
-msgstr ""
+msgstr "Tee uus album"
 
 #: templates/photo_upload.html:101 templates/photo_upload.html.py:152
 msgid "Error"
@@ -721,16 +719,16 @@ msgstr "Asukoht kaardil"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -742,8 +740,8 @@ msgstr "Asukoht kaardil"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
