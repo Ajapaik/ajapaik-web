@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-10 12:23+0200\n"
-"PO-Revision-Date: 2015-03-10 13:54+0200\n"
+"PO-Revision-Date: 2015-03-10 13:57+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: static/js/ajapaik-translations.js:21
 msgid "Not selected"
-msgstr ""
+msgstr "..."
 
 #: static/js/browse.js:362 static/js/browse.js.c:363 static/js/game.js:240
 #: static/js/game.js.c:242 static/js/grid.js:69
