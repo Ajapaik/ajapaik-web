@@ -34,6 +34,7 @@ class CuratorMyAlbumListAlbumSerializer(serializers.ModelSerializer):
         model = Album
         fields = ('id', 'name', 'photo_count')
 
+
 class SourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Source

@@ -247,7 +247,7 @@ def game(request):
     if game_album_selection_form.is_valid():
         ctx['album'] = Album.objects.get(pk=game_album_selection_form.cleaned_data['album'].id)
         ctx['description'] = ctx['album'].name
-        ctx['facebook_share_photos'] = ctx['album'].photos.all()
+        ctx['facebook_share_photos'] = ctx['album'].photos.all()[:5]
         try:
             ctx['random_album_photo'] = ctx['album'].photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
         except:
@@ -1038,6 +1038,7 @@ def curator_photo_upload_handler(request):
         ret = {
             "error": _("Not enough data submitted"),
         }
+    requests.post('https://graph.facebook.com/?id=%s&scrape=true') % (request.build_absolute_uri(reverse('project.home.views.game')) + '?album=' + str(album.id))
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 def public_photo_upload_handler(request):
