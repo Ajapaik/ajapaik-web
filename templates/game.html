@@ -9,8 +9,11 @@
     {% include "_tutorial.html" %}
     <div class="modal fade" id="ajapaik-game-photo-modal" tabindex="-1" role="dialog"
          aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                <div class="modal-header" id="ajapaik-game-modal-header">
+                    <button id="ajapaik-game-close-game-modal" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
                 <div class="modal-body" id="ajapaik-game-modal-body">
                     <div id="ajapaik-game-modal-photo-container">
                         <a class="fullscreen col-xs-12" id="ajapaik-game-full-screen-link" rel="" href="">
@@ -29,14 +32,13 @@
                                 {% trans "Show description" %}
                             </button>
                         </div>
+                    </div>
+                    <div class="row" style="text-align: right; margin-right: 0; margin-top: 5px;">
                         <div class="col-xs-6">
                             <button class="btn btn-success btn-block ajapaik-game-specify-location-button">
                                 {% trans "Pick the shooting location!" %}
                             </button>
                         </div>
-                    </div>
-                    <div class="row" style="text-align: right; margin-right: 0; margin-top: 5px;">
-                        <div class="col-xs-6"></div>
                         <div class="col-xs-6">
                             <button class="btn btn-primary btn-block ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
                         </div>
@@ -46,52 +48,15 @@
             </div>
         </div>
     </div>
-    <div id="ajapaik-game-feedback-js-panel-content" style="display: none;">
-        <h3>{% trans "Thank you!" %}</h3>
-        <p id="ajapaik-game-guess-feedback-message"></p>
-        <p id="ajapaik-game-guess-feedback-points-gained"></p>
-        <p id="ajapaik-game-guess-feedback-difficulty-prompt" style="margin: 0 0 5px;">
-            {% trans "In your opinion to geotag this photo is" %}
-        </p>
-        <form id="ajapaik-game-guess-feedback-difficulty-form">
-            <span style="margin-right: 10px;">
-                {% trans "easy" %}
-            </span>
-            <input type="radio" name="difficulty" value="1">
-            <input style="margin-left: 5px;" type="radio" name="difficulty" value="2">
-            <input style="margin-left: 5px;" type="radio" name="difficulty" value="3">
-            <span style="margin-left: 10px;">
-                {% trans "hard" %}
-            </span>
-        </form>
-        <button class="btn btn-primary ajapaik-game-feedback-next-button pull-right">{% trans "Next photo" %}</button>
-    </div>
-    <div id="ajapaik-game-guess-photo-js-panel-content" style="overflow: hidden;">
-        <div class="col-xs-12 ajapaik-game-guess-photo-container">
-            <img class="img-responsive col-xs-12" src="" style="display: none;" />
-            <button class="btn btn-primary ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
-            <button class="btn btn-default ajapaik-overlay-button ajapaik-fullscreen-overlay-button"></button>
-            <button class="btn btn-default ajapaik-overlay-button ajapaik-game-map-show-description-overlay-button"></button>
-        </div>
-        <div class="ajapaik-game-guess-photo-js-panel-footer">
-            <div class="row ajapaik-photo-modal-row pull-left"></div>
-        </div>
-    </div>
     <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
-        {% include "_map_lower_right_buttons.html" %}
-        {% if not request.mobile %}
-            <div class="panel panel-default" id="ajapaik-game-map-info-panel">
-                <div class="panel-body">
-                    {% trans "Geotags" %}: <span id="ajapaik-game-map-geotag-count"></span>
-                    <br/>
-                    {% trans "With azimuth" %}: <span id="ajapaik-game-map-geotag-with-azimuth-count"></span>
-                    {#<br/>#}
-                    {#{% trans "Confidence" %}: <span id="ajapaik-game-map-confidence"></span>#}
-                </div>
-            </div>
-        {% endif %}
         <div id="ajapaik-map-canvas"></div>
+        <div id="ajapaik-guess-panel-container-xs" class="container-fluid visible-xs">
+            {% include "_guess_panel_xs.html" %}
+        </div>
+    </div>
+    <div id="ajapaik-guess-panel-container" class="container">
+        {% include "_guess_panel.html" %}
     </div>
     <div class="full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
@@ -137,7 +102,13 @@
             permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
             albumId = '{{ album.id|safe }}';
-        {% if area %}
+        {% if random_album_photo %}
+            {% if random_album_photo.lat and random_album_photo.lon %}
+                start_location = [{{ random_album_photo.lon|safe }}, {{ random_album_photo.lat|safe }}];
+            {% else %}
+                start_location = [{{ random_album_photo.area.lon|safe }}, {{ random_album_photo.area.lat|safe }}];
+            {% endif %}
+        {% elif area %}
             start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
             start_location = [26, 59];

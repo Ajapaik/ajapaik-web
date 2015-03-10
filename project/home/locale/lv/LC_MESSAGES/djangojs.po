@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 15:58+0200\n"
+"POT-Creation-Date: 2015-03-10 15:34+0200\n"
 "PO-Revision-Date: 2014-05-21 18:18+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,59 +24,136 @@ msgstr ""
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:612 static/js/ajapaik-common.js.c:726
-#: static/js/game.js:130
+#: static/js/ajapaik-common.js:236
+msgid "Geotagging game"
+msgstr ""
+
+#: static/js/ajapaik-common.js:621 static/js/ajapaik-common.js.c:743
+#: static/js/ajapaik-common.js:762 static/js/game.js:125
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:664
+#: static/js/ajapaik-common.js:654 static/js/browse.js:791
+#: static/js/game.js:485 static/js/grid.js:418
+msgid ""
+"Drag the map so that the marker is where the photographer was standing. You "
+"can then set the direction of the view."
+msgstr ""
+
+#: static/js/ajapaik-common.js:678
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:792
+#: static/js/ajapaik-common.js:816
 msgid "Median guess"
 msgstr ""
 
-#: static/js/browse.js:280 static/js/game.js:230 static/js/grid.js:69
+#: static/js/ajapaik-translations.js:3
+msgid "Invert colors"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:4
+msgid "Flip"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:5
+msgid "Mark stereophoto"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:6
+msgid "Remove from selection"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:7
+msgid ""
+"Picture is already in Ajapaik. You can still add it to your album, no "
+"curation points awarded"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:8
+msgid "Description"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:9
+msgid "Author"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:10
+msgid "Source"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:11
+msgid "Source URL"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:12
+msgid "Size"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:13
+msgid "Institution"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:14
+msgid "Number"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:15
+msgid "Date"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:16
+msgid "URL"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:17
+msgid "Title"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:18
+msgid "Licence"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:19
+msgid "Points"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:20
+msgid "System error"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:21
+msgid "Not selected"
+msgstr ""
+
+#: static/js/browse.js:362 static/js/browse.js.c:363 static/js/game.js:240
+#: static/js/game.js.c:242 static/js/grid.js:69
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/browse.js:663 static/js/game.js:494
-msgid ""
-"Drag the map so that the marker is where the photographer was standing. You "
-"can then set the direction of the view. You should also zoom the map before "
-"submitting your geotag."
-msgstr ""
-
-#: static/js/game.js:51
+#: static/js/game.js:36
 msgid "Vihje vaatamine"
 msgstr ""
 
-#: static/js/game.js:53
+#: static/js/game.js:38
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
 
-#: static/js/game.js:153
+#: static/js/game.js:154
 msgid "We are now showing you random photos."
 msgstr ""
 
-#: static/js/game.js:155
+#: static/js/game.js:156
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:257
+#: static/js/game.js:260
 #, fuzzy
 #| msgid "Your guess was first."
 msgid "Your guess"
 msgstr "Tavs minējums ir pirmais."
-
-#: static/js/grid.js:416
-msgid ""
-"Drag the map so that the marker is where the photographer was standing. You "
-"can then set the direction of the view."
-msgstr ""
 
 #~ msgid "Point the marker to where the picture was taken from."
 #~ msgstr "Atzīmē, kur tika uzņemts šis attēls."

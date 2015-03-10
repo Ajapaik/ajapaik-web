@@ -7,22 +7,32 @@
 
 {% block layout %}
     {% include "_tutorial.html" %}
-    {% include "_geotag_info.html" %}
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
-    <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
-    <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
-    <div id="ajapaik-map-container">
-        {% include "_map_lower_right_buttons.html" %}
-        <div class="panel panel-default" id="ajapaik-mapview-map-info-panel">
-            <div class="panel-body">
-                {% trans "Geotags" %}: <span id="ajapaik-mapview-map-geotag-count"></span>
-                <br/>
-                {% trans "With azimuth" %}: <span id="ajapaik-mapview-map-geotag-with-azimuth-count"></span>
-                {#<br/>#}
-                {#{% trans "Confidence" %}: <span id="ajapaik-mapview-map-confidence"></span>#}
+    <div class="modal fade" id="ajapaik-geotag-info-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-geotag-info-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="ajapaik-geotag-info-panel-no-photos">{% trans "Pictures from this area have not yet received enough geotags to be displayed on the map." %}</span>
+                    <br/>{% trans "Number of geotagged pictures in this album:" %} <span
+                        class="ajapaik-geotag-info-panel-geotagged-photo-amount"></span>
+                    <br/>{% trans "Pictures available for geotagging:" %} <span
+                        class="ajapaik-geotag-info-panel-ungeotagged-photo-amount"></span>
+                    <br/><br/>
+                    <button class="btn btn-success" id="ajapaik-header-game-button">{% trans "Geotagging game" %}</button>
+                </div>
             </div>
         </div>
-        <div id="ajapaik-map-canvas"></div>
+    </div>
+    <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
+    <input id="pac-input-mapview" class="controls" type="text" placeholder={% trans "Search box" %}>
+    <div id="ajapaik-map-container">
+        <div id="ajapaik-map-canvas" class="ajapaik-map-canvas-mapview"></div>
+        <div id="ajapaik-guess-panel-container-xs" class="container-fluid visible-xs">
+            {% include "_guess_panel_xs.html" %}
+        </div>
+    </div>
+    <div id="ajapaik-guess-panel-container" class="container">
+        {% include "_guess_panel.html" %}
     </div>
     <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
          aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
@@ -43,27 +53,16 @@
             </div>
         </div>
     </div>
-    <div id="ajapaik-mapview-guess-photo-js-panel-content" style="overflow: hidden;">
-        <div id="ajapaik-mapview-guess-photo-container" class="col-xs-12">
-            <img class="img-responsive col-xs-12" src="" style="display: none;"/>
-            <button class="btn btn-block btn-primary ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
-            <button class="btn btn-block btn-default ajapaik-overlay-button ajapaik-fullscreen-overlay-button"></button>
-        </div>
-        <div id="ajapaik-mapview-guess-photo-js-panel-footer">
-            <div id="ajapaik-mapview-guess-photo-description" class="row ajapaik-photo-modal-row pull-left"></div>
-        </div>
-    </div>
-    <div id="ajapaik-mapview-feedback-js-panel-content" style="display: none;">
-        <h3>{% trans "Thank you!" %}</h3>
-        <p>{% trans "This location specification will be tagged differently than in the game. Still your action may not have an immediate effect on the location of the image. Your trustworthiness will also not be affected." %}</p>
-        <p id="ajapaik-mapview-guess-feedback-points-gained"></p>
-        <button class="btn btn-block btn-primary ajapaik-mapview-feedback-next-button pull-right">{% trans "Back to map" %}</button>
-    </div>
-    <div class="full-box">
-        <div class="full-pic" id="ajapaik-fullscreen-image-container">
-            <img id="ajapaik-mapview-full-screen-image" src=""/>
-        </div>
-    </div>
+{#    <div class="full-box">#}
+{#        <div class="full-pic" id="ajapaik-fullscreen-image-container">#}
+{#            <img id="ajapaik-mapview-full-screen-image" src=""/>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="full-box">#}
+{#        <div class="full-pic" id="ajapaik-fullscreen-image-container">#}
+{#            <img id="ajapaik-mapview-full-screen-image" src=""/>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
 
 {% block specific_js %}
@@ -72,12 +71,22 @@
             leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             {% if area %}
-                areaId = '{{ area.id | safe }}';
-            {% else %}
-                areaId = 1;
+                areaId = '{{ area.id | safe }}',
             {% endif %}
+            {% if album %}
+                albumId = '{{ album.id |safe }}',
+            {% endif %}
+            photoModalCurrentImageUrl;
             {% if area.lat and area.lon %}
                 var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});
+            {% endif %}
+            {% if random_album_photo %}
+                var albumLatLng;
+                {% if random_album_photo.lat and random_album_photo.lon %}
+                    albumLatLng = new window.google.maps.LatLng({{ random_album_photo.lat | safe }}, {{ random_album_photo.lon | safe }});
+                {% else %}
+                    albumLatLng = new window.google.maps.LatLng({{ random_album_photo.area.lat | safe }}, {{ random_album_photo.area.lon | safe }});
+                {% endif %}
             {% endif %}
         {% if selected_photo %}
             var preselectPhotoId = '{{ selected_photo.id }}';

@@ -2,6 +2,8 @@ var map,
     disableSave = true,
     streetPanorama,
     infoWindow,
+    input,
+    searchBox,
     getMap,
     saveLocation,
     saveLocationCallback,
@@ -12,7 +14,6 @@ var map,
     azimuthListenerActive = false,
     azimuthLineEndPoint,
     marker,
-    popover,
     popoverShown = false,
     panoramaMarker,
     centerMarker,
@@ -92,6 +93,8 @@ var map,
     currentlySelectedRephotoId,
     photoModalFullscreenImageUrl,
     photoModalFullscreenImageSize,
+    photoModalRephotoFullscreenImageUrl,
+    photoModalRephotoFullscreenImageSize,
     photoModalCurrentPhotoFlipStatus,
     userFlippedPhoto = false,
     photoModalRephotoArray,
@@ -105,7 +108,7 @@ var map,
     userClosedTutorial = false,
     tutorialPanel,
     tutorialPanelSettings = {
-        selector: 'body',
+        selector: '#ajapaik-map-container',
         position: 'center',
         controls: {
             buttons: 'closeonly',
@@ -120,26 +123,10 @@ var map,
         size: 'auto',
         id: 'ajapaik-tutorial-js-panel'
     },
-    geotagInfoPanel,
-    geotagInfoPanelSettings = {
-        selector: 'body',
-        position: 'center',
-        controls: {
-            buttons: 'closeonly',
-            iconfont: 'bootstrap'
-        },
-        bootstrap: 'default',
-        title: false,
-        draggable: {
-            handle: '.jsPanel-hdr',
-            containment: '#ajapaik-map-container'
-        },
-        size: {
-            height: 'auto'
-        },
-        id: 'ajapaik-geotag-info-js-panel'
-    },
-    comingBackFromGuessLocation = false;
+    comingBackFromGuessLocation = false,
+    hideUnlockedAzimuth,
+    showUnlockedAzimuth,
+    mapviewGameButton;
 
 (function ($) {
     'use strict';
@@ -179,29 +166,49 @@ var map,
         }
         mapTypeIds.push('OSM');
 
-        mapOpts = {
-            zoom: zoomLevel,
-            scrollwheel: false,
-            center: latLng,
-            mapTypeControl: true,
-            panControl: false,
-            panControlOptions: {
-                position: window.google.maps.ControlPosition.RIGHT_TOP
-            },
-            zoomControl: true,
-            zoomControlOptions: {
-                position: window.google.maps.ControlPosition.RIGHT_TOP
-            },
-            streetViewControl: true,
-            streetViewControlOptions: {
-                position: window.google.maps.ControlPosition.RIGHT_TOP
-            },
-            streetView: streetPanorama,
-            mapTypeControlOptions: {
-                mapTypeIds: mapTypeIds,
-                position: window.google.maps.ControlPosition.BOTTOM_CENTER
-            }
-        };
+        if (isGameMap) {
+            mapOpts = {
+                zoom: zoomLevel,
+                scrollwheel: false,
+                center: latLng,
+                mapTypeControl: true,
+                zoomControl: true,
+                panControl: false,
+                zoomControlOptions: {
+                    position: window.google.maps.ControlPosition.LEFT_CENTER
+                },
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: window.google.maps.ControlPosition.LEFT_CENTER
+                },
+                streetView: streetPanorama,
+                mapTypeControlOptions: {
+                    mapTypeIds: mapTypeIds,
+                    position: window.google.maps.ControlPosition.BOTTOM_CENTER
+                }
+            };
+        } else {
+            mapOpts = {
+                zoom: zoomLevel,
+                scrollwheel: false,
+                center: latLng,
+                mapTypeControl: true,
+                panControl: false,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: window.google.maps.ControlPosition.RIGHT_CENTER
+                },
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: window.google.maps.ControlPosition.RIGHT_CENTER
+                },
+                streetView: streetPanorama,
+                mapTypeControlOptions: {
+                    mapTypeIds: mapTypeIds,
+                    position: window.google.maps.ControlPosition.BOTTOM_CENTER
+                }
+            };
+        }
 
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
@@ -217,12 +224,21 @@ var map,
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
-        map.controls[window.google.maps.ControlPosition.RIGHT_TOP].push(lockButton);
+        map.controls[window.google.maps.ControlPosition.BOTTOM_LEFT].push(lockButton);
 
-        var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-        map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
+        if (isGameMap) {
+            input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
+            map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
+        } else {
+            input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
+            map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
+            mapviewGameButton = document.createElement('button');
+            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button').html(window.gettext('Geotagging game'));
+            map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
+        }
 
-        var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
+
+        searchBox = new window.google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
 
         window.google.maps.event.addListener(searchBox, 'places_changed', function () {
             var places = searchBox.getPlaces();
@@ -256,15 +272,15 @@ var map,
                 }
                 // Currently we are not displaying the save button when Street View is open
                 saveLocationButton.hide();
-                $('#ajapaik-map-button-container').show();
-                $('.ajapaik-close-streetview-button').show().parent().show();
+                //$('#ajapaik-map-button-container').show();
+                $('.ajapaik-close-streetview-button').show();
             } else {
-                if (!guessLocationStarted) {
-                    $('#ajapaik-map-button-container').hide();
-                } else {
-                    $('#ajapaik-map-button-container').show();
-                }
-                $('.ajapaik-close-streetview-button').hide().parent().hide();
+                //if (!guessLocationStarted) {
+                //    $('#ajapaik-map-button-container').hide();
+                //} else {
+                //    $('#ajapaik-map-button-container').show();
+                //}
+                $('.ajapaik-close-streetview-button').hide();
                 saveLocationButton.show();
             }
         });
@@ -411,6 +427,7 @@ var map,
 
     showScoreboard = function () {
         var scoreContainer = $('#ajapaik-header').find('.score_container');
+        $('#full_leaderboard').slideDown();
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
         scoreContainer.find('#facebook-connect').slideDown();
         scoreContainer.find('#facebook-connected').slideDown();
@@ -419,6 +436,7 @@ var map,
 
     hideScoreboard = function () {
         var scoreContainer = $('#ajapaik-header').find('.score_container');
+        $('#full_leaderboard').slideUp();
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
         scoreContainer.find('#facebook-connect').slideUp();
         scoreContainer.find('#facebook-connected').slideUp();
@@ -515,7 +533,7 @@ var map,
 
     $('.filter-box select').change(function () {
         var uri = new window.URI(location.href),
-            newQ = {area: $(this).val()},
+            newQ = {album: $(this).val()},
             isFilterEmpty = false;
         uri.removeQuery(Object.keys(newQ));
         $.each(newQ, function (i, ii) {
@@ -538,12 +556,8 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-header-map-button', function () {
-        window.location.href = '/map?area=' + window.areaId;
-    });
-
     $(document).on('click', '#ajapaik-header-game-button', function () {
-        window.location.href = '/game?area=' + window.areaId;
+        window.location.href = '/game?album=' + window.albumId;
     });
 
     // Firefox and Opera cannot handle modal taking over focus
@@ -636,55 +650,63 @@ var map,
             infoWindow.close();
             infoWindow = undefined;
         }
-        radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
-        azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
-        degreeAngle = Math.degrees(radianAngle);
-        if (window.isMobile) {
-            dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
-            dottedAzimuthLine.setMap(map);
-            dottedAzimuthLine.icons = [
-                {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
-            ];
-            dottedAzimuthLine.setVisible(true);
+        if (!firstDragDone && !guessResponseReceived) {
+            window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
+            return;
         }
-        if (azimuthListenerActive) {
-            mapMousemoveListenerActive = false;
-            window.google.maps.event.clearListeners(map, 'mousemove');
-            saveDirection = true;
-            if (!disableSave) {
-                saveLocationButton.removeAttr('disabled');
-                saveLocationButton.removeClass('btn-default');
-                saveLocationButton.removeClass('btn-warning');
-                saveLocationButton.addClass('btn-success');
-                saveLocationButton.text(window.gettext('Save location and direction'));
+        if (!window.guessResponseReceived) {
+            radianAngle = Math.getAzimuthBetweenMouseAndMarker(e, marker);
+            azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
+            degreeAngle = Math.degrees(radianAngle);
+            if (window.isMobile) {
+                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
+                dottedAzimuthLine.setMap(map);
+                dottedAzimuthLine.icons = [
+                    {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
+                ];
+                dottedAzimuthLine.setVisible(true);
             }
-            dottedAzimuthLine.icons[0].repeat = '2px';
-            dottedAzimuthLine.setPath([marker.position, e.latLng]);
-            dottedAzimuthLine.setVisible(true);
-            if (panoramaMarker) {
-                panoramaMarker.setMap(null);
+            if (azimuthListenerActive) {
+                mapMousemoveListenerActive = false;
+                window.google.maps.event.clearListeners(map, 'mousemove');
+                saveDirection = true;
+                if (!disableSave) {
+                    saveLocationButton.removeAttr('disabled');
+                    saveLocationButton.removeClass('btn-default');
+                    saveLocationButton.removeClass('btn-warning');
+                    saveLocationButton.addClass('btn-success');
+                    saveLocationButton.text(window.gettext('Save location and direction'));
+                }
+                dottedAzimuthLine.icons[0].repeat = '2px';
+                if (marker.position && e.latLng) {
+                    dottedAzimuthLine.setPath([marker.position, e.latLng]);
+                    dottedAzimuthLine.setVisible(true);
+                }
+                if (panoramaMarker) {
+                    panoramaMarker.setMap(null);
+                }
+                var markerImage = {
+                    url: '/static/images/material-design-icons/ajapaik_custom_size_panorama.png',
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(18, 18),
+                    scaledSize: new window.google.maps.Size(36, 36)
+                };
+                panoramaMarker = new window.google.maps.Marker({
+                    map: map,
+                    draggable: false,
+                    position: e.latLng,
+                    icon: markerImage
+                });
+                setCursorToAuto();
+            } else {
+                if (!mapMousemoveListenerActive) {
+                    mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+                    mapMousemoveListenerActive = true;
+                    window.google.maps.event.trigger(map, 'mousemove', e);
+                }
             }
-            var markerImage = {
-                url: '/static/images/material-design-icons/ajapaik_custom_size_panorama.svg',
-                origin: new window.google.maps.Point(0, 0),
-                anchor: new window.google.maps.Point(18, 18),
-                scaledSize: new window.google.maps.Size(36, 36)
-            };
-            panoramaMarker = new window.google.maps.Marker({
-                map: map,
-                draggable: false,
-                position: e.latLng,
-                icon: markerImage
-            });
-            setCursorToAuto();
-        } else {
-            if (!mapMousemoveListenerActive) {
-                mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
-                mapMousemoveListenerActive = true;
-                window.google.maps.event.trigger(map, 'mousemove', e);
-            }
+            azimuthListenerActive = !azimuthListenerActive;
         }
-        azimuthListenerActive = !azimuthListenerActive;
     };
 
     mapIdleListenerFunction = function () {
@@ -730,6 +752,14 @@ var map,
     mapDragendListenerFunction = function () {
         if (markerLocked) {
             marker.setPosition(map.getCenter());
+        }
+        firstDragDone = true;
+        if (disableSave) {
+            disableSave = false;
+            saveLocationButton.removeAttr('disabled');
+            saveLocationButton.removeClass('btn-default');
+            saveLocationButton.addClass('btn-warning');
+            saveLocationButton.text(window.gettext('Save location only'));
         }
     };
 
@@ -779,7 +809,6 @@ var map,
         }
         window.mapInfoPanelGeotagCountElement.html(heatmapData.heatmapPoints.length);
         window.mapInfoPanelAzimuthCountElement.html(heatmapData.tagsWithAzimuth);
-        //window.mapInfoPanelConfidenceElement.html(heatmapData.confidence.toFixed(2));
         if (heatmapData.newEstimatedLocation && heatmapData.newEstimatedLocation[0] && heatmapData.newEstimatedLocation[1]) {
             heatmapEstimatedLocationMarker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(heatmapData.newEstimatedLocation[0], heatmapData.newEstimatedLocation[1]),
@@ -842,7 +871,7 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
-        if (!gameHintUsed && !popoverShown && currentPhotoDescription) {
+        if (!gameHintUsed && !popoverShown && currentPhotoDescription && !window.isMobile) {
             $('[data-toggle="popover"]').popover('show');
             popoverShown = true;
         } else if (!gameHintUsed && popoverShown && currentPhotoDescription) {
@@ -858,17 +887,28 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
-        if (!geotagInfoPanel) {
-            window.openGeotagInfoPanel();
-        } else {
-            geotagInfoPanel.close();
-            geotagInfoPanel = undefined;
-        }
+        $('#ajapaik-geotag-info-modal').modal().on('shown.bs.modal', function () {
+            $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
+        });
     });
 
     $(document).on('click', '.ajapaik-close-streetview-button', function () {
         map.getStreetView().setVisible(false);
     });
+
+    hideUnlockedAzimuth = function () {
+        if (!saveDirection) {
+            dottedAzimuthLine.setVisible(false);
+        }
+    };
+
+    showUnlockedAzimuth = function () {
+        if (!saveDirection) {
+            dottedAzimuthLine.setVisible(true);
+        }
+    };
+
+    $('#ajapaik-guess-panel-container').hover(hideUnlockedAzimuth, showUnlockedAzimuth);
 
     window.openTutorialPanel = function () {
         tutorialPanelSettings.content = $('#ajapaik-tutorial-js-panel-content').html();
@@ -879,27 +919,12 @@ var map,
         tutorialPanel = $.jsPanel(tutorialPanelSettings);
     };
 
-    window.openGeotagInfoPanel = function () {
-        geotagInfoPanelSettings.content = $('#ajapaik-geotag-js-panel-content').html();
-        if (window.isMobile) {
-            geotagInfoPanelSettings.resizable = false;
-            geotagInfoPanelSettings.draggable = false;
-        }
-        geotagInfoPanel = $.jsPanel(geotagInfoPanelSettings);
-    };
-
     $('body').on('jspanelclosed', function closeHandler(event, id) {
         if (id === 'ajapaik-tutorial-js-panel') {
-            $('[data-toggle="popover"]').popover('hide');
-            popoverShown = false;
             window.userClosedTutorial = true;
             tutorialPanel = undefined;
             window.docCookies.setItem('ajapaik_closed_tutorial', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
-            //$('body').off('jspanelclosed', closeHandler);
-        } else if (id === 'ajapaik-geotag-info-js-panel') {
-            geotagInfoPanel = undefined;
-            window.docCookies.setItem('ajapaik_closed_geotag_info_' + window.areaId, true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
-            //$('body').off('jspanelclosed', closeHandler);
+            $('body').off('jspanelclosed', closeHandler);
         }
     });
 }(jQuery));

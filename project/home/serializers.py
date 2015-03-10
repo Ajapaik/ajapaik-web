@@ -18,7 +18,21 @@ class AreaSerializer(serializers.ModelSerializer):
 class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
-        fields = ('id', 'name', 'lat', 'lon')
+        fields = ('id', 'name')
+
+
+class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ('id', 'name')
+
+
+class CuratorMyAlbumListAlbumSerializer(serializers.ModelSerializer):
+    photo_count = serializers.IntegerField(source='photos.count')
+
+    class Meta:
+        model = Album
+        fields = ('id', 'name', 'photo_count')
 
 
 class SourceSerializer(serializers.ModelSerializer):

@@ -48,8 +48,8 @@ def _make_fullscreen(photo):
     image = get_thumbnail(photo.image, '1024x1024', upscale=False)
     return {'url': image.url, 'size': [image.width, image.height]}
 
-models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
+models.signals.post_save.connect(user_post_save, sender=BaseUser)
 
 class Area(models.Model):
     name = models.TextField()
@@ -64,20 +64,22 @@ class Area(models.Model):
 
 
 class Album(models.Model):
-    FRONTPAGE, FAVORITES, COLLECTION = range(3)
+    CURATED, FAVORITES, AUTO = range(3)
     TYPE_CHOICES = (
-        (FRONTPAGE, 'Frontpage'),
+        (CURATED, 'Curated'),
         (FAVORITES, 'Favorites'),
-        (COLLECTION, 'Collection')
+        (AUTO, 'Auto')
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    subalbum_of = models.ForeignKey('self', blank=True, null=True, related_name='subalbums')
 
     atype = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     profile = models.ForeignKey('Profile', related_name='albums', blank=True, null=True)
 
     is_public = models.BooleanField(default=True)
+    is_public_mutable = models.BooleanField(default=False)
 
     photos = models.ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
 
@@ -109,6 +111,18 @@ class AlbumPhoto(models.Model):
     class Meta:
         app_label = "project"
 
+    def __unicode__(self):
+        return u'%d - %d' % (self.album.id, self.photo.id)
+
+
+def delete_parent(sender, **kwargs):
+    try:
+        if len(kwargs["instance"].album.photos.all()) == 1:
+            kwargs["instance"].album.delete()
+    except:
+        pass
+
+models.signals.pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 class PhotoManager(models.GeoManager):
     def get_queryset(self):
@@ -139,17 +153,21 @@ class Photo(models.Model):
     objects = PhotoManager()
 
     id = models.AutoField(primary_key=True)
-    #Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    #image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
+    # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
     image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
+    height = models.IntegerField(null=True, blank=True)
+    width = models.IntegerField(null=True, blank=True)
     flip = models.NullBooleanField()
+    invert = models.NullBooleanField()
+    stereo = models.NullBooleanField()
     date = models.DateTimeField(null=True, blank=True)
     date_text = models.CharField(max_length=100, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(null=True, blank=True, max_length=2047)
     author = models.CharField(null=True, blank=True, max_length=255)
     licence = models.ForeignKey('Licence', null=True, blank=True)
+    types = models.CharField(max_length=255, blank=True, null=True)
 
     user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
 
@@ -187,31 +205,22 @@ class Photo(models.Model):
         app_label = "project"
 
     class QuerySet(models.query.QuerySet):
-        def get_area_photo_count_and_total_geotag_count(self, area_id=None):
-            ungeotagged_qs = self.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True, area_id=area_id)
-            geotagged_qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, area_id=area_id)
-            return ungeotagged_qs.count(), geotagged_qs.count()
+        def get_album_photo_count_and_total_geotag_count(self, album_id=None):
+            if album_id is not None:
+                album_photos = Album.objects.get(pk=album_id).photos
+                ungeotagged_qs = album_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
+                geotagged_qs = album_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+                return ungeotagged_qs.count(), geotagged_qs.count()
+            return None, None
 
-        def get_geotagged_photos_list(self, bounding_box=None, with_images=False):
+        def get_geotagged_photos_list(self, bounding_box=None):
             # TODO: Once we have regions, re-implement caching
             data = []
             qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
             if bounding_box:
                 qs = qs.filter(geography__intersects=Polygon.from_bbox(bounding_box))
             for p in qs:
-                im_url = None
-                width = None
-                height = None
                 rephoto_count = len(list(self.filter(rephoto_of=p.id)))
-                # if with_images:
-                #     im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
-                #     try:
-                #         im = get_thumbnail(p.image, "150x150", upscale=False)
-                #         width = im._size[0]
-                #         height = im._size[1]
-                #     except IOError:
-                #         pass
-                #data.append([p.id, im_url, p.lon, p.lat, rephoto_count, p.flip, p.description, p.azimuth, width, height])
                 data.append([p.id, None, p.lon, p.lat, rephoto_count, None, None, p.azimuth, None, None])
             return data
 
@@ -380,12 +389,16 @@ class Photo(models.Model):
         image = image.transpose(Image.FLIP_LEFT_RIGHT)
         image.save(self.image.path, File(image), exif=exif)
 
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super(Photo, self).delete(*args, **kwargs)
+
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
 
     @models.permalink
     def get_detail_url(self):
-        return ('project.home.views.photo', [self.id, ])
+        return 'project.home.views.photo', [self.id, ]
 
     @models.permalink
     def get_absolute_url(self):
@@ -558,21 +571,28 @@ class UserMapView(models.Model):
 
 #TODO: Should create ForeignKey fields here so Django knows to cascade deletes etc.
 class Points(models.Model):
-    GEOTAG, REPHOTO, PHOTO_UPLOAD = range(3)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION = range(4)
     ACTION_CHOICES = (
         (GEOTAG, 'Geotag'),
         (REPHOTO, 'Rephoto'),
-        (PHOTO_UPLOAD, 'Photo upload')
+        (PHOTO_UPLOAD, 'Photo upload'),
+        (PHOTO_CURATION, 'Photo curation'),
     )
 
     user = models.ForeignKey('Profile', related_name='points')
     action = models.PositiveSmallIntegerField(choices=ACTION_CHOICES)
-    action_reference = models.PositiveIntegerField()
+    action_reference = models.PositiveIntegerField(null=True, blank=True)
+    photo = models.ForeignKey('Photo', null=True, blank=True)
+    geotag = models.ForeignKey('GeoTag', null=True, blank=True)
     points = models.PositiveSmallIntegerField(null=True, blank=True)
     created = models.DateTimeField(db_index=True)
 
     class Meta:
         app_label = "project"
+        verbose_name_plural = "Points"
+
+    def __unicode__(self):
+        return u'%d - %s - %d' % (self.user.id, self.action, self.points)
 
 
 class GeoTag(models.Model):
@@ -758,9 +778,9 @@ class Profile(models.Model):
                 user_first_bonus_earned = True
                 user_rephoto_score += 1250
                 try:
-                    existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=oldest_rephoto.id).get()
+                    existing_record = Points.objects.filter(action=Points.REPHOTO, photo=oldest_rephoto).get()
                 except ObjectDoesNotExist:
-                    new_record = Points(user=oldest_rephoto.user, action=Points.REPHOTO, action_reference=oldest_rephoto.id, points=1250, created=oldest_rephoto.created)
+                    new_record = Points(user=oldest_rephoto.user, action=Points.REPHOTO, photo=oldest_rephoto, points=1250, created=oldest_rephoto.created)
                     new_record.save()
             for rp in rephotos_by_this_user:
                 current_score = 250
@@ -772,9 +792,9 @@ class Profile(models.Model):
                         user_first_bonus_earned = True
                     # Check that we have a record in the scoring table
                     try:
-                        existing_record = Points.objects.filter(action=Points.REPHOTO, action_reference=rp.id).get()
+                        existing_record = Points.objects.filter(action=Points.REPHOTO, photo=rp).get()
                     except ObjectDoesNotExist:
-                        new_record = Points(user=rp.user, action=Points.REPHOTO, action_reference=rp.id, points=current_score, created=rp.created)
+                        new_record = Points(user=rp.user, action=Points.REPHOTO, photo=rp, points=current_score, created=rp.created)
                         new_record.save()
                     user_rephoto_score += current_score
 

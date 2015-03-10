@@ -24,7 +24,7 @@ class Command(BaseCommand):
                         oldest_rephoto_points = Points(
                             user=oldest_rephoto.user,
                             action=Points.REPHOTO,
-                            action_reference=oldest_rephoto.id,
+                            photo=oldest_rephoto,
                             points=1250,
                             created=oldest_rephoto.created
                         )
@@ -35,7 +35,7 @@ class Command(BaseCommand):
                             oldest_rephoto_by_user_points = Points(
                                 user=v.user,
                                 action=Points.REPHOTO,
-                                action_reference=v.id,
+                                photo=v,
                                 points=1000,
                                 created=v.created
                             )
@@ -45,7 +45,7 @@ class Command(BaseCommand):
                             rephoto_by_same_user_points = Points(
                                 user=v.user,
                                 action=Points.REPHOTO,
-                                action_reference=v.id,
+                                photo=v,
                                 points=250,
                                 created=v.created
                             )
@@ -54,7 +54,7 @@ class Command(BaseCommand):
             geotag_points_item = Points(
                 user=geotag.user,
                 action=Points.GEOTAG,
-                action_reference=geotag.id,
+                geotag=geotag,
                 points=geotag.score,
                 created=geotag.created
             )

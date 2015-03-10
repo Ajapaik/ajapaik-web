@@ -9,7 +9,7 @@
             {% trans "Timepatch (Ajapaik)" %}
         {% endif %}
     </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
     <meta property="fb:app_id" content="201052296573134"/>
@@ -28,6 +28,8 @@
         <meta property="og:type" content="website"/>
         {% if photo or rephoto %}
             <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+        {% elif album %}
+            <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.game' %}?album={{ album.id }}"/>
         {% endif %}
         {% if rephoto %}
             {% thumbnail rephoto.image "700x400" as im %}
@@ -42,6 +44,11 @@
                 {% endthumbnail %}
             {% endif %}
         {% endif %}
+        {% if facebook_share_photos %}
+            {% for p in facebook_share_photos %}
+                <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
+            {% endfor %}
+        {% endif %}
         <meta property="og:locale" content="et_EE"/>
         <meta property="og:locale:alternate" content="ru_RU"/>
         <meta property="og:locale:alternate" content="en_US"/>
@@ -50,7 +57,7 @@
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}css/favicon.ico"/>
+    <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}images/favicon.ico"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
     {% compress css %}
@@ -66,13 +73,14 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
     {% endcompress %}
 </head>
-<body>
+<body class="{% if is_mapview or is_game %}ajapaik-body-window-height{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
         <p id="cookie-notice-close" onclick="setEUCookie();">X</p>
     </div>
 </div>
+<div id="ajapaik-loading-overlay"></div>
 <div id="fb-root"></div>
 {% block header %}
     {% include "_header.html" %}

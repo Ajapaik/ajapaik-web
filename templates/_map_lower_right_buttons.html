@@ -1,13 +1,2 @@
 {% load i18n %}
 
-<div id="ajapaik-map-button-container">
-    <div class="row">
-        <button class="btn btn-default ajapaik-save-location-button pull-right" disabled="disabled">{% trans "Save location only" %}</button>
-    </div>
-    <div class="row" style="display: none;">
-        <button class="btn btn-default ajapaik-close-streetview-button pull-right" style="display: none;">{% trans "Close Street View" %}</button>
-    </div>
-    <div class="row">
-        <button class="btn btn-primary ajapaik-game-next-photo-button pull-right">{% if is_game %}{% trans "Next photo" %}{% elif is_mapview %}{% trans "Back to map" %}{% endif %}</button>
-    </div>
-</div>

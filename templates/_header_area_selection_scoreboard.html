@@ -4,26 +4,35 @@
     <div class="navbar-header">
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
-        {% if not request.mobile %}
-            <div class="filter-box">
-                {% csrf_token %}
-                {{ area_selection_form.as_p }}
-                <div>
-                    {% if is_game %}
-                        <button class="btn btn-success" id="ajapaik-header-map-button">{% trans "Map" %}</button>
-                    {% elif is_mapview %}
-                        <button class="btn btn-default ajapaik-header-info-button"></button>
-                        <button class="btn btn-success" id="ajapaik-header-game-button">{% trans "Geotagging game" %}</button>
+        {% if is_game or is_mapview %}
+            <div class="hidden-xs">
+                <div class="filter-box">
+                    {% csrf_token %}
+                    {{ album_selection_form.as_p }}
+                    {% if is_mapview %}
+                        <p>
+                            <label for="ajapaik-mapview-show-only-album" id="ajapaik-mapview-show-only-album-label">{% trans "Limit to album" %}:&nbsp;</label>
+                            <input type="checkbox" id="ajapaik-mapview-show-only-album" checked="checked">
+                        </p>
+                        <p>
+                            <button class="btn btn-default ajapaik-header-info-button"></button>
+                        </p>
                     {% endif %}
                 </div>
             </div>
+        {% endif %}
+        <div class="hidden-xs hidden-sm">
             <div class="score_container">
                 <h2>
                     <a id="full_leaderboard" href="#">
                         {% trans "Leaderboard" %}
                     </a>
                 </h2>
-                <ul class="scoreboard"></ul>
+                <ul class="scoreboard">
+                    {% if leaderboard %}
+                        {% include "_block_leaderboard.html" %}
+                    {% endif %}
+                </ul>
                 {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
                     {% with profile=request.user.profile user=request.user %}
                         <div id="facebook-connected">
@@ -37,7 +46,9 @@
                     </div>
                 {% endif %}
             </div>
-        {% endif %}
+        </div>
         {% include "_language_selection.html" %}
-        <button class="btn btn-default ajapaik-show-tutorial-button"></button>
+        {% if is_game or is_mapview %}
+            <button class="btn btn-default ajapaik-show-tutorial-button"></button>
+        {% endif %}
 </nav>
