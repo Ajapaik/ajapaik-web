@@ -928,7 +928,7 @@ def curator_photo_upload_handler(request):
                 atype=Album.CURATED,
                 profile=profile,
                 is_public=True,
-                is_public_mutable=curator_album_create_form.cleaned_data['is_public_mutable']
+                #is_public_mutable=curator_album_create_form.cleaned_data['is_public_mutable']
             )
             album.save()
         default_album = Album(
@@ -936,7 +936,7 @@ def curator_photo_upload_handler(request):
             atype=Album.AUTO,
             profile=profile,
             is_public=False,
-            is_public_mutable=False,
+            #is_public_mutable=False,
             subalbum_of=album
         )
         default_album.save()
