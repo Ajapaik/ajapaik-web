@@ -1,5 +1,5 @@
 from django import forms
-from .models import Area, Album
+from .models import Area, Album, Profile
 from django.utils.translation import ugettext_lazy as _
 from project import settings
 
@@ -34,16 +34,10 @@ class CuratorAlbumSelectionForm(forms.Form):
         is_public=True,
     ), label=_('Choose album'))
 
-    def __init__(self, profile, *args, **kwargs):
+    # Should do ownership checking here, but it seems to be left to hacks
+    # http://stackoverflow.com/questions/10422791/django-form-validation-with-authenticated-user-as-a-field
+    def __init__(self, *args, **kwargs):
         super(CuratorAlbumSelectionForm, self).__init__(*args, **kwargs)
-        self.profile = profile
-
-    def clean(self):
-        user_albums = Album.objects.filter(profile=self.profile, is_public=True)
-        if user_albums.filter(pk=self.cleaned_data['album'].id):
-            return self.cleaned_data
-        else:
-            raise forms.ValidationError('...')
 
 
 class AddAreaForm(forms.Form):

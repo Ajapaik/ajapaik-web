@@ -23,7 +23,7 @@
                                     <div class="col-xs-12" id="ajapaik-curator-upload-error" style="display: none;">
                                         <div class="alert alert-danger" role="alert">
                                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            {% trans "System error" %}
+                                            <span id="ajapaik-curator-upload-error-message">{% trans "System error" %}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -285,6 +285,7 @@
                 },
                 success : function(response) {
                     var targetDiv = $('#ajapaik-curator-album-select');
+                    targetDiv.empty();
                     targetDiv.append(
                         tmpl(
                             'ajapaik-curator-my-album-select-option',
@@ -498,7 +499,10 @@
                     $('#ajapaik-loading-overlay').hide();
                     if (response.error) {
                         $('#ajapaik-curator-upload-error').show();
+                        $('#ajapaik-curator-upload-error-message').html(response.error);
                     } else {
+                        $('#ajapaik-curator-upload-error').hide();
+                        $('#ajapaik-curator-upload-error-message').html(window.gettext('System error'));
                         $('#ajapaik-choose-albums-modal').modal('hide');
                         var albumPlayLink = gameUrl + '?album=' + response.album_id,
                             feedbackModalDiv = $('#ajapaik-curator-feedback-modal');

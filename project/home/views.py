@@ -903,7 +903,7 @@ def curator_photo_upload_handler(request):
             )
             area.save()
 
-    curator_album_select_form = CuratorAlbumSelectionForm(profile, request.POST)
+    curator_album_select_form = CuratorAlbumSelectionForm(request.POST)
     curator_album_create_form = AddAlbumForm(request.POST)
 
     selection_json = request.POST.get("selection") or None
@@ -919,7 +919,8 @@ def curator_photo_upload_handler(request):
 
     if selection is not None and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
         if curator_album_select_form.is_valid():
-            album = Album.objects.get(pk=curator_album_select_form.cleaned_data['album'].id)
+            if curator_album_select_form.cleaned_data['album'].profile == profile or curator_album_select_form.cleaned_data['album'].is_public_mutable == True:
+                album = Album.objects.get(pk=curator_album_select_form.cleaned_data['album'].id)
         else:
             album = Album(
                 name=curator_album_create_form.cleaned_data['name'],
