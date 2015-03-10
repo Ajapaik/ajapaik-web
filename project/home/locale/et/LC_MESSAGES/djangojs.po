@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-10 12:23+0200\n"
-"PO-Revision-Date: 2015-03-10 13:46+0200\n"
+"PO-Revision-Date: 2015-03-10 13:54+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -21,7 +21,7 @@ msgstr "Abi"
 
 #: static/js/ajapaik-common.js:236
 msgid "Geotagging game"
-msgstr ""
+msgstr "Asukohapakkumiste mäng"
 
 #: static/js/ajapaik-common.js:621 static/js/ajapaik-common.js.c:743
 #: static/js/ajapaik-common.js:762 static/js/game.js:125
