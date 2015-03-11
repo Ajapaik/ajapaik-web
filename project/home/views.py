@@ -628,10 +628,13 @@ def fetch_stream(request):
         qs = qs.filter(area_id=area.id)
 
     if album is not None:
-        photos_ids_in_album = album.photos.values_list('id', flat=True)
-        if len(album.subalbums.all()) > 0:
-            for sa in album.subalbums.all():
-                photos_ids_in_album.append(sa.photos.values_list('id', flat=True))
+        photos_ids_in_album = list(album.photos.values_list('id', flat=True))
+        subalbums = album.subalbums.all()
+        if len(subalbums) > 0:
+            for sa in subalbums:
+                photos_ids_in_subalbum = list(sa.photos.values_list('id', flat=True))
+                photos_ids_in_album += photos_ids_in_subalbum
+        print photos_ids_in_album
         qs = qs.filter(pk__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
