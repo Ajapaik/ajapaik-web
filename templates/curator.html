@@ -121,6 +121,57 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="ajapaik-curator-edit-my-album-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">{% trans "Edit your album" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                 <div class="row">
+                                    <div class="col-xs-12" id="ajapaik-curator-edit-album-error" style="display: none;">
+                                        <div class="alert alert-danger" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <span id="ajapaik-curator-edit-album-error-message">{% trans "Error" %}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-change-album-name">{% trans "Name" %}</label>
+                                            </span>
+                                            <input class="form-control" type="text" id="ajapaik-curator-change-album-name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-change-album-description">{% trans "Description" %}</label>
+                                            </span>
+                                            <textarea class="form-control" id="ajapaik-curator-change-album-description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="ajapaik-curator-change-album-id">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    {% trans "Close" %}
+                                </button>
+                                <button type="button" class="btn btn-success" id="ajapaik-curator-confirm-album-edit-button">
+                                    {% trans "Save" %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div role="tabpanel" id="ajapaik-curator-tabpanel">
                     <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
                         <li id="ajapaik-curator-results-tab-tab" role="presentation" class="active">
@@ -485,6 +536,49 @@
             });
             loadSelectableAlbums();
         });
+        $(document).on('click', '.ajapaik-curator-edit-album-button', function () {
+            var targetId = $(this)[0].dataset.id;
+            $.ajax({
+                type : 'POST',
+                url : '/curator_album_info/',
+                data: {
+                    albumId: targetId,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success : function(response) {
+                    $('#ajapaik-curator-change-album-name').val(response.name);
+                    $('#ajapaik-curator-change-album-description').val(response.description);
+                    $('#ajapaik-curator-change-album-id').val(response.id);
+                    $('#ajapaik-curator-edit-my-album-modal').modal('show').on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+        });
+        // TODO: This is basically REST API functionality, no need for custom Django stuff, come to think of it,
+        // there's a lot of manual JSON serialization etc. going on everywhere in this codebase...
+        $(document).on('click', '#ajapaik-curator-confirm-album-edit-button', function () {
+            var targetId = $('#ajapaik-curator-change-album-id').val();
+            $('#ajapaik-curator-edit-album-error').hide();
+            $.ajax({
+                type : 'POST',
+                url : '/curator_update_my_album/',
+                data: {
+                    albumId: targetId,
+                    name: $('#ajapaik-curator-change-album-name').val(),
+                    description: $('#ajapaik-curator-change-album-description').val(),
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success : function() {
+                    $('#ajapaik-curator-edit-album-error').hide();
+                    $('#ajapaik-curator-edit-my-album-modal').modal('hide')
+                    loadMyAlbums();
+                },
+                error: function() {
+                    $('#ajapaik-curator-edit-album-error').show();
+                }
+            });
+        });
         $(document).on('click', '#ajapaik-curator-confirm-area-selection-button', function () {
             $('#ajapaik-loading-overlay').show();
             $.ajax({
@@ -593,7 +687,12 @@
         </a>
     </script>
     <script id="ajapaik-curator-my-album-template" type="text/x-tmpl">
-        <a class="row" href="{%=o.gameLink%}">{%=o.name%} - {%=o.photo_count%} {%=gettext('photos')%}</a>
+        <div class="row">
+            <a href="{%=o.gameLink%}">{%=o.name%} - {%=o.photo_count%} {%=gettext('photos')%}</a>
+            <button title="{%=gettext('Edit')%}" type="button" class="btn btn-default btn-xs ajapaik-curator-edit-album-button" data-id="{%=o.id%}">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </button>
+        </div>
     </script>
     <script id="ajapaik-curator-my-album-select-option" type="text/x-tmpl">
         <option value="{%=o.id%}">{%=o.name%}</option>

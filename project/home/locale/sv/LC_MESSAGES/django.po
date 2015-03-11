@@ -7,89 +7,89 @@ msgstr ""
 msgid "Choose album"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:113
+#: project/home/get_next_photos_to_geotag.py:116
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:115
+#: project/home/get_next_photos_to_geotag.py:118
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:117
+#: project/home/get_next_photos_to_geotag.py:120
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:119
+#: project/home/get_next_photos_to_geotag.py:122
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:121
+#: project/home/get_next_photos_to_geotag.py:124
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:123
+#: project/home/get_next_photos_to_geotag.py:126
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:125
+#: project/home/get_next_photos_to_geotag.py:128
 msgid "Correct location is not certain yet."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:127
+#: project/home/get_next_photos_to_geotag.py:130
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:270
+#: project/home/views.py:274
 msgid "Put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:480 project/home/views.py:489
-#: project/home/views.py:491 templates/frontpage.html:161
+#: project/home/views.py:494 project/home/views.py:503
+#: project/home/views.py:505 templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:575 project/home/views.py:589
+#: project/home/views.py:592 project/home/views.py:606
 #: templates/_header_area_selection_scoreboard.html:28
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:807
+#: project/home/views.py:829
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr ""
 
-#: project/home/views.py:814
+#: project/home/views.py:836
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1003
+#: project/home/views.py:1054
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1005
+#: project/home/views.py:1056
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1028 project/home/views.py:1139
+#: project/home/views.py:1079 project/home/views.py:1190
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1037
+#: project/home/views.py:1088
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1044
+#: project/home/views.py:1095
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1146
+#: project/home/views.py:1197
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1164
+#: project/home/views.py:1215
 msgid "Invalid form data"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgid "With azimuth"
 msgstr ""
 
 #: templates/_guess_panel.html:35 templates/_guess_panel_xs.html:33
-#: templates/curator.html:109
+#: templates/curator.html:107
 msgid "Thank you!"
 msgstr ""
 
@@ -225,7 +225,7 @@ msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 
 #: templates/_header_area_selection_scoreboard.html:45
-#: templates/_photo_upload_modal.html:36 templates/curator.html:193
+#: templates/_photo_upload_modal.html:36 templates/curator.html:242
 #: templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr ""
@@ -255,7 +255,8 @@ msgid "Specify location"
 msgstr ""
 
 #: templates/_photo_modal.html:120 templates/_photo_upload_modal.html:43
-#: templates/curator.html:120 templates/game.html:93 templates/mapview.html:51
+#: templates/curator.html:118 templates/curator.html.py:166
+#: templates/game.html:93 templates/mapview.html:51
 #: templates/photo_upload.html:45 templates/photo_upload.html.py:79
 #: templates/photo_upload.html:130 templates/photo_upload.html.py:192
 msgid "Close"
@@ -266,7 +267,7 @@ msgid "Taken"
 msgstr ""
 
 #: templates/_photo_upload_modal.html:19
-#: templates/_photo_upload_modal.html:102 templates/curator.html:96
+#: templates/_photo_upload_modal.html:102 templates/curator.html:94
 msgid "Upload"
 msgstr ""
 
@@ -422,61 +423,84 @@ msgstr ""
 msgid "Place"
 msgstr ""
 
-#: templates/curator.html:93
+#: templates/curator.html:91
 msgid "Cancel"
 msgstr ""
 
-#: templates/curator.html:112
+#: templates/curator.html:110
 msgid ""
 "Your photos have now been added to Ajapaik and can be interacted with as "
 "usual."
 msgstr ""
 
-#: templates/curator.html:113
+#: templates/curator.html:111
 msgid "Points awarded for curating"
 msgstr ""
 
-#: templates/curator.html:114
+#: templates/curator.html:112
 msgid "You can start geotagging the new content here"
 msgstr ""
 
-#: templates/curator.html:115
+#: templates/curator.html:113
 msgid "Tell your friends on Facebook"
 msgstr ""
 
-#: templates/curator.html:129
-msgid "Search"
+#: templates/curator.html:131
+msgid "Edit your album"
 msgstr ""
 
-#: templates/curator.html:132
-msgid "Selection"
-msgstr ""
-
-#: templates/curator.html:135
-msgid "My albums"
-msgstr ""
-
-#: templates/curator.html:142
-msgid "Full search"
+#: templates/curator.html:138 templates/photo_upload.html:101
+#: templates/photo_upload.html.py:152
+msgid "Error"
 msgstr ""
 
 #: templates/curator.html:146
+msgid "Name"
+msgstr ""
+
+#: templates/curator.html:156
+msgid "Description"
+msgstr ""
+
+#: templates/curator.html:169 templates/photo_upload.html:47
+#: templates/photo_upload.html.py:81 templates/photo_upload.html:132
+#: templates/photo_upload.html.py:194
+msgid "Save"
+msgstr ""
+
+#: templates/curator.html:178
+msgid "Search"
+msgstr ""
+
+#: templates/curator.html:181
+msgid "Selection"
+msgstr ""
+
+#: templates/curator.html:184
+msgid "My albums"
+msgstr ""
+
+#: templates/curator.html:191
+msgid "Full search"
+msgstr ""
+
+#: templates/curator.html:195
 msgid "Search!"
 msgstr ""
 
-#: templates/curator.html:151 templates/curator.html.py:161
+#: templates/curator.html:200 templates/curator.html.py:210
 msgid "Load more"
 msgstr ""
 
-#: templates/curator.html:170
+#: templates/curator.html:219
 msgid "Clear selection"
 msgstr ""
 
-#: templates/curator.html:175
+#: templates/curator.html:224
 msgid "Submit to Ajapaik"
 msgstr ""
 
-#: templates/curator.html:192
+#: templates/curator.html:241
 msgid "Curating requires connecting your account with Facebook."
 msgstr ""
 
@@ -556,17 +580,8 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: templates/photo_upload.html:47 templates/photo_upload.html.py:81
-#: templates/photo_upload.html:132 templates/photo_upload.html.py:194
-msgid "Save"
-msgstr ""
-
 #: templates/photo_upload.html:92
 msgid "Create a new album"
-msgstr ""
-
-#: templates/photo_upload.html:101 templates/photo_upload.html.py:152
-msgid "Error"
 msgstr ""
 
 #: templates/photo_upload.html:143

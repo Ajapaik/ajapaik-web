@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 17:38+0200\n"
+"POT-Creation-Date: 2015-03-11 18:11+0200\n"
 "PO-Revision-Date: 2015-03-10 15:41+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -24,92 +24,92 @@ msgstr "Vali koht"
 msgid "Choose album"
 msgstr "Vali album"
 
-#: project/home/get_next_photos_to_geotag.py:113
+#: project/home/get_next_photos_to_geotag.py:116
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: project/home/get_next_photos_to_geotag.py:115
+#: project/home/get_next_photos_to_geotag.py:118
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Asukoht tundub õige. Proovi määrata ka vaate suund, et saada veelgi rohkem "
 "punkte."
 
-#: project/home/get_next_photos_to_geotag.py:117
+#: project/home/get_next_photos_to_geotag.py:120
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 "Asukoht tundub õige, vaate suuna osas ei ole kasutajatel üksmeelt tekkinud."
 
-#: project/home/get_next_photos_to_geotag.py:119
+#: project/home/get_next_photos_to_geotag.py:122
 msgid "The location seems right, your azimuth was first."
 msgstr "Asukoht tundub õige, Sinu pakutud suund oli esimene."
 
-#: project/home/get_next_photos_to_geotag.py:121
+#: project/home/get_next_photos_to_geotag.py:124
 msgid "The location seems right, but not the azimuth."
 msgstr "Asukoht tundub õige, aga mitte vaate suund."
 
-#: project/home/get_next_photos_to_geotag.py:123
+#: project/home/get_next_photos_to_geotag.py:126
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/home/get_next_photos_to_geotag.py:125
+#: project/home/get_next_photos_to_geotag.py:128
 msgid "Correct location is not certain yet."
 msgstr "Selle pildi puhul ei ole asukoht veel selgeks saanud."
 
-#: project/home/get_next_photos_to_geotag.py:127
+#: project/home/get_next_photos_to_geotag.py:130
 msgid "Other users have different opinion."
 msgstr "Teised kasutajad on teisiti arvanud."
 
-#: project/home/views.py:270
+#: project/home/views.py:274
 msgid "Put pictures on the map"
 msgstr "Pane pildid kaardile"
 
-#: project/home/views.py:480 project/home/views.py:489
-#: project/home/views.py:491 templates/frontpage.html:161
+#: project/home/views.py:494 project/home/views.py:503
+#: project/home/views.py:505 templates/frontpage.html:161
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:575 project/home/views.py:589
+#: project/home/views.py:592 project/home/views.py:606
 #: templates/_header_area_selection_scoreboard.html:28
 msgid "Leaderboard"
 msgstr "Edetabel"
 
-#: project/home/views.py:807
+#: project/home/views.py:829
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr "Ajapaik - lae oma fotosid"
 
-#: project/home/views.py:814
+#: project/home/views.py:836
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Ajapaiga kuraator"
 
-#: project/home/views.py:1003
+#: project/home/views.py:1054
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1005
+#: project/home/views.py:1056
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1028 project/home/views.py:1139
+#: project/home/views.py:1079 project/home/views.py:1190
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/home/views.py:1037
+#: project/home/views.py:1088
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: project/home/views.py:1044
+#: project/home/views.py:1095
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#: project/home/views.py:1146
+#: project/home/views.py:1197
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1164
+#: project/home/views.py:1215
 msgid "Invalid form data"
 msgstr ""
 
@@ -176,7 +176,7 @@ msgid "With azimuth"
 msgstr "Suunaga pakkumisi"
 
 #: templates/_guess_panel.html:35 templates/_guess_panel_xs.html:33
-#: templates/curator.html:109
+#: templates/curator.html:107
 msgid "Thank you!"
 msgstr "Aitäh!"
 
@@ -250,7 +250,7 @@ msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
 #: templates/_header_area_selection_scoreboard.html:45
-#: templates/_photo_upload_modal.html:36 templates/curator.html:193
+#: templates/_photo_upload_modal.html:36 templates/curator.html:242
 #: templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
@@ -280,7 +280,8 @@ msgid "Specify location"
 msgstr "Täpsusta asukohta"
 
 #: templates/_photo_modal.html:120 templates/_photo_upload_modal.html:43
-#: templates/curator.html:120 templates/game.html:93 templates/mapview.html:51
+#: templates/curator.html:118 templates/curator.html.py:166
+#: templates/game.html:93 templates/mapview.html:51
 #: templates/photo_upload.html:45 templates/photo_upload.html.py:79
 #: templates/photo_upload.html:130 templates/photo_upload.html.py:192
 msgid "Close"
@@ -291,7 +292,7 @@ msgid "Taken"
 msgstr "Kuupäev"
 
 #: templates/_photo_upload_modal.html:19
-#: templates/_photo_upload_modal.html:102 templates/curator.html:96
+#: templates/_photo_upload_modal.html:102 templates/curator.html:94
 msgid "Upload"
 msgstr "Lae üles"
 
@@ -469,62 +470,89 @@ msgstr ""
 msgid "Place"
 msgstr "Koht"
 
-#: templates/curator.html:93
+#: templates/curator.html:91
 msgid "Cancel"
 msgstr "Loobu"
 
-#: templates/curator.html:112
+#: templates/curator.html:110
 msgid ""
 "Your photos have now been added to Ajapaik and can be interacted with as "
 "usual."
 msgstr ""
 "Album piltidega on lisatud Ajapaika, piltidele saab mängus asukohti määrata."
 
-#: templates/curator.html:113
+#: templates/curator.html:111
 msgid "Points awarded for curating"
 msgstr "Kureerimise eest saadud punktid"
 
-#: templates/curator.html:114
+#: templates/curator.html:112
 msgid "You can start geotagging the new content here"
 msgstr "Lisatud albumi piltidele asukohtade määramine"
 
-#: templates/curator.html:115
+#: templates/curator.html:113
 msgid "Tell your friends on Facebook"
 msgstr "Jaga Facebookis"
 
-#: templates/curator.html:129
+#: templates/curator.html:131
+#, fuzzy
+#| msgid "Limit to album"
+msgid "Edit your album"
+msgstr "Näita kaardil ainult valitud albumi pilte"
+
+#: templates/curator.html:138 templates/photo_upload.html:101
+#: templates/photo_upload.html.py:152
+msgid "Error"
+msgstr ""
+
+#: templates/curator.html:146
+msgid "Name"
+msgstr ""
+
+#: templates/curator.html:156
+#, fuzzy
+#| msgid "Show description"
+msgid "Description"
+msgstr "Vaata kirjeldust"
+
+#: templates/curator.html:169 templates/photo_upload.html:47
+#: templates/photo_upload.html.py:81 templates/photo_upload.html:132
+#: templates/photo_upload.html.py:194
+msgid "Save"
+msgstr "Salvesta"
+
+#: templates/curator.html:178
 msgid "Search"
 msgstr "Otsing"
 
-#: templates/curator.html:132
+#: templates/curator.html:181
 msgid "Selection"
 msgstr "Valitud pildid"
 
-#: templates/curator.html:135
+#: templates/curator.html:184
 msgid "My albums"
 msgstr "Minu albumid"
 
-#: templates/curator.html:142
+#: templates/curator.html:191
 msgid "Full search"
 msgstr "Täisotsing"
 
-#: templates/curator.html:146
+#: templates/curator.html:195
 msgid "Search!"
 msgstr "Otsi!"
 
-#: templates/curator.html:151 templates/curator.html.py:161
+#: templates/curator.html:200 templates/curator.html.py:210
 msgid "Load more"
 msgstr "Lae rohkem tulemusi"
 
-#: templates/curator.html:170
+#: templates/curator.html:219
 msgid "Clear selection"
 msgstr "Tühista valik"
 
-#: templates/curator.html:175
+#: templates/curator.html:224
 msgid "Submit to Ajapaik"
 msgstr "Saada Ajapaika"
 
-#: templates/curator.html:192
+#: templates/curator.html:241
 msgid "Curating requires connecting your account with Facebook."
 msgstr "Vanade fotode kureerimiseks ühenda konto kõigepealt Facebookiga."
 
@@ -608,18 +636,9 @@ msgstr "Vali album"
 msgid "Add"
 msgstr "Lisa"
 
-#: templates/photo_upload.html:47 templates/photo_upload.html.py:81
-#: templates/photo_upload.html:132 templates/photo_upload.html.py:194
-msgid "Save"
-msgstr "Salvesta"
-
 #: templates/photo_upload.html:92
 msgid "Create a new album"
 msgstr "Tee uus album"
-
-#: templates/photo_upload.html:101 templates/photo_upload.html.py:152
-msgid "Error"
-msgstr ""
 
 #: templates/photo_upload.html:143
 msgid "Create a new area"

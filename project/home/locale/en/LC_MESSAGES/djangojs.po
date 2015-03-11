@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 17:38+0200\n"
+"POT-Creation-Date: 2015-03-11 18:11+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,23 +26,23 @@ msgstr ""
 msgid "Geotagging game"
 msgstr ""
 
-#: static/js/ajapaik-common.js:621 static/js/ajapaik-common.js.c:743
-#: static/js/ajapaik-common.js:762 static/js/game.js:125
+#: static/js/ajapaik-common.js:622 static/js/ajapaik-common.js.c:744
+#: static/js/ajapaik-common.js:763 static/js/game.js:125
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:654 static/js/browse.js:791
+#: static/js/ajapaik-common.js:655 static/js/browse.js:813
 #: static/js/game.js:485 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:678
+#: static/js/ajapaik-common.js:679
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:816
+#: static/js/ajapaik-common.js:817
 msgid "Median guess"
 msgstr ""
 
@@ -128,7 +128,7 @@ msgstr ""
 msgid "photos"
 msgstr ""
 
-#: static/js/browse.js:362 static/js/browse.js.c:363 static/js/game.js:240
+#: static/js/browse.js:375 static/js/browse.js.c:376 static/js/game.js:240
 #: static/js/game.js.c:242 static/js/grid.js:69
 msgid "Points awarded"
 msgstr ""

@@ -9,8 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = Photo.objects.all()
         for p in photos:
-            try:
-                if p.image.file:
-                    pass
-            except IOError:
+            path = '/var/garage/' + p.image.name
+            if not os.path.isfile(path):
                 print p.id

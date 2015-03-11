@@ -26,10 +26,11 @@ from rest_framework.renderers import JSONRenderer
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
     Album, AlbumPhoto, Area, Licence
 from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm
+    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
-from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer
+from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
+    CuratorAlbumInfoSerializer
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -627,10 +628,13 @@ def fetch_stream(request):
         qs = qs.filter(area_id=area.id)
 
     if album is not None:
-        photos_ids_in_album = album.photos.values_list('id', flat=True)
-        if len(album.subalbums.all()) > 0:
-            for sa in album.subalbums.all():
-                photos_ids_in_album.append(sa.photos.values_list('id', flat=True))
+        photos_ids_in_album = list(album.photos.values_list('id', flat=True))
+        subalbums = album.subalbums.all()
+        if len(subalbums) > 0:
+            for sa in subalbums:
+                photos_ids_in_subalbum = list(sa.photos.values_list('id', flat=True))
+                photos_ids_in_album += photos_ids_in_subalbum
+        print photos_ids_in_album
         qs = qs.filter(pk__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
@@ -907,6 +911,35 @@ def curator_selectable_albums(request):
         .order_by('-created').all(), many=True
     )
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+
+
+# TODO: Replace with Django REST API
+def curator_get_album_info(request):
+    album_id = request.POST.get('albumId') or None
+    if album_id is not None:
+        try:
+            album = Album.objects.get(pk=album_id)
+            serializer = CuratorAlbumInfoSerializer(album)
+        except ObjectDoesNotExist:
+            return HttpResponse('Album does not exist', status=404)
+        return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+    return HttpResponse('No album ID', status=500)
+
+
+def curator_update_my_album(request):
+    album_id = request.POST.get('albumId') or None
+    user_profile = request.get_user().profile
+    album_edit_form = CuratorAlbumEditForm(request.POST)
+    if album_id is not None and user_profile and album_edit_form.is_valid():
+        try:
+            album = Album.objects.get(pk=album_id, profile=user_profile)
+            album.name = album_edit_form.cleaned_data['name']
+            album.description = album_edit_form.cleaned_data['description']
+            album.save()
+            return HttpResponse('OK', status=200)
+        except ObjectDoesNotExist:
+            return HttpResponse('Album does not exist', status=404)
+    return HttpResponse('Faulty data', status=500)
 
 
 def curator_photo_upload_handler(request):
