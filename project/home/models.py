@@ -643,7 +643,13 @@ class GeoTag(models.Model):
         super(GeoTag, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return u'%s - %s - %s' % (self.photo.title[:50] or None, self.photo.description[:50] or None, self.user.fb_name)
+        title = None
+        desc = None
+        if self.photo.title:
+            title = self.photo.title[:50]
+        if self.photo.description:
+            desc = self.photo.description[:50]
+        return u'%s - %s - %s' % (title, desc, self.user.fb_name)
 
 
 class FacebookManager(models.Manager):
