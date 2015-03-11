@@ -394,9 +394,9 @@ class Photo(models.Model):
         image = image.transpose(Image.FLIP_LEFT_RIGHT)
         image.save(self.image.path, File(image), exif=exif)
 
-    def delete(self, *args, **kwargs):
-        self.image.delete()
-        super(Photo, self).delete(*args, **kwargs)
+    # def delete(self, *args, **kwargs):
+    #     self.image.delete()
+    #     super(Photo, self).delete(*args, **kwargs)
 
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
