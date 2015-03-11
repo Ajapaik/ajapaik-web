@@ -142,6 +142,12 @@
         return projection.fromPointToLatLng(edgePixelCoordinates);
     };
 
+    if (typeof String.prototype.startsWith !== 'function') {
+        String.prototype.startsWith = function (str) {
+            return this.indexOf(str) === 0;
+        };
+    }
+
     window.syncMapStateToURL = function () {
         var historyReplacementString = '/map/';
         if (currentlySelectedMarkerId) {
@@ -172,6 +178,9 @@
             historyReplacementString += '&limitToAlbum=1';
         } else {
             historyReplacementString += '&limitToAlbum=0';
+        }
+        if (historyReplacementString.startsWith('/map/&')) {
+            historyReplacementString = historyReplacementString.replace('&', '?');
         }
         window.History.replaceState(null, window.title, historyReplacementString);
     };
