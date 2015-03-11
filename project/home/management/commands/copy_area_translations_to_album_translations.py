@@ -12,10 +12,11 @@ class Command(BaseCommand):
         for a in areas:
             translation.activate('et')
             try:
-                matching_album = Album.objects.get(name=a.name)
-                for locale in settings.MODELTRANSLATION_LANGUAGES:
-                    translation.activate(locale)
-                    matching_album.name = a.name
-                    matching_album.save()
+                matching_albums = Album.objects.filer(name=a.name)
+                for ma in matching_albums:
+                    for locale in settings.MODELTRANSLATION_LANGUAGES:
+                        translation.activate(locale)
+                        ma.name = a.name
+                        ma.save()
             except ObjectDoesNotExist:
                 continue
