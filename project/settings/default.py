@@ -157,6 +157,7 @@ EXTERNAL_APPS = (
     'rest_framework',
     'compressor',
     'modeltranslation',
+    'django_cleanup',
 )
 
 LOCAL_APPS = (
