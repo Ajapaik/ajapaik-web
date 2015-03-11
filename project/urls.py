@@ -77,8 +77,8 @@ urlpatterns += patterns('',
    url(r'^', include(router.urls)),
    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')))
 
-handler500 = 'project.home.views.custom_500'
-handler404 = 'project.home.views.custom_404'
+# handler500 = 'project.home.views.custom_500'
+# handler404 = 'project.home.views.custom_404'
 
 #TODO: Why?
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
