@@ -40,6 +40,11 @@ class CuratorAlbumSelectionForm(forms.Form):
         super(CuratorAlbumSelectionForm, self).__init__(*args, **kwargs)
 
 
+class CuratorAlbumEditForm(forms.Form):
+    name = forms.CharField(max_length=255, required=True)
+    description = forms.CharField(max_length=2047, required=False)
+
+
 class AddAreaForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
     lat = forms.FloatField(required=True)
