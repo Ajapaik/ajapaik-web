@@ -745,8 +745,10 @@
         }
         if (window.getQueryParameterByName('limitToAlbum') == 1) {
             $('#ajapaik-mapview-show-only-album').prop('checked', true);
-        } else {
+        } else if (window.getQueryParameterByName('limitToAlbum') == 0) {
             $('#ajapaik-mapview-show-only-album').prop('checked', false);
+        } else {
+            $('#ajapaik-mapview-show-only-album').prop('checked', true);
         }
         window.preselectPhotoId = false;
         window.preselectRephotoId = false;
