@@ -661,16 +661,16 @@ def log_user_map_action(request):
     return HttpResponse("OK")
 
 
-def custom_404(request):
-    response = render_to_response('404.html', {}, context_instance=RequestContext(request))
-    response.status_code = 404
-    return response
-
-
-def custom_500(request):
-    response = render_to_response('500.html', {}, context_instance=RequestContext(request))
-    response.status_code = 500
-    return response
+# def custom_404(request):
+#     response = render_to_response('404.html', {}, context_instance=RequestContext(request))
+#     response.status_code = 404
+#     return response
+#
+#
+# def custom_500(request):
+#     response = render_to_response('500.html', {}, context_instance=RequestContext(request))
+#     response.status_code = 500
+#     return response
 
 
 def europeana(request):
