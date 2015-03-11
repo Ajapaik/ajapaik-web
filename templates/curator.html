@@ -83,8 +83,6 @@
                                             </span>
                                             <input class="form-control" type="text" id="ajapaik-curator-add-area-name">
                                         </div>
-                                        <input type="hidden" id="ajapaik-curator-add-area-lat">
-                                        <input type="hidden" id="ajapaik-curator-add-area-lon">
                                     </div>
                                 </div>
                             </div>
@@ -211,18 +209,25 @@
                     buildSelectionDiv();
                 }
             });
-            var input = document.getElementById('ajapaik-curator-add-area-name');
+            var input = document.getElementById('ajapaik-curator-add-area-name'),
+                $input = $(input);
             if (input) {
                 var options = {
                     types: ['geocode'],
                     componentRestrictions: {country: 'ee'}
                 };
                 var autocomplete = new window.google.maps.places.Autocomplete(input, options);
+                $input.bind('blur', function () {
+                    $input.css('color', '#fff');
+                });
                 window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
                     var place = autocomplete.getPlace();
                     $('#ajapaik-curator-add-area-name').val(place.name);
                     areaLat = place.geometry.location.lat();
                     areaLng = place.geometry.location.lng();
+                    setTimeout(function () {
+                        $input.css('color', '');
+                    }, 0)
                 });
             }
             loadMyAlbums();
