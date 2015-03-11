@@ -153,6 +153,13 @@
         if (window.albumId) {
             historyReplacementString += '?album=' + window.albumId;
         }
+        if (window.areaId) {
+            if (!window.albumId) {
+                historyReplacementString += '?area=' + window.areaId;
+            } else {
+                historyReplacementString += '&area=' + window.areaId;
+            }
+        }
         if (window.map) {
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
             historyReplacementString += '&lng=' + window.map.getCenter().lng();
