@@ -624,8 +624,6 @@ def fetch_stream(request):
         album = Album.objects.get(pk=game_album_selection_form.cleaned_data['album'].id)
 
     qs = Photo.objects.filter()
-    if area is not None:
-        qs = qs.filter(area_id=area.id)
 
     if album is not None:
         photos_ids_in_album = list(album.photos.values_list('id', flat=True))
@@ -634,8 +632,10 @@ def fetch_stream(request):
             for sa in subalbums:
                 photos_ids_in_subalbum = list(sa.photos.values_list('id', flat=True))
                 photos_ids_in_album += photos_ids_in_subalbum
-        print photos_ids_in_album
         qs = qs.filter(pk__in=photos_ids_in_album)
+    else:
+        if area is not None:
+            qs = qs.filter(area_id=area.id)
 
     # TODO: [0][0] Wtf?
     data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
