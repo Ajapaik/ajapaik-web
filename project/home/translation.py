@@ -1,5 +1,5 @@
 from modeltranslation.translator import translator, TranslationOptions
-from project.home.models import Photo, Area
+from project.home.models import Photo, Area, Album
 
 
 class PhotoTranslationOptions(TranslationOptions):
@@ -8,5 +8,9 @@ class PhotoTranslationOptions(TranslationOptions):
 class AreaTranslationOptions(TranslationOptions):
     fields = ('name',)
 
+class AlbumTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
 translator.register(Photo, PhotoTranslationOptions)
 translator.register(Area, AreaTranslationOptions)
+translator.register(Album, AlbumTranslationOptions)
