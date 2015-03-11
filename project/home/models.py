@@ -205,11 +205,16 @@ class Photo(models.Model):
         app_label = "project"
 
     class QuerySet(models.query.QuerySet):
-        def get_album_photo_count_and_total_geotag_count(self, album_id=None):
+        def get_album_photo_count_and_total_geotag_count(self, album_id=None, area_id=None):
             if album_id is not None:
                 album_photos = Album.objects.get(pk=album_id).photos
                 ungeotagged_qs = album_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
                 geotagged_qs = album_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+                return ungeotagged_qs.count(), geotagged_qs.count()
+            elif area_id is not None:
+                area_photos = Photo.objects.filter(area_id=area_id)
+                ungeotagged_qs = area_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
+                geotagged_qs = area_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
                 return ungeotagged_qs.count(), geotagged_qs.count()
             return None, None
 

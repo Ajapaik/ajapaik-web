@@ -164,7 +164,7 @@ def photo_upload(request, photo_id):
                 re_photo = Photo(
                     rephoto_of=photo,
                     area=photo.area,
-                    licene=Licence.objects.get(name='Attribution-ShareAlike 4.0 International'),
+                    licence=Licence.objects.get(name='Attribution-ShareAlike 4.0 International'),
                     description=data.get('description', photo.description),
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
@@ -176,8 +176,11 @@ def photo_upload(request, photo_id):
                     cam_roll=data.get('roll'),
                 )
                 if date_taken is not None:
-                    parsed_date_taken = strptime(date_taken, "%d.%m.%Y %H:%M")
-                    re_photo.date = strftime("%Y-%m-%d %H:%M", parsed_date_taken)
+                    try:
+                        parsed_date_taken = strptime(date_taken, "%d.%m.%Y %H:%M")
+                        re_photo.date = strftime("%Y-%m-%d %H:%M", parsed_date_taken)
+                    except:
+                        pass
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
@@ -516,6 +519,7 @@ def map_objects_by_bounding_box(request):
     data = request.POST
 
     album_id = data.get('album_id') or None
+    area_id = data.get('area_id') or None
     limit_by_album = json.loads(data.get('limit_by_album')) or None
 
     qs = Photo.objects.all()
@@ -523,15 +527,17 @@ def map_objects_by_bounding_box(request):
     ungeotagged_count = 0
     geotagged_count = 0
     if album_id is not None:
-        ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album_id)
+        ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album_id, area_id)
         if limit_by_album:
             album_photo_ids = Album.objects.get(pk=album_id).photos.values_list('id', flat=True)
             qs = qs.filter(id__in=album_photo_ids)
 
-    bounding_box = (float(data.get('sw_lat')), float(data.get('sw_lon')), float(data.get('ne_lat')), float(data.get('ne_lon')))
-
-    data = qs.get_geotagged_photos_list(bounding_box)
-    data = {'photos': data, 'geotagged_count': geotagged_count, 'ungeotagged_count': ungeotagged_count}
+    if data.get('sw_lat') and data.get('sw_lon') and data.get('ne_lat') and data.get('ne_lon'):
+        bounding_box = (float(data.get('sw_lat')), float(data.get('sw_lon')), float(data.get('ne_lat')), float(data.get('ne_lon')))
+        data = qs.get_geotagged_photos_list(bounding_box)
+        data = {'photos': data, 'geotagged_count': geotagged_count, 'ungeotagged_count': ungeotagged_count}
+    else:
+        data = {'photos': [], 'geotagged_count': 0, 'ungeotagged_count': 0}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
@@ -622,6 +628,9 @@ def fetch_stream(request):
 
     if album is not None:
         photos_ids_in_album = album.photos.values_list('id', flat=True)
+        if len(album.subalbums.all()) > 0:
+            for sa in album.subalbums.all():
+                photos_ids_in_album.append(sa.photos.values_list('id', flat=True))
         qs = qs.filter(pk__in=photos_ids_in_album)
 
     # TODO: [0][0] Wtf?
@@ -635,6 +644,8 @@ def difficulty_feedback(request):
     # TODO: Tighten down security when it becomes apparent people are abusing this
 
     user_profile = request.get_user().profile
+    if not user_profile:
+        return HttpResponse("Error", status=500)
     user_trustworthiness = get_next_photos_to_geotag.calc_trustworthiness(user_profile.pk)
     user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
     level = request.POST.get("level") or None

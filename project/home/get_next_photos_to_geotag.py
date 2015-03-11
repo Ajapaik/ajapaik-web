@@ -16,7 +16,10 @@ def calc_trustworthiness(user_id):
     return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
 
 def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None, azimuth_line_end_point=None, origin=GeoTag.GAME):
-    p = Photo.objects.get(pk=photo_id)
+    try:
+        p = Photo.objects.get(pk=photo_id)
+    except ObjectDoesNotExist:
+        return False, False, 0, "Photo does not exist", [], 0, [], 0
 
     location_correct = False
     location_uncertain = False
