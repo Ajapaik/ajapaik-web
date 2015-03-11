@@ -71,7 +71,7 @@ class Album(models.Model):
         (AUTO, 'Auto')
     )
     name = models.CharField(max_length=255)
-    slug = models.SlugField(null=True, blank=True)
+    slug = models.SlugField(null=True, blank=True, max_length=255)
     description = models.TextField(null=True, blank=True)
     subalbum_of = models.ForeignKey('self', blank=True, null=True, related_name='subalbums')
 
@@ -154,8 +154,8 @@ class Photo(models.Model):
 
     id = models.AutoField(primary_key=True)
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
-    image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
+    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True, max_length=255)
+    image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True, max_length=255)
     height = models.IntegerField(null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
     flip = models.NullBooleanField()

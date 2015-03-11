@@ -441,7 +441,7 @@ def photoslug(request, photo_id, pseudo_slug):
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
         'title': title,
-        'description': photo_obj.description,
+        'description': photo_obj.description.rstrip(),
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, ),
         'is_photoview': True
