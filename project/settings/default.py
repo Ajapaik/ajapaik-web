@@ -100,6 +100,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -184,3 +185,6 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL

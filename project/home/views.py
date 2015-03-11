@@ -424,8 +424,8 @@ def photoslug(request, photo_id, pseudo_slug):
 
     album = None
     try:
-        ap = AlbumPhoto.objects.filter(photo_id=photo_obj.id)[0]
-        album = Album.objects.get(pk=ap.album_id)
+        album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
+        album = Album.objects.filter(pk__in=album_ids, is_public=True)
     except:
         pass
 
@@ -441,7 +441,7 @@ def photoslug(request, photo_id, pseudo_slug):
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
         'title': title,
-        'description': photo_obj.description,
+        'description': photo_obj.description.rstrip(),
         'rephoto': rephoto,
         'hostname': 'http://%s' % (site.domain, ),
         'is_photoview': True
@@ -984,7 +984,7 @@ def curator_photo_upload_handler(request):
                                 user=profile,
                                 area=area,
                                 author=upload_form.cleaned_data["creators"],
-                                description=upload_form.cleaned_data["title"],
+                                description=upload_form.cleaned_data["title"].rstrip(),
                                 source=source,
                                 types=upload_form.cleaned_data["types"],
                                 date_text=upload_form.cleaned_data["date"],
