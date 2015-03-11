@@ -496,7 +496,7 @@
             }
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
-            currentMapDataRequest = $.post('/map_data/', { album_id: window.albumId, limit_by_album: $('#ajapaik-mapview-show-only-album').is(':checked'), sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+            currentMapDataRequest = $.post('/map_data/', { album_id: window.albumId, area_id: window.areaId, limit_by_album: $('#ajapaik-mapview-show-only-album').is(':checked'), sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (mc) {
                     mc.clearMarkers();
                 }
