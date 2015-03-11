@@ -269,17 +269,18 @@ var map,
                     window._gaq.push(['_trackEvent', 'Game', 'Opened Street View']);
                 } else {
                     window._gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
+                    $('#ajapaik-mapview-photo-panel').hide();
                 }
                 // Currently we are not displaying the save button when Street View is open
                 saveLocationButton.hide();
                 //$('#ajapaik-map-button-container').show();
                 $('.ajapaik-close-streetview-button').show();
             } else {
-                //if (!guessLocationStarted) {
-                //    $('#ajapaik-map-button-container').hide();
-                //} else {
-                //    $('#ajapaik-map-button-container').show();
-                //}
+                if (!guessLocationStarted) {
+                    $('#ajapaik-mapview-photo-panel').show();
+                } else {
+
+                }
                 $('.ajapaik-close-streetview-button').hide();
                 saveLocationButton.show();
             }

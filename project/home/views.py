@@ -636,7 +636,7 @@ def difficulty_feedback(request):
 
     user_profile = request.get_user().profile
     if not user_profile:
-        return HttpResponse("Error", 500)
+        return HttpResponse("Error", status=500)
     user_trustworthiness = get_next_photos_to_geotag.calc_trustworthiness(user_profile.pk)
     user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
     level = request.POST.get("level") or None
