@@ -12,7 +12,7 @@ class Command(BaseCommand):
         for a in areas:
             translation.activate('et')
             try:
-                matching_albums = Album.objects.filer(name=a.name)
+                matching_albums = Album.objects.filter(name=a.name)
                 for ma in matching_albums:
                     for locale in settings.MODELTRANSLATION_LANGUAGES:
                         translation.activate(locale)
