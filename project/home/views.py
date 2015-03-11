@@ -526,9 +526,9 @@ def map_objects_by_bounding_box(request):
 
     ungeotagged_count = 0
     geotagged_count = 0
-    if album_id is not None:
+    if album_id is not None or area_id is not None:
         ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album_id, area_id)
-        if limit_by_album:
+        if album_id and limit_by_album:
             album_photo_ids = Album.objects.get(pk=album_id).photos.values_list('id', flat=True)
             qs = qs.filter(id__in=album_photo_ids)
 
