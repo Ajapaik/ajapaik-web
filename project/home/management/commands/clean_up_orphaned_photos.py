@@ -11,6 +11,6 @@ class Command(BaseCommand):
         for p in photos:
             try:
                 if p.image.file:
-                    continue
+                    pass
             except IOError:
                 print p.id
