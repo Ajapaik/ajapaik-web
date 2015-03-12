@@ -1122,12 +1122,13 @@ ul.errorlist {
 #ajapaik-tutorial-js-panel {
     z-index: 10000;
     max-width: 50%;
-    margin-top: 70px;
+    margin-top: 50px;
 }
 
 @media (max-width: 767px) {
     #ajapaik-tutorial-js-panel {
         max-width: 100%;
+        margin-top: 100px;
     }
 }
 
