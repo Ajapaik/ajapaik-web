@@ -1443,3 +1443,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #ajapaik-curator-results-tab-tab {
     z-index: 1032 !important;
 }
+
+#ajapaik-game-close-game-modal {
+    z-index: 2000 !important;
+}
