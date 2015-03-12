@@ -264,8 +264,7 @@
                 $input = $(input);
             if (input) {
                 var options = {
-                    types: ['geocode'],
-                    componentRestrictions: {country: 'ee'}
+                    types: ['geocode']
                 };
                 var autocomplete = new window.google.maps.places.Autocomplete(input, options);
                 $input.bind('blur', function () {
