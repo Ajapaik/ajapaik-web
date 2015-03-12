@@ -8,7 +8,6 @@
     window.gettext('Description');
     window.gettext('Author');
     window.gettext('Source');
-    window.gettext('Source URL');
     window.gettext('Size');
     window.gettext('Institution');
     window.gettext('Number');
@@ -20,4 +19,5 @@
     window.gettext('System error');
     window.gettext('Not selected');
     window.gettext('photos');
+    window.gettext('Source ID');
 }());

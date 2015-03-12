@@ -83,6 +83,9 @@ class Album(models.Model):
 
     photos = models.ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
 
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
+
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -91,14 +94,6 @@ class Album(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.name
-
-    # def save(self, *args, **kwargs):
-    #     # Update POSTGIS data on save
-    #     try:
-    #         self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
-    #     except:
-    #         pass
-    #     super(Album, self).save(*args, **kwargs)
 
 
 class AlbumPhoto(models.Model):
@@ -370,7 +365,7 @@ class Photo(models.Model):
                 request.session.modified = True
             if len(ret) == 0:
                 random_photo = self._get_game_json_format_photo(album_photos_set.order_by("?")[:1].get(), distance_between_photos)
-                return [random_photo], True, True
+                return [random_photo], False, False
             return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
         def get_old_photos_for_grid_view(self, start, end):
@@ -447,6 +442,22 @@ class Photo(models.Model):
             self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         except:
             pass
+        # Calculate average coordinates for album
+        album_ids = set(AlbumPhoto.objects.filter(photo_id=self.id).values_list('album_id', flat=True))
+        albums = Album.objects.filter(id__in=album_ids).all()
+        for a in albums:
+            photos_with_location = a.photos.filter(lat__isnull=False, lon__isnull=False).all()
+            lat = 0
+            lon = 0
+            count = 0
+            for p in photos_with_location:
+                lat += p.lat
+                lon += p.lon
+                count += 1
+            if lat > 0 and lon > 0 and count > 0:
+                a.lat = lat / count
+                a.lon = lon / count
+                a.save()
         super(Photo, self).save(*args, **kwargs)
 
     def set_calculated_fields(self):
@@ -740,7 +751,10 @@ class Profile(models.Model):
         self.fb_name = data.get("name")
         self.fb_link = data.get("link")
         self.fb_email = data.get("email")
-        self.fb_birthday = datetime.datetime.strptime(data.get("birthday"), '%m/%d/%Y')
+        try:
+            self.fb_birthday = datetime.datetime.strptime(data.get("birthday"), '%m/%d/%Y')
+        except TypeError:
+            pass
         location = data.get("location")
         if location is not None and "name" in location:
             self.fb_current_location = location["name"]

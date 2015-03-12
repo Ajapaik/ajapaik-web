@@ -814,6 +814,14 @@
             window.location.href = '/game?album=' + window.albumId;
         });
 
+        $(document).on('click', '#ajapaik-mapview-my-location-button', function () {
+            window.getGeolocation();
+        });
+
+        window.handleGeolocation = function (location) {
+            window.map.setCenter(new window.google.maps.LatLng(location.coords.latitude, location.coords.longitude));
+        };
+
         window.saveLocationButton.on('click', function () {
             $('.ajapaik-marker-center-lock-button').hide();
             window.setCursorToAuto();

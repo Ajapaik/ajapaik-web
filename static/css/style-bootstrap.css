@@ -1075,6 +1075,10 @@ ul.errorlist {
     display: none;
 }
 
+#ajapaik-curator-load-more-row {
+    display: none;
+}
+
 .ajapaik-comments-row {
     padding-top: 100px;
     min-height: 400px;
@@ -1346,6 +1350,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     background: url(../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center center;
 }
 
+.ajapaik-icon-my-location {
+    background: url(../images/material-design-icons/ic_my_location_24px.svg) no-repeat center center;
+}
+
 .ajapaik-icon-flip {
     background: url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center center;
 }
@@ -1414,6 +1422,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-mapview-game-button {
     margin-bottom: 6%;
     margin-right: 6%;
+}
+
+#ajapaik-mapview-my-location-button {
+    margin-top: 10px;
 }
 
 @media (max-width: 767px) {

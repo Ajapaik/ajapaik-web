@@ -222,7 +222,11 @@ def logout(request):
     from django.contrib.auth import logout
 
     logout(request)
-    return redirect(request.META['HTTP_REFERER'])
+
+    if 'HTTP_REFERER' in request.META:
+        return redirect(request.META['HTTP_REFERER'])
+
+    return redirect('/')
 
 
 def calculate_recent_activity_scores():
@@ -530,7 +534,12 @@ def map_objects_by_bounding_box(request):
     if album_id is not None or area_id is not None:
         ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album_id, area_id)
         if album_id and limit_by_album:
-            album_photo_ids = Album.objects.get(pk=album_id).photos.values_list('id', flat=True)
+            album = Album.objects.get(pk=album_id)
+            album_photo_ids = list(album.photos.values_list('id', flat=True))
+            #subalbums = album.subalbums.filter(is_public=True).all()
+            subalbums = album.subalbums.all()
+            for sa in subalbums:
+                album_photo_ids += sa.photos.values_list('id', flat=True)
             qs = qs.filter(id__in=album_photo_ids)
 
     if data.get('sw_lat') and data.get('sw_lon') and data.get('ne_lat') and data.get('ne_lon'):
@@ -627,6 +636,7 @@ def fetch_stream(request):
 
     if album is not None:
         photos_ids_in_album = list(album.photos.values_list('id', flat=True))
+        #subalbums = album.subalbums.filter(is_public=True).all()
         subalbums = album.subalbums.all()
         if len(subalbums) > 0:
             for sa in subalbums:
@@ -638,8 +648,11 @@ def fetch_stream(request):
             qs = qs.filter(area_id=area.id)
 
     # TODO: [0][0] Wtf?
-    data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
-            "nothing_more_to_show": qs.get_next_photo_to_geotag(request)[2]}
+    try:
+        data = {"photo": qs.get_next_photo_to_geotag(request)[0][0], "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
+                "nothing_more_to_show": qs.get_next_photo_to_geotag(request)[2]}
+    except IndexError:
+        data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 

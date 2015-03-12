@@ -126,7 +126,9 @@ var map,
     comingBackFromGuessLocation = false,
     hideUnlockedAzimuth,
     showUnlockedAzimuth,
-    mapviewGameButton;
+    mapviewGameButton,
+    getGeolocation,
+    myLocationButton;
 
 (function ($) {
     'use strict';
@@ -235,6 +237,9 @@ var map,
             mapviewGameButton = document.createElement('button');
             $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button').html(window.gettext('Geotagging game'));
             map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
+            myLocationButton = document.createElement('button');
+            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+            map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
         }
 
 
@@ -424,6 +429,12 @@ var map,
                 $(this).hide();
             }
         });
+    };
+
+    getGeolocation = function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(window.handleGeolocation);
+        }
     };
 
     showScoreboard = function () {

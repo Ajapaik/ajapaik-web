@@ -40,6 +40,8 @@
 		if (window.location.hash && window.location.hash != '#_=_' && $("a[href="+window.location.hash+"]").length) {
 			$("a[href="+window.location.hash+"]").click();
 		}
+
+        window.getGeolocation();
 	});
 
 </script>
@@ -149,7 +151,15 @@ p {
 		</div>
 
 		<div>
-			{{ album_selection_form.as_p }}
+            <p>
+                {{ album_selection_form.non_field_errors }}
+                <label for="id_album">{% trans "Choose album" %}</label>
+                <select id="id_album" name="album">
+                    {% for album in album_selection_form.album.field.queryset %}
+                        <option value="{{ album.id }}" data-lat="{{ album.lat }}" data-lon="{{ album.lon }}">{{ album.name }}</option>
+                    {% endfor %}
+                </select>
+            </p>
 		</div>
 
 {#		<div>#}
