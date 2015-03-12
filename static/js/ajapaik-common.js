@@ -128,7 +128,9 @@ var map,
     showUnlockedAzimuth,
     mapviewGameButton,
     getGeolocation,
-    myLocationButton;
+    myLocationButton,
+    distanceOnSphere,
+    sortAlbumSelection;
 
 (function ($) {
     'use strict';
@@ -252,6 +254,25 @@ var map,
             }
             map.setCenter(places[0].geometry.location);
         });
+
+        if (typeof(Number.prototype.toRadians) === 'undefined') {
+            Number.prototype.toRadians = function () {
+                return this * Math.PI / 180;
+            };
+        }
+
+        distanceOnSphere = function (lat1, lon1, lat2, lon2) {
+            var R = 6371,
+                p1 = Number(lat1).toRadians(),
+                p2 = Number(lat2).toRadians(),
+                dp = Number((lat2 - lat1)).toRadians(),
+                dl = Number((lon2 - lon1)).toRadians(),
+                a = Math.sin(dp / 2) * Math.sin(dp / 2) +
+                        Math.cos(p1) * Math.cos(p2) *
+                        Math.sin(dl / 2) * Math.sin(dl / 2),
+                c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        };
 
         window.google.maps.event.addListener(map, 'bounds_changed', function () {
             var bounds = map.getBounds();
@@ -435,6 +456,22 @@ var map,
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(window.handleGeolocation);
         }
+    };
+
+    sortAlbumSelection = function (location) {
+        var select = $('#id_album'),
+            selectList = select.find('option');
+        selectList.sort(function(a, b) {
+            if (a.dataset.lat === 'None') {
+                return 1;
+            } else if (b.dataset.lat === 'None') {
+                return -1;
+            }
+            var aDist = window.distanceOnSphere(a.dataset.lat, a.dataset.lon, location.coords.latitude, location.coords.longitude),
+                bDist = window.distanceOnSphere(b.dataset.lat, b.dataset.lon, location.coords.latitude, location.coords.longitude);
+            return aDist - bDist;
+        });
+        select.html(selectList);
     };
 
     showScoreboard = function () {

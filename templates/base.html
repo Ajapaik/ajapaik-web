@@ -87,7 +87,7 @@
         if (typeof(Number.prototype.toRadians) === 'undefined') {
             Number.prototype.toRadians = function () {
                 return this * Math.PI / 180;
-            }
+            };
         }
         var isMobile = '{{ request.mobile }}',
             getGeolocation = function getLocation() {
@@ -96,11 +96,6 @@
                 }
             },
             distanceOnSphere = function (lat1, lon1, lat2, lon2) {
-                console.log("input");
-                console.log(lat1);
-                console.log(lon1);
-                console.log(lat2);
-                console.log(lon2);
                 var R = 6371,
                     p1 = Number(lat1).toRadians(),
                     p2 = Number(lat2).toRadians(),
@@ -110,7 +105,6 @@
                             Math.cos(p1) * Math.cos(p2) *
                             Math.sin(dl / 2) * Math.sin(dl / 2),
                     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                console.log(R * c);
                 return R * c;
             };
         window.handleGeolocation = function (location) {

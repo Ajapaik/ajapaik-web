@@ -213,6 +213,9 @@
             fullscreenPhotoElement.addClass('ajapaik-photo-flipped');
         }
     };
+    window.handleGeolocation = function (location) {
+        window.sortAlbumSelection(location);
+    };
     // TODO: Lots of duplicate code in this function in every mode (map, grid, game)
     window.handleGuessResponse = function (guessResponse) {
         window.guessResponseReceived = true;
@@ -344,6 +347,7 @@
         window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             window.disableSave = false;
         });
+        window.getGeolocation();
         $(window.input).show();
         $.jQee('space', function () {
             if (window.fullscreenEnabled) {
