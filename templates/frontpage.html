@@ -40,6 +40,8 @@
 		if (window.location.hash && window.location.hash != '#_=_' && $("a[href="+window.location.hash+"]").length) {
 			$("a[href="+window.location.hash+"]").click();
 		}
+
+        window.getGeolocation();
 	});
 
 </script>
@@ -149,7 +151,9 @@ p {
 		</div>
 
 		<div>
-			{{ album_selection_form.as_p }}
+            <p>
+                {% include "_album_selection_form.html" %}
+            </p>
 		</div>
 
 {#		<div>#}

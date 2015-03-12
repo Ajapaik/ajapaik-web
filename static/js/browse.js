@@ -82,7 +82,8 @@
             removeHeader: true,
             overflow: { horizontal: 'hidden', vertical: 'auto' },
             id: 'ajapaik-mapview-photo-panel'
-        };
+        },
+        centerOnMapAfterLocating = false;
         //guessPhotoPanelSettings = {
         //    selector: '#ajapaik-map-container',
         //    controls: {buttons: false},
@@ -813,6 +814,22 @@
         $(document).on('click', '.ajapaik-mapview-game-button', function () {
             window.location.href = '/game?album=' + window.albumId;
         });
+
+        $(document).on('click', '#ajapaik-mapview-my-location-button', function () {
+            window.getGeolocation();
+            centerOnMapAfterLocating = true;
+        });
+
+        window.handleGeolocation = function (location) {
+            if (centerOnMapAfterLocating) {
+                window.map.setCenter(new window.google.maps.LatLng(location.coords.latitude, location.coords.longitude));
+                centerOnMapAfterLocating = false;
+            } else {
+                window.sortAlbumSelection(location);
+            }
+        };
+
+        window.getGeolocation();
 
         window.saveLocationButton.on('click', function () {
             $('.ajapaik-marker-center-lock-button').hide();
