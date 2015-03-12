@@ -1122,7 +1122,7 @@ ul.errorlist {
 #ajapaik-tutorial-js-panel {
     z-index: 10000;
     max-width: 50%;
-    margin-top: 50px;
+    margin-top: 70px;
 }
 
 @media (max-width: 767px) {
@@ -1425,7 +1425,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 #ajapaik-mapview-my-location-button {
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 @media (max-width: 767px) {
