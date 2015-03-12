@@ -643,6 +643,10 @@ a.fullscreen {
     z-index: 1005;
 }
 
+#ajapaik-game-photo-modal .modal-dialog {
+    padding-top: 50px;
+}
+
 #ajapaik-game-modal-photo-container img {
     margin: 0 auto;
 }
