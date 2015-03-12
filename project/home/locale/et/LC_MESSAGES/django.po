@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-11 18:11+0200\n"
+"POT-Creation-Date: 2015-03-12 17:26+0200\n"
 "PO-Revision-Date: 2015-03-10 15:41+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -21,6 +21,7 @@ msgid "Choose area"
 msgstr "Vali koht"
 
 #: project/home/forms.py:17 project/home/forms.py:24 project/home/forms.py:35
+#: templates/_album_selection_form.html:4
 msgid "Choose album"
 msgstr "Vali album"
 
@@ -60,56 +61,56 @@ msgstr "Selle pildi puhul ei ole asukoht veel selgeks saanud."
 msgid "Other users have different opinion."
 msgstr "Teised kasutajad on teisiti arvanud."
 
-#: project/home/views.py:274
+#: project/home/views.py:278
 msgid "Put pictures on the map"
 msgstr "Pane pildid kaardile"
 
-#: project/home/views.py:494 project/home/views.py:503
-#: project/home/views.py:505 templates/frontpage.html:161
+#: project/home/views.py:498 project/home/views.py:507
+#: project/home/views.py:509 templates/frontpage.html:165
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:592 project/home/views.py:606
-#: templates/_header_area_selection_scoreboard.html:28
+#: project/home/views.py:601 project/home/views.py:615
+#: templates/_header_area_selection_scoreboard.html:30
 msgid "Leaderboard"
 msgstr "Edetabel"
 
-#: project/home/views.py:829
+#: project/home/views.py:845
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr "Ajapaik - lae oma fotosid"
 
-#: project/home/views.py:836
+#: project/home/views.py:852
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Ajapaiga kuraator"
 
-#: project/home/views.py:1054
+#: project/home/views.py:1070
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1056
+#: project/home/views.py:1072
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1079 project/home/views.py:1190
+#: project/home/views.py:1095 project/home/views.py:1206
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/home/views.py:1088
+#: project/home/views.py:1104
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: project/home/views.py:1095
+#: project/home/views.py:1111
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#: project/home/views.py:1197
+#: project/home/views.py:1213
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1215
+#: project/home/views.py:1231
 msgid "Invalid form data"
 msgstr ""
 
@@ -230,27 +231,27 @@ msgstr "Sulge Street View"
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
-#: templates/_header_area_selection_scoreboard.html:14
+#: templates/_header_area_selection_scoreboard.html:16
 msgid "Limit to album"
 msgstr "Näita kaardil ainult valitud albumi pilte"
 
-#: templates/_header_area_selection_scoreboard.html:39
+#: templates/_header_area_selection_scoreboard.html:41
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
 msgstr "Kasutaja"
 
-#: templates/_header_area_selection_scoreboard.html:39
+#: templates/_header_area_selection_scoreboard.html:41
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:14
 msgid "Log out"
 msgstr "Logi välja"
 
-#: templates/_header_area_selection_scoreboard.html:44
+#: templates/_header_area_selection_scoreboard.html:46
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/_header_area_selection_scoreboard.html:45
-#: templates/_photo_upload_modal.html:36 templates/curator.html:242
+#: templates/_header_area_selection_scoreboard.html:47
+#: templates/_photo_upload_modal.html:36 templates/curator.html:247
 #: templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
@@ -428,7 +429,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:95 templates/base_bootstrap.html:79
+#: templates/base.html:132 templates/base_bootstrap.html:79
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -540,19 +541,25 @@ msgstr "Täisotsing"
 msgid "Search!"
 msgstr "Otsi!"
 
-#: templates/curator.html:200 templates/curator.html.py:210
+#: templates/curator.html:200 templates/curator.html.py:215
 msgid "Load more"
 msgstr "Lae rohkem tulemusi"
 
-#: templates/curator.html:219
+#: templates/curator.html:205
+#, fuzzy
+#| msgid "Selected albums:"
+msgid "Select all"
+msgstr "Valitud album(id):"
+
+#: templates/curator.html:224
 msgid "Clear selection"
 msgstr "Tühista valik"
 
-#: templates/curator.html:224
+#: templates/curator.html:229
 msgid "Submit to Ajapaik"
 msgstr "Saada Ajapaika"
 
-#: templates/curator.html:241
+#: templates/curator.html:246
 msgid "Curating requires connecting your account with Facebook."
 msgstr "Vanade fotode kureerimiseks ühenda konto kõigepealt Facebookiga."
 
@@ -560,15 +567,15 @@ msgstr "Vanade fotode kureerimiseks ühenda konto kõigepealt Facebookiga."
 msgid "Choose language"
 msgstr "Vali keel"
 
-#: templates/frontpage.html:88
+#: templates/frontpage.html:90
 msgid "Where is history located?"
 msgstr "Kus ajalugu asub?"
 
-#: templates/frontpage.html:89
+#: templates/frontpage.html:91
 msgid "Discover, geotag and make the rephoto."
 msgstr "Uuri, avasta, märgi kaardil ja pildista üle."
 
-#: templates/frontpage.html:92
+#: templates/frontpage.html:94
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
@@ -576,23 +583,23 @@ msgstr ""
 "Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et "
 "oleks põnevam, siis võistled kõigi teiste osalejatega."
 
-#: templates/frontpage.html:94
+#: templates/frontpage.html:96
 msgid "Read more"
 msgstr "Loe lähemalt"
 
-#: templates/frontpage.html:160
+#: templates/frontpage.html:164
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: templates/frontpage.html:167
+#: templates/frontpage.html:171
 msgid "Upload photos yourself"
 msgstr "Lae ise vanu fotosid"
 
-#: templates/frontpage.html:170
+#: templates/frontpage.html:174
 msgid "Curate content"
 msgstr "Kureeri sisu"
 
-#: templates/frontpage.html:177
+#: templates/frontpage.html:181
 msgid "View gallery"
 msgstr ""
 
