@@ -49,8 +49,10 @@
                 <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
             {% endfor %}
         {% endif %}
-        {% if curator_random_image %}
-                <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' curator_random_image.id %}"/>
+        {% if curator_random_images %}
+            {% for each in curator_random_images %}
+                <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' each.id %}"/>
+            {% endfor %}
         {% endif %}
         <meta property="og:locale" content="et_EE"/>
         <meta property="og:locale:alternate" content="ru_RU"/>
