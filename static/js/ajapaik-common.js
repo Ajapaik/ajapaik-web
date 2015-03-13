@@ -255,25 +255,6 @@ var map,
             map.setCenter(places[0].geometry.location);
         });
 
-        if (typeof(Number.prototype.toRadians) === 'undefined') {
-            Number.prototype.toRadians = function () {
-                return this * Math.PI / 180;
-            };
-        }
-
-        distanceOnSphere = function (lat1, lon1, lat2, lon2) {
-            var R = 6371,
-                p1 = Number(lat1).toRadians(),
-                p2 = Number(lat2).toRadians(),
-                dp = Number((lat2 - lat1)).toRadians(),
-                dl = Number((lon2 - lon1)).toRadians(),
-                a = Math.sin(dp / 2) * Math.sin(dp / 2) +
-                        Math.cos(p1) * Math.cos(p2) *
-                        Math.sin(dl / 2) * Math.sin(dl / 2),
-                c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return R * c;
-        };
-
         window.google.maps.event.addListener(map, 'bounds_changed', function () {
             var bounds = map.getBounds();
             searchBox.setBounds(bounds);
@@ -359,6 +340,19 @@ var map,
 
     Math.radians = function (degrees) {
         return degrees * Math.PI / 180;
+    };
+
+    distanceOnSphere = function (lat1, lon1, lat2, lon2) {
+        var R = 6371,
+            p1 = Math.radians(lat1),
+            p2 = Math.radians(lat2),
+            dp = Math.radians(lat2 - lat1),
+            dl = Math.radians(lon2 - lon1),
+            a = Math.sin(dp / 2) * Math.sin(dp / 2) +
+                    Math.cos(p1) * Math.cos(p2) *
+                    Math.sin(dl / 2) * Math.sin(dl / 2),
+            c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
     };
 
     Math.calculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {

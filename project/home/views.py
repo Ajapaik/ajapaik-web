@@ -223,8 +223,8 @@ def logout(request):
 
     logout(request)
 
-    #if 'HTTP_REFERER' in request.META:
-        #return redirect(request.META['HTTP_REFERER'])
+    if 'HTTP_REFERER' in request.META:
+        return redirect(request.META['HTTP_REFERER'])
 
     return redirect('/')
 
@@ -437,6 +437,8 @@ def photoslug(request, photo_id, pseudo_slug):
     except:
         pass
 
+    album_selection_form = AlbumSelectionForm()
+
     #if photo_obj.area:
         #area_selection_form = AreaSelectionForm({'area': photo_obj.area.id})
 
@@ -445,6 +447,7 @@ def photoslug(request, photo_id, pseudo_slug):
         'licence': Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         'area': photo_obj.area,
         'album': album,
+        'album_selection_form': album_selection_form,
         #'area_selection_form': area_selection_form,
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
