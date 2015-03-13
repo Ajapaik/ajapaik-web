@@ -128,11 +128,11 @@
         <img id="ajapaik-full-screen-image" src="{{ fullscreen.url }}"/>
     </div>
 </div>
-<div class="full-box">
+{% comment %}<div class="full-box">
     <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
         <img id="ajapaik-rephoto-full-screen-image" src="{{ rephoto_fullscreen.url }}"/>
     </div>
-</div>
+</div>{% endcomment %}
 <script>
     var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
         hostname = '{{ hostname }}',
@@ -225,7 +225,6 @@
             }
         });
         $(document).on('click', '#ajapaik-full-screen-link', function (e) {
-            console.log("original fullscreen");
             e.preventDefault();
             if (BigScreen.enabled) {
                 BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
@@ -233,15 +232,14 @@
                 window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
             }
         });
-        $(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
-            console.log("rephoto fullscreen");
+        {% comment %}$(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
             e.preventDefault();
             if (BigScreen.enabled) {
                 BigScreen.request($('#ajapaik-rephoto-fullscreen-image-container')[0]);
                 window.fullscreenEnabled = true;
                 window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
             }
-        });
+        });{% endcomment %}
         $(document).on('click', '#ajapaik-show-rephoto-selection-overlay-button', function () {
             $(this).hide();
             window.userClosedRephotoTools = false;
