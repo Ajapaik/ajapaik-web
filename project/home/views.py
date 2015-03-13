@@ -433,11 +433,11 @@ def photoslug(request, photo_id, pseudo_slug):
     album = None
     try:
         album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
-        album = Album.objects.filter(pk__in=album_ids, is_public=True)
+        albums = Album.objects.filter(pk__in=album_ids, is_public=True)
+        album = albums[0]
+        album_selection_form = AlbumSelectionForm({'album': album.id})
     except:
-        pass
-
-    album_selection_form = AlbumSelectionForm()
+        album_selection_form = AlbumSelectionForm()
 
     #if photo_obj.area:
         #area_selection_form = AreaSelectionForm({'area': photo_obj.area.id})

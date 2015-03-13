@@ -454,7 +454,8 @@ var map,
 
     sortAlbumSelection = function (location) {
         var select = $('#id_album'),
-            selectList = select.find('option');
+            selectList = select.find('option'),
+            preselectedValue = select.find('option:selected').val();
         selectList.sort(function(a, b) {
             if (a.dataset.lat === 'None') {
                 return 1;
@@ -465,7 +466,7 @@ var map,
                 bDist = window.distanceOnSphere(b.dataset.lat, b.dataset.lon, location.coords.latitude, location.coords.longitude);
             return aDist - bDist;
         });
-        select.html(selectList);
+        select.html(selectList).val(preselectedValue);
     };
 
     showScoreboard = function () {
