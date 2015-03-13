@@ -125,6 +125,7 @@
             fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
             $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
+            //window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-mapview-full-screen-image');
             $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
             $('.ajapaik-game-show-description-button').hide();
@@ -726,9 +727,22 @@
         }
     };
 
+    $(document).on('click', '#ajapaik-mapview-full-screen-link', function (e) {
+        e.preventDefault();
+        if (BigScreen.enabled) {
+            BigScreen.request($('#ajapaik-mapview-fullscreen-image-container')[0]);
+            window.fullscreenEnabled = true;
+            window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
+        }
+    });
+
     window.initializeMapStateFromOptionalURLParameters = function () {
-        if (window.getQueryParameterByName('fromSelect') && window.albumLatLng) {
-            window.getMap(window.albumLatLng, 13, false);
+        if (window.getQueryParameterByName('fromSelect')) {
+            if (window.albumLatLng) {
+                window.getMap(window.albumLatLng, 13, false);
+            } else if (window.areaLatLng) {
+                window.getMap(window.areaLatLng, 13, false);
+            }
         } else {
             if (window.preselectPhotoId) {
                 // There's a selected photo specified in the URL, select when ready
@@ -745,6 +759,8 @@
                 } else if (window.albumLatLng) {
                     // There's nothing preselected, but we do know the album the photo's in
                     window.getMap(window.albumLatLng, 13, false);
+                } else if (window.areaLatLng) {
+                    window.getMap(window.areaLatLng, 13, false);
                 } else {
                     // No idea
                     window.getMap(null, 13, false);

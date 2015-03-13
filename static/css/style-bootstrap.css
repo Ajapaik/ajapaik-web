@@ -996,6 +996,16 @@ ul.errorlist {
     padding-left: 0 !important;
 }
 
+#ajapaik-rephoto-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-rephoto-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
 #ajapaik-photoview-original-full-screen-link {
     padding-right: 0 !important;
     padding-left: 0 !important;

@@ -177,8 +177,9 @@
                 $('#ajapaik-game-full-screen-description').html(currentPhoto.description);
                 fullScreenImage.unbind('load');
             });
-            $('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
-            $('#ajapaik-full-screen-link-xs').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
+            //$('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
+            $('#ajapaik-guess-panel-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
+            $('#ajapaik-guess-panel-full-screen-link-xs').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
             $('#ajapaik-game-map-geotag-count').html(currentPhoto.total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(currentPhoto.geotags_with_azimuth);
             reinstateBothersomeListeners();
