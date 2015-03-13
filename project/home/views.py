@@ -223,8 +223,8 @@ def logout(request):
 
     logout(request)
 
-    if 'HTTP_REFERER' in request.META:
-        return redirect(request.META['HTTP_REFERER'])
+    # if 'HTTP_REFERER' in request.META:
+    #     return redirect(request.META['HTTP_REFERER'])
 
     return redirect('/')
 
@@ -997,7 +997,7 @@ def curator_photo_upload_handler(request):
         "photos": {}
     }
 
-    if selection is not None and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
+    if len(selection) > 0 and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
         album = None
         if curator_album_select_form.is_valid():
             if curator_album_select_form.cleaned_data['album'].profile == profile: #or curator_album_select_form.cleaned_data['album'].is_public_mutable == True:
@@ -1117,8 +1117,12 @@ def curator_photo_upload_handler(request):
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
     else:
+        if len(selection) == 0:
+            error = _("Please add photos to your album")
+        else:
+            error = _("Not enough data submitted")
         ret = {
-            "error": _("Not enough data submitted"),
+            "error": error
         }
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
