@@ -736,6 +736,15 @@
         }
     });
 
+    $(document).on('click', '#ajapaik-mapview-full-screen-link-xs', function (e) {
+        e.preventDefault();
+        if (BigScreen.enabled) {
+            BigScreen.request($('#ajapaik-mapview-fullscreen-image-container')[0]);
+            window.fullscreenEnabled = true;
+            window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
+        }
+    });
+
     window.initializeMapStateFromOptionalURLParameters = function () {
         if (window.getQueryParameterByName('fromSelect')) {
             if (window.albumLatLng) {
