@@ -223,8 +223,8 @@ def logout(request):
 
     logout(request)
 
-    #if 'HTTP_REFERER' in request.META:
-        #return redirect(request.META['HTTP_REFERER'])
+    # if 'HTTP_REFERER' in request.META:
+    #     return redirect(request.META['HTTP_REFERER'])
 
     return redirect('/')
 
@@ -433,9 +433,11 @@ def photoslug(request, photo_id, pseudo_slug):
     album = None
     try:
         album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
-        album = Album.objects.filter(pk__in=album_ids, is_public=True)
+        albums = Album.objects.filter(pk__in=album_ids, is_public=True)
+        album = albums[0]
+        album_selection_form = AlbumSelectionForm({'album': album.id})
     except:
-        pass
+        album_selection_form = AlbumSelectionForm()
 
     #if photo_obj.area:
         #area_selection_form = AreaSelectionForm({'area': photo_obj.area.id})
@@ -445,6 +447,7 @@ def photoslug(request, photo_id, pseudo_slug):
         'licence': Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         'area': photo_obj.area,
         'album': album,
+        'album_selection_form': album_selection_form,
         #'area_selection_form': area_selection_form,
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),
@@ -848,7 +851,14 @@ def public_photo_upload(request):
 @ensure_csrf_cookie
 def curator(request):
     curator_leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
+    curator_random_image = None
+    try:
+        last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
+        curator_random_image = AlbumPhoto.objects.filter(album_id=last_created_album.id).order_by('?')[0]
+    except:
+        pass
     return render_to_response('curator.html', RequestContext(request, {
+        'curator_random_image': curator_random_image,
         'title': _("Timepatch (Ajapaik) - curate"),
         'leaderboard': curator_leaderboard
     }))
@@ -987,7 +997,7 @@ def curator_photo_upload_handler(request):
         "photos": {}
     }
 
-    if selection is not None and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
+    if len(selection) > 0 and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
         album = None
         if curator_album_select_form.is_valid():
             if curator_album_select_form.cleaned_data['album'].profile == profile: #or curator_album_select_form.cleaned_data['album'].is_public_mutable == True:
@@ -1107,8 +1117,12 @@ def curator_photo_upload_handler(request):
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
     else:
+        if len(selection) == 0:
+            error = _("Please add photos to your album")
+        else:
+            error = _("Not enough data submitted")
         ret = {
-            "error": _("Not enough data submitted"),
+            "error": error
         }
     return HttpResponse(json.dumps(ret), content_type="application/json")
 

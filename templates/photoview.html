@@ -145,6 +145,10 @@
                 event.preventDefault();
                 event.stopPropagation();
             });
+            window.handleGeolocation = function (location) {
+                window.sortAlbumSelection(location);
+            };
+            window.getGeolocation();
             window.prepareFullscreen({{ fullscreen.size.0 }}, {{ fullscreen.size.1 }}, '#ajapaik-photoview-original-full-screen-image');
             {% if rephoto %}
                 window.prepareFullscreen({{ rephoto_fullscreen.size.0 }}, {{ rephoto_fullscreen.size.1 }}, '#ajapaik-photoview-rephoto-full-screen-image');
