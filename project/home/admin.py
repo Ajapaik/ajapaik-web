@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.home.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, AlbumPhoto, \
-    Licence
+    Licence, Device
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -95,3 +95,4 @@ admin.site.register(AlbumPhoto)
 admin.site.register(Area)
 admin.site.register(Licence)
 admin.site.register(CSVPhoto, CSVUploadAdmin)
+admin.site.register(Device)

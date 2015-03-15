@@ -112,8 +112,11 @@ def _extract_and_save_data_from_exif(photo_with_exif):
             try:
                 device = Device.objects.get(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
             except ObjectDoesNotExist:
-                device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
-                device.save()
+                try:
+                    device = Device(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make, lens_model=lens_model, software=software)
+                    device.save()
+                except:
+                    device = None
             photo_with_exif.device = device
             photo_with_exif.save()
         if 'DateTimeOriginal' in exif_data and not photo_with_exif.date:
