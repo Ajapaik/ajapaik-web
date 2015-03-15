@@ -30,10 +30,10 @@
                         <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-column">
                     {% endif %}
                         <div id="ajapaik-modal-rephoto-container">
-{#                            <a class="fullscreen col-xs-12" id="ajapaik-rephoto-full-screen-link" rel="">#}
+{#                           <a class="fullscreen col-xs-12" id="ajapaik-rephoto-full-screen-link" rel="">#}
                                 <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
                                 <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
-{#                            </a>#}
+{#                           </a>#}
                         </div>
                     </div>
                     {% if photo.rephotos.all|length > 1 %}
@@ -128,11 +128,11 @@
         <img id="ajapaik-full-screen-image" src="{{ fullscreen.url }}"/>
     </div>
 </div>
-<div class="full-box">
+{% comment %}<div class="full-box">
     <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
         <img id="ajapaik-rephoto-full-screen-image" src="{{ rephoto_fullscreen.url }}"/>
     </div>
-</div>
+</div>{% endcomment %}
 <script>
     var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
         hostname = '{{ hostname }}',
@@ -224,7 +224,7 @@
                 BigScreen.exit();
             }
         });
-        $(document).on('click', 'a.fullscreen', function (e) {
+        $(document).on('click', '#ajapaik-full-screen-link', function (e) {
             e.preventDefault();
             if (BigScreen.enabled) {
                 BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
@@ -232,14 +232,14 @@
                 window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
             }
         });
-        $(document).on('click', 'a.rephoto-fullscreen', function (e) {
+        {% comment %}$(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
             e.preventDefault();
             if (BigScreen.enabled) {
-                BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+                BigScreen.request($('#ajapaik-rephoto-fullscreen-image-container')[0]);
                 window.fullscreenEnabled = true;
                 window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
             }
-        });
+        });{% endcomment %}
         $(document).on('click', '#ajapaik-show-rephoto-selection-overlay-button', function () {
             $(this).hide();
             window.userClosedRephotoTools = false;

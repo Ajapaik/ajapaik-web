@@ -363,7 +363,7 @@ class Photo(models.Model):
             if ret and ret[0].id in user_skipped_photo_ids:
                 request.session["user_skip_array"].append(ret[0].id)
                 request.session.modified = True
-            if len(ret) == 0:
+            if len(ret) == 0 or (user_last_interacted_photo and user_last_interacted_photo.id == ret[0].id):
                 random_photo = self._get_game_json_format_photo(album_photos_set.order_by("?")[:1].get(), distance_between_photos)
                 return [random_photo], False, False
             return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show

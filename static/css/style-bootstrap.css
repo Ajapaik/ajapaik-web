@@ -996,6 +996,16 @@ ul.errorlist {
     padding-left: 0 !important;
 }
 
+#ajapaik-rephoto-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-rephoto-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
 #ajapaik-photoview-original-full-screen-link {
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -1446,4 +1456,12 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-game-close-game-modal {
     z-index: 2000 !important;
+}
+
+#ajapaik-game-no-geotags-yet-message {
+    display: none;
+}
+
+#ajapaik-game-number-of-geotags-message {
+    display: none;
 }
