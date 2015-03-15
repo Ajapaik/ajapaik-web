@@ -180,6 +180,16 @@
             //$('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
             $('#ajapaik-guess-panel-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
             $('#ajapaik-guess-panel-full-screen-link-xs').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
+            $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
+            var numberOfGeotagsMessage = $('#ajapaik-game-number-of-geotags-message'),
+                noGeotagsYetMessage = $('#ajapaik-game-no-geotags-yet-message');
+            if (currentPhoto.total_geotags > 0) {
+                numberOfGeotagsMessage.show();
+                noGeotagsYetMessage.hide();
+            } else {
+                numberOfGeotagsMessage.hide();
+                noGeotagsYetMessage.show();
+            }
             $('#ajapaik-game-map-geotag-count').html(currentPhoto.total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(currentPhoto.geotags_with_azimuth);
             reinstateBothersomeListeners();

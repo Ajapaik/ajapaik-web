@@ -76,8 +76,7 @@ def _get_exif_data(img):
         if decoded == "GPSInfo":
             for t in value:
                 sub_decoded = GPSTAGS.get(t, t)
-                exif_data[decoded + '.' + sub_decoded] = value[t]
-
+                exif_data[str(decoded) + '.' + str(sub_decoded)] = value[t]
         elif len(str(value)) < 50:
             exif_data[decoded] = value
         else:
@@ -275,7 +274,7 @@ def game(request):
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
-    ctx['title'] = _('Put pictures on the map')
+    ctx['title'] = _("Let's put pictures on the map")
     ctx['is_game'] = True
     ctx['area_selection_form'] = area_selection_form
     ctx['album_selection_form'] = album_selection_form
@@ -494,7 +493,10 @@ def mapview(request, photo_id=None, rephoto_id=None):
                 pass
 
     if selected_photo and area is None:
-        area = Area.objects.get(pk=selected_photo.area_id)
+        try:
+            area = Area.objects.get(pk=selected_photo.area_id)
+        except ObjectDoesNotExist:
+            pass
 
     random_album_photo = None
     if album is not None:
@@ -528,7 +530,12 @@ def map_objects_by_bounding_box(request):
 
     album_id = data.get('album_id') or None
     area_id = data.get('area_id') or None
-    limit_by_album = json.loads(data.get('limit_by_album')) or None
+    limit_by_album = data.get('limit_by_album') or None
+
+    if limit_by_album == 'true':
+        limit_by_album = True
+    else:
+        limit_by_album = False
 
     qs = Photo.objects.all()
 

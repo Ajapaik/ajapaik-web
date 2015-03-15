@@ -1457,3 +1457,11 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #ajapaik-game-close-game-modal {
     z-index: 2000 !important;
 }
+
+#ajapaik-game-no-geotags-yet-message {
+    display: none;
+}
+
+#ajapaik-game-number-of-geotags-message {
+    display: none;
+}
