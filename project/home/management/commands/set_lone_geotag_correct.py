@@ -11,7 +11,8 @@ class Command(BaseCommand):
         print "Photos detected: " + str(len(photos))
         for p in photos:
             print p
-            p.geotags.all()[0].is_correct = True
-            p.geotags.all()[0].save()
+            geotag = GeoTag.objects.get(photo_id=p.id)
+            geotag.is_correct = True
+            geotag.save()
             p.set_calculated_fields()
             p.save()
