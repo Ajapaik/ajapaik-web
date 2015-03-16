@@ -38,7 +38,7 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
         trustworthiness = calc_trustworthiness(user.pk)
 
         all_photo_geotags = p.geotags.all()
-        if len(all_photo_geotags) == 1:
+        if len(all_photo_geotags) == 0:
             location_correct = True
 
         if origin == GeoTag.GAME:
