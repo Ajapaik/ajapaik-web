@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-16 12:06+0200\n"
-"PO-Revision-Date: 2015-03-10 15:41+0200\n"
+"PO-Revision-Date: 2015-03-16 12:25+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -63,10 +63,8 @@ msgid "Other users have different opinion."
 msgstr "Teised kasutajad on teisiti arvanud."
 
 #: project/home/views.py:280
-#, fuzzy
-#| msgid "Put pictures on the map"
 msgid "Let's put pictures on the map"
-msgstr "Pane pildid kaardile"
+msgstr "Paneme pildid kaardile"
 
 #: project/home/views.py:506 project/home/views.py:515
 #: project/home/views.py:517 templates/frontpage.html:165
@@ -87,6 +85,8 @@ msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations ja "
 "share the resulting album!"
 msgstr ""
+"Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit "
+"teistega!"
 
 #: project/home/views.py:874
 msgid "Timepatch (Ajapaik) - curate"
@@ -98,6 +98,9 @@ msgid ""
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
+"Pilt on natuke liiga väike, ehk tasuks see praegu lisamata jätta ja oodata, "
+"kuni kättesaadavaks muutub parem kujutis. Aga kui siiski soovite, siis võib "
+"see valikusse jääda."
 
 #: project/home/views.py:1094
 msgid "OK"
@@ -112,10 +115,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
 #: project/home/views.py:1133
-#, fuzzy
-#| msgid "Upload photos yourself"
 msgid "Please add photos to your album"
-msgstr "Lae ise vanu fotosid"
+msgstr "Palun lisa oma albumisse fotosid"
 
 #: project/home/views.py:1135
 msgid "Not enough data submitted"
@@ -510,25 +511,21 @@ msgid "Tell your friends on Facebook"
 msgstr "Jaga Facebookis"
 
 #: templates/curator.html:131
-#, fuzzy
-#| msgid "Limit to album"
 msgid "Edit your album"
-msgstr "Näita kaardil ainult valitud albumi pilte"
+msgstr "Redigeeri oma albumi infot"
 
 #: templates/curator.html:138 templates/photo_upload.html:101
 #: templates/photo_upload.html.py:152
 msgid "Error"
-msgstr ""
+msgstr "Viga"
 
 #: templates/curator.html:146
 msgid "Name"
-msgstr ""
+msgstr "Pealkiri"
 
 #: templates/curator.html:156
-#, fuzzy
-#| msgid "Show description"
 msgid "Description"
-msgstr "Vaata kirjeldust"
+msgstr "Kirjeldus"
 
 #: templates/curator.html:169 templates/photo_upload.html:47
 #: templates/photo_upload.html.py:81 templates/photo_upload.html:132
@@ -561,10 +558,8 @@ msgid "Load more"
 msgstr "Lae rohkem tulemusi"
 
 #: templates/curator.html:205
-#, fuzzy
-#| msgid "Selected albums:"
 msgid "Select all"
-msgstr "Valitud album(id):"
+msgstr "Vali kõik"
 
 #: templates/curator.html:224
 msgid "Clear selection"
@@ -624,15 +619,15 @@ msgstr "Tean pildistamise kohta!"
 
 #: templates/game.html:48
 msgid "The picture has not yet been pinned on the map. Be the first!"
-msgstr ""
+msgstr "Keegi ei ole sellele pildile veel asukohta pakkunud. Ole esimene!"
 
 #: templates/game.html:49
 msgid "1 suggestion has been submitted for this picture. Add yours!"
-msgstr ""
+msgstr "1 asukohapakkumine on sellele pildile juba tehtud, lisa enda oma ka!"
 
 #: templates/game.html:50
 msgid "suggestions have been submitted for this picture. Add yours!"
-msgstr ""
+msgstr "asukohapakkumist on sellele pildile tehtud. Lisa enda arvamus!"
 
 #: templates/game.html:58 templates/mapview.html:27
 msgid "Search box"
@@ -778,16 +773,16 @@ msgstr "Asukoht kaardil"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
+#~| "Account (%(account_name)s) connected. If it\"s not you then "
+#~| "%(link_open)sclick here%(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                            Account (%(account_name)s) connected. If it"
@@ -799,8 +794,8 @@ msgstr "Asukoht kaardil"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                Account (%(account_name)s) connected. If "
