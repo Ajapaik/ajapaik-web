@@ -225,8 +225,8 @@ def logout(request):
 
     logout(request)
 
-    # if 'HTTP_REFERER' in request.META:
-    #     return redirect(request.META['HTTP_REFERER'])
+    if 'HTTP_REFERER' in request.META:
+        return redirect(request.META['HTTP_REFERER'])
 
     return redirect('/')
 
