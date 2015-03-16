@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 12:42+0200\n"
+"POT-Creation-Date: 2015-03-16 12:06+0200\n"
 "PO-Revision-Date: 2015-02-02 11:46+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgid "Save location only"
 msgstr "Tallenna vain sijainti"
 
 #: static/js/ajapaik-common.js:698 static/js/browse.js:864
-#: static/js/game.js:500 static/js/grid.js:418
+#: static/js/game.js:507 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -132,8 +132,8 @@ msgstr ""
 msgid "Source ID"
 msgstr ""
 
-#: static/js/browse.js:386 static/js/browse.js.c:387 static/js/game.js:254
-#: static/js/game.js.c:256 static/js/grid.js:69
+#: static/js/browse.js:386 static/js/browse.js.c:387 static/js/game.js:261
+#: static/js/game.js.c:263 static/js/grid.js:69
 msgid "Points awarded"
 msgstr "Pistesaldo"
 
@@ -157,7 +157,7 @@ msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
 msgid "You have seen all the pictures we have for this area."
 msgstr "Olet nähnyt kaikki tämän alueen kuvat"
 
-#: static/js/game.js:274
+#: static/js/game.js:281
 msgid "Your guess"
 msgstr "Arvauksesi"
 

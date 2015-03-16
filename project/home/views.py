@@ -869,7 +869,7 @@ def curator(request):
     except:
         pass
     return render_to_response('curator.html', RequestContext(request, {
-        'description': _(u'Otsi pilte, lisa need Ajapaika, määra piltidele asukohad ja jaga loodud albumit!'),
+        'description': _('Search for old photos, add them to Ajapaik, determine their locations ja share the resulting album!'),
         'curator_random_images': curator_random_images,
         'title': _("Timepatch (Ajapaik) - curate"),
         'leaderboard': curator_leaderboard
