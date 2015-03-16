@@ -595,10 +595,11 @@
             });
         });
         $(document).on('click', '#ajapaik-curator-confirm-area-selection-button', function () {
-            console.log("click");
+            var confirm = false;
             if (Object.keys(selectedResults).length < 5) {
-                console.log("here");
-                var confirm = window.confirm(window.gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.'));
+                confirm = window.confirm(window.gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.'));
+            } else {
+                confirm = true;
             }
             if (confirm) {
                 $('#ajapaik-loading-overlay').show();

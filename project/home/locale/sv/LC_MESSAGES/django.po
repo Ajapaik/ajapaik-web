@@ -8,99 +8,100 @@ msgstr ""
 msgid "Choose album"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:116
+#: project/home/get_next_photos_to_geotag.py:112
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:118
+#: project/home/get_next_photos_to_geotag.py:114
+#: project/home/get_next_photos_to_geotag.py:124
+msgid "Your guess was first."
+msgstr ""
+
+#: project/home/get_next_photos_to_geotag.py:116
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:120
+#: project/home/get_next_photos_to_geotag.py:118
 msgid "The location seems right, but the azimuth is yet uncertain."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:122
+#: project/home/get_next_photos_to_geotag.py:120
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:124
+#: project/home/get_next_photos_to_geotag.py:122
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
 #: project/home/get_next_photos_to_geotag.py:126
-msgid "Your guess was first."
-msgstr ""
-
-#: project/home/get_next_photos_to_geotag.py:128
 msgid "Correct location is not certain yet."
 msgstr ""
 
-#: project/home/get_next_photos_to_geotag.py:130
+#: project/home/get_next_photos_to_geotag.py:128
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:277
+#: project/home/views.py:280
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:503 project/home/views.py:512
-#: project/home/views.py:514 templates/frontpage.html:165
+#: project/home/views.py:506 project/home/views.py:515
+#: project/home/views.py:517 templates/frontpage.html:165
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:611 project/home/views.py:625
+#: project/home/views.py:614 project/home/views.py:628
 #: templates/_header_area_selection_scoreboard.html:30
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:855
+#: project/home/views.py:858
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr ""
 
-#: project/home/views.py:869
+#: project/home/views.py:872
 msgid ""
-"Otsi pilte, lisa need Ajapaika, mra piltidele asukohad ja jaga loodud "
-"albumit!"
+"Search for old photos, add them to Ajapaik, determine their locations ja "
+"share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:871
+#: project/home/views.py:874
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1089
+#: project/home/views.py:1092
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1091
+#: project/home/views.py:1094
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1114 project/home/views.py:1229
+#: project/home/views.py:1117 project/home/views.py:1232
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1123
+#: project/home/views.py:1126
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1130
+#: project/home/views.py:1133
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1132
+#: project/home/views.py:1135
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1236
+#: project/home/views.py:1239
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1254
+#: project/home/views.py:1257
 msgid "Invalid form data"
 msgstr ""
 
@@ -150,7 +151,7 @@ msgid "Rephoto"
 msgstr ""
 
 #: templates/_guess_panel.html:14 templates/_guess_panel_xs.html:17
-#: templates/game.html:32 templates/game.html.py:81
+#: templates/game.html:32 templates/game.html.py:82
 msgid "Show description"
 msgstr ""
 
@@ -192,7 +193,7 @@ msgstr ""
 
 #: templates/_guess_panel.html:60 templates/_guess_panel.html.py:72
 #: templates/_guess_panel_xs.html:15 templates/_guess_panel_xs.html.py:40
-#: templates/game.html:43 templates/game.html.py:78
+#: templates/game.html:43 templates/game.html.py:79
 msgid "Next photo"
 msgstr ""
 
@@ -267,7 +268,7 @@ msgstr ""
 
 #: templates/_photo_modal.html:120 templates/_photo_upload_modal.html:43
 #: templates/curator.html:118 templates/curator.html.py:166
-#: templates/game.html:99 templates/mapview.html:51
+#: templates/game.html:100 templates/mapview.html:51
 #: templates/photo_upload.html:45 templates/photo_upload.html.py:79
 #: templates/photo_upload.html:130 templates/photo_upload.html.py:192
 msgid "Close"
@@ -557,7 +558,7 @@ msgstr ""
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:39 templates/game.html.py:74
+#: templates/game.html:39 templates/game.html.py:75
 msgid "Pick the shooting location!"
 msgstr ""
 
@@ -566,10 +567,14 @@ msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr ""
 
 #: templates/game.html:49
-msgid "suggestion(s) have been submitted for this picture. Add yours!"
+msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr ""
 
-#: templates/game.html:57 templates/mapview.html:27
+#: templates/game.html:50
+msgid "suggestions have been submitted for this picture. Add yours!"
+msgstr ""
+
+#: templates/game.html:58 templates/mapview.html:27
 msgid "Search box"
 msgstr ""
 

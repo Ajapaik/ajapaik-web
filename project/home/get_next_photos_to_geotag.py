@@ -15,6 +15,7 @@ def calc_trustworthiness(user_id):
 
     return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
 
+
 def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None, azimuth_line_end_point=None, origin=GeoTag.GAME):
     try:
         p = Photo.objects.get(pk=photo_id)
@@ -36,6 +37,10 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
     if lon is not None and lat is not None:
         trustworthiness = calc_trustworthiness(user.pk)
 
+        all_photo_geotags = p.geotags.all()
+        if len(all_photo_geotags) == 1:
+            location_correct = True
+
         if origin == GeoTag.GAME:
             if p.confidence >= 0.3:
                 error_in_meters = distance_in_meters(p.lon, p.lat, float(lon), float(lat))
@@ -43,7 +48,6 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
                 location_correct = (this_guess_score > 0)
             else:
                 this_guess_score = max(20, int(300 * trustworthiness))
-                #if not p.lat and not p.lon:
                 if p.user == user:
                     location_correct = True
                 location_uncertain = True
@@ -51,13 +55,6 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
                 this_guess_score *= 0.75
         else:
             this_guess_score = int(trustworthiness * 100)
-
-        all_photo_geotags = p.geotags.all()
-        if len(all_photo_geotags) == 1:
-            # This is the second geotag coming in, if it's near the first one, mark the first one correct
-            if distance_in_meters(all_photo_geotags[0].lat, all_photo_geotags[0].lon, float(lat), float(lon)) < 100:
-                all_photo_geotags[0].is_correct = True,
-                all_photo_geotags[0].save()
 
         new_geotag = GeoTag(user=user, photo_id=p.id, type=geotag_type,
                             lat=float(lat), lon=float(lon),
@@ -76,18 +73,17 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
                 if location_correct and origin == GeoTag.GAME:
                     azimuth_score = max(20, int(300 * trustworthiness))
                 azimuth_uncertain = True
-
-        if azimuth and p.azimuth:
-            degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
-            azimuth = float(azimuth)
-            difference = max(p.azimuth, azimuth) - min(p.azimuth, azimuth)
-            if difference > 180:
-                difference = 360 - difference
-            if int(difference) <= 15:
-                azimuth_score = degree_error_point_array[int(difference)]
-                azimuth_correct = True
-            if azimuth_correct and (location_correct or location_uncertain) and origin == GeoTag.GAME:
-                new_geotag.azimuth_score = azimuth_score
+            else:
+                degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
+                azimuth = float(azimuth)
+                difference = max(p.azimuth, azimuth) - min(p.azimuth, azimuth)
+                if difference > 180:
+                    difference = 360 - difference
+                if int(difference) <= 15:
+                    azimuth_score = degree_error_point_array[int(difference)]
+                    azimuth_correct = True
+                # if azimuth_correct and (location_correct or location_uncertain) and origin == GeoTag.GAME:
+                #     new_geotag.azimuth_score = azimuth_score
 
         this_guess_score += azimuth_score
         new_geotag.azimuth_score = azimuth_score
@@ -114,7 +110,9 @@ def submit_guess(user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hin
     if origin == GeoTag.GAME:
         if location_correct:
             feedback_message = _("Looks right!")
-            if not azimuth:
+            if len(all_geotags_latlng_for_this_photo) == 1:
+                feedback_message = _("Your guess was first.")
+            elif not azimuth:
                 feedback_message = _("The location seems right. Try submitting an azimuth to earn even more points!")
             elif azimuth_uncertain:
                 feedback_message = _("The location seems right, but the azimuth is yet uncertain.")

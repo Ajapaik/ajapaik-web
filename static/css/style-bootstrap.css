@@ -1465,3 +1465,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #ajapaik-game-number-of-geotags-message {
     display: none;
 }
+
+#ajapaik-game-one-geotag-message {
+    display: none;
+}
