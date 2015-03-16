@@ -188,7 +188,7 @@
                 numberOfGeotagsMessage.show();
                 oneGeotagMessage.hide();
                 noGeotagsYetMessage.hide();
-            } else if (currentPhoto.total_geotag === 1) {
+            } else if (currentPhoto.total_geotags === 1) {
                 numberOfGeotagsMessage.hide();
                 oneGeotagMessage.show();
                 noGeotagsYetMessage.hide();
