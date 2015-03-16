@@ -498,11 +498,10 @@ class Photo(models.Model):
             #self.lon = None
             #self.lat = None
 
-            geotags = list(GeoTag.objects.filter(photo__id=self.id, trustworthiness__gt=0.2))
-            geotags_with_azimuth = []
-            for g in geotags:
-                if g.azimuth > 0:
-                    geotags_with_azimuth.append(g)
+            #geotags = list(GeoTag.objects.filter(photo__id=self.id, trustworthiness__gt=0.2))
+            geotags = GeoTag.objects.filter(photo__id=self.id)
+            geotags_with_azimuth = list(geotags.filter(azimuth__isnull=False))
+            geotags = list(geotags)
             if geotags:
                 lon = sorted([g.lon for g in geotags])
                 lon = lon[len(lon) / 2]
@@ -517,14 +516,15 @@ class Photo(models.Model):
                 lon_sum, lat_sum, azimuth_sum = 0, 0, 0
                 user_geotags_map = {}
                 for g in geotags:
-                    current_distance = distance_in_meters(g.lon, g.lat, lon, lat)
-                    if current_distance < 100:
-                        if g.user_id not in user_geotags_map:
+                    #current_distance = distance_in_meters(g.lon, g.lat, lon, lat)
+                    #if current_distance < 100:
+                    if g.user_id not in user_geotags_map:
+                        user_geotags_map[g.user_id] = g
+                    else:
+                        #if current_distance < distance_in_meters(user_geotags_map[g.user_id].lon,
+                                                                 #user_geotags_map[g.user_id].lat, lon, lat):
+                        if user_geotags_map[g.user_id].created < g.created:
                             user_geotags_map[g.user_id] = g
-                        else:
-                            if current_distance < distance_in_meters(user_geotags_map[g.user_id].lon,
-                                                                     user_geotags_map[g.user_id].lat, lon, lat):
-                                user_geotags_map[g.user_id] = g
                     total_weight += g.trustworthiness
                 for v in user_geotags_map.values():
                     correct_guesses_weight += v.trustworthiness
@@ -541,7 +541,7 @@ class Photo(models.Model):
                 unique_correct_guesses_ratio = 0
                 if total_weight > 0:
                     unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)
-                unique_azimuth_correct_ratio = False
+                unique_azimuth_correct_ratio = 0
                 if azimuth_correct_guesses_weight > 0 and azimuth_total_guesses_weight > 0:
                     unique_azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
                 if unique_correct_guesses_ratio > 0.63:
