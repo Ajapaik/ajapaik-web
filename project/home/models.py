@@ -433,7 +433,7 @@ class Photo(models.Model):
         return slug
 
     def get_heatmap_points(self):
-        valid_geotags = self.geotags.filter(trustworthiness__gt=0.2)
+        valid_geotags = self.geotags
         data = []
         for each in valid_geotags:
             data.append([each.lat, each.lon, each.azimuth])
