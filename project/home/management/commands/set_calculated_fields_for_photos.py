@@ -16,6 +16,7 @@ class Command(BaseCommand):
             photo.set_calculated_fields()
             photo.save()
         else:
-            for photo in Photo.objects.all():
+            for photo in Photo.objects.filter(rephoto_of__isnull=True):
+                print photo
                 photo.set_calculated_fields()
                 photo.save()
