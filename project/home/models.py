@@ -208,9 +208,9 @@ class Photo(models.Model):
         @staticmethod
         def get_album_photo_count_and_total_geotag_count(album_id=None, area_id=None):
             if album_id is not None:
-                album_photo_ids = [x.id for x in Album.objects.get(pk=album_id).photos.all()]
-                ungeotagged_qs = Photo.objects.filter(id__in=album_photo_ids, lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
-                geotagged_qs = Photo.objects.filter(id__in=album_photo_ids, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+                album_photos = Album.objects.get(pk=album_id).photos.all()
+                ungeotagged_qs = album_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
+                geotagged_qs = album_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
                 return ungeotagged_qs.count(), geotagged_qs.count()
             if area_id is not None:
                 area_photos = Photo.objects.filter(area_id=area_id)
