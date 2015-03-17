@@ -1,4 +1,5 @@
 from PIL import Image
+from django.contrib.gis.measure import D
 from django.core.files import File
 from django.contrib.gis.db import models
 from django.db import connection
@@ -26,10 +27,13 @@ from django.contrib.gis.geos import Point, Polygon
 import math
 import datetime
 
-# import pandas as pd
-# import numpy as np
-# from sklearn.cluster import DBSCAN
-# from geopy.distance import great_circle
+import pandas as pd
+import numpy as np
+from sklearn.cluster import DBSCAN
+from geopy.distance import great_circle
+
+from django.utils.deconstruct import deconstructible
+from uuid import uuid4
 
 # Create profile automatically
 def user_post_save(sender, instance, **kwargs):
@@ -66,6 +70,78 @@ class Area(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.name
+
+
+@deconstructible
+class PathAndRename(object):
+    def __init__(self, sub_path):
+        self.path = sub_path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.path, filename)
+
+
+cat_path_and_rename = PathAndRename("cat")
+
+
+class CatTag(models.Model):
+    name = models.CharField(max_length=255)
+    level = models.SmallIntegerField(blank=True, null=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s' % self.name
+
+
+class CatTagPhoto(models.Model):
+    tag = models.ForeignKey('CatTag')
+    photo = models.ForeignKey('CatPhoto')
+    profile = models.ForeignKey('Profile')
+    value = models.PositiveSmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s - %s - %s - %s' % (self.photo, self.tag, self.value, self.profile)
+
+
+class CatPhoto(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
+    tags = models.ManyToManyField(CatTag, related_name='photos', through=CatTagPhoto)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s' % self.title
+
+
+class CatAlbum(models.Model):
+    title = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255)
+    image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
+    photos = models.ManyToManyField(CatPhoto, related_name='albums')
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s' % self.title
 
 
 class Album(models.Model):
@@ -127,24 +203,6 @@ models.signals.pre_delete.connect(delete_parent, sender=AlbumPhoto)
 class PhotoManager(models.GeoManager):
     def get_queryset(self):
         return self.model.QuerySet(self.model)
-
-
-from django.utils.deconstruct import deconstructible
-from uuid import uuid4
-
-
-@deconstructible
-class PathAndRename(object):
-    def __init__(self, sub_path):
-        self.path = sub_path
-
-    def __call__(self, instance, filename):
-        ext = filename.split('.')[-1]
-        # set filename as random string
-        filename = '{}.{}'.format(uuid4().hex, ext)
-        # return the whole path to the file
-        return os.path.join(self.path, filename)
-
 
 path_and_rename = PathAndRename("uploads")
 
@@ -519,26 +577,27 @@ class Photo(models.Model):
             geotags = GeoTag.objects.filter(photo__id=self.id)
             correct_geotags = geotags.filter(is_correct=True)
             correct_geotags_count = len(correct_geotags)
-            # df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
-            # coordinates = df.as_matrix()
-            # db = DBSCAN(eps=0.001, min_samples=2).fit(coordinates)
-            # labels = db.labels_
-            # num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-            # clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
-            # lon = []
-            # lat = []
-            # for i, cluster in clusters.iteritems():
-            #     if len(cluster) < 3:
-            #         representative_point = (cluster[0][1], cluster[0][0])
-            #     else:
-            #         representative_point = self.get_nearest_point(cluster, self.get_centroid(cluster))
-            #     lat.append(representative_point[0])
-            #     lon.append(representative_point[1])
-            # rs = pd.DataFrame({'lat': lat, 'lon': lon})
-            # for a in rs.itertuples():
-            #     qs = GeoTag.objects.filter(geography__intersects=Polygon.from_bbox(bounding_box))
-            # return
-            # geotags_with_azimuth = list(geotags.filter(azimuth__isnull=False))
+            df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
+            coordinates = df.as_matrix()
+            db = DBSCAN(eps=0.001, min_samples=2).fit(coordinates)
+            labels = db.labels_
+            num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+            clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
+            lon = []
+            lat = []
+            for i, cluster in clusters.iteritems():
+                if len(cluster) < 3:
+                    representative_point = (cluster[0][1], cluster[0][0])
+                else:
+                    representative_point = self.get_nearest_point(cluster, self.get_centroid(cluster))
+                lat.append(representative_point[0])
+                lon.append(representative_point[1])
+            rs = pd.DataFrame({'lat': lat, 'lon': lon})
+            for a in rs.itertuples():
+                qs = GeoTag.objects.filter(geography__distance_lte=(Point(a[1], a[0]), D(m=100)))
+                print qs.all()
+            return
+            geotags_with_azimuth = list(geotags.filter(azimuth__isnull=False))
             if correct_geotags_count > 0:
                 # lon = sorted([g.lon for g in geotags])
                 # lon = lon[len(lon) / 2]

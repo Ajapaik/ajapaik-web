@@ -78,3 +78,11 @@ class CuratorPhotoUploadForm(forms.Form):
     flip = forms.BooleanField(required=False)
     invert = forms.BooleanField(required=False)
     stereo = forms.BooleanField(required=False)
+
+
+class CatLoginForm(forms.Form):
+    type = forms.CharField(max_length=255)
+    username = forms.CharField(max_length=40)
+    password = forms.CharField(max_length=40)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.CharField(max_length=255, required=False, initial='android')
