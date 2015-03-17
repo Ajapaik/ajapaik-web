@@ -28,6 +28,8 @@ import datetime
 
 # import pandas as pd
 # import numpy as np
+# from sklearn.cluster import DBSCAN
+# from geopy.distance import great_circle
 
 # Create profile automatically
 def user_post_save(sender, instance, **kwargs):
@@ -206,9 +208,9 @@ class Photo(models.Model):
         @staticmethod
         def get_album_photo_count_and_total_geotag_count(album_id=None, area_id=None):
             if album_id is not None:
-                album_photo_ids = [x.id for x in Album.objects.get(pk=album_id).photos.all()]
-                ungeotagged_qs = Photo.objects.filter(id__in=album_photo_ids, lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
-                geotagged_qs = Photo.objects.filter(id__in=album_photo_ids, lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+                album_photos = Album.objects.get(pk=album_id).photos.all()
+                ungeotagged_qs = album_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
+                geotagged_qs = album_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
                 return ungeotagged_qs.count(), geotagged_qs.count()
             if area_id is not None:
                 area_photos = Photo.objects.filter(area_id=area_id)
@@ -463,6 +465,25 @@ class Photo(models.Model):
                 a.save()
         super(Photo, self).save(*args, **kwargs)
 
+    @staticmethod
+    def get_centroid(points):
+        n = points.shape[0]
+        sum_lon = np.sum(points[:, 1])
+        sum_lat = np.sum(points[:, 0])
+        return sum_lon / n, sum_lat / n
+
+    @staticmethod
+    def get_nearest_point(set_of_points, point_of_reference):
+        closest_point = None
+        closest_dist = None
+        for point in set_of_points:
+            point = (point[1], point[0])
+            dist = great_circle(point_of_reference, point).meters
+            if (closest_dist is None) or (dist < closest_dist):
+                closest_point = point
+                closest_dist = dist
+        return closest_point
+
     def set_calculated_fields(self):
         photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
         weighted_level_sum, total_weight = 0, 0
@@ -498,6 +519,25 @@ class Photo(models.Model):
             geotags = GeoTag.objects.filter(photo__id=self.id)
             correct_geotags = geotags.filter(is_correct=True)
             correct_geotags_count = len(correct_geotags)
+            # df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
+            # coordinates = df.as_matrix()
+            # db = DBSCAN(eps=0.001, min_samples=2).fit(coordinates)
+            # labels = db.labels_
+            # num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+            # clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
+            # lon = []
+            # lat = []
+            # for i, cluster in clusters.iteritems():
+            #     if len(cluster) < 3:
+            #         representative_point = (cluster[0][1], cluster[0][0])
+            #     else:
+            #         representative_point = self.get_nearest_point(cluster, self.get_centroid(cluster))
+            #     lat.append(representative_point[0])
+            #     lon.append(representative_point[1])
+            # rs = pd.DataFrame({'lat': lat, 'lon': lon})
+            # for a in rs.itertuples():
+            #     qs = GeoTag.objects.filter(geography__intersects=Polygon.from_bbox(bounding_box))
+            # return
             # geotags_with_azimuth = list(geotags.filter(azimuth__isnull=False))
             if correct_geotags_count > 0:
                 # lon = sorted([g.lon for g in geotags])
