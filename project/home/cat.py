@@ -226,3 +226,19 @@ def cat_tag(request):
         content['error'] = 2
 
     return Response(content)
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def user_me(request):
+    profile = request.get_user().profile
+    content = {
+        'error': 0,
+        'tagged': CatTagPhoto.objects.filter(profile=profile).distinct('photo').count(),
+        'message': 'Lakkuge panni!',
+        'link': 'http://i.ytimg.com/vi/yWy_irUVXGU/hqdefault.jpg',
+    }
+
+    return Response(content)
