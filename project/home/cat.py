@@ -1,22 +1,83 @@
 # encoding: utf-8
 from datetime import datetime
 import json
+import urllib
+import urlparse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 from sorl.thumbnail import get_thumbnail
 from project.home.forms import CatLoginForm
 from project.home.models import CatAlbum, CatTagPhoto, CatPhoto
+from rest_framework import authentication
+from rest_framework import exceptions
 
 
-@csrf_exempt
+class CustomAuthentication(authentication.BaseAuthentication):
+    def authenticate(self, request):
+        body_data = urlparse.parse_qsl(urllib.unquote(request.body))
+        bullshit = {}
+        for item in body_data:
+            bullshit[item[0]] = item[1]
+        session_data = eval(bullshit['session'])
+        user_id = session_data['_u']
+        session_id = session_data['_s']
+        if not session_id or not user_id:
+            return None
+        try:
+            session = Session.objects.get(session_key=session_id)
+            user = User.objects.get(pk=user_id)
+        except (User.DoesNotExist, Session.DoesNotExist):
+            raise exceptions.AuthenticationFailed('No user/session')
+
+        return user, None
+
+
+@api_view(['POST'])
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def cat_albums(request):
+    error = 0
+    albums = CatAlbum.objects.all().order_by('-created')
+    ret = []
+    for a in albums:
+        user_tagged_all_in_album = \
+            a.photos.count() == CatTagPhoto.objects.filter(profile=request.get_user().profile).distinct('photo').count()
+        if user_tagged_all_in_album:
+            user_tagged_all_in_album = 1
+        else:
+            user_tagged_all_in_album = 0
+        ret.append({
+            'id': a.id,
+            'title': a.title,
+            'subtitle': a.subtitle,
+            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id, 250))),
+            'tagged': user_tagged_all_in_album
+        })
+    content = {
+        'error': error,
+        'albums': ret
+    }
+    return Response(content)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
 def cat_login(request):
-    login_form = CatLoginForm(request.POST)
+    body_data = urlparse.parse_qsl(urllib.unquote(request.body))
+    bullshit = {}
+    for item in body_data:
+        bullshit[item[0]] = item[1]
+    login_form = CatLoginForm(bullshit)
     error = 0
     user = None
     session = None
@@ -41,46 +102,21 @@ def cat_login(request):
         session = request.session.session_key
     else:
         error = 4
-    return HttpResponse(json.dumps({
-        'id': user.id,
+    content = {
         'error': error,
         'session': session,
         'expires': 0
-    }), content_type="application/json")
+    }
+    if user:
+        content['id'] = user.id
+    return Response(content)
 
-
-@csrf_exempt
-def cat_logout(request):
-    logout(request)
-    return HttpResponse(json.dumps({
-        'error': 0
-    }), content_type="application/json")
-
-
-@login_required
-@csrf_exempt
-def cat_albums(request):
-    error = 0
-    albums = CatAlbum.objects.all().order_by('-created')
-    ret = []
-    for a in albums:
-        user_tagged_all_in_album = \
-            a.photos.count() == CatTagPhoto.objects.filter(profile=request.get_user().profile).distinct('photo').count()
-        if user_tagged_all_in_album:
-            user_tagged_all_in_album = 1
-        else:
-            user_tagged_all_in_album = 0
-        ret.append({
-            'id': a.id,
-            'title': a.title,
-            'subtitle': a.subtitle,
-            'image': reverse('project.home.cat.cat_album_thumb', args=(a.id, 250)),
-            'tagged': user_tagged_all_in_album
-        })
-    return HttpResponse(json.dumps({
-        'error': error,
-        'albums': json.dumps(ret)
-    }), content_type="application/json")
+# @csrf_exempt
+# def cat_logout(request):
+#     logout(request)
+#     return HttpResponse(json.dumps({
+#         'error': 0
+#     }), content_type="application/json")
 
 
 def cat_album_thumb(request, album_id, thumb_size=150):
@@ -99,3 +135,4 @@ def cat_album_thumb(request, album_id, thumb_size=150):
     response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
     cache.set(cache_key, response)
     return response
+
