@@ -86,3 +86,8 @@ class CatLoginForm(forms.Form):
     password = forms.CharField(max_length=40)
     length = forms.IntegerField(required=False, initial=0)
     os = forms.CharField(max_length=255, required=False, initial='android')
+
+
+class CatAuthForm(forms.Form):
+    session_id = forms.CharField(max_length=255)
+    user_id = forms.IntegerField()
