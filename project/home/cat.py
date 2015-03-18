@@ -20,7 +20,6 @@ from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
-#session={'_u': 19882, '_s': 'mamy5ltkpqdp90e9qy6rv6iodzvhdmmk'}
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -71,7 +70,7 @@ def cat_login(request):
         pw = login_form.cleaned_data['password']
         try:
             user = authenticate(username=uname, password=pw)
-        except:
+        except ObjectDoesNotExist:
             pass
         if not user and login_form.cleaned_data['type'] == 'auto':
             User.objects.create_user(username=uname, password=pw)
