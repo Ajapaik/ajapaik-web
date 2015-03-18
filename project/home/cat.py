@@ -217,6 +217,7 @@ def cat_tag(request):
     if cat_tag_form.is_valid():
         CatTagPhoto(
             tag=cat_tag_form.cleaned_data['tag'],
+            album=cat_tag_form.cleaned_data['id'],
             photo=cat_tag_form.cleaned_data['photo'],
             profile=request.get_user().profile,
             value=cat_tag_form.cleaned_data['value']

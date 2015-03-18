@@ -101,6 +101,7 @@ class CatTag(models.Model):
 
 class CatTagPhoto(models.Model):
     tag = models.ForeignKey('CatTag')
+    album = models.ForeignKey('CatAlbum')
     photo = models.ForeignKey('CatPhoto')
     profile = models.ForeignKey('Profile')
     value = models.PositiveSmallIntegerField()
