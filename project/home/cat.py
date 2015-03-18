@@ -179,7 +179,7 @@ def cat_album_state(request):
                 'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id, 500))),
                 'title': p.title,
                 'author': p.author,
-                'source': {'source1': {'name': p.source.name, 'url': p.source_url}},
+                'source': {'source1': {'name': p.source.description, 'url': p.source_url}},
                 'tag': [CatTag.objects.order_by('?')[0].name]
             })
     content = {
