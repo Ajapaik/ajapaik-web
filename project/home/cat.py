@@ -1,9 +1,7 @@
 # encoding: utf-8
-from datetime import datetime
-import json
 import urllib
-import urlparse
-from django.contrib.auth import authenticate, login, logout
+from datetime import datetime
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.core.cache import cache
@@ -11,8 +9,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 from rest_framework.parsers import FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -20,15 +16,20 @@ from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
 from project.home.forms import CatLoginForm, CatAuthForm
-from project.home.models import CatAlbum, CatTagPhoto, CatPhoto
+from project.home.models import CatAlbum, CatTagPhoto
 from rest_framework import authentication
 from rest_framework import exceptions
-
+#"session":"{"_s":"s5h1jb7k1mszpclwaxioe79ywebrizbw","_u":"18585"}"
 
 class CustomAuthentication(authentication.BaseAuthentication):
     @parser_classes((FormParser,))
     def authenticate(self, request):
-        cat_auth_form = CatAuthForm(eval(request.data['session']))
+        print request.data
+        #print urllib.urlencode({"session": {"_s": "jpdt1ts8124e5tm8ykgsjhx57cuv3xaj", "_u": 18585}})
+        try:
+            cat_auth_form = CatAuthForm(eval(request.data['session']))
+        except KeyError:
+            raise exceptions.AuthenticationFailed('No user/session')
         user = None
         if cat_auth_form.is_valid():
             user_id = cat_auth_form.cleaned_data['_u']
@@ -40,11 +41,14 @@ class CustomAuthentication(authentication.BaseAuthentication):
                 user = User.objects.get(pk=user_id)
             except (User.DoesNotExist, Session.DoesNotExist):
                 raise exceptions.AuthenticationFailed('No user/session')
+        else:
+            print cat_auth_form.errors
 
         return user, None
 
 
 def custom_exception_handler(exc, context):
+    print exc
     response = exception_handler(exc, context)
 
     if response is not None:

@@ -89,5 +89,5 @@ class CatLoginForm(forms.Form):
 
 
 class CatAuthForm(forms.Form):
-    session_id = forms.CharField(max_length=255)
-    user_id = forms.IntegerField()
+    _s = forms.CharField(max_length=255)
+    _u = forms.IntegerField()
