@@ -19,7 +19,7 @@ from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm
 from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag
 from rest_framework import authentication
 from rest_framework import exceptions
-#"session":"{"_s":"s5h1jb7k1mszpclwaxioe79ywebrizbw","_u":"18585"}"
+#session={'_u': 19882, '_s': 'mamy5ltkpqdp90e9qy6rv6iodzvhdmmk'}
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -63,10 +63,13 @@ def cat_login(request):
     user = None
     session = None
     if login_form.is_valid():
-        user = authenticate(
-            username=login_form.cleaned_data['username'],
-            password=login_form.cleaned_data['password']
-        )
+        try:
+            user = authenticate(
+                username=login_form.cleaned_data['username'],
+                password=login_form.cleaned_data['password']
+            )
+        except:
+            pass
         if not user and login_form.cleaned_data['type'] == 'auto':
             User.objects.create_user(
                 username=login_form.cleaned_data['username'],
