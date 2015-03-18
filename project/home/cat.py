@@ -158,20 +158,21 @@ def _get_album_state(request, form):
         'state': int(round(time.time() * 1000))
     }
     if form.is_valid():
-        all_cat_tags = list(CatTag.objects.order_by('?').values_list('name', flat=True))
-        count = len(all_cat_tags)
+        all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
         album = form.cleaned_data['id']
         content['title'] = album.title
         content['subtitle'] = album.subtitle
         content['image'] = request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id, 400)))
         for p in album.photos.all():
+            available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
+                profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
             content['photos'].append({
                 'id': p.id,
                 'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id, 400))),
                 'title': p.title,
                 'author': p.author,
                 'source': {'source1': {'name': p.source.description, 'url': p.source_url}},
-                'tag': random.sample(all_cat_tags, count)
+                'tag': random.sample(available_cat_tags, len(available_cat_tags))
             })
     else:
         content['error'] = 2
