@@ -180,7 +180,7 @@ def cat_album_state(request):
                 'title': p.title,
                 'author': p.author,
                 'source': p.source,
-                'tag': [CatTag.objects.order_by('?')[0]]
+                'tag': [CatTag.objects.order_by('?')[0].name]
             })
     content = {
         'error': error,
