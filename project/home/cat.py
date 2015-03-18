@@ -28,7 +28,10 @@ class CustomAuthentication(authentication.BaseAuthentication):
         bullshit = {}
         for item in body_data:
             bullshit[item[0]] = item[1]
-        session_data = eval(bullshit['session'])
+        try:
+            session_data = eval(bullshit['session'])
+        except KeyError:
+            raise exceptions.AuthenticationFailed('No user/session')
         user_id = session_data['_u']
         session_id = session_data['_s']
         if not session_id or not user_id:
