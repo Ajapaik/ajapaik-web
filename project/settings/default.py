@@ -158,7 +158,6 @@ EXTERNAL_APPS = (
     'compressor',
     'modeltranslation',
     'django_cleanup',
-    'rest_framework.authtoken',
 )
 
 LOCAL_APPS = (
@@ -180,7 +179,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
     ),
     'EXCEPTION_HANDLER': 'project.home.cat.custom_exception_handler'
 }

@@ -118,6 +118,8 @@ class CatPhoto(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
+    author = models.CharField(max_length=255, null=True, blank=True)
+    source = models.ForeignKey('Source', null=True, blank=True)
     tags = models.ManyToManyField(CatTag, related_name='photos', through=CatTagPhoto)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

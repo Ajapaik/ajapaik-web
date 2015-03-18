@@ -91,3 +91,8 @@ class CatLoginForm(forms.Form):
 class CatAuthForm(forms.Form):
     _s = forms.CharField(max_length=255)
     _u = forms.IntegerField()
+
+
+class CatAlbumStateForm(forms.Form):
+    id = forms.IntegerField()
+    state = forms.CharField(max_length=255, required=False)
