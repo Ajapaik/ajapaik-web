@@ -46,11 +46,11 @@ class CustomAuthentication(authentication.BaseAuthentication):
 
 
 def custom_exception_handler(exc, context):
-    print exc
     response = exception_handler(exc, context)
 
+    # TODO: Error handling
     if response is not None:
-        response.data['error'] = 4
+        response.data['error'] = 1
 
     return response
 
@@ -60,40 +60,30 @@ def custom_exception_handler(exc, context):
 @permission_classes((AllowAny,))
 def cat_login(request):
     login_form = CatLoginForm(request.data)
-    error = 0
+    content = {
+        'error': 0,
+        'session': None,
+        'expires': 0
+    }
     user = None
-    session = None
     if login_form.is_valid():
+        uname = login_form.cleaned_data['username']
+        pw = login_form.cleaned_data['password']
         try:
-            user = authenticate(
-                username=login_form.cleaned_data['username'],
-                password=login_form.cleaned_data['password']
-            )
+            user = authenticate(username=uname, password=pw)
         except:
             pass
         if not user and login_form.cleaned_data['type'] == 'auto':
-            User.objects.create_user(
-                username=login_form.cleaned_data['username'],
-                password=login_form.cleaned_data['password']
-            )
-            user = authenticate(
-                username=login_form.cleaned_data['username'],
-                password=login_form.cleaned_data['password']
-            )
+            User.objects.create_user(username=uname, password=pw)
+            user = authenticate(username=uname, password=pw)
     else:
-        error = 2
+        content['error'] = 2
     if user:
         login(request, user)
-        session = request.session.session_key
-    else:
-        error = 4
-    content = {
-        'error': error,
-        'session': session,
-        'expires': 0
-    }
-    if user:
         content['id'] = user.id
+        content['session'] = request.session.session_key
+    else:
+        content['error'] = 4
     return Response(content)
 
 
@@ -109,10 +99,9 @@ def cat_logout(request):
     session_id = session_data['_s']
     try:
         Session.objects.get(pk=session_id).delete()
+        return Response({'error': 0})
     except ObjectDoesNotExist:
-        pass
-
-    return Response({'error': 0})
+        return Response({'error': 2})
 
 
 def cat_album_thumb(request, album_id, thumb_size=150):
