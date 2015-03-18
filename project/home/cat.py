@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.core.cache import cache
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -114,12 +115,25 @@ def cat_login(request):
         content['id'] = user.id
     return Response(content)
 
-# @csrf_exempt
-# def cat_logout(request):
-#     logout(request)
-#     return HttpResponse(json.dumps({
-#         'error': 0
-#     }), content_type="application/json")
+
+@api_view(['POST'])
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def cat_logout(request):
+    body_data = urlparse.parse_qsl(urllib.unquote(request.body))
+    bullshit = {}
+    for item in body_data:
+        bullshit[item[0]] = item[1]
+    try:
+        session_data = eval(bullshit['session'])
+    except KeyError:
+        raise exceptions.AuthenticationFailed('No user/session')
+    session_id = session_data['_s']
+    try:
+        Session.objects.get(pk=session_id).delete()
+    except ObjectDoesNotExist:
+        pass
+    return Response({'error': 0})
 
 
 def cat_album_thumb(request, album_id, thumb_size=150):

@@ -66,6 +66,7 @@ urlpatterns = patterns('project.home.views',
 
 urlpatterns += patterns('project.home.cat',
    url(r'^cat/v1/login/$', 'cat_login'),
+   url(r'^cat/v1/logout/$', 'cat_logout'),
    url(r'^cat/v1/albums/$', 'cat_albums'),
    url(r'^cat/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'cat_album_thumb'),
 )
