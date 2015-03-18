@@ -24,7 +24,6 @@ from rest_framework import exceptions
 class CustomAuthentication(authentication.BaseAuthentication):
     @parser_classes((FormParser,))
     def authenticate(self, request):
-        print request.data
         #print urllib.urlencode({"session": {"_s": "jpdt1ts8124e5tm8ykgsjhx57cuv3xaj", "_u": 18585}})
         try:
             cat_auth_form = CatAuthForm(eval(request.data['session']))
@@ -41,8 +40,6 @@ class CustomAuthentication(authentication.BaseAuthentication):
                 user = User.objects.get(pk=user_id)
             except (User.DoesNotExist, Session.DoesNotExist):
                 raise exceptions.AuthenticationFailed('No user/session')
-        else:
-            print cat_auth_form.errors
 
         return user, None
 
