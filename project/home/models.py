@@ -89,7 +89,7 @@ cat_path_and_rename = PathAndRename("cat")
 
 
 class CatTag(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     level = models.SmallIntegerField(blank=True, null=True)
 
     class Meta:

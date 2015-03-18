@@ -15,10 +15,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
-from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm
+from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm
 from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag
 from rest_framework import authentication
 from rest_framework import exceptions
+import random
 #session={'_u': 19882, '_s': 'mamy5ltkpqdp90e9qy6rv6iodzvhdmmk'}
 
 
@@ -162,39 +163,41 @@ def cat_albums(request):
     return Response(content)
 
 
+def _get_album_state(request, form):
+    content = {
+        'error': 0,
+        'photos': [],
+        'state': int(round(time.time() * 1000))
+    }
+    if form.is_valid():
+        all_cat_tags = list(CatTag.objects.order_by('?').values_list('name', flat=True))
+        count = len(all_cat_tags)
+        album = form.cleaned_data['id']
+        content['title'] = album.title
+        content['subtitle'] = album.subtitle
+        content['image'] = request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id, 400)))
+        for p in album.photos.all():
+            content['photos'].append({
+                'id': p.id,
+                'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id, 400))),
+                'title': p.title,
+                'author': p.author,
+                'source': {'source1': {'name': p.source.description, 'url': p.source_url}},
+                'tag': random.sample(all_cat_tags, count)
+            })
+    else:
+        content['error'] = 2
+
+    return content
+
+
 @api_view(['POST'])
 @parser_classes((FormParser,))
 @authentication_classes((CustomAuthentication,))
 @permission_classes((IsAuthenticated,))
 def cat_album_state(request):
     cat_album_state_form = CatAlbumStateForm(request.data)
-    error = 0
-    album = None
-    photos = []
-    if cat_album_state_form.is_valid():
-        try:
-            album = CatAlbum.objects.get(pk=cat_album_state_form.cleaned_data['id'])
-        except ObjectDoesNotExist:
-            return Response({'error': 2})
-        for p in album.photos.all():
-            photos.append({
-                'id': p.id,
-                'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id, 500))),
-                'title': p.title,
-                'author': p.author,
-                'source': {'source1': {'name': p.source.description, 'url': p.source_url}},
-                'tag': [x.name for x in CatTag.objects.order_by('?')]
-            })
-    content = {
-        'error': error,
-        'title': album.title,
-        'subtitle': album.subtitle,
-        'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id, 250))),
-        'photos': photos,
-        'state': int(round(time.time() * 1000))
-    }
-
-    return Response(content)
+    return Response(_get_album_state(request, cat_album_state_form))
 
 
 def cat_photo(request, photo_id, thumb_size=600):
@@ -214,3 +217,23 @@ def cat_photo(request, photo_id, thumb_size=600):
     cache.set(cache_key, response)
 
     return response
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def cat_tag(request):
+    cat_tag_form = CatTagForm(request.data)
+    content = _get_album_state(request, cat_tag_form)
+    if cat_tag_form.is_valid():
+        CatTagPhoto(
+            tag=cat_tag_form.cleaned_data['tag'],
+            photo=cat_tag_form.cleaned_data['photo'],
+            profile=request.get_user().profile,
+            value=cat_tag_form.cleaned_data['value']
+        ).save()
+    else:
+        content['error'] = 2
+
+    return Response(content)
