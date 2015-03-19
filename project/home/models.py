@@ -592,7 +592,8 @@ class Photo(models.Model):
                         azimuth_sum += each.azimuth
                         azimuth_count += 1
                         total_azimuth_geotags += 1
-                avg_trust = trust_sum / trust_count
+                if trust_count:
+                    avg_trust = trust_sum / trust_count
                 if avg_trust > max_trust:
                     max_trust = avg_trust
                     point = {'lat': a[1], 'lon': a[2]}
