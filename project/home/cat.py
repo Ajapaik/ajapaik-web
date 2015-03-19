@@ -108,7 +108,7 @@ def cat_album_thumb(request, album_id, thumb_size=150):
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(a.image, thumb_str, upscale=False)
     content = im.read()
-    next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+    next_week = datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
     response['Cache-Control'] = "max-age=604800, public"
@@ -194,7 +194,7 @@ def cat_photo(request, photo_id, thumb_size=600):
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(p.image, thumb_str, upscale=False)
     content = im.read()
-    next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+    next_week = datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
     response['Cache-Control'] = "max-age=604800, public"
