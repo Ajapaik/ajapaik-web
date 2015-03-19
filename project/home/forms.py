@@ -1,5 +1,5 @@
 from django import forms
-from .models import Area, Album, Profile
+from .models import Area, Album, CatTag, CatAlbum, CatPhoto
 from django.utils.translation import ugettext_lazy as _
 from project import settings
 
@@ -78,3 +78,29 @@ class CuratorPhotoUploadForm(forms.Form):
     flip = forms.BooleanField(required=False)
     invert = forms.BooleanField(required=False)
     stereo = forms.BooleanField(required=False)
+
+
+class CatLoginForm(forms.Form):
+    type = forms.CharField(max_length=255, required=False)
+    username = forms.CharField(max_length=40)
+    password = forms.CharField(max_length=64)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.CharField(max_length=255, required=False, initial='android')
+
+
+class CatAuthForm(forms.Form):
+    _s = forms.CharField(max_length=255)
+    _u = forms.IntegerField()
+
+
+class CatAlbumStateForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
+    state = forms.CharField(max_length=255, required=False)
+
+
+class CatTagForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
+    photo = forms.ModelChoiceField(queryset=CatPhoto.objects.all())
+    tag = forms.ModelChoiceField(queryset=CatTag.objects.all(), to_field_name='name')
+    value = forms.TypedChoiceField(choices=[(-1, -1), (0, 0), (1, 1)], coerce=int)
+    state = forms.CharField(max_length=255, required=False)

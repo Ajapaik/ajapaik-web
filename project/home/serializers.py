@@ -1,4 +1,4 @@
-from models import Photo, Area, Source, Album
+from models import Photo, Area, Source, Album, CatAlbum
 from rest_framework import serializers
 
 

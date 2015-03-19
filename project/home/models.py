@@ -1,4 +1,5 @@
 from PIL import Image
+from django.contrib.gis.measure import D
 from django.core.files import File
 from django.contrib.gis.db import models
 from django.db import connection
@@ -26,14 +27,18 @@ from django.contrib.gis.geos import Point, Polygon
 import math
 import datetime
 
-# import pandas as pd
-# import numpy as np
-# from sklearn.cluster import DBSCAN
-# from geopy.distance import great_circle
+import pandas as pd
+import numpy as np
+from sklearn.cluster import DBSCAN
+from geopy.distance import great_circle
+
+from django.utils.deconstruct import deconstructible
+from uuid import uuid4
+
 
 # Create profile automatically
 def user_post_save(sender, instance, **kwargs):
-    profile, new = Profile.objects.get_or_create(user=instance)
+    Profile.objects.get_or_create(user=instance)
 
 
 def distance_in_meters(lon1, lat1, lon2, lat2):
@@ -66,6 +71,82 @@ class Area(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.name
+
+
+@deconstructible
+class PathAndRename(object):
+    def __init__(self, sub_path):
+        self.path = sub_path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.path, filename)
+
+
+cat_path_and_rename = PathAndRename("cat")
+
+
+class CatTag(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    level = models.SmallIntegerField(blank=True, null=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s' % self.name
+
+
+class CatTagPhoto(models.Model):
+    tag = models.ForeignKey('CatTag')
+    album = models.ForeignKey('CatAlbum')
+    photo = models.ForeignKey('CatPhoto')
+    profile = models.ForeignKey('Profile')
+    value = models.PositiveSmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s - %s - %s - %s' % (self.photo, self.tag, self.value, self.profile)
+
+
+class CatPhoto(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
+    author = models.CharField(max_length=255, null=True, blank=True)
+    source = models.ForeignKey('Source', null=True, blank=True)
+    source_url = models.CharField(max_length=255, blank=True, null=True)
+    tags = models.ManyToManyField(CatTag, related_name='photos', through=CatTagPhoto)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s' % self.title
+
+
+class CatAlbum(models.Model):
+    title = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255)
+    image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
+    photos = models.ManyToManyField(CatPhoto, related_name='albums')
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u'%s' % self.title
 
 
 class Album(models.Model):
@@ -127,24 +208,6 @@ models.signals.pre_delete.connect(delete_parent, sender=AlbumPhoto)
 class PhotoManager(models.GeoManager):
     def get_queryset(self):
         return self.model.QuerySet(self.model)
-
-
-from django.utils.deconstruct import deconstructible
-from uuid import uuid4
-
-
-@deconstructible
-class PathAndRename(object):
-    def __init__(self, sub_path):
-        self.path = sub_path
-
-    def __call__(self, instance, filename):
-        ext = filename.split('.')[-1]
-        # set filename as random string
-        filename = '{}.{}'.format(uuid4().hex, ext)
-        # return the whole path to the file
-        return os.path.join(self.path, filename)
-
 
 path_and_rename = PathAndRename("uploads")
 
@@ -485,7 +548,7 @@ class Photo(models.Model):
         return closest_point
 
     def set_calculated_fields(self):
-        photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
+        photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo_id=self.id))
         weighted_level_sum, total_weight = 0, 0
         for each in photo_difficulty_feedback:
             weighted_level_sum += float(each.level) * each.trustworthiness
@@ -493,112 +556,60 @@ class Photo(models.Model):
         if total_weight != 0:
             self.guess_level = round((weighted_level_sum / total_weight), 2)
 
-        # TODO: Currently not needed
-        # photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
-        # flip_feedback_user_dict = {}
-        # for each in photo_flip_feedback:
-        # 	if each.user_profile_id not in flip_feedback_user_dict:
-        # 		flip_feedback_user_dict[each.user_profile.id] = [each]
-        # 	else:
-        # 		flip_feedback_user_dict[each.user_profile.id].append(each)
-        # votes_for_flipping = 0
-        # votes_against_flipping = 0
-        # for user_id, feedback_objects in flip_feedback_user_dict.items():
-        # 	feedback_objects = sorted(feedback_objects, key=attrgetter("created"), reverse=True)
-        # 	latest_feedback = feedback_objects[0]
-        # 	if latest_feedback.flip:
-        # 		votes_for_flipping += 1
-        # 	else:
-        # 		votes_against_flipping += 1
-        # if votes_for_flipping > votes_against_flipping:
-        # 	self.flip = True
-        # else:
-        # 	self.flip = False
-
         if not self.bounding_circle_radius:
-            geotags = GeoTag.objects.filter(photo__id=self.id)
-            correct_geotags = geotags.filter(is_correct=True)
-            correct_geotags_count = len(correct_geotags)
-            # df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
-            # coordinates = df.as_matrix()
-            # db = DBSCAN(eps=0.001, min_samples=2).fit(coordinates)
-            # labels = db.labels_
-            # num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-            # clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
-            # lon = []
-            # lat = []
-            # for i, cluster in clusters.iteritems():
-            #     if len(cluster) < 3:
-            #         representative_point = (cluster[0][1], cluster[0][0])
-            #     else:
-            #         representative_point = self.get_nearest_point(cluster, self.get_centroid(cluster))
-            #     lat.append(representative_point[0])
-            #     lon.append(representative_point[1])
-            # rs = pd.DataFrame({'lat': lat, 'lon': lon})
-            # for a in rs.itertuples():
-            #     qs = GeoTag.objects.filter(geography__intersects=Polygon.from_bbox(bounding_box))
-            # return
-            # geotags_with_azimuth = list(geotags.filter(azimuth__isnull=False))
-            if correct_geotags_count > 0:
-                # lon = sorted([g.lon for g in geotags])
-                # lon = lon[len(lon) / 2]
-                # lat = sorted([g.lat for g in geotags])
-                # lat = lat[len(lat) / 2]
-                # median_azimuth = None
-                # if len(geotags_with_azimuth) > 0:
-                #     azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
-                #     median_azimuth = azimuths[len(azimuths) / 2]
-
-                # correct_guesses_weight, total_weight, azimuth_correct_guesses_weight, azimuth_total_guesses_weight = 0, 0, 0, 0
-                lon_sum, lat_sum, azimuth_sum, count, azimuth_count = 0, 0, 0, 0, 0
-                user_geotags_map = {}
-                for g in correct_geotags:
-                    # current_distance = distance_in_meters(g.lon, g.lat, lon, lat)
-                    # if current_distance < 100:
-                    if g.user_id not in user_geotags_map:
-                        user_geotags_map[g.user_id] = g
-                    elif user_geotags_map[g.user_id].created < g.created:
-                        user_geotags_map[g.user_id] = g
-                        #if current_distance < distance_in_meters(user_geotags_map[g.user_id].lon,
-                                                                 #user_geotags_map[g.user_id].lat, lon, lat):
-                    # total_weight += g.trustworthiness
-                for v in user_geotags_map.values():
-                    # correct_guesses_weight += v.trustworthiness
-                    # lon_sum += v.lon * v.trustworthiness
-                    # lat_sum += v.lat * v.trustworthiness
-                    lon_sum += v.lon
-                    lat_sum += v.lat
-                    count += 1
-                    if v.azimuth:
-                        azimuth_sum += v.azimuth
+            geotags = GeoTag.objects.filter(photo_id=self.id)
+            df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
+            coordinates = df.as_matrix()
+            db = DBSCAN(eps=0.001, min_samples=1).fit(coordinates)
+            labels = db.labels_
+            num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+            clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
+            lon = []
+            lat = []
+            for i, cluster in clusters.iteritems():
+                if len(cluster) < 3:
+                    representative_point = (cluster[0][1], cluster[0][0])
+                else:
+                    representative_point = self.get_nearest_point(cluster, self.get_centroid(cluster))
+                lat.append(representative_point[0])
+                lon.append(representative_point[1])
+            rs = pd.DataFrame({'lat': lat, 'lon': lon})
+            user_geotags = geotags.distinct('user_id').order_by('user_id', '-created')
+            max_trust = 0
+            point = None
+            selected_geotags = None
+            total_azimuth_geotags = 0
+            for a in rs.itertuples():
+                qs = user_geotags.filter(geography__distance_lte=(Point(a[1], a[2]), D(m=50)))
+                trust_sum = 0
+                trust_count = 0
+                azimuth_sum = 0
+                azimuth_count = 0
+                for each in qs:
+                    trust_sum += each.trustworthiness
+                    trust_count += 1
+                    if each.azimuth:
+                        azimuth_sum += each.azimuth
                         azimuth_count += 1
-                    # if v.azimuth > 0 and median_azimuth:
-                    #     difference = max(v.azimuth, median_azimuth) - min(v.azimuth, median_azimuth)
-                    #     if difference > 180:
-                    #         difference = 360 - difference
-                    #     if difference <= 15:
-                    #         azimuth_sum += v.azimuth * v.trustworthiness
-                    #         azimuth_correct_guesses_weight += v.trustworthiness
-                    #     azimuth_total_guesses_weight += v.trustworthiness
-                # unique_correct_guesses_ratio = 0
-                # if total_weight > 0:
-                    # unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)
-                # unique_azimuth_correct_ratio = 0
-                # if azimuth_correct_guesses_weight > 0 and azimuth_total_guesses_weight > 0:
-                #     unique_azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
-                # if unique_correct_guesses_ratio > 0.63:
-                #     self.lon = lon_sum / float(correct_guesses_weight)
-                #     self.lat = lat_sum / float(correct_guesses_weight)
-                #     if unique_azimuth_correct_ratio > 0.63:
-                #         self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
-                #         self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
-                #     self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
-                if count != 0:
-                    self.lon = lon_sum / count
-                    self.lat = lat_sum / count
-                    self.confidence = correct_geotags_count / len(geotags)
-                if azimuth_count != 0:
-                    self.azimuth = azimuth_sum / azimuth_count
+                        total_azimuth_geotags += 1
+                avg_trust = trust_sum / trust_count
+                if avg_trust > max_trust:
+                    max_trust = avg_trust
+                    point = {'lat': a[1], 'lon': a[2]}
+                    if azimuth_count:
+                        point['azimuth'] = azimuth_sum / azimuth_count
+                        point['azimuth_count'] = azimuth_count
+                    selected_geotags = qs.all()
+            if point:
+                self.lat = point['lat']
+                self.lon = point['lon']
+                self.confidence = len(selected_geotags) / len(geotags)
+                if 'azimuth' in point:
+                    self.azimuth = point['azimuth']
+                    self.azimuth_confidence = point['azimuth_count'] / total_azimuth_geotags
+            if geotags and selected_geotags:
+                geotags.update(is_correct=False)
+                selected_geotags.update(is_correct=True)
 
 
 class DifficultyFeedback(models.Model):

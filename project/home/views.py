@@ -1,4 +1,5 @@
 # encoding: utf-8
+import hashlib
 import os
 import urllib
 import urllib2
@@ -205,6 +206,8 @@ def photo_upload(request, photo_id):
                         new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
                         new_img.save(output_file, 'JPEG', quality=95)
                         re_photo.image_unscaled = deepcopy(re_photo.image)
+                        new_name = str(re_photo.image).split('.')[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split('.')[1]
+                        re_photo.image_unscaled.save(new_name, ContentFile(img.read()))
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
                     elif re_photo.cam_scale_factor > 1:
                         x0 = (new_size[0] - img.size[0]) / 2
@@ -213,6 +216,8 @@ def photo_upload(request, photo_id):
                         new_img.paste(img, (x0, y0))
                         new_img.save(output_file, 'JPEG', quality=95)
                         re_photo.image_unscaled = deepcopy(re_photo.image)
+                        new_name = str(re_photo.image).split('.')[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split('.')[1]
+                        re_photo.image_unscaled.save(new_name, ContentFile(img.read()))
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
         profile.update_rephoto_score()
@@ -348,7 +353,14 @@ def photo_thumb(request, photo_id, thumb_size=150):
     if cached_response:
         return cached_response
     p = get_object_or_404(Photo, id=photo_id)
-    image_to_use = p.image_unscaled or p.image
+    if p.image_unscaled:
+        try:
+            if os.path.exists(p.image_unscaled.file.name):
+                image_to_use = p.image_unscaled
+        except ValueError:
+            image_to_use = p.image
+    else:
+        image_to_use = p.image
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(image_to_use, thumb_str, upscale=False)
     content = im.read()
@@ -1009,7 +1021,7 @@ def curator_photo_upload_handler(request):
         "photos": {}
     }
 
-    if len(selection) > 0 and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
+    if selection and len(selection) > 0 and profile is not None and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
         album = None
         if curator_album_select_form.is_valid():
             if curator_album_select_form.cleaned_data['album'].profile == profile: #or curator_album_select_form.cleaned_data['album'].is_public_mutable == True:

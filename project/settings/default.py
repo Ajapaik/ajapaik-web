@@ -177,7 +177,10 @@ LOGIN_URL = "/admin/"
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.BasicAuthentication',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'EXCEPTION_HANDLER': 'project.home.cat.custom_exception_handler'
 }
 
 CACHES = {
