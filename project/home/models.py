@@ -564,7 +564,7 @@ class Photo(models.Model):
             geotag_coord_map = {}
             for g in geotags:
                 key = str(g.lat) + str(g.lon)
-                if geotag_coord_map[key]:
+                if key in geotag_coord_map:
                     geotag_coord_map[key].append(g)
                 else:
                     geotag_coord_map[key] = g
@@ -593,42 +593,42 @@ class Photo(models.Model):
                 total_azimuth_geotags = 0
                 for a in rs.itertuples():
                     trust_sum = 0
-                    trust_count = len(a[3])
                     azimuth_sum = 0
                     azimuth_count = 0
                     current_geotags = []
                     for each in a[3]:
                         g = geotag_coord_map[str(each[1]) + str(each[0])]
-                        current_geotags.append(g)
-                        trust_sum += g.trustworthiness
-                        if g.azimuth:
-                            azimuth_sum += g.azimuth
-                            azimuth_count += 1
-                            total_azimuth_geotags += 1
-                    if trust_count:
-                        avg_trust = trust_sum / trust_count
-                        if avg_trust > max_trust:
-                            max_trust = avg_trust
-                            point = {'lat': a[1], 'lon': a[2]}
-                            selected_geotags = current_geotags
-                            if azimuth_count:
-                                point['azimuth'] = azimuth_sum / azimuth_count
-                                point['azimuth_count'] = azimuth_count
+                        if isinstance(g, list):
+                            for gg in g:
+                                current_geotags.append(gg)
+                                trust_sum += gg.trustworthiness
+                                if gg.azimuth:
+                                    azimuth_sum += gg.azimuth
+                                    azimuth_count += 1
+                                    total_azimuth_geotags += 1
+                        else:
+                            current_geotags.append(g)
+                            trust_sum += g.trustworthiness
+                            if g.azimuth:
+                                azimuth_sum += g.azimuth
+                                azimuth_count += 1
+                                total_azimuth_geotags += 1
+                    if trust_sum > max_trust:
+                        max_trust = trust_sum
+                        point = {'lat': a[1], 'lon': a[2]}
+                        selected_geotags = current_geotags
+                        if azimuth_count:
+                            point['azimuth'] = azimuth_sum / azimuth_count
+                            point['azimuth_count'] = azimuth_count
                 if point:
-                    print point
                     self.lat = point['lat']
                     self.lon = point['lon']
-                    self.confidence = len(selected_geotags) / len(geotags)
-                    print self.confidence
+                    self.confidence = float(len(selected_geotags)) / float(len(geotags))
                     if 'azimuth' in point:
                         self.azimuth = point['azimuth']
-                        self.azimuth_confidence = point['azimuth_count'] / total_azimuth_geotags
-                        print self.azimuth
-                        print self.azimuth_confidence
-                print selected_geotags
-                if geotags and selected_geotags:
-                    geotags.update(is_correct=False)
-                    GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
+                        self.azimuth_confidence = float(point['azimuth_count']) / float(total_azimuth_geotags)
+                geotags.update(is_correct=False)
+                GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
 
 
 class DifficultyFeedback(models.Model):
