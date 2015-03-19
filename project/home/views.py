@@ -877,7 +877,7 @@ def curator(request):
     curator_random_image_ids = AlbumPhoto.objects.filter(album_id=last_created_album.id).order_by('?').values_list('id', flat=True)
     if not curator_random_image_ids:
         curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('id', flat=True)
-    curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)
+    curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
     site = Site.objects.get_current()
     return render_to_response('curator.html', RequestContext(request, {
         'description': _('Search for old photos, add them to Ajapaik, determine their locations ja share the resulting album!'),
