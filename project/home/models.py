@@ -628,7 +628,8 @@ class Photo(models.Model):
                         self.azimuth = point['azimuth']
                         self.azimuth_confidence = float(point['azimuth_count']) / float(total_azimuth_geotags)
                 geotags.update(is_correct=False)
-                GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
+                if selected_geotags:
+                    GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
 
 
 class DifficultyFeedback(models.Model):
