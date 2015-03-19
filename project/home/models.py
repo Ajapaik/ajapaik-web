@@ -20,6 +20,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 
 from oauth2client.django_orm import FlowField
+from sklearn.preprocessing import StandardScaler
 
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point, Polygon
@@ -558,15 +559,25 @@ class Photo(models.Model):
 
         if not self.bounding_circle_radius:
             geotags = GeoTag.objects.filter(photo_id=self.id)
+            unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created').values_list('id', flat=True)
+            geotags = geotags.filter(pk__in=unique_user_geotag_ids)
+            geotag_coord_map = {}
+            for g in geotags:
+                key = str(g.lat) + str(g.lon)
+                if geotag_coord_map[key]:
+                    geotag_coord_map[key].append(g)
+                else:
+                    geotag_coord_map[key] = g
             if geotags:
                 df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
-                coordinates = df.as_matrix()
-                db = DBSCAN(eps=0.001, min_samples=1).fit(coordinates)
+                coordinates = df.as_matrix(columns=['lon', 'lat'])
+                db = DBSCAN(eps=0.0003, min_samples=1).fit(coordinates)
                 labels = db.labels_
                 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
                 clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
                 lon = []
                 lat = []
+                members = []
                 for i, cluster in clusters.iteritems():
                     if len(cluster) < 3:
                         representative_point = (cluster[0][1], cluster[0][0])
@@ -574,23 +585,24 @@ class Photo(models.Model):
                         representative_point = self.get_nearest_point(cluster, self.get_centroid(cluster))
                     lat.append(representative_point[0])
                     lon.append(representative_point[1])
-                rs = pd.DataFrame({'lat': lat, 'lon': lon})
-                unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created').values_list('id', flat=True)
+                    members.append(cluster)
+                rs = pd.DataFrame({'lat': lat, 'lon': lon, 'members': members})
                 max_trust = 0
                 point = None
                 selected_geotags = None
                 total_azimuth_geotags = 0
                 for a in rs.itertuples():
-                    qs = geotags.filter(geography__distance_lte=(Point(a[1], a[2]), D(m=50)), pk__in=unique_user_geotag_ids)
                     trust_sum = 0
-                    trust_count = 0
+                    trust_count = len(a[3])
                     azimuth_sum = 0
                     azimuth_count = 0
-                    for each in qs:
-                        trust_sum += each.trustworthiness
-                        trust_count += 1
-                        if each.azimuth:
-                            azimuth_sum += each.azimuth
+                    current_geotags = []
+                    for each in a[3]:
+                        g = geotag_coord_map[str(each[1]) + str(each[0])]
+                        current_geotags.append(g)
+                        trust_sum += g.trustworthiness
+                        if g.azimuth:
+                            azimuth_sum += g.azimuth
                             azimuth_count += 1
                             total_azimuth_geotags += 1
                     if trust_count:
@@ -598,20 +610,25 @@ class Photo(models.Model):
                         if avg_trust > max_trust:
                             max_trust = avg_trust
                             point = {'lat': a[1], 'lon': a[2]}
+                            selected_geotags = current_geotags
                             if azimuth_count:
                                 point['azimuth'] = azimuth_sum / azimuth_count
                                 point['azimuth_count'] = azimuth_count
-                            selected_geotags = qs.all()
                 if point:
+                    print point
                     self.lat = point['lat']
                     self.lon = point['lon']
                     self.confidence = len(selected_geotags) / len(geotags)
+                    print self.confidence
                     if 'azimuth' in point:
                         self.azimuth = point['azimuth']
                         self.azimuth_confidence = point['azimuth_count'] / total_azimuth_geotags
+                        print self.azimuth
+                        print self.azimuth_confidence
+                print selected_geotags
                 if geotags and selected_geotags:
                     geotags.update(is_correct=False)
-                    selected_geotags.update(is_correct=True)
+                    GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
 
 
 class DifficultyFeedback(models.Model):

@@ -194,31 +194,31 @@ def photo_upload(request, photo_id):
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
 
-                if re_photo.cam_scale_factor:
-                    new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
-                    output_file = StringIO()
-
-                    if re_photo.cam_scale_factor < 1:
-                        x0 = (img.size[0] - new_size[0]) / 2
-                        y0 = (img.size[1] - new_size[1]) / 2
-                        x1 = img.size[0] - x0
-                        y1 = img.size[1] - y0
-                        new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
-                        new_img.save(output_file, 'JPEG', quality=95)
-                        re_photo.image_unscaled = deepcopy(re_photo.image)
-                        new_name = str(re_photo.image).split('.')[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split('.')[1]
-                        re_photo.image_unscaled.save(new_name, ContentFile(img))
-                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-                    elif re_photo.cam_scale_factor > 1:
-                        x0 = (new_size[0] - img.size[0]) / 2
-                        y0 = (new_size[1] - img.size[1]) / 2
-                        new_img = Image.new("RGB", new_size)
-                        new_img.paste(img, (x0, y0))
-                        new_img.save(output_file, 'JPEG', quality=95)
-                        re_photo.image_unscaled = deepcopy(re_photo.image)
-                        new_name = str(re_photo.image).split('.')[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split('.')[1]
-                        re_photo.image_unscaled.save(new_name, ContentFile(img))
-                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                # if re_photo.cam_scale_factor:
+                #     new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
+                #     output_file = StringIO()
+                #
+                #     if re_photo.cam_scale_factor < 1:
+                #         x0 = (img.size[0] - new_size[0]) / 2
+                #         y0 = (img.size[1] - new_size[1]) / 2
+                #         x1 = img.size[0] - x0
+                #         y1 = img.size[1] - y0
+                #         new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
+                #         new_img.save(output_file, 'JPEG', quality=95)
+                #         re_photo.image_unscaled = deepcopy(re_photo.image)
+                #         new_name = str(re_photo.image).split('.')[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split('.')[1]
+                #         re_photo.image_unscaled.save(new_name, ContentFile(img))
+                #         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                #     elif re_photo.cam_scale_factor > 1:
+                #         x0 = (new_size[0] - img.size[0]) / 2
+                #         y0 = (new_size[1] - img.size[1]) / 2
+                #         new_img = Image.new("RGB", new_size)
+                #         new_img.paste(img, (x0, y0))
+                #         new_img.save(output_file, 'JPEG', quality=95)
+                #         re_photo.image_unscaled = deepcopy(re_photo.image)
+                #         new_name = str(re_photo.image).split('.')[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split('.')[1]
+                #         re_photo.image_unscaled.save(new_name, ContentFile(img))
+                #         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
         profile.update_rephoto_score()
 
@@ -876,7 +876,9 @@ def curator(request):
     curator_random_images = None
     try:
         last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
-        curator_random_image_ids = AlbumPhoto.objects.filter(album_id=last_created_album.id).order_by('?')[:5]
+        curator_random_image_ids = AlbumPhoto.objects.filter(album_id=last_created_album.id).order_by('?').values_list('id', flat=True)[:5]
+        if not curator_random_image_ids:
+            curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('id', flat=True)[:5]
         curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)
     except:
         pass
