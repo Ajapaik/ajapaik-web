@@ -595,13 +595,13 @@ class Photo(models.Model):
                             total_azimuth_geotags += 1
                     if trust_count:
                         avg_trust = trust_sum / trust_count
-                    if avg_trust > max_trust:
-                        max_trust = avg_trust
-                        point = {'lat': a[1], 'lon': a[2]}
-                        if azimuth_count:
-                            point['azimuth'] = azimuth_sum / azimuth_count
-                            point['azimuth_count'] = azimuth_count
-                        selected_geotags = qs.all()
+                        if avg_trust > max_trust:
+                            max_trust = avg_trust
+                            point = {'lat': a[1], 'lon': a[2]}
+                            if azimuth_count:
+                                point['azimuth'] = azimuth_sum / azimuth_count
+                                point['azimuth_count'] = azimuth_count
+                            selected_geotags = qs.all()
                 if point:
                     self.lat = point['lat']
                     self.lon = point['lon']
