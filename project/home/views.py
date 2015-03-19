@@ -873,15 +873,11 @@ def public_photo_upload(request):
 @ensure_csrf_cookie
 def curator(request):
     curator_leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
-    curator_random_images = None
-    try:
-        last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
-        curator_random_image_ids = AlbumPhoto.objects.filter(album_id=last_created_album.id).order_by('?').values_list('id', flat=True)[:5]
-        if not curator_random_image_ids:
-            curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('id', flat=True)[:5]
-        curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)
-    except:
-        pass
+    last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
+    curator_random_image_ids = AlbumPhoto.objects.filter(album_id=last_created_album.id).order_by('?').values_list('id', flat=True)
+    if not curator_random_image_ids:
+        curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('id', flat=True)
+    curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)
     return render_to_response('curator.html', RequestContext(request, {
         'description': _('Search for old photos, add them to Ajapaik, determine their locations ja share the resulting album!'),
         'curator_random_images': curator_random_images,
