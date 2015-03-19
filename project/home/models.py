@@ -548,7 +548,7 @@ class Photo(models.Model):
         return closest_point
 
     def set_calculated_fields(self):
-        photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo__id=self.id))
+        photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo_id=self.id))
         weighted_level_sum, total_weight = 0, 0
         for each in photo_difficulty_feedback:
             weighted_level_sum += float(each.level) * each.trustworthiness
@@ -556,32 +556,8 @@ class Photo(models.Model):
         if total_weight != 0:
             self.guess_level = round((weighted_level_sum / total_weight), 2)
 
-        # TODO: Currently not needed
-        # photo_flip_feedback = list(FlipFeedback.objects.filter(photo__id=self.id))
-        # flip_feedback_user_dict = {}
-        # for each in photo_flip_feedback:
-        # 	if each.user_profile_id not in flip_feedback_user_dict:
-        # 		flip_feedback_user_dict[each.user_profile.id] = [each]
-        # 	else:
-        # 		flip_feedback_user_dict[each.user_profile.id].append(each)
-        # votes_for_flipping = 0
-        # votes_against_flipping = 0
-        # for user_id, feedback_objects in flip_feedback_user_dict.items():
-        # 	feedback_objects = sorted(feedback_objects, key=attrgetter("created"), reverse=True)
-        # 	latest_feedback = feedback_objects[0]
-        # 	if latest_feedback.flip:
-        # 		votes_for_flipping += 1
-        # 	else:
-        # 		votes_against_flipping += 1
-        # if votes_for_flipping > votes_against_flipping:
-        # 	self.flip = True
-        # else:
-        # 	self.flip = False
-
         if not self.bounding_circle_radius:
-            geotags = GeoTag.objects.filter(photo__id=self.id)
-            # correct_geotags = geotags.filter(is_correct=True)
-            # correct_geotags_count = len(correct_geotags)
+            geotags = GeoTag.objects.filter(photo_id=self.id)
             df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
             coordinates = df.as_matrix()
             db = DBSCAN(eps=0.001, min_samples=2).fit(coordinates)
@@ -633,73 +609,6 @@ class Photo(models.Model):
                     self.azimuth_confidence = point['azimuth_count'] / total_azimuth_geotags
             geotags.update(is_correct=False)
             selected_geotags.update(is_correct=True)
-                # if count != 0:
-                #     self.lon = lon_sum / count
-                #     self.lat = lat_sum / count
-                #     self.confidence = correct_geotags_count / len(geotags)
-                # if azimuth_count != 0:
-                #     self.azimuth = azimuth_sum / azimuth_count
-            #geotags_with_azimuth = list(geotags.filter(azimuth__isnull=False))
-            #if correct_geotags_count > 0:
-                # lon = sorted([g.lon for g in geotags])
-                # lon = lon[len(lon) / 2]
-                # lat = sorted([g.lat for g in geotags])
-                # lat = lat[len(lat) / 2]
-                # median_azimuth = None
-                # if len(geotags_with_azimuth) > 0:
-                #     azimuths = sorted([g.azimuth for g in geotags_with_azimuth])
-                #     median_azimuth = azimuths[len(azimuths) / 2]
-
-                # correct_guesses_weight, total_weight, azimuth_correct_guesses_weight, azimuth_total_guesses_weight = 0, 0, 0, 0
-                # lon_sum, lat_sum, azimuth_sum, count, azimuth_count = 0, 0, 0, 0, 0
-                # user_geotags_map = {}
-                # for g in correct_geotags:
-                    # current_distance = distance_in_meters(g.lon, g.lat, lon, lat)
-                    # if current_distance < 100:
-                    # if g.user_id not in user_geotags_map:
-                    #     user_geotags_map[g.user_id] = g
-                    # elif user_geotags_map[g.user_id].created < g.created:
-                    #     user_geotags_map[g.user_id] = g
-                        #if current_distance < distance_in_meters(user_geotags_map[g.user_id].lon,
-                                                                 #user_geotags_map[g.user_id].lat, lon, lat):
-                    # total_weight += g.trustworthiness
-                # for v in user_geotags_map.values():
-                    # correct_guesses_weight += v.trustworthiness
-                    # lon_sum += v.lon * v.trustworthiness
-                    # lat_sum += v.lat * v.trustworthiness
-                    # lon_sum += v.lon
-                    # lat_sum += v.lat
-                    # count += 1
-                    # if v.azimuth:
-                    #     azimuth_sum += v.azimuth
-                    #     azimuth_count += 1
-                    # if v.azimuth > 0 and median_azimuth:
-                    #     difference = max(v.azimuth, median_azimuth) - min(v.azimuth, median_azimuth)
-                    #     if difference > 180:
-                    #         difference = 360 - difference
-                    #     if difference <= 15:
-                    #         azimuth_sum += v.azimuth * v.trustworthiness
-                    #         azimuth_correct_guesses_weight += v.trustworthiness
-                    #     azimuth_total_guesses_weight += v.trustworthiness
-                # unique_correct_guesses_ratio = 0
-                # if total_weight > 0:
-                    # unique_correct_guesses_ratio = correct_guesses_weight / float(total_weight)
-                # unique_azimuth_correct_ratio = 0
-                # if azimuth_correct_guesses_weight > 0 and azimuth_total_guesses_weight > 0:
-                #     unique_azimuth_correct_ratio = azimuth_correct_guesses_weight / float(azimuth_total_guesses_weight)
-                # if unique_correct_guesses_ratio > 0.63:
-                #     self.lon = lon_sum / float(correct_guesses_weight)
-                #     self.lat = lat_sum / float(correct_guesses_weight)
-                #     if unique_azimuth_correct_ratio > 0.63:
-                #         self.azimuth = azimuth_sum / float(azimuth_correct_guesses_weight)
-                #         self.azimuth_confidence = unique_azimuth_correct_ratio * min(1, azimuth_correct_guesses_weight / 2)
-                #     self.confidence = unique_correct_guesses_ratio * min(1, correct_guesses_weight / 2)
-                # if count != 0:
-                #     self.lon = lon_sum / count
-                #     self.lat = lat_sum / count
-                #     self.confidence = correct_geotags_count / len(geotags)
-                # if azimuth_count != 0:
-                #     self.azimuth = azimuth_sum / azimuth_count
 
 
 class DifficultyFeedback(models.Model):
