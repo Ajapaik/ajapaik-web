@@ -560,7 +560,7 @@ class Photo(models.Model):
             geotags = GeoTag.objects.filter(photo_id=self.id)
             df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
             coordinates = df.as_matrix()
-            db = DBSCAN(eps=0.001, min_samples=2).fit(coordinates)
+            db = DBSCAN(eps=0.001, min_samples=1).fit(coordinates)
             labels = db.labels_
             num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
             clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
