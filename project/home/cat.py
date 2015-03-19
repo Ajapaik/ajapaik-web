@@ -25,10 +25,7 @@ import random
 class CustomAuthentication(authentication.BaseAuthentication):
     @parser_classes((FormParser,))
     def authenticate(self, request):
-        try:
-            cat_auth_form = CatAuthForm(eval(request.data['session']))
-        except KeyError:
-            raise exceptions.AuthenticationFailed('No user/session')
+        cat_auth_form = CatAuthForm(request.data)
         user = None
         if cat_auth_form.is_valid():
             user_id = cat_auth_form.cleaned_data['_u']
@@ -92,10 +89,9 @@ def cat_login(request):
 @permission_classes((IsAuthenticated,))
 def cat_logout(request):
     try:
-        session_data = eval(request.data['session'])
+        session_id = request.data['_s']
     except KeyError:
         return Response({'error': 4})
-    session_id = session_data['_s']
     try:
         Session.objects.get(pk=session_id).delete()
         return Response({'error': 0})
