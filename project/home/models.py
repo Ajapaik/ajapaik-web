@@ -567,7 +567,7 @@ class Photo(models.Model):
                 if key in geotag_coord_map:
                     geotag_coord_map[key].append(g)
                 else:
-                    geotag_coord_map[key] = g
+                    geotag_coord_map[key] = [g]
             if geotags:
                 df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
                 coordinates = df.as_matrix(columns=['lon', 'lat'])
@@ -598,19 +598,11 @@ class Photo(models.Model):
                     current_geotags = []
                     for each in a[3]:
                         g = geotag_coord_map[str(each[1]) + str(each[0])]
-                        if isinstance(g, list):
-                            for gg in g:
-                                current_geotags.append(gg)
-                                trust_sum += gg.trustworthiness
-                                if gg.azimuth:
-                                    azimuth_sum += gg.azimuth
-                                    azimuth_count += 1
-                                    total_azimuth_geotags += 1
-                        else:
-                            current_geotags.append(g)
-                            trust_sum += g.trustworthiness
-                            if g.azimuth:
-                                azimuth_sum += g.azimuth
+                        for gg in g:
+                            current_geotags.append(gg)
+                            trust_sum += gg.trustworthiness
+                            if gg.azimuth:
+                                azimuth_sum += gg.azimuth
                                 azimuth_count += 1
                                 total_azimuth_geotags += 1
                     if trust_sum > max_trust:
