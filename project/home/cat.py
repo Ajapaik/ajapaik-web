@@ -66,7 +66,7 @@ def cat_login(request):
     }
     user = None
     if login_form.is_valid():
-        uname = login_form.cleaned_data['username']
+        uname = login_form.cleaned_data['username'][:30]
         pw = login_form.cleaned_data['password']
         try:
             user = authenticate(username=uname, password=pw)

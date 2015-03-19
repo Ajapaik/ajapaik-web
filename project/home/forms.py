@@ -83,7 +83,7 @@ class CuratorPhotoUploadForm(forms.Form):
 class CatLoginForm(forms.Form):
     type = forms.CharField(max_length=255, required=False)
     username = forms.CharField(max_length=40)
-    password = forms.CharField(max_length=40)
+    password = forms.CharField(max_length=64)
     length = forms.IntegerField(required=False, initial=0)
     os = forms.CharField(max_length=255, required=False, initial='android')
 
