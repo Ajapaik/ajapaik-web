@@ -575,13 +575,13 @@ class Photo(models.Model):
                     lat.append(representative_point[0])
                     lon.append(representative_point[1])
                 rs = pd.DataFrame({'lat': lat, 'lon': lon})
-                user_geotags = geotags.distinct('user_id').order_by('user_id', '-created')
+                unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created').values_list('id', flat=True)
                 max_trust = 0
                 point = None
                 selected_geotags = None
                 total_azimuth_geotags = 0
                 for a in rs.itertuples():
-                    qs = user_geotags.filter(geography__distance_lte=(Point(a[1], a[2]), D(m=50)))
+                    qs = geotags.filter(geography__distance_lte=(Point(a[1], a[2]), D(m=50)), pk__in=unique_user_geotag_ids)
                     trust_sum = 0
                     trust_count = 0
                     azimuth_sum = 0
