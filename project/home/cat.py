@@ -147,7 +147,7 @@ def cat_albums(request):
     return Response(content)
 
 
-def _get_album_state(request, form):
+def _get_album_state(request, form, from_tagging=False):
     content = {
         'error': 0,
         'photos': [],
@@ -210,7 +210,7 @@ def cat_photo(request, photo_id, thumb_size=600):
 @permission_classes((IsAuthenticated,))
 def cat_tag(request):
     cat_tag_form = CatTagForm(request.data)
-    content = _get_album_state(request, cat_tag_form)
+    content = _get_album_state(request, cat_tag_form, True)
     if cat_tag_form.is_valid():
         CatTagPhoto(
             tag=cat_tag_form.cleaned_data['tag'],
