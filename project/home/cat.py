@@ -151,7 +151,7 @@ def _get_album_state(request, form):
     content = {
         'error': 0,
         'photos': [],
-        'state': int(round(time.time() * 1000))
+        'state': str(int(round(time.time() * 1000)))
     }
     if form.is_valid():
         all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
