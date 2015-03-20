@@ -124,7 +124,7 @@ class CatTagPhoto(models.Model):
     album = models.ForeignKey('CatAlbum')
     photo = models.ForeignKey('CatPhoto')
     profile = models.ForeignKey('Profile')
-    value = models.PositiveSmallIntegerField()
+    value = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
