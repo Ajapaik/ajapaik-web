@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         album = CatAlbum.objects.get(pk=5)
-        paasuke_photos = CatPhoto.filter(pk__gt=923).all()
+        paasuke_photos = CatPhoto.objects.filter(pk__gt=923).all()
         for each in paasuke_photos:
             album.photos.add(each)
         album.save()
