@@ -361,7 +361,7 @@ class Photo(models.Model):
                 user_last_action = user_last_geotag
             if user_last_action:
                 try:
-                    user_last_interacted_photo = album_photos_set.filter(id=user_last_action.photo_id, lat__isnull=False, lon__isnull=False)[:1].get()
+                    user_last_interacted_photo = album_photos_set.filter(id=user_last_action.photo_id)[:1].get()
                 except:
                     user_last_interacted_photo = None
 
