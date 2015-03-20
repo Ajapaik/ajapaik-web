@@ -19,5 +19,5 @@ class Command(BaseCommand):
                 source=each.source,
                 source_url=each.source_url
             )
-            cp.image.save("cat.jpg", ContentFile(img.read()))
+            cp.image.save("cat.jpg", ContentFile(img))
             cp.save()
