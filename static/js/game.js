@@ -510,7 +510,7 @@
                 $('#ajapaik-guess-panel-stats').hide();
                 window.setCursorToAuto();
                 clearBothersomeListeners();
-                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
+                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 0);
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {

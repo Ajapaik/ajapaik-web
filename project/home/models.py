@@ -2,6 +2,8 @@ from PIL import Image
 from django.contrib.gis.measure import D
 from django.core.files import File
 from django.contrib.gis.db import models
+from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator
 from django.db import connection
 
 from django.contrib.auth.models import User as BaseUser
@@ -35,6 +37,7 @@ from geopy.distance import great_circle
 
 from django.utils.deconstruct import deconstructible
 from uuid import uuid4
+from django.utils.translation import ugettext as _
 
 
 # Create profile automatically
@@ -58,6 +61,23 @@ def _make_thumbnail(photo, size):
 def _make_fullscreen(photo):
     image = get_thumbnail(photo.image, '1024x1024', upscale=False)
     return {'url': image.url, 'size': [image.width, image.height]}
+
+
+def _angle_diff(angle1, angle2):
+    diff = angle2 - angle1
+    if diff < -180:
+        diff += 360
+    elif diff > 180:
+        diff -= 360
+    return abs(diff)
+
+
+def _average_angle(angles):
+    x = y = 0
+    for e in angles:
+        x += math.cos(math.radians(e))
+        y += math.sin(math.radians(e))
+    return math.atan2(y, x)
 
 
 models.signals.post_save.connect(user_post_save, sender=BaseUser)
@@ -560,16 +580,16 @@ class Photo(models.Model):
         if not self.bounding_circle_radius:
             geotags = GeoTag.objects.filter(photo_id=self.id)
             unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created').values_list('id', flat=True)
-            geotags = geotags.filter(pk__in=unique_user_geotag_ids)
+            unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
             geotag_coord_map = {}
-            for g in geotags:
+            for g in unique_user_geotags:
                 key = str(g.lat) + str(g.lon)
                 if key in geotag_coord_map:
                     geotag_coord_map[key].append(g)
                 else:
                     geotag_coord_map[key] = [g]
-            if geotags:
-                df = pd.DataFrame(data=[[x.lon, x.lat] for x in geotags], columns=['lon', 'lat'])
+            if unique_user_geotags:
+                df = pd.DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=['lon', 'lat'])
                 coordinates = df.as_matrix(columns=['lon', 'lat'])
                 db = DBSCAN(eps=0.0003, min_samples=1).fit(coordinates)
                 labels = db.labels_
@@ -590,38 +610,48 @@ class Photo(models.Model):
                 max_trust = 0
                 point = None
                 selected_geotags = None
-                total_azimuth_geotags = 0
                 for a in rs.itertuples():
                     trust_sum = 0
-                    azimuth_sum = 0
-                    azimuth_count = 0
                     current_geotags = []
                     for each in a[3]:
                         g = geotag_coord_map[str(each[1]) + str(each[0])]
                         for gg in g:
                             current_geotags.append(gg)
                             trust_sum += gg.trustworthiness
-                            if gg.azimuth:
-                                azimuth_sum += gg.azimuth
-                                azimuth_count += 1
-                                total_azimuth_geotags += 1
                     if trust_sum > max_trust:
                         max_trust = trust_sum
                         point = {'lat': a[1], 'lon': a[2]}
                         selected_geotags = current_geotags
-                        if azimuth_count:
-                            point['azimuth'] = azimuth_sum / azimuth_count
-                            point['azimuth_count'] = azimuth_count
                 if point:
                     self.lat = point['lat']
                     self.lon = point['lon']
                     self.confidence = float(len(selected_geotags)) / float(len(geotags))
-                    if 'azimuth' in point:
-                        self.azimuth = point['azimuth']
-                        self.azimuth_confidence = float(point['azimuth_count']) / float(total_azimuth_geotags)
-                geotags.update(is_correct=False)
+                geotags.update(is_correct=False, azimuth_correct=False)
                 if selected_geotags:
                     GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
+                    # TODO: Solution for few very different guesses e.g. (0, 90, 180) => 90
+                    filter_indices = []
+                    contains_outliers = True
+                    arr = [x.azimuth for x in selected_geotags if x.azimuth]
+                    initial_arr_length = len(arr)
+                    deg_avg = None
+                    while contains_outliers:
+                        avg = _average_angle(arr)
+                        deg_avg = math.degrees(avg)
+                        diff_arr = [_angle_diff(x, deg_avg) for x in arr]
+                        contains_outliers = False
+                        for i, e in enumerate(diff_arr):
+                            if e > 60:
+                                filter_indices.append(i)
+                                contains_outliers = True
+                        arr = [i for j, i in enumerate(arr) if j not in filter_indices]
+                    correct_azimuth_geotags = [i for j, i in enumerate(selected_geotags) if j not in filter_indices]
+                    GeoTag.objects.filter(pk__in=[x.id for x in correct_azimuth_geotags]).update(azimuth_correct=True)
+                    if deg_avg is not None:
+                        self.azimuth = deg_avg
+                        self.azimuth_confidence = float(len(arr)) / float(initial_arr_length)
+
+
 
 
 class DifficultyFeedback(models.Model):
@@ -686,19 +716,18 @@ class Points(models.Model):
 class GeoTag(models.Model):
     MAP, EXIF, GPS = range(3)
     TYPE_CHOICES = (
-        (MAP, 'Map'),
-        (EXIF, 'EXIF'),
-        (GPS, 'GPS'),
+        (MAP, _('Map')),
+        (EXIF, _('EXIF')),
+        (GPS, _('GPS')),
     )
-    GAME, MAP, GRID = range(3)
+    GAME, MAP_VIEW, GRID = range(3)
     ORIGIN_CHOICES = (
-        (GAME, 'Game'),
-        (MAP, 'Map'),
-        (GRID, 'Grid'),
+        (GAME, _('Game')),
+        (MAP_VIEW, _('Map view')),
+        (GRID, _('Grid')),
     )
-
-    lat = models.FloatField()
-    lon = models.FloatField()
+    lat = models.FloatField(validators=[MinValueValidator(-85), MaxValueValidator(85)])
+    lon = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
     geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     azimuth = models.FloatField(null=True, blank=True)
     azimuth_line_end_lat = models.FloatField(null=True, blank=True)
@@ -706,31 +735,26 @@ class GeoTag(models.Model):
     zoom_level = models.IntegerField(null=True, blank=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
-    hint_used = models.NullBooleanField(null=True, blank=True, default=False)
-
+    hint_used = models.BooleanField(default=False)
     user = models.ForeignKey('Profile', related_name='geotags')
     photo = models.ForeignKey('Photo', related_name='geotags')
-
-    is_correct = models.NullBooleanField()
-    score = models.PositiveSmallIntegerField()
+    is_correct = models.BooleanField(default=False)
+    azimuth_correct = models.BooleanField(default=False)
+    score = models.PositiveSmallIntegerField(null=True, blank=True)
     azimuth_score = models.PositiveSmallIntegerField(null=True, blank=True)
     trustworthiness = models.FloatField()
-
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
 
     def save(self, *args, **kwargs):
-        # Update POSTGIS data on save
-        try:
-            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
-        except:
-            pass
+        self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         super(GeoTag, self).save(*args, **kwargs)
 
     def __unicode__(self):
+        # Django admin may crash with too long names
         title = None
         desc = None
         if self.photo.title:

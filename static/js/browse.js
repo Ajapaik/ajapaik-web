@@ -864,7 +864,7 @@
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
             } else {
                 // TODO: Flip data and stuff
-                window.saveLocation(window.marker, photoId, window.photoModalCurrentPhotoFlipStatus, true, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Map');
+                window.saveLocation(window.marker, photoId, window.photoModalCurrentPhotoFlipStatus, true, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 1);
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Mapview', 'Save location and direction']);
                 } else {

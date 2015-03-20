@@ -541,32 +541,28 @@ var map,
     };
 
     saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
-        var lat = marker.getPosition().lat(),
-            lon = marker.getPosition().lng(),
-            data = {
-                photo_id: photoId,
+        var data = {
+                lat: marker.getPosition().lat(),
+                lon: marker.getPosition().lng(),
+                photo: photoId,
                 hint_used: hintUsed,
                 zoom_level: map.zoom,
+                type: 0,
                 origin: origin,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
         if (degreeAngle && saveDirection) {
             data.azimuth = degreeAngle;
+            data.azimuth_line_end_lat = azimuthLineEndPoint[0];
+            data.azimuth_line_end_lon = azimuthLineEndPoint[1];
         } else {
             dottedAzimuthLine.setVisible(false);
-        }
-        if (azimuthLineEndPoint && saveDirection) {
-            data.azimuth_line_end_point = azimuthLineEndPoint;
-        }
-        if (lat && lon) {
-            data.lat = lat;
-            data.lon = lon;
         }
         if (userFlippedPhoto) {
             data.flip = photoFlipStatus;
         }
         $.ajax({
-            url: saveLocationURL,
+            url: window.saveLocationURL,
             data: data,
             method: 'POST',
             success: function (resp) {

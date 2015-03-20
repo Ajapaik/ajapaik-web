@@ -25,9 +25,9 @@ import requests
 from rest_framework.renderers import JSONRenderer
 
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, FlipFeedback, UserMapView, Points, \
-    Album, AlbumPhoto, Area, Licence
+    Album, AlbumPhoto, Area, Licence, distance_in_meters, _angle_diff, Skip
 from project.home.forms import AddAlbumForm, PublicPhotoUploadForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm
+    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm
 from sorl.thumbnail import get_thumbnail
 from PIL import Image, ImageFile
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
@@ -581,39 +581,77 @@ def get_leaderboard(request):
     return HttpResponse(json.dumps(get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)), content_type="application/json")
 
 
+@login_required
 def geotag_add(request):
-    data = request.POST
-    origin = data.get('origin')
-    if origin == 'Grid':
-        origin = GeoTag.GRID
-    elif origin == 'Map':
-        origin = GeoTag.MAP
+    submit_geotag_form = SubmitGeotagForm(request.POST)
+    profile = request.get_user().profile
+    ret = {
+        'location_correct': False,
+        'this_guess_score': 0
+    }
+    if submit_geotag_form.is_valid():
+        azimuth_score = 0
+        new_geotag = submit_geotag_form.save(commit=False)
+        new_geotag.user = profile
+        trust = get_next_photos_to_geotag.calc_trustworthiness(profile.id)
+        new_geotag.trustworthiness = trust
+        new_geotag.save()
+        tagged_photo = submit_geotag_form.cleaned_data['photo']
+        tagged_photo.set_calculated_fields()
+        tagged_photo.save()
+        processed_tagged_photo = Photo.objects.filter(pk=tagged_photo.id).get()
+        ret['estimated_location'] = [processed_tagged_photo.lat, processed_tagged_photo.lon]
+        processed_geotag = GeoTag.objects.filter(pk=new_geotag.id).get()
+        if processed_geotag.origin == GeoTag.GAME:
+            if len(tagged_photo.geotags.all()) == 1:
+                score = max(20, int(300 * trust))
+            else:
+                error_in_meters = distance_in_meters(tagged_photo.lon, tagged_photo.lat, processed_geotag.lon,
+                                                     processed_geotag.lat)
+                score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
+        else:
+            score = int(trust * 100)
+        if processed_geotag.hint_used:
+            score *= 0.75
+        if processed_geotag.azimuth_correct:
+            degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
+            difference = int(_angle_diff(tagged_photo.azimuth, processed_geotag.azimuth))
+            if difference <= 15:
+                azimuth_score = degree_error_point_array[int(difference)]
+        processed_geotag.azimuth_score = azimuth_score
+        processed_geotag.score = score + azimuth_score
+        processed_geotag.save()
+        ret['is_correct'] = processed_geotag.is_correct
+        ret['current_score'] = processed_geotag.score
+        Points(user=profile, action=Points.GEOTAG, geotag=processed_geotag, points=processed_geotag.score,
+               created=datetime.datetime.now()).save()
+        geotags_for_this_photo = GeoTag.objects.filter(photo=tagged_photo)
+        ret['heatmap_points'] = [[x.lat, x.lon] for x in geotags_for_this_photo]
+        ret['azimuth_tags'] = geotags_for_this_photo.filter(azimuth__isnull=False).count()
+        ret['confidence'] = processed_tagged_photo.confidence
+        profile.set_calculated_fields()
+        profile.save()
+        if processed_geotag.origin == GeoTag.GAME:
+            if processed_geotag.is_correct:
+                ret['feedback_message'] = _('Looks right!')
+                if not processed_geotag.azimuth:
+                    ret['feedback_message'] = \
+                        _('The location seems right. Try submitting an azimuth to earn even more points!')
+                else:
+                    if not processed_geotag.azimuth_correct:
+                        ret['feedback_message'] = _('The location seems right, but not the azimuth.')
+                    if ret['azimuth_tags'] == 1:
+                        ret['feedback_message'] = _('The location seems right, your azimuth was first.')
+            else:
+                ret['feedback_message'] = _("Other users have different opinion.")
+            if len(geotags_for_this_photo) == 1:
+                ret['feedback_message'] = _('Your guess was first.')
     else:
-        origin = GeoTag.GAME
-    location_correct, location_uncertain, this_guess_score, feedback_message, all_geotags_latlng_for_this_photo, azimuth_tags_count, new_estimated_location, confidence = get_next_photos_to_geotag.submit_guess(
-        request.get_user().profile, data.get('photo_id'), data.get('lon'), data.get('lat'), GeoTag.MAP,
-        hint_used=data.get('hint_used'), azimuth=data.get('azimuth'), zoom_level=data.get('zoom_level'),
-        azimuth_line_end_point=data.getlist('azimuth_line_end_point[]'), origin=origin)
-    flip = data.get("flip", None)
-    if flip is not None:
-        flip_feedback = FlipFeedback()
-        flip_feedback.photo_id = data['photo_id']
-        flip_feedback.user_profile = request.get_user().profile
-        if flip == "true":
-            flip_feedback.flip = True
-        elif flip == "false":
-            flip_feedback.flip = False
-        flip_feedback.save()
-    return HttpResponse(json.dumps({
-        'is_correct': location_correct,
-        'location_is_unclear': location_uncertain,
-        'current_score': this_guess_score,
-        'confidence': confidence,
-        'heatmap_points': all_geotags_latlng_for_this_photo,
-        'feedback_message': feedback_message,
-        'azimuth_tags': azimuth_tags_count,
-        'estimated_location': new_estimated_location
-    }), content_type="application/json")
+        if 'lat' not in submit_geotag_form.cleaned_data and 'lon' not in submit_geotag_form.cleaned_data \
+                and 'photo' in submit_geotag_form.cleaned_data:
+            Skip(user=profile, photo=submit_geotag_form.cleaned_data['photo']).save()
+
+    return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
 def leaderboard(request):
