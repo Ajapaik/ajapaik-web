@@ -10,7 +10,7 @@ from project.home.models import CatPhoto, Source, CatAlbum
 
 class Command(BaseCommand):
     help = "Create categorizer test data from Finna"
-    args = "url"
+    args = "url album_id"
 
     @staticmethod
     def _set_query_parameter(url, param_name, param_value):
@@ -22,7 +22,7 @@ class Command(BaseCommand):
         return urlunsplit((scheme, netloc, path, new_query_string, fragment))
 
     @staticmethod
-    def _create_photos_from_xml_response(xml_response):
+    def _create_photos_from_xml_response(xml_response, album_id):
         for elem in xml_response:
             if elem.tag == "docs":
                 new_photo = CatPhoto(
@@ -31,7 +31,7 @@ class Command(BaseCommand):
                     source=Source.objects.get(description=elem.find('institution').text),
                     source_url=elem.find("record_link").text,
                     date_text=elem.find("main_date_str").text,
-                    album=CatAlbum.objects.get(pk=3),
+                    album=CatAlbum.objects.get(pk=album_id),
                     author=elem.find("author").text,
                 )
                 opener = urllib2.build_opener()
@@ -43,6 +43,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.count = 1
         url = args[0]
+        album_id = args[1]
         items_per_page = 20
         page = 1
         parser = etree.XMLParser()
@@ -52,7 +53,7 @@ class Command(BaseCommand):
         xml_response = data.find("response")
         number_of_items = int(xml_response.find("numFound").text)
         pages_to_get = int(ceil(number_of_items / items_per_page))
-        self._create_photos_from_xml_response(xml_response)
+        self._create_photos_from_xml_response(xml_response, album_id)
         if pages_to_get > 1:
             while page < pages_to_get:
                 page += 1
@@ -61,4 +62,4 @@ class Command(BaseCommand):
                 response = urllib2.urlopen(request)
                 data = etree.fromstring(response.read(), parser=parser)
                 xml_response = data.find("response")
-                self._create_photos_from_xml_response(xml_response)
+                self._create_photos_from_xml_response(xml_response, album_id)
