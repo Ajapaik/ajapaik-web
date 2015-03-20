@@ -167,7 +167,7 @@ def _get_album_state(request, form):
                 'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id, 400))),
                 'title': p.title,
                 'author': p.author,
-                'source': {'source1': {'name': p.source.description, 'url': p.source_url}},
+                'source': {'name': p.source.description, 'url': p.source_url},
                 'tag': random.sample(available_cat_tags, len(available_cat_tags))
             })
     else:

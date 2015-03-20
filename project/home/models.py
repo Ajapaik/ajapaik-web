@@ -1,5 +1,4 @@
 from PIL import Image
-from django.contrib.gis.measure import D
 from django.core.files import File
 from django.contrib.gis.db import models
 from django.core.validators import MinValueValidator
@@ -22,7 +21,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 
 from oauth2client.django_orm import FlowField
-from sklearn.preprocessing import StandardScaler
 
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point, Polygon
