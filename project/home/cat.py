@@ -147,7 +147,7 @@ def cat_albums(request):
     return Response(content)
 
 
-def _get_album_state(request, form, from_tagging=False):
+def _get_album_state(request, form):
     content = {
         'error': 0,
         'photos': [],
@@ -210,15 +210,27 @@ def cat_photo(request, photo_id, thumb_size=600):
 @permission_classes((IsAuthenticated,))
 def cat_tag(request):
     cat_tag_form = CatTagForm(request.data)
-    content = _get_album_state(request, cat_tag_form, True)
+    content = {
+        'error': 0,
+    }
     if cat_tag_form.is_valid():
-        CatTagPhoto(
+        tag = CatTagPhoto(
             tag=cat_tag_form.cleaned_data['tag'],
             album=cat_tag_form.cleaned_data['id'],
             photo=cat_tag_form.cleaned_data['photo'],
             profile=request.get_user().profile,
             value=cat_tag_form.cleaned_data['value']
         ).save()
+        all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
+        available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
+            profile=tag.profile, album=tag.album, photo=tag.photo).values_list('tag__name', flat=True))
+        content['state'] = int(round(time.time() * 1000))
+        content['photos+'] = [
+            {
+                'id': tag.photo.id,
+                'tags': random.sample(available_cat_tags, len(available_cat_tags))
+            }
+        ]
     else:
         content['error'] = 2
 
