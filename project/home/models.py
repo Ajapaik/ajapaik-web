@@ -157,7 +157,7 @@ class CatAlbum(models.Model):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255)
     image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
-    photos = models.ManyToManyField(CatPhoto, related_name='albums')
+    photos = models.ManyToManyField(CatPhoto, related_name='albums', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

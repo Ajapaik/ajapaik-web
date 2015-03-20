@@ -2,6 +2,7 @@ from lxml import etree
 from urllib import urlencode
 import urllib2
 from urlparse import urlsplit, parse_qs, urlunsplit
+from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from math import ceil
 from project.home.models import CatPhoto, Source
@@ -20,18 +21,10 @@ class Command(BaseCommand):
 
         return urlunsplit((scheme, netloc, path, new_query_string, fragment))
 
-    def _create_photos_from_xml_response(self, xml_response):
+    @staticmethod
+    def _create_photos_from_xml_response(xml_response):
         for elem in xml_response:
             if elem.tag == "docs":
-                # title = models.CharField(max_length=255)
-                # description = models.TextField(null=True, blank=True)
-                # image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
-                # author = models.CharField(max_length=255, null=True, blank=True)
-                # source = models.ForeignKey('Source', null=True, blank=True)
-                # source_url = models.CharField(max_length=255, blank=True, null=True)
-                # tags = models.ManyToManyField(CatTag, related_name='photos', through=CatTagPhoto)
-                # created = models.DateTimeField(auto_now_add=True)
-                # modified = models.DateTimeField(auto_now=True)
                 new_photo = CatPhoto(
                     title=elem.find("title").text,
                     description=elem.find("title_sort").text,
@@ -39,17 +32,12 @@ class Command(BaseCommand):
                     source_url=elem.find("record_link").text,
                     date_text=elem.find("main_date_str").text,
                     author=elem.find("author").text,
-                    source_url=elem.find("record_link").text,
-                    licence="Public domain"
                 )
                 opener = urllib2.build_opener()
                 opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
                 img_response = opener.open(elem.find("image_links").text)
                 new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
                 new_photo.save()
-                ap = AlbumPhoto(album=self.album, photo=new_photo)
-                ap.save()
-
 
     def handle(self, *args, **options):
         self.count = 1
