@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = "Make a categorizer album from an existing album"
 
     def handle(self, *args, **options):
-        album_photos = Album.objects.get(pk=307).photos.all()[:10]
+        album_photos = Album.objects.get(pk=307).photos.all()
         for each in album_photos:
             cp = CatPhoto(
                 title=each.description,
