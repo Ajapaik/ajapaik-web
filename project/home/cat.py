@@ -220,7 +220,8 @@ def cat_tag(request):
             photo=cat_tag_form.cleaned_data['photo'],
             profile=request.get_user().profile,
             value=cat_tag_form.cleaned_data['value']
-        ).save()
+        )
+        tag.save()
         all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
         available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
             profile=tag.profile, album=tag.album, photo=tag.photo).values_list('tag__name', flat=True))
