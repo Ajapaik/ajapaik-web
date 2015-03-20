@@ -635,16 +635,17 @@ class Photo(models.Model):
                     arr = [x.azimuth for x in selected_geotags if x.azimuth]
                     initial_arr_length = len(arr)
                     deg_avg = None
-                    while contains_outliers:
-                        avg = _average_angle(arr)
-                        deg_avg = math.degrees(avg)
-                        diff_arr = [_angle_diff(x, deg_avg) for x in arr]
-                        contains_outliers = False
-                        for i, e in enumerate(diff_arr):
-                            if e > 60:
-                                filter_indices.append(i)
-                                contains_outliers = True
-                        arr = [i for j, i in enumerate(arr) if j not in filter_indices]
+                    if initial_arr_length > 0:
+                        while contains_outliers:
+                            avg = _average_angle(arr)
+                            deg_avg = math.degrees(avg)
+                            diff_arr = [_angle_diff(x, deg_avg) for x in arr]
+                            contains_outliers = False
+                            for i, e in enumerate(diff_arr):
+                                if e > 60:
+                                    filter_indices.append(i)
+                                    contains_outliers = True
+                            arr = [i for j, i in enumerate(arr) if j not in filter_indices]
                     correct_azimuth_geotags = [i for j, i in enumerate(selected_geotags) if j not in filter_indices]
                     GeoTag.objects.filter(pk__in=[x.id for x in correct_azimuth_geotags]).update(azimuth_correct=True)
                     if deg_avg is not None:
