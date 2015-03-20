@@ -30,7 +30,6 @@ class Command(BaseCommand):
                     description=elem.find("title_sort").text,
                     source=Source.objects.get(description=elem.find('institution').text),
                     source_url=elem.find("record_link").text,
-                    date_text=elem.find("main_date_str").text,
                     author=elem.find("author").text,
                 )
                 opener = urllib2.build_opener()
