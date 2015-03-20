@@ -5,7 +5,7 @@ from urlparse import urlsplit, parse_qs, urlunsplit
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from math import ceil
-from project.home.models import CatPhoto, Source
+from project.home.models import CatPhoto, Source, CatAlbum
 
 
 class Command(BaseCommand):
@@ -31,6 +31,7 @@ class Command(BaseCommand):
                     source=Source.objects.get(description=elem.find('institution').text),
                     source_url=elem.find("record_link").text,
                     date_text=elem.find("main_date_str").text,
+                    album=CatAlbum.objects.get(pk=3),
                     author=elem.find("author").text,
                 )
                 opener = urllib2.build_opener()
