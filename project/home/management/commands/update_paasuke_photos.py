@@ -4,7 +4,7 @@ from project.home.models import Album, CatPhoto, CatAlbum
 
 
 class Command(BaseCommand):
-    help = "Set album for Pääsuke photos"
+    help = u"Set album for Pääsuke photos"
 
     def handle(self, *args, **options):
         album = CatAlbum.objects.get(pk=5)
