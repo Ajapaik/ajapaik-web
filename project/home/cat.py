@@ -225,7 +225,7 @@ def cat_tag(request):
         all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
         available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
             profile=tag.profile, album=tag.album, photo=tag.photo).values_list('tag__name', flat=True))
-        content['state'] = int(round(time.time() * 1000))
+        content['state'] = str(int(round(time.time() * 1000)))
         content['photos+'] = [
             {
                 'id': tag.photo.id,
