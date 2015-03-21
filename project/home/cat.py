@@ -162,19 +162,24 @@ def _get_album_state(request, form):
         content['image'] = request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id,)))
         user_tags = CatTagPhoto.objects.filter(profile=request.get_user().profile, album=album)\
             .values('photo').annotate(tag_count=Count('profile'))
-        user_tags = [{x['photo']: x['tag_count']} for x in user_tags]
-        print user_tags
+        tag_count_dict = {}
+        for each in user_tags:
+            tag_count_dict[each['photo']] = each['tag_count']
         for p in album.photos.all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
             content['photos'].append({
                 'id': p.id,
-                'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id,))),
+                'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id,))) + '[DIM]/',
                 'title': p.title,
                 'author': p.author,
+                'user_tags': tag_count_dict[p.id] if p.id in tag_count_dict else 0,
                 'source': {'name': p.source.description, 'url': p.source_url},
                 'tag': random.sample(available_cat_tags, len(available_cat_tags))
             })
+        content['photos'].sort(key=lambda y: y['user_tags'])
+        for each in content['photos']:
+            del each['user_tags']
     else:
         content['error'] = 2
 
