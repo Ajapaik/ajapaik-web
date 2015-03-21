@@ -99,7 +99,7 @@ def cat_logout(request):
         return Response({'error': 2})
 
 
-def cat_album_thumb(request, album_id, thumb_size=150):
+def cat_album_thumb(request, album_id, thumb_size=250):
     cache_key = "ajapaik_cat_album_thumb_response_%s_%s" % (album_id, thumb_size)
     cached_response = cache.get(cache_key)
     if cached_response:
