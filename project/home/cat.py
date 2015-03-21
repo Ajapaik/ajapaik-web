@@ -9,7 +9,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render_to_response
+from django.template import RequestContext
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 from rest_framework.parsers import FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -259,3 +260,40 @@ def user_me(request):
     }
 
     return Response(content)
+
+
+def cat_results(request, page=1):
+    tagged_photos = list(CatPhoto.objects.annotate(tag_count=Count('tags')).filter(tag_count__gt=0).order_by('-tag_count')[(int(page) - 1) * 20: int(page) * 20])
+    photo_tags = CatTagPhoto.objects.filter(photo_id__in=[x.id for x in tagged_photos])
+    tags = CatTag.objects.all()
+    tag_tally = {}
+    # FIXME: All this needs to be done with SQL
+    for tp in tagged_photos:
+        tag_tally[tp.id] = {}
+        for tag in tags:
+            tag_tally[tp.id][tag.name] = [0, 0, 0]
+    for pt in photo_tags:
+        if pt.value == -1:
+            tag_tally[pt.photo_id][pt.tag.name][0] += 1
+        elif pt.value == 0:
+            tag_tally[pt.photo_id][pt.tag.name][1] += 1
+        else:
+            tag_tally[pt.photo_id][pt.tag.name][2] += 1
+    ret = []
+    for tp in tagged_photos:
+        tp.my_tags = {}
+        for t in tags:
+            one_or_other = t.name.split('_or_')
+            vals = tag_tally[tp.id][t.name]
+            greatest = vals.index(max(vals))
+            if greatest == 0:
+                tp.my_tags[one_or_other[0]] = True
+            elif greatest == 1:
+                tp.my_tags[t.name + ' NA'] = True
+            else:
+                tp.my_tags[one_or_other[1]] = True
+        ret.append((tp, tp.my_tags))
+    return render_to_response('cat_results.html', RequestContext(request, {
+        'photos': ret,
+        'next': int(page) + 1
+    }))
