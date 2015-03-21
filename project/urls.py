@@ -71,7 +71,9 @@ urlpatterns += patterns('project.home.cat',
    url(r'^cat/v1/album/state/$', 'cat_album_state'),
    url(r'^cat/v1/album/tag/$', 'cat_tag'),
    url(r'^cat/v1/user/me/$', 'user_me'),
+   url(r'^cat/v1/photo/(?P<photo_id>\d+)/$', 'cat_photo'),
    url(r'^cat/v1/photo/(?P<photo_id>\d+)/(?P<thumb_size>.*)/$', 'cat_photo'),
+   url(r'^cat/v1/album_thumb/(?P<album_id>\d+)/$', 'cat_album_thumb'),
    url(r'^cat/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'cat_album_thumb'),
 )
 
