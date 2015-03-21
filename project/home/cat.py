@@ -7,6 +7,7 @@ from django.contrib.sessions.models import Session
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
@@ -136,7 +137,7 @@ def cat_albums(request):
             'id': a.id,
             'title': a.title,
             'subtitle': a.subtitle,
-            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb'), args=(a.id,)),
+            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
             'tagged': user_tagged_all_in_album
         })
     content = {
@@ -159,7 +160,11 @@ def _get_album_state(request, form):
         content['title'] = album.title
         content['subtitle'] = album.subtitle
         content['image'] = request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id,)))
-        for p in album.photos.order_by('?').all():
+        user_tags = CatTagPhoto.objects.filter(profile=request.get_user().profile, album=album)\
+            .values('photo').annotate(tag_count=Count('profile'))
+        user_tags = [{x['photo']: x['tag_count']} for x in user_tags]
+        print user_tags
+        for p in album.photos.all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
             content['photos'].append({
