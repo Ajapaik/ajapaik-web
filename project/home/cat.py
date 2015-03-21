@@ -255,9 +255,11 @@ def cat_tag(request):
 @permission_classes((IsAuthenticated,))
 def user_me(request):
     profile = request.get_user().profile
+    user_cat_tags = CatTagPhoto.objects.filter(profile=profile)
     content = {
         'error': 0,
-        'tagged': CatTagPhoto.objects.filter(profile=profile).distinct('photo').count(),
+        'tagged': user_cat_tags.count(),
+        'pics': user_cat_tags.distinct('photo').count(),
         'message': None,
         'link': None,
     }
