@@ -239,8 +239,7 @@ def cat_tag(request):
         content['state'] = str(int(round(time.time() * 1000)))
         content['photos+'] = [
             {
-                'id': tag.photo.id,
-                'tags': random.sample(available_cat_tags, min(len(available_cat_tags), 2))
+                'id': tag.photo.id
             }
         ]
     else:
