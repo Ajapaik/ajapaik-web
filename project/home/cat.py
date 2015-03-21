@@ -155,7 +155,7 @@ def _get_album_state(request, form):
         'state': str(int(round(time.time() * 1000)))
     }
     if form.is_valid():
-        all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
+        all_cat_tags = set(CatTag.objects.filter(active=True).values_list('name', flat=True))
         album = form.cleaned_data['id']
         content['title'] = album.title
         content['subtitle'] = album.subtitle
@@ -233,7 +233,7 @@ def cat_tag(request):
             value=cat_tag_form.cleaned_data['value']
         )
         tag.save()
-        all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
+        all_cat_tags = set(CatTag.objects.filter(active=True).values_list('name', flat=True))
         available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
             profile=tag.profile, album=tag.album, photo=tag.photo).values_list('tag__name', flat=True))
         content['state'] = str(int(round(time.time() * 1000)))
