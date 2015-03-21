@@ -159,7 +159,7 @@ def _get_album_state(request, form):
         content['title'] = album.title
         content['subtitle'] = album.subtitle
         content['image'] = request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id, 400)))
-        for p in album.photos.all():
+        for p in album.photos.order_by('?').all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
             content['photos'].append({
@@ -247,8 +247,8 @@ def user_me(request):
     content = {
         'error': 0,
         'tagged': CatTagPhoto.objects.filter(profile=profile).distinct('photo').count(),
-        'message': 'Lakkuge panni!',
-        'link': 'http://i.ytimg.com/vi/yWy_irUVXGU/hqdefault.jpg',
+        'message': None,
+        'link': None,
     }
 
     return Response(content)
