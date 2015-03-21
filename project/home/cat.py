@@ -177,7 +177,8 @@ def _get_album_state(request, form):
                 'source': {'name': p.source.description, 'url': p.source_url},
                 'tag': random.sample(available_cat_tags, len(available_cat_tags))
             })
-        content['photos'].sort(key=lambda y: y['user_tags'])
+        content['photos'] = sorted(content['photos'],
+                                   key=lambda y: (y['user_tags'], random.randint(0, len(content['photos']))))
         for each in content['photos']:
             del each['user_tags']
     else:
