@@ -7,20 +7,15 @@
 {% endblock %}
 
 {% block layout %}
-    <div class='container-fluid'>
+    <div class='container'>
         <div class='col-xs-12'>
             <a class='btn btn-primary' href='/cat/v1/results/{{ next }}'>{% trans 'Next' %}</a>
             {% for p, extra in photos %}
                 <div class='row'>
-                    <div class='col-xs-9'>
-                        <img class='img-responsive' src='{% url 'project.home.cat.cat_photo' p.id %}'>
-                    </div>
-                    <div class='col-xs-3'>
-                        {% for tag in extra %}
-                            <span class='badge'>{{ tag }}</span>
-                        {% endfor %}
-                    </div>
-                {{ p.tag_count }}
+                    <img class='img-responsive' src='{% url 'project.home.cat.cat_photo' p.id %}'>
+                    {% for tag in extra %}
+                        <span class='badge'>{{ tag }}</span>
+                    {% endfor %}
                 </div>
             {% endfor %}
             <a class='btn btn-primary' href='/cat/v1/results/{{ next }}'>{% trans 'Next' %}</a>
