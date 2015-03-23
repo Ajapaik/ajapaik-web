@@ -687,7 +687,6 @@ class UserMapView(models.Model):
         app_label = "project"
 
 
-#TODO: Should create ForeignKey fields here so Django knows to cascade deletes etc.
 class Points(models.Model):
     GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION = range(4)
     ACTION_CHOICES = (
@@ -726,6 +725,12 @@ class GeoTag(models.Model):
         (MAP_VIEW, _('Map view')),
         (GRID, _('Grid')),
     )
+    GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP = range(3)
+    MAP_TYPE_CHOICES = (
+        (GOOGLE_MAP, _('Google map')),
+        (GOOGLE_SATELLITE, _('Google satellite')),
+        (OPEN_STREETMAP, _('Open StreetMap'))
+    )
     lat = models.FloatField(validators=[MinValueValidator(-85), MaxValueValidator(85)])
     lon = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
     geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
@@ -735,6 +740,7 @@ class GeoTag(models.Model):
     zoom_level = models.IntegerField(null=True, blank=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
+    map_type = models.PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = models.BooleanField(default=False)
     user = models.ForeignKey('Profile', related_name='geotags')
     photo = models.ForeignKey('Photo', related_name='geotags')

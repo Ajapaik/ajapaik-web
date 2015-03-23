@@ -541,12 +541,21 @@ var map,
     };
 
     saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
+        var mapTypeId = map.getMapTypeId();
+        if (mapTypeId === 'roadmap') {
+            mapTypeId = 0;
+        } else if (mapTypeId === 'hybrid') {
+            mapTypeId = 1;
+        } else {
+            mapTypeId = 2;
+        }
         var data = {
                 lat: marker.getPosition().lat(),
                 lon: marker.getPosition().lng(),
                 photo: photoId,
                 hint_used: hintUsed,
                 zoom_level: map.zoom,
+                map_type: mapTypeId,
                 type: 0,
                 origin: origin,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')

@@ -5,10 +5,12 @@ from django.utils.translation import ugettext as _
 def calc_trustworthiness(user_id):
     total_tries = 0
     correct_tries = 0
-    for row in GeoTag.objects.filter(user=user_id, is_correct__isnull=False, origin=GeoTag.GAME).values('is_correct').annotate(count=Count('pk')):
-        total_tries += row['count']
-        if row['is_correct']:
-            correct_tries += row['count']
+    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct('photo_id')\
+        .order_by('photo_id', '-created')
+    for gt in user_unique_latest_geotags:
+        if gt.is_correct:
+            correct_tries += 1
+        total_tries += 1
 
     if not correct_tries:
         return 0
