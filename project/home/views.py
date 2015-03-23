@@ -648,8 +648,8 @@ def geotag_add(request):
                 ret['feedback_message'] = _('Your guess was first.')
     else:
         if 'lat' not in submit_geotag_form.cleaned_data and 'lon' not in submit_geotag_form.cleaned_data \
-                and 'photo' in submit_geotag_form.cleaned_data:
-            Skip(user=profile, photo=submit_geotag_form.cleaned_data['photo']).save()
+                and 'photo_id' in submit_geotag_form.data:
+            Skip(user=profile, photo_id=submit_geotag_form.data['photo_id']).save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 

@@ -541,7 +541,9 @@ var map,
     };
 
     saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
-        var mapTypeId = map.getMapTypeId();
+        var mapTypeId = map.getMapTypeId(),
+            lat = marker.getPosition().lat(),
+            lon = marker.getPosition().lng();
         if (mapTypeId === 'roadmap') {
             mapTypeId = 0;
         } else if (mapTypeId === 'hybrid') {
@@ -550,8 +552,6 @@ var map,
             mapTypeId = 2;
         }
         var data = {
-                lat: marker.getPosition().lat(),
-                lon: marker.getPosition().lng(),
                 photo: photoId,
                 hint_used: hintUsed,
                 zoom_level: map.zoom,
@@ -560,6 +560,10 @@ var map,
                 origin: origin,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
+        if (lat && lon) {
+            data.lat = lat;
+            data.lon = lon;
+        }
         if (degreeAngle && saveDirection) {
             data.azimuth = degreeAngle;
             data.azimuth_line_end_lat = azimuthLineEndPoint[0];
