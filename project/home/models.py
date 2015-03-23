@@ -156,7 +156,7 @@ class CatPhoto(models.Model):
 
     def _get_source_with_key(self):
         if self.source_key:
-            return self.source.name + self.source_key
+            return str(self.source.name + self.source_key)
         return self.source.name
 
 
