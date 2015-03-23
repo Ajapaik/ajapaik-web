@@ -1,28 +1,26 @@
 {% load i18n %}
 
-<div class="row ajapaik-comments-row">
-    <div class="col-xs-12">
-        <div role="tabpanel">
-            <ul class="nav nav-tabs" role="tablist" id="ajapaik-comment-tabs">
-                <li role="presentation" {% if not rephoto %}class="active"{% endif %}>
-                    <a href="#ajapaik-original-photo-comments" aria-controls="ajapaik-original-photo-comments" role="tab" data-toggle="tab">{% trans "Original photo" %}</a>
+<div class="col-xs-12 col-sm-12 col-lg-6 col-md-6" id="ajapaik-comments-section">
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist" id="ajapaik-comment-tabs">
+            <li role="presentation" {% if not rephoto %}class="active"{% endif %}>
+                <a href="#ajapaik-original-photo-comments" aria-controls="ajapaik-original-photo-comments" role="tab" data-toggle="tab">{% trans "Original photo" %}</a>
+            </li>
+            {% if rephoto %}
+                <li role="presentation" class="active">
+                    <a href="#ajapaik-rephoto-comments" aria-controls="ajapaik-rephoto-comments" role="tab" data-toggle="tab">{% trans "Rephoto" %}</a>
                 </li>
-                {% if rephoto %}
-                    <li role="presentation" class="active">
-                        <a href="#ajapaik-rephoto-comments" aria-controls="ajapaik-rephoto-comments" role="tab" data-toggle="tab">{% trans "Rephoto" %}</a>
-                    </li>
-                {% endif %}
-            </ul>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane {% if not rephoto %}active{% endif %}" id="ajapaik-original-photo-comments">
-                    <div class="fb-comments" data-href="{{ hostname }}{{ photo.get_detail_url }}" data-width="100%" data-colorscheme="light"></div>
-                </div>
-                {% if rephoto %}
-                    <div role="tabpanel" class="tab-pane active" id="ajapaik-rephoto-comments">
-                        <div class="fb-comments" data-href="{{ hostname }}{{ rephoto.get_detail_url }}" data-width="100%" data-colorscheme="light"></div>
-                    </div>
-                {% endif %}
+            {% endif %}
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane {% if not rephoto %}active{% endif %}" id="ajapaik-original-photo-comments">
+                <div class="fb-comments" data-href="{{ hostname }}{{ photo.get_detail_url }}" data-width="100%" data-colorscheme="light"></div>
             </div>
+            {% if rephoto %}
+                <div role="tabpanel" class="tab-pane active" id="ajapaik-rephoto-comments">
+                    <div class="fb-comments" data-href="{{ hostname }}{{ rephoto.get_detail_url }}" data-width="100%" data-colorscheme="light"></div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

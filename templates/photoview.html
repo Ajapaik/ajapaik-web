@@ -24,7 +24,7 @@
         </div>
     {% endif %}
     <div class="container-fluid" id="ajapaik-photoview-container">
-        <div class="{% if rephoto %}col-xs-10{% else %}col-xs-6{% endif %}">
+        <div class="col-xs-10">
             <div class="row-fluid">
                 <div class="{% if rephoto %}col-xs-6{% else %}col-xs-12{% endif %}">
                     <div id="ajapaik-photoview-main-photo-container">
@@ -34,8 +34,8 @@
                         <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;"></button>
                     </div>
                     {% if photo.author %}
-                        <div class="row-fluid" style="font-weight: bold;">
-                            {{ photo.author }}
+                        <div class="row-fluid">
+                            <b>{{ photo.author }}</b>
                         </div>
                     {% endif %}
                     {% if photo.description %}
@@ -54,32 +54,35 @@
                             {{ photo.source.description }}{% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}&nbsp;{% include "_licence.html" with licence=photo.licence %}{% endif %}
                         </div>
                     {% endif %}
-                    <div class="row-fluid" style="margin-top: 10px;">
-                        <div class="col-xs-6 col-sm-6 col-lg-4 col-md-4">
-                            <div class="dropdown">
-                                <button id="ajapaik-sharing-dropdown-button pull-left" class="btn btn-block btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {% trans "Share" %}
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
-                                    <li role="presentation" class="disabled-link">
-                                        <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                            <input type="text" class="form-control" value="{{ hostname }}{{ photo.get_absolute_url }}">
-                                        </a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a role="menuitem" tabindex="-1">
-                                            <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4" style="text-align: right;">
-                            <span class="btn btn-block btn-success" id="ajapaik-photoview-add-rephoto-button">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button id="ajapaik-sharing-dropdown-button" class="btn btn-primary"
+                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% trans "Share" %}
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                                <li role="presentation" class="disabled-link">
+                                    <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                        <input type="text" class="form-control"
+                                               value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1">
+                                        <div class="fb-like" data-href="
+                                                {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+                                             data-layout="standard" data-action="like" data-show-faces="true"
+                                             data-share="true"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <span class="btn btn-success" id="ajapaik-photoview-add-rephoto-button">
                                 <i class="glyphicon glyphicon-plus"></i>
                                 <span>{% trans "Add rephoto" %}</span>
                             </span>
-                            <button class="btn btn-block btn-primary" id="ajapaik-photoview-map-button">{% trans "Location on the map" %}</button>
+                            <button class="btn btn-primary" id="ajapaik-photoview-map-button">
+                                {% trans "Location on the map" %}
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -1084,9 +1084,8 @@ ul.errorlist {
     display: none;
 }
 
-.ajapaik-comments-row {
-    padding-top: 100px;
-    min-height: 400px;
+#ajapaik-comments-section {
+    padding-top: 25px;
 }
 
 .ajapaik-photoview-rephoto-thumb {

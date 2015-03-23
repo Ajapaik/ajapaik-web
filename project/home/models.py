@@ -656,6 +656,9 @@ class Photo(models.Model):
                     if deg_avg is not None:
                         self.azimuth = deg_avg
                         self.azimuth_confidence = float(len(arr)) / float(initial_arr_length)
+                    else:
+                        self.azimuth = None
+                        self.azimuth_confidence = None
 
 
 
