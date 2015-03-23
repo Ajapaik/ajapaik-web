@@ -181,7 +181,7 @@ def _get_album_state(request, form):
                 'title': p.title,
                 'author': p.author,
                 'user_tags': tag_count_dict[p.id] if p.id in tag_count_dict else 0,
-                'source': {'name': p._get_source_with_key, 'url': p.source_url},
+                'source': {'name': p._get_source_with_key(), 'url': p.source_url},
                 'tag': random.sample(available_cat_tags, min(len(available_cat_tags), to_get))
             })
         content['photos'] = sorted(content['photos'],
