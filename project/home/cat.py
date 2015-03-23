@@ -169,7 +169,7 @@ def _get_album_state(request, form):
         for p in album.photos.all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
-            if form.cleaned_data['max'] == 0:
+            if not form.cleaned_data['max'] or form.cleaned_data['max'] == 0:
                 to_get = len(available_cat_tags)
             else:
                 to_get = form.cleaned_data['max']
@@ -180,7 +180,7 @@ def _get_album_state(request, form):
                 'author': p.author,
                 'user_tags': tag_count_dict[p.id] if p.id in tag_count_dict else 0,
                 'source': {'name': p.source.description, 'url': p.source_url},
-                'tag': random.sample(available_cat_tags, min(len(available_cat_tags), to_get))
+                'tag': random.sample(available_cat_tags, to_get)
             })
         content['photos'] = sorted(content['photos'],
                                    key=lambda y: (y['user_tags'], random.randint(0, len(content['photos']))))
