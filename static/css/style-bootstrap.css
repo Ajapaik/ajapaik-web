@@ -902,6 +902,10 @@ ul.errorlist {
     text-align: center;
 }
 
+#ajapaik-game-info-modal-body {
+    margin-left: 10px;
+}
+
 .ajapaik-photo-modal-rephoto-thumb {
     margin: 0 auto 3%;
 }
@@ -1454,12 +1458,15 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-game-no-geotags-yet-message {
     display: none;
+    margin-top: 10px;
 }
 
 #ajapaik-game-number-of-geotags-message {
     display: none;
+    margin-top: 10px;
 }
 
 #ajapaik-game-one-geotag-message {
     display: none;
+    margin-top: 10px;
 }

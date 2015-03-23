@@ -366,6 +366,9 @@
             window.disableSave = false;
         });
         window.getGeolocation();
+        if (window.albumId) {
+            $('#ajapaik-game-info-modal').modal();
+        }
         $(window.input).show();
         $.jQee('space', function () {
             if (window.fullscreenEnabled) {

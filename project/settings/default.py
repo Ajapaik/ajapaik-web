@@ -192,3 +192,5 @@ CACHES = {
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+GEOIP_PATH = 'project/home/geoip'

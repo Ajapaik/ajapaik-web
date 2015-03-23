@@ -197,6 +197,7 @@ class Album(models.Model):
 
     lat = models.FloatField(null=True, blank=True)
     lon = models.FloatField(null=True, blank=True)
+    geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -206,6 +207,14 @@ class Album(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.name
+
+    def save(self, *args, **kwargs):
+        # Update POSTGIS data on save
+        try:
+            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
+        except:
+            pass
+        super(Album, self).save(*args, **kwargs)
 
 
 class AlbumPhoto(models.Model):

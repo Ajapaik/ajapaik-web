@@ -4,6 +4,7 @@ import os
 import urllib
 import urllib2
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.gis.measure import D
 from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
@@ -19,7 +20,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.gis.geos import Polygon
+from django.contrib.gis.geos import Polygon, Point
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import requests
 from rest_framework.renderers import JSONRenderer
@@ -44,6 +45,8 @@ import random
 import datetime
 import json
 import PIL.ImageOps
+
+#from django.contrib.gis.utils import GeoIP
 
 from europeana import Search, BoundingBox
 
@@ -254,31 +257,42 @@ def calculate_recent_activity_scores():
 
 @ensure_csrf_cookie
 def game(request):
+    #g = GeoIP()
+    #print g.city(request.META.get('REMOTE_ADDR'))
     ctx = {}
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
 
     if game_album_selection_form.is_valid():
-        ctx['album'] = Album.objects.get(pk=game_album_selection_form.cleaned_data['album'].id)
-        ctx['description'] = ctx['album'].name
-        ctx['facebook_share_photos'] = ctx['album'].photos.all()[:5]
+        album = game_album_selection_form.cleaned_data['album']
+        ctx['album'] = album
+        album_photo_ids = album.photos.values_list('id', flat=True)
+        ctx['total_photo_count'] = album.photos.count()
+        ctx['geotagged_photo_count'] = album.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False).count()
+        ctx['user_geotagged_photo_count'] = GeoTag.objects.filter(user=request.get_user().profile, photo_id__in=album_photo_ids).count()
+        ctx['geotagging_user_count'] = GeoTag.objects.filter(photo_id__in=album_photo_ids).distinct('user').count()
+        ctx['rephoto_count'] = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).distinct('rephoto_of').count()
+        ctx['nearby_albums'] = Album.objects.filter(geography__distance_lte=(Point(album.lat, album.lon), D(m=50000)), is_public=True)[:3]
+        ctx['description'] = album.name
+        ctx['facebook_share_photos'] = album.photos.all()[:5]
         try:
-            ctx['random_album_photo'] = ctx['album'].photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
+            ctx['random_album_photo'] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]
         except:
             try:
-                ctx['random_album_photo'] = ctx['album'].photos.filter(area__isnull=False).order_by('?')[0]
+                ctx['random_album_photo'] = album.photos.filter(area__isnull=False).order_by('?')[0]
             except:
                 pass
     else:
         if area_selection_form.is_valid():
-            ctx['area'] = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
+            area = area_selection_form.cleaned_data['area']
         else:
             old_city_id = request.GET.get('city__pk') or None
             if old_city_id is not None:
-                ctx['area'] = Area.objects.get(pk=old_city_id)
+                area = Area.objects.get(pk=old_city_id)
             else:
-                ctx['area'] = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
+                area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
+        ctx['area'] = area
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
@@ -437,6 +451,10 @@ def photoslug(request, photo_id, pseudo_slug):
         rephoto = photo_obj
         photo_obj = photo_obj.rephoto_of
 
+    if photo_obj:
+        geotag_count = GeoTag.objects.filter(photo_id=photo_obj.id).count()
+        azimuth_count = GeoTag.objects.filter(photo_id=photo_obj.id, azimuth__isnull=False).count()
+
     site = Site.objects.get_current()
     template = ['', '_photo_modal.html', 'photoview.html'][request.is_ajax() and 1 or 2]
     if not photo_obj.description:
@@ -462,6 +480,8 @@ def photoslug(request, photo_id, pseudo_slug):
         'area': photo_obj.area,
         'album': album,
         'album_selection_form': album_selection_form,
+        'geotag_count': geotag_count,
+        'azimuth_count': azimuth_count,
         #'area_selection_form': area_selection_form,
         'fullscreen': _make_fullscreen(photo_obj),
         'rephoto_fullscreen': _make_fullscreen(rephoto),

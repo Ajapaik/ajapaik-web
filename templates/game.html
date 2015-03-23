@@ -55,6 +55,47 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="ajapaik-game-info-modal" tabindex="-1" role="dialog"
+         aria-labelledby="ajapaik-game-info-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>{{ album.name }}</h4>
+                    <h6>{{ album.description }}</h6>
+                </div>
+                <div class="modal-body" id="ajapaik-game-info-modal-body">
+                    <div class="row">
+                        {% trans "This album was curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a>
+                    </div>
+                    <div class="row">
+                        {% trans "It contains" %} {{ total_photo_count}}
+                        {% if total_photo_count == 1 %}{% trans "photo" %}{% else %}{% trans "photos" %}{% endif %}, {{ geotagged_photo_count }} {% if geotagged_photo_count == 1 %}{% trans "of which is on the map already" %}{% else %}{% trans "of which are on the map already" %}{% endif %}
+                    </div>
+                    <div class="row">
+                        {{ geotagging_user_count }} {% if geotagging_user_count == 1 %}{% trans "user has contributed geotags to this album" %}{% else %}{% trans "users have contributed geotags to this album" %}{% endif %}
+                    </div>
+                    <div class="row">
+                        {% trans "You have contributed" %} {{ user_geotagged_photo_count }} {% if user_geotagged_photo_count == 1 %}{% trans "geotag" %}{% else %}{% trans "geotags" %}{% endif %} {% trans "to this album" %}
+                    </div>
+                    <div class="row">
+                        {{ rephoto_count }} {% if rephoto_count == 1 %}{% trans "old photo has rephotos" %}{% else %}{% trans "old photos have rephotos" %}{% endif %}
+                    </div>
+                    {% if nearby_albums %}
+                        <div class="row">
+                            {% trans "Some nearby albums" %}: {% for a in nearby_albums %}
+                                <a href="{% url 'project.home.views.game' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-block btn-default btn-block" data-dismiss="modal">
+                        {% trans "Close" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
         <div id="ajapaik-map-canvas"></div>
