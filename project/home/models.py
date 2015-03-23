@@ -143,6 +143,7 @@ class CatPhoto(models.Model):
     author = models.CharField(max_length=255, null=True, blank=True)
     source = models.ForeignKey('Source', null=True, blank=True)
     source_url = models.CharField(max_length=255, blank=True, null=True)
+    source_key = models.CharField(max_length=255, blank=True, null=True)
     tags = models.ManyToManyField(CatTag, related_name='photos', through=CatTagPhoto)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -152,6 +153,10 @@ class CatPhoto(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.title
+
+    def _get_source_with_key(self):
+        if self.source and self.source_key:
+            return self.source.name + self.source_key
 
 
 class CatAlbum(models.Model):
