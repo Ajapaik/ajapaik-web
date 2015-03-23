@@ -169,7 +169,7 @@ def _get_album_state(request, form):
         for p in album.photos.all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
-            if not form.cleaned_data['max'] or form.cleaned_data['max'] == 0:
+            if form.cleaned_data['max'] == 0:
                 to_get = len(available_cat_tags)
             else:
                 to_get = form.cleaned_data['max']
