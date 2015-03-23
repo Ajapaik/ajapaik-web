@@ -234,9 +234,6 @@ def cat_tag(request):
             value=cat_tag_form.cleaned_data['value']
         )
         tag.save()
-        all_cat_tags = set(CatTag.objects.filter(active=True).values_list('name', flat=True))
-        available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
-            profile=tag.profile, album=tag.album, photo=tag.photo).values_list('tag__name', flat=True))
         content['state'] = str(int(round(time.time() * 1000)))
     else:
         content['error'] = 2
