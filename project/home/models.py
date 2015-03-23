@@ -268,8 +268,8 @@ class Photo(models.Model):
     geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     bounding_circle_radius = models.FloatField(null=True, blank=True)
     azimuth = models.FloatField(null=True, blank=True)
-    confidence = models.FloatField(default=0)
-    azimuth_confidence = models.FloatField(default=0)
+    confidence = models.FloatField(default=0, null=True, blank=True)
+    azimuth_confidence = models.FloatField(default=0, null=True, blank=True)
 
     source_key = models.CharField(max_length=100, null=True, blank=True)
     source_url = models.URLField(null=True, blank=True, max_length=1023)
