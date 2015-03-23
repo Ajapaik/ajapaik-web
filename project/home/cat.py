@@ -171,6 +171,8 @@ def _get_album_state(request, form):
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
             if form.cleaned_data['max'] == 0:
                 to_get = len(available_cat_tags)
+            elif form.cleaned_data['max'] is None:
+                to_get = 2
             else:
                 to_get = form.cleaned_data['max']
             content['photos'].append({

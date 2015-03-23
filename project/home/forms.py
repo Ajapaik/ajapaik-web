@@ -98,7 +98,7 @@ class CatAuthForm(forms.Form):
 
 class CatAlbumStateForm(forms.Form):
     id = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
-    max = forms.IntegerField(initial=2)
+    max = forms.IntegerField(required=False)
     state = forms.CharField(max_length=255, required=False)
 
 
