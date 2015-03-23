@@ -282,14 +282,18 @@ def cat_results(request, page=1):
         for t in tags:
             one_or_other = t.name.split('_or_')
             vals = tag_tally[tp.id][t.name]
-            greatest = vals.index(max(vals))
-            if greatest == 0:
-                tp.my_tags[one_or_other[0]] = True
-            elif greatest == 1:
-                tp.my_tags[t.name + ' NA'] = True
-            else:
-                tp.my_tags[one_or_other[1]] = True
+            greatest_index = vals.index(max(vals))
+            if greatest_index == 0 and vals[greatest_index] > 0:
+                tp.my_tags[one_or_other[0]] = vals[greatest_index]
+            elif greatest_index == 2 and vals[greatest_index] > 0:
+                tp.my_tags[one_or_other[1]] = vals[greatest_index]
+            elif greatest_index == 1:
+                if vals[greatest_index] == 0:
+                    del(tp.my_tags[t.name + ' NA'])
+                else:
+                    tp.my_tags[t.name + ' NA'] = vals[greatest_index]
         ret.append((tp, tp.my_tags))
+        print tp.my_tags
     return render_to_response('cat_results.html', RequestContext(request, {
         'photos': ret,
         'next': int(page) + 1

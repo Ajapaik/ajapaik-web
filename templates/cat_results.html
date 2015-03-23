@@ -13,8 +13,8 @@
             {% for p, extra in photos %}
                 <div class='row'>
                     <img class='img-responsive' src='{% url 'project.home.cat.cat_photo' p.id %}'>
-                    {% for tag in extra %}
-                        <span class='badge'>{{ tag }}</span>
+                    {% for k, v in extra.iteritems %}
+                        <span class='badge'>{{ k }} {{ v }}</span>
                     {% endfor %}
                 </div>
             {% endfor %}
