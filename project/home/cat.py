@@ -1,25 +1,31 @@
 # encoding: utf-8
+from copy import deepcopy
 import time
 import datetime
+from pytz import timezone, utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
+from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render_to_response
+from django.template import RequestContext
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 from rest_framework.parsers import FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
-from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm
-from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag
+from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm
+from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
+from project.settings import TIME_ZONE
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -59,7 +65,7 @@ def cat_login(request):
     content = {
         'error': 0,
         'session': None,
-        'expires': 0
+        'expires': 86400
     }
     user = None
     if login_form.is_valid():
@@ -99,7 +105,7 @@ def cat_logout(request):
         return Response({'error': 2})
 
 
-def cat_album_thumb(request, album_id, thumb_size=150):
+def cat_album_thumb(request, album_id, thumb_size=250):
     cache_key = "ajapaik_cat_album_thumb_response_%s_%s" % (album_id, thumb_size)
     cached_response = cache.get(cache_key)
     if cached_response:
@@ -136,8 +142,8 @@ def cat_albums(request):
             'id': a.id,
             'title': a.title,
             'subtitle': a.subtitle,
-            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id, 250))),
-            'tagged': user_tagged_all_in_album
+            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
+            'tagged': user_tagged_all_in_album,
         })
     content = {
         'error': error,
@@ -151,27 +157,81 @@ def _get_album_state(request, form):
     content = {
         'error': 0,
         'photos': [],
-        'state': int(round(time.time() * 1000))
+        'state': str(int(round(time.time() * 1000)))
     }
     if form.is_valid():
-        all_cat_tags = set(CatTag.objects.values_list('name', flat=True))
+        all_cat_tags = set(CatTag.objects.filter(active=True).values_list('name', flat=True))
         album = form.cleaned_data['id']
         content['title'] = album.title
         content['subtitle'] = album.subtitle
-        content['image'] = request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id, 400)))
+        content['image'] = request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(album.id,)))
+        user_tags = CatTagPhoto.objects.filter(profile=request.get_user().profile, album=album)\
+            .values('photo').annotate(tag_count=Count('profile'))
+        tag_count_dict = {}
+        for each in user_tags:
+            tag_count_dict[each['photo']] = each['tag_count']
         for p in album.photos.all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
+            if form.cleaned_data['max'] == 0:
+                to_get = len(available_cat_tags)
+            elif 'max' not in form.cleaned_data or form.cleaned_data['max'] is None:
+                to_get = 2
+            else:
+                to_get = form.cleaned_data['max']
             content['photos'].append({
                 'id': p.id,
-                'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id, 400))),
+                'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(p.id,))) + '[DIM]/',
                 'title': p.title,
                 'author': p.author,
-                'source': {'source1': {'name': p.source.description, 'url': p.source_url}},
-                'tag': random.sample(available_cat_tags, len(available_cat_tags))
+                'user_tags': tag_count_dict[p.id] if p.id in tag_count_dict else 0,
+                'source': {'name': p._get_source_with_key(), 'url': p.source_url},
+                'tag': random.sample(available_cat_tags, min(len(available_cat_tags), to_get))
             })
+        content['photos'] = sorted(content['photos'],
+                                   key=lambda y: (y['user_tags'], random.randint(0, len(content['photos']))))
+        for each in content['photos']:
+            del each['user_tags']
     else:
         content['error'] = 2
+
+    return content
+
+
+def _utcisoformat(dt):
+    return dt.astimezone(utc).replace(tzinfo=None).isoformat()[:-3] + 'Z'
+
+
+def _get_favorite_object_json_form(request, obj):
+    return {
+        'id': obj.id,
+        'album_id': obj.album.id,
+        'photo_id': obj.photo.id,
+        'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(obj.photo.id,))) + '[DIM]/',
+        'date': _utcisoformat(obj.created)
+    }
+
+
+def _get_user_data(request, remove_favorite=None, add_favorite=None):
+    profile = request.get_user().profile
+    user_cat_tags = CatTagPhoto.objects.filter(profile=profile)
+    content = {
+        'error': 0,
+        'tagged': user_cat_tags.count(),
+        'pics': user_cat_tags.distinct('photo').count(),
+        'message': None,
+        'link': None,
+    }
+    if remove_favorite or add_favorite:
+        if remove_favorite:
+            content['favorites-'] = [remove_favorite]
+        elif add_favorite:
+            content['favorites+'] = [_get_favorite_object_json_form(request, add_favorite)]
+    else:
+        user_favorites = CatUserFavorite.objects.filter(profile=profile)
+        content['favorites'] = []
+        for f in user_favorites:
+            content['favorites'].append(_get_favorite_object_json_form(request, f))
 
     return content
 
@@ -210,15 +270,19 @@ def cat_photo(request, photo_id, thumb_size=600):
 @permission_classes((IsAuthenticated,))
 def cat_tag(request):
     cat_tag_form = CatTagForm(request.data)
-    content = _get_album_state(request, cat_tag_form)
+    content = {
+        'error': 0,
+    }
     if cat_tag_form.is_valid():
-        CatTagPhoto(
+        tag = CatTagPhoto(
             tag=cat_tag_form.cleaned_data['tag'],
             album=cat_tag_form.cleaned_data['id'],
             photo=cat_tag_form.cleaned_data['photo'],
             profile=request.get_user().profile,
             value=cat_tag_form.cleaned_data['value']
-        ).save()
+        )
+        tag.save()
+        content['state'] = str(int(round(time.time() * 1000)))
     else:
         content['error'] = 2
 
@@ -230,12 +294,100 @@ def cat_tag(request):
 @authentication_classes((CustomAuthentication,))
 @permission_classes((IsAuthenticated,))
 def user_me(request):
-    profile = request.get_user().profile
-    content = {
-        'error': 0,
-        'tagged': CatTagPhoto.objects.filter(profile=profile).distinct('photo').count(),
-        'message': 'Lakkuge panni!',
-        'link': 'http://i.ytimg.com/vi/yWy_irUVXGU/hqdefault.jpg',
-    }
+    content = _get_user_data(request)
 
     return Response(content)
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def user_favorite_add(request):
+    cat_favorite_form = CatFavoriteForm(request.data)
+    profile = request.get_user().profile
+    content = {
+        'error': 2
+    }
+    if cat_favorite_form.is_valid():
+        try:
+            cat_user_favorite = CatUserFavorite(
+                album=cat_favorite_form.cleaned_data['album'],
+                photo=cat_favorite_form.cleaned_data['photo'],
+                profile=profile
+            )
+            cat_user_favorite.save()
+            content = _get_user_data(request, add_favorite=cat_user_favorite)
+        except IntegrityError:
+            content = _get_user_data(request)
+            content['error'] = 2
+
+    return Response(content)
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def user_favorite_remove(request):
+    cat_favorite_form = CatFavoriteForm(request.data)
+    profile = request.get_user().profile
+    content = {
+        'error': 2
+    }
+    if cat_favorite_form.is_valid():
+        try:
+            cat_user_favorite = CatUserFavorite.objects.get(
+                album=cat_favorite_form.cleaned_data['album'],
+                photo=cat_favorite_form.cleaned_data['photo'],
+                profile=profile
+            )
+            user_favorite_id = deepcopy(cat_user_favorite.id)
+            cat_user_favorite.delete()
+            content = _get_user_data(request, remove_favorite=user_favorite_id)
+        except ObjectDoesNotExist:
+            content = _get_user_data(request)
+            content['error'] = 2
+
+    return Response(content)
+
+
+def cat_results(request, page=1):
+    tagged_photos = list(CatPhoto.objects.annotate(tag_count=Count('tags')).filter(tag_count__gt=0).order_by(
+        '-tag_count')[(int(page) - 1) * 20: int(page) * 20])
+    photo_tags = CatTagPhoto.objects.filter(photo_id__in=[x.id for x in tagged_photos])
+    tags = CatTag.objects.all()
+    tag_tally = {}
+    # FIXME: All this needs to be done with SQL, then again, not so important anyway
+    for tp in tagged_photos:
+        tag_tally[tp.id] = {}
+        for tag in tags:
+            tag_tally[tp.id][tag.name] = [0, 0, 0]
+    for pt in photo_tags:
+        if pt.value == -1:
+            tag_tally[pt.photo_id][pt.tag.name][0] += 1
+        elif pt.value == 0:
+            tag_tally[pt.photo_id][pt.tag.name][1] += 1
+        else:
+            tag_tally[pt.photo_id][pt.tag.name][2] += 1
+    ret = []
+    for tp in tagged_photos:
+        tp.my_tags = {}
+        for t in tags:
+            one_or_other = t.name.split('_or_')
+            vals = tag_tally[tp.id][t.name]
+            greatest_index = vals.index(max(vals))
+            if greatest_index == 0 and vals[greatest_index] > 0:
+                tp.my_tags[one_or_other[0]] = vals[greatest_index]
+            elif greatest_index == 2 and vals[greatest_index] > 0:
+                tp.my_tags[one_or_other[1]] = vals[greatest_index]
+            elif greatest_index == 1:
+                if vals[greatest_index] == 0:
+                    del(tp.my_tags[t.name + ' NA'])
+                else:
+                    tp.my_tags[t.name + ' NA'] = vals[greatest_index]
+        ret.append((tp, tp.my_tags))
+    return render_to_response('cat_results.html', RequestContext(request, {
+        'photos': ret,
+        'next': int(page) + 1
+    }))

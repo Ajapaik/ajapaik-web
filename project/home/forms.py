@@ -1,11 +1,12 @@
 from django import forms
-from .models import Area, Album, CatTag, CatAlbum, CatPhoto
+from .models import Area, Album, CatTag, CatAlbum, CatPhoto, Profile, Photo, GeoTag
 from django.utils.translation import ugettext_lazy as _
 from project import settings
 
-# TODO: Make forms for everything, there's too much Javascript POST checking
+
+# TODO: Make forms for everything, there's too much Javascript POST variable checking
 class AreaSelectionForm(forms.Form):
-    area = forms.ModelChoiceField(queryset=Area.objects.order_by('name').all(), label=_('Choose area'),
+    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),
                                   initial=Area.objects.filter(pk=settings.DEFAULT_AREA_ID))
 
     def __init__(self, *args, **kwargs):
@@ -13,8 +14,9 @@ class AreaSelectionForm(forms.Form):
 
 
 class AlbumSelectionForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True).order_by('-created').all(),
-                                   label=_('Choose album'), initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True)
+                                   .order_by('-created').all(), label=_('Choose album'),
+                                   initial=Album.objects.filter(pk=settings.DEFAULT_ALBUM_ID))
 
     def __init__(self, *args, **kwargs):
         super(AlbumSelectionForm, self).__init__(*args, **kwargs)
@@ -54,7 +56,8 @@ class AddAreaForm(forms.Form):
 class AddAlbumForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
     description = forms.CharField(widget=forms.Textarea, required=False)
-    #is_public_mutable = forms.CharField(required=True, initial=False)
+    # is_public_mutable = forms.CharField(required=True, initial=False)
+
 
 class PublicPhotoUploadForm(forms.Form):
     institution = forms.CharField(max_length=255, required=False)
@@ -95,6 +98,7 @@ class CatAuthForm(forms.Form):
 
 class CatAlbumStateForm(forms.Form):
     id = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
+    max = forms.IntegerField(required=False)
     state = forms.CharField(max_length=255, required=False)
 
 
@@ -104,3 +108,15 @@ class CatTagForm(forms.Form):
     tag = forms.ModelChoiceField(queryset=CatTag.objects.all(), to_field_name='name')
     value = forms.TypedChoiceField(choices=[(-1, -1), (0, 0), (1, 1)], coerce=int)
     state = forms.CharField(max_length=255, required=False)
+
+
+class CatFavoriteForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
+    photo = forms.ModelChoiceField(queryset=CatPhoto.objects.all())
+    state = forms.CharField(max_length=255, required=False)
+
+
+class SubmitGeotagForm(forms.ModelForm):
+    class Meta:
+        model = GeoTag
+        exclude = ('user', 'trustworthiness')

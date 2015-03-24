@@ -1,10 +1,12 @@
 # http://docs.djangoproject.com/en/dev/topics/http/middleware/
 # http://docs.djangoproject.com/en/dev/topics/auth/
+from django.core.exceptions import ObjectDoesNotExist
 
 from project.home import models
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from functools import partial
+
 
 def get_user(request):
     if request.user.is_authenticated():
@@ -15,17 +17,20 @@ def get_user(request):
         login(request, user)
         return user
 
+
 def set_user(request, user):
     logout(request)
     authenticate(user=user)
     login(request, user)
     return user
 
+
 class UserMiddleware(object):
     def process_request(self, request):
         request.get_user = partial(get_user, request)
         request.set_user = partial(set_user, request)
         request.log_action = partial(models.Action.log, request=request)
+
 
 class AuthBackend(object):
     supports_object_permissions = False
@@ -36,12 +41,15 @@ class AuthBackend(object):
         if user is not None:
             return user
         if password is not None:
-            user = User.objects.get(username=username)
-            if user.check_password(password):
-                models.Action.log("user_middleware.login.success", {'username': username})
-                return user
-            else:
-                models.Action.log("user_middleware.login.error", {'username': username})
+            try:
+                user = User.objects.get(username=username)
+                if user.check_password(password):
+                    models.Action.log("user_middleware.login.success", {'username': username})
+                    return user
+                else:
+                    models.Action.log("user_middleware.login.error", {'username': username})
+                    return None
+            except ObjectDoesNotExist:
                 return None
 
         random_username = u"_%s_%s" % (username[:25], User.objects.make_random_password(length=3))

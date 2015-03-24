@@ -828,10 +828,6 @@ ul.errorlist {
     text-align: left;
 }
 
-#ajapaik-game-photo-description {
-    margin-bottom: 15px;
-}
-
 #ajapaik-mapview-feedback-panel {
     position: fixed;
     bottom: 15px;
@@ -900,6 +896,10 @@ ul.errorlist {
 
 #ajapaik-game-modal-body {
     text-align: center;
+}
+
+#ajapaik-game-info-modal-body {
+    margin-left: 10px;
 }
 
 .ajapaik-photo-modal-rephoto-thumb {
@@ -1084,9 +1084,8 @@ ul.errorlist {
     display: none;
 }
 
-.ajapaik-comments-row {
-    padding-top: 100px;
-    min-height: 400px;
+#ajapaik-comments-section {
+    padding-top: 25px;
 }
 
 .ajapaik-photoview-rephoto-thumb {
@@ -1455,12 +1454,15 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-game-no-geotags-yet-message {
     display: none;
+    margin-top: 10px;
 }
 
 #ajapaik-game-number-of-geotags-message {
     display: none;
+    margin-top: 10px;
 }
 
 #ajapaik-game-one-geotag-message {
     display: none;
+    margin-top: 10px;
 }

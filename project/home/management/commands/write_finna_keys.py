@@ -2,15 +2,14 @@ from lxml import etree
 from urllib import urlencode
 import urllib2
 from urlparse import urlsplit, parse_qs, urlunsplit
-from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from math import ceil
-from project.home.models import CatPhoto, Source, CatAlbum
+from project.home.models import CatPhoto
 
 
 class Command(BaseCommand):
-    help = "Create categorizer test data from Finna"
-    args = "url album_id"
+    help = "Finna keys for Signe"
+    args = "url"
 
     @staticmethod
     def _set_query_parameter(url, param_name, param_value):
@@ -22,29 +21,16 @@ class Command(BaseCommand):
         return urlunsplit((scheme, netloc, path, new_query_string, fragment))
 
     @staticmethod
-    def _create_photos_from_xml_response(xml_response, album):
+    def _update_photos_from_xml_response(xml_response):
         for elem in xml_response:
             if elem.tag == "docs":
-                new_photo = CatPhoto(
-                    title=elem.find("title").text,
-                    description=elem.find("title_sort").text,
-                    source=Source.objects.get(description=elem.find('institution').text),
-                    source_url=elem.find("record_link").text,
-                    author=elem.find("author").text,
-                )
-                opener = urllib2.build_opener()
-                opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-                img_response = opener.open(elem.find("image_links").text)
-                new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
-                new_photo.save()
-                album.photos.add(new_photo)
-                album.save()
+                photo = CatPhoto.objects.get(source_url=elem.find("record_link").text)
+                photo.source_key = elem.find("identifier").text
+                photo.save()
 
     def handle(self, *args, **options):
         self.count = 1
         url = args[0]
-        album_id = args[1]
-        album = CatAlbum.objects.get(pk=album_id)
         items_per_page = 20
         page = 1
         parser = etree.XMLParser()
@@ -54,7 +40,7 @@ class Command(BaseCommand):
         xml_response = data.find("response")
         number_of_items = int(xml_response.find("numFound").text)
         pages_to_get = int(ceil(number_of_items / items_per_page))
-        self._create_photos_from_xml_response(xml_response, album)
+        self._update_photos_from_xml_response(xml_response)
         if pages_to_get > 1:
             while page < pages_to_get:
                 page += 1
@@ -63,4 +49,4 @@ class Command(BaseCommand):
                 response = urllib2.urlopen(request)
                 data = etree.fromstring(response.read(), parser=parser)
                 xml_response = data.find("response")
-                self._create_photos_from_xml_response(xml_response, album)
+                self._update_photos_from_xml_response(xml_response)

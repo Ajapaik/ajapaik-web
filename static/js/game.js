@@ -167,6 +167,7 @@
                 $('#ajapaik-guess-panel-info-panel-xs').show();
                 $('#ajapaik-guess-panel-description-xs').html(currentPhoto.description);
                 $('#ajapaik-game-photo-description').html(currentPhoto.description);
+                $('#ajapaik-game-photo-identifier').html('<a target="_blank" href="' + currentPhoto.source_url + '">' + currentPhoto.source_name + " " + currentPhoto.source_key + '</a>');
                 showDescriptionButtons();
             } else {
                 hideDescriptionButtons();
@@ -231,9 +232,6 @@
             fullscreenPhotoElement.addClass('ajapaik-photo-flipped');
         }
     };
-    window.handleGeolocation = function (location) {
-        window.sortAlbumSelection(location);
-    };
     // TODO: Lots of duplicate code in this function in every mode (map, grid, game)
     window.handleGuessResponse = function (guessResponse) {
         window.guessResponseReceived = true;
@@ -292,6 +290,7 @@
         if (!nextPhotoLoading) {
             window.gameHintUsed = true;
             $('#ajapaik-game-photo-description').show();
+            $('#ajapaik-game-photo-identifier').show();
             $('#ajapaik-game-full-screen-description').show();
             $('#ajapaik-guess-panel-description').show();
             $('#ajapaik-guess-panel-description-xs').show();
@@ -308,6 +307,7 @@
         $('#ajapaik-guess-panel-description').hide();
         $('#ajapaik-guess-panel-description-xs').hide();
         $('#ajapaik-game-photo-description').hide();
+        $('#ajapaik-game-photo-identifier').hide();
     };
     hideDescriptionButtons = function () {
         $('.ajapaik-game-show-description-button').hide();
@@ -365,7 +365,9 @@
         window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             window.disableSave = false;
         });
-        window.getGeolocation();
+        if (window.albumId) {
+            $('#ajapaik-game-info-modal').modal();
+        }
         $(window.input).show();
         $.jQee('space', function () {
             if (window.fullscreenEnabled) {
@@ -510,7 +512,7 @@
                 $('#ajapaik-guess-panel-stats').hide();
                 window.setCursorToAuto();
                 clearBothersomeListeners();
-                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 'Game');
+                window.saveLocation(window.marker, currentPhoto.id, currentPhoto.flip, window.gameHintUsed, window.userFlippedPhoto, window.degreeAngle, window.azimuthLineEndPoint, 0);
                 if (window.saveDirection) {
                     window._gaq.push(['_trackEvent', 'Game', 'Save location and direction']);
                 } else {

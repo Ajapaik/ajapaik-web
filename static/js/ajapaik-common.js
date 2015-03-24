@@ -128,9 +128,8 @@ var map,
     showUnlockedAzimuth,
     mapviewGameButton,
     getGeolocation,
-    myLocationButton,
-    distanceOnSphere,
-    sortAlbumSelection;
+    myLocationButton;
+
 
 (function ($) {
     'use strict';
@@ -280,13 +279,10 @@ var map,
                 }
                 // Currently we are not displaying the save button when Street View is open
                 saveLocationButton.hide();
-                //$('#ajapaik-map-button-container').show();
                 $('.ajapaik-close-streetview-button').show();
             } else {
                 if (!guessLocationStarted) {
                     $('#ajapaik-mapview-photo-panel').show();
-                } else {
-
                 }
                 $('.ajapaik-close-streetview-button').hide();
                 saveLocationButton.show();
@@ -340,19 +336,6 @@ var map,
 
     Math.radians = function (degrees) {
         return degrees * Math.PI / 180;
-    };
-
-    distanceOnSphere = function (lat1, lon1, lat2, lon2) {
-        var R = 6371,
-            p1 = Math.radians(lat1),
-            p2 = Math.radians(lat2),
-            dp = Math.radians(lat2 - lat1),
-            dl = Math.radians(lon2 - lon1),
-            a = Math.sin(dp / 2) * Math.sin(dp / 2) +
-                    Math.cos(p1) * Math.cos(p2) *
-                    Math.sin(dl / 2) * Math.sin(dl / 2),
-            c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
     };
 
     Math.calculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
@@ -452,23 +435,6 @@ var map,
         }
     };
 
-    sortAlbumSelection = function (location) {
-        var select = $('#id_album'),
-            selectList = select.find('option'),
-            preselectedValue = select.find('option:selected').val();
-        selectList.sort(function(a, b) {
-            if (a.dataset.lat === 'None') {
-                return 1;
-            } else if (b.dataset.lat === 'None') {
-                return -1;
-            }
-            var aDist = window.distanceOnSphere(a.dataset.lat, a.dataset.lon, location.coords.latitude, location.coords.longitude),
-                bDist = window.distanceOnSphere(b.dataset.lat, b.dataset.lon, location.coords.latitude, location.coords.longitude);
-            return aDist - bDist;
-        });
-        select.html(selectList).val(preselectedValue);
-    };
-
     showScoreboard = function () {
         var scoreContainer = $('#ajapaik-header').find('.score_container');
         $('#full_leaderboard').slideDown();
@@ -541,32 +507,41 @@ var map,
     };
 
     saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
-        var lat = marker.getPosition().lat(),
-            lon = marker.getPosition().lng(),
-            data = {
-                photo_id: photoId,
+        var mapTypeId = map.getMapTypeId(),
+            lat = marker.getPosition().lat(),
+            lon = marker.getPosition().lng();
+        if (mapTypeId === 'roadmap') {
+            mapTypeId = 0;
+        } else if (mapTypeId === 'hybrid') {
+            mapTypeId = 1;
+        } else {
+            mapTypeId = 2;
+        }
+        var data = {
+                photo: photoId,
                 hint_used: hintUsed,
                 zoom_level: map.zoom,
+                map_type: mapTypeId,
+                type: 0,
                 origin: origin,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
-        if (degreeAngle && saveDirection) {
-            data.azimuth = degreeAngle;
-        } else {
-            dottedAzimuthLine.setVisible(false);
-        }
-        if (azimuthLineEndPoint && saveDirection) {
-            data.azimuth_line_end_point = azimuthLineEndPoint;
-        }
         if (lat && lon) {
             data.lat = lat;
             data.lon = lon;
+        }
+        if (degreeAngle && saveDirection) {
+            data.azimuth = degreeAngle;
+            data.azimuth_line_end_lat = azimuthLineEndPoint[0];
+            data.azimuth_line_end_lon = azimuthLineEndPoint[1];
+        } else {
+            dottedAzimuthLine.setVisible(false);
         }
         if (userFlippedPhoto) {
             data.flip = photoFlipStatus;
         }
         $.ajax({
-            url: saveLocationURL,
+            url: window.saveLocationURL,
             data: data,
             method: 'POST',
             success: function (resp) {

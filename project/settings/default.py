@@ -157,7 +157,7 @@ EXTERNAL_APPS = (
     'rest_framework',
     'compressor',
     'modeltranslation',
-    'django_cleanup',
+    #'django_cleanup',
 )
 
 LOCAL_APPS = (
@@ -192,3 +192,5 @@ CACHES = {
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+GEOIP_PATH = 'project/home/geoip'
