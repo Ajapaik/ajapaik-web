@@ -265,16 +265,28 @@ def game(request):
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
 
     if game_album_selection_form.is_valid():
+        # FIXME: Way too many queries
         album = game_album_selection_form.cleaned_data['album']
         ctx['album'] = album
         album_photo_ids = album.photos.values_list('id', flat=True)
-        ctx['total_photo_count'] = album.photos.count()
-        ctx['geotagged_photo_count'] = album.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False).count()
-        ctx['user_geotagged_photo_count'] = GeoTag.objects.filter(user=request.get_user().profile, photo_id__in=album_photo_ids).count()
+        ctx['total_photo_count'] = album.photos.distinct('id').count()
+        ctx['geotagged_photo_count'] = album.photos.filter(
+            rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False).distinct('id').count()
+        ctx['user_geotagged_photo_count'] = GeoTag.objects.filter(
+            user=request.get_user().profile, photo_id__in=album_photo_ids).distinct('photo_id').count()
         ctx['geotagging_user_count'] = GeoTag.objects.filter(photo_id__in=album_photo_ids).distinct('user').count()
-        ctx['rephoto_count'] = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).distinct('rephoto_of').count()
-        ctx['nearby_albums'] = Album.objects.filter(geography__distance_lte=(Point(album.lat, album.lon), D(m=50000)), is_public=True)[:3]
+        ctx['rephoto_user_count'] = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).distinct('user').count()
+        ctx['rephoto_count'] = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).count()
+        ctx['rephotographed_photo_count'] = Photo.objects.filter(rephoto_of_id__in=album_photo_ids)\
+            .distinct('rephoto_of').count()
+        ctx['user_rephoto_count'] = Photo.objects.filter(
+            rephoto_of_id__in=album_photo_ids, user=request.get_user().profile).count()
+        ctx['user_rephotographed_photo_count'] = Photo.objects.filter(
+            rephoto_of_id__in=album_photo_ids, user=request.get_user().profile).distinct('rephoto_of').count()
+        ctx['nearby_albums'] = Album.objects.filter(geography__distance_lte=(
+            Point(album.lat, album.lon), D(m=50000)), is_public=True)[:3]
         ctx['description'] = album.name
+        ctx['share_link'] = request.build_absolute_uri(reverse('project.home.views.game'))
         ctx['facebook_share_photos'] = album.photos.all()[:5]
         try:
             ctx['random_album_photo'] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by('?')[0]

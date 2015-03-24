@@ -2,6 +2,7 @@
 from copy import deepcopy
 import time
 import datetime
+from pytz import timezone, utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
@@ -24,6 +25,7 @@ from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUser
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
+from project.settings import TIME_ZONE
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -141,7 +143,7 @@ def cat_albums(request):
             'title': a.title,
             'subtitle': a.subtitle,
             'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
-            'tagged': user_tagged_all_in_album
+            'tagged': user_tagged_all_in_album,
         })
     content = {
         'error': error,
@@ -196,14 +198,17 @@ def _get_album_state(request, form):
     return content
 
 
+def _utcisoformat(dt):
+    return dt.astimezone(utc).replace(tzinfo=None).isoformat()[:-3] + 'Z'
+
+
 def _get_favorite_object_json_form(request, obj):
-    utc_datetime = obj.created - obj.created.utcoffset()
     return {
         'id': obj.id,
         'album_id': obj.album.id,
         'photo_id': obj.photo.id,
         'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(obj.photo.id,))) + '[DIM]/',
-        'date': utc_datetime.isoformat()
+        'date': _utcisoformat(obj.created)
     }
 
 

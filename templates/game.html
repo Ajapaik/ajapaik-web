@@ -24,7 +24,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row ajapaik-no-right-margin-row">
-                        <div id="ajapaik-game-photo-description" class="pull-left" style="display: none;"></div>
+                        <div id="ajapaik-game-photo-description" style="display: none;"></div>
+                        <div id="ajapaik-game-photo-identifier" style="display: none;"></div>
                     </div>
                     <div class="row" style="text-align: right; margin-right: 0;">
                         <div class="col-xs-6">
@@ -33,7 +34,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row" style="text-align: right; margin-right: 0; margin-top: 5px;">
+                    <div class="row" style="text-align: right; margin-right: 0;">
                         <div class="col-xs-6">
                             <button class="btn btn-success btn-block ajapaik-game-specify-location-button">
                                 {% trans "Pick the shooting location!" %}
@@ -60,26 +61,66 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <h4>{{ album.name }}</h4>
                     <h6>{{ album.description }}</h6>
+                    <h6>{% trans "This album was curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a></h6>
                 </div>
                 <div class="modal-body" id="ajapaik-game-info-modal-body">
                     <div class="row">
-                        {% trans "This album was curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a>
+                        {% trans "Album has" %} {{ total_photo_count}}
+                        {% if total_photo_count == 1 %}{% trans "picture_singular_nom" %}{% else %}{% trans "pictures" %}{% endif %},
                     </div>
                     <div class="row">
-                        {% trans "It contains" %} {{ total_photo_count}}
-                        {% if total_photo_count == 1 %}{% trans "photo" %}{% else %}{% trans "photos" %}{% endif %}, {{ geotagged_photo_count }} {% if geotagged_photo_count == 1 %}{% trans "of which is on the map already" %}{% else %}{% trans "of which are on the map already" %}{% endif %}
+                        {{ geotagging_user_count }} {% if geotagging_user_count == 1 %}{% trans "user has put" %}{% else %}{% trans "users have put" %}{% endif %}
+                        {% if total_photo_count == geotagged_photo_count %}
+                            {% trans "all the pictures on the map" %}.
+                        {% else %}
+                            {{ geotagged_photo_count }} {% if geotagged_photo_count == 1 %}{% trans "picture" %}{% else %}{% trans "pictures" %}{% endif %} {% trans "on the map" %}.
+                        {% endif %}
                     </div>
                     <div class="row">
-                        {{ geotagging_user_count }} {% if geotagging_user_count == 1 %}{% trans "user has contributed geotags to this album" %}{% else %}{% trans "users have contributed geotags to this album" %}{% endif %}
+                        {% trans "You have made a location suggestion for" %} {% if user_geotagged_photo_count == total_photo_count %}
+                            {% trans "all the pictures from this album" %}.
+                        {% else %}
+                            {{ user_geotagged_photo_count }} {% if user_geotagged_photo_count == 1%}{% trans "picture" %}{% else %}{% trans "pictures" %}{% endif %} {% trans "from this album" %}.
+                        {% endif %}
                     </div>
                     <div class="row">
-                        {% trans "You have contributed" %} {{ user_geotagged_photo_count }} {% if user_geotagged_photo_count == 1 %}{% trans "geotag" %}{% else %}{% trans "geotags" %}{% endif %} {% trans "to this album" %}
                     </div>
                     <div class="row">
-                        {{ rephoto_count }} {% if rephoto_count == 1 %}{% trans "old photo has rephotos" %}{% else %}{% trans "old photos have rephotos" %}{% endif %}
+                        {% blocktrans count counter=rephoto_user_count %}
+                            {{ counter }} user has made
+                        {% plural %}
+                            {{ counter }} users have made
+                        {% endblocktrans %}
+                        {% blocktrans count counter=rephoto_count %}
+                            {{ counter }} rephotograph for
+                        {% plural %}
+                            {{ counter }} rephotographs for
+                        {% endblocktrans %}
+                        {% blocktrans count counter=rephotographed_photo_count %}
+                            for {{ counter }} picture in the album
+                        {% plural %}
+                            for {{ counter }} picture in the album
+                        {% endblocktrans %}
                     </div>
+                    {% if user_rephoto_count > 0 %}
+                        <div class="row">
+                            {% blocktrans count counter=user_rephoto_count %}
+                                You have made {{ counter }} rephoto
+                            {% plural %}
+                                You have made {{ counter }} rephotos
+                            {% endblocktrans %}
+                            {% blocktrans count counter=user_rephoto_count %}
+                                You have made {{ counter }} rephoto
+                            {% plural %}
+                                You have made {{ counter }} rephotos
+                            {% endblocktrans %}
+                        </div>
+                    {% endif %}
                     {% if nearby_albums %}
                         <div class="row">
                             {% trans "Some nearby albums" %}: {% for a in nearby_albums %}
@@ -89,9 +130,21 @@
                     {% endif %}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-block btn-default btn-block" data-dismiss="modal">
-                        {% trans "Close" %}
+                    <button id="ajapaik-sharing-dropdown-button" class="btn btn-block btn-primary ajapaik-photo-modal-share-button pull-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% trans "Share" %}
                     </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                        <li role="presentation" class="disabled-link">
+                            <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                <input type="text" class="form-control" value="{{ share_link }}&album={{ album.id }}">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1">
+                                <div class="fb-like" data-href="{{ share_link }}&album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

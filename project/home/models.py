@@ -356,6 +356,8 @@ class Photo(models.Model):
                 "description": photo.description,
                 "date_text": photo.date_text,
                 "source_key": photo.source_key,
+                "source_url": photo.source_url,
+                "source_name": photo.source.description,
                 "flip": photo.flip,
                 "big": _make_thumbnail(photo, "700x400"),
                 "large": _make_fullscreen(photo),
