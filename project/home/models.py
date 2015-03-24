@@ -321,14 +321,18 @@ class Photo(models.Model):
         @staticmethod
         def get_album_photo_count_and_total_geotag_count(album_id=None, area_id=None):
             if album_id is not None:
-                album_photos = Album.objects.get(pk=album_id).photos.all()
-                ungeotagged_qs = album_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
-                geotagged_qs = album_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+                album = Album.objects.get(pk=album_id)
+                album_photos_qs = album.photos.all()
+                if album.subalbums:
+                    for sa in album.subalbums.all():
+                        album_photos_qs = album_photos_qs | sa.photos.all()
+                ungeotagged_qs = album_photos_qs.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct('id')
+                geotagged_qs = album_photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct('id')
                 return ungeotagged_qs.count(), geotagged_qs.count()
             if area_id is not None:
                 area_photos = Photo.objects.filter(area_id=area_id)
-                ungeotagged_qs = area_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True)
-                geotagged_qs = area_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+                ungeotagged_qs = area_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct('id')
+                geotagged_qs = area_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct('id')
                 return ungeotagged_qs.count(), geotagged_qs.count()
             return None, None
 
