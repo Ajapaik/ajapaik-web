@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-23 18:12+0200\n"
+"POT-Creation-Date: 2015-03-24 17:36+0200\n"
 "PO-Revision-Date: 2015-03-16 12:25+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -21,94 +21,93 @@ msgid "Choose area"
 msgstr "Vali koht"
 
 #: project/home/forms.py:18 project/home/forms.py:26 project/home/forms.py:37
-#: templates/_album_selection_form.html:4
 msgid "Choose album"
 msgstr "Vali album"
 
-#: project/home/models.py:736
+#: project/home/models.py:753
 msgid "Map"
 msgstr "Kaart"
 
-#: project/home/models.py:737
+#: project/home/models.py:754
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:738
+#: project/home/models.py:755
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:742
+#: project/home/models.py:759
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:743
+#: project/home/models.py:760
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:744
+#: project/home/models.py:761
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:748
+#: project/home/models.py:765
 #, fuzzy
 #| msgid "Close map"
 msgid "Google map"
 msgstr "Sulge kaart"
 
-#: project/home/models.py:749
+#: project/home/models.py:766
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:750
+#: project/home/models.py:767
 msgid "Open StreetMap"
 msgstr ""
 
-#: project/home/views.py:299
+#: project/home/views.py:303
 msgid "Let's put pictures on the map"
 msgstr "Paneme pildid kaardile"
 
-#: project/home/views.py:538 project/home/views.py:547
-#: project/home/views.py:549 templates/frontpage.html:165
+#: project/home/views.py:542 project/home/views.py:551
+#: project/home/views.py:553 templates/frontpage.html:157
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:656
+#: project/home/views.py:660
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: project/home/views.py:659
+#: project/home/views.py:663
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Asukoht tundub õige. Proovi määrata ka vaate suund, et saada veelgi rohkem "
 "punkte."
 
-#: project/home/views.py:662
+#: project/home/views.py:666
 msgid "The location seems right, but not the azimuth."
 msgstr "Asukoht tundub õige, aga mitte vaate suund."
 
-#: project/home/views.py:664
+#: project/home/views.py:668
 msgid "The location seems right, your azimuth was first."
 msgstr "Asukoht tundub õige, Sinu pakutud suund oli esimene."
 
-#: project/home/views.py:666
+#: project/home/views.py:670
 msgid "Other users have different opinion."
 msgstr "Teised kasutajad on teisiti arvanud."
 
-#: project/home/views.py:668
+#: project/home/views.py:672
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/home/views.py:684 project/home/views.py:698
-#: templates/_header_area_selection_scoreboard.html:30
+#: project/home/views.py:688 project/home/views.py:702
+#: templates/_header_area_selection_scoreboard.html:28
 msgid "Leaderboard"
 msgstr "Edetabel"
 
-#: project/home/views.py:928
+#: project/home/views.py:932
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr "Ajapaik - lae oma fotosid"
 
-#: project/home/views.py:941
+#: project/home/views.py:945
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations ja "
 "share the resulting album!"
@@ -116,11 +115,11 @@ msgstr ""
 "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit "
 "teistega!"
 
-#: project/home/views.py:943
+#: project/home/views.py:947
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Ajapaiga kuraator"
 
-#: project/home/views.py:1162
+#: project/home/views.py:1166
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
@@ -130,31 +129,31 @@ msgstr ""
 "kuni kättesaadavaks muutub parem kujutis. Aga kui siiski soovite, siis võib "
 "see valikusse jääda."
 
-#: project/home/views.py:1164
+#: project/home/views.py:1168
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1187 project/home/views.py:1302
+#: project/home/views.py:1191 project/home/views.py:1306
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/home/views.py:1196
+#: project/home/views.py:1200
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: project/home/views.py:1203
+#: project/home/views.py:1207
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: project/home/views.py:1205
+#: project/home/views.py:1209
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#: project/home/views.py:1309
+#: project/home/views.py:1313
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1327
+#: project/home/views.py:1331
 msgid "Invalid form data"
 msgstr ""
 
@@ -204,7 +203,7 @@ msgid "Rephoto"
 msgstr "Ülepildistus"
 
 #: templates/_guess_panel.html:14 templates/_guess_panel_xs.html:17
-#: templates/game.html:32 templates/game.html.py:123
+#: templates/game.html:33 templates/game.html.py:193
 msgid "Show description"
 msgstr "Vaata kirjeldust"
 
@@ -250,7 +249,7 @@ msgstr "keeruline"
 
 #: templates/_guess_panel.html:60 templates/_guess_panel.html.py:72
 #: templates/_guess_panel_xs.html:15 templates/_guess_panel_xs.html.py:40
-#: templates/game.html:43 templates/game.html.py:120
+#: templates/game.html:44 templates/game.html.py:190
 msgid "Next photo"
 msgstr "Järgmine foto"
 
@@ -275,26 +274,26 @@ msgstr "Sulge Street View"
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
-#: templates/_header_area_selection_scoreboard.html:16
+#: templates/_header_area_selection_scoreboard.html:14
 msgid "Limit to album"
 msgstr "Näita kaardil ainult valitud albumi pilte"
 
-#: templates/_header_area_selection_scoreboard.html:41
+#: templates/_header_area_selection_scoreboard.html:39
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
 msgstr "Kasutaja"
 
-#: templates/_header_area_selection_scoreboard.html:41
+#: templates/_header_area_selection_scoreboard.html:39
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:14
 msgid "Log out"
 msgstr "Logi välja"
 
-#: templates/_header_area_selection_scoreboard.html:46
+#: templates/_header_area_selection_scoreboard.html:44
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/_header_area_selection_scoreboard.html:47
+#: templates/_header_area_selection_scoreboard.html:45
 #: templates/_photo_upload_modal.html:36 templates/curator.html:247
 #: templates/photo_upload.html:261
 msgid "Connect with Facebook"
@@ -308,7 +307,8 @@ msgstr "Ülepildistus:"
 msgid "Date taken"
 msgstr "Kuupäev:"
 
-#: templates/_photo_modal.html:100 templates/photoview.html:61
+#: templates/_photo_modal.html:100 templates/game.html:151
+#: templates/photoview.html:61
 msgid "Share"
 msgstr "Jaga"
 
@@ -338,7 +338,7 @@ msgstr "Täpsusta asukohta"
 
 #: templates/_photo_modal.html:128 templates/_photo_upload_modal.html:43
 #: templates/curator.html:118 templates/curator.html.py:166
-#: templates/game.html:93 templates/game.html.py:141 templates/mapview.html:51
+#: templates/game.html:211 templates/mapview.html:51
 #: templates/photo_upload.html:45 templates/photo_upload.html.py:79
 #: templates/photo_upload.html:130 templates/photo_upload.html.py:192
 msgid "Close"
@@ -485,7 +485,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:132 templates/base_bootstrap.html:84
+#: templates/base.html:100 templates/base_bootstrap.html:84
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -621,15 +621,15 @@ msgstr "Vanade fotode kureerimiseks ühenda konto kõigepealt Facebookiga."
 msgid "Choose language"
 msgstr "Vali keel"
 
-#: templates/frontpage.html:90
+#: templates/frontpage.html:88
 msgid "Where is history located?"
 msgstr "Kus ajalugu asub?"
 
-#: templates/frontpage.html:91
+#: templates/frontpage.html:89
 msgid "Discover, geotag and make the rephoto."
 msgstr "Uuri, avasta, märgi kaardil ja pildista üle."
 
-#: templates/frontpage.html:94
+#: templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
@@ -637,117 +637,227 @@ msgstr ""
 "Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et "
 "oleks põnevam, siis võistled kõigi teiste osalejatega."
 
-#: templates/frontpage.html:96
+#: templates/frontpage.html:94
 msgid "Read more"
 msgstr "Loe lähemalt"
 
-#: templates/frontpage.html:164
+#: templates/frontpage.html:156
 msgid "Guess the location"
 msgstr "Arva ära asukoht"
 
-#: templates/frontpage.html:171
+#: templates/frontpage.html:163
 msgid "Upload photos yourself"
 msgstr "Lae ise vanu fotosid"
 
-#: templates/frontpage.html:174
+#: templates/frontpage.html:166
 msgid "Curate content"
 msgstr "Kureeri sisu"
 
-#: templates/frontpage.html:181
+#: templates/frontpage.html:173
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:39 templates/game.html.py:116
+#: templates/game.html:40 templates/game.html.py:186
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: templates/game.html:48
+#: templates/game.html:49
 msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr "Keegi ei ole sellele pildile veel asukohta pakkunud. Ole esimene!"
 
-#: templates/game.html:49
+#: templates/game.html:50
 msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr "1 asukohapakkumine on sellele pildile juba tehtud, lisa enda oma ka!"
 
-#: templates/game.html:50
+#: templates/game.html:51
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr "asukohapakkumist on sellele pildile tehtud. Lisa enda arvamus!"
 
-#: templates/game.html:68
+#: templates/game.html:71
 msgid "This album was curated by"
 msgstr ""
 
-#: templates/game.html:71
-msgid "It contains"
-msgstr ""
-
-#: templates/game.html:72
-#, fuzzy
-#| msgid "Rephoto"
-msgid "photo"
-msgstr "Ülepildistus"
-
-#: templates/game.html:72
-#, fuzzy
-#| msgid "Rephoto"
-msgid "photos"
-msgstr "Ülepildistus"
-
-#: templates/game.html:72
-msgid "of which is on the map already"
-msgstr ""
-
-#: templates/game.html:72
-msgid "of which are on the map already"
-msgstr ""
-
 #: templates/game.html:75
-msgid "user has contributed geotags to this album"
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it\"s not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                            Album has %(counter)s photo\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            Album has %(counter)s photos\n"
+"                        "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+
+#: templates/game.html:80
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it\"s not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                            %(counter)s user has put\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(counter)s users have put\n"
+"                        "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+
+#: templates/game.html:86
+#, fuzzy
+#| msgid "Let's put pictures on the map"
+msgid "all the pictures on the map"
+msgstr "Paneme pildid kaardile"
+
+#: templates/game.html:88
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it's not you then "
+#| "%(link_open)sclick here %(link_close)s."
+msgid ""
+"\n"
+"                                %(counter)s picture on the map\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                %(counter)s pictures on the map\n"
+"                            "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+
+#: templates/game.html:96
+msgid "You have made a location suggestion for"
 msgstr ""
 
-#: templates/game.html:75
-msgid "users have contributed geotags to this album"
-msgstr ""
-
-#: templates/game.html:78
-msgid "You have contributed"
-msgstr ""
-
-#: templates/game.html:78
+#: templates/game.html:98
 #, fuzzy
-#| msgid "Geotags"
-msgid "geotag"
-msgstr "Asukohapakkumisi"
+#| msgid "Number of geotagged pictures in this album:"
+msgid "all the pictures from this album"
+msgstr "Sellest albumist kaardistatud pilte:"
 
-#: templates/game.html:78
-#, fuzzy
-#| msgid "Geotags"
-msgid "geotags"
-msgstr "Asukohapakkumisi"
+#: templates/game.html:100
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it's not you then "
+#| "%(link_open)sclick here %(link_close)s."
+msgid ""
+"\n"
+"                                %(counter)s picture from this album\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                %(counter)s pictures from this album\n"
+"                            "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
 
-#: templates/game.html:78
-#, fuzzy
-#| msgid "Limit to album"
-msgid "to this album"
-msgstr "Näita kaardil ainult valitud albumi pilte"
+#: templates/game.html:109
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it's not you then "
+#| "%(link_open)sclick here %(link_close)s."
+msgid ""
+"\n"
+"                                %(counter)s user has made\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                %(counter)s users have made\n"
+"                            "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
 
-#: templates/game.html:81
-#, fuzzy
-#| msgid "Load more photos"
-msgid "old photo has rephotos"
-msgstr "Laadi juurde"
+#: templates/game.html:114
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it's not you then "
+#| "%(link_open)sclick here %(link_close)s."
+msgid ""
+"\n"
+"                                %(counter)s rephotograph for\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                %(counter)s rephotographs for\n"
+"                            "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
 
-#: templates/game.html:81
-#, fuzzy
-#| msgid "Load more photos"
-msgid "old photos have rephotos"
-msgstr "Laadi juurde"
+#: templates/game.html:119 templates/game.html.py:133
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it's not you then "
+#| "%(link_open)sclick here %(link_close)s."
+msgid ""
+"\n"
+"                                for %(counter)s picture in the album\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                for %(counter)s picture in the album\n"
+"                            "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
 
-#: templates/game.html:85
+#: templates/game.html:128
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected. If it's not you then "
+#| "%(link_open)sclick here %(link_close)s."
+msgid ""
+"\n"
+"                                You have made %(counter)s rephoto\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                You have made %(counter)s rephotos\n"
+"                            "
+msgstr[0] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+msgstr[1] ""
+"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
+"%(link_open)svajuta siia%(link_close)s."
+
+#: templates/game.html:143
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/game.html:99 templates/mapview.html:27
+#: templates/game.html:169 templates/mapview.html:27
 msgid "Search box"
 msgstr "Otsilahter"
 
@@ -840,6 +950,41 @@ msgstr "Vanade fotode laadimiseks ühenda konto kõigepealt Facebookiga."
 msgid "Location on the map"
 msgstr "Asukoht kaardil"
 
+#, fuzzy
+#~| msgid "Rephoto"
+#~ msgid "photo"
+#~ msgstr "Ülepildistus"
+
+#, fuzzy
+#~| msgid "Rephoto"
+#~ msgid "photos"
+#~ msgstr "Ülepildistus"
+
+#, fuzzy
+#~| msgid "Geotags"
+#~ msgid "geotag"
+#~ msgstr "Asukohapakkumisi"
+
+#, fuzzy
+#~| msgid "Geotags"
+#~ msgid "geotags"
+#~ msgstr "Asukohapakkumisi"
+
+#, fuzzy
+#~| msgid "Limit to album"
+#~ msgid "to this album"
+#~ msgstr "Näita kaardil ainult valitud albumi pilte"
+
+#, fuzzy
+#~| msgid "Load more photos"
+#~ msgid "old photo has rephotos"
+#~ msgstr "Laadi juurde"
+
+#, fuzzy
+#~| msgid "Load more photos"
+#~ msgid "old photos have rephotos"
+#~ msgstr "Laadi juurde"
+
 #~ msgid "The location seems right, but the azimuth is yet uncertain."
 #~ msgstr ""
 #~ "Asukoht tundub õige, vaate suuna osas ei ole kasutajatel üksmeelt "
@@ -894,32 +1039,6 @@ msgstr "Asukoht kaardil"
 #~ "sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-#~ "%(link_open)svajuta siia%(link_close)s."
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected. If it\"s not you then %(link_open)"
-#~| "sclick here%(link_close)s."
-#~ msgid ""
-#~ "\n"
-#~ "                            Account (%(account_name)s) connected. If it"
-#~ "\"s not you then %(link_open)sclick\n"
-#~ "                            here%(link_close)s."
-#~ msgstr ""
-#~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-#~ "%(link_open)svajuta siia%(link_close)s."
-
-#, fuzzy
-#~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
-#~ msgid ""
-#~ "\n"
-#~ "                                Account (%(account_name)s) connected. If "
-#~ "it's not you then %(link_open)sclick here\n"
-#~ "                                %(link_close)s."
-#~ msgstr ""
-#~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
 
 #~ msgid "All pictures"
