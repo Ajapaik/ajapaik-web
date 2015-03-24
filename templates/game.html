@@ -70,22 +70,38 @@
                 </div>
                 <div class="modal-body" id="ajapaik-game-info-modal-body">
                     <div class="row">
-                        {% trans "Album has" %} {{ total_photo_count}}
-                        {% if total_photo_count == 1 %}{% trans "picture_singular_nom" %}{% else %}{% trans "pictures" %}{% endif %},
+                        {% blocktrans count counter=total_photo_count %}
+                            Album has {{ counter }} photo
+                        {% plural %}
+                            Album has {{ counter }} photos
+                        {% endblocktrans %}
                     </div>
                     <div class="row">
-                        {{ geotagging_user_count }} {% if geotagging_user_count == 1 %}{% trans "user has put" %}{% else %}{% trans "users have put" %}{% endif %}
+                        {% blocktrans count counter=geotagging_user_count %}
+                            {{ counter }} user has put
+                        {% plural %}
+                            {{ counter }} users have put
+                        {% endblocktrans %}
                         {% if total_photo_count == geotagged_photo_count %}
-                            {% trans "all the pictures on the map" %}.
+                            {% trans "all the pictures on the map" %}
                         {% else %}
-                            {{ geotagged_photo_count }} {% if geotagged_photo_count == 1 %}{% trans "picture" %}{% else %}{% trans "pictures" %}{% endif %} {% trans "on the map" %}.
+                            {% blocktrans count counter=geotagged_photo_count %}
+                                {{ counter }} picture on the map
+                            {% plural %}
+                                {{ counter }} pictures on the map
+                            {% endblocktrans %}
                         {% endif %}
                     </div>
                     <div class="row">
-                        {% trans "You have made a location suggestion for" %} {% if user_geotagged_photo_count == total_photo_count %}
-                            {% trans "all the pictures from this album" %}.
+                        {% trans "You have made a location suggestion for" %}
+                        {% if user_geotagged_photo_count == total_photo_count %}
+                            {% trans "all the pictures from this album" %}
                         {% else %}
-                            {{ user_geotagged_photo_count }} {% if user_geotagged_photo_count == 1%}{% trans "picture" %}{% else %}{% trans "pictures" %}{% endif %} {% trans "from this album" %}.
+                            {% blocktrans count counter=user_geotagged_photo_count %}
+                                {{ counter }} picture from this album
+                            {% plural %}
+                                {{ counter }} pictures from this album
+                            {% endblocktrans %}
                         {% endif %}
                     </div>
                     <div class="row">
@@ -114,10 +130,10 @@
                             {% plural %}
                                 You have made {{ counter }} rephotos
                             {% endblocktrans %}
-                            {% blocktrans count counter=user_rephoto_count %}
-                                You have made {{ counter }} rephoto
+                            {% blocktrans count counter=user_rephotographed_photo_count %}
+                                for {{ counter }} picture in the album
                             {% plural %}
-                                You have made {{ counter }} rephotos
+                                for {{ counter }} picures in the album
                             {% endblocktrans %}
                         </div>
                     {% endif %}
