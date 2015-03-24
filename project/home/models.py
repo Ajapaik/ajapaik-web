@@ -136,6 +136,21 @@ class CatTagPhoto(models.Model):
         return u'%s - %s - %s - %s' % (self.photo, self.tag, self.value, self.profile)
 
 
+class CatUserFavorite(models.Model):
+    album = models.ForeignKey('CatAlbum')
+    photo = models.ForeignKey('CatPhoto')
+    profile = models.ForeignKey('Profile')
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = 'project'
+        unique_together = (('album', 'photo', 'profile'),)
+
+    def __unicode__(self):
+        return u'%s - %s - %s' % (self.album, self.photo, self.profile)
+
+
 class CatPhoto(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)

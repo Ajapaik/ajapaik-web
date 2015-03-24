@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.home.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, AlbumPhoto, \
-    Licence, Device, CatAlbum, CatPhoto, CatTag, CatTagPhoto
+    Licence, Device, CatAlbum, CatPhoto, CatTag, CatTagPhoto, CatUserFavorite
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -89,6 +89,11 @@ class CatTagPhotoAdmin(ForeignKeyAutocompleteAdmin):
     }
 
 
+class CatUserFavoriteAdmin(ForeignKeyAutocompleteAdmin):
+    related_search_fields = {
+        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+    }
+
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
 admin.site.register(Points, PointsAdmin)
@@ -106,3 +111,4 @@ admin.site.register(CatAlbum)
 admin.site.register(CatPhoto)
 admin.site.register(CatTag)
 admin.site.register(CatTagPhoto, CatTagPhotoAdmin)
+admin.site.register(CatUserFavorite, CatUserFavoriteAdmin)

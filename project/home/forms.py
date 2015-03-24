@@ -110,6 +110,12 @@ class CatTagForm(forms.Form):
     state = forms.CharField(max_length=255, required=False)
 
 
+class CatFavoriteForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
+    photo = forms.ModelChoiceField(queryset=CatPhoto.objects.all())
+    state = forms.CharField(max_length=255, required=False)
+
+
 # class SubmitGeotagForm(forms.Form):
 #     # user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None, azimuth_line_end_point=None, origin=GeoTag.GAME
 #     user = forms.ModelChoiceField(queryset=Profile.objects.all())
