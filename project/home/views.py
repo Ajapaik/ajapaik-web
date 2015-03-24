@@ -275,8 +275,9 @@ def game(request):
             rephoto_of_id__in=album_photo_ids, user=request.get_user().profile).count()
         ctx['user_rephotographed_photo_count'] = Photo.objects.filter(
             rephoto_of_id__in=album_photo_ids, user=request.get_user().profile).distinct('rephoto_of').count()
-        ctx['nearby_albums'] = Album.objects.filter(geography__distance_lte=(
-            Point(album.lat, album.lon), D(m=50000)), is_public=True)[:3]
+        if album.geography:
+            ctx['nearby_albums'] = Album.objects.filter(geography__distance_lte=(
+                Point(album.lat, album.lon), D(m=50000)), is_public=True)[:3]
         ctx['description'] = album.name
         ctx['share_link'] = request.build_absolute_uri(reverse('project.home.views.game'))
         ctx['facebook_share_photos'] = album.photos.all()[:5]
