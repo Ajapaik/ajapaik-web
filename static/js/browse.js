@@ -849,12 +849,8 @@
             if (centerOnMapAfterLocating) {
                 window.map.setCenter(new window.google.maps.LatLng(location.coords.latitude, location.coords.longitude));
                 centerOnMapAfterLocating = false;
-            } else {
-                window.sortAlbumSelection(location);
             }
         };
-
-        window.getGeolocation();
 
         window.saveLocationButton.on('click', function () {
             $('.ajapaik-marker-center-lock-button').hide();

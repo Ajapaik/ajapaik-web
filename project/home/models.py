@@ -1047,6 +1047,7 @@ class CSVPhoto(Photo):
         # 	def backwards(self, orm):
         # 		pass
 
+
 class Licence(models.Model):
     name = models.CharField(max_length=255)
     url = models.TextField(blank=True, null=True)

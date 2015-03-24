@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from project import settings
 
 
-# TODO: Make forms for everything, there's too much Javascript POST checking
+# TODO: Make forms for everything, there's too much Javascript POST variable checking
 class AreaSelectionForm(forms.Form):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),
                                   initial=Area.objects.filter(pk=settings.DEFAULT_AREA_ID))
@@ -114,21 +114,6 @@ class CatFavoriteForm(forms.Form):
     album = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
     photo = forms.ModelChoiceField(queryset=CatPhoto.objects.all())
     state = forms.CharField(max_length=255, required=False)
-
-
-# class SubmitGeotagForm(forms.Form):
-#     # user, photo_id, lon=None, lat=None, geotag_type=GeoTag.MAP, hint_used=False, azimuth=None, zoom_level=None, azimuth_line_end_point=None, origin=GeoTag.GAME
-#     user = forms.ModelChoiceField(queryset=Profile.objects.all())
-#     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
-#     lat = forms.FloatField()
-#     lon = forms.FloatField()
-#     geotag_type = forms.ChoiceField(choices=GeoTag.TYPE_CHOICES, initial=GeoTag.MAP)
-#     hint_used = forms.NullBooleanField()
-#     azimuth = forms.FloatField(required=False)
-#     zoom_level = forms.IntegerField()
-#     azimuth_line_end_point_lat = forms.FloatField(required=False)
-#     azimuth_line_end_point_lon = forms.FloatField(required=False)
-#     origin = forms.ChoiceField(choices=GeoTag.ORIGIN_CHOICES)
 
 
 class SubmitGeotagForm(forms.ModelForm):

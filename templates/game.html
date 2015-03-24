@@ -65,7 +65,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4>{{ album.name }}</h4>
-                    <h6>{{ album.description }}</h6>
+                    {% if album.description %}
+                        <h6>{{ album.description }}</h6>
+                    {% endif %}
                     <h6>{% trans "This album was curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a></h6>
                 </div>
                 <div class="modal-body" id="ajapaik-game-info-modal-body">
@@ -74,9 +76,7 @@
                             Album has {{ counter }} photo
                         {% plural %}
                             Album has {{ counter }} photos
-                        {% endblocktrans %}
-                    </div>
-                    <div class="row">
+                        {% endblocktrans %},
                         {% blocktrans count counter=geotagging_user_count %}
                             {{ counter }} user has put
                         {% plural %}
@@ -104,25 +104,25 @@
                             {% endblocktrans %}
                         {% endif %}
                     </div>
-                    <div class="row">
-                    </div>
-                    <div class="row">
-                        {% blocktrans count counter=rephoto_user_count %}
-                            {{ counter }} user has made
-                        {% plural %}
-                            {{ counter }} users have made
-                        {% endblocktrans %}
-                        {% blocktrans count counter=rephoto_count %}
-                            {{ counter }} rephotograph for
-                        {% plural %}
-                            {{ counter }} rephotographs for
-                        {% endblocktrans %}
-                        {% blocktrans count counter=rephotographed_photo_count %}
-                            for {{ counter }} picture in the album
-                        {% plural %}
-                            for {{ counter }} picture in the album
-                        {% endblocktrans %}
-                    </div>
+                    {% if rephoto_user_count > 0 %}
+                        <div class="row">
+                            {% blocktrans count counter=rephoto_user_count %}
+                                {{ counter }} user has made
+                            {% plural %}
+                                {{ counter }} users have made
+                            {% endblocktrans %}
+                            {% blocktrans count counter=rephoto_count %}
+                                {{ counter }} rephotograph for
+                            {% plural %}
+                                {{ counter }} rephotographs for
+                            {% endblocktrans %}
+                            {% blocktrans count counter=rephotographed_photo_count %}
+                                for {{ counter }} picture in the album
+                            {% plural %}
+                                for {{ counter }} picture in the album
+                            {% endblocktrans %}
+                        </div>
+                    {% endif %}
                     {% if user_rephoto_count > 0 %}
                         <div class="row">
                             {% blocktrans count counter=user_rephoto_count %}
@@ -137,6 +137,7 @@
                             {% endblocktrans %}
                         </div>
                     {% endif %}
+                    <br>
                     {% if nearby_albums %}
                         <div class="row">
                             {% trans "Some nearby albums" %}: {% for a in nearby_albums %}
@@ -152,12 +153,12 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                         <li role="presentation" class="disabled-link">
                             <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                <input type="text" class="form-control" value="{{ share_link }}&album={{ album.id }}">
+                                <input type="text" class="form-control" value="{{ share_link }}?album={{ album.id }}">
                             </a>
                         </li>
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1">
-                                <div class="fb-like" data-href="{{ share_link }}&album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                <div class="fb-like" data-href="{{ share_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                             </a>
                         </li>
                     </ul>

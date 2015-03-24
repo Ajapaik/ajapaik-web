@@ -14,6 +14,7 @@ lxml==3.4.2
 meld3==1.0.0
 numpy==1.9.2
 oauth2client==1.4.7
+pandas==0.16.0
 Pillow==2.7.0
 psycopg2==2.6
 pyasn1==0.1.7

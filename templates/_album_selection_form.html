@@ -1,9 +1,0 @@
-{% load i18n %}
-
-{{ album_selection_form.non_field_errors }}
-<label for="id_album">{% trans "Choose album" %}</label>
-<select id="id_album" name="album">
-    {% for a in album_selection_form.album.field.queryset %}
-        <option {% if a.id == album.id %}selected="selected"{% endif %} value="{{ a.id }}" data-lat="{{ a.lat }}" data-lon="{{ a.lon }}">{{ a.name }}</option>
-    {% endfor %}
-</select>

@@ -1,11 +1,9 @@
 # encoding: utf-8
 import hashlib
 import os
-import urllib
 import urllib2
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.gis.measure import D
-from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
 
@@ -37,16 +35,12 @@ from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, Curat
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from PIL.ExifTags import TAGS, GPSTAGS
 from time import strftime, strptime
-from StringIO import StringIO
-from copy import deepcopy
 
 import get_next_photos_to_geotag
 import random
 import datetime
 import json
 import PIL.ImageOps
-
-#from django.contrib.gis.utils import GeoIP
 
 from europeana import Search, BoundingBox
 
@@ -257,8 +251,6 @@ def calculate_recent_activity_scores():
 
 @ensure_csrf_cookie
 def game(request):
-    #g = GeoIP()
-    #print g.city(request.META.get('REMOTE_ADDR'))
     ctx = {}
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
