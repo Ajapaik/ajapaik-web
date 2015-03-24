@@ -199,6 +199,7 @@ def _get_album_state(request, form):
 def _get_favorite_object_json_form(request, obj):
     utc_datetime = obj.created - obj.created.utcoffset()
     return {
+        'id': obj.id,
         'album_id': obj.album.id,
         'photo_id': obj.photo.id,
         'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(obj.photo.id,))) + '[DIM]/',
@@ -216,7 +217,6 @@ def _get_user_data(request, remove_favorite=None, add_favorite=None):
         'message': None,
         'link': None,
     }
-    print remove_favorite
     if remove_favorite or add_favorite:
         if remove_favorite:
             content['favorites-'] = [remove_favorite]
