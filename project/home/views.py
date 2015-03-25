@@ -769,8 +769,10 @@ def leaderboard(request):
     _calculate_recent_activity_scores()
     response = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
     template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
+    site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
         "leaderboard": response,
+        "hostname": "http://%s" % (site.domain,),
         "title": _("Leaderboard"),
         "is_top_50": False
     }))
@@ -782,8 +784,10 @@ def top50(request):
     activity_leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().profile.pk)
     all_time_leaderboard = get_next_photos_to_geotag.get_all_time_leaderboard50(request.get_user().profile.pk)
     template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
+    site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
         "activity_leaderboard": activity_leaderboard,
+        "hostname": "http://%s" % (site.domain,),
         "all_time_leaderboard": all_time_leaderboard,
         "title": _("Leaderboard"),
         "is_top_50": True
