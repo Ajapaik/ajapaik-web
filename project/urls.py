@@ -54,12 +54,12 @@ urlpatterns = patterns('project.home.views',
    url(r'^curator_selectable_albums/$', 'curator_selectable_albums'),
    url(r'^curator_search/$', 'curator_search'),
    url(r'^curator_upload/$', 'curator_photo_upload_handler'),
-   url(r'^public_photo_upload/$', 'public_photo_upload'),
-   url(r'^public_photo_upload_handler/$', 'public_photo_upload_handler'),
+   # url(r'^public_photo_upload/$', 'public_photo_upload'),
+   # url(r'^public_photo_upload_handler/$', 'public_photo_upload_handler'),
    url(r'^public_album_create_handler/$', 'public_add_album'),
    url(r'^public_area_create_handler/$', 'public_add_area'),
-   url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
-   url(r'^csv_upload/$', 'csv_upload'),
+   # url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
+   # url(r'^csv_upload/$', 'csv_upload'),
    # url(r'^europeana/$', 'europeana'),
    # url(r'^locloud_locator/$', 'locloud_locator'),
 )
@@ -99,7 +99,6 @@ urlpatterns += patterns('',
 handler500 = 'project.home.views.custom_500'
 handler404 = 'project.home.views.custom_404'
 
-#TODO: Why?
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
     urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')), )
 else:

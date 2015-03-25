@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-25 11:23+0200\n"
-"PO-Revision-Date: 2015-03-10 13:57+0200\n"
+"PO-Revision-Date: 2015-03-25 12:00+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -126,10 +126,8 @@ msgid "photos"
 msgstr ""
 
 #: static/js/ajapaik-translations.js:22
-#, fuzzy
-#| msgid "Source"
 msgid "Source ID"
-msgstr "Allikas"
+msgstr "Allikaviide"
 
 #: static/js/browse.js:386 static/js/browse.js.c:387 static/js/game.js:259
 #: static/js/game.js.c:261 static/js/grid.js:69
