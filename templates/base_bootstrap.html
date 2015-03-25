@@ -34,6 +34,8 @@
             {% else %}
                  <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.game' %}?album={{ album.id }}"/>
             {% endif %}
+        {% else %}
+            <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
         {% endif %}
         {% if rephoto %}
             {% thumbnail rephoto.image "700x400" as im %}
