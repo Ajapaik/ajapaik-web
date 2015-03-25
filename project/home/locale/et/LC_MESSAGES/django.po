@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-25 11:22+0200\n"
-"PO-Revision-Date: 2015-03-16 12:25+0200\n"
+"PO-Revision-Date: 2015-03-25 11:39+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -49,10 +49,8 @@ msgid "Grid"
 msgstr ""
 
 #: project/home/models.py:769
-#, fuzzy
-#| msgid "Close map"
 msgid "Google map"
-msgstr "Sulge kaart"
+msgstr "Google kaart"
 
 #: project/home/models.py:770
 msgid "Google satellite"
@@ -325,16 +323,12 @@ msgid "Discuss"
 msgstr "Kommenteeri"
 
 #: templates/_photo_modal.html:118
-#, fuzzy
-#| msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgid "location suggestion has been submitted for this picture"
-msgstr "1 asukohapakkumine on sellele pildile juba tehtud, lisa enda oma ka!"
+msgstr "asukohapakkumine on sellele pildile tehtud."
 
 #: templates/_photo_modal.html:120
-#, fuzzy
-#| msgid "suggestions have been submitted for this picture. Add yours!"
 msgid "location suggestions have been submitted for this picture."
-msgstr "asukohapakkumist on sellele pildile tehtud. Lisa enda arvamus!"
+msgstr "asukohapakkumist on tehtud sellele pildile."
 
 #: templates/_photo_modal.html:126 templates/photoview.html:81
 msgid "Add rephoto"
@@ -679,13 +673,10 @@ msgstr "asukohapakkumist on sellele pildile tehtud. Lisa enda arvamus!"
 
 #: templates/game.html:71
 msgid "Album curated by"
-msgstr ""
+msgstr "Albumi kureerinud "
 
 #: templates/game.html:75
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it\"s not you then "
-#| "%(link_open)sclick here%(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                            Album has %(counter)s photo,\n"
@@ -695,17 +686,16 @@ msgid_plural ""
 "                            Album has %(counter)s photos,\n"
 "                        "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                            Albumis on %(counter)s foto,\n"
+"                        "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                            Albumis on %(counter)s fotot,\n"
+"                        "
 
 #: templates/game.html:80
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it\"s not you then "
-#| "%(link_open)sclick here%(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                            %(counter)s user has put\n"
@@ -715,23 +705,20 @@ msgid_plural ""
 "                            %(counter)s users have put\n"
 "                        "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                            %(counter)s kasutaja on pannud\n"
+"                        "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                            %(counter)s kasutajat on pannud\n"
+"                        "
 
 #: templates/game.html:86
-#, fuzzy
-#| msgid "Let's put pictures on the map"
 msgid "all the pictures on the map."
-msgstr "Paneme pildid kaardile"
+msgstr "kõik pildid kaardile."
 
 #: templates/game.html:88
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it's not you then "
-#| "%(link_open)sclick here %(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                                %(counter)s picture on the map.\n"
@@ -741,31 +728,28 @@ msgid_plural ""
 "                                %(counter)s pictures on the map.\n"
 "                            "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                %(counter)s pildi kaardile.\n"
+"                            "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                %(counter)s pilti kaardile.\n"
+"                            "
 
 #: templates/game.html:97
 msgid "You haven't made any location suggestions for pictures in this album."
-msgstr ""
+msgstr "Sa ei ole selle albumi piltidele asukohti pakkunud."
 
 #: templates/game.html:99
 msgid "You have made a location suggestion for"
-msgstr ""
+msgstr "Sa oled pakkunud asukohta "
 
 #: templates/game.html:101
-#, fuzzy
-#| msgid "Number of geotagged pictures in this album:"
 msgid "all the pictures from this album."
-msgstr "Sellest albumist kaardistatud pilte:"
+msgstr "kõikidele piltidele selles albumis."
 
 #: templates/game.html:103
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it's not you then "
-#| "%(link_open)sclick here %(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                                    %(counter)s picture in this album.\n"
@@ -775,17 +759,16 @@ msgid_plural ""
 "                                    %(counter)s pictures in this album.\n"
 "                                "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s pildile selles albumis.\n"
+"                                "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s pildile selles albumis.\n"
+"                                "
 
 #: templates/game.html:114
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it's not you then "
-#| "%(link_open)sclick here %(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                                    %(counter)s user has made\n"
@@ -795,17 +778,16 @@ msgid_plural ""
 "                                    %(counter)s users have made\n"
 "                                "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s kasutaja on teinud\n"
+"                                "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s kasutajat on teinud\n"
+"                                "
 
 #: templates/game.html:119
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it's not you then "
-#| "%(link_open)sclick here %(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                                    %(counter)s rephotograph\n"
@@ -815,17 +797,16 @@ msgid_plural ""
 "                                    %(counter)s rephotographs\n"
 "                                "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s ülepildistuse\n"
+"                                "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s ülepildistust\n"
+"                                "
 
 #: templates/game.html:124
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it's not you then "
-#| "%(link_open)sclick here %(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                                    for %(counter)s picture in the album.\n"
@@ -835,17 +816,16 @@ msgid_plural ""
 "                                    for %(counter)s picture in the album.\n"
 "                                "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s pildile selles albumis.\n"
+"                                "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                    %(counter)s pildile selles albumis.\n"
+"                                "
 
 #: templates/game.html:134
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it's not you then "
-#| "%(link_open)sclick here %(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                                You have made %(counter)s rephoto\n"
@@ -855,17 +835,16 @@ msgid_plural ""
 "                                You have made %(counter)s rephotos\n"
 "                            "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                Sina oled teinud %(counter)s ülepildistuse\n"
+"                            "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                Sina oled teinud %(counter)s ülepildistust\n"
+"                            "
 
 #: templates/game.html:139
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected. If it's not you then "
-#| "%(link_open)sclick here %(link_close)s."
+#, python-format
 msgid ""
 "\n"
 "                                for %(counter)s picture in the album.\n"
@@ -875,15 +854,17 @@ msgid_plural ""
 "                                for %(counter)s picures in the album.\n"
 "                            "
 msgstr[0] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
 msgstr[1] ""
-"Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole sina, siis "
-"%(link_open)svajuta siia%(link_close)s."
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
 
 #: templates/game.html:149
 msgid "Some nearby albums"
-msgstr ""
+msgstr "Mõned teised albumid samast kandist:"
 
 #: templates/game.html:175 templates/mapview.html:27
 msgid "Search box"
@@ -976,8 +957,8 @@ msgstr "Asukoht kaardil"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                %(counter)s picture from this album\n"
@@ -1078,8 +1059,8 @@ msgstr "Asukoht kaardil"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
