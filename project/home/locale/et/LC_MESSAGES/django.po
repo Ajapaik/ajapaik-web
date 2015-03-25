@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-25 17:26+0200\n"
-"PO-Revision-Date: 2015-03-25 17:36+0200\n"
+"PO-Revision-Date: 2015-03-25 17:41+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -145,7 +145,7 @@ msgstr ""
 
 #: project/home/views.py:1097
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: project/home/views.py:1120
 msgid "Error uploading file"
@@ -508,7 +508,7 @@ msgstr "Näita kaardil"
 
 #: templates/_info_modal.html:142
 msgid "Geotag pictures"
-msgstr "Märgi pildid kaardile"
+msgstr "Märgi pilte kaardile"
 
 #: templates/_photo_modal.html:87 templates/photoview.html:99
 msgid "Rephotograph by"
