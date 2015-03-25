@@ -278,7 +278,7 @@ def game(request):
         if album.geography:
             ctx['nearby_albums'] = Album.objects.filter(geography__distance_lte=(
                 Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id])[:3]
-        ctx['description'] = album.name
+        ctx['description'] = _("Let's put pictures on the map")
         ctx['share_link'] = request.build_absolute_uri(reverse('project.home.views.game'))
         ctx['facebook_share_photos'] = album.photos.all()[:5]
         try:
@@ -301,7 +301,12 @@ def game(request):
 
     site = Site.objects.get_current()
     ctx['hostname'] = 'http://%s' % (site.domain, )
-    ctx['title'] = _("Let's put pictures on the map")
+    if album:
+        ctx['title'] = album.name
+    elif area:
+        ctx['title'] = area.name
+    else:
+        ctx['title'] = _("Geotagging game")
     ctx['is_game'] = True
     ctx['area_selection_form'] = area_selection_form
     ctx['album_selection_form'] = album_selection_form
