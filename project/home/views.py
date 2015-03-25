@@ -618,10 +618,12 @@ def mapview(request, photo_id=None, rephoto_id=None):
             area = Area.objects.get(pk=selected_photo.area_id)
         except ObjectDoesNotExist:
             pass
-
+        
+    site = Site.objects.get_current()
     ret = {
         "area": area,
         "album": album,
+        "hostname": "http://%s" % (site.domain,),
         "selected_photo": selected_photo,
         "selected_rephoto": selected_rephoto,
         "is_mapview": True
