@@ -1437,7 +1437,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-mapview-my-location-button {
     margin-top: 25px;
-    margin-left: 25px;
+    margin-right: 25px;
 }
 
 @media (max-width: 767px) {
