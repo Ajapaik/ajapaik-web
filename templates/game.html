@@ -68,7 +68,11 @@
                     {% if album.description %}
                         <h6>{{ album.description }}</h6>
                     {% endif %}
-                    <h6>{% trans "Album curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a></h6>
+                    {% if album.profile %}
+                        <h6>{% trans "Album curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a></h6>
+                    {% else %}
+                        <h6>{% trans "Album curated by" %} Ajapaik</h6>
+                    {% endif %}
                 </div>
                 <div class="modal-body" id="ajapaik-game-info-modal-body">
                     <div class="row">

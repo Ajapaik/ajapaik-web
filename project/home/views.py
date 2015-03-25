@@ -260,9 +260,13 @@ def game(request):
         # FIXME: Way too many queries
         album = game_album_selection_form.cleaned_data['album']
         ctx['album'] = album
-        album_photo_ids = album.photos.values_list('id', flat=True)
-        ctx['total_photo_count'] = album.photos.distinct('id').count()
-        ctx['geotagged_photo_count'] = album.photos.filter(
+        album_photos_qs = album.photos.all()
+        if album.subalbums:
+            for sa in album.subalbums.all():
+                album_photos_qs = album_photos_qs | sa.photos.all()
+        album_photo_ids = album_photos_qs.values_list('id', flat=True)
+        ctx['total_photo_count'] = album_photos_qs.distinct('id').count()
+        ctx['geotagged_photo_count'] = album_photos_qs.filter(
             rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False).distinct('id').count()
         ctx['user_geotagged_photo_count'] = GeoTag.objects.filter(
             user=request.get_user().profile, photo_id__in=album_photo_ids).distinct('photo_id').count()
@@ -277,7 +281,7 @@ def game(request):
             rephoto_of_id__in=album_photo_ids, user=request.get_user().profile).distinct('rephoto_of').count()
         if album.geography:
             ctx['nearby_albums'] = Album.objects.filter(geography__distance_lte=(
-                Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id])[:3]
+                Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by('?')[:3]
         ctx['description'] = _("Let's put pictures on the map")
         ctx['share_link'] = request.build_absolute_uri(reverse('project.home.views.game'))
         ctx['facebook_share_photos'] = album.photos.all()[:5]
