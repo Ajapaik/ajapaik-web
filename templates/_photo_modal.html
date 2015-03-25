@@ -282,8 +282,9 @@
                 if (window.photoModalRephotoArray[i][0] == targetId) {
                     $('#ajapaik-grab-link').find('input').prop('value', hostname + window.photoModalRephotoArray[i][8]);
                     $('#ajapaik-modal-rephoto').attr('src', window.photoModalRephotoArray[i][1]);
-                    console.log(window.photoModalRephotoArray[i]);
-                    $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
+                    if (window.photoModalRephotoArray[i][5] !== 'None' && window.photoModalRephotoArray[i][4] !== 'None') {
+                        $('#ajapaik-photo-modal-rephoto-user-link').attr('href', window.photoModalRephotoArray[i][5]).html(window.photoModalRephotoArray[i][4]);
+                    }
                     $('#ajapaik-photo-modal-rephoto-permalink').attr('href', window.photoModalRephotoArray[i][7]);
                     if (window.photoModalRephotoArray[i][2] !== 'None' && window.photoModalRephotoArray[i][2] !== '') {
                         $('#ajapaik-photo-modal-rephoto-date-taken').html(window.photoModalRephotoArray[i][2]);

@@ -768,7 +768,7 @@ class GeoTag(models.Model):
     MAP_TYPE_CHOICES = (
         (GOOGLE_MAP, _('Google map')),
         (GOOGLE_SATELLITE, _('Google satellite')),
-        (OPEN_STREETMAP, _('Open StreetMap'))
+        (OPEN_STREETMAP, _('OpenStreetMap'))
     )
     lat = models.FloatField(validators=[MinValueValidator(-85), MaxValueValidator(85)])
     lon = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
