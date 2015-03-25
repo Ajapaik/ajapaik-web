@@ -906,7 +906,7 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
-        $('#ajapaik-geotag-info-modal').modal().on('shown.bs.modal', function () {
+        $('#ajapaik-info-modal').modal().on('shown.bs.modal', function () {
             $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
         });
     });

@@ -313,6 +313,10 @@ body {
     display: none;
 }
 
+#ajapaik-full-leaderboard-modal .modal-dialog {
+    width: 75%;
+}
+
 #ajapaik-guess-feedback-panel {
     display: none;
     height: 50%;
@@ -899,7 +903,7 @@ ul.errorlist {
     text-align: center;
 }
 
-#ajapaik-game-info-modal-body {
+#ajapaik-info-modal-body {
     margin-left: 10px;
 }
 
@@ -1433,7 +1437,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-mapview-my-location-button {
     margin-top: 25px;
-    margin-left: 25px;
+    margin-right: 25px;
 }
 
 @media (max-width: 767px) {
@@ -1468,4 +1472,8 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #ajapaik-game-one-geotag-message {
     display: none;
     margin-top: 10px;
+}
+
+#ajapaik-info-modal-game-button {
+    padding-top: 10px;
 }

@@ -83,7 +83,8 @@
             overflow: { horizontal: 'hidden', vertical: 'auto' },
             id: 'ajapaik-mapview-photo-panel'
         },
-        centerOnMapAfterLocating = false;
+        centerOnMapAfterLocating = false,
+        userHasBeenAnnoyedOnce = false;
         //guessPhotoPanelSettings = {
         //    selector: '#ajapaik-map-container',
         //    controls: {buttons: false},
@@ -524,7 +525,11 @@
 
                 if (response.geotagged_count === 0 && window.albumId) {
                     $('.ajapaik-geotag-info-panel-no-photos').show();
-                    $('.ajapaik-header-info-button')[0].click();
+                    var buttons = $('.ajapaik-header-info-button');
+                    if (buttons && !userHasBeenAnnoyedOnce) {
+                        buttons[0].click();
+                        userHasBeenAnnoyedOnce = true;
+                    }
                 } else {
                     $('.ajapaik-geotag-info-panel-no-photos').hide();
                 }

@@ -28,6 +28,8 @@
         <meta property="og:type" content="website" />
         {% if photo or rephoto %}
             <meta property="og:url" content="{{ hostname }}{{ request.path }}" />
+        {% else%}
+            <meta property="og:url" content="{{ hostname }}" />
         {% endif %}
         {% if rephoto %}
             {% thumbnail rephoto.image "700x400" as im %}
@@ -38,6 +40,11 @@
             {% if photo %}
                 {% thumbnail photo.image "700x400" as im %}
                     <meta property="og:image" content="{{ hostname }}{{ im.url }}" />
+                    <meta property="og:image:type" content="image/jpeg" />
+                {% endthumbnail %}
+            {% elif example %}
+                {% thumbnail example.image "700x400" as im %}
+                    <meta property="og:image" content="{{ hostname }}{{ example.url }}" />
                     <meta property="og:image:type" content="image/jpeg" />
                 {% endthumbnail %}
             {% endif %}

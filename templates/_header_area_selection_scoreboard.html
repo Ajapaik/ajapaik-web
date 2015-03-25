@@ -4,51 +4,53 @@
     <div class="navbar-header">
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
-        {% if is_game or is_mapview %}
-            <div class="hidden-xs">
-                <div class="filter-box">
-                    {% csrf_token %}
-                    {{ album_selection_form.as_p }}
-                    {% if is_mapview %}
-                        <p>
-                            <label for="ajapaik-mapview-show-only-album" id="ajapaik-mapview-show-only-album-label">{% trans "Limit to album" %}:&nbsp;</label>
-                            <input type="checkbox" id="ajapaik-mapview-show-only-album" checked="checked">
-                        </p>
-                        <p>
-                            <button class="btn btn-default ajapaik-header-info-button"></button>
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
-        {% endif %}
-        <div class="hidden-xs hidden-sm">
-            <div class="score_container">
-                <h2>
-                    <a id="full_leaderboard" href="#">
-                        {% trans "Leaderboard" %}
-                    </a>
-                </h2>
-                <ul class="scoreboard">
-                    {% if leaderboard %}
-                        {% include "_block_leaderboard.html" %}
-                    {% endif %}
-                </ul>
-                {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
-                    {% with profile=request.user.profile user=request.user %}
-                        <div id="facebook-connected">
-                            <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
-                        </div>
-                    {% endwith %}
-                {% else %}
-                    <div id="facebook-connect">
-                        <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                    </div>
+    {% if is_game or is_mapview %}
+        <div class="hidden-xs">
+            <div class="filter-box">
+                {% csrf_token %}
+                {{ album_selection_form.as_p }}
+                {% if is_mapview %}
+                    <p>
+                        <label for="ajapaik-mapview-show-only-album" id="ajapaik-mapview-show-only-album-label">{% trans "Limit to album" %}:&nbsp;</label>
+                        <input type="checkbox" id="ajapaik-mapview-show-only-album" checked="checked">
+                    </p>
+                {% endif %}
+                {% if album %}
+                    <p>
+                        <button class="btn btn-default ajapaik-header-info-button"></button>
+                    </p>
                 {% endif %}
             </div>
         </div>
-        {% include "_language_selection.html" %}
-        {% if is_game or is_mapview %}
-            <button class="btn btn-default ajapaik-show-tutorial-button"></button>
-        {% endif %}
+    {% endif %}
+    <div class="hidden-xs hidden-sm">
+        <div class="score_container">
+            <h2>
+                <a id="full_leaderboard" href="#">
+                    {% trans "Leaderboard" %}
+                </a>
+            </h2>
+            <ul class="scoreboard">
+                {% if leaderboard %}
+                    {% include "_block_leaderboard.html" %}
+                {% endif %}
+            </ul>
+            {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                {% with profile=request.user.profile user=request.user %}
+                    <div id="facebook-connected">
+                        <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
+                    </div>
+                {% endwith %}
+            {% else %}
+                <div id="facebook-connect">
+                    <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% include "_language_selection.html" %}
+    {% if is_game or is_mapview %}
+        <button class="btn btn-default ajapaik-show-tutorial-button"></button>
+    {% endif %}
 </nav>

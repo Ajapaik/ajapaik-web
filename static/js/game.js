@@ -365,8 +365,8 @@
         window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             window.disableSave = false;
         });
-        if (window.albumId) {
-            $('#ajapaik-game-info-modal').modal();
+        if (window.albumId && !window.getQueryParameterByName('fromButton')) {
+            $('#ajapaik-info-modal').modal();
         }
         $(window.input).show();
         $.jQee('space', function () {

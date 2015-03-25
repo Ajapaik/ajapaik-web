@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-25 11:23+0200\n"
+"POT-Creation-Date: 2015-03-25 17:26+0200\n"
 "PO-Revision-Date: 2014-05-21 18:18+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:673 static/js/browse.js:860
+#: static/js/ajapaik-common.js:673 static/js/browse.js:863
 #: static/js/game.js:509 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
