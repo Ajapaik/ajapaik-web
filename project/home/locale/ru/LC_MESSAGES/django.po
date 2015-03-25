@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-25 11:22+0200\n"
+"POT-Creation-Date: 2015-03-25 16:30+0200\n"
 "PO-Revision-Date: 2015-01-26 16:56+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
@@ -64,103 +64,105 @@ msgid "Google satellite"
 msgstr ""
 
 #: project/home/models.py:771
-msgid "Open StreetMap"
+msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:281
-msgid "Let's put pictures on the map"
-msgstr ""
-
-#: project/home/views.py:309 templates/mapview.html:21
+#: project/home/views.py:322
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:548 project/home/views.py:557
-#: project/home/views.py:559 templates/frontpage.html:157
+#: project/home/views.py:326
+msgid "Let's put pictures on the map"
+msgstr ""
+
+#: project/home/views.py:384 templates/_header.html:5
+#: templates/_header_area_selection_scoreboard.html:5 templates/base.html:7
+#: templates/base.html.py:9 templates/base.html.py:55
+#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
+#: templates/base_bootstrap.html:64 templates/frontpage.html:8
+msgid "Timepatch (Ajapaik)"
+msgstr "Аяпаик (Ajapaik)"
+
+#: project/home/views.py:385 templates/frontpage.html:92
+msgid ""
+"Look around and add metadata to historical photos. Competing with others "
+"adds more excitement."
+msgstr ""
+"Добавь дополнительную информацию к старым фотографиям.Так будет интреснее "
+"соревноваться с другими."
+
+#: project/home/views.py:631 project/home/views.py:642
+#: project/home/views.py:644 templates/frontpage.html:157
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:666
+#: project/home/views.py:744
 msgid "Looks right!"
 msgstr "Выглядит правильно!"
 
-#: project/home/views.py:669
+#: project/home/views.py:747
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:672
+#: project/home/views.py:750
 msgid "The location seems right, but not the azimuth."
 msgstr "Место выглядит правильно, но направление - нет."
 
-#: project/home/views.py:674
+#: project/home/views.py:752
 msgid "The location seems right, your azimuth was first."
 msgstr "Место выглядит правильно, ваше направление было первым."
 
-#: project/home/views.py:676
+#: project/home/views.py:754
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/views.py:678
+#: project/home/views.py:756
 msgid "Your guess was first."
 msgstr "Ваша догадка была первой."
 
-#: project/home/views.py:694 project/home/views.py:708
-#: templates/_header_area_selection_scoreboard.html:28
+#: project/home/views.py:772 project/home/views.py:786
+#: templates/_header_area_selection_scoreboard.html:30
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
-#: project/home/views.py:938
-#, fuzzy
-#| msgid "Timepatch (Ajapaik)"
-msgid "Timepatch (Ajapaik) - upload photos"
-msgstr "Аяпаик (Ajapaik)"
-
-#: project/home/views.py:951
+#: project/home/views.py:879
 msgid ""
-"Search for old photos, add them to Ajapaik, determine their locations ja "
+"Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:953
+#: project/home/views.py:881
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:1172
+#: project/home/views.py:1090
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1174
+#: project/home/views.py:1092
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1197 project/home/views.py:1312
+#: project/home/views.py:1115
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1206
+#: project/home/views.py:1124
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1213
+#: project/home/views.py:1131
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1215
+#: project/home/views.py:1133
 msgid "Not enough data submitted"
-msgstr ""
-
-#: project/home/views.py:1319
-msgid "Conflicting data submitted (no photos, no user or faulty areas)"
-msgstr ""
-
-#: project/home/views.py:1337
-msgid "Invalid form data"
 msgstr ""
 
 #: project/settings/default.py:70
@@ -209,7 +211,7 @@ msgid "Rephoto"
 msgstr "Переснимок"
 
 #: templates/_guess_panel.html:14 templates/_guess_panel_xs.html:17
-#: templates/game.html:33 templates/game.html.py:199
+#: templates/game.html:33 templates/game.html.py:84
 msgid "Show description"
 msgstr ""
 
@@ -251,7 +253,7 @@ msgstr ""
 
 #: templates/_guess_panel.html:60 templates/_guess_panel.html.py:72
 #: templates/_guess_panel_xs.html:15 templates/_guess_panel_xs.html.py:40
-#: templates/game.html:44 templates/game.html.py:196
+#: templates/game.html:44 templates/game.html.py:81
 msgid "Next photo"
 msgstr "Следующее фото"
 
@@ -274,38 +276,293 @@ msgstr "Закрыть Street View"
 msgid "Cancel"
 msgstr ""
 
-#: templates/_header.html:5 templates/_header_area_selection.html:5
-#: templates/_header_area_selection_scoreboard.html:5 templates/base.html:7
-#: templates/base.html.py:9 templates/base.html.py:48
-#: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
-#: templates/base_bootstrap.html:60 templates/frontpage.html:8
-msgid "Timepatch (Ajapaik)"
-msgstr "Аяпаик (Ajapaik)"
-
 #: templates/_header_area_selection_scoreboard.html:14
 msgid "Limit to album"
 msgstr ""
 
-#: templates/_header_area_selection_scoreboard.html:39
+#: templates/_header_area_selection_scoreboard.html:41
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
 msgid "User"
 msgstr "Пользователь"
 
-#: templates/_header_area_selection_scoreboard.html:39
+#: templates/_header_area_selection_scoreboard.html:41
 #: templates/_photo_upload_modal.html:9 templates/photo_upload.html:14
 msgid "Log out"
 msgstr "Выйти"
 
-#: templates/_header_area_selection_scoreboard.html:44
+#: templates/_header_area_selection_scoreboard.html:46
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-ом."
 
-#: templates/_header_area_selection_scoreboard.html:45
+#: templates/_header_area_selection_scoreboard.html:47
 #: templates/_photo_upload_modal.html:36 templates/curator.html:247
 #: templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Соединить с Facebook-ом."
+
+#: templates/_info_modal.html:16 templates/_info_modal.html.py:18
+msgid "Album curated by"
+msgstr ""
+
+#: templates/_info_modal.html:23
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                            Album has %(counter)s photo,\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            Album has %(counter)s photos,\n"
+"                        "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:28
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                            %(counter)s user has put\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(counter)s users have put\n"
+"                        "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:34
+msgid "all the pictures on the map."
+msgstr ""
+
+#: templates/_info_modal.html:36
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                %(counter)s picture on the map.\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                %(counter)s pictures on the map.\n"
+"                            "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:45
+msgid "You haven't made any location suggestions for pictures in this album."
+msgstr ""
+
+#: templates/_info_modal.html:47
+msgid "You have made a location suggestion for"
+msgstr ""
+
+#: templates/_info_modal.html:49
+msgid "all the pictures from this album."
+msgstr ""
+
+#: templates/_info_modal.html:51
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                    %(counter)s picture in this album.\n"
+"                                "
+msgid_plural ""
+"\n"
+"                                    %(counter)s pictures in this album.\n"
+"                                "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:62
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                    %(counter)s user has made\n"
+"                                "
+msgid_plural ""
+"\n"
+"                                    %(counter)s users have made\n"
+"                                "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:67
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                    %(counter)s rephotograph\n"
+"                                "
+msgid_plural ""
+"\n"
+"                                    %(counter)s rephotographs\n"
+"                                "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:72
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                    for %(counter)s picture in the album.\n"
+"                                "
+msgid_plural ""
+"\n"
+"                                    for %(counter)s picture in the album.\n"
+"                                "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:82
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                You have made %(counter)s rephoto\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                You have made %(counter)s rephotos\n"
+"                            "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:87
+#, fuzzy, python-format
+#| msgid ""
+#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
+#| "%(link_open)sclick here%(link_close)s."
+msgid ""
+"\n"
+"                                for %(counter)s picture in the album.\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                for %(counter)s picures in the album.\n"
+"                            "
+msgstr[0] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[1] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[2] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+msgstr[3] ""
+"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
+"%(link_open)sнажми сюда%(link_close)s."
+
+#: templates/_info_modal.html:97
+msgid "Some nearby albums"
+msgstr ""
+
+#: templates/_info_modal.html:105 templates/_photo_modal.html:100
+#: templates/photoview.html:61
+msgid "Share"
+msgstr "Поделиться"
 
 #: templates/_photo_modal.html:87 templates/photoview.html:99
 msgid "Rephotograph by"
@@ -314,11 +571,6 @@ msgstr ""
 #: templates/_photo_modal.html:90 templates/photoview.html:104
 msgid "Date taken"
 msgstr "Дата фотографии"
-
-#: templates/_photo_modal.html:100 templates/game.html:157
-#: templates/photoview.html:61
-msgid "Share"
-msgstr "Поделиться"
 
 #: templates/_photo_modal.html:115
 msgid "Discuss"
@@ -344,7 +596,7 @@ msgstr "Сохранить расположение"
 
 #: templates/_photo_modal.html:128 templates/_photo_upload_modal.html:43
 #: templates/curator.html:118 templates/curator.html.py:166
-#: templates/game.html:217 templates/mapview.html:51
+#: templates/game.html:102 templates/mapview.html:36
 #: templates/photo_upload.html:45 templates/photo_upload.html.py:79
 #: templates/photo_upload.html:130 templates/photo_upload.html.py:192
 msgid "Close"
@@ -477,7 +729,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:100 templates/base_bootstrap.html:84
+#: templates/base.html:107 templates/base_bootstrap.html:88
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -627,14 +879,6 @@ msgid "Discover, geotag and make the rephoto."
 msgstr ""
 "Узнай где сделана фотографию и добавь современную фотографию этого места."
 
-#: templates/frontpage.html:92
-msgid ""
-"Look around and add metadata to historical photos. Competing with others "
-"adds more excitement."
-msgstr ""
-"Добавь дополнительную информацию к старым фотографиям.Так будет интреснее "
-"соревноваться с другими."
-
 #: templates/frontpage.html:94
 msgid "Read more"
 msgstr "Подробнее"
@@ -655,7 +899,7 @@ msgstr ""
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:40 templates/game.html.py:192
+#: templates/game.html:40 templates/game.html.py:77
 msgid "Pick the shooting location!"
 msgstr "Знаю где сделано фото!"
 
@@ -671,265 +915,7 @@ msgstr ""
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr ""
 
-#: templates/game.html:71
-msgid "Album curated by"
-msgstr ""
-
-#: templates/game.html:75
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                            Album has %(counter)s photo,\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            Album has %(counter)s photos,\n"
-"                        "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:80
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                            %(counter)s user has put\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            %(counter)s users have put\n"
-"                        "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:86
-msgid "all the pictures on the map."
-msgstr ""
-
-#: templates/game.html:88
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                                %(counter)s picture on the map.\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                %(counter)s pictures on the map.\n"
-"                            "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:97
-msgid "You haven't made any location suggestions for pictures in this album."
-msgstr ""
-
-#: templates/game.html:99
-msgid "You have made a location suggestion for"
-msgstr ""
-
-#: templates/game.html:101
-msgid "all the pictures from this album."
-msgstr ""
-
-#: templates/game.html:103
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                                    %(counter)s picture in this album.\n"
-"                                "
-msgid_plural ""
-"\n"
-"                                    %(counter)s pictures in this album.\n"
-"                                "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:114
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                                    %(counter)s user has made\n"
-"                                "
-msgid_plural ""
-"\n"
-"                                    %(counter)s users have made\n"
-"                                "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:119
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                                    %(counter)s rephotograph\n"
-"                                "
-msgid_plural ""
-"\n"
-"                                    %(counter)s rephotographs\n"
-"                                "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:124
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                                    for %(counter)s picture in the album.\n"
-"                                "
-msgid_plural ""
-"\n"
-"                                    for %(counter)s picture in the album.\n"
-"                                "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:134
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                                You have made %(counter)s rephoto\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                You have made %(counter)s rephotos\n"
-"                            "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:139
-#, fuzzy, python-format
-#| msgid ""
-#| "Account (%(account_name)s) connected with Facebook. If it's not you then "
-#| "%(link_open)sclick here%(link_close)s."
-msgid ""
-"\n"
-"                                for %(counter)s picture in the album.\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                for %(counter)s picures in the album.\n"
-"                            "
-msgstr[0] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[1] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[2] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-msgstr[3] ""
-"Аккаунт (%(account_name)s) вязан с Facebook-ом. Если это не ты,  тогда "
-"%(link_open)sнажми сюда%(link_close)s."
-
-#: templates/game.html:149
-msgid "Some nearby albums"
-msgstr ""
-
-#: templates/game.html:175 templates/mapview.html:27
+#: templates/game.html:60 templates/mapview.html:13
 msgid "Search box"
 msgstr ""
 
@@ -938,20 +924,6 @@ msgstr ""
 #| msgid "Back to home page"
 msgid "Back home"
 msgstr "Назад на главную"
-
-#: templates/mapview.html:15
-msgid ""
-"Pictures from this area have not yet received enough geotags to be displayed "
-"on the map."
-msgstr ""
-
-#: templates/mapview.html:16
-msgid "Number of geotagged pictures in this album:"
-msgstr ""
-
-#: templates/mapview.html:18
-msgid "Pictures available for geotagging:"
-msgstr ""
 
 #: templates/photo_upload.html:23 templates/photo_upload.html.py:222
 #, fuzzy
@@ -1023,6 +995,11 @@ msgstr "Чтобы добавить современное фото надо с�
 #: templates/photoview.html:84
 msgid "Location on the map"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Timepatch (Ajapaik)"
+#~ msgid "Timepatch (Ajapaik) - upload photos"
+#~ msgstr "Аяпаик (Ajapaik)"
 
 #, fuzzy
 #~| msgid ""
