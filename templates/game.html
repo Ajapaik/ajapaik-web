@@ -34,7 +34,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row" style="text-align: right; margin-right: 0;">
+                    <div class="row" style="text-align: right; margin-right: 0; margin-top: 5px;">
                         <div class="col-xs-6">
                             <button class="btn btn-success btn-block ajapaik-game-specify-location-button">
                                 {% trans "Pick the shooting location!" %}
@@ -68,60 +68,66 @@
                     {% if album.description %}
                         <h6>{{ album.description }}</h6>
                     {% endif %}
-                    <h6>{% trans "This album was curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a></h6>
+                    <h6>{% trans "Album curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a></h6>
                 </div>
                 <div class="modal-body" id="ajapaik-game-info-modal-body">
                     <div class="row">
                         {% blocktrans count counter=total_photo_count %}
-                            Album has {{ counter }} photo
+                            Album has {{ counter }} photo,
                         {% plural %}
-                            Album has {{ counter }} photos
-                        {% endblocktrans %},
+                            Album has {{ counter }} photos,
+                        {% endblocktrans %}
                         {% blocktrans count counter=geotagging_user_count %}
                             {{ counter }} user has put
                         {% plural %}
                             {{ counter }} users have put
                         {% endblocktrans %}
                         {% if total_photo_count == geotagged_photo_count %}
-                            {% trans "all the pictures on the map" %}
+                            {% trans "all the pictures on the map." %}
                         {% else %}
                             {% blocktrans count counter=geotagged_photo_count %}
-                                {{ counter }} picture on the map
+                                {{ counter }} picture on the map.
                             {% plural %}
-                                {{ counter }} pictures on the map
+                                {{ counter }} pictures on the map.
                             {% endblocktrans %}
                         {% endif %}
                     </div>
                     <div class="row">
-                        {% trans "You have made a location suggestion for" %}
-                        {% if user_geotagged_photo_count == total_photo_count %}
-                            {% trans "all the pictures from this album" %}
+                        {% if user_geotagged_photo_count == 0 %}
+                            {% trans "You haven't made any location suggestions for pictures in this album." %}
                         {% else %}
-                            {% blocktrans count counter=user_geotagged_photo_count %}
-                                {{ counter }} picture from this album
-                            {% plural %}
-                                {{ counter }} pictures from this album
-                            {% endblocktrans %}
+                            {% trans "You have made a location suggestion for" %}
+                            {% if user_geotagged_photo_count == total_photo_count %}
+                                {% trans "all the pictures from this album." %}
+                            {% else %}
+                                {% blocktrans count counter=user_geotagged_photo_count %}
+                                    {{ counter }} picture in this album.
+                                {% plural %}
+                                    {{ counter }} pictures in this album.
+                                {% endblocktrans %}
+                            {% endif %}
                         {% endif %}
                     </div>
                     {% if rephoto_user_count > 0 %}
-                        <div class="row">
-                            {% blocktrans count counter=rephoto_user_count %}
-                                {{ counter }} user has made
-                            {% plural %}
-                                {{ counter }} users have made
-                            {% endblocktrans %}
-                            {% blocktrans count counter=rephoto_count %}
-                                {{ counter }} rephotograph for
-                            {% plural %}
-                                {{ counter }} rephotographs for
-                            {% endblocktrans %}
-                            {% blocktrans count counter=rephotographed_photo_count %}
-                                for {{ counter }} picture in the album
-                            {% plural %}
-                                for {{ counter }} picture in the album
-                            {% endblocktrans %}
-                        </div>
+                        {% if rephoto_user_count != 1 and user_rephoto_count > 0 %}
+                            <div class="row">
+                                {% blocktrans count counter=rephoto_user_count %}
+                                    {{ counter }} user has made
+                                {% plural %}
+                                    {{ counter }} users have made
+                                {% endblocktrans %}
+                                {% blocktrans count counter=rephoto_count %}
+                                    {{ counter }} rephotograph
+                                {% plural %}
+                                    {{ counter }} rephotographs
+                                {% endblocktrans %}
+                                {% blocktrans count counter=rephotographed_photo_count %}
+                                    for {{ counter }} picture in the album.
+                                {% plural %}
+                                    for {{ counter }} picture in the album.
+                                {% endblocktrans %}
+                            </div>
+                        {% endif %}
                     {% endif %}
                     {% if user_rephoto_count > 0 %}
                         <div class="row">
@@ -131,9 +137,9 @@
                                 You have made {{ counter }} rephotos
                             {% endblocktrans %}
                             {% blocktrans count counter=user_rephotographed_photo_count %}
-                                for {{ counter }} picture in the album
+                                for {{ counter }} picture in the album.
                             {% plural %}
-                                for {{ counter }} picures in the album
+                                for {{ counter }} picures in the album.
                             {% endblocktrans %}
                         </div>
                     {% endif %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 17:36+0200\n"
+"POT-Creation-Date: 2015-03-25 11:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,127 +26,131 @@ msgstr ""
 msgid "Choose album"
 msgstr ""
 
-#: project/home/models.py:753
+#: project/home/models.py:757
 msgid "Map"
 msgstr ""
 
-#: project/home/models.py:754
+#: project/home/models.py:758
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:755
+#: project/home/models.py:759
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:759
+#: project/home/models.py:763
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:760
+#: project/home/models.py:764
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:761
+#: project/home/models.py:765
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:765
+#: project/home/models.py:769
 msgid "Google map"
 msgstr ""
 
-#: project/home/models.py:766
+#: project/home/models.py:770
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:767
+#: project/home/models.py:771
 msgid "Open StreetMap"
 msgstr ""
 
-#: project/home/views.py:303
+#: project/home/views.py:281
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:542 project/home/views.py:551
-#: project/home/views.py:553 templates/frontpage.html:157
+#: project/home/views.py:309 templates/mapview.html:21
+msgid "Geotagging game"
+msgstr ""
+
+#: project/home/views.py:548 project/home/views.py:557
+#: project/home/views.py:559 templates/frontpage.html:157
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:660
+#: project/home/views.py:666
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:663
+#: project/home/views.py:669
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:666
+#: project/home/views.py:672
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:668
+#: project/home/views.py:674
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:670
+#: project/home/views.py:676
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:672
+#: project/home/views.py:678
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:688 project/home/views.py:702
+#: project/home/views.py:694 project/home/views.py:708
 #: templates/_header_area_selection_scoreboard.html:28
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:932
+#: project/home/views.py:938
 msgid "Timepatch (Ajapaik) - upload photos"
 msgstr ""
 
-#: project/home/views.py:945
+#: project/home/views.py:951
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations ja "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:947
+#: project/home/views.py:953
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1166
+#: project/home/views.py:1172
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1168
+#: project/home/views.py:1174
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1191 project/home/views.py:1306
+#: project/home/views.py:1197 project/home/views.py:1312
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1200
+#: project/home/views.py:1206
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1207
+#: project/home/views.py:1213
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1209
+#: project/home/views.py:1215
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/home/views.py:1313
+#: project/home/views.py:1319
 msgid "Conflicting data submitted (no photos, no user or faulty areas)"
 msgstr ""
 
-#: project/home/views.py:1331
+#: project/home/views.py:1337
 msgid "Invalid form data"
 msgstr ""
 
@@ -196,7 +200,7 @@ msgid "Rephoto"
 msgstr ""
 
 #: templates/_guess_panel.html:14 templates/_guess_panel_xs.html:17
-#: templates/game.html:33 templates/game.html.py:193
+#: templates/game.html:33 templates/game.html.py:199
 msgid "Show description"
 msgstr ""
 
@@ -238,12 +242,11 @@ msgstr ""
 
 #: templates/_guess_panel.html:60 templates/_guess_panel.html.py:72
 #: templates/_guess_panel_xs.html:15 templates/_guess_panel_xs.html.py:40
-#: templates/game.html:44 templates/game.html.py:190
+#: templates/game.html:44 templates/game.html.py:196
 msgid "Next photo"
 msgstr ""
 
-#: templates/_guess_panel.html:61 templates/_guess_panel.html.py:73
-#: templates/_guess_panel_xs.html:16 templates/_guess_panel_xs.html.py:41
+#: templates/_guess_panel.html:61 templates/_guess_panel_xs.html:16
 msgid "Back to map"
 msgstr ""
 
@@ -253,6 +256,11 @@ msgstr ""
 
 #: templates/_guess_panel.html:70 templates/_guess_panel_xs.html:11
 msgid "Close Street View"
+msgstr ""
+
+#: templates/_guess_panel.html:73 templates/_guess_panel_xs.html:41
+#: templates/curator.html:91
+msgid "Cancel"
 msgstr ""
 
 #: templates/_header.html:5 templates/_header_area_selection.html:5
@@ -295,7 +303,7 @@ msgstr ""
 msgid "Date taken"
 msgstr ""
 
-#: templates/_photo_modal.html:100 templates/game.html:151
+#: templates/_photo_modal.html:100 templates/game.html:157
 #: templates/photoview.html:61
 msgid "Share"
 msgstr ""
@@ -322,7 +330,7 @@ msgstr ""
 
 #: templates/_photo_modal.html:128 templates/_photo_upload_modal.html:43
 #: templates/curator.html:118 templates/curator.html.py:166
-#: templates/game.html:211 templates/mapview.html:51
+#: templates/game.html:217 templates/mapview.html:51
 #: templates/photo_upload.html:45 templates/photo_upload.html.py:79
 #: templates/photo_upload.html:130 templates/photo_upload.html.py:192
 msgid "Close"
@@ -493,10 +501,6 @@ msgstr ""
 msgid "Place"
 msgstr ""
 
-#: templates/curator.html:91
-msgid "Cancel"
-msgstr ""
-
 #: templates/curator.html:110
 msgid ""
 "Your photos have now been added to Ajapaik and can be interacted with as "
@@ -616,7 +620,7 @@ msgstr ""
 msgid "View gallery"
 msgstr ""
 
-#: templates/game.html:40 templates/game.html.py:186
+#: templates/game.html:40 templates/game.html.py:192
 msgid "Pick the shooting location!"
 msgstr ""
 
@@ -633,18 +637,18 @@ msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr ""
 
 #: templates/game.html:71
-msgid "This album was curated by"
+msgid "Album curated by"
 msgstr ""
 
 #: templates/game.html:75
 #, python-format
 msgid ""
 "\n"
-"                            Album has %(counter)s photo\n"
+"                            Album has %(counter)s photo,\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            Album has %(counter)s photos\n"
+"                            Album has %(counter)s photos,\n"
 "                        "
 msgstr[0] ""
 msgstr[1] ""
@@ -663,53 +667,44 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/game.html:86
-msgid "all the pictures on the map"
+msgid "all the pictures on the map."
 msgstr ""
 
 #: templates/game.html:88
 #, python-format
 msgid ""
 "\n"
-"                                %(counter)s picture on the map\n"
+"                                %(counter)s picture on the map.\n"
 "                            "
 msgid_plural ""
 "\n"
-"                                %(counter)s pictures on the map\n"
+"                                %(counter)s pictures on the map.\n"
 "                            "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/game.html:96
+#: templates/game.html:97
+msgid "You haven't made any location suggestions for pictures in this album."
+msgstr ""
+
+#: templates/game.html:99
 msgid "You have made a location suggestion for"
 msgstr ""
 
-#: templates/game.html:98
-msgid "all the pictures from this album"
+#: templates/game.html:101
+msgid "all the pictures from this album."
 msgstr ""
 
-#: templates/game.html:100
+#: templates/game.html:103
 #, python-format
 msgid ""
 "\n"
-"                                %(counter)s picture from this album\n"
-"                            "
+"                                    %(counter)s picture in this album.\n"
+"                                "
 msgid_plural ""
 "\n"
-"                                %(counter)s pictures from this album\n"
-"                            "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/game.html:109
-#, python-format
-msgid ""
-"\n"
-"                                %(counter)s user has made\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                %(counter)s users have made\n"
-"                            "
+"                                    %(counter)s pictures in this album.\n"
+"                                "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -717,29 +712,42 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                                %(counter)s rephotograph for\n"
-"                            "
+"                                    %(counter)s user has made\n"
+"                                "
 msgid_plural ""
 "\n"
-"                                %(counter)s rephotographs for\n"
-"                            "
+"                                    %(counter)s users have made\n"
+"                                "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/game.html:119 templates/game.html.py:133
+#: templates/game.html:119
 #, python-format
 msgid ""
 "\n"
-"                                for %(counter)s picture in the album\n"
-"                            "
+"                                    %(counter)s rephotograph\n"
+"                                "
 msgid_plural ""
 "\n"
-"                                for %(counter)s picture in the album\n"
-"                            "
+"                                    %(counter)s rephotographs\n"
+"                                "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/game.html:128
+#: templates/game.html:124
+#, python-format
+msgid ""
+"\n"
+"                                    for %(counter)s picture in the album.\n"
+"                                "
+msgid_plural ""
+"\n"
+"                                    for %(counter)s picture in the album.\n"
+"                                "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/game.html:134
 #, python-format
 msgid ""
 "\n"
@@ -752,11 +760,24 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/game.html:143
+#: templates/game.html:139
+#, python-format
+msgid ""
+"\n"
+"                                for %(counter)s picture in the album.\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                for %(counter)s picures in the album.\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/game.html:149
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/game.html:169 templates/mapview.html:27
+#: templates/game.html:175 templates/mapview.html:27
 msgid "Search box"
 msgstr ""
 
@@ -776,10 +797,6 @@ msgstr ""
 
 #: templates/mapview.html:18
 msgid "Pictures available for geotagging:"
-msgstr ""
-
-#: templates/mapview.html:21
-msgid "Geotagging game"
 msgstr ""
 
 #: templates/photo_upload.html:23 templates/photo_upload.html.py:222
