@@ -524,10 +524,6 @@
 
                 if (response.geotagged_count === 0 && window.albumId) {
                     $('.ajapaik-geotag-info-panel-no-photos').show();
-                    var buttons = $('.ajapaik-header-info-button');
-                    if (buttons) {
-                        buttons[0].click();
-                    }
                 } else {
                     $('.ajapaik-geotag-info-panel-no-photos').hide();
                 }
