@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-25 11:22+0200\n"
-"PO-Revision-Date: 2015-03-25 11:59+0200\n"
+"PO-Revision-Date: 2015-03-25 15:27+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -324,7 +324,7 @@ msgstr "Kommenteeri"
 
 #: templates/_photo_modal.html:118
 msgid "location suggestion has been submitted for this picture"
-msgstr "asukohapakkumine on sellele pildile tehtud."
+msgstr "asukohapakkumine on sellele pildile tehtud"
 
 #: templates/_photo_modal.html:120
 msgid "location suggestions have been submitted for this picture."
