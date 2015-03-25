@@ -723,7 +723,7 @@ def geotag_add(request):
             score = int(trust * 100)
         if processed_geotag.hint_used:
             score *= 0.75
-        if processed_geotag.azimuth_correct:
+        if processed_geotag.azimuth_correct and tagged_photo.azimuth and processed_geotag.azimuth:
             degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
             difference = int(_angle_diff(tagged_photo.azimuth, processed_geotag.azimuth))
             if difference <= 15:
