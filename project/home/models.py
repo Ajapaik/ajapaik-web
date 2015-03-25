@@ -971,7 +971,9 @@ class Profile(models.Model):
         all_time_score = 0
         for g in self.geotags.all():
             all_time_score += g.score
-        self.score = all_time_score + self.score_rephoto
+        self.score = all_time_score
+        if self.score_rephoto:
+            self.score += self.score_rephoto
 
     def __unicode__(self):
         return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
