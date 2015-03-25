@@ -313,6 +313,10 @@ body {
     display: none;
 }
 
+#ajapaik-full-leaderboard-modal .modal-dialog {
+    width: 75%;
+}
+
 #ajapaik-guess-feedback-panel {
     display: none;
     height: 50%;
@@ -899,7 +903,7 @@ ul.errorlist {
     text-align: center;
 }
 
-#ajapaik-game-info-modal-body {
+#ajapaik-info-modal-body {
     margin-left: 10px;
 }
 
