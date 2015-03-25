@@ -522,7 +522,7 @@
                 $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
                 $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
 
-                if (response.geotagged_count === 0) {
+                if (response.geotagged_count === 0 && window.albumId) {
                     $('.ajapaik-geotag-info-panel-no-photos').show();
                     $('.ajapaik-header-info-button')[0].click();
                 } else {
