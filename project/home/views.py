@@ -868,10 +868,9 @@ def curator(request):
     last_created_album = Album.objects.filter(is_public=True).order_by("-created")[0]
     # FIXME: Ugly
     curator_random_image_ids = AlbumPhoto.objects.filter(
-        album_id=last_created_album.id).distinct("photo_id").order_by("?").values_list("photo_id", flat=True)
+        album_id=last_created_album.id).order_by("?").values_list("photo_id", flat=True)
     if not curator_random_image_ids or len(curator_random_image_ids) < 5:
-        curator_random_image_ids = AlbumPhoto.objects.order_by("?")\
-            .distinct("photo_id").values_list("photo_id", flat=True)
+        curator_random_image_ids = AlbumPhoto.objects.order_by("?").values_list("photo_id", flat=True)
     curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
     site = Site.objects.get_current()
     return render_to_response("curator.html", RequestContext(request, {
