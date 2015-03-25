@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-25 16:30+0200\n"
+"POT-Creation-Date: 2015-03-25 17:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: templates/_header_area_selection_scoreboard.html:5 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:55
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
-#: templates/base_bootstrap.html:64 templates/frontpage.html:8
+#: templates/base_bootstrap.html:88 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
@@ -85,75 +85,75 @@ msgid ""
 "adds more excitement."
 msgstr ""
 
-#: project/home/views.py:631 project/home/views.py:642
-#: project/home/views.py:644 templates/frontpage.html:157
+#: project/home/views.py:633 project/home/views.py:644
+#: project/home/views.py:646 templates/frontpage.html:157
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:744
+#: project/home/views.py:746
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:747
+#: project/home/views.py:749
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:750
+#: project/home/views.py:752
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:752
+#: project/home/views.py:754
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:754
+#: project/home/views.py:756
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:756
+#: project/home/views.py:758
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:772 project/home/views.py:786
+#: project/home/views.py:776 project/home/views.py:792
 #: templates/_header_area_selection_scoreboard.html:30
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:879
+#: project/home/views.py:884
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:881
+#: project/home/views.py:886
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1090
+#: project/home/views.py:1095
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1092
+#: project/home/views.py:1097
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1115
+#: project/home/views.py:1120
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1124
+#: project/home/views.py:1129
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1131
+#: project/home/views.py:1136
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1133
+#: project/home/views.py:1138
 msgid "Not enough data submitted"
 msgstr ""
 
@@ -250,6 +250,7 @@ msgid "Next photo"
 msgstr ""
 
 #: templates/_guess_panel.html:61 templates/_guess_panel_xs.html:16
+#: templates/_info_modal.html:134
 msgid "Back to map"
 msgstr ""
 
@@ -298,12 +299,12 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                            Album has %(counter)s photo,\n"
-"                        "
+"                        Album has %(counter)s photo,\n"
+"                    "
 msgid_plural ""
 "\n"
-"                            Album has %(counter)s photos,\n"
-"                        "
+"                        Album has %(counter)s photos,\n"
+"                    "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -311,16 +312,16 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                            %(counter)s user has put\n"
-"                        "
+"                        %(counter)s user has put\n"
+"                    "
 msgid_plural ""
 "\n"
-"                            %(counter)s users have put\n"
-"                        "
+"                        %(counter)s users have put\n"
+"                    "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal.html:34
+#: templates/_info_modal.html:34 templates/base_bootstrap.html:40
 msgid "all the pictures on the map."
 msgstr ""
 
@@ -328,12 +329,12 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                %(counter)s picture on the map.\n"
-"                            "
+"                            %(counter)s picture on the map.\n"
+"                        "
 msgid_plural ""
 "\n"
-"                                %(counter)s pictures on the map.\n"
-"                            "
+"                            %(counter)s pictures on the map.\n"
+"                        "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -353,12 +354,12 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                    %(counter)s picture in this album.\n"
-"                                "
+"                                %(counter)s picture in this album.\n"
+"                            "
 msgid_plural ""
 "\n"
-"                                    %(counter)s pictures in this album.\n"
-"                                "
+"                                %(counter)s pictures in this album.\n"
+"                            "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -366,12 +367,12 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                                    %(counter)s user has made\n"
-"                                "
+"                                %(counter)s user has made\n"
+"                            "
 msgid_plural ""
 "\n"
-"                                    %(counter)s users have made\n"
-"                                "
+"                                %(counter)s users have made\n"
+"                            "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -379,12 +380,12 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                                    %(counter)s rephotograph\n"
-"                                "
+"                                %(counter)s rephotograph\n"
+"                            "
 msgid_plural ""
 "\n"
-"                                    %(counter)s rephotographs\n"
-"                                "
+"                                %(counter)s rephotographs\n"
+"                            "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -392,12 +393,12 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                                    for %(counter)s picture in the album.\n"
-"                                "
+"                                for %(counter)s picture in the album.\n"
+"                            "
 msgid_plural ""
 "\n"
-"                                    for %(counter)s picture in the album.\n"
-"                                "
+"                                for %(counter)s picture in the album.\n"
+"                            "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -405,12 +406,12 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                                You have made %(counter)s rephoto\n"
-"                            "
+"                            You have made %(counter)s rephoto\n"
+"                        "
 msgid_plural ""
 "\n"
-"                                You have made %(counter)s rephotos\n"
-"                            "
+"                            You have made %(counter)s rephotos\n"
+"                        "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -418,12 +419,12 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                                for %(counter)s picture in the album.\n"
-"                            "
+"                            for %(counter)s picture in the album.\n"
+"                        "
 msgid_plural ""
 "\n"
-"                                for %(counter)s picures in the album.\n"
-"                            "
+"                            for %(counter)s picures in the album.\n"
+"                        "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -431,9 +432,17 @@ msgstr[1] ""
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/_info_modal.html:105 templates/_photo_modal.html:100
+#: templates/_info_modal.html:108 templates/_photo_modal.html:100
 #: templates/photoview.html:61
 msgid "Share"
+msgstr ""
+
+#: templates/_info_modal.html:136
+msgid "Show on map"
+msgstr ""
+
+#: templates/_info_modal.html:142
+msgid "Geotag pictures"
 msgstr ""
 
 #: templates/_photo_modal.html:87 templates/photoview.html:99
@@ -595,11 +604,50 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:107 templates/base_bootstrap.html:88
+#: templates/base.html:107 templates/base_bootstrap.html:112
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
 msgstr ""
+
+#: templates/base_bootstrap.html:29
+#, python-format
+msgid ""
+"\n"
+"                    Album has %(counter)s photo,\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Album has %(counter)s photos,\n"
+"                "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/base_bootstrap.html:34
+#, python-format
+msgid ""
+"\n"
+"                    %(counter)s user has put\n"
+"                "
+msgid_plural ""
+"\n"
+"                    %(counter)s users have put\n"
+"                "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/base_bootstrap.html:42
+#, python-format
+msgid ""
+"\n"
+"                        %(counter)s picture on the map.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        %(counter)s pictures on the map.\n"
+"                    "
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/cat_results.html:12 templates/cat_results.html.py:21
 msgid "Next"

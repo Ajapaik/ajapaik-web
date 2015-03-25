@@ -1473,3 +1473,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     display: none;
     margin-top: 10px;
 }
+
+#ajapaik-info-modal-game-button {
+    padding-top: 10px;
+}

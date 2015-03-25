@@ -17,7 +17,6 @@ from django.template import RequestContext
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
-from django.utils.translation import ungettext
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.core.cache import cache
@@ -88,8 +87,9 @@ def _get_album_info_modal_data(album, request):
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
             Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
-    ret["share_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["facebook_share_photos"] = album_photos_qs[:5]
+    ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
+    ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
 
     return ret
 
@@ -626,7 +626,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
         "hostname": "http://%s" % (site.domain,),
         "selected_photo": selected_photo,
         "selected_rephoto": selected_rephoto,
-        "is_mapview": True
+        "is_mapview": True,
     }
 
     if album is not None:
