@@ -1,64 +1,72 @@
-from PIL import Image
-from django.core.files import File
-from django.contrib.gis.db import models
-from django.core.validators import MinValueValidator
-from django.core.validators import MaxValueValidator
-from django.db import connection
-
-from django.contrib.auth.models import User as BaseUser
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
-
-from django_extensions.db.fields import json
-from django.template.defaultfilters import slugify
-from django.db.models import Q
 import os
+from uuid import uuid4
+from django.utils.deconstruct import deconstructible
+import numpy
 
 from urllib2 import urlopen
 from contextlib import closing
-from json import loads as json_decode
+from json import loads
+from math import cos, sin, atan2, radians, degrees, sqrt
+from datetime import datetime
+from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, SmallIntegerField, BooleanField,\
+    ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField,\
+    PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, query, permalink, OneToOneField, \
+    PositiveIntegerField, DateField
+from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+from django.db.models.signals import post_save, pre_delete
+from django_extensions.db.fields import json
+from django.template.defaultfilters import slugify
+from django.db.models import Q
+from pandas import DataFrame, Series
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
-
-from oauth2client.django_orm import FlowField
-
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point, Polygon
-
-import math
-import datetime
-
-import pandas as pd
-import numpy as np
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
-
-from django.utils.deconstruct import deconstructible
-from uuid import uuid4
 from django.utils.translation import ugettext as _
 
 
 # Create profile automatically
-def user_post_save(sender, instance, **kwargs):
+def _user_post_save(sender, instance, **kwargs):
     Profile.objects.get_or_create(user=instance)
 
 
-def distance_in_meters(lon1, lat1, lon2, lat2):
+def _calc_trustworthiness(user_id):
+    total_tries = 0
+    correct_tries = 0
+    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct("photo_id")\
+        .order_by("photo_id", "-created")
+    for gt in user_unique_latest_geotags:
+        if gt.is_correct:
+            correct_tries += 1
+        total_tries += 1
+
+    if not correct_tries:
+        return 0
+
+    return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
+
+
+def _distance_in_meters(lon1, lat1, lon2, lat2):
     if not lon1 or not lat1 or not lon2 or not lat2:
         return None
-    lat_coeff = math.cos(math.radians((lat1 + lat2) / 2.0))
-    return (2 * 6350e3 * 3.1415 / 360) * math.sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
+    lat_coeff = cos(radians((lat1 + lat2) / 2.0))
+    return (2 * 6350e3 * 3.1415 / 360) * sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
 
 
-#TODO: Are these really needed?
+# TODO: Are these two really needed?
 def _make_thumbnail(photo, size):
     image = get_thumbnail(photo.image, size)
-    return {'url': image.url, 'size': [image.width, image.height]}
+    return {"url": image.url, "size": [image.width, image.height]}
 
 
 def _make_fullscreen(photo):
-    image = get_thumbnail(photo.image, '1024x1024', upscale=False)
-    return {'url': image.url, 'size': [image.width, image.height]}
+    image = get_thumbnail(photo.image, "1024x1024", upscale=False)
+    return {"url": image.url, "size": [image.width, image.height]}
 
 
 def _angle_diff(angle1, angle2):
@@ -73,25 +81,12 @@ def _angle_diff(angle1, angle2):
 def _average_angle(angles):
     x = y = 0
     for e in angles:
-        x += math.cos(math.radians(e))
-        y += math.sin(math.radians(e))
-    return math.atan2(y, x)
+        x += cos(radians(e))
+        y += sin(radians(e))
+    return atan2(y, x)
 
 
-models.signals.post_save.connect(user_post_save, sender=BaseUser)
-
-class Area(models.Model):
-    name = models.TextField()
-    lat = models.FloatField(null=True)
-    lon = models.FloatField(null=True)
-
-    class Meta:
-        app_label = "project"
-
-    def __unicode__(self):
-        return u'%s' % self.name
-
-
+# FIXME: Delete after migrations no longer whine about this
 @deconstructible
 class PathAndRename(object):
     def __init__(self, sub_path):
@@ -104,124 +99,131 @@ class PathAndRename(object):
         # return the whole path to the file
         return os.path.join(self.path, filename)
 
-
-cat_path_and_rename = PathAndRename("cat")
-
-
-class CatTag(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    level = models.SmallIntegerField(blank=True, null=True)
-    active = models.BooleanField(default=True)
-
-    class Meta:
-        app_label = "project"
-
-    def __unicode__(self):
-        return u'%s' % self.name
+post_save.connect(_user_post_save, sender=User)
 
 
-class CatTagPhoto(models.Model):
-    tag = models.ForeignKey('CatTag')
-    album = models.ForeignKey('CatAlbum')
-    photo = models.ForeignKey('CatPhoto')
-    profile = models.ForeignKey('Profile')
-    value = models.IntegerField()
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+class Area(Model):
+    name = CharField(max_length=255)
+    lat = FloatField(null=True)
+    lon = FloatField(null=True)
 
     class Meta:
         app_label = "project"
 
     def __unicode__(self):
-        return u'%s - %s - %s - %s' % (self.photo, self.tag, self.value, self.profile)
+        return u"%s" % self.name
 
 
-class CatUserFavorite(models.Model):
-    album = models.ForeignKey('CatAlbum')
-    photo = models.ForeignKey('CatPhoto')
-    profile = models.ForeignKey('Profile')
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        app_label = 'project'
-        unique_together = (('album', 'photo', 'profile'),)
-
-    def __unicode__(self):
-        return u'%s - %s - %s' % (self.album, self.photo, self.profile)
-
-
-class CatPhoto(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
-    author = models.CharField(max_length=255, null=True, blank=True)
-    source = models.ForeignKey('Source', null=True, blank=True)
-    source_url = models.URLField(null=True, blank=True, max_length=255)
-    source_key = models.CharField(max_length=255, blank=True, null=True)
-    tags = models.ManyToManyField(CatTag, related_name='photos', through=CatTagPhoto)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+class CatTag(Model):
+    name = CharField(max_length=255, unique=True)
+    level = SmallIntegerField(blank=True, null=True)
+    active = BooleanField(default=True)
 
     class Meta:
         app_label = "project"
 
     def __unicode__(self):
-        return u'%s' % self.title
+        return u"%s" % self.name
 
-    def _get_source_with_key(self):
+
+class CatTagPhoto(Model):
+    tag = ForeignKey("CatTag")
+    album = ForeignKey("CatAlbum")
+    photo = ForeignKey("CatPhoto")
+    profile = ForeignKey("Profile")
+    value = IntegerField()
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u"%s - %s - %s - %s" % (self.photo, self.tag, self.value, self.profile)
+
+
+class CatUserFavorite(Model):
+    album = ForeignKey("CatAlbum")
+    photo = ForeignKey("CatPhoto")
+    profile = ForeignKey("Profile")
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+        unique_together = (("album", "photo", "profile"),)
+
+    def __unicode__(self):
+        return u"%s - %s - %s" % (self.album, self.photo, self.profile)
+
+
+class CatPhoto(Model):
+    title = CharField(max_length=255)
+    description = TextField(null=True, blank=True)
+    image = ImageField(upload_to="cat", max_length=255)
+    author = CharField(max_length=255, null=True, blank=True)
+    source = ForeignKey("Source", null=True, blank=True)
+    source_url = URLField(null=True, blank=True, max_length=255)
+    source_key = CharField(max_length=255, blank=True, null=True)
+    tags = ManyToManyField(CatTag, related_name="photos", through=CatTagPhoto)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "project"
+        unique_together = (("source", "source_key"),)
+
+    def __unicode__(self):
+        return u"%s" % self.title
+
+    def get_source_with_key(self):
         if self.source_key:
-            return str(self.source.description + ' ' + self.source_key)
+            return str(self.source.description + " " + self.source_key)
         return self.source.name
 
 
-class CatAlbum(models.Model):
-    title = models.CharField(max_length=255)
-    subtitle = models.CharField(max_length=255)
-    image = models.ImageField(upload_to=cat_path_and_rename, max_length=255)
-    photos = models.ManyToManyField(CatPhoto, related_name='album', null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+class CatAlbum(Model):
+    title = CharField(max_length=255)
+    subtitle = CharField(max_length=255)
+    image = ImageField(upload_to="cat", max_length=255)
+    photos = ManyToManyField(CatPhoto, related_name="album", null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
 
     class Meta:
         app_label = "project"
 
     def __unicode__(self):
-        return u'%s' % self.title
+        return u"%s" % self.title
 
 
-class Album(models.Model):
+class Album(Model):
     CURATED, FAVORITES, AUTO = range(3)
     TYPE_CHOICES = (
-        (CURATED, 'Curated'),
-        (FAVORITES, 'Favorites'),
-        (AUTO, 'Auto')
+        (CURATED, "Curated"),
+        (FAVORITES, "Favorites"),
+        (AUTO, "Auto")
     )
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(null=True, blank=True, max_length=255)
-    description = models.TextField(null=True, blank=True, max_length=2047)
-    subalbum_of = models.ForeignKey('self', blank=True, null=True, related_name='subalbums')
-
-    atype = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
-    profile = models.ForeignKey('Profile', related_name='albums', blank=True, null=True)
-
-    is_public = models.BooleanField(default=True)
-    is_public_mutable = models.BooleanField(default=False)
-
-    photos = models.ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
-
-    lat = models.FloatField(null=True, blank=True)
-    lon = models.FloatField(null=True, blank=True)
-    geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
-
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    name = CharField(max_length=255)
+    slug = SlugField(null=True, blank=True, max_length=255)
+    description = TextField(null=True, blank=True, max_length=2047)
+    subalbum_of = ForeignKey("self", blank=True, null=True, related_name="subalbums")
+    atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
+    profile = ForeignKey("Profile", related_name="albums", blank=True, null=True)
+    is_public = BooleanField(default=True)
+    is_public_mutable = BooleanField(default=False)
+    photos = ManyToManyField("Photo", through="AlbumPhoto", related_name="albums")
+    lat = FloatField(null=True, blank=True)
+    lon = FloatField(null=True, blank=True)
+    geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
 
     class Meta:
         app_label = "project"
 
     def __unicode__(self):
-        return u'%s' % self.name
+        return u"%s" % self.name
 
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
@@ -232,18 +234,17 @@ class Album(models.Model):
         super(Album, self).save(*args, **kwargs)
 
 
-class AlbumPhoto(models.Model):
-    album = models.ForeignKey('Album')
-    photo = models.ForeignKey('Photo')
-    sort_order = models.PositiveSmallIntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True)
-    notes = models.TextField(null=True, blank=True)
+class AlbumPhoto(Model):
+    album = ForeignKey("Album")
+    photo = ForeignKey("Photo")
+    created = DateTimeField(auto_now_add=True)
 
     class Meta:
         app_label = "project"
+        unique_together = (("album", "photo"),)
 
     def __unicode__(self):
-        return u'%d - %d' % (self.album.id, self.photo.id)
+        return u"%d - %d" % (self.album.id, self.photo.id)
 
 
 def delete_parent(sender, **kwargs):
@@ -253,71 +254,62 @@ def delete_parent(sender, **kwargs):
     except:
         pass
 
-models.signals.pre_delete.connect(delete_parent, sender=AlbumPhoto)
+pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
-class PhotoManager(models.GeoManager):
+
+class PhotoManager(GeoManager):
     def get_queryset(self):
         return self.model.QuerySet(self.model)
 
-path_and_rename = PathAndRename("uploads")
 
-
-class Photo(models.Model):
+class Photo(Model):
     objects = PhotoManager()
 
-    id = models.AutoField(primary_key=True)
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True, max_length=255)
-    image_unscaled = models.ImageField(upload_to=path_and_rename, blank=True, null=True, max_length=255)
-    height = models.IntegerField(null=True, blank=True)
-    width = models.IntegerField(null=True, blank=True)
-    flip = models.NullBooleanField()
-    invert = models.NullBooleanField()
-    stereo = models.NullBooleanField()
-    date = models.DateTimeField(null=True, blank=True)
-    date_text = models.CharField(max_length=100, blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(null=True, blank=True, max_length=2047)
-    author = models.CharField(null=True, blank=True, max_length=255)
-    licence = models.ForeignKey('Licence', null=True, blank=True)
-    types = models.CharField(max_length=255, blank=True, null=True)
-
-    user = models.ForeignKey('Profile', related_name='photos', blank=True, null=True)
-
-    level = models.PositiveSmallIntegerField(default=0)
-    guess_level = models.FloatField(default=3)
-
-    lat = models.FloatField(null=True, blank=True)
-    lon = models.FloatField(null=True, blank=True)
-    geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
-    bounding_circle_radius = models.FloatField(null=True, blank=True)
-    azimuth = models.FloatField(null=True, blank=True)
-    confidence = models.FloatField(default=0, null=True, blank=True)
-    azimuth_confidence = models.FloatField(default=0, null=True, blank=True)
-
-    source_key = models.CharField(max_length=100, null=True, blank=True)
-    source_url = models.URLField(null=True, blank=True, max_length=1023)
-    source = models.ForeignKey('Source', null=True, blank=True)
-    device = models.ForeignKey('Device', null=True, blank=True)
-
-    area = models.ForeignKey('Area', related_name='areas', null=True, blank=True)
-    rephoto_of = models.ForeignKey('self', blank=True, null=True, related_name='rephotos')
-
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    #scale_factor: vana pildi zoom level pildistamise hetkel (float; vahemikus [0.5, 4.0])
-    #yaw, pitch, roll: telefoni orientatsioon pildistamise hetkel (float; radiaanides)
-    cam_scale_factor = models.FloatField(null=True, blank=True)
-    cam_yaw = models.FloatField(null=True, blank=True)
-    cam_pitch = models.FloatField(null=True, blank=True)
-    cam_roll = models.FloatField(null=True, blank=True)
+    image = ImageField(upload_to="uploads", blank=True, null=True, max_length=255)
+    image_unscaled = ImageField(upload_to="uploads", blank=True, null=True, max_length=255)
+    height = IntegerField(null=True, blank=True)
+    width = IntegerField(null=True, blank=True)
+    flip = NullBooleanField()
+    invert = NullBooleanField()
+    stereo = NullBooleanField()
+    date = DateTimeField(null=True, blank=True)
+    date_text = CharField(max_length=255, blank=True, null=True)
+    title = CharField(max_length=255, blank=True, null=True)
+    description = TextField(null=True, blank=True)
+    author = CharField(null=True, blank=True, max_length=255)
+    licence = ForeignKey("Licence", null=True, blank=True)
+    types = CharField(max_length=255, blank=True, null=True)
+    user = ForeignKey("Profile", related_name="photos", blank=True, null=True)
+    level = PositiveSmallIntegerField(default=0)
+    guess_level = FloatField(default=3)
+    lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
+    lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
+    bounding_circle_radius = FloatField(null=True, blank=True)
+    azimuth = FloatField(null=True, blank=True)
+    confidence = FloatField(default=0, null=True, blank=True)
+    azimuth_confidence = FloatField(default=0, null=True, blank=True)
+    source_key = CharField(max_length=100, null=True, blank=True)
+    source_url = URLField(null=True, blank=True, max_length=1023)
+    source = ForeignKey("Source", null=True, blank=True)
+    device = ForeignKey("Device", null=True, blank=True)
+    area = ForeignKey("Area", related_name="areas", null=True, blank=True)
+    rephoto_of = ForeignKey("self", blank=True, null=True, related_name="rephotos")
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+    # scale_factor: old picture's zoom level (float [0.5, 4.0])
+    # yaw, pitch, roll: phone orientation (float radians)
+    cam_scale_factor = FloatField(null=True, blank=True, validators=[MinValueValidator(0.5), MaxValueValidator(4.0)])
+    cam_yaw = FloatField(null=True, blank=True)
+    cam_pitch = FloatField(null=True, blank=True)
+    cam_roll = FloatField(null=True, blank=True)
 
     class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
         app_label = "project"
 
-    class QuerySet(models.query.QuerySet):
+    class QuerySet(query.QuerySet):
         @staticmethod
         def get_album_photo_count_and_total_geotag_count(album_id=None, area_id=None):
             if album_id is not None:
@@ -326,13 +318,17 @@ class Photo(models.Model):
                 if album.subalbums:
                     for sa in album.subalbums.all():
                         album_photos_qs = album_photos_qs | sa.photos.all()
-                ungeotagged_qs = album_photos_qs.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct('id')
-                geotagged_qs = album_photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct('id')
+                ungeotagged_qs = album_photos_qs.filter(
+                    lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct("id")
+                geotagged_qs = album_photos_qs.filter(
+                    lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct("id")
                 return ungeotagged_qs.count(), geotagged_qs.count()
             if area_id is not None:
                 area_photos = Photo.objects.filter(area_id=area_id)
-                ungeotagged_qs = area_photos.filter(lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct('id')
-                geotagged_qs = area_photos.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct('id')
+                ungeotagged_qs = area_photos.filter(
+                    lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct("id")
+                geotagged_qs = area_photos.filter(
+                    lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct("id")
                 return ungeotagged_qs.count(), geotagged_qs.count()
             return None, None
 
@@ -347,9 +343,8 @@ class Photo(models.Model):
                 data.append([p.id, None, p.lon, p.lat, rephoto_count, None, None, p.azimuth, None, None])
             return data
 
-
         @staticmethod
-        def _get_game_json_format_photo(photo, distance_from_last):
+        def get_game_json_format_photo(photo, distance_from_last):
             # TODO: proper JSON serialization
             if not distance_from_last:
                 distance_from_last = "Unknown"
@@ -373,9 +368,7 @@ class Photo(models.Model):
 
         def get_next_photo_to_geotag(self, request):
             user_id = request.get_user().profile.pk
-            from get_next_photos_to_geotag import calc_trustworthiness
-
-            user_trustworthiness = calc_trustworthiness(user_id)
+            user_trustworthiness = _calc_trustworthiness(user_id)
 
             album_photos_set = self.filter(rephoto_of_id=None)
             album_photo_ids = frozenset([p.id for p in album_photos_set])
@@ -403,7 +396,8 @@ class Photo(models.Model):
             user_geotagged_photo_ids = list(set(user_geotags_in_album.values_list("photo_id", flat=True)))
             # TODO: Tidy up
             user_skipped_photo_ids = set(list(user_skips_in_album.values_list("photo_id", flat=True)))
-            user_skipped_less_geotagged_photo_ids = list(user_skipped_photo_ids - set(list(user_geotags_in_album.values_list("photo_id", flat=True))))
+            user_skipped_less_geotagged_photo_ids = list(user_skipped_photo_ids - set(
+                list(user_geotags_in_album.values_list("photo_id", flat=True))))
             user_skipped_photo_ids = list(user_skipped_photo_ids)
             user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_less_geotagged_photo_ids)
 
@@ -413,42 +407,39 @@ class Photo(models.Model):
             if "user_skip_array" not in request.session:
                 request.session["user_skip_array"] = []
 
-            cursor = connection.cursor()
-            cursor.execute(
-                "SELECT A.id, COUNT(G.id) AS geotags FROM project_area A INNER JOIN project_geotag G INNER JOIN project_photo P ON G.photo_id = P.id ON P.area_id = A.id GROUP BY A.id;")
-            result = cursor.fetchall()
-            exception_city_ids = [i[0] for i in result if i[1] > 1000]
-
             if user_trustworthiness < 0.4:
                 # Novice users should only receive the easiest images to prove themselves
-                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence").all()
+                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
                 if len(ret) == 0:
                     # If the user has seen all the photos, offer the easiest or at random
                     user_seen_all = True
-                    if album_photos_set[0].area_id in exception_city_ids:
-                        ret = album_photos_set.order_by("guess_level", "-confidence")
-                    else:
-                        nothing_more_to_show = True
-                        ret = album_photos_set.order_by("?")
+                    ret = album_photos_set.order_by("?")
             else:
                 # Let's try to show the more experienced users photos they have not yet seen at all
-                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).all()
+                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids)
                 if len(ret) == 0:
-                    # If the user has seen them all, let's try showing her photos she has skipped (but not in this session) or not marked an azimuth on
+                    # If the user has seen them all, let"s try showing her photos she
+                    # has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
                     user_geotags_without_azimuth_in_album = user_geotags_in_album.exclude(azimuth__isnull=False)
-                    user_geotagged_without_azimuth_photo_ids = list(set(user_geotags_without_azimuth_in_album.values_list("photo_id", flat=True)))
-                    ret = album_photos_set.filter(id__in=(user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids)).exclude(id__in=request.session["user_skip_array"])
+                    user_geotagged_without_azimuth_photo_ids = list(
+                        set(user_geotags_without_azimuth_in_album.values_list("photo_id", flat=True)))
+                    ret = album_photos_set.filter(id__in=(
+                        user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids))\
+                        .exclude(id__in=request.session["user_skip_array"])
                     if len(ret) == 0:
-                        # This user has geotagged all the city's photos with azimuths, show her photos that have low confidence or don't have a correct geotag from her
-                        # Don't do this for very small/fresh sets (<1000 geotags)
-                        if len(album_photos_set) > 0 and album_photos_set[0].area_id and album_photos_set[0].area_id in exception_city_ids:
-                            user_incorrect_geotags = user_geotags_in_album.filter(is_correct=False)
-                            user_correct_geotags = user_geotags_in_album.filter(is_correct=True)
-                            user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.values_list("photo_id", flat=True))
-                            user_correctly_geotagged_photo_ids = set(user_correct_geotags.values_list("photo_id", flat=True))
-                            user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-                            ret = album_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+                        # This user has geotagged all the city"s photos with azimuths or skipped them in this session,
+                        # show her photos that have low confidence or don"t have a correct geotag from her
+                        user_incorrect_geotags = user_geotags_in_album.filter(is_correct=False)
+                        user_correct_geotags = user_geotags_in_album.filter(is_correct=True)
+                        user_incorrectly_geotagged_photo_ids = set(
+                            user_incorrect_geotags.values_list("photo_id", flat=True))
+                        user_correctly_geotagged_photo_ids = set(
+                            user_correct_geotags.values_list("photo_id", flat=True))
+                        user_no_correct_geotags_photo_ids = list(
+                            user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+                        ret = album_photos_set.filter(Q(confidence__lt=0.3) |
+                                                      Q(id__in=user_no_correct_geotags_photo_ids))
                         if len(ret) == 0:
                             nothing_more_to_show = True
                 good_candidates = []
@@ -457,7 +448,8 @@ class Photo(models.Model):
                     for p in ret:
                         distance_between_photos = None
                         if user_last_interacted_photo:
-                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+                            distance_between_photos = _distance_in_meters(
+                                p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
                         if p.confidence > 0.7 and distance_between_photos and 250 <= distance_between_photos <= 1000:
                             good_candidates.append(p)
                         elif p.confidence > 0.7:
@@ -466,8 +458,10 @@ class Photo(models.Model):
                     for p in ret:
                         distance_between_photos = None
                         if user_last_interacted_photo:
-                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-                        if 0.4 <= p.confidence <= 0.7 and distance_between_photos and 250 <= distance_between_photos <= 1000:
+                            distance_between_photos = _distance_in_meters(
+                                p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+                        if 0.4 <= p.confidence <= 0.7 and distance_between_photos \
+                                and 250 <= distance_between_photos <= 1000:
                             good_candidates.append(p)
                         elif 0.4 <= p.confidence <= 0.7:
                             shitty_candidates.append(p)
@@ -475,7 +469,8 @@ class Photo(models.Model):
                     for p in ret:
                         distance_between_photos = None
                         if user_last_interacted_photo:
-                            distance_between_photos = distance_in_meters(p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
+                            distance_between_photos = _distance_in_meters(
+                                p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
                         if p.confidence < 0.4 and distance_between_photos and 250 <= distance_between_photos <= 1000:
                             good_candidates.append(p)
                         elif p.confidence < 0.4:
@@ -488,65 +483,47 @@ class Photo(models.Model):
                 request.session["user_skip_array"].append(ret[0].id)
                 request.session.modified = True
             if len(ret) == 0 or (user_last_interacted_photo and user_last_interacted_photo.id == ret[0].id):
-                random_photo = self._get_game_json_format_photo(album_photos_set.order_by("?")[:1].get(), distance_between_photos)
+                random_photo = self.get_game_json_format_photo(
+                    album_photos_set.order_by("?")[:1].get(), distance_between_photos)
                 return [random_photo], False, False
-            return [self._get_game_json_format_photo(ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
+            return [self.get_game_json_format_photo(
+                ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
-        def get_old_photos_for_grid_view(self, start, end):
-            data = []
-            for p in self.filter(rephoto_of__isnull=True)[start:end]:
-                im_url = reverse('project.home.views.photo_thumb', args=(p.id,))
-                try:
-                    im = get_thumbnail(p.image, '300x300', upscale=False)
-                    data.append([p.id, im_url, im.size[0], im.size[1]])
-                except (IOError, TypeError):
-                    pass
-            return data
+        # def get_old_photos_for_grid_view(self, start, end):
+        #     data = []
+        #     for p in self.filter(rephoto_of__isnull=True)[start:end]:
+        #         im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
+        #         try:
+        #             im = get_thumbnail(p.image, "300x300", upscale=False)
+        #             data.append([p.id, im_url, im.size[0], im.size[1]])
+        #         except (IOError, TypeError):
+        #             pass
+        #     return data
 
-        def get_old_photo_count_for_grid_view(self):
-            return self.filter(rephoto_of__isnull=True).count()
-
-
-    def flip_horizontal(self):
-        image = Image.open(self.image.path)
-        exif = image.info['exif']
-        image = image.transpose(Image.FLIP_LEFT_RIGHT)
-        image.save(self.image.path, File(image), exif=exif)
-
-    # def delete(self, *args, **kwargs):
-    #     self.image.delete()
-    #     super(Photo, self).delete(*args, **kwargs)
+        # def get_old_photo_count_for_grid_view(self):
+        #     return self.filter(rephoto_of__isnull=True).count()
 
     def __unicode__(self):
-        return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
+        return u"%s - %s (%s) (%s)" % (self.id, self.description, self.date_text, self.source_key)
 
-    @models.permalink
+    @permalink
     def get_detail_url(self):
-        return 'project.home.views.photo', [self.id, ]
+        return "project.home.views.photo", [self.id, ]
 
-    @models.permalink
+    @permalink
     def get_absolute_url(self):
         pseudo_slug = self.get_pseudo_slug()
         rephoto = self.rephoto_of
         if rephoto:
             pass
         if pseudo_slug != "":
-            return ('project.home.views.photoslug', [self.id, pseudo_slug, ])
+            return "project.home.views.photoslug", [self.id, pseudo_slug, ]
         else:
-            return ('project.home.views.photo', [self.id, ])
-
-    @models.permalink
-    def get_heatmap_url(self):
-        pseudo_slug = self.get_pseudo_slug();
-        if pseudo_slug != "":
-            return ('project.home.views.photoslug_heatmap', [self.id, pseudo_slug, ])
-        else:
-            return ('project.home.views.photo_heatmap', [self.id, ])
+            return "project.home.views.photo", [self.id, ]
 
     def get_pseudo_slug(self):
-        slug = ""
         if self.description is not None and self.description != "":
-            slug = "-".join(slugify(self.description).split('-')[:6])[:60]
+            slug = "-".join(slugify(self.description).split("-")[:6])[:60]
         elif self.source_key is not None and self.source_key != "":
             slug = slugify(self.source_key)
         else:
@@ -567,8 +544,8 @@ class Photo(models.Model):
         except:
             pass
         # Calculate average coordinates for album
-        album_ids = set(AlbumPhoto.objects.filter(photo_id=self.id).values_list('album_id', flat=True))
-        albums = Album.objects.filter(id__in=album_ids).all()
+        album_ids = set(AlbumPhoto.objects.filter(photo_id=self.id).values_list("album_id", flat=True))
+        albums = Album.objects.filter(id__in=album_ids)
         for a in albums:
             photos_with_location = a.photos.filter(lat__isnull=False, lon__isnull=False).all()
             lat = 0
@@ -586,9 +563,10 @@ class Photo(models.Model):
 
     @staticmethod
     def get_centroid(points):
+        # FIXME: Really need numpy for this?
         n = points.shape[0]
-        sum_lon = np.sum(points[:, 1])
-        sum_lat = np.sum(points[:, 0])
+        sum_lon = numpy.sum(points[:, 1])
+        sum_lat = numpy.sum(points[:, 0])
         return sum_lon / n, sum_lat / n
 
     @staticmethod
@@ -603,18 +581,20 @@ class Photo(models.Model):
                 closest_dist = dist
         return closest_point
 
+    # TODO: Cut down on the science library use
     def set_calculated_fields(self):
-        photo_difficulty_feedback = list(DifficultyFeedback.objects.filter(photo_id=self.id))
-        weighted_level_sum, total_weight = 0, 0
+        photo_difficulty_feedback = DifficultyFeedback.objects.filter(photo_id=self.id)
+        weighed_level_sum, total_weight = 0, 0
         for each in photo_difficulty_feedback:
-            weighted_level_sum += float(each.level) * each.trustworthiness
+            weighed_level_sum += float(each.level) * each.trustworthiness
             total_weight += each.trustworthiness
         if total_weight != 0:
-            self.guess_level = round((weighted_level_sum / total_weight), 2)
+            self.guess_level = round((weighed_level_sum / total_weight), 2)
 
         if not self.bounding_circle_radius:
             geotags = GeoTag.objects.filter(photo_id=self.id)
-            unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created').values_list('id', flat=True)
+            unique_user_geotag_ids = geotags.distinct("user_id").order_by("user_id", "-created")\
+                .values_list("id", flat=True)
             unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
             geotag_coord_map = {}
             for g in unique_user_geotags:
@@ -624,12 +604,12 @@ class Photo(models.Model):
                 else:
                     geotag_coord_map[key] = [g]
             if unique_user_geotags:
-                df = pd.DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=['lon', 'lat'])
-                coordinates = df.as_matrix(columns=['lon', 'lat'])
+                df = DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=["lon", "lat"])
+                coordinates = df.as_matrix(columns=["lon", "lat"])
                 db = DBSCAN(eps=0.0003, min_samples=1).fit(coordinates)
                 labels = db.labels_
                 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-                clusters = pd.Series([coordinates[labels == i] for i in range(num_clusters)])
+                clusters = Series([coordinates[labels == i] for i in range(num_clusters)])
                 lon = []
                 lat = []
                 members = []
@@ -641,7 +621,7 @@ class Photo(models.Model):
                     lat.append(representative_point[0])
                     lon.append(representative_point[1])
                     members.append(cluster)
-                rs = pd.DataFrame({'lat': lat, 'lon': lon, 'members': members})
+                rs = DataFrame({"lat": lat, "lon": lon, "members": members})
                 max_trust = 0
                 point = None
                 selected_geotags = None
@@ -655,11 +635,11 @@ class Photo(models.Model):
                             trust_sum += gg.trustworthiness
                     if trust_sum > max_trust:
                         max_trust = trust_sum
-                        point = {'lat': a[1], 'lon': a[2]}
+                        point = {"lat": a[1], "lon": a[2]}
                         selected_geotags = current_geotags
                 if point:
-                    self.lat = point['lat']
-                    self.lon = point['lon']
+                    self.lat = point["lat"]
+                    self.lon = point["lon"]
                     self.confidence = float(len(selected_geotags)) / float(len(geotags))
                 geotags.update(is_correct=False, azimuth_correct=False)
                 if selected_geotags:
@@ -673,7 +653,7 @@ class Photo(models.Model):
                     if initial_arr_length > 0:
                         while contains_outliers:
                             avg = _average_angle(arr)
-                            deg_avg = math.degrees(avg)
+                            deg_avg = degrees(avg)
                             diff_arr = [_angle_diff(x, deg_avg) for x in arr]
                             contains_outliers = False
                             for i, e in enumerate(diff_arr):
@@ -691,108 +671,95 @@ class Photo(models.Model):
                         self.azimuth_confidence = None
 
 
-
-
-class DifficultyFeedback(models.Model):
-    photo = models.ForeignKey('Photo')
-    user_profile = models.ForeignKey('Profile')
-    level = models.PositiveSmallIntegerField(null=False, blank=False)
-    trustworthiness = models.FloatField(null=False, blank=False)
-    geotag = models.ForeignKey('GeoTag')
-    created = models.DateTimeField(auto_now_add=True)
+class DifficultyFeedback(Model):
+    photo = ForeignKey("Photo")
+    user_profile = ForeignKey("Profile")
+    level = PositiveSmallIntegerField()
+    trustworthiness = FloatField()
+    geotag = ForeignKey("GeoTag")
+    created = DateTimeField(auto_now_add=True)
 
     class Meta:
         app_label = "project"
 
 
-class FlipFeedback(models.Model):
-    photo = models.ForeignKey('Photo')
-    user_profile = models.ForeignKey('Profile')
-    flip = models.NullBooleanField()
-    created = models.DateTimeField(auto_now_add=True)
+class FlipFeedback(Model):
+    photo = ForeignKey("Photo")
+    user_profile = ForeignKey("Profile")
+    flip = NullBooleanField()
+    created = DateTimeField(auto_now_add=True)
 
     class Meta:
         app_label = "project"
 
 
-class UserMapView(models.Model):
-    photo = models.ForeignKey('Photo')
-    user_profile = models.ForeignKey('Profile')
-    confidence = models.FloatField(default=0)
-    action = models.CharField(max_length=255, null=False, blank=False)
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        app_label = "project"
-
-
-class Points(models.Model):
+class Points(Model):
     GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION = range(4)
     ACTION_CHOICES = (
-        (GEOTAG, 'Geotag'),
-        (REPHOTO, 'Rephoto'),
-        (PHOTO_UPLOAD, 'Photo upload'),
-        (PHOTO_CURATION, 'Photo curation'),
+        (GEOTAG, "Geotag"),
+        (REPHOTO, "Rephoto"),
+        (PHOTO_UPLOAD, "Photo upload"),
+        (PHOTO_CURATION, "Photo curation"),
     )
 
-    user = models.ForeignKey('Profile', related_name='points')
-    action = models.PositiveSmallIntegerField(choices=ACTION_CHOICES)
-    action_reference = models.PositiveIntegerField(null=True, blank=True)
-    photo = models.ForeignKey('Photo', null=True, blank=True)
-    geotag = models.ForeignKey('GeoTag', null=True, blank=True)
-    points = models.PositiveSmallIntegerField(null=True, blank=True)
-    created = models.DateTimeField(db_index=True)
+    user = ForeignKey("Profile", related_name="points")
+    action = PositiveSmallIntegerField(choices=ACTION_CHOICES)
+    photo = ForeignKey("Photo", null=True, blank=True)
+    geotag = ForeignKey("GeoTag", null=True, blank=True)
+    points = IntegerField(default=0)
+    created = DateTimeField(db_index=True)
 
     class Meta:
         app_label = "project"
         verbose_name_plural = "Points"
+        unique_together = (("user", "geotag"),)
 
     def __unicode__(self):
-        return u'%d - %s - %d' % (self.user.id, self.action, self.points)
+        return u"%d - %s - %d" % (self.user.id, self.action, self.points)
 
 
-class GeoTag(models.Model):
+class GeoTag(Model):
     MAP, EXIF, GPS = range(3)
     TYPE_CHOICES = (
-        (MAP, _('Map')),
-        (EXIF, _('EXIF')),
-        (GPS, _('GPS')),
+        (MAP, _("Map")),
+        (EXIF, _("EXIF")),
+        (GPS, _("GPS")),
     )
     GAME, MAP_VIEW, GRID = range(3)
     ORIGIN_CHOICES = (
-        (GAME, _('Game')),
-        (MAP_VIEW, _('Map view')),
-        (GRID, _('Grid')),
+        (GAME, _("Game")),
+        (MAP_VIEW, _("Map view")),
+        (GRID, _("Grid")),
     )
     GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP = range(3)
     MAP_TYPE_CHOICES = (
-        (GOOGLE_MAP, _('Google map')),
-        (GOOGLE_SATELLITE, _('Google satellite')),
-        (OPEN_STREETMAP, _('OpenStreetMap'))
+        (GOOGLE_MAP, _("Google map")),
+        (GOOGLE_SATELLITE, _("Google satellite")),
+        (OPEN_STREETMAP, _("OpenStreetMap"))
     )
-    lat = models.FloatField(validators=[MinValueValidator(-85), MaxValueValidator(85)])
-    lon = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
-    geography = models.PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
-    azimuth = models.FloatField(null=True, blank=True)
-    azimuth_line_end_lat = models.FloatField(null=True, blank=True)
-    azimuth_line_end_lon = models.FloatField(null=True, blank=True)
-    zoom_level = models.IntegerField(null=True, blank=True)
-    origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
-    type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
-    map_type = models.PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
-    hint_used = models.BooleanField(default=False)
-    user = models.ForeignKey('Profile', related_name='geotags')
-    photo = models.ForeignKey('Photo', related_name='geotags')
-    is_correct = models.BooleanField(default=False)
-    azimuth_correct = models.BooleanField(default=False)
-    score = models.PositiveSmallIntegerField(null=True, blank=True)
-    azimuth_score = models.PositiveSmallIntegerField(null=True, blank=True)
-    trustworthiness = models.FloatField()
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
+    lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
+    azimuth = FloatField(null=True, blank=True)
+    azimuth_line_end_lat = FloatField(null=True, blank=True)
+    azimuth_line_end_lon = FloatField(null=True, blank=True)
+    zoom_level = IntegerField(null=True, blank=True)
+    origin = PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
+    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
+    map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
+    hint_used = BooleanField(default=False)
+    user = ForeignKey("Profile", related_name="geotags")
+    photo = ForeignKey("Photo", related_name="geotags")
+    is_correct = BooleanField(default=False)
+    azimuth_correct = BooleanField(default=False)
+    score = IntegerField(null=True, blank=True)
+    azimuth_score = IntegerField(null=True, blank=True)
+    trustworthiness = FloatField()
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
 
     class Meta:
-        app_label = 'project'
+        app_label = "project"
 
     def save(self, *args, **kwargs):
         self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
@@ -806,74 +773,55 @@ class GeoTag(models.Model):
             title = self.photo.title[:50]
         if self.photo.description:
             desc = self.photo.description[:50]
-        return u'%s - %s - %s' % (title, desc, self.user.fb_name)
+        return u"%s - %s - %s" % (title, desc, self.user.fb_name)
 
 
-class FacebookManager(models.Manager):
-    def url_read(self, uri):
+class FacebookManager(Manager):
+    @staticmethod
+    def url_read(uri):
         with closing(urlopen(uri)) as request:
             return request.read()
 
-    def get_user(self, access_token, application_id=None):
-        data = json_decode(self.url_read("https://graph.facebook.com/me?access_token=%s" % access_token))
+    def get_user(self, access_token):
+        data = loads(self.url_read("https://graph.facebook.com/me?access_token=%s" % access_token))
         if not data:
-            raise "Facebook did not return anything useful for this access token"
+            raise Exception("Facebook did not return anything useful for this access token")
 
         try:
-            return self.get(fb_id=data.get('id')), data
+            return self.get(fb_id=data.get("id")), data
         except ObjectDoesNotExist:
             return None, data,
 
-# TODO: For Google?
-#from south.modelsinspector import add_introspection_rules
-from oauth2client.django_orm import CredentialsField
-#add_introspection_rules([], ["^oauth2client\.django_orm\.CredentialsField", "^oauth2client\.django_orm\.FlowField"])
 
-class CredentialsModel(models.Model):
-    id = models.ForeignKey(BaseUser, primary_key=True)
-    credential = CredentialsField()
-
-    class Meta:
-        app_label = "project"
-
-
-class FlowModel(models.Model):
-    id = models.ForeignKey(BaseUser, primary_key=True)
-    flow = FlowField()
-
-    class Meta:
-        app_label = "project"
-
-
-class Profile(models.Model):
+class Profile(Model):
     facebook = FacebookManager()
-    objects = models.Manager()
+    objects = Manager()
 
-    user = models.OneToOneField(BaseUser, primary_key=True)
+    user = OneToOneField(User, primary_key=True)
 
-    fb_name = models.CharField(max_length=255, null=True, blank=True)
-    fb_link = models.CharField(max_length=255, null=True, blank=True)
-    fb_id = models.CharField(max_length=100, null=True, blank=True)
-    fb_token = models.CharField(max_length=511, null=True, blank=True)
-    fb_hometown = models.CharField(max_length=511, null=True, blank=True)
-    fb_current_location = models.CharField(max_length=511, null=True, blank=True)
-    fb_birthday = models.DateField(null=True, blank=True)
-    fb_email = models.CharField(max_length=255, null=True, blank=True)
-    fb_user_friends = models.TextField(null=True, blank=True)
+    fb_name = CharField(max_length=255, null=True, blank=True)
+    fb_link = CharField(max_length=255, null=True, blank=True)
+    fb_id = CharField(max_length=100, null=True, blank=True)
+    fb_token = CharField(max_length=511, null=True, blank=True)
+    fb_hometown = CharField(max_length=511, null=True, blank=True)
+    fb_current_location = CharField(max_length=511, null=True, blank=True)
+    fb_birthday = DateField(null=True, blank=True)
+    fb_email = CharField(max_length=255, null=True, blank=True)
+    fb_user_friends = TextField(null=True, blank=True)
 
-    google_plus_id = models.CharField(max_length=100, null=True, blank=True)
-    google_plus_link = models.CharField(max_length=255, null=True, blank=True)
-    google_plus_name = models.CharField(max_length=255, null=True, blank=True)
-    google_plus_token = models.CharField(max_length=255, null=True, blank=True)
-    google_plus_picture = models.CharField(max_length=255, null=True, blank=True)
+    google_plus_id = CharField(max_length=100, null=True, blank=True)
+    google_plus_link = CharField(max_length=255, null=True, blank=True)
+    google_plus_name = CharField(max_length=255, null=True, blank=True)
+    google_plus_token = CharField(max_length=255, null=True, blank=True)
+    google_plus_picture = CharField(max_length=255, null=True, blank=True)
 
-    avatar_url = models.URLField(null=True, blank=True)
+    avatar_url = URLField(null=True, blank=True)
 
-    modified = models.DateTimeField(auto_now=True)
+    modified = DateTimeField(auto_now=True)
 
-    score = models.PositiveIntegerField(default=0)
-    score_rephoto = models.PositiveIntegerField(default=0)
-    score_recent_activity = models.PositiveIntegerField(default=0)
+    score = PositiveIntegerField(default=0)
+    score_rephoto = PositiveIntegerField(default=0)
+    score_recent_activity = PositiveIntegerField(default=0)
 
     class Meta:
         app_label = "project"
@@ -893,7 +841,7 @@ class Profile(models.Model):
         self.fb_link = data.get("link")
         self.fb_email = data.get("email")
         try:
-            self.fb_birthday = datetime.datetime.strptime(data.get("birthday"), '%m/%d/%Y')
+            self.fb_birthday = datetime.strptime(data.get("birthday"), "%m/%d/%Y")
         except TypeError:
             pass
         location = data.get("location")
@@ -925,7 +873,8 @@ class Profile(models.Model):
         other.points.update(user=self)
 
     def update_rephoto_score(self):
-        photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+        photo_ids_rephotographed_by_this_user = Photo.objects.filter(
+            rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0
@@ -944,9 +893,15 @@ class Profile(models.Model):
                 user_first_bonus_earned = True
                 user_rephoto_score += 1250
                 try:
-                    existing_record = Points.objects.filter(action=Points.REPHOTO, photo=oldest_rephoto).get()
+                    Points.objects.get(action=Points.REPHOTO, photo=oldest_rephoto)
                 except ObjectDoesNotExist:
-                    new_record = Points(user=oldest_rephoto.user, action=Points.REPHOTO, photo=oldest_rephoto, points=1250, created=oldest_rephoto.created)
+                    new_record = Points(
+                        user=oldest_rephoto.user,
+                        action=Points.REPHOTO,
+                        photo=oldest_rephoto,
+                        points=1250,
+                        created=oldest_rephoto.created
+                    )
                     new_record.save()
             for rp in rephotos_by_this_user:
                 current_score = 250
@@ -958,9 +913,15 @@ class Profile(models.Model):
                         user_first_bonus_earned = True
                     # Check that we have a record in the scoring table
                     try:
-                        existing_record = Points.objects.filter(action=Points.REPHOTO, photo=rp).get()
+                        Points.objects.get(action=Points.REPHOTO, photo=rp)
                     except ObjectDoesNotExist:
-                        new_record = Points(user=rp.user, action=Points.REPHOTO, photo=rp, points=current_score, created=rp.created)
+                        new_record = Points(
+                            user=rp.user,
+                            action=Points.REPHOTO,
+                            photo=rp,
+                            points=current_score,
+                            created=rp.created
+                        )
                         new_record.save()
                     user_rephoto_score += current_score
 
@@ -970,22 +931,19 @@ class Profile(models.Model):
     def set_calculated_fields(self):
         all_time_score = 0
         for g in self.geotags.all():
-            if g.score:
-                all_time_score += g.score
+            all_time_score += g.score
         self.score = all_time_score
-        if self.score_rephoto:
-            self.score += self.score_rephoto
+        self.score += self.score_rephoto
 
     def __unicode__(self):
-        return u'%d - %s - %s' % (self.user.id, self.user.username, self.user.get_full_name())
+        return u"%d - %s - %s" % (self.user.id, self.user.username, self.user.get_full_name())
 
 
-class Source(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
-
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+class Source(Model):
+    name = CharField(max_length=255)
+    description = TextField(null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
@@ -994,12 +952,12 @@ class Source(models.Model):
         app_label = "project"
 
 
-class Device(models.Model):
-    camera_make = models.CharField(null=True, blank=True, max_length=255)
-    camera_model = models.CharField(null=True, blank=True, max_length=255)
-    lens_make = models.CharField(null=True, blank=True, max_length=255)
-    lens_model = models.CharField(null=True, blank=True, max_length=255)
-    software = models.CharField(null=True, blank=True, max_length=255)
+class Device(Model):
+    camera_make = CharField(null=True, blank=True, max_length=255)
+    camera_model = CharField(null=True, blank=True, max_length=255)
+    lens_make = CharField(null=True, blank=True, max_length=255)
+    lens_model = CharField(null=True, blank=True, max_length=255)
+    software = CharField(null=True, blank=True, max_length=255)
 
     class Meta:
         app_label = "project"
@@ -1008,29 +966,25 @@ class Device(models.Model):
         return "%s %s %s %s %s" % (self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
 
 
-class Skip(models.Model):
-    user = models.ForeignKey(Profile, related_name='skips')
-    photo = models.ForeignKey(Photo)
-    created = models.DateTimeField(auto_now_add=True)
+class Skip(Model):
+    user = ForeignKey("Profile", related_name="skips")
+    photo = ForeignKey("Photo")
+    created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Skip'
-        verbose_name_plural = 'Skips'
         app_label = "project"
 
 
-class Action(models.Model):
-    type = models.CharField(max_length=255)
-
-    related_type = models.ForeignKey(ContentType, null=True, blank=True)
-    related_id = models.PositiveIntegerField(null=True, blank=True)
-    related_object = generic.GenericForeignKey('related_type', 'related_id')
-
+class Action(Model):
+    type = CharField(max_length=255)
+    related_type = ForeignKey(ContentType, null=True, blank=True)
+    related_id = PositiveIntegerField(null=True, blank=True)
+    related_object = generic.GenericForeignKey("related_type", "related_id")
     params = json.JSONField(null=True, blank=True)
 
     @classmethod
-    def log(cls, type, params=None, related_object=None, request=None):
-        obj = cls(type=type, params=params)
+    def log(cls, my_type, params=None, related_object=None):
+        obj = cls(type=my_type, params=params)
         if related_object:
             obj.related_object = related_object
         obj.save()
@@ -1055,10 +1009,10 @@ class CSVPhoto(Photo):
         # 		pass
 
 
-class Licence(models.Model):
-    name = models.CharField(max_length=255)
-    url = models.TextField(blank=True, null=True)
-    image_url = models.TextField(blank=True, null=True)
+class Licence(Model):
+    name = CharField(max_length=255)
+    url = CharField(max_length=255, blank=True, null=True)
+    image_url = TextField(blank=True, null=True)
 
     class Meta:
         app_label = "project"

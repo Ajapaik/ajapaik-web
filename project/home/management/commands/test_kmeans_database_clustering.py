@@ -3,7 +3,7 @@ from django.db import connection
 
 
 class Command(BaseCommand):
-    help = "Test server-side geotag clustering"
+    help = "Test kmeans clustering plugin for Postgres"
 
     def handle(self, *args, **options):
         cursor = connection.cursor()

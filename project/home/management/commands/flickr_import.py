@@ -25,14 +25,15 @@ class Command(BaseCommand):
         tag = args[0]
         page = args[1]
         search_url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + FLICKR_API_KEY + '&tags=' + tag + '&is_commons=1&content_type=6&extras=license,original_format&format=json&nojsoncallback=1&page=' + page
-        #https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
+        # https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
         image_url_template = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg'
-        #https://www.flickr.com/photos/{user-id}/{photo-id}
+        # https://www.flickr.com/photos/{user-id}/{photo-id}
         reference_url_template = 'https://www.flickr.com/photos/%s/%s'
         request = urllib2.Request(search_url)
         response = urllib2.urlopen(request)
         data = response.read()
-        #data = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/flickr_import_test.json', 'r').read()
+        # Testing
+        # data = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/flickr_import_test.json', 'r').read()
         data = json.loads(data)
         source = Source.objects.get(description='The British Library')
         licence = Licence.objects.get(name='No known copyright restrictions')

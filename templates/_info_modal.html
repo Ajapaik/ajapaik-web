@@ -21,9 +21,9 @@
             <div class="modal-body" id="ajapaik-info-modal-body">
                 <div class="row">
                     {% blocktrans count counter=total_photo_count %}
-                        Album has {{ counter }} photo,
+                        Album has {{ counter }} historic photo,
                     {% plural %}
-                        Album has {{ counter }} photos,
+                        Album has {{ counter }} historic photos,
                     {% endblocktrans %}
                     {% blocktrans count counter=geotagging_user_count %}
                         {{ counter }} user has put
@@ -57,7 +57,7 @@
                     {% endif %}
                 </div>
                 {% if rephoto_user_count > 0 %}
-                    {% if rephoto_user_count != 1 and user_rephoto_count > 0 %}
+                    {% if not user_made_all_rephotos %}
                         <div class="row">
                             {% blocktrans count counter=rephoto_user_count %}
                                 {{ counter }} user has made
@@ -137,7 +137,11 @@
                 </div>
                 <div class="btn-group btn-group-justified" id="ajapaik-info-modal-game-button" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <a class="btn btn-success" href="{{ share_game_link }}?album={{ album.id }}&fromButton=1">{% trans "Geotag pictures" %}</a>
+                        {% if is_mapview %}
+                            <a class="btn btn-success" href="{{ share_game_link }}?album={{ album.id }}&fromButton=1">{% trans "Geotag pictures" %}</a>
+                        {% else %}
+                            <a class="btn btn-success" data-dismiss="modal">{% trans "Back to game" %}</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

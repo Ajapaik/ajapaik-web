@@ -90,7 +90,7 @@ class Command(BaseCommand):
             new_album.save()
             self.album = new_album
         items_per_page = 20
-        page=1
+        page = 1
         parser = etree.XMLParser()
         request = urllib2.Request(url)
         response = urllib2.urlopen(request)
