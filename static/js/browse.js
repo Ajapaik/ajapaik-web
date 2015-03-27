@@ -575,8 +575,6 @@
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
                 window.FB.XFBML.parse();
-                $('.fb-comments-count').parent().show();
-                $('.fb_comments_count_zero').parent().hide();
             });
         }
     };
