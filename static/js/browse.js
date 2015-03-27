@@ -574,6 +574,7 @@
                 }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
+                window.FB.XFBML.parse();
             });
         }
     };

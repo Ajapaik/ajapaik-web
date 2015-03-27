@@ -3,7 +3,6 @@
         <a id="element{{ element.0 }}" class="ajapaik-mapview-pane-photo-container"
            data-id="{{ element.0 }}"
            onclick="window.highlightSelected({{ element.0 }}, false, event);">
-            <span class="fb-comments-count" data-href="{{ element.8 }}"></span>
             <img src=""
                  data-src="{{ element.1 }}"
                  title="{{ element.4 }}"
@@ -27,6 +26,9 @@
                  onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
                  onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
                 {{ element.2 }}
+            </div>
+            <div class="ajapaik-comment-count">
+                <span class="fb-comments-count" data-href="{{ element.8 }}"></span>
             </div>
             {% endif %}
         </a>

@@ -320,7 +320,7 @@ def user_favorite_add(request):
             content = _get_user_data(request, add_favorite=cat_user_favorite)
         except IntegrityError:
             content = _get_user_data(request)
-            content['error'] = 2
+            content['error'] = 0
 
     return Response(content)
 

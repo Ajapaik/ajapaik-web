@@ -704,6 +704,18 @@ a.fullscreen {
     background: rgba(0, 169, 231, 0.5);
 }
 
+.ajapaik-comment-count {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background: rgba(0, 169, 231, 0.5);
+}
+
 .ajapaik-mapview-pane-photo-container {
     display: inline-block;
     position: relative;
