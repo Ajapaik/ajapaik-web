@@ -21,14 +21,14 @@
             </div>
             {% endif %}
             {% if element.2 %}
-            <div class="ajapaik-rephoto-count"
-                 data-id="{{ element.0 }}"
-                 onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
-                 onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
-                {{ element.2 }}
-            </div>
-            <span class="fb-comments-count ajapaik-comment-count" data-href="{{ element.8 }}"></span>
+                <div class="ajapaik-rephoto-count"
+                     data-id="{{ element.0 }}"
+                     onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
+                     onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
+                    {{ element.2 }}
+                </div>
             {% endif %}
+            <span class="fb-comments-count ajapaik-comment-count" data-href="{{ element.8 }}"></span>
         </a>
     {% endfor %}
 </div>
