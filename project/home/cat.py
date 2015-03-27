@@ -132,7 +132,7 @@ def cat_albums(request):
     albums = CatAlbum.objects.all().order_by('-created')
     ret = []
     for a in albums:
-        user_tagged_photos_count = CatTagPhoto.objects.filter(profile=request.get_user().profile).distinct('photo').count()
+        user_tagged_photos_count = CatTagPhoto.objects.filter(album=a, profile=request.get_user().profile).distinct('photo').count()
         ret.append({
             'id': a.id,
             'title': a.title,
