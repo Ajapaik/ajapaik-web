@@ -450,7 +450,7 @@
                     },
                     success : function(response) {
                         if (response) {
-                            selectedResults[e.target.dataset.id].inAjapaik = true;
+                            selectedResults[e.target.dataset.id].ajapaikId = response;
                         }
                     }
                 });
@@ -468,6 +468,7 @@
         var replaceAll = function(string, find, replace) {
             return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
         };
+        window.photoPermalink = '{% url "project.home.views.photo" %}';
         window.formatId = function (id) {
             id = replaceAll(id, ':', '');
             id = replaceAll(id, '.', '');
@@ -684,8 +685,10 @@
                         <i class="glyphicon ajapaik-icon ajapaik-icon-delete"></i>
                       </button>
                     </div>
-                    {% if (o.inAjapaik) { %}
-                        <img class="img-responsive ajapaik-already-have-indicator" src="{% endverbatim %}{{ STATIC_URL }}images/ajapaik_marker_35px.png{% verbatim %}" title="{%=gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded')%}">
+                    {% if (o.ajapaikId) { %}
+                        <a target="_blank" href="{%=photoPermalink + o.ajapaikId%}">
+                            <img class="img-responsive ajapaik-already-have-indicator" src="{% endverbatim %}{{ STATIC_URL }}images/ajapaik_marker_35px.png{% verbatim %}" title="{%=gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded')%}">
+                        </a>
                     {% } %}
                 </div>
                 <div class="panel panel-primary">

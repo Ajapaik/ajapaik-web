@@ -12,6 +12,11 @@ class CSVUploadAdmin(admin.ModelAdmin):
         return request.user.groups.filter(name='csv_uploaders').exists()
 
 
+class AlbumPhotoInline(admin.TabularInline):
+    model = AlbumPhoto
+    extra = 1
+
+
 class PhotoAdmin(ForeignKeyAutocompleteAdmin):
     @staticmethod
     def _distance_between_two_points_on_sphere(lon_1, lat_1, lon_2, lat_2):
@@ -44,6 +49,8 @@ class PhotoAdmin(ForeignKeyAutocompleteAdmin):
                     geo_tag.is_correct = True
                 geo_tag.save()
         obj.save()
+
+    inlines = (AlbumPhotoInline,)
 
     related_search_fields = {
         'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
@@ -78,6 +85,8 @@ class PointsAdmin(ForeignKeyAutocompleteAdmin):
 
 
 class AlbumAdmin(ForeignKeyAutocompleteAdmin):
+    inlines = (AlbumPhotoInline,)
+
     related_search_fields = {
         'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
     }

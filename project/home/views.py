@@ -710,9 +710,8 @@ def map_objects_by_bounding_box(request):
         if album_id and limit_by_album:
             album = Album.objects.get(pk=album_id)
             album_photo_ids = list(album.photos.values_list("id", flat=True))
-            subalbums = album.subalbums.all()
-            for sa in subalbums:
-                album_photo_ids += sa.photos.values_list("id", flat=True)
+            for sa in album.subalbums.all():
+                album_photo_ids += list(sa.photos.values_list("id", flat=True))
             qs = qs.filter(id__in=album_photo_ids)
 
     if data.get("sw_lat") and data.get("sw_lon") and data.get("ne_lat") and data.get("ne_lon"):
@@ -961,9 +960,8 @@ def check_if_photo_in_ajapaik(request):
             source = Source.objects.get(description=source_desc)
             if source:
                 try:
-                    photo_count = Photo.objects.filter(source=source, source_key=source_key).count()
-                    if photo_count > 0:
-                        return HttpResponse(json.dumps(True), content_type="application/json")
+                    p = Photo.objects.get(source=source, source_key=source_key)
+                    return HttpResponse(json.dumps(p.id), content_type="application/json")
                 except ObjectDoesNotExist:
                     pass
         except ObjectDoesNotExist:
