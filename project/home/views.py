@@ -73,7 +73,7 @@ def _get_album_info_modal_data(album, request):
     ret["user_geotagged_photo_count"] = geotags_for_album_photos.filter(user=profile).distinct("photo_id").count()
     ret["geotagging_user_count"] = geotags_for_album_photos.distinct("user").count()
 
-    album_rephotos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).distinct("id")
+    album_rephotos = Photo.objects.filter(rephoto_of_id__isnull=False, rephoto_of_id__in=album_photo_ids)
     ret["rephoto_count"] = album_rephotos.count()
     ret["rephoto_user_count"] = album_rephotos.distinct("user").count()
     ret["rephotographed_photo_count"] = album_rephotos.distinct("rephoto_of").count()
