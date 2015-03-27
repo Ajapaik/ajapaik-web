@@ -133,10 +133,6 @@ def cat_albums(request):
     ret = []
     for a in albums:
         user_tagged_photos_count = CatTagPhoto.objects.filter(profile=request.get_user().profile).distinct('photo').count()
-        if user_tagged_all_in_album:
-            user_tagged_all_in_album = 1
-        else:
-            user_tagged_all_in_album = 0
         ret.append({
             'id': a.id,
             'title': a.title,
