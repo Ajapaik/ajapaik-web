@@ -80,7 +80,9 @@
             id: 'ajapaik-mapview-photo-panel'
         },
         centerOnMapAfterLocating = false,
-        userHasBeenAnnoyedOnce = false;
+        userHasBeenAnnoyedOnce = false,
+        specifyStart,
+        specifyStartZoom;
     window.loadPhoto = function (id) {
         photoId = id;
         $.ajax({
@@ -195,6 +197,8 @@
 
     window.startGuessLocation = function () {
         if (!window.guessLocationStarted) {
+            specifyStart = window.map.getCenter();
+            specifyStartZoom = window.map.zoom;
             $('.ajapaik-mapview-game-button').hide();
             window.guessResponseReceived = false;
             if (window.map.zoom < 17) {
@@ -404,10 +408,11 @@
         window.realMapElement.removeEventListener('mousewheel', nonFFWheelListener);
         window.realMapElement.removeEventListener('DOMMouseScroll', ffWheelListener);
         $('.center-marker').hide();
-        if (window.albumLatLng) {
-            window.map.setCenter(window.albumLatLng);
-        } else if (window.areaLatLng) {
-            window.map.setCenter(window.areaLatLng);
+        if (specifyStart) {
+            window.map.setCenter(specifyStart);
+            if (specifyStartZoom) {
+                window.map.setZoom(specifyStartZoom);
+            }
         }
         window.google.maps.event.removeListener(window.mapMousemoveListener);
         window.mapMousemoveListenerActive = false;
@@ -549,7 +554,8 @@
             if (currentPaneDataRequest) {
                 currentPaneDataRequest.abort();
             }
-            currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+            var mapCenter = window.map.getCenter();
+            currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, center_lat: mapCenter.lat(), center_lon: mapCenter.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (photoPanel) {
                     photoPanel.content.html(response);
                     photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);

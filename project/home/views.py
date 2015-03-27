@@ -74,6 +74,8 @@ def _get_album_info_modal_data(album, request):
     ret["geotagging_user_count"] = geotags_for_album_photos.distinct("user").count()
 
     album_rephotos = Photo.objects.filter(rephoto_of_id__isnull=False, rephoto_of_id__in=album_photo_ids)
+    print album_photo_ids
+    print album_rephotos
     ret["rephoto_count"] = album_rephotos.count()
     ret["rephoto_user_count"] = album_rephotos.distinct("user").count()
     ret["rephotographed_photo_count"] = album_rephotos.distinct("rephoto_of").count()
@@ -591,7 +593,13 @@ def mapview_photo_upload_modal(request, photo_id):
 
 
 def pane_contents(request):
+    # TODO: Form
     marker_ids = request.POST.getlist("marker_ids[]")
+    # center_lat = request.POST.get("center_lat")
+    # center_lon = request.POST.get("center_lon")
+    # ref_location = Point(float(center_lat), float(center_lon))
+
+    # http://stackoverflow.com/questions/7035989/geo-django-subclassing-queryset
     data = []
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids):
         rephoto_count = p.rephotos.count()
@@ -603,11 +611,14 @@ def pane_contents(request):
             else:
                 thumb_str = "x%d"
             im = get_thumbnail(p.image, thumb_str % 150, crop="center")
-            data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1]])
+            url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
+            data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1], url])
         except IOError:
             pass
 
-    return render_to_response("pane_contents.html", RequestContext(request, {"data": data}))
+    return render_to_response("pane_contents.html", RequestContext(request, {
+        "data": data,
+    }))
 
 
 @ensure_csrf_cookie
