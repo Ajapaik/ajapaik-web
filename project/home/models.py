@@ -931,7 +931,8 @@ class Profile(Model):
     def set_calculated_fields(self):
         all_time_score = 0
         for g in self.geotags.all():
-            all_time_score += g.score
+            if g.score:
+                all_time_score += g.score
         self.score = all_time_score
         self.score += self.score_rephoto
 
