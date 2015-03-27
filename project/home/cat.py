@@ -132,8 +132,7 @@ def cat_albums(request):
     albums = CatAlbum.objects.all().order_by('-created')
     ret = []
     for a in albums:
-        user_tagged_all_in_album = \
-            a.photos.count() == CatTagPhoto.objects.filter(profile=request.get_user().profile).distinct('photo').count()
+        user_tagged_photos_count = CatTagPhoto.objects.filter(profile=request.get_user().profile).distinct('photo').count()
         if user_tagged_all_in_album:
             user_tagged_all_in_album = 1
         else:
@@ -143,7 +142,8 @@ def cat_albums(request):
             'title': a.title,
             'subtitle': a.subtitle,
             'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
-            'tagged': user_tagged_all_in_album,
+            'tagged': user_tagged_photos_count,
+            'total': a.photos.count()
         })
     content = {
         'error': error,
