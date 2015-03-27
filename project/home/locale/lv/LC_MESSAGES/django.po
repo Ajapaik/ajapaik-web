@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-25 17:26+0200\n"
+"POT-Creation-Date: 2015-03-27 12:55+0200\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,53 +33,53 @@ msgstr "Izvēlies apgabalu"
 msgid "Choose album"
 msgstr "Izvēlies valodu"
 
-#: project/home/models.py:757
+#: project/home/models.py:724
 msgid "Map"
 msgstr ""
 
-#: project/home/models.py:758
+#: project/home/models.py:725
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:759
+#: project/home/models.py:726
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:763
+#: project/home/models.py:730
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:764
+#: project/home/models.py:731
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:765
+#: project/home/models.py:732
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:769
+#: project/home/models.py:736
 #, fuzzy
 #| msgid "Close map"
 msgid "Google map"
 msgstr "Aizvērt karti"
 
-#: project/home/models.py:770
+#: project/home/models.py:737
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:771
+#: project/home/models.py:738
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:322
+#: project/home/views.py:363
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:326
+#: project/home/views.py:367
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:384 templates/_header.html:5
+#: project/home/views.py:425 templates/_header.html:5
 #: templates/_header_area_selection_scoreboard.html:5 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:55
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:385 templates/frontpage.html:92
+#: project/home/views.py:426 templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
@@ -95,77 +95,77 @@ msgstr ""
 "Apskati un pievieno metadatus vēsturiskajiem attēliem. Sacenšoties ar citiem "
 "būs aizraujoši."
 
-#: project/home/views.py:633 project/home/views.py:644
-#: project/home/views.py:646 templates/frontpage.html:157
+#: project/home/views.py:674 project/home/views.py:685
+#: project/home/views.py:687 templates/frontpage.html:157
 msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
-#: project/home/views.py:746
+#: project/home/views.py:785
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:749
+#: project/home/views.py:788
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:752
+#: project/home/views.py:791
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:754
+#: project/home/views.py:793
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:756
+#: project/home/views.py:795
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:758
+#: project/home/views.py:797
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:776 project/home/views.py:792
+#: project/home/views.py:815 project/home/views.py:831
 #: templates/_header_area_selection_scoreboard.html:30
 msgid "Leaderboard"
 msgstr "Līderu tabula"
 
-#: project/home/views.py:884
+#: project/home/views.py:923
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:886
+#: project/home/views.py:925
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:1095
+#: project/home/views.py:1147
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1097
+#: project/home/views.py:1149
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1120
+#: project/home/views.py:1172
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1129
+#: project/home/views.py:1181
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1136
+#: project/home/views.py:1188
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1138
+#: project/home/views.py:1190
 msgid "Not enough data submitted"
 msgstr ""
 
@@ -268,7 +268,7 @@ msgid "Next photo"
 msgstr "Nākošais attēls"
 
 #: templates/_guess_panel.html:61 templates/_guess_panel_xs.html:16
-#: templates/_info_modal.html:134
+#: templates/_info_modal.html:132
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
@@ -324,11 +324,11 @@ msgstr ""
 #| "%(link_open)sclick here%(link_close)s."
 msgid ""
 "\n"
-"                        Album has %(counter)s photo,\n"
+"                        Album has %(counter)s historic photo,\n"
 "                    "
 msgid_plural ""
 "\n"
-"                        Album has %(counter)s photos,\n"
+"                        Album has %(counter)s historic photos,\n"
 "                    "
 msgstr[0] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
@@ -544,20 +544,26 @@ msgstr[2] ""
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/_info_modal.html:108 templates/_photo_modal.html:100
+#: templates/_info_modal.html:106 templates/_photo_modal.html:100
 #: templates/photoview.html:61
 msgid "Share"
 msgstr ""
 
-#: templates/_info_modal.html:136
+#: templates/_info_modal.html:134
 msgid "Show on map"
 msgstr ""
 
-#: templates/_info_modal.html:142
+#: templates/_info_modal.html:141
 #, fuzzy
 #| msgid "All pictures"
 msgid "Geotag pictures"
 msgstr "Visi attēli"
+
+#: templates/_info_modal.html:143
+#, fuzzy
+#| msgid "Back to home page"
+msgid "Back to game"
+msgstr "Uz sākumu"
 
 #: templates/_photo_modal.html:87 templates/photoview.html:99
 msgid "Rephotograph by"
