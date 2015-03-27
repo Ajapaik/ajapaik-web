@@ -1489,3 +1489,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #ajapaik-info-modal-game-button {
     padding-top: 10px;
 }
+
+.fb_comments_count_zero {
+    display: none;
+}
