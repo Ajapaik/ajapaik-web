@@ -1,4 +1,5 @@
 # encoding: utf-8
+from copy import deepcopy
 import os
 import urllib2
 import requests
@@ -27,11 +28,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import get_thumbnail
 from time import strftime, strptime
-
-import get_next_photos_to_geotag
-
+from StringIO import StringIO
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, distance_in_meters, _angle_diff, Skip
+    Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
@@ -62,14 +61,13 @@ def _get_album_info_modal_data(album, request):
     profile = request.get_user().profile
     ret = {}
     # TODO: Can these queries be optimized?
-    album_photos_qs = album.photos.all()
+    album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
     if album.subalbums:
         for sa in album.subalbums.all():
-            album_photos_qs = album_photos_qs | sa.photos.all()
-    album_photo_ids = album_photos_qs.values_list("id", flat=True)
-    ret["total_photo_count"] = album_photos_qs.distinct("id").count()
-    ret["geotagged_photo_count"] = album_photos_qs.filter(
-        rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False).distinct("id").count()
+            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+    album_photo_ids = set(album_photos_qs.values_list("id", flat=True))
+    ret["total_photo_count"] = len(album_photo_ids)
+    ret["geotagged_photo_count"] = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
 
     geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
     ret["user_geotagged_photo_count"] = geotags_for_album_photos.filter(user=profile).distinct("photo_id").count()
@@ -83,6 +81,10 @@ def _get_album_info_modal_data(album, request):
     album_user_rephotos = album_rephotos.filter(user=profile)
     ret["user_rephoto_count"] = album_user_rephotos.count()
     ret["user_rephotographed_photo_count"] = album_user_rephotos.distinct("rephoto_of").count()
+    if ret["rephoto_user_count"] == 1 and ret["user_rephoto_count"] == ret["rephoto_count"]:
+        ret["user_made_all_rephotos"] = True
+    else:
+        ret["user_made_all_rephotos"] = False
 
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
@@ -191,6 +193,46 @@ def _calculate_recent_activity_scores():
         each.save()
 
 
+def _get_leaderboard(user_id):
+    scores_list = list(enumerate(Profile.objects.filter(
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+        Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
+        Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
+                                   'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
+    board = [scores_list[0]]
+    self_user_idx = filter(lambda (inner_idx, inner_data): inner_data[0] == user_id, scores_list)[0][0]
+    if self_user_idx - 1 > 0:
+        board.append(scores_list[self_user_idx - 1])
+    if self_user_idx > 0:
+        board.append(scores_list[self_user_idx])
+    if self_user_idx + 1 < len(scores_list):
+        board.append(scores_list[self_user_idx + 1])
+    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3], data[4], data[5]) for idx, data in board]
+    return board
+
+
+def _get_leaderboard50(user_id):
+    scores_list = list(enumerate(Profile.objects.filter(
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+        Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
+        Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
+                                   'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
+    board = scores_list[:50]
+    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in board]
+    return board
+
+
+def _get_all_time_leaderboard50(user_id):
+    scores_list = list(enumerate(Profile.objects.filter(
+        Q(fb_name__isnull=False, score__gt=0) |
+        Q(google_plus_name__isnull=False, score__gt=0) |
+        Q(pk=user_id)).values_list('pk', 'score', 'fb_id', 'fb_name',
+                                   'google_plus_name', 'google_plus_picture').order_by('-score')))
+    board = scores_list[:50]
+    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in board]
+    return board
+
+
 @csrf_exempt
 def photo_upload(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
@@ -235,35 +277,34 @@ def photo_upload(request, photo_id):
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
 
-                # img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
+                img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
 
-                # FIXME: Rephoto image scaling
-                # if re_photo.cam_scale_factor:
-                #     new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
-                #     output_file = StringIO()
-                #
-                #     if re_photo.cam_scale_factor < 1:
-                #         x0 = (img.size[0] - new_size[0]) / 2
-                #         y0 = (img.size[1] - new_size[1]) / 2
-                #         x1 = img.size[0] - x0
-                #         y1 = img.size[1] - y0
-                #         new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
-                #         new_img.save(output_file, "JPEG", quality=95)
-                #         re_photo.image_unscaled = deepcopy(re_photo.image)
-                #         new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
-                #         re_photo.image_unscaled.save(new_name, ContentFile(img))
-                #         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-                #     elif re_photo.cam_scale_factor > 1:
-                #         x0 = (new_size[0] - img.size[0]) / 2
-                #         y0 = (new_size[1] - img.size[1]) / 2
-                #         new_img = Image.new("RGB", new_size)
-                #         new_img.paste(img, (x0, y0))
-                #         new_img.save(output_file, "JPEG", quality=95)
-                #         re_photo.image_unscaled = deepcopy(re_photo.image)
-                #         new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
-                #         re_photo.image_unscaled.save(new_name, ContentFile(img))
-                #         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                if re_photo.cam_scale_factor:
+                    new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
+                    output_file = StringIO()
+
+                    if re_photo.cam_scale_factor < 1:
+                        x0 = (img.size[0] - new_size[0]) / 2
+                        y0 = (img.size[1] - new_size[1]) / 2
+                        x1 = img.size[0] - x0
+                        y1 = img.size[1] - y0
+                        new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
+                        new_img.save(output_file, "JPEG", quality=95)
+                        re_photo.image_unscaled = deepcopy(re_photo.image)
+                        new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
+                        re_photo.image_unscaled.save(new_name, ContentFile(img))
+                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                    elif re_photo.cam_scale_factor > 1:
+                        x0 = (new_size[0] - img.size[0]) / 2
+                        y0 = (new_size[1] - img.size[1]) / 2
+                        new_img = Image.new("RGB", new_size)
+                        new_img.paste(img, (x0, y0))
+                        new_img.save(output_file, "JPEG", quality=95)
+                        re_photo.image_unscaled = deepcopy(re_photo.image)
+                        new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
+                        re_photo.image_unscaled.save(new_name, ContentFile(img))
+                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
         profile.update_rephoto_score()
 
@@ -670,9 +711,8 @@ def map_objects_by_bounding_box(request):
         if album_id and limit_by_album:
             album = Album.objects.get(pk=album_id)
             album_photo_ids = list(album.photos.values_list("id", flat=True))
-            subalbums = album.subalbums.all()
-            for sa in subalbums:
-                album_photo_ids += sa.photos.values_list("id", flat=True)
+            for sa in album.subalbums.all():
+                album_photo_ids += list(sa.photos.values_list("id", flat=True))
             qs = qs.filter(id__in=album_photo_ids)
 
     if data.get("sw_lat") and data.get("sw_lon") and data.get("ne_lat") and data.get("ne_lon"):
@@ -685,10 +725,9 @@ def map_objects_by_bounding_box(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-# TODO: Remove get_next_photos_to_geotag, move functionality to model or view
 def get_leaderboard(request):
     return HttpResponse(json.dumps(
-        get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)), content_type="application/json")
+        _get_leaderboard(request.get_user().profile.pk)), content_type="application/json")
 
 
 @login_required
@@ -703,7 +742,7 @@ def geotag_add(request):
         azimuth_score = 0
         new_geotag = submit_geotag_form.save(commit=False)
         new_geotag.user = profile
-        trust = get_next_photos_to_geotag.calc_trustworthiness(profile.id)
+        trust = _calc_trustworthiness(profile.id)
         new_geotag.trustworthiness = trust
         new_geotag.save()
         tagged_photo = submit_geotag_form.cleaned_data["photo"]
@@ -716,7 +755,7 @@ def geotag_add(request):
             if len(tagged_photo.geotags.all()) == 1:
                 score = max(20, int(300 * trust))
             else:
-                error_in_meters = distance_in_meters(tagged_photo.lon, tagged_photo.lat, processed_geotag.lon,
+                error_in_meters = _distance_in_meters(tagged_photo.lon, tagged_photo.lat, processed_geotag.lon,
                                                      processed_geotag.lat)
                 score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
         else:
@@ -767,7 +806,7 @@ def geotag_add(request):
 def leaderboard(request):
     # leaderboard with first position, one in front of you, your score and one after you
     _calculate_recent_activity_scores()
-    response = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
+    response = _get_leaderboard(request.get_user().profile.pk)
     template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
@@ -781,8 +820,8 @@ def leaderboard(request):
 def top50(request):
     # leaderboard with top 50 scores
     _calculate_recent_activity_scores()
-    activity_leaderboard = get_next_photos_to_geotag.get_leaderboard50(request.get_user().profile.pk)
-    all_time_leaderboard = get_next_photos_to_geotag.get_all_time_leaderboard50(request.get_user().profile.pk)
+    activity_leaderboard = _get_leaderboard50(request.get_user().profile.pk)
+    all_time_leaderboard = _get_all_time_leaderboard50(request.get_user().profile.pk)
     template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
@@ -799,7 +838,7 @@ def difficulty_feedback(request):
     # FIXME: Form, better error handling
     if not user_profile:
         return HttpResponse("Error", status=500)
-    user_trustworthiness = get_next_photos_to_geotag.calc_trustworthiness(user_profile.pk)
+    user_trustworthiness = _calc_trustworthiness(user_profile.pk)
     user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
     level = request.POST.get("level") or None
     photo_id = request.POST.get("photo_id") or None
@@ -870,7 +909,7 @@ def public_add_area(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    curator_leaderboard = get_next_photos_to_geotag.get_leaderboard(request.get_user().profile.pk)
+    curator_leaderboard = _get_leaderboard(request.get_user().profile.pk)
     last_created_album = Album.objects.filter(is_public=True).order_by("-created")[0]
     # FIXME: Ugly
     curator_random_image_ids = AlbumPhoto.objects.filter(
@@ -889,24 +928,27 @@ def curator(request):
     }))
 
 
+def _curator_get_records_by_ids(ids):
+    ids_str = ['"' + each + '"' for each in ids]
+    request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
+    response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
+
+    return response
+
+
 def curator_search(request):
-    url = "http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json"
     # FIXME: Form
     full_search = request.POST.get("fullSearch") or None
     ids = request.POST.getlist("ids[]") or None
-    response = None
+    response = []
     if ids is not None:
-        ids_str = ['"' + each + '"' for each in ids]
-        request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
-        response = requests.post(url, data=request_params)
+        response = _curator_get_records_by_ids(ids)
     if full_search is not None:
         full_search = full_search.encode('utf-8')
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
-        response = requests.post(url, data=request_params)
-    if response is not None:
-        return HttpResponse(response, content_type="application/json")
-    else:
-        return HttpResponse([], content_type="application/json")
+        response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
+
+    return HttpResponse(response, content_type="application/json")
 
 
 def check_if_photo_in_ajapaik(request):
@@ -919,13 +961,13 @@ def check_if_photo_in_ajapaik(request):
             source = Source.objects.get(description=source_desc)
             if source:
                 try:
-                    photo_count = Photo.objects.filter(source=source, source_key=source_key).count()
-                    if photo_count > 0:
-                        return HttpResponse(json.dumps(True), content_type="application/json")
+                    p = Photo.objects.get(source=source, source_key=source_key)
+                    return HttpResponse(json.dumps(p.id), content_type="application/json")
                 except ObjectDoesNotExist:
                     pass
         except ObjectDoesNotExist:
             pass
+
     return HttpResponse(json.dumps(False), content_type="application/json")
 
 
@@ -934,6 +976,7 @@ def curator_my_album_list(request):
     serializer = CuratorMyAlbumListAlbumSerializer(
         Album.objects.filter(profile=user_profile, is_public=True).order_by("-created"), many=True
     )
+
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
 
 
@@ -942,6 +985,7 @@ def curator_selectable_albums(request):
     serializer = CuratorAlbumSelectionAlbumSerializer(
         Album.objects.filter((Q(profile=user_profile) & Q(is_public=True))).order_by('-created').all(), many=True
     )
+
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
 
 
@@ -996,11 +1040,19 @@ def curator_photo_upload_handler(request):
     curator_album_select_form = CuratorAlbumSelectionForm(request.POST)
     curator_album_create_form = AddAlbumForm(request.POST)
 
-    # FIXME: NO RAW JSON FROM USERS!
     selection_json = request.POST.get("selection") or None
     selection = None
     if selection_json is not None:
-        selection = json.loads(selection_json)
+        # Query again to block porn
+        parsed_selection = json.loads(selection_json)
+        ids = [k for k, v in parsed_selection.iteritems()]
+        response = _curator_get_records_by_ids(ids)
+        parsed_response = json.loads(response.text)["result"]
+        parsed_kv = {}
+        for each in parsed_response:
+            parsed_kv[each["id"]] = each
+        parsed_selection.update(parsed_kv)
+        selection = parsed_selection
 
     all_curating_points = []
     total_points_for_curating = 0
@@ -1032,7 +1084,7 @@ def curator_photo_upload_handler(request):
         )
         default_album.save()
         ret["album_id"] = album.id
-        for (k, v) in selection.iteritems():
+        for k, v in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
             awarded_curator_points = []

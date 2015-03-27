@@ -236,7 +236,7 @@ var map,
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
             mapviewGameButton = document.createElement('button');
-            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button').html(window.gettext('Geotagging game'));
+            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button').html(window.gettext('Geotag pictures'));
             map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
             myLocationButton = document.createElement('button');
             $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');

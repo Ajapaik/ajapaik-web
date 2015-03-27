@@ -8,6 +8,7 @@ import requests
 from project.home.models import Area, Album, Source, Photo, AlbumPhoto
 
 
+# TODO: Old API, remake?
 class Command(BaseCommand):
     help = "Will download data from Europeana"
     args = "query geoname target_album text_language"

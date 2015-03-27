@@ -282,6 +282,15 @@
             });
         }
     };
+    window.syncMapStateToURL = function () {
+        var historyReplacementString = '/game/';
+        if (window.albumId) {
+            historyReplacementString += '?album=' + window.albumId;
+        } else if (window.areaId) {
+            historyReplacementString += '?area=' + window.areaId;
+        }
+        window.History.replaceState(null, window.title, historyReplacementString);
+    };
     showDescriptions = function () {
         if (window.popoverShown) {
             $('[data-toggle="popover"]').popover('hide');
@@ -369,6 +378,7 @@
             $('#ajapaik-info-modal').modal();
         }
         $(window.input).show();
+        window.syncMapStateToURL();
         $.jQee('space', function () {
             if (window.fullscreenEnabled) {
                 window.BigScreen.exit();

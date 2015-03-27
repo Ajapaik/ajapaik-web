@@ -3,7 +3,7 @@ from project.home.models import Profile
 
 
 class Command(BaseCommand):
-    help = "Will run set_calculated_fields for every profile"
+    help = "Will run set_calculated_fields for one or every profile"
     args = "profile_id"
 
     def handle(self, *args, **options):

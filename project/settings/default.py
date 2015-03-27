@@ -157,7 +157,6 @@ EXTERNAL_APPS = (
     'rest_framework',
     'compressor',
     'modeltranslation',
-    #'django_cleanup',
 )
 
 LOCAL_APPS = (
@@ -193,4 +192,4 @@ CACHES = {
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-GEOIP_PATH = 'project/home/geoip'
+AJAPAIK_VALIMIMOODUL_URL = "http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json"

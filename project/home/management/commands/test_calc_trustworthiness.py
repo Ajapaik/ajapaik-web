@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
-from project.home.get_next_photos_to_geotag import calc_trustworthiness
+from project.home.models import calc_trustworthiness
+
 
 class Command(BaseCommand):
     help = "Test calc_trustworthiness"

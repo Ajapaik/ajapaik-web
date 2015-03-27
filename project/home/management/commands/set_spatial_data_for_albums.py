@@ -9,8 +9,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         albums = Album.objects.filter(geography__isnull=True)
         for a in albums:
-            try:
-                a.geography = Point(x=float(a.lat), y=float(a.lon), srid=4326)
-                a.save()
-            except:
-                continue
+            a.geography = Point(x=float(a.lat), y=float(a.lon), srid=4326)
+            a.save()

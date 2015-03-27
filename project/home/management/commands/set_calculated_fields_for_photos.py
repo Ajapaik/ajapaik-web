@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             photo_id = args[0]
-        except:
+        except IndexError:
             photo_id = None
         if photo_id:
             photo = Photo.objects.get(pk=photo_id)
