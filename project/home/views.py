@@ -1,4 +1,5 @@
 # encoding: utf-8
+from copy import deepcopy
 import os
 import urllib2
 import requests
@@ -27,6 +28,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import get_thumbnail
 from time import strftime, strptime
+from StringIO import StringIO
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
@@ -275,35 +277,34 @@ def photo_upload(request, photo_id):
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
 
-                # img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
+                img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
 
-                # FIXME: Rephoto image scaling
-                # if re_photo.cam_scale_factor:
-                #     new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
-                #     output_file = StringIO()
-                #
-                #     if re_photo.cam_scale_factor < 1:
-                #         x0 = (img.size[0] - new_size[0]) / 2
-                #         y0 = (img.size[1] - new_size[1]) / 2
-                #         x1 = img.size[0] - x0
-                #         y1 = img.size[1] - y0
-                #         new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
-                #         new_img.save(output_file, "JPEG", quality=95)
-                #         re_photo.image_unscaled = deepcopy(re_photo.image)
-                #         new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
-                #         re_photo.image_unscaled.save(new_name, ContentFile(img))
-                #         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
-                #     elif re_photo.cam_scale_factor > 1:
-                #         x0 = (new_size[0] - img.size[0]) / 2
-                #         y0 = (new_size[1] - img.size[1]) / 2
-                #         new_img = Image.new("RGB", new_size)
-                #         new_img.paste(img, (x0, y0))
-                #         new_img.save(output_file, "JPEG", quality=95)
-                #         re_photo.image_unscaled = deepcopy(re_photo.image)
-                #         new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
-                #         re_photo.image_unscaled.save(new_name, ContentFile(img))
-                #         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                if re_photo.cam_scale_factor:
+                    new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
+                    output_file = StringIO()
+
+                    if re_photo.cam_scale_factor < 1:
+                        x0 = (img.size[0] - new_size[0]) / 2
+                        y0 = (img.size[1] - new_size[1]) / 2
+                        x1 = img.size[0] - x0
+                        y1 = img.size[1] - y0
+                        new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
+                        new_img.save(output_file, "JPEG", quality=95)
+                        re_photo.image_unscaled = deepcopy(re_photo.image)
+                        new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
+                        re_photo.image_unscaled.save(new_name, ContentFile(img))
+                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
+                    elif re_photo.cam_scale_factor > 1:
+                        x0 = (new_size[0] - img.size[0]) / 2
+                        y0 = (new_size[1] - img.size[1]) / 2
+                        new_img = Image.new("RGB", new_size)
+                        new_img.paste(img, (x0, y0))
+                        new_img.save(output_file, "JPEG", quality=95)
+                        re_photo.image_unscaled = deepcopy(re_photo.image)
+                        new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
+                        re_photo.image_unscaled.save(new_name, ContentFile(img))
+                        re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
         profile.update_rephoto_score()
 
