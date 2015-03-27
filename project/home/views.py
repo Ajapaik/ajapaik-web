@@ -292,8 +292,6 @@ def photo_upload(request, photo_id):
                         new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
                         new_img.save(output_file, "JPEG", quality=95)
                         re_photo.image_unscaled = deepcopy(re_photo.image)
-                        new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
-                        re_photo.image_unscaled.save(new_name, ContentFile(img))
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
                     elif re_photo.cam_scale_factor > 1:
                         x0 = (new_size[0] - img.size[0]) / 2
@@ -302,8 +300,6 @@ def photo_upload(request, photo_id):
                         new_img.paste(img, (x0, y0))
                         new_img.save(output_file, "JPEG", quality=95)
                         re_photo.image_unscaled = deepcopy(re_photo.image)
-                        new_name = str(re_photo.image).split(".")[0] + str(datetime.datetime.now().microsecond) + str(re_photo.image).split(".")[1]
-                        re_photo.image_unscaled.save(new_name, ContentFile(img))
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
         profile.update_rephoto_score()
