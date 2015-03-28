@@ -203,6 +203,7 @@ def _get_favorite_object_json_form(request, obj):
         'id': obj.id,
         'album_id': obj.album.id,
         'photo_id': obj.photo.id,
+        'title': obj.photo.title,
         'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(obj.photo.id,))) + '[DIM]/',
         'date': _utcisoformat(obj.created)
     }
