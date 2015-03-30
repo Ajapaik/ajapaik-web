@@ -132,18 +132,14 @@ def cat_albums(request):
     albums = CatAlbum.objects.all().order_by('-created')
     ret = []
     for a in albums:
-        user_tagged_all_in_album = \
-            a.photos.count() == CatTagPhoto.objects.filter(profile=request.get_user().profile).distinct('photo').count()
-        if user_tagged_all_in_album:
-            user_tagged_all_in_album = 1
-        else:
-            user_tagged_all_in_album = 0
+        user_tagged_photos_count = CatTagPhoto.objects.filter(album=a, profile=request.get_user().profile).distinct('photo').count()
         ret.append({
             'id': a.id,
             'title': a.title,
             'subtitle': a.subtitle,
             'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
-            'tagged': user_tagged_all_in_album,
+            'tagged': user_tagged_photos_count,
+            'total': a.photos.count()
         })
     content = {
         'error': error,
@@ -207,6 +203,7 @@ def _get_favorite_object_json_form(request, obj):
         'id': obj.id,
         'album_id': obj.album.id,
         'photo_id': obj.photo.id,
+        'title': obj.photo.title,
         'image': request.build_absolute_uri(reverse('project.home.cat.cat_photo', args=(obj.photo.id,))) + '[DIM]/',
         'date': _utcisoformat(obj.created)
     }

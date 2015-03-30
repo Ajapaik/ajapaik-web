@@ -94,9 +94,24 @@
                             </a>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         </div>
-                        {% if rephoto.user.fb_name %}
+                        {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
+                            {% if rephoto.author %}
+                                <div class="row-fluid">{{ rephoto.author }}{% if rephoto.licence %} {% include "_licence.html" with licence=rephoto.licence %}{% endif %}</div>
+                            {% endif %}
+                            <div class="row-fluid">
+                                <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);" href='{{ rephoto.source_url }}' target="_blank">
+                                    {{ rephoto.source.description }} {{ rephoto.source_key }}
+                                </a>
+                            </div>
+                        {% elif rephoto.author %}
+                            <div class="row-fluid">{{ rephoto.author }}{% if rephoto.licence %} {% include "_licence.html" with licence=rephoto.licence %}{% endif %}</div>
+                        {% elif rephoto.user.fb_name %}
                             <div class="row-fluid">
                                 {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
+                            </div>
+                        {% else %}
+                            <div class="row-fluid">
+                                {% trans "Unknown author" %}
                             </div>
                         {% endif %}
                         {% if rephoto.date %}

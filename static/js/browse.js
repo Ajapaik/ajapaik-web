@@ -109,6 +109,7 @@
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-mapview-full-screen-image');
             $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
             $('.ajapaik-game-show-description-button').hide();
+            window.FB.XFBML.parse();
         });
     };
     updateBoundingEdge = function (edge) {

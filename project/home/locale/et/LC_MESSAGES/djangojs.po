@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-27 12:55+0200\n"
+"POT-Creation-Date: 2015-03-30 12:48+0300\n"
 "PO-Revision-Date: 2015-03-25 12:00+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:673 static/js/browse.js:815
+#: static/js/ajapaik-common.js:673 static/js/browse.js:822
 #: static/js/game.js:519 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -129,7 +129,7 @@ msgstr ""
 msgid "Source ID"
 msgstr "Allikaviide"
 
-#: static/js/browse.js:336 static/js/browse.js.c:337 static/js/game.js:259
+#: static/js/browse.js:340 static/js/browse.js.c:341 static/js/game.js:259
 #: static/js/game.js.c:261 static/js/grid.js:69
 msgid "Points awarded"
 msgstr "Saadud punktid"
