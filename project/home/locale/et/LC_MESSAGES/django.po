@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-30 12:48+0300\n"
-"PO-Revision-Date: 2015-03-25 17:41+0200\n"
+"PO-Revision-Date: 2015-03-30 12:57+0200\n"
 "Last-Translator: Aleksejs Mjaliks <>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: project/home/models.py:731
 msgid "Map view"
-msgstr ""
+msgstr "Kaardivaade"
 
 #: project/home/models.py:732
 msgid "Grid"
@@ -307,15 +307,7 @@ msgid "Album curated by"
 msgstr "Albumi kureerinud "
 
 #: templates/_info_modal.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                        Album has %(counter)s photo,\n"
-#| "                    "
-#| msgid_plural ""
-#| "\n"
-#| "                        Album has %(counter)s photos,\n"
-#| "                    "
+#, python-format
 msgid ""
 "\n"
 "                        Album has %(counter)s historic photo,\n"
@@ -1060,8 +1052,8 @@ msgstr "Kuupäev:"
 
 #, fuzzy
 #~| msgid ""
-#~| "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~| "sclick here %(link_close)s."
+#~| "Account (%(account_name)s) connected. If it's not you then "
+#~| "%(link_open)sclick here %(link_close)s."
 #~ msgid ""
 #~ "\n"
 #~ "                                %(counter)s picture from this album\n"
@@ -1162,8 +1154,8 @@ msgstr "Kuupäev:"
 #~ msgstr "vajuta siia"
 
 #~ msgid ""
-#~ "Account (%(account_name)s) connected. If it's not you then %(link_open)"
-#~ "sclick here%(link_close)s."
+#~ "Account (%(account_name)s) connected. If it's not you then "
+#~ "%(link_open)sclick here%(link_close)s."
 #~ msgstr ""
 #~ "Konto (%(account_name)s) seotud Facebookiga. Kui see ei ole Sina, siis "
 #~ "%(link_open)svajuta siia%(link_close)s."
