@@ -381,7 +381,10 @@
             }
         });
         //$('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
-        $('.ajapaik-photo-modal-rephoto-thumb')[0].click();
+        var thumbs = $('.ajapaik-photo-modal-rephoto-thumb');
+        if (thumbs) {
+            thumbs[0].click();
+        }
     });
 </script>
 {% verbatim %}
