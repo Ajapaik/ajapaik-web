@@ -135,7 +135,7 @@
                             </li>
                         </ul>
                     </div>
-                    <button class="btn btn-block btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %} <span data-href="{{ hostname }}{{ photo.get_absolute_url }}" class="badge fb-comments-count"></span></button>
+                    <button class="btn btn-block btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %} <span data-href="{{ fb_url }}" class="badge fb-comments-count"></span></button>
                     {% if geotag_count > 0 %}
                         {% if geotag_count == 1 %}
                             <p class="text-left">{{ geotag_count }} {% trans "location suggestion has been submitted for this picture" %}</p>
