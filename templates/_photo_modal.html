@@ -82,14 +82,6 @@
                     {% else %}
                         <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-info-column">
                     {% endif %}
-                        {% if photo.rephotos.all.0 %}
-                            <div class="row ajapaik-photo-modal-row">
-                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;{% include '_licence.html' with licence=photo.rephotos.all.0.licence %}
-                            </div>
-                            <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">
-                                {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date|date:"d.m.Y" }}</div>
-                            </div>
-                        {% endif %}
                     </div>
                 {% endif %}
             </div>
@@ -112,7 +104,7 @@
                             </li>
                         </ul>
                     </div>
-                    <button class="btn btn-block btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %}</button>
+                    <button class="btn btn-block btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %} <span data-href="{{ hostname }}{{ photo.get_absolute_url }}" class="badge fb-comments-count"></span></button>
                     {% if geotag_count > 0 %}
                         {% if geotag_count == 1 %}
                             <p class="text-left">{{ geotag_count }} {% trans "location suggestion has been submitted for this picture" %}</p>
@@ -154,7 +146,21 @@
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     {% for rephoto in photo.rephotos.all %}
-        window.photoModalRephotoArray.push([{{ rephoto.id }}, '{% url 'project.home.views.photo_url' rephoto.id %}', '{{ rephoto.date|date:"d.m.Y." }}', '{{ rephoto.user.fb_id }}', '{{ rephoto.user.fb_name }}', '{{ rephoto.user.fb_link }}', '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}', '{% url 'project.home.views.photo' rephoto.id %}', '{{ rephoto.get_absolute_url }}']);
+        window.photoModalRephotoArray.push([
+            {{ rephoto.id }},
+            '{% url 'project.home.views.photo_url' rephoto.id %}',
+            '{{ rephoto.date|date:"d.m.Y" }}',
+            '{{ rephoto.user.fb_id }}',
+            '{{ rephoto.user.fb_name }}',
+            '{{ rephoto.user.fb_link }}',
+            '{% url 'project.home.views.photo' rephoto.rephoto_of.id %}',
+            '{% url 'project.home.views.photo' rephoto.id %}',
+            '{{ rephoto.get_absolute_url }}',
+            '{{ rephoto.author }}',
+            '{{ rephoto.source.description }}',
+            '{{ rephoto.source_key }}',
+            '{{ rephoto.source_url }}'
+        ]);
     {% endfor %}
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
@@ -346,3 +352,70 @@
         $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
     });
 </script>
+{#<script id="ajapaik-photo-modal-rephoto-template" type="text/x-tmpl">#}
+{#    {% if (o.source) { %}#}
+{#        <div class="row ajapaik-photo-modal-row">{{ photo.rephotos.all.0.author }}</div>#}
+{#    {% } %}#}
+{#    {% if photo.rephotos.all.0.author and photo.rephotos.all.0.source and  photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}#}
+{#        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-rephoto-author">{{ photo.rephotos.all.0.author }}</div>#}
+{#        <div class="row ajapaik-photo-modal-row">#}
+{#            <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.rephotos.all.0.source_url }}'#}
+{#               target="_blank">#}
+{#                {{ photo.rephotos.all.0.source.description }}{% if photo.rephotos.all.0.source_key %} {{ photo.rephotos.all.0.source_key }}{% endif %}{% if photo.rephotos.all.0.licence %}{% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}#}
+{#            </a>#}
+{#        </div>#}
+{#    {% elif photo.rephotos.all.0.author %}#}
+{#        <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-rephoto-author">{{ photo.rephotos.all.0.author }}</div>#}
+{#    {% elif photo.rephotos.all.0.user %}#}
+{#        <div class="row ajapaik-photo-modal-row">{% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">{{ photo.rephotos.all.0.user.fb_name }}</a>&nbsp;{% include '_licence.html' with licence=photo.rephotos.all.0.licence %}</div>#}
+{#    {% endif %}#}
+{#    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-date-row" style="display: none;">#}
+{#        {% trans "Date taken" %}&nbsp;<div id="ajapaik-photo-modal-rephoto-date-taken">{{ photo.rephotos.all.0.date|date:"d.m.Y" }}</div>#}
+{#    </div>#}
+{#</script>#}
+{##}
+{#    <script id="ajapaik-curator-selection-template" type="text/x-tmpl">#}
+{#        <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">#}
+{#            <img class="col-xs-6 img-responsive ajapaik-curator-selection-image {% if (o.invert) { %}ajapaik-photo-inverted{% } %} {% if (o.flip) { %}ajapaik-photo-flipped{% } %}" src="{%=o.imageUrl%}" onload="imageLoaded('{%=o.id%}')">#}
+{#            <div class="col-xs-6 ajapaik-curator-selection-controls">#}
+{#                <div class="ajapaik-curator-selection-button-row">#}
+{#                    <div class="btn-group" role="group">#}
+{#                      <button title="{%=gettext('Invert colors')%}" type="button" class="btn btn-default {% if (o.invert) { %}active{% } %} ajapaik-curator-invert-colors-button" data-id="{%=o.id%}">#}
+{#                        <i class="glyphicon ajapaik-icon ajapaik-icon-invert-colors"></i>#}
+{#                      </button>#}
+{#                      <button title="{%=gettext('Flip')%}" type="button" class="btn btn-default {% if (o.flip) { %}active{% } %} ajapaik-curator-flip-button" data-id="{%=o.id%}">#}
+{#                        <i class="glyphicon ajapaik-icon ajapaik-icon-flip"></i>#}
+{#                      </button>#}
+{#                      <button title="{%=gettext('Mark stereophoto')%}" type="button" class="btn btn-default {% if (o.stereo) { %}active{% } %} ajapaik-curator-stereo-button" data-id="{%=o.id%}">#}
+{#                        <i class="glyphicon ajapaik-icon ajapaik-icon-stereo"></i>#}
+{#                        <i class="glyphicon ajapaik-icon ajapaik-icon-stereo"></i>#}
+{#                      </button>#}
+{#                      <button title="{%=gettext('Remove from selection')%}" type="button" class="btn btn-default ajapaik-curator-delete-button" data-id="{%=o.id%}">#}
+{#                        <i class="glyphicon ajapaik-icon ajapaik-icon-delete"></i>#}
+{#                      </button>#}
+{#                    </div>#}
+{#                    {% if (o.ajapaikId) { %}#}
+{#                        <a target="_blank" href="{%=photoPermalink + o.ajapaikId%}">#}
+{#                            <img class="img-responsive ajapaik-already-have-indicator" src="{% endverbatim %}{{ STATIC_URL }}images/ajapaik_marker_35px.png{% verbatim %}" title="{%=gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded')%}">#}
+{#                        </a>#}
+{#                    {% } %}#}
+{#                </div>#}
+{#                <div class="panel panel-primary">#}
+{#                    <div class="panel-heading">#}
+{#                        <h3 class="panel-title">{%=o.title%}</h3>#}
+{#                    </div>#}
+{#                    <ul class="list-group">#}
+{#                        <li class="list-group-item">{%=gettext('Description')%}: {%=o.description%}</li>#}
+{#                        <li class="list-group-item">{%=gettext('Author')%}: {%=o.creators%}</li>#}
+{#                        <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>#}
+{#                        <li class="list-group-item">{%=gettext('Source ID')%}: <a target="_blank" href="{%=o.urlToRecord%}">{%=o.identifyingNumber%}</a></li>#}
+{#                        <li class="list-group-item">{%=gettext('Size')%}: <span class="ajapaik-curator-selection-image-size"></span></li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#                <div class="ajapaik-curator-selection-feedback-row">#}
+{#                    <div class="alert alert-success ajapaik-curator-feedback-alert" role="alert"></div>#}
+{#                    <div class="alert alert-danger ajapaik-curator-feedback-alert" role="alert"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </script>#}

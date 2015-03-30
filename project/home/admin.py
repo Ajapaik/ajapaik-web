@@ -85,8 +85,6 @@ class PointsAdmin(ForeignKeyAutocompleteAdmin):
 
 
 class AlbumAdmin(ForeignKeyAutocompleteAdmin):
-    inlines = (AlbumPhotoInline,)
-
     related_search_fields = {
         'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
     }
