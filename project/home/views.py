@@ -567,6 +567,7 @@ def photoslug(request, photo_id, pseudo_slug):
 
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
+        "fb_url": request.build_absolute_uri(reverse("project.home.views.photo", args=(photo_obj.id,))),
         "licence": Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         "area": photo_obj.area,
         "album": album,
