@@ -58,7 +58,7 @@
                     <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
                 {% endif %}
                 {% if photo.author %}
-                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-author">{{ photo.author }}</div>
+                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
                 {% endif %}
                 {% if photo.description %}
                     <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
@@ -84,7 +84,7 @@
                     {% endif %}
                     {% if photo.rephotos.all.0.source and photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}
                         {% if photo.rephotos.all.0.author %}
-                            <div class="row ajapaik-photo-modal-row">{{ photo.rephotos.all.0.author }}{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
+                            <div class="row ajapaik-photo-modal-row"><b>{{ photo.rephotos.all.0.author }}</b>{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
                         {% endif %}
                         <div class="row ajapaik-photo-modal-row">
                             <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.rephotos.all.0.source_url }}'
@@ -94,7 +94,7 @@
                         </div>
                     {% else %}
                         {% if photo.rephotos.all.0.author %}
-                            <div class="row ajapaik-photo-modal-row">{{ photo.rephotos.all.0.author }}{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
+                            <div class="row ajapaik-photo-modal-row"><b>{{ photo.rephotos.all.0.author }}</b>{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
                         {% else %}
                             {% if photo.rephotos.all.0.user %}
                                 <div class="row ajapaik-photo-modal-row">
@@ -104,7 +104,7 @@
                                     {% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}
                                 </div>
                             {% else %}
-                                <div class="row ajapaik-photo-modal-row">{% trans "Unknown author" %}</div>
+                                <div class="row ajapaik-photo-modal-row"><b>{% trans "Unknown author" %}</b></div>
                             {% endif %}
                         {% endif %}
                     {% endif %}
@@ -397,7 +397,7 @@
     <script id="ajapaik-photo-modal-rephoto-info-template" type="text/x-tmpl">
         {% if (o.source && o.sourceKey && o.sourceURL) { %}
             {% if (o.author) { %}
-                <div class="row ajapaik-photo-modal-row">{%=o.author%}{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
+                <div class="row ajapaik-photo-modal-row"><b>{%=o.author%}</b>{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
             {% } %}
             <div class="row ajapaik-photo-modal-row">
                 <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{%=o.sourceURL%}'
@@ -407,7 +407,7 @@
             </div>
         {% } else { %}
             {% if (o.author) { %}
-                <div class="row ajapaik-photo-modal-row">{%=o.author%}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}</div>
+                <div class="row ajapaik-photo-modal-row"><b>{%=o.author%}</b>{% endverbatim %}{% include "_licence.html" %}{% verbatim %}</div>
             {% } else { %}
                 {% if (o.FBUserName) { %}
                     <div class="row ajapaik-photo-modal-row">
@@ -417,7 +417,7 @@
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } else { %}
-                    <div class="row ajapaik-photo-modal-row">{%=gettext('Unknown author')%}</div>
+                    <div class="row ajapaik-photo-modal-row"><b>{%=gettext('Unknown author')%}</b></div>
                 {% } %}
             {% } %}
         {% } %}
