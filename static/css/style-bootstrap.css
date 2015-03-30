@@ -705,6 +705,7 @@ a.fullscreen {
     background-size: 25px;
     background-position-y: 3px;
     background-position-x: 3px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .ajapaik-rephoto-count-1 {
