@@ -602,7 +602,7 @@ def pane_contents(request):
 
     # http://stackoverflow.com/questions/7035989/geo-django-subclassing-queryset
     data = []
-    for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids):
+    for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids).order_by('?'):
         rephoto_count = p.rephotos.count()
         im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
         try:

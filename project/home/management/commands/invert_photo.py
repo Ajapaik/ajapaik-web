@@ -6,16 +6,16 @@ from project.home.models import Photo
 
 class Command(BaseCommand):
     help = "Will invert specified photo"
-    args = "photo_key"
+    args = "photo_url"
 
     def handle(self, *args, **options):
         try:
-            photo_key = args[0]
-            print photo_key
+            photo_url = args[0]
+            print photo_url
         except IndexError:
             return False
-        if photo_key:
-            photo = Photo.objects.get(source_key=photo_key)
+        if photo_url:
+            photo = Photo.objects.get(source_url=photo_url)
             print "Found photo"
             print photo
             photo_path = settings.MEDIA_ROOT + "/" + str(photo.image)
