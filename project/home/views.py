@@ -2,6 +2,7 @@
 from copy import deepcopy
 import os
 import urllib2
+from django.db import connection
 import requests
 import random
 import datetime
@@ -12,7 +13,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Count
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.sites.models import Site
@@ -74,8 +75,6 @@ def _get_album_info_modal_data(album, request):
     ret["geotagging_user_count"] = geotags_for_album_photos.distinct("user").count()
 
     album_rephotos = Photo.objects.filter(rephoto_of_id__isnull=False, rephoto_of_id__in=album_photo_ids)
-    print album_photo_ids
-    print album_rephotos
     ret["rephoto_count"] = album_rephotos.count()
     ret["rephoto_user_count"] = album_rephotos.distinct("user").count()
     ret["rephotographed_photo_count"] = album_rephotos.distinct("rephoto_of").count()
@@ -87,6 +86,17 @@ def _get_album_info_modal_data(album, request):
         ret["user_made_all_rephotos"] = True
     else:
         ret["user_made_all_rephotos"] = False
+
+    # TODO: Figure out how to trick Django into doing this
+    album_ids = [x.album_id for x in AlbumPhoto.objects.filter(photo_id__in=album_photo_ids).distinct('album_id')]
+    cursor = connection.cursor()
+    cursor.execute("SELECT project_photo.user_id, COUNT(project_photo.user_id) AS user_score FROM project_photo "
+                   "INNER JOIN project_albumphoto ON project_photo.id = project_albumphoto.photo_id "
+                   "INNER JOIN project_profile ON project_profile.user_id = project_photo.user_id "
+                   "WHERE project_albumphoto.album_id IN %s GROUP BY project_photo.user_id ORDER BY user_score",
+                   [tuple(album_ids)])
+    user_scores = cursor.fetchall()
+    ret["album_curators"] = Profile.objects.filter(user_id__in=[x[0] for x in user_scores])
 
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
@@ -999,7 +1009,7 @@ def curator_my_album_list(request):
 def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
-        Album.objects.filter((Q(profile=user_profile) & Q(is_public=True))).order_by('-created').all(), many=True
+        Album.objects.filter((Q(profile=user_profile) & Q(is_public=True)) | (Q(open=True))).order_by('-created').all(), many=True
     )
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
@@ -1080,7 +1090,8 @@ def curator_photo_upload_handler(request):
             and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
         album = None
         if curator_album_select_form.is_valid():
-            if curator_album_select_form.cleaned_data["album"].profile == profile:
+            if curator_album_select_form.cleaned_data["album"].profile == profile \
+                    or curator_album_select_form.cleaned_data["album"].open:
                 album = Album.objects.get(pk=curator_album_select_form.cleaned_data["album"].id)
         else:
             album = Album(
@@ -1088,7 +1099,8 @@ def curator_photo_upload_handler(request):
                 description=curator_album_create_form.cleaned_data["description"],
                 atype=Album.CURATED,
                 profile=profile,
-                is_public=True
+                is_public=True,
+                open=curator_album_create_form.cleaned_data["open"]
             )
             album.save()
         default_album = Album(

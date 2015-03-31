@@ -211,7 +211,7 @@ class Album(Model):
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
     profile = ForeignKey("Profile", related_name="albums", blank=True, null=True)
     is_public = BooleanField(default=True)
-    is_public_mutable = BooleanField(default=False)
+    open = BooleanField(default=False)
     photos = ManyToManyField("Photo", through="AlbumPhoto", related_name="albums")
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)

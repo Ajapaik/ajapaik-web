@@ -24,7 +24,7 @@ class AlbumSerializer(serializers.ModelSerializer):
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'open')
 
 
 class CuratorMyAlbumListAlbumSerializer(serializers.ModelSerializer):

@@ -56,7 +56,7 @@ class AddAreaForm(forms.Form):
 class AddAlbumForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
     description = forms.CharField(widget=forms.Textarea, required=False)
-    # is_public_mutable = forms.CharField(required=True, initial=False)
+    open = forms.BooleanField(required=True, initial=False)
 
 
 class PublicPhotoUploadForm(forms.Form):
