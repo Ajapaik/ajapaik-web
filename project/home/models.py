@@ -531,7 +531,7 @@ class Photo(Model):
         return slug
 
     def get_heatmap_points(self):
-        valid_geotags = self.geotags.all()
+        valid_geotags = self.geotags.distinct("user_id").order_by("user_id", "-created")
         data = []
         for each in valid_geotags:
             serialized = [each.lat, each.lon]
