@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-30 12:48+0300\n"
+"POT-Creation-Date: 2015-03-31 11:49+0300\n"
 "PO-Revision-Date: 2015-03-25 12:00+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
@@ -19,16 +19,20 @@ msgstr ""
 msgid "Tutorial"
 msgstr "Abi"
 
-#: static/js/ajapaik-common.js:239
+#: static/js/ajapaik-common.js:240
 msgid "Geotag pictures"
 msgstr ""
 
-#: static/js/ajapaik-common.js:640 static/js/ajapaik-common.js.c:762
-#: static/js/ajapaik-common.js:781 static/js/game.js:125
+#: static/js/ajapaik-common.js:246
+msgid "Close"
+msgstr ""
+
+#: static/js/ajapaik-common.js:644 static/js/ajapaik-common.js.c:766
+#: static/js/ajapaik-common.js:785 static/js/game.js:125
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:673 static/js/browse.js:822
+#: static/js/ajapaik-common.js:677 static/js/browse.js:823
 #: static/js/game.js:519 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -37,11 +41,11 @@ msgstr ""
 "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
 "pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
-#: static/js/ajapaik-common.js:697
+#: static/js/ajapaik-common.js:701
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: static/js/ajapaik-common.js:835
+#: static/js/ajapaik-common.js:839
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
@@ -129,7 +133,7 @@ msgstr ""
 msgid "Source ID"
 msgstr "Allikaviide"
 
-#: static/js/browse.js:340 static/js/browse.js.c:341 static/js/game.js:259
+#: static/js/browse.js:341 static/js/browse.js.c:342 static/js/game.js:259
 #: static/js/game.js.c:261 static/js/grid.js:69
 msgid "Points awarded"
 msgstr "Saadud punktid"

@@ -128,7 +128,8 @@ var map,
     showUnlockedAzimuth,
     mapviewGameButton,
     getGeolocation,
-    myLocationButton;
+    myLocationButton,
+    closeStreetviewButton;
 
 
 (function ($) {
@@ -241,6 +242,9 @@ var map,
             myLocationButton = document.createElement('button');
             $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
+            closeStreetviewButton = document.createElement('button');
+            $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button').html(window.gettext('Close'));
+            streetPanorama.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(closeStreetviewButton);
         }
 
 
@@ -912,6 +916,10 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-close-streetview-button', function () {
+        map.getStreetView().setVisible(false);
+    });
+
+    $(document).on('click', '#ajapaik-mapview-close-streetview-button', function () {
         map.getStreetView().setVisible(false);
     });
 
