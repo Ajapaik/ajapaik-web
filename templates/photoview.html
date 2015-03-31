@@ -248,6 +248,16 @@
                     window.location.href = '/map/photo/' + {{ photo.id }} + '?area=' + {{ area.id }};
                 {% endif %}
             });
+            $(document).on('click', '#ajapaik-photoview-header-game-button', function () {
+                var albumId = $('#id_album').val(),
+                    gameURL = '{% url 'project.home.views.game' %}';
+                window.location.href =  gameURL + '?album=' + albumId;
+            });
+            $(document).on('click', '#ajapaik-photoview-header-map-button', function () {
+                var albumId = $('#id_album').val(),
+                    mapURL = '{% url 'project.home.views.mapview' %}';
+                window.location.href =  mapURL + '?album=' + albumId;
+            });
             $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
                 window.location.href = '/foto/' + {{ photo.id }};
             });
