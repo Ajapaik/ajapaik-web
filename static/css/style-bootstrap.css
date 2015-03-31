@@ -1542,6 +1542,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     display: none;
 }
 
+.fb_comments_count {
+    font-weight: bold;
+}
+
 #ajapaik-mapview-close-streetview-button {
     margin-right: 3%;
     margin-bottom: 3%;
