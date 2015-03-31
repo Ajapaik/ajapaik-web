@@ -225,6 +225,8 @@ var map,
             maxZoom: 18
         }));
 
+        map.setMapTypeId('OSM');
+
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 

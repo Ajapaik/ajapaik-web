@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-31 11:49+0300\n"
+"POT-Creation-Date: 2015-03-31 17:12+0300\n"
 "PO-Revision-Date: 2014-05-19 20:01+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,61 +33,61 @@ msgstr "Izvēlies apgabalu"
 msgid "Choose album"
 msgstr "Izvēlies valodu"
 
-#: project/home/models.py:724
+#: project/home/models.py:727
 msgid "Map"
 msgstr ""
 
-#: project/home/models.py:725
+#: project/home/models.py:728
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:726
+#: project/home/models.py:729
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:730
+#: project/home/models.py:733
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:731
+#: project/home/models.py:734
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:732
+#: project/home/models.py:735
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:736
+#: project/home/models.py:739
 #, fuzzy
 #| msgid "Close map"
 msgid "Google map"
 msgstr "Aizvērt karti"
 
-#: project/home/models.py:737
+#: project/home/models.py:740
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:738
+#: project/home/models.py:741
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:361
+#: project/home/views.py:376
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:365
+#: project/home/views.py:380
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:423 templates/_header.html:5
+#: project/home/views.py:438 templates/_header.html:5
 #: templates/_header_area_selection_scoreboard.html:5 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:55
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
-#: templates/base_bootstrap.html:88 templates/frontpage.html:8
+#: templates/base_bootstrap.html:94 templates/frontpage.html:8
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:424 templates/frontpage.html:92
+#: project/home/views.py:439 templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
@@ -95,77 +95,77 @@ msgstr ""
 "Apskati un pievieno metadatus vēsturiskajiem attēliem. Sacenšoties ar citiem "
 "būs aizraujoši."
 
-#: project/home/views.py:684 project/home/views.py:695
-#: project/home/views.py:697 templates/frontpage.html:157
+#: project/home/views.py:702 project/home/views.py:713
+#: project/home/views.py:715 templates/frontpage.html:157
 msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
-#: project/home/views.py:795
+#: project/home/views.py:816
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:798
+#: project/home/views.py:819
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:801
+#: project/home/views.py:822
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:803
+#: project/home/views.py:824
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:805
+#: project/home/views.py:826
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:807
+#: project/home/views.py:828
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:825 project/home/views.py:841
+#: project/home/views.py:846 project/home/views.py:862
 #: templates/_header_area_selection_scoreboard.html:30
 msgid "Leaderboard"
 msgstr "Līderu tabula"
 
-#: project/home/views.py:933
+#: project/home/views.py:954
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:935
+#: project/home/views.py:956
 #, fuzzy
 #| msgid "Timepatch (Ajapaik)"
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:1157
+#: project/home/views.py:1189
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1159
+#: project/home/views.py:1191
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1182
+#: project/home/views.py:1214
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1191
+#: project/home/views.py:1223
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1198
+#: project/home/views.py:1230
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1200
+#: project/home/views.py:1232
 msgid "Not enough data submitted"
 msgstr ""
 
@@ -230,7 +230,7 @@ msgid "Flip"
 msgstr ""
 
 #: templates/_guess_panel.html:24
-msgid "Geotags"
+msgid "Geotagged by"
 msgstr ""
 
 #: templates/_guess_panel.html:26
@@ -268,7 +268,7 @@ msgid "Next photo"
 msgstr "Nākošais attēls"
 
 #: templates/_guess_panel.html:61 templates/_guess_panel_xs.html:16
-#: templates/_info_modal.html:132
+#: templates/_info_modal.html:136
 #, fuzzy
 #| msgid "Back to home page"
 msgid "Back to map"
@@ -289,14 +289,14 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: templates/_header.html:12 templates/_info_modal.html:141
-#: templates/_info_modal.html.py:143
+#: templates/_header.html:12 templates/_info_modal.html:145
+#: templates/_info_modal.html.py:147
 #, fuzzy
 #| msgid "All pictures"
 msgid "Geotag pictures"
 msgstr "Visi attēli"
 
-#: templates/_header.html:13 templates/_info_modal.html:134
+#: templates/_header.html:13 templates/_info_modal.html:138
 msgid "Show on map"
 msgstr ""
 
@@ -319,16 +319,16 @@ msgid "Facebook Connect to save your score and continue later."
 msgstr "Pieslēdzies ar Facebook, lai saglabātu punktus un turpinātu vēlāk."
 
 #: templates/_header_area_selection_scoreboard.html:47
-#: templates/_photo_upload_modal.html:36 templates/curator.html:247
+#: templates/_photo_upload_modal.html:36 templates/curator.html:277
 #: templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Pieslēgties ar Facebook"
 
-#: templates/_info_modal.html:16 templates/_info_modal.html.py:18
+#: templates/_info_modal.html:16 templates/_info_modal.html.py:22
 msgid "Album curated by"
 msgstr ""
 
-#: templates/_info_modal.html:23
+#: templates/_info_modal.html:27
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -351,7 +351,7 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:28
+#: templates/_info_modal.html:32
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -374,11 +374,11 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:34 templates/base_bootstrap.html:40
+#: templates/_info_modal.html:38 templates/base_bootstrap.html:40
 msgid "all the pictures on the map."
 msgstr ""
 
-#: templates/_info_modal.html:36
+#: templates/_info_modal.html:40
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -401,19 +401,19 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:45
+#: templates/_info_modal.html:49
 msgid "You haven't made any location suggestions for pictures in this album."
 msgstr ""
 
-#: templates/_info_modal.html:47
+#: templates/_info_modal.html:51
 msgid "You have made a location suggestion for"
 msgstr ""
 
-#: templates/_info_modal.html:49
+#: templates/_info_modal.html:53
 msgid "all the pictures from this album."
 msgstr ""
 
-#: templates/_info_modal.html:51
+#: templates/_info_modal.html:55
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -436,7 +436,7 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:62
+#: templates/_info_modal.html:66
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -459,7 +459,7 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:67
+#: templates/_info_modal.html:71
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -482,7 +482,7 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:72
+#: templates/_info_modal.html:76
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -505,7 +505,7 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:82
+#: templates/_info_modal.html:86
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -528,7 +528,7 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:87
+#: templates/_info_modal.html:91
 #, fuzzy, python-format
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
@@ -551,44 +551,54 @@ msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
 
-#: templates/_info_modal.html:97
+#: templates/_info_modal.html:101
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/_info_modal.html:106 templates/_photo_modal.html:123
+#: templates/_info_modal.html:110 templates/_photo_modal.html:128
 #: templates/photoview.html:61
 msgid "Share"
 msgstr ""
 
-#: templates/_photo_modal.html:107 templates/photoview.html:114
+#: templates/_photo_modal.html:112 templates/photoview.html:114
 msgid "Unknown author"
 msgstr ""
 
-#: templates/_photo_modal.html:138
+#: templates/_photo_modal.html:143
 msgid "Discuss"
 msgstr ""
 
-#: templates/_photo_modal.html:141
-msgid "location suggestion has been submitted for this picture"
+#: templates/_photo_modal.html:146 templates/photoview.html:81
+msgid "Add rephoto"
+msgstr "Pievieno mūsdienu attēlu"
+
+#: templates/_photo_modal.html:147
+#, fuzzy
+#| msgid "Save location"
+msgid "Specify location"
+msgstr "Saglabāt atrašanās vietu"
+
+#: templates/_photo_modal.html:152
+msgid "user has submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:143
-msgid "location suggestions have been submitted for this picture."
+#: templates/_photo_modal.html:154
+msgid "users have submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:148
+#: templates/_photo_modal.html:160
 #, fuzzy
 #| msgid ""
 #| "Account (%(account_name)s) connected with Facebook. If it's not you then "
 #| "%(link_open)sclick here%(link_close)s."
 msgid ""
 "\n"
-"                            Picture belongs to album\n"
-"                        "
+"                                Picture belongs to album\n"
+"                            "
 msgid_plural ""
 "\n"
-"                            Picture belongs to albums:\n"
-"                        "
+"                                Picture belongs to albums:\n"
+"                            "
 msgstr[0] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
@@ -598,24 +608,6 @@ msgstr[1] ""
 msgstr[2] ""
 "Konts (%(account_name)s) ir saslēgts ar Facebook. Ja tas neesi tu, "
 "%(link_open)sklišini šeit%(link_close)s."
-
-#: templates/_photo_modal.html:160 templates/photoview.html:81
-msgid "Add rephoto"
-msgstr "Pievieno mūsdienu attēlu"
-
-#: templates/_photo_modal.html:161
-#, fuzzy
-#| msgid "Save location"
-msgid "Specify location"
-msgstr "Saglabāt atrašanās vietu"
-
-#: templates/_photo_modal.html:162 templates/_photo_upload_modal.html:43
-#: templates/curator.html:118 templates/curator.html.py:166
-#: templates/game.html:102 templates/mapview.html:36
-#: templates/photo_upload.html:45 templates/photo_upload.html.py:79
-#: templates/photo_upload.html:130 templates/photo_upload.html.py:192
-msgid "Close"
-msgstr "Aizvērt"
 
 #: templates/_photo_upload_modal.html:17
 msgid "Taken"
@@ -650,6 +642,14 @@ msgstr ""
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
 msgstr ""
+
+#: templates/_photo_upload_modal.html:43 templates/curator.html:118
+#: templates/curator.html.py:196 templates/game.html:102
+#: templates/mapview.html:36 templates/photo_upload.html:45
+#: templates/photo_upload.html.py:79 templates/photo_upload.html:130
+#: templates/photo_upload.html.py:192
+msgid "Close"
+msgstr "Aizvērt"
 
 #: templates/_photo_upload_modal.html:58
 msgid "Abort"
@@ -748,7 +748,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/base.html:107 templates/base_bootstrap.html:112
+#: templates/base.html:107 templates/base_bootstrap.html:118
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
@@ -853,6 +853,10 @@ msgstr ""
 msgid "New album description"
 msgstr ""
 
+#: templates/curator.html:68 templates/curator.html.py:168
+msgid "Open album (anyone can add photos)"
+msgstr ""
+
 #: templates/curator.html:75
 msgid "If the photos are from the same place, specify a location here"
 msgstr ""
@@ -898,57 +902,65 @@ msgstr ""
 msgid "Description"
 msgstr "Saglabāt atrašanās vietu"
 
-#: templates/curator.html:169 templates/photo_upload.html:47
+#: templates/curator.html:178
+msgid "Visible (shown in selection)"
+msgstr ""
+
+#: templates/curator.html:186
+msgid "Parent album"
+msgstr ""
+
+#: templates/curator.html:199 templates/photo_upload.html:47
 #: templates/photo_upload.html.py:81 templates/photo_upload.html:132
 #: templates/photo_upload.html.py:194
 msgid "Save"
 msgstr ""
 
-#: templates/curator.html:178
+#: templates/curator.html:208
 msgid "Search"
 msgstr ""
 
-#: templates/curator.html:181
+#: templates/curator.html:211
 #, fuzzy
 #| msgid "Save location"
 msgid "Selection"
 msgstr "Saglabāt atrašanās vietu"
 
-#: templates/curator.html:184
+#: templates/curator.html:214
 #, fuzzy
 #| msgid "Choose language"
 msgid "My albums"
 msgstr "Izvēlies valodu"
 
-#: templates/curator.html:191
+#: templates/curator.html:221
 msgid "Full search"
 msgstr ""
 
-#: templates/curator.html:195
+#: templates/curator.html:225
 msgid "Search!"
 msgstr ""
 
-#: templates/curator.html:200 templates/curator.html.py:215
+#: templates/curator.html:230 templates/curator.html.py:245
 #, fuzzy
 #| msgid "Read more"
 msgid "Load more"
 msgstr "Lasīt tālāk"
 
-#: templates/curator.html:205
+#: templates/curator.html:235
 #, fuzzy
 #| msgid "Save location"
 msgid "Select all"
 msgstr "Saglabāt atrašanās vietu"
 
-#: templates/curator.html:224
+#: templates/curator.html:254
 msgid "Clear selection"
 msgstr ""
 
-#: templates/curator.html:229
+#: templates/curator.html:259
 msgid "Submit to Ajapaik"
 msgstr ""
 
-#: templates/curator.html:246
+#: templates/curator.html:276
 #, fuzzy
 #| msgid "Rephoto uploading requires connecting your account with Facebook."
 msgid "Curating requires connecting your account with Facebook."
@@ -1079,10 +1091,6 @@ msgstr "Lai augšupielādētu attēlu vajadzīgs pieslēgties tavam Facebook kon
 
 #: templates/photoview.html:84
 msgid "Location on the map"
-msgstr ""
-
-#: templates/photoview.html:110
-msgid "Rephotograph by"
 msgstr ""
 
 #: templates/photoview.html:119

@@ -63,9 +63,9 @@
                                     <div class="col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-album-public-mutable">{% trans "Can anyone add photos?" %}</label>
+                                                <input type="checkbox" id="ajapaik-curator-add-album-public-mutable">
                                             </span>
-                                            <input class="form-control" type="checkbox" id="ajapaik-curator-add-album-public-mutable">
+                                            <label class="form-control" for="ajapaik-curator-add-album-public-mutable">{% trans "Open album (anyone can add photos)" %}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -156,6 +156,36 @@
                                                 <label for="ajapaik-curator-change-album-description">{% trans "Description" %}</label>
                                             </span>
                                             <textarea class="form-control" id="ajapaik-curator-change-album-description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" id="ajapaik-curator-change-album-open">
+                                            </span>
+                                            <label class="form-control" for="ajapaik-curator-change-album-open">{% trans "Open album (anyone can add photos)" %}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" id="ajapaik-curator-change-album-public">
+                                            </span>
+                                            <label class="form-control" for="ajapaik-curator-change-album-public">{% trans "Visible (shown in selection)" %}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-change-album-parent">{% trans "Parent album" %}</label>
+                                            </span>
+                                            <select id="ajapaik-curator-change-album-parent" class="form-control"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -363,11 +393,42 @@
                         }
                     }
                     targetDiv.append(tmpl('ajapaik-curator-my-album-select-separator', {}));
-                    for (var i = 0, l = response.length; i < l; i += 1) {
+                    for (i = 0, l = response.length; i < l; i += 1) {
                         if (response[i].open) {
                            targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
                         }
                     }
+                }
+            });
+        };
+        var loadPossibleParentAlbums = function (parentAlbum) {
+            $.ajax({
+                type : 'POST',
+                url : '/curator_selectable_albums/',
+                data: {
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success : function(response) {
+                    var targetDiv = $('#ajapaik-curator-change-album-parent');
+                    targetDiv.empty();
+                    targetDiv.append(
+                        tmpl(
+                            'ajapaik-curator-my-album-select-option',
+                            {id: -1, name: window.gettext('Not selected')}
+                        )
+                    );
+                    for (var i = 0, l = response.length; i < l; i += 1) {
+                        if (!response[i].open) {
+                           targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
+                        }
+                    }
+                    targetDiv.append(tmpl('ajapaik-curator-my-album-select-separator', {}));
+                    for (i = 0, l = response.length; i < l; i += 1) {
+                        if (response[i].open) {
+                           targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
+                        }
+                    }
+                    $('#ajapaik-curator-change-album-parent').val(parentAlbum);
                 }
             });
         };
@@ -570,9 +631,12 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(response) {
+                    loadPossibleParentAlbums(response.subalbum_of);
                     $('#ajapaik-curator-change-album-name').val(response.name);
                     $('#ajapaik-curator-change-album-description').val(response.description);
                     $('#ajapaik-curator-change-album-id').val(response.id);
+                    $('#ajapaik-curator-change-album-open').prop('checked', response.open);
+                    $('#ajapaik-curator-change-album-public').prop('checked', response.is_public);
                     $('#ajapaik-curator-edit-my-album-modal').modal('show').on('shown.bs.modal', function () {
                         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                     });
@@ -591,6 +655,9 @@
                     albumId: targetId,
                     name: $('#ajapaik-curator-change-album-name').val(),
                     description: $('#ajapaik-curator-change-album-description').val(),
+                    open: $('#ajapaik-curator-change-album-open').prop('checked'),
+                    is_public: $('#ajapaik-curator-change-album-public').prop('checked'),
+                    parent_album: $('#ajapaik-curator-change-album-parent').val(),
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function() {

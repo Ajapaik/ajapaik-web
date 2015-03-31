@@ -88,15 +88,20 @@ def _get_album_info_modal_data(album, request):
         ret["user_made_all_rephotos"] = False
 
     # TODO: Figure out how to trick Django into doing this
-    album_ids = [x.album_id for x in AlbumPhoto.objects.filter(photo_id__in=album_photo_ids).distinct('album_id')]
+    album_ids = [x.album_id for x in AlbumPhoto.objects.filter(
+        photo_id__in=album_photo_ids, album__is_public=False).distinct('album_id')]
     cursor = connection.cursor()
     cursor.execute("SELECT project_photo.user_id, COUNT(project_photo.user_id) AS user_score FROM project_photo "
                    "INNER JOIN project_albumphoto ON project_photo.id = project_albumphoto.photo_id "
                    "INNER JOIN project_profile ON project_profile.user_id = project_photo.user_id "
-                   "WHERE project_albumphoto.album_id IN %s GROUP BY project_photo.user_id ORDER BY user_score",
+                   "WHERE project_albumphoto.album_id IN %s GROUP BY project_photo.user_id ORDER BY user_score DESC",
                    [tuple(album_ids)])
     user_scores = cursor.fetchall()
-    ret["album_curators"] = Profile.objects.filter(user_id__in=[x[0] for x in user_scores])
+    user_id_list = [x[0] for x in user_scores]
+    album_curators = Profile.objects.filter(user_id__in=user_id_list)
+    album_curators = list(album_curators)
+    album_curators.sort(key=lambda z: user_id_list.index(z.id))
+    ret["album_curators"] = album_curators
 
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
@@ -1000,7 +1005,7 @@ def check_if_photo_in_ajapaik(request):
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
     serializer = CuratorMyAlbumListAlbumSerializer(
-        Album.objects.filter(profile=user_profile, is_public=True).order_by("-created"), many=True
+        Album.objects.filter(Q(profile=user_profile, is_public=True) | Q(profile=user_profile, open=True)).order_by("-created"), many=True
     )
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
@@ -1038,6 +1043,15 @@ def curator_update_my_album(request):
             album = Album.objects.get(pk=album_id, profile=user_profile)
             album.name = album_edit_form.cleaned_data["name"]
             album.description = album_edit_form.cleaned_data["description"]
+            album.open = album_edit_form.cleaned_data["open"]
+            album.is_public = album_edit_form.cleaned_data["is_public"]
+            parent_album_id = album_edit_form.cleaned_data["parent_album"]
+            if parent_album_id:
+                try:
+                    parent_album = Album.objects.get(Q(profile=user_profile, pk=parent_album_id) | Q(open=True, pk=parent_album_id))
+                    album.subalbum_of = parent_album
+                except ObjectDoesNotExist:
+                    return HttpResponse("Faulty data", status=500)
             album.save()
             return HttpResponse("OK", status=200)
         except ObjectDoesNotExist:

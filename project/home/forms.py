@@ -45,6 +45,9 @@ class CuratorAlbumSelectionForm(forms.Form):
 class CuratorAlbumEditForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
     description = forms.CharField(max_length=2047, required=False)
+    open = forms.BooleanField(initial=False, required=False)
+    is_public = forms.BooleanField(initial=False, required=False)
+    parent_album = forms.IntegerField(required=False)
 
 
 class AddAreaForm(forms.Form):
