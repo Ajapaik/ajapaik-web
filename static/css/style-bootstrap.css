@@ -1546,3 +1546,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin-right: 3%;
     margin-bottom: 3%;
 }
+
+#ajapaik-photo-modal-header {
+    border-bottom: none;
+}
