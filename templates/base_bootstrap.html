@@ -59,32 +59,32 @@
         {% else %}
             <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
         {% endif %}
-        {% if rephoto %}
-            {% thumbnail rephoto.image "700x400" as im %}
-                <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
-                <meta property="og:image:type" content="image/jpeg"/>
-            {% endthumbnail %}
-        {% else %}
-            {% if photo %}
-                {% thumbnail photo.image "700x400" as im %}
-                    <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
-                    <meta property="og:image:type" content="image/jpeg"/>
-                {% endthumbnail %}
-            {% endif %}
-        {% endif %}
         {% if selected_photo %}
             <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' selected_photo.id %}"/>
         {% else %}
+            {% if rephoto %}
+                {% thumbnail rephoto.image "700x400" as im %}
+                    <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                {% endthumbnail %}
+            {% else %}
+                {% if photo %}
+                    {% thumbnail photo.image "700x400" as im %}
+                        <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
+                        <meta property="og:image:type" content="image/jpeg"/>
+                    {% endthumbnail %}
+                {% endif %}
+            {% endif %}
             {% if facebook_share_photos %}
                 {% for p in facebook_share_photos %}
                     <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
                 {% endfor %}
             {% endif %}
-        {% endif %}
-        {% if curator_random_images %}
-            {% for each in curator_random_images %}
-                <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' each.id %}"/>
-            {% endfor %}
+            {% if curator_random_images %}
+                {% for each in curator_random_images %}
+                    <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' each.id %}"/>
+                {% endfor %}
+            {% endif %}
         {% endif %}
         <meta property="og:locale" content="et_EE"/>
         <meta property="og:locale:alternate" content="ru_RU"/>
