@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-31 11:49+0300\n"
-"PO-Revision-Date: 2015-03-25 12:00+0200\n"
+"PO-Revision-Date: 2015-03-31 11:59+0200\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: \n"
 "Language: et\n"
@@ -21,11 +21,11 @@ msgstr "Abi"
 
 #: static/js/ajapaik-common.js:240
 msgid "Geotag pictures"
-msgstr ""
+msgstr "Märgi pilte kaardile"
 
 #: static/js/ajapaik-common.js:246
 msgid "Close"
-msgstr ""
+msgstr "Sulge"
 
 #: static/js/ajapaik-common.js:644 static/js/ajapaik-common.js.c:766
 #: static/js/ajapaik-common.js:785 static/js/game.js:125
