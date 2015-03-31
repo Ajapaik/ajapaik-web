@@ -72,10 +72,14 @@
                 {% endthumbnail %}
             {% endif %}
         {% endif %}
-        {% if facebook_share_photos %}
-            {% for p in facebook_share_photos %}
-                <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
-            {% endfor %}
+        {% if selected_photo %}
+            <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' selected_photo.id %}"/>
+        {% else %}
+            {% if facebook_share_photos %}
+                {% for p in facebook_share_photos %}
+                    <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
+                {% endfor %}
+            {% endif %}
         {% endif %}
         {% if curator_random_images %}
             {% for each in curator_random_images %}
