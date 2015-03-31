@@ -699,7 +699,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     else:
         ret["title"] = _("Browse photos on map")
 
-    if not ret["album_selection_form"]:
+    if "album_selection_form" not in ret:
         ret["album_selection_form"] = AlbumSelectionForm()
 
     return render_to_response("mapview.html", RequestContext(request, ret))
