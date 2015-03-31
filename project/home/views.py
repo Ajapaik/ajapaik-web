@@ -516,8 +516,11 @@ def heatmap_data(request):
         res["heatmap_points"] = target_photo.get_heatmap_points()
         res["azimuth_tags"] = 0
         for point in res["heatmap_points"]:
-            if point[2]:
-                res["azimuth_tags"] += 1
+            try:
+                if point[2]:
+                    res["azimuth_tags"] += 1
+            except IndexError:
+                pass
     return HttpResponse(json.dumps(res), content_type="application/json")
 
 

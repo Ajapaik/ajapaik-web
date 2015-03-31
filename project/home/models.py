@@ -536,7 +536,7 @@ class Photo(Model):
         for each in valid_geotags:
             serialized = [each.lat, each.lon]
             if each.azimuth:
-                serialized[2] = each.azimuth
+                serialized.append(each.azimuth)
             data.append(serialized)
         return data
 
