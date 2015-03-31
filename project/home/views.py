@@ -548,7 +548,7 @@ def photoslug(request, photo_id, pseudo_slug):
     geotag_count = 0
     azimuth_count = 0
     if photo_obj:
-        geotags = GeoTag.objects.filter(photo_id=photo_obj.id)
+        geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
 
@@ -698,6 +698,9 @@ def mapview(request, photo_id=None, rephoto_id=None):
         ret["title"] = area.name + " - " + _("Browse photos on map")
     else:
         ret["title"] = _("Browse photos on map")
+
+    if not ret["album_selection_form"]:
+        ret["album_selection_form"] = AlbumSelectionForm()
 
     return render_to_response("mapview.html", RequestContext(request, ret))
 

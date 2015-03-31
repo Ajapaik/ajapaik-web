@@ -107,7 +107,7 @@
                             <div class="row-fluid"><b>{{ rephoto.author }}</b>{% if rephoto.licence %} {% include "_licence.html" with licence=rephoto.licence %}{% endif %}</div>
                         {% elif rephoto.user.fb_name %}
                             <div class="row-fluid">
-                                {% trans "Rephotograph by" %}&nbsp;<a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
+                                <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
                             </div>
                         {% else %}
                             <div class="row-fluid">
