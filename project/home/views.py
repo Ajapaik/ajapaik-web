@@ -557,6 +557,7 @@ def photoslug(request, photo_id, pseudo_slug):
         title = " ".join(photo_obj.description.split(" ")[:5])[:50]
 
     album = None
+    albums = None
     try:
         album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
         albums = Album.objects.filter(pk__in=album_ids, is_public=True)
@@ -571,6 +572,7 @@ def photoslug(request, photo_id, pseudo_slug):
         "licence": Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         "area": photo_obj.area,
         "album": album,
+        "albums": albums,
         "album_selection_form": album_selection_form,
         "geotag_count": geotag_count,
         "azimuth_count": azimuth_count,
