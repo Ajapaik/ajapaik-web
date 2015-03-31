@@ -534,7 +534,10 @@ class Photo(Model):
         valid_geotags = self.geotags.all()
         data = []
         for each in valid_geotags:
-            data.append([each.lat, each.lon, each.azimuth])
+            serialized = [each.lat, each.lon]
+            if each.azimuth:
+                serialized[2] = each.azimuth
+            data.append(serialized)
         return data
 
     def save(self, *args, **kwargs):
