@@ -4,5 +4,15 @@
     <div class="navbar-header">
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
+    {% if is_photoview %}
+        <div class="hidden-xs">
+            <div class="filter-box">
+                {% csrf_token %}
+                {{ album_selection_form.as_p }}
+                <a class="btn btn-success" id="ajapaik-photoview-header-game-button">{% trans "Geotag pictures" %}</a>
+                <a class="btn btn-primary" id="ajapaik-photoview-header-map-button">{% trans "Show on map" %}</a>
+            </div>
+        </div>
+    {% endif %}
     {% include "_language_selection.html" %}
 </nav>
