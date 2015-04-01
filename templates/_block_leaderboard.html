@@ -4,7 +4,7 @@
     {% for pos in leaderboard %}
         <li class="clearfix{% if pos.1 %} you{% endif %}">
             <span class="position">{{ pos.0 }}.</span>
-            <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square"/>
+            <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>
                 {% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</span>
             <span class="name">{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}
                 {% trans "Your points" %}{% endif %}</span>
@@ -18,7 +18,7 @@
             {% for pos in activity_leaderboard %}
                 <li class="clearfix{% if pos.1 %} you{% endif %}">
                     <span class="position">{{ pos.0 }}.</span>
-                    <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square"/>
+                    <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>
                         {% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</span>
                     <span class="name">{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}
                         {% trans "Your points" %}{% endif %}</span>
@@ -31,7 +31,7 @@
             {% for pos in all_time_leaderboard %}
                 <li class="clearfix{% if pos.1 %} you{% endif %}">
                     <span class="position">{{ pos.0 }}.</span>
-                    <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/{{ pos.3 }}/picture?type=square"/>
+                    <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>
                         {% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</span>
                     <span class="name">{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}
                         {% trans "Your points" %}{% endif %}</span>
