@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-31 17:12+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2015-04-01 10:05+0000\n"
+"Last-Translator: Lauri Elias\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/ajapaik/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: static/js/ajapaik-common.js:118
 msgid "Tutorial"
@@ -158,3 +159,6 @@ msgstr ""
 #: static/js/game.js:279
 msgid "Your guess"
 msgstr ""
+
+#~ msgid "We doubt about it."
+#~ msgstr "Others have different opinion."
