@@ -1,7 +1,6 @@
 Django==1.7.7
 django-admin-tools==0.5.2
 django-appconf==1.0.1
-django-cleanup==0.2.1
 django-compressor==1.4
 django-extensions==1.5.2
 django-mobi==0.1.7
