@@ -818,8 +818,6 @@ class Profile(Model):
     google_plus_token = CharField(max_length=255, null=True, blank=True)
     google_plus_picture = CharField(max_length=255, null=True, blank=True)
 
-    avatar_url = URLField(null=True, blank=True)
-
     modified = DateTimeField(auto_now=True)
 
     score = PositiveIntegerField(default=0)
@@ -853,7 +851,9 @@ class Profile(Model):
         hometown = data.get("hometown")
         if hometown is not None and "name" in hometown:
             self.fb_hometown = data.get("hometown")["name"]
-        self.fb_user_friends = data.get("user_friends")
+        user_friends = data.get("user_friends")
+        if user_friends is not None:
+            self.fb_user_friends = user_friends
 
         self.save()
 
