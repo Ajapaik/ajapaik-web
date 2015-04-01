@@ -107,8 +107,7 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
-            permalinkURL = '{{ hostname }}/foto/',
+        var permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
             albumId = '{{ album.id|safe }}';
         {% if random_album_photo %}

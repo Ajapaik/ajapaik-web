@@ -54,7 +54,6 @@
 {% block specific_js %}
     <script>
         var title = '{{ title }}',
-            leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             {% if area %}
                 areaId = '{{ area.id | safe }}',

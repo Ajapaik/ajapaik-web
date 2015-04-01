@@ -28,7 +28,7 @@ def auth_url(redirect_uri, scope=None):
 
 
 def token_url(request, code):
-    return "https://graph.facebook.com/v2.3/oauth/access_token?" + \
+    return "https://graph.facebook.com/oauth/access_token?" + \
             urlencode({"client_id": APP_ID, 
                        "redirect_uri": fbview_url(request, "done"), 
                        "client_secret": APP_SECRET,
