@@ -120,7 +120,7 @@ msgstr ""
 
 #: static/js/ajapaik-translations.js:19
 msgid "System error"
-msgstr ""
+msgstr "Sistēmas kļūda"
 
 #: static/js/ajapaik-translations.js:20
 msgid "Not selected"

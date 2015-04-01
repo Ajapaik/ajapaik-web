@@ -118,7 +118,7 @@ msgstr ""
 
 #: static/js/ajapaik-translations.js:19
 msgid "System error"
-msgstr ""
+msgstr "Systeemfout"
 
 #: static/js/ajapaik-translations.js:20
 msgid "Not selected"
