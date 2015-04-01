@@ -3,6 +3,7 @@ from copy import deepcopy
 import os
 import urllib2
 from django.db import connection
+import operator
 import requests
 import random
 import datetime
@@ -239,6 +240,44 @@ def _get_leaderboard50(user_id):
     return board
 
 
+def _get_album_leaderboard50(user_id, album_id=None):
+    board = []
+    if album_id:
+        album = Album.objects.get(pk=album_id)
+        album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
+        for sa in album.subalbums.all():
+            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+        album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
+        rephoto_points = Points.objects.filter(photo_id__in=album_photo_ids)
+        geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
+        user_score_map = {}
+        for each in rephoto_points:
+            if each.user_id in user_score_map:
+                user_score_map[each.user_id] += each.points
+            else:
+                user_score_map[each.user_id] = each.points
+        for each in geotags:
+            if each.user_id in user_score_map:
+                user_score_map[each.user_id] += each.score
+            else:
+                user_score_map[each.user_id] = each.score
+        sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
+        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores], fb_name__isnull=False) | Q(user_id=user_id))
+        top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
+        board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
+                  profile.fb_name, profile.google_plus_name) for idx, profile in top_users]
+    #album_user_geotag_scores =
+    # scores_list = list(enumerate(Profile.objects.filter(
+    #     Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+    #     Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
+    #     Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
+    #                                'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
+    # board = scores_list[:50]
+    # board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in board]
+    print board
+    return board
+
+
 def _get_all_time_leaderboard50(user_id):
     scores_list = list(enumerate(Profile.objects.filter(
         Q(fb_name__isnull=False, score__gt=0) |
@@ -362,8 +401,6 @@ def game(request):
             old_city_id = request.GET.get("city__pk") or None
             if old_city_id is not None:
                 area = Area.objects.get(pk=old_city_id)
-            else:
-                area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
         ret["area"] = area
 
     site = Site.objects.get_current()
@@ -851,12 +888,17 @@ def leaderboard(request):
 def top50(request):
     # leaderboard with top 50 scores
     _calculate_recent_activity_scores()
+    album_id = request.GET.get('albumId', None)
+    album_leaderboard = None
+    if album_id:
+        album_leaderboard = _get_album_leaderboard50(request.get_user().profile.pk, album_id)
     activity_leaderboard = _get_leaderboard50(request.get_user().profile.pk)
     all_time_leaderboard = _get_all_time_leaderboard50(request.get_user().profile.pk)
     template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
         "activity_leaderboard": activity_leaderboard,
+        "album_leaderboard": album_leaderboard,
         "hostname": "http://%s" % (site.domain,),
         "all_time_leaderboard": all_time_leaderboard,
         "title": _("Leaderboard"),
@@ -1244,8 +1286,6 @@ def curator_photo_upload_handler(request):
 #     add_area_form = AddAreaForm()
 #     if area_selection_form.is_valid():
 #         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
-#     else:
-#         area = Area.objects.get(pk=settings.DEFAULT_AREA_ID)
 #     selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
 #     selectable_areas = Area.objects.order_by('name').all()
 #     return render_to_response('photo_upload.html', RequestContext(request, {

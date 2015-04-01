@@ -856,6 +856,9 @@
             e.preventDefault();
             $.ajax({
                 url: window.leaderboardFullURL,
+                data: {
+                    albumId: window.albumId
+                },
                 success: function (response) {
                     var modalWindow = $('#ajapaik-full-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);

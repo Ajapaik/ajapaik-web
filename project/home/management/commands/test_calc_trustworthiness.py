@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from project.home.models import calc_trustworthiness
+from project.home.models import _calc_trustworthiness
 
 
 class Command(BaseCommand):
@@ -8,4 +8,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         user_id = args[0]
-        print calc_trustworthiness(user_id)
+        print _calc_trustworthiness(user_id)
