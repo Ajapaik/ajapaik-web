@@ -517,6 +517,20 @@
             });
             window._gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
         });
+        $(document).on('click', '#ajapaik-all-time-leaderboard-link', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: window.allTimeLeaderboardURL,
+                success: function (response) {
+                    var modalWindow = $('#ajapaik-all-time-leaderboard-modal');
+                    modalWindow.find('.scoreboard').html(response);
+                    modalWindow.modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+            window._gaq.push(['_trackEvent', 'Game', 'All time leaderboard']);
+        });
         window.saveLocationButton.click(function () {
             if (window.disableSave) {
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));

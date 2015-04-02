@@ -460,7 +460,11 @@ var map,
     };
 
     updateLeaderboard = function () {
-        $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
+        if (window.albumId) {
+            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + '?albumId=' + window.albumId);
+        } else {
+            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
+        }
     };
 
     saveLocationCallback = function (resp) {

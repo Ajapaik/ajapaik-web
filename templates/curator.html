@@ -315,13 +315,9 @@
                 }
             });
             $('#full_leaderboard').bind('click', function (e) {
-                console.log("asd");
                 e.preventDefault();
                 $.ajax({
                     url: window.leaderboardFullURL,
-                    data: {
-                        albumId: window.albumId
-                    },
                     success: function (response) {
                         var modalWindow = $('#ajapaik-full-leaderboard-modal');
                         modalWindow.find('.scoreboard').html(response);
@@ -330,7 +326,7 @@
                         });
                     }
                 });
-                window._gaq.push(['_trackEvent', 'Game', 'Full leaderboard']);
+                window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard']);
             });
             var input = document.getElementById('ajapaik-curator-add-area-name'),
                 $input = $(input);

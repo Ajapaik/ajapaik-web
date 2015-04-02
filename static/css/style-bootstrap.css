@@ -1551,7 +1551,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin-bottom: 3%;
 }
 
-#ajapaik-photo-modal-header {
+.ajapaik-no-bottom-border-modal-header {
     border-bottom: none;
 }
 

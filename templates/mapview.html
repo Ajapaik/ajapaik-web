@@ -20,24 +20,8 @@
     <div id="ajapaik-guess-panel-container" class="container">
         {% include "_guess_panel.html" %}
     </div>
-    <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="leaderboard_browser">
-                        <div class="single">
-                            <div class="score_container">
-                                <ul class="scoreboard"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-block btn-default btn-block" data-dismiss="modal">{% trans "Close" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "_full_leaderboard_modal.html" %}
+    {% include "_all_time_leaderboard_modal.html" %}
     <div class="full-box">
         <div class="full-pic" id="ajapaik-mapview-fullscreen-image-container">
             <img id="ajapaik-mapview-full-screen-image" src=""/>
@@ -54,6 +38,7 @@
 {% block specific_js %}
     <script>
         var title = '{{ title }}',
+            leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
             {% if area %}
                 areaId = '{{ area.id | safe }}',
