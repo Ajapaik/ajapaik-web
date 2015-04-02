@@ -96,7 +96,7 @@ def _get_album_info_modal_data(album, request):
         cursor.execute("SELECT project_photo.user_id, COUNT(project_photo.user_id) AS user_score FROM project_photo "
                        "INNER JOIN project_albumphoto ON project_photo.id = project_albumphoto.photo_id "
                        "INNER JOIN project_profile ON project_profile.user_id = project_photo.user_id "
-                       "WHERE project_albumphoto.album_id IN %s AND project_photo.rephoto_of IS NULL "
+                       "WHERE project_albumphoto.album_id IN %s AND project_photo.rephoto_of_id IS NULL "
                        "GROUP BY project_photo.user_id ORDER BY user_score DESC",
                        [tuple(album_ids)])
         user_scores = cursor.fetchall()
