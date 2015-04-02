@@ -531,6 +531,10 @@
             });
             window._gaq.push(['_trackEvent', 'Game', 'All time leaderboard']);
         });
+        $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {
+            e.preventDefault();
+            $('#full_leaderboard').click();
+        });
         window.saveLocationButton.click(function () {
             if (window.disableSave) {
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));
