@@ -256,6 +256,8 @@ def _get_album_leaderboard(user_id, album_id=None):
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
         top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores], fb_name__isnull=False) | Q(user_id=user_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
+        if user_id not in user_score_map:
+            user_score_map[user_id] = 0
         board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users[:1]]
         self_user_idx = filter(lambda (inner_idx, inner_data): inner_data.user_id == user_id, top_users)[0][0]
