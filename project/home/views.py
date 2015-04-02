@@ -919,7 +919,6 @@ def leaderboard(request):
     album_leaderboard = None
     if album_id:
         album_leaderboard = _get_album_leaderboard(request.get_user().profile.pk, album_id)
-    print album_leaderboard
     template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
