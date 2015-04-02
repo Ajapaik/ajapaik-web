@@ -50,6 +50,8 @@
         <meta property="og:type" content="website"/>
         {% if photo or rephoto %}
             <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+        {% elif selected_photo %}
+            <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}photo/{{ selected_photo.id }}/"/>
         {% elif album %}
             {% if is_mapview %}
                  <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}?album={{ album.id }}"/>
@@ -59,28 +61,32 @@
         {% else %}
             <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
         {% endif %}
-        {% if rephoto %}
-            {% thumbnail rephoto.image "700x400" as im %}
-                <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
-                <meta property="og:image:type" content="image/jpeg"/>
-            {% endthumbnail %}
+        {% if selected_photo %}
+            <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' selected_photo.id %}"/>
         {% else %}
-            {% if photo %}
-                {% thumbnail photo.image "700x400" as im %}
+            {% if rephoto %}
+                {% thumbnail rephoto.image "700x400" as im %}
                     <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
                     <meta property="og:image:type" content="image/jpeg"/>
                 {% endthumbnail %}
+            {% else %}
+                {% if photo %}
+                    {% thumbnail photo.image "700x400" as im %}
+                        <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
+                        <meta property="og:image:type" content="image/jpeg"/>
+                    {% endthumbnail %}
+                {% endif %}
             {% endif %}
-        {% endif %}
-        {% if facebook_share_photos %}
-            {% for p in facebook_share_photos %}
-                <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
-            {% endfor %}
-        {% endif %}
-        {% if curator_random_images %}
-            {% for each in curator_random_images %}
-                <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' each.id %}"/>
-            {% endfor %}
+            {% if facebook_share_photos %}
+                {% for p in facebook_share_photos %}
+                    <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
+                {% endfor %}
+            {% endif %}
+            {% if curator_random_images %}
+                {% for each in curator_random_images %}
+                    <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' each.id %}"/>
+                {% endfor %}
+            {% endif %}
         {% endif %}
         <meta property="og:locale" content="et_EE"/>
         <meta property="og:locale:alternate" content="ru_RU"/>
@@ -121,9 +127,9 @@
 {% block layout %}{% endblock layout %}
 {% block global_js %}
     <script>
-        window.fbAsyncInit=function(){FB.init({appId:"201052296573134",status:!0,cookie:!0,xfbml:!0});try{FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackEvent","Facebook","Like added",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackEvent","Facebook","Like removed",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackEvent","Facebook","Message sent",a])}),FB.Event.subscribe("comment.create",function(a){_gaq.push(["_trackEvent","Facebook","Comment added",
+        window.fbAsyncInit=function(){FB.init({appId:"201052296573134",status:!0,cookie:!0,xfbml:!0, version:'v2.3'});try{FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackEvent","Facebook","Like added",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackEvent","Facebook","Like removed",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackEvent","Facebook","Message sent",a])}),FB.Event.subscribe("comment.create",function(a){_gaq.push(["_trackEvent","Facebook","Comment added",
         a.href])}),FB.Event.subscribe("comment.remove",function(a){_gaq.push(["_trackEvent","Facebook","Comment removed",a.href])}),FB.Event.subscribe("auth.prompt",function(){_gaq.push(["_trackEvent","Facebook","Login prompt"])}),FB.Event.subscribe("auth.login",function(){_gaq.push(["_trackEvent","Facebook","Login success"])}),FB.Event.subscribe("auth.logout",function(){_gaq.push(["_trackEvent","Facebook","Logged out"])})}catch(b){console.log(b)}};
-        (function(){var b=document.createElement("script");b.async=!0;b.src=document.location.protocol+"//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/all.js";document.getElementById("fb-root").appendChild(b)})();
+        (function(){var b=document.createElement("script");b.async=!0;b.src=document.location.protocol+"//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/sdk.js";document.getElementById("fb-root").appendChild(b)})();
     </script>
     <script>
         var _gaq=_gaq||[];_gaq.push(["_setAccount","{{ analytics.google_analytics_key }}"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();
@@ -132,7 +138,9 @@
         var isMobile = '{{ request.mobile }}',
             saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
             leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
-            flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}';
+            flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',
+            allTimeLeaderboardURL = '{% url 'project.home.views.all_time_leaderboard' %}',
+            leaderboardFullURL = '{% url 'project.home.views.top50' %}';
         isMobile = isMobile === 'True';
     </script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>

@@ -12,11 +12,16 @@
                 {% if album.description %}
                     <h6>{{ album.description }}</h6>
                 {% endif %}
-                {% if album.profile %}
-                    <h6>{% trans "Album curated by" %} <a target="_blank" href="{{ album.profile.fb_link }}">{{ album.profile.fb_name }}</a></h6>
+                {% if album_curators %}
+                    <h6>{% trans "Album curated by" %}
+                        {% for curator in album_curators %}
+                            <a target="_blank" href="{{ curator.fb_link }}">{{ curator.fb_name }}</a>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </h6>
                 {% else %}
                     <h6>{% trans "Album curated by" %} Ajapaik</h6>
                 {% endif %}
+                <h6><a href="#" id="ajapaik-info-window-leaderboard-link">{% trans "Contributors' leaderboard" %}</a></h6>
             </div>
             <div class="modal-body" id="ajapaik-info-modal-body">
                 <div class="row">

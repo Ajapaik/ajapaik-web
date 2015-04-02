@@ -211,7 +211,7 @@ class Album(Model):
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
     profile = ForeignKey("Profile", related_name="albums", blank=True, null=True)
     is_public = BooleanField(default=True)
-    is_public_mutable = BooleanField(default=False)
+    open = BooleanField(default=False)
     photos = ManyToManyField("Photo", through="AlbumPhoto", related_name="albums")
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)
@@ -531,10 +531,13 @@ class Photo(Model):
         return slug
 
     def get_heatmap_points(self):
-        valid_geotags = self.geotags.all()
+        valid_geotags = self.geotags.distinct("user_id").order_by("user_id", "-created")
         data = []
         for each in valid_geotags:
-            data.append([each.lat, each.lon, each.azimuth])
+            serialized = [each.lat, each.lon]
+            if each.azimuth:
+                serialized.append(each.azimuth)
+            data.append(serialized)
         return data
 
     def save(self, *args, **kwargs):
@@ -783,7 +786,7 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read("https://graph.facebook.com/me?access_token=%s" % access_token))
+        data = loads(self.url_read("https://graph.facebook.com/v2.3/me?access_token=%s" % access_token))
         if not data:
             raise Exception("Facebook did not return anything useful for this access token")
 
@@ -814,8 +817,6 @@ class Profile(Model):
     google_plus_name = CharField(max_length=255, null=True, blank=True)
     google_plus_token = CharField(max_length=255, null=True, blank=True)
     google_plus_picture = CharField(max_length=255, null=True, blank=True)
-
-    avatar_url = URLField(null=True, blank=True)
 
     modified = DateTimeField(auto_now=True)
 
@@ -850,7 +851,9 @@ class Profile(Model):
         hometown = data.get("hometown")
         if hometown is not None and "name" in hometown:
             self.fb_hometown = data.get("hometown")["name"]
-        self.fb_user_friends = data.get("user_friends")
+        user_friends = data.get("user_friends")
+        if user_friends is not None:
+            self.fb_user_friends = user_friends
 
         self.save()
 

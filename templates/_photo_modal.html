@@ -2,6 +2,11 @@
 
 <div class="modal-dialog modal-lg" id="mapview-photo-modal-dialog">
     <div class="modal-content">
+        <div class="modal-header ajapaik-no-bottom-border-modal-header" id="ajapaik-photo-modal-header">
+            <button id="ajapaik-photo-modal-close-button" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="modal-body" id="ajapaik-modal-body">
             <div class="row">
                 {% if photo.rephotos.all|length == 0 %}
@@ -110,7 +115,7 @@
                     {% endif %}
                     {% if photo.rephotos.all.0.date %}
                         <div class="row ajapaik-photo-modal-row">
-                            {{ photo.rephotos.all.0.date|date:"d.m.Y." }}
+                            {{ photo.rephotos.all.0.date|date:"d.m.Y" }}
                         </div>
                     {% endif %}
                     </div>
@@ -136,30 +141,32 @@
                         </ul>
                     </div>
                     <button class="btn btn-block btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %} <span data-href="{{ fb_url }}" class="badge fb-comments-count"></span></button>
-                    {% if geotag_count > 0 %}
-                        {% if geotag_count == 1 %}
-                            <p class="text-left">{{ geotag_count }} {% trans "location suggestion has been submitted for this picture" %}</p>
-                        {% else %}
-                            <p class="text-left">{{ geotag_count }} {% trans "location suggestions have been submitted for this picture." %}</p>
-                        {% endif %}
-                    {% endif %}
-                    {% if albums %}
-                        <p class="text-left">
-                        {% blocktrans count counter=albums|length %}
-                            Picture belongs to album
-                        {% plural %}
-                            Picture belongs to albums:
-                        {% endblocktrans %}
-                        {% for a in albums %}
-                            <a href="{% url 'project.home.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                        </p>
-                    {% endif %}
                 </div>
                 <div class="col-xs-6">
                     <button class="btn btn-block btn-success ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
                     <button class="btn btn-block btn-success ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
-                    <button id="ajapaik-photo-modal-close-button" type="button" class="btn btn-block btn-default">{% trans "Close" %}</button>
+                </div>
+                <div class="col-xs-12 ajapaik-margin-top-5">
+                    {% if geotag_count > 0 %}
+                        {% if geotag_count == 1 %}
+                            <p class="text-left">{{ geotag_count }} {% trans "user has submitted a location for this picture" %}
+                        {% else %}
+                            <p class="text-left">{{ geotag_count }} {% trans "users have submitted a location for this picture" %}
+                        {% endif %}
+                        </p>
+                    {% endif %}
+                    {% if albums %}
+                        <p class="text-left">
+                            {% blocktrans count counter=albums|length %}
+                                Picture belongs to album
+                            {% plural %}
+                                Picture belongs to albums:
+                            {% endblocktrans %}
+                            {% for a in albums %}
+                                <a href="{% url 'project.home.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>

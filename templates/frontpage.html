@@ -72,7 +72,7 @@ p {
 			<div class="example">
 				<a href="{{ example.get_absolute_url }}">
 					<div class="cf" style="width:400px;height:300px;">
-						<img class="{% if example.flip %}flip-photo{% endif %}" src="{% url 'project.home.views.photo_url' example.id %}" border="0" style="height:100%;" title="{{ example.description }}" />
+						<img class="{% if example.flip %}ajapaik-photo-flipped{% endif %}" src="{% url 'project.home.views.photo_url' example.id %}" border="0" style="height:100%;" title="{{ example.description }}" />
 						<img src="{% url 'project.home.views.photo_url' example_source.id %}" border="0" style="height:100%;" title="{{ example_source.description }}" class="cf-top" />
 					</div>
 				</a>

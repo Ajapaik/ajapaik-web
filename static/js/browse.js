@@ -856,6 +856,9 @@
             e.preventDefault();
             $.ajax({
                 url: window.leaderboardFullURL,
+                data: {
+                    albumId: window.albumId
+                },
                 success: function (response) {
                     var modalWindow = $('#ajapaik-full-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);
@@ -865,6 +868,24 @@
                 }
             });
             window._gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
+        });
+        $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {
+            e.preventDefault();
+            $('#full_leaderboard').click();
+        });
+        $(document).on('click', '#ajapaik-all-time-leaderboard-link', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: window.allTimeLeaderboardURL,
+                success: function (response) {
+                    var modalWindow = $('#ajapaik-all-time-leaderboard-modal');
+                    modalWindow.find('.scoreboard').html(response);
+                    modalWindow.modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+            window._gaq.push(['_trackEvent', 'Map', 'All time leaderboard']);
         });
         $(document).on('click', '#ajapaik-game-flip-photo-button', function () {
             var button = $(this);

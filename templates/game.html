@@ -85,30 +85,12 @@
             <div id="ajapaik-game-full-screen-description" style="display: none;"></div>
         </div>
     </div>
-    <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
-         aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
-        <div class="modal-dialog" style="width: 75%;">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="leaderboard_browser">
-                        <div class="single">
-                            <div class="score_container">
-                                <ul class="scoreboard"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "_full_leaderboard_modal.html" %}
+    {% include "_all_time_leaderboard_modal.html" %}
 {% endblock %}
 {% block specific_js %}
     <script>
-        var leaderboardFullURL = '{% url 'project.home.views.top50' %}',
-            permalinkURL = '{{ hostname }}/foto/',
+        var permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
             albumId = '{{ album.id|safe }}';
         {% if random_album_photo %}

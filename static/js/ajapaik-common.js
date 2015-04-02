@@ -225,6 +225,8 @@ var map,
             maxZoom: 18
         }));
 
+        map.setMapTypeId('OSM');
+
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
@@ -458,7 +460,11 @@ var map,
     };
 
     updateLeaderboard = function () {
-        $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
+        if (window.albumId) {
+            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + '?albumId=' + window.albumId);
+        } else {
+            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
+        }
     };
 
     saveLocationCallback = function (resp) {

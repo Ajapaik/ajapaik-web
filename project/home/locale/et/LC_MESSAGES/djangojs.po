@@ -1,39 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Lauri Elias, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-31 11:49+0300\n"
-"PO-Revision-Date: 2015-03-31 11:59+0200\n"
-"Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2015-04-02 13:04+0300\n"
+"PO-Revision-Date: 2015-04-01 10:20+0000\n"
+"Last-Translator: Lauri Elias\n"
+"Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
+"language/et/)\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: static/js/ajapaik-common.js:118
 msgid "Tutorial"
 msgstr "Abi"
 
-#: static/js/ajapaik-common.js:240
+#: static/js/ajapaik-common.js:242
 msgid "Geotag pictures"
 msgstr "Märgi pilte kaardile"
 
-#: static/js/ajapaik-common.js:246
+#: static/js/ajapaik-common.js:248
 msgid "Close"
 msgstr "Sulge"
 
-#: static/js/ajapaik-common.js:644 static/js/ajapaik-common.js.c:766
-#: static/js/ajapaik-common.js:785 static/js/game.js:125
+#: static/js/ajapaik-common.js:650 static/js/ajapaik-common.js.c:772
+#: static/js/ajapaik-common.js:791 static/js/game.js:125
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:677 static/js/browse.js:823
-#: static/js/game.js:519 static/js/grid.js:418
+#: static/js/ajapaik-common.js:683 static/js/browse.js:823
+#: static/js/game.js:540 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -41,11 +47,11 @@ msgstr ""
 "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
 "pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
-#: static/js/ajapaik-common.js:701
+#: static/js/ajapaik-common.js:707
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: static/js/ajapaik-common.js:839
+#: static/js/ajapaik-common.js:845
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
@@ -91,27 +97,27 @@ msgstr "Suurus"
 
 #: static/js/ajapaik-translations.js:12
 msgid "Institution"
-msgstr ""
+msgstr "Institutsioon"
 
 #: static/js/ajapaik-translations.js:13
 msgid "Number"
-msgstr ""
+msgstr "Kogunumber"
 
 #: static/js/ajapaik-translations.js:14
 msgid "Date"
-msgstr ""
+msgstr "Dateering"
 
 #: static/js/ajapaik-translations.js:15
 msgid "URL"
-msgstr ""
+msgstr "Veebiaadress"
 
 #: static/js/ajapaik-translations.js:16
 msgid "Title"
-msgstr ""
+msgstr "Pealkiri"
 
 #: static/js/ajapaik-translations.js:17
 msgid "Licence"
-msgstr ""
+msgstr "Litsents"
 
 #: static/js/ajapaik-translations.js:18
 msgid "Points"
@@ -119,7 +125,7 @@ msgstr "Punktid"
 
 #: static/js/ajapaik-translations.js:19
 msgid "System error"
-msgstr ""
+msgstr "Süsteemiviga"
 
 #: static/js/ajapaik-translations.js:20
 msgid "Not selected"
@@ -127,7 +133,7 @@ msgstr "..."
 
 #: static/js/ajapaik-translations.js:21
 msgid "photos"
-msgstr ""
+msgstr "fotot"
 
 #: static/js/ajapaik-translations.js:22
 msgid "Source ID"
@@ -140,7 +146,7 @@ msgstr "Saadud punktid"
 
 #: static/js/game.js:36
 msgid "Vihje vaatamine"
-msgstr ""
+msgstr "Vihje vaatamine"
 
 #: static/js/game.js:38
 msgid ""
@@ -164,28 +170,5 @@ msgstr "Oled sellest kohast näinud kõiki pilte."
 msgid "Your guess"
 msgstr "Sinu pakkumine"
 
-#~ msgid "Geotagging game"
-#~ msgstr "Asukohapakkumiste mäng"
-
-#~ msgid "Source URL"
-#~ msgstr "Allika URL"
-
-#~ msgid "Point the marker to where the picture was taken from."
-#~ msgstr "Aseta marker sinna, kust pilt on tehtud."
-
-#~ msgid "Looks right!"
-#~ msgstr "Tundub õige!"
-
-#~ msgid "Correct location is not certain yet."
-#~ msgstr "Siin ei ole päris täpne asukoht veel kindlaks tehtud."
-
 #~ msgid "We doubt about it."
-#~ msgstr "Teised arvavad teisiti."
-
-#~ msgid "Show hint"
-#~ msgstr "Näita vihjet"
-
-#~ msgid "You have selected one photo for uploading. Continue?"
-#~ msgid_plural "You have selected %s photos for uploading. Continue?"
-#~ msgstr[0] "Soovid laadida üles ühe foto. Jätkan? "
-#~ msgstr[1] "Soovid laadida üles %s fotot. Jätkan?"
+#~ msgstr "Others have different opinion."
