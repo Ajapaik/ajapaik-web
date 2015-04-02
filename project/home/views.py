@@ -90,19 +90,20 @@ def _get_album_info_modal_data(album, request):
 
     # TODO: Figure out how to trick Django into doing this
     album_ids = [x.album_id for x in AlbumPhoto.objects.filter(
-        photo_id__in=album_photo_ids, album__is_public=False).distinct('album_id')]
-    cursor = connection.cursor()
-    cursor.execute("SELECT project_photo.user_id, COUNT(project_photo.user_id) AS user_score FROM project_photo "
-                   "INNER JOIN project_albumphoto ON project_photo.id = project_albumphoto.photo_id "
-                   "INNER JOIN project_profile ON project_profile.user_id = project_photo.user_id "
-                   "WHERE project_albumphoto.album_id IN %s GROUP BY project_photo.user_id ORDER BY user_score DESC",
-                   [tuple(album_ids)])
-    user_scores = cursor.fetchall()
-    user_id_list = [x[0] for x in user_scores]
-    album_curators = Profile.objects.filter(user_id__in=user_id_list)
-    album_curators = list(album_curators)
-    album_curators.sort(key=lambda z: user_id_list.index(z.id))
-    ret["album_curators"] = album_curators
+        photo_id__in=album_photo_ids, album__is_public=True).distinct('album_id')]
+    if album_ids:
+        cursor = connection.cursor()
+        cursor.execute("SELECT project_photo.user_id, COUNT(project_photo.user_id) AS user_score FROM project_photo "
+                       "INNER JOIN project_albumphoto ON project_photo.id = project_albumphoto.photo_id "
+                       "INNER JOIN project_profile ON project_profile.user_id = project_photo.user_id "
+                       "WHERE project_albumphoto.album_id IN %s GROUP BY project_photo.user_id ORDER BY user_score DESC",
+                       [tuple(album_ids)])
+        user_scores = cursor.fetchall()
+        user_id_list = [x[0] for x in user_scores]
+        album_curators = Profile.objects.filter(user_id__in=user_id_list)
+        album_curators = list(album_curators)
+        album_curators.sort(key=lambda z: user_id_list.index(z.id))
+        ret["album_curators"] = album_curators
 
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
