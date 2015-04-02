@@ -503,7 +503,7 @@ def frontpage(request):
     except ObjectDoesNotExist:
         example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
     example_source = Photo.objects.get(pk=example.rephoto_of.id)
-    album_selection_form = AlbumSelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm({"album": Album.objects.filter(is_public=True).order_by('-created')[0].id})
 
     if not album_selection_form.is_valid():
         album_selection_form = AlbumSelectionForm()
