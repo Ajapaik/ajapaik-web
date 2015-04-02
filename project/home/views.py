@@ -312,6 +312,8 @@ def _get_album_leaderboard50(user_id, album_id=None):
                 user_score_map[each.user_id] += each.score
             else:
                 user_score_map[each.user_id] = each.score
+        if user_id not in user_score_map:
+            user_score_map[user_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
         top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores], fb_name__isnull=False) | Q(user_id=user_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
