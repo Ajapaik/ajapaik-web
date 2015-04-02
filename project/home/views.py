@@ -100,7 +100,7 @@ def _get_album_info_modal_data(album, request):
                        [tuple(album_ids)])
         user_scores = cursor.fetchall()
         user_id_list = [x[0] for x in user_scores]
-        album_curators = Profile.objects.filter(user_id__in=user_id_list)
+        album_curators = Profile.objects.filter(user_id__in=user_id_list, fb_name__isnull=False)
         album_curators = list(album_curators)
         album_curators.sort(key=lambda z: user_id_list.index(z.id))
         ret["album_curators"] = album_curators
