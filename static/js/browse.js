@@ -854,11 +854,12 @@
 
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
+            var url = window.leaderboardFullURL;
+            if (window.albumId) {
+                url += 'album/' + window.albumId;
+            }
             $.ajax({
-                url: window.leaderboardFullURL,
-                data: {
-                    albumId: window.albumId
-                },
+                url: url,
                 success: function (response) {
                     var modalWindow = $('#ajapaik-full-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);

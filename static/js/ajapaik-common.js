@@ -461,7 +461,7 @@ var map,
 
     updateLeaderboard = function () {
         if (window.albumId) {
-            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + '?albumId=' + window.albumId);
+            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
             $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
         }
@@ -916,9 +916,19 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
-        $('#ajapaik-info-modal').modal().on('shown.bs.modal', function () {
-            $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
-        });
+        var targetDiv = $('#ajapaik-info-modal');
+        if (window.albumId) {
+            $.ajax({
+                url: window.infoModalURL,
+                success: function (resp) {
+                    targetDiv.html(resp);
+                    targetDiv.modal().on('shown.bs.modal', function () {
+                        $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
+                        window.FB.XFBML.parse();
+                    });
+                }
+            });
+        }
     });
 
     $(document).on('click', '.ajapaik-close-streetview-button', function () {

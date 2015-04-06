@@ -146,7 +146,9 @@
         modalPhoto.unbind('load');
         $.getJSON(streamUrl, $.extend({'album': window.albumId, 'b': new Date().getTime()}, window.URI.parseQuery(window.location.search)), function (data) {
             currentPhoto = data.photo;
-            window.currentPhotoDescription = data.photo.description;
+            if (data.photo.description) {
+                window.currentPhotoDescription = data.photo.description.replace(/(\r\n|\n|\r)/gm, '');
+            }
             var textTarget = $('#ajapaik-game-status-message'),
                 message;
             textTarget.hide();
@@ -375,7 +377,17 @@
             window.disableSave = false;
         });
         if (window.albumId && !window.getQueryParameterByName('fromButton')) {
-            $('#ajapaik-info-modal').modal();
+            var targetDiv = $('#ajapaik-info-modal');
+            $.ajax({
+                url: window.infoModalURL,
+                success: function (resp) {
+                    targetDiv.html(resp);
+                    targetDiv.modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                        window.FB.XFBML.parse();
+                    });
+                }
+            });
         }
         $(window.input).show();
         window.syncMapStateToURL();
@@ -502,11 +514,12 @@
         });
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
+            var url = window.leaderboardFullURL;
+            if (window.albumId) {
+                url += 'album/' + window.albumId;
+            }
             $.ajax({
-                url: window.leaderboardFullURL,
-                data: {
-                    albumId: window.albumId
-                },
+                url: url,
                 success: function (response) {
                     var modalWindow = $('#ajapaik-full-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);

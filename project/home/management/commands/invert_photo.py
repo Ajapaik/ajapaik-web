@@ -24,3 +24,5 @@ class Command(BaseCommand):
             inverted_grayscale_image = ImageOps.invert(img).convert('L')
             inverted_grayscale_image.save(photo_path)
             print "Inverted"
+            photo.invert = True
+            photo.save()
