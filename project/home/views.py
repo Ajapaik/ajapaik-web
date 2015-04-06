@@ -237,9 +237,9 @@ def _get_album_leaderboard(user_id, album_id=None):
     if album_id:
         album = Album.objects.get(pk=album_id)
         # TODO: Almost identical code is used in many places, put under album model
-        album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
+        album_photos_qs = album.photos.filter()
         for sa in album.subalbums.all():
-            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+            album_photos_qs = album_photos_qs | sa.photos.filter()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
         rephoto_points = Points.objects.filter(photo_id__in=album_photo_ids)
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
