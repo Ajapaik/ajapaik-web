@@ -93,8 +93,10 @@
     <script>
         var permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
-            albumId = '{{ album.id|safe }}',
-            infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' album.id %}';
+            albumId = '{{ album.id|safe }}';
+        {% if album %}
+            var infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' album.id %}';
+        {% endif %}
         {% if random_album_photo %}
             {% if random_album_photo.lat and random_album_photo.lon %}
                 start_location = [{{ random_album_photo.lon|safe }}, {{ random_album_photo.lat|safe }}];
