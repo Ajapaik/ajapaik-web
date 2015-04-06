@@ -146,7 +146,9 @@
         modalPhoto.unbind('load');
         $.getJSON(streamUrl, $.extend({'album': window.albumId, 'b': new Date().getTime()}, window.URI.parseQuery(window.location.search)), function (data) {
             currentPhoto = data.photo;
-            window.currentPhotoDescription = data.photo.description;
+            if (data.photo.description) {
+                window.currentPhotoDescription = data.photo.description.replace(/(\r\n|\n|\r)/gm, '');
+            }
             var textTarget = $('#ajapaik-game-status-message'),
                 message;
             textTarget.hide();
