@@ -1203,7 +1203,9 @@ def curator_photo_upload_handler(request):
         parsed_kv = {}
         for each in parsed_response:
             parsed_kv[each["id"]] = each
-        parsed_selection.update(parsed_kv)
+        for k, v in parsed_selection.iteritems():
+            for sk, sv in parsed_kv[k].iteritems():
+                parsed_selection[k][sk] = sv
         selection = parsed_selection
 
     all_curating_points = []
