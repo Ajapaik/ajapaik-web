@@ -251,7 +251,7 @@
         //$('.filter-box').hide();
         window.currentPhotoURL = '{% url 'project.home.views.photo_url' photo.id %}';
         {% if description %}
-            window.currentPhotoDescription = '{{ description }}'.replace(/(\r\n|\n|\r)/gm, '');
+            window.currentPhotoDescription = '{{ description }}';
         {% else %}
             window.currentPhotoDescription = false;
         {% endif %}
