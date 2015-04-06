@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-07 01:24+0300\n"
-"PO-Revision-Date: 2015-04-02 10:05+0000\n"
+"PO-Revision-Date: 2015-04-06 22:26+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Latvian (http://www.transifex.com/projects/p/ajapaik/language/"
-"lv/)\n"
-"Language: lv\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/ajapaik/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 #: project/home/forms.py:9 templates/photo_upload.html:58
 #: templates/photo_upload.html.py:218
@@ -84,9 +82,7 @@ msgstr "Timepatch (Ajapaik)"
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
-msgstr ""
-"Apskati un pievieno metadatus vēsturiskajiem attēliem. Sacenšoties ar citiem "
-"būs aizraujoši."
+msgstr "Apskati un pievieno metadatus vēsturiskajiem attēliem. Sacenšoties ar citiem būs aizraujoši."
 
 #: project/home/views.py:792 project/home/views.py:802
 #: project/home/views.py:804 templates/frontpage.html:157
@@ -99,7 +95,8 @@ msgstr ""
 
 #: project/home/views.py:908
 msgid ""
-"The location seems right. Try submitting an azimuth to earn even more points!"
+"The location seems right. Try submitting an azimuth to earn even more "
+"points!"
 msgstr ""
 
 #: project/home/views.py:911
@@ -529,8 +526,8 @@ msgstr "Lai augšupielādētu attēlu vajadzīgs pieslēgties tavam Facebook kon
 #: templates/_photo_upload_modal.html:40
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to "
-"you under the"
+"picture was taken and upload it. Uploaded rephotograph will be attributed to"
+" you under the"
 msgstr ""
 
 #: templates/_photo_upload_modal.html:41
@@ -569,8 +566,8 @@ msgstr ""
 msgid ""
 "If you know which way the photographer was facing when the photo was taken, "
 "you can earn extra points by submitting the line of sight along with the "
-"coordinates. While the line is dotted, it means you haven't yet locked it in "
-"and only the location will be submitted."
+"coordinates. While the line is dotted, it means you haven't yet locked it in"
+" and only the location will be submitted."
 msgstr ""
 
 #: templates/_tutorial.html:19
@@ -583,8 +580,8 @@ msgstr ""
 msgid ""
 "By default, the location marker is locked to the center of the map. To "
 "change its location, the map itself must be dragged underneath. Sometimes "
-"this may not be desirable and this button unlocks the marker, enabling it to "
-"be dragged as usual."
+"this may not be desirable and this button unlocks the marker, enabling it to"
+" be dragged as usual."
 msgstr ""
 
 #: templates/_tutorial.html:27
@@ -641,8 +638,8 @@ msgstr ""
 
 #: templates/base.html:107 templates/base_bootstrap.html:118
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree "
-"to that."
+"We use cookies for best performance of the site. By using the site you agree"
+" to that."
 msgstr ""
 
 #: templates/base_bootstrap.html:29
@@ -890,7 +887,8 @@ msgstr ""
 
 #: templates/photo_upload.html:234
 msgid ""
-"CSV: institution;number;image;title;description;date;url;licence in any order"
+"CSV: institution;number;image;title;description;date;url;licence in any "
+"order"
 msgstr ""
 
 #: templates/photo_upload.html:239
