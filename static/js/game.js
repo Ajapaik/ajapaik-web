@@ -384,6 +384,7 @@
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {
                         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                        window.FB.XFBML.parse();
                     });
                 }
             });
