@@ -241,7 +241,6 @@ class AlbumPhoto(Model):
 
     class Meta:
         app_label = "project"
-        unique_together = (("album", "photo"),)
 
     def __unicode__(self):
         return u"%d - %d" % (self.album.id, self.photo.id)

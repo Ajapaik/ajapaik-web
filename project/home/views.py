@@ -2,7 +2,7 @@
 from copy import deepcopy
 import os
 import urllib2
-from django.db import connection
+from django.db import connection, IntegrityError
 import operator
 import requests
 import random
@@ -252,10 +252,12 @@ def _get_album_leaderboard(user_id, album_id=None):
             else:
                 user_score_map[each.user_id] = each.points
         for each in geotags:
-            if each.user_id in user_score_map:
-                user_score_map[each.user_id] += each.score
-            else:
-                user_score_map[each.user_id] = each.score
+            # FIXME: Why is this check necessary? How can there be NULL score geotags? Race conditions somehow?
+            if each.score:
+                if each.user_id in user_score_map:
+                    user_score_map[each.user_id] += each.score
+                else:
+                    user_score_map[each.user_id] = each.score
         if user_id not in user_score_map:
             user_score_map[user_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
@@ -921,11 +923,10 @@ def geotag_add(request):
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
-def leaderboard(request):
+def leaderboard(request, album_id=None):
     # leaderboard with first position, one in front of you, your score and one after you
     _calculate_recent_activity_scores()
     response = _get_leaderboard(request.get_user().profile.pk)
-    album_id = request.GET.get('albumId', None)
     album_leaderboard = None
     if album_id:
         album_leaderboard = _get_album_leaderboard(request.get_user().profile.pk, album_id)
@@ -953,10 +954,9 @@ def all_time_leaderboard(request):
     }))
 
 
-def top50(request):
+def top50(request, album_id=None):
     # leaderboard with top 50 scores
     _calculate_recent_activity_scores()
-    album_id = request.GET.get('albumId', None)
     album_leaderboard = None
     album_name = None
     if album_id:
@@ -1230,7 +1230,7 @@ def curator_photo_upload_handler(request):
             )
             album.save()
         default_album = Album(
-            name=str(profile.id) + "-" + str(datetime.datetime.now()).split(".")[0],
+            name=str(profile.id) + "-" + str(datetime.datetime.now()),
             atype=Album.AUTO,
             profile=profile,
             is_public=False,
@@ -1307,7 +1307,9 @@ def curator_photo_upload_handler(request):
                             awarded_curator_points.append(points_for_curating)
                             if album:
                                 ap = AlbumPhoto(photo=new_photo, album=album)
+                                print "before"
                                 ap.save()
+                                print "here"
                                 created_album_photo_links.append(ap)
                             ap = AlbumPhoto(photo=new_photo, album=default_album)
                             ap.save()
@@ -1328,8 +1330,8 @@ def curator_photo_upload_handler(request):
                         if album:
                             ap = AlbumPhoto(photo=existing_photo, album=album)
                             ap.save()
-                        ap = AlbumPhoto(photo=existing_photo, album=default_album)
-                        ap.save()
+                        dap = AlbumPhoto(photo=existing_photo, album=default_album)
+                        dap.save()
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")

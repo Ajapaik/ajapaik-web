@@ -461,7 +461,7 @@ var map,
 
     updateLeaderboard = function () {
         if (window.albumId) {
-            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + '?albumId=' + window.albumId);
+            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
             $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
         }
