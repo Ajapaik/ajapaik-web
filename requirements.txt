@@ -16,7 +16,7 @@ mock==1.0.1
 numpy==1.9.2
 oauth2client==1.4.7
 pandas==0.16.0
-Pillow==2.8.1
+Pillow==2.6.0
 psycopg2==2.6
 py==1.4.26
 pyasn1==0.1.7
