@@ -377,7 +377,16 @@
             window.disableSave = false;
         });
         if (window.albumId && !window.getQueryParameterByName('fromButton')) {
-            $('#ajapaik-info-modal').modal();
+            var targetDiv = $('#ajapaik-info-modal');
+            $.ajax({
+                url: window.infoModalURL,
+                success: function (resp) {
+                    targetDiv.html(resp);
+                    targetDiv.modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
         }
         $(window.input).show();
         window.syncMapStateToURL();

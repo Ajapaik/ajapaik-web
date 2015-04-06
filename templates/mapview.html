@@ -8,7 +8,8 @@
 {% block layout %}
     {% include "_tutorial.html" %}
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
-    {% include "_info_modal.html" %}
+    <div class="modal fade" id="ajapaik-info-modal" tabindex="-1" role="dialog"
+     aria-labelledby="ajapaik-info-modal-label" aria-hidden="true"></div>
     <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
     <input id="pac-input-mapview" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
@@ -44,7 +45,8 @@
                 areaId = '{{ area.id | safe }}',
             {% endif %}
             {% if album %}
-                albumId = '{{ album.id |safe }}',
+                albumId = '{{ album.id | safe }}',
+                infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' album.id %}',
             {% endif %}
             photoModalCurrentImageUrl;
             {% if area.lat and area.lon %}

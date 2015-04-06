@@ -58,10 +58,12 @@ def _convert_to_degrees(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
-def _get_album_info_modal_data(album, request):
-    assert isinstance(album, Album)
+def get_album_info_modal_content(request, album_id):
     profile = request.get_user().profile
-    ret = {}
+    album = Album.objects.get(pk=album_id)
+    ret = {
+        "album": album,
+    }
     # TODO: Can these queries be optimized?
     album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
     if album.subalbums:
@@ -113,7 +115,7 @@ def _get_album_info_modal_data(album, request):
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
 
-    return ret
+    return render_to_response("_info_modal_content.html", RequestContext(request, ret))
 
 
 def _get_exif_data(img):
@@ -438,7 +440,6 @@ def game(request):
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
         ret["album"] = album
-        ret.update(_get_album_info_modal_data(album, request))
         try:
             ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?")[0]
         except:
@@ -797,7 +798,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
                 ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
             except:
                 pass
-        ret.update(_get_album_info_modal_data(album, request))
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
     else:
