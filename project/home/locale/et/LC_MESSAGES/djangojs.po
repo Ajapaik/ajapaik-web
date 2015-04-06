@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-02 13:04+0300\n"
+"POT-Creation-Date: 2015-04-07 01:25+0300\n"
 "PO-Revision-Date: 2015-04-01 10:20+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
@@ -39,7 +39,7 @@ msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
 #: static/js/ajapaik-common.js:683 static/js/browse.js:823
-#: static/js/game.js:540 static/js/grid.js:418
+#: static/js/game.js:553 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -139,8 +139,8 @@ msgstr "fotot"
 msgid "Source ID"
 msgstr "Allikaviide"
 
-#: static/js/browse.js:341 static/js/browse.js.c:342 static/js/game.js:259
-#: static/js/game.js.c:261 static/js/grid.js:69
+#: static/js/browse.js:341 static/js/browse.js.c:342 static/js/game.js:261
+#: static/js/game.js.c:263 static/js/grid.js:69
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
@@ -156,17 +156,17 @@ msgstr ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 
-#: static/js/game.js:154
+#: static/js/game.js:156
 msgid "We are now showing you random photos."
 msgstr ""
 "Oled sellest linnast näinud kõiki pilte, edaspidi näitame uuesti juhuslikult "
 "valitud pilte."
 
-#: static/js/game.js:156
+#: static/js/game.js:158
 msgid "You have seen all the pictures we have for this area."
 msgstr "Oled sellest kohast näinud kõiki pilte."
 
-#: static/js/game.js:279
+#: static/js/game.js:281
 msgid "Your guess"
 msgstr "Sinu pakkumine"
 

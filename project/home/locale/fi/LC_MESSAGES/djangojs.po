@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Susanna Ånäs <susanna.anas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-02 13:04+0300\n"
-"PO-Revision-Date: 2015-04-01 10:05+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2015-04-07 01:25+0300\n"
+"PO-Revision-Date: 2015-04-06 20:27+0000\n"
+"Last-Translator: Susanna Ånäs <susanna.anas@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
 "fi/)\n"
 "Language: fi\n"
@@ -26,11 +27,11 @@ msgstr "Tutustumiskierros"
 
 #: static/js/ajapaik-common.js:242
 msgid "Geotag pictures"
-msgstr ""
+msgstr "Geotägää kuvia"
 
 #: static/js/ajapaik-common.js:248
 msgid "Close"
-msgstr ""
+msgstr "Sulje"
 
 #: static/js/ajapaik-common.js:650 static/js/ajapaik-common.js.c:772
 #: static/js/ajapaik-common.js:791 static/js/game.js:125
@@ -38,7 +39,7 @@ msgid "Save location only"
 msgstr "Tallenna vain sijainti"
 
 #: static/js/ajapaik-common.js:683 static/js/browse.js:823
-#: static/js/game.js:540 static/js/grid.js:418
+#: static/js/game.js:553 static/js/grid.js:418
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -56,88 +57,90 @@ msgstr "Mediaaniarvaus"
 
 #: static/js/ajapaik-translations.js:3
 msgid "Invert colors"
-msgstr ""
+msgstr "Käännä värit"
 
 #: static/js/ajapaik-translations.js:4
 msgid "Flip"
-msgstr ""
+msgstr "Käännä"
 
 #: static/js/ajapaik-translations.js:5
 msgid "Mark stereophoto"
-msgstr ""
+msgstr "Merkitse stereokuva"
 
 #: static/js/ajapaik-translations.js:6
 msgid "Remove from selection"
-msgstr ""
+msgstr "Poista valinta"
 
 #: static/js/ajapaik-translations.js:7
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
 msgstr ""
+"Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä "
+"kuratointipisteitä"
 
 #: static/js/ajapaik-translations.js:8
 msgid "Description"
-msgstr ""
+msgstr "Kuvailu"
 
 #: static/js/ajapaik-translations.js:9
 msgid "Author"
-msgstr ""
+msgstr "Tekijä"
 
 #: static/js/ajapaik-translations.js:10
 msgid "Source"
-msgstr ""
+msgstr "Lähde"
 
 #: static/js/ajapaik-translations.js:11
 msgid "Size"
-msgstr ""
+msgstr "Koko"
 
 #: static/js/ajapaik-translations.js:12
 msgid "Institution"
-msgstr ""
+msgstr "Instituutio"
 
 #: static/js/ajapaik-translations.js:13
 msgid "Number"
-msgstr ""
+msgstr "Numero"
 
 #: static/js/ajapaik-translations.js:14
 msgid "Date"
-msgstr ""
+msgstr "Päivämäärä"
 
 #: static/js/ajapaik-translations.js:15
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: static/js/ajapaik-translations.js:16
 msgid "Title"
-msgstr ""
+msgstr "Otsikko"
 
 #: static/js/ajapaik-translations.js:17
 msgid "Licence"
-msgstr ""
+msgstr "Lisenssi"
 
 #: static/js/ajapaik-translations.js:18
 msgid "Points"
-msgstr ""
+msgstr "Pisteitä"
 
 #: static/js/ajapaik-translations.js:19
 msgid "System error"
-msgstr ""
+msgstr "Järjestelmävirhe"
 
 #: static/js/ajapaik-translations.js:20
 msgid "Not selected"
-msgstr ""
+msgstr "Ei valittu"
 
 #: static/js/ajapaik-translations.js:21
 msgid "photos"
-msgstr ""
+msgstr "valokuvaa"
 
 #: static/js/ajapaik-translations.js:22
 msgid "Source ID"
-msgstr ""
+msgstr "Lähteen tunnus"
 
-#: static/js/browse.js:341 static/js/browse.js.c:342 static/js/game.js:259
-#: static/js/game.js.c:261 static/js/grid.js:69
+#: static/js/browse.js:341 static/js/browse.js.c:342 static/js/game.js:261
+#: static/js/game.js.c:263 static/js/grid.js:69
 msgid "Points awarded"
 msgstr "Pistesaldo"
 
@@ -153,15 +156,15 @@ msgstr ""
 "Valokuvan kuvailu. Huomio! Kuvailu voi joskus olla virheellinen. Jos käytät "
 "kuvailua apunasi, saat 25% vähemmän pisteitä ehdotuksestasi."
 
-#: static/js/game.js:154
+#: static/js/game.js:156
 msgid "We are now showing you random photos."
 msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
 
-#: static/js/game.js:156
+#: static/js/game.js:158
 msgid "You have seen all the pictures we have for this area."
 msgstr "Olet nähnyt kaikki tämän alueen kuvat"
 
-#: static/js/game.js:279
+#: static/js/game.js:281
 msgid "Your guess"
 msgstr "Arvauksesi"
 

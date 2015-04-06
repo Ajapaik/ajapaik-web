@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Susanna Ånäs <susanna.anas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-02 13:04+0300\n"
-"PO-Revision-Date: 2015-04-02 20:49+0000\n"
+"POT-Creation-Date: 2015-04-07 01:24+0300\n"
+"PO-Revision-Date: 2015-04-06 20:34+0000\n"
 "Last-Translator: Susanna Ånäs <susanna.anas@gmail.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
+"fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/home/forms.py:9 templates/photo_upload.html:58
@@ -27,51 +28,51 @@ msgstr "Valitse alue"
 msgid "Choose album"
 msgstr "Valitse albumi"
 
-#: project/home/models.py:727
+#: project/home/models.py:726
 msgid "Map"
 msgstr "Kartta"
 
-#: project/home/models.py:728
+#: project/home/models.py:727
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/home/models.py:729
+#: project/home/models.py:728
 msgid "GPS"
 msgstr "GPS"
 
-#: project/home/models.py:733
+#: project/home/models.py:732
 msgid "Game"
 msgstr "Peli"
 
-#: project/home/models.py:734
+#: project/home/models.py:733
 msgid "Map view"
 msgstr "Karttanäkymä"
 
-#: project/home/models.py:735
+#: project/home/models.py:734
 msgid "Grid"
 msgstr "Ruudukko"
 
-#: project/home/models.py:739
+#: project/home/models.py:738
 msgid "Google map"
 msgstr "Google kartta"
 
-#: project/home/models.py:740
+#: project/home/models.py:739
 msgid "Google satellite"
 msgstr "Google satelliitti"
 
-#: project/home/models.py:741
+#: project/home/models.py:740
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/home/views.py:453
+#: project/home/views.py:466
 msgid "Geotagging game"
 msgstr "Geotägäyspeli"
 
-#: project/home/views.py:457
+#: project/home/views.py:470
 msgid "Let's put pictures on the map"
 msgstr "Laitetaan kuvat kartalle"
 
-#: project/home/views.py:515 templates/_header.html:5
+#: project/home/views.py:528 templates/_header.html:5
 #: templates/_header_area_selection_scoreboard.html:5 templates/base.html:7
 #: templates/base.html.py:9 templates/base.html.py:55
 #: templates/base_bootstrap.html:7 templates/base_bootstrap.html.py:9
@@ -79,83 +80,91 @@ msgstr "Laitetaan kuvat kartalle"
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:516 templates/frontpage.html:92
+#: project/home/views.py:529 templates/frontpage.html:92
 msgid ""
 "Look around and add metadata to historical photos. Competing with others "
 "adds more excitement."
-msgstr "Katso ympärillesi ja lisää historiallista metadataa kuviin. Muiden kanssa kilpaileminen tekee siitä jännittävämpää."
+msgstr ""
+"Katso ympärillesi ja lisää historiallista metadataa kuviin. Muiden kanssa "
+"kilpaileminen tekee siitä jännittävämpää."
 
-#: project/home/views.py:779 project/home/views.py:790
-#: project/home/views.py:792 templates/frontpage.html:157
+#: project/home/views.py:792 project/home/views.py:802
+#: project/home/views.py:804 templates/frontpage.html:157
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: project/home/views.py:893
+#: project/home/views.py:905
 msgid "Looks right!"
 msgstr "Näyttää oikealta!"
 
-#: project/home/views.py:896
+#: project/home/views.py:908
 msgid ""
-"The location seems right. Try submitting an azimuth to earn even more "
-"points!"
-msgstr "Sijainti vaikuttaa oikealta. Lisää seuraavalla kerralla myös kamerakulma, niin saat lisää pisteitä!"
+"The location seems right. Try submitting an azimuth to earn even more points!"
+msgstr ""
+"Sijainti vaikuttaa oikealta. Lisää seuraavalla kerralla myös kamerakulma, "
+"niin saat lisää pisteitä!"
 
-#: project/home/views.py:899
+#: project/home/views.py:911
 msgid "The location seems right, but not the azimuth."
 msgstr "Sijainti vaikuttaa oikealta, mutta kamerakulma ei."
 
-#: project/home/views.py:901
+#: project/home/views.py:913
 msgid "The location seems right, your azimuth was first."
 msgstr "Sijainti vaikuttaa oikealta, kamerakulmaa ei ole merkitty aiemmin."
 
-#: project/home/views.py:903
+#: project/home/views.py:915
 msgid "Other users have different opinion."
 msgstr "Muut käyttäjät ovat eri mieltä."
 
-#: project/home/views.py:905
+#: project/home/views.py:917
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: project/home/views.py:928 project/home/views.py:941
-#: project/home/views.py:964
+#: project/home/views.py:939 project/home/views.py:952
+#: project/home/views.py:974
 #: templates/_header_area_selection_scoreboard.html:30
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
-#: project/home/views.py:1056
+#: project/home/views.py:1066
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
-msgstr "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja jaa syntynyt albumi!"
+msgstr ""
+"Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
+"jaa syntynyt albumi!"
 
-#: project/home/views.py:1058
+#: project/home/views.py:1068
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - kuratoi"
 
-#: project/home/views.py:1291
+#: project/home/views.py:1303
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
-msgstr "Tämä kuva on pieni. Sinun on mahdollista lisätä se albumiin ja voit merkitä sen sijainnin kartalle, mutta sitä ei näytetä muille käyttäjille ennen kuin saamme korkealaatuisemman kuvan instituutiosta."
+msgstr ""
+"Tämä kuva on pieni. Sinun on mahdollista lisätä se albumiin ja voit merkitä "
+"sen sijainnin kartalle, mutta sitä ei näytetä muille käyttäjille ennen kuin "
+"saamme korkealaatuisemman kuvan instituutiosta."
 
-#: project/home/views.py:1293
+#: project/home/views.py:1305
 msgid "OK"
 msgstr "OK"
 
-#: project/home/views.py:1316
+#: project/home/views.py:1330
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
-#: project/home/views.py:1325
+#: project/home/views.py:1339
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: project/home/views.py:1332
+#: project/home/views.py:1346
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: project/home/views.py:1334
+#: project/home/views.py:1348
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
@@ -195,7 +204,10 @@ msgid ""
 "\n"
 "                    Album %(album_name)s leaderboard\n"
 "                "
-msgstr "\n                    Albumin %(album_name)s pistetaulukko\n                "
+msgstr ""
+"\n"
+"                    Albumin %(album_name)s pistetaulukko\n"
+"                "
 
 #: templates/_block_leaderboard.html:48
 msgid "Recent activity leaderboard"
@@ -214,7 +226,7 @@ msgid "Rephoto"
 msgstr "Uuskuva"
 
 #: templates/_guess_panel.html:14 templates/_guess_panel_xs.html:17
-#: templates/game.html:33 templates/game.html.py:84
+#: templates/game.html:33 templates/game.html.py:85
 msgid "Show description"
 msgstr "Näytä kuvailu"
 
@@ -240,7 +252,10 @@ msgid ""
 "This location specification will be tagged differently than in the game. "
 "Still your action may not have an immediate effect on the location of the "
 "image. Your trustworthiness will also not be affected."
-msgstr "Kartalta sijoitettu kuva tägätään eri tavalla kuin pelissä. Valintasi eivät vaikuta kuvan sijaintiiin välittömästi. Kuvan sijoittaminen kartalta ei myöskään vaikuta luotettavuuteesi."
+msgstr ""
+"Kartalta sijoitettu kuva tägätään eri tavalla kuin pelissä. Valintasi eivät "
+"vaikuta kuvan sijaintiiin välittömästi. Kuvan sijoittaminen kartalta ei "
+"myöskään vaikuta luotettavuuteesi."
 
 #: templates/_guess_panel.html:44
 msgid "In your opinion to geotag this photo is"
@@ -256,12 +271,12 @@ msgstr "vaikeaa"
 
 #: templates/_guess_panel.html:60 templates/_guess_panel.html.py:72
 #: templates/_guess_panel_xs.html:15 templates/_guess_panel_xs.html.py:40
-#: templates/game.html:44 templates/game.html.py:81
+#: templates/game.html:44 templates/game.html.py:82
 msgid "Next photo"
 msgstr "Seuraava kuva"
 
 #: templates/_guess_panel.html:61 templates/_guess_panel_xs.html:16
-#: templates/_info_modal.html:137
+#: templates/_info_modal_content.html:135
 msgid "Back to map"
 msgstr "Takaisin karttaan"
 
@@ -278,12 +293,12 @@ msgstr "Sulje Street View"
 msgid "Cancel"
 msgstr "Peru"
 
-#: templates/_header.html:12 templates/_info_modal.html:146
-#: templates/_info_modal.html.py:148
+#: templates/_header.html:12 templates/_info_modal_content.html:144
+#: templates/_info_modal_content.html:146
 msgid "Geotag pictures"
 msgstr "Geotägää kuvia"
 
-#: templates/_header.html:13 templates/_info_modal.html:139
+#: templates/_header.html:13 templates/_info_modal_content.html:137
 msgid "Show on map"
 msgstr "Näytä kartalla"
 
@@ -311,135 +326,157 @@ msgstr "Tallenna pisteesi Facebook Connectilla ja jatka myöhemmin."
 msgid "Connect with Facebook"
 msgstr "Kirjaudu Facebookin avulla"
 
-#: templates/_info_modal.html:16 templates/_info_modal.html.py:22
+#: templates/_info_modal_content.html:14 templates/_info_modal_content.html:20
 msgid "Album curated by"
 msgstr "Albumin on kuratoinut"
 
-#: templates/_info_modal.html:24
+#: templates/_info_modal_content.html:22
 msgid "Contributors' leaderboard"
 msgstr "Osallistujien pistetaulukko"
 
-#: templates/_info_modal.html:28
+#: templates/_info_modal_content.html:26
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        Album has %(counter)s historic photo,\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        Album has %(counter)s historic photos,\n"
+#| "                    "
+msgid ""
+"\n"
+"                    Album has %(counter)s historic photo,\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Album has %(counter)s historic photos,\n"
+"                "
+msgstr[0] ""
+"\n"
+"Albumissa on %(counter)s historiallinen valokuva,"
+msgstr[1] ""
+"\n"
+"Albumissa on %(counter)s historiallista valokuvaa,"
+
+#: templates/_info_modal_content.html:31 templates/base_bootstrap.html:34
 #, python-format
 msgid ""
 "\n"
-"                        Album has %(counter)s historic photo,\n"
-"                    "
+"                    %(counter)s user has put\n"
+"                "
 msgid_plural ""
 "\n"
-"                        Album has %(counter)s historic photos,\n"
-"                    "
+"                    %(counter)s users have put\n"
+"                "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal.html:33
-#, python-format
-msgid ""
-"\n"
-"                        %(counter)s user has put\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        %(counter)s users have put\n"
-"                    "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_info_modal.html:39 templates/base_bootstrap.html:40
+#: templates/_info_modal_content.html:37 templates/base_bootstrap.html:40
 msgid "all the pictures on the map."
 msgstr "kaikki kuvat kartalle."
 
-#: templates/_info_modal.html:41
+#: templates/_info_modal_content.html:39 templates/base_bootstrap.html:42
 #, python-format
 msgid ""
 "\n"
-"                            %(counter)s picture on the map.\n"
-"                        "
+"                        %(counter)s picture on the map.\n"
+"                    "
 msgid_plural ""
 "\n"
-"                            %(counter)s pictures on the map.\n"
-"                        "
+"                        %(counter)s pictures on the map.\n"
+"                    "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal.html:50
+#: templates/_info_modal_content.html:48
 msgid "You haven't made any location suggestions for pictures in this album."
 msgstr "Et ole ehdottanut sijaintia tämän albumin kuville."
 
-#: templates/_info_modal.html:52
+#: templates/_info_modal_content.html:50
 msgid "You have made a location suggestion for"
 msgstr "Olet ehdottanut sijaintia"
 
-#: templates/_info_modal.html:54
+#: templates/_info_modal_content.html:52
 msgid "all the pictures from this album."
 msgstr "kaikille kuville tässä albumissa."
 
-#: templates/_info_modal.html:56
-#, python-format
+#: templates/_info_modal_content.html:54
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        %(counter)s user has put\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        %(counter)s users have put\n"
+#| "                    "
 msgid ""
 "\n"
-"                                %(counter)s picture in this album.\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                %(counter)s pictures in this album.\n"
-"                            "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_info_modal.html:67
-#, python-format
-msgid ""
-"\n"
-"                                %(counter)s user has made\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                %(counter)s users have made\n"
-"                            "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_info_modal.html:72
-#, python-format
-msgid ""
-"\n"
-"                                %(counter)s rephotograph\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                %(counter)s rephotographs\n"
-"                            "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_info_modal.html:77
-#, python-format
-msgid ""
-"\n"
-"                                for %(counter)s picture in the album.\n"
-"                            "
-msgid_plural ""
-"\n"
-"                                for %(counter)s picture in the album.\n"
-"                            "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/_info_modal.html:87
-#, python-format
-msgid ""
-"\n"
-"                            You have made %(counter)s rephoto\n"
+"                            %(counter)s picture in this album.\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            You have made %(counter)s rephotos\n"
+"                            %(counter)s pictures in this album.\n"
 "                        "
 msgstr[0] ""
+"\n"
+"%(counter)s käyttäjä on laittanut"
 msgstr[1] ""
+"\n"
+"%(counter)s käyttäjää on laittanut"
 
-#: templates/_info_modal.html:92
+#: templates/_info_modal_content.html:65
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        %(counter)s user has put\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        %(counter)s users have put\n"
+#| "                    "
+msgid ""
+"\n"
+"                            %(counter)s user has made\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(counter)s users have made\n"
+"                        "
+msgstr[0] ""
+"\n"
+"%(counter)s käyttäjä on laittanut"
+msgstr[1] ""
+"\n"
+"%(counter)s käyttäjää on laittanut"
+
+#: templates/_info_modal_content.html:70
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        %(counter)s user has put\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        %(counter)s users have put\n"
+#| "                    "
+msgid ""
+"\n"
+"                            %(counter)s rephotograph\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(counter)s rephotographs\n"
+"                        "
+msgstr[0] ""
+"\n"
+"%(counter)s käyttäjä on laittanut"
+msgstr[1] ""
+"\n"
+"%(counter)s käyttäjää on laittanut"
+
+#: templates/_info_modal_content.html:75
 #, python-format
 msgid ""
 "\n"
@@ -447,16 +484,66 @@ msgid ""
 "                        "
 msgid_plural ""
 "\n"
-"                            for %(counter)s picures in the album.\n"
+"                            for %(counter)s picture in the album.\n"
 "                        "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal.html:102
+#: templates/_info_modal_content.html:85
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        Album has %(counter)s historic photo,\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        Album has %(counter)s historic photos,\n"
+#| "                    "
+msgid ""
+"\n"
+"                        You have made %(counter)s rephoto\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        You have made %(counter)s rephotos\n"
+"                    "
+msgstr[0] ""
+"\n"
+"Albumissa on %(counter)s historiallinen valokuva,"
+msgstr[1] ""
+"\n"
+"Albumissa on %(counter)s historiallista valokuvaa,"
+
+#: templates/_info_modal_content.html:90
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        %(counter)s user has put\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        %(counter)s users have put\n"
+#| "                    "
+msgid ""
+"\n"
+"                        for %(counter)s picture in the album.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        for %(counter)s picures in the album.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"%(counter)s käyttäjä on laittanut"
+msgstr[1] ""
+"\n"
+"%(counter)s käyttäjää on laittanut"
+
+#: templates/_info_modal_content.html:100
 msgid "Some nearby albums"
 msgstr "Lähellä olevia albumeita"
 
-#: templates/_info_modal.html:111 templates/_photo_modal.html:128
+#: templates/_info_modal_content.html:109 templates/_photo_modal.html:128
 #: templates/photoview.html:61
 msgid "Share"
 msgstr "Jaa"
@@ -517,9 +604,11 @@ msgstr "Uuskuvan lataaminen vaatii tilin yhdistämisen Facebookiin"
 #: templates/_photo_upload_modal.html:40
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to"
-" you under the"
-msgstr "Ota uuskuva täsmälleen samasta paikasta, mistä historiallinen kuva on otettu ja lataa se. Ladatut kuvat merkitään nimiisi ja lisensoidaan"
+"picture was taken and upload it. Uploaded rephotograph will be attributed to "
+"you under the"
+msgstr ""
+"Ota uuskuva täsmälleen samasta paikasta, mistä historiallinen kuva on otettu "
+"ja lataa se. Ladatut kuvat merkitään nimiisi ja lisensoidaan"
 
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
@@ -557,23 +646,32 @@ msgstr "Tämä merkitsin esittää kuvan kohdetta"
 msgid ""
 "If you know which way the photographer was facing when the photo was taken, "
 "you can earn extra points by submitting the line of sight along with the "
-"coordinates. While the line is dotted, it means you haven't yet locked it in"
-" and only the location will be submitted."
-msgstr "Jos tiedät kuvaussuunnan, saat lisäpisteitä suunnan lisäämisestä koordinaattien lisäksi. Kun viiva on katkonainen, se tarkoittaa, ettet ole vielä lukinnut suuntaa ja vain sijainti lisätään."
+"coordinates. While the line is dotted, it means you haven't yet locked it in "
+"and only the location will be submitted."
+msgstr ""
+"Jos tiedät kuvaussuunnan, saat lisäpisteitä suunnan lisäämisestä "
+"koordinaattien lisäksi. Kun viiva on katkonainen, se tarkoittaa, ettet ole "
+"vielä lukinnut suuntaa ja vain sijainti lisätään."
 
 #: templates/_tutorial.html:19
 msgid ""
 "When the red dotted line turns solid, it means the angle is now locked and "
 "will be submitted along with the coordinates."
-msgstr "Kun katkoviiva muuttuu yhtenäiseksi, se tarkoittaa, että kuvaussuunta on lukittu ja lisätään koordinaattien lisäksi."
+msgstr ""
+"Kun katkoviiva muuttuu yhtenäiseksi, se tarkoittaa, että kuvaussuunta on "
+"lukittu ja lisätään koordinaattien lisäksi."
 
 #: templates/_tutorial.html:23
 msgid ""
 "By default, the location marker is locked to the center of the map. To "
 "change its location, the map itself must be dragged underneath. Sometimes "
-"this may not be desirable and this button unlocks the marker, enabling it to"
-" be dragged as usual."
-msgstr "Merkitsin on oletusarvoisesti lukittu kartan keskipisteeseen. Jos haluat vaihtaa merkitsimen paikkaa, itse karttaa täytyy siirtää. Joskus tämä ei ole toivottavaa. Tätä nappia painamalla merkitsin vapautuu ja sitä voi siirtää kuten tavallisesti."
+"this may not be desirable and this button unlocks the marker, enabling it to "
+"be dragged as usual."
+msgstr ""
+"Merkitsin on oletusarvoisesti lukittu kartan keskipisteeseen. Jos haluat "
+"vaihtaa merkitsimen paikkaa, itse karttaa täytyy siirtää. Joskus tämä ei ole "
+"toivottavaa. Tätä nappia painamalla merkitsin vapautuu ja sitä voi siirtää "
+"kuten tavallisesti."
 
 #: templates/_tutorial.html:27
 msgid "Buttons with this icon flip the current image."
@@ -595,13 +693,16 @@ msgstr "Napit, joissa on tämä ikoni näyttävät kyseisen kuvan kuvailutekstin
 msgid ""
 "Using the description to place an image in the game view will only earn you "
 "75 percent of the points you would have gotten otherwise"
-msgstr "Jos sijoitat kuvan pelkästään kuvailutekstin avulla, saat ainoastaan 75 prosenttia pisteistä, mitä olisit muuten saanut"
+msgstr ""
+"Jos sijoitat kuvan pelkästään kuvailutekstin avulla, saat ainoastaan 75 "
+"prosenttia pisteistä, mitä olisit muuten saanut"
 
 #: templates/_tutorial.html:39
 msgid ""
 "If you ever feel like looking at this tutorial again, this button will re-"
 "open it."
-msgstr "Jos joskus haluat palata tähän opastukseen, pääset siihen tästä napista."
+msgstr ""
+"Jos joskus haluat palata tähän opastukseen, pääset siihen tästä napista."
 
 #: templates/admin/project/csvphoto/change_list.html:6
 msgid "Home"
@@ -629,9 +730,10 @@ msgstr "Lähetä"
 
 #: templates/base.html:107 templates/base_bootstrap.html:118
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree"
-" to that."
-msgstr "Käytämme sivustolla evästeitä. Käyttämällä sivustoa hyväksyt niiden käytön."
+"We use cookies for best performance of the site. By using the site you agree "
+"to that."
+msgstr ""
+"Käytämme sivustolla evästeitä. Käyttämällä sivustoa hyväksyt niiden käytön."
 
 #: templates/base_bootstrap.html:29
 #, python-format
@@ -643,32 +745,6 @@ msgid_plural ""
 "\n"
 "                    Album has %(counter)s photos,\n"
 "                "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/base_bootstrap.html:34
-#, python-format
-msgid ""
-"\n"
-"                    %(counter)s user has put\n"
-"                "
-msgid_plural ""
-"\n"
-"                    %(counter)s users have put\n"
-"                "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/base_bootstrap.html:42
-#, python-format
-msgid ""
-"\n"
-"                        %(counter)s picture on the map.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        %(counter)s pictures on the map.\n"
-"                    "
 msgstr[0] ""
 msgstr[1] ""
 
@@ -716,7 +792,8 @@ msgstr "Paikka"
 msgid ""
 "Your photos have now been added to Ajapaik and can be interacted with as "
 "usual."
-msgstr "Kuvasi on nyt lisätty Ajapaikiin ja niitä voi käyttää tavalliseen tapaan."
+msgstr ""
+"Kuvasi on nyt lisätty Ajapaikiin ja niitä voi käyttää tavalliseen tapaan."
 
 #: templates/curator.html:130
 msgid "Points awarded for curating"
@@ -833,7 +910,7 @@ msgstr "Kuratoi sisältöä"
 msgid "View gallery"
 msgstr "Galleria"
 
-#: templates/game.html:40 templates/game.html.py:77
+#: templates/game.html:40 templates/game.html.py:78
 msgid "Pick the shooting location!"
 msgstr "Valitse kuvauspaikka"
 
@@ -849,7 +926,7 @@ msgstr "Tämän kuvan sijainnille on 1 ehdotus. Lisää omasi!"
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr "ehdotusta on lisätty tälle kuvalle. Lisää omasi!"
 
-#: templates/game.html:60 templates/mapview.html:13
+#: templates/game.html:61 templates/mapview.html:14
 msgid "Search box"
 msgstr "Hakukenttä"
 
@@ -903,9 +980,10 @@ msgstr "Peru lataus"
 
 #: templates/photo_upload.html:234
 msgid ""
-"CSV: institution;number;image;title;description;date;url;licence in any "
-"order"
-msgstr "CSV: instituutio;numero;kuva;otsikko;kuvailu;päiväys;url;lisenssi missä tahansa järjestyksessä"
+"CSV: institution;number;image;title;description;date;url;licence in any order"
+msgstr ""
+"CSV: instituutio;numero;kuva;otsikko;kuvailu;päiväys;url;lisenssi missä "
+"tahansa järjestyksessä"
 
 #: templates/photo_upload.html:239
 msgid "Selected albums:"
