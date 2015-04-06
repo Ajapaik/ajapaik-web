@@ -237,11 +237,13 @@ def _get_album_leaderboard(user_id, album_id=None):
     if album_id:
         album = Album.objects.get(pk=album_id)
         # TODO: Almost identical code is used in many places, put under album model
-        album_photos_qs = album.photos.filter()
+        album_photos_qs = album.photos.all()
         for sa in album.subalbums.all():
-            album_photos_qs = album_photos_qs | sa.photos.filter()
+            album_photos_qs = album_photos_qs | sa.photos.all()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        rephoto_points = Points.objects.filter(photo_id__in=album_photo_ids)
+        rephoto_ids_of_album_photos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).values_list(
+            'id', flat=True)
+        rephoto_points = Points.objects.filter(photo_id__in=rephoto_ids_of_album_photos)
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
         for each in rephoto_points:
@@ -296,11 +298,13 @@ def _get_album_leaderboard50(user_id, album_id=None):
     board = []
     if album_id:
         album = Album.objects.get(pk=album_id)
-        album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
+        album_photos_qs = album.photos.filter()
         for sa in album.subalbums.all():
-            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+            album_photos_qs = album_photos_qs | sa.photos.filter()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        rephoto_points = Points.objects.filter(photo_id__in=album_photo_ids)
+        rephoto_ids_of_album_photos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).values_list(
+            'id', flat=True)
+        rephoto_points = Points.objects.filter(photo_id__in=rephoto_ids_of_album_photos)
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
         for each in rephoto_points:
