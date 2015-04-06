@@ -917,7 +917,7 @@ var map,
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
         var targetDiv = $('#ajapaik-info-modal');
-        if (window.albumId) {
+        if (window.albumId && window.infoModalURL) {
             $.ajax({
                 url: window.infoModalURL,
                 success: function (resp) {
