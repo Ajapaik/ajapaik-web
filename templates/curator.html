@@ -324,9 +324,13 @@
                         modalWindow.modal().on('shown.bs.modal', function () {
                             $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                         });
+                        window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard success']);
+                    },
+                    error: function () {
+                        window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard error']);
                     }
                 });
-                window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard']);
+
             });
             var input = document.getElementById('ajapaik-curator-add-area-name'),
                 $input = $(input);
@@ -345,7 +349,8 @@
                     areaLng = place.geometry.location.lng();
                     setTimeout(function () {
                         $input.css('color', '');
-                    }, 0)
+                    }, 0);
+                    window._gaq.push(['_trackEvent', 'Curator', 'Autocomplete place changed']);
                 });
             }
             loadMyAlbums();
@@ -401,6 +406,10 @@
                         response[i].gameLink = gameUrl + '?album=' + response[i].id;
                         targetDiv.append(tmpl('ajapaik-curator-my-album-template', response[i]));
                     }
+                    window._gaq.push(['_trackEvent', 'Curator', 'My albums success']);
+                },
+                error: function () {
+                    window._gaq.push(['_trackEvent', 'Curator', 'My albums error']);
                 }
             });
         };
@@ -431,6 +440,10 @@
                            targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
                         }
                     }
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load album selection success']);
+                },
+                error: function () {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load album selection error']);
                 }
             });
         };
@@ -462,6 +475,10 @@
                         }
                     }
                     $('#ajapaik-curator-change-album-parent').val(parentAlbum);
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load parent albums success']);
+                },
+                error: function () {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load parent albums error']);
                 }
             });
         };
@@ -490,9 +507,11 @@
                         createResultElement(item);
                     }
                     $('#ajapaik-loading-overlay').hide();
+                    window._gaq.push(['_trackEvent', 'Curator', 'More results success']);
                 },
                 error: function () {
                     $('#ajapaik-loading-overlay').hide();
+                    window._gaq.push(['_trackEvent', 'Curator', 'More results error']);
                 }
             });
         });
@@ -524,9 +543,11 @@
                         var item = msg.result.firstRecordViews[i];
                         createResultElement(item);
                     }
+                    window._gaq.push(['_trackEvent', 'Curator', 'Search success']);
                 },
                 error: function () {
                     $('#ajapaik-loading-overlay').hide();
+                    window._gaq.push(['_trackEvent', 'Curator', 'Search error']);
                 }
             });
         });
@@ -554,6 +575,10 @@
                         if (response) {
                             selectedResults[e.target.dataset.id].ajapaikId = response;
                         }
+                        window._gaq.push(['_trackEvent', 'Curator', 'Check success']);
+                    },
+                    error: function () {
+                        window._gaq.push(['_trackEvent', 'Curator', 'Check error']);
                     }
                 });
             }
@@ -563,6 +588,7 @@
             buildSelectionDiv();
             $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
             $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
+            window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
         });
         var escapeRegExp = function(string) {
             return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -600,6 +626,7 @@
                 target.addClass('ajapaik-photo-inverted');
                 selectedResults[$this[0].dataset.id].invert = true;
             }
+            window._gaq.push(['_trackEvent', 'Curator', 'Invert colors']);
         });
         $(document).on('click', '.ajapaik-curator-flip-button', function() {
             var $this = $(this),
@@ -613,11 +640,13 @@
                 target.addClass('ajapaik-photo-flipped');
                 selectedResults[$this[0].dataset.id].flip = true;
             }
+            window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
         });
         $(document).on('click', '.ajapaik-curator-stereo-button', function() {
             var $this = $(this);
             selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
             toggleButtonActive($this);
+            window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
         });
         $(document).on('click', '.ajapaik-curator-delete-button', function() {
             var targetId = $(this)[0].dataset.id,
@@ -633,16 +662,19 @@
                 targetResultItem.addClass('ajapaik-curator-selected-image');
                 $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
             }
+            window._gaq.push(['_trackEvent', 'Curator', 'Delete']);
         });
         $(document).on('click', '#ajapaik-curator-gallery-switch', function () {
             $('.ajapaik-curator-selection-controls').hide();
             $('.ajapaik-curator-selection-item').removeClass('row').addClass('thumbnail').addClass('col-xs-2');
             $('.ajapaik-curator-selection-image').removeClass('col-xs-6').addClass('ajapaik-curator-selection-image-min-max');
+            window._gaq.push(['_trackEvent', 'Curator', 'Gallery mode']);
         });
         $(document).on('click', '#ajapaik-curator-list-switch', function () {
             $('.ajapaik-curator-selection-controls').show();
             $('.ajapaik-curator-selection-item').addClass('row').removeClass('thumbnail').removeClass('col-xs-2');
             $('.ajapaik-curator-selection-image').addClass('col-xs-6').removeClass('ajapaik-curator-selection-image-min-max');
+            window._gaq.push(['_trackEvent', 'Curator', 'List mode']);
         });
         $(document).on('click', '#ajapaik-curator-submit-selection', function () {
             $('#ajapaik-curator-upload-error').hide();
@@ -650,9 +682,11 @@
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             });
             loadSelectableAlbums();
+            window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
         });
         $(document).on('click', '#ajapaik-curator-select-all', function () {
             $('img.ajapaik-result-item:not(.ajapaik-curator-selected-image)').click();
+            window._gaq.push(['_trackEvent', 'Curator', 'Select all']);
         });
         $(document).on('click', '.ajapaik-curator-edit-album-button', function () {
             var targetId = $(this)[0].dataset.id;
@@ -673,6 +707,10 @@
                     $('#ajapaik-curator-edit-my-album-modal').modal('show').on('shown.bs.modal', function () {
                         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                     });
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load edit form success']);
+                },
+                error: function () {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load edit form error']);
                 }
             });
         });
@@ -695,11 +733,13 @@
                 },
                 success : function() {
                     $('#ajapaik-curator-edit-album-error').hide();
-                    $('#ajapaik-curator-edit-my-album-modal').modal('hide')
+                    $('#ajapaik-curator-edit-my-album-modal').modal('hide');
                     loadMyAlbums();
+                    window._gaq.push(['_trackEvent', 'Curator', 'Edit success']);
                 },
                 error: function() {
                     $('#ajapaik-curator-edit-album-error').show();
+                    window._gaq.push(['_trackEvent', 'Curator', 'Edit error']);
                 }
             });
         });
@@ -762,10 +802,12 @@
                         }
                         loadMyAlbums();
                         loadSelectableAlbums();
+                        window._gaq.push(['_trackEvent', 'Curator', 'Upload success']);
                     },
                     error: function () {
                         $('#ajapaik-loading-overlay').hide();
                         $('#ajapaik-curator-upload-error').show();
+                        window._gaq.push(['_trackEvent', 'Curator', 'Upload error']);
                     }
                 });
             }
