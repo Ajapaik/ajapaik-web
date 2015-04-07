@@ -93,6 +93,7 @@
                                 <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12 {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" src="{% url 'project.home.views.photo_large' rephoto.id %}"/>
                             </a>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         </div>
                         {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
                             {% if rephoto.author %}
@@ -222,11 +223,13 @@
             $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
                 if (!window.isMobile) {
                     $('#ajapaik-close-rephoto-overlay-button').show();
+                    $('#ajapaik-invert-rephoto-overlay-button').show();
                 }
             });
             $(document).on('mouseout', '#ajapaik-photoview-rephoto-container', function () {
                 if (!window.isMobile) {
                     $('#ajapaik-close-rephoto-overlay-button').hide();
+                    ('#ajapaik-invert-rephoto-overlay-button').hide();
                 }
             });
             $(document).on('click', '#ajapaik-photoview-add-rephoto-button', function () {
@@ -260,6 +263,14 @@
             });
             $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
                 window.location.href = '/foto/' + {{ photo.id }};
+            });
+            $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function () {
+                var targetDiv = $('#ajapaik-photoview-rephoto');
+                if (targetDiv.hasClass('ajapaik-photo-inverted')) {
+                    targetDiv.removeClass('ajapaik-photo-inverted');
+                } else {
+                    targetDiv.addClass('ajapaik-photo-inverted');
+                }
             });
             $(document).on('click', '#ajapaik-header-game-button', function () {
                 window.location.href = window.gameRedirectURI;

@@ -1310,9 +1310,7 @@ def curator_photo_upload_handler(request):
                             awarded_curator_points.append(points_for_curating)
                             if album:
                                 ap = AlbumPhoto(photo=new_photo, album=album)
-                                print "before"
                                 ap.save()
-                                print "here"
                                 created_album_photo_links.append(ap)
                             ap = AlbumPhoto(photo=new_photo, album=default_album)
                             ap.save()

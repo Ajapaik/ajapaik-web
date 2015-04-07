@@ -834,6 +834,12 @@ ul.errorlist {
     right: 0;
 }
 
+.ajapaik-invert-rephoto-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center !important;
+    bottom: 0;
+    right: 0;
+}
+
 .ajapaik-show-rephoto-selection-overlay-button-1 {
     background-image: url(../images/material-design-icons/ic_filter_1_24px.svg) !important;
 }
