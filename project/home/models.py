@@ -336,7 +336,8 @@ class Photo(Model):
             data = []
             qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
             if bounding_box:
-                qs = qs.filter(geography__intersects=Polygon.from_bbox(bounding_box))
+                qs = qs.filter(lat__gte=bounding_box[0], lon__gte=bounding_box[1], lat__lte=bounding_box[2],
+                               lon__lte=bounding_box[3])
             for p in qs:
                 rephoto_count = Photo.objects.filter(rephoto_of=p.id).count()
                 data.append([p.id, None, p.lon, p.lat, rephoto_count, None, None, p.azimuth, None, None])
