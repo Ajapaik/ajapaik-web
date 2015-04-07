@@ -111,7 +111,6 @@ def get_album_info_modal_content(request, album_id):
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
             Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
-    ret["facebook_share_photos"] = album_photos_qs[:5]
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
 
@@ -447,6 +446,7 @@ def game(request):
                 ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
             except:
                 pass
+        ret["facebook_share_photos"] = album.photos.filter()[:5]
     else:
         if area_selection_form.is_valid():
             area = area_selection_form.cleaned_data["area"]
@@ -468,6 +468,7 @@ def game(request):
     ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
     ret["description"] = _("Let's put pictures on the map")
+    print ret
 
     return render_to_response("game.html", RequestContext(request, ret))
 
