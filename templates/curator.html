@@ -236,8 +236,17 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
                             <div class="row" id="ajapaik-curator-search-controls">
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" id="ajapaik-curator-full-search" placeholder="{% trans "Full search" %}">
+                                <div class="col-xs-5">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="ajapaik-curator-full-search"
+                                               placeholder="{% trans "Full search" %}">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"
+                                                   checked="checked">
+                                        </span>
+                                        <label class="form-control"
+                                               for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>
+                                    </div>
                                 </div>
                                 <div class="col-xs-2">
                                     <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-search-button">
@@ -484,7 +493,8 @@
         };
         $(document).on('click', '.ajapaik-curator-load-more', function () {
             $('#ajapaik-loading-overlay').show();
-            var slice = resultIds.slice(start, start + 200);
+            var slice = resultIds.slice(start, start + 200),
+                filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked');
             start += 200;
             $.ajax({
                 type : 'POST',
@@ -492,6 +502,7 @@
                 data: {
                     //testing: true,
                     ids: slice,
+                    filterExisting: filterValue,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(msg) {
@@ -519,12 +530,14 @@
             $('#ajapaik-loading-overlay').show();
             $('.ajapaik-curator-feedback-alert').hide();
             $('#ajapaik-curator-search-results').empty();
+            var filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked');
             $.ajax({
                 type : 'POST',
                 url : url,
                 data: {
                     //testing: true,
                     fullSearch: $('#ajapaik-curator-full-search').val(),
+                    filterExisting: filterValue,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(msg) {
@@ -552,9 +565,7 @@
             });
         });
         $(document).on('click', '.ajapaik-result-item', function (e) {
-            var target = fullResultSet[e.target.dataset.id],
-                institution = e.target.dataset.institution,
-                institutionKey = e.target.dataset.identifier;
+            var target = fullResultSet[e.target.dataset.id];
             if (selectedResults[e.target.dataset.id]) {
                 delete selectedResults[e.target.dataset.id];
                 $(e.target).removeClass('ajapaik-curator-selected-image');
@@ -563,24 +574,6 @@
                 selectedResults[e.target.dataset.id] = target;
                 $(e.target).addClass('ajapaik-curator-selected-image');
                 $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
-                $.ajax({
-                    type : 'POST',
-                    url : '/check/',
-                    data: {
-                        source: institution,
-                        sourceKey: institutionKey,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    },
-                    success : function(response) {
-                        if (response) {
-                            selectedResults[e.target.dataset.id].ajapaikId = response;
-                        }
-                        window._gaq.push(['_trackEvent', 'Curator', 'Check success']);
-                    },
-                    error: function () {
-                        window._gaq.push(['_trackEvent', 'Curator', 'Check error']);
-                    }
-                });
             }
         });
         $(document).on('click', '#ajapaik-curator-clear-selection', function () {
