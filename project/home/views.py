@@ -446,10 +446,7 @@ def game(request):
                 ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
             except:
                 pass
-        try:
-            ret["facebook_share_photos"] = album.photos[:5]
-        except:
-            pass
+        ret["facebook_share_photos"] = album.photos.filter()[:5]
     else:
         if area_selection_form.is_valid():
             area = area_selection_form.cleaned_data["area"]
@@ -471,7 +468,7 @@ def game(request):
     ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
     ret["description"] = _("Let's put pictures on the map")
-
+    print ret
 
     return render_to_response("game.html", RequestContext(request, ret))
 
