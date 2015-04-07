@@ -282,8 +282,10 @@ class Photo(Model):
     user = ForeignKey("Profile", related_name="photos", blank=True, null=True)
     level = PositiveSmallIntegerField(default=0)
     guess_level = FloatField(default=3)
-    lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
-    lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)],
+                     db_index=True)
+    lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)],
+                     db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     bounding_circle_radius = FloatField(null=True, blank=True)
     azimuth = FloatField(null=True, blank=True)
