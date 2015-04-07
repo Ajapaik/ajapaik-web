@@ -133,6 +133,11 @@ body {
     -webkit-filter: invert(1) grayscale(1);
 }
 
+.ajapaik-photo-bw {
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+}
+
 #ajapaik-game-fullscreen-image-container {
     width: 100%;
     height: 100%;
