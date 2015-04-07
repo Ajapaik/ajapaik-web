@@ -1118,10 +1118,11 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
     check_dict = {}
     for each in data:
         try:
-            existing_photo = existing_photos.get(
+            existing_photos = existing_photos.filter(
                 source_key=each["identifyingNumber"], source__description=each["institution"].split(",")[0])
-            each["ajapaikId"] = existing_photo.id
-            check_dict[each["id"]] = False
+            if len(existing_photos) > 0:
+                each["ajapaikId"] = existing_photos[0].id
+                check_dict[each["id"]] = False
         except ObjectDoesNotExist:
             each["ajapaikId"] = False
             check_dict[each["id"]] = True
