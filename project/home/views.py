@@ -470,7 +470,6 @@ def game(request):
     ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
     ret["description"] = _("Let's put pictures on the map")
-    print ret
 
     return render_to_response("game.html", RequestContext(request, ret))
 

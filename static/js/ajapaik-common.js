@@ -931,6 +931,16 @@ var map,
         }
     });
 
+    $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
+        e.preventDefault();
+        var targetDiv = $('#ajapaik-modal-rephoto');
+        if (targetDiv.hasClass('ajapaik-photo-bw')) {
+            targetDiv.removeClass('ajapaik-photo-bw');
+        } else {
+            targetDiv.addClass('ajapaik-photo-bw');
+        }
+    });
+
     $(document).on('click', '.ajapaik-close-streetview-button', function () {
         map.getStreetView().setVisible(false);
     });
