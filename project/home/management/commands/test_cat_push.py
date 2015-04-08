@@ -22,3 +22,4 @@ class Command(BaseCommand):
         response = requests.post(url=GCM_ENDPOINT, data=values, headers=headers)
 
         print response
+        print response.content
