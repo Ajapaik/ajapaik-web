@@ -2,7 +2,7 @@
 from copy import deepcopy
 import os
 import urllib2
-from django.db import connection, IntegrityError
+from django.db import connection
 import operator
 import requests
 import random
@@ -14,7 +14,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q, Count
+from django.db.models import Sum, Q
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.sites.models import Site
@@ -316,10 +316,12 @@ def _get_album_leaderboard50(user_id, album_id=None):
             else:
                 user_score_map[each.user_id] = each.points
         for each in geotags:
-            if each.user_id in user_score_map:
-                user_score_map[each.user_id] += each.score
-            else:
-                user_score_map[each.user_id] = each.score
+            # FIXME: Why is this check even needed?
+            if each.score is not None:
+                if each.user_id in user_score_map:
+                    user_score_map[each.user_id] += each.score
+                else:
+                    user_score_map[each.user_id] = each.score
         if user_id not in user_score_map:
             user_score_map[user_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
@@ -876,9 +878,13 @@ def geotag_add(request):
             if len(tagged_photo.geotags.all()) == 1:
                 score = max(20, int(300 * trust))
             else:
-                error_in_meters = _distance_in_meters(tagged_photo.lon, tagged_photo.lat, processed_geotag.lon,
-                                                     processed_geotag.lat)
-                score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
+                # TODO: How bulletproof is this? 0 score geotags happen then and again
+                try:
+                    error_in_meters = _distance_in_meters(tagged_photo.lon, tagged_photo.lat, processed_geotag.lon,
+                                                         processed_geotag.lat)
+                    score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
+                except TypeError:
+                    score = 0
         else:
             score = int(trust * 100)
         if processed_geotag.hint_used:
@@ -1081,9 +1087,14 @@ def _curator_get_records_by_ids(ids):
 
 
 def curator_search(request):
-    # FIXME: Form
+    # FIXME: Form (ids[] does not exist in Django... so it's not trivial)
     full_search = request.POST.get("fullSearch") or None
     ids = request.POST.getlist("ids[]") or None
+    filter_existing = request.POST.get("filterExisting") or None
+    if filter_existing == "true":
+        filter_existing = True
+    else:
+        filter_existing = False
     response = []
     if ids is not None:
         response = _curator_get_records_by_ids(ids)
@@ -1092,27 +1103,50 @@ def curator_search(request):
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
         response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
 
+    if filter_existing:
+        response = _curator_check_if_photos_in_ajapaik(response, True)
+    else:
+        response = _curator_check_if_photos_in_ajapaik(response)
+
     return HttpResponse(response, content_type="application/json")
 
 
-def check_if_photo_in_ajapaik(request):
-    # FIXME: Form
-    source_desc = request.POST.get("source") or None
-    source_key = request.POST.get("sourceKey") or None
-    if source_desc is not None and source_key is not None:
-        source_desc = source_desc.split(",")[0]
-        try:
-            source = Source.objects.get(description=source_desc)
-            if source:
-                try:
-                    p = Photo.objects.get(source=source, source_key=source_key)
-                    return HttpResponse(json.dumps(p.id), content_type="application/json")
-                except ObjectDoesNotExist:
-                    pass
-        except ObjectDoesNotExist:
-            pass
+def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
+    full_response_json = json.loads(response.text)
+    result = json.loads(response.text)["result"]
+    # FIXME: Ugly ifs, make a sub-routine for the middle
+    if "firstRecordViews" in result:
+        data = result["firstRecordViews"]
+    else:
+        data = result
 
-    return HttpResponse(json.dumps(False), content_type="application/json")
+    existing_photos = Photo.objects.filter(source_key__in=[x["identifyingNumber"] for x in data])
+    check_dict = {}
+    for each in data:
+        try:
+            existing_photo = existing_photos.get(
+                source_key=each["identifyingNumber"], source__description=each["institution"].split(",")[0])
+            each["ajapaikId"] = existing_photo.id
+            check_dict[each["id"]] = False
+        except ObjectDoesNotExist:
+            each["ajapaikId"] = False
+            check_dict[each["id"]] = True
+
+    if remove_existing:
+        data = [x for x in data if not x["ajapaikId"]]
+        if "firstRecordViews" in result:
+            full_response_json["result"]["ids"] = [x for x in full_response_json["result"]["ids"]
+                                                   if x not in check_dict or check_dict[x]]
+
+    if "firstRecordViews" in result:
+        full_response_json["result"]["firstRecordViews"] = data
+    else:
+        full_response_json["result"] = data
+
+    # FIXME: Very risky, what if the people at requests change this?
+    response._content = json.dumps(full_response_json)
+
+    return response
 
 
 def curator_my_album_list(request):
@@ -1310,9 +1344,7 @@ def curator_photo_upload_handler(request):
                             awarded_curator_points.append(points_for_curating)
                             if album:
                                 ap = AlbumPhoto(photo=new_photo, album=album)
-                                print "before"
                                 ap.save()
-                                print "here"
                                 created_album_photo_links.append(ap)
                             ap = AlbumPhoto(photo=new_photo, album=default_album)
                             ap.save()

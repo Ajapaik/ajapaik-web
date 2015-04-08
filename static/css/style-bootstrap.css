@@ -133,6 +133,11 @@ body {
     -webkit-filter: invert(1) grayscale(1);
 }
 
+.ajapaik-photo-bw {
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+}
+
 #ajapaik-game-fullscreen-image-container {
     width: 100%;
     height: 100%;
@@ -831,6 +836,12 @@ ul.errorlist {
 .ajapaik-close-rephoto-overlay-button {
     background: #fff url(../images/material-design-icons/ic_close_24px.svg) no-repeat center !important;
     top: 0;
+    right: 0;
+}
+
+.ajapaik-invert-rephoto-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center !important;
+    bottom: 0;
     right: 0;
 }
 
@@ -1557,4 +1568,14 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 .ajapaik-margin-top-5 {
     margin-top: 5px;
+}
+
+@media (max-width: 767px) {
+    #content.front-page .photos {
+        display: none;
+    }
+    #content.front-page .introduction {
+        float: left;
+        margin-left: 20px;
+    }
 }

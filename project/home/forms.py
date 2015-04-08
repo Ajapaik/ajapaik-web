@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import MultipleHiddenInput
 from .models import Area, Album, CatTag, CatAlbum, CatPhoto, Profile, Photo, GeoTag
 from django.utils.translation import ugettext_lazy as _
 from project import settings

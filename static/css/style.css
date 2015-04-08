@@ -1358,3 +1358,13 @@ a.btn.flip {
 #id_album {
     max-width: 150px;
 }
+
+@media (max-width: 767px) {
+    #content.front-page .photos {
+        display: none;
+    }
+    #content.front-page .introduction {
+        float: left;
+        margin-left: 20px;
+    }
+}

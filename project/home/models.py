@@ -52,6 +52,7 @@ def _calc_trustworthiness(user_id):
 
 
 def _distance_in_meters(lon1, lat1, lon2, lat2):
+    # FIXME: Should not return None as other functions will start using this in calculations
     if not lon1 or not lat1 or not lon2 or not lat2:
         return None
     lat_coeff = cos(radians((lat1 + lat2) / 2.0))
@@ -282,8 +283,10 @@ class Photo(Model):
     user = ForeignKey("Profile", related_name="photos", blank=True, null=True)
     level = PositiveSmallIntegerField(default=0)
     guess_level = FloatField(default=3)
-    lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
-    lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)],
+                     db_index=True)
+    lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)],
+                     db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     bounding_circle_radius = FloatField(null=True, blank=True)
     azimuth = FloatField(null=True, blank=True)
@@ -336,7 +339,8 @@ class Photo(Model):
             data = []
             qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
             if bounding_box:
-                qs = qs.filter(geography__intersects=Polygon.from_bbox(bounding_box))
+                qs = qs.filter(lat__gte=bounding_box[0], lon__gte=bounding_box[1], lat__lte=bounding_box[2],
+                               lon__lte=bounding_box[3])
             for p in qs:
                 rephoto_count = Photo.objects.filter(rephoto_of=p.id).count()
                 data.append([p.id, None, p.lon, p.lat, rephoto_count, None, None, p.azimuth, None, None])
