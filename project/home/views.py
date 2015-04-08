@@ -316,10 +316,12 @@ def _get_album_leaderboard50(user_id, album_id=None):
             else:
                 user_score_map[each.user_id] = each.points
         for each in geotags:
-            if each.user_id in user_score_map:
-                user_score_map[each.user_id] += each.score
-            else:
-                user_score_map[each.user_id] = each.score
+            # FIXME: Why is this check even needed?
+            if each.score is not None:
+                if each.user_id in user_score_map:
+                    user_score_map[each.user_id] += each.score
+                else:
+                    user_score_map[each.user_id] = each.score
         if user_id not in user_score_map:
             user_score_map[user_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
@@ -876,9 +878,13 @@ def geotag_add(request):
             if len(tagged_photo.geotags.all()) == 1:
                 score = max(20, int(300 * trust))
             else:
-                error_in_meters = _distance_in_meters(tagged_photo.lon, tagged_photo.lat, processed_geotag.lon,
-                                                     processed_geotag.lat)
-                score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
+                # TODO: How bulletproof is this? 0 score geotags happen then and again
+                try:
+                    error_in_meters = _distance_in_meters(tagged_photo.lon, tagged_photo.lat, processed_geotag.lon,
+                                                         processed_geotag.lat)
+                    score = int(130 * max(0, min(1, (1 - (error_in_meters - 15) / float(94 - 15)))))
+                except TypeError:
+                    score = 0
         else:
             score = int(trust * 100)
         if processed_geotag.hint_used:

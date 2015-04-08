@@ -1569,3 +1569,13 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-margin-top-5 {
     margin-top: 5px;
 }
+
+@media (max-width: 767px) {
+    #content.front-page .photos {
+        display: none;
+    }
+    #content.front-page .introduction {
+        float: left;
+        margin-left: 20px;
+    }
+}

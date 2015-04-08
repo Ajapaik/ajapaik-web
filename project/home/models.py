@@ -52,6 +52,7 @@ def _calc_trustworthiness(user_id):
 
 
 def _distance_in_meters(lon1, lat1, lon2, lat2):
+    # FIXME: Should not return None as other functions will start using this in calculations
     if not lon1 or not lat1 or not lon2 or not lat2:
         return None
     lat_coeff = cos(radians((lat1 + lat2) / 2.0))
