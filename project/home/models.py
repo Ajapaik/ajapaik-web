@@ -203,7 +203,10 @@ class CatPushDevice(Model):
     profile = ForeignKey("Profile")
     service_type = ChoiceField(choices=[('gcm', 'gcm'), ('apns', 'apns')])
     push_token = CharField(max_length=254)
-    filter = CharField(max_length=1000, required=False)
+    filter = CharField(max_length=1000, null=True, blank=True)
+
+    class Meta:
+        app_label = "project"
 
 
 class Album(Model):
