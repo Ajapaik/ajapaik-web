@@ -920,6 +920,9 @@ var map,
         if (window.albumId && window.infoModalURL) {
             $.ajax({
                 url: window.infoModalURL,
+                data: {
+                    isGame: gameMap
+                },
                 success: function (resp) {
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {

@@ -61,6 +61,12 @@ def _convert_to_degrees(value):
 def get_album_info_modal_content(request, album_id):
     profile = request.get_user().profile
     album = Album.objects.get(pk=album_id)
+    # FIXME: Ugly
+    is_game = request.GET.get('isGame', None)
+    if is_game == "true":
+        is_game = True
+    else:
+        is_game = False
     ret = {
         "album": album,
     }
@@ -113,6 +119,10 @@ def get_album_info_modal_content(request, album_id):
             Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
+    if is_game:
+        ret["is_mapview"] = False
+    else:
+        ret["is_mapview"] = True
 
     return render_to_response("_info_modal_content.html", RequestContext(request, ret))
 
