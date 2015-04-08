@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import MultipleHiddenInput
-from .models import Area, Album, CatTag, CatAlbum, CatPhoto, Profile, Photo, GeoTag
+from .models import Area, Album, CatTag, CatAlbum, CatPhoto, Profile, Photo, GeoTag, CatPushDevice
 from django.utils.translation import ugettext_lazy as _
 from project import settings
 
@@ -95,6 +95,11 @@ class CatLoginForm(forms.Form):
 class CatAuthForm(forms.Form):
     _s = forms.CharField(max_length=255)
     _u = forms.IntegerField()
+
+
+class CatPushRegisterForm(forms.ModelForm):
+    class Meta:
+        model = CatPushDevice
 
 
 class CatAlbumStateForm(forms.Form):

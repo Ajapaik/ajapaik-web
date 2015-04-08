@@ -20,8 +20,9 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
-from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm
-from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite
+from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
+    CatPushRegisterForm
+from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
@@ -388,3 +389,54 @@ def cat_results(request, page=1):
         'photos': ret,
         'next': int(page) + 1
     }))
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def cat_register_push(request):
+    cat_push_register_form = CatPushRegisterForm(request.data)
+    profile = request.get_user().profile
+    content = {
+        'error': 0
+    }
+    if cat_push_register_form.is_valid():
+        try:
+            CatPushDevice.objects.get(
+                service_type=cat_push_register_form.cleaned_data['service_type'],
+                push_token=cat_push_register_form.cleaned_data['push_token'],
+                filters=cat_push_register_form.cleaned_data['filters'],
+                profile=profile
+            )
+        except ObjectDoesNotExist:
+            cat_push_register_form.save()
+    else:
+        content['error'] = 2
+
+    return Response(content)
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def cat_deregister_push(request):
+    cat_push_register_form = CatPushRegisterForm(request.data)
+    profile = request.get_user().profile
+    content = {
+        'error': 0
+    }
+    if cat_push_register_form.is_valid():
+        try:
+            CatPushDevice.objects.get(
+                service_type=cat_push_register_form.cleaned_data['service_type'],
+                push_token=cat_push_register_form.cleaned_data['push_token'],
+                profile=profile
+            ).delete()
+        except ObjectDoesNotExist:
+            content['error'] = 4
+    else:
+        content['error'] = 2
+
+    return Response(content)

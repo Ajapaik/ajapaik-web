@@ -1104,7 +1104,7 @@ def curator_search(request):
         filter_existing = True
     else:
         filter_existing = False
-    response = []
+    response = None
     if ids is not None:
         response = _curator_get_records_by_ids(ids)
     if full_search is not None:
@@ -1116,6 +1116,9 @@ def curator_search(request):
         response = _curator_check_if_photos_in_ajapaik(response, True)
     else:
         response = _curator_check_if_photos_in_ajapaik(response)
+
+    if not response:
+        response = []
 
     return HttpResponse(response, content_type="application/json")
 

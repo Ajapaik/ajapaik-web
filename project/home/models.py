@@ -1,5 +1,6 @@
 import os
 from uuid import uuid4
+from django.forms import ChoiceField
 from django.utils.deconstruct import deconstructible
 import numpy
 
@@ -196,6 +197,13 @@ class CatAlbum(Model):
 
     def __unicode__(self):
         return u"%s" % self.title
+
+
+class CatPushDevice(Model):
+    profile = ForeignKey("Profile")
+    service_type = ChoiceField(choices=[('gcm', 'gcm'), ('apns', 'apns')])
+    push_token = CharField(max_length=254)
+    filter = CharField(max_length=1000, required=False)
 
 
 class Album(Model):
