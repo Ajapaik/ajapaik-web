@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         headers = {
-            'UserAgent': 'GCM-Server',
+            'UserAgent': "GCM-Server",
             'Content-Type': 'application/json',
             'Authorization': 'key=' + GOOGLE_API_KEY
         }
