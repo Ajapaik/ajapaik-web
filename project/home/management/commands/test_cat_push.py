@@ -14,7 +14,7 @@ class Command(BaseCommand):
         }
 
         values = {
-            'registration_ids': [1],
+            #'registration_ids': [1],
             'data': {'lol': 'Hakklihakeeks'},
             'collapse_key': 'message'
         }
