@@ -932,14 +932,11 @@ var map,
     });
 
     $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
-        console.log("asd");
         e.preventDefault();
         var targetDiv = $('#ajapaik-modal-rephoto');
         if (targetDiv.hasClass('ajapaik-photo-bw')) {
-            console.log("has class");
             targetDiv.removeClass('ajapaik-photo-bw');
         } else {
-            console.log("adding class");
             targetDiv.addClass('ajapaik-photo-bw');
         }
     });
