@@ -434,8 +434,8 @@ def cat_deregister_push(request):
     if cat_push_register_form.is_valid():
         try:
             CatPushDevice.objects.get(
-                service_type=cat_push_register_form.cleaned_data['type'],
-                push_token=cat_push_register_form.cleaned_data['token'],
+                type=cat_push_register_form.cleaned_data['type'],
+                token=cat_push_register_form.cleaned_data['token'],
                 profile=profile
             ).delete()
         except ObjectDoesNotExist:
