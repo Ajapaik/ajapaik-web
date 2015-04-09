@@ -404,11 +404,12 @@ def cat_register_push(request):
     }
     if cat_push_register_form.is_valid():
         try:
-            CatPushDevice.objects.get(
+            existing_device = CatPushDevice.objects.get(
                 service_type=cat_push_register_form.cleaned_data['service_type'],
-                push_token=cat_push_register_form.cleaned_data['push_token'],
                 profile=profile
             )
+            existing_device.push_token = cat_push_register_form.cleaned_data['push_token']
+            existing_device.save()
         except ObjectDoesNotExist:
             cat_push_register_form.save()
     else:
