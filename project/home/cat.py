@@ -398,6 +398,7 @@ def cat_results(request, page=1):
 def cat_register_push(request):
     cat_push_register_form = CatPushRegisterForm(request.data)
     profile = request.get_user().profile
+    cat_push_register_form.data["profile"] = profile
     content = {
         'error': 0
     }
@@ -406,7 +407,6 @@ def cat_register_push(request):
             CatPushDevice.objects.get(
                 service_type=cat_push_register_form.cleaned_data['service_type'],
                 push_token=cat_push_register_form.cleaned_data['push_token'],
-                filters=cat_push_register_form.cleaned_data['filters'],
                 profile=profile
             )
         except ObjectDoesNotExist:
@@ -427,6 +427,7 @@ def cat_deregister_push(request):
     content = {
         'error': 0
     }
+    cat_push_register_form.data["profile"] = profile
     if cat_push_register_form.is_valid():
         try:
             CatPushDevice.objects.get(

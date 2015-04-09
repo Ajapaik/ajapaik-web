@@ -202,7 +202,7 @@ class CatAlbum(Model):
 
 class CatPushDevice(Model):
     profile = ForeignKey("Profile")
-    service_type = ChoiceField(choices=[('gcm', 'gcm'), ('apns', 'apns')])
+    service_type = CharField(max_length=254)
     push_token = CharField(max_length=254)
     filter = CharField(max_length=1000, null=True, blank=True)
 
