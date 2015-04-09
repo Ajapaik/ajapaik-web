@@ -1129,39 +1129,40 @@ def curator_search(request):
 
 
 def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
-    full_response_json = json.loads(response.text)
-    result = json.loads(response.text)["result"]
-    # FIXME: Ugly ifs, make a sub-routine for the middle
-    if "firstRecordViews" in result:
-        data = result["firstRecordViews"]
-    else:
-        data = result
-
-    existing_photos = Photo.objects.filter(source_key__in=[x["identifyingNumber"] for x in data])
-    check_dict = {}
-    for each in data:
-        try:
-            existing_photo = existing_photos.get(
-                source_key=each["identifyingNumber"], source__description=each["institution"].split(",")[0])
-            each["ajapaikId"] = existing_photo.id
-            check_dict[each["id"]] = False
-        except ObjectDoesNotExist:
-            each["ajapaikId"] = False
-            check_dict[each["id"]] = True
-
-    if remove_existing:
-        data = [x for x in data if not x["ajapaikId"]]
+    if response:
+        full_response_json = json.loads(response.text)
+        result = json.loads(response.text)["result"]
+        # FIXME: Ugly ifs, make a sub-routine for the middle
         if "firstRecordViews" in result:
-            full_response_json["result"]["ids"] = [x for x in full_response_json["result"]["ids"]
-                                                   if x not in check_dict or check_dict[x]]
+            data = result["firstRecordViews"]
+        else:
+            data = result
 
-    if "firstRecordViews" in result:
-        full_response_json["result"]["firstRecordViews"] = data
-    else:
-        full_response_json["result"] = data
+        existing_photos = Photo.objects.filter(source_key__in=[x["identifyingNumber"] for x in data])
+        check_dict = {}
+        for each in data:
+            try:
+                existing_photo = existing_photos.get(
+                    source_key=each["identifyingNumber"], source__description=each["institution"].split(",")[0])
+                each["ajapaikId"] = existing_photo.id
+                check_dict[each["id"]] = False
+            except ObjectDoesNotExist:
+                each["ajapaikId"] = False
+                check_dict[each["id"]] = True
 
-    # FIXME: Very risky, what if the people at requests change this?
-    response._content = json.dumps(full_response_json)
+        if remove_existing:
+            data = [x for x in data if not x["ajapaikId"]]
+            if "firstRecordViews" in result:
+                full_response_json["result"]["ids"] = [x for x in full_response_json["result"]["ids"]
+                                                       if x not in check_dict or check_dict[x]]
+
+        if "firstRecordViews" in result:
+            full_response_json["result"]["firstRecordViews"] = data
+        else:
+            full_response_json["result"] = data
+
+        # FIXME: Very risky, what if the people at requests change this?
+        response._content = json.dumps(full_response_json)
 
     return response
 
