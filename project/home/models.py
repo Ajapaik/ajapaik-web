@@ -471,6 +471,7 @@ class Photo(Model):
                         ret_qs = all_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
                         if ret_qs.count() == 0:
                             print "Advanced user nothing more to show"
+                            ret_qs = all_photos_set.order_by('?')
                             nothing_more_to_show = True
             if user_last_interacted_photo and user_last_interacted_photo.lat and user_last_interacted_photo.lon:
                 good_distance_candidates = ret_qs.filter(geography__distance_gte=(Point(user_last_interacted_photo.lat, user_last_interacted_photo.lon), D(m=500)))
