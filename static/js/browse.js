@@ -466,9 +466,9 @@
             currentMapBounds = window.map.getBounds();
             ne = currentMapBounds.getNorthEast();
             sw = currentMapBounds.getSouthWest();
-            if (currentMapDataRequest) {
-                currentMapDataRequest.abort();
-            }
+            //if (currentMapDataRequest) {
+                //currentMapDataRequest.abort();
+            //}
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
             currentMapDataRequest = $.post('/map_data/', { album_id: window.albumId, area_id: window.areaId, limit_by_album: $('#ajapaik-mapview-show-only-album').is(':checked'), sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
@@ -552,9 +552,9 @@
 
     refreshPane = function (markerIdsWithinBounds) {
         if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.length === 0 || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
-            if (currentPaneDataRequest) {
-                currentPaneDataRequest.abort();
-            }
+            //if (currentPaneDataRequest) {
+                //currentPaneDataRequest.abort();
+            //}
             var mapCenter = window.map.getCenter();
             currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, center_lat: mapCenter.lat(), center_lon: mapCenter.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (photoPanel) {
