@@ -16,9 +16,9 @@ class Command(BaseCommand):
             'Authorization': 'key=' + GOOGLE_API_KEY
         }
 
-        push_recipient = CatPushDevice.objects.filter().first()
+        push_recipients = CatPushDevice.objects.all()
         values = {
-            "registration_ids": [push_recipient.token],
+            "registration_ids": [x.token for x in push_recipients],
             "data": {"album": 5, "title": "Photos by Johannes Pääsuke"},
             "collapse_key": "message"
         }
