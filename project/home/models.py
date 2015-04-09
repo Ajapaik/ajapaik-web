@@ -1,5 +1,6 @@
 import os
 from uuid import uuid4
+from django.forms import ChoiceField
 from django.utils.deconstruct import deconstructible
 import numpy
 
@@ -196,6 +197,16 @@ class CatAlbum(Model):
 
     def __unicode__(self):
         return u"%s" % self.title
+
+
+class CatPushDevice(Model):
+    profile = ForeignKey("Profile")
+    service_type = ChoiceField(choices=[('gcm', 'gcm'), ('apns', 'apns')])
+    push_token = CharField(max_length=254)
+    filter = CharField(max_length=1000, null=True, blank=True)
+
+    class Meta:
+        app_label = "project"
 
 
 class Album(Model):
@@ -421,7 +432,7 @@ class Photo(Model):
                 # Let's try to show the more experienced users photos they have not yet seen at all
                 ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids)
                 if len(ret) == 0:
-                    # If the user has seen them all, let"s try showing her photos she
+                    # If the user has seen them all, let's try showing her photos she
                     # has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
                     user_geotags_without_azimuth_in_album = user_geotags_in_album.exclude(azimuth__isnull=False)
@@ -431,8 +442,8 @@ class Photo(Model):
                         user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids))\
                         .exclude(id__in=request.session["user_skip_array"])
                     if len(ret) == 0:
-                        # This user has geotagged all the city"s photos with azimuths or skipped them in this session,
-                        # show her photos that have low confidence or don"t have a correct geotag from her
+                        # This user has geotagged all the city's photos with azimuths or skipped them in this session,
+                        # show her photos that have low confidence or don't have a correct geotag from her
                         user_incorrect_geotags = user_geotags_in_album.filter(is_correct=False)
                         user_correct_geotags = user_geotags_in_album.filter(is_correct=True)
                         user_incorrectly_geotagged_photo_ids = set(
@@ -488,7 +499,7 @@ class Photo(Model):
             if len(ret) == 0 or (user_last_interacted_photo and user_last_interacted_photo.id == ret[0].id):
                 random_photo = self.get_game_json_format_photo(
                     album_photos_set.order_by("?")[:1].get(), distance_between_photos)
-                return [random_photo], False, False
+                return [random_photo], user_seen_all, nothing_more_to_show
             return [self.get_game_json_format_photo(
                 ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
 
