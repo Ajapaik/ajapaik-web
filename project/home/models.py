@@ -398,31 +398,31 @@ class Photo(Model):
             user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
             user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
 
-            user_last_geotag = user_geotags_for_set.order_by("-created").first()
-            user_last_skip = user_skips_for_set.order_by("-created").first()
-            user_last_interacted_photo = None
-            good_distance_candidates = None
+            # user_last_geotag = user_geotags_for_set.order_by("-created").first()
+            # user_last_skip = user_skips_for_set.order_by("-created").first()
+            # user_last_interacted_photo = None
+            # good_distance_candidates = None
             # print "User last geotag"
             # print user_last_geotag
             # print "User last skip"
             # print user_last_skip
             # current = time.time()
             # print current - start
-            user_last_action = None
-            if user_last_skip:
-                if user_last_geotag:
-                    if user_last_skip.created > user_last_geotag.created:
-                        user_last_action = user_last_skip
-                    else:
-                        user_last_action = user_last_geotag
-            if not user_last_skip and user_last_geotag:
-                user_last_action = user_last_geotag
-            if not user_last_geotag and user_last_skip:
-                user_last_action = user_last_skip
+            # user_last_action = None
+            # if user_last_skip:
+            #     if user_last_geotag:
+            #         if user_last_skip.created > user_last_geotag.created:
+            #             user_last_action = user_last_skip
+            #         else:
+            #             user_last_action = user_last_geotag
+            # if not user_last_skip and user_last_geotag:
+            #     user_last_action = user_last_geotag
+            # if not user_last_geotag and user_last_skip:
+            #     user_last_action = user_last_skip
             # print "User last action"
             # print user_last_action
-            if user_last_action:
-                user_last_interacted_photo = all_photos_set.filter(id=user_last_action.photo_id).first()
+            # if user_last_action:
+            #     user_last_interacted_photo = all_photos_set.filter(id=user_last_action.photo_id).first()
                 # current = time.time()
                 # print current - start
 
@@ -488,17 +488,17 @@ class Photo(Model):
                             # print "Advanced user nothing more to show"
                             ret_qs = all_photos_set.order_by('?')
                             nothing_more_to_show = True
-            if user_last_interacted_photo and user_last_interacted_photo.lat and user_last_interacted_photo.lon:
-                good_distance_candidates = ret_qs.filter(geography__distance_gte=(Point(user_last_interacted_photo.lat, user_last_interacted_photo.lon), D(m=500)))
-            if good_distance_candidates and good_distance_candidates.count() > 0:
+            #if user_last_interacted_photo and user_last_interacted_photo.lat and user_last_interacted_photo.lon:
+                #good_distance_candidates = ret_qs.filter(geography__distance_gte=(Point(user_last_interacted_photo.lat, user_last_interacted_photo.lon), D(m=500)))
+            #if good_distance_candidates and good_distance_candidates.count() > 0:
                 # print "Good distance candidate"
-                ret = good_distance_candidates.first()
+                #ret = good_distance_candidates.first()
                 # current = time.time()
                 # print current - start
                 # print ret
-            else:
+            #else:
                 # print "Bad distance candidate"
-                ret = ret_qs.first()
+            ret = ret_qs.first()
                 # current = time.time()
                 # print current - start
                 # print ret
