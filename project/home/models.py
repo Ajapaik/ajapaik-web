@@ -499,7 +499,7 @@ class Photo(Model):
             else:
                 # print "Bad distance candidate"
                 ret = ret_qs.first()
-                current = time.time()
+                # current = time.time()
                 # print current - start
                 # print ret
             return [self.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
