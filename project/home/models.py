@@ -1,5 +1,6 @@
 import os
 from uuid import uuid4
+from django.contrib.gis.measure import D
 from django.forms import ChoiceField
 from django.utils.deconstruct import deconstructible
 import numpy
@@ -9,6 +10,7 @@ from contextlib import closing
 from json import loads
 from math import cos, sin, atan2, radians, degrees, sqrt
 from datetime import datetime
+import time
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, SmallIntegerField, BooleanField,\
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField,\
     PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, query, permalink, OneToOneField, \
@@ -201,8 +203,8 @@ class CatAlbum(Model):
 
 class CatPushDevice(Model):
     profile = ForeignKey("Profile")
-    service_type = ChoiceField(choices=[('gcm', 'gcm'), ('apns', 'apns')])
-    push_token = CharField(max_length=254)
+    type = CharField(max_length=254)
+    token = CharField(max_length=254)
     filter = CharField(max_length=1000, null=True, blank=True)
 
     class Meta:
@@ -358,11 +360,8 @@ class Photo(Model):
             return data
 
         @staticmethod
-        def get_game_json_format_photo(photo, distance_from_last):
+        def get_game_json_format_photo(photo):
             # TODO: proper JSON serialization
-            if not distance_from_last:
-                distance_from_last = "Unknown"
-
             assert isinstance(photo, Photo)
             return {
                 "id": photo.id,
@@ -375,133 +374,135 @@ class Photo(Model):
                 "big": _make_thumbnail(photo, "700x400"),
                 "large": _make_fullscreen(photo),
                 "confidence": photo.confidence,
-                "distance_from_last": distance_from_last,
                 "total_geotags": photo.geotags.count(),
                 "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
             }
 
         def get_next_photo_to_geotag(self, request):
-            user_id = request.get_user().profile.pk
-            user_trustworthiness = _calc_trustworthiness(user_id)
+            # start = time.time()
+            profile = request.get_user().profile
+            trustworthiness = _calc_trustworthiness(profile.pk)
+            # current = time.time()
+            # print "User trustworthiness"
+            # print current - start
+            # print trustworthiness
 
-            album_photos_set = self.filter(rephoto_of_id=None)
-            album_photo_ids = frozenset([p.id for p in album_photos_set])
+            all_photos_set = self.all()
+            photo_ids = all_photos_set.values_list("id", flat=True)
+            # photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
+            # current = time.time()
+            # print "Choice set size"
+            # print current - start
+            # print len(photo_ids)
 
-            user_geotags_in_album = GeoTag.objects.filter(user=user_id, photo_id__in=album_photo_ids)
-            user_skips_in_album = Skip.objects.filter(user=user_id, photo_id__in=album_photo_ids)
+            user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
+            user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
+
+            user_last_geotag = user_geotags_for_set.order_by("-created").first()
+            user_last_skip = user_skips_for_set.order_by("-created").first()
             user_last_interacted_photo = None
-            distance_between_photos = None
-            user_last_geotag = None
-            user_last_skip = None
-            if len(user_geotags_in_album) > 0:
-                user_last_geotag = user_geotags_in_album.order_by("-created")[0]
-            if len(user_skips_in_album) > 0:
-                user_last_skip = user_skips_in_album.order_by("-created")[0]
-            if user_last_skip and user_last_geotag and user_last_skip.created > user_last_geotag.created:
-                user_last_action = user_last_skip
-            else:
+            good_distance_candidates = None
+            # print "User last geotag"
+            # print user_last_geotag
+            # print "User last skip"
+            # print user_last_skip
+            # current = time.time()
+            # print current - start
+            user_last_action = None
+            if user_last_skip:
+                if user_last_geotag:
+                    if user_last_skip.created > user_last_geotag.created:
+                        user_last_action = user_last_skip
+                    else:
+                        user_last_action = user_last_geotag
+            if not user_last_skip and user_last_geotag:
                 user_last_action = user_last_geotag
+            if not user_last_geotag and user_last_skip:
+                user_last_action = user_last_skip
+            # print "User last action"
+            # print user_last_action
             if user_last_action:
-                try:
-                    user_last_interacted_photo = album_photos_set.filter(id=user_last_action.photo_id)[:1].get()
-                except:
-                    user_last_interacted_photo = None
+                user_last_interacted_photo = all_photos_set.filter(id=user_last_action.photo_id).first()
+                # current = time.time()
+                # print current - start
 
-            user_geotagged_photo_ids = list(set(user_geotags_in_album.values_list("photo_id", flat=True)))
-            # TODO: Tidy up
-            user_skipped_photo_ids = set(list(user_skips_in_album.values_list("photo_id", flat=True)))
-            user_skipped_less_geotagged_photo_ids = list(user_skipped_photo_ids - set(
-                list(user_geotags_in_album.values_list("photo_id", flat=True))))
-            user_skipped_photo_ids = list(user_skipped_photo_ids)
-            user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_less_geotagged_photo_ids)
+            # print "User last interacted photo"
+            # print user_last_interacted_photo
+
+            user_geotagged_photo_ids = list(user_geotags_for_set.distinct("photo_id").values_list("photo_id", flat=True))
+            user_skipped_photo_ids = list(user_skips_for_set.distinct("photo_id").values_list("photo_id", flat=True))
+            # current = time.time()
+            # print current - start
+            # print "User geotagged photos"
+            # print len(user_geotagged_photo_ids)
+            # print "User skipped photos"
+            # print len(user_skipped_photo_ids)
+            user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
+            # print "User seen photos"
+            # print len(user_has_seen_photo_ids)
+            user_skipped_less_geotagged_photo_ids = set(user_skipped_photo_ids) - set(user_geotagged_photo_ids)
+            # print "User skipped and not geotagged photos"
+            # print len(user_skipped_less_geotagged_photo_ids)
+            # current = time.time()
+            # print current - start
 
             user_seen_all = False
             nothing_more_to_show = False
 
             if "user_skip_array" not in request.session:
-                request.session["user_skip_array"] = []
+                 request.session["user_skip_array"] = []
+            # print "User skip array"
+            # print request.session["user_skip_array"]
 
-            if user_trustworthiness < 0.4:
+            if trustworthiness < 0.4:
+                # print "Novice user"
                 # Novice users should only receive the easiest images to prove themselves
-                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
-                if len(ret) == 0:
-                    # If the user has seen all the photos, offer the easiest or at random
+                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
+                if ret_qs.count() == 0:
+                    # print "Novice user seen all, getting random"
+                    # If the user has seen all the photos, offer at random
                     user_seen_all = True
-                    ret = album_photos_set.order_by("?")
+                    ret_qs = all_photos_set.order_by("?")
             else:
+                # print "Advanced user"
                 # Let's try to show the more experienced users photos they have not yet seen at all
-                ret = album_photos_set.exclude(id__in=user_has_seen_photo_ids)
-                if len(ret) == 0:
+                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids)
+                if ret_qs.count() == 0:
+                    # print "Advanced user seen all"
                     # If the user has seen them all, let's try showing her photos she
                     # has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
-                    user_geotags_without_azimuth_in_album = user_geotags_in_album.exclude(azimuth__isnull=False)
-                    user_geotagged_without_azimuth_photo_ids = list(
-                        set(user_geotags_without_azimuth_in_album.values_list("photo_id", flat=True)))
-                    ret = album_photos_set.filter(id__in=(
-                        user_geotagged_without_azimuth_photo_ids + user_skipped_less_geotagged_photo_ids))\
+                    ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
                         .exclude(id__in=request.session["user_skip_array"])
-                    if len(ret) == 0:
-                        # This user has geotagged all the city's photos with azimuths or skipped them in this session,
-                        # show her photos that have low confidence or don't have a correct geotag from her
-                        user_incorrect_geotags = user_geotags_in_album.filter(is_correct=False)
-                        user_correct_geotags = user_geotags_in_album.filter(is_correct=True)
-                        user_incorrectly_geotagged_photo_ids = set(
-                            user_incorrect_geotags.values_list("photo_id", flat=True))
-                        user_correctly_geotagged_photo_ids = set(
-                            user_correct_geotags.values_list("photo_id", flat=True))
-                        user_no_correct_geotags_photo_ids = list(
-                            user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-                        ret = album_photos_set.filter(Q(confidence__lt=0.3) |
-                                                      Q(id__in=user_no_correct_geotags_photo_ids))
-                        if len(ret) == 0:
+                    if ret_qs.count() == 0:
+                        # print "Advanced user geotagged all or skipped in this session"
+                        # This user has skipped them in this session, show her photos that have low confidence
+                        # or don't have a correct geotag from her
+                        user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
+                        user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
+                        user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct("photo_id").values_list("photo_id", flat=True))
+                        user_correctly_geotagged_photo_ids = set(user_correct_geotags.distinct("photo_id").values_list("photo_id", flat=True))
+                        user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+                        ret_qs = all_photos_set.filter(Q(confidence__lt=0.3) | Q(id__in=user_no_correct_geotags_photo_ids))
+                        if ret_qs.count() == 0:
+                            # print "Advanced user nothing more to show"
+                            ret_qs = all_photos_set.order_by('?')
                             nothing_more_to_show = True
-                good_candidates = []
-                shitty_candidates = []
-                if user_trustworthiness < 0.4:
-                    for p in ret:
-                        distance_between_photos = None
-                        if user_last_interacted_photo:
-                            distance_between_photos = _distance_in_meters(
-                                p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-                        if p.confidence > 0.7 and distance_between_photos and 250 <= distance_between_photos <= 1000:
-                            good_candidates.append(p)
-                        elif p.confidence > 0.7:
-                            shitty_candidates.append(p)
-                elif 0.4 <= user_trustworthiness < 0.7:
-                    for p in ret:
-                        distance_between_photos = None
-                        if user_last_interacted_photo:
-                            distance_between_photos = _distance_in_meters(
-                                p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-                        if 0.4 <= p.confidence <= 0.7 and distance_between_photos \
-                                and 250 <= distance_between_photos <= 1000:
-                            good_candidates.append(p)
-                        elif 0.4 <= p.confidence <= 0.7:
-                            shitty_candidates.append(p)
-                else:
-                    for p in ret:
-                        distance_between_photos = None
-                        if user_last_interacted_photo:
-                            distance_between_photos = _distance_in_meters(
-                                p.lon, p.lat, user_last_interacted_photo.lon, user_last_interacted_photo.lat)
-                        if p.confidence < 0.4 and distance_between_photos and 250 <= distance_between_photos <= 1000:
-                            good_candidates.append(p)
-                        elif p.confidence < 0.4:
-                            shitty_candidates.append(p)
-                if len(good_candidates) > 0:
-                    ret = good_candidates
-                else:
-                    ret = shitty_candidates
-            if ret and ret[0].id in user_skipped_photo_ids:
-                request.session["user_skip_array"].append(ret[0].id)
-                request.session.modified = True
-            if len(ret) == 0 or (user_last_interacted_photo and user_last_interacted_photo.id == ret[0].id):
-                random_photo = self.get_game_json_format_photo(
-                    album_photos_set.order_by("?")[:1].get(), distance_between_photos)
-                return [random_photo], user_seen_all, nothing_more_to_show
-            return [self.get_game_json_format_photo(
-                ret[0], distance_between_photos)], user_seen_all, nothing_more_to_show
+            if user_last_interacted_photo and user_last_interacted_photo.lat and user_last_interacted_photo.lon:
+                good_distance_candidates = ret_qs.filter(geography__distance_gte=(Point(user_last_interacted_photo.lat, user_last_interacted_photo.lon), D(m=500)))
+            if good_distance_candidates and good_distance_candidates.count() > 0:
+                # print "Good distance candidate"
+                ret = good_distance_candidates.first()
+                # current = time.time()
+                # print current - start
+                # print ret
+            else:
+                # print "Bad distance candidate"
+                ret = ret_qs.first()
+                # current = time.time()
+                # print current - start
+                # print ret
+            return [self.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
         # def get_old_photos_for_grid_view(self, start, end):
         #     data = []

@@ -191,4 +191,4 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 AJAPAIK_VALIMIMOODUL_URL = "http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json"
 
-GCM_ENDPOINT = "https://android.googleapis.com/gcm/send"
+GCM_ENDPOINT = "http://android.googleapis.com/gcm/send"

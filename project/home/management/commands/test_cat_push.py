@@ -1,6 +1,8 @@
+# coding=utf-8
 import json
 from django.core.management.base import BaseCommand
 import requests
+from project.home.models import CatPushDevice
 from project.settings import GOOGLE_API_KEY, GCM_ENDPOINT
 
 
@@ -14,9 +16,10 @@ class Command(BaseCommand):
             'Authorization': 'key=' + GOOGLE_API_KEY
         }
 
+        push_recipients = CatPushDevice.objects.all()
         values = {
-            "registration_ids": [1],
-            "data": {"msg": "Hakklihakeeks"},
+            "registration_ids": [x.token for x in push_recipients],
+            "data": {"album": 5, "title": "Photos by Johannes Pääsuke"},
             "collapse_key": "message"
         }
         values = json.dumps(values)

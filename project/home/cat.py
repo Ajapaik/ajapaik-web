@@ -398,19 +398,22 @@ def cat_results(request, page=1):
 def cat_register_push(request):
     cat_push_register_form = CatPushRegisterForm(request.data)
     profile = request.get_user().profile
+    cat_push_register_form.data["profile"] = profile
     content = {
-        'error': 0
+        'error': 4
     }
     if cat_push_register_form.is_valid():
         try:
-            CatPushDevice.objects.get(
-                service_type=cat_push_register_form.cleaned_data['service_type'],
-                push_token=cat_push_register_form.cleaned_data['push_token'],
-                filters=cat_push_register_form.cleaned_data['filters'],
+            existing_device = CatPushDevice.objects.get(
+                type=cat_push_register_form.cleaned_data['type'],
                 profile=profile
             )
+            existing_device.push_token = cat_push_register_form.cleaned_data['token']
+            existing_device.save()
+            content['error'] = 0
         except ObjectDoesNotExist:
             cat_push_register_form.save()
+            content['error'] = 0
     else:
         content['error'] = 2
 
@@ -427,11 +430,12 @@ def cat_deregister_push(request):
     content = {
         'error': 0
     }
+    cat_push_register_form.data["profile"] = profile
     if cat_push_register_form.is_valid():
         try:
             CatPushDevice.objects.get(
-                service_type=cat_push_register_form.cleaned_data['service_type'],
-                push_token=cat_push_register_form.cleaned_data['push_token'],
+                type=cat_push_register_form.cleaned_data['type'],
+                token=cat_push_register_form.cleaned_data['token'],
                 profile=profile
             ).delete()
         except ObjectDoesNotExist:
