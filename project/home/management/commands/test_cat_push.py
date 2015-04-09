@@ -1,3 +1,4 @@
+# coding=utf-8
 import json
 from django.core.management.base import BaseCommand
 import requests
@@ -18,7 +19,7 @@ class Command(BaseCommand):
         push_recipient = CatPushDevice.objects.filter().first()
         values = {
             "registration_ids": [push_recipient.token],
-            "data": {"album": 1, "title": "Hakklihakeeks"},
+            "data": {"album": 5, "title": "Photos by Johannes Pääsuke"},
             "collapse_key": "message"
         }
         values = json.dumps(values)
