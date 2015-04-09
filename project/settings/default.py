@@ -154,7 +154,6 @@ EXTERNAL_APPS = (
     'rest_framework',
     'compressor',
     'modeltranslation',
-    'debug_toolbar',
 )
 
 LOCAL_APPS = (
