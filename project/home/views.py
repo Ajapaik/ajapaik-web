@@ -495,7 +495,7 @@ def fetch_stream(request):
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
 
-    qs = Photo.objects.all()
+    qs = Photo.objects.filter(rephoto_of__isnull=True)
 
     if album is not None:
         # TODO: list and flat both needed?
@@ -511,7 +511,7 @@ def fetch_stream(request):
 
     # TODO: [0][0] Wtf? Just return a dict
     try:
-        data = {"photo": qs.get_next_photo_to_geotag(request)[0][0],
+        data = {"photo": qs.get_next_photo_to_geotag(request)[0],
                 "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
                 "nothing_more_to_show": qs.get_next_photo_to_geotag(request)[2]}
     except IndexError:
@@ -935,6 +935,10 @@ def geotag_add(request):
         if "lat" not in submit_geotag_form.cleaned_data and "lon" not in submit_geotag_form.cleaned_data \
                 and "photo_id" in submit_geotag_form.data:
             Skip(user=profile, photo_id=submit_geotag_form.data["photo_id"]).save()
+            if "user_skip_array" not in request.session:
+                 request.session["user_skip_array"] = []
+            request.session["user_skip_array"].append(submit_geotag_form.data["photo_id"])
+            request.session.modified = True
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
