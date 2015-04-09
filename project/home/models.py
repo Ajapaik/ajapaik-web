@@ -203,8 +203,8 @@ class CatAlbum(Model):
 
 class CatPushDevice(Model):
     profile = ForeignKey("Profile")
-    service_type = CharField(max_length=254)
-    push_token = CharField(max_length=254)
+    type = CharField(max_length=254)
+    token = CharField(max_length=254)
     filter = CharField(max_length=1000, null=True, blank=True)
 
     class Meta:
@@ -388,7 +388,8 @@ class Photo(Model):
             # print trustworthiness
 
             all_photos_set = self.all()
-            photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
+            photo_ids = all_photos_set.values_list("id", flat=True)
+            # photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
             # current = time.time()
             # print "Choice set size"
             # print current - start

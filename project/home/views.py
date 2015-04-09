@@ -511,9 +511,10 @@ def fetch_stream(request):
 
     # TODO: [0][0] Wtf? Just return a dict
     try:
-        data = {"photo": qs.get_next_photo_to_geotag(request)[0],
-                "user_seen_all": qs.get_next_photo_to_geotag(request)[1],
-                "nothing_more_to_show": qs.get_next_photo_to_geotag(request)[2]}
+        response = qs.get_next_photo_to_geotag(request)
+        data = {"photo": response[0],
+                "user_seen_all": response[1],
+                "nothing_more_to_show": response[2]}
     except IndexError:
         data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}
 

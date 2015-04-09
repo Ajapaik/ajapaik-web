@@ -400,7 +400,7 @@ def cat_register_push(request):
     profile = request.get_user().profile
     cat_push_register_form.data["profile"] = profile
     content = {
-        'error': 0
+        'error': 4
     }
     if cat_push_register_form.is_valid():
         try:
@@ -410,8 +410,10 @@ def cat_register_push(request):
             )
             existing_device.push_token = cat_push_register_form.cleaned_data['push_token']
             existing_device.save()
+            content['error'] = 0
         except ObjectDoesNotExist:
             cat_push_register_form.save()
+            content['error'] = 0
     else:
         content['error'] = 2
 
