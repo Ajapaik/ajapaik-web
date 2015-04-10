@@ -1558,14 +1558,15 @@ def curator_photo_upload_handler(request):
 
 
 def grid(request):
-    album_selection_form = GameAlbumSelectionForm(request.GET)
+    game_album_selection_form = GameAlbumSelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(request.GET)
 
     data = []
     photo_count = 0
     album = None
 
-    if album_selection_form.is_valid():
-        album = album_selection_form.cleaned_data["album"]
+    if game_album_selection_form.is_valid():
+        album = game_album_selection_form.cleaned_data["album"]
         album_photo_ids = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
 
         qs = Photo.objects.filter(id__in=album_photo_ids)
@@ -1578,8 +1579,9 @@ def grid(request):
         "photo_count": photo_count,
         "album": album,
         "start": 0,
-        "area_selection_form": album_selection_form,
+        "album_selection_form": album_selection_form,
         "page_size": settings.GRID_VIEW_PAGE_SIZE,
+        "is_gallery": True
     }))
 
 def grid_infinite_scroll(request):
