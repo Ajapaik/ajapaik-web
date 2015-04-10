@@ -110,7 +110,7 @@ def cat_album_thumb(request, album_id, thumb_size=250):
     a = get_object_or_404(CatAlbum, id=album_id)
     random_image = a.photos.order_by('?').first()
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
-    im = get_thumbnail(random_image, thumb_str, upscale=False)
+    im = get_thumbnail(random_image.image, thumb_str, upscale=False)
     content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
