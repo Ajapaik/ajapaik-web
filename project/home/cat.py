@@ -115,10 +115,6 @@ def cat_album_thumb(request, album_id, thumb_size=250):
     im = get_thumbnail(random_image.image, thumb_str, upscale=False)
     content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
-    response['Content-Length'] = len(content)
-    response['Cache-Control'] = 'no-store, no-cache, must-revalidate proxy-revalidate'
-    response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
-    response['Pragma'] = 'no-cache'
 
     return response
 
@@ -151,7 +147,7 @@ def cat_albums(request):
             'id': a.id,
             'title': a.title,
             'subtitle': a.subtitle,
-            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
+            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))) + '?' + datetime.time(),
             'tagged': user_tagged_photos_count,
             'total': a.photos.count(),
             'decisions': user_tags_count,
