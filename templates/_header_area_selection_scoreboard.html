@@ -4,7 +4,7 @@
     <div class="navbar-header">
         <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     </div>
-    {% if is_game or is_mapview %}
+    {% if is_game or is_mapview or is_gallery %}
         <div class="hidden-xs">
             <div class="filter-box">
                 {% csrf_token %}

@@ -112,7 +112,7 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                         <li role="presentation" class="disabled-link">
                             <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                {% if is_mapview %}
+                                {% if not is_game %}
                                     <input type="text" class="form-control" value="{{ share_map_link }}?album={{ album.id }}">
                                 {% else %}
                                     <input type="text" class="form-control" value="{{ share_game_link }}?album={{ album.id }}">
@@ -121,7 +121,7 @@
                         </li>
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1">
-                                {% if is_mapview %}
+                                {% if not is_game %}
                                     <div class="fb-like" data-href="{{ share_map_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% else %}
                                     <div class="fb-like" data-href="{{ share_game_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
@@ -131,7 +131,7 @@
                     </ul>
                 </div>
                 <div class="btn-group" role="group">
-                    {% if is_mapview %}
+                    {% if not is_game %}
                         <a class="btn btn-primary" data-dismiss="modal">{% trans "Back to map" %}</a>
                     {% else %}
                         <a class="btn btn-primary" href="{{ share_map_link }}?album={{ album.id }}">{% trans "Show on map" %}</a>
@@ -140,7 +140,7 @@
             </div>
             <div class="btn-group btn-group-justified" id="ajapaik-info-modal-game-button" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                    {% if is_mapview %}
+                    {% if not is_game %}
                         <a class="btn btn-success" href="{{ share_game_link }}?album={{ album.id }}&fromButton=1">{% trans "Geotag pictures" %}</a>
                     {% else %}
                         <a class="btn btn-success" data-dismiss="modal">{% trans "Geotag pictures" %}</a>

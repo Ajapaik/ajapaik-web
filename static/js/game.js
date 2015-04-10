@@ -380,6 +380,9 @@
             var targetDiv = $('#ajapaik-info-modal');
             $.ajax({
                 url: window.infoModalURL,
+                data: {
+                    'isGame': true
+                },
                 success: function (resp) {
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {

@@ -2,6 +2,7 @@
 from copy import deepcopy
 import time
 import datetime
+from django.views.decorators.cache import never_cache
 from pytz import timezone, utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -22,7 +23,7 @@ from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
     CatPushRegisterForm
-from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice
+from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
@@ -106,21 +107,14 @@ def cat_logout(request):
         return Response({'error': 2})
 
 
+@never_cache
 def cat_album_thumb(request, album_id, thumb_size=250):
-    cache_key = "ajapaik_cat_album_thumb_response_%s_%s" % (album_id, thumb_size)
-    cached_response = cache.get(cache_key)
-    if cached_response:
-        return cached_response
     a = get_object_or_404(CatAlbum, id=album_id)
+    random_image = a.photos.order_by('?').first()
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
-    im = get_thumbnail(a.image, thumb_str, upscale=False)
+    im = get_thumbnail(random_image.image, thumb_str, upscale=False)
     content = im.read()
-    next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')
-    response['Content-Length'] = len(content)
-    response['Cache-Control'] = "max-age=604800, public"
-    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    cache.set(cache_key, response)
 
     return response
 
@@ -132,20 +126,58 @@ def cat_albums(request):
     error = 0
     albums = CatAlbum.objects.all().order_by('-created')
     ret = []
+    profile = request.get_user().profile
+    all_tags = CatTagPhoto.objects.all()
+    all_distinct_profile_tags = all_tags.distinct('profile')
+    general_user_leaderboard = Profile.objects.filter(pk__in=[x.profile_id for x in all_distinct_profile_tags])\
+        .annotate(tag_count=Count('tags')).order_by('-tag_count')
+    general_user_rank = 0
+    for i in range(0, len(general_user_leaderboard)):
+        if general_user_leaderboard[i].user_id == profile.user_id:
+            general_user_rank = (i + 1)
+            break
+    content = {
+        'error': 0,
+        'stats': {
+            'decisions': all_tags.count(),
+            'users': all_distinct_profile_tags.count(),
+            'tagged': all_tags.distinct('photo').count(),
+            'rank': general_user_rank
+        }
+    }
     for a in albums:
-        user_tagged_photos_count = CatTagPhoto.objects.filter(album=a, profile=request.get_user().profile).distinct('photo').count()
+        all_album_tags = all_tags.filter(album=a)
+        total_tagged_photos_count = all_album_tags.distinct('photo').count()
+        user_tags = all_album_tags.filter(profile=profile)
+        user_tags_count = user_tags.count()
+        user_tagged_photos_count = user_tags.distinct('photo').count()
+        user_distinct_album_tags = all_album_tags.distinct('profile')
+        total_user_count = user_distinct_album_tags.count()
+        user_leaderboard = Profile.objects.filter(pk__in=[x.profile_id for x in user_distinct_album_tags])\
+            .annotate(tag_count=Count('tags')).order_by('-tag_count')
+        user_rank = 0
+        for i in range(0, len(user_leaderboard)):
+            if user_leaderboard[i].user_id == profile.user_id:
+                user_rank = (i + 1)
+                break
+
         ret.append({
             'id': a.id,
             'title': a.title,
             'subtitle': a.subtitle,
-            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
+            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))) + '?' + str(time.time()),
             'tagged': user_tagged_photos_count,
-            'total': a.photos.count()
+            'total': a.photos.count(),
+            'decisions': user_tags_count,
+            'stats': {
+                'users': total_user_count,
+                'decisions': all_album_tags.count(),
+                'tagged': total_tagged_photos_count,
+                'rank': user_rank
+            }
         })
-    content = {
-        'error': error,
-        'albums': ret
-    }
+    content['error'] = error
+    content['albums'] = ret
 
     return Response(content)
 
@@ -213,12 +245,16 @@ def _get_favorite_object_json_form(request, obj):
 def _get_user_data(request, remove_favorite=None, add_favorite=None):
     profile = request.get_user().profile
     user_cat_tags = CatTagPhoto.objects.filter(profile=profile)
+    albums_dict = dict((o[0], o[1]) for o in CatAlbum.objects.all().values_list('id', 'title'))
     content = {
         'error': 0,
         'tagged': user_cat_tags.count(),
         'pics': user_cat_tags.distinct('photo').count(),
         'message': None,
         'link': None,
+        'meta': {
+            'albums': albums_dict
+        }
     }
     if remove_favorite or add_favorite:
         if remove_favorite:
