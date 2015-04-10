@@ -114,7 +114,10 @@ def cat_album_thumb(request, album_id, thumb_size=250):
     content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
-
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate proxy-revalidate'
+    response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
+    response['Pragma'] = 'no-cache'
+    
     return response
 
 
