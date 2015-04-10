@@ -22,7 +22,7 @@ from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
     CatPushRegisterForm
-from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice
+from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
@@ -132,15 +132,37 @@ def cat_albums(request):
     error = 0
     albums = CatAlbum.objects.all().order_by('-created')
     ret = []
+    profile = request.get_user().profile
     for a in albums:
-        user_tagged_photos_count = CatTagPhoto.objects.filter(album=a, profile=request.get_user().profile).distinct('photo').count()
+        all_album_tags = CatTagPhoto.objects.filter(album=a)
+        total_tagged_photos_count = all_album_tags.distinct('photo').count()
+        user_tags = all_album_tags.filter(profile=profile)
+        user_tags_count = user_tags.count()
+        user_tagged_photos_count = user_tags.distinct('photo').count()
+        user_distinct_album_tags = all_album_tags.distinct('profile')
+        total_user_count = user_distinct_album_tags.count()
+        user_leaderboard = Profile.objects.filter(pk__in=[x.profile_id for x in user_distinct_album_tags])\
+            .annotate(tag_count=Count('tags')).order_by('-tag_count')
+        user_rank = 0
+        for i in range(0, len(user_leaderboard)):
+            if user_leaderboard[i].user_id == profile.user_id:
+                user_rank = (i + 1)
+                break
+
         ret.append({
             'id': a.id,
             'title': a.title,
             'subtitle': a.subtitle,
             'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))),
             'tagged': user_tagged_photos_count,
-            'total': a.photos.count()
+            'total': a.photos.count(),
+            'decisions': user_tags_count,
+            'stats': {
+                'users': total_user_count,
+                'decisions': all_album_tags.count(),
+                'tagged': total_tagged_photos_count,
+                'rank': user_rank
+            }
         })
     content = {
         'error': error,
