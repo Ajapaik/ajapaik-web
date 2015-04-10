@@ -54,7 +54,7 @@ def custom_exception_handler(exc, context):
 
     # TODO: Error handling
     if response is not None:
-        response.data['error'] = 1
+        response.data['error'] = 7
 
     return response
 
