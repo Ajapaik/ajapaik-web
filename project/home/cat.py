@@ -147,7 +147,7 @@ def cat_albums(request):
             'id': a.id,
             'title': a.title,
             'subtitle': a.subtitle,
-            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))) + '?' + str(datetime.time()),
+            'image': request.build_absolute_uri(reverse('project.home.cat.cat_album_thumb', args=(a.id,))) + '?' + str(time.time()),
             'tagged': user_tagged_photos_count,
             'total': a.photos.count(),
             'decisions': user_tags_count,
