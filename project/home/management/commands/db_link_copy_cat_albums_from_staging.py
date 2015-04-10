@@ -3,7 +3,7 @@ from django.db import connection
 
 
 class Command(BaseCommand):
-    help = "Will copy over categorizer photos from staging"
+    help = "Will copy over categorizer albums from staging"
 
     def handle(self, *args, **options):
         cursor = connection.cursor()
