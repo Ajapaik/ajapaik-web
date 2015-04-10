@@ -245,11 +245,20 @@ def _get_favorite_object_json_form(request, obj):
 def _get_user_data(request, remove_favorite=None, add_favorite=None):
     profile = request.get_user().profile
     user_cat_tags = CatTagPhoto.objects.filter(profile=profile)
+    all_distinct_profile_tags = CatTagPhoto.objects.distinct('profile')
+    general_user_leaderboard = Profile.objects.filter(pk__in=[x.profile_id for x in all_distinct_profile_tags])\
+        .annotate(tag_count=Count('tags')).order_by('-tag_count')
+    general_user_rank = 0
+    for i in range(0, len(general_user_leaderboard)):
+        if general_user_leaderboard[i].user_id == profile.user_id:
+            general_user_rank = (i + 1)
+            break
     albums_dict = dict((o[0], o[1]) for o in CatAlbum.objects.all().values_list('id', 'title'))
     content = {
         'error': 0,
         'tagged': user_cat_tags.count(),
         'pics': user_cat_tags.distinct('photo').count(),
+        'rank': general_user_rank,
         'message': None,
         'link': None,
         'meta': {
