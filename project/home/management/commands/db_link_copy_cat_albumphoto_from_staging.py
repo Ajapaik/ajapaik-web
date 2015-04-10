@@ -7,5 +7,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         cursor = connection.cursor()
-        cursor.execute('''INSERT INTO project_catalbum_photos SELECT p.id, p.catalbum_id, p.catphoto_id FROM dblink('dbname=rephoto_dev user=rephoto password=reph0t0sqluser', 'SELECT id, catalbum_id, catphoto_id')
+        cursor.execute('''INSERT INTO project_catalbum_photos SELECT p.id, p.catalbum_id, p.catphoto_id FROM dblink('dbname=rephoto_dev user=rephoto password=reph0t0sqluser', 'SELECT id, catalbum_id, catphoto_id FROM project_catalbum_photos')
     AS p(id integer, catalbum_id integer, catphoto_id integer);''')
