@@ -917,6 +917,7 @@ var map,
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
         var targetDiv = $('#ajapaik-info-modal');
+        console.log(gameMap);
         if (window.albumId && window.infoModalURL) {
             $.ajax({
                 url: window.infoModalURL,

@@ -157,20 +157,20 @@ p {
 			<a href="{% url 'project.home.views.mapview' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "Browse photos on map" %}</a>
 		</div>
 
-        {% if photo_upload_enabled or curator_enabled %}
+        {% if curator_enabled or grid_view_enabled %}
             <div class="buttons">
-                {% if photo_upload_enabled and not request.mobile %}
-                    <a href="{% url 'project.home.views.public_photo_upload' %}" class="btn green">{% trans "Upload photos yourself" %}</a>
-                {% endif %}
                 {% if curator_enabled and not request.mobile %}
                     <a href="{% url 'project.home.views.curator' %}" class="btn green">{% trans "Curate content" %}</a>
+                {% endif %}
+                {% if grid_view_enabled %}
+                    <a href="{% url 'project.home.views.grid' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "View gallery" %}</a>
                 {% endif %}
             </div>
         {% endif %}
 
         {% if grid_view_enabled %}
             <div class="buttons">
-                <a href="{% url 'project.home.views.grid' %}" onclick="return submitWithAlbum(this);" class="btn green">{% trans "View gallery" %}</a>
+
             </div>
         {% endif %}
         

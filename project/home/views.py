@@ -63,13 +63,16 @@ def get_album_info_modal_content(request, album_id):
     album = Album.objects.get(pk=album_id)
     # FIXME: Ugly
     is_game = request.GET.get('isGame', None)
+    print is_game
     if is_game == "true":
         is_game = True
     else:
         is_game = False
     ret = {
         "album": album,
+        "is_game": is_game
     }
+    print is_game
     # TODO: Can these queries be optimized?
     album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
     if album.subalbums:
@@ -119,10 +122,6 @@ def get_album_info_modal_content(request, album_id):
             Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
-    if is_game:
-        ret["is_mapview"] = False
-    else:
-        ret["is_mapview"] = True
 
     return render_to_response("_info_modal_content.html", RequestContext(request, ret))
 
@@ -544,7 +543,6 @@ def frontpage(request):
         "example": example,
         "example_source": example_source,
         "grid_view_enabled": settings.GRID_VIEW_ENABLED,
-        "photo_upload_enabled": settings.PUBLIC_PHOTO_UPLOAD_ENABLED,
         "curator_enabled": settings.CURATOR_ENABLED,
     }))
 
@@ -1559,46 +1557,43 @@ def curator_photo_upload_handler(request):
 #     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
-# Will be restoring soon
-# @ensure_csrf_cookie
-# def grid(request):
-#     area_selection_form = AreaSelectionForm(request.GET)
-#
-#     if area_selection_form.is_valid():
-#         area = Area.objects.get(pk=area_selection_form.cleaned_data['area'].id)
-#         qs = Photo.objects.filter(area_id=area.id)
-#
-#         data = qs.get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
-#         photo_count = qs.get_old_photo_count_for_grid_view()
-#
-#         photo_ids_user_has_looked_at = UserMapView.objects.filter(user_profile=request.get_user().profile).values_list(
-#             'photo_id', flat=True)
-#         keys = {}
-#         for e in photo_ids_user_has_looked_at:
-#             keys[e] = 1
-#         photo_ids_user_has_looked_at = keys
-#
-#         return render_to_response('grid.html', RequestContext(request, {
-#             "data": data,
-#             "photo_count": photo_count,
-#             "area": area,
-#             "start": 0,
-#             "area_selection_form": area_selection_form,
-#             "page_size": settings.GRID_VIEW_PAGE_SIZE,
-#             #"user_seen_photo_ids": photo_ids_user_has_looked_at,
-#         }))
-#
-#
-# def grid_infinite_scroll(request):
-#     area_selection_form = AreaSelectionForm(request.GET)
-#
-#     data = []
-#     if area_selection_form.is_valid():
-#         area = Album.objects.get(pk=area_selection_form.cleaned_data['area'].id)
-#         qs = Photo.objects.filter(area_id=area.id)
-#         start = int(request.GET.get('start'))
-#         data = qs.get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
-#     return HttpResponse(json.dumps(data), content_type="application/json")
+def grid(request):
+    album_selection_form = GameAlbumSelectionForm(request.GET)
+
+    data = []
+    photo_count = 0
+    album = None
+
+    if album_selection_form.is_valid():
+        album = album_selection_form.cleaned_data["album"]
+        album_photo_ids = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
+
+        qs = Photo.objects.filter(id__in=album_photo_ids)
+
+        data = qs.get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
+        photo_count = qs.get_old_photo_count_for_grid_view()
+
+    return render_to_response('gallery.html', RequestContext(request, {
+        "data": data,
+        "photo_count": photo_count,
+        "album": album,
+        "start": 0,
+        "area_selection_form": album_selection_form,
+        "page_size": settings.GRID_VIEW_PAGE_SIZE,
+    }))
+
+def grid_infinite_scroll(request):
+    album_selection_form = GameAlbumSelectionForm(request.GET)
+
+    data = []
+    if album_selection_form.is_valid():
+        album = album_selection_form.cleaned_data["album"]
+        album_photo_ids = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
+        qs = Photo.objects.filter(id__in=album_photo_ids)
+        start = int(request.GET.get('start'))
+        data = qs.get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 # TODO: Can probably be thrown away
 # @login_required

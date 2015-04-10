@@ -1,6 +1,7 @@
 import os
 from uuid import uuid4
 from django.contrib.gis.measure import D
+from django.core.urlresolvers import reverse
 from django.forms import ChoiceField
 from django.utils.deconstruct import deconstructible
 import numpy
@@ -504,19 +505,19 @@ class Photo(Model):
                 # print ret
             return [self.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
-        # def get_old_photos_for_grid_view(self, start, end):
-        #     data = []
-        #     for p in self.filter(rephoto_of__isnull=True)[start:end]:
-        #         im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
-        #         try:
-        #             im = get_thumbnail(p.image, "300x300", upscale=False)
-        #             data.append([p.id, im_url, im.size[0], im.size[1]])
-        #         except (IOError, TypeError):
-        #             pass
-        #     return data
+        def get_old_photos_for_grid_view(self, start, end):
+            data = []
+            for p in self.filter(rephoto_of__isnull=True)[start:end]:
+                im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
+                try:
+                    im = get_thumbnail(p.image, "300x300", upscale=False)
+                    data.append([p.id, im_url, im.size[0], im.size[1]])
+                except (IOError, TypeError):
+                    pass
+            return data
 
-        # def get_old_photo_count_for_grid_view(self):
-        #     return self.filter(rephoto_of__isnull=True).count()
+        def get_old_photo_count_for_grid_view(self):
+            return self.filter(rephoto_of__isnull=True).count()
 
     def __unicode__(self):
         return u"%s - %s (%s) (%s)" % (self.id, self.description, self.date_text, self.source_key)
