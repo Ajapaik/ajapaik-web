@@ -235,12 +235,16 @@ def _get_favorite_object_json_form(request, obj):
 def _get_user_data(request, remove_favorite=None, add_favorite=None):
     profile = request.get_user().profile
     user_cat_tags = CatTagPhoto.objects.filter(profile=profile)
+    albums_dict = dict((o[0], o[1]) for o in CatAlbum.objects.all().values_list('id', 'title'))
     content = {
         'error': 0,
         'tagged': user_cat_tags.count(),
         'pics': user_cat_tags.distinct('photo').count(),
         'message': None,
         'link': None,
+        'meta': {
+            'albums': albums_dict
+        }
     }
     if remove_favorite or add_favorite:
         if remove_favorite:
