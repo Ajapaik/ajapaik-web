@@ -127,8 +127,26 @@ def cat_albums(request):
     albums = CatAlbum.objects.all().order_by('-created')
     ret = []
     profile = request.get_user().profile
+    all_tags = CatTagPhoto.objects.all()
+    all_distinct_profile_tags = all_tags.distinct('profile')
+    general_user_leaderboard = Profile.objects.filter(pk__in=[x.profile_id for x in all_distinct_profile_tags])\
+        .annotate(tag_count=Count('tags')).order_by('-tag_count')
+    general_user_rank = 0
+    for i in range(0, len(general_user_leaderboard)):
+        if general_user_leaderboard[i].user_id == profile.user_id:
+            general_user_rank = (i + 1)
+            break
+    content = {
+        'error': 0,
+        'stats': {
+            'decisions': all_tags.count(),
+            'users': all_distinct_profile_tags.count(),
+            'tagged': all_tags.distinct('photo').count(),
+            'rank': general_user_rank
+        }
+    }
     for a in albums:
-        all_album_tags = CatTagPhoto.objects.filter(album=a)
+        all_album_tags = all_tags.filter(album=a)
         total_tagged_photos_count = all_album_tags.distinct('photo').count()
         user_tags = all_album_tags.filter(profile=profile)
         user_tags_count = user_tags.count()
@@ -158,10 +176,8 @@ def cat_albums(request):
                 'rank': user_rank
             }
         })
-    content = {
-        'error': error,
-        'albums': ret
-    }
+    content['error'] = error
+    content['albums'] = ret
 
     return Response(content)
 

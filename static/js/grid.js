@@ -8,6 +8,10 @@
             openPhotoDrawer,
             photoId;
 
+        window.updateLeaderboard();
+
+        $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
+
         galleryDiv.justifiedGallery({
             rowHeight: 120,
             waitThumbnailsLoad: false,
