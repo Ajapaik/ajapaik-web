@@ -2,6 +2,7 @@
 from copy import deepcopy
 import time
 import datetime
+from django.views.decorators.cache import never_cache
 from pytz import timezone, utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -106,6 +107,7 @@ def cat_logout(request):
         return Response({'error': 2})
 
 
+@never_cache
 def cat_album_thumb(request, album_id, thumb_size=250):
     a = get_object_or_404(CatAlbum, id=album_id)
     random_image = a.photos.order_by('?').first()
@@ -117,7 +119,7 @@ def cat_album_thumb(request, album_id, thumb_size=250):
     response['Cache-Control'] = 'no-store, no-cache, must-revalidate proxy-revalidate'
     response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
     response['Pragma'] = 'no-cache'
-    
+
     return response
 
 
