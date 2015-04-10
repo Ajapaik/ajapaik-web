@@ -107,20 +107,13 @@ def cat_logout(request):
 
 
 def cat_album_thumb(request, album_id, thumb_size=250):
-    cache_key = "ajapaik_cat_album_thumb_response_%s_%s" % (album_id, thumb_size)
-    cached_response = cache.get(cache_key)
-    if cached_response:
-        return cached_response
     a = get_object_or_404(CatAlbum, id=album_id)
+    random_image = a.photos.order_by('?').first()
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
-    im = get_thumbnail(a.image, thumb_str, upscale=False)
+    im = get_thumbnail(random_image, thumb_str, upscale=False)
     content = im.read()
-    next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
-    response['Cache-Control'] = "max-age=604800, public"
-    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    cache.set(cache_key, response)
 
     return response
 
