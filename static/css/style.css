@@ -6,7 +6,8 @@ body, html {
 }
 
 body {
-    background: #fff url(../images/bg-subtle-grunge.png) center center;
+    background: #fff url(../images/bg-subtle-grunge.png) top left;
+    background-size: 50%;
 }
 
 /* NOTICES */
