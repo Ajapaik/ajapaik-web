@@ -180,7 +180,7 @@
 </div>
 {% comment %}<div class="full-box">
     <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-        <img id="ajapaik-rephoto-full-screen-image" src="{{ rephoto_fullscreen.url }}"/>
+        <img id="ajapaik-rephoto-full-screen-image" src="{% url 'project.home.views.photo_large' rephoto.id %}"/>
     </div>
 </div>{% endcomment %}
 <script>
