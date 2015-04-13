@@ -541,9 +541,7 @@
                             }
                         }
                     }
-                    if (markerIdsWithinBounds.length > 0) {
-                        refreshPane(markerIdsWithinBounds);
-                    }
+                    refreshPane(markerIdsWithinBounds);
                 });
             });
         }

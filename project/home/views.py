@@ -812,6 +812,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
                 ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
             except:
                 pass
+        ret["facebook_share_photos"] = album.photos.filter()[:5]
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
     else:
