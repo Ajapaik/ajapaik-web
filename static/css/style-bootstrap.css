@@ -1143,6 +1143,13 @@ ul.errorlist {
 #ajapaik-photoview-container {
     margin-top: 20px;
 }
+#ajapaik-photoview-container .col-xs-6 {
+	min-width: 280px;
+}
+
+#ajapaik-photoview-container .col-xs-2 {
+	min-width: 140px;
+}
 
 #ajapaik-photo-upload-container {
     padding-top: 100px;
