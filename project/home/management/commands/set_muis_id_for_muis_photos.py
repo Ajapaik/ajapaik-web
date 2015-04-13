@@ -8,6 +8,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = Photo.objects.filter(source_url__contains='muis.ee', muis_id__isnull=True)
         for p in photos:
-            print p.id
             p.muis_id = "oai:muis.ee:" + p.source_url.split('/')[-1]
             p.save()
