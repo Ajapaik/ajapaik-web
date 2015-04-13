@@ -71,6 +71,7 @@ class PublicPhotoUploadForm(forms.Form):
 
 
 class CuratorPhotoUploadForm(forms.Form):
+    id = forms.CharField(max_length=100)
     title = forms.CharField(required=False)
     creators = forms.CharField(max_length=255, required=False)
     imageUrl = forms.CharField()
