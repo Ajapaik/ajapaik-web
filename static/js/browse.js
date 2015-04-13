@@ -44,7 +44,8 @@
         photoDrawerOpen = false,
         toggleVisiblePaneElements,
         markerClustererSettings = {
-            minimumClusterSize: 2
+            minimumClusterSize: 2,
+            maxZoom: 17
         },
         setCorrectMarkerIcon,
         blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
