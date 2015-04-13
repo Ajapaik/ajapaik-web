@@ -721,17 +721,14 @@ def pane_contents(request):
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids).order_by('?'):
         rephoto_count = p.rephotos.count()
         im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
-        try:
-            # FIXME: Better way to determine thumb size?
-            if p.image._get_width() >= p.image._get_height():
-                thumb_str = "%d"
-            else:
-                thumb_str = "x%d"
-            im = get_thumbnail(p.image, thumb_str % 150, crop="center")
-            url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
-            data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1], url])
-        except IOError:
-            pass
+        # FIXME: Better way to determine thumb size?
+        if p.image._get_width() >= p.image._get_height():
+            thumb_str = "%d"
+        else:
+            thumb_str = "x%d"
+        im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+        url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
+        data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1], url])
 
     return render_to_response("pane_contents.html", RequestContext(request, {
         "data": data,
