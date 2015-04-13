@@ -307,6 +307,7 @@ class Photo(Model):
     confidence = FloatField(default=0, null=True, blank=True)
     azimuth_confidence = FloatField(default=0, null=True, blank=True)
     source_key = CharField(max_length=100, null=True, blank=True)
+    muis_id = CharField(max_length=100, null=True, blank=True)
     source_url = URLField(null=True, blank=True, max_length=1023)
     source = ForeignKey("Source", null=True, blank=True)
     device = ForeignKey("Device", null=True, blank=True)
