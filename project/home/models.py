@@ -381,103 +381,43 @@ class Photo(Model):
             }
 
         def get_next_photo_to_geotag(self, request):
-            # start = time.time()
             profile = request.get_user().profile
             trustworthiness = _calc_trustworthiness(profile.pk)
-            # current = time.time()
-            # print "User trustworthiness"
-            # print current - start
-            # print trustworthiness
 
             all_photos_set = self.all()
-            photo_ids = all_photos_set.values_list("id", flat=True)
-            # photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
-            # current = time.time()
-            # print "Choice set size"
-            # print current - start
-            # print len(photo_ids)
+            photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
 
             user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
             user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
 
-            # user_last_geotag = user_geotags_for_set.order_by("-created").first()
-            # user_last_skip = user_skips_for_set.order_by("-created").first()
-            # user_last_interacted_photo = None
-            # good_distance_candidates = None
-            # print "User last geotag"
-            # print user_last_geotag
-            # print "User last skip"
-            # print user_last_skip
-            # current = time.time()
-            # print current - start
-            # user_last_action = None
-            # if user_last_skip:
-            #     if user_last_geotag:
-            #         if user_last_skip.created > user_last_geotag.created:
-            #             user_last_action = user_last_skip
-            #         else:
-            #             user_last_action = user_last_geotag
-            # if not user_last_skip and user_last_geotag:
-            #     user_last_action = user_last_geotag
-            # if not user_last_geotag and user_last_skip:
-            #     user_last_action = user_last_skip
-            # print "User last action"
-            # print user_last_action
-            # if user_last_action:
-            #     user_last_interacted_photo = all_photos_set.filter(id=user_last_action.photo_id).first()
-                # current = time.time()
-                # print current - start
-
-            # print "User last interacted photo"
-            # print user_last_interacted_photo
-
             user_geotagged_photo_ids = list(user_geotags_for_set.distinct("photo_id").values_list("photo_id", flat=True))
             user_skipped_photo_ids = list(user_skips_for_set.distinct("photo_id").values_list("photo_id", flat=True))
-            # current = time.time()
-            # print current - start
-            # print "User geotagged photos"
-            # print len(user_geotagged_photo_ids)
-            # print "User skipped photos"
-            # print len(user_skipped_photo_ids)
             user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
-            # print "User seen photos"
-            # print len(user_has_seen_photo_ids)
             user_skipped_less_geotagged_photo_ids = set(user_skipped_photo_ids) - set(user_geotagged_photo_ids)
-            # print "User skipped and not geotagged photos"
-            # print len(user_skipped_less_geotagged_photo_ids)
-            # current = time.time()
-            # print current - start
 
             user_seen_all = False
             nothing_more_to_show = False
 
             if "user_skip_array" not in request.session:
                  request.session["user_skip_array"] = []
-            # print "User skip array"
-            # print request.session["user_skip_array"]
 
             if trustworthiness < 0.4:
-                # print "Novice user"
                 # Novice users should only receive the easiest images to prove themselves
                 ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
                 if ret_qs.count() == 0:
-                    # print "Novice user seen all, getting random"
                     # If the user has seen all the photos, offer at random
                     user_seen_all = True
                     ret_qs = all_photos_set.order_by("?")
             else:
-                # print "Advanced user"
                 # Let's try to show the more experienced users photos they have not yet seen at all
                 ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids)
                 if ret_qs.count() == 0:
-                    # print "Advanced user seen all"
                     # If the user has seen them all, let's try showing her photos she
                     # has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
                     ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
                         .exclude(id__in=request.session["user_skip_array"])
                     if ret_qs.count() == 0:
-                        # print "Advanced user geotagged all or skipped in this session"
                         # This user has skipped them in this session, show her photos that have low confidence
                         # or don't have a correct geotag from her
                         user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
@@ -487,23 +427,9 @@ class Photo(Model):
                         user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
                         ret_qs = all_photos_set.filter(id__in=user_no_correct_geotags_photo_ids).order_by('?')
                         if ret_qs.count() == 0:
-                            # print "Advanced user nothing more to show"
                             ret_qs = all_photos_set.order_by('?')
                             nothing_more_to_show = True
-            #if user_last_interacted_photo and user_last_interacted_photo.lat and user_last_interacted_photo.lon:
-                #good_distance_candidates = ret_qs.filter(geography__distance_gte=(Point(user_last_interacted_photo.lat, user_last_interacted_photo.lon), D(m=500)))
-            #if good_distance_candidates and good_distance_candidates.count() > 0:
-                # print "Good distance candidate"
-                #ret = good_distance_candidates.first()
-                # current = time.time()
-                # print current - start
-                # print ret
-            #else:
-                # print "Bad distance candidate"
             ret = ret_qs.first()
-                # current = time.time()
-                # print current - start
-                # print ret
             return [self.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
         def get_old_photos_for_grid_view(self, start, end):
