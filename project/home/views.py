@@ -1140,12 +1140,12 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
         else:
             data = result
 
-        existing_photos = Photo.objects.filter(source_key__in=[x["identifyingNumber"] for x in data])
+        existing_photos = Photo.objects.filter(muis_id__in=[x["id"] for x in data])
         check_dict = {}
         for each in data:
             try:
                 existing_photo = existing_photos.get(
-                    source_key=each["identifyingNumber"], source__description=each["institution"].split(",")[0])
+                    muis_id=each["id"], source__description=each["institution"].split(",")[0])
                 each["ajapaikId"] = existing_photo.id
                 check_dict[each["id"]] = False
             except ObjectDoesNotExist:
@@ -1313,11 +1313,10 @@ def curator_photo_upload_handler(request):
                 else:
                     source = Source.objects.get(name="AJP")
                 existing_photo = None
-                if upload_form.cleaned_data["identifyingNumber"] \
-                        and upload_form.cleaned_data["identifyingNumber"] != "":
+                if upload_form.cleaned_data["id"] and upload_form.cleaned_data["id"] != "":
                     try:
                         existing_photo = Photo.objects.filter(
-                            source=source, source_key=upload_form.cleaned_data["identifyingNumber"]).get()
+                            source=source, muis_id=upload_form.cleaned_data["id"]).get()
                     except ObjectDoesNotExist:
                         pass
                     if not existing_photo:
@@ -1334,6 +1333,7 @@ def curator_photo_upload_handler(request):
                                 types=upload_form.cleaned_data["types"],
                                 date_text=upload_form.cleaned_data["date"],
                                 licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
+                                muis_id=upload_form.cleaned_data["id"],
                                 source_key=upload_form.cleaned_data["identifyingNumber"],
                                 source_url=upload_form.cleaned_data["urlToRecord"],
                                 flip=upload_form.cleaned_data["flip"],
