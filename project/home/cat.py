@@ -2,6 +2,7 @@
 from copy import deepcopy
 import time
 import datetime
+from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from pytz import utc
 from django.contrib.auth import authenticate, login
@@ -35,6 +36,8 @@ class CustomAuthentication(authentication.BaseAuthentication):
         cat_auth_form = CatAuthForm(request.data)
         user = None
         if cat_auth_form.is_valid():
+            lang = cat_auth_form.cleaned_data['_l']
+            activate(lang)
             user_id = cat_auth_form.cleaned_data['_u']
             session_id = cat_auth_form.cleaned_data['_s']
             if not session_id or not user_id:
