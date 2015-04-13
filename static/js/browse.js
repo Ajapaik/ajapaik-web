@@ -521,7 +521,7 @@
                     }
                 }
                 if (response.photos.length <= 50) {
-                    markerClustererSettings.gridSize = 0.1;
+                    markerClustererSettings.gridSize = 0.0000001;
                 } else {
                     markerClustererSettings.gridSize = 60;
                 }
@@ -541,7 +541,9 @@
                             }
                         }
                     }
-                    refreshPane(markerIdsWithinBounds);
+                    if (markerIdsWithinBounds.length > 0) {
+                        refreshPane(markerIdsWithinBounds);
+                    }
                 });
             });
         }
