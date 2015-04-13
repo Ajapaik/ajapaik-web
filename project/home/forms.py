@@ -95,6 +95,7 @@ class CatLoginForm(forms.Form):
 class CatAuthForm(forms.Form):
     _s = forms.CharField(max_length=255)
     _u = forms.IntegerField()
+    _l = forms.CharField(max_length=2, required=False)
 
 
 class CatPushRegisterForm(forms.ModelForm):
