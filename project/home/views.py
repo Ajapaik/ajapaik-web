@@ -311,12 +311,10 @@ def _get_album_leaderboard50(user_id, album_id=None):
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.filter()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        rephoto_ids_of_album_photos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).values_list(
-            'id', flat=True)
-        rephoto_points = Points.objects.filter(photo_id__in=rephoto_ids_of_album_photos)
+        photo_points = Points.objects.filter(photo_id__in=album_photo_ids)
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
-        for each in rephoto_points:
+        for each in photo_points:
             if each.user_id in user_score_map:
                 user_score_map[each.user_id] += each.points
             else:
