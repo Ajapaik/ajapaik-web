@@ -541,6 +541,12 @@
                             }
                         }
                     }
+                    if (window.map.zoom > 17) {
+                        markerIdsWithinBounds = [];
+                        for (i = 0; i < markers.length; i += 1) {
+                            markerIdsWithinBounds.push(markers[i].id);
+                        }
+                    }
                     refreshPane(markerIdsWithinBounds);
                 });
             });
