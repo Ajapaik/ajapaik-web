@@ -520,10 +520,10 @@
                         markers.push(marker);
                     }
                 }
-                if (window.map.zoom > 17 || response.photos.length <= 50) {
-                    markerClustererSettings.gridSize = 0;
+                if (response.photos.length <= 50) {
+                    markerClustererSettings.maxZoom = 30;
                 } else {
-                    markerClustererSettings.gridSize = 60;
+                    markerClustererSettings.maxZoom = 17;
                 }
                 if (mc && mc.clusters_) {
                     mc.clusters_.length = 0;
