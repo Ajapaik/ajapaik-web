@@ -1004,6 +1004,7 @@ ul.errorlist {
 
 #ajapaik-mapview-photo-panel .jsPanel-content {
     background: none;
+    overflow-y: scroll !important;
 }
 
 .ui-resizable-se {
