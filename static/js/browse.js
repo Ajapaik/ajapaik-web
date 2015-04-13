@@ -521,14 +521,14 @@
                     }
                 }
                 if (response.photos.length <= 50) {
-                    markerClustererSettings.maxZoom = 30;
+                    markerClustererSettings.minimumClusterSize = 50;
                 } else {
-                    markerClustererSettings.maxZoom = 17;
+                    markerClustererSettings.minimumClusterSize = 2;
                 }
                 if (mc && mc.clusters_) {
                     mc.clusters_.length = 0;
                 }
-                mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
+                mc = new window.MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
                 clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
                     var clusters = mc.clusters_,
