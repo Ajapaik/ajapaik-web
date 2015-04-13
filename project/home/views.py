@@ -63,7 +63,6 @@ def get_album_info_modal_content(request, album_id):
     album = Album.objects.get(pk=album_id)
     # FIXME: Ugly
     is_game = request.GET.get('isGame', None)
-    print is_game
     if is_game == "true":
         is_game = True
     else:
@@ -72,7 +71,7 @@ def get_album_info_modal_content(request, album_id):
         "album": album,
         "is_game": is_game
     }
-    print is_game
+
     # TODO: Can these queries be optimized?
     album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
     if album.subalbums:
@@ -251,12 +250,10 @@ def _get_album_leaderboard(user_id, album_id=None):
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.all()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        rephoto_ids_of_album_photos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids).values_list(
-            'id', flat=True)
-        rephoto_points = Points.objects.filter(photo_id__in=rephoto_ids_of_album_photos)
+        photo_points = Points.objects.filter(photo_id__in=album_photo_ids)
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
-        for each in rephoto_points:
+        for each in photo_points:
             if each.user_id in user_score_map:
                 user_score_map[each.user_id] += each.points
             else:
@@ -749,12 +746,20 @@ def mapview(request, photo_id=None, rephoto_id=None):
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     area = None
     album = None
+    total_photo_count = None
+    geotagged_photo_count = None
+    geotagging_user_count = None
 
     if area_selection_form.is_valid():
         area = area_selection_form.cleaned_data["area"]
 
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
+        album_photo_ids = set(album.photos.values_list("id", flat=True))
+        total_photo_count = len(album_photo_ids)
+        geotagged_photo_count = album.photos.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
+        geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
+        geotagging_user_count = geotags_for_album_photos.distinct("user").count()
 
     selected_rephoto = None
     if rephoto_id:
@@ -793,6 +798,9 @@ def mapview(request, photo_id=None, rephoto_id=None):
     ret = {
         "area": area,
         "album": album,
+        "total_photo_count": total_photo_count,
+        "geotagged_photo_count": geotagged_photo_count,
+        "geotagging_user_count": geotagging_user_count,
         "hostname": "http://%s" % (site.domain,),
         "selected_photo": selected_photo,
         "selected_rephoto": selected_rephoto,

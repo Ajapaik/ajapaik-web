@@ -3,7 +3,7 @@ from copy import deepcopy
 import time
 import datetime
 from django.views.decorators.cache import never_cache
-from pytz import timezone, utc
+from pytz import utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
@@ -27,7 +27,6 @@ from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUser
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
-from project.settings import TIME_ZONE
 
 
 class CustomAuthentication(authentication.BaseAuthentication):

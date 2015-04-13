@@ -156,7 +156,7 @@
                         {% endif %}
                         </p>
                     {% endif %}
-                    {% if albums %}
+                    {% if albums|length > 0 %}
                         <p class="text-left">
                             {% blocktrans count counter=albums|length %}
                                 Picture belongs to album
