@@ -370,11 +370,11 @@
             start = 200,
             resultIds = [],
             fullResultSet = {},
-            selectedResults = {},
             selectionDiv = $('#ajapaik-curator-selection'),
             resultDiv = $('#ajapaik-curator-search-results'),
             areaLat,
             areaLng;
+        window.selectedResults = {};
         $('#ajapaik-curator-full-search').on('keypress', function (e) {
             if (e.keyCode == 13) {
                 $('#ajapaik-curator-search-button').click();
@@ -392,9 +392,9 @@
         };
         var buildSelectionDiv = function () {
             selectionDiv.empty();
-            for (var key in selectedResults) {
-                if (selectedResults.hasOwnProperty(key)) {
-                    var currentItem = selectedResults[key];
+            for (var key in window.selectedResults) {
+                if (window.selectedResults.hasOwnProperty(key)) {
+                    var currentItem = window.selectedResults[key];
                     selectionDiv.append(tmpl('ajapaik-curator-selection-template', currentItem));
                 }
             }
@@ -566,20 +566,20 @@
         });
         $(document).on('click', '.ajapaik-result-item', function (e) {
             var target = fullResultSet[e.target.dataset.id];
-            if (selectedResults[e.target.dataset.id]) {
-                delete selectedResults[e.target.dataset.id];
+            if (window.selectedResults[e.target.dataset.id]) {
+                delete window.selectedResults[e.target.dataset.id];
                 $(e.target).removeClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length);
             } else {
-                selectedResults[e.target.dataset.id] = target;
+                window.selectedResults[e.target.dataset.id] = target;
                 $(e.target).addClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length);
             }
         });
         $(document).on('click', '#ajapaik-curator-clear-selection', function () {
-            selectedResults = {};
+            window.selectedResults = {};
             buildSelectionDiv();
-            $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
+            $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length);
             $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
             window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
         });
@@ -614,10 +614,10 @@
             toggleButtonActive($this);
             if (target.hasClass('ajapaik-photo-inverted')) {
                 target.removeClass('ajapaik-photo-inverted');
-                selectedResults[$this[0].dataset.id].invert = false;
+                window.selectedResults[$this[0].dataset.id].invert = false;
             } else {
                 target.addClass('ajapaik-photo-inverted');
-                selectedResults[$this[0].dataset.id].invert = true;
+                window.selectedResults[$this[0].dataset.id].invert = true;
             }
             window._gaq.push(['_trackEvent', 'Curator', 'Invert colors']);
         });
@@ -628,16 +628,16 @@
             toggleButtonActive($this);
             if (target.hasClass('ajapaik-photo-flipped')) {
                 target.removeClass('ajapaik-photo-flipped');
-                selectedResults[$this[0].dataset.id].flip = false;
+                window.selectedResults[$this[0].dataset.id].flip = false;
             } else {
                 target.addClass('ajapaik-photo-flipped');
-                selectedResults[$this[0].dataset.id].flip = true;
+                window.selectedResults[$this[0].dataset.id].flip = true;
             }
             window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
         });
         $(document).on('click', '.ajapaik-curator-stereo-button', function() {
             var $this = $(this);
-            selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
+            window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
             toggleButtonActive($this);
             window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
         });
@@ -645,15 +645,15 @@
             var targetId = $(this)[0].dataset.id,
                 targetResultItem = $('#ajapaik-result-item-' + window.formatId(targetId)),
                 targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
-            if (selectedResults[targetId]) {
-                delete selectedResults[targetId];
+            if (window.selectedResults[targetId]) {
+                delete window.selectedResults[targetId];
                 targetSelectionItem.remove();
                 targetResultItem.removeClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length)
             } else {
-                selectedResults[e.target.dataset.id] = target;
+                window.selectedResults[e.target.dataset.id] = target;
                 targetResultItem.addClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length)
             }
             window._gaq.push(['_trackEvent', 'Curator', 'Delete']);
         });
@@ -739,7 +739,7 @@
         $(document).on('click', '#ajapaik-curator-confirm-area-selection-button', function () {
             var confirm = false,
                 album = $('#ajapaik-curator-album-select').val();
-            if (Object.keys(selectedResults).length < 5 && !album) {
+            if (Object.keys(window.selectedResults).length < 5 && !album) {
                 confirm = window.confirm(window.gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.'));
             } else {
                 confirm = true;
@@ -750,7 +750,7 @@
                     type: 'POST',
                     url: '/curator_upload/',
                     data: {
-                        selection: JSON.stringify(selectedResults),
+                        selection: JSON.stringify(window.selectedResults),
                         album: album,
                         name: $('#ajapaik-curator-add-album-name').val(),
                         description: $('#ajapaik-curator-add-album-description').val(),
@@ -855,7 +855,10 @@
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
         <a class="thumbnail col-xs-2" title="{%=o.title%}">
-            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}" class="img-responsive ajapaik-result-item" id="ajapaik-result-item-{%=formatId(o.id)%}">
+            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}"
+                data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}"
+                class="img-responsive ajapaik-result-item {% if (selectedResults[o.id]) { %}ajapaik-curator-selected-image{% } %}"
+                id="ajapaik-result-item-{%=formatId(o.id)%}">
         </a>
     </script>
     <script id="ajapaik-curator-my-album-template" type="text/x-tmpl">
