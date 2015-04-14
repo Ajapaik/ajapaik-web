@@ -139,7 +139,7 @@ var map,
         $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
     }
 
-    getMap = function (startPoint, startingZoom, isGameMap) {
+    getMap = function (startPoint, startingZoom, isGameMap, mapType) {
         var latLng,
             zoomLevel,
             mapTypeIds;
@@ -214,6 +214,17 @@ var map,
             };
         }
 
+        var allowedMapTypes = {
+            roadmap: window.google.maps.MapTypeId.ROADMAP,
+            satellite: window.google.maps.MapTypeId.ROADMAP,
+            OSM: 'OSM'
+        };
+        if (allowedMapTypes[mapType]) {
+            mapOpts.mapTypeId = allowedMapTypes[mapType];
+        } else {
+            mapOpts.mapTypeId = allowedMapTypes.OSM;
+        }
+
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
         map.mapTypes.set('OSM', new google.maps.ImageMapType({
@@ -224,8 +235,6 @@ var map,
             name: 'OpenStreetMap',
             maxZoom: 18
         }));
-
-        map.setMapTypeId('OSM');
 
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
@@ -314,6 +323,7 @@ var map,
             } else {
                 window._gaq.push(['_trackEvent', 'Map', 'Map type changed']);
             }
+            window.syncMapStateToURL();
         });
     };
 

@@ -148,6 +148,7 @@
                 historyReplacementString += '&area=' + window.areaId;
             }
         }
+        historyReplacementString += '&mapType=' + window.map.getMapTypeId();
         if (window.map) {
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
             historyReplacementString += '&lng=' + window.map.getCenter().lng();
@@ -712,11 +713,12 @@
     });
 
     window.initializeMapStateFromOptionalURLParameters = function () {
+        var urlMapType = window.getQueryParameterByName('mapType');
         if (window.getQueryParameterByName('fromSelect')) {
             if (window.albumLatLng) {
-                window.getMap(window.albumLatLng, 13, false);
+                window.getMap(window.albumLatLng, 13, false, urlMapType);
             } else if (window.areaLatLng) {
-                window.getMap(window.areaLatLng, 13, false);
+                window.getMap(window.areaLatLng, 13, false, urlMapType);
             }
         } else {
             if (window.preselectPhotoId) {
@@ -726,19 +728,20 @@
             }
             if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
                 // User has very specific parameters, allow to take precedence
-                window.getMap(new window.google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')), parseInt(window.getQueryParameterByName('zoom'), false));
+                window.getMap(new window.google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')),
+                    parseInt(window.getQueryParameterByName('zoom'), 10), false, urlMapType);
             } else {
                 if (window.preselectPhotoLat && window.preselectPhotoLng) {
                     // We know the location of the photo, let's build the map accordingly
-                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false);
+                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false, urlMapType);
                 } else if (window.albumLatLng) {
                     // There's nothing preselected, but we do know the album the photo's in
-                    window.getMap(window.albumLatLng, 13, false);
+                    window.getMap(window.albumLatLng, 13, false, urlMapType);
                 } else if (window.areaLatLng) {
-                    window.getMap(window.areaLatLng, 13, false);
+                    window.getMap(window.areaLatLng, 13, false, urlMapType);
                 } else {
                     // No idea
-                    window.getMap(null, 13, false);
+                    window.getMap(null, 13, false, urlMapType);
                 }
             }
             if (window.preselectRephotoId) {
