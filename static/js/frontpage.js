@@ -79,7 +79,7 @@
             } else if (initialRephotoLoad && $(e.target).attr('href') === '#ajapaik-frontpage-rephotos-tab') {
                 activeTab = 'rephoto';
                 getInfiniteScrollPhotos();
-                initialRephotoLoad = true;
+                initialRephotoLoad = false;
             }
         });
         $(window).scroll(function () {
