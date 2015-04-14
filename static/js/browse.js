@@ -761,6 +761,9 @@
         } else {
             $('#ajapaik-mapview-show-only-album').prop('checked', true);
         }
+        if (window.getQueryParameterByName('fromModal') != 1) {
+            $('.ajapaik-header-info-button')[0].click();
+        }
         window.preselectPhotoId = false;
         window.preselectRephotoId = false;
         window.syncMapStateToURL();
@@ -771,8 +774,9 @@
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
-        //window.mapInfoPanelConfidenceElement = $('#ajapaik-mapview-map-confidence');
         window.saveLocationButton = $('.ajapaik-save-location-button');
+
+        if (!window.getUrl)
 
         window.updateLeaderboard();
 

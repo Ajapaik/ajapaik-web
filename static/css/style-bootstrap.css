@@ -14,6 +14,11 @@ body {
     display: -webkit-flex;
 }
 
+.ajapaik-body-frontpage {
+    padding: 100px 0 0;
+    display: block;
+}
+
 .ajapaik-body-window-height {
     height: 100%;
 }
@@ -1586,4 +1591,14 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
         float: left;
         margin-left: 20px;
     }
+}
+
+.ajapaik-frontpage-album-image-container .caption {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ajapaik-frontpage-historic-image-container .caption {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.75) !important;
 }

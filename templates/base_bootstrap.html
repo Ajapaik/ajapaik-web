@@ -108,11 +108,11 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.1.min.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.4.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
     {% endcompress %}
 </head>
-<body class="{% if is_mapview or is_game %}ajapaik-body-window-height{% endif %}">
+<body class="{% if is_mapview or is_game %}ajapaik-body-window-height{% endif %}{% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>

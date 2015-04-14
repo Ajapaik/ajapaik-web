@@ -134,7 +134,7 @@
                     {% if not is_game %}
                         <a class="btn btn-primary" data-dismiss="modal">{% trans "Back to map" %}</a>
                     {% else %}
-                        <a class="btn btn-primary" href="{{ share_map_link }}?album={{ album.id }}">{% trans "Show on map" %}</a>
+                        <a class="btn btn-primary" href="{{ share_map_link }}?album={{ album.id }}&fromModal=1">{% trans "Show on map" %}</a>
                     {% endif %}
                 </div>
             </div>

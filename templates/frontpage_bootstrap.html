@@ -1,0 +1,101 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress %}
+
+{% block header %}
+    {% include "_header.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery-3.5.4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/twentytwenty.min.css"/>
+{% endblock %}
+
+{% block layout %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-lg-9">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#ajapaik-frontpage-albums-tab" aria-controls="ajapaik-frontpage-albums-tab"
+                               role="tab" data-toggle="tab">{% trans "Albums" %}
+                                <span class="badge" id="ajapaik-frontpage-album-count">{{ albums|length }}</span>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#ajapaik-frontpage-photos-tab" aria-controls="ajapaik-frontpage-photos-tab"
+                               role="tab" data-toggle="tab">{% trans "Historic photos" %}
+                                <span class="badge" id="ajapaik-frontpage-photos-count">{{ all_historic_photos_count }}</span>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#ajapaik-frontpage-rephotos-tab" aria-controls="ajapaik-frontpage-rephotos-tab"
+                               role="tab" data-toggle="tab">{% trans "Rephotos" %}
+                                <span class="badge" id="ajapaik-frontpage-rephotos-count">{{ all_rephotos_count }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="ajapaik-frontpage-albums-tab">
+                            {% for album in albums %}
+                                <a href="#" class="ajapaik-frontpage-album-image-container">
+                                    <img alt="{{ album.name }}"
+                                         src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 450 %}"
+                                         class="ajapaik-frontpage-album-image-image" data-id="{{ album.id }}"/>
+                                    <div class="caption">{{ album.name }}</div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="ajapaik-frontpage-photos-tab">
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="ajapaik-frontpage-rephotos-tab">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="fb-page" data-href="https://www.facebook.com/ajapaik" data-hide-cover="false"
+                     data-show-facepile="true" data-show-posts="true">
+                    <div class="fb-xfbml-parse-ignore">
+                        <blockquote cite="https://www.facebook.com/ajapaik">
+                            <a href="https://www.facebook.com/ajapaik">Ajapaik.ee</a>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% verbatim %}
+        <script id="ajapaik-frontpage-historic-photo" type="text/x-tmpl">
+            <a href="#" class="ajapaik-frontpage-image-container">
+                <img alt="{%=o.description%}"
+                     src="{%=o.thumb%}"
+                     class="ajapaik-frontpage-image-image" data-id="{%=o.id%}"/>
+                <div class="caption">{%=o.description%}</div>
+            </a>
+        </script>
+        <script id="ajapaik-frontpage-rephoto" type="text/x-tmpl">
+            <a href="#" class="ajapaik-frontpage-image-container">
+                <img alt="{%=o.description%}"
+                     src="{%=o.rephoto%}"
+                     class="ajapaik-frontpage-image-image" data-id="{%=o.id%}"/>
+                <div class="caption">{%=o.description%}</div>
+            </a>
+        </script>
+    {% endverbatim %}
+{% endblock %}
+{% block specific_js %}
+    <script>
+        window.historicPhotoInfiniteStart = 0;
+        window.rephotoInfiniteStart = 0;
+        window.photoPageSize = {{ photo_page_size|safe }};
+        window.totalHistoricPhotoCount = {{ all_historic_photos_count|safe }};
+        window.totalRephotoCount = {{ all_rephotos_count|safe }};
+    </script>
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.4.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.event.move.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.twentytwenty.js"></script>
+        <script src="{{ STATIC_URL }}js/frontpage.js"></script>
+    {% endcompress %}
+{% endblock %}
