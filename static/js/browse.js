@@ -880,10 +880,6 @@
             });
             window._gaq.push(['_trackEvent', 'Map', 'Full leaderboard']);
         });
-        $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {
-            e.preventDefault();
-            $('#full_leaderboard').click();
-        });
         $(document).on('click', '#ajapaik-all-time-leaderboard-link', function (e) {
             e.preventDefault();
             $.ajax({

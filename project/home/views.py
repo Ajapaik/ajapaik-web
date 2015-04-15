@@ -36,7 +36,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
-    CuratorAlbumInfoSerializer, FrontpageRephotoInfiniteScrollSerializer, FrontpageHistoricInfiniteScrollSerializer
+    CuratorAlbumInfoSerializer, FrontpageInfiniteScrollSerializer
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -58,7 +58,7 @@ def _convert_to_degrees(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
-def get_album_info_modal_content(request, album_id):
+def get_album_info_modal_content(request, album_id=1):
     profile = request.get_user().profile
     album = Album.objects.get(pk=album_id)
     # FIXME: Ugly
@@ -551,7 +551,7 @@ def frontpage_bootstrap(request):
         "title": _("Timepatch (Ajapaik)"),
         "albums": albums,
         "all_historic_photos_count": all_historic_photos_count,
-        "all_rephotos_count": all_rephotos_count,
+        #"all_rephotos_count": all_rephotos_count,
         "photo_page_size": settings.FRONTPAGE_INFINITE_SCROLL_SIZE,
         "is_frontpage": True,
     }))
@@ -559,19 +559,21 @@ def frontpage_bootstrap(request):
 
 def frontpage_infinite_scroll(request):
     start = int(request.GET.get('start'))
-    photo_type = request.GET.get('type')
+    # photo_type = request.GET.get('type')
     # TODO: Remove filter
-    qs = Photo.objects.filter(created__lte='2015-03-15').order_by('-created')
-    if photo_type == 'rephoto':
-        qs = qs.filter(rephoto_of__isnull=False)
-        serializer = FrontpageRephotoInfiniteScrollSerializer(
-        qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True)
-        return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
-    else:
-        qs = qs.filter(rephoto_of__isnull=True)
-        serializer = FrontpageHistoricInfiniteScrollSerializer(
-        qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True)
-        return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+    qs = Photo.objects.filter(created__lte='2015-03-20').order_by('-created')
+    # if photo_type == 'rephoto':
+    #     qs = qs.filter(rephoto_of__isnull=False)
+    #     serializer = FrontpageInfiniteScrollSerializer(
+    #         qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True
+    #     )
+    #     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+    # else:
+    qs = qs.filter(rephoto_of__isnull=True)
+    serializer = FrontpageInfiniteScrollSerializer(
+        qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True
+    )
+    return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
 
 
 def photo_large(request, photo_id):

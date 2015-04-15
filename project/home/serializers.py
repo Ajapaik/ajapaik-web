@@ -48,7 +48,7 @@ class SourceSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description')
 
 
-class FrontpageHistoricInfiniteScrollSerializer(serializers.ModelSerializer):
+class FrontpageInfiniteScrollSerializer(serializers.ModelSerializer):
     thumb = serializers.SerializerMethodField('get_frontpage_thumb')
 
     def get_frontpage_thumb(self, instance):
@@ -56,19 +56,4 @@ class FrontpageHistoricInfiniteScrollSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Photo
-        fields = ('id', 'description', 'thumb')
-
-
-class FrontpageRephotoInfiniteScrollSerializer(serializers.ModelSerializer):
-    original = serializers.SerializerMethodField('get_original_thumb')
-    rephoto = serializers.SerializerMethodField('get_rephoto_thumb')
-
-    def get_original_thumb(self, instance):
-        return reverse('project.home.views.photo_thumb', args=(instance.rephoto_of_id, 300)),
-
-    def get_rephoto_thumb(self, instance):
-        return reverse('project.home.views.photo_thumb', args=(instance.id, 300)),
-
-    class Meta:
-        model = Photo
-        fields = ('id', 'description', 'original', 'rephoto')
+        fields = ('id', 'rephoto_of', 'description', 'thumb')

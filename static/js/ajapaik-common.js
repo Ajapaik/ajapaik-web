@@ -470,6 +470,7 @@ var map,
     };
 
     updateLeaderboard = function () {
+        console.log("lol");
         if (window.albumId) {
             $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
@@ -943,6 +944,11 @@ var map,
                 }
             });
         }
+    });
+
+    $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {
+        e.preventDefault();
+        $('#full_leaderboard').click();
     });
 
     $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
