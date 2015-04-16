@@ -1,28 +1,24 @@
 {% load i18n %}
 
-<nav id="ajapaik-header" class="navbar navbar-fixed-top ajapaik-header-score-language" role="navigation">
-    <div class="navbar-header">
-        <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
-    </div>
-    {% if is_game or is_mapview or is_gallery %}
-        <div class="hidden-xs">
-            <div class="filter-box">
-                {% csrf_token %}
-                {{ album_selection_form.as_p }}
-                {% if is_mapview %}
-                    <p>
-                        <label for="ajapaik-mapview-show-only-album" id="ajapaik-mapview-show-only-album-label">{% trans "Limit to album" %}:&nbsp;</label>
-                        <input type="checkbox" id="ajapaik-mapview-show-only-album" checked="checked">
-                    </p>
-                {% endif %}
-                {% if album %}
-                    <p>
-                        <button class="btn btn-default ajapaik-header-info-button"></button>
-                    </p>
-                {% endif %}
-            </div>
-        </div>
-    {% endif %}
+<div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu">
+    <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
+        {% for album in albums %}
+            <a href="#">
+                <img alt="{{ album.name }}" class="img-responsive"
+                     src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}">
+                <div class="caption ajapaik-caption">{{ album.name }}</div>
+            </a>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
+    <a class="navbar-brand ajapaik-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+    <button type="button" class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
     <div class="hidden-xs hidden-sm">
         <div class="score_container">
             <h2>
@@ -53,4 +49,47 @@
     {% if is_game or is_mapview %}
         <button class="btn btn-default ajapaik-show-tutorial-button"></button>
     {% endif %}
-</nav>
+</div>
+
+
+{#<nav id="ajapaik-header" class="navbar navbar-fixed-top ajapaik-header-score-language" role="navigation">#}
+{#    <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">#}
+{#      <a class="navmenu-brand" href="#">Brand</a>#}
+{#      <ul class="nav navmenu-nav">#}
+{#        <li class="active"><a href="#">Home</a></li>#}
+{#        <li><a href="#">Link</a></li>#}
+{#        <li><a href="#">Link</a></li>#}
+{#      </ul>#}
+{#    </nav>#}
+{#    <div class="navbar navbar-default navbar-fixed-top">#}
+{#      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">#}
+{#        <span class="icon-bar"></span>#}
+{#        <span class="icon-bar"></span>#}
+{#        <span class="icon-bar"></span>#}
+{#      </button>#}
+{#    </div>#}
+{#    {% if is_game or is_mapview or is_gallery %}#}
+{#        <div class="hidden-xs">#}
+{#            <div class="filter-box">#}
+{#                {% csrf_token %}#}
+{#                {{ album_selection_form.as_p }}#}
+{#                {% if is_mapview %}#}
+{#                    <p>#}
+{#                        <label for="ajapaik-mapview-show-only-album" id="ajapaik-mapview-show-only-album-label">{% trans "Limit to album" %}:&nbsp;</label>#}
+{#                        <input type="checkbox" id="ajapaik-mapview-show-only-album" checked="checked">#}
+{#                    </p>#}
+{#                {% endif %}#}
+{#                {% if album %}#}
+{#                    <p>#}
+{#                        <button class="btn btn-default ajapaik-header-info-button"></button>#}
+{#                    </p>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+
+{#    {% include "_language_selection.html" %}#}
+{#    {% if is_game or is_mapview %}#}
+{#        <button class="btn btn-default ajapaik-show-tutorial-button"></button>#}
+{#    {% endif %}#}
+{#</nav>#}

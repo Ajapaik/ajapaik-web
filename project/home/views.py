@@ -62,15 +62,22 @@ def get_album_info_modal_content(request, album_id=1):
     profile = request.get_user().profile
     album = Album.objects.get(pk=album_id)
     # FIXME: Ugly
-    is_game = request.GET.get('isGame', None)
-    if is_game == "true":
-        is_game = True
+    link_to_game = request.GET.get('linkToGame', None)
+    if link_to_game == "true":
+        link_to_game = True
     else:
-        is_game = False
+        link_to_game = False
+    link_to_map = request.GET.get('linkToMap', None)
+    if link_to_map == "true":
+        link_to_map = True
+    else:
+        link_to_map = False
     ret = {
         "album": album,
-        "is_game": is_game
+        "link_to_map": link_to_map,
+        "link_to_game": link_to_game
     }
+    print ret
 
     # TODO: Can these queries be optimized?
     album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
@@ -546,12 +553,12 @@ def frontpage_bootstrap(request):
     # TODO: Remove created filter clause
     albums = Album.objects.filter(is_public=True, created__lte='2015-03-15').order_by("-created")
     all_historic_photos_count = Photo.objects.filter(rephoto_of__isnull=True).count()
-    all_rephotos_count = Photo.objects.filter(rephoto_of__isnull=False).count()
+    # all_rephotos_count = Photo.objects.filter(rephoto_of__isnull=False).count()
     return render_to_response("frontpage_bootstrap.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
         "albums": albums,
         "all_historic_photos_count": all_historic_photos_count,
-        #"all_rephotos_count": all_rephotos_count,
+        # "all_rephotos_count": all_rephotos_count,
         "photo_page_size": settings.FRONTPAGE_INFINITE_SCROLL_SIZE,
         "is_frontpage": True,
     }))

@@ -8,58 +8,48 @@
 
 {% block layout %}
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="col-lg-9">
-                <div role="tabpanel">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#ajapaik-frontpage-albums-tab" aria-controls="ajapaik-frontpage-albums-tab"
-                               role="tab" data-toggle="tab">{% trans "Albums" %}
-                                <span class="badge" id="ajapaik-frontpage-album-count">{{ albums|length }}</span>
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#ajapaik-frontpage-photos-tab" aria-controls="ajapaik-frontpage-photos-tab"
-                               role="tab" data-toggle="tab">{% trans "Historic photos" %}
-                                <span class="badge" id="ajapaik-frontpage-photos-count">{{ all_historic_photos_count }}</span>
-                            </a>
-                        </li>
-                        {% comment %}<li role="presentation">
-                            <a href="#ajapaik-frontpage-rephotos-tab" aria-controls="ajapaik-frontpage-rephotos-tab"
-                               role="tab" data-toggle="tab">{% trans "Rephotos" %}
-                                <span class="badge" id="ajapaik-frontpage-rephotos-count">{{ all_rephotos_count }}</span>
-                            </a>
-                        </li>{% endcomment %}
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="ajapaik-frontpage-albums-tab">
-                            {% for album in albums %}
-                                <a href="#" class="ajapaik-frontpage-album-image-container">
-                                    <img alt="{{ album.name }}"
-                                         src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 450 %}"
-                                         class="ajapaik-frontpage-album-image-image" data-id="{{ album.id }}"/>
-                                    <div class="caption">{{ album.name }}</div>
-                                </a>
-                            {% endfor %}
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="ajapaik-frontpage-photos-tab">
-
-                        </div>
-                        {% comment %}<div role="tabpanel" class="tab-pane" id="ajapaik-frontpage-rephotos-tab">
-
-                        </div>{% endcomment %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="fb-page" data-href="https://www.facebook.com/ajapaik" data-hide-cover="false"
-                     data-show-facepile="true" data-show-posts="true">
-                    <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="https://www.facebook.com/ajapaik">
-                            <a href="https://www.facebook.com/ajapaik">Ajapaik.ee</a>
-                        </blockquote>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-lg-12" id="ajapaik-frontpage-historic-photos">
+{#                <div role="tabpanel">#}
+{#                    <ul class="nav nav-tabs" role="tablist">#}
+{#                        <li role="presentation" class="active">#}
+{#                            <a href="#ajapaik-frontpage-albums-tab" aria-controls="ajapaik-frontpage-albums-tab"#}
+{#                               role="tab" data-toggle="tab">{% trans "Albums" %}#}
+{#                                <span class="badge" id="ajapaik-frontpage-album-count">{{ albums|length }}</span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li role="presentation">#}
+{#                            <a href="#ajapaik-frontpage-photos-tab" aria-controls="ajapaik-frontpage-photos-tab"#}
+{#                               role="tab" data-toggle="tab">{% trans "Historic photos" %}#}
+{#                                <span class="badge" id="ajapaik-frontpage-photos-count">{{ all_historic_photos_count }}</span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        {% comment %}<li role="presentation">#}
+{#                            <a href="#ajapaik-frontpage-rephotos-tab" aria-controls="ajapaik-frontpage-rephotos-tab"#}
+{#                               role="tab" data-toggle="tab">{% trans "Rephotos" %}#}
+{#                                <span class="badge" id="ajapaik-frontpage-rephotos-count">{{ all_rephotos_count }}</span>#}
+{#                            </a>#}
+{#                        </li>{% endcomment %}#}
+{#                    </ul>#}
+{#                    <div class="tab-content">#}
+{#                        <div role="tabpanel" class="tab-pane active" id="ajapaik-frontpage-albums-tab">#}
+{#                            {% for album in albums %}#}
+{#                                <a href="#" class="ajapaik-frontpage-album-image-container">#}
+{#                                    <img alt="{{ album.name }}"#}
+{#                                         src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 450 %}"#}
+{#                                         class="ajapaik-frontpage-album-image-image" data-id="{{ album.id }}"/>#}
+{#                                    <div class="caption">{{ album.name }}</div>#}
+{#                                </a>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{#                        <div role="tabpanel" class="tab-pane" id="ajapaik-frontpage-photos-tab">#}
+{##}
+{#                        </div>#}
+{#                        {% comment %}<div role="tabpanel" class="tab-pane" id="ajapaik-frontpage-rephotos-tab">#}
+{##}
+{#                        </div>{% endcomment %}#}
+{#                    </div>#}
+{#                </div>#}
             </div>
         </div>
     </div>
@@ -72,7 +62,7 @@
                 <img alt="{%=o.description%}"
                      src="{%=o.thumb%}"
                      class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
-                <div class="caption">{%=o.description%}</div>
+                <div class="caption ajapaik-caption">{%=o.description%}</div>
             </a>
         </script>
     {% endverbatim %}
@@ -93,6 +83,7 @@
     <script>
         window.infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' %}';
         window.historicPhotoInfiniteStart = 0;
+        window.isFrontpage = '{{ is_frontpage|safe }}';
         //window.rephotoInfiniteStart = 0;
         window.photoPageSize = {{ photo_page_size|safe }};
         window.totalHistoricPhotoCount = {{ all_historic_photos_count|safe }};

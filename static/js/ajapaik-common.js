@@ -452,6 +452,7 @@ var map,
     };
 
     showScoreboard = function () {
+        console.log("show");
         var scoreContainer = $('#ajapaik-header').find('.score_container');
         $('#full_leaderboard').slideDown();
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
@@ -928,12 +929,12 @@ var map,
 
     $(document).on('click', '.ajapaik-header-info-button', function () {
         var targetDiv = $('#ajapaik-info-modal');
-        console.log(gameMap);
         if (window.albumId && window.infoModalURL) {
             $.ajax({
                 url: window.infoModalURL,
                 data: {
-                    isGame: gameMap
+                    linkToMap: gameMap,
+                    linkToGame: window.isFrontpage
                 },
                 success: function (resp) {
                     targetDiv.html(resp);

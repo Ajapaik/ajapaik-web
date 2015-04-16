@@ -1,27 +1,77 @@
-html {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+html, body {
+  height: 100%;
 }
-
 body {
-    background: #fff url(../images/bg-subtle-grunge.png) center center;
-    width: 100%;
-    margin: 0;
-    padding: 50px 0 0;
-    display: flex;
-    display: -webkit-flex;
+  padding: 50px 0 0 0;
 }
 
-.ajapaik-body-frontpage {
-    padding: 100px 0 0;
-    display: block;
+.navmenu {
+  padding-top: 50px;
 }
 
-.ajapaik-body-window-height {
-    height: 100%;
+.navbar {
+  display: block;
+  text-align: center;
 }
+.navbar-brand {
+  display: inline-block;
+  float: none;
+}
+.navbar-toggle {
+  position: absolute;
+  float: left;
+  margin-left: 15px;
+}
+
+.container {
+  max-width: 100%;
+}
+
+@media (min-width: 1px) {
+  .navbar-toggle {
+    display: block !important;
+  }
+}
+
+.ajapaik-navbar {
+    background-color: rgba(0, 0, 0, .8);
+    height: 50px;
+    background-image: none;
+}
+
+.ajapaik-navmenu {
+    margin-top: 50px;
+}
+
+.ajapaik-caption {
+    display: block !important;
+}
+
+.ajapaik-brand {
+    float: left;
+    background: url(../images/ajapaik_266px.png) no-repeat;
+    width: 133px;
+    height: 73px;
+    margin: 10px 0 0 20px;
+    background-size: 133px 73px;
+    text-indent: -999em;
+}
+
+.ajapaik-navbar-toggle {
+    position: relative;
+}
+
+/*@media (min-width: 992px) {*/
+  /*body {*/
+    /*padding: 0 0 0 300px;*/
+  /*}*/
+  /*.navmenu {*/
+    /*padding-top: 0;*/
+  /*}*/
+  /*.navbar {*/
+    /*display: none !important; *//* IE8 fix */
+  /*}*/
+/*}*/
 
 #ajapaik-header-logo {
     background: url(../images/ajapaik_266px.png) no-repeat;
@@ -35,7 +85,7 @@ body {
 
 #ajapaik-header {
     height: 50px;
-    background: transparent url(../images/footer_bg.jpg) center bottom;
+    background-color: rgba(0, 0, 0, .8);
     border-color: transparent;
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);

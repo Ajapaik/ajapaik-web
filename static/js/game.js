@@ -381,7 +381,8 @@
             $.ajax({
                 url: window.infoModalURL,
                 data: {
-                    'isGame': true
+                    'linkToGame': false,
+                    'linkToMap': true
                 },
                 success: function (resp) {
                     targetDiv.html(resp);
