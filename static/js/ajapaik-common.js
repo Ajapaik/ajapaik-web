@@ -452,21 +452,11 @@ var map,
     };
 
     showScoreboard = function () {
-        var scoreContainer = $('#ajapaik-header').find('.score_container');
-        $('#full_leaderboard').slideDown();
-        scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
-        scoreContainer.find('#facebook-connect').slideDown();
-        scoreContainer.find('#facebook-connected').slideDown();
-        scoreContainer.find('#google-plus-connect').slideDown();
+        $('.ajapaik-navbar').find('.score_container').slideDown();
     };
 
     hideScoreboard = function () {
-        var scoreContainer = $('#ajapaik-header').find('.score_container');
-        $('#full_leaderboard').slideUp();
-        scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
-        scoreContainer.find('#facebook-connect').slideUp();
-        scoreContainer.find('#facebook-connected').slideUp();
-        scoreContainer.find('#google-plus-connect').slideUp();
+        $('.ajapaik-navbar').find('.score_container').slideUp();
     };
 
     updateLeaderboard = function () {

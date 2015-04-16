@@ -60,10 +60,12 @@
             {% endif %}
         </div>
     </div>
-    {% include "_language_selection.html" %}
     {% if is_game or is_mapview %}
         <button class="btn btn-default ajapaik-show-tutorial-button"></button>
     {% endif %}
+    <button type="button" name="{% trans 'Profile' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-profile-button"></button>
+    {% include "_language_selection.html" %}
 </div>
 
 

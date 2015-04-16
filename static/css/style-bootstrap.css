@@ -325,15 +325,30 @@ body {
     height: 36px;
     display: none;
     background: transparent url(../images/material-design-icons/ic_map_24px.svg) no-repeat center !important;
+    background-size: 36px !important;
+    margin-top: 6px;
+    margin-left: 6px;
     float: left;
 }
 
 #ajapaik-header-game-button {
     background: transparent url(../images/material-design-icons/ic_place_24px.svg) no-repeat center !important;
+    background-size: 36px !important;
+    margin-top: 6px;
     display: none;
     width: 36px;
     height: 36px;
     float: left;
+}
+
+#ajapaik-header-profile-button {
+    background: transparent url(../images/material-design-icons/ic_account_circle_24px.svg) no-repeat center !important;
+    background-size: 36px !important;
+    margin-top: 6px;
+    width: 36px;
+    height: 36px;
+    position: fixed;
+    right: 76px;
 }
 
 .ajapaik-show-tutorial-button:hover {
@@ -429,10 +444,6 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
-}
-
-#full_leaderboard {
-    display: none;
 }
 
 #ajapaik-full-leaderboard-modal .modal-dialog {
@@ -598,6 +609,7 @@ a.fullscreen {
     width: 300px;
     padding: 0 0 7px 0;
     background: #fff;
+    display: none;
 }
 
 .single .score_container {
@@ -736,12 +748,18 @@ a.fullscreen {
     margin-top: 0;
 }
 
+@media (max-width: 992px) {
+    #ajapaik-album-name-container {
+        max-width: 200px;
+    }
+}
+
 @media (max-width: 767px) {
     .modal-dialog-center {
         width: 100%;
     }
     #ajapaik-album-name-container {
-        max-width: 200px;
+        max-width: 100px;
     }
 }
 
