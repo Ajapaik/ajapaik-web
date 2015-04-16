@@ -41,6 +41,7 @@
                     margins: 5
                 });
                 $('#ajapaik-header-album-name').html(window.albumName);
+                $('#ajapaik-album-name-container').css('visibility', 'visible');
                 getInfiniteScrollPhotos();
             }
         };
@@ -71,6 +72,10 @@
                 $('.ajapaik-game-show-description-button').hide();
                 window.FB.XFBML.parse();
             });
+        };
+        window.closePhotoDrawer = function () {
+            $('#ajapaik-photo-modal').modal('toggle');
+            photoDrawerOpen = false;
         };
         $(document).on('click', '.ajapaik-frontpage-image-image', function (e) {
             window.loadPhoto(e.target.dataset.id);

@@ -34,9 +34,8 @@ body {
 }
 
 .ajapaik-navbar {
-    background-color: rgba(0, 0, 0, .8);
     height: 50px;
-    background-image: none;
+    background: rgba(0, 0, 0, .8) none;
 }
 
 .ajapaik-navmenu {
@@ -57,27 +56,38 @@ body {
     text-indent: -999em;
 }
 
+.ajapaik-brand-xs {
+    background: url(../images/ajapaik_marker_45px.png) no-repeat;
+    width: 45px;
+    height: 61px;
+    background-size: 45px 61px;
+}
+
 .ajapaik-navbar-toggle {
     position: relative;
     border: none;
-    font-size: 20px;
-    margin-top: 4px;
     color: white;
     cursor: pointer;
+}
+
+#ajapaik-album-name-container {
+    visibility: hidden;
 }
 
 #ajapaik-header-album-name {
     font-style: italic;
 }
 
+#mapview-photo-modal-dialog .modal-content {
+    border-radius: 0;
+}
+
 .ajapaik-navbar-toggle:hover {
-    background: none !important;
-    background-color: transparent !important;
+    background: transparent none !important;
 }
 
 .ajapaik-navbar-toggle:focus {
-    background: none !important;
-    background-color: transparent !important;
+    background: transparent none !important;
 }
 
 /*@media (min-width: 992px) {*/

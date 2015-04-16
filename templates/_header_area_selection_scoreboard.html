@@ -20,13 +20,14 @@
 </div>
 
 <div class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
-    <a class="navbar-brand ajapaik-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
-    {% comment %}<button type="button" class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+    <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+    <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+    <button type="button" class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-    </button>{% endcomment %}
-    <a class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+    </button>
+    <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container">
         {% trans "Album" %} <span id="ajapaik-header-album-name"></span>
     </a>
     <div class="hidden-xs hidden-sm">
