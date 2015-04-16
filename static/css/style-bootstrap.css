@@ -342,6 +342,15 @@ body {
     float: left;
 }
 
+#ajapaik-header-menu-button {
+    background: transparent url(../images/material-design-icons/ic_bookmark_24px.svg) no-repeat center !important;
+    background-size: 36px !important;
+    margin-top: 6px;
+    width: 36px;
+    height: 36px;
+    float: left;
+}
+
 #ajapaik-header-profile-button {
     background: transparent url(../images/material-design-icons/ic_account_circle_24px.svg) no-repeat center !important;
     background-size: 36px !important;
@@ -606,7 +615,7 @@ a.fullscreen {
 
 .score_container {
     position: absolute;
-    right: 150px;
+    right: 0;
     top: 50px;
     width: 300px;
     padding: 0 0 7px 0;

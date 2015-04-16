@@ -22,11 +22,8 @@
 <div class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
     <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
-    <button type="button" class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
+    <button type="button" class="navbar-toggle ajapaik-navbar-toggle"
+            data-toggle="offcanvas" data-target=".navmenu" id="ajapaik-header-menu-button"></button>
     <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container">
         <span id="ajapaik-header-album-name"></span>
     </a>
@@ -34,31 +31,29 @@
             id="ajapaik-header-game-button"></button>
     <button type="button" name="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle"
             id="ajapaik-header-map-button"></button>
-    <div class="hidden-xs hidden-sm">
-        <div class="score_container">
-            <h2>
-                <a id="full_leaderboard" href="#">
-                    {% trans "Leaderboard" %}
-                </a>
-            </h2>
-            <ul class="scoreboard">
-                {% if leaderboard %}
-                    {% include "_block_leaderboard.html" %}
-                {% endif %}
-            </ul>
-            {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
-                {% with profile=request.user.profile user=request.user %}
-                    <div id="facebook-connected">
-                        <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
-                    </div>
-                {% endwith %}
-            {% else %}
-                <div id="facebook-connect">
-                    <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                </div>
+    <div class="score_container">
+        <h2>
+            <a id="full_leaderboard" href="#">
+                {% trans "Leaderboard" %}
+            </a>
+        </h2>
+        <ul class="scoreboard">
+            {% if leaderboard %}
+                {% include "_block_leaderboard.html" %}
             {% endif %}
-        </div>
+        </ul>
+        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+            {% with profile=request.user.profile user=request.user %}
+                <div id="facebook-connected">
+                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
+                </div>
+            {% endwith %}
+        {% else %}
+            <div id="facebook-connect">
+                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+            </div>
+        {% endif %}
     </div>
     {% if is_game or is_mapview %}
         <button class="btn btn-default ajapaik-show-tutorial-button"></button>

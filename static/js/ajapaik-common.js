@@ -43,6 +43,7 @@ var map,
     prepareFullscreen,
     adjustModalMaxHeightAndPosition,
     firstDragDone = false,
+    scoreboardShown = false,
     showScoreboard,
     hideScoreboard,
     updateLeaderboard,
@@ -453,10 +454,12 @@ var map,
 
     showScoreboard = function () {
         $('.ajapaik-navbar').find('.score_container').slideDown();
+        scoreboardShown = true;
     };
 
     hideScoreboard = function () {
         $('.ajapaik-navbar').find('.score_container').slideUp();
+        scoreboardShown = false;
     };
 
     updateLeaderboard = function () {
@@ -595,6 +598,10 @@ var map,
         if (!window.isMapview && window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
         }
+    });
+
+    $(document).on('click', '#ajapaik-header-profile-button', function () {
+
     });
 
     // Firefox and Opera cannot handle modal taking over focus

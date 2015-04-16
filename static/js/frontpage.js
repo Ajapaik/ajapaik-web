@@ -12,7 +12,6 @@
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
             photoModal = $('#ajapaik-photo-modal');
         window.albumId = null;
-        $('.ajapaik-navbar').find('#ajapaik-header-profile-button').hoverIntent(window.showScoreboard, window.hideScoreboard);
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
             var url = window.leaderboardFullURL;
