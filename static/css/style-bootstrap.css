@@ -759,13 +759,13 @@ a.fullscreen {
     margin-top: 0;
 }
 
-@media (min-width: 992px) {
+@media (max-width: 991px) {
     #ajapaik-album-name-container {
         max-width: 200px;
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
     .modal-dialog-center {
         width: 100%;
     }
