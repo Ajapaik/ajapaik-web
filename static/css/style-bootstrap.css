@@ -61,6 +61,7 @@ body {
     width: 45px;
     height: 61px;
     background-size: 45px 61px;
+    margin: 5px 0 0 10px;
 }
 
 .ajapaik-navbar-toggle {
@@ -68,10 +69,25 @@ body {
     border: none;
     color: white;
     cursor: pointer;
+    margin-right: 0;
 }
 
 #ajapaik-album-name-container {
     visibility: hidden;
+    font-size: 20px;
+    margin-top: 3px;
+    margin-left: 0;
+    cursor: text;
+}
+
+#ajapaik-album-name-container:hover {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+#ajapaik-album-name-container:focus {
+    color: white !important;
+    text-decoration: none !important;
 }
 
 #ajapaik-header-album-name {
