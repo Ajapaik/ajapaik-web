@@ -149,6 +149,7 @@ body {
     position: absolute;
     right: 0;
     top: -20px;
+    z-index: 1;
 }
 
 #ajapaik-language-box > form {
@@ -349,6 +350,7 @@ body {
     height: 36px;
     position: fixed;
     right: 76px;
+    z-index: 2;
 }
 
 .ajapaik-show-tutorial-button:hover {
