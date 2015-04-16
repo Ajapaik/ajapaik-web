@@ -57,11 +57,11 @@
         <div class="modal-footer">
             <div class="row">
                 {% if photo.rephotos.all|length > 1 %}
-                    <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-info-column">
+                    <div id="ajapaik-photo-modal-original-photo-info-column">
                 {% elif photo.rephotos.all|length == 0 %}
-                    <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-info-column">
+                    <div id="ajapaik-photo-modal-original-photo-info-column">
                 {% else %}
-                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
+                    <div id="ajapaik-photo-modal-original-photo-info-column">
                 {% endif %}
                 {% if photo.author %}
                     <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
@@ -122,32 +122,49 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="row ajapaik-no-left-margin-row" style="margin-top: 10px;">
-                <div class="col-xs-6">
-                    <div class="dropdown">
-                        <button id="ajapaik-sharing-dropdown-button" class="btn btn-block btn-primary ajapaik-photo-modal-share-button pull-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {% trans "Share" %}
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
-                            <li role="presentation" class="disabled-link">
-                                <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                    <input type="text" class="form-control" value="{{ hostname }}{{ photo.get_absolute_url }}">
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1">
-                                    <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                </a>
-                            </li>
-                        </ul>
+            <div class="row-fluid" style="margin-top: 10px;">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown">
+                            <button id="ajapaik-sharing-dropdown-button"
+                                    class="btn btn-sm btn-block btn-primary ajapaik-photo-modal-share-button pull-left"
+                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% trans "Share" %}
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                                <li role="presentation" class="disabled-link">
+                                    <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                        <input type="text" class="form-control"
+                                               value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1">
+                                        <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}"
+                                             data-layout="standard" data-action="like" data-show-faces="true"
+                                             data-share="true"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <button class="btn btn-block btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %} <span data-href="{{ fb_url }}" class="badge fb-comments-count"></span></button>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-block btn-primary ajapaik-photo-modal-comment-button">
+                            {% trans "Discuss" %} <span data-href="{{ fb_url }}" class="badge fb-comments-count"></span>
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-block btn-success ajapaik-photo-modal-add-rephoto-button">
+                            {% trans "Add rephoto" %}
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-block btn-success ajapaik-photo-modal-specify-location-button">
+                            {% trans "Specify location" %}
+                        </button>
+                    </div>
                 </div>
-                <div class="col-xs-6">
-                    <button class="btn btn-block btn-success ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
-                    <button class="btn btn-block btn-success ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
-                </div>
-                <div class="col-xs-12 ajapaik-margin-top-5">
+                <div class="ajapaik-margin-top-5">
                     {% if geotag_count > 0 %}
                         {% if geotag_count == 1 %}
                             <p class="text-left">{{ geotag_count }} {% trans "user has submitted a location for this picture" %}

@@ -83,6 +83,7 @@ body {
     cursor: text;
     white-space: nowrap;
     overflow: hidden;
+    max-width: 500px;
 }
 
 #ajapaik-album-name-container:hover {
@@ -1463,10 +1464,6 @@ width: 345px;
 .ajapaik-less-column-padding {
     padding-right: 5px !important;
     padding-left: 5px !important;
-}
-
-.ajapaik-photo-modal-comment-button {
-    margin-top: 5px;
 }
 
 .gm-style-cc { display:none; }

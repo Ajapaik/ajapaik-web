@@ -8,7 +8,6 @@
             getInfiniteScrollPhotos,
             historicPhotoAjaxQueryInProgress = false,
             openPhotoDrawer,
-            photoDrawerOpen = false,
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
             photoModal = $('#ajapaik-photo-modal');
         window.albumId = null;
@@ -67,7 +66,6 @@
             $.noop();
         };
         openPhotoDrawer = function (content) {
-            photoDrawerOpen = true;
             photoModal.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                 fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
@@ -81,7 +79,6 @@
         };
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('toggle');
-            photoDrawerOpen = false;
         };
         $(document).on('click', '.ajapaik-frontpage-image-image', function (e) {
             window.loadPhoto(e.target.dataset.id);
