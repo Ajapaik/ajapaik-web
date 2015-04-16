@@ -128,3 +128,8 @@ class SubmitGeotagForm(forms.ModelForm):
     class Meta:
         model = GeoTag
         exclude = ('user', 'trustworthiness')
+
+
+class FrontpageInfiniteScrollFrom(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
+    start = forms.IntegerField()

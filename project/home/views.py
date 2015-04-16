@@ -34,7 +34,8 @@ from StringIO import StringIO
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm
+    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
+    FrontpageInfiniteScrollFrom
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageInfiniteScrollSerializer
 
@@ -565,22 +566,22 @@ def frontpage_bootstrap(request):
 
 
 def frontpage_infinite_scroll(request):
-    start = int(request.GET.get('start'))
-    # photo_type = request.GET.get('type')
-    # TODO: Remove filter
-    qs = Photo.objects.filter(created__lte='2015-03-20').order_by('-created')
-    # if photo_type == 'rephoto':
-    #     qs = qs.filter(rephoto_of__isnull=False)
-    #     serializer = FrontpageInfiniteScrollSerializer(
-    #         qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True
-    #     )
-    #     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
-    # else:
-    qs = qs.filter(rephoto_of__isnull=True)
-    serializer = FrontpageInfiniteScrollSerializer(
-        qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True
-    )
-    return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+    form = FrontpageInfiniteScrollFrom(request.GET)
+    data = []
+    if form.is_valid():
+        # TODO: Remove testing date filter
+        qs = Photo.objects.filter(created__lte='2015-03-20', rephoto_of__isnull=True).order_by('-created')
+        start = form.cleaned_data["start"]
+        album = form.cleaned_data["album"]
+        if album:
+            album_photo_ids = album.photos.all().values_list('id', flat=True)
+            qs = qs.filter(id__in=album_photo_ids)
+        serializer = FrontpageInfiniteScrollSerializer(
+            qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True
+        )
+        data = serializer.data
+
+    return HttpResponse(JSONRenderer().render(data), content_type="application/json")
 
 
 def photo_large(request, photo_id):

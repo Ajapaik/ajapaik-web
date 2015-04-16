@@ -471,7 +471,6 @@ var map,
     };
 
     updateLeaderboard = function () {
-        console.log("lol");
         if (window.albumId) {
             $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
@@ -572,34 +571,34 @@ var map,
         });
     };
 
-    $('.filter-box select').change(function () {
-        var uri = new window.URI(location.href),
-            newQ = {album: $(this).val()},
-            isFilterEmpty = false;
-        uri.removeQuery(Object.keys(newQ));
-        $.each(newQ, function (i, ii) {
-            ii = String(ii);
-            isFilterEmpty = ii === '';
-        });
+    //$('.filter-box select').change(function () {
+    //    var uri = new window.URI(location.href),
+    //        newQ = {album: $(this).val()},
+    //        isFilterEmpty = false;
+    //    uri.removeQuery(Object.keys(newQ));
+    //    $.each(newQ, function (i, ii) {
+    //        ii = String(ii);
+    //        isFilterEmpty = ii === '';
+    //    });
+    //
+    //    if (!isFilterEmpty) {
+    //        uri = uri.addQuery(newQ);
+    //    }
+    //
+    //    uri = uri.addQuery({fromSelect: 1});
+    //
+    //    if (isPhotoview) {
+    //        uri = new window.URI('/game');
+    //        uri.addQuery(newQ);
+    //        gameRedirectURI = uri.toString();
+    //    } else {
+    //        window.location.href = uri.toString();
+    //    }
+    //});
 
-        if (!isFilterEmpty) {
-            uri = uri.addQuery(newQ);
-        }
-
-        uri = uri.addQuery({fromSelect: 1});
-
-        if (isPhotoview) {
-            uri = new window.URI('/game');
-            uri.addQuery(newQ);
-            gameRedirectURI = uri.toString();
-        } else {
-            window.location.href = uri.toString();
-        }
-    });
-
-    $(document).on('click', '#ajapaik-header-game-button', function () {
-        window.location.href = '/game?album=' + window.albumId;
-    });
+    //$(document).on('click', '#ajapaik-header-game-button', function () {
+    //    window.location.href = '/game?album=' + window.albumId;
+    //});
 
     // Firefox and Opera cannot handle modal taking over focus
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
@@ -945,6 +944,12 @@ var map,
                 }
             });
         }
+    });
+
+    $(document).on('click', '.ajapaik-album-selection-item', function (e) {
+        window.previousAlbumId = window.albumId;
+        window.albumId = e.target.dataset.id;
+        window.handleAlbumChange();
     });
 
     $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {

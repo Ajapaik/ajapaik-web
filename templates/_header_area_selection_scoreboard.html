@@ -4,7 +4,7 @@
     <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
         {% for album in albums %}
             <a href="#">
-                <img alt="{{ album.name }}" class="img-responsive"
+                <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item" data-id="{{ album.id }}"
                      src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}">
                 <div class="caption ajapaik-caption">{{ album.name }}</div>
             </a>
