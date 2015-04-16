@@ -327,6 +327,7 @@
     };
     $(document).ready(function () {
         window.updateLeaderboard();
+        window.isGame = true;
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
         guessPanelContainer = $('#ajapaik-guess-panel-container');

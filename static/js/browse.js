@@ -775,11 +775,8 @@
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
         window.saveLocationButton = $('.ajapaik-save-location-button');
-
-        if (!window.getUrl)
-
         window.updateLeaderboard();
-
+        window.isMapview = true;
         $(window.input).show();
 
         guessPanelContainer = $('#ajapaik-guess-panel-container');

@@ -28,8 +28,12 @@
         <span class="icon-bar"></span>
     </button>
     <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container">
-        {% trans "Album" %} <span id="ajapaik-header-album-name"></span>
+        <span id="ajapaik-header-album-name"></span>
     </a>
+    <button type="button" name="{% trans 'Geotag pictures' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-game-button"></button>
+    <button type="button" name="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-map-button"></button>
     <div class="hidden-xs hidden-sm">
         <div class="score_container">
             <h2>

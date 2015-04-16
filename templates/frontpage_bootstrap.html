@@ -8,6 +8,7 @@
 
 {% block layout %}
     <div class="container-fluid">
+        <div id="ajapaik-album-selection-overlay"></div>
         <div class="row">
             <div class="col-lg-12" id="ajapaik-frontpage-historic-photos"></div>
         </div>
@@ -24,7 +25,7 @@
     {% include "_full_leaderboard_modal.html" %}
     {% verbatim %}
         <script id="ajapaik-frontpage-historic-photo" type="text/x-tmpl">
-            <a href="#" class="ajapaik-frontpage-image-container">
+            <a href="javascript:void(0);" class="ajapaik-frontpage-image-container">
                 <img alt="{%=o.description%}"
                      src="{%=o.thumb%}"
                      class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>

@@ -42,9 +42,16 @@
                 });
                 $('#ajapaik-header-album-name').html(window.albumName);
                 $('#ajapaik-album-name-container').css('visibility', 'visible');
+                $('#ajapaik-header-game-button').show();
+                $('#ajapaik-header-map-button').show();
                 getInfiniteScrollPhotos();
             }
         };
+        $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').show();
+        }).on('hidden.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').hide();
+        });
         window.loadPhoto = function (id) {
             $.ajax({
                 cache: false,

@@ -452,7 +452,6 @@ var map,
     };
 
     showScoreboard = function () {
-        console.log("show");
         var scoreContainer = $('#ajapaik-header').find('.score_container');
         $('#full_leaderboard').slideDown();
         scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
@@ -596,9 +595,17 @@ var map,
     //    }
     //});
 
-    //$(document).on('click', '#ajapaik-header-game-button', function () {
-    //    window.location.href = '/game?album=' + window.albumId;
-    //});
+    $(document).on('click', '#ajapaik-header-game-button', function () {
+        if (!window.isGame && window.albumId) {
+            window.location.href = '/game?album=' + window.albumId;
+        }
+    });
+
+    $(document).on('click', '#ajapaik-header-map-button', function () {
+        if (!window.isMapview && window.albumId) {
+            window.location.href = '/map?album=' + window.albumId;
+        }
+    });
 
     // Firefox and Opera cannot handle modal taking over focus
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
