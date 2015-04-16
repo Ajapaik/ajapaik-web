@@ -14,7 +14,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Count
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.sites.models import Site
@@ -552,14 +552,11 @@ def frontpage(request):
 
 def frontpage_bootstrap(request):
     # TODO: Remove created filter clause
-    albums = Album.objects.filter(is_public=True, created__lte='2015-03-15').order_by("-created")
-    all_historic_photos_count = Photo.objects.filter(rephoto_of__isnull=True).count()
-    # all_rephotos_count = Photo.objects.filter(rephoto_of__isnull=False).count()
+    albums = Album.objects.filter(is_public=True, created__lte='2015-03-15')\
+        .annotate(photo_count=Count('photos')).order_by("-created")
     return render_to_response("frontpage_bootstrap.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
         "albums": albums,
-        "all_historic_photos_count": all_historic_photos_count,
-        # "all_rephotos_count": all_rephotos_count,
         "photo_page_size": settings.FRONTPAGE_INFINITE_SCROLL_SIZE,
         "is_frontpage": True,
     }))

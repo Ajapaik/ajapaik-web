@@ -59,6 +59,25 @@ body {
 
 .ajapaik-navbar-toggle {
     position: relative;
+    border: none;
+    font-size: 20px;
+    margin-top: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+#ajapaik-header-album-name {
+    font-style: italic;
+}
+
+.ajapaik-navbar-toggle:hover {
+    background: none !important;
+    background-color: transparent !important;
+}
+
+.ajapaik-navbar-toggle:focus {
+    background: none !important;
+    background-color: transparent !important;
 }
 
 /*@media (min-width: 992px) {*/

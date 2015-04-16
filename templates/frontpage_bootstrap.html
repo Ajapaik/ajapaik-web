@@ -12,6 +12,13 @@
             <div class="col-lg-12" id="ajapaik-frontpage-historic-photos"></div>
         </div>
     </div>
+    <div class="full-box">
+        <div class="full-pic" id="ajapaik-frontpage-fullscreen-image-container">
+            <img id="ajapaik-frontpage-full-screen-image" src=""/>
+        </div>
+    </div>
+    <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog"
+         aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
     <div class="modal fade" id="ajapaik-info-modal" tabindex="-1" role="dialog"
      aria-labelledby="ajapaik-info-modal-label" aria-hidden="true"></div>
     {% include "_full_leaderboard_modal.html" %}
@@ -32,8 +39,8 @@
         window.historicPhotoInfiniteStart = 0;
         window.isFrontpage = '{{ is_frontpage|safe }}';
         window.albumId = null;
+        window.albumName = null;
         window.photoPageSize = {{ photo_page_size|safe }};
-        window.totalHistoricPhotoCount = {{ all_historic_photos_count|safe }};
     </script>
     {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.4.min.js"></script>

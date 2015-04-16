@@ -5,8 +5,15 @@
         {% for album in albums %}
             <a href="#">
                 <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item" data-id="{{ album.id }}"
-                     src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}">
-                <div class="caption ajapaik-caption">{{ album.name }}</div>
+                     src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}" data-name="{{ album.name }}">
+                <div class="caption ajapaik-caption">
+                    {{ album.name }} -
+                    {% blocktrans count counter=album.photo_count %}
+                        {{ counter }} photo
+                    {% plural %}
+                        {{ counter }} photos
+                    {% endblocktrans %}
+                </div>
             </a>
         {% endfor %}
     </ul>
@@ -14,11 +21,14 @@
 
 <div class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
     <a class="navbar-brand ajapaik-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
-    <button type="button" class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+    {% comment %}<button type="button" class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-    </button>
+    </button>{% endcomment %}
+    <a class="navbar-toggle ajapaik-navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+        {% trans "Album" %} <span id="ajapaik-header-album-name"></span>
+    </a>
     <div class="hidden-xs hidden-sm">
         <div class="score_container">
             <h2>

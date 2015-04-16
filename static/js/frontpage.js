@@ -1,11 +1,16 @@
 (function ($) {
     'use strict';
+    /*jslint nomen: true*/
     $(document).ready(function () {
         window.updateLeaderboard();
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             albumSelectionDiv = $('#ajapaik-album-selection-menu'),
             getInfiniteScrollPhotos,
-            historicPhotoAjaxQueryInProgress = false;
+            historicPhotoAjaxQueryInProgress = false,
+            openPhotoDrawer,
+            photoDrawerOpen = false,
+            fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
+            photoModal = $('#ajapaik-photo-modal');
         window.albumId = null;
         $('.ajapaik-navbar').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
         $('#full_leaderboard').bind('click', function (e) {
@@ -35,9 +40,41 @@
                     rowHeight: 270,
                     margins: 5
                 });
+                $('#ajapaik-header-album-name').html(window.albumName);
                 getInfiniteScrollPhotos();
             }
         };
+        window.loadPhoto = function (id) {
+            $.ajax({
+                cache: false,
+                url: '/foto/' + id + '/',
+                success: function (result) {
+                    openPhotoDrawer(result);
+                    if (window.FB !== undefined) {
+                        window.FB.XFBML.parse();
+                    }
+                }
+            });
+        };
+        window.flipPhoto = function () {
+            $.noop();
+        };
+        openPhotoDrawer = function (content) {
+            photoDrawerOpen = true;
+            photoModal.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
+                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
+                $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
+                window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
+                window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-frontpage-full-screen-image');
+                $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
+                $('.ajapaik-game-show-description-button').hide();
+                window.FB.XFBML.parse();
+            });
+        };
+        $(document).on('click', '.ajapaik-frontpage-image-image', function (e) {
+            window.loadPhoto(e.target.dataset.id);
+        });
         albumSelectionDiv.justifiedGallery({
             rowHeight: 270,
             margins: 0,
@@ -49,8 +86,7 @@
             margins: 5
         });
         getInfiniteScrollPhotos = function () {
-            if (!historicPhotoAjaxQueryInProgress &&
-                    window.historicPhotoInfiniteStart <= window.totalHistoricPhotoCount) {
+            if (!historicPhotoAjaxQueryInProgress) {
                 historicPhotoAjaxQueryInProgress = true;
                 $.ajax({
                     cache: false,
@@ -74,8 +110,7 @@
         };
         getInfiniteScrollPhotos();
         $(window).scroll(function () {
-            if ($(window).scrollTop() + $(window).height() === $(document).height() && !historicPhotoAjaxQueryInProgress &&
-                    window.historicPhotoInfiniteStart <= window.totalHistoricPhotoCount) {
+            if ($(window).scrollTop() + $(window).height() === $(document).height() && !historicPhotoAjaxQueryInProgress) {
                 getInfiniteScrollPhotos();
             }
         });

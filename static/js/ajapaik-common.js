@@ -949,6 +949,8 @@ var map,
     $(document).on('click', '.ajapaik-album-selection-item', function (e) {
         window.previousAlbumId = window.albumId;
         window.albumId = e.target.dataset.id;
+        window.albumName = e.target.dataset.name;
+        $('.ajapaik-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
     });
 
