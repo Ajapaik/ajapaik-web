@@ -22,6 +22,8 @@
                 success: function (response) {
                     var modalWindow = $('#ajapaik-full-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);
+                    $('.score_container').show();
+                    window.hideScoreboard();
                     modalWindow.modal().on('shown.bs.modal', function () {
                         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                     });
@@ -43,6 +45,7 @@
                 $('#ajapaik-header-game-button').show();
                 $('#ajapaik-header-map-button').show();
                 getInfiniteScrollPhotos();
+                window.updateLeaderboard();
             }
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {

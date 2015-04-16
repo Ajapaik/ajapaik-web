@@ -463,10 +463,11 @@ var map,
     };
 
     updateLeaderboard = function () {
+        var target = $('.score_container');
         if (window.albumId) {
-            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
+            target.find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
-            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
+            target.find('.scoreboard').load(window.leaderboardUpdateURL);
         }
     };
 
@@ -601,7 +602,11 @@ var map,
     });
 
     $(document).on('click', '#ajapaik-header-profile-button', function () {
-
+        if (scoreboardShown) {
+            hideScoreboard();
+        } else {
+            showScoreboard();
+        }
     });
 
     // Firefox and Opera cannot handle modal taking over focus
