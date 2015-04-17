@@ -2,8 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_area_selection_scoreboard.html" %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/justifiedGallery-3.5.4.min.css"/>
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -38,7 +37,6 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        window.infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' %}';
         window.historicPhotoInfiniteStart = 0;
         window.isFrontpage = '{{ is_frontpage|safe }}';
         window.albumId = null;
@@ -48,7 +46,6 @@
         window.linkToMap = true;
     </script>
     {% compress js %}
-        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.4.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>

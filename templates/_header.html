@@ -1,19 +1,106 @@
 {% load i18n %}
 
-{#TODO: Delete#}
-<nav id="ajapaik-header" class="navbar navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-        <a id="ajapaik-header-logo" class="navbar-brand" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
-    </div>
-    {% if is_photoview %}
-        <div class="hidden-xs">
-            <div class="filter-box">
-                {% csrf_token %}
-                {{ album_selection_form.as_p }}
-                <a class="btn btn-success" id="ajapaik-photoview-header-game-button">{% trans "Geotag pictures" %}</a>
-                <a class="btn btn-primary" id="ajapaik-photoview-header-map-button">{% trans "Show on map" %}</a>
+<div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu">
+    <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
+        {% for album in albums %}
+            <a href="#">
+                <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item" data-id="{{ album.id }}"
+                     src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}" data-name="{{ album.name }}">
+                <div class="caption ajapaik-caption">
+                    {{ album.name }} -
+                    {% blocktrans count counter=album.photo_count %}
+                        {{ counter }} photo
+                    {% plural %}
+                        {{ counter }} photos
+                    {% endblocktrans %}
+                </div>
+            </a>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
+    <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+    <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+    <button type="button" class="navbar-toggle ajapaik-navbar-toggle"
+            data-toggle="offcanvas" data-target=".navmenu" id="ajapaik-header-menu-button"></button>
+    <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container">
+        <span id="ajapaik-header-album-name">{% if album %}{{ album.name }}{% endif %}</span>
+    </a>
+    <button type="button" name="{% trans 'Show in grid' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-grid-button"></button>
+    <button type="button" name="{% trans 'Geotag pictures' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-game-button"></button>
+    <button type="button" name="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-map-button"></button>
+    <button type="button" name="{% trans 'Profile' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-profile-button"></button>
+    <div class="score_container">
+        <h2>
+            <a id="full_leaderboard" href="#">
+                {% trans "Leaderboard" %}
+            </a>
+        </h2>
+        <ul class="scoreboard">
+            {% if leaderboard %}
+                {% include "_block_leaderboard.html" %}
+            {% endif %}
+        </ul>
+        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+            {% with profile=request.user.profile user=request.user %}
+                <div id="facebook-connected">
+                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
+                </div>
+            {% endwith %}
+        {% else %}
+            <div id="facebook-connect">
+                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
     {% include "_language_selection.html" %}
-</nav>
+</div>
+
+
+{#<nav id="ajapaik-header" class="navbar navbar-fixed-top ajapaik-header-score-language" role="navigation">#}
+{#    <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">#}
+{#      <a class="navmenu-brand" href="#">Brand</a>#}
+{#      <ul class="nav navmenu-nav">#}
+{#        <li class="active"><a href="#">Home</a></li>#}
+{#        <li><a href="#">Link</a></li>#}
+{#        <li><a href="#">Link</a></li>#}
+{#      </ul>#}
+{#    </nav>#}
+{#    <div class="navbar navbar-default navbar-fixed-top">#}
+{#      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">#}
+{#        <span class="icon-bar"></span>#}
+{#        <span class="icon-bar"></span>#}
+{#        <span class="icon-bar"></span>#}
+{#      </button>#}
+{#    </div>#}
+{#    {% if is_game or is_mapview or is_gallery %}#}
+{#        <div class="hidden-xs">#}
+{#            <div class="filter-box">#}
+{#                {% csrf_token %}#}
+{#                {{ album_selection_form.as_p }}#}
+{#                {% if is_mapview %}#}
+{#                    <p>#}
+{#                        <label for="ajapaik-mapview-show-only-album" id="ajapaik-mapview-show-only-album-label">{% trans "Limit to album" %}:&nbsp;</label>#}
+{#                        <input type="checkbox" id="ajapaik-mapview-show-only-album" checked="checked">#}
+{#                    </p>#}
+{#                {% endif %}#}
+{#                {% if album %}#}
+{#                    <p>#}
+{#                        <button class="btn btn-default ajapaik-header-info-button"></button>#}
+{#                    </p>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+
+{#    {% include "_language_selection.html" %}#}
+{#    {% if is_game or is_mapview %}#}
+{#        <button class="btn btn-default ajapaik-show-tutorial-button"></button>#}
+{#    {% endif %}#}
+{#</nav>#}

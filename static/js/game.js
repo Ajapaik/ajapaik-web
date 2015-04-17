@@ -1,6 +1,7 @@
 (function ($) {
     'use strict';
     /*jslint nomen: true*/
+    /*jslint browser: true*/
     var currentPhoto,
         initializeGuessingState,
         mediaUrl = '',
@@ -395,6 +396,14 @@
                 }
             });
         }*/
+        window.handleAlbumChange = function () {
+            if (window.albumId) {
+                window.location.href = '/game?album=' + window.albumId;
+            }
+        };
+        $('#ajapaik-album-name-container').css('visibility', 'visible');
+        $('#ajapaik-header-map-button').show();
+        $('#ajapaik-header-grid-button').show();
         $(window.input).show();
         window.syncMapStateToURL();
         $.jQee('space', function () {

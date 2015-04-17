@@ -2,7 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_area_selection_scoreboard.html" %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -45,7 +45,6 @@
             {% endif %}
             {% if album %}
                 albumId = '{{ album.id | safe }}',
-                infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' album.id %}',
             {% endif %}
             photoModalCurrentImageUrl;
             {% if area.lat and area.lon %}
@@ -73,9 +72,7 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}js/markerclustererplus-2.1.2.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-        <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
         <script src="{{ STATIC_URL }}js/lazysizes-0.7.2.min.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.4.min.js"></script>
         <script src="{{ STATIC_URL }}js/browse.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>

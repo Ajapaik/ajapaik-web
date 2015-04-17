@@ -130,11 +130,19 @@ var map,
     mapviewGameButton,
     getGeolocation,
     myLocationButton,
-    closeStreetviewButton;
+    closeStreetviewButton,
+    albumSelectionDiv,
+    handleAlbumChange;
 
 
 (function ($) {
     'use strict';
+    albumSelectionDiv = $('#ajapaik-album-selection-menu');
+    albumSelectionDiv.justifiedGallery({
+        rowHeight: 270,
+        margins: 0,
+        captions: false
+    });
 
     if ($(window).height() >= 320) {
         $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
@@ -588,19 +596,21 @@ var map,
     //        window.location.href = uri.toString();
     //    }
     //});
-
     $(document).on('click', '#ajapaik-header-game-button', function () {
         if (!window.isGame && window.albumId) {
             window.location.href = '/game?album=' + window.albumId;
         }
     });
-
+    $(document).on('click', '#ajapaik-header-grid-button', function () {
+        if (!window.isFrontpage && window.albumId) {
+            window.location.href = '/photos?album=' + window.albumId;
+        }
+    });
     $(document).on('click', '#ajapaik-header-map-button', function () {
         if (!window.isMapview && window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
         }
     });
-
     $(document).on('click', '#ajapaik-header-profile-button', function () {
         if (scoreboardShown) {
             hideScoreboard();
@@ -608,12 +618,10 @@ var map,
             showScoreboard();
         }
     });
-
     // Firefox and Opera cannot handle modal taking over focus
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
         $.noop();
     };
-
     // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
     wheelEventFF = function (e) {
         now = new Date().getTime();
@@ -918,7 +926,11 @@ var map,
             }
         }
     });
-
+    $(document).on('shown.bs.offcanvas', '.ajapaik-navmenu', function () {
+        $('#ajapaik-album-selection-overlay').show();
+    }).on('hidden.bs.offcanvas', function () {
+        $('#ajapaik-album-selection-overlay').hide();
+    });
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
         if (!gameHintUsed && !popoverShown && currentPhotoDescription && !window.isMobile) {
             $('[data-toggle="popover"]').popover('show');
@@ -932,26 +944,6 @@ var map,
         } else {
             tutorialPanel.close();
             tutorialPanel = undefined;
-        }
-    });
-
-    $(document).on('click', '.ajapaik-header-info-button', function () {
-        var targetDiv = $('#ajapaik-info-modal');
-        if (window.albumId && window.infoModalURL) {
-            $.ajax({
-                url: window.infoModalURL,
-                data: {
-                    linkToMap: gameMap,
-                    linkToGame: window.isFrontpage
-                },
-                success: function (resp) {
-                    targetDiv.html(resp);
-                    targetDiv.modal().on('shown.bs.modal', function () {
-                        $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
-                        window.FB.XFBML.parse();
-                    });
-                }
-            });
         }
     });
 

@@ -211,6 +211,12 @@ def _extract_and_save_data_from_exif(photo_with_exif):
         return True
     else:
         return False
+
+
+def _get_album_choices():
+    # TODO: Remove created filter clause
+    return Album.objects.filter(is_public=True, created__lte='2015-03-15')\
+        .annotate(photo_count=Count('photos')).order_by("-created")
     
     
 def _calculate_recent_activity_scores():
@@ -448,6 +454,7 @@ def game(request):
     album_selection_form = AlbumSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     album = None
+    ret["albums"] = _get_album_choices()
     area = None
 
     if game_album_selection_form.is_valid():
@@ -551,9 +558,7 @@ def frontpage(request):
 
 
 def frontpage_bootstrap(request):
-    # TODO: Remove created filter clause
-    albums = Album.objects.filter(is_public=True, created__lte='2015-03-15')\
-        .annotate(photo_count=Count('photos')).order_by("-created")
+    albums = _get_album_choices()
     return render_to_response("frontpage_bootstrap.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
         "albums": albums,
@@ -783,6 +788,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     total_photo_count = None
     geotagged_photo_count = None
     geotagging_user_count = None
+    albums = _get_album_choices()
 
     if area_selection_form.is_valid():
         area = area_selection_form.cleaned_data["area"]
@@ -832,6 +838,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     ret = {
         "area": area,
         "album": album,
+        "albums": albums,
         "total_photo_count": total_photo_count,
         "geotagged_photo_count": geotagged_photo_count,
         "geotagging_user_count": geotagging_user_count,

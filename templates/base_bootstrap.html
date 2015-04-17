@@ -100,20 +100,20 @@
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/jasny-bootstrap-3.1.0.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.theme.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.4.min.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
     {% endcompress %}
 </head>
-<body>
+<body {% if is_game or is_mapview %}class="ajapaik-flex"{% endif %}>
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
@@ -142,19 +142,24 @@
             flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',
             allTimeLeaderboardURL = '{% url 'project.home.views.all_time_leaderboard' %}',
             leaderboardFullURL = '{% url 'project.home.views.top50' %}',
-            isFrontpage = false;
+            isFrontpage = false,
+            isMapview = false,
+            isGame = false,
+            infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' %}';
         isMobile = isMobile === 'True';
     </script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
     {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-2.1.3.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/bootstrap-3.3.4/js/bootstrap.min.js"></script>
         <script src="{{ STATIC_URL }}js/jasny-bootstrap-3.1.0.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.4.min.js"></script>
         <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
         <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
         <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
     {% endcompress %}
     <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>

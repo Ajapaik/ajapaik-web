@@ -1,6 +1,7 @@
 (function ($) {
     'use strict';
     /*jslint nomen: true*/
+    /*jslint browser: true*/
     $(document).ready(function () {
         window.updateLeaderboard();
         window.albumId = null;
@@ -11,7 +12,6 @@
                 rowHeight: 270,
                 margins: 5
             },
-            albumSelectionDiv = $('#ajapaik-album-selection-menu'),
             getInfiniteScrollPhotos,
             openPhotoDrawer,
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
@@ -42,15 +42,15 @@
                 });
             }
         };
+        refreshAlbumName = function (id) {
+            window.albumName =  $('.ajapaik-navmenu').find("[data-id='" + id + "']").data('name');
+        };
         syncStateToURL = function () {
             var historyReplacementString = '/';
             if (window.albumId) {
                 historyReplacementString += 'photos/?album=' + window.albumId;
             }
             window.History.replaceState(null, window.title, historyReplacementString);
-        };
-        refreshAlbumName = function (id) {
-            window.albumName =  $('.ajapaik-navmenu').find("[data-id='" + id + "']").data('name');
         };
         window.handleAlbumChange = function () {
             if (window.albumId != window.previousAlbumId) {
@@ -69,7 +69,7 @@
         };
         initializeStateFromURLParameters = function () {
             window.albumId = window.getQueryParameterByName('album');
-            window.handleAlbumChange();
+            handleAlbumChange();
         };
         initializeStateFromURLParameters();
         $('#full_leaderboard').bind('click', function (e) {
@@ -91,11 +91,6 @@
                 }
             });
             window._gaq.push(['_trackEvent', 'Frontpage', 'Full leaderboard']);
-        });
-        $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
-            $('#ajapaik-album-selection-overlay').show();
-        }).on('hidden.bs.offcanvas', function () {
-            $('#ajapaik-album-selection-overlay').hide();
         });
         window.loadPhoto = function (id) {
             $.ajax({
@@ -127,16 +122,7 @@
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('toggle');
         };
-        albumSelectionDiv.justifiedGallery({
-            rowHeight: 270,
-            margins: 0,
-            captions: false
-        });
-        historicPhotoGalleryDiv.justifiedGallery({
-            captions: false,
-            rowHeight: 270,
-            margins: 5
-        });
+        historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings);
         getInfiniteScrollPhotos();
         $(document).on('click', '.ajapaik-frontpage-image-image', function (e) {
             window.loadPhoto(e.target.dataset.id);

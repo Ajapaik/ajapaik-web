@@ -2,7 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_area_selection_scoreboard.html" %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -93,9 +93,6 @@
         var permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
             albumId = '{{ album.id|safe }}';
-        {% if album %}
-            var infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' album.id %}';
-        {% endif %}
         {% if random_album_photo %}
             {% if random_album_photo.lat and random_album_photo.lon %}
                 start_location = [{{ random_album_photo.lon|safe }}, {{ random_album_photo.lat|safe }}];
@@ -111,7 +108,6 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-        <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
         <script src="{{ STATIC_URL }}js/game.js"></script>
     {% endcompress %}
 {% endblock %}

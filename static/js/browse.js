@@ -658,7 +658,11 @@
             window._gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
     };
-
+    window.handleAlbumChange = function () {
+        if (window.albumId) {
+            window.location.href = '/map?album=' + window.albumId;
+        }
+    };
     window.flipPhoto = function () {
         window.photoModalCurrentPhotoFlipStatus = !window.photoModalCurrentPhotoFlipStatus;
         window.userFlippedPhoto = true;
@@ -762,7 +766,7 @@
             $('#ajapaik-mapview-show-only-album').prop('checked', true);
         }
         if (window.getQueryParameterByName('fromModal') != 1) {
-            $('.ajapaik-header-info-button')[0].click();
+            $('#ajapaik-header-album-name').click();
         }
         window.preselectPhotoId = false;
         window.preselectRephotoId = false;
@@ -771,6 +775,9 @@
     };
 
     $(document).ready(function () {
+        $('#ajapaik-album-name-container').css('visibility', 'visible');
+        $('#ajapaik-header-game-button').show();
+        $('#ajapaik-header-grid-button').show();
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
