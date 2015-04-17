@@ -43,6 +43,10 @@ body {
     z-index: 2001;
 }
 
+.ajapaik-btn-white-space-nowrap {
+    white-space: nowrap !important;
+}
+
 .ajapaik-caption {
     display: block !important;
     background-color: rgba(0, 0, 0, .7) !important;
