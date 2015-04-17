@@ -2,29 +2,11 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header" %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
-    <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
-         aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
-        <div class="modal-dialog" style="width: 75%;">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="leaderboard_browser">
-                        <div class="single">
-                            <div class="score_container">
-                                <ul class="scoreboard"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "_full_leaderboard_modal.html" %}
     <div class="container" id="ajapaik-curator-container">
         <div class="col-xs-12">
             {% if request.user.is_authenticated and request.user.profile.fb_id %}
@@ -322,24 +304,6 @@
                 if ($(e.target).attr('href') === '#ajapaik-curator-selection-tab') {
                     buildSelectionDiv();
                 }
-            });
-            $('#full_leaderboard').bind('click', function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: window.leaderboardFullURL,
-                    success: function (response) {
-                        var modalWindow = $('#ajapaik-full-leaderboard-modal');
-                        modalWindow.find('.scoreboard').html(response);
-                        modalWindow.modal().on('shown.bs.modal', function () {
-                            $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                        });
-                        window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard success']);
-                    },
-                    error: function () {
-                        window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard error']);
-                    }
-                });
-
             });
             var input = document.getElementById('ajapaik-curator-add-area-name'),
                 $input = $(input);

@@ -531,35 +531,8 @@ def fetch_stream(request):
 
 
 def frontpage(request):
-    try:
-        example = random.choice(Photo.objects.filter(
-            id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
-            rephoto_of__isnull=False))
-    except ObjectDoesNotExist:
-        example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
-    example_source = Photo.objects.get(pk=example.rephoto_of.id)
-    album_selection_form = AlbumSelectionForm()
-
-    if not album_selection_form.is_valid():
-        album_selection_form = AlbumSelectionForm()
-
-    site = Site.objects.get_current()
-
-    return render_to_response("frontpage.html", RequestContext(request, {
-        "hostname": "http://%s" % (site.domain,),
-        "title": _("Timepatch (Ajapaik)"),
-        "description": _("Look around and add metadata to historical photos. Competing with others adds more excitement."),
-        "album_selection_form": album_selection_form,
-        "example": example,
-        "example_source": example_source,
-        "grid_view_enabled": settings.GRID_VIEW_ENABLED,
-        "curator_enabled": settings.CURATOR_ENABLED,
-    }))
-
-
-def frontpage_bootstrap(request):
     albums = _get_album_choices()
-    return render_to_response("frontpage_bootstrap.html", RequestContext(request, {
+    return render_to_response("frontpage.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
         "albums": albums,
         "photo_page_size": settings.FRONTPAGE_INFINITE_SCROLL_SIZE,
@@ -1136,7 +1109,8 @@ def curator(request):
         "curator_random_images": curator_random_images,
         "title": _("Timepatch (Ajapaik) - curate"),
         "hostname": "http://%s" % (site.domain, ),
-        "leaderboard": curator_leaderboard
+        "leaderboard": curator_leaderboard,
+        "is_curator": True
     }))
 
 

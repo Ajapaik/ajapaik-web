@@ -7,7 +7,8 @@
         <div id="ajapaik-language-menu">
             <div>{{ lang.code|upper }}</div>
             <input name="next" type="hidden" value="{{ redirect_to }}"/>
-            <select id="ajapaik-language-select" name="language" onchange="$(this.form).find('input[name=csrfmiddlewaretoken]').val(window.docCookies.getItem('csrftoken')); this.form.submit();">
+            <select id="ajapaik-language-select" name="language" title="{% trans 'Select language' %}"
+                    onchange="$(this.form).find('input[name=csrfmiddlewaretoken]').val(window.docCookies.getItem('csrftoken')); this.form.submit();">
                 {% get_language_info_list for LANGUAGES as languages %}
                 {% for language in languages %}
                     <option value="{{ language.code }}" title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"

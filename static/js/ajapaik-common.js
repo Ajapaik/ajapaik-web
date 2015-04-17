@@ -257,10 +257,10 @@ var map,
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
             mapviewGameButton = document.createElement('button');
-            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button').html(window.gettext('Geotag pictures'));
+            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button ajapaik-zero-border-radius').prop('title', window.gettext('Geotag pictures')).html(window.gettext('Geotag pictures'));
             map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
             myLocationButton = document.createElement('button');
-            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').prop('title', window.gettext('Go to my location')).html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button').html(window.gettext('Close'));
@@ -571,31 +571,6 @@ var map,
             }
         });
     };
-
-    //$('.filter-box select').change(function () {
-    //    var uri = new window.URI(location.href),
-    //        newQ = {album: $(this).val()},
-    //        isFilterEmpty = false;
-    //    uri.removeQuery(Object.keys(newQ));
-    //    $.each(newQ, function (i, ii) {
-    //        ii = String(ii);
-    //        isFilterEmpty = ii === '';
-    //    });
-    //
-    //    if (!isFilterEmpty) {
-    //        uri = uri.addQuery(newQ);
-    //    }
-    //
-    //    uri = uri.addQuery({fromSelect: 1});
-    //
-    //    if (isPhotoview) {
-    //        uri = new window.URI('/game');
-    //        uri.addQuery(newQ);
-    //        gameRedirectURI = uri.toString();
-    //    } else {
-    //        window.location.href = uri.toString();
-    //    }
-    //});
     $(document).on('click', '#ajapaik-header-game-button', function () {
         if (!window.isGame && window.albumId) {
             window.location.href = '/game?album=' + window.albumId;
@@ -610,6 +585,9 @@ var map,
         if (!window.isMapview && window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
         }
+    });
+    $(document).on('click', '#ajapaik-header-curate-button', function () {
+        window.location.href = '/curator/';
     });
     $(document).on('click', '#ajapaik-header-profile-button', function () {
         if (scoreboardShown) {
@@ -639,7 +617,6 @@ var map,
             }
         }
     };
-
     wheelEventNonFF = function (e) {
         now = new Date().getTime();
         if (!lastTriggeredWheeling) {
@@ -656,7 +633,6 @@ var map,
             }
         }
     };
-
     windowResizeListenerFunction = function () {
         if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
@@ -667,7 +643,6 @@ var map,
             }
         }
     };
-
     mapMousemoveListenerFunction = function (e) {
         // The mouse is moving, therefore we haven't locked on a direction
         saveDirection = false;
@@ -700,7 +675,6 @@ var map,
             }
         }
     };
-
     mapClickListenerFunction = function (e) {
         if (infoWindow !== undefined) {
             centerMarker.show();
@@ -941,7 +915,6 @@ var map,
             tutorialPanel = undefined;
         }
     });
-
     $(document).on('click', '.ajapaik-album-selection-item', function (e) {
         window.previousAlbumId = window.albumId;
         window.albumId = e.target.dataset.id;
@@ -949,7 +922,26 @@ var map,
         $('.ajapaik-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
     });
-
+    $(document).on('click', '#full_leaderboard', function (e) {
+        e.preventDefault();
+        var url = window.leaderboardFullURL;
+        if (window.albumId) {
+            url += 'album/' + window.albumId;
+        }
+        $.ajax({
+            url: url,
+            success: function (response) {
+                var modalWindow = $('#ajapaik-full-leaderboard-modal');
+                modalWindow.find('.scoreboard').html(response);
+                $('.score_container').show();
+                window.hideScoreboard();
+                modalWindow.modal().on('shown.bs.modal', function () {
+                    $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                });
+            }
+        });
+        window._gaq.push(['_trackEvent', '', 'Full leaderboard']);
+    });
     $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {
         e.preventDefault();
         $('#full_leaderboard').click();

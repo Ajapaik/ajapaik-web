@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block layout %}
-    <div class="modal fade" id="ajapaik-rephoto-upload-modal" tabindex="-1" role="dialog" aria-labelledby="ajapaik-rephoto-upload-modal-label" aria-hidden="true"></div>
+    {% include "_rephoto_upload_modal.html" %}
     <div class="full-box">
         <div class="full-pic" id="ajapaik-photoview-original-fullscreen-container">
             <img id="ajapaik-photoview-original-full-screen-image" src="{{ fullscreen.url }}"/>

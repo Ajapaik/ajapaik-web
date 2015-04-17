@@ -77,26 +77,6 @@
             $('#ajapaik-album-selection-overlay').hide();
         });
         initializeStateFromURLParameters();
-        $('#full_leaderboard').bind('click', function (e) {
-            e.preventDefault();
-            var url = window.leaderboardFullURL;
-            if (window.albumId) {
-                url += 'album/' + window.albumId;
-            }
-            $.ajax({
-                url: url,
-                success: function (response) {
-                    var modalWindow = $('#ajapaik-full-leaderboard-modal');
-                    modalWindow.find('.scoreboard').html(response);
-                    $('.score_container').show();
-                    window.hideScoreboard();
-                    modalWindow.modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
-                }
-            });
-            window._gaq.push(['_trackEvent', 'Frontpage', 'Full leaderboard']);
-        });
         window.loadPhoto = function (id) {
             $.ajax({
                 cache: false,
