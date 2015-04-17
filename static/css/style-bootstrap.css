@@ -37,6 +37,7 @@ body {
     height: 50px;
     background: rgba(0, 0, 0, .8) none;
     z-index: 2001;
+    border-width: 0 0 0 0;
 }
 
 .ajapaik-navmenu {
@@ -83,24 +84,21 @@ body {
     font-size: 20px;
     margin-top: 3px;
     margin-left: 0;
-    cursor: text;
     white-space: nowrap;
     overflow: hidden;
     max-width: 500px;
 }
 
+#ajapaik-header-album-name {
+    font-style: italic;
+}
+
 #ajapaik-album-name-container:hover {
     color: white !important;
-    text-decoration: none !important;
 }
 
 #ajapaik-album-name-container:focus {
     color: white !important;
-    text-decoration: none !important;
-}
-
-#ajapaik-header-album-name {
-    font-style: italic;
 }
 
 #mapview-photo-modal-dialog .modal-content {
@@ -1714,6 +1712,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-info-modal-game-button {
     padding-top: 10px;
+}
+
+.ajapaik-zero-border-radius {
+    border-radius: 0;
 }
 
 .fb_comments_count_zero {

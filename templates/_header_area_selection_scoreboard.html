@@ -31,6 +31,8 @@
             id="ajapaik-header-game-button"></button>
     <button type="button" name="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle"
             id="ajapaik-header-map-button"></button>
+    <button type="button" name="{% trans 'Profile' %}" class="navbar-btn ajapaik-navbar-toggle"
+            id="ajapaik-header-profile-button"></button>
     <div class="score_container">
         <h2>
             <a id="full_leaderboard" href="#">
@@ -55,11 +57,6 @@
             </div>
         {% endif %}
     </div>
-    {% if is_game or is_mapview %}
-        <button class="btn btn-default ajapaik-show-tutorial-button"></button>
-    {% endif %}
-    <button type="button" name="{% trans 'Profile' %}" class="navbar-btn ajapaik-navbar-toggle"
-            id="ajapaik-header-profile-button"></button>
     {% include "_language_selection.html" %}
 </div>
 

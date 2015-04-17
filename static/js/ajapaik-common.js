@@ -465,7 +465,7 @@ var map,
     updateLeaderboard = function () {
         var target = $('.score_container');
         if (window.albumId) {
-            target.find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
+            target.find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId);
         } else {
             target.find('.scoreboard').load(window.leaderboardUpdateURL);
         }
@@ -975,6 +975,27 @@ var map,
             targetDiv.removeClass('ajapaik-photo-bw');
         } else {
             targetDiv.addClass('ajapaik-photo-bw');
+        }
+    });
+
+    $(document).on('click', '#ajapaik-header-album-name', function (e) {
+        e.preventDefault();
+        var targetDiv = $('#ajapaik-info-modal');
+        if (window.albumId && window.infoModalURL) {
+            $.ajax({
+                url: window.infoModalURL + window.albumId,
+                data: {
+                    linkToMap: window.linkToMap,
+                    linkToGame: window.linkToGame
+                },
+                success: function (resp) {
+                    targetDiv.html(resp);
+                    targetDiv.modal().on('shown.bs.modal', function () {
+                        $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
+                        window.FB.XFBML.parse();
+                    });
+                }
+            });
         }
     });
 

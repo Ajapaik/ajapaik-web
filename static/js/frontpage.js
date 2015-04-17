@@ -3,15 +3,75 @@
     /*jslint nomen: true*/
     $(document).ready(function () {
         window.updateLeaderboard();
-        $('.ajapaik-navbar').autoHidingNavbar();
+        window.albumId = null;
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
+            historicPhotoAjaxQueryInProgress = false,
+            historicPhotoGallerySettings = {
+                captions: false,
+                rowHeight: 270,
+                margins: 5
+            },
             albumSelectionDiv = $('#ajapaik-album-selection-menu'),
             getInfiniteScrollPhotos,
-            historicPhotoAjaxQueryInProgress = false,
             openPhotoDrawer,
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
-            photoModal = $('#ajapaik-photo-modal');
-        window.albumId = null;
+            photoModal = $('#ajapaik-photo-modal'),
+            initializeStateFromURLParameters,
+            syncStateToURL,
+            refreshAlbumName;
+        getInfiniteScrollPhotos = function () {
+            if (!historicPhotoAjaxQueryInProgress) {
+                historicPhotoAjaxQueryInProgress = true;
+                $.ajax({
+                    cache: false,
+                    url: '/frontpage_infinity/',
+                    data: {
+                        start: window.historicPhotoInfiniteStart,
+                        type: 'historic',
+                        album: window.albumId
+                    },
+                    success: function (result) {
+                        var i, l;
+                        for (i = 0, l = result.length; i < l; i += 1) {
+                            historicPhotoGalleryDiv.append(window.tmpl('ajapaik-frontpage-historic-photo', result[i]));
+                        }
+                        window.historicPhotoInfiniteStart += window.photoPageSize;
+                        historicPhotoGalleryDiv.justifiedGallery('norewind');
+                        historicPhotoAjaxQueryInProgress = false;
+                    }
+                });
+            }
+        };
+        syncStateToURL = function () {
+            var historyReplacementString = '/';
+            if (window.albumId) {
+                historyReplacementString += 'photos/?album=' + window.albumId;
+            }
+            window.History.replaceState(null, window.title, historyReplacementString);
+        };
+        refreshAlbumName = function (id) {
+            window.albumName =  $('.ajapaik-navmenu').find("[data-id='" + id + "']").data('name');
+        };
+        window.handleAlbumChange = function () {
+            if (window.albumId != window.previousAlbumId) {
+                historicPhotoGalleryDiv.empty();
+                window.historicPhotoInfiniteStart = 0;
+                historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings);
+                refreshAlbumName(window.albumId);
+                $('#ajapaik-header-album-name').html(window.albumName);
+                $('#ajapaik-album-name-container').css('visibility', 'visible');
+                $('#ajapaik-header-game-button').show();
+                $('#ajapaik-header-map-button').show();
+                getInfiniteScrollPhotos();
+                syncStateToURL();
+                window.updateLeaderboard();
+            }
+        };
+        initializeStateFromURLParameters = function () {
+            window.albumId = window.getQueryParameterByName('album');
+            window.handleAlbumChange();
+        };
+        initializeStateFromURLParameters();
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
             var url = window.leaderboardFullURL;
@@ -32,23 +92,6 @@
             });
             window._gaq.push(['_trackEvent', 'Frontpage', 'Full leaderboard']);
         });
-        window.handleAlbumChange = function () {
-            if (window.albumId != window.previousAlbumId) {
-                historicPhotoGalleryDiv.empty();
-                window.historicPhotoInfiniteStart = 0;
-                historicPhotoGalleryDiv.justifiedGallery({
-                    captions: false,
-                    rowHeight: 270,
-                    margins: 5
-                });
-                $('#ajapaik-header-album-name').html(window.albumName);
-                $('#ajapaik-album-name-container').css('visibility', 'visible');
-                $('#ajapaik-header-game-button').show();
-                $('#ajapaik-header-map-button').show();
-                getInfiniteScrollPhotos();
-                window.updateLeaderboard();
-            }
-        };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
         }).on('hidden.bs.offcanvas', function () {
@@ -84,9 +127,6 @@
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('toggle');
         };
-        $(document).on('click', '.ajapaik-frontpage-image-image', function (e) {
-            window.loadPhoto(e.target.dataset.id);
-        });
         albumSelectionDiv.justifiedGallery({
             rowHeight: 270,
             margins: 0,
@@ -97,34 +137,15 @@
             rowHeight: 270,
             margins: 5
         });
-        getInfiniteScrollPhotos = function () {
-            if (!historicPhotoAjaxQueryInProgress) {
-                historicPhotoAjaxQueryInProgress = true;
-                $.ajax({
-                    cache: false,
-                    url: '/frontpage_infinity/',
-                    data: {
-                        start: window.historicPhotoInfiniteStart,
-                        type: 'historic',
-                        album: window.albumId
-                    },
-                    success: function (result) {
-                        var i, l;
-                        for (i = 0, l = result.length; i < l; i += 1) {
-                            historicPhotoGalleryDiv.append(window.tmpl('ajapaik-frontpage-historic-photo', result[i]));
-                        }
-                        window.historicPhotoInfiniteStart += window.photoPageSize;
-                        historicPhotoGalleryDiv.justifiedGallery('norewind');
-                        historicPhotoAjaxQueryInProgress = false;
-                    }
-                });
-            }
-        };
         getInfiniteScrollPhotos();
+        $(document).on('click', '.ajapaik-frontpage-image-image', function (e) {
+            window.loadPhoto(e.target.dataset.id);
+        });
         $(window).scroll(function () {
             if ($(window).scrollTop() + $(window).height() === $(document).height() && !historicPhotoAjaxQueryInProgress) {
                 getInfiniteScrollPhotos();
             }
         });
+        $('.ajapaik-navbar').autoHidingNavbar();
     });
 }(jQuery));

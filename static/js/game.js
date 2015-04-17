@@ -377,7 +377,8 @@
         window.mapMarkerPositionChangedListener = window.google.maps.event.addListener(window.marker, 'position_changed', function () {
             window.disableSave = false;
         });
-        if (window.albumId && window.infoModalURL && !window.getQueryParameterByName('fromButton')) {
+        // TODO: DRY
+        /*if (window.albumId && window.infoModalURL && !window.getQueryParameterByName('fromButton')) {
             var targetDiv = $('#ajapaik-info-modal');
             $.ajax({
                 url: window.infoModalURL,
@@ -393,7 +394,7 @@
                     });
                 }
             });
-        }
+        }*/
         $(window.input).show();
         window.syncMapStateToURL();
         $.jQee('space', function () {

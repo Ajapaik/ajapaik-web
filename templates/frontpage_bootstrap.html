@@ -20,8 +20,7 @@
     </div>
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog"
          aria-labelledby="ajapaik-photo-modal-label" aria-hidden="true"></div>
-    <div class="modal fade" id="ajapaik-info-modal" tabindex="-1" role="dialog"
-     aria-labelledby="ajapaik-info-modal-label" aria-hidden="true"></div>
+    {% include "_info_modal.html" %}
     {% include "_full_leaderboard_modal.html" %}
     {% verbatim %}
         <script id="ajapaik-frontpage-historic-photo" type="text/x-tmpl">
@@ -42,6 +41,8 @@
         window.albumId = null;
         window.albumName = null;
         window.photoPageSize = {{ photo_page_size|safe }};
+        window.linkToGame = true;
+        window.linkToMap = true;
     </script>
     {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.4.min.js"></script>
