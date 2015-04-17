@@ -926,11 +926,6 @@ var map,
             }
         }
     });
-    $(document).on('shown.bs.offcanvas', '.ajapaik-navmenu', function () {
-        $('#ajapaik-album-selection-overlay').show();
-    }).on('hidden.bs.offcanvas', function () {
-        $('#ajapaik-album-selection-overlay').hide();
-    });
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
         if (!gameHintUsed && !popoverShown && currentPhotoDescription && !window.isMobile) {
             $('[data-toggle="popover"]').popover('show');

@@ -401,6 +401,11 @@
                 window.location.href = '/game?album=' + window.albumId;
             }
         };
+        $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').show();
+        }).on('hidden.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').hide();
+        });
         $('#ajapaik-album-name-container').css('visibility', 'visible');
         $('#ajapaik-header-map-button').show();
         $('#ajapaik-header-grid-button').show();

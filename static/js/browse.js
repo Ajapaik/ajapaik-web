@@ -785,7 +785,11 @@
         window.updateLeaderboard();
         window.isMapview = true;
         $(window.input).show();
-
+        $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').show();
+        }).on('hidden.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').hide();
+        });
         guessPanelContainer = $('#ajapaik-guess-panel-container');
 
         $('#ajapaik-game-description-viewing-warning').hide();

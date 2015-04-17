@@ -71,6 +71,11 @@
             window.albumId = window.getQueryParameterByName('album');
             handleAlbumChange();
         };
+        $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').show();
+        }).on('hidden.bs.offcanvas', function () {
+            $('#ajapaik-album-selection-overlay').hide();
+        });
         initializeStateFromURLParameters();
         $('#full_leaderboard').bind('click', function (e) {
             e.preventDefault();
