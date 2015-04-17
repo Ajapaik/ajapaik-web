@@ -3,6 +3,7 @@
     /*jslint nomen: true*/
     $(document).ready(function () {
         window.updateLeaderboard();
+        $('.ajapaik-navbar').autoHidingNavbar();
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             albumSelectionDiv = $('#ajapaik-album-selection-menu'),
             getInfiniteScrollPhotos,
