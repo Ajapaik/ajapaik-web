@@ -1,26 +1,30 @@
 html, body {
-  height: 100%;
+    height: 100%;
 }
+
 body {
-  padding: 50px 0 0 0;
+    padding: 50px 0 0 0;
+    -ms-overflow-style: none;
 }
 
 .navmenu {
-  padding-top: 50px;
+    padding-top: 50px;
 }
 
 .navbar {
-  display: block;
-  text-align: center;
+    display: block;
+    text-align: center;
 }
+
 .navbar-brand {
-  display: inline-block;
-  float: none;
+    display: inline-block;
+    float: none;
 }
+
 .navbar-toggle {
-  position: absolute;
-  float: left;
-  margin-left: 15px;
+    position: absolute;
+    float: left;
+    margin-left: 15px;
 }
 
 .container {
@@ -51,7 +55,10 @@ body {
 .ajapaik-caption {
     display: block !important;
     background-color: rgba(0, 0, 0, .7) !important;
-    height: 30px !important;
+    min-height: 30px !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .ajapaik-brand {
@@ -858,7 +865,6 @@ a.fullscreen {
     background-size: 25px;
     background-position-y: 3px;
     background-position-x: 3px;
-    background-color: rgba(255, 255, 255, 0.5);
     z-index: 2;
 }
 
