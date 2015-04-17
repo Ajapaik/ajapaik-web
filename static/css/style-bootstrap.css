@@ -51,6 +51,7 @@ body {
 .ajapaik-caption {
     display: block !important;
     background-color: rgba(0, 0, 0, .7) !important;
+    height: 30px !important;
 }
 
 .ajapaik-brand {
@@ -858,6 +859,7 @@ a.fullscreen {
     background-position-y: 3px;
     background-position-x: 3px;
     background-color: rgba(255, 255, 255, 0.5);
+    z-index: 2;
 }
 
 .ajapaik-rephoto-count-1 {

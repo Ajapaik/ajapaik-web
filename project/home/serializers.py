@@ -50,10 +50,11 @@ class SourceSerializer(serializers.ModelSerializer):
 
 class FrontpageInfiniteScrollSerializer(serializers.ModelSerializer):
     thumb = serializers.SerializerMethodField('get_frontpage_thumb')
+    rephotos = serializers.IntegerField(source='rephotos.count')
 
     def get_frontpage_thumb(self, instance):
         return reverse('project.home.views.photo_thumb', args=(instance.id, 300)),
 
     class Meta:
         model = Photo
-        fields = ('id', 'description', 'thumb')
+        fields = ('id', 'description', 'thumb', 'rephotos')

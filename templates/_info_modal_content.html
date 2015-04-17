@@ -105,7 +105,10 @@
         <div class="modal-footer">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                    <button type="button" id="ajapaik-sharing-dropdown-button" class="btn btn-primary dropdown-toggle ajapaik-photo-modal-share-button" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" id="ajapaik-sharing-dropdown-button"
+                            class="btn btn-primary dropdown-toggle ajapaik-photo-modal-share-button
+                            ajapaik-zero-border-radius"
+                            data-toggle="dropdown" aria-expanded="false">
                         {% trans "Share" %}
                         <span class="caret"></span>
                     </button>
@@ -132,18 +135,18 @@
                 </div>
                 <div class="btn-group" role="group">
                     {% if link_to_map %}
-                        <a class="btn btn-primary" href="{{ share_map_link }}?album={{ album.id }}&fromModal=1">{% trans "Show on map" %}</a>
+                        <a class="btn btn-primary ajapaik-zero-border-radius" href="{{ share_map_link }}?album={{ album.id }}&fromModal=1">{% trans "Show on map" %}</a>
                     {% else %}
-                        <a class="btn btn-primary" data-dismiss="modal">{% trans "Back to map" %}</a>
+                        <a class="btn btn-primary ajapaik-zero-border-radius" data-dismiss="modal">{% trans "Back to map" %}</a>
                     {% endif %}
                 </div>
             </div>
             <div class="btn-group btn-group-justified" id="ajapaik-info-modal-game-button" role="group" aria-label="...">
                 <div class="btn-group" role="group">
                     {% if link_to_game %}
-                        <a class="btn btn-success" href="{{ share_game_link }}?album={{ album.id }}&fromButton=1">{% trans "Geotag pictures" %}</a>
+                        <a class="btn btn-success ajapaik-zero-border-radius" href="{{ share_game_link }}?album={{ album.id }}&fromButton=1">{% trans "Geotag pictures" %}</a>
                     {% else %}
-                        <a class="btn btn-success" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
+                        <a class="btn btn-success ajapaik-zero-border-radius" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
                     {% endif %}
                 </div>
             </div>

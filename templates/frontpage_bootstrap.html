@@ -28,6 +28,9 @@
                 <img alt="{%=o.description%}"
                      src="{%=o.thumb%}"
                      class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
+                 {% if (o.rephotos) { %}
+                    <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o.rephotos%}" data-id="{%=o.id%}"></div>
+                {% } %}
                 <div class="caption ajapaik-caption">{%=o.description%}</div>
             </a>
         </script>
