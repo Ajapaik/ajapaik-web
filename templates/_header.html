@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% if is_game or is_mapview or is_frontpage %}
-    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu">
+    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu" id="ajapaik-album-selection-menu">
         <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
             {% for album in albums %}
                 <a href="javascript:void(0);">
@@ -33,7 +33,7 @@
     <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     {% if is_game or is_mapview or is_frontpage %}
         <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button" title="{% trans 'Album selection' %}"
-                data-toggle="offcanvas" data-target=".navmenu" id="ajapaik-header-menu-button"></button>
+                data-toggle="offcanvas" data-target="#ajapaik-album-selection-menu" id="ajapaik-header-menu-button"></button>
         <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container" title="{% trans 'Album details' %}">
             <span id="ajapaik-header-album-name">{% if album %}{{ album.name }}{% endif %}</span>
         </a>
