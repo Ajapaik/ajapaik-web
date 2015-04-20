@@ -371,6 +371,10 @@ body {
 
 #ajapaik-header-album-filter-button {
     background-image: url(../images/material-design-icons/ic_check_box_24px.svg);
+    background-size: 24px !important;
+    margin-top: 8px;
+    margin-left: -10px;
+    margin-right: 20px;
     float: left;
 }
 
