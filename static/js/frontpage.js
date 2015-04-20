@@ -40,6 +40,7 @@
                     success: function (result) {
                         var i, l;
                         for (i = 0, l = result.length; i < l; i += 1) {
+                            console.log(result[i]);
                             historicPhotoGalleryDiv.append(window.tmpl('ajapaik-frontpage-historic-photo', result[i]));
                         }
                         window.historicPhotoInfiniteStart += window.photoPageSize;

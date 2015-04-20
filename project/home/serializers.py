@@ -57,4 +57,4 @@ class FrontpageInfiniteScrollSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Photo
-        fields = ('id', 'description', 'thumb', 'rephotos')
+        fields = ('id', 'description', 'thumb', 'rephotos', 'lat', 'lon', 'azimuth')

@@ -25,12 +25,16 @@
     {% verbatim %}
         <script id="ajapaik-frontpage-historic-photo" type="text/x-tmpl">
             <a href="javascript:void(0);" class="ajapaik-frontpage-image-container">
-                <img alt="{%=o.description%}"
-                     src="{%=o.thumb%}"
-                     class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
-                 {% if (o.rephotos) { %}
-                    <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o.rephotos%}" data-id="{%=o.id%}"></div>
-                {% } %}
+                <img alt="{%=o.description%}" src="{%=o.thumb%}"
+                    class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
+                <div class="ajapaik-thumbnail-info-container">
+                    {% if (o.rephotos) { %}
+                        <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}" data-id="{%=o.id%}"></div>
+                    {% } %}
+                    {% if (o.lat && o.lon && o.azimuth) { %}
+                        <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth" data-id="{%=o.id%}"></div>
+                    {% } %}
+                </div>
                 <div class="caption ajapaik-caption">{%=o.description%}</div>
             </a>
         </script>

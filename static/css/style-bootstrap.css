@@ -63,6 +63,7 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-right: 90px !important;
 }
 
 .ajapaik-brand {
@@ -870,6 +871,13 @@ a.fullscreen {
     background: rgba(128, 128, 128, 0.5) url("../images/direction_20px_white.png") no-repeat center;
 }
 
+.ajapaik-frontpage-azimuth {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: url(../images/material-design-icons/ic_navigation_24px.svg) no-repeat center;
+}
+
 .ajapaik-rephoto-count {
     position: absolute;
     bottom: 0;
@@ -920,6 +928,60 @@ a.fullscreen {
 
 .ajapaik-rephoto-count-9 {
     background-image: url(../images/material-design-icons/ic_filter_9_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count {
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position-y: 3px;
+    background-position-x: 3px;
+    z-index: 2;
+    display: inline-block;
+}
+
+.ajapaik-frontpage-rephoto-count-1 {
+    background-image: url(../images/material-design-icons/ic_filter_1_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-2 {
+    background-image: url(../images/material-design-icons/ic_filter_2_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-3 {
+    background-image: url(../images/material-design-icons/ic_filter_3_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-4 {
+    background-image: url(../images/material-design-icons/ic_filter_4_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-5 {
+    background-image: url(../images/material-design-icons/ic_filter_5_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-6 {
+    background-image: url(../images/material-design-icons/ic_filter_6_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-7 {
+    background-image: url(../images/material-design-icons/ic_filter_7_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-8 {
+    background-image: url(../images/material-design-icons/ic_filter_8_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-9 {
+    background-image: url(../images/material-design-icons/ic_filter_9_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-9-plus {
+    background-image: url(../images/material-design-icons/ic_filter_9_plus_24px.svg);
 }
 
 .ajapaik-comment-count {
@@ -1774,4 +1836,14 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-frontpage-historic-image-container .caption {
     display: block !important;
     background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ajapaik-thumbnail-info-container {
+    width: 90px;
+    height: 30px;
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .7);
 }
