@@ -2,18 +2,8 @@
 
 {% if not is_top_50 %}
     {% if album_leaderboard %}
-        <table class="table">
         {% for pos in album_leaderboard %}
-            <tr {% if pos.1 %}class="ajapaik-leaderboard-you"{% endif %}>
-                <td>{{ pos.0 }}</td>
-                <td>{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>{% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</td>
-                <td>{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}<i>{% trans "Anonymous user" %}</i>{% endif %}</td>
-                <td>{{ pos.2 }}</td>
-            </tr>
-        {% endfor %}
-        </table>
-    {% else %}
-        <li class="clearfix{% if pos.1 %} you{% endif %}">
+            <li class="clearfix{% if pos.1 %} you{% endif %}">
                 <span class="position">{{ pos.0 }}.</span>
                 <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>
                     {% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</span>
@@ -21,29 +11,33 @@
                     {% trans "Your points" %}{% endif %}</span>
                 <span class="score">{{ pos.2 }}</span>
             </li>
-        <table class="table">
-            {% for pos in leaderboard %}
-                <tr {% if pos.1 %}class="ajapaik-leaderboard-you"{% endif %}>
-                    <td>{{ pos.0 }}</td>
-                    <td>{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>{% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</td>
-                    <td>{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}<i>{% trans "Your points" %}</i>{% endif %}</td>
-                    <td>{{ pos.2 }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+        {% endfor %}
+    {% else %}
+        {% for pos in leaderboard %}
+            <li class="clearfix{% if pos.1 %} you{% endif %}">
+                <span class="position">{{ pos.0 }}.</span>
+                <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>
+                    {% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</span>
+                <span class="name">{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}
+                    {% trans "Your points" %}{% endif %}</span>
+                <span class="score">{{ pos.2 }}</span>
+            </li>
+        {% endfor %}
     {% endif %}
 {% else %}
     <div class="col-xs-12">
         {% if album_leaderboard %}
             <div class="col-xs-6">
-                <h4>{% blocktrans with album_name as album_name %}Album {{ album_name }} leaderboard{% endblocktrans %}</h4>
+                <h3>{% blocktrans with album_name as album_name %}
+                    Album {{ album_name }} leaderboard
+                {% endblocktrans %}</h3>
                 {% for pos in album_leaderboard %}
                     <li class="clearfix{% if pos.1 %} you{% endif %}">
                         <span class="position">{{ pos.0 }}.</span>
                         <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>
                             {% elif pos.6 %}<img src="{{ pos.6 }}"/>{% endif %}</span>
                         <span class="name">{% if pos.4 %}{{ pos.4 }}{% elif pos.5 %}{{ pos.5 }}{% else %}
-                            <i>{% trans "Anonymous user" %}</i>{% endif %}</span>
+                            {% trans "Your points" %}{% endif %}</span>
                         <span class="score">{{ pos.2 }}</span>
                     </li>
                 {% endfor %}
@@ -51,7 +45,7 @@
         {% endif %}
         {% if activity_leaderboard %}
             <div class="col-xs-6">
-                <h4>{% trans "Recent activity leaderboard" %}</h4>
+                <h3>{% trans "Recent activity leaderboard" %}</h3>
                 {% for pos in activity_leaderboard %}
                     <li class="clearfix{% if pos.1 %} you{% endif %}">
                         <span class="position">{{ pos.0 }}.</span>
@@ -66,7 +60,7 @@
         {% endif %}
         {% if not album_leaderboard %}
             <div class="col-xs-6">
-                <h4>{% trans "All time leaderboard" %}</h4>
+                <h3>{% trans "All time leaderboard" %}</h3>
                 {% for pos in all_time_leaderboard %}
                     <li class="clearfix{% if pos.1 %} you{% endif %}">
                         <span class="position">{{ pos.0 }}.</span>

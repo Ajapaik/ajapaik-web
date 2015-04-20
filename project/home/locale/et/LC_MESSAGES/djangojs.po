@@ -4,13 +4,15 @@
 #
 # Translators:
 # Lauri Elias, 2015
+# Lauri Elias, 2015
+# Vahur Puik <vahur@ajapaik.ee>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-20 17:59+0300\n"
-"PO-Revision-Date: 2015-04-01 10:20+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2015-04-20 18:16+0300\n"
+"PO-Revision-Date: 2015-04-20 15:09+0000\n"
+"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
 "Language: et\n"
@@ -31,7 +33,7 @@ msgstr "Märgi pilte kaardile"
 
 #: static/js/ajapaik-common.js:263
 msgid "Go to my location"
-msgstr ""
+msgstr "Mine minu asukohta"
 
 #: static/js/ajapaik-common.js:266
 msgid "Close"
@@ -145,23 +147,19 @@ msgstr "Allikaviide"
 
 #: static/js/ajapaik-translations.js:23
 msgid "Image has no location info"
-msgstr ""
+msgstr "Pildil pole asukohainfot"
 
 #: static/js/ajapaik-translations.js:24
-#, fuzzy
-#| msgid "Save location and direction"
 msgid "Image has only location, no view direction"
-msgstr "Salvesta asukoht ja vaate suund"
+msgstr "Pildil on ainult asukoht, aga puudub vaate suund"
 
 #: static/js/ajapaik-translations.js:25
-#, fuzzy
-#| msgid "Save location and direction"
 msgid "Image has location and view direction info"
-msgstr "Salvesta asukoht ja vaate suund"
+msgstr "Pildil on asukoha ja vaate suuna info"
 
 #: static/js/ajapaik-translations.js:26
 msgid "Image has rephotos"
-msgstr ""
+msgstr "Pildist on ülepildistusi"
 
 #: static/js/browse.js:347 static/js/browse.js.c:348 static/js/game.js:262
 #: static/js/game.js.c:264
@@ -170,11 +168,11 @@ msgstr "Saadud punktid"
 
 #: static/js/browse.js:783
 msgid "Remove album filter"
-msgstr ""
+msgstr "Eemalda albumi filter"
 
 #: static/js/browse.js:787
 msgid "Apply album filter"
-msgstr ""
+msgstr "Rakenda albumi filter"
 
 #: static/js/game.js:37
 msgid "Vihje vaatamine"

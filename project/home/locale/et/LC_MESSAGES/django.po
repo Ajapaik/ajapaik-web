@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-20 18:06+0300\n"
-"PO-Revision-Date: 2015-04-06 22:35+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2015-04-20 18:16+0300\n"
+"PO-Revision-Date: 2015-04-20 15:13+0000\n"
+"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
 "Language: et\n"
@@ -183,26 +183,25 @@ msgstr "Lehekülge ei leitud"
 msgid "Back"
 msgstr "Tagasi"
 
-#: templates/_block_leaderboard.html:10 templates/_block_leaderboard.html:46
+#: templates/_block_leaderboard.html:11 templates/_block_leaderboard.html:38
 msgid "Anonymous user"
-msgstr ""
+msgstr "Anonüümne kasutaja"
 
-#: templates/_block_leaderboard.html:21 templates/_block_leaderboard.html:29
-#: templates/_block_leaderboard.html:61 templates/_block_leaderboard.html:76
+#: templates/_block_leaderboard.html:22 templates/_block_leaderboard.html:51
+#: templates/_block_leaderboard.html:64
 msgid "Your points"
 msgstr "Sinu punktid"
 
-#: templates/_block_leaderboard.html:39
-#, fuzzy, python-format
-#| msgid "All time leaderboard"
+#: templates/_block_leaderboard.html:33
+#, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Üldedetabel"
+msgstr "Albumi %(album_name)s edetabel"
 
-#: templates/_block_leaderboard.html:54
+#: templates/_block_leaderboard.html:46
 msgid "Recent activity leaderboard"
 msgstr "Viimasel ajal aktiivsemate edetabel"
 
-#: templates/_block_leaderboard.html:69
+#: templates/_block_leaderboard.html:59
 msgid "All time leaderboard"
 msgstr "Üldedetabel"
 
@@ -311,24 +310,20 @@ msgstr[1] ""
 "                                "
 
 #: templates/_header.html:35
-#, fuzzy
-#| msgid "Clear selection"
 msgid "Album selection"
-msgstr "Tühista valik"
+msgstr "Albumi valik"
 
 #: templates/_header.html:37
 msgid "Album details"
-msgstr ""
+msgstr "Albumi info"
 
 #: templates/_header.html:42
 msgid "Remove album filter"
-msgstr ""
+msgstr "Eemalda albumi filter"
 
 #: templates/_header.html:46
-#, fuzzy
-#| msgid "Show on map"
 msgid "Show in grid"
-msgstr "Näita kaardil"
+msgstr "Galerii"
 
 #: templates/_header.html:48 templates/_info_modal_content.html:147
 #: templates/_info_modal_content.html:149
@@ -340,20 +335,16 @@ msgid "Show on map"
 msgstr "Näita kaardil"
 
 #: templates/_header.html:53
-#, fuzzy
-#| msgid "Curate content"
 msgid "Curate"
-msgstr "Kureeri sisu"
+msgstr "Kureeri"
 
 #: templates/_header.html:58
 msgid "Options"
 msgstr ""
 
 #: templates/_header.html:65
-#, fuzzy
-#| msgid "All time leaderboard"
 msgid "Profile and leaderboard"
-msgstr "Üldedetabel"
+msgstr "Profiil ja edetabel"
 
 #: templates/_header.html:81 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
@@ -384,15 +375,7 @@ msgid "Contributors' leaderboard"
 msgstr "Panustajate edetabel"
 
 #: templates/_info_modal_content.html:26
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                    Album has %(counter)s historic photo,\n"
-#| "                "
-#| msgid_plural ""
-#| "\n"
-#| "                    Album has %(counter)s historic photos,\n"
-#| "                "
+#, python-format
 msgid ""
 "\n"
 "                    Album has %(counter)s historic picture,\n"
@@ -403,12 +386,10 @@ msgid_plural ""
 "                "
 msgstr[0] ""
 "\n"
-"                            Albumis on %(counter)s ajalooline foto,\n"
-"                        "
+"Albumis on %(counter)s ajalooline pilt,"
 msgstr[1] ""
 "\n"
-"                            Albumis on %(counter)s ajaloolist fotot,\n"
-"                        "
+"Albumis on %(counter)s ajaloolist pilti,"
 
 #: templates/_info_modal_content.html:31 templates/base_bootstrap.html:34
 #, python-format
@@ -588,8 +569,6 @@ msgid "Share"
 msgstr "Jaga"
 
 #: templates/_language_selection.html:10
-#, fuzzy
-#| msgid "Choose language"
 msgid "Select language"
 msgstr "Vali keel"
 
@@ -918,7 +897,7 @@ msgstr "Täisotsing"
 
 #: templates/curator.html:230
 msgid "Filter existing"
-msgstr ""
+msgstr "Ära näita Ajapaigas olevaid pilte"
 
 #: templates/curator.html:235
 msgid "Search!"
@@ -1036,15 +1015,6 @@ msgid "Location on the map"
 msgstr "Asukoht kaardil"
 
 #: templates/photoview.html:91
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                                Picture belongs to album\n"
-#| "                            "
-#| msgid_plural ""
-#| "\n"
-#| "                                Picture belongs to albums:\n"
-#| "                            "
 msgid ""
 "\n"
 "                                    Picture belongs to album\n"
@@ -1055,7 +1025,7 @@ msgid_plural ""
 "                                "
 msgstr[0] ""
 "\n"
-"Pilt kuulub albumisse "
+"Pilt kuulub albumisse:"
 msgstr[1] ""
 "\n"
 "Pilt kuulub albumitesse:"
@@ -1063,39 +1033,3 @@ msgstr[1] ""
 #: templates/photoview.html:134
 msgid "Date taken"
 msgstr "Kuupäev:"
-
-#~ msgid ""
-#~ "Look around and add metadata to historical photos. Competing with others "
-#~ "adds more excitement."
-#~ msgstr ""
-#~ "Vaatle ümbritsevat keskkonda ja rikasta ajaloolisi fotosid uue infoga. Et "
-#~ "oleks põnevam, siis võistled kõigi teiste osalejatega."
-
-#~ msgid ""
-#~ "\n"
-#~ "                    Album %(album_name)s leaderboard\n"
-#~ "                "
-#~ msgstr ""
-#~ "\n"
-#~ "Albumi %(album_name)s edetabel"
-
-#~ msgid "Limit to album"
-#~ msgstr "Näita kaardil ainult valitud albumi pilte"
-
-#~ msgid "Where is history located?"
-#~ msgstr "Kus ajalugu asub?"
-
-#~ msgid "Discover, geotag and make the rephoto."
-#~ msgstr "Uuri, avasta, märgi kaardil ja pildista üle."
-
-#~ msgid "Read more"
-#~ msgstr "Loe lähemalt"
-
-#~ msgid "Guess the location"
-#~ msgstr "Arva ära asukoht"
-
-#~ msgid "Upload photos yourself"
-#~ msgstr "Lae ise vanu fotosid"
-
-#~ msgid "View gallery"
-#~ msgstr "Vaata galeriid"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-20 17:59+0300\n"
-"PO-Revision-Date: 2015-04-01 10:03+0000\n"
+"POT-Creation-Date: 2015-04-20 18:16+0300\n"
+"PO-Revision-Date: 2015-04-20 15:00+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/"
 "ru/)\n"
@@ -144,16 +144,12 @@ msgid "Image has no location info"
 msgstr ""
 
 #: static/js/ajapaik-translations.js:24
-#, fuzzy
-#| msgid "Save location and direction"
 msgid "Image has only location, no view direction"
-msgstr "Сохранить местоположение и направление"
+msgstr ""
 
 #: static/js/ajapaik-translations.js:25
-#, fuzzy
-#| msgid "Save location and direction"
 msgid "Image has location and view direction info"
-msgstr "Сохранить местоположение и направление"
+msgstr ""
 
 #: static/js/ajapaik-translations.js:26
 msgid "Image has rephotos"
