@@ -28,11 +28,17 @@
                 <img alt="{%=o.description%}" src="{%=o.thumb%}"
                     class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
                 <div class="ajapaik-thumbnail-info-container">
-                    {% if (o.rephotos) { %}
-                        <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}" data-id="{%=o.id%}"></div>
-                    {% } %}
                     {% if (o.lat && o.lon && o.azimuth) { %}
-                        <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth" data-id="{%=o.id%}"></div>
+                        <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth"></div>
+                    {% } else { %}
+                        {% if (o.lat && o.lon) { %}
+                            <div class="ajapaik-frontpage-location-known"></div>
+                        {% } else { %}
+                            <div class="ajapaik-frontpage-location-unknown"></div>
+                        {% } %}
+                    {% } %}
+                    {% if (o.rephotos) { %}
+                        <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}"></div>
                     {% } %}
                 </div>
                 <div class="caption ajapaik-caption">{%=o.description%}</div>

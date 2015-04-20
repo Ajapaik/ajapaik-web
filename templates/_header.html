@@ -8,7 +8,7 @@
                     <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
                          data-id="{{ album.id }}" data-name="{{ album.name }}"
                          src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}" >
-                    <div class="caption ajapaik-caption">
+                    <div class="caption ajapaik-caption-album-selection">
                         {{ album.name }} -
                         {% blocktrans count counter=album.photo_count %}
                             {{ counter }} photo

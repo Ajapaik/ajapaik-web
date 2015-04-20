@@ -66,6 +66,15 @@ body {
     margin-right: 90px !important;
 }
 
+.ajapaik-caption-album-selection {
+    display: block !important;
+    background-color: rgba(0, 0, 0, .7) !important;
+    min-height: 30px !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .ajapaik-brand {
     float: left;
     background: url(../images/ajapaik_266px.png) no-repeat;
@@ -876,6 +885,23 @@ a.fullscreen {
     height: 30px;
     display: inline-block;
     background: url(../images/material-design-icons/ic_navigation_24px.svg) no-repeat center;
+    float: right;
+}
+
+.ajapaik-frontpage-location-known {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: url(../images/material-design-icons/ic_location_on_24px.svg) no-repeat center;
+    float: right;
+}
+
+.ajapaik-frontpage-location-unknown {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: url(../images/material-design-icons/ic_location_off_24px.svg) no-repeat center;
+    float: right;
 }
 
 .ajapaik-rephoto-count {
@@ -942,6 +968,7 @@ a.fullscreen {
     background-position-x: 3px;
     z-index: 2;
     display: inline-block;
+    float: right;
 }
 
 .ajapaik-frontpage-rephoto-count-1 {
