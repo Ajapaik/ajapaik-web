@@ -471,7 +471,7 @@
             ne = currentMapBounds.getNorthEast();
             sw = currentMapBounds.getSouthWest();
             if (currentMapDataRequest) {
-                //currentMapDataRequest.abort();
+                currentMapDataRequest.abort();
             }
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
@@ -562,7 +562,7 @@
     refreshPane = function (markerIdsWithinBounds) {
         if (!lastRequestedPaneMarkersIds || lastRequestedPaneMarkersIds.length === 0 || lastRequestedPaneMarkersIds.sort().join(',') !== markerIdsWithinBounds.sort().join(',')) {
             if (currentPaneDataRequest) {
-                //currentPaneDataRequest.abort();
+                currentPaneDataRequest.abort();
             }
             var mapCenter = window.map.getCenter();
             currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, center_lat: mapCenter.lat(), center_lon: mapCenter.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
