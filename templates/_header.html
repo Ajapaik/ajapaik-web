@@ -4,9 +4,9 @@
     <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu">
         <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
             {% for album in albums %}
-                <a href="#">
+                <a href="javascript:void(0);">
                     <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
-                         data-id="{{ album.id }}" data-name="{{ album.name }}"
+                         data-id="{{ album.id }}" data-name="{{ album.name }}" data-photos="{{ album.photo_count }}"
                          src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}" >
                     <div class="caption ajapaik-caption-album-selection">
                         {{ album.name }} -
@@ -22,6 +22,12 @@
     </div>
 {% endif %}
 
+<div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu" id="ajapaik-mobile-header-buttons">
+    <ul class="nav navmenu-nav">
+        <li>asd</li>
+    </ul>
+</div>
+
 <div class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
     <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
@@ -36,24 +42,34 @@
         <button type="button" title="{% trans 'Remove album filter' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
             id="ajapaik-header-album-filter-button"></button>
     {% endif %}
-    <button type="button" title="{% trans 'Show in grid' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-            id="ajapaik-header-grid-button"></button>
-    <button type="button" title="{% trans 'Geotag pictures' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-            id="ajapaik-header-game-button"></button>
-    <button type="button" title="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-            id="ajapaik-header-map-button"></button>
-    {% if not is_curator %}
-        <button type="button" title="{% trans 'Curate' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-                id="ajapaik-header-curate-button"></button>
-    {% endif %}
+    <div class="hidden-xs">
+        <button type="button" title="{% trans 'Show in grid' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+                id="ajapaik-header-grid-button"></button>
+        <button type="button" title="{% trans 'Geotag pictures' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+                id="ajapaik-header-game-button"></button>
+        <button type="button" title="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+                id="ajapaik-header-map-button"></button>
+        {% if not is_curator %}
+            <button type="button" title="{% trans 'Curate' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+                    id="ajapaik-header-curate-button"></button>
+        {% endif %}
+    </div>
+    <div class="visible-xs">
+        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button" title="{% trans 'Options' %}"
+                data-toggle="offcanvas" data-target="#ajapaik-mobile-header-buttons">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
     <button type="button" title="{% trans 'Profile and leaderboard' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
             id="ajapaik-header-profile-button"></button>
     <div class="score_container">
-        <h2>
-            <a id="full_leaderboard" href="#">
+        <h4>
+            <a id="full_leaderboard" href="javascript:void(0);">
                 {% trans "Leaderboard" %}
             </a>
-        </h2>
+        </h4>
         <ul class="scoreboard">
             {% if leaderboard %}
                 {% include "_block_leaderboard.html" %}

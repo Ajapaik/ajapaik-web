@@ -923,6 +923,7 @@ var map,
         window.previousAlbumId = window.albumId;
         window.albumId = e.target.dataset.id;
         window.albumName = e.target.dataset.name;
+        window.currentAlbumPhotoCount = e.target.dataset.photos;
         $('.ajapaik-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
     });

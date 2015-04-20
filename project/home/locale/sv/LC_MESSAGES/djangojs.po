@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-07 01:25+0300\n"
+"POT-Creation-Date: 2015-04-20 17:59+0300\n"
 "PO-Revision-Date: 2015-04-01 10:05+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -20,35 +20,39 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:118
+#: static/js/ajapaik-common.js:119
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:242
+#: static/js/ajapaik-common.js:260
 msgid "Geotag pictures"
 msgstr ""
 
-#: static/js/ajapaik-common.js:248
+#: static/js/ajapaik-common.js:263
+msgid "Go to my location"
+msgstr ""
+
+#: static/js/ajapaik-common.js:266
 msgid "Close"
 msgstr ""
 
-#: static/js/ajapaik-common.js:650 static/js/ajapaik-common.js.c:772
-#: static/js/ajapaik-common.js:791 static/js/game.js:125
+#: static/js/ajapaik-common.js:657 static/js/ajapaik-common.js.c:778
+#: static/js/ajapaik-common.js:797 static/js/game.js:126
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:683 static/js/browse.js:823
-#: static/js/game.js:553 static/js/grid.js:418
+#: static/js/ajapaik-common.js:689 static/js/browse.js:859
+#: static/js/game.js:551
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:707
+#: static/js/ajapaik-common.js:713
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:845
+#: static/js/ajapaik-common.js:851
 msgid "Median guess"
 msgstr ""
 
@@ -134,30 +138,54 @@ msgstr ""
 msgid "Source ID"
 msgstr ""
 
-#: static/js/browse.js:341 static/js/browse.js.c:342 static/js/game.js:261
-#: static/js/game.js.c:263 static/js/grid.js:69
+#: static/js/ajapaik-translations.js:23
+msgid "Image has no location info"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:24
+msgid "Image has only location, no view direction"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:25
+msgid "Image has location and view direction info"
+msgstr ""
+
+#: static/js/ajapaik-translations.js:26
+msgid "Image has rephotos"
+msgstr ""
+
+#: static/js/browse.js:347 static/js/browse.js.c:348 static/js/game.js:262
+#: static/js/game.js.c:264
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/game.js:36
+#: static/js/browse.js:783
+msgid "Remove album filter"
+msgstr ""
+
+#: static/js/browse.js:787
+msgid "Apply album filter"
+msgstr ""
+
+#: static/js/game.js:37
 msgid "Vihje vaatamine"
 msgstr ""
 
-#: static/js/game.js:38
+#: static/js/game.js:39
 msgid ""
 "Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 msgstr ""
 
-#: static/js/game.js:156
+#: static/js/game.js:157
 msgid "We are now showing you random photos."
 msgstr ""
 
-#: static/js/game.js:158
+#: static/js/game.js:159
 msgid "You have seen all the pictures we have for this area."
 msgstr ""
 
-#: static/js/game.js:281
+#: static/js/game.js:282
 msgid "Your guess"
 msgstr ""
 

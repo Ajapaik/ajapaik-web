@@ -24,21 +24,21 @@
     {% include "_full_leaderboard_modal.html" %}
     {% verbatim %}
         <script id="ajapaik-frontpage-historic-photo" type="text/x-tmpl">
-            <a href="javascript:void(0);" class="ajapaik-frontpage-image-container">
+            <a target="_blank" href="{%=photoPermalink + o.id%}" class="ajapaik-frontpage-image-container">
                 <img alt="{%=o.description%}" src="{%=o.thumb%}"
                     class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
                 <div class="ajapaik-thumbnail-info-container">
                     {% if (o.lat && o.lon && o.azimuth) { %}
-                        <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth"></div>
+                        <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth" title="{%=gettext('Image has location and view direction info')%}"></div>
                     {% } else { %}
                         {% if (o.lat && o.lon) { %}
-                            <div class="ajapaik-frontpage-location-known"></div>
+                            <div class="ajapaik-frontpage-location-known" title="{%=gettext('Image has only location, no view direction')%}"></div>
                         {% } else { %}
-                            <div class="ajapaik-frontpage-location-unknown"></div>
+                            <div class="ajapaik-frontpage-location-unknown" title="{%=gettext('Image has no location info')%}"></div>
                         {% } %}
                     {% } %}
                     {% if (o.rephotos) { %}
-                        <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}"></div>
+                        <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}" title="{%=gettext('Image has rephotos')%}"></div>
                     {% } %}
                 </div>
                 <div class="caption ajapaik-caption">{%=o.description%}</div>
@@ -55,6 +55,7 @@
         window.photoPageSize = {{ photo_page_size|safe }};
         window.linkToGame = true;
         window.linkToMap = true;
+        window.photoPermalink = '{% url "project.home.views.photo" %}';
     </script>
     {% compress js %}
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
