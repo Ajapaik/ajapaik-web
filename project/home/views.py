@@ -78,7 +78,6 @@ def get_album_info_modal_content(request, album_id=1):
         "link_to_map": link_to_map,
         "link_to_game": link_to_game
     }
-    print ret
 
     # TODO: Can these queries be optimized?
     album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
@@ -264,7 +263,9 @@ def _get_album_leaderboard(user_id, album_id=None):
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.all()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        photo_points = Points.objects.filter(photo_id__in=album_photo_ids)
+        album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
+                              .values_list('rephoto_of_id', flat=True))
+        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids))
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
         for each in photo_points:
@@ -282,7 +283,7 @@ def _get_album_leaderboard(user_id, album_id=None):
         if user_id not in user_score_map:
             user_score_map[user_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
-        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores], fb_name__isnull=False) | Q(user_id=user_id))
+        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=user_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
         board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users[:1]]
@@ -324,8 +325,10 @@ def _get_album_leaderboard50(user_id, album_id=None):
         album_photos_qs = album.photos.filter()
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.filter()
-        album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        photo_points = Points.objects.filter(photo_id__in=album_photo_ids)
+        album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
+        album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
+                                      .values_list('rephoto_of_id', flat=True))
+        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids))
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
         for each in photo_points:
@@ -343,7 +346,7 @@ def _get_album_leaderboard50(user_id, album_id=None):
         if user_id not in user_score_map:
             user_score_map[user_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
-        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores], fb_name__isnull=False) | Q(user_id=user_id))
+        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=user_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
         board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users]
@@ -542,6 +545,7 @@ def frontpage(request):
 
 def frontpage_infinite_scroll(request):
     form = FrontpageInfiniteScrollFrom(request.GET)
+    marker_ids = request.GET.getlist("set[]")
     data = []
     if form.is_valid():
         # TODO: Remove testing date filter
@@ -551,6 +555,8 @@ def frontpage_infinite_scroll(request):
         if album:
             album_photo_ids = album.photos.all().values_list('id', flat=True)
             qs = qs.filter(id__in=album_photo_ids)
+        if marker_ids:
+            qs = qs.filter(id__in=marker_ids)
         serializer = FrontpageInfiniteScrollSerializer(
             qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True
         )
@@ -768,11 +774,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
-        album_photo_ids = set(album.photos.values_list("id", flat=True))
-        total_photo_count = len(album_photo_ids)
-        geotagged_photo_count = album.photos.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
-        geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
-        geotagging_user_count = geotags_for_album_photos.distinct("user").count()
 
     selected_rephoto = None
     if rephoto_id:
@@ -795,17 +796,21 @@ def mapview(request, photo_id=None, rephoto_id=None):
                 pass
 
     if selected_photo and album is None:
-        try:
-            photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
-            album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created")[0]
-        except:
-            pass
+        photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
+        album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created").first()
 
     if selected_photo and area is None:
         try:
             area = Area.objects.get(pk=selected_photo.area_id)
         except ObjectDoesNotExist:
             pass
+
+    if album:
+        album_photo_ids = frozenset(album.photos.values_list("id", flat=True))
+        total_photo_count = len(album_photo_ids)
+        geotagged_photo_count = album.photos.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
+        geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
+        geotagging_user_count = geotags_for_album_photos.distinct("user").count()
 
     site = Site.objects.get_current()
     ret = {

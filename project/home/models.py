@@ -191,7 +191,7 @@ class CatAlbum(Model):
     title = CharField(max_length=255)
     subtitle = CharField(max_length=255)
     image = ImageField(upload_to="cat", max_length=255)
-    photos = ManyToManyField(CatPhoto, related_name="album", null=True, blank=True)
+    photos = ManyToManyField(CatPhoto, related_name="album")
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 

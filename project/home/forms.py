@@ -5,6 +5,14 @@ from django.utils.translation import ugettext_lazy as _
 from project import settings
 
 
+class NoValidationMultipleChoiceField(forms.TypedMultipleChoiceField):
+    def to_python(self, value):
+        return map(self.coerce, value)
+
+    def validate(self, value):
+        pass
+
+
 # TODO: Make forms for everything, there's too much Javascript POST variable checking
 class AreaSelectionForm(forms.Form):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),)

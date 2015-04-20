@@ -9,7 +9,6 @@
         p,
         photoPanel,
         icon,
-        lastRequestedPaneMarkersIds,
         i = 0,
         j = 0,
         maxIndex = 2,
@@ -26,6 +25,7 @@
         currentMapDataRequest,
         currentPaneDataRequest,
         clusteringEndedListener,
+        lastRequestedPaneMarkersIds,
         justifiedGallerySettings = {
             waitThumbnailsLoad: false,
             rowHeight: 120,
@@ -500,6 +500,7 @@
                 //    }
                 //}
                 if (response.photos) {
+                    window.lastMarkerSet = [];
                     for (j = 0; j < response.photos.length; j += 1) {
                         p = response.photos[j];
                         if (p[4]) {
@@ -516,6 +517,7 @@
                             azimuth: p[7],
                             map: null
                         });
+                        window.lastMarkerSet.push(p[0]);
                         (function (id) {
                             window.google.maps.event.addListener(marker, 'click', function () {
                                 window.highlightSelected(id, true);

@@ -578,7 +578,11 @@ var map,
     });
     $(document).on('click', '#ajapaik-header-grid-button', function () {
         if (!window.isFrontpage && window.albumId) {
-            window.location.href = '/photos?album=' + window.albumId;
+            if (window.getQueryParameterByName('limitToAlbum') == 0 && window.lastMarkerSet) {
+                window.location.href = '/photos?set=' + window.lastMarkerSet;
+            } else {
+                window.location.href = '/photos?album=' + window.albumId;
+            }
         }
     });
     $(document).on('click', '#ajapaik-header-map-button', function () {

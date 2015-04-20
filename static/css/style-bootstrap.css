@@ -363,19 +363,19 @@ body {
 }
 
 #ajapaik-header-profile-button {
-    background-image: url(../images/material-design-icons/ic_account_circle_24px.svg);
+    background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
     position: fixed;
     right: 76px;
     z-index: 2;
 }
 
 #ajapaik-header-album-filter-button {
-    background-image: url(../images/material-design-icons/ic_clear_24px.svg);
+    background-image: url(../images/material-design-icons/ic_check_box_24px.svg);
     float: left;
 }
 
 .ajapaik-header-album-filter-button-off {
-    background-image: url(../images/material-design-icons/ic_redo_24px.svg) !important;
+    background-image: url(../images/material-design-icons/ic_check_box_outline_blank_24px.svg) !important;
 }
 
 .ajapaik-show-tutorial-button:hover {

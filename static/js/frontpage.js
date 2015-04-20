@@ -18,18 +18,25 @@
             photoModal = $('#ajapaik-photo-modal'),
             initializeStateFromURLParameters,
             syncStateToURL,
-            refreshAlbumName;
+            refreshAlbumName,
+            queryData,
+            predefinedSet,
+            predefinedSetSplit;
         getInfiniteScrollPhotos = function () {
             if (!historicPhotoAjaxQueryInProgress) {
                 historicPhotoAjaxQueryInProgress = true;
+                queryData = {
+                    start: window.historicPhotoInfiniteStart,
+                    type: 'historic',
+                    album: window.albumId
+                };
+                if (predefinedSetSplit) {
+                    queryData.set = predefinedSetSplit;
+                }
                 $.ajax({
                     cache: false,
                     url: '/frontpage_infinity/',
-                    data: {
-                        start: window.historicPhotoInfiniteStart,
-                        type: 'historic',
-                        album: window.albumId
-                    },
+                    data: queryData,
                     success: function (result) {
                         var i, l;
                         for (i = 0, l = result.length; i < l; i += 1) {
@@ -47,21 +54,25 @@
         };
         syncStateToURL = function () {
             var historyReplacementString = '/';
-            if (window.albumId) {
+            if (predefinedSet) {
+                historyReplacementString += 'photos/?set=' + predefinedSet;
+            } else if (window.albumId) {
                 historyReplacementString += 'photos/?album=' + window.albumId;
             }
             window.History.replaceState(null, window.title, historyReplacementString);
         };
         window.handleAlbumChange = function () {
-            if (window.albumId != window.previousAlbumId) {
+            if (predefinedSet || (window.albumId != window.previousAlbumId)) {
                 historicPhotoGalleryDiv.empty();
                 window.historicPhotoInfiniteStart = 0;
                 historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings);
-                refreshAlbumName(window.albumId);
-                $('#ajapaik-header-album-name').html(window.albumName);
-                $('#ajapaik-album-name-container').css('visibility', 'visible');
-                $('#ajapaik-header-game-button').show();
-                $('#ajapaik-header-map-button').show();
+                if (window.albumId) {
+                    refreshAlbumName(window.albumId);
+                    $('#ajapaik-header-album-name').html(window.albumName);
+                    $('#ajapaik-album-name-container').css('visibility', 'visible');
+                    $('#ajapaik-header-game-button').show();
+                    $('#ajapaik-header-map-button').show();
+                }
                 getInfiniteScrollPhotos();
                 syncStateToURL();
                 window.updateLeaderboard();
@@ -69,7 +80,11 @@
         };
         initializeStateFromURLParameters = function () {
             window.albumId = window.getQueryParameterByName('album');
-            handleAlbumChange();
+            predefinedSet = window.getQueryParameterByName('set');
+            if (predefinedSet) {
+                predefinedSetSplit = predefinedSet.split(',');
+            }
+            window.handleAlbumChange();
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
