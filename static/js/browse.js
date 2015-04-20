@@ -217,12 +217,14 @@
                     window.google.maps.event.trigger(window.map, 'resize');
                 }});
                 $('#ajapaik-geotag-info-panel-container').animate({width: '30%'});
+                $('#ajapaik-guess-panel-container-xs').hide();
             } else {
                 $('#ajapaik-map-canvas').animate({height: '70%'});
                 $('#ajapaik-guess-panel-container-xs').animate({height: '25%'}, {complete: function () {
                     window.google.maps.event.trigger(window.map, 'resize');
                     $('#ajapaik-map-button-container-xs').show();
                 }});
+                guessPanelContainer.hide();
             }
             window.map.setOptions({
                 zoomControlOptions: {

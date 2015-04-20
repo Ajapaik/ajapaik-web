@@ -60,11 +60,11 @@
     <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
         <div id="ajapaik-map-canvas"></div>
-        <div id="ajapaik-guess-panel-container-xs" class="container-fluid hidden-lg hidden-md hidden-sm">
+        <div id="ajapaik-guess-panel-container-xs" class="container-fluid visible-xs">
             {% include "_guess_panel_xs.html" %}
         </div>
     </div>
-    <div id="ajapaik-guess-panel-container" class="container hidden-xs">
+    <div id="ajapaik-guess-panel-container" class="container">
         {% include "_guess_panel.html" %}
     </div>
     <div class="full-box">
