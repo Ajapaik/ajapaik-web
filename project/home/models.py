@@ -51,8 +51,10 @@ def _calc_trustworthiness(user_id):
 
     if not correct_tries:
         return 0
+    trust = (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
+    trust = max(trust, 0.01)
 
-    return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
+    return trust
 
 
 def _distance_in_meters(lon1, lat1, lon2, lat2):
