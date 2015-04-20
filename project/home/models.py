@@ -583,7 +583,7 @@ class Photo(Model):
                         for gg in g:
                             current_geotags.append(gg)
                             trust_sum += gg.trustworthiness
-                    if trust_sum > max_trust:
+                    if trust_sum >= max_trust:
                         max_trust = trust_sum
                         point = {"lat": a[1], "lon": a[2]}
                         selected_geotags = current_geotags
