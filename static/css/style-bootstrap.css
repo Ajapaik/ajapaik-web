@@ -1880,3 +1880,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .navbar-hidden .navbar-brand {
     display: none;
 }
+
+.ajapaik-score-container-static {
+    display: block !important;
+}

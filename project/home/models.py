@@ -408,7 +408,7 @@ class Photo(Model):
             if "user_skip_array" not in request.session:
                  request.session["user_skip_array"] = []
 
-            if trustworthiness < 0.4:
+            if trustworthiness < 0.25:
                 # Novice users should only receive the easiest images to prove themselves
                 ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
                 if ret_qs.count() == 0:

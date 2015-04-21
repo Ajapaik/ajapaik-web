@@ -49,9 +49,19 @@
         },
         setCorrectMarkerIcon,
         //blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
-        blackMarkerIcon20 = '/static/images/material-design-icons/ic_navigation_24px.svg',
+        blackMarkerIcon20 = '/static/images/ic_navigation_24px.png',
         blackMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_transparent.png',
         blackMarkerIcon35 = '/static/images/ajapaik_marker_35px.png',
+        arrowIcon = {
+            path: 'M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z',
+            strokeColor: 'white',
+            strokeOpacity: 1,
+            strokeWeight: 1,
+            fillColor: 'black',
+            fillOpacity: 1,
+            rotation: 0,
+            scale: 1.0
+        },
         blueMarkerIcon20 = '/static/images/ajapaik_marker_20px_blue.png',
         blueMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_blue_transparent.png',
         blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png',
@@ -506,19 +516,23 @@
                     window.lastMarkerSet = [];
                     for (j = 0; j < response.photos.length; j += 1) {
                         p = response.photos[j];
-                        if (p[4]) {
-                            icon = blueMarkerIcon20;
-                        } else {
-                            icon = blackMarkerIcon20;
+                        if (p[7]) {
+                            arrowIcon.rotation = p[7];
                         }
-                        var marker = new google.maps.Marker({
+                        if (p[4]) {
+                            arrowIcon.fillColor = '#007fff';
+                        } else {
+                            arrowIcon.fillColor = 'black';
+                        }
+                        var marker = new window.google.maps.Marker({
                             id: p[0],
-                            icon: icon,
+                            icon: arrowIcon,
                             rephotoCount: p[4],
-                            position: new google.maps.LatLng(p[3], p[2]),
+                            position: new window.google.maps.LatLng(p[3], p[2]),
                             zIndex: 1,
                             azimuth: p[7],
-                            map: null
+                            map: null,
+                            anchor: new window.google.maps.Point(0.0, 0.0)
                         });
                         window.lastMarkerSet.push(p[0]);
                         (function (id) {

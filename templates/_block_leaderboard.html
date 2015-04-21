@@ -1,5 +1,6 @@
 {% load i18n %}
-asdasdasdasdas
+
+
 {% if not is_top_50 %}
     {% if album_leaderboard %}
         {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") %}
@@ -7,7 +8,6 @@ asdasdasdasdas
         {% include "_leaderboard_positions.html" with leaderboard=leaderboard anon_string=_("Your points") %}
     {% endif %}
 {% else %}
-    <div class="col-xs-12">
         {% if album_leaderboard %}
             <div class="col-xs-6">
                 <h3>{% blocktrans with album_name as album_name %}
@@ -28,5 +28,4 @@ asdasdasdasdas
                 {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard anon_string=_("Your points") %}
             </div>
         {% endif %}
-    </div>
 {% endif %}

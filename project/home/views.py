@@ -239,17 +239,25 @@ def _get_leaderboard(profile):
         .filter(fb_name__isnull=False, score_recent_activity__gt=profile.score_recent_activity).count() + 1
     lb_queryset = Profile.objects.filter(
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name')\
+        Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
             .order_by('-score_recent_activity')
     first_place = list((lb_queryset.first(),))
     nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
     ret = first_place + nearby_ranks
     ret = map(list, ret)
+    # FIXME: This is disgusting : )
     # Add ranks to index 0
     ret[0].insert(0, 1)
     ret[1].insert(0, profile_rank - 1)
     ret[2].insert(0, profile_rank)
     ret[3].insert(0, profile_rank + 1)
+    # Add self detection
+    ret[0].insert(1, 0)
+    ret[1].insert(1, 0)
+    ret[2].insert(1, 1)
+    ret[3].insert(1, 0)
+
+    print ret
 
     return ret
 
@@ -337,7 +345,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         if profile_id not in user_score_map:
             user_score_map[profile_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
-        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=user_id))
+        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=profile_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
         board = [(idx + 1, profile.user_id == int(profile_id), user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users]
@@ -348,10 +356,10 @@ def _get_album_leaderboard50(profile_id, album_id=None):
 
 def _get_all_time_leaderboard50(profile_id):
     lb = Profile.objects.filter(
-        Q(fb_name__isnull=False, score=0) |
-        Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name').order_by('-score')[:50]
+        Q(fb_name__isnull=False) | Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name')\
+            .order_by('-score')[:50]
 
-    return [(rank + 1, data[0] == profile_id, data[1], data[2], data[3]) for rank, data in lb]
+    return [(rank + 1, data[0] == profile_id, data[1], data[2], data[3]) for rank, data in enumerate(lb)]
 
 
 @csrf_exempt
@@ -956,7 +964,6 @@ def leaderboard(request, album_id=None):
     _calculate_recent_activity_scores()
     profile = request.get_user().profile
     lb = _get_leaderboard(profile)
-    print lb
     album_leaderboard = None
     if album_id:
         album_leaderboard = _get_album_leaderboard(profile, album_id)
@@ -990,19 +997,19 @@ def all_time_leaderboard(request):
 def top50(request, album_id=None):
     # TODO: Can this be optimized? Recalculating on every leader-board request seems like a waste
     _calculate_recent_activity_scores()
-    profile_id = request.get_user().profile.pk
+    profile = request.get_user().profile
     album_leaderboard = None
     album_name = None
     general_leaderboard = None
     if album_id:
-        album_leaderboard, album_name = _get_album_leaderboard50(request.get_user().profile.pk, album_id)
+        album_leaderboard, album_name = _get_album_leaderboard50(profile.pk, album_id)
     else:
-        general_leaderboard = _get_all_time_leaderboard50(request.get_user().profile.pk)
+        general_leaderboard = _get_all_time_leaderboard50(profile.pk)
     activity_leaderboard_qs = Profile.objects.filter(
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=profile_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name')\
+        Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name')\
                                .order_by('-score_recent_activity')[:50]
-    activity_leaderboard = [(rank + 1, data[0] == profile_id, data[1], data[2], data[3]) for rank, data in activity_leaderboard_qs]
+    activity_leaderboard = [(rank + 1, data[0] == profile.id, data[1], data[2], data[3]) for rank, data in enumerate(activity_leaderboard_qs)]
     if request.is_ajax():
         template = "_block_leaderboard.html"
     else:
