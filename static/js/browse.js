@@ -48,7 +48,8 @@
             maxZoom: 17
         },
         setCorrectMarkerIcon,
-        blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
+        //blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
+        blackMarkerIcon20 = '/static/images/material-design-icons/ic_navigation_24px.svg',
         blackMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_transparent.png',
         blackMarkerIcon35 = '/static/images/ajapaik_marker_35px.png',
         blueMarkerIcon20 = '/static/images/ajapaik_marker_20px_blue.png',

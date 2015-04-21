@@ -52,11 +52,10 @@
                 var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});
             {% endif %}
             {% if random_album_photo %}
-                var albumLatLng;
                 {% if random_album_photo.lat and random_album_photo.lon %}
-                    albumLatLng = new window.google.maps.LatLng({{ random_album_photo.lat | safe }}, {{ random_album_photo.lon | safe }});
+                    window.albumLatLng = new window.google.maps.LatLng({{ random_album_photo.lat | safe }}, {{ random_album_photo.lon | safe }});
                 {% else %}
-                    albumLatLng = new window.google.maps.LatLng({{ random_album_photo.area.lat | safe }}, {{ random_album_photo.area.lon | safe }});
+                    window.albumLatLng = new window.google.maps.LatLng({{ random_album_photo.area.lat | safe }}, {{ random_album_photo.area.lon | safe }});
                 {% endif %}
             {% endif %}
         {% if selected_photo %}

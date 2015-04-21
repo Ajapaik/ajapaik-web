@@ -222,39 +222,39 @@ def _calculate_recent_activity_scores():
     five_thousand_actions_ago = Points.objects.order_by('-created')[5000].created
     recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id')\
         .annotate(total_points=Sum('points'))
-    recent_action_agent_ids = []
+    recent_action_dict = {}
     for each in recent_actions:
-        profile = Profile.objects.filter(user_id=each['user_id']).get()
-        recent_action_agent_ids.append(profile.id)
-        profile.score_recent_activity = each['total_points']
-        profile.save()
-    # Check for people who somehow no longer have actions among the last 5000
-    orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(pk__in=recent_action_agent_ids)
-    for each in orphan_profiles:
-        each.score_recent_activity = 0
-        each.save()
+        recent_action_dict[each["user_id"]] = each
+    recent_actors = Profile.objects.filter(pk__in=recent_action_dict.keys())
+    for each in recent_actors:
+        each.score_recent_activity = recent_action_dict[each.pk]['total_points']
+    Profile.objects.bulk_update(recent_actors, update_fields=['score_recent_activity'])
+    # # Check for people who somehow no longer have actions among the last 5000
+    orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(pk__in=[x.pk for x in recent_actors])
+    orphan_profiles.update(score_recent_activity=0)
 
 
-def _get_leaderboard(user_id):
-    scores_list = list(enumerate(Profile.objects.filter(
+def _get_leaderboard(profile):
+    profile_rank = Profile.objects\
+        .filter(fb_name__isnull=False, score_recent_activity__gt=profile.score_recent_activity).count() + 1
+    lb_queryset = Profile.objects.filter(
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
-                                   'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
-    board = [scores_list[0]]
-    # FIXME: Ugly shit
-    self_user_idx = filter(lambda (inner_idx, inner_data): inner_data[0] == user_id, scores_list)[0][0]
-    if self_user_idx - 1 > 0:
-        board.append(scores_list[self_user_idx - 1])
-    if self_user_idx > 0:
-        board.append(scores_list[self_user_idx])
-    if self_user_idx + 1 < len(scores_list):
-        board.append(scores_list[self_user_idx + 1])
-    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3], data[4], data[5]) for idx, data in board]
-    return board
+        Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name')\
+            .order_by('-score_recent_activity')
+    first_place = list((lb_queryset.first(),))
+    nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
+    ret = first_place + nearby_ranks
+    ret = map(list, ret)
+    # Add ranks to index 0
+    ret[0].insert(0, 1)
+    ret[1].insert(0, profile_rank - 1)
+    ret[2].insert(0, profile_rank)
+    ret[3].insert(0, profile_rank + 1)
+
+    return ret
 
 
-def _get_album_leaderboard(user_id, album_id=None):
+def _get_album_leaderboard(profile, album_id=None):
     board = []
     if album_id:
         album = Album.objects.get(pk=album_id)
@@ -280,56 +280,47 @@ def _get_album_leaderboard(user_id, album_id=None):
                     user_score_map[each.user_id] += each.score
                 else:
                     user_score_map[each.user_id] = each.score
-        if user_id not in user_score_map:
-            user_score_map[user_id] = 0
+        if profile.id not in user_score_map:
+            user_score_map[profile.id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
-        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=user_id))
+        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=profile.id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
-        board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
+        board = [(idx + 1, profile.user_id == profile.id, user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users[:1]]
-        self_user_idx = filter(lambda (inner_idx, inner_data): inner_data.user_id == user_id, top_users)[0][0]
+        # TODO: Ugly shit
+        self_user_idx = filter(lambda (inner_idx, inner_data): inner_data.user_id == profile.id, top_users)[0][0]
         if self_user_idx - 1 > 0:
             one_in_front = top_users[self_user_idx - 1]
-            board.append((one_in_front[0] + 1, one_in_front[1].user_id == int(user_id),
+            board.append((one_in_front[0] + 1, one_in_front[1].user_id == profile.id,
                           user_score_map[one_in_front[1].user_id], one_in_front[1].fb_id, one_in_front[1].fb_name,
                           one_in_front[1].google_plus_name))
         if self_user_idx > 0:
             # Current user isn't first
             current_user = top_users[self_user_idx]
-            board.append((current_user[0] + 1, current_user[1].user_id == int(user_id),
+            board.append((current_user[0] + 1, current_user[1].user_id == profile.id,
                           user_score_map[current_user[1].user_id], current_user[1].fb_id, current_user[1].fb_name,
                           current_user[1].google_plus_name))
         if self_user_idx + 1 < len(top_users):
             one_after = top_users[self_user_idx + 1]
-            board.append((one_after[0] + 1, one_after[1].user_id == int(user_id),
+            board.append((one_after[0] + 1, one_after[1].user_id == profile.id,
                           user_score_map[one_after[1].user_id], one_after[1].fb_id, one_after[1].fb_name,
                           one_after[1].google_plus_name))
     return board
 
 
-def _get_leaderboard50(user_id):
-    scores_list = list(enumerate(Profile.objects.filter(
-        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
-                                   'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
-    board = scores_list[:50]
-    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in board]
-    return board
-
-
-def _get_album_leaderboard50(user_id, album_id=None):
+def _get_album_leaderboard50(profile_id, album_id=None):
     board = []
     if album_id:
         album = Album.objects.get(pk=album_id)
-        album_photos_qs = album.photos.filter()
+        album_photos_qs = album.photos.all()
         for sa in album.subalbums.all():
-            album_photos_qs = album_photos_qs | sa.photos.filter()
+            album_photos_qs = album_photos_qs | sa.photos.all()
         album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
         album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
                                       .values_list('rephoto_of_id', flat=True))
         photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids))
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
+        # TODO: This should not be done in Python memory, but with a query
         user_score_map = {}
         for each in photo_points:
             if each.user_id in user_score_map:
@@ -343,26 +334,24 @@ def _get_album_leaderboard50(user_id, album_id=None):
                     user_score_map[each.user_id] += each.score
                 else:
                     user_score_map[each.user_id] = each.score
-        if user_id not in user_score_map:
-            user_score_map[user_id] = 0
+        if profile_id not in user_score_map:
+            user_score_map[profile_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
         top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=user_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
-        board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
+        board = [(idx + 1, profile.user_id == int(profile_id), user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users]
         return board, album.name
+
     return board, None
 
 
-def _get_all_time_leaderboard50(user_id):
-    scores_list = list(enumerate(Profile.objects.filter(
-        Q(fb_name__isnull=False, score__gt=0) |
-        Q(google_plus_name__isnull=False, score__gt=0) |
-        Q(pk=user_id)).values_list('pk', 'score', 'fb_id', 'fb_name',
-                                   'google_plus_name', 'google_plus_picture').order_by('-score')))
-    board = scores_list[:50]
-    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in board]
-    return board
+def _get_all_time_leaderboard50(profile_id):
+    lb = Profile.objects.filter(
+        Q(fb_name__isnull=False, score=0) |
+        Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name').order_by('-score')[:50]
+
+    return [(rank + 1, data[0] == profile_id, data[1], data[2], data[3]) for rank, data in lb]
 
 
 @csrf_exempt
@@ -829,13 +818,10 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if album is not None:
         ret["title"] = album.name + " - " + _("Browse photos on map")
         ret["album_selection_form"] = AlbumSelectionForm({"album": album.id})
-        try:
-            ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?")[0]
-        except:
-            try:
-                ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
-            except:
-                pass
+        random_album_photo = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?").first()
+        if not random_album_photo:
+            random_album_photo = album.photos.filter(area__isnull=False).order_by("?").first()
+        ret["random_album_photo"] = random_album_photo
         ret["facebook_share_photos"] = album.photos.filter()[:5]
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
@@ -882,11 +868,6 @@ def map_objects_by_bounding_box(request):
         data = {"photos": [], "geotagged_count": 0, "ungeotagged_count": 0}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
-
-
-def get_leaderboard(request):
-    return HttpResponse(json.dumps(
-        _get_leaderboard(request.get_user().profile.pk)), content_type="application/json")
 
 
 @login_required
@@ -971,20 +952,25 @@ def geotag_add(request):
 
 
 def leaderboard(request, album_id=None):
-    # leaderboard with first position, one in front of you, your score and one after you
+    # leader-board with first position, one in front of you, your score and one after you
     _calculate_recent_activity_scores()
-    response = _get_leaderboard(request.get_user().profile.pk)
+    profile = request.get_user().profile
+    lb = _get_leaderboard(profile)
+    print lb
     album_leaderboard = None
     if album_id:
-        album_leaderboard = _get_album_leaderboard(request.get_user().profile.pk, album_id)
-    template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
+        album_leaderboard = _get_album_leaderboard(profile, album_id)
+    if request.is_ajax():
+        template = "_block_leaderboard.html"
+    else:
+        template = "leaderboard.html"
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
-        "leaderboard": response,
-        "album_leaderboard": album_leaderboard,
-        "hostname": "http://%s" % (site.domain,),
+        "is_top_50": False,
         "title": _("Leaderboard"),
-        "is_top_50": False
+        "hostname": "http://%s" % (site.domain,),
+        "leaderboard": lb,
+        "album_leaderboard": album_leaderboard,
     }))
 
 
@@ -1002,22 +988,32 @@ def all_time_leaderboard(request):
 
 
 def top50(request, album_id=None):
-    # leaderboard with top 50 scores
+    # TODO: Can this be optimized? Recalculating on every leader-board request seems like a waste
     _calculate_recent_activity_scores()
+    profile_id = request.get_user().profile.pk
     album_leaderboard = None
     album_name = None
+    general_leaderboard = None
     if album_id:
         album_leaderboard, album_name = _get_album_leaderboard50(request.get_user().profile.pk, album_id)
-    activity_leaderboard = _get_leaderboard50(request.get_user().profile.pk)
-    all_time_leaderboard = _get_all_time_leaderboard50(request.get_user().profile.pk)
-    template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
+    else:
+        general_leaderboard = _get_all_time_leaderboard50(request.get_user().profile.pk)
+    activity_leaderboard_qs = Profile.objects.filter(
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+        Q(pk=profile_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name')\
+                               .order_by('-score_recent_activity')[:50]
+    activity_leaderboard = [(rank + 1, data[0] == profile_id, data[1], data[2], data[3]) for rank, data in activity_leaderboard_qs]
+    if request.is_ajax():
+        template = "_block_leaderboard.html"
+    else:
+        template = "leaderboard.html"
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
         "activity_leaderboard": activity_leaderboard,
         "album_name": album_name,
         "album_leaderboard": album_leaderboard,
+        "all_time_leaderboard": general_leaderboard,
         "hostname": "http://%s" % (site.domain,),
-        "all_time_leaderboard": all_time_leaderboard,
         "title": _("Leaderboard"),
         "is_top_50": True
     }))

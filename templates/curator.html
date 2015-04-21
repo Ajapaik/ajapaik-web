@@ -83,6 +83,7 @@
                                                 <label for="ajapaik-curator-add-area-name">{% trans "Place" %}</label>
                                             </span>
                                             <input class="form-control" type="text" id="ajapaik-curator-add-area-name">
+                                            <input type="hidden" id="ajapaik-curator-add-area-name-hidden">
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +219,7 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
                             <div class="row" id="ajapaik-curator-search-controls">
-                                <div class="col-xs-5">
+                                <div class="col-xs-6">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="ajapaik-curator-full-search"
                                                placeholder="{% trans "Full search" %}">
@@ -317,7 +318,7 @@
                 });
                 window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
                     var place = autocomplete.getPlace();
-                    $('#ajapaik-curator-add-area-name').val(place.name);
+                    $('#ajapaik-curator-add-area-name-hidden').val(place.name);
                     areaLat = place.geometry.location.lat();
                     areaLng = place.geometry.location.lng();
                     setTimeout(function () {
@@ -719,7 +720,7 @@
                         name: $('#ajapaik-curator-add-album-name').val(),
                         description: $('#ajapaik-curator-add-album-description').val(),
                         open: $('#ajapaik-curator-add-album-public-mutable').val(),
-                        areaName: $('#ajapaik-curator-add-area-name').val(),
+                        areaName: $('#ajapaik-curator-add-area-name-hidden').val(),
                         areaLat: areaLat,
                         areaLng: areaLng,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
@@ -739,7 +740,7 @@
                             $('#ajapaik-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
                             $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
                             $('#ajapaik-curator-add-album-name').val(null);
-                            $('#ajapaik-curator-add-area-name').val(null);
+                            $('#ajapaik-curator-add-area-name-hidden').val(null);
                             feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                                 $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
                                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');

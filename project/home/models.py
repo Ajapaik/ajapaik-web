@@ -32,6 +32,7 @@ from django.contrib.gis.geos import Point, Polygon
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
+from bulk_update.manager import BulkUpdateManager
 
 
 # Create profile automatically
@@ -747,7 +748,7 @@ class FacebookManager(Manager):
 
 class Profile(Model):
     facebook = FacebookManager()
-    objects = Manager()
+    objects = BulkUpdateManager()
 
     user = OneToOneField(User, primary_key=True)
 
