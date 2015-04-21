@@ -39,7 +39,7 @@ class Command(BaseCommand):
             new_area = Area(name='Göteborg')
             new_area.save()
             area = new_area
-        new_album = Album(name='Göteborg', atype=Album.COLLECTION, is_public=True, profile_id=38)
+        new_album = Album.objects.get(name='Göteborg')
         new_album.save()
         translation.activate('sv')
         for url in urls:
