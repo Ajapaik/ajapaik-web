@@ -56,6 +56,7 @@
         window.linkToGame = true;
         window.linkToMap = true;
         window.photoPermalink = '{% url "project.home.views.photo" %}';
+        window.title = '{{ title }}';
     </script>
     {% compress js %}
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
