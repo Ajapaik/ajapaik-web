@@ -4,7 +4,7 @@
     <li class="clearfix{% if pos.1 %} you{% endif %}">
         <span class="position">{{ pos.0 }}.</span>
         <span class="photo">{% if pos.3 %}<img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square"/>{% endif %}</span>
-        <span class="name">{% if pos.4 %}{{ pos.4 }}{% else %}{{ anon_string }}{% endif %}</span>
+        <span class="name">{% if pos.4 %}{{ pos.4 }}{% else %}{% if anon %}<i>{% endif %}{{ anon_string }}{% endif %}{% if anon %}</i>{% endif %}</span>
         <span class="score">{{ pos.2 }}</span>
     </li>
 {% endfor %}

@@ -257,8 +257,6 @@ def _get_leaderboard(profile):
     ret[2].insert(1, 1)
     ret[3].insert(1, 0)
 
-    print ret
-
     return ret
 
 
@@ -1104,7 +1102,7 @@ def public_add_area(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    curator_leaderboard = _get_leaderboard(request.get_user().profile.pk)
+    curator_leaderboard = _get_leaderboard(request.get_user().profile)
     last_created_album = Album.objects.filter(is_public=True).order_by("-created")[0]
     # FIXME: Ugly
     curator_random_image_ids = AlbumPhoto.objects.filter(

@@ -3,7 +3,7 @@
 
 {% if not is_top_50 %}
     {% if album_leaderboard %}
-        {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") %}
+        {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") anon=True %}
     {% else %}
         {% include "_leaderboard_positions.html" with leaderboard=leaderboard anon_string=_("Your points") %}
     {% endif %}
@@ -13,7 +13,7 @@
                 <h3>{% blocktrans with album_name as album_name %}
                     Album {{ album_name }} leaderboard
                 {% endblocktrans %}</h3>
-                {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") %}
+                {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") anon=True %}
             </div>
         {% endif %}
         {% if activity_leaderboard %}
