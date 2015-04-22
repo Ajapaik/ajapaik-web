@@ -363,11 +363,19 @@ var map,
         return degrees * Math.PI / 180;
     };
 
-    Math.calculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
-        azimuth = Math.radians(azimuth);
-        var newX = Math.cos(azimuth) * lineLength + startPoint.lat(),
-            newY = Math.sin(azimuth) * lineLength + startPoint.lng();
-        return new window.google.maps.LatLng(newX, newY);
+    Math.calculateMapLineEndPoint = function (bearing, startPoint, distance) {
+        var earthRadius = 6371e3,
+            angularDistance = distance / earthRadius,
+            bearingRadians = Math.radians(bearing),
+            startLatRadians = Math.radians(startPoint.lat()),
+            startLonRadians = Math.radians(startPoint.lng()),
+            endLatRadians = Math.asin(Math.sin(startLatRadians) * Math.cos(angularDistance) +
+                Math.cos(startLatRadians) * Math.sin(angularDistance) * Math.cos(bearingRadians)),
+            endLonRadians = startLonRadians + Math.atan2(Math.sin(bearingRadians) * Math.sin(angularDistance) *
+                Math.cos(startLatRadians), Math.cos(angularDistance) - Math.sin(startLatRadians) *
+                Math.sin(endLatRadians));
+
+        return new window.google.maps.LatLng(Math.degrees(endLatRadians), Math.degrees(endLonRadians));
     };
 
     dottedAzimuthLineSymbol = {
@@ -668,7 +676,7 @@ var map,
         }
         if (marker.position) {
             if (!window.isMobile && firstDragDone) {
-                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
+                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 1000)]);
                 dottedAzimuthLine.setMap(map);
                 dottedAzimuthLine.icons = [
                     {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
@@ -694,7 +702,7 @@ var map,
             azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
             degreeAngle = Math.degrees(radianAngle);
             if (window.isMobile) {
-                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
+                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 1000)]);
                 dottedAzimuthLine.setMap(map);
                 dottedAzimuthLine.icons = [
                     {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
@@ -802,7 +810,7 @@ var map,
         radianAngle = Math.getAzimuthBetweenTwoMarkers(marker, panoramaMarker);
         degreeAngle = Math.degrees(radianAngle);
         if (saveDirection) {
-            dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, panoramaMarker.position, 0.05)]);
+            dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, panoramaMarker.position, 1000)]);
             dottedAzimuthLine.icons = [
                 {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
             ];

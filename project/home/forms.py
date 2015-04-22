@@ -110,6 +110,7 @@ class CatAuthForm(forms.Form):
 class CatPushRegisterForm(forms.ModelForm):
     class Meta:
         model = CatPushDevice
+        fields = ('profile', 'type', 'token', 'filter')
 
 
 class CatAlbumStateForm(forms.Form):

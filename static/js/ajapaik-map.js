@@ -1,14 +1,12 @@
 (function ($) {
     'use strict';
     /*jslint nomen: true*/
-    /*global window*/
     var photoId,
         currentMapBounds,
         ne,
         sw,
         p,
         photoPanel,
-        icon,
         i = 0,
         j = 0,
         maxIndex = 2,
@@ -16,7 +14,7 @@
         lastSelectedPaneElement,
         markerIdsWithinBounds,
         refreshPane,
-        lineLength = 0.01,
+        lineLength = 1000,
         lastSelectedMarkerId,
         currentlySelectedMarkerId,
         targetPaneElement,
@@ -48,10 +46,7 @@
             maxZoom: 17
         },
         setCorrectMarkerIcon,
-        //blackMarkerIcon20 = '/static/images/ajapaik_marker_20px.png',
-        blackMarkerIcon20 = '/static/images/ic_navigation_24px.png',
-        blackMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_transparent.png',
-        blackMarkerIcon35 = '/static/images/ajapaik_marker_35px.png',
+        currentIcon,
         arrowIcon = {
             path: 'M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z',
             strokeColor: 'white',
@@ -60,11 +55,19 @@
             fillColor: 'black',
             fillOpacity: 1,
             rotation: 0,
-            scale: 1.0
+            scale: 1.0,
+            anchor: new window.google.maps.Point(12, 12)
         },
-        blueMarkerIcon20 = '/static/images/ajapaik_marker_20px_blue.png',
-        blueMarkerIcon20Transparent = '/static/images/ajapaik_marker_20px_blue_transparent.png',
-        blueMarkerIcon35 = '/static/images/ajapaik_marker_35px_blue.png',
+        locationIcon = {
+            path: 'M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+            strokeColor: 'white',
+            strokeOpacity: 1,
+            strokeWeight: 1,
+            fillColor: 'black',
+            fillOpacity: 1,
+            scale: 1.0,
+            anchor: new window.google.maps.Point(12, 0)
+        },
         ffWheelListener,
         markers = [],
         nonFFWheelListener,
@@ -477,7 +480,7 @@
                 window.comingBackFromGuessLocation = false;
             }
             if (window.urlParamsInitialized) {
-                currentlySelectedMarkerId = false;
+                currentlySelectedMarkerId = null;
             }
             window.syncMapStateToURL();
             currentMapBounds = window.map.getBounds();
@@ -506,27 +509,25 @@
                 } else {
                     $('.ajapaik-geotag-info-panel-no-photos').hide();
                 }
-                //if (!window.docCookies.getItem('ajapaik_closed_geotag_info_' + window.areaId)) {
-                //    var buttons = $('.ajapaik-header-info-button');
-                //    if (buttons.length > 0) {
-                //        buttons[0].click();
-                //    }
-                //}
                 if (response.photos) {
                     window.lastMarkerSet = [];
                     for (j = 0; j < response.photos.length; j += 1) {
                         p = response.photos[j];
+                        arrowIcon.rotation = 0;
                         if (p[7]) {
                             arrowIcon.rotation = p[7];
+                            currentIcon = arrowIcon;
+                        } else {
+                            currentIcon = locationIcon;
                         }
                         if (p[4]) {
-                            arrowIcon.fillColor = '#007fff';
+                            currentIcon.fillColor = '#007fff';
                         } else {
-                            arrowIcon.fillColor = 'black';
+                            currentIcon.fillColor = 'black';
                         }
                         var marker = new window.google.maps.Marker({
                             id: p[0],
-                            icon: arrowIcon,
+                            icon: currentIcon,
                             rephotoCount: p[4],
                             position: new window.google.maps.LatLng(p[3], p[2]),
                             zIndex: 1,
@@ -601,15 +602,14 @@
                 }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
-                window.FB.XFBML.parse();
+                //window.FB.XFBML.parse();
             });
         }
     };
 
     window.deselectMarker = function () {
-        currentlySelectedMarkerId = undefined;
-        window.currentlySelectedRephotoId = undefined;
-        window.syncMapStateToURL();
+        currentlySelectedMarkerId = null;
+        window.currentlySelectedRephotoId = null;
         $('.ajapaik-mapview-pane-photo-container').find('img').removeClass('translucent-pane-element');
         if (lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
@@ -617,6 +617,7 @@
         if (!window.guessResponseReceived) {
             window.dottedAzimuthLine.setVisible(false);
         }
+        window.syncMapStateToURL();
     };
 
     window.highlightSelected = function (markerId, fromMarker, event) {
@@ -704,19 +705,68 @@
 
     setCorrectMarkerIcon = function (marker) {
         if (marker) {
-            if (marker.rephotoCount) {
-                if (marker.id == currentlySelectedMarkerId) {
-                    marker.setIcon(blueMarkerIcon35);
+            if (marker.id == currentlySelectedMarkerId) {
+                if (marker.azimuth) {
+                    arrowIcon.scale = 1.5;
+                    arrowIcon.strokeWeight = 2;
+                    arrowIcon.fillColor = 'white';
+                    arrowIcon.rotation = marker.azimuth;
+                    if (marker.rephotoCount) {
+                        arrowIcon.strokeColor = '#007fff';
+                    } else {
+                        arrowIcon.strokeColor = 'black';
+                    }
+                    marker.setIcon(arrowIcon);
                 } else {
-                    marker.setIcon(blueMarkerIcon20Transparent);
+                    locationIcon.scale = 1.5;
+                    locationIcon.strokeWeight = 2;
+                    locationIcon.fillColor = 'white';
+                    locationIcon.anchor = new window.google.maps.Point(12, 6);
+                    if (marker.rephotoCount) {
+                        locationIcon.strokeColor = '#007fff';
+                    } else {
+                        locationIcon.strokeColor = 'black';
+                    }
+                    marker.setIcon(locationIcon);
                 }
             } else {
-                if (marker.id == currentlySelectedMarkerId) {
-                    marker.setIcon(blackMarkerIcon35);
+                if (marker.azimuth) {
+                    arrowIcon.scale = 1.0;
+                    arrowIcon.strokeWeight = 1;
+                    arrowIcon.strokeColor = 'white';
+                    arrowIcon.rotation = marker.azimuth;
+                    if (marker.rephotoCount) {
+                        arrowIcon.fillColor = '#007fff';
+                    } else {
+                        arrowIcon.fillColor = 'black';
+                    }
+                    marker.setIcon(arrowIcon);
                 } else {
-                    marker.setIcon(blackMarkerIcon20Transparent);
+                    locationIcon.scale = 1.0;
+                    locationIcon.strokeWeight = 1;
+                    locationIcon.strokeColor = 'white';
+                    locationIcon.anchor = new window.google.maps.Point(12, 0);
+                    if (marker.rephotoCount) {
+                        locationIcon.fillColor = '#007fff';
+                    } else {
+                        locationIcon.fillColor = 'black';
+                    }
+                    marker.setIcon(locationIcon);
                 }
             }
+            //if (marker.rephotoCount) {
+            //    if (marker.id == currentlySelectedMarkerId) {
+            //        marker.setIcon(blueMarkerIcon35);
+            //    } else {
+            //        marker.setIcon(blueMarkerIcon20Transparent);
+            //    }
+            //} else {
+            //    if (marker.id == currentlySelectedMarkerId) {
+            //        marker.setIcon(blackMarkerIcon35);
+            //    } else {
+            //        marker.setIcon(blackMarkerIcon20Transparent);
+            //    }
+            //}
         }
     };
 
