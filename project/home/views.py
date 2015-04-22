@@ -35,7 +35,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    FrontpageInfiniteScrollFrom
+    FrontpageInfiniteScrollFrom, GameNextPhotoForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageInfiniteScrollSerializer
 
@@ -216,8 +216,8 @@ def _get_album_choices():
     # TODO: Remove created filter clause
     return Album.objects.filter(is_public=True, created__lte='2015-03-15')\
         .annotate(photo_count=Count('photos')).order_by("-created")
-    
-    
+
+
 def _calculate_recent_activity_scores():
     five_thousand_actions_ago = Points.objects.order_by('-created')[5000].created
     recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id')\
@@ -494,38 +494,33 @@ def game(request):
 
 
 def fetch_stream(request):
-    area_selection_form = AreaSelectionForm(request.GET)
-    area = None
-    if area_selection_form.is_valid():
-        area = area_selection_form.cleaned_data["area"]
-
-    game_album_selection_form = GameAlbumSelectionForm(request.GET)
-    album = None
-    if game_album_selection_form.is_valid():
-        album = game_album_selection_form.cleaned_data["album"]
-
-    qs = Photo.objects.filter(rephoto_of__isnull=True)
-
-    if album is not None:
-        # TODO: list and flat both needed?
-        photos_ids_in_album = list(album.photos.values_list("id", flat=True))
-        subalbums = album.subalbums.all()
-        for sa in subalbums:
-            photos_ids_in_subalbum = list(sa.photos.values_list("id", flat=True))
-            photos_ids_in_album += photos_ids_in_subalbum
-        qs = qs.filter(pk__in=photos_ids_in_album)
-    else:
-        if area is not None:
-            qs = qs.filter(area_id=area.id)
-
-    # TODO: [0][0] Wtf? Just return a dict
-    try:
-        response = qs.get_next_photo_to_geotag(request)
-        data = {"photo": response[0],
-                "user_seen_all": response[1],
-                "nothing_more_to_show": response[2]}
-    except IndexError:
-        data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}
+    form = GameNextPhotoForm(request.GET)
+    data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}
+    if form.is_valid():
+        qs = Photo.objects.filter(rephoto_of__isnull=True)
+        form_area = form.cleaned_data["area"]
+        form_album = form.cleaned_data["album"]
+        form_photo = form.cleaned_data["photo"]
+        if form_photo:
+            data = {"photo": qs.get_game_json_format_photo(form_photo), "user_seen_all": False,
+                    "nothing_more_to_show": False}
+        else:
+            if form_album:
+                # TODO: Could be done later where we're frying our brains with nextPhoto logic anyway
+                photos_ids_in_album = list(form_album.photos.values_list("id", flat=True))
+                subalbums = form_album.subalbums.all()
+                for sa in subalbums:
+                    photos_ids_in_subalbum = list(sa.photos.values_list("id", flat=True))
+                    photos_ids_in_album += photos_ids_in_subalbum
+                qs = qs.filter(pk__in=photos_ids_in_album)
+            elif form_area:
+                qs = qs.filter(area=form_area)
+            # FIXME: Ugly
+            try:
+                response = qs.get_next_photo_to_geotag(request)
+                data = {"photo": response[0], "user_seen_all": response[1], "nothing_more_to_show": response[2]}
+            except IndexError:
+                pass
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
@@ -683,8 +678,14 @@ def photoslug(request, photo_id, pseudo_slug):
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
 
+    is_frontpage = False
     site = Site.objects.get_current()
-    template = ["", "_photo_modal.html", "photoview.html"][request.is_ajax() and 1 or 2]
+    if request.is_ajax():
+        template = "_photo_modal.html"
+        if request.GET.get("isFrontpage"):
+            is_frontpage = True
+    else:
+        template = "photoview.html"
     if not photo_obj.description:
         title = "Unknown photo"
     else:
@@ -707,6 +708,7 @@ def photoslug(request, photo_id, pseudo_slug):
         "area": photo_obj.area,
         "album": album,
         "albums": albums,
+        "is_frontpage": is_frontpage,
         "album_selection_form": album_selection_form,
         "geotag_count": geotag_count,
         "azimuth_count": azimuth_count,
@@ -1334,7 +1336,7 @@ def curator_photo_upload_handler(request):
                         source = Source.objects.get(description=upload_form.cleaned_data["institution"])
                     except ObjectDoesNotExist:
                         source = Source(
-                            name=upload_form.cleaned_data["institution"], 
+                            name=upload_form.cleaned_data["institution"],
                             description=upload_form.cleaned_data["institution"]
                         )
                         source.save()

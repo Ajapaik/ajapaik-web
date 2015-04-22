@@ -28,6 +28,7 @@
         toggleFlipButtons,
         guessPanelContainer,
         nextPhotoLoading = false;
+    window.photoHistory = [];
     photoLoadModalResizeFunction = function () {
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
         var trigger = 'manual';
@@ -128,7 +129,7 @@
         $('.btn').removeClass('active');
         locationToolsOpen = false;
     };
-    nextPhoto = function () {
+    nextPhoto = function (previous) {
         nextPhotoLoading = true;
         window.userFlippedPhoto = false;
         $('#pac-input').val(null);
@@ -145,7 +146,27 @@
         initializeGuessingState();
         modalPhoto = $('#ajapaik-game-modal-photo');
         modalPhoto.unbind('load');
-        $.getJSON(streamUrl, $.extend({'album': window.albumId, 'b': new Date().getTime()}, window.URI.parseQuery(window.location.search)), function (data) {
+        var request = {
+            b: new Date().getTime()
+        };
+        if (previous && window.photoHistory.length > 0) {
+            request.photo = window.photoHistory.pop();
+        } else if (window.albumId) {
+            request.album = window.albumId;
+        } else if (window.areaId) {
+            request.area = window.albumId;
+        }
+        if (!previous && currentPhoto) {
+            window.photoHistory.push(currentPhoto.id);
+        }
+        var buttons = $('.ajapaik-game-previous-photo-button');
+        if (window.photoHistory.length > 0) {
+            buttons.removeClass('disabled');
+        } else {
+            buttons.addClass('disabled');
+        }
+        // TODO: Why not POST?
+        $.getJSON(streamUrl, $.extend(request, window.URI.parseQuery(window.location.search)), function (data) {
             currentPhoto = data.photo;
             if (data.photo.description) {
                 window.currentPhotoDescription = data.photo.description.replace(/(\r\n|\n|\r)/gm, '');
@@ -522,11 +543,21 @@
         });
         $(document).on('click', '.ajapaik-game-next-photo-button', function () {
             if (!nextPhotoLoading) {
-                var data = {photo_id: currentPhoto.id, origin: 'Game', csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')};
+                var data = {
+                    photo_id: currentPhoto.id,
+                    origin: 'Game',
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                };
                 $.post(window.saveLocationURL, data, function () {
                     nextPhoto();
                 });
                 window._gaq.push(['_trackEvent', 'Game', 'Next photo']);
+            }
+        });
+        $(document).on('click', '.ajapaik-game-previous-photo-button', function () {
+            if (!nextPhotoLoading && !$(this).hasClass('disbled')) {
+                nextPhoto(true);
+                window._gaq.push(['_trackEvent', 'Game', 'Previous photo']);
             }
         });
         $(document).on('click', '#ajapaik-game-close-game-modal', function () {

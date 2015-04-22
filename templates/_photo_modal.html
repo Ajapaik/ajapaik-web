@@ -156,12 +156,23 @@
                             {% trans "Add rephoto" %}
                         </button>
                     </div>
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-sm btn-block btn-success ajapaik-photo-modal-specify-location-button ajapaik-btn-white-space-nowrap ajapaik-zero-border-radius">
-                            {% trans "Specify location" %}
-                        </button>
-                    </div>
                 </div>
+                {% if is_frontpage %}
+                    <div class="btn-group btn-group-justified" role="group">
+                        <a class="btn disabled btn-primary btn-block ajapaik-photo-modal-previous-photo-button
+                            ajapaik-zero-border-radius">
+                            {% trans "Previous picture" %}
+                        </a>
+                        <a class="btn btn-success btn-block ajapaik-photo-modal-specify-location-button
+                            ajapaik-zero-border-radius">
+                            {% trans "Pick the shooting location!" %}
+                        </a>
+                        <a class="btn btn-primary btn-block ajapaik-photo-modal-next-photo-button
+                            ajapaik-zero-border-radius">
+                            {% trans "Next picture" %}
+                        </a>
+                    </div>
+                {% endif %}
                 <div class="ajapaik-margin-top-5">
                     {% if geotag_count > 0 %}
                         {% if geotag_count == 1 %}
@@ -240,6 +251,9 @@
             event.preventDefault();
             event.stopPropagation();
         });
+        if (window.photoHistory.length > 0) {
+            $('.ajapaik-photo-modal-previous-photo-button').removeClass('disabled');
+        }
         if (window.userClosedRephotoTools) {
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-photo-modal-rephoto-column').hide();
@@ -295,6 +309,15 @@
                 fullScreenImage.addClass("ajapaik-photo-flipped");
             }
             window.flipPhoto();
+        });
+        $('.ajapaik-photo-modal-previous-photo-button').click(function () {
+            window.loadPhoto(window.photoHistory.pop(), true);
+        });
+        $('.ajapaik-photo-modal-next-photo-button').click(function () {
+            var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
+            if (nextId) {
+                window.loadPhoto(nextId);
+            }
         });
         $(".ajapaik-photo-modal-specify-location-button").click(function () {
             window.startGuessLocation();

@@ -5,6 +5,7 @@
     $(document).ready(function () {
         window.updateLeaderboard();
         window.albumId = null;
+        window.photoHistory = [];
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             historicPhotoAjaxQueryInProgress = false,
             historicPhotoGallerySettings = {
@@ -21,7 +22,8 @@
             refreshAlbumPhotoCount,
             queryData,
             predefinedSet,
-            predefinedSetSplit;
+            predefinedSetSplit,
+            previousPhoto;
         getInfiniteScrollPhotos = function () {
             if (!historicPhotoAjaxQueryInProgress && window.historicPhotoInfiniteStart <= window.currentAlbumPhotoCount) {
                 historicPhotoAjaxQueryInProgress = true;
@@ -104,15 +106,20 @@
             $('#ajapaik-album-selection-overlay').hide();
         });
         initializeStateFromURLParameters();
-        window.loadPhoto = function (id) {
+        window.loadPhoto = function (id, previous) {
+            if (!previous && previousPhoto) {
+                window.photoHistory.push(previousPhoto);
+                previousPhoto = null;
+            }
             $.ajax({
                 cache: false,
-                url: '/foto/' + id + '/',
+                url: '/foto/' + id + '/?isFrontpage=1',
                 success: function (result) {
                     openPhotoDrawer(result);
                     if (window.FB !== undefined) {
                         window.FB.XFBML.parse();
                     }
+                    previousPhoto = id;
                 }
             });
         };

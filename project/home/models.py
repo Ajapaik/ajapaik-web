@@ -417,13 +417,13 @@ class Photo(Model):
                     ret_qs = all_photos_set.order_by("?")
             else:
                 # Let's try to show the more experienced users photos they have not yet seen at all
-                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids)
+                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('?')
                 if ret_qs.count() == 0:
                     # If the user has seen them all, let's try showing her photos she
                     # has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
                     ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
-                        .exclude(id__in=request.session["user_skip_array"])
+                        .exclude(id__in=request.session["user_skip_array"]).order_by('?')
                     if ret_qs.count() == 0:
                         # This user has skipped them in this session, show her photos that have low confidence
                         # or don't have a correct geotag from her

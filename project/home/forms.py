@@ -32,8 +32,16 @@ class AlbumSelectionForm(forms.Form):
 class GameAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'))
 
+    # FIXME: Pointless __init__ override?
     def __init__(self, *args, **kwargs):
         super(GameAlbumSelectionForm, self).__init__(*args, **kwargs)
+
+
+class GameNextPhotoForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
+    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True),
+                                   label=_('Choose photo'),required=False)
 
 
 class CuratorAlbumSelectionForm(forms.Form):

@@ -10,7 +10,7 @@
     <div class="modal fade" id="ajapaik-game-photo-modal" tabindex="-1" role="dialog"
          aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content ajapaik-zero-border-radius">
                 <div class="modal-header" id="ajapaik-game-modal-header">
                     <button id="ajapaik-game-close-game-modal" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
@@ -23,32 +23,44 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row ajapaik-no-right-margin-row">
+                    <div class="row-fluid text-left">
                         <div id="ajapaik-game-photo-description" style="display: none;"></div>
                         <div id="ajapaik-game-photo-identifier" style="display: none;"></div>
                     </div>
-                    <div class="row" style="text-align: right; margin-right: 0;">
-                        <div class="col-xs-6">
-                            <button class="btn btn-default btn-block pull-left ajapaik-game-show-description-button" data-toggle="popover" style="display: none;">
-                                {% trans "Show description" %}
-                            </button>
-                        </div>
+                    <div class="row-fluid">
+                        <button class="btn btn-default btn-block pull-left ajapaik-game-show-description-button
+                            ajapaik-zero-border-radius" data-toggle="popover" style="display: none;">
+                            {% trans "Show description" %}
+                        </button>
                     </div>
-                    <div class="row" style="text-align: right; margin-right: 0; margin-top: 5px;">
-                        <div class="col-xs-6">
-                            <button class="btn btn-success btn-block ajapaik-game-specify-location-button">
+                    <div class="row-fluid">
+                        <div class="btn-group btn-group-justified" role="group">
+                            <a class="btn disabled btn-primary btn-block ajapaik-game-previous-photo-button
+                                ajapaik-zero-border-radius">
+                                {% trans "Previous picture" %}
+                            </a>
+                            <a class="btn btn-success btn-block ajapaik-game-specify-location-button
+                                ajapaik-zero-border-radius">
                                 {% trans "Pick the shooting location!" %}
-                            </button>
-                        </div>
-                        <div class="col-xs-6">
-                            <button class="btn btn-primary btn-block ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
+                            </a>
+                            <a class="btn btn-primary btn-block ajapaik-game-next-photo-button
+                                ajapaik-zero-border-radius">
+                                {% trans "Next picture" %}
+                            </a>
                         </div>
                     </div>
-                    <div class="row hidden-xs">
+                    <div class="row hidden-xs text-left">
                         <div class="col-xs-12">
-                            <b id="ajapaik-game-no-geotags-yet-message" class="text-left">{% trans "The picture has not yet been pinned on the map. Be the first!" %}</b>
-                            <b id="ajapaik-game-one-geotag-message" class="text-left">{% trans "1 suggestion has been submitted for this picture. Add yours!" %}</b>
-                            <b id="ajapaik-game-number-of-geotags-message" class="text-left"><span id="ajapaik-game-number-of-geotags"></span>&nbsp;{% trans "suggestions have been submitted for this picture. Add yours!" %}</b>
+                            <b id="ajapaik-game-no-geotags-yet-message">
+                                {% trans "The picture has not yet been pinned on the map. Be the first!" %}
+                            </b>
+                            <b id="ajapaik-game-one-geotag-message">
+                                {% trans "1 suggestion has been submitted for this picture. Add yours!" %}
+                            </b>
+                            <b id="ajapaik-game-number-of-geotags-message">
+                                <span id="ajapaik-game-number-of-geotags"></span>
+                                {% trans "suggestions have been submitted for this picture. Add yours!" %}
+                            </b>
                         </div>
                     </div>
                     <p id="ajapaik-game-status-message"></p>
@@ -108,6 +120,6 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-        <script src="{{ STATIC_URL }}js/game.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-game.js"></script>
     {% endcompress %}
 {% endblock %}

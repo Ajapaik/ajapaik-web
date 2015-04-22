@@ -24,7 +24,7 @@
     {% include "_full_leaderboard_modal.html" %}
     {% verbatim %}
         <script id="ajapaik-frontpage-historic-photo" type="text/x-tmpl">
-            <a target="_blank" href="{%=photoPermalink + o.id%}" class="ajapaik-frontpage-image-container">
+            <a target="_blank" href="{%=photoPermalink + o.id%}" class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{%=o.id%}" data-id="{%=o.id%}">
                 <img alt="{%=o.description%}" src="{%=o.thumb%}"
                     class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
                 <div class="ajapaik-thumbnail-info-container">
@@ -61,6 +61,6 @@
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-        <script src="{{ STATIC_URL }}js/frontpage.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-frontpage.js"></script>
     {% endcompress %}
 {% endblock %}

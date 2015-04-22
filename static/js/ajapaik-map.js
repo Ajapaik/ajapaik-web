@@ -943,7 +943,7 @@
         $('#logout-button').click(function () {
             window._gaq.push(['_trackEvent', 'Map', 'Logout']);
         });
-
+        // TODO: We have double of this, confusing
         $('.ajapaik-game-next-photo-button').click(function () {
             window.stopGuessLocation();
             window._gaq.push(['_trackEvent', 'Map', 'Next photo']);
