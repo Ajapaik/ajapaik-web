@@ -64,7 +64,7 @@
             } else if (window.albumId) {
                 historyReplacementString += 'photos/?album=' + window.albumId;
             }
-            window.History.replaceState(null, window.title, historyReplacementString);
+            window.History.replaceState(null, window.title + '-' + window.albumName, historyReplacementString);
         };
         window.handleAlbumChange = function () {
             if (window.albumId != window.previousAlbumId) {
