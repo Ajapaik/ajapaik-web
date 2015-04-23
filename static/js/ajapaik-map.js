@@ -602,7 +602,7 @@
                         galleryPanelSettings.resizable = false;
                     }
                     photoPanel = $.jsPanel(galleryPanelSettings);
-                    photoPanel.append('<div id="ajapaik-photo-pane-content-container"></div>');
+                    photoPanel.content.append('<div id="ajapaik-photo-pane-content-container"></div>');
                     photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                 }
                 if (markerIdToHighlightAfterPageLoad) {
