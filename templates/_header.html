@@ -28,7 +28,7 @@
 {#    </ul>#}
 {#</div>#}
 
-<div class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
+<div class="navbar navbar-default navbar-fixed-top ajapaik-navbar {% if is_curator %}ajapaik-navbar-curator{% endif %}">
     <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     {% if is_game or is_mapview or is_frontpage %}
@@ -88,5 +88,26 @@
             </div>
         {% endif %}
     </div>
+    {% if is_curator %}
+        <div class="container" id="ajapaik-curator-header-tabs">
+            <div role="tabpanel" id="ajapaik-curator-tabpanel">
+                <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
+                    <li role="presentation" class="active">
+                        <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab"
+                           data-toggle="tab">{% trans "Search" %}<span class="badge"
+                                                                       id="ajapaik-curator-result-count">0</span></a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab" role="tab"
+                           data-toggle="tab">{% trans "Selection" %}<span class="badge" id="ajapaik-curator-selection-size">0</span></a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab" role="tab"
+                           data-toggle="tab">{% trans "My albums" %}<span class="badge" id="ajapaik-curator-my-albums-size">0</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
     {% include "_language_selection.html" %}
 </div>

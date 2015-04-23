@@ -9,7 +9,29 @@
     <div class="container-fluid">
         <div id="ajapaik-album-selection-overlay"></div>
         <div class="row">
-            <div id="ajapaik-frontpage-historic-photos"></div>
+            <div id="ajapaik-frontpage-historic-photos">
+                {% for p in photos %}
+                    <a target="_blank" href="{%=photoPermalink + o.id%}" class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{%=o.id%}" data-id="{%=o.id%}">
+                        <img alt="{%=o.description%}" src="{%=o.thumb%}"
+                            class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
+                        <div class="ajapaik-thumbnail-info-container">
+                            {% if (o.lat && o.lon && o.azimuth) { %}
+                                <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth" title="{%=gettext('Image has location and view direction info')%}"></div>
+                            {% } else { %}
+                                {% if (o.lat && o.lon) { %}
+                                    <div class="ajapaik-frontpage-location-known" title="{%=gettext('Image has only location, no view direction')%}"></div>
+                                {% } else { %}
+                                    <div class="ajapaik-frontpage-location-unknown" title="{%=gettext('Image has no location info')%}"></div>
+                                {% } %}
+                            {% } %}
+                            {% if (o.rephotos) { %}
+                                <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}" title="{%=gettext('Image has rephotos')%}"></div>
+                            {% } %}
+                        </div>
+                        <div class="caption ajapaik-caption">{%=o.description%}</div>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
     <div class="full-box">
@@ -22,29 +44,29 @@
     {% include "_info_modal.html" %}
     {% include "_rephoto_upload_modal.html" %}
     {% include "_full_leaderboard_modal.html" %}
-    {% verbatim %}
-        <script id="ajapaik-frontpage-historic-photo" type="text/x-tmpl">
-            <a target="_blank" href="{%=photoPermalink + o.id%}" class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{%=o.id%}" data-id="{%=o.id%}">
-                <img alt="{%=o.description%}" src="{%=o.thumb%}"
-                    class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
-                <div class="ajapaik-thumbnail-info-container">
-                    {% if (o.lat && o.lon && o.azimuth) { %}
-                        <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth" title="{%=gettext('Image has location and view direction info')%}"></div>
-                    {% } else { %}
-                        {% if (o.lat && o.lon) { %}
-                            <div class="ajapaik-frontpage-location-known" title="{%=gettext('Image has only location, no view direction')%}"></div>
-                        {% } else { %}
-                            <div class="ajapaik-frontpage-location-unknown" title="{%=gettext('Image has no location info')%}"></div>
-                        {% } %}
-                    {% } %}
-                    {% if (o.rephotos) { %}
-                        <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}" title="{%=gettext('Image has rephotos')%}"></div>
-                    {% } %}
-                </div>
-                <div class="caption ajapaik-caption">{%=o.description%}</div>
-            </a>
-        </script>
-    {% endverbatim %}
+    <footer class="footer text-center">
+        <div class="container">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
 {% endblock %}
 {% block specific_js %}
     <script>
@@ -59,7 +81,6 @@
         window.title = '{{ title }}';
     </script>
     {% compress js %}
-        <script src="{{ STATIC_URL }}js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-frontpage.js"></script>
     {% endcompress %}
