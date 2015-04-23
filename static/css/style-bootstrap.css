@@ -4,13 +4,16 @@ html {
 }
 
 html, body {
-    height: 100%;
+    /*height: 100%;*/
 }
 
 body {
     padding: 50px 0 0 0;
-    -ms-overflow-style: none;
-    margin-bottom: 60px;
+    /*-ms-overflow-style: none;*/
+}
+
+.ajapaik-body-frontpage {
+    margin-bottom: 70px;
 }
 
 .ajapaik-flex {
@@ -50,7 +53,6 @@ body {
 .ajapaik-navbar {
     height: 50px;
     background: rgba(0, 0, 0, .8) none;
-    z-index: 2001;
     border-width: 0 0 0 0;
 }
 
@@ -1643,6 +1645,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     opacity: 0.5;
 }
 
+#ajapaik-curator-search-results {
+    margin-top: 60px;
+}
+
 #ajapaik-curator-result-count {
     margin-left: 5px;
 }
@@ -1894,6 +1900,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 70px;
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+.ajapaik-pagination {
+    margin-bottom: 10px;
 }

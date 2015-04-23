@@ -11,24 +11,30 @@
         <div class="row">
             <div id="ajapaik-frontpage-historic-photos">
                 {% for p in photos %}
-                    <a target="_blank" href="{%=photoPermalink + o.id%}" class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{%=o.id%}" data-id="{%=o.id%}">
-                        <img alt="{%=o.description%}" src="{%=o.thumb%}"
-                            class="ajapaik-frontpage-image-image img-responsive" data-id="{%=o.id%}"/>
+                    <a target="_blank" href="{% url "project.home.views.photo" %}{{ p.id }}"
+                       class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{{ p.id }}"
+                       data-id="{{ p.id }}">
+                        <img alt="{{ p.description }}" src="{% url "project.home.views.photo_thumb" p.id 300%}"
+                            class="ajapaik-frontpage-image-image img-responsive" data-id="{{ p.id }}"
+                            width="{{ p.thumb_width }}" height="{{ p.thumb_height }}"/>
                         <div class="ajapaik-thumbnail-info-container">
-                            {% if (o.lat && o.lon && o.azimuth) { %}
-                                <div style="transform: rotate({%=o.azimuth%}deg);" class="ajapaik-frontpage-azimuth" title="{%=gettext('Image has location and view direction info')%}"></div>
-                            {% } else { %}
-                                {% if (o.lat && o.lon) { %}
-                                    <div class="ajapaik-frontpage-location-known" title="{%=gettext('Image has only location, no view direction')%}"></div>
-                                {% } else { %}
-                                    <div class="ajapaik-frontpage-location-unknown" title="{%=gettext('Image has no location info')%}"></div>
-                                {% } %}
-                            {% } %}
-                            {% if (o.rephotos) { %}
-                                <div class="ajapaik-frontpage-rephoto-count ajapaik-frontpage-rephoto-count-{%=o.rephotos%}" title="{%=gettext('Image has rephotos')%}"></div>
-                            {% } %}
+                            {% if p.lat and p.lon and p.azimuth %}
+                                <div style="transform: rotate({{ p.azimuth }}deg);" class="ajapaik-frontpage-azimuth"
+                                     title="{% trans "Image has location and view direction info" %}"></div>
+                            {% elif p.lat and p.lon %}
+                                <div class="ajapaik-frontpage-location-known"
+                                     title="{% trans "Image has only location, no view direction" %}"></div>
+                            {% else %}
+                                <div class="ajapaik-frontpage-location-unknown"
+                                     title="{% trans "Image has no location info" %}"></div>
+                            {% endif %}
+                            {% if p.rephotos|length > 0 %}
+                                <div class="ajapaik-frontpage-rephoto-count
+                                    ajapaik-frontpage-rephoto-count-{{ p.rephotos|length }}"
+                                     title="{% trans "Image has rephotos" %}"></div>
+                            {% endif %}
                         </div>
-                        <div class="caption ajapaik-caption">{%=o.description%}</div>
+                        <div class="caption ajapaik-caption">{{ p.description }}</div>
                     </a>
                 {% endfor %}
             </div>
@@ -44,29 +50,6 @@
     {% include "_info_modal.html" %}
     {% include "_rephoto_upload_modal.html" %}
     {% include "_full_leaderboard_modal.html" %}
-    <footer class="footer text-center">
-        <div class="container">
-            <nav>
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </footer>
 {% endblock %}
 {% block specific_js %}
     <script>
@@ -77,7 +60,6 @@
         window.photoPageSize = {{ photo_page_size|safe }};
         window.linkToGame = true;
         window.linkToMap = true;
-        window.photoPermalink = '{% url "project.home.views.photo" %}';
         window.title = '{{ title }}';
     </script>
     {% compress js %}

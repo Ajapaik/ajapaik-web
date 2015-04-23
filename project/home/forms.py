@@ -147,6 +147,6 @@ class SubmitGeotagForm(forms.ModelForm):
         exclude = ('user', 'trustworthiness')
 
 
-class FrontpageInfiniteScrollFrom(forms.Form):
+class FrontpagePagingForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
-    start = forms.IntegerField()
+    page = forms.IntegerField(min_value=1, required=False)

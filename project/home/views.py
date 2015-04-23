@@ -35,7 +35,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    FrontpageInfiniteScrollFrom, GameNextPhotoForm
+    FrontpagePagingForm, GameNextPhotoForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 
@@ -541,34 +541,36 @@ def fetch_stream(request):
 
 def frontpage(request):
     albums = _get_album_choices()
+    form = FrontpagePagingForm(request.GET)
+    photos = Photo.objects.filter(created__lte='2015-03-20', rephoto_of__isnull=True).order_by('-created')
+    page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
+    start = None
+    if form.is_valid():
+        page = form.cleaned_data["page"]
+        if page:
+            start = (page - 1) * page_size
+            end = start + page_size
+        else:
+            start = 0
+            end = page_size
+        album = form.cleaned_data["album"]
+        if album:
+            album_photo_ids = album.photos.all().values_list('id', flat=True)
+            photos = photos.filter(id__in=album_photo_ids)
+        marker_ids = request.GET.getlist("set[]")
+        if marker_ids:
+            photos = photos.filter(id__in=marker_ids)
+        photos = photos[start:end]
+    if not start:
+        photos = photos[:page_size]
+    for p in photos:
+        p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
     return render_to_response("frontpage.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
         "albums": albums,
-        "photo_page_size": settings.FRONTPAGE_INFINITE_SCROLL_SIZE,
+        "photos": photos,
         "is_frontpage": True,
     }))
-
-
-# def frontpage_infinite_scroll(request):
-#     form = FrontpageInfiniteScrollFrom(request.GET)
-#     marker_ids = request.GET.getlist("set[]")
-#     data = []
-#     if form.is_valid():
-#         # TODO: Remove testing date filter
-#         qs = Photo.objects.filter(created__lte='2015-03-20', rephoto_of__isnull=True).order_by('-created')
-#         start = form.cleaned_data["start"]
-#         album = form.cleaned_data["album"]
-#         if album:
-#             album_photo_ids = album.photos.all().values_list('id', flat=True)
-#             qs = qs.filter(id__in=album_photo_ids)
-#         if marker_ids:
-#             qs = qs.filter(id__in=marker_ids)
-#         serializer = FrontpageInfiniteScrollSerializer(
-#             qs[start:start + settings.FRONTPAGE_INFINITE_SCROLL_SIZE], many=True
-#         )
-#         data = serializer.data
-#
-#     return HttpResponse(JSONRenderer().render(data), content_type="application/json")
 
 
 def photo_large(request, photo_id):

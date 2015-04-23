@@ -107,6 +107,63 @@
                     </li>
                 </ul>
             </div>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
+                    <div class="row" id="ajapaik-curator-search-controls">
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="ajapaik-curator-full-search"
+                                       placeholder="{% trans "Full search" %}">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"
+                                                   checked="checked">
+                                        </span>
+                                <label class="form-control"
+                                       for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-primary btn-block"
+                                    id="ajapaik-curator-search-button">
+                                {% trans "Search!" %}
+                            </button>
+                        </div>
+                        <div class="col-xs-2" id="ajapaik-curator-load-more-row">
+                            <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
+                                {% trans "Load more" %}
+                            </button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">
+                                {% trans "Select all" %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
+                    <div class="row" id="ajapaik-curator-selection-controls">
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-primary btn-block"
+                                    id="ajapaik-curator-clear-selection">
+                                {% trans "Clear selection" %}
+                            </button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-success btn-block"
+                                    id="ajapaik-curator-submit-selection">
+                                {% trans "Submit to Ajapaik" %}
+                            </button>
+                        </div>
+                        <div class="col-xs-offset-6 col-xs-2">
+                            <img src="{{ STATIC_URL }}images/large-thumbnails-48.png"
+                                 id="ajapaik-curator-gallery-switch">
+                            <img src="{{ STATIC_URL }}images/list-with-thumbnails-48.png"
+                                 id="ajapaik-curator-list-switch">
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>
+            </div>
         </div>
     {% endif %}
     {% include "_language_selection.html" %}
