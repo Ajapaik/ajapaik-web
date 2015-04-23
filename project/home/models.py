@@ -287,7 +287,8 @@ class Photo(Model):
     objects = PhotoManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    image = ImageField(upload_to="uploads", blank=True, null=True, max_length=255)
+    image = ImageField(upload_to="uploads", blank=True, null=True, max_length=255,
+                       height_field='height', width_field='width')
     image_unscaled = ImageField(upload_to="uploads", blank=True, null=True, max_length=255)
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)

@@ -6,6 +6,7 @@
         window.updateLeaderboard();
         window.albumId = null;
         window.photoHistory = [];
+        window.nextPhotoLoading = false;
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             historicPhotoAjaxQueryInProgress = false,
             historicPhotoGallerySettings = {
@@ -107,6 +108,7 @@
         });
         initializeStateFromURLParameters();
         window.loadPhoto = function (id, previous) {
+            window.nextPhotoLoading = true;
             if (!previous && previousPhoto) {
                 window.photoHistory.push(previousPhoto);
                 previousPhoto = null;
@@ -115,11 +117,15 @@
                 cache: false,
                 url: '/foto/' + id + '/?isFrontpage=1',
                 success: function (result) {
+                    window.nextPhotoLoading = false;
                     openPhotoDrawer(result);
                     if (window.FB !== undefined) {
                         window.FB.XFBML.parse();
                     }
                     previousPhoto = id;
+                },
+                error: function () {
+                    window.nextPhotoLoading = false;
                 }
             });
         };

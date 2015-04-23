@@ -481,6 +481,14 @@
                 }, 0);
             }
         });
+        $.jQee('left', function () {
+            var buttons = $('.ajapaik-game-previous-photo-button');
+            if (!nextPhotoLoading && buttons.length > 0) {
+                if (!$(buttons[0]).hasClass('disabled')) {
+                    buttons[0].click();
+                }
+            }
+        });
         $.jQee('right', function () {
             if (!nextPhotoLoading) {
                 //Many buttons, click only 1

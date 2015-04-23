@@ -311,11 +311,13 @@
             window.flipPhoto();
         });
         $('.ajapaik-photo-modal-previous-photo-button').click(function () {
-            window.loadPhoto(window.photoHistory.pop(), true);
+            if (!window.nextPhotoLoading) {
+                window.loadPhoto(window.photoHistory.pop(), true);
+            }
         });
         $('.ajapaik-photo-modal-next-photo-button').click(function () {
             var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
-            if (nextId) {
+            if (nextId && !window.nextPhotoLoading) {
                 window.loadPhoto(nextId);
             }
         });
@@ -463,6 +465,22 @@
                 if (!window.userClosedRephotoTools) {
                     $('#ajapaik-close-rephoto-overlay-button').hide();
                     $('#ajapaik-invert-rephoto-overlay-button').hide();
+                }
+            }
+        });
+        $.jQee('left', function () {
+            var buttons = $('.ajapaik-photo-modal-previous-photo-button');
+            if (!window.nextPhotoLoading && buttons.length > 0) {
+                if (!$(buttons[0]).hasClass('disabled')) {
+                    buttons[0].click();
+                }
+            }
+        });
+        $.jQee('right', function () {
+            var buttons = $('.ajapaik-photo-modal-next-photo-button');
+            if (!window.nextPhotoLoading && buttons.length > 0) {
+                if (!$(buttons[0]).hasClass('disabled')) {
+                    buttons[0].click();
                 }
             }
         });
