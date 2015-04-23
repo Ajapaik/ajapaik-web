@@ -294,13 +294,11 @@
 {% block specific_js %}
 {% compress js %}
     <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-    <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
 {% endcompress %}
 <script>
     $(function () {
         'use strict';
         $(document).ready(function () {
-            $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 if ($(e.target).attr('href') === '#ajapaik-curator-selection-tab') {
                     buildSelectionDiv();

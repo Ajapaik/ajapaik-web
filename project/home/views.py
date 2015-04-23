@@ -59,6 +59,22 @@ def _convert_to_degrees(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
+def _calculate_thumbnail_size(p, desired_longest_side):
+    assert isinstance(p, Photo)
+    w = p.width
+    h = p.height
+    if w > h:
+        desired_width = desired_longest_side
+        factor = w / desired_longest_side
+        desired_height = h / factor
+    else:
+        desired_height = desired_longest_side
+        factor = h / desired_longest_side
+        desired_width = w / factor
+
+    return desired_width, desired_height
+
+
 def get_album_info_modal_content(request, album_id=1):
     profile = request.get_user().profile
     album = Album.objects.get(pk=album_id)
@@ -741,18 +757,21 @@ def pane_contents(request):
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids).order_by('?'):
         rephoto_count = p.rephotos.count()
         im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
-        # FIXME: Better way to determine thumb size?
-        if p.image._get_width() >= p.image._get_height():
-            thumb_str = "%d"
-        else:
-            thumb_str = "x%d"
-        im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+        width, height = _calculate_thumbnail_size(p, 150)
         url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
-        data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1], url])
+        data.append({
+            "id": p.id,
+            "url": im_url,
+            "rephotos": rephoto_count,
+            "flipped": p.flip,
+            "description": p.description,
+            "azimuth": p.azimuth,
+            "width": width,
+            "height": height,
+            "fb_url": url
+        })
 
-    return render_to_response("pane_contents.html", RequestContext(request, {
-        "data": data,
-    }))
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 @ensure_csrf_cookie

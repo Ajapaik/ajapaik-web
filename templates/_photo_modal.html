@@ -436,7 +436,7 @@
         $(document).on('click', '.ajapaik-photo-modal-comment-button', function () {
             window.location.href = '{% url 'project.home.views.photo' photo.id %}';
         });
-        $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
+        {% comment %}$('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 console.log(window.userClosedRephotoTools);
@@ -449,11 +449,12 @@
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('#ajapaik-show-rephoto-selection-overlay-button').hide();
             }
-        });
+        });{% endcomment %}
         $(document).on('click', '.ajapaik-photo-modal-add-rephoto-button', function () {
             openPhotoUploadModal();
         });
-        $('#ajapaik-photo-modal-rephoto-column').hoverIntent(function () {
+        // TODO: Replace hover intent, no need to hide
+        {% comment %}$('#ajapaik-photo-modal-rephoto-column').hoverIntent(function () {
             if (!isMobile) {
                 if (!window.userClosedRephotoTools) {
                     $('#ajapaik-close-rephoto-overlay-button').show();
@@ -467,7 +468,7 @@
                     $('#ajapaik-invert-rephoto-overlay-button').hide();
                 }
             }
-        });
+        });{% endcomment %}
         $.jQee('left', function () {
             var buttons = $('.ajapaik-photo-modal-previous-photo-button');
             if (!window.nextPhotoLoading && buttons.length > 0) {

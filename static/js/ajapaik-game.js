@@ -657,8 +657,8 @@
             showDescriptions();
             hideDescriptionButtons();
         });
-        $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
-        $('#ajapaik-game-modal-body').hoverIntent(function () {
+        // TODO: Replace with click, no need for hiding
+        /*$('#ajapaik-game-modal-body').hoverIntent(function () {
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
             }
@@ -666,6 +666,6 @@
             if (!window.isMobile && !window.fullscreenEnabled) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
             }
-        });
+        });*/
     });
 }(jQuery));

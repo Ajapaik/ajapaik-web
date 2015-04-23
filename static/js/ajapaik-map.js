@@ -583,17 +583,26 @@
                 currentPaneDataRequest.abort();
             }
             var mapCenter = window.map.getCenter();
-            currentPaneDataRequest = $.post('/pane_contents/', { marker_ids: markerIdsWithinBounds, center_lat: mapCenter.lat(), center_lon: mapCenter.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+            currentPaneDataRequest = $.post('/pane_contents/', {
+                marker_ids: markerIdsWithinBounds, center_lat: mapCenter.lat(), center_lon: mapCenter.lng(),
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
                 if (photoPanel) {
-                    photoPanel.content.html(response);
-                    photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                    //photoPanel.content.html(response);
+                    var targetDiv = $('#ajapaik-photo-pane-content-container');
+                    targetDiv.empty();
+                    for (var i = 0, l = response.length; i < l; i += 1) {
+                        console.log(response[i]);
+                        targetDiv.append(tmpl('ajapaik-pane-element-template', response[i]));
+                    }
+                    targetDiv.justifiedGallery(justifiedGallerySettings);
                 } else {
-                    galleryPanelSettings.content = response;
+                    //galleryPanelSettings.content = response;
                     if (window.isMobile) {
                         // TODO: Fix resizable and draggable for mobile, without breaking the overlay buttons, mind you!
                         galleryPanelSettings.resizable = false;
                     }
                     photoPanel = $.jsPanel(galleryPanelSettings);
+                    photoPanel.append('<div id="ajapaik-photo-pane-content-container"></div>');
                     photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
                 }
                 if (markerIdToHighlightAfterPageLoad) {
@@ -602,6 +611,7 @@
                 }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
+                // TODO: Restore
                 //window.FB.XFBML.parse();
             });
         }
@@ -891,8 +901,6 @@
         }
 
         window.initializeMapStateFromOptionalURLParameters();
-
-        $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
 
         $(document).on('hidden.bs.modal', '#ajapaik-photo-modal', function () {
             window.currentlySelectedRephotoId = false;

@@ -1756,6 +1756,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-photo-pane-content-container {
     margin-bottom: 50px;
+    min-width: 20%;
 }
 
 #ajapaik-game-modal-header {
