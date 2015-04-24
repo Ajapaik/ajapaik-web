@@ -1183,8 +1183,6 @@ ul.errorlist {
 
 .ajapaik-photo-modal-previous-button {
     display: block;
-    vertical-align: top;
-    margin-top: 200px;
     width: 48px;
     height: 48px;
     cursor: pointer;
@@ -1194,8 +1192,6 @@ ul.errorlist {
 
 .ajapaik-photo-modal-next-button {
     display: block;
-    vertical-align: top;
-    margin-top: 200px;
     width: 48px;
     height: 48px;
     cursor: pointer;
