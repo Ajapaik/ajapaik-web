@@ -160,6 +160,7 @@ body {
 
 .ajapaik-frontpage-image-container {
     display: none;
+    opacity: 1 !important;
 }
 
 #ajapaik-header-logo {
