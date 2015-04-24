@@ -138,7 +138,7 @@
                     {% elif page > 1 %}
                         <li><a href="{% url 'project.home.views.frontpage' page|add:-1 %}">Previous</a></li>
                     {% endif %}
-                    <li class="disabled"><a href="#">{{ start }} - {{ end }} / {{ total }}</a></li>
+                    <li class="disabled"><a href="#">{{ start|add:1 }} - {{ end }} / {{ total }}</a></li>
                     {% if album and page < max_page %}
                         <li><a href="{% url 'project.home.views.frontpage' album.id page|add:1 %}">Next</a></li>
                     {% elif page < max_page %}

@@ -21,6 +21,9 @@
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1/';
         };
+        window.startGuessLocation = function () {
+            window.location.href = '/map/' + window.albumId + '/1/';
+        };
         initializeStateFromURLParameters = function () {
             window.albumId = window.getQueryParameterByName('album');
         };

@@ -292,13 +292,6 @@ body {
     z-index: 1002;
 }
 
-.ajapaik-grid-specify-location-button {
-    position: absolute;
-    bottom: 75px;
-    right: 25px;
-    z-index: 1002;
-}
-
 .ajapaik-save-location-button {
 
 }
@@ -1176,11 +1169,6 @@ ul.errorlist {
     margin: 0 auto;
 }
 
-.ajapaik-photo-modal-row {
-    margin-left: 15px;
-    text-align: left;
-}
-
 .ajapaik-photo-modal-previous-button {
     display: block;
     width: 48px;
@@ -1190,13 +1178,63 @@ ul.errorlist {
     background-size: 48px;
 }
 
+#ajapaik-photo-modal-geotag-count {
+    float: left;
+}
+
+.ajapaik-photo-modal-vertical-align {
+    display: flex;
+    align-items: center;
+}
+
 .ajapaik-photo-modal-next-button {
     display: block;
     width: 48px;
     height: 48px;
     cursor: pointer;
+    float: right;
     background: transparent url(../images/material-design-icons/ic_chevron_right_24px.svg) no-repeat center;
     background-size: 48px;
+}
+
+#ajapaik-photo-modal-albums-icon {
+    background: transparent url(../images/material-design-icons/ic_bookmark_24px.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+}
+
+#ajapaik-photo-modal-location-with-azimuth {
+    background: transparent url(../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+}
+
+#ajapaik-photo-modal-specify-location {
+    background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+}
+
+#ajapaik-photo-modal-location-without-azimuth {
+    background: transparent url(../images/material-design-icons/ic_location_on_24px_gray.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+}
+
+#ajapaik-photo-modal-no-location {
+    background: transparent url(../images/material-design-icons/ic_location_off_24px_gray.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
 }
 
 #ajapaik-mapview-feedback-panel {
@@ -1212,23 +1250,6 @@ ul.errorlist {
     position: fixed;
     bottom: 15px;
     right: 15px;
-}
-
-#ajapaik-photo-modal-description {
-    text-align: left;
-    margin-right: 0;
-}
-
-#ajapaik-photo-modal-author {
-    text-align: left;
-}
-
-#ajapaik-photo-modal-rephoto-author {
-    text-align: left;
-}
-
-#ajapaik-photo-modal-source {
-    text-align: left;
 }
 
 .ajapaik-game-guess-photo-container {
