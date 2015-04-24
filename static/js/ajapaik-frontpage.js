@@ -64,7 +64,8 @@
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-frontpage-full-screen-image');
                 $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
                 $('.ajapaik-game-show-description-button').hide();
-                window.FB.XFBML.parse();
+                // TODO: Restore
+                //window.FB.XFBML.parse();
             });
         };
         $(document).on('click', '.ajapaik-frontpage-image-container', function (e) {
