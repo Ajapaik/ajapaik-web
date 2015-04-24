@@ -19,7 +19,7 @@
             initializeStateFromURLParameters,
             previousPhoto;
         window.handleAlbumChange = function () {
-            window.location.href = '/photos/?album=' + window.albumId;
+            window.location.href = '/photos/' + window.albumId + '/1/';
         };
         initializeStateFromURLParameters = function () {
             window.albumId = window.getQueryParameterByName('album');

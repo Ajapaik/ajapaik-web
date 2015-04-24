@@ -1102,6 +1102,10 @@ ul.errorlist {
     position: absolute;
 }
 
+.img-responsive {
+    width: 100%;
+}
+
 .ajapaik-show-rephoto-selection-overlay-button {
     background-color: #fff !important;
     background-repeat: no-repeat !important;
@@ -1175,6 +1179,28 @@ ul.errorlist {
 .ajapaik-photo-modal-row {
     margin-left: 15px;
     text-align: left;
+}
+
+.ajapaik-photo-modal-previous-button {
+    display: block;
+    vertical-align: top;
+    margin-top: 200px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    background: transparent url(../images/material-design-icons/ic_chevron_left_24px.svg) no-repeat center;
+    background-size: 48px;
+}
+
+.ajapaik-photo-modal-next-button {
+    display: block;
+    vertical-align: top;
+    margin-top: 200px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    background: transparent url(../images/material-design-icons/ic_chevron_right_24px.svg) no-repeat center;
+    background-size: 48px;
 }
 
 #ajapaik-mapview-feedback-panel {
@@ -1614,7 +1640,6 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #cookie-notice-container {
     z-index: 10000;
     position: absolute;
-    top: 3%;
     width: 100%;
 }
 

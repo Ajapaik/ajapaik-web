@@ -4,6 +4,7 @@ import os
 import urllib2
 from django.db import connection
 import operator
+from math import ceil
 import requests
 import random
 import datetime
@@ -61,8 +62,9 @@ def _convert_to_degrees(value):
 
 def _calculate_thumbnail_size(p, desired_longest_side):
     assert isinstance(p, Photo)
-    w = p.width
-    h = p.height
+    w = float(p.width)
+    h = float(p.height)
+    desired_longest_side = float(desired_longest_side)
     if w > h:
         desired_width = desired_longest_side
         factor = w / desired_longest_side
@@ -539,33 +541,25 @@ def fetch_stream(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def frontpage(request):
+def frontpage(request, album_id=None, page=1):
     albums = _get_album_choices()
-    form = FrontpagePagingForm(request.GET)
     photos = Photo.objects.filter(created__lte='2015-03-20', rephoto_of__isnull=True).order_by('-created')
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
-    start = None
-    end = None
+    page = int(page)
+    if page <= 0:
+        page = 1
+    start = (page - 1) * page_size
+    end = start + page_size
     album = None
-    if form.is_valid():
-        page = form.cleaned_data["page"]
-        if page:
-            start = (page - 1) * page_size
-            end = start + page_size
-        else:
-            start = 0
-            end = page_size
-        album = form.cleaned_data["album"]
-        if album:
-            album_photo_ids = album.photos.all().values_list('id', flat=True)
-            photos = photos.filter(id__in=album_photo_ids)
+    if album_id:
+        album = Album.objects.get(pk=album_id)
+        album_photo_ids = album.photos.all().values_list('id', flat=True)
+        photos = photos.filter(id__in=album_photo_ids)
         marker_ids = request.GET.getlist("set[]")
         if marker_ids:
             photos = photos.filter(id__in=marker_ids)
-    if not start or not end:
-        start = 0
-        end = page_size
     total = photos.count()
+    max_page = ceil(total / page_size)
     photos = photos[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
@@ -575,6 +569,8 @@ def frontpage(request):
         "albums": albums,
         "start": start,
         "end": end,
+        "page": page,
+        "max_page": max_page,
         "total": total,
         "photos": photos,
         "is_frontpage": True,
