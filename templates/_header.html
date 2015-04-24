@@ -43,12 +43,14 @@
             id="ajapaik-header-album-filter-button"></button>
     {% endif %}
     <div class="hidden-xs">
-        <button type="button" title="{% trans 'Show in grid' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-                id="ajapaik-header-grid-button"></button>
-        <button type="button" title="{% trans 'Geotag pictures' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-                id="ajapaik-header-game-button"></button>
-        <button type="button" title="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-                id="ajapaik-header-map-button"></button>
+        {% if album %}
+            <button type="button" title="{% trans 'Show in grid' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+                    id="ajapaik-header-grid-button"></button>
+            <button type="button" title="{% trans 'Geotag pictures' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+                    id="ajapaik-header-game-button"></button>
+            <button type="button" title="{% trans 'Show on map' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+                    id="ajapaik-header-map-button"></button>
+        {% endif %}
         {% if not is_curator %}
             <button type="button" title="{% trans 'Curate' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
                     id="ajapaik-header-curate-button"></button>

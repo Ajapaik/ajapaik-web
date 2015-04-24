@@ -1,6 +1,7 @@
 {% load i18n cache thumbnail compress %}
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
+<html {% if is_game or is_mapview %}class="ajapaik-html-game-map"{% endif %} xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
 <head>
     <title>
         {% if title %}
@@ -114,7 +115,7 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
     {% endcompress %}
 </head>
-<body class="{% if is_game or is_mapview %}ajapaik-flex{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
+<body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
@@ -131,22 +132,9 @@
     <footer class="footer text-center">
         <div class="container">
             <nav>
-                <ul class="pagination ajapaik-pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                <ul class="pager">
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">Next</a></li>
                 </ul>
             </nav>
         </div>

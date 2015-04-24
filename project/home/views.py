@@ -545,6 +545,8 @@ def frontpage(request):
     photos = Photo.objects.filter(created__lte='2015-03-20', rephoto_of__isnull=True).order_by('-created')
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     start = None
+    end = None
+    album = None
     if form.is_valid():
         page = form.cleaned_data["page"]
         if page:
@@ -560,14 +562,20 @@ def frontpage(request):
         marker_ids = request.GET.getlist("set[]")
         if marker_ids:
             photos = photos.filter(id__in=marker_ids)
-        photos = photos[start:end]
-    if not start:
-        photos = photos[:page_size]
+    if not start or not end:
+        start = 0
+        end = page_size
+    total = photos.count()
+    photos = photos[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
     return render_to_response("frontpage.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
+        "album": album,
         "albums": albums,
+        "start": start,
+        "end": end,
+        "total": total,
         "photos": photos,
         "is_frontpage": True,
     }))

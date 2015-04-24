@@ -4,7 +4,6 @@
     /*jslint browser: true*/
     $(document).ready(function () {
         window.updateLeaderboard();
-        window.albumId = null;
         window.photoHistory = [];
         window.nextPhotoLoading = false;
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),

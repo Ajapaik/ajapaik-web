@@ -12,8 +12,16 @@ body {
     /*-ms-overflow-style: none;*/
 }
 
+.ajapaik-html-game-map {
+    height: 100%;
+}
+
 .ajapaik-body-frontpage {
     margin-bottom: 70px;
+}
+
+.ajapaik-body-game-map {
+    height: 100%;
 }
 
 .ajapaik-flex {
@@ -54,6 +62,7 @@ body {
     height: 50px;
     background: rgba(0, 0, 0, .8) none;
     border-width: 0 0 0 0;
+    z-index: 2001;
 }
 
 .ajapaik-navbar-curator {
@@ -62,6 +71,8 @@ body {
 
 .ajapaik-navmenu {
     z-index: 2001;
+    margin-top: 50px;
+    padding-top: 0;
 }
 
 .ajapaik-btn-white-space-nowrap {
@@ -114,7 +125,6 @@ body {
 }
 
 #ajapaik-album-name-container {
-    visibility: hidden;
     font-size: 20px;
     margin-top: 3px;
     margin-left: 0;
@@ -147,6 +157,10 @@ body {
     /*display: none !important; *//* IE8 fix */
   /*}*/
 /*}*/
+
+.ajapaik-frontpage-image-container {
+    display: none;
+}
 
 #ajapaik-header-logo {
     background: url(../images/ajapaik_266px.png) no-repeat;
@@ -358,20 +372,17 @@ body {
 }
 
 #ajapaik-header-map-button {
-    display: none;
     background-image: url(../images/material-design-icons/ic_map_24px.svg);
     float: left;
 }
 
 #ajapaik-header-game-button {
     background-image: url(../images/material-design-icons/ic_place_24px.svg);
-    display: none;
     float: left;
 }
 
 #ajapaik-header-grid-button {
     background-image: url(../images/material-design-icons/ic_photoview_24px.svg);
-    display: none;
     float: left;
 }
 

@@ -55,9 +55,10 @@
     <script>
         window.historicPhotoInfiniteStart = 0;
         window.isFrontpage = '{{ is_frontpage|safe }}';
-        window.albumId = null;
+        {% if album %}
+            window.albumId = {{ album.id }};
+        {% endif %}
         window.albumName = null;
-        window.photoPageSize = {{ photo_page_size|safe }};
         window.linkToGame = true;
         window.linkToMap = true;
         window.title = '{{ title }}';
