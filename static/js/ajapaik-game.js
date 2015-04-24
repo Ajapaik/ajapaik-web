@@ -166,7 +166,7 @@
             buttons.addClass('disabled');
         }
         // TODO: Why not POST?
-        $.getJSON(streamUrl, $.extend(request, window.URI.parseQuery(window.location.search)), function (data) {
+        $.getJSON(streamUrl, request, function (data) {
             currentPhoto = data.photo;
             if (data.photo.description) {
                 window.currentPhotoDescription = data.photo.description.replace(/(\r\n|\n|\r)/gm, '');
@@ -206,24 +206,24 @@
             $('#ajapaik-guess-panel-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
             $('#ajapaik-guess-panel-full-screen-link-xs').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
             $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
-            var numberOfGeotagsMessage = $('#ajapaik-game-number-of-geotags-message'),
-                noGeotagsYetMessage = $('#ajapaik-game-no-geotags-yet-message'),
-                oneGeotagMessage = $('#ajapaik-game-one-geotag-message');
-            if (currentPhoto.total_geotags > 1) {
-                numberOfGeotagsMessage.show();
-                oneGeotagMessage.hide();
-                noGeotagsYetMessage.hide();
-            } else if (currentPhoto.total_geotags === 1) {
-                numberOfGeotagsMessage.hide();
-                oneGeotagMessage.show();
-                noGeotagsYetMessage.hide();
-            } else {
-                numberOfGeotagsMessage.hide();
-                oneGeotagMessage.hide();
-                noGeotagsYetMessage.show();
-            }
             $('#ajapaik-game-map-geotag-count').html(currentPhoto.total_geotags);
             $('#ajapaik-game-map-geotag-with-azimuth-count').html(currentPhoto.geotags_with_azimuth);
+            var azimuthIndicator = $('#ajapaik-photo-modal-location-with-azimuth'),
+                locationIndicator = $('#ajapaik-photo-modal-location-without-azimuth'),
+                noLocationIndicator = $('#ajapaik-photo-modal-no-location');
+            if (currentPhoto.has_azimuth) {
+                azimuthIndicator.show();
+                locationIndicator.hide();
+                noLocationIndicator.hide();
+            } else if (currentPhoto.has_location) {
+                azimuthIndicator.hide();
+                locationIndicator.show();
+                noLocationIndicator.hide();
+            } else {
+                azimuthIndicator.hide();
+                locationIndicator.hide();
+                noLocationIndicator.show();
+            }
             reinstateBothersomeListeners();
             nextPhotoLoading = false;
         });

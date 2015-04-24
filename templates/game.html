@@ -15,11 +15,21 @@
                     <button id="ajapaik-game-close-game-modal" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body" id="ajapaik-game-modal-body">
-                    <div id="ajapaik-game-modal-photo-container">
-                        <a class="fullscreen col-xs-12" id="ajapaik-game-full-screen-link" rel="" href="">
-                            <img src="" class="img-responsive col-xs-12" id="ajapaik-game-modal-photo"/>
-                        </a>
-                        <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
+                    <div class="row-fluid ajapaik-photo-modal-vertical-align">
+                        <div class="col-xs-1">
+                            <div class="ajapaik-photo-modal-previous-button ajapaik-game-previous-photo-button"></div>
+                        </div>
+                        <div class="col-xs-10">
+                            <div id="ajapaik-game-modal-photo-container">
+                                <a class="fullscreen" id="ajapaik-game-full-screen-link" rel="" href="">
+                                    <img src="" class="img-responsive" id="ajapaik-game-modal-photo"/>
+                                </a>
+                                <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
+                            </div>
+                        </div>
+                        <div class="col-xs-1">
+                            <div class="ajapaik-photo-modal-next-button ajapaik-game-next-photo-button"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -28,26 +38,12 @@
                         <div id="ajapaik-game-photo-identifier" style="display: none;"></div>
                     </div>
                     <div class="row-fluid">
-                        <button class="btn btn-default btn-block pull-left ajapaik-game-show-description-button
-                            ajapaik-zero-border-radius" data-toggle="popover" style="display: none;">
-                            {% trans "Show description" %}
-                        </button>
-                    </div>
-                    <div class="row-fluid">
-                        <div class="btn-group btn-group-justified" role="group">
-                            <a class="btn disabled btn-primary btn-block ajapaik-game-previous-photo-button
-                                ajapaik-zero-border-radius">
-                                {% trans "Previous picture" %}
-                            </a>
-                            <a class="btn btn-success btn-block ajapaik-game-specify-location-button
-                                ajapaik-zero-border-radius">
-                                {% trans "Pick the shooting location!" %}
-                            </a>
-                            <a class="btn btn-primary btn-block ajapaik-game-next-photo-button
-                                ajapaik-zero-border-radius">
-                                {% trans "Next picture" %}
-                            </a>
-                        </div>
+                        <span id="ajapaik-game-show-description" style="display: none;" class="ajapaik-game-show-description-button" title="{% trans "Show description" %}"></span>
+                        <span id="ajapaik-photo-modal-location-with-azimuth" style="display: none;" title="{% trans "Image has location and view direction info" %}"></span>
+                        <span id="ajapaik-photo-modal-location-without-azimuth" style="display: none;" title="{% trans "Image has only location, no view direction" %}"></span>
+                        <span id="ajapaik-photo-modal-no-location" style="display: none;" title="{% trans "Image has no location info" %}"></span>
+                        <span id="ajapaik-photo-modal-geotag-count"><span id="ajapaik-game-number-of-geotags"></span></span>
+                        <span id="ajapaik-photo-modal-specify-location" class="ajapaik-game-specify-location-button" title="{% trans "Pick the shooting location!" %}"></span>
                     </div>
                     <div class="row hidden-xs text-left">
                         <div class="col-xs-12">

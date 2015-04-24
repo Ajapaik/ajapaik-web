@@ -98,11 +98,11 @@
                         <span id="ajapaik-photo-modal-location-with-azimuth" title="{% trans "Image has location and view direction info" %}"></span>
                         <span id="ajapaik-photo-modal-geotag-count" title="
                             {% if geotag_count == 1 %}
-                                {{ geotag_count }} {% trans "user has submitted a location for this picture" %}"
+                                {{ geotag_count }} {% trans "user has submitted a location for this picture" %}
                             {% else %}
-                                {{ geotag_count }} {% trans "users have submitted a location for this picture" %}"
+                                {{ geotag_count }} {% trans "users have submitted a location for this picture" %}
                             {% endif %}
-                            >{{ geotag_count }}
+                            ">{{ geotag_count }}
                         </span>
                     {% elif photo.lat and photo.lon %}
                         <span id="ajapaik-photo-modal-location-without-azimuth" title="{% trans "Image has only location, no view direction" %}"></span>
@@ -119,6 +119,25 @@
                     {% endif %}
                     <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}"></span>
                     <span id="ajapaik-photo-modal-add-rephoto" title="{% trans "Add rephoto" %}"></span>
+                    <div class="dropdown">
+                        <span id="ajapaik-photo-modal-share" title="{% trans "Share" %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                            <li role="presentation" class="disabled-link">
+                                <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                    <input type="text" class="form-control"
+                                           value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1">
+                                    <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}"
+                                         data-layout="standard" data-action="like" data-show-faces="true"
+                                         data-share="true"></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span id="ajapaik-photo-modal-discuss" title="{% trans "Discuss" %}"><span data-href="{{ fb_url }}" class="badge fb-comments-count"></span></span>
                 </div>
                 </div>
                 {% if photo.rephotos.all|length > 0 %}
@@ -161,39 +180,6 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="row-fluid" style="margin-top: 10px;">
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown">
-                            <button id="ajapaik-sharing-dropdown-button"
-                                    class="btn btn-sm btn-block btn-primary ajapaik-photo-modal-share-button ajapaik-btn-white-space-nowrap ajapaik-zero-border-radius"
-                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {% trans "Share" %}
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
-                                <li role="presentation" class="disabled-link">
-                                    <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                        <input type="text" class="form-control"
-                                               value="{{ hostname }}{{ photo.get_absolute_url }}">
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1">
-                                        <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}"
-                                             data-layout="standard" data-action="like" data-show-faces="true"
-                                             data-share="true"></div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-sm btn-block btn-primary ajapaik-photo-modal-comment-button ajapaik-btn-white-space-nowrap ajapaik-zero-border-radius">
-                            {% trans "Discuss" %} <span data-href="{{ fb_url }}" class="badge fb-comments-count"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -208,8 +194,7 @@
     </div>
 </div>{% endcomment %}
 <script>
-    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
-        hostname = '{{ hostname }}',
+    var hostname = '{{ hostname }}',
         originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
     window.isFrontpage = '{{ is_frontpage|safe }}';
     window.photoModalCurrentImageUrl = '{% url 'project.home.views.photo_url' photo.id %}';
@@ -265,18 +250,6 @@
         {% comment %}if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
             $('#ajapaik-photo-modal-date-row').show();
         }{% endcomment %}
-        var openPhotoUploadModal = function () {
-            $.ajax({
-                cache: false,
-                url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
-                success: function (result) {
-                    rephotoUploadModal.data('bs.modal', null);
-                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
-                }
-            });
-        };
         //TODO: Restore?
         {#History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');#}
         //$('.filter-box').hide();
@@ -434,7 +407,7 @@
             }
             window.userClosedRephotoTools = true;
         });
-        $(document).on('click', '.ajapaik-photo-modal-comment-button', function () {
+        $(document).on('click', '#ajapaik-photo-modal-discuss', function () {
             window.location.href = '{% url 'project.home.views.photo' photo.id %}';
         });
         originalPhotoColumn.mouseenter(function () {
@@ -450,9 +423,6 @@
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('#ajapaik-show-rephoto-selection-overlay-button').hide();
             }
-        });
-        $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
-            openPhotoUploadModal();
         });
         rephotoColumn.mouseenter(function () {
             if (!isMobile) {

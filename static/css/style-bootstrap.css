@@ -9,6 +9,7 @@ html, body {
 
 body {
     padding: 50px 0 0 0;
+    background-color: #eee;
     /*-ms-overflow-style: none;*/
 }
 
@@ -1095,10 +1096,6 @@ ul.errorlist {
     position: absolute;
 }
 
-.img-responsive {
-    width: 100%;
-}
-
 .ajapaik-show-rephoto-selection-overlay-button {
     background-color: #fff !important;
     background-repeat: no-repeat !important;
@@ -1205,6 +1202,15 @@ ul.errorlist {
     float: left;
 }
 
+#ajapaik-game-show-description {
+    background: transparent url(../images/material-design-icons/ic_subject_24px.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+}
+
 #ajapaik-photo-modal-location-with-azimuth {
     background: transparent url(../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
     height: 24px;
@@ -1215,6 +1221,24 @@ ul.errorlist {
 
 #ajapaik-photo-modal-specify-location {
     background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+}
+
+#ajapaik-photo-modal-share {
+    background: transparent url(../images/material-design-icons/ic_share_24px.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+}
+
+#ajapaik-photo-modal-discuss {
+    background: transparent url(../images/material-design-icons/ic_messenger_24px_gray.svg) no-repeat center;
     height: 24px;
     width: 24px;
     display: inline-block;
@@ -1721,8 +1745,17 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin-left: 5px;
 }
 
+#ajapaik-curator-selection {
+    margin-top: 100px;
+}
+
 #ajapaik-curator-my-albums-size {
     margin-left: 5px;
+}
+
+#ajapaik-curator-my-albums {
+    display: none;
+    margin-top: 20px;
 }
 
 #ajapaik-curator-tabpanel {

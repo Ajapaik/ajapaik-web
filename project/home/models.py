@@ -373,7 +373,7 @@ class Photo(Model):
         def get_game_json_format_photo(photo):
             # TODO: proper JSON serialization
             assert isinstance(photo, Photo)
-            return {
+            ret = {
                 "id": photo.id,
                 "description": photo.description,
                 "date_text": photo.date_text,
@@ -387,6 +387,11 @@ class Photo(Model):
                 "total_geotags": photo.geotags.count(),
                 "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
             }
+            if photo.lat and photo.lon:
+                ret["has_coordinates"] = True
+            if photo.azimuth:
+                ret["has_azimuth"] = True
+            return ret
 
         def get_next_photo_to_geotag(self, request):
             profile = request.get_user().profile

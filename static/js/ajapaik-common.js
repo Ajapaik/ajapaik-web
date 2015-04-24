@@ -589,7 +589,7 @@ var map,
             if (window.getQueryParameterByName('limitToAlbum') == 0 && window.lastMarkerSet) {
                 window.location.href = '/photos?set=' + window.lastMarkerSet;
             } else {
-                window.location.href = '/photos?album=' + window.albumId;
+                window.location.href = '/photos/' + window.albumId + '/1';
             }
         }
     });
@@ -934,6 +934,24 @@ var map,
         window.currentAlbumPhotoCount = e.target.dataset.photos;
         $('.ajapaik-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
+    });
+    window.openPhotoUploadModal = function () {
+        if (window.photoModalCurrentlyOpenPhotoId) {
+            $.ajax({
+                cache: false,
+                url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
+                success: function (result) {
+                    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal');
+                    rephotoUploadModal.data('bs.modal', null);
+                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+        }
+    };
+    $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
+        window.openPhotoUploadModal();
     });
     $(document).on('click', '#full_leaderboard', function (e) {
         e.preventDefault();

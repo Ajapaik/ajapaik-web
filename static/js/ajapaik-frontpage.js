@@ -16,7 +16,6 @@
             openPhotoDrawer,
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
             photoModal = $('#ajapaik-photo-modal'),
-            initializeStateFromURLParameters,
             previousPhoto;
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1/';
@@ -24,10 +23,6 @@
         window.startGuessLocation = function (photoId) {
             window.open('/map/photo/' + photoId + '/?photoModalOpen=1&straightToSpecify=1&fromModal=1', '_blank');
         };
-        initializeStateFromURLParameters = function () {
-            window.albumId = window.getQueryParameterByName('album');
-        };
-        initializeStateFromURLParameters();
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
         }).on('hidden.bs.offcanvas', function () {
