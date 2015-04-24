@@ -126,6 +126,14 @@
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-mapview-full-screen-image');
             $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
             $('.ajapaik-game-show-description-button').hide();
+            if (window.clickSpecifyAfterPageLoad) {
+                setTimeout(function () {
+                    if (!window.guessLocationStarted) {
+                        $('#ajapaik-photo-modal-specify-location').click();
+                        window.clickSpecifyAfterPageLoad = false;
+                    }
+                }, 3000);
+            }
             window.FB.XFBML.parse();
         });
     };
@@ -591,7 +599,6 @@
                     var targetDiv = $('#ajapaik-photo-pane-content-container');
                     targetDiv.empty();
                     for (var i = 0, l = response.length; i < l; i += 1) {
-                        console.log(response[i]);
                         targetDiv.append(tmpl('ajapaik-pane-element-template', response[i]));
                     }
                     targetDiv.justifiedGallery(justifiedGallerySettings);
@@ -807,7 +814,7 @@
                 window.getMap(window.areaLatLng, 13, false, urlMapType);
             }
         } else {
-            if (window.preselectPhotoId) {
+            if (window.preselectPhotoId && !window.getQueryParameterByName('straightToSpecify')) {
                 // There's a selected photo specified in the URL, select when ready
                 currentlySelectedMarkerId = window.preselectPhotoId;
                 markerIdToHighlightAfterPageLoad = window.preselectPhotoId;
@@ -830,7 +837,12 @@
                     window.getMap(null, 13, false, urlMapType);
                 }
             }
-            if (window.preselectRephotoId) {
+            if (window.preselectPhotoId && window.getQueryParameterByName('straightToSpecify')) {
+                window.userClosedRephotoTools = true;
+                window.loadPhoto(window.preselectPhotoId);
+                window.clickSpecifyAfterPageLoad = true;
+                photoDrawerOpen = true;
+            } else if (window.preselectRephotoId) {
                 window.loadPhoto(window.preselectPhotoId);
                 window.currentlySelectedRephotoId = window.preselectRephotoId;
                 photoDrawerOpen = true;

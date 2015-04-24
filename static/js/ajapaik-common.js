@@ -480,7 +480,6 @@ var map,
 
     updateLeaderboard = function () {
         var target = $('.score_container');
-        console.log(window.albumId);
         if (window.albumId) {
             target.find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId);
         } else {

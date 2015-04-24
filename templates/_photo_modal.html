@@ -98,7 +98,7 @@
                         <span id="ajapaik-photo-modal-location-with-azimuth" title="{% trans "Image has location and view direction info" %}"></span>
                         <span id="ajapaik-photo-modal-geotag-count" title="
                             {% if geotag_count == 1 %}
-                                {{ geotag_count }} {% trans "user has submitted a location for this picture" %}
+                                {{ geotag_count }} {% trans "user has submitted a location for this picture" %}"
                             {% else %}
                                 {{ geotag_count }} {% trans "users have submitted a location for this picture" %}"
                             {% endif %}
@@ -117,7 +117,8 @@
                     {% else %}
                         <span id="ajapaik-photo-modal-no-location" title="{% trans "Image has no location info" %}"></span>
                     {% endif %}
-                    <span id="ajapaik-photo-modal-specify-location" title="{% trans "Pick the shooting location!" %}"></span>
+                    <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}"></span>
+                    <span id="ajapaik-photo-modal-add-rephoto" title="{% trans "Add rephoto" %}"></span>
                 </div>
                 </div>
                 {% if photo.rephotos.all|length > 0 %}
@@ -191,11 +192,6 @@
                             {% trans "Discuss" %} <span data-href="{{ fb_url }}" class="badge fb-comments-count"></span>
                         </button>
                     </div>
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-sm btn-block btn-success ajapaik-photo-modal-add-rephoto-button ajapaik-btn-white-space-nowrap ajapaik-zero-border-radius">
-                            {% trans "Add rephoto" %}
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -215,6 +211,7 @@
     var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
         hostname = '{{ hostname }}',
         originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
+    window.isFrontpage = '{{ is_frontpage|safe }}';
     window.photoModalCurrentImageUrl = '{% url 'project.home.views.photo_url' photo.id %}';
     {% if photo.flip %}
         window.photoModalCurrentPhotoFlipStatus = true;
@@ -255,7 +252,7 @@
             event.preventDefault();
             event.stopPropagation();
         });
-        if (window.photoHistory.length > 0) {
+        if (window.photoHistory && window.photoHistory.length > 0) {
             $('.ajapaik-photo-modal-previous-button').removeClass('disabled');
         }
         if (window.userClosedRephotoTools) {
@@ -325,8 +322,8 @@
                 window.loadPhoto(nextId);
             }
         });
-        $("#ajapaik-photo-modal-specify-location").click(function () {
-            window.startGuessLocation();
+        $("#ajapaik-photo-modal-specify-location").click(function (e) {
+            window.startGuessLocation(e.target.dataset.id);
         });
         $('#ajapaik-photo-modal-close-button').click(function (e) {
             e.preventDefault();
@@ -454,7 +451,7 @@
                 $('#ajapaik-show-rephoto-selection-overlay-button').hide();
             }
         });
-        $(document).on('click', '.ajapaik-photo-modal-add-rephoto-button', function () {
+        $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
             openPhotoUploadModal();
         });
         rephotoColumn.mouseenter(function () {

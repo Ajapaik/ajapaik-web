@@ -21,8 +21,8 @@
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1/';
         };
-        window.startGuessLocation = function () {
-            window.location.href = '/map/' + window.albumId + '/1/';
+        window.startGuessLocation = function (photoId) {
+            window.open('/map/photo/' + photoId + '/?photoModalOpen=1&straightToSpecify=1&fromModal=1', '_blank');
         };
         initializeStateFromURLParameters = function () {
             window.albumId = window.getQueryParameterByName('album');
@@ -78,5 +78,8 @@
             window.loadPhoto(e.target.dataset.id);
         });
         $('.ajapaik-navbar').autoHidingNavbar();
+        window.uploadCompleted = function (response) {
+            $('#ajapaik-rephoto-upload-modal').modal('toggle');
+        };
     });
 }(jQuery));

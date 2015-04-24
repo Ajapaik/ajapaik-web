@@ -1219,6 +1219,16 @@ ul.errorlist {
     width: 24px;
     display: inline-block;
     float: left;
+    cursor: pointer;
+}
+
+#ajapaik-photo-modal-add-rephoto {
+    background: transparent url(../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
 }
 
 #ajapaik-photo-modal-location-without-azimuth {
