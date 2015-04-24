@@ -14,7 +14,7 @@
                     <a target="_blank" href="{% url "project.home.views.photo" %}{{ p.id }}"
                        class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{{ p.id }}"
                        data-id="{{ p.id }}">
-                        <img alt="{{ p.description }}" src="{% url "project.home.views.photo_thumb" p.id 300%}"
+                        <img alt="{{ p.description }}" src="" data-src="{% url "project.home.views.photo_thumb" p.id 300%}"
                             class="ajapaik-frontpage-image-image lazyload img-responsive" data-id="{{ p.id }}"
                             width="{{ p.thumb_width }}" height="{{ p.thumb_height }}"/>
                         <div class="ajapaik-thumbnail-info-container">
