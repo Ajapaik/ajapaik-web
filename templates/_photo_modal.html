@@ -395,7 +395,7 @@
                     photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[i]));
                     infoDiv.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[i]));
                     window.currentlySelectedRephotoId = targetId;
-                    if (window.isFrontPage) {
+                    if (window.isFrontpage) {
                         window.syncStateToURL();
                     } else {
                         window.syncMapStateToURL();
