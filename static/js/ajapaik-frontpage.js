@@ -4,8 +4,6 @@
     /*jslint browser: true*/
     $(document).ready(function () {
         window.updateLeaderboard();
-        window.photoHistory = [];
-        window.photoHistoryIndex = null;
         window.nextPhotoLoading = false;
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             historicPhotoGallerySettings = {
@@ -16,8 +14,7 @@
             },
             openPhotoDrawer,
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
-            photoModal = $('#ajapaik-photo-modal'),
-            previousPhoto;
+            photoModal = $('#ajapaik-photo-modal');
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1/';
         };
@@ -29,41 +26,14 @@
         }).on('hidden.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').hide();
         });
-        window.loadPhoto = function (id, previous) {
+        window.loadPhoto = function (id) {
             window.nextPhotoLoading = true;
-            var loadingFromHistory = false;
-            if (previous) {
-                // We can only go back if we have history and we haven't reached the beginning
-                if (window.photoHistory.length > 0 && window.photoHistoryIndex >= 0) {
-                    // Move back 1 step, don't go to -1
-                    if (window.photoHistoryIndex > 0) {
-                        window.photoHistoryIndex -= 1;
-                    }
-                    // Get the photo id to load from history
-                    id = window.photoHistory[window.photoHistoryIndex];
-                    loadingFromHistory = true;
-                }
-            } else {
-                // There's no history or we've reached the end, load a new photo
-                if (window.photoHistory.length === 0 || window.photoHistoryIndex === (window.photoHistory.length - 1)) {
-                    $.noop();
-                } else {
-                    // There's history and we haven't reached the end
-                    window.photoHistoryIndex += 1;
-                    id = window.photoHistory[window.photoHistoryIndex];
-                    loadingFromHistory = true;
-                }
-            }
             $.ajax({
                 cache: false,
                 url: '/foto/' + id + '/?isFrontpage=1',
                 success: function (result) {
                     window.nextPhotoLoading = false;
                     openPhotoDrawer(result);
-                    if (!loadingFromHistory) {
-                        window.photoHistory.push(id);
-                        window.photoHistoryIndex = window.photoHistory.length - 1;
-                    }
                 },
                 error: function () {
                     window.nextPhotoLoading = false;

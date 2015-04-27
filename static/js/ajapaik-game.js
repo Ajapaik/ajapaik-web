@@ -682,15 +682,14 @@
             showDescriptions();
             hideDescriptionButtons();
         });
-        // TODO: Replace with click, no need for hiding
-        /*$('#ajapaik-game-modal-body').hoverIntent(function () {
+        $('#ajapaik-game-modal-body').mouseenter(function () {
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
             }
-        }, function () {
+        }).mouseleave(function () {
             if (!window.isMobile && !window.fullscreenEnabled) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
             }
-        });*/
+        });
     });
 }(jQuery));

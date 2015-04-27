@@ -1221,37 +1221,41 @@ ul.errorlist {
 
 #ajapaik-photo-modal-specify-location {
     background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;
-    height: 24px;
-    width: 24px;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
     display: inline-block;
-    float: left;
+    float: right;
     cursor: pointer;
 }
 
 #ajapaik-photo-modal-share {
     background: transparent url(../images/material-design-icons/ic_share_24px.svg) no-repeat center;
-    height: 24px;
-    width: 24px;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
     display: inline-block;
-    float: left;
+    float: right;
     cursor: pointer;
 }
 
 #ajapaik-photo-modal-discuss {
     background: transparent url(../images/material-design-icons/ic_messenger_24px_gray.svg) no-repeat center;
-    height: 24px;
-    width: 24px;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
     display: inline-block;
-    float: left;
+    float: right;
     cursor: pointer;
 }
 
 #ajapaik-photo-modal-add-rephoto {
     background: transparent url(../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat center;
-    height: 24px;
-    width: 24px;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
     display: inline-block;
-    float: left;
+    float: right;
     cursor: pointer;
 }
 
