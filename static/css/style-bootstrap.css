@@ -1175,10 +1175,6 @@ ul.errorlist {
     background-size: 48px;
 }
 
-#ajapaik-photo-modal-geotag-count {
-    float: left;
-}
-
 .ajapaik-photo-modal-vertical-align {
     display: flex;
     align-items: center;
@@ -1200,6 +1196,7 @@ ul.errorlist {
     width: 24px;
     display: inline-block;
     float: left;
+    margin-left: -5px;
 }
 
 #ajapaik-game-show-description {
@@ -1209,14 +1206,6 @@ ul.errorlist {
     display: inline-block;
     float: left;
     cursor: pointer;
-}
-
-#ajapaik-photo-modal-location-with-azimuth {
-    background: transparent url(../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
-    height: 24px;
-    width: 24px;
-    display: inline-block;
-    float: left;
 }
 
 #ajapaik-photo-modal-specify-location {
@@ -1259,20 +1248,34 @@ ul.errorlist {
     cursor: pointer;
 }
 
-#ajapaik-photo-modal-location-without-azimuth {
-    background: transparent url(../images/material-design-icons/ic_location_on_24px_gray.svg) no-repeat center;
-    height: 24px;
-    width: 24px;
+#ajapaik-photo-modal-geotag-count {
+    float: left;
+    font-size: 24px;
+}
+
+#ajapaik-photo-modal-location-with-azimuth {
+    background: transparent url(../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
     display: inline-block;
     float: left;
 }
 
+#ajapaik-photo-modal-location-without-azimuth {
+    background: transparent url(../images/material-design-icons/ic_location_on_24px_gray.svg) no-repeat center;
+    height: 30px;
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+}
+
 #ajapaik-photo-modal-no-location {
     background: transparent url(../images/material-design-icons/ic_location_off_24px_gray.svg) no-repeat center;
-    height: 24px;
-    width: 24px;
+    height: 30px;
+    width: 30px;
+    background-size: 30px;
     display: inline-block;
-    float: left;
 }
 
 #ajapaik-mapview-feedback-panel {
