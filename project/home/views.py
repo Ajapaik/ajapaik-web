@@ -703,6 +703,7 @@ def photoslug(request, photo_id, pseudo_slug):
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
 
     is_frontpage = False
+    is_mapview = False
     site = Site.objects.get_current()
     if request.is_ajax():
         template = "_photo_modal.html"
