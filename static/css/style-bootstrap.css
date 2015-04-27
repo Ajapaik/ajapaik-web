@@ -1264,18 +1264,20 @@ ul.errorlist {
 
 #ajapaik-photo-modal-location-without-azimuth {
     background: transparent url(../images/material-design-icons/ic_location_on_24px_gray.svg) no-repeat center;
-    height: 30px;
-    width: 30px;
-    background-size: 30px;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
     display: inline-block;
+    float: lefT;
 }
 
 #ajapaik-photo-modal-no-location {
     background: transparent url(../images/material-design-icons/ic_location_off_24px_gray.svg) no-repeat center;
-    height: 30px;
-    width: 30px;
-    background-size: 30px;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
     display: inline-block;
+    float: left;
 }
 
 #ajapaik-mapview-feedback-panel {
