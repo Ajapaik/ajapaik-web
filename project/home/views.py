@@ -36,7 +36,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    FrontpagePagingForm, GameNextPhotoForm
+    FrontpagePagingForm, GameNextPhotoForm, GamePhotoSelectionForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 
@@ -469,21 +469,22 @@ def game(request):
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
+    game_photo_selection_form = GamePhotoSelectionForm(request.GET)
     album = None
     ret["albums"] = _get_album_choices()
     area = None
 
-    if game_album_selection_form.is_valid():
+    if game_photo_selection_form.is_valid():
+        p = game_photo_selection_form.cleaned_data["photo"]
+        ret["photo"] = p
+        ret["random_album_photo"] = p
+        album_ids = AlbumPhoto.objects.filter(photo_id=p.id).distinct("album_id").values_list("album_id", flat=True)
+        album = Album.objects.filter(id__in=album_ids, atype=Album.CURATED).order_by('-created').first()
+    elif game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
-        ret["album"] = album
-        try:
-            ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?")[0]
-        except:
-            try:
-                ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
-            except:
-                pass
-        ret["facebook_share_photos"] = album.photos.filter()[:5]
+        ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?").first()
+        if not ret["random_album_photo"]:
+            ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?").first()
     else:
         if area_selection_form.is_valid():
             area = area_selection_form.cleaned_data["area"]
@@ -492,6 +493,9 @@ def game(request):
             if old_city_id is not None:
                 area = Area.objects.get(pk=old_city_id)
         ret["area"] = area
+
+    ret["album"] = album
+    ret["facebook_share_photos"] = album.photos.filter()[:5]
 
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
@@ -599,10 +603,10 @@ def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
     if photo.cam_scale_factor and photo.rephoto_of:
         # if rephoto is taken with mobile then make it same width/height as source photo
-        im = get_thumbnail(photo.rephoto_of.image, "700x400")
-        im = get_thumbnail(photo.image, str(im.width) + "x" + str(im.height), crop="center")
+        im = get_thumbnail(photo.rephoto_of.image, "800x600")
+        im = get_thumbnail(photo.image, str(im.width) + "x" + str(im.height), crop="center", upscale=False)
     else:
-        im = get_thumbnail(photo.image, "700x400")
+        im = get_thumbnail(photo.image, "800x600", upscale=False)
     content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
@@ -704,6 +708,8 @@ def photoslug(request, photo_id, pseudo_slug):
         template = "_photo_modal.html"
         if request.GET.get("isFrontpage"):
             is_frontpage = True
+        if request.GET.get("isMapview"):
+            is_mapview = True
     else:
         template = "photoview.html"
     if not photo_obj.description:
@@ -729,6 +735,7 @@ def photoslug(request, photo_id, pseudo_slug):
         "album": album,
         "albums": albums,
         "is_frontpage": is_frontpage,
+        "is_mapview": is_mapview,
         "album_selection_form": album_selection_form,
         "geotag_count": geotag_count,
         "azimuth_count": azimuth_count,
@@ -937,8 +944,8 @@ def geotag_add(request):
                     score = 0
         else:
             score = int(trust * 100)
-        if processed_geotag.hint_used:
-            score *= 0.75
+        #if processed_geotag.hint_used:
+            #score *= 0.75
         if processed_geotag.azimuth_correct and tagged_photo.azimuth and processed_geotag.azimuth:
             degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
             difference = int(_angle_diff(tagged_photo.azimuth, processed_geotag.azimuth))

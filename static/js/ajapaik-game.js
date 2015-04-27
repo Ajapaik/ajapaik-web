@@ -29,6 +29,7 @@
         guessPanelContainer,
         nextPhotoLoading = false;
     window.photoHistory = [];
+    window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
     photoLoadModalResizeFunction = function () {
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
@@ -150,29 +151,33 @@
         var request = {
             b: new Date().getTime()
         };
-        // User wants to go back or not
-        if (previous) {
-            // We can only go back if we have history and we haven't reached the beginning
-            if (window.photoHistory.length > 0 && window.photoHistoryIndex >= 0) {
-                // Move back 1 step, don't go to -1
-                if (window.photoHistoryIndex > 0) {
-                    window.photoHistoryIndex -= 1;
-                }
-                // Get the photo id to load from history
-                request.photo = window.photoHistory[window.photoHistoryIndex];
-            }
+        if (window.preselectedPhotoId) {
+            request.photo = window.preselectedPhotoId;
         } else {
-            // There's no history or we've reached the end, load a new photo
-            if (window.photoHistory.length === 0 || window.photoHistoryIndex === (window.photoHistory.length - 1)) {
-                if (window.albumId) {
-                    request.album = window.albumId;
-                } else if (window.areaId) {
-                    request.area = window.areaId;
+            // User wants to go back or not
+            if (previous) {
+                // We can only go back if we have history and we haven't reached the beginning
+                if (window.photoHistory.length > 0 && window.photoHistoryIndex >= 0) {
+                    // Move back 1 step, don't go to -1
+                    if (window.photoHistoryIndex > 0) {
+                        window.photoHistoryIndex -= 1;
+                    }
+                    // Get the photo id to load from history
+                    request.photo = window.photoHistory[window.photoHistoryIndex];
                 }
             } else {
-                // There's history and we haven't reached the end
-                window.photoHistoryIndex += 1;
-                request.photo = window.photoHistory[window.photoHistoryIndex];
+                // There's no history or we've reached the end, load a new photo
+                if (window.photoHistory.length === 0 || window.photoHistoryIndex === (window.photoHistory.length - 1)) {
+                    if (window.albumId) {
+                        request.album = window.albumId;
+                    } else if (window.areaId) {
+                        request.area = window.areaId;
+                    }
+                } else {
+                    // There's history and we haven't reached the end
+                    window.photoHistoryIndex += 1;
+                    request.photo = window.photoHistory[window.photoHistoryIndex];
+                }
             }
         }
         var buttons = $('.ajapaik-game-previous-photo-button');
@@ -184,14 +189,15 @@
         // TODO: Why not POST?
         if (request.photo || request.album || request.area) {
             $.getJSON(streamUrl, request, function (data) {
-                currentPhoto = data.photo;
-                // Not a history request
-                if (!request.photo) {
-                    window.photoHistory.push(currentPhoto.id);
-                    window.photoHistoryIndex = window.photoHistory.length - 1;
-                }
                 if (data.photo.description) {
                     window.currentPhotoDescription = data.photo.description.replace(/(\r\n|\n|\r)/gm, '');
+                }
+                currentPhoto = data.photo;
+                // Not a history request
+                if (!request.photo || window.preselectedPhotoId) {
+                    window.photoHistory.push(currentPhoto.id);
+                    window.photoHistoryIndex = window.photoHistory.length - 1;
+                    window.preselectPhotoId = null;
                 }
                 var textTarget = $('#ajapaik-game-status-message'),
                     message;
@@ -227,7 +233,11 @@
                 //$('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
                 $('#ajapaik-guess-panel-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
                 $('#ajapaik-guess-panel-full-screen-link-xs').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
-                $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
+                if (currentPhoto.total_geotags > 0) {
+                    $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
+                } else {
+                    $('#ajapaik-game-number-of-geotags').hide();
+                }
                 $('#ajapaik-game-map-geotag-count').html(currentPhoto.total_geotags);
                 $('#ajapaik-game-map-geotag-with-azimuth-count').html(currentPhoto.geotags_with_azimuth);
                 var azimuthIndicator = $('#ajapaik-photo-modal-location-with-azimuth'),
@@ -248,6 +258,11 @@
                 }
                 reinstateBothersomeListeners();
                 nextPhotoLoading = false;
+                var descStatus = window.descriptionViewHistory[currentPhoto.id];
+                if (descStatus) {
+                    showDescriptions();
+                    hideDescriptionButtons();
+                }
             });
         } else {
             nextPhotoLoading = false;
@@ -347,6 +362,7 @@
         }
         if (!nextPhotoLoading) {
             window.gameHintUsed = true;
+            window.descriptionViewHistory[currentPhoto.id] = true;
             $('#ajapaik-game-photo-description').show();
             $('#ajapaik-game-photo-identifier').show();
             $('#ajapaik-game-full-screen-description').show();

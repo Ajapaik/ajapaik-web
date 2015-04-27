@@ -37,6 +37,10 @@ class GameAlbumSelectionForm(forms.Form):
         super(GameAlbumSelectionForm, self).__init__(*args, **kwargs)
 
 
+class GamePhotoSelectionForm(forms.Form):
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), label=_('Choose photo'))
+
+
 class GameNextPhotoForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)

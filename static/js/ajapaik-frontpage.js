@@ -5,6 +5,7 @@
     $(document).ready(function () {
         window.updateLeaderboard();
         window.nextPhotoLoading = false;
+        window.userClosedRephotoTools = false;
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             historicPhotoGallerySettings = {
                 captions: false,
@@ -19,7 +20,7 @@
             window.location.href = '/photos/' + window.albumId + '/1/';
         };
         window.startGuessLocation = function (photoId) {
-            window.open('/map/photo/' + photoId + '/?photoModalOpen=1&straightToSpecify=1&fromModal=1', '_blank');
+            window.open('/game/?album=' + window.albumId + '&photo=' + photoId, '_blank');
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();

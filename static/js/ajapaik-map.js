@@ -104,7 +104,7 @@
         photoId = id;
         $.ajax({
             cache: false,
-            url: '/foto/' + id + '/',
+            url: '/foto/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
                 if (window.FB !== undefined) {
