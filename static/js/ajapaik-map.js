@@ -40,7 +40,6 @@
         openPhotoDrawer,
         guessPanelContainer,
         photoDrawerOpen = false,
-        toggleVisiblePaneElements,
         markerClustererSettings = {
             minimumClusterSize: 2,
             maxZoom: 17
@@ -459,7 +458,7 @@
         window.setCursorToAuto();
         window.dottedAzimuthLine.setMap(null);
         window.guessLocationStarted = false;
-        toggleVisiblePaneElements();
+        window.toggleVisiblePaneElements();
     };
 
     window.closePhotoDrawer = function () {
@@ -478,7 +477,7 @@
         }
     };
 
-    toggleVisiblePaneElements = function () {
+    window.toggleVisiblePaneElements = function () {
         if (window.map && !window.guessLocationStarted) {
             window.dottedAzimuthLine.setVisible(false);
             if (!window.comingBackFromGuessLocation) {
@@ -877,8 +876,6 @@
         $('#ajapaik-header-game-button').show();
         $('#ajapaik-header-grid-button').show();
         window.realMapElement = $('#ajapaik-map-canvas')[0];
-        window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
-        window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
         window.saveLocationButton = $('.ajapaik-save-location-button');
@@ -901,7 +898,7 @@
             } else {
                 deactivateAlbumFilter();
             }
-            toggleVisiblePaneElements();
+            window.toggleVisiblePaneElements();
             window.syncMapStateToURL();
         });
 
@@ -955,7 +952,7 @@
         });
 
         if (window.map !== undefined) {
-            window.mapMapviewIdleListener = window.google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);
+            //window.mapMapviewIdleListener = window.google.maps.event.addListener(window.map, 'idle', toggleVisiblePaneElements);
             window.mapMapviewClickListener = window.google.maps.event.addListener(window.map, 'click', function() {
                 window.deselectMarker();
             });
