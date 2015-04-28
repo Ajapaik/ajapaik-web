@@ -568,7 +568,10 @@ def frontpage(request, album_id=None, page=1):
         photo_count_before_requested = photos.filter(created__gt=p.created).count()
         page = ceil(float(photo_count_before_requested) / float(page_size))
     total = photos.count()
-    start = int((page - 1) * page_size)
+    if page > 0:
+        start = int((page - 1) * page_size)
+    else:
+        start = 0
     if total < 100:
         end = total
     else:
@@ -577,6 +580,7 @@ def frontpage(request, album_id=None, page=1):
     photos = photos[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
+        p.fb_url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
     return render_to_response("frontpage.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
         "album": album,
