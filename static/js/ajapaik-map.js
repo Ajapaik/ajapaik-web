@@ -618,8 +618,7 @@
                 }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
-                // TODO: Restore
-                //window.FB.XFBML.parse();
+                window.FB.XFBML.parse();
             });
         }
     };
@@ -878,6 +877,8 @@
         $('#ajapaik-header-game-button').show();
         $('#ajapaik-header-grid-button').show();
         window.realMapElement = $('#ajapaik-map-canvas')[0];
+        window.realMapElement.addEventListener('mousewheel', window.wheelEventNonFF, true);
+        window.realMapElement.addEventListener('DOMMouseScroll', window.wheelEventFF, true);
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
         window.saveLocationButton = $('.ajapaik-save-location-button');

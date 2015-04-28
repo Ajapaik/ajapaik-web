@@ -565,15 +565,15 @@ def frontpage(request, album_id=None, page=1):
             photos = photos.filter(id__in=marker_ids)
     if requested_photo_id:
         p = photos.filter(pk=requested_photo_id).first()
-        photo_count_before_requested = photos.filter(created__gte=p.created).count()
-        print photo_count_before_requested
+        photo_count_before_requested = photos.filter(created__gt=p.created).count()
+        page = ceil(float(photo_count_before_requested) / float(page_size))
     total = photos.count()
-    start = (page - 1) * page_size
+    start = int((page - 1) * page_size)
     if total < 100:
         end = total
     else:
-        end = start + page_size
-    max_page = ceil(total / page_size)
+        end = int(start + page_size)
+    max_page = ceil(float(total) / float(page_size))
     photos = photos[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
