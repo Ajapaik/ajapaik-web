@@ -15,7 +15,9 @@
             },
             openPhotoDrawer,
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
-            photoModal = $('#ajapaik-photo-modal');
+            photoModal = $('#ajapaik-photo-modal'),
+            syncStateToUrl,
+            currentlySelectedPhotoId;
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1/';
         };
@@ -39,14 +41,31 @@
                 success: function (result) {
                     window.nextPhotoLoading = false;
                     openPhotoDrawer(result);
+                    currentlySelectedPhotoId = id;
                 },
                 error: function () {
                     window.nextPhotoLoading = false;
                 }
             });
         };
+        if (window.getQueryParameterByName('photo')) {
+            window.loadPhoto(window.getQueryParameterByName('photo'));
+        }
         window.flipPhoto = function () {
             $.noop();
+        };
+        syncStateToUrl = function () {
+            var historyReplacementString = location.protocol + '//' + location.host + location.pathname;
+            if (currentlySelectedPhotoId) {
+                historyReplacementString += '?photo=' + currentlySelectedPhotoId;
+            }
+            //var historyReplacementString = '/game/';
+            //if (window.albumId) {
+            //    historyReplacementString += '?album=' + window.albumId;
+            //} else if (window.areaId) {
+            //    historyReplacementString += '?area=' + window.areaId;
+            //}
+            window.History.replaceState(null, window.title, historyReplacementString);
         };
         openPhotoDrawer = function (content) {
             photoModal.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
@@ -61,6 +80,12 @@
                 //window.FB.XFBML.parse();
             });
         };
+        photoModal.on('shown.bs.modal', function () {
+            syncStateToUrl();
+        }).on('hidden.bs.modal', function () {
+            currentlySelectedPhotoId = null;
+            syncStateToUrl();
+        });
         $(document).on('click', '.ajapaik-frontpage-image-container', function (e) {
             e.preventDefault();
         });
