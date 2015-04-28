@@ -104,6 +104,8 @@
             {% if photo %}
                 window.preselectedPhotoId = {{ photo.id|safe }};
             {% endif %}
+        window.linkToMap = true;
+        window.linkToGame = false;
         {% if album.lat and album.lon %}
             window.start_location = [{{ album.lon|safe }}, {{ album.lat|safe }}];
         {% elif area.lat and area.lon %}

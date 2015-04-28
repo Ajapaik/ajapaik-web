@@ -107,7 +107,8 @@
             success: function (result) {
                 openPhotoDrawer(result);
                 if (window.FB !== undefined) {
-                    window.FB.XFBML.parse();
+                    // TODO: Restore
+                    //window.FB.XFBML.parse();
                 }
             }
         });
@@ -133,7 +134,8 @@
                     }
                 }, 3000);
             }
-            window.FB.XFBML.parse();
+            // TODO: Restore
+            //window.FB.XFBML.parse();
         });
     };
     updateBoundingEdge = function (edge) {
@@ -611,7 +613,7 @@
                     photoPanel = $.jsPanel(galleryPanelSettings);
                     photoPanel.content.append('<div id="ajapaik-photo-pane-content-container"></div>');
                     photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
-                    photoPanel.on('scroll', function () {
+                    photoPanel.find('#ajapaik-photo-pane-content-container').on('scroll', function () {
                         console.log("scroll");
                     });
                 }
@@ -621,7 +623,8 @@
                 }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
-                window.FB.XFBML.parse();
+                // TODO: Restore
+                //window.FB.XFBML.parse();
             });
         }
     };

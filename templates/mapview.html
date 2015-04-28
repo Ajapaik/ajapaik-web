@@ -54,6 +54,8 @@
             {% if album.lat and album.lon %}
                 window.albumLatLng = new window.google.maps.LatLng({{ album.lat | safe }}, {{ album.lon | safe }});
             {% endif %}
+        window.linkToMap = false;
+        window.linkToGame = true;
         {% if selected_photo %}
             var preselectPhotoId = '{{ selected_photo.id }}';
             {% if selected_photo.lat and selected_photo.lon %}
