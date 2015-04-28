@@ -27,11 +27,11 @@
         fullScreenImage,
         toggleFlipButtons,
         guessPanelContainer,
-        nextPhotoLoading = false,
-        straightToSpecify = false;
+        nextPhotoLoading = false;
     window.photoHistory = [];
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
+    window.straightToSpecify = false;
     photoLoadModalResizeFunction = function () {
         $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
         var trigger = 'manual';
@@ -154,6 +154,7 @@
         };
         if (window.preselectedPhotoId) {
             request.photo = window.preselectedPhotoId;
+            window.preselectedPhotoId = null;
         } else {
             // User wants to go back or not
             if (previous) {
@@ -206,7 +207,7 @@
                 if (data.nothing_more_to_show) {
                     message = window.gettext('We are now showing you random photos.');
                 } else if (data.user_seen_all) {
-                    message = window.gettext('You have seen all the pictures we have for this area.');
+                    message = window.gettext('You have seen all the pictures from this album.');
                 }
                 if (message !== lastStatusMessage) {
                     textTarget.html(message);
@@ -260,14 +261,12 @@
                 reinstateBothersomeListeners();
                 nextPhotoLoading = false;
                 var descStatus = window.descriptionViewHistory[currentPhoto.id];
-                if (descStatus || straightToSpecify) {
+                if (descStatus || window.straightToSpecify) {
                     showDescriptions();
                     hideDescriptionButtons();
-                    if (straightToSpecify) {
-                        setTimeout(function () {
-                            $('#ajapaik-photo-modal-specify-location').click();
-                            straightToSpecify = false;
-                        }, 100);
+                    if (window.straightToSpecify) {
+                        $('#ajapaik-photo-modal-specify-location').click();
+                        window.straightToSpecify = false;
                     }
                 }
             });
@@ -409,7 +408,8 @@
             $('.ajapaik-flip-photo-overlay-button').hide();
         }
         $('#ajapaik-game-photo-modal').modal({
-            backdrop: 'static'
+            backdrop: 'static',
+            keyboard: 'false'
         });
         location = new window.google.maps.LatLng(window.start_location[1], window.start_location[0]);
         if (location) {
@@ -465,7 +465,7 @@
             });
         }*/
         if (window.getQueryParameterByName('photo')) {
-            straightToSpecify = true;
+            window.straightToSpecify = true;
         }
         window.handleAlbumChange = function () {
             if (window.albumId) {
@@ -513,6 +513,8 @@
                     //window.saveLocationButton.show();
                     window.streetPanorama.setVisible(false);
                 }
+            } else {
+                $('#ajapaik-game-close-game-modal').click();
             }
         });
         $.jQee('up', function () {

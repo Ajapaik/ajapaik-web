@@ -371,9 +371,17 @@ body {
     float: left;
 }
 
+.ajapaik-header-map-button-white {
+    background-image: url(../images/material-design-icons/ic_map_24px_white.svg) !important;
+}
+
 #ajapaik-header-game-button {
-    background-image: url(../images/material-design-icons/ic_place_24px.svg);
+    background-image: url(../images/material-design-icons/ic_pin_drop_24px.svg);
     float: left;
+}
+
+.ajapaik-header-game-button-white {
+    background-image: url(../images/material-design-icons/ic_pin_drop_24px_white.svg) !important;
 }
 
 #ajapaik-header-grid-button {
@@ -381,9 +389,17 @@ body {
     float: left;
 }
 
+.ajapaik-header-grid-button-white {
+    background-image: url(../images/material-design-icons/ic_photoview_24px_white.svg) !important;
+}
+
 #ajapaik-header-curate-button {
     background-image: url(../images/material-design-icons/ic_add_circle_24px.svg);
     float: left;
+}
+
+.ajapaik-header-curate-button-white {
+    background-image: url(../images/material-design-icons/ic_add_circle_24px_white.svg) !important;
 }
 
 #ajapaik-header-menu-button {

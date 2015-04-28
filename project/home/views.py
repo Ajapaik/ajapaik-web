@@ -471,21 +471,22 @@ def logout(request):
 
 @ensure_csrf_cookie
 def game(request):
-    ret = {}
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     game_photo_selection_form = GamePhotoSelectionForm(request.GET)
     album = None
-    ret["albums"] = _get_album_choices()
     area = None
+    ret = {
+        "albums": _get_album_choices()
+    }
 
     if game_photo_selection_form.is_valid():
         p = game_photo_selection_form.cleaned_data["photo"]
         ret["photo"] = p
-        ret["random_album_photo"] = p
         album_ids = AlbumPhoto.objects.filter(photo_id=p.id).distinct("album_id").values_list("album_id", flat=True)
         album = Album.objects.filter(id__in=album_ids, atype=Album.CURATED).order_by('-created').first()
+        ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?").first()
     elif game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
         ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?").first()

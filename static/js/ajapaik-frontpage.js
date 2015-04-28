@@ -20,7 +20,11 @@
             window.location.href = '/photos/' + window.albumId + '/1/';
         };
         window.startGuessLocation = function (photoId) {
-            window.open('/game/?album=' + window.albumId + '&photo=' + photoId, '_blank');
+            if (window.albumId) {
+                window.open('/game/?album=' + window.albumId + '&photo=' + photoId, '_blank');
+            } else {
+                window.open('/game/?photo=' + photoId, '_blank');
+            }
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
