@@ -1199,6 +1199,21 @@ ul.errorlist {
     margin: 0 auto;
 }
 
+#ajapaik-mobile-header-buttons {
+    background-color: black;
+    width: 225px;
+}
+
+#ajapaik-mobile-menu-contents {
+    margin-top: 50px;
+}
+
+.ajapaik-mobile-navmenu-button-label {
+    color: white;
+    margin-top: 15px;
+    display: block;
+}
+
 .ajapaik-photo-modal-previous-button {
     display: block;
     width: 48px;
