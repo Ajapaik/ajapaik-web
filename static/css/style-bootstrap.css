@@ -941,6 +941,7 @@ a.fullscreen {
     background-size: 25px;
     background-position-y: 3px;
     background-position-x: 3px;
+    background-color: white;
     z-index: 2;
 }
 

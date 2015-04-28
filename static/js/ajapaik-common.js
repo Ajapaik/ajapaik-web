@@ -616,7 +616,7 @@ var map,
         }
     });
     $(document).on('click', '#ajapaik-header-map-button', function () {
-        if (!window.isMapview && window.albumId) {
+        if (window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
         }
     });
