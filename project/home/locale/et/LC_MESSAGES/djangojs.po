@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-20 18:16+0300\n"
+"POT-Creation-Date: 2015-04-28 12:07+0300\n"
 "PO-Revision-Date: 2015-04-20 15:09+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
@@ -39,13 +39,13 @@ msgstr "Mine minu asukohta"
 msgid "Close"
 msgstr "Sulge"
 
-#: static/js/ajapaik-common.js:657 static/js/ajapaik-common.js.c:778
-#: static/js/ajapaik-common.js:797 static/js/game.js:126
+#: static/js/ajapaik-common.js:672 static/js/ajapaik-common.js.c:793
+#: static/js/ajapaik-common.js:812 static/js/ajapaik-game.js:130
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:689 static/js/browse.js:859
-#: static/js/game.js:551
+#: static/js/ajapaik-common.js:704 static/js/ajapaik-game.js:642
+#: static/js/ajapaik-map.js:944
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -53,13 +53,54 @@ msgstr ""
 "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
 "pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
-#: static/js/ajapaik-common.js:713
+#: static/js/ajapaik-common.js:728
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: static/js/ajapaik-common.js:851
+#: static/js/ajapaik-common.js:866
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
+
+#: static/js/ajapaik-game.js:41
+msgid "Vihje vaatamine"
+msgstr "Vihje vaatamine"
+
+#: static/js/ajapaik-game.js:43
+msgid ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+msgstr ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+
+#: static/js/ajapaik-game.js:208
+msgid "We are now showing you random photos."
+msgstr ""
+"Oled sellest linnast näinud kõiki pilte, edaspidi näitame uuesti juhuslikult "
+"valitud pilte."
+
+#: static/js/ajapaik-game.js:210
+#, fuzzy
+#| msgid "You have seen all the pictures we have for this area."
+msgid "You have seen all the pictures from this album."
+msgstr "Oled sellest kohast näinud kõiki pilte."
+
+#: static/js/ajapaik-game.js:329 static/js/ajapaik-game.js.c:331
+#: static/js/ajapaik-map.js:369 static/js/ajapaik-map.js.c:370
+msgid "Points awarded"
+msgstr "Saadud punktid"
+
+#: static/js/ajapaik-game.js:349
+msgid "Your guess"
+msgstr "Sinu pakkumine"
+
+#: static/js/ajapaik-map.js:870
+msgid "Remove album filter"
+msgstr "Eemalda albumi filter"
+
+#: static/js/ajapaik-map.js:874
+msgid "Apply album filter"
+msgstr "Rakenda albumi filter"
 
 #: static/js/ajapaik-translations.js:3
 msgid "Invert colors"
@@ -160,45 +201,6 @@ msgstr "Pildil on asukoha ja vaate suuna info"
 #: static/js/ajapaik-translations.js:26
 msgid "Image has rephotos"
 msgstr "Pildist on ülepildistusi"
-
-#: static/js/browse.js:347 static/js/browse.js.c:348 static/js/game.js:262
-#: static/js/game.js.c:264
-msgid "Points awarded"
-msgstr "Saadud punktid"
-
-#: static/js/browse.js:783
-msgid "Remove album filter"
-msgstr "Eemalda albumi filter"
-
-#: static/js/browse.js:787
-msgid "Apply album filter"
-msgstr "Rakenda albumi filter"
-
-#: static/js/game.js:37
-msgid "Vihje vaatamine"
-msgstr "Vihje vaatamine"
-
-#: static/js/game.js:39
-msgid ""
-"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
-"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
-msgstr ""
-"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
-"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
-
-#: static/js/game.js:157
-msgid "We are now showing you random photos."
-msgstr ""
-"Oled sellest linnast näinud kõiki pilte, edaspidi näitame uuesti juhuslikult "
-"valitud pilte."
-
-#: static/js/game.js:159
-msgid "You have seen all the pictures we have for this area."
-msgstr "Oled sellest kohast näinud kõiki pilte."
-
-#: static/js/game.js:282
-msgid "Your guess"
-msgstr "Sinu pakkumine"
 
 #~ msgid "We doubt about it."
 #~ msgstr "Others have different opinion."
