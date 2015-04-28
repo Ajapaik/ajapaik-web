@@ -259,21 +259,27 @@ def _get_leaderboard(profile):
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
         Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
             .order_by('-score_recent_activity')
+    print profile_rank
     first_place = list((lb_queryset.first(),))
     nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
+    print nearby_ranks
     ret = first_place + nearby_ranks
     ret = map(list, ret)
     # FIXME: This is disgusting : )
+    print ret
     # Add ranks to index 0
     ret[0].insert(0, 1)
     ret[1].insert(0, profile_rank - 1)
     ret[2].insert(0, profile_rank)
-    ret[3].insert(0, profile_rank + 1)
     # Add self detection
     ret[0].insert(1, 0)
     ret[1].insert(1, 0)
     ret[2].insert(1, 1)
-    ret[3].insert(1, 0)
+
+    if len(ret) > 3:
+        ret[3].insert(0, profile_rank + 1)
+        ret[3].insert(1, 0)
+
 
     return ret
 
@@ -552,8 +558,6 @@ def frontpage(request, album_id=None, page=1):
     page = int(page)
     if page <= 0:
         page = 1
-    start = (page - 1) * page_size
-    end = start + page_size
     album = None
     if album_id:
         album = Album.objects.get(pk=album_id)
@@ -563,6 +567,11 @@ def frontpage(request, album_id=None, page=1):
         if marker_ids:
             photos = photos.filter(id__in=marker_ids)
     total = photos.count()
+    start = (page - 1) * page_size
+    if total < 100:
+        end = total
+    else:
+        end = start + page_size
     max_page = ceil(total / page_size)
     photos = photos[start:end]
     for p in photos:
@@ -945,8 +954,8 @@ def geotag_add(request):
                     score = 0
         else:
             score = int(trust * 100)
-        #if processed_geotag.hint_used:
-            #score *= 0.75
+        if processed_geotag.hint_used:
+            score *= 0.75
         if processed_geotag.azimuth_correct and tagged_photo.azimuth and processed_geotag.azimuth:
             degree_error_point_array = [100, 99, 97, 93, 87, 83, 79, 73, 67, 61, 55, 46, 37, 28, 19, 10]
             difference = int(_angle_diff(tagged_photo.azimuth, processed_geotag.azimuth))
