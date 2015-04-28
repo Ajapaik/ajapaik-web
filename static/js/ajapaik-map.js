@@ -480,7 +480,6 @@
     };
 
     window.toggleVisiblePaneElements = function () {
-        console.log("Pane load");
         if (window.map && !window.guessLocationStarted) {
             window.dottedAzimuthLine.setVisible(false);
             if (!window.comingBackFromGuessLocation) {
@@ -613,8 +612,8 @@
                     photoPanel = $.jsPanel(galleryPanelSettings);
                     photoPanel.content.append('<div id="ajapaik-photo-pane-content-container"></div>');
                     photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
-                    photoPanel.find('#ajapaik-photo-pane-content-container').on('scroll', function () {
-                        console.log("scroll");
+                    $('.jsPanel-content').scroll(function () {
+                        window.deselectMarker();
                     });
                 }
                 if (markerIdToHighlightAfterPageLoad) {
