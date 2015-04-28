@@ -980,6 +980,22 @@ a.fullscreen {
     background-image: url(../images/material-design-icons/ic_filter_9_24px_black.svg);
 }
 
+.ajapaik-frontpage-comments-count {
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background-image: url(../images/material-design-icons/ic_messenger_24px.svg);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position-y: 3px;
+    background-position-x: 3px;
+    z-index: 2;
+    display: inline-block;
+    float: right;
+}
+
 .ajapaik-frontpage-rephoto-count {
     width: 30px;
     height: 30px;
