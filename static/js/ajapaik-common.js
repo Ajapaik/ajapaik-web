@@ -19,6 +19,7 @@ var map,
     centerMarker,
     setCursorToPanorama,
     setCursorToAuto,
+    bypass = false,
     mapOpts,
     streetViewOptions = {
         panControl: true,
@@ -48,6 +49,8 @@ var map,
     hideScoreboard,
     updateLeaderboard,
     now,
+    paneNow,
+    lastTriggeredPane,
     gameMap,
     isPhotoview,
     gameRedirectURI,
@@ -282,7 +285,16 @@ var map,
             var bounds = map.getBounds();
             searchBox.setBounds(bounds);
             if (window.toggleVisiblePaneElements) {
-                window.toggleVisiblePaneElements();
+                paneNow = new Date().getTime();
+                if (!lastTriggeredPane) {
+                    lastTriggeredPane = paneNow - 500;
+                    bypass = true;
+                }
+                if (paneNow - 500 > lastTriggeredPane || bypass) {
+                    bypass = false;
+                    lastTriggeredPane = paneNow;
+                    window.toggleVisiblePaneElements();
+                }
             }
         });
 

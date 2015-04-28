@@ -237,6 +237,7 @@
                 $('#ajapaik-guess-panel-full-screen-link-xs').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
                 if (currentPhoto.total_geotags > 0) {
                     $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
+                    $('#ajapaik-game-number-of-geotags').show();
                 } else {
                     $('#ajapaik-game-number-of-geotags').hide();
                 }
