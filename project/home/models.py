@@ -431,8 +431,8 @@ class Photo(Model):
                     ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
                         .exclude(id__in=request.session["user_skip_array"]).order_by('?')
                     if ret_qs.count() == 0:
-                        # This user has skipped them in this session, show her photos that have low confidence
-                        # or don't have a correct geotag from her
+                        # This user has skipped them in this session, show her photos that
+                        # don't have a correct geotag from her
                         user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
                         user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
                         user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct("photo_id").values_list("photo_id", flat=True))
