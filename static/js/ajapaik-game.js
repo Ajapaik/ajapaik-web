@@ -27,7 +27,8 @@
         fullScreenImage,
         toggleFlipButtons,
         guessPanelContainer,
-        nextPhotoLoading = false;
+        nextPhotoLoading = false,
+        straightToSpecify = false;
     window.photoHistory = [];
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
@@ -259,9 +260,15 @@
                 reinstateBothersomeListeners();
                 nextPhotoLoading = false;
                 var descStatus = window.descriptionViewHistory[currentPhoto.id];
-                if (descStatus) {
+                if (descStatus || straightToSpecify) {
                     showDescriptions();
                     hideDescriptionButtons();
+                    if (straightToSpecify) {
+                        setTimeout(function () {
+                            $('#ajapaik-photo-modal-specify-location').click();
+                            straightToSpecify = false;
+                        }, 100);
+                    }
                 }
             });
         } else {
@@ -402,8 +409,7 @@
             $('.ajapaik-flip-photo-overlay-button').hide();
         }
         $('#ajapaik-game-photo-modal').modal({
-            backdrop: 'static',
-            keyboard: false
+            backdrop: 'static'
         });
         location = new window.google.maps.LatLng(window.start_location[1], window.start_location[0]);
         if (location) {
@@ -458,6 +464,9 @@
                 }
             });
         }*/
+        if (window.getQueryParameterByName('photo')) {
+            straightToSpecify = true;
+        }
         window.handleAlbumChange = function () {
             if (window.albumId) {
                 window.location.href = '/game?album=' + window.albumId;
