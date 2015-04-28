@@ -104,16 +104,12 @@
             {% if photo %}
                 window.preselectedPhotoId = {{ photo.id|safe }};
             {% endif %}
-        {% if random_album_photo %}
-            {% if random_album_photo.lat and random_album_photo.lon %}
-                start_location = [{{ random_album_photo.lon|safe }}, {{ random_album_photo.lat|safe }}];
-            {% else %}
-                start_location = [{{ random_album_photo.area.lon|safe }}, {{ random_album_photo.area.lat|safe }}];
-            {% endif %}
-        {% elif area %}
-            start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
+        {% if album.lat and album.lon %}
+            window.start_location = [{{ album.lon|safe }}, {{ album.lat|safe }}];
+        {% elif area.lat and area.lon %}
+            window.start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
-            start_location = [26, 59];
+            window.start_location = [26, 59];
         {% endif %}
     </script>
     {% compress js %}

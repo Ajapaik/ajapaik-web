@@ -259,14 +259,11 @@ def _get_leaderboard(profile):
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
         Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
             .order_by('-score_recent_activity')
-    print profile_rank
     first_place = list((lb_queryset.first(),))
     nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
-    print nearby_ranks
     ret = first_place + nearby_ranks
     ret = map(list, ret)
     # FIXME: This is disgusting : )
-    print ret
     # Add ranks to index 0
     ret[0].insert(0, 1)
     ret[1].insert(0, profile_rank - 1)
@@ -486,12 +483,8 @@ def game(request):
         ret["photo"] = p
         album_ids = AlbumPhoto.objects.filter(photo_id=p.id).distinct("album_id").values_list("album_id", flat=True)
         album = Album.objects.filter(id__in=album_ids, atype=Album.CURATED).order_by('-created').first()
-        ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?").first()
     elif game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
-        ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?").first()
-        if not ret["random_album_photo"]:
-            ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?").first()
     else:
         if area_selection_form.is_valid():
             area = area_selection_form.cleaned_data["area"]
@@ -556,6 +549,9 @@ def frontpage(request, album_id=None, page=1):
     albums = _get_album_choices()
     photos = Photo.objects.filter(created__lte='2015-03-20', rephoto_of__isnull=True).order_by('-created')
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
+    requested_photo_id = request.GET.get('photo', None)
+    if requested_photo_id:
+        requested_photo_id = int(requested_photo_id)
     page = int(page)
     if page <= 0:
         page = 1
@@ -567,6 +563,10 @@ def frontpage(request, album_id=None, page=1):
         marker_ids = request.GET.getlist("set[]")
         if marker_ids:
             photos = photos.filter(id__in=marker_ids)
+    if requested_photo_id:
+        p = photos.filter(pk=requested_photo_id).first()
+        photo_count_before_requested = photos.filter(created__gte=p.created).count()
+        print photo_count_before_requested
     total = photos.count()
     start = (page - 1) * page_size
     if total < 100:
@@ -869,10 +869,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if album is not None:
         ret["title"] = album.name + " - " + _("Browse photos on map")
         ret["album_selection_form"] = AlbumSelectionForm({"album": album.id})
-        random_album_photo = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?").first()
-        if not random_album_photo:
-            random_album_photo = album.photos.filter(area__isnull=False).order_by("?").first()
-        ret["random_album_photo"] = random_album_photo
         ret["facebook_share_photos"] = album.photos.filter()[:5]
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
