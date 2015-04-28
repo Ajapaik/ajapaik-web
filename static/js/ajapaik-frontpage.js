@@ -42,6 +42,21 @@
                     window.nextPhotoLoading = false;
                     openPhotoDrawer(result);
                     currentlySelectedPhotoId = id;
+                    var imgContainer = $('#ajapaik-frontpage-image-container-' + id),
+                        nextId = imgContainer.next().data('id'),
+                        previousId = imgContainer.prev().data('id'),
+                        nextButton = $('.ajapaik-photo-modal-next-button'),
+                        previousButton = $('.ajapaik-photo-modal-previous-button');
+                    if (!nextId) {
+                        nextButton.addClass('ajapaik-photo-modal-next-button-disabled');
+                    } else {
+                        nextButton.removeClass('ajapaik-photo-modal-next-button-disabled');
+                    }
+                    if (!previousId) {
+                        previousButton.addClass('ajapaik-photo-modal-previous-button-disabled');
+                    } else {
+                        previousButton.removeClass('ajapaik-photo-modal-previous-button-disabled');
+                    }
                 },
                 error: function () {
                     window.nextPhotoLoading = false;

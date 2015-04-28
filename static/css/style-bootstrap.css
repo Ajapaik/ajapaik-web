@@ -1204,8 +1204,15 @@ ul.errorlist {
     width: 48px;
     height: 48px;
     cursor: pointer;
-    background: transparent url(../images/material-design-icons/ic_chevron_left_24px.svg) no-repeat center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../images/material-design-icons/ic_chevron_left_24px.svg);
     background-size: 48px;
+}
+
+.ajapaik-photo-modal-previous-button-disabled {
+    background-image: url(../images/material-design-icons/ic_chevron_left_24px_gray.svg);
 }
 
 .ajapaik-photo-modal-vertical-align {
@@ -1235,8 +1242,15 @@ ul.errorlist {
     height: 48px;
     cursor: pointer;
     float: right;
-    background: transparent url(../images/material-design-icons/ic_chevron_right_24px.svg) no-repeat center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../images/material-design-icons/ic_chevron_right_24px.svg);
     background-size: 48px;
+}
+
+.ajapaik-photo-modal-next-button-disabled {
+    background-image: url(../images/material-design-icons/ic_chevron_right_24px_gray.svg);
 }
 
 #ajapaik-photo-modal-albums-icon {

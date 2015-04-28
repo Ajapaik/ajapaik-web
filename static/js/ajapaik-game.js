@@ -182,11 +182,11 @@
                 }
             }
         }
-        var buttons = $('.ajapaik-game-previous-photo-button');
-        if (window.photoHistory.length > 0) {
-            buttons.removeClass('disabled');
+        var previousButtons = $('.ajapaik-game-previous-photo-button');
+        if (window.photoHistory.length > 0 && window.photoHistoryIndex > 0) {
+            previousButtons.removeClass('ajapaik-photo-modal-previous-button-disabled');
         } else {
-            buttons.addClass('disabled');
+            previousButtons.addClass('ajapaik-photo-modal-previous-button-disabled');
         }
         // TODO: Why not POST?
         if (request.photo || request.album || request.area) {
@@ -618,7 +618,7 @@
             }
         });
         $(document).on('click', '.ajapaik-game-previous-photo-button', function () {
-            if (!nextPhotoLoading && !$(this).hasClass('disbled')) {
+            if (!nextPhotoLoading && !$(this).hasClass('ajapaik-game-previous-photo-button-disabled')) {
                 nextPhoto(true);
                 window._gaq.push(['_trackEvent', 'Game', 'Previous photo']);
             }
