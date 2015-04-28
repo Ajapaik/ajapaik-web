@@ -203,7 +203,7 @@ var map,
         } else {
             mapOpts = {
                 zoom: zoomLevel,
-                scrollwheel: false,
+                scrollwheel: true,
                 center: latLng,
                 mapTypeControl: true,
                 panControl: false,
@@ -281,6 +281,9 @@ var map,
         window.google.maps.event.addListener(map, 'bounds_changed', function () {
             var bounds = map.getBounds();
             searchBox.setBounds(bounds);
+            if (window.toggleVisiblePaneElements) {
+                window.toggleVisiblePaneElements();
+            }
         });
 
         if (isGameMap) {
