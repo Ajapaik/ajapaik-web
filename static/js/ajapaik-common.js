@@ -602,8 +602,13 @@ var map,
         });
     };
     $(document).on('click', '#ajapaik-header-game-button', function () {
-        if (!window.isGame && window.albumId) {
-            window.location.href = '/game?album=' + window.albumId;
+        if (window.isPhotoview && window.albumId && window.photoId) {
+            console.log("asd");
+            window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
+        } else {
+            if (!window.isGame && window.albumId) {
+                window.location.href = '/game?album=' + window.albumId;
+            }
         }
     });
     $(document).on('click', '#ajapaik-header-grid-button', function () {

@@ -734,13 +734,12 @@ def photoslug(request, photo_id, pseudo_slug):
         title = " ".join(photo_obj.description.split(" ")[:5])[:50]
 
     album = None
-    albums = None
-    try:
-        album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
-        albums = Album.objects.filter(pk__in=album_ids, is_public=True)
-        album = albums[0]
+    album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
+    albums = Album.objects.filter(pk__in=album_ids, is_public=True)
+    album = albums.first()
+    if album:
         album_selection_form = AlbumSelectionForm({"album": album.id})
-    except:
+    else:
         album_selection_form = AlbumSelectionForm()
 
     return render_to_response(template, RequestContext(request, {
