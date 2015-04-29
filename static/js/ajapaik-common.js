@@ -902,7 +902,7 @@ var map,
             data: heatmapPoints
         });
         heatmap.setMap(window.map);
-        heatmap.setOptions({radius: 50, dissipating: true});
+        heatmap.setOptions({radius: 50, dissipating: false});
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
