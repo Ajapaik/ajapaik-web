@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 16:15+0300\n"
-"PO-Revision-Date: 2015-04-28 09:09+0000\n"
+"POT-Creation-Date: 2015-04-29 16:44+0300\n"
+"PO-Revision-Date: 2015-04-29 13:30+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/ajapaik/language/"
 "nl/)\n"
@@ -68,89 +68,89 @@ msgstr ""
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:513
+#: project/home/views.py:517
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:517
+#: project/home/views.py:521
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:593 templates/_header.html:48
+#: project/home/views.py:597 templates/_header.html:48
 #: templates/_header.html.py:49 templates/base_bootstrap.html:8
 #: templates/base_bootstrap.html.py:10 templates/base_bootstrap.html:95
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
-#: project/home/views.py:884 project/home/views.py:888
-#: project/home/views.py:890
+#: project/home/views.py:888 project/home/views.py:892
+#: project/home/views.py:894
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:990
+#: project/home/views.py:994
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:993
+#: project/home/views.py:997
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:996
+#: project/home/views.py:1000
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:998
+#: project/home/views.py:1002
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:1000
+#: project/home/views.py:1004
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:1002
+#: project/home/views.py:1006
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:1030 project/home/views.py:1046
-#: project/home/views.py:1078 templates/_header.html:88
+#: project/home/views.py:1034 project/home/views.py:1050
+#: project/home/views.py:1082 templates/_header.html:88
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:1171
+#: project/home/views.py:1175
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:1173
+#: project/home/views.py:1177
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1442
+#: project/home/views.py:1446
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1444
+#: project/home/views.py:1448
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1467
+#: project/home/views.py:1471
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1476
+#: project/home/views.py:1480
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1483
+#: project/home/views.py:1487
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1485
+#: project/home/views.py:1489
 msgid "Not enough data submitted"
 msgstr ""
 

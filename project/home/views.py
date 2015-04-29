@@ -232,12 +232,16 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 def _get_album_choices():
     albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
+    album_photo_count_dict = {x.id: x.photo_count for x in albums}
     album_ids = Album.objects.filter(is_public=True).distinct('id').values_list('id', flat=True)
     random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_ids).distinct('album_id')\
         .values_list('album_id', 'photo_id')
     random_album_photos = {x:y for x, y in random_album_photos}
     for a in albums:
         a.cover_photo_id = random_album_photos[a.id]
+        if a.subalbum_of_id in album_photo_count_dict:
+            album_photo_count_dict[a.subalbum_of_id] += a.photo_count
+        a.photo_count = album_photo_count_dict[a.id]
 
     return albums
 
