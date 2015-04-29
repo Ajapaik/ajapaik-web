@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 16:15+0300\n"
-"PO-Revision-Date: 2015-04-28 09:09+0000\n"
+"POT-Creation-Date: 2015-04-29 16:44+0300\n"
+"PO-Revision-Date: 2015-04-29 13:30+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
 "fi/)\n"
@@ -70,58 +70,58 @@ msgstr "Google satelliitti"
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/home/views.py:513
+#: project/home/views.py:517
 msgid "Geotagging game"
 msgstr "Geotägäyspeli"
 
-#: project/home/views.py:517
+#: project/home/views.py:521
 msgid "Let's put pictures on the map"
 msgstr "Laitetaan kuvat kartalle"
 
-#: project/home/views.py:593 templates/_header.html:48
+#: project/home/views.py:597 templates/_header.html:48
 #: templates/_header.html.py:49 templates/base_bootstrap.html:8
 #: templates/base_bootstrap.html.py:10 templates/base_bootstrap.html:95
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:884 project/home/views.py:888
-#: project/home/views.py:890
+#: project/home/views.py:888 project/home/views.py:892
+#: project/home/views.py:894
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: project/home/views.py:990
+#: project/home/views.py:994
 msgid "Looks right!"
 msgstr "Näyttää oikealta!"
 
-#: project/home/views.py:993
+#: project/home/views.py:997
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Sijainti vaikuttaa oikealta. Lisää seuraavalla kerralla myös kamerakulma, "
 "niin saat lisää pisteitä!"
 
-#: project/home/views.py:996
+#: project/home/views.py:1000
 msgid "The location seems right, but not the azimuth."
 msgstr "Sijainti vaikuttaa oikealta, mutta kamerakulma ei."
 
-#: project/home/views.py:998
+#: project/home/views.py:1002
 msgid "The location seems right, your azimuth was first."
 msgstr "Sijainti vaikuttaa oikealta, kamerakulmaa ei ole merkitty aiemmin."
 
-#: project/home/views.py:1000
+#: project/home/views.py:1004
 msgid "Other users have different opinion."
 msgstr "Muut käyttäjät ovat eri mieltä."
 
-#: project/home/views.py:1002
+#: project/home/views.py:1006
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: project/home/views.py:1030 project/home/views.py:1046
-#: project/home/views.py:1078 templates/_header.html:88
+#: project/home/views.py:1034 project/home/views.py:1050
+#: project/home/views.py:1082 templates/_header.html:88
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
-#: project/home/views.py:1171
+#: project/home/views.py:1175
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -129,11 +129,11 @@ msgstr ""
 "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
 "jaa syntynyt albumi!"
 
-#: project/home/views.py:1173
+#: project/home/views.py:1177
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - kuratoi"
 
-#: project/home/views.py:1442
+#: project/home/views.py:1446
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
@@ -143,23 +143,23 @@ msgstr ""
 "sen sijainnin kartalle, mutta sitä ei näytetä muille käyttäjille ennen kuin "
 "saamme korkealaatuisemman kuvan instituutiosta."
 
-#: project/home/views.py:1444
+#: project/home/views.py:1448
 msgid "OK"
 msgstr "OK"
 
-#: project/home/views.py:1467
+#: project/home/views.py:1471
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
-#: project/home/views.py:1476
+#: project/home/views.py:1480
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: project/home/views.py:1483
+#: project/home/views.py:1487
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: project/home/views.py:1485
+#: project/home/views.py:1489
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
@@ -834,10 +834,8 @@ msgid "Previous page"
 msgstr ""
 
 #: templates/base_bootstrap.html:143 templates/base_bootstrap.html.py:145
-#, fuzzy
-#| msgid "Next photo"
 msgid "Next page"
-msgstr "Seuraava kuva"
+msgstr ""
 
 #: templates/cat_results.html:12 templates/cat_results.html.py:21
 msgid "Next"
