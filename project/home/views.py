@@ -554,7 +554,7 @@ def fetch_stream(request):
 
 def frontpage(request, album_id=None, page=1):
     albums = _get_album_choices()
-    photos = Photo.objects.filter(created__lte='2015-03-20', rephoto_of__isnull=True).order_by('-created')
+    photos = Photo.objects.filter(rephoto_of__isnull=True).order_by('-created')
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     requested_photo_id = request.GET.get('photo', None)
     if requested_photo_id:
