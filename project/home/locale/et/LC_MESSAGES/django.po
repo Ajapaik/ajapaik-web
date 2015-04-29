@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-28 12:07+0300\n"
-"PO-Revision-Date: 2015-04-20 15:13+0000\n"
-"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
+"POT-Creation-Date: 2015-04-29 12:30+0300\n"
+"PO-Revision-Date: 2015-04-28 09:19+0000\n"
+"Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
 "Language: et\n"
@@ -32,10 +32,8 @@ msgid "Choose album"
 msgstr "Vali album"
 
 #: project/home/forms.py:41 project/home/forms.py:48
-#, fuzzy
-#| msgid "Next photo"
 msgid "Choose photo"
-msgstr "Järgmine foto"
+msgstr "Vali foto"
 
 #: project/home/models.py:683
 msgid "Map"
@@ -73,58 +71,58 @@ msgstr "Google satelliit"
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/home/views.py:514
+#: project/home/views.py:507
 msgid "Geotagging game"
 msgstr "Asukohapakkumiste mäng"
 
-#: project/home/views.py:518
+#: project/home/views.py:511
 msgid "Let's put pictures on the map"
 msgstr "Paneme pildid kaardile"
 
-#: project/home/views.py:581 templates/_header.html:32
-#: templates/_header.html.py:33 templates/base_bootstrap.html:8
+#: project/home/views.py:586 templates/_header.html:48
+#: templates/_header.html.py:49 templates/base_bootstrap.html:8
 #: templates/base_bootstrap.html.py:10 templates/base_bootstrap.html:95
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
-#: project/home/views.py:870 project/home/views.py:878
-#: project/home/views.py:880
+#: project/home/views.py:875 project/home/views.py:879
+#: project/home/views.py:881
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/home/views.py:980
+#: project/home/views.py:981
 msgid "Looks right!"
 msgstr "Tundub õige!"
 
-#: project/home/views.py:983
+#: project/home/views.py:984
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Asukoht tundub õige. Proovi määrata ka vaate suund, et saada veelgi rohkem "
 "punkte."
 
-#: project/home/views.py:986
+#: project/home/views.py:987
 msgid "The location seems right, but not the azimuth."
 msgstr "Asukoht tundub õige, aga mitte vaate suund."
 
-#: project/home/views.py:988
+#: project/home/views.py:989
 msgid "The location seems right, your azimuth was first."
 msgstr "Asukoht tundub õige, Sinu pakutud suund oli esimene."
 
-#: project/home/views.py:990
+#: project/home/views.py:991
 msgid "Other users have different opinion."
 msgstr "Teised kasutajad on teisiti arvanud."
 
-#: project/home/views.py:992
+#: project/home/views.py:993
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/home/views.py:1020 project/home/views.py:1035
-#: project/home/views.py:1067 templates/_header.html:70
+#: project/home/views.py:1021 project/home/views.py:1036
+#: project/home/views.py:1068 templates/_header.html:86
 msgid "Leaderboard"
 msgstr "Edetabel"
 
-#: project/home/views.py:1159
+#: project/home/views.py:1160
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -132,11 +130,11 @@ msgstr ""
 "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit "
 "teistega!"
 
-#: project/home/views.py:1161
+#: project/home/views.py:1162
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Ajapaiga kuraator"
 
-#: project/home/views.py:1429
+#: project/home/views.py:1430
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
@@ -146,23 +144,23 @@ msgstr ""
 "kuni kättesaadavaks muutub parem kujutis. Aga kui siiski soovite, siis võib "
 "see valikusse jääda."
 
-#: project/home/views.py:1431
+#: project/home/views.py:1432
 msgid "OK"
 msgstr "OK"
 
-#: project/home/views.py:1454
+#: project/home/views.py:1455
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/home/views.py:1463
+#: project/home/views.py:1464
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: project/home/views.py:1470
+#: project/home/views.py:1471
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: project/home/views.py:1472
+#: project/home/views.py:1473
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
@@ -200,23 +198,14 @@ msgid "Your points"
 msgstr "Sinu punktid"
 
 #: templates/_block_leaderboard.html:13
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                    Album has %(counter)s photo,\n"
-#| "                "
-#| msgid_plural ""
-#| "\n"
-#| "                    Album has %(counter)s photos,\n"
-#| "                "
+#, python-format
 msgid ""
 "\n"
 "                    Album %(album_name)s leaderboard\n"
 "                "
 msgstr ""
 "\n"
-"                            Albumis on %(counter)s foto,\n"
-"                        "
+"Albumi %(album_name)s edetabel"
 
 #: templates/_block_leaderboard.html:21
 msgid "Recent activity leaderboard"
@@ -304,15 +293,7 @@ msgid "Cancel"
 msgstr "Loobu"
 
 #: templates/_header.html:13
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                            %(counter)s rephotograph\n"
-#| "                        "
-#| msgid_plural ""
-#| "\n"
-#| "                            %(counter)s rephotographs\n"
-#| "                        "
+#, python-format
 msgid ""
 "\n"
 "                            %(counter)s picture\n"
@@ -323,107 +304,110 @@ msgid_plural ""
 "                        "
 msgstr[0] ""
 "\n"
-"                                    %(counter)s ülepildistuse\n"
-"                                "
+"                                %(counter)s pilt\n"
+"                            "
 msgstr[1] ""
 "\n"
-"                                    %(counter)s ülepildistust\n"
-"                                "
+"                                %(counter)s pilti\n"
+"                            "
 
-#: templates/_header.html:35
-msgid "Album selection"
-msgstr "Albumi valik"
-
-#: templates/_header.html:37
-msgid "Album details"
-msgstr "Albumi info"
-
-#: templates/_header.html:42
-msgid "Remove album filter"
-msgstr "Eemalda albumi filter"
-
-#: templates/_header.html:47
+#: templates/_header.html:29 templates/_header.html.py:31
+#: templates/_header.html:63
 msgid "Show in grid"
 msgstr "Galerii"
 
-#: templates/_header.html:49 templates/_info_modal_content.html:147
+#: templates/_header.html:34 templates/_header.html.py:36
+#: templates/_header.html:65 templates/_info_modal_content.html:147
 #: templates/_info_modal_content.html:149
 msgid "Geotag pictures"
 msgstr "Märgi pilte kaardile"
 
-#: templates/_header.html:51 templates/_info_modal_content.html:138
+#: templates/_header.html:39 templates/_header.html.py:41
+#: templates/_header.html:67 templates/_info_modal_content.html:138
 msgid "Show on map"
 msgstr "Näita kaardil"
 
-#: templates/_header.html:54
+#: templates/_header.html:51
+msgid "Album selection"
+msgstr "Albumi valik"
+
+#: templates/_header.html:53
+msgid "Album details"
+msgstr "Albumi info"
+
+#: templates/_header.html:58
+msgid "Remove album filter"
+msgstr "Eemalda albumi filter"
+
+#: templates/_header.html:70
 msgid "Curate"
 msgstr "Kureeri"
 
-#: templates/_header.html:58
+#: templates/_header.html:74
 msgid "Options"
-msgstr ""
+msgstr "Valikud"
 
-#: templates/_header.html:65
+#: templates/_header.html:81
 msgid "Profile and leaderboard"
 msgstr "Profiil ja edetabel"
 
-#: templates/_header.html:81 templates/_photo_upload_modal.html:9
+#: templates/_header.html:97 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
 msgid "User"
 msgstr "Kasutaja"
 
-#: templates/_header.html:81 templates/_photo_upload_modal.html:9
+#: templates/_header.html:97 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:14
 msgid "Log out"
 msgstr "Logi välja"
 
-#: templates/_header.html:86
+#: templates/_header.html:102
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 "Oma skoori salvestamiseks ning hiljem jätkamiseks ühenda konto Facebookiga."
 
-#: templates/_header.html:87 templates/_photo_upload_modal.html:36
+#: templates/_header.html:103 templates/_photo_upload_modal.html:36
 #: templates/curator.html:220 templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
-#: templates/_header.html:97
+#: templates/_header.html:113
 msgid "Search"
 msgstr "Otsing"
 
-#: templates/_header.html:102
+#: templates/_header.html:118
 msgid "Selection"
 msgstr "Valitud pildid"
 
-#: templates/_header.html:106
+#: templates/_header.html:122
 msgid "My albums"
 msgstr "Minu albumid"
 
-#: templates/_header.html:116
+#: templates/_header.html:132
 msgid "Full search"
 msgstr "Täisotsing"
 
-#: templates/_header.html:122
+#: templates/_header.html:138
 msgid "Filter existing"
 msgstr "Ära näita Ajapaigas olevaid pilte"
 
-#: templates/_header.html:128
+#: templates/_header.html:144
 msgid "Search!"
 msgstr "Otsi!"
 
-#: templates/_header.html:133
+#: templates/_header.html:149
 msgid "Load more"
 msgstr "Lae rohkem tulemusi"
 
-#: templates/_header.html:138
+#: templates/_header.html:154
 msgid "Select all"
 msgstr "Vali kõik"
 
-#: templates/_header.html:148
+#: templates/_header.html:164
 msgid "Clear selection"
 msgstr "Tühista valik"
 
-#: templates/_header.html:154
+#: templates/_header.html:170
 msgid "Submit to Ajapaik"
 msgstr "Saada Ajapaika"
 
@@ -634,12 +618,10 @@ msgid "Select language"
 msgstr "Vali keel"
 
 #: templates/_photo_modal.html:112
-#, fuzzy
-#| msgid "Parent album"
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
-msgstr[0] "Ülemalbum"
-msgstr[1] "Ülemalbum"
+msgstr[0] "Pilt kuulub albumisse"
+msgstr[1] "Pilt kuulub albumitesse:"
 
 #: templates/_photo_modal.html:147 templates/photoview.html:125
 msgid "Unknown author"
@@ -648,7 +630,7 @@ msgstr "Tuvastamata kasutaja"
 #: templates/_photo_modal.html:162 templates/frontpage.html:23
 #: templates/game.html:41
 msgid "Image has location and view direction info"
-msgstr ""
+msgstr "On teada nii asukoht kui vaate suund"
 
 #: templates/_photo_modal.html:166 templates/_photo_modal.html.py:178
 msgid "user has submitted a location for this picture"
@@ -661,12 +643,12 @@ msgstr "kasutajat on teinud asukohapakkumisi sellele pildile"
 #: templates/_photo_modal.html:174 templates/frontpage.html:26
 #: templates/game.html:42
 msgid "Image has only location, no view direction"
-msgstr ""
+msgstr "On teada asukoht, kuid mitte vaate suund"
 
 #: templates/_photo_modal.html:186 templates/frontpage.html:29
 #: templates/game.html:43
 msgid "Image has no location info"
-msgstr ""
+msgstr "Pildil pole asukohainfot"
 
 #: templates/_photo_modal.html:191 templates/game.html:45
 #: templates/game.html.py:85
@@ -954,6 +936,10 @@ msgstr "Vanade fotode kureerimiseks ühenda konto kõigepealt Facebookiga."
 
 #: templates/frontpage.html:34
 msgid "Image has rephotos"
+msgstr "Pildist on ülepildistusi"
+
+#: templates/frontpage.html:36
+msgid "Comments"
 msgstr ""
 
 #: templates/game.html:51
@@ -1062,24 +1048,3 @@ msgstr[1] ""
 #: templates/photoview.html:130
 msgid "Date taken"
 msgstr "Kuupäev:"
-
-#~ msgid "Album %(album_name)s leaderboard"
-#~ msgstr "Albumi %(album_name)s edetabel"
-
-#~ msgid "Specify location"
-#~ msgstr "Täpsusta asukohta"
-
-#~ msgid ""
-#~ "\n"
-#~ "                                Picture belongs to album\n"
-#~ "                            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                                Picture belongs to albums:\n"
-#~ "                            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "Pilt kuulub albumisse "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "Pilt kuulub albumitesse:"

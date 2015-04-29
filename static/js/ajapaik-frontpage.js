@@ -95,6 +95,7 @@
             });
         };
         photoModal.on('shown.bs.modal', function () {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal open']);
             syncStateToUrl();
         }).on('hidden.bs.modal', function () {
             currentlySelectedPhotoId = null;

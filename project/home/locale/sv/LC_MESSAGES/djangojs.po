@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-28 12:07+0300\n"
-"PO-Revision-Date: 2015-04-20 15:00+0000\n"
+"POT-Creation-Date: 2015-04-29 12:30+0300\n"
+"PO-Revision-Date: 2015-04-28 09:10+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
 "sv/)\n"
@@ -20,39 +20,39 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:119
+#: static/js/ajapaik-common.js:122
 msgid "Tutorial"
 msgstr ""
 
-#: static/js/ajapaik-common.js:260
+#: static/js/ajapaik-common.js:263
 msgid "Geotag pictures"
 msgstr ""
 
-#: static/js/ajapaik-common.js:263
+#: static/js/ajapaik-common.js:266
 msgid "Go to my location"
 msgstr ""
 
-#: static/js/ajapaik-common.js:266
+#: static/js/ajapaik-common.js:269
 msgid "Close"
 msgstr ""
 
-#: static/js/ajapaik-common.js:672 static/js/ajapaik-common.js.c:793
-#: static/js/ajapaik-common.js:812 static/js/ajapaik-game.js:130
+#: static/js/ajapaik-common.js:687 static/js/ajapaik-common.js.c:808
+#: static/js/ajapaik-common.js:827 static/js/ajapaik-game.js:130
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:704 static/js/ajapaik-game.js:642
-#: static/js/ajapaik-map.js:944
+#: static/js/ajapaik-common.js:719 static/js/ajapaik-game.js:648
+#: static/js/ajapaik-map.js:948
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:728
+#: static/js/ajapaik-common.js:743
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:866
+#: static/js/ajapaik-common.js:881
 msgid "Median guess"
 msgstr ""
 
@@ -74,20 +74,20 @@ msgstr ""
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: static/js/ajapaik-game.js:329 static/js/ajapaik-game.js.c:331
-#: static/js/ajapaik-map.js:369 static/js/ajapaik-map.js.c:370
+#: static/js/ajapaik-game.js:332 static/js/ajapaik-game.js.c:334
+#: static/js/ajapaik-map.js:370 static/js/ajapaik-map.js.c:371
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/ajapaik-game.js:349
+#: static/js/ajapaik-game.js:352
 msgid "Your guess"
 msgstr ""
 
-#: static/js/ajapaik-map.js:870
+#: static/js/ajapaik-map.js:874
 msgid "Remove album filter"
 msgstr ""
 
-#: static/js/ajapaik-map.js:874
+#: static/js/ajapaik-map.js:878
 msgid "Apply album filter"
 msgstr ""
 

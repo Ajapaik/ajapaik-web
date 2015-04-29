@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-28 12:07+0300\n"
-"PO-Revision-Date: 2015-04-20 15:09+0000\n"
+"POT-Creation-Date: 2015-04-29 12:30+0300\n"
+"PO-Revision-Date: 2015-04-28 14:31+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
@@ -23,29 +23,29 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:119
+#: static/js/ajapaik-common.js:122
 msgid "Tutorial"
 msgstr "Abi"
 
-#: static/js/ajapaik-common.js:260
+#: static/js/ajapaik-common.js:263
 msgid "Geotag pictures"
 msgstr "Märgi pilte kaardile"
 
-#: static/js/ajapaik-common.js:263
+#: static/js/ajapaik-common.js:266
 msgid "Go to my location"
 msgstr "Mine minu asukohta"
 
-#: static/js/ajapaik-common.js:266
+#: static/js/ajapaik-common.js:269
 msgid "Close"
 msgstr "Sulge"
 
-#: static/js/ajapaik-common.js:672 static/js/ajapaik-common.js.c:793
-#: static/js/ajapaik-common.js:812 static/js/ajapaik-game.js:130
+#: static/js/ajapaik-common.js:687 static/js/ajapaik-common.js.c:808
+#: static/js/ajapaik-common.js:827 static/js/ajapaik-game.js:130
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:704 static/js/ajapaik-game.js:642
-#: static/js/ajapaik-map.js:944
+#: static/js/ajapaik-common.js:719 static/js/ajapaik-game.js:648
+#: static/js/ajapaik-map.js:948
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -53,11 +53,11 @@ msgstr ""
 "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
 "pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
-#: static/js/ajapaik-common.js:728
+#: static/js/ajapaik-common.js:743
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: static/js/ajapaik-common.js:866
+#: static/js/ajapaik-common.js:881
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
@@ -80,25 +80,23 @@ msgstr ""
 "valitud pilte."
 
 #: static/js/ajapaik-game.js:210
-#, fuzzy
-#| msgid "You have seen all the pictures we have for this area."
 msgid "You have seen all the pictures from this album."
-msgstr "Oled sellest kohast näinud kõiki pilte."
+msgstr "Oled näinud kõiki pilte sellest albumist."
 
-#: static/js/ajapaik-game.js:329 static/js/ajapaik-game.js.c:331
-#: static/js/ajapaik-map.js:369 static/js/ajapaik-map.js.c:370
+#: static/js/ajapaik-game.js:332 static/js/ajapaik-game.js.c:334
+#: static/js/ajapaik-map.js:370 static/js/ajapaik-map.js.c:371
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
-#: static/js/ajapaik-game.js:349
+#: static/js/ajapaik-game.js:352
 msgid "Your guess"
 msgstr "Sinu pakkumine"
 
-#: static/js/ajapaik-map.js:870
+#: static/js/ajapaik-map.js:874
 msgid "Remove album filter"
 msgstr "Eemalda albumi filter"
 
-#: static/js/ajapaik-map.js:874
+#: static/js/ajapaik-map.js:878
 msgid "Apply album filter"
 msgstr "Rakenda albumi filter"
 
