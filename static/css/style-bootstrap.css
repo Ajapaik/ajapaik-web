@@ -2096,7 +2096,3 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-pagination {
     margin-bottom: 10px;
 }
-
-.ajapaik-firefox-image-fix {
-    width: 100%;
-}

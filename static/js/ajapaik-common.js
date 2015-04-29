@@ -954,7 +954,7 @@ var map,
         window.albumId = e.target.dataset.id;
         window.albumName = e.target.dataset.name;
         window.currentAlbumPhotoCount = e.target.dataset.photos;
-        $('.ajapaik-navmenu').offcanvas('toggle');
+        $('#ajapaik-album-selection-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
     });
     window.openPhotoUploadModal = function () {
