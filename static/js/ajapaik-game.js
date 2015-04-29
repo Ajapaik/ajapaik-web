@@ -266,10 +266,9 @@
                     showDescriptions();
                     hideDescriptionButtons();
                     if (window.straightToSpecify) {
-                        setTimeout(function () {
-                            $('#ajapaik-photo-modal-specify-location').click();
-                            window.straightToSpecify = false;
-                        }, 100);
+                        $('#ajapaik-photo-modal-specify-location').click();
+                        window.straightToSpecify = false;
+                        $('.modal-backdrop').hide();
                     }
                 }
             });
