@@ -7,14 +7,14 @@
                 <a href="javascript:void(0);">
                     <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
                          data-id="{{ album.id }}" data-name="{{ album.name }}" data-photos="{{ album.photo_count }}"
-                         src="{% url 'project.home.views.photo_thumb' album.cover_photo.id 300 %}" >
+                         src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}" >
                     <div class="caption ajapaik-caption-album-selection">
-                        {{ album.name }} –
-                        {% blocktrans count counter=album.photo_count %}
+                        <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
+                        <p>{% blocktrans count counter=album.photo_count %}
                             {{ counter }} picture
                         {% plural %}
                             {{ counter }} pictures
-                        {% endblocktrans %}
+                        {% endblocktrans %}</p>
                     </div>
                 </a>
             {% endfor %}
@@ -78,6 +78,8 @@
             <span class="icon-bar"></span>
         </button>
     </div>
+    <a href="{{ ajapaik_facebook_link }}" target="_blank" title="{% trans 'Ajapaik on Facebook' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+            id="ajapaik-header-facebook-button"></a>
     <button type="button" title="{% trans 'Profile and leaderboard' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
             id="ajapaik-header-profile-button"></button>
     <div class="score_container">

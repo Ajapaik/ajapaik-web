@@ -414,6 +414,13 @@ body {
     z-index: 2;
 }
 
+#ajapaik-header-facebook-button {
+    background-image: url(../images/material-design-icons/ic_facebook_24px.svg);
+    position: fixed;
+    right: 126px;
+    z-index: 2;
+}
+
 #ajapaik-header-album-filter-button {
     background-image: url(../images/material-design-icons/ic_check_box_24px.svg);
     background-size: 24px !important;
@@ -2095,4 +2102,15 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 .ajapaik-pagination {
     margin-bottom: 10px;
+}
+
+.ajapaik-caption-album-selection-album-title {
+    text-transform: uppercase;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ajapaik-caption-album-selection p {
+    margin: 0;
 }
