@@ -245,7 +245,7 @@ def _get_album_choices():
             if first_photo:
                 a.cover_photo_id = first_photo.id
             else:
-                first_photo = a.subalbums.first().photos.first().id
+                first_photo = a.subalbums.first().photos.first()
                 if first_photo:
                     a.cover_photo_id = first_photo.id
         if a.subalbum_of_id in album_photo_count_dict:
