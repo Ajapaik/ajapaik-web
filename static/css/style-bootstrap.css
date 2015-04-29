@@ -2114,3 +2114,23 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 .ajapaik-caption-album-selection p {
     margin: 0;
 }
+
+#ajapaik-pager {
+    list-style-type: none;
+}
+
+#ajapaik-pager li {
+    display: inline-block;
+}
+
+#ajapaik-pager-next-link {
+    height: 48px;
+    width: 48px;
+    background: transparent url(../images/material-design-icons/ic_chevron_right_24px.svg) no-repeat center;
+}
+
+#ajapaik-pager-previous-link {
+    height: 48px;
+    width: 48px;
+    background: transparent url(../images/material-design-icons/ic_chevron_left_24px.svg) no-repeat center;
+}

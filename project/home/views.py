@@ -231,9 +231,7 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices():
-    # TODO: Remove created filter clause
-    albums = Album.objects.filter(is_public=True, created__lte='2015-03-15')\
-        .annotate(photo_count=Count('photos')).order_by("-created")
+    albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
     album_ids = Album.objects.filter(is_public=True).distinct('id').values_list('id', flat=True)
     random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_ids).distinct('album_id')\
         .values_list('album_id', 'photo_id')

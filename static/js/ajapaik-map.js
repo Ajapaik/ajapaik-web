@@ -106,10 +106,9 @@
             url: '/foto/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
-                if (window.FB !== undefined) {
-                    // TODO: Restore
-                    //window.FB.XFBML.parse();
-                }
+                //if (window.FB !== undefined) {
+                //    window.FB.XFBML.parse();
+                //}
             }
         });
     };
@@ -134,7 +133,6 @@
                     }
                 }, 3000);
             }
-            // TODO: Restore
             //window.FB.XFBML.parse();
         });
     };
@@ -622,8 +620,7 @@
                 }
                 currentPaneDataRequest = undefined;
                 lastRequestedPaneMarkersIds = markerIdsWithinBounds;
-                // TODO: Restore
-                //window.FB.XFBML.parse();
+                window.FB.XFBML.parse();
             });
         }
     };
