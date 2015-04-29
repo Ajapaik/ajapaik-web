@@ -3,7 +3,6 @@
     /*jslint nomen: true*/
     /*jslint browser: true*/
     $(document).ready(function () {
-        window.FB.XFBML.parse();
         window.updateLeaderboard();
         window.nextPhotoLoading = false;
         window.userClosedRephotoTools = false;
@@ -112,6 +111,9 @@
         $(document).on('click', '.ajapaik-frontpage-image-image', function (e) {
             window.loadPhoto(e.target.dataset.id);
         });
+        if (window.FB) {
+            window.FB.XFBML.parse();
+        }
         $('.ajapaik-navbar').autoHidingNavbar();
         window.uploadCompleted = function (response) {
             $('#ajapaik-rephoto-upload-modal').modal('toggle');
