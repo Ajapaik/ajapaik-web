@@ -819,7 +819,7 @@ a.fullscreen {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
+    width: 70%;
 }
 
 .modal-body {
@@ -837,6 +837,9 @@ a.fullscreen {
 }
 
 @media (max-width: 767px) {
+    .modal-dialog-center {
+        width: 100%;
+    }
     #ajapaik-album-name-container {
         max-width: 50px;
     }
