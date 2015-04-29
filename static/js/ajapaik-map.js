@@ -106,9 +106,6 @@
             url: '/foto/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
-                //if (window.FB !== undefined) {
-                //    window.FB.XFBML.parse();
-                //}
             }
         });
     };
@@ -133,7 +130,7 @@
                     }
                 }, 3000);
             }
-            //window.FB.XFBML.parse();
+            window.FB.XFBML.parse();
         });
     };
     updateBoundingEdge = function (edge) {
