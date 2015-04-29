@@ -250,7 +250,7 @@
                     azimuthIndicator.show();
                     locationIndicator.hide();
                     noLocationIndicator.hide();
-                } else if (currentPhoto.has_location) {
+                } else if (currentPhoto.has_coordinates) {
                     azimuthIndicator.hide();
                     locationIndicator.show();
                     noLocationIndicator.hide();
