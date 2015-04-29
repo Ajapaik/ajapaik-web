@@ -1050,7 +1050,7 @@ var map,
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {
                         $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
-                        //window.FB.XFBML.parse();
+                        window.FB.XFBML.parse();
                     });
                 }
             });

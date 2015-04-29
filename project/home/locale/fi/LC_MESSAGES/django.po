@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 12:30+0300\n"
+"POT-Creation-Date: 2015-04-29 16:15+0300\n"
 "PO-Revision-Date: 2015-04-28 09:09+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -34,94 +34,94 @@ msgstr "Valitse albumi"
 msgid "Choose photo"
 msgstr ""
 
-#: project/home/models.py:683
+#: project/home/models.py:679
 msgid "Map"
 msgstr "Kartta"
 
-#: project/home/models.py:684
+#: project/home/models.py:680
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/home/models.py:685
+#: project/home/models.py:681
 msgid "GPS"
 msgstr "GPS"
 
-#: project/home/models.py:689
+#: project/home/models.py:685
 msgid "Game"
 msgstr "Peli"
 
-#: project/home/models.py:690
+#: project/home/models.py:686
 msgid "Map view"
 msgstr "Karttanäkymä"
 
-#: project/home/models.py:691
+#: project/home/models.py:687
 msgid "Grid"
 msgstr "Ruudukko"
 
-#: project/home/models.py:695
+#: project/home/models.py:691
 msgid "Google map"
 msgstr "Google kartta"
 
-#: project/home/models.py:696
+#: project/home/models.py:692
 msgid "Google satellite"
 msgstr "Google satelliitti"
 
-#: project/home/models.py:697
+#: project/home/models.py:693
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/home/views.py:507
+#: project/home/views.py:513
 msgid "Geotagging game"
 msgstr "Geotägäyspeli"
 
-#: project/home/views.py:511
+#: project/home/views.py:517
 msgid "Let's put pictures on the map"
 msgstr "Laitetaan kuvat kartalle"
 
-#: project/home/views.py:586 templates/_header.html:48
+#: project/home/views.py:593 templates/_header.html:48
 #: templates/_header.html.py:49 templates/base_bootstrap.html:8
 #: templates/base_bootstrap.html.py:10 templates/base_bootstrap.html:95
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:875 project/home/views.py:879
-#: project/home/views.py:881
+#: project/home/views.py:884 project/home/views.py:888
+#: project/home/views.py:890
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: project/home/views.py:981
+#: project/home/views.py:990
 msgid "Looks right!"
 msgstr "Näyttää oikealta!"
 
-#: project/home/views.py:984
+#: project/home/views.py:993
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 "Sijainti vaikuttaa oikealta. Lisää seuraavalla kerralla myös kamerakulma, "
 "niin saat lisää pisteitä!"
 
-#: project/home/views.py:987
+#: project/home/views.py:996
 msgid "The location seems right, but not the azimuth."
 msgstr "Sijainti vaikuttaa oikealta, mutta kamerakulma ei."
 
-#: project/home/views.py:989
+#: project/home/views.py:998
 msgid "The location seems right, your azimuth was first."
 msgstr "Sijainti vaikuttaa oikealta, kamerakulmaa ei ole merkitty aiemmin."
 
-#: project/home/views.py:991
+#: project/home/views.py:1000
 msgid "Other users have different opinion."
 msgstr "Muut käyttäjät ovat eri mieltä."
 
-#: project/home/views.py:993
+#: project/home/views.py:1002
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: project/home/views.py:1021 project/home/views.py:1036
-#: project/home/views.py:1068 templates/_header.html:86
+#: project/home/views.py:1030 project/home/views.py:1046
+#: project/home/views.py:1078 templates/_header.html:88
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
-#: project/home/views.py:1160
+#: project/home/views.py:1171
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -129,11 +129,11 @@ msgstr ""
 "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
 "jaa syntynyt albumi!"
 
-#: project/home/views.py:1162
+#: project/home/views.py:1173
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - kuratoi"
 
-#: project/home/views.py:1430
+#: project/home/views.py:1442
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
@@ -143,39 +143,39 @@ msgstr ""
 "sen sijainnin kartalle, mutta sitä ei näytetä muille käyttäjille ennen kuin "
 "saamme korkealaatuisemman kuvan instituutiosta."
 
-#: project/home/views.py:1432
+#: project/home/views.py:1444
 msgid "OK"
 msgstr "OK"
 
-#: project/home/views.py:1455
+#: project/home/views.py:1467
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
-#: project/home/views.py:1464
+#: project/home/views.py:1476
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: project/home/views.py:1471
+#: project/home/views.py:1483
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: project/home/views.py:1473
+#: project/home/views.py:1485
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: project/settings/default.py:67
+#: project/settings/default.py:69
 msgid "Estonian"
 msgstr "viro"
 
-#: project/settings/default.py:68
+#: project/settings/default.py:70
 msgid "English"
 msgstr "englanti"
 
-#: project/settings/default.py:69
+#: project/settings/default.py:71
 msgid "Russian"
 msgstr "venäjä"
 
-#: project/settings/default.py:70
+#: project/settings/default.py:72
 msgid "Finnish"
 msgstr "suomi"
 
@@ -341,65 +341,69 @@ msgid "Options"
 msgstr ""
 
 #: templates/_header.html:81
+msgid "Ajapaik on Facebook"
+msgstr ""
+
+#: templates/_header.html:83
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: templates/_header.html:97 templates/_photo_upload_modal.html:9
+#: templates/_header.html:99 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
 msgid "User"
 msgstr "Käyttäjä"
 
-#: templates/_header.html:97 templates/_photo_upload_modal.html:9
+#: templates/_header.html:99 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:14
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
-#: templates/_header.html:102
+#: templates/_header.html:104
 msgid "Facebook Connect to save your score and continue later."
 msgstr "Tallenna pisteesi Facebook Connectilla ja jatka myöhemmin."
 
-#: templates/_header.html:103 templates/_photo_upload_modal.html:36
+#: templates/_header.html:105 templates/_photo_upload_modal.html:36
 #: templates/curator.html:220 templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Kirjaudu Facebookin avulla"
 
-#: templates/_header.html:113
+#: templates/_header.html:115
 msgid "Search"
 msgstr "Etsi"
 
-#: templates/_header.html:118
+#: templates/_header.html:120
 msgid "Selection"
 msgstr "Valinta"
 
-#: templates/_header.html:122
+#: templates/_header.html:124
 msgid "My albums"
 msgstr "Minun albumini"
 
-#: templates/_header.html:132
+#: templates/_header.html:134
 msgid "Full search"
 msgstr "Laaja haku"
 
-#: templates/_header.html:138
+#: templates/_header.html:140
 msgid "Filter existing"
 msgstr ""
 
-#: templates/_header.html:144
+#: templates/_header.html:146
 msgid "Search!"
 msgstr "Hae!"
 
-#: templates/_header.html:149
+#: templates/_header.html:151
 msgid "Load more"
 msgstr "Lataa lisää!"
 
-#: templates/_header.html:154
+#: templates/_header.html:156
 msgid "Select all"
 msgstr "Valitse kaikki"
 
-#: templates/_header.html:164
+#: templates/_header.html:166
 msgid "Clear selection"
 msgstr "Tyhjennä valinta"
 
-#: templates/_header.html:170
+#: templates/_header.html:172
 msgid "Submit to Ajapaik"
 msgstr "Lataa Ajapaikiin"
 
@@ -824,6 +828,16 @@ msgid ""
 "to that."
 msgstr ""
 "Käytämme sivustolla evästeitä. Käyttämällä sivustoa hyväksyt niiden käytön."
+
+#: templates/base_bootstrap.html:137 templates/base_bootstrap.html.py:139
+msgid "Previous page"
+msgstr ""
+
+#: templates/base_bootstrap.html:143 templates/base_bootstrap.html.py:145
+#, fuzzy
+#| msgid "Next photo"
+msgid "Next page"
+msgstr "Seuraava kuva"
 
 #: templates/cat_results.html:12 templates/cat_results.html.py:21
 msgid "Next"
