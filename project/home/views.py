@@ -241,7 +241,13 @@ def _get_album_choices():
         if a.id in random_album_photos:
             a.cover_photo_id = random_album_photos[a.id]
         else:
-            a.cover_photo_id = a.photos.first().id
+            first_photo = a.photos.first()
+            if first_photo:
+                a.cover_photo_id = first_photo.id
+            else:
+                first_photo = a.subalbums.first().photos.first().id
+                if first_photo:
+                    a.cover_photo_id = first_photo.id
         if a.subalbum_of_id in album_photo_count_dict:
             album_photo_count_dict[a.subalbum_of_id] += a.photo_count
         a.photo_count = album_photo_count_dict[a.id]
