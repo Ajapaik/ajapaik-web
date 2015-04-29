@@ -980,6 +980,15 @@ var map,
         }
         window.openPhotoUploadModal();
     });
+    $(document).on('click', '#ajapaik-header-menu-button', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Album selection click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Album selection click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Album selection click']);
+        }
+    });
     $(document).on('click', '#ajapaik-photo-modal-share', function () {
         if (window.isFrontpage) {
             window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal share click']);
