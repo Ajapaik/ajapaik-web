@@ -133,6 +133,7 @@ body {
     overflow: hidden;
     max-width: 500px;
     background-color: transparent !important;
+    text-overflow: ellipsis;
 }
 
 #ajapaik-album-name-container:hover {
@@ -1244,10 +1245,6 @@ ul.errorlist {
     display: -webkit-box;
     -webkit-box-pack: center;
     -webkit-box-align: center;
-
-    display: -moz-box;
-    -moz-box-pack: center;
-    -moz-box-align: center;
 
     display: -ms-box;
     -ms-box-pack: center;
