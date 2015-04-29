@@ -232,8 +232,16 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 def _get_album_choices():
     # TODO: Remove created filter clause
-    return Album.objects.filter(is_public=True, created__lte='2015-03-15')\
+    albums = Album.objects.filter(is_public=True, created__lte='2015-03-15')\
         .annotate(photo_count=Count('photos')).order_by("-created")
+    album_ids = Album.objects.filter(is_public=True).distinct('id').values_list('id', flat=True)
+    random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_ids).distinct('album_id')\
+        .values_list('album_id', 'photo_id')
+    random_album_photos = {x:y for x, y in random_album_photos}
+    for a in albums:
+        a.cover_photo_id = random_album_photos[a.id]
+
+    return albums
 
 
 def _calculate_recent_activity_scores():
@@ -509,6 +517,7 @@ def game(request):
     ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
     ret["description"] = _("Let's put pictures on the map")
+    ret["ajapaik_facebook_link"] = settings.AJAPAIK_FACEBOOK_LINK
 
     return render_to_response("game.html", RequestContext(request, ret))
 
@@ -573,18 +582,19 @@ def frontpage(request, album_id=None, page=1):
         start = int((page - 1) * page_size)
     else:
         start = 0
-    if total < 100:
+    if total < page_size:
         end = total
     else:
         end = int(start + page_size)
     max_page = ceil(float(total) / float(page_size))
-    photos = photos[start:end]
+    photos = photos.annotate(rephoto_count=Count('rephotos'))[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
         p.fb_url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
     return render_to_response("frontpage.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
         "album": album,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
         "albums": albums,
         "start": start,
         "end": end,
@@ -760,7 +770,8 @@ def photoslug(request, photo_id, pseudo_slug):
         "description": ''.join(photo_obj.description.rstrip()).splitlines()[0],
         "rephoto": rephoto,
         "hostname": "http://%s" % (site.domain, ),
-        "is_photoview": True
+        "is_photoview": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 
@@ -868,6 +879,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
         "selected_photo": selected_photo,
         "selected_rephoto": selected_rephoto,
         "is_mapview": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
     }
 
     if album is not None:
@@ -1021,6 +1033,7 @@ def leaderboard(request, album_id=None):
         "hostname": "http://%s" % (site.domain,),
         "leaderboard": lb,
         "album_leaderboard": album_leaderboard,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 
@@ -1065,7 +1078,8 @@ def top50(request, album_id=None):
         "all_time_leaderboard": general_leaderboard,
         "hostname": "http://%s" % (site.domain,),
         "title": _("Leaderboard"),
-        "is_top_50": True
+        "is_top_50": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 
@@ -1161,7 +1175,8 @@ def curator(request):
         "title": _("Timepatch (Ajapaik) - curate"),
         "hostname": "http://%s" % (site.domain, ),
         "leaderboard": curator_leaderboard,
-        "is_curator": True
+        "is_curator": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 

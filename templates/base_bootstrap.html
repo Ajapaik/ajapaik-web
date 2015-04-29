@@ -134,15 +134,15 @@
             <nav>
                 <ul class="pager">
                     {% if album and page > 1 %}
-                        <li><a href="{% url 'project.home.views.frontpage' album.id page|add:-1 %}">Previous</a></li>
+                        <li><a href="{% url 'project.home.views.frontpage' album.id page|add:-1 %}">{% trans "Previous page" %}</a></li>
                     {% elif page > 1 %}
-                        <li><a href="{% url 'project.home.views.frontpage' page|add:-1 %}">Previous</a></li>
+                        <li><a href="{% url 'project.home.views.frontpage' page|add:-1 %}">{% trans "Previous page" %}</a></li>
                     {% endif %}
                     <li class="disabled"><a href="#">{{ start|add:1 }} - {{ end }} / {{ total }}</a></li>
                     {% if album and page < max_page %}
-                        <li><a href="{% url 'project.home.views.frontpage' album.id page|add:1 %}">Next</a></li>
+                        <li><a href="{% url 'project.home.views.frontpage' album.id page|add:1 %}">{% trans "Next page" %}</a></li>
                     {% elif page < max_page %}
-                        <li><a href="{% url 'project.home.views.frontpage' page|add:1 %}">Next</a></li>
+                        <li><a href="{% url 'project.home.views.frontpage' page|add:1 %}">{% trans "Next page" %}</a></li>
                     {% endif %}
                 </ul>
             </nav>

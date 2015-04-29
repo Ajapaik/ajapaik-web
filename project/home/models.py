@@ -240,10 +240,6 @@ class Album(Model):
     class Meta:
         app_label = "project"
 
-    @property
-    def cover_photo(self):
-        return self.photos.filter(rephoto_of__isnull=True).order_by('?').first()
-
     def __unicode__(self):
         return u"%s" % self.name
 
