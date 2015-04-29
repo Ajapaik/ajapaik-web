@@ -579,7 +579,9 @@ def frontpage(request, album_id=None, page=1):
     album = None
     if album_id:
         album = Album.objects.get(pk=album_id)
-        album_photo_ids = album.photos.all().values_list('id', flat=True)
+        album_photo_ids = list(album.photos.all().values_list('id', flat=True))
+        for sa in album.subalbums.all():
+            album_photo_ids += list(sa.photos.all().values_list('id', flat=True))
         photos = photos.filter(id__in=album_photo_ids)
     marker_ids = request.GET.get("set")
     if marker_ids:
