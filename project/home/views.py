@@ -250,6 +250,7 @@ def _get_album_choices():
                     a.cover_photo_id = first_photo.id
         if a.subalbum_of_id in album_photo_count_dict:
             album_photo_count_dict[a.subalbum_of_id] += a.photo_count
+    for a in albums:
         a.photo_count = album_photo_count_dict[a.id]
 
     return albums
