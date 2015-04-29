@@ -973,7 +973,19 @@ var map,
         }
     };
     $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal add rephoto click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Photo modal add rephoto click']);
+        }
         window.openPhotoUploadModal();
+    });
+    $(document).on('click', '#ajapaik-photo-modal-share', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal share click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Photo modal share click']);
+        }
     });
     $(document).on('click', '#full_leaderboard', function (e) {
         e.preventDefault();
@@ -1028,6 +1040,23 @@ var map,
                     });
                 }
             });
+        }
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Album info click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Album info click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Mapview', 'Album info click']);
+        }
+    });
+
+    $(document).on('click', '.ajapaik-album-info-modal-album-link', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Album info album link click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Album info album link click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Mapview', 'Album info album link click']);
         }
     });
 

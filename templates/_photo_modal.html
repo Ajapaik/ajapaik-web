@@ -97,7 +97,7 @@
                     {% endif %}
                     {% if photo.source_url %}
                         <div class="row-fluid" id="ajapaik-photo-modal-source">
-                            <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
+                            <a href='{{ photo.source_url }}'
                                target="_blank">
                                 {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
                             </a>
@@ -111,7 +111,7 @@
                         <div class="row-fluid">
                             <span id="ajapaik-photo-modal-albums-icon" title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}"></span>
                             {% for a in albums %}
-                                <a href="{% url 'project.home.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
+                                <a class="ajapaik-photo-modal-album-link" href="{% url 'project.home.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -127,7 +127,7 @@
                             <div class="row-fluid"><b>{{ photo.rephotos.all.0.author }}</b>{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
                         {% endif %}
                         <div class="row-fluid">
-                            <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.rephotos.all.0.source_url }}'
+                            <a id="ajapaik-photo-modal-source" href='{{ photo.rephotos.all.0.source_url }}'
                                target="_blank">
                                 {{ photo.rephotos.all.0.source.desription }} {{ photo.rephotos.all.0.source_key }}
                             </a>
@@ -232,10 +232,14 @@
     window.isFrontpage = '{{ is_frontpage|safe }}';
     if (window.isFrontpage === 'True') {
         window.isFrontpage = true;
+    } else {
+        window.isFrontpage = false;
     }
     window.isMapview = '{{ is_mapview|safe }}';
     if (window.isMapview === 'True') {
         window.isMapview = true;
+    } else {
+        window.isMapview = false;
     }
     window.photoModalCurrentImageUrl = '{% url 'project.home.views.photo_url' photo.id %}';
     {% if photo.flip %}
@@ -335,6 +339,11 @@
                 if (previousId && !window.nextPhotoLoading) {
                     window.loadPhoto(previousId);
                 }
+                if (window.isFrontpage) {
+                    window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal previous']);
+                } else if (window.isGame) {
+                    window._gaq.push(['_trackEvent', 'Game', 'Photo modal previous']);
+                }
             }
         });
         $('.ajapaik-photo-modal-next-button').click(function () {
@@ -343,9 +352,26 @@
                 if (nextId && !window.nextPhotoLoading) {
                     window.loadPhoto(nextId);
                 }
+                if (window.isFrontpage) {
+                    window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal next']);
+                } else if (window.isGame) {
+                    window._gaq.push(['_trackEvent', 'Game', 'Photo modal next']);
+                }
+            }
+        });
+        $('.ajapaik-photo-modal-album-link').click(function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Album link click']);
+            } else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Album link click']);
             }
         });
         $("#ajapaik-photo-modal-specify-location").click(function (e) {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
+            } else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Photo modal specify location click']);
+            }
             window.startGuessLocation(e.target.dataset.id);
         });
         $('#ajapaik-photo-modal-close-button').click(function (e) {
@@ -453,6 +479,20 @@
                 }
             }
         });
+        $(document).on('click', '#ajapaik-photo-modal-source', function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Source link click']);
+            }  else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Source link click']);
+            }
+        });
+        $(document).on('click', '#ajapaik-photo-modal-rephoto-source', function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Rephoto source link click']);
+            }  else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Rephoto source link click']);
+            }
+        });
         $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
             e.preventDefault();
             $('#ajapaik-photo-modal-rephoto-column').hide();
@@ -476,6 +516,11 @@
             window.userClosedRephotoTools = true;
         });
         $(document).on('click', '#ajapaik-photo-modal-discuss', function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
+            } else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
+            }
             window.location.href = '{% url 'project.home.views.photo' photo.id %}';
         });
         originalPhotoColumn.mouseenter(function () {
@@ -543,7 +588,7 @@
                 <div class="row-fluid"><b>{%=o.author%}</b>{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
             {% } %}
             <div class="row-fluid">
-                <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{%=o.sourceURL%}'
+                <a id="ajapaik-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
                    target="_blank">
                     {%=o.source%} {%=o.sourceKey%}
                 </a>

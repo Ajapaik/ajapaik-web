@@ -56,6 +56,7 @@
     <script>
         window.historicPhotoInfiniteStart = 0;
         window.isFrontpage = '{{ is_frontpage|safe }}';
+        window.isFrontpage = window.isFrontpage === 'True';
         {% if album %}
             window.albumId = {{ album.id }};
         {% endif %}
