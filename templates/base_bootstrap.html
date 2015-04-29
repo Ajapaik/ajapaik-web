@@ -1,6 +1,7 @@
 {% load i18n cache thumbnail compress %}
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
+<html {% if is_game or is_mapview %}class="ajapaik-html-game-map"{% endif %} xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
 <head>
     <title>
         {% if title %}
@@ -97,22 +98,24 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/ajapaik_marker_57px.png"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.2/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jasny-bootstrap-3.1.3/css/jasny-bootstrap.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.theme.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.1.min.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.4.min.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
     {% endcompress %}
 </head>
-<body class="{% if is_mapview or is_game %}ajapaik-body-window-height{% endif %}">
+<body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
@@ -125,6 +128,27 @@
     {% include "_header.html" %}
 {% endblock header %}
 {% block layout %}{% endblock layout %}
+{% if is_frontpage %}
+    <footer class="footer text-center">
+        <div class="container">
+            <nav>
+                <ul class="pager">
+                    {% if album and page > 1 %}
+                        <li><a href="{% url 'project.home.views.frontpage' album.id page|add:-1 %}">{% trans "Previous page" %}</a></li>
+                    {% elif page > 1 %}
+                        <li><a href="{% url 'project.home.views.frontpage' page|add:-1 %}">{% trans "Previous page" %}</a></li>
+                    {% endif %}
+                    <li class="disabled"><a href="#">{{ start|add:1 }} – {{ end }} / {{ total }}</a></li>
+                    {% if album and page < max_page %}
+                        <li><a href="{% url 'project.home.views.frontpage' album.id page|add:1 %}">{% trans "Next page" %}</a></li>
+                    {% elif page < max_page %}
+                        <li><a href="{% url 'project.home.views.frontpage' page|add:1 %}">{% trans "Next page" %}</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </footer>
+{% endif %}
 {% block global_js %}
     <script>
         window.fbAsyncInit=function(){FB.init({appId:"201052296573134",status:!0,cookie:!0,xfbml:!0, version:'v2.3'});try{FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackEvent","Facebook","Like added",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackEvent","Facebook","Like removed",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackEvent","Facebook","Message sent",a])}),FB.Event.subscribe("comment.create",function(a){_gaq.push(["_trackEvent","Facebook","Comment added",
@@ -140,23 +164,41 @@
             leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
             flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',
             allTimeLeaderboardURL = '{% url 'project.home.views.all_time_leaderboard' %}',
-            leaderboardFullURL = '{% url 'project.home.views.top50' %}';
+            leaderboardFullURL = '{% url 'project.home.views.top50' %}',
+            isMapview = false,
+            isGame = false,
+            infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' %}';
         isMobile = isMobile === 'True';
     </script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/moment-2.9.0.min.js"></script>
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization,places"></script>
     {% compress js %}
-        <script src="{{ STATIC_URL }}js/jquery-2.1.3.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery-1.11.2.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jasny-bootstrap-3.1.3/js/jasny-bootstrap.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.5.4.min.js"></script>
         <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.history.html5.js"></script>
         <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
         <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js"></script>
+        <script src="{{ STATIC_URL }}js/lazysizes-1.1.0-rc3.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     {% endcompress %}
-    <script src="{{ STATIC_URL }}js/jquery.hoverIntent-1.8.0.min.js"></script>
-    <script src="{{ STATIC_URL }}js/URI-1.14.1.min.js"></script>
-    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=visualization,places"></script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
 </body>

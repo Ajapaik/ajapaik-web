@@ -2,29 +2,11 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_area_selection_scoreboard.html" %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
-    <div class="modal fade" id="ajapaik-full-leaderboard-modal" tabindex="-1" role="dialog"
-         aria-labelledby="ajapaik-full-leaderboard-modal-label" aria-hidden="true">
-        <div class="modal-dialog" style="width: 75%;">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="leaderboard_browser">
-                        <div class="single">
-                            <div class="score_container">
-                                <ul class="scoreboard"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "_full_leaderboard_modal.html" %}
     <div class="container" id="ajapaik-curator-container">
         <div class="col-xs-12">
             {% if request.user.is_authenticated and request.user.profile.fb_id %}
@@ -101,6 +83,7 @@
                                                 <label for="ajapaik-curator-add-area-name">{% trans "Place" %}</label>
                                             </span>
                                             <input class="form-control" type="text" id="ajapaik-curator-add-area-name">
+                                            <input type="hidden" id="ajapaik-curator-add-area-name-hidden">
                                         </div>
                                     </div>
                                 </div>
@@ -139,6 +122,15 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" id="ajapaik-curator-search-results"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" id="ajapaik-curator-selection"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" id="ajapaik-curator-my-albums"></div>
                 </div>
                 <div class="modal fade" id="ajapaik-curator-edit-my-album-modal">
                     <div class="modal-dialog">
@@ -221,86 +213,9 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" id="ajapaik-curator-tabpanel">
-                    <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
-                        <li id="ajapaik-curator-results-tab-tab" role="presentation" class="active">
-                            <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab" data-toggle="tab">{% trans "Search" %}<span class="badge" id="ajapaik-curator-result-count">0</span></a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab" role="tab" data-toggle="tab">{% trans "Selection" %}<span class="badge" id="ajapaik-curator-selection-size">0</span></a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab" role="tab" data-toggle="tab">{% trans "My albums" %}<span class="badge" id="ajapaik-curator-my-albums-size">0</span></a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
-                            <div class="row" id="ajapaik-curator-search-controls">
-                                <div class="col-xs-5">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="ajapaik-curator-full-search"
-                                               placeholder="{% trans "Full search" %}">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"
-                                                   checked="checked">
-                                        </span>
-                                        <label class="form-control"
-                                               for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-search-button">
-                                        {% trans "Search!" %}
-                                    </button>
-                                </div>
-                                <div class="col-xs-2" id="ajapaik-curator-load-more-row">
-                                    <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
-                                        {% trans "Load more" %}
-                                    </button>
-                                </div>
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">
-                                        {% trans "Select all" %}
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12" id="ajapaik-curator-search-results"></div>
-                            </div>
-                            <div class="row" id="ajapaik-curator-bottom-load-more-row">
-                                <div class="col-xs-offset-10 col-xs-2">
-                                    <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
-                                        {% trans "Load more" %}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
-                            <div class="row" id="ajapaik-curator-selection-controls">
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-clear-selection">
-                                        {% trans "Clear selection" %}
-                                    </button>
-                                </div>
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-success btn-block" id="ajapaik-curator-submit-selection">
-                                        {% trans "Submit to Ajapaik" %}
-                                    </button>
-                                </div>
-                                <div class="col-xs-offset-6 col-xs-2">
-                                    <img src="{{ STATIC_URL }}images/large-thumbnails-48.png" id="ajapaik-curator-gallery-switch">
-                                    <img src="{{ STATIC_URL }}images/list-with-thumbnails-48.png" id="ajapaik-curator-list-switch">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12" id="ajapaik-curator-selection"></div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>
-                    </div>
-                </div>
+
             {% else %}
-                <div id="facebook-connect">
+                <div id="facebook-connect" style="margin-top: 75px;">
                     <p>{% trans "Curating requires connecting your account with Facebook." %}</p>
                     <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
@@ -309,37 +224,25 @@
     </div>
 {% endblock layout %}
 {% block specific_js %}
-{% compress js %}
-    <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-    <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
-{% endcompress %}
 <script>
     $(function () {
         'use strict';
         $(document).ready(function () {
-            $('#ajapaik-header').find('.score_container').hoverIntent(window.showScoreboard, window.hideScoreboard);
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 if ($(e.target).attr('href') === '#ajapaik-curator-selection-tab') {
                     buildSelectionDiv();
+                    $('#ajapaik-curator-my-albums').hide();
+                    $('#ajapaik-curator-search-results').hide();
+                    $('#ajapaik-curator-selection').show();
+                } else if ($(e.target).attr('href') === '#ajapaik-curator-results-tab') {
+                    $('#ajapaik-curator-my-albums').hide();
+                    $('#ajapaik-curator-search-results').show();
+                    $('#ajapaik-curator-selection').hide();
+                } else if ($(e.target).attr('href') === '#ajapaik-curator-my-albums-tab') {
+                    $('#ajapaik-curator-my-albums').show();
+                    $('#ajapaik-curator-search-results').hide();
+                    $('#ajapaik-curator-selection').hide();
                 }
-            });
-            $('#full_leaderboard').bind('click', function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: window.leaderboardFullURL,
-                    success: function (response) {
-                        var modalWindow = $('#ajapaik-full-leaderboard-modal');
-                        modalWindow.find('.scoreboard').html(response);
-                        modalWindow.modal().on('shown.bs.modal', function () {
-                            $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                        });
-                        window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard success']);
-                    },
-                    error: function () {
-                        window._gaq.push(['_trackEvent', 'Curator', 'Full leaderboard error']);
-                    }
-                });
-
             });
             var input = document.getElementById('ajapaik-curator-add-area-name'),
                 $input = $(input);
@@ -353,7 +256,7 @@
                 });
                 window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
                     var place = autocomplete.getPlace();
-                    $('#ajapaik-curator-add-area-name').val(place.name);
+                    $('#ajapaik-curator-add-area-name-hidden').val(place.name);
                     areaLat = place.geometry.location.lat();
                     areaLng = place.geometry.location.lng();
                     setTimeout(function () {
@@ -363,6 +266,7 @@
                 });
             }
             loadMyAlbums();
+            $('.ajapaik-navbar').autoHidingNavbar();
         });
         var gameUrl = '{% url "project.home.views.game" %}',
             resultCount = 0,
@@ -370,11 +274,11 @@
             start = 200,
             resultIds = [],
             fullResultSet = {},
-            selectedResults = {},
             selectionDiv = $('#ajapaik-curator-selection'),
             resultDiv = $('#ajapaik-curator-search-results'),
             areaLat,
             areaLng;
+        window.selectedResults = {};
         $('#ajapaik-curator-full-search').on('keypress', function (e) {
             if (e.keyCode == 13) {
                 $('#ajapaik-curator-search-button').click();
@@ -392,9 +296,9 @@
         };
         var buildSelectionDiv = function () {
             selectionDiv.empty();
-            for (var key in selectedResults) {
-                if (selectedResults.hasOwnProperty(key)) {
-                    var currentItem = selectedResults[key];
+            for (var key in window.selectedResults) {
+                if (window.selectedResults.hasOwnProperty(key)) {
+                    var currentItem = window.selectedResults[key];
                     selectionDiv.append(tmpl('ajapaik-curator-selection-template', currentItem));
                 }
             }
@@ -407,7 +311,7 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(response) {
-                    var targetDiv = $('#ajapaik-curator-my-albums-tab'),
+                    var targetDiv = $('#ajapaik-curator-my-albums'),
                         responseLength = response.length;
                     targetDiv.empty();
                     $('#ajapaik-curator-my-albums-size').html(responseLength);
@@ -566,20 +470,20 @@
         });
         $(document).on('click', '.ajapaik-result-item', function (e) {
             var target = fullResultSet[e.target.dataset.id];
-            if (selectedResults[e.target.dataset.id]) {
-                delete selectedResults[e.target.dataset.id];
+            if (window.selectedResults[e.target.dataset.id]) {
+                delete window.selectedResults[e.target.dataset.id];
                 $(e.target).removeClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length);
             } else {
-                selectedResults[e.target.dataset.id] = target;
+                window.selectedResults[e.target.dataset.id] = target;
                 $(e.target).addClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length);
             }
         });
         $(document).on('click', '#ajapaik-curator-clear-selection', function () {
-            selectedResults = {};
+            window.selectedResults = {};
             buildSelectionDiv();
-            $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length);
+            $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length);
             $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
             window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
         });
@@ -614,10 +518,10 @@
             toggleButtonActive($this);
             if (target.hasClass('ajapaik-photo-inverted')) {
                 target.removeClass('ajapaik-photo-inverted');
-                selectedResults[$this[0].dataset.id].invert = false;
+                window.selectedResults[$this[0].dataset.id].invert = false;
             } else {
                 target.addClass('ajapaik-photo-inverted');
-                selectedResults[$this[0].dataset.id].invert = true;
+                window.selectedResults[$this[0].dataset.id].invert = true;
             }
             window._gaq.push(['_trackEvent', 'Curator', 'Invert colors']);
         });
@@ -628,16 +532,16 @@
             toggleButtonActive($this);
             if (target.hasClass('ajapaik-photo-flipped')) {
                 target.removeClass('ajapaik-photo-flipped');
-                selectedResults[$this[0].dataset.id].flip = false;
+                window.selectedResults[$this[0].dataset.id].flip = false;
             } else {
                 target.addClass('ajapaik-photo-flipped');
-                selectedResults[$this[0].dataset.id].flip = true;
+                window.selectedResults[$this[0].dataset.id].flip = true;
             }
             window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
         });
         $(document).on('click', '.ajapaik-curator-stereo-button', function() {
             var $this = $(this);
-            selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
+            window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
             toggleButtonActive($this);
             window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
         });
@@ -645,15 +549,15 @@
             var targetId = $(this)[0].dataset.id,
                 targetResultItem = $('#ajapaik-result-item-' + window.formatId(targetId)),
                 targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
-            if (selectedResults[targetId]) {
-                delete selectedResults[targetId];
+            if (window.selectedResults[targetId]) {
+                delete window.selectedResults[targetId];
                 targetSelectionItem.remove();
                 targetResultItem.removeClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length)
             } else {
-                selectedResults[e.target.dataset.id] = target;
+                window.selectedResults[e.target.dataset.id] = target;
                 targetResultItem.addClass('ajapaik-curator-selected-image');
-                $('#ajapaik-curator-selection-size').html(Object.keys(selectedResults).length)
+                $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length)
             }
             window._gaq.push(['_trackEvent', 'Curator', 'Delete']);
         });
@@ -739,7 +643,7 @@
         $(document).on('click', '#ajapaik-curator-confirm-area-selection-button', function () {
             var confirm = false,
                 album = $('#ajapaik-curator-album-select').val();
-            if (Object.keys(selectedResults).length < 5 && !album) {
+            if (Object.keys(window.selectedResults).length < 5 && !album) {
                 confirm = window.confirm(window.gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.'));
             } else {
                 confirm = true;
@@ -750,12 +654,12 @@
                     type: 'POST',
                     url: '/curator_upload/',
                     data: {
-                        selection: JSON.stringify(selectedResults),
+                        selection: JSON.stringify(window.selectedResults),
                         album: album,
                         name: $('#ajapaik-curator-add-album-name').val(),
                         description: $('#ajapaik-curator-add-album-description').val(),
                         open: $('#ajapaik-curator-add-album-public-mutable').val(),
-                        areaName: $('#ajapaik-curator-add-area-name').val(),
+                        areaName: $('#ajapaik-curator-add-area-name-hidden').val(),
                         areaLat: areaLat,
                         areaLng: areaLng,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
@@ -775,7 +679,7 @@
                             $('#ajapaik-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
                             $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
                             $('#ajapaik-curator-add-album-name').val(null);
-                            $('#ajapaik-curator-add-area-name').val(null);
+                            $('#ajapaik-curator-add-area-name-hidden').val(null);
                             feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                                 $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
                                 $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
@@ -855,7 +759,10 @@
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
         <a class="thumbnail col-xs-2" title="{%=o.title%}">
-            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}" data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}" class="img-responsive ajapaik-result-item" id="ajapaik-result-item-{%=formatId(o.id)%}">
+            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}"
+                data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}"
+                class="img-responsive ajapaik-result-item {% if (selectedResults[o.id]) { %}ajapaik-curator-selected-image{% } %}"
+                id="ajapaik-result-item-{%=formatId(o.id)%}">
         </a>
     </script>
     <script id="ajapaik-curator-my-album-template" type="text/x-tmpl">

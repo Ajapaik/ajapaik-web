@@ -8,16 +8,31 @@
             </button>
         </div>
         <div class="modal-body" id="ajapaik-modal-body">
-            <div class="row">
-                {% if photo.rephotos.all|length == 0 %}
-                    <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-column">
-                {% elif photo.rephotos.all|length > 1 %}
-                    <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-column">
+            <div class="row-fluid ajapaik-photo-modal-vertical-align">
+                {% if not is_mapview %}
+                    <div class="col-xs-1">
+                        <div class="ajapaik-photo-modal-previous-button"></div>
+                    </div>
+                {% endif %}
+                {% if is_mapview %}
+                    {% if photo.rephotos.all|length == 0 %}
+                        <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-column">
+                    {% elif photo.rephotos.all|length > 1 %}
+                        <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-column">
+                    {% else %}
+                        <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-column">
+                    {% endif %}
                 {% else %}
-                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-column">
+                    {% if photo.rephotos.all|length == 0 %}
+                        <div class="col-xs-10" id="ajapaik-photo-modal-original-photo-column">
+                    {% elif photo.rephotos.all|length > 1 %}
+                        <div class="col-xs-4" id="ajapaik-photo-modal-original-photo-column">
+                    {% else %}
+                        <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-column">
+                    {% endif %}
                 {% endif %}
                     <div id="ajapaik-modal-photo-container">
-                        <a class="fullscreen col-xs-12" id="ajapaik-full-screen-link" rel="" href="">
+                        <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="javascript:void(0);">
                             <img src="{% url 'project.home.views.photo_url' photo.id %}"
                                  class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                                  id="ajapaik-modal-photo"/>
@@ -29,10 +44,18 @@
                     </div>
                 </div>
                 {% if photo.rephotos.all.0 %}
-                    {% if photo.rephotos.all|length > 1 %}
-                        <div class="col-xs-5" id="ajapaik-photo-modal-rephoto-column">
+                    {% if is_mapview %}
+                        {% if photo.rephotos.all|length > 1 %}
+                            <div class="col-xs-5" id="ajapaik-photo-modal-rephoto-column">
+                        {% else %}
+                            <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-column">
+                        {% endif %}
                     {% else %}
-                        <div class="col-xs-6" id="ajapaik-photo-modal-rephoto-column">
+                        {% if photo.rephotos.all|length > 1 %}
+                            <div class="col-xs-4" id="ajapaik-photo-modal-rephoto-column">
+                        {% else %}
+                            <div class="col-xs-5" id="ajapaik-photo-modal-rephoto-column">
+                        {% endif %}
                     {% endif %}
                     <div id="ajapaik-modal-rephoto-container">
                         <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
@@ -44,7 +67,7 @@
                         <div class="col-xs-2" id="ajapaik-rephoto-selection">
                             {% for rephoto in photo.rephotos.all %}
                                 <div class="row ajapaik-photo-modal-rephoto-thumb" id="ajapaik-rephoto-thumb-{{ rephoto.id }}">
-                                    <img class="img-responsive"
+                                    <img class="img-responsive col-xs-12"
                                          src="{% url 'project.home.views.photo_thumb' rephoto.id 100 %}"
                                          data-id="{{ rephoto.id }}" />
                                 </div>
@@ -52,35 +75,46 @@
                         </div>
                     {% endif %}
                 {% endif %}
+                {% if not is_mapview %}
+                    <div class="col-xs-1">
+                        <div class="ajapaik-photo-modal-next-button"></div>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="modal-footer">
-            <div class="row">
-                {% if photo.rephotos.all|length > 1 %}
-                    <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-info-column">
+            <div class="row text-left">
+                {% if photo.rephotos.all|length > 0 %}
+                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
                 {% elif photo.rephotos.all|length == 0 %}
                     <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-info-column">
-                {% else %}
-                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
                 {% endif %}
-                {% if photo.author %}
-                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
-                {% endif %}
-                {% if photo.description %}
-                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
-                {% endif %}
-                {% if photo.source_url %}
-                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                        <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.source_url }}'
-                           target="_blank">
+                    {% if photo.author %}
+                        <div class="row-fluid" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
+                    {% endif %}
+                    {% if photo.description %}
+                        <div class="row-fluid" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
+                    {% endif %}
+                    {% if photo.source_url %}
+                        <div class="row-fluid" id="ajapaik-photo-modal-source">
+                            <a href='{{ photo.source_url }}'
+                               target="_blank">
+                                {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
+                            </a>
+                        </div>
+                    {% elif photo.source.description %}
+                        <div class="row-fluid" id="ajapaik-photo-modal-source">
                             {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-                        </a>
-                    </div>
-                {% elif photo.source.description %}
-                    <div class="row ajapaik-photo-modal-row" id="ajapaik-photo-modal-source">
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-                    </div>
-                {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if albums|length > 0 %}
+                        <div class="row-fluid">
+                            <span id="ajapaik-photo-modal-albums-icon" title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}"></span>
+                            {% for a in albums %}
+                                <a class="ajapaik-photo-modal-album-link" href="{% url 'project.home.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 {% if photo.rephotos.all|length > 0 %}
                     {% if photo.rephotos.all|length > 1 %}
@@ -90,84 +124,92 @@
                     {% endif %}
                     {% if photo.rephotos.all.0.source and photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}
                         {% if photo.rephotos.all.0.author %}
-                            <div class="row ajapaik-photo-modal-row"><b>{{ photo.rephotos.all.0.author }}</b>{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
+                            <div class="row-fluid"><b>{{ photo.rephotos.all.0.author }}</b>{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
                         {% endif %}
-                        <div class="row ajapaik-photo-modal-row">
-                            <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{{ photo.rephotos.all.0.source_url }}'
+                        <div class="row-fluid">
+                            <a id="ajapaik-photo-modal-source" href='{{ photo.rephotos.all.0.source_url }}'
                                target="_blank">
                                 {{ photo.rephotos.all.0.source.desription }} {{ photo.rephotos.all.0.source_key }}
                             </a>
                         </div>
                     {% else %}
                         {% if photo.rephotos.all.0.author %}
-                            <div class="row ajapaik-photo-modal-row"><b>{{ photo.rephotos.all.0.author }}</b>{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
+                            <div class="row-fluid"><b>{{ photo.rephotos.all.0.author }}</b>{% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}</div>
                         {% else %}
                             {% if photo.rephotos.all.0.user %}
-                                <div class="row ajapaik-photo-modal-row">
+                                <div class="row-fluid">
                                     <a target="_blank" href="{{ photo.rephotos.all.0.user.fb_link }}">
                                         {{ photo.rephotos.all.0.user.fb_name }}
                                     </a>
                                     {% if photo.rephotos.all.0.licence %} {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}
                                 </div>
                             {% else %}
-                                <div class="row ajapaik-photo-modal-row"><b>{% trans "Unknown author" %}</b></div>
+                                <div class="row-fluid"><b>{% trans "Unknown author" %}</b></div>
                             {% endif %}
                         {% endif %}
                     {% endif %}
                     {% if photo.rephotos.all.0.date %}
-                        <div class="row ajapaik-photo-modal-row">
+                        <div class="row-fluid">
                             {{ photo.rephotos.all.0.date|date:"d.m.Y" }}
                         </div>
                     {% endif %}
                     </div>
                 {% endif %}
             </div>
-            <div class="row ajapaik-no-left-margin-row" style="margin-top: 10px;">
-                <div class="col-xs-6">
-                    <div class="dropdown">
-                        <button id="ajapaik-sharing-dropdown-button" class="btn btn-block btn-primary ajapaik-photo-modal-share-button pull-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {% trans "Share" %}
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
-                            <li role="presentation" class="disabled-link">
-                                <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                    <input type="text" class="form-control" value="{{ hostname }}{{ photo.get_absolute_url }}">
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1">
-                                    <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <button class="btn btn-block btn-primary ajapaik-photo-modal-comment-button pull-left">{% trans "Discuss" %} <span data-href="{{ fb_url }}" class="badge fb-comments-count"></span></button>
-                </div>
-                <div class="col-xs-6">
-                    <button class="btn btn-block btn-success ajapaik-photo-modal-add-rephoto-button">{% trans "Add rephoto" %}</button>
-                    <button class="btn btn-block btn-success ajapaik-photo-modal-specify-location-button">{% trans "Specify location" %}</button>
-                </div>
-                <div class="col-xs-12 ajapaik-margin-top-5">
-                    {% if geotag_count > 0 %}
-                        {% if geotag_count == 1 %}
-                            <p class="text-left">{{ geotag_count }} {% trans "user has submitted a location for this picture" %}
-                        {% else %}
-                            <p class="text-left">{{ geotag_count }} {% trans "users have submitted a location for this picture" %}
+            <div class="row">
+                <div class="col-xs-2">
+                    {% if photo.lat and photo.lon and photo.azimuth %}
+                        <span id="ajapaik-photo-modal-location-with-azimuth" title="{% trans "Image has location and view direction info" %}"></span>
+                        {% if geotag_count > 0 %}
+                            <span id="ajapaik-photo-modal-geotag-count" title="
+                                {% if geotag_count == 1 %}
+                                    {{ geotag_count }} {% trans "user has submitted a location for this picture" %}
+                                {% else %}
+                                    {{ geotag_count }} {% trans "users have submitted a location for this picture" %}
+                                {% endif %}
+                                ">{{ geotag_count }}
+                            </span>
                         {% endif %}
-                        </p>
+                    {% elif photo.lat and photo.lon %}
+                        <span id="ajapaik-photo-modal-location-without-azimuth" title="{% trans "Image has only location, no view direction" %}"></span>
+                        {% if geotag_count > 0 %}
+                            <span id="ajapaik-photo-modal-geotag-count" title="
+                                {% if geotag_count == 1 %}
+                                    {{ geotag_count }} {% trans "user has submitted a location for this picture" %}
+                                {% else %}
+                                    {{ geotag_count }} {% trans "users have submitted a location for this picture" %}
+                                {% endif %}
+                                ">{{ geotag_count }}
+                            </span>
+                        {% endif %}
+                    {% else %}
+                        <span id="ajapaik-photo-modal-no-location" title="{% trans "Image has no location info" %}"></span>
                     {% endif %}
-                    {% if albums|length > 0 %}
-                        <p class="text-left">
-                            {% blocktrans count counter=albums|length %}
-                                Picture belongs to album
-                            {% plural %}
-                                Picture belongs to albums:
-                            {% endblocktrans %}
-                            {% for a in albums %}
-                                <a href="{% url 'project.home.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        </p>
-                    {% endif %}
+                </div>
+                <div class="col-xs-10">
+                    <div class="row-fluid ajapaik-margin-top-5">
+                        <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}"></span>
+                        <span id="ajapaik-photo-modal-add-rephoto" title="{% trans "Add rephoto" %}"></span>
+                        <div class="dropdown" id="ajapaik-photo-modal-dropdown">
+                            <span id="ajapaik-photo-modal-share" title="{% trans "Share" %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                                <li role="presentation" class="disabled-link">
+                                    <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                        <input type="text" class="form-control"
+                                               value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1">
+                                        <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}"
+                                             data-layout="standard" data-action="like" data-show-faces="true"
+                                             data-share="true"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span id="ajapaik-photo-modal-discuss" title="{% trans "Discuss" %}"><span data-href="{{ fb_url }}" class="badge fb-comments-count"></span></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -184,9 +226,21 @@
     </div>
 </div>{% endcomment %}
 <script>
-    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
-        hostname = '{{ hostname }}',
+    // This whole template is total ugliness
+    var hostname = '{{ hostname }}',
         originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
+    window.isFrontpage = '{{ is_frontpage|safe }}';
+    if (window.isFrontpage === 'True') {
+        window.isFrontpage = true;
+    } else {
+        window.isFrontpage = false;
+    }
+    window.isMapview = '{{ is_mapview|safe }}';
+    if (window.isMapview === 'True') {
+        window.isMapview = true;
+    } else {
+        window.isMapview = false;
+    }
     window.photoModalCurrentImageUrl = '{% url 'project.home.views.photo_url' photo.id %}';
     {% if photo.flip %}
         window.photoModalCurrentPhotoFlipStatus = true;
@@ -220,33 +274,31 @@
         });
     {% endfor %}
     $(document).ready(function () {
+        var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
+            rephotoColumn = $('#ajapaik-photo-modal-rephoto-column');
         $('.dropdown-toggle').dropdown();
         $('.disabled-link').click(function (event) {
             event.preventDefault();
             event.stopPropagation();
         });
+        if (window.photoHistory && window.photoHistory.length > 0) {
+            $('.ajapaik-photo-modal-previous-button').removeClass('disabled');
+        }
         if (window.userClosedRephotoTools) {
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-photo-modal-rephoto-column').hide();
-            $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            if (window.isMapview) {
+                $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            } else {
+                $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
+                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
+            }
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
-            $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
         }
         {% comment %}if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
             $('#ajapaik-photo-modal-date-row').show();
         }{% endcomment %}
-        var openPhotoUploadModal = function () {
-            $.ajax({
-                cache: false,
-                url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
-                success: function (result) {
-                    rephotoUploadModal.data('bs.modal', null);
-                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
-                }
-            });
-        };
         //TODO: Restore?
         {#History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');#}
         //$('.filter-box').hide();
@@ -281,22 +333,74 @@
             }
             window.flipPhoto();
         });
-        $(".ajapaik-photo-modal-specify-location-button").click(function () {
-            window.startGuessLocation();
+        $('.ajapaik-photo-modal-previous-button').click(function () {
+            if (!$(this).hasClass('ajapaik-photo-modal-previous-button-disabled')) {
+                var previousId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).prev().data('id');
+                if (previousId && !window.nextPhotoLoading) {
+                    window.loadPhoto(previousId);
+                }
+                if (window.isFrontpage) {
+                    window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal previous']);
+                } else if (window.isGame) {
+                    window._gaq.push(['_trackEvent', 'Game', 'Photo modal previous']);
+                }
+            }
+        });
+        $('.ajapaik-photo-modal-next-button').click(function () {
+            if (!$(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
+                var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
+                if (nextId && !window.nextPhotoLoading) {
+                    window.loadPhoto(nextId);
+                }
+                if (window.isFrontpage) {
+                    window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal next']);
+                } else if (window.isGame) {
+                    window._gaq.push(['_trackEvent', 'Game', 'Photo modal next']);
+                }
+            }
+        });
+        $('.ajapaik-photo-modal-album-link').click(function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Album link click']);
+            } else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Album link click']);
+            }
+        });
+        $("#ajapaik-photo-modal-specify-location").click(function (e) {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
+            } else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Photo modal specify location click']);
+            }
+            window.startGuessLocation(e.target.dataset.id);
         });
         $('#ajapaik-photo-modal-close-button').click(function (e) {
             e.preventDefault();
             window.closePhotoDrawer();
         });
         $('.full-box div').on('click', function (e) {
+            e.preventDefault();
             if (BigScreen.enabled) {
-                e.preventDefault();
                 window.fullscreenEnabled = false;
                 BigScreen.exit();
+                if (window.lastScrollPosition) {
+                    $(window).scrollTop(window.lastScrollPosition);
+                }
             }
         });
+        // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
+        BigScreen.onexit = function() {
+            if (window.lastScrollPosition) {
+                setTimeout(function () {
+                    $(window).scrollTop(window.lastScrollPosition);
+                    window.lastScrollPosition = null;
+                }, 500);
+            }
+        };
         $(document).on('click', '#ajapaik-full-screen-link', function (e) {
             e.preventDefault();
+            console.log($(window).scrollTop());
+            window.lastScrollPosition = $(window).scrollTop();
             if (BigScreen.enabled) {
                 BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
                 window.fullscreenEnabled = true;
@@ -320,21 +424,38 @@
                 rephotoDiv = $('#ajapaik-modal-rephoto-container');
             if (window.photoModalRephotoArray.length > 1) {
                 $('#ajapaik-rephoto-selection').show();
-                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-5');
-                rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
-                originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
+                if (window.isMapview) {
+                    $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-5');
+                    rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
+                    originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-6').addClass('col-xs-5');
+                } else {
+                    $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-10').addClass('col-xs-4');
+                    rephotoInfoColumn.removeClass('col-xs-10').removeClass('col-xs-5').addClass('col-xs-4');
+                    originalPhotoInfoColumn.removeClass('col-xs-10').removeClass('col-xs-5').addClass('col-xs-4');
+                }
             } else {
-                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-6');
-                rephotoColumn.removeClass('col-xs-5').addClass('col-xs-6');
-                rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
-                originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
+                if (window.isMapview) {
+                    $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-12').addClass('col-xs-6');
+                    rephotoColumn.removeClass('col-xs-5').addClass('col-xs-6');
+                    rephotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
+                    originalPhotoInfoColumn.removeClass('col-xs-12').removeClass('col-xs-5').addClass('col-xs-6');
+                } else {
+                    $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-10').addClass('col-xs-5');
+                    rephotoColumn.removeClass('col-xs-4').addClass('col-xs-5');
+                    rephotoInfoColumn.removeClass('col-xs-10').removeClass('col-xs-4').addClass('col-xs-5');
+                    originalPhotoInfoColumn.removeClass('col-xs-10').removeClass('col-xs-4').addClass('col-xs-5');
+                }
             }
             rephotoInfoColumn.show();
             rephotoColumn.show();
             window.currentlySelectedRephotoId = window.photoModalRephotoArray[0]['id'];
             rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[0]));
             rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
-            window.syncMapStateToURL();
+            if (window.isFrontpage) {
+
+            } else {
+               window.syncMapStateToURL();
+            }
         });
         $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function (e) {
             var targetId = e.target.dataset.id,
@@ -349,9 +470,27 @@
                     photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[i]));
                     infoDiv.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[i]));
                     window.currentlySelectedRephotoId = targetId;
-                    window.syncMapStateToURL();
+                    if (window.isFrontpage) {
+
+                    } else {
+                        window.syncMapStateToURL();
+                    }
                     break;
                 }
+            }
+        });
+        $(document).on('click', '#ajapaik-photo-modal-source', function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Source link click']);
+            }  else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Source link click']);
+            }
+        });
+        $(document).on('click', '#ajapaik-photo-modal-rephoto-source', function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Rephoto source link click']);
+            }  else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Rephoto source link click']);
             }
         });
         $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
@@ -360,44 +499,73 @@
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-show-rephoto-selection-overlay-button').show();
             $('#ajapaik-grab-link').find('input').prop('value', hostname + originalPhotoAbsoluteURL);
-            $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            if (window.isMapview) {
+                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+                $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+            } else {
+                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
+                $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
+            }
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
-            $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
             window.currentlySelectedRephotoId = false;
-            window.syncMapStateToURL();
+            if (window.isFrontpage) {
+
+            } else {
+                window.syncMapStateToURL();
+            }
             window.userClosedRephotoTools = true;
         });
-        $(document).on('click', '.ajapaik-photo-modal-comment-button', function () {
+        $(document).on('click', '#ajapaik-photo-modal-discuss', function () {
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
+            } else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
+            }
             window.location.href = '{% url 'project.home.views.photo' photo.id %}';
         });
-        $('#ajapaik-photo-modal-original-photo-column').hoverIntent(function () {
+        originalPhotoColumn.mouseenter(function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
                 if (window.userClosedRephotoTools) {
                     $('#ajapaik-show-rephoto-selection-overlay-button').show();
                 }
             }
-        }, function () {
+        });
+        originalPhotoColumn.mouseleave(function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
                 $('#ajapaik-show-rephoto-selection-overlay-button').hide();
             }
         });
-        $(document).on('click', '.ajapaik-photo-modal-add-rephoto-button', function () {
-            openPhotoUploadModal();
-        });
-        $('#ajapaik-photo-modal-rephoto-column').hoverIntent(function () {
+        rephotoColumn.mouseenter(function () {
             if (!isMobile) {
                 if (!window.userClosedRephotoTools) {
                     $('#ajapaik-close-rephoto-overlay-button').show();
                     $('#ajapaik-invert-rephoto-overlay-button').show();
                 }
             }
-        }, function () {
+        });
+        rephotoColumn.mouseleave(function () {
             if (!isMobile) {
                 if (!window.userClosedRephotoTools) {
                     $('#ajapaik-close-rephoto-overlay-button').hide();
                     $('#ajapaik-invert-rephoto-overlay-button').hide();
+                }
+            }
+        });
+        $.jQee('left', function () {
+            var buttons = $('.ajapaik-photo-modal-previous-button');
+            if (!window.nextPhotoLoading && buttons.length > 0) {
+                if (!$(buttons[0]).hasClass('disabled')) {
+                    buttons[0].click();
+                }
+            }
+        });
+        $.jQee('right', function () {
+            var buttons = $('.ajapaik-photo-modal-next-button');
+            if (!window.nextPhotoLoading && buttons.length > 0) {
+                if (!$(buttons[0]).hasClass('disabled')) {
+                    buttons[0].click();
                 }
             }
         });
@@ -417,32 +585,32 @@
     <script id="ajapaik-photo-modal-rephoto-info-template" type="text/x-tmpl">
         {% if (o.source && o.sourceKey && o.sourceURL) { %}
             {% if (o.author) { %}
-                <div class="row ajapaik-photo-modal-row"><b>{%=o.author%}</b>{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
+                <div class="row-fluid"><b>{%=o.author%}</b>{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
             {% } %}
-            <div class="row ajapaik-photo-modal-row">
-                <a onclick="window._gaq.push(['_trackEvent', 'Map', 'Source link click']);" href='{%=o.sourceURL%}'
+            <div class="row-fluid">
+                <a id="ajapaik-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
                    target="_blank">
                     {%=o.source%} {%=o.sourceKey%}
                 </a>
             </div>
         {% } else { %}
             {% if (o.author) { %}
-                <div class="row ajapaik-photo-modal-row"><b>{%=o.author%}</b>{% endverbatim %}{% include "_licence.html" %}{% verbatim %}</div>
+                <div class="row-fluid"><b>{%=o.author%}</b>{% endverbatim %}{% include "_licence.html" %}{% verbatim %}</div>
             {% } else { %}
                 {% if (o.FBUserName) { %}
-                    <div class="row ajapaik-photo-modal-row">
+                    <div class="row-fluid">
                         <a target="_blank" href="{%=o.FBUserLink%}">
                             {%=o.FBUserName%}
                         </a>
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } else { %}
-                    <div class="row ajapaik-photo-modal-row"><b>{%=gettext('Unknown author')%}</b></div>
+                    <div class="row-fluid"><b>{%=gettext('Unknown author')%}</b></div>
                 {% } %}
             {% } %}
         {% } %}
         {% if (o.date) { %}
-            <div class="row ajapaik-photo-modal-row">{%=o.date%}</div>
+            <div class="row-fluid">{%=o.date%}</div>
         {% } %}
     </script>
 {% endverbatim %}

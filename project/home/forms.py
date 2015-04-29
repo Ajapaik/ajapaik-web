@@ -5,6 +5,14 @@ from django.utils.translation import ugettext_lazy as _
 from project import settings
 
 
+class NoValidationMultipleChoiceField(forms.TypedMultipleChoiceField):
+    def to_python(self, value):
+        return map(self.coerce, value)
+
+    def validate(self, value):
+        pass
+
+
 # TODO: Make forms for everything, there's too much Javascript POST variable checking
 class AreaSelectionForm(forms.Form):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),)
@@ -24,8 +32,20 @@ class AlbumSelectionForm(forms.Form):
 class GameAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'))
 
+    # FIXME: Pointless __init__ override?
     def __init__(self, *args, **kwargs):
         super(GameAlbumSelectionForm, self).__init__(*args, **kwargs)
+
+
+class GamePhotoSelectionForm(forms.Form):
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), label=_('Choose photo'))
+
+
+class GameNextPhotoForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
+    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True),
+                                   label=_('Choose photo'),required=False)
 
 
 class CuratorAlbumSelectionForm(forms.Form):
@@ -102,6 +122,7 @@ class CatAuthForm(forms.Form):
 class CatPushRegisterForm(forms.ModelForm):
     class Meta:
         model = CatPushDevice
+        fields = ('profile', 'type', 'token', 'filter')
 
 
 class CatAlbumStateForm(forms.Form):
@@ -128,3 +149,8 @@ class SubmitGeotagForm(forms.ModelForm):
     class Meta:
         model = GeoTag
         exclude = ('user', 'trustworthiness')
+
+
+class FrontpagePagingForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
+    page = forms.IntegerField(min_value=1, required=False)

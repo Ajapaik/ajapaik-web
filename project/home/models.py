@@ -32,6 +32,7 @@ from django.contrib.gis.geos import Point, Polygon
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
+from bulk_update.manager import BulkUpdateManager
 
 
 # Create profile automatically
@@ -51,8 +52,10 @@ def _calc_trustworthiness(user_id):
 
     if not correct_tries:
         return 0
+    trust = (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
+    trust = max(trust, 0.01)
 
-    return (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
+    return trust
 
 
 def _distance_in_meters(lon1, lat1, lon2, lat2):
@@ -191,7 +194,7 @@ class CatAlbum(Model):
     title = CharField(max_length=255)
     subtitle = CharField(max_length=255)
     image = ImageField(upload_to="cat", max_length=255)
-    photos = ManyToManyField(CatPhoto, related_name="album", null=True, blank=True)
+    photos = ManyToManyField(CatPhoto, related_name="album")
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -280,7 +283,8 @@ class Photo(Model):
     objects = PhotoManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    image = ImageField(upload_to="uploads", blank=True, null=True, max_length=255)
+    image = ImageField(upload_to="uploads", blank=True, null=True, max_length=255,
+                       height_field='height', width_field='width')
     image_unscaled = ImageField(upload_to="uploads", blank=True, null=True, max_length=255)
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)
@@ -365,7 +369,7 @@ class Photo(Model):
         def get_game_json_format_photo(photo):
             # TODO: proper JSON serialization
             assert isinstance(photo, Photo)
-            return {
+            ret = {
                 "id": photo.id,
                 "description": photo.description,
                 "date_text": photo.date_text,
@@ -379,6 +383,11 @@ class Photo(Model):
                 "total_geotags": photo.geotags.count(),
                 "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
             }
+            if photo.lat and photo.lon:
+                ret["has_coordinates"] = True
+            if photo.azimuth:
+                ret["has_azimuth"] = True
+            return ret
 
         def get_next_photo_to_geotag(self, request):
             profile = request.get_user().profile
@@ -401,7 +410,7 @@ class Photo(Model):
             if "user_skip_array" not in request.session:
                  request.session["user_skip_array"] = []
 
-            if trustworthiness < 0.4:
+            if trustworthiness < 0.25:
                 # Novice users should only receive the easiest images to prove themselves
                 ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
                 if ret_qs.count() == 0:
@@ -410,16 +419,16 @@ class Photo(Model):
                     ret_qs = all_photos_set.order_by("?")
             else:
                 # Let's try to show the more experienced users photos they have not yet seen at all
-                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids)
+                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('?')
                 if ret_qs.count() == 0:
                     # If the user has seen them all, let's try showing her photos she
                     # has skipped (but not in this session) or not marked an azimuth on
                     user_seen_all = True
                     ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
-                        .exclude(id__in=request.session["user_skip_array"])
+                        .exclude(id__in=request.session["user_skip_array"]).order_by('?')
                     if ret_qs.count() == 0:
-                        # This user has skipped them in this session, show her photos that have low confidence
-                        # or don't have a correct geotag from her
+                        # This user has skipped them in this session, show her photos that
+                        # don't have a correct geotag from her
                         user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
                         user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
                         user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct("photo_id").values_list("photo_id", flat=True))
@@ -579,7 +588,7 @@ class Photo(Model):
                         for gg in g:
                             current_geotags.append(gg)
                             trust_sum += gg.trustworthiness
-                    if trust_sum > max_trust:
+                    if trust_sum >= max_trust:
                         max_trust = trust_sum
                         point = {"lat": a[1], "lon": a[2]}
                         selected_geotags = current_geotags
@@ -741,7 +750,7 @@ class FacebookManager(Manager):
 
 class Profile(Model):
     facebook = FacebookManager()
-    objects = Manager()
+    objects = BulkUpdateManager()
 
     user = OneToOneField(User, primary_key=True)
 

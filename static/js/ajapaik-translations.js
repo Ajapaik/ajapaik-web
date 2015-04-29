@@ -20,4 +20,8 @@
     window.gettext('Not selected');
     window.gettext('photos');
     window.gettext('Source ID');
+    window.gettext('Image has no location info');
+    window.gettext('Image has only location, no view direction');
+    window.gettext('Image has location and view direction info');
+    window.gettext('Image has rephotos');
 }());

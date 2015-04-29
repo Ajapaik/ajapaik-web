@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-07 01:25+0300\n"
-"PO-Revision-Date: 2015-04-01 10:03+0000\n"
+"POT-Creation-Date: 2015-04-29 16:44+0300\n"
+"PO-Revision-Date: 2015-04-28 09:10+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/"
 "ru/)\n"
@@ -21,36 +21,75 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: static/js/ajapaik-common.js:118
+#: static/js/ajapaik-common.js:122
 msgid "Tutorial"
 msgstr "Обучение"
 
-#: static/js/ajapaik-common.js:242
+#: static/js/ajapaik-common.js:263
 msgid "Geotag pictures"
 msgstr ""
 
-#: static/js/ajapaik-common.js:248
+#: static/js/ajapaik-common.js:266
+msgid "Go to my location"
+msgstr ""
+
+#: static/js/ajapaik-common.js:269
 msgid "Close"
 msgstr ""
 
-#: static/js/ajapaik-common.js:650 static/js/ajapaik-common.js.c:772
-#: static/js/ajapaik-common.js:791 static/js/game.js:125
+#: static/js/ajapaik-common.js:692 static/js/ajapaik-common.js.c:813
+#: static/js/ajapaik-common.js:832 static/js/ajapaik-game.js:130
 msgid "Save location only"
 msgstr "Сохранить только местоположение"
 
-#: static/js/ajapaik-common.js:683 static/js/browse.js:823
-#: static/js/game.js:553 static/js/grid.js:418
+#: static/js/ajapaik-common.js:724 static/js/ajapaik-game.js:647
+#: static/js/ajapaik-map.js:942
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:707
+#: static/js/ajapaik-common.js:748
 msgid "Save location and direction"
 msgstr "Сохранить местоположение и направление"
 
-#: static/js/ajapaik-common.js:845
+#: static/js/ajapaik-common.js:886
 msgid "Median guess"
+msgstr ""
+
+#: static/js/ajapaik-game.js:41
+msgid "Vihje vaatamine"
+msgstr ""
+
+#: static/js/ajapaik-game.js:43
+msgid ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+msgstr ""
+
+#: static/js/ajapaik-game.js:208
+msgid "We are now showing you random photos."
+msgstr "Мы показываем фото в случайном порядке."
+
+#: static/js/ajapaik-game.js:210
+msgid "You have seen all the pictures from this album."
+msgstr ""
+
+#: static/js/ajapaik-game.js:331 static/js/ajapaik-game.js.c:333
+#: static/js/ajapaik-map.js:365 static/js/ajapaik-map.js.c:366
+msgid "Points awarded"
+msgstr ""
+
+#: static/js/ajapaik-game.js:351
+msgid "Your guess"
+msgstr "Твоё предположение"
+
+#: static/js/ajapaik-map.js:868
+msgid "Remove album filter"
+msgstr ""
+
+#: static/js/ajapaik-map.js:872
+msgid "Apply album filter"
 msgstr ""
 
 #: static/js/ajapaik-translations.js:3
@@ -135,32 +174,21 @@ msgstr ""
 msgid "Source ID"
 msgstr ""
 
-#: static/js/browse.js:341 static/js/browse.js.c:342 static/js/game.js:261
-#: static/js/game.js.c:263 static/js/grid.js:69
-msgid "Points awarded"
+#: static/js/ajapaik-translations.js:23
+msgid "Image has no location info"
 msgstr ""
 
-#: static/js/game.js:36
-msgid "Vihje vaatamine"
+#: static/js/ajapaik-translations.js:24
+msgid "Image has only location, no view direction"
 msgstr ""
 
-#: static/js/game.js:38
-msgid ""
-"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
-"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+#: static/js/ajapaik-translations.js:25
+msgid "Image has location and view direction info"
 msgstr ""
 
-#: static/js/game.js:156
-msgid "We are now showing you random photos."
-msgstr "Мы показываем фото в случайном порядке."
-
-#: static/js/game.js:158
-msgid "You have seen all the pictures we have for this area."
-msgstr "Вы посмотрели все фото для этого места"
-
-#: static/js/game.js:281
-msgid "Your guess"
-msgstr "Твоё предположение"
+#: static/js/ajapaik-translations.js:26
+msgid "Image has rephotos"
+msgstr ""
 
 #~ msgid "We doubt about it."
 #~ msgstr "Others have different opinion."

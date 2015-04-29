@@ -2,7 +2,7 @@
 {% load i18n compress %}
 
 {% block header %}
-    {% include "_header_area_selection_scoreboard.html" %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -10,54 +10,61 @@
     <div class="modal fade" id="ajapaik-game-photo-modal" tabindex="-1" role="dialog"
          aria-labelledby="ajapaik-game-photo-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content ajapaik-zero-border-radius">
                 <div class="modal-header" id="ajapaik-game-modal-header">
                     <button id="ajapaik-game-close-game-modal" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body" id="ajapaik-game-modal-body">
-                    <div id="ajapaik-game-modal-photo-container">
-                        <a class="fullscreen col-xs-12" id="ajapaik-game-full-screen-link" rel="" href="">
-                            <img src="" class="img-responsive col-xs-12" id="ajapaik-game-modal-photo"/>
-                        </a>
-                        <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
+                    <div class="row-fluid ajapaik-photo-modal-vertical-align">
+                        <div class="col-xs-1">
+                            <div class="ajapaik-photo-modal-previous-button ajapaik-game-previous-photo-button"></div>
+                        </div>
+                        <div class="col-xs-10">
+                            <div id="ajapaik-game-modal-photo-container">
+                                <a class="fullscreen" id="ajapaik-game-full-screen-link" rel="" href="">
+                                    <img src="" class="img-responsive col-xs-12" id="ajapaik-game-modal-photo"/>
+                                </a>
+                                <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button"></button>
+                            </div>
+                        </div>
+                        <div class="col-xs-1">
+                            <div class="ajapaik-photo-modal-next-button ajapaik-game-next-photo-button"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="row ajapaik-photo-modal-row ajapaik-no-left-margin-row ajapaik-no-right-margin-row">
+                    <div class="row-fluid text-left">
                         <div id="ajapaik-game-photo-description" style="display: none;"></div>
                         <div id="ajapaik-game-photo-identifier" style="display: none;"></div>
                     </div>
-                    <div class="row" style="text-align: right; margin-right: 0;">
-                        <div class="col-xs-6">
-                            <button class="btn btn-default btn-block pull-left ajapaik-game-show-description-button" data-toggle="popover" style="display: none;">
-                                {% trans "Show description" %}
-                            </button>
-                        </div>
+                    <div class="row-fluid">
+                        <span id="ajapaik-photo-modal-location-with-azimuth" style="display: none;" title="{% trans "Image has location and view direction info" %}"></span>
+                        <span id="ajapaik-photo-modal-location-without-azimuth" style="display: none;" title="{% trans "Image has only location, no view direction" %}"></span>
+                        <span id="ajapaik-photo-modal-no-location" style="display: none;" title="{% trans "Image has no location info" %}"></span>
+                        <span id="ajapaik-photo-modal-geotag-count"><span id="ajapaik-game-number-of-geotags"></span></span>
+                        <span id="ajapaik-photo-modal-specify-location" class="ajapaik-game-specify-location-button" title="{% trans "Pick the shooting location!" %}"></span>
+                        <span id="ajapaik-game-show-description" style="display: none;" class="ajapaik-game-show-description-button" title="{% trans "Show description" %}"></span>
                     </div>
-                    <div class="row" style="text-align: right; margin-right: 0; margin-top: 5px;">
-                        <div class="col-xs-6">
-                            <button class="btn btn-success btn-block ajapaik-game-specify-location-button">
-                                {% trans "Pick the shooting location!" %}
-                            </button>
-                        </div>
-                        <div class="col-xs-6">
-                            <button class="btn btn-primary btn-block ajapaik-game-next-photo-button">{% trans "Next photo" %}</button>
-                        </div>
-                    </div>
-                    <div class="row hidden-xs">
+                    <div class="row hidden-xs text-left">
                         <div class="col-xs-12">
-                            <b id="ajapaik-game-no-geotags-yet-message" class="text-left">{% trans "The picture has not yet been pinned on the map. Be the first!" %}</b>
-                            <b id="ajapaik-game-one-geotag-message" class="text-left">{% trans "1 suggestion has been submitted for this picture. Add yours!" %}</b>
-                            <b id="ajapaik-game-number-of-geotags-message" class="text-left"><span id="ajapaik-game-number-of-geotags"></span>&nbsp;{% trans "suggestions have been submitted for this picture. Add yours!" %}</b>
+                            <b id="ajapaik-game-no-geotags-yet-message">
+                                {% trans "The picture has not yet been pinned on the map. Be the first!" %}
+                            </b>
+                            <b id="ajapaik-game-one-geotag-message">
+                                {% trans "1 suggestion has been submitted for this picture. Add yours!" %}
+                            </b>
+                            <b id="ajapaik-game-number-of-geotags-message">
+                                <span id="ajapaik-game-number-of-geotags"></span>
+                                {% trans "suggestions have been submitted for this picture. Add yours!" %}
+                            </b>
                         </div>
                     </div>
-                    <p id="ajapaik-game-status-message"></p>
+                    <p class="hidden-xs" id="ajapaik-game-status-message"></p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="ajapaik-info-modal" tabindex="-1" role="dialog"
-     aria-labelledby="ajapaik-info-modal-label" aria-hidden="true"></div>
+    {% include "_info_modal.html" %}
     <input id="pac-input" class="controls" type="text" placeholder={% trans "Search box" %}>
     <div id="ajapaik-map-container">
         <div id="ajapaik-map-canvas"></div>
@@ -94,25 +101,20 @@
         var permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
             albumId = '{{ album.id|safe }}';
-        {% if album %}
-            var infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' album.id %}';
-        {% endif %}
-        {% if random_album_photo %}
-            {% if random_album_photo.lat and random_album_photo.lon %}
-                start_location = [{{ random_album_photo.lon|safe }}, {{ random_album_photo.lat|safe }}];
-            {% else %}
-                start_location = [{{ random_album_photo.area.lon|safe }}, {{ random_album_photo.area.lat|safe }}];
+            {% if photo %}
+                window.preselectedPhotoId = {{ photo.id|safe }};
             {% endif %}
-        {% elif area %}
-            start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
+        window.linkToMap = true;
+        window.linkToGame = false;
+        {% if album.lat and album.lon %}
+            window.start_location = [{{ album.lon|safe }}, {{ album.lat|safe }}];
+        {% elif area.lat and area.lon %}
+            window.start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
-            start_location = [26, 59];
+            window.start_location = [26, 59];
         {% endif %}
     </script>
     {% compress js %}
-        <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
-        <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-        <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
-        <script src="{{ STATIC_URL }}js/game.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-game.js"></script>
     {% endcompress %}
 {% endblock %}

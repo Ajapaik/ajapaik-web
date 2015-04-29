@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" fill="none" d="m0,0l24,0l0,24l-24,0l0,-24z"/>
+  <path transform="rotate(-90 12.000000000000002,12)" fill="#888" id="svg_2" d="m3,13l8,0l0,-10l-8,0l0,10zm0,8l8,0l0,-6l-8,0l0,6zm10,0l8,0l0,-10l-8,0l0,10zm0,-18l0,6l8,0l0,-6l-8,0z"/>
+ </g>
+</svg>

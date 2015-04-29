@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from models import Photo, Area, Source, Album, CatAlbum
 from rest_framework import serializers
 

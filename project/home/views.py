@@ -4,6 +4,7 @@ import os
 import urllib2
 from django.db import connection
 import operator
+from math import ceil
 import requests
 import random
 import datetime
@@ -14,7 +15,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Count
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.sites.models import Site
@@ -34,7 +35,8 @@ from StringIO import StringIO
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm
+    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
+    FrontpagePagingForm, GameNextPhotoForm, GamePhotoSelectionForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 
@@ -58,18 +60,41 @@ def _convert_to_degrees(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
-def get_album_info_modal_content(request, album_id):
+def _calculate_thumbnail_size(p, desired_longest_side):
+    assert isinstance(p, Photo)
+    w = float(p.width)
+    h = float(p.height)
+    desired_longest_side = float(desired_longest_side)
+    if w > h:
+        desired_width = desired_longest_side
+        factor = w / desired_longest_side
+        desired_height = h / factor
+    else:
+        desired_height = desired_longest_side
+        factor = h / desired_longest_side
+        desired_width = w / factor
+
+    return desired_width, desired_height
+
+
+def get_album_info_modal_content(request, album_id=1):
     profile = request.get_user().profile
     album = Album.objects.get(pk=album_id)
     # FIXME: Ugly
-    is_game = request.GET.get('isGame', None)
-    if is_game == "true":
-        is_game = True
+    link_to_game = request.GET.get('linkToGame', None)
+    if link_to_game == "true":
+        link_to_game = True
     else:
-        is_game = False
+        link_to_game = False
+    link_to_map = request.GET.get('linkToMap', None)
+    if link_to_map == "true":
+        link_to_map = True
+    else:
+        link_to_map = False
     ret = {
         "album": album,
-        "is_game": is_game
+        "link_to_map": link_to_map,
+        "link_to_game": link_to_game
     }
 
     # TODO: Can these queries be optimized?
@@ -77,7 +102,7 @@ def get_album_info_modal_content(request, album_id):
     if album.subalbums:
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-    album_photo_ids = set(album_photos_qs.values_list("id", flat=True))
+    album_photo_ids = frozenset(album_photos_qs.values_list("id", flat=True))
     ret["total_photo_count"] = len(album_photo_ids)
     ret["geotagged_photo_count"] = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
 
@@ -85,7 +110,7 @@ def get_album_info_modal_content(request, album_id):
     ret["user_geotagged_photo_count"] = geotags_for_album_photos.filter(user=profile).distinct("photo_id").count()
     ret["geotagging_user_count"] = geotags_for_album_photos.distinct("user").count()
 
-    album_rephotos = Photo.objects.filter(rephoto_of_id__isnull=False, rephoto_of_id__in=album_photo_ids)
+    album_rephotos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids)
     ret["rephoto_count"] = album_rephotos.count()
     ret["rephoto_user_count"] = album_rephotos.distinct("user").count()
     ret["rephotographed_photo_count"] = album_rephotos.distinct("rephoto_of").count()
@@ -203,45 +228,70 @@ def _extract_and_save_data_from_exif(photo_with_exif):
         return True
     else:
         return False
-    
-    
+
+
+def _get_album_choices():
+    albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
+    album_photo_count_dict = {x.id: x.photo_count for x in albums}
+    album_ids = Album.objects.filter(is_public=True).distinct('id').values_list('id', flat=True)
+    random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_ids).distinct('album_id')\
+        .values_list('album_id', 'photo_id')
+    random_album_photos = {x:y for x, y in random_album_photos}
+    for a in albums:
+        a.cover_photo_id = random_album_photos[a.id]
+        if a.subalbum_of_id in album_photo_count_dict:
+            album_photo_count_dict[a.subalbum_of_id] += a.photo_count
+        a.photo_count = album_photo_count_dict[a.id]
+
+    return albums
+
+
 def _calculate_recent_activity_scores():
     five_thousand_actions_ago = Points.objects.order_by('-created')[5000].created
     recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id')\
         .annotate(total_points=Sum('points'))
-    recent_action_agent_ids = []
+    recent_action_dict = {}
     for each in recent_actions:
-        profile = Profile.objects.filter(user_id=each['user_id']).get()
-        recent_action_agent_ids.append(profile.id)
-        profile.score_recent_activity = each['total_points']
-        profile.save()
-    # Check for people who somehow no longer have actions among the last 5000
-    orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(pk__in=recent_action_agent_ids)
-    for each in orphan_profiles:
-        each.score_recent_activity = 0
-        each.save()
+        recent_action_dict[each["user_id"]] = each
+    recent_actors = Profile.objects.filter(pk__in=recent_action_dict.keys())
+    for each in recent_actors:
+        each.score_recent_activity = recent_action_dict[each.pk]['total_points']
+    Profile.objects.bulk_update(recent_actors, update_fields=['score_recent_activity'])
+    # # Check for people who somehow no longer have actions among the last 5000
+    orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(pk__in=[x.pk for x in recent_actors])
+    orphan_profiles.update(score_recent_activity=0)
 
 
-def _get_leaderboard(user_id):
-    scores_list = list(enumerate(Profile.objects.filter(
+def _get_leaderboard(profile):
+    profile_rank = Profile.objects\
+        .filter(fb_name__isnull=False, score_recent_activity__gt=profile.score_recent_activity).count() + 1
+    lb_queryset = Profile.objects.filter(
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
-                                   'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
-    board = [scores_list[0]]
-    # FIXME: Ugly shit
-    self_user_idx = filter(lambda (inner_idx, inner_data): inner_data[0] == user_id, scores_list)[0][0]
-    if self_user_idx - 1 > 0:
-        board.append(scores_list[self_user_idx - 1])
-    if self_user_idx > 0:
-        board.append(scores_list[self_user_idx])
-    if self_user_idx + 1 < len(scores_list):
-        board.append(scores_list[self_user_idx + 1])
-    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3], data[4], data[5]) for idx, data in board]
-    return board
+        Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
+            .order_by('-score_recent_activity')
+    first_place = list((lb_queryset.first(),))
+    nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
+    ret = first_place + nearby_ranks
+    ret = map(list, ret)
+    # FIXME: This is disgusting : )
+    # Add ranks to index 0
+    ret[0].insert(0, 1)
+    ret[1].insert(0, profile_rank - 1)
+    ret[2].insert(0, profile_rank)
+    # Add self detection
+    ret[0].insert(1, 0)
+    ret[1].insert(1, 0)
+    ret[2].insert(1, 1)
+
+    if len(ret) > 3:
+        ret[3].insert(0, profile_rank + 1)
+        ret[3].insert(1, 0)
 
 
-def _get_album_leaderboard(user_id, album_id=None):
+    return ret
+
+
+def _get_album_leaderboard(profile, album_id=None):
     board = []
     if album_id:
         album = Album.objects.get(pk=album_id)
@@ -250,7 +300,9 @@ def _get_album_leaderboard(user_id, album_id=None):
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.all()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        photo_points = Points.objects.filter(photo_id__in=album_photo_ids)
+        album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
+                              .values_list('rephoto_of_id', flat=True))
+        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids))
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
         for each in photo_points:
@@ -265,54 +317,47 @@ def _get_album_leaderboard(user_id, album_id=None):
                     user_score_map[each.user_id] += each.score
                 else:
                     user_score_map[each.user_id] = each.score
-        if user_id not in user_score_map:
-            user_score_map[user_id] = 0
+        if profile.id not in user_score_map:
+            user_score_map[profile.id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
-        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores], fb_name__isnull=False) | Q(user_id=user_id))
+        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=profile.id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
-        board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
+        board = [(idx + 1, profile.user_id == profile.id, user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users[:1]]
-        self_user_idx = filter(lambda (inner_idx, inner_data): inner_data.user_id == user_id, top_users)[0][0]
+        # TODO: Ugly shit
+        self_user_idx = filter(lambda (inner_idx, inner_data): inner_data.user_id == profile.id, top_users)[0][0]
         if self_user_idx - 1 > 0:
             one_in_front = top_users[self_user_idx - 1]
-            board.append((one_in_front[0] + 1, one_in_front[1].user_id == int(user_id),
+            board.append((one_in_front[0] + 1, one_in_front[1].user_id == profile.id,
                           user_score_map[one_in_front[1].user_id], one_in_front[1].fb_id, one_in_front[1].fb_name,
                           one_in_front[1].google_plus_name))
         if self_user_idx > 0:
             # Current user isn't first
             current_user = top_users[self_user_idx]
-            board.append((current_user[0] + 1, current_user[1].user_id == int(user_id),
+            board.append((current_user[0] + 1, current_user[1].user_id == profile.id,
                           user_score_map[current_user[1].user_id], current_user[1].fb_id, current_user[1].fb_name,
                           current_user[1].google_plus_name))
         if self_user_idx + 1 < len(top_users):
             one_after = top_users[self_user_idx + 1]
-            board.append((one_after[0] + 1, one_after[1].user_id == int(user_id),
+            board.append((one_after[0] + 1, one_after[1].user_id == profile.id,
                           user_score_map[one_after[1].user_id], one_after[1].fb_id, one_after[1].fb_name,
                           one_after[1].google_plus_name))
     return board
 
 
-def _get_leaderboard50(user_id):
-    scores_list = list(enumerate(Profile.objects.filter(
-        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=user_id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name',
-                                   'google_plus_name', 'google_plus_picture').order_by('-score_recent_activity')))
-    board = scores_list[:50]
-    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in board]
-    return board
-
-
-def _get_album_leaderboard50(user_id, album_id=None):
+def _get_album_leaderboard50(profile_id, album_id=None):
     board = []
     if album_id:
         album = Album.objects.get(pk=album_id)
-        album_photos_qs = album.photos.filter()
+        album_photos_qs = album.photos.all()
         for sa in album.subalbums.all():
-            album_photos_qs = album_photos_qs | sa.photos.filter()
-        album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        photo_points = Points.objects.filter(photo_id__in=album_photo_ids)
+            album_photos_qs = album_photos_qs | sa.photos.all()
+        album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
+        album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
+                                      .values_list('rephoto_of_id', flat=True))
+        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids))
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
+        # TODO: This should not be done in Python memory, but with a query
         user_score_map = {}
         for each in photo_points:
             if each.user_id in user_score_map:
@@ -326,26 +371,24 @@ def _get_album_leaderboard50(user_id, album_id=None):
                     user_score_map[each.user_id] += each.score
                 else:
                     user_score_map[each.user_id] = each.score
-        if user_id not in user_score_map:
-            user_score_map[user_id] = 0
+        if profile_id not in user_score_map:
+            user_score_map[profile_id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
-        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores], fb_name__isnull=False) | Q(user_id=user_id))
+        top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=profile_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
-        board = [(idx + 1, profile.user_id == int(user_id), user_score_map[profile.user_id], profile.fb_id,
+        board = [(idx + 1, profile.user_id == int(profile_id), user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_name) for idx, profile in top_users]
         return board, album.name
+
     return board, None
 
 
-def _get_all_time_leaderboard50(user_id):
-    scores_list = list(enumerate(Profile.objects.filter(
-        Q(fb_name__isnull=False, score__gt=0) |
-        Q(google_plus_name__isnull=False, score__gt=0) |
-        Q(pk=user_id)).values_list('pk', 'score', 'fb_id', 'fb_name',
-                                   'google_plus_name', 'google_plus_picture').order_by('-score')))
-    board = scores_list[:50]
-    board = [(idx + 1, data[0] == user_id, data[1], data[2], data[3]) for idx, data in board]
-    return board
+def _get_all_time_leaderboard50(profile_id):
+    lb = Profile.objects.filter(
+        Q(fb_name__isnull=False) | Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name')\
+            .order_by('-score')[:50]
+
+    return [(rank + 1, data[0] == profile_id, data[1], data[2], data[3]) for rank, data in enumerate(lb)]
 
 
 @csrf_exempt
@@ -435,24 +478,23 @@ def logout(request):
 
 @ensure_csrf_cookie
 def game(request):
-    ret = {}
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
+    game_photo_selection_form = GamePhotoSelectionForm(request.GET)
     album = None
     area = None
+    ret = {
+        "albums": _get_album_choices()
+    }
 
-    if game_album_selection_form.is_valid():
+    if game_photo_selection_form.is_valid():
+        p = game_photo_selection_form.cleaned_data["photo"]
+        ret["photo"] = p
+        album_ids = AlbumPhoto.objects.filter(photo_id=p.id).distinct("album_id").values_list("album_id", flat=True)
+        album = Album.objects.filter(id__in=album_ids, atype=Album.CURATED).order_by('-created').first()
+    elif game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
-        ret["album"] = album
-        try:
-            ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?")[0]
-        except:
-            try:
-                ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
-            except:
-                pass
-        ret["facebook_share_photos"] = album.photos.filter()[:5]
     else:
         if area_selection_form.is_valid():
             area = area_selection_form.cleaned_data["area"]
@@ -461,6 +503,9 @@ def game(request):
             if old_city_id is not None:
                 area = Area.objects.get(pk=old_city_id)
         ret["area"] = area
+
+    ret["album"] = album
+    ret["facebook_share_photos"] = album.photos.filter()[:5]
 
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
@@ -474,71 +519,92 @@ def game(request):
     ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
     ret["description"] = _("Let's put pictures on the map")
+    ret["ajapaik_facebook_link"] = settings.AJAPAIK_FACEBOOK_LINK
 
     return render_to_response("game.html", RequestContext(request, ret))
 
 
 def fetch_stream(request):
-    area_selection_form = AreaSelectionForm(request.GET)
-    area = None
-    if area_selection_form.is_valid():
-        area = area_selection_form.cleaned_data["area"]
-
-    game_album_selection_form = GameAlbumSelectionForm(request.GET)
-    album = None
-    if game_album_selection_form.is_valid():
-        album = game_album_selection_form.cleaned_data["album"]
-
-    qs = Photo.objects.filter(rephoto_of__isnull=True)
-
-    if album is not None:
-        # TODO: list and flat both needed?
-        photos_ids_in_album = list(album.photos.values_list("id", flat=True))
-        subalbums = album.subalbums.all()
-        for sa in subalbums:
-            photos_ids_in_subalbum = list(sa.photos.values_list("id", flat=True))
-            photos_ids_in_album += photos_ids_in_subalbum
-        qs = qs.filter(pk__in=photos_ids_in_album)
-    else:
-        if area is not None:
-            qs = qs.filter(area_id=area.id)
-
-    # TODO: [0][0] Wtf? Just return a dict
-    try:
-        response = qs.get_next_photo_to_geotag(request)
-        data = {"photo": response[0],
-                "user_seen_all": response[1],
-                "nothing_more_to_show": response[2]}
-    except IndexError:
-        data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}
+    form = GameNextPhotoForm(request.GET)
+    data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}
+    if form.is_valid():
+        qs = Photo.objects.filter(rephoto_of__isnull=True)
+        form_area = form.cleaned_data["area"]
+        form_album = form.cleaned_data["album"]
+        form_photo = form.cleaned_data["photo"]
+        if form_photo:
+            data = {"photo": qs.get_game_json_format_photo(form_photo), "user_seen_all": False,
+                    "nothing_more_to_show": False}
+        else:
+            if form_album:
+                # TODO: Could be done later where we're frying our brains with nextPhoto logic anyway
+                photos_ids_in_album = list(form_album.photos.values_list("id", flat=True))
+                subalbums = form_album.subalbums.all()
+                for sa in subalbums:
+                    photos_ids_in_subalbum = list(sa.photos.values_list("id", flat=True))
+                    photos_ids_in_album += photos_ids_in_subalbum
+                qs = qs.filter(pk__in=photos_ids_in_album)
+            elif form_area:
+                qs = qs.filter(area=form_area)
+            # FIXME: Ugly
+            try:
+                response = qs.get_next_photo_to_geotag(request)
+                data = {"photo": response[0], "user_seen_all": response[1], "nothing_more_to_show": response[2]}
+            except IndexError:
+                pass
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def frontpage(request):
-    try:
-        example = random.choice(Photo.objects.filter(
-            id__in=[2483, 2495, 2502, 3193, 3195, 3201, 3203, 3307, 4821, 5485, 5535, 5588, 5617, 5644, 5645, 5646],
-            rephoto_of__isnull=False))
-    except ObjectDoesNotExist:
-        example = random.choice(Photo.objects.filter(rephoto_of__isnull=False)[:8])
-    example_source = Photo.objects.get(pk=example.rephoto_of.id)
-    album_selection_form = AlbumSelectionForm()
-
-    if not album_selection_form.is_valid():
-        album_selection_form = AlbumSelectionForm()
-
-    site = Site.objects.get_current()
-
+def frontpage(request, album_id=None, page=1):
+    albums = _get_album_choices()
+    photos = Photo.objects.filter(rephoto_of__isnull=True).order_by('-created')
+    page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
+    requested_photo_id = request.GET.get('photo', None)
+    if requested_photo_id:
+        requested_photo_id = int(requested_photo_id)
+    page = int(page)
+    if page <= 0:
+        page = 1
+    album = None
+    if album_id:
+        album = Album.objects.get(pk=album_id)
+        album_photo_ids = album.photos.all().values_list('id', flat=True)
+        photos = photos.filter(id__in=album_photo_ids)
+    marker_ids = request.GET.get("set")
+    if marker_ids:
+        marker_ids = marker_ids.split(",")
+        photos = photos.filter(id__in=marker_ids)
+    if requested_photo_id:
+        p = photos.filter(pk=requested_photo_id).first()
+        photo_count_before_requested = photos.filter(created__gt=p.created).count()
+        page = ceil(float(photo_count_before_requested) / float(page_size))
+    total = photos.count()
+    if page > 0:
+        start = int((page - 1) * page_size)
+    else:
+        start = 0
+    if total < page_size:
+        end = total
+    else:
+        end = int(start + page_size)
+    max_page = ceil(float(total) / float(page_size))
+    photos = photos.annotate(rephoto_count=Count('rephotos'))[start:end]
+    for p in photos:
+        p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
+        p.fb_url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
     return render_to_response("frontpage.html", RequestContext(request, {
-        "hostname": "http://%s" % (site.domain,),
         "title": _("Timepatch (Ajapaik)"),
-        "description": _("Look around and add metadata to historical photos. Competing with others adds more excitement."),
-        "album_selection_form": album_selection_form,
-        "example": example,
-        "example_source": example_source,
-        "grid_view_enabled": settings.GRID_VIEW_ENABLED,
-        "curator_enabled": settings.CURATOR_ENABLED,
+        "album": album,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
+        "albums": albums,
+        "start": start,
+        "end": end,
+        "page": page,
+        "max_page": max_page,
+        "total": total,
+        "photos": photos,
+        "is_frontpage": True,
     }))
 
 
@@ -564,10 +630,10 @@ def photo_url(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
     if photo.cam_scale_factor and photo.rephoto_of:
         # if rephoto is taken with mobile then make it same width/height as source photo
-        im = get_thumbnail(photo.rephoto_of.image, "700x400")
-        im = get_thumbnail(photo.image, str(im.width) + "x" + str(im.height), crop="center")
+        im = get_thumbnail(photo.rephoto_of.image, "800x600")
+        im = get_thumbnail(photo.image, str(im.width) + "x" + str(im.height), crop="center", upscale=False)
     else:
-        im = get_thumbnail(photo.image, "700x400")
+        im = get_thumbnail(photo.image, "800x600", upscale=False)
     content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
@@ -663,21 +729,29 @@ def photoslug(request, photo_id, pseudo_slug):
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
 
+    is_frontpage = False
+    is_mapview = False
     site = Site.objects.get_current()
-    template = ["", "_photo_modal.html", "photoview.html"][request.is_ajax() and 1 or 2]
+    if request.is_ajax():
+        template = "_photo_modal.html"
+        if request.GET.get("isFrontpage"):
+            is_frontpage = True
+        if request.GET.get("isMapview"):
+            is_mapview = True
+    else:
+        template = "photoview.html"
     if not photo_obj.description:
         title = "Unknown photo"
     else:
         title = " ".join(photo_obj.description.split(" ")[:5])[:50]
 
     album = None
-    albums = None
-    try:
-        album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
-        albums = Album.objects.filter(pk__in=album_ids, is_public=True)
-        album = albums[0]
+    album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
+    albums = Album.objects.filter(pk__in=album_ids, is_public=True)
+    album = albums.first()
+    if album:
         album_selection_form = AlbumSelectionForm({"album": album.id})
-    except:
+    else:
         album_selection_form = AlbumSelectionForm()
 
     return render_to_response(template, RequestContext(request, {
@@ -687,6 +761,8 @@ def photoslug(request, photo_id, pseudo_slug):
         "area": photo_obj.area,
         "album": album,
         "albums": albums,
+        "is_frontpage": is_frontpage,
+        "is_mapview": is_mapview,
         "album_selection_form": album_selection_form,
         "geotag_count": geotag_count,
         "azimuth_count": azimuth_count,
@@ -696,7 +772,8 @@ def photoslug(request, photo_id, pseudo_slug):
         "description": ''.join(photo_obj.description.rstrip()).splitlines()[0],
         "rephoto": rephoto,
         "hostname": "http://%s" % (site.domain, ),
-        "is_photoview": True
+        "is_photoview": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 
@@ -721,18 +798,21 @@ def pane_contents(request):
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids).order_by('?'):
         rephoto_count = p.rephotos.count()
         im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
-        # FIXME: Better way to determine thumb size?
-        if p.image._get_width() >= p.image._get_height():
-            thumb_str = "%d"
-        else:
-            thumb_str = "x%d"
-        im = get_thumbnail(p.image, thumb_str % 150, crop="center")
+        width, height = _calculate_thumbnail_size(p, 150)
         url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
-        data.append([p.id, im_url, rephoto_count, p.flip, p.description, p.azimuth, im._size[0], im._size[1], url])
+        data.append({
+            "id": p.id,
+            "url": im_url,
+            "rephotos": rephoto_count,
+            "flipped": p.flip,
+            "description": p.description,
+            "azimuth": p.azimuth,
+            "width": width,
+            "height": height,
+            "fb_url": url
+        })
 
-    return render_to_response("pane_contents.html", RequestContext(request, {
-        "data": data,
-    }))
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 @ensure_csrf_cookie
@@ -744,17 +824,13 @@ def mapview(request, photo_id=None, rephoto_id=None):
     total_photo_count = None
     geotagged_photo_count = None
     geotagging_user_count = None
+    albums = _get_album_choices()
 
     if area_selection_form.is_valid():
         area = area_selection_form.cleaned_data["area"]
 
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
-        album_photo_ids = set(album.photos.values_list("id", flat=True))
-        total_photo_count = len(album_photo_ids)
-        geotagged_photo_count = album.photos.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
-        geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
-        geotagging_user_count = geotags_for_album_photos.distinct("user").count()
 
     selected_rephoto = None
     if rephoto_id:
@@ -777,11 +853,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
                 pass
 
     if selected_photo and album is None:
-        try:
-            photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
-            album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created")[0]
-        except:
-            pass
+        photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
+        album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created").first()
 
     if selected_photo and area is None:
         try:
@@ -789,10 +862,18 @@ def mapview(request, photo_id=None, rephoto_id=None):
         except ObjectDoesNotExist:
             pass
 
+    if album:
+        album_photo_ids = frozenset(album.photos.values_list("id", flat=True))
+        total_photo_count = len(album_photo_ids)
+        geotagged_photo_count = album.photos.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
+        geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
+        geotagging_user_count = geotags_for_album_photos.distinct("user").count()
+
     site = Site.objects.get_current()
     ret = {
         "area": area,
         "album": album,
+        "albums": albums,
         "total_photo_count": total_photo_count,
         "geotagged_photo_count": geotagged_photo_count,
         "geotagging_user_count": geotagging_user_count,
@@ -800,18 +881,12 @@ def mapview(request, photo_id=None, rephoto_id=None):
         "selected_photo": selected_photo,
         "selected_rephoto": selected_rephoto,
         "is_mapview": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
     }
 
     if album is not None:
         ret["title"] = album.name + " - " + _("Browse photos on map")
         ret["album_selection_form"] = AlbumSelectionForm({"album": album.id})
-        try:
-            ret["random_album_photo"] = album.photos.filter(lat__isnull=False, lon__isnull=False).order_by("?")[0]
-        except:
-            try:
-                ret["random_album_photo"] = album.photos.filter(area__isnull=False).order_by("?")[0]
-            except:
-                pass
         ret["facebook_share_photos"] = album.photos.filter()[:5]
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
@@ -858,11 +933,6 @@ def map_objects_by_bounding_box(request):
         data = {"photos": [], "geotagged_count": 0, "ungeotagged_count": 0}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
-
-
-def get_leaderboard(request):
-    return HttpResponse(json.dumps(
-        _get_leaderboard(request.get_user().profile.pk)), content_type="application/json")
 
 
 @login_required
@@ -947,20 +1017,25 @@ def geotag_add(request):
 
 
 def leaderboard(request, album_id=None):
-    # leaderboard with first position, one in front of you, your score and one after you
+    # leader-board with first position, one in front of you, your score and one after you
     _calculate_recent_activity_scores()
-    response = _get_leaderboard(request.get_user().profile.pk)
+    profile = request.get_user().profile
+    lb = _get_leaderboard(profile)
     album_leaderboard = None
     if album_id:
-        album_leaderboard = _get_album_leaderboard(request.get_user().profile.pk, album_id)
-    template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
+        album_leaderboard = _get_album_leaderboard(profile, album_id)
+    if request.is_ajax():
+        template = "_block_leaderboard.html"
+    else:
+        template = "leaderboard.html"
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
-        "leaderboard": response,
-        "album_leaderboard": album_leaderboard,
-        "hostname": "http://%s" % (site.domain,),
+        "is_top_50": False,
         "title": _("Leaderboard"),
-        "is_top_50": False
+        "hostname": "http://%s" % (site.domain,),
+        "leaderboard": lb,
+        "album_leaderboard": album_leaderboard,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 
@@ -978,24 +1053,35 @@ def all_time_leaderboard(request):
 
 
 def top50(request, album_id=None):
-    # leaderboard with top 50 scores
+    # TODO: Can this be optimized? Recalculating on every leader-board request seems like a waste
     _calculate_recent_activity_scores()
+    profile = request.get_user().profile
     album_leaderboard = None
     album_name = None
+    general_leaderboard = None
     if album_id:
-        album_leaderboard, album_name = _get_album_leaderboard50(request.get_user().profile.pk, album_id)
-    activity_leaderboard = _get_leaderboard50(request.get_user().profile.pk)
-    all_time_leaderboard = _get_all_time_leaderboard50(request.get_user().profile.pk)
-    template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
+        album_leaderboard, album_name = _get_album_leaderboard50(profile.pk, album_id)
+    else:
+        general_leaderboard = _get_all_time_leaderboard50(profile.pk)
+    activity_leaderboard_qs = Profile.objects.filter(
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+        Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name')\
+                               .order_by('-score_recent_activity')[:50]
+    activity_leaderboard = [(rank + 1, data[0] == profile.id, data[1], data[2], data[3]) for rank, data in enumerate(activity_leaderboard_qs)]
+    if request.is_ajax():
+        template = "_block_leaderboard.html"
+    else:
+        template = "leaderboard.html"
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
         "activity_leaderboard": activity_leaderboard,
         "album_name": album_name,
         "album_leaderboard": album_leaderboard,
+        "all_time_leaderboard": general_leaderboard,
         "hostname": "http://%s" % (site.domain,),
-        "all_time_leaderboard": all_time_leaderboard,
         "title": _("Leaderboard"),
-        "is_top_50": True
+        "is_top_50": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 
@@ -1075,7 +1161,7 @@ def public_add_area(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    curator_leaderboard = _get_leaderboard(request.get_user().profile.pk)
+    curator_leaderboard = _get_leaderboard(request.get_user().profile)
     last_created_album = Album.objects.filter(is_public=True).order_by("-created")[0]
     # FIXME: Ugly
     curator_random_image_ids = AlbumPhoto.objects.filter(
@@ -1090,7 +1176,9 @@ def curator(request):
         "curator_random_images": curator_random_images,
         "title": _("Timepatch (Ajapaik) - curate"),
         "hostname": "http://%s" % (site.domain, ),
-        "leaderboard": curator_leaderboard
+        "leaderboard": curator_leaderboard,
+        "is_curator": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 
@@ -1306,7 +1394,7 @@ def curator_photo_upload_handler(request):
                         source = Source.objects.get(description=upload_form.cleaned_data["institution"])
                     except ObjectDoesNotExist:
                         source = Source(
-                            name=upload_form.cleaned_data["institution"], 
+                            name=upload_form.cleaned_data["institution"],
                             description=upload_form.cleaned_data["institution"]
                         )
                         source.save()

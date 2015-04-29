@@ -19,6 +19,7 @@ var map,
     centerMarker,
     setCursorToPanorama,
     setCursorToAuto,
+    bypass = false,
     mapOpts,
     streetViewOptions = {
         panControl: true,
@@ -43,10 +44,13 @@ var map,
     prepareFullscreen,
     adjustModalMaxHeightAndPosition,
     firstDragDone = false,
+    scoreboardShown = false,
     showScoreboard,
     hideScoreboard,
     updateLeaderboard,
     now,
+    paneNow,
+    lastTriggeredPane,
     gameMap,
     isPhotoview,
     gameRedirectURI,
@@ -129,17 +133,25 @@ var map,
     mapviewGameButton,
     getGeolocation,
     myLocationButton,
-    closeStreetviewButton;
+    closeStreetviewButton,
+    albumSelectionDiv,
+    handleAlbumChange;
 
 
 (function ($) {
     'use strict';
+    albumSelectionDiv = $('#ajapaik-album-selection-menu');
+    albumSelectionDiv.justifiedGallery({
+        rowHeight: 270,
+        margins: 0,
+        captions: false
+    });
 
     if ($(window).height() >= 320) {
         $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
     }
 
-    getMap = function (startPoint, startingZoom, isGameMap) {
+    getMap = function (startPoint, startingZoom, isGameMap, mapType) {
         var latLng,
             zoomLevel,
             mapTypeIds;
@@ -194,7 +206,7 @@ var map,
         } else {
             mapOpts = {
                 zoom: zoomLevel,
-                scrollwheel: false,
+                scrollwheel: true,
                 center: latLng,
                 mapTypeControl: true,
                 panControl: false,
@@ -214,6 +226,17 @@ var map,
             };
         }
 
+        var allowedMapTypes = {
+            roadmap: window.google.maps.MapTypeId.ROADMAP,
+            satellite: window.google.maps.MapTypeId.ROADMAP,
+            OSM: 'OSM'
+        };
+        if (allowedMapTypes[mapType]) {
+            mapOpts.mapTypeId = allowedMapTypes[mapType];
+        } else {
+            mapOpts.mapTypeId = allowedMapTypes.OSM;
+        }
+
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
         map.mapTypes.set('OSM', new google.maps.ImageMapType({
@@ -224,8 +247,6 @@ var map,
             name: 'OpenStreetMap',
             maxZoom: 18
         }));
-
-        map.setMapTypeId('OSM');
 
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
@@ -239,10 +260,10 @@ var map,
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
             mapviewGameButton = document.createElement('button');
-            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button').html(window.gettext('Geotag pictures'));
+            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button ajapaik-zero-border-radius').prop('title', window.gettext('Geotag pictures')).html(window.gettext('Geotag pictures'));
             map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
             myLocationButton = document.createElement('button');
-            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').prop('title', window.gettext('Go to my location')).html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button').html(window.gettext('Close'));
@@ -263,6 +284,18 @@ var map,
         window.google.maps.event.addListener(map, 'bounds_changed', function () {
             var bounds = map.getBounds();
             searchBox.setBounds(bounds);
+            if (window.toggleVisiblePaneElements) {
+                paneNow = new Date().getTime();
+                if (!lastTriggeredPane) {
+                    lastTriggeredPane = paneNow - 500;
+                    bypass = true;
+                }
+                if (paneNow - 500 > lastTriggeredPane || bypass) {
+                    bypass = false;
+                    lastTriggeredPane = paneNow;
+                    window.toggleVisiblePaneElements();
+                }
+            }
         });
 
         if (isGameMap) {
@@ -314,6 +347,7 @@ var map,
             } else {
                 window._gaq.push(['_trackEvent', 'Map', 'Map type changed']);
             }
+            window.syncMapStateToURL();
         });
     };
 
@@ -344,11 +378,26 @@ var map,
         return degrees * Math.PI / 180;
     };
 
-    Math.calculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
+    Math.simpleCalculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
         azimuth = Math.radians(azimuth);
         var newX = Math.cos(azimuth) * lineLength + startPoint.lat(),
             newY = Math.sin(azimuth) * lineLength + startPoint.lng();
         return new window.google.maps.LatLng(newX, newY);
+    };
+
+    Math.calculateMapLineEndPoint = function (bearing, startPoint, distance) {
+        var earthRadius = 6371e3,
+            angularDistance = distance / earthRadius,
+            bearingRadians = Math.radians(bearing),
+            startLatRadians = Math.radians(startPoint.lat()),
+            startLonRadians = Math.radians(startPoint.lng()),
+            endLatRadians = Math.asin(Math.sin(startLatRadians) * Math.cos(angularDistance) +
+                Math.cos(startLatRadians) * Math.sin(angularDistance) * Math.cos(bearingRadians)),
+            endLonRadians = startLonRadians + Math.atan2(Math.sin(bearingRadians) * Math.sin(angularDistance) *
+                Math.cos(startLatRadians), Math.cos(angularDistance) - Math.sin(startLatRadians) *
+                Math.sin(endLatRadians));
+
+        return new window.google.maps.LatLng(Math.degrees(endLatRadians), Math.degrees(endLonRadians));
     };
 
     dottedAzimuthLineSymbol = {
@@ -442,28 +491,21 @@ var map,
     };
 
     showScoreboard = function () {
-        var scoreContainer = $('#ajapaik-header').find('.score_container');
-        $('#full_leaderboard').slideDown();
-        scoreContainer.find('.scoreboard li').not('.you').add('h2').slideDown();
-        scoreContainer.find('#facebook-connect').slideDown();
-        scoreContainer.find('#facebook-connected').slideDown();
-        scoreContainer.find('#google-plus-connect').slideDown();
+        $('.ajapaik-navbar').find('.score_container').slideDown();
+        scoreboardShown = true;
     };
 
     hideScoreboard = function () {
-        var scoreContainer = $('#ajapaik-header').find('.score_container');
-        $('#full_leaderboard').slideUp();
-        scoreContainer.find('.scoreboard li').not('.you').add('h2').slideUp();
-        scoreContainer.find('#facebook-connect').slideUp();
-        scoreContainer.find('#facebook-connected').slideUp();
-        scoreContainer.find('#google-plus-connect').slideUp();
+        $('.ajapaik-navbar').find('.score_container').slideUp();
+        scoreboardShown = false;
     };
 
     updateLeaderboard = function () {
+        var target = $('.score_container');
         if (window.albumId) {
-            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId + '/');
+            target.find('.scoreboard').load(window.leaderboardUpdateURL + 'album/' + window.albumId);
         } else {
-            $('.score_container').find('.scoreboard').load(window.leaderboardUpdateURL);
+            target.find('.scoreboard').load(window.leaderboardUpdateURL);
         }
     };
 
@@ -559,41 +601,44 @@ var map,
             }
         });
     };
-
-    $('.filter-box select').change(function () {
-        var uri = new window.URI(location.href),
-            newQ = {album: $(this).val()},
-            isFilterEmpty = false;
-        uri.removeQuery(Object.keys(newQ));
-        $.each(newQ, function (i, ii) {
-            ii = String(ii);
-            isFilterEmpty = ii === '';
-        });
-
-        if (!isFilterEmpty) {
-            uri = uri.addQuery(newQ);
-        }
-
-        uri = uri.addQuery({fromSelect: 1});
-
-        if (isPhotoview) {
-            uri = new window.URI('/game');
-            uri.addQuery(newQ);
-            gameRedirectURI = uri.toString();
-        } else {
-            window.location.href = uri.toString();
-        }
-    });
-
     $(document).on('click', '#ajapaik-header-game-button', function () {
-        window.location.href = '/game?album=' + window.albumId;
+        if (window.isPhotoview && window.albumId && window.photoId) {
+            console.log("asd");
+            window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
+        } else {
+            if (!window.isGame && window.albumId) {
+                window.location.href = '/game?album=' + window.albumId;
+            }
+        }
     });
-
+    $(document).on('click', '#ajapaik-header-grid-button', function () {
+        if (!window.isFrontpage && window.albumId) {
+            if (window.getQueryParameterByName('limitToAlbum') == 0 && window.lastMarkerSet) {
+                window.location.href = '/photos?set=' + window.lastMarkerSet;
+            } else {
+                window.location.href = '/photos/' + window.albumId + '/1';
+            }
+        }
+    });
+    $(document).on('click', '#ajapaik-header-map-button', function () {
+        if (window.albumId) {
+            window.location.href = '/map?album=' + window.albumId;
+        }
+    });
+    $(document).on('click', '#ajapaik-header-curate-button', function () {
+        window.location.href = '/curator/';
+    });
+    $(document).on('click', '#ajapaik-header-profile-button', function () {
+        if (scoreboardShown) {
+            hideScoreboard();
+        } else {
+            showScoreboard();
+        }
+    });
     // Firefox and Opera cannot handle modal taking over focus
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
         $.noop();
     };
-
     // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
     wheelEventFF = function (e) {
         now = new Date().getTime();
@@ -611,7 +656,6 @@ var map,
             }
         }
     };
-
     wheelEventNonFF = function (e) {
         now = new Date().getTime();
         if (!lastTriggeredWheeling) {
@@ -628,7 +672,6 @@ var map,
             }
         }
     };
-
     windowResizeListenerFunction = function () {
         if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
@@ -639,7 +682,6 @@ var map,
             }
         }
     };
-
     mapMousemoveListenerFunction = function (e) {
         // The mouse is moving, therefore we haven't locked on a direction
         saveDirection = false;
@@ -661,7 +703,7 @@ var map,
         }
         if (marker.position) {
             if (!window.isMobile && firstDragDone) {
-                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
+                dottedAzimuthLine.setPath([marker.position, Math.simpleCalculateMapLineEndPoint(degreeAngle, marker.position, 0.01)]);
                 dottedAzimuthLine.setMap(map);
                 dottedAzimuthLine.icons = [
                     {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
@@ -672,7 +714,6 @@ var map,
             }
         }
     };
-
     mapClickListenerFunction = function (e) {
         if (infoWindow !== undefined) {
             centerMarker.show();
@@ -688,7 +729,7 @@ var map,
             azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
             degreeAngle = Math.degrees(radianAngle);
             if (window.isMobile) {
-                dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, marker.position, 0.05)]);
+                dottedAzimuthLine.setPath([marker.position, Math.simpleCalculateMapLineEndPoint(degreeAngle, marker.position, 0.01)]);
                 dottedAzimuthLine.setMap(map);
                 dottedAzimuthLine.icons = [
                     {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
@@ -796,7 +837,7 @@ var map,
         radianAngle = Math.getAzimuthBetweenTwoMarkers(marker, panoramaMarker);
         degreeAngle = Math.degrees(radianAngle);
         if (saveDirection) {
-            dottedAzimuthLine.setPath([marker.position, Math.calculateMapLineEndPoint(degreeAngle, panoramaMarker.position, 0.05)]);
+            dottedAzimuthLine.setPath([marker.position, Math.simpleCalculateMapLineEndPoint(degreeAngle, panoramaMarker.position, 0.01)]);
             dottedAzimuthLine.icons = [
                 {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
             ];
@@ -861,7 +902,7 @@ var map,
             data: heatmapPoints
         });
         heatmap.setMap(window.map);
-        heatmap.setOptions({radius: 50, dissipating: true});
+        heatmap.setOptions({radius: 50, dissipating: false});
     };
 
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
@@ -898,7 +939,6 @@ var map,
             }
         }
     });
-
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
         if (!gameHintUsed && !popoverShown && currentPhotoDescription && !window.isMobile) {
             $('[data-toggle="popover"]').popover('show');
@@ -914,15 +954,97 @@ var map,
             tutorialPanel = undefined;
         }
     });
+    $(document).on('click', '.ajapaik-album-selection-item', function (e) {
+        window.previousAlbumId = window.albumId;
+        window.albumId = e.target.dataset.id;
+        window.albumName = e.target.dataset.name;
+        window.currentAlbumPhotoCount = e.target.dataset.photos;
+        $('#ajapaik-album-selection-navmenu').offcanvas('toggle');
+        window.handleAlbumChange();
+    });
+    window.openPhotoUploadModal = function () {
+        if (window.photoModalCurrentlyOpenPhotoId) {
+            $.ajax({
+                cache: false,
+                url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
+                success: function (result) {
+                    var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal');
+                    rephotoUploadModal.data('bs.modal', null);
+                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
+                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                    });
+                }
+            });
+        }
+    };
+    $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal add rephoto click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Photo modal add rephoto click']);
+        }
+        window.openPhotoUploadModal();
+    });
+    $(document).on('click', '#ajapaik-header-menu-button', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Album selection click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Album selection click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Album selection click']);
+        }
+    });
+    $(document).on('click', '#ajapaik-photo-modal-share', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal share click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Photo modal share click']);
+        }
+    });
+    $(document).on('click', '#full_leaderboard', function (e) {
+        e.preventDefault();
+        var url = window.leaderboardFullURL;
+        if (window.albumId) {
+            url += 'album/' + window.albumId;
+        }
+        $.ajax({
+            url: url,
+            success: function (response) {
+                var modalWindow = $('#ajapaik-full-leaderboard-modal');
+                modalWindow.find('.scoreboard').html(response);
+                $('.score_container').show();
+                window.hideScoreboard();
+                modalWindow.modal().on('shown.bs.modal', function () {
+                    $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
+                });
+            }
+        });
+        window._gaq.push(['_trackEvent', '', 'Full leaderboard']);
+    });
+    $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {
+        e.preventDefault();
+        $('#full_leaderboard').click();
+    });
 
-    $(document).on('click', '.ajapaik-header-info-button', function () {
+    $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
+        e.preventDefault();
+        var targetDiv = $('#ajapaik-modal-rephoto');
+        if (targetDiv.hasClass('ajapaik-photo-bw')) {
+            targetDiv.removeClass('ajapaik-photo-bw');
+        } else {
+            targetDiv.addClass('ajapaik-photo-bw');
+        }
+    });
+
+    $(document).on('click', '#ajapaik-header-album-name', function (e) {
+        e.preventDefault();
         var targetDiv = $('#ajapaik-info-modal');
-        console.log(gameMap);
         if (window.albumId && window.infoModalURL) {
             $.ajax({
-                url: window.infoModalURL,
+                url: window.infoModalURL + window.albumId,
                 data: {
-                    isGame: gameMap
+                    linkToMap: window.linkToMap,
+                    linkToGame: window.linkToGame
                 },
                 success: function (resp) {
                     targetDiv.html(resp);
@@ -933,15 +1055,22 @@ var map,
                 }
             });
         }
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Album info click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Album info click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Mapview', 'Album info click']);
+        }
     });
 
-    $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
-        e.preventDefault();
-        var targetDiv = $('#ajapaik-modal-rephoto');
-        if (targetDiv.hasClass('ajapaik-photo-bw')) {
-            targetDiv.removeClass('ajapaik-photo-bw');
-        } else {
-            targetDiv.addClass('ajapaik-photo-bw');
+    $(document).on('click', '.ajapaik-album-info-modal-album-link', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Album info album link click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Album info album link click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Mapview', 'Album info album link click']);
         }
     });
 
