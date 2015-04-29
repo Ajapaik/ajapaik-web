@@ -238,7 +238,10 @@ def _get_album_choices():
         .values_list('album_id', 'photo_id')
     random_album_photos = {x:y for x, y in random_album_photos}
     for a in albums:
-        a.cover_photo_id = random_album_photos[a.id]
+        if a.id in random_album_photos:
+            a.cover_photo_id = random_album_photos[a.id]
+        else:
+            a.cover_photo_id = a.photos.first().id
         if a.subalbum_of_id in album_photo_count_dict:
             album_photo_count_dict[a.subalbum_of_id] += a.photo_count
         a.photo_count = album_photo_count_dict[a.id]
