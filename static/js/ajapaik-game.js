@@ -451,7 +451,7 @@
         if (window.albumId && window.infoModalURL && !window.getQueryParameterByName('fromButton')) {
             var targetDiv = $('#ajapaik-info-modal');
             $.ajax({
-                url: window.infoModalURL,
+                url: window.infoModalURL + window.albumId,
                 data: {
                     'linkToGame': false,
                     'linkToMap': true
