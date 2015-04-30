@@ -143,7 +143,7 @@ def get_album_info_modal_content(request, album_id=1):
 
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
-            Point(album.lat, album.lon), D(m=50000)), is_public=True).distance().exclude(id__in=[album.id]).order_by("?")[:3]
+            Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
 
