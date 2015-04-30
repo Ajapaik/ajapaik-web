@@ -280,7 +280,13 @@ def _get_leaderboard(profile):
         Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
             .order_by('-score_recent_activity')
     first_place = list((lb_queryset.first(),))
-    nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
+    try:
+        nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
+    except AssertionError:
+        try:
+            nearby_ranks = list(lb_queryset[(profile_rank - 1):(profile_rank + 1)])
+        except AssertionError:
+            nearby_ranks = list(lb_queryset[profile_rank:(profile_rank + 1)])
     ret = first_place + nearby_ranks
     ret = map(list, ret)
     # FIXME: This is disgusting : )
@@ -515,7 +521,10 @@ def game(request):
         ret["area"] = area
 
     ret["album"] = album
-    ret["facebook_share_photos"] = album.photos.filter()[:5]
+    if album:
+        ret["facebook_share_photos"] = album.photos.filter()[:5]
+    elif area:
+        ret["facebook_share_photos"] = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?")[:5]
 
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
