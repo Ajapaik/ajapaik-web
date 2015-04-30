@@ -458,7 +458,6 @@
         }
         $(document).on('click', '#ajapaik-photo-upload-open-album-modal', function () {
             $('#ajapaik-choose-albums-modal').modal().on('shown.bs.modal', function () {
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                 window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.public_photo_upload' %}' + '?album={{ album.id }}&albumChoiceOpen=1');
             }).on('hidden.bs.modal', function () {
                 window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.public_photo_upload' %}' + '?album={{ album.id }}');
@@ -466,21 +465,16 @@
         });
         $(document).on('click', '#ajapaik-photo-upload-open-area-modal', function () {
             $('#ajapaik-choose-area-modal').modal().on('shown.bs.modal', function () {
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                 window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.public_photo_upload' %}' + '?area={{ album.id }}&areaChoiceOpen=1');
             }).on('hidden.bs.modal', function () {
                 window.History.replaceState(null, '{{ title }}', '{% url 'project.home.views.public_photo_upload' %}' + '?area={{ album.id }}');
             });
         });
         $(document).on('click', '#ajapaik-photo-upload-add-album-button', function () {
-            $('#ajapaik-create-album-modal').modal().on('shown.bs.modal', function () {
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-            });
+            $('#ajapaik-create-album-modal').modal();
         });
         $(document).on('click', '#ajapaik-photo-upload-add-area-button', function () {
-            $('#ajapaik-create-area-modal').modal().on('shown.bs.modal', function () {
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-            });
+            $('#ajapaik-create-area-modal').modal();
         });
         $(document).on('click', '#ajapaik-photo-upload-confirm-album-selection-button', function () {
             var checked = $('input[name="album_list[]"]:checked');

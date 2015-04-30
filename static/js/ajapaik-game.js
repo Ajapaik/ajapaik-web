@@ -33,7 +33,6 @@
     window.photoHistoryIndex = null;
     window.straightToSpecify = false;
     photoLoadModalResizeFunction = function () {
-        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
         var trigger = 'manual';
         window.popover = $('[data-toggle="popover"]').popover({
             trigger: trigger,
@@ -460,7 +459,6 @@
                 success: function (resp) {
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                         window.FB.XFBML.parse();
                     });
                 }
@@ -638,9 +636,7 @@
                 success: function (response) {
                     var modalWindow = $('#ajapaik-all-time-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);
-                    modalWindow.modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
+                    modalWindow.modal();
                 }
             });
             window._gaq.push(['_trackEvent', 'Game', 'All time leaderboard']);
