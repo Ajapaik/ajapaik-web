@@ -822,6 +822,12 @@ a.fullscreen {
     width: 50%;
 }
 
+.modal-content {
+    margin-top: 75px;
+    min-width: 50%;
+    min-height: 400px;
+}
+
 .modal-body {
     overflow-y: auto;
 }

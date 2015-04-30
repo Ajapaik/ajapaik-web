@@ -93,7 +93,6 @@
         };
         openPhotoDrawer = function (content) {
             photoModal.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                 fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
                 $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);

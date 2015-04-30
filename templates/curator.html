@@ -575,9 +575,7 @@
         });
         $(document).on('click', '#ajapaik-curator-submit-selection', function () {
             $('#ajapaik-curator-upload-error').hide();
-            $('#ajapaik-choose-albums-modal').modal('show').on('shown.bs.modal', function () {
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-            });
+            $('#ajapaik-choose-albums-modal').modal('show');
             loadSelectableAlbums();
             window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
         });
@@ -601,9 +599,7 @@
                     $('#ajapaik-curator-change-album-id').val(response.id);
                     $('#ajapaik-curator-change-album-open').prop('checked', response.open);
                     $('#ajapaik-curator-change-album-public').prop('checked', response.is_public);
-                    $('#ajapaik-curator-edit-my-album-modal').modal('show').on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
+                    $('#ajapaik-curator-edit-my-album-modal').modal('show');
                     window._gaq.push(['_trackEvent', 'Curator', 'Load edit form success']);
                 },
                 error: function () {
@@ -682,7 +678,6 @@
                             $('#ajapaik-curator-add-area-name-hidden').val(null);
                             feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                                 $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
-                                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                                 FB.XFBML.parse();
                             });
                             for (var key in response.photos) {

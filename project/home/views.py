@@ -626,7 +626,7 @@ def frontpage(request, album_id=None, page=1):
         "albums": albums,
         "start": start,
         "end": end,
-        "page": page,
+        "page": int(page),
         "max_page": max_page,
         "total": total,
         "photos": photos,
