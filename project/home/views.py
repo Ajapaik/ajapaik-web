@@ -341,8 +341,8 @@ def _get_album_leaderboard(profile, album_id=None):
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
         top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=profile.id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
-        board = [(idx + 1, profile.user_id == profile.id, user_score_map[profile.user_id], profile.fb_id,
-                  profile.fb_name, profile.google_plus_name) for idx, profile in top_users[:1]]
+        board = [(idx + 1, user.user_id == profile.id, user_score_map[user.user_id], user.fb_id,
+                  user.fb_name, user.google_plus_name) for idx, user in top_users[:1]]
         # TODO: Ugly shit
         self_user_idx = filter(lambda (inner_idx, inner_data): inner_data.user_id == profile.id, top_users)[0][0]
         if self_user_idx - 1 > 0:
