@@ -55,7 +55,13 @@
             <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}photo/{{ selected_photo.id }}/"/>
         {% elif album %}
             {% if is_mapview %}
-                 <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}?album={{ album.id }}"/>
+                <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}?album={{ album.id }}"/>
+            {% elif is_frontpage %}
+                {% if album %}
+                    <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.frontpage' album.id page %}"/>
+                {% else %}
+                    <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.frontpage' page %}"/>
+                {% endif %}
             {% else %}
                  <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.game' %}?album={{ album.id }}"/>
             {% endif %}

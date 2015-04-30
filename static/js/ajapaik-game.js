@@ -33,7 +33,6 @@
     window.photoHistoryIndex = null;
     window.straightToSpecify = false;
     photoLoadModalResizeFunction = function () {
-        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
         var trigger = 'manual';
         window.popover = $('[data-toggle="popover"]').popover({
             trigger: trigger,
@@ -449,7 +448,7 @@
             window.disableSave = false;
         });
         // TODO: DRY
-        /*if (window.albumId && window.infoModalURL && !window.getQueryParameterByName('fromButton')) {
+        if (window.albumId && window.infoModalURL && !window.getQueryParameterByName('fromButton')) {
             var targetDiv = $('#ajapaik-info-modal');
             $.ajax({
                 url: window.infoModalURL,
@@ -460,12 +459,11 @@
                 success: function (resp) {
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                         window.FB.XFBML.parse();
                     });
                 }
             });
-        }*/
+        }
         if (window.getQueryParameterByName('photo')) {
             window.straightToSpecify = true;
         }
@@ -476,6 +474,9 @@
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
+            if (window.albumId) {
+                $('#ajapaik-album-selection-navmenu').scrollTop($(".ajapaik-album-selection-item[data-id='" + window.albumId + "']").offset().top);
+            }
         }).on('hidden.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').hide();
         });
@@ -635,9 +636,7 @@
                 success: function (response) {
                     var modalWindow = $('#ajapaik-all-time-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);
-                    modalWindow.modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
+                    modalWindow.modal();
                 }
             });
             window._gaq.push(['_trackEvent', 'Game', 'All time leaderboard']);

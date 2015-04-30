@@ -372,6 +372,11 @@ body {
     float: left;
 }
 
+#ajapaik-mobile-facebook-button {
+    background-image: url(../images/material-design-icons/ic_facebook_24px.svg);
+    float: left;
+}
+
 .ajapaik-header-map-button-white {
     background-image: url(../images/material-design-icons/ic_map_24px_white.svg) !important;
 }
@@ -813,13 +818,14 @@ a.fullscreen {
     direction: ltr;
 }
 
-/* Extra modal styles from http://codepen.io/dimbslmh/pen/mKfCc */
-.modal-dialog-center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50%;
+.modal-content {
+    margin-top: 75px;
+    min-width: 50%;
+    min-height: 400px;
+}
+
+.ajapaik-margin-top-100 {
+    margin-top: 125px;
 }
 
 .modal-body {

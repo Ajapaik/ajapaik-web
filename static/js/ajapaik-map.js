@@ -114,7 +114,6 @@
         window.syncMapStateToURL();
         var fullScreenImage = $('#ajapaik-mapview-full-screen-image');
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
-            $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
             fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
             $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
@@ -884,6 +883,9 @@
         $(window.input).show();
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
+            if (window.albumId) {
+                $('#ajapaik-album-selection-navmenu').scrollTop($(".ajapaik-album-selection-item[data-id='" + window.albumId + "']").offset().top);
+            }
         }).on('hidden.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').hide();
         });
@@ -977,9 +979,7 @@
                 success: function (response) {
                     var modalWindow = $('#ajapaik-all-time-leaderboard-modal');
                     modalWindow.find('.scoreboard').html(response);
-                    modalWindow.modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
+                    modalWindow.modal();
                 }
             });
             window._gaq.push(['_trackEvent', 'Map', 'All time leaderboard']);

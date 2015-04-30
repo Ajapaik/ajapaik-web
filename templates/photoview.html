@@ -238,9 +238,7 @@
                     url: '/photo_upload_modal/' + {{ photo.id }} + '/',
                     success: function (result) {
                         rephotoUploadModal.data('bs.modal', null);
-                        rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
-                            $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                        });
+                        rephotoUploadModal.html(result).modal();
                     }
                 });
             });

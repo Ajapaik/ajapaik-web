@@ -42,7 +42,6 @@ var map,
     dottedAzimuthLine,
     getQueryParameterByName,
     prepareFullscreen,
-    adjustModalMaxHeightAndPosition,
     firstDragDone = false,
     scoreboardShown = false,
     showScoreboard,
@@ -146,10 +145,6 @@ var map,
         margins: 0,
         captions: false
     });
-
-    if ($(window).height() >= 320) {
-        $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
-    }
 
     getMap = function (startPoint, startingZoom, isGameMap, mapType) {
         var latLng,
@@ -446,42 +441,6 @@ var map,
         that.css('width', newWidth);
         that.css('height', newHeight);
         that.css('opacity', 1);
-    };
-
-    // Modal centering code from http://codepen.io/dimbslmh/pen/mKfCc
-    adjustModalMaxHeightAndPosition = function () {
-        $('.modal').each(function () {
-            if ($(this).hasClass('in') === false) {
-                $(this).show();
-            }
-            var contentHeight = $(window).height() - 60,
-                headerHeight = $(this).find('.modal-header').outerHeight() || 2,
-                footerHeight = $(this).find('.modal-footer').outerHeight() || 2;
-
-            $(this).find('.modal-content').css({
-                'max-height': function () {
-                    return contentHeight;
-                }
-            });
-
-            $(this).find('.modal-body').css({
-                'max-height': function () {
-                    return contentHeight - (headerHeight + footerHeight);
-                }
-            });
-
-            $(this).find('.modal-dialog').addClass('modal-dialog-center').css({
-                'margin-top': function () {
-                    return -($(this).outerHeight() / 2);
-                },
-                'margin-left': function () {
-                    return -($(this).outerWidth() / 2);
-                }
-            });
-            if ($(this).hasClass('in') === false) {
-                $(this).hide();
-            }
-        });
     };
 
     getGeolocation = function getLocation() {
@@ -970,9 +929,7 @@ var map,
                 success: function (result) {
                     var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal');
                     rephotoUploadModal.data('bs.modal', null);
-                    rephotoUploadModal.html(result).modal().on('shown.bs.modal', function () {
-                        $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                    });
+                    rephotoUploadModal.html(result).modal();
                 }
             });
         }
@@ -1012,11 +969,9 @@ var map,
             success: function (response) {
                 var modalWindow = $('#ajapaik-full-leaderboard-modal');
                 modalWindow.find('.scoreboard').html(response);
-                $('.score_container').show();
+                modalWindow.find('.score_container').show();
                 window.hideScoreboard();
-                modalWindow.modal().on('shown.bs.modal', function () {
-                    $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
-                });
+                modalWindow.modal();
             }
         });
         window._gaq.push(['_trackEvent', '', 'Full leaderboard']);
@@ -1049,7 +1004,6 @@ var map,
                 success: function (resp) {
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {
-                        $(window).resize(adjustModalMaxHeightAndPosition).trigger('resize');
                         window.FB.XFBML.parse();
                     });
                 }

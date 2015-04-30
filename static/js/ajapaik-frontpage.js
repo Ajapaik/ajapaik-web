@@ -19,7 +19,7 @@
             syncStateToUrl,
             currentlySelectedPhotoId;
         window.handleAlbumChange = function () {
-            window.location.href = '/photos/' + window.albumId + '/1/';
+            window.location.href = '/photos/' + window.albumId + '/1';
         };
         window.startGuessLocation = function (photoId) {
             if (window.albumId) {
@@ -30,6 +30,9 @@
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
+            if (window.albumId) {
+                $('#ajapaik-album-selection-navmenu').scrollTop($(".ajapaik-album-selection-item[data-id='" + window.albumId + "']").offset().top);
+            }
         }).on('hidden.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').hide();
         });
@@ -74,17 +77,22 @@
             if (currentlySelectedPhotoId) {
                 historyReplacementString += '?photo=' + currentlySelectedPhotoId;
             }
+            if (window.getQueryParameterByName('set')) {
+                historyReplacementString += '&set=' + window.getQueryParameterByName('set');
+            }
             //var historyReplacementString = '/game/';
             //if (window.albumId) {
             //    historyReplacementString += '?album=' + window.albumId;
             //} else if (window.areaId) {
             //    historyReplacementString += '?area=' + window.areaId;
             //}
+            if (historyReplacementString.indexOf('?') === -1) {
+                historyReplacementString = historyReplacementString.replace('&', '?');
+            }
             window.History.replaceState(null, window.title, historyReplacementString);
         };
         openPhotoDrawer = function (content) {
             photoModal.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
-                $(window).resize(window.adjustModalMaxHeightAndPosition).trigger('resize');
                 fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
                 $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
@@ -115,7 +123,7 @@
             window.FB.XFBML.parse();
         }
         $('.ajapaik-navbar').autoHidingNavbar();
-        window.uploadCompleted = function (response) {
+        window.uploadCompleted = function () {
             $('#ajapaik-rephoto-upload-modal').modal('toggle');
         };
     });
