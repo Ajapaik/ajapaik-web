@@ -143,7 +143,7 @@ def get_album_info_modal_content(request, album_id=1):
 
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
-            Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
+            Point(album.lat, album.lon), D(m=50000)), is_public=True).distance().exclude(id__in=[album.id]).order_by("?")[:3]
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
 
@@ -231,15 +231,11 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices():
-    if settings.DEBUG:
-        albums = Album.objects.filter(is_public=True, created__lte="2015-03-20").annotate(photo_count=Count('photos')).order_by("-created")
-    else:
-        albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
-    album_photo_count_dict = {x.id: x.photo_count for x in albums}
-    album_ids = Album.objects.filter(is_public=True).distinct('id').values_list('id', flat=True)
-    random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_ids).distinct('album_id')\
-        .values_list('album_id', 'photo_id')
-    random_album_photos = {x:y for x, y in random_album_photos}
+    albums = Album.objects.filter(is_public=True).prefetch_related('photos').order_by("-created")
+    album_photos_dict = { x.id: list(x.photos.all()) for x in albums }
+    random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_photos_dict.keys())\
+        .distinct('album_id').values_list('album_id', 'photo_id')
+    random_album_photos = { x: y for x, y in random_album_photos }
     for a in albums:
         if a.id in random_album_photos:
             a.cover_photo_id = random_album_photos[a.id]
@@ -251,10 +247,10 @@ def _get_album_choices():
                 first_photo = a.subalbums.first().photos.first()
                 if first_photo:
                     a.cover_photo_id = first_photo.id
-        if a.subalbum_of_id in album_photo_count_dict:
-            album_photo_count_dict[a.subalbum_of_id] += a.photo_count
+        if a.subalbum_of_id in album_photos_dict:
+            album_photos_dict[a.subalbum_of_id] += album_photos_dict[a.id]
     for a in albums:
-        a.photo_count = album_photo_count_dict[a.id]
+        a.photo_count = len(set(album_photos_dict[a.id]))
 
     return albums
 
