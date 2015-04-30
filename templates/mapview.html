@@ -40,20 +40,20 @@
     <script>
         var title = '{{ title }}',
             leaderboardFullURL = "{% url "project.home.views.top50" %}",
-            difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}",
+            difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}";
             {% if area %}
-                areaId = '{{ area.id | safe }}',
+                var areaId = '{{ area.id | safe }}';
+                {% if area.lat and area.lon %}
+                    var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});
+                {% endif %}
             {% endif %}
             {% if album %}
-                albumId = '{{ album.id | safe }}',
+                var albumId = '{{ album.id | safe }}';
+                {% if album.lat and album.lon %}
+                    window.albumLatLng = new window.google.maps.LatLng({{ album.lat | safe }}, {{ album.lon | safe }});
+                {% endif %}
             {% endif %}
-            photoModalCurrentImageUrl;
-            {% if area.lat and area.lon %}
-                var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});
-            {% endif %}
-            {% if album.lat and album.lon %}
-                window.albumLatLng = new window.google.maps.LatLng({{ album.lat | safe }}, {{ album.lon | safe }});
-            {% endif %}
+        var photoModalCurrentImageUrl;
         window.linkToMap = false;
         window.linkToGame = true;
         {% if selected_photo %}
