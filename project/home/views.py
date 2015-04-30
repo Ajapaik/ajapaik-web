@@ -231,7 +231,10 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices():
-    albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
+    if settings.DEBUG:
+        albums = Album.objects.filter(is_public=True, created__lte="2015-03-20").annotate(photo_count=Count('photos')).order_by("-created")
+    else:
+        albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
     album_photo_count_dict = {x.id: x.photo_count for x in albums}
     album_ids = Album.objects.filter(is_public=True).distinct('id').values_list('id', flat=True)
     random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_ids).distinct('album_id')\
