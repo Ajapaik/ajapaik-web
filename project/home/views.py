@@ -617,8 +617,10 @@ def frontpage(request, album_id=None, page=1):
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
         p.fb_url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
+    site = Site.objects.get_current()
     return render_to_response("frontpage.html", RequestContext(request, {
         "title": _("Timepatch (Ajapaik)"),
+        "facebook_share_photos": photos[:5],
         "album": album,
         "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
         "albums": albums,
@@ -629,6 +631,7 @@ def frontpage(request, album_id=None, page=1):
         "total": total,
         "photos": photos,
         "is_frontpage": True,
+        "hostname": "http://%s" % (site.domain, ),
     }))
 
 
