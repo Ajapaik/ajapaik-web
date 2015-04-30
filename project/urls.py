@@ -93,6 +93,15 @@ urlpatterns += patterns('project.home.cat',
    url(r'^cat/v1/results/(?P<page>\d+)/$', 'cat_results')
 )
 
+urlpatterns += patterns('project.home.api',
+    url(r'^api/v1/login/$', 'api_login'),
+    url(r'^api/v1/logout/$', 'api_logout'),
+    url(r'^api/v1/albums/$', 'api_albums'),
+    url(r'^api/v1/album_thumb/(?P<album_id>\d+)/$', 'api_album_thumb'),
+    url(r'^api/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'api_album_thumb'),
+    url(r'^api/v1/album/nearest/$', 'api_album_nearest')
+)
+
 urlpatterns += patterns('',
    url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
    url(r'^admin/', include(admin.site.urls)),

@@ -194,3 +194,6 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 AJAPAIK_VALIMIMOODUL_URL = "http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json"
 
 GCM_ENDPOINT = "http://android.googleapis.com/gcm/send"
+
+API_DEFAULT_NEARBY_PHOTOS_RANGE = 50000
+API_DEFAULT_NEARBY_MAX_PHOTOS = 50
