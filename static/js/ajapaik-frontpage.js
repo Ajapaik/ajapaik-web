@@ -19,7 +19,7 @@
             syncStateToUrl,
             currentlySelectedPhotoId;
         window.handleAlbumChange = function () {
-            window.location.href = '/photos/' + window.albumId + '/1/?scrollTop=' + window.currentAlbumPositionInSelection;
+            window.location.href = '/photos/' + window.albumId + '/1';
         };
         window.startGuessLocation = function (photoId) {
             if (window.albumId) {
@@ -77,12 +77,18 @@
             if (currentlySelectedPhotoId) {
                 historyReplacementString += '?photo=' + currentlySelectedPhotoId;
             }
+            if (window.getQueryParameterByName('set')) {
+                historyReplacementString += '&set=' + window.getQueryParameterByName('set');
+            }
             //var historyReplacementString = '/game/';
             //if (window.albumId) {
             //    historyReplacementString += '?album=' + window.albumId;
             //} else if (window.areaId) {
             //    historyReplacementString += '?area=' + window.areaId;
             //}
+            if (historyReplacementString.indexOf('?') === -1) {
+                historyReplacementString = historyReplacementString.replace('&', '?');
+            }
             window.History.replaceState(null, window.title, historyReplacementString);
         };
         openPhotoDrawer = function (content) {
