@@ -74,7 +74,7 @@ LANGUAGES = (
 
 MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('et', 'fi', 'sv', 'nl', 'en', 'ru')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'nl', 'ru', 'en', 'et')
 
 SITE_ID = 1
 
