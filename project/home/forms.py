@@ -154,3 +154,11 @@ class SubmitGeotagForm(forms.ModelForm):
 class FrontpagePagingForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
     page = forms.IntegerField(min_value=1, required=False)
+
+
+class ApiAlbumNearestForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True))
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85)
+    longitude = forms.FloatField(min_value=-180, max_value=180)
+    range = forms.FloatField(required=False)
+    state = forms.CharField(max_length=255, required=False)
