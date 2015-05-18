@@ -8,7 +8,7 @@ from pytz import utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
-from django.core.cache import cache
+# from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
@@ -291,10 +291,10 @@ def cat_album_state(request):
 
 
 def cat_photo(request, photo_id, thumb_size=600):
-    cache_key = "ajapaik_cat_photo_response_%s_%s" % (photo_id, thumb_size)
-    cached_response = cache.get(cache_key)
-    if cached_response:
-        return cached_response
+    # cache_key = "ajapaik_cat_photo_response_%s_%s" % (photo_id, thumb_size)
+    # cached_response = cache.get(cache_key)
+    # if cached_response:
+    #     return cached_response
     p = get_object_or_404(CatPhoto, id=photo_id)
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(p.image, thumb_str, upscale=False)
@@ -304,7 +304,7 @@ def cat_photo(request, photo_id, thumb_size=600):
     response['Content-Length'] = len(content)
     response['Cache-Control'] = "max-age=604800, public"
     response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    cache.set(cache_key, response)
+    # cache.set(cache_key, response)
 
     return response
 

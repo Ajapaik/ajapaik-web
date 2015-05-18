@@ -23,7 +23,7 @@ from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
-from django.core.cache import cache
+# from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
@@ -667,10 +667,10 @@ def photo_url(request, photo_id):
 
 
 def photo_thumb(request, photo_id, thumb_size=150):
-    cache_key = "ajapaik_pane_photo_thumb_response_%s_%s" % (photo_id, thumb_size)
-    cached_response = cache.get(cache_key)
-    if cached_response:
-        return cached_response
+    # cache_key = "ajapaik_pane_photo_thumb_response_%s_%s" % (photo_id, thumb_size)
+    # cached_response = cache.get(cache_key)
+    # if cached_response:
+    #     return cached_response
     p = get_object_or_404(Photo, id=photo_id)
     image_to_use = None
     if p.image_unscaled:
@@ -689,7 +689,7 @@ def photo_thumb(request, photo_id, thumb_size=150):
     response["Content-Length"] = len(content)
     response["Cache-Control"] = "max-age=604800, public"
     response["Expires"] = next_week.strftime("%a, %d %b %y %T GMT")
-    cache.set(cache_key, response)
+    # cache.set(cache_key, response)
     return response
 
 
