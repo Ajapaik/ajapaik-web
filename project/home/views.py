@@ -306,12 +306,14 @@ def _get_leaderboard(profile):
     # FIXME: This is disgusting : )
     # Add ranks to index 0
     ret[0].insert(0, 1)
-    ret[1].insert(0, profile_rank)
-    ret[2].insert(0, profile_rank + 1)
+    if len(ret) > 1:
+        ret[1].insert(0, profile_rank)
+        ret[2].insert(0, profile_rank + 1)
     # Add self detection
     ret[0].insert(1, 0)
-    ret[1].insert(1, 1)
-    ret[2].insert(1, 0)
+    if len(ret) > 1:
+        ret[1].insert(1, 1)
+        ret[2].insert(1, 0)
 
     return ret
 
