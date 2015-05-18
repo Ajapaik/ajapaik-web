@@ -278,7 +278,9 @@ def _get_leaderboard(profile):
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
         Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
             .order_by('-score_recent_activity')
-    first_place = list((lb_queryset.first(),))
+    first_place = None
+    if profile_rank != 1:
+        first_place = list((lb_queryset.first(),))
     try:
         nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
     except AssertionError:
@@ -286,7 +288,10 @@ def _get_leaderboard(profile):
             nearby_ranks = list(lb_queryset[(profile_rank - 1):(profile_rank + 1)])
         except AssertionError:
             nearby_ranks = list(lb_queryset[profile_rank:(profile_rank + 1)])
-    ret = first_place + nearby_ranks
+    if first_place:
+        ret = first_place + nearby_ranks
+    else:
+        ret = nearby_ranks
     ret = map(list, ret)
     # FIXME: This is disgusting : )
     # Add ranks to index 0
