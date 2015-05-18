@@ -596,14 +596,25 @@ var map,
             }
         }
     });
+    var handleGeolocation = function (position) {
+        window.location.href = '/map?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude + '&limitToAlbum=0&zoom=15';
+    };
     $(document).on('click', '#ajapaik-header-map-button', function () {
         if (window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
+        } else {
+            if (window.navigator.geolocation) {
+                window.navigator.geolocation.getCurrentPosition(handleGeolocation);
+            }
         }
     });
     $(document).on('click', '#ajapaik-mobile-map-label', function () {
         if (window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
+        } else {
+            if (window.navigator.geolocation) {
+                window.navigator.geolocation.getCurrentPosition(handleGeolocation);
+            }
         }
     });
     $(document).on('click', '#ajapaik-header-curate-button', function () {

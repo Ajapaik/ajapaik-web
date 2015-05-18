@@ -35,16 +35,16 @@
                     class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}">
                 </button><span id="ajapaik-mobile-game-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Geotag pictures' %}</span>
             </div>
-            <div class="row">
-                <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
-                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}">
-                </button><span id="ajapaik-mobile-map-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show on map' %}</span>
-            </div>
         {% else %}
             <div class="row">
                 <p class="label ajapaik-mobile-navmenu-button-label">{% trans "Choose an album" %}</p>
             </div>
         {% endif %}
+        <div class="row">
+            <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
+                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}">
+            </button><span id="ajapaik-mobile-map-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show on map' %}</span>
+        </div>
         <div class="row">
             <a href="{{ ajapaik_facebook_link }}" type="button" title="{% trans 'Ajapaik on Facebook' %}" id="ajapaik-mobile-facebook-button"
                 class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">
@@ -63,7 +63,7 @@
             <span id="ajapaik-header-album-name">{% if album %}{{ album.name }}{% endif %}</span>
         </a>
     {% endif %}
-    {% if is_mapview %}
+    {% if is_mapview and album %}
         <button type="button" title="{% trans 'Remove album filter' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
             id="ajapaik-header-album-filter-button"></button>
     {% endif %}
@@ -73,9 +73,9 @@
                     class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}"></button>
             <button type="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"
                     class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}"></button>
-            <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
-                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}"></button>
         {% endif %}
+        <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
+                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}"></button>
         <button type="button" title="{% trans 'Curate' %}" id="ajapaik-header-curate-button"
                 class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_curator %}ajapaik-header-curate-button-white{% endif %}"></button>
     </div>
