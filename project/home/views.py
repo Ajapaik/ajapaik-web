@@ -6,7 +6,7 @@ from django.db import connection
 import operator
 from math import ceil
 import requests
-import random
+# import random
 import datetime
 import json
 
@@ -75,6 +75,14 @@ def _calculate_thumbnail_size(p, desired_longest_side):
         desired_width = w / factor
 
     return desired_width, desired_height
+
+
+def get_general_info_modal_content(request):
+    ret = {
+        "total_photos_tagged": Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).count()
+    }
+
+    return render_to_response("_general_info_modal_content.html", RequestContext(request, ret))
 
 
 def get_album_info_modal_content(request, album_id=1):
@@ -278,9 +286,9 @@ def _get_leaderboard(profile):
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
         Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
             .order_by('-score_recent_activity')
-    first_place = None
-    if profile_rank != 1:
-        first_place = list((lb_queryset.first(),))
+    first_place = list((lb_queryset.first(),))
+    if profile_rank == 1:
+        first_place = None
     try:
         nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
     except AssertionError:
