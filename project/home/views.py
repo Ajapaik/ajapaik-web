@@ -296,27 +296,22 @@ def _get_leaderboard(profile):
         else:
             nearby_ranks = list(lb_queryset[1:3])
     else:
-        nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
+        nearby_ranks = list(lb_queryset[(profile_rank - 1):(profile_rank + 1)])
     if first_place:
         ret = first_place + nearby_ranks
     else:
         ret = nearby_ranks
     ret = map(list, ret)
-    
+
     # FIXME: This is disgusting : )
     # Add ranks to index 0
     ret[0].insert(0, 1)
-    ret[1].insert(0, profile_rank - 1)
-    ret[2].insert(0, profile_rank)
+    ret[1].insert(0, profile_rank)
+    ret[2].insert(0, profile_rank + 1)
     # Add self detection
     ret[0].insert(1, 0)
-    ret[1].insert(1, 0)
-    ret[2].insert(1, 1)
-
-    if len(ret) > 3:
-        ret[3].insert(0, profile_rank + 1)
-        ret[3].insert(1, 0)
-
+    ret[1].insert(1, 1)
+    ret[2].insert(1, 0)
 
     return ret
 
