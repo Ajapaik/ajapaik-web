@@ -562,11 +562,28 @@ var map,
     };
     $(document).on('click', '#ajapaik-header-game-button', function () {
         if (window.isPhotoview && window.albumId && window.photoId) {
-            console.log("asd");
             window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
         } else {
             if (!window.isGame && window.albumId) {
                 window.location.href = '/game?album=' + window.albumId;
+            }
+        }
+    });
+    $(document).on('click', '#ajapaik-mobile-game-label', function () {
+        if (window.isPhotoview && window.albumId && window.photoId) {
+            window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
+        } else {
+            if (!window.isGame && window.albumId) {
+                window.location.href = '/game?album=' + window.albumId;
+            }
+        }
+    });
+    $(document).on('click', '#ajapaik-mobile-grid-label', function () {
+        if (!window.isFrontpage && window.albumId) {
+            if (window.getQueryParameterByName('limitToAlbum') == 0 && window.lastMarkerSet) {
+                window.location.href = '/photos?set=' + window.lastMarkerSet;
+            } else {
+                window.location.href = '/photos/' + window.albumId + '/1';
             }
         }
     });
@@ -580,6 +597,11 @@ var map,
         }
     });
     $(document).on('click', '#ajapaik-header-map-button', function () {
+        if (window.albumId) {
+            window.location.href = '/map?album=' + window.albumId;
+        }
+    });
+    $(document).on('click', '#ajapaik-mobile-map-label', function () {
         if (window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
         }

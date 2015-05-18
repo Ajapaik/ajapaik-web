@@ -28,27 +28,27 @@
             <div class="row">
                 <button type="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"
                     class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}">
-                </button><span class="ajapaik-mobile-navmenu-button-label">{% trans 'Show in grid' %}</span>
+                </button><span id="ajapaik-mobile-grid-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show in grid' %}</span>
             </div>
             <div class="row">
                 <button type="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"
                     class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}">
-                </button><span class="ajapaik-mobile-navmenu-button-label">{% trans 'Geotag pictures' %}</span>
+                </button><span id="ajapaik-mobile-game-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Geotag pictures' %}</span>
             </div>
             <div class="row">
                 <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
                     class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}">
-                </button><span class="ajapaik-mobile-navmenu-button-label">{% trans 'Show on map' %}</span>
+                </button><span id="ajapaik-mobile-map-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show on map' %}</span>
             </div>
         {% else %}
             <div class="row">
-                <p class="ajapaik-mobile-navmenu-button-label">{% trans "Choose an album" %}</p>
+                <p class="label ajapaik-mobile-navmenu-button-label">{% trans "Choose an album" %}</p>
             </div>
         {% endif %}
         <div class="row">
             <a href="{{ ajapaik_facebook_link }}" type="button" title="{% trans 'Ajapaik on Facebook' %}" id="ajapaik-mobile-facebook-button"
                 class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">
-            </a><span class="ajapaik-mobile-navmenu-button-label">{% trans 'Ajapaik on Facebook' %}</span>
+            </a><a href="{{ ajapaik_facebook_link }}"><span id="ajapaik-mobile-facebook-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Ajapaik on Facebook' %}</span></a>
         </div>
     </div>
 </div>

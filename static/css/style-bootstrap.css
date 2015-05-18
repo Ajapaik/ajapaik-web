@@ -851,7 +851,7 @@ a.fullscreen {
         width: 100%;
     }
     #ajapaik-album-name-container {
-        max-width: 50px;
+        max-width: 60px;
     }
 }
 
@@ -1231,6 +1231,7 @@ ul.errorlist {
     color: white;
     margin-top: 15px;
     display: block;
+    font-size: 100%;
 }
 
 .ajapaik-photo-modal-previous-button {
