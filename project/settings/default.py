@@ -61,7 +61,7 @@ DATABASES = {
 FACEBOOK_APP_KEY = ''
 FACEBOOK_APP_SECRET = ''
 
-TIME_ZONE = 'Europe/Tallinn'
+TIME_ZONE = 'Europe/Helsinki'
 
 LANGUAGE_CODE = 'et'
 
