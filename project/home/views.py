@@ -289,13 +289,15 @@ def _get_leaderboard(profile):
     first_place = list((lb_queryset.first(),))
     if profile_rank == 1:
         first_place = None
-    try:
-        nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
-    except AssertionError:
+        nearby_ranks = list(lb_queryset[0:2])
+    else:
         try:
-            nearby_ranks = list(lb_queryset[(profile_rank - 1):(profile_rank + 1)])
+            nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
         except AssertionError:
-            nearby_ranks = list(lb_queryset[profile_rank:(profile_rank + 1)])
+            try:
+                nearby_ranks = list(lb_queryset[(profile_rank - 1):(profile_rank + 1)])
+            except AssertionError:
+                nearby_ranks = list(lb_queryset[profile_rank:(profile_rank + 1)])
     if first_place:
         ret = first_place + nearby_ranks
     else:
