@@ -78,8 +78,21 @@ def _calculate_thumbnail_size(p, desired_longest_side):
 
 
 def get_general_info_modal_content(request):
+    profile = request.get_user().profile
+    photo_qs = Photo.objects.filter(rephoto_of__isnull=True)
+    rephoto_qs = Photo.objects.filter(rephoto_of__isnull=False)
+    user_rephoto_qs = rephoto_qs.filter(user=profile)
+    geotags_qs = GeoTag.objects.filter()
     ret = {
-        "total_photos_tagged": Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).count()
+        "total_photo_count": photo_qs.count(),
+        "contributing_users": geotags_qs.distinct('user').count(),
+        "total_photos_tagged": photo_qs.filter(lat__isnull=False, lon__isnull=False).count(),
+        "rephoto_count": rephoto_qs.count(),
+        "rephotographing_users": rephoto_qs.distinct('user').count(),
+        "rephotographed_photo_count": rephoto_qs.distinct('rephoto_of').count(),
+        "user_geotagged_photos": geotags_qs.filter(user=profile).distinct('photo').count(),
+        "user_rephotos": user_rephoto_qs.count(),
+        "user_rephotographed_photos": user_rephoto_qs.distinct('rephoto_of').count()
     }
 
     return render_to_response("_general_info_modal_content.html", RequestContext(request, ret))

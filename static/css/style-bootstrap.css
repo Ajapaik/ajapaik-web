@@ -431,6 +431,13 @@ body {
     z-index: 2;
 }
 
+#ajapaik-header-about-button {
+    background-image: url(../images/material-design-icons/ic_info_24px.svg);
+    position: fixed;
+    right: 176px;
+    z-index: 2;
+}
+
 #ajapaik-header-album-filter-button {
     background-image: url(../images/material-design-icons/ic_check_box_24px.svg);
     background-size: 24px !important;

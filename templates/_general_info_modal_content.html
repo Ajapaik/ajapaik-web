@@ -1,9 +1,48 @@
-{% load thumbnail i18n %}
+{% load i18n %}
 
 <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content ajapaik-zero-border-radius">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4>{% trans "About Ajapaik" %}</h4>
+        </div>
         <div class="modal-body">
-            {{ total_photos_tagged }}
+            <div class="row-fluid">
+                {% blocktrans %}
+                    Ajapaik has {{ total_photo_count }} historic picture,
+                {% endblocktrans %}
+                {% blocktrans %}
+                    {{ contributing_users }} users have put
+                {% endblocktrans %}
+                {% blocktrans %}
+                    {{ total_photos_tagged }} pictures on the map.
+                {% endblocktrans %}
+            </div>
+            <div class="row-fluid">
+                {% blocktrans %}
+                    {{ rephotographing_users }} users have made
+                {% endblocktrans %}
+                {% blocktrans %}
+                    {{ rephoto_count }} rephotographs for
+                {% endblocktrans %}
+                {% blocktrans %}
+                    {{ rephotographed_photo_count }} pictures.
+                {% endblocktrans %}
+            </div>
+            <div class="row-fluid">
+                {% blocktrans %}
+                    You have made a location suggestion for {{ user_geotagged_photos }} pictures.
+                {% endblocktrans %}
+            </div>
+            {% if user_rephotos > 0 %}
+                <div class="row-fluid">
+                    {% blocktrans %}
+                        You have made {{ user_rephotos }} rephotos for {{ user_rephotographed_photos }} pictures.
+                    {% endblocktrans %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
