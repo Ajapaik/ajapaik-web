@@ -1024,6 +1024,25 @@ var map,
         }
     });
 
+    $(document).on('click', '#ajapaik-header-about-button', function (e) {
+        var targetDiv = $('#ajapaik-general-info-modal');
+        if (window.generalInfoModalURL) {
+            $.ajax({
+                url: window.generalInfoModalURL,
+                success: function (resp) {
+                    targetDiv.html(resp).modal();
+                }
+            });
+        }
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'General info click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'General info click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Mapview', 'General info click']);
+        }
+    });
+
     $(document).on('click', '#ajapaik-header-album-name', function (e) {
         e.preventDefault();
         var targetDiv = $('#ajapaik-info-modal');
