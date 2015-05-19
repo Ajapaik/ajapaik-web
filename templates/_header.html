@@ -74,8 +74,10 @@
             <button type="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"
                     class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}"></button>
         {% endif %}
-        <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
-                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}"></button>
+        {% if is_frontpage or is_mapview or album %}
+            <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
+                        class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}"></button>
+        {% endif %}
         <button type="button" title="{% trans 'Curate' %}" id="ajapaik-header-curate-button"
                 class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_curator %}ajapaik-header-curate-button-white{% endif %}"></button>
     </div>

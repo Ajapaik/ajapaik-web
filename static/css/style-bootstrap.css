@@ -67,7 +67,7 @@ body {
     height: 50px;
     background: rgba(0, 0, 0, .8) none;
     border-width: 0 0 0 0;
-    z-index: 2001;
+    z-index: 100;
 }
 
 .ajapaik-navbar-curator {
@@ -488,7 +488,7 @@ body {
 #ajapaik-map-container {
     height: 100%;
     width: 100%;
-    z-index: 1000;
+    z-index: 99;
 }
 
 
