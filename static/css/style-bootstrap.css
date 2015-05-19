@@ -488,7 +488,7 @@ body {
 #ajapaik-map-container {
     height: 100%;
     width: 100%;
-    z-index: 99;
+    z-index: 98;
 }
 
 
@@ -679,7 +679,11 @@ a.fullscreen {
 }
 
 .modal-backdrop {
-    z-index: 1004;
+    z-index: 98;
+}
+
+#ajapaik-game-photo-modal {
+    z-index: 99;
 }
 
 .modal-backdrop.in {
