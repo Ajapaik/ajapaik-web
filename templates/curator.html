@@ -244,24 +244,15 @@
                     $('#ajapaik-curator-selection').hide();
                 }
             });
-            var input = document.getElementById('ajapaik-curator-add-area-name'),
-                $input = $(input);
+            var input = document.getElementById('ajapaik-curator-add-area-name');
             if (input) {
-                var options = {
-                    types: ['geocode']
-                };
+                var options = {};
                 var autocomplete = new window.google.maps.places.Autocomplete(input, options);
-                $input.bind('blur', function () {
-                    $input.css('color', '#fff');
-                });
                 window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
                     var place = autocomplete.getPlace();
                     $('#ajapaik-curator-add-area-name-hidden').val(place.name);
                     areaLat = place.geometry.location.lat();
                     areaLng = place.geometry.location.lng();
-                    setTimeout(function () {
-                        $input.css('color', '');
-                    }, 0);
                     window._gaq.push(['_trackEvent', 'Curator', 'Autocomplete place changed']);
                 });
             }
@@ -575,6 +566,10 @@
         });
         $(document).on('click', '#ajapaik-curator-submit-selection', function () {
             $('#ajapaik-curator-upload-error').hide();
+            $('#ajapaik-curator-add-area-name').val(null);
+            $('#ajapaik-curator-add-area-name-hidden').val(null);
+            areaLat = null;
+            areaLng = null;
             $('#ajapaik-choose-albums-modal').modal('show');
             loadSelectableAlbums();
             window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);

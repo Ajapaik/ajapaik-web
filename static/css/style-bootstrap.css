@@ -2053,6 +2053,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     font-weight: bold;
 }
 
+#ajapaik-choose-albums-modal {
+    z-index: 10000;
+}
+
 #ajapaik-mapview-close-streetview-button {
     margin-right: 3%;
     margin-bottom: 3%;
