@@ -967,44 +967,43 @@ a.fullscreen {
     background-size: 25px;
     background-position-y: 3px;
     background-position-x: 3px;
-    background-color: white;
     z-index: 2;
 }
 
 .ajapaik-rephoto-count-1 {
-    background-image: url(../images/material-design-icons/ic_filter_1_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_1_24px.svg);
 }
 
 .ajapaik-rephoto-count-2 {
-    background-image: url(../images/material-design-icons/ic_filter_2_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_2_24px.svg);
 }
 
 .ajapaik-rephoto-count-3 {
-    background-image: url(../images/material-design-icons/ic_filter_3_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_3_24px.svg);
 }
 
 .ajapaik-rephoto-count-4 {
-    background-image: url(../images/material-design-icons/ic_filter_4_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_4_24px.svg);
 }
 
 .ajapaik-rephoto-count-5 {
-    background-image: url(../images/material-design-icons/ic_filter_5_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_5_24px.svg);
 }
 
 .ajapaik-rephoto-count-6 {
-    background-image: url(../images/material-design-icons/ic_filter_6_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_6_24px.svg);
 }
 
 .ajapaik-rephoto-count-7 {
-    background-image: url(../images/material-design-icons/ic_filter_7_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_7_24px.svg);
 }
 
 .ajapaik-rephoto-count-8 {
-    background-image: url(../images/material-design-icons/ic_filter_8_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_8_24px.svg);
 }
 
 .ajapaik-rephoto-count-9 {
-    background-image: url(../images/material-design-icons/ic_filter_9_24px_black.svg);
+    background-image: url(../images/material-design-icons/ic_filter_9_24px.svg);
 }
 
 .ajapaik-frontpage-comments-count {
