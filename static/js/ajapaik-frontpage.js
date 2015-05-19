@@ -149,5 +149,9 @@
         window.uploadCompleted = function () {
             $('#ajapaik-rephoto-upload-modal').modal('toggle');
         };
+        if (!window.docCookies.getItem('ajapaik_closed_general_info')) {
+            $('#ajapaik-header-about-button').click();
+            window.docCookies.setItem('ajapaik_closed_general_info', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
+        }
     });
 }(jQuery));
