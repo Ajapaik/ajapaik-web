@@ -33,7 +33,10 @@
                                     ajapaik-frontpage-rephoto-count-{{ p.rephoto_count }}"
                                      title="{% trans "Image has rephotos" %}"></div>
                             {% endif %}
-                            <span data-href="{{ p.fb_url }}" class="fb-comments-count ajapaik-frontpage-comments-count" title="{% trans "Comments" %}"></span>
+                            <span id="ajapaik-frontpage-comments-count-{{ p.id }}"
+                                  class="ajapaik-frontpage-comments-count {% if p.fb_comments_count == 0 %}hidden{% endif %}" title="{% trans "Comments" %}">
+                                {{ p.fb_comments_count }}
+                            </span>
                         </div>
                         <div class="caption ajapaik-caption">{{ p.description }}</div>
                     </a>

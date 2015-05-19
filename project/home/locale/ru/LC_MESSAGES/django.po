@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-19 11:37+0300\n"
-"PO-Revision-Date: 2015-04-29 13:30+0000\n"
+"PO-Revision-Date: 2015-05-19 08:39+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/"
-"ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: project/home/forms.py:18 project/home/forms.py:46
 #: templates/photo_upload.html:58 templates/photo_upload.html.py:218
@@ -94,7 +92,8 @@ msgstr "Выглядит правильно!"
 
 #: project/home/views.py:1047
 msgid ""
-"The location seems right. Try submitting an azimuth to earn even more points!"
+"The location seems right. Try submitting an azimuth to earn even more "
+"points!"
 msgstr ""
 
 #: project/home/views.py:1050
@@ -238,8 +237,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Ajapaik has <b>%(total_photo_count)s</b> historic "
-"pictures, out of which\n"
+"                    Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
 "                "
 msgstr ""
 
@@ -247,8 +245,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    <b>%(total_photos_tagged)s</b> pictures have been put on "
-"the map by\n"
+"                    <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n"
 "                "
 msgstr ""
 
@@ -288,17 +285,16 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                        You have suggested location for <b>"
-"%(user_geotagged_photos)s</b> picture.\n"
+"                        You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                        You have suggested locations for <b>"
-"%(user_geotagged_photos)s</b> pictures.\n"
+"                        You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n"
 "                    "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_general_info_modal_content.html:57
 #, python-format
@@ -313,6 +309,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_general_info_modal_content.html:62
 #, python-format
@@ -327,6 +324,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_guess_panel.html:14 templates/_guess_panel_xs.html:17
 #: templates/game.html:46 templates/game.html.py:92
@@ -406,6 +404,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_header.html:29 templates/_header.html.py:31
 #: templates/_header.html:72
@@ -472,8 +471,7 @@ msgstr "Выйти"
 
 #: templates/_header.html:117
 msgid "Facebook Connect to save your score and continue later."
-msgstr ""
-"Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-ом."
+msgstr "Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-ом."
 
 #: templates/_header.html:118 templates/_photo_upload_modal.html:36
 #: templates/curator.html:220 templates/photo_upload.html:261
@@ -541,6 +539,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:31 templates/base_bootstrap.html:35
 #, python-format
@@ -555,6 +554,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:37 templates/base_bootstrap.html:41
 msgid "all the pictures on the map."
@@ -573,6 +573,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:48
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -599,6 +600,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:65
 #, python-format
@@ -613,6 +615,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:70
 #, python-format
@@ -627,6 +630,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:75
 #, python-format
@@ -641,6 +645,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:85
 #, python-format
@@ -655,6 +660,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:90
 #, python-format
@@ -669,6 +675,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_info_modal_content.html:100
 msgid "Some nearby albums"
@@ -689,6 +696,7 @@ msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/_photo_modal.html:147 templates/photoview.html:125
 msgid "Unknown author"
@@ -750,11 +758,9 @@ msgstr "Чтобы добавить современное фото надо с�
 #: templates/_photo_upload_modal.html:40
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to "
-"you under the"
-msgstr ""
-"Cделай как можно более похожую современную фотографию того же места и "
-"загрузи её."
+"picture was taken and upload it. Uploaded rephotograph will be attributed to"
+" you under the"
+msgstr "Cделай как можно более похожую современную фотографию того же места и загрузи её."
 
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
@@ -792,8 +798,8 @@ msgstr ""
 msgid ""
 "If you know which way the photographer was facing when the photo was taken, "
 "you can earn extra points by submitting the line of sight along with the "
-"coordinates. While the line is dotted, it means you haven't yet locked it in "
-"and only the location will be submitted."
+"coordinates. While the line is dotted, it means you haven't yet locked it in"
+" and only the location will be submitted."
 msgstr ""
 
 #: templates/_tutorial.html:19
@@ -806,8 +812,8 @@ msgstr ""
 msgid ""
 "By default, the location marker is locked to the center of the map. To "
 "change its location, the map itself must be dragged underneath. Sometimes "
-"this may not be desirable and this button unlocks the marker, enabling it to "
-"be dragged as usual."
+"this may not be desirable and this button unlocks the marker, enabling it to"
+" be dragged as usual."
 msgstr ""
 
 #: templates/_tutorial.html:27
@@ -875,11 +881,12 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/base_bootstrap.html:127
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree "
-"to that."
+"We use cookies for best performance of the site. By using the site you agree"
+" to that."
 msgstr ""
 
 #: templates/base_bootstrap.html:144 templates/base_bootstrap.html.py:146
@@ -1057,7 +1064,8 @@ msgstr ""
 
 #: templates/photo_upload.html:234
 msgid ""
-"CSV: institution;number;image;title;description;date;url;licence in any order"
+"CSV: institution;number;image;title;description;date;url;licence in any "
+"order"
 msgstr ""
 
 #: templates/photo_upload.html:239
@@ -1088,6 +1096,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: templates/photoview.html:130
 msgid "Date taken"

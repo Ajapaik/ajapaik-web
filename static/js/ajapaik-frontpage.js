@@ -17,7 +17,15 @@
             fullScreenImage = $('#ajapaik-frontpage-full-screen-image'),
             photoModal = $('#ajapaik-photo-modal'),
             syncStateToUrl,
-            currentlySelectedPhotoId;
+            currentlySelectedPhotoId,
+            currentPhotoIds = [];
+        $('.ajapaik-frontpage-image-container').each(function () {
+            currentPhotoIds.push($(this).data('id'));
+        });
+        window.refreshFacebookCommentsCount(currentPhotoIds);
+        window.handleCommentsCountResponse = function (response) {
+            console.log(response);
+        };
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1';
         };
@@ -80,12 +88,6 @@
             if (window.getQueryParameterByName('set')) {
                 historyReplacementString += '&set=' + window.getQueryParameterByName('set');
             }
-            //var historyReplacementString = '/game/';
-            //if (window.albumId) {
-            //    historyReplacementString += '?album=' + window.albumId;
-            //} else if (window.areaId) {
-            //    historyReplacementString += '?area=' + window.areaId;
-            //}
             if (historyReplacementString.indexOf('?') === -1) {
                 historyReplacementString = historyReplacementString.replace('&', '?');
             }
