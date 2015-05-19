@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-19 11:07+0300\n"
+"POT-Creation-Date: 2015-05-19 11:37+0300\n"
 "PO-Revision-Date: 2015-04-29 13:30+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -117,7 +117,7 @@ msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
 #: project/home/views.py:1084 project/home/views.py:1100
-#: project/home/views.py:1132 templates/_header.html:99
+#: project/home/views.py:1132 templates/_header.html:101
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
@@ -223,35 +223,29 @@ msgstr "Alkuperäinen valokuva"
 msgid "Rephoto"
 msgstr "Uuskuva"
 
-#: templates/_general_info_modal_content.html:9 templates/_header.html:90
-#, fuzzy
-#| msgid "Submit to Ajapaik"
-msgid "About Ajapaik"
-msgstr "Lataa Ajapaikiin"
-
-#: templates/_general_info_modal_content.html:13
-msgid "Ajapaik shows how places have changed over time."
+#: templates/_general_info_modal_content.html:9
+msgid "Ajapaik shows how places have changed over time"
 msgstr ""
 
-#: templates/_general_info_modal_content.html:17
+#: templates/_general_info_modal_content.html:13
 msgid "Discover how places looked like years ago by"
 msgstr ""
 
-#: templates/_general_info_modal_content.html:20
+#: templates/_general_info_modal_content.html:16
 msgid ""
 "* searching historic view pictures from Estonian museums' collections and "
-"curating selected images to Ajapaik"
+"curating selected images to Ajapaik,"
 msgstr ""
 
-#: templates/_general_info_modal_content.html:23
-msgid "* geotagging pictures from places you are familiar with"
+#: templates/_general_info_modal_content.html:19
+msgid "* geotagging pictures from places you are familiar with and"
+msgstr ""
+
+#: templates/_general_info_modal_content.html:22
+msgid "* rephotographing the historic views from places you visit."
 msgstr ""
 
 #: templates/_general_info_modal_content.html:26
-msgid "* rephotographing the historic views from places you visit"
-msgstr ""
-
-#: templates/_general_info_modal_content.html:30
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -263,13 +257,14 @@ msgstr ""
 #| "                "
 msgid ""
 "\n"
-"                    %(total_photo_count)s historic pictures, out of which\n"
+"                    Ajapaik has <b>%(total_photo_count)s</b> historic "
+"pictures, out of which\n"
 "                "
 msgstr ""
 "\n"
 "Albumissa on %(counter)s historiallinen kuvaa,"
 
-#: templates/_general_info_modal_content.html:33
+#: templates/_general_info_modal_content.html:29
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -281,15 +276,15 @@ msgstr ""
 #| "                    "
 msgid ""
 "\n"
-"                    %(total_photos_tagged)s pictures have been put on the "
-"map by\n"
+"                    <b>%(total_photos_tagged)s</b> pictures have been put on "
+"the map by\n"
 "                "
 msgstr ""
 "\n"
 "                        %(counter)s kuvan kartalle.\n"
 "                    "
 
-#: templates/_general_info_modal_content.html:36
+#: templates/_general_info_modal_content.html:32
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -301,14 +296,14 @@ msgstr ""
 #| "                "
 msgid ""
 "\n"
-"                    %(contributing_users)s users.\n"
+"                    <b>%(contributing_users)s</b> users and\n"
 "                "
 msgstr ""
 "\n"
 "                    %(counter)s käyttäjä on laittanut\n"
 "                "
 
-#: templates/_general_info_modal_content.html:41
+#: templates/_general_info_modal_content.html:35
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -320,14 +315,14 @@ msgstr ""
 #| "                        "
 msgid ""
 "\n"
-"                    %(rephoto_count)s rephotographs for\n"
+"                    <b>%(rephoto_count)s</b> rephotographs for\n"
 "                "
 msgstr ""
 "\n"
 "                            %(counter)s uuskuvan\n"
 "                        "
 
-#: templates/_general_info_modal_content.html:44
+#: templates/_general_info_modal_content.html:38
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -339,14 +334,14 @@ msgstr ""
 #| "                "
 msgid ""
 "\n"
-"                    %(rephotographed_photo_count)s pictures made by\n"
+"                    <b>%(rephotographed_photo_count)s</b> pictures made by\n"
 "                "
 msgstr ""
 "\n"
 "                    %(counter)s käyttäjä on laittanut\n"
 "                "
 
-#: templates/_general_info_modal_content.html:47
+#: templates/_general_info_modal_content.html:41
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -358,14 +353,14 @@ msgstr ""
 #| "                "
 msgid ""
 "\n"
-"                    %(rephotographing_users)s users.\n"
+"                    <b>%(rephotographing_users)s</b> users.\n"
 "                "
 msgstr ""
 "\n"
 "                    %(counter)s käyttäjä on laittanut\n"
 "                "
 
-#: templates/_general_info_modal_content.html:53
+#: templates/_general_info_modal_content.html:48
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -377,13 +372,40 @@ msgstr ""
 #| "                    "
 msgid ""
 "\n"
-"                        You have suggested location for "
-"%(user_geotagged_photos)s picture.\n"
+"                        You have suggested location for <b>"
+"%(user_geotagged_photos)s</b> picture.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                        You have suggested locations for "
-"%(user_geotagged_photos)s pictures.\n"
+"                        You have suggested locations for <b>"
+"%(user_geotagged_photos)s</b> pictures.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                        Olet tehnyt %(counter)s uuskuvan\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                        Olet tehnyt %(counter)s uuskuvaa\n"
+"                    "
+
+#: templates/_general_info_modal_content.html:57
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        You have made %(counter)s rephoto\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        You have made %(counter)s rephotos\n"
+#| "                    "
+msgid ""
+"\n"
+"                        You have made <b>%(user_rephotos)s</b> rephoto for\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        You have made <b>%(user_rephotos)s</b> rephotos for\n"
 "                    "
 msgstr[0] ""
 "\n"
@@ -398,33 +420,6 @@ msgstr[1] ""
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
-#| "                        You have made %(counter)s rephoto\n"
-#| "                    "
-#| msgid_plural ""
-#| "\n"
-#| "                        You have made %(counter)s rephotos\n"
-#| "                    "
-msgid ""
-"\n"
-"                        You have made %(user_rephotos)s rephoto for\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        You have made %(user_rephotos)s rephotos for\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                        Olet tehnyt %(counter)s uuskuvan\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                        Olet tehnyt %(counter)s uuskuvaa\n"
-"                    "
-
-#: templates/_general_info_modal_content.html:67
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
 #| "                            %(counter)s rephotograph\n"
 #| "                        "
 #| msgid_plural ""
@@ -433,11 +428,11 @@ msgstr[1] ""
 #| "                        "
 msgid ""
 "\n"
-"                        %(user_rephotographed_photos)s picture.\n"
+"                        <b>%(user_rephotographed_photos)s</b> picture.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                        %(user_rephotographed_photos)s pictures.\n"
+"                        <b>%(user_rephotographed_photos)s</b> pictures.\n"
 "                    "
 msgstr[0] ""
 "\n"
@@ -547,12 +542,12 @@ msgid "Choose an album"
 msgstr "Valitse albumi"
 
 #: templates/_header.html:44 templates/_header.html.py:46
-#: templates/_header.html:77 templates/_info_modal_content.html:138
+#: templates/_header.html:78 templates/_info_modal_content.html:138
 msgid "Show on map"
 msgstr "Näytä kartalla"
 
 #: templates/_header.html:49 templates/_header.html.py:51
-#: templates/_header.html:92
+#: templates/_header.html:94
 msgid "Ajapaik on Facebook"
 msgstr ""
 
@@ -568,74 +563,80 @@ msgstr ""
 msgid "Remove album filter"
 msgstr ""
 
-#: templates/_header.html:79
+#: templates/_header.html:81
 msgid "Curate"
 msgstr ""
 
-#: templates/_header.html:83
+#: templates/_header.html:85
 msgid "Options"
 msgstr ""
 
-#: templates/_header.html:94
+#: templates/_header.html:92
+#, fuzzy
+#| msgid "Submit to Ajapaik"
+msgid "About Ajapaik"
+msgstr "Lataa Ajapaikiin"
+
+#: templates/_header.html:96
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: templates/_header.html:110 templates/_photo_upload_modal.html:9
+#: templates/_header.html:112 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
 msgid "User"
 msgstr "Käyttäjä"
 
-#: templates/_header.html:110 templates/_photo_upload_modal.html:9
+#: templates/_header.html:112 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:14
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
-#: templates/_header.html:115
+#: templates/_header.html:117
 msgid "Facebook Connect to save your score and continue later."
 msgstr "Tallenna pisteesi Facebook Connectilla ja jatka myöhemmin."
 
-#: templates/_header.html:116 templates/_photo_upload_modal.html:36
+#: templates/_header.html:118 templates/_photo_upload_modal.html:36
 #: templates/curator.html:220 templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr "Kirjaudu Facebookin avulla"
 
-#: templates/_header.html:126
+#: templates/_header.html:128
 msgid "Search"
 msgstr "Etsi"
 
-#: templates/_header.html:131
+#: templates/_header.html:133
 msgid "Selection"
 msgstr "Valinta"
 
-#: templates/_header.html:135
+#: templates/_header.html:137
 msgid "My albums"
 msgstr "Minun albumini"
 
-#: templates/_header.html:145
+#: templates/_header.html:147
 msgid "Full search"
 msgstr "Laaja haku"
 
-#: templates/_header.html:151
+#: templates/_header.html:153
 msgid "Filter existing"
 msgstr ""
 
-#: templates/_header.html:157
+#: templates/_header.html:159
 msgid "Search!"
 msgstr "Hae!"
 
-#: templates/_header.html:162
+#: templates/_header.html:164
 msgid "Load more"
 msgstr "Lataa lisää!"
 
-#: templates/_header.html:167
+#: templates/_header.html:169
 msgid "Select all"
 msgstr "Valitse kaikki"
 
-#: templates/_header.html:177
+#: templates/_header.html:179
 msgid "Clear selection"
 msgstr "Tyhjennä valinta"
 
-#: templates/_header.html:183
+#: templates/_header.html:185
 msgid "Submit to Ajapaik"
 msgstr "Lataa Ajapaikiin"
 

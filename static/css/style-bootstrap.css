@@ -75,7 +75,7 @@ body {
 }
 
 .ajapaik-navmenu {
-    z-index: 2001;
+    z-index: 99;
     margin-top: 50px;
     padding-top: 0;
 }
@@ -1924,7 +1924,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     background: rgba(0, 0, 0, .5);
     width: 100%;
     height: 100%;
-    z-index: 2000;
+    z-index: 98;
 }
 
 .ajapaik-icon {
