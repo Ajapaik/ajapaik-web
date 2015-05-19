@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-19 11:37+0300\n"
-"PO-Revision-Date: 2015-05-19 09:00+0000\n"
+"PO-Revision-Date: 2015-05-19 09:16+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -258,7 +258,7 @@ msgid ""
 "\n"
 "                    <b>%(contributing_users)s</b> users and\n"
 "                "
-msgstr "\n<b>%(contributing_users)s</b> kasutaja abiga ning"
+msgstr "\n<b>%(contributing_users)s</b> kasutaja abiga, ning"
 
 #: templates/_general_info_modal_content.html:35
 #, python-format
