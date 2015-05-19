@@ -667,9 +667,8 @@ var map,
     };
     refreshFacebookCommentsCount = function (ids) {
         var data = ids.join(',http://ajapaik.ee/foto/');
-        console.log(data);
-        $.get('http://graph.facebook.com/ids=http://ajapaik.ee/foto/' + data, function(response) {
-            console.log(response);
+        $.get('http://graph.facebook.com/?ids=http://ajapaik.ee/foto/' + data, function(response) {
+            window.handleCommentsCountResponse(response);
         });
     };
     windowResizeListenerFunction = function () {

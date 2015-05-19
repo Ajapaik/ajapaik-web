@@ -1543,6 +1543,12 @@ def curator_photo_upload_handler(request):
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
+def update_comment_counts(request):
+    ret = {}
+    print request.POST.get('comments')
+    return HttpResponse(json.dumps(ret), content_type="application/json")
+
+
 # Currently not needed
 # def public_photo_upload(request):
 #     user_profile = request.get_user().profile

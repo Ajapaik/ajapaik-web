@@ -24,7 +24,23 @@
         });
         window.refreshFacebookCommentsCount(currentPhotoIds);
         window.handleCommentsCountResponse = function (response) {
-            console.log(response);
+            var target,
+                commentCountDict = {};
+            for (var key in response) {
+                if (response.hasOwnProperty(key)) {
+                    target = $('[data-fb-id="' + key + '"]');
+                    if (!response[key].comments) {
+                        target.hide();
+                    } else {
+                        commentCountDict[key] = response[key].comments;
+                        target.show().removeClass('hidden');
+                    }
+                }
+            }
+            $.post(window.updateCommentCountsURL, {
+                comments: commentCountDict,
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+            }, function () {});
         };
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1';
