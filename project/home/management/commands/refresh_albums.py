@@ -19,11 +19,12 @@ class Command(BaseCommand):
                 a.cover_photo = a.photos.filter(rephoto_of__isnull=True)[random_index]
             except IndexError:
                 for sa in a.subalbums.annotate(photo_count=Count('photos')):
-                    random_index = randint(0, sa.photo_count - 1)
-                    try:
-                        a.cover_photo = sa.photos.filter(rephoto_of__isnull=True)[random_index]
-                        break
-                    except IndexError:
-                        continue
+                    if sa.photo_count > 0:
+                        random_index = randint(0, sa.photo_count - 1)
+                        try:
+                            a.cover_photo = sa.photos.filter(rephoto_of__isnull=True)[random_index]
+                            break
+                        except IndexError:
+                            continue
             a.save()
             print a.photo_count_with_subalbums
