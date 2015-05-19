@@ -397,7 +397,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
         album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
                                       .values_list('rephoto_of_id', flat=True))
-        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids))
+        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids, points__gt=0) | Q(photo_id__in=album_rephoto_ids, points__gt=0))
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         # TODO: This should not be done in Python memory, but with a query
         user_score_map = {}
