@@ -134,7 +134,8 @@ var map,
     myLocationButton,
     closeStreetviewButton,
     albumSelectionDiv,
-    handleAlbumChange;
+    handleAlbumChange,
+    refreshFacebookCommentsCount;
 
 
 (function ($) {
@@ -663,6 +664,13 @@ var map,
                 }
             }
         }
+    };
+    refreshFacebookCommentsCount = function (ids) {
+        var data = ids.join(',http://ajapaik.ee/foto/');
+        console.log(data);
+        $.get('http://graph.facebook.com/ids=http://ajapaik.ee/foto/' + data, function(response) {
+            console.log(response);
+        });
     };
     windowResizeListenerFunction = function () {
         if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
