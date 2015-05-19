@@ -254,41 +254,6 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 def _get_album_choices():
     albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
-    #album_photo_ids_dict = { x.id: x.photos.values_list('id', flat=True) for x in albums}
-    # album_photos_dict = { x.id: list(x.photos.all()) for x in albums }
-    # random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_photos_dict.keys())\
-    #     .distinct('album_id').values_list('album_id', 'photo_id')
-    # random_album_photos = { x: y for x, y in random_album_photos }
-    # for a in albums:
-    #     if a.photo_count > 0:
-    #         random_index = random.randint(0, a.photo_count - 1)
-    #     else:
-    #         a.subalbums.annotate(photo_count=Count('photos'))
-    #
-    #     try:
-    #         a.cover_photo_id = a.photos.filter(rephoto_of__isnull=True)[random_index].id
-    #     except IndexError:
-    #         for sa in a.subalbums.annotate(photo_count=Count('photos')):
-    #             random_index = random.randint(0, sa.photo_count - 1)
-    #             try:
-    #                 a.cover_photo_id = sa.photos.filter(rephoto_of__isnull=True)[random_index].id
-    #                 break
-    #             except IndexError:
-    #                 continue
-        # if a.id in random_album_photos:
-        #     a.cover_photo_id = random_album_photos[a.id]
-        # else:
-        #     first_photo = a.photos.first()
-        #     if first_photo:
-        #         a.cover_photo_id = first_photo.id
-        #     else:
-        #         first_photo = a.subalbums.first().photos.first()
-        #         if first_photo:
-        #             a.cover_photo_id = first_photo.id
-    #     if a.subalbum_of_id in album_photos_dict:
-    #         album_photos_dict[a.subalbum_of_id] += album_photos_dict[a.id]
-    # for a in albums:
-    #     a.photo_count = len(set(album_photos_dict[a.id]))
 
     return albums
 

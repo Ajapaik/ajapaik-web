@@ -251,7 +251,7 @@ class Album(Model):
             self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         except:
             pass
-        if self.subalbums:
+        if self.subalbums and self.album:
             my_photo_ids = list(self.photos.values_list('id', flat=True))
             for sa in self.subalbums.all():
                 my_photo_ids += list(sa.photos.values_list('id', flat=True))
