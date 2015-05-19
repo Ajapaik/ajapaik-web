@@ -76,9 +76,11 @@
                                 <i class="glyphicon glyphicon-plus"></i>
                                 <span>{% trans "Add rephoto" %}</span>
                             </span>
-                            <button class="btn btn-primary" id="ajapaik-photoview-map-button">
-                                {% trans "Location on the map" %}
-                            </button>
+                            {% if photo.lat and photo.lon %}
+                                <button class="btn btn-primary" id="ajapaik-photoview-map-button">
+                                    {% trans "Location on the map" %}
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                     {% if albums %}
