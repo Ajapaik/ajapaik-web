@@ -75,9 +75,9 @@ body {
 }
 
 .ajapaik-navmenu {
-    z-index: 99;
     margin-top: 50px;
     padding-top: 0;
+    z-index: 100;
 }
 
 .ajapaik-btn-white-space-nowrap {
