@@ -1545,7 +1545,13 @@ def curator_photo_upload_handler(request):
 
 def update_comment_counts(request):
     ret = {}
-    print request.POST.get('comments')
+    comments = json.loads(request.POST.get('comments'))
+    comments_dict = {c['id']:c['comments'] for c in comments}
+    photos_to_update = Photo.objects.filter(pk__in=comments_dict.keys())
+    for p in photos_to_update:
+        p.fb_comments_count = comments_dict[str(p.id)]
+    Photo.bulk.bulk_update(photos_to_update, update_fields=['fb_comments_count'])
+
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
