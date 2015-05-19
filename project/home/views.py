@@ -1419,6 +1419,7 @@ def curator_photo_upload_handler(request):
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
             awarded_curator_points = []
+            print v
             if upload_form.is_valid():
                 if upload_form.cleaned_data["institution"]:
                     upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]

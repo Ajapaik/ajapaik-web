@@ -98,7 +98,7 @@ class CuratorPhotoUploadForm(forms.Form):
     institution = forms.CharField(max_length=255, required=False)
     urlToRecord = forms.CharField(max_length=1023, required=False)
     identifyingNumber = forms.CharField(max_length=100)
-    date = forms.CharField(max_length=100, required=False)
+    date = forms.CharField(max_length=255, required=False)
     types = forms.CharField(max_length=255, required=False)
     flip = forms.BooleanField(required=False)
     invert = forms.BooleanField(required=False)
