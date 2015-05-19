@@ -234,6 +234,8 @@ class Album(Model):
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
+    cover_photo = ForeignKey("Photo", null=True, blank=True)
+    photo_count_with_subalbums = IntegerField(default=0)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -249,6 +251,11 @@ class Album(Model):
             self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
         except:
             pass
+        if self.subalbums:
+            my_photo_ids = list(self.photos.values_list('id', flat=True))
+            for sa in self.subalbums.all():
+                my_photo_ids += list(sa.photos.values_list('id', flat=True))
+            self.photo_count_with_subalbums = len(set(my_photo_ids))
         super(Album, self).save(*args, **kwargs)
 
 

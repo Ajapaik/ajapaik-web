@@ -1,6 +1,7 @@
 # encoding: utf-8
 from copy import deepcopy
 import os
+import random
 import urllib2
 from django.db import connection
 import operator
@@ -23,7 +24,7 @@ from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
-# from django.core.cache import cache
+from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
@@ -252,26 +253,42 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices():
-    albums = Album.objects.filter(is_public=True).prefetch_related('photos').order_by("-created")
-    album_photos_dict = { x.id: list(x.photos.all()) for x in albums }
-    random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_photos_dict.keys())\
-        .distinct('album_id').values_list('album_id', 'photo_id')
-    random_album_photos = { x: y for x, y in random_album_photos }
-    for a in albums:
-        if a.id in random_album_photos:
-            a.cover_photo_id = random_album_photos[a.id]
-        else:
-            first_photo = a.photos.first()
-            if first_photo:
-                a.cover_photo_id = first_photo.id
-            else:
-                first_photo = a.subalbums.first().photos.first()
-                if first_photo:
-                    a.cover_photo_id = first_photo.id
-        if a.subalbum_of_id in album_photos_dict:
-            album_photos_dict[a.subalbum_of_id] += album_photos_dict[a.id]
-    for a in albums:
-        a.photo_count = len(set(album_photos_dict[a.id]))
+    albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
+    #album_photo_ids_dict = { x.id: x.photos.values_list('id', flat=True) for x in albums}
+    # album_photos_dict = { x.id: list(x.photos.all()) for x in albums }
+    # random_album_photos = AlbumPhoto.objects.filter(album_id__in=album_photos_dict.keys())\
+    #     .distinct('album_id').values_list('album_id', 'photo_id')
+    # random_album_photos = { x: y for x, y in random_album_photos }
+    # for a in albums:
+    #     if a.photo_count > 0:
+    #         random_index = random.randint(0, a.photo_count - 1)
+    #     else:
+    #         a.subalbums.annotate(photo_count=Count('photos'))
+    #
+    #     try:
+    #         a.cover_photo_id = a.photos.filter(rephoto_of__isnull=True)[random_index].id
+    #     except IndexError:
+    #         for sa in a.subalbums.annotate(photo_count=Count('photos')):
+    #             random_index = random.randint(0, sa.photo_count - 1)
+    #             try:
+    #                 a.cover_photo_id = sa.photos.filter(rephoto_of__isnull=True)[random_index].id
+    #                 break
+    #             except IndexError:
+    #                 continue
+        # if a.id in random_album_photos:
+        #     a.cover_photo_id = random_album_photos[a.id]
+        # else:
+        #     first_photo = a.photos.first()
+        #     if first_photo:
+        #         a.cover_photo_id = first_photo.id
+        #     else:
+        #         first_photo = a.subalbums.first().photos.first()
+        #         if first_photo:
+        #             a.cover_photo_id = first_photo.id
+    #     if a.subalbum_of_id in album_photos_dict:
+    #         album_photos_dict[a.subalbum_of_id] += album_photos_dict[a.id]
+    # for a in albums:
+    #     a.photo_count = len(set(album_photos_dict[a.id]))
 
     return albums
 
@@ -1532,6 +1549,8 @@ def curator_photo_upload_handler(request):
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
+        if album:
+            album.save()
     else:
         if not selection or len(selection) == 0:
             error = _("Please add photos to your album")
@@ -1545,12 +1564,14 @@ def curator_photo_upload_handler(request):
 
 def update_comment_counts(request):
     ret = {}
-    comments = json.loads(request.POST.get('comments'))
-    comments_dict = {c['id']:c['comments'] for c in comments}
-    photos_to_update = Photo.objects.filter(pk__in=comments_dict.keys())
-    for p in photos_to_update:
-        p.fb_comments_count = comments_dict[str(p.id)]
-    Photo.bulk.bulk_update(photos_to_update, update_fields=['fb_comments_count'])
+    comments = request.POST.get('comments')
+    if comments:
+        comments = json.loads(comments)
+        comments_dict = {c['id']:c['comments'] for c in comments}
+        photos_to_update = Photo.objects.filter(pk__in=comments_dict.keys())
+        for p in photos_to_update:
+            p.fb_comments_count = comments_dict[str(p.id)]
+        Photo.bulk.bulk_update(photos_to_update, update_fields=['fb_comments_count'])
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 

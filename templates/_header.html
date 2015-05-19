@@ -6,7 +6,7 @@
             {% for album in albums %}
                 <a href="javascript:void(0);">
                     <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
-                         data-id="{{ album.id }}" data-name="{{ album.name }}" data-photos="{{ album.photo_count }}"
+                         data-id="{{ album.id }}" data-name="{{ album.name }}" data-photos="{{ album.photo_count_with_subalbums }}"
                          src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}" >
                     <div class="caption ajapaik-caption-album-selection">
                         <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
