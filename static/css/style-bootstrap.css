@@ -381,6 +381,11 @@ body {
     float: left;
 }
 
+#ajapaik-mobile-about-button {
+    background-image: url(../images/material-design-icons/ic_info_24px.svg);
+    float: left;
+}
+
 .ajapaik-header-map-button-white {
     background-image: url(../images/material-design-icons/ic_map_24px_white.svg) !important;
 }

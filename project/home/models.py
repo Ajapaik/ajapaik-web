@@ -244,10 +244,8 @@ class Album(Model):
 
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
-        try:
-            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
-        except:
-            pass
+        if self.lat and self.lon:
+            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
         if self.subalbums and self.id:
             my_photo_ids = list(self.photos.values_list('id', flat=True))
             for sa in self.subalbums.all():
@@ -255,6 +253,8 @@ class Album(Model):
             self.photo_count_with_subalbums = len(set(my_photo_ids))
         super(Album, self).save(*args, **kwargs)
 
+    def light_save(self, *args, **kwargs):
+        super(Album, self).save(*args, **kwargs)
 
 class AlbumPhoto(Model):
     album = ForeignKey("Album")
@@ -278,13 +278,8 @@ def delete_parent(sender, **kwargs):
 pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 
-class PhotoManager(GeoManager):
-    def get_queryset(self):
-        return self.model.QuerySet(self.model)
-
-
 class Photo(Model):
-    objects = PhotoManager()
+    objects = GeoManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
@@ -500,10 +495,8 @@ class Photo(Model):
 
     def save(self, *args, **kwargs):
         # Update POSTGIS data on save
-        try:
-            self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
-        except:
-            pass
+        if self.lat and self.lon:
+            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
         # Calculate average coordinates for album
         album_ids = set(AlbumPhoto.objects.filter(photo_id=self.id).values_list("album_id", flat=True))
         albums = Album.objects.filter(id__in=album_ids)
@@ -520,6 +513,9 @@ class Photo(Model):
                 a.lat = lat / count
                 a.lon = lon / count
                 a.save()
+        super(Photo, self).save(*args, **kwargs)
+
+    def light_save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
 
     @staticmethod
@@ -723,7 +719,7 @@ class GeoTag(Model):
         app_label = "project"
 
     def save(self, *args, **kwargs):
-        self.geography = Point(x=float(self.lat), y=float(self.lon), srid=4326)
+        self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
         super(GeoTag, self).save(*args, **kwargs)
 
     def __unicode__(self):

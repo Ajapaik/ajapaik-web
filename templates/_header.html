@@ -77,6 +77,11 @@
             </button><span id="ajapaik-mobile-map-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show on map' %}</span>
         </div>
         <div class="row">
+            <button type="button" title="{% trans 'About Ajapaik' %}" id="ajapaik-mobile-about-button"
+                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">
+            </button><span id="ajapaik-mobile-about-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'About Ajapaik' %}</span>
+        </div>
+        <div class="row">
             <a href="{{ ajapaik_facebook_link }}" type="button" title="{% trans 'Ajapaik on Facebook' %}" id="ajapaik-mobile-facebook-button"
                 class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">
             </a><a href="{{ ajapaik_facebook_link }}"><span id="ajapaik-mobile-facebook-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Ajapaik on Facebook' %}</span></a>
@@ -122,7 +127,7 @@
             <span class="icon-bar"></span>
         </button>
     </div>
-    <button type="button" title="{% trans 'About Ajapaik' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
+    <button type="button" title="{% trans 'About Ajapaik' %}" class="hidden-xs navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
             id="ajapaik-header-about-button"></button>
     <a href="{{ ajapaik_facebook_link }}" target="_blank" title="{% trans 'Ajapaik on Facebook' %}" class="hidden-xs navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
             id="ajapaik-header-facebook-button"></a>

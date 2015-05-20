@@ -12,9 +12,8 @@ class Command(BaseCommand):
             photo_id = args[0]
         except IndexError:
             photo_id = None
-        geotags = GeoTag.objects.filter(geography__isnull=True)
+        geotags = GeoTag.objects.all()
         if photo_id:
             geotags = geotags.filter(photo_id=photo_id)
         for g in geotags:
-            g.geography = Point(x=float(g.lat), y=float(g.lon), srid=4326)
             g.save()

@@ -165,7 +165,7 @@ def get_album_info_modal_content(request, album_id=1):
 
     if album.lat and album.lon:
         ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
-            Point(album.lat, album.lon), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
+            Point(album.lon, album.lat), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
 
@@ -586,6 +586,8 @@ def fetch_stream(request):
 
 def frontpage(request, album_id=None, page=1, order='newest'):
     albums = _get_album_choices()
+    user_lat = request.GET.get('lat')
+    user_lng = request.GET.get('lng')
     photos = Photo.objects.filter(rephoto_of__isnull=True)
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     requested_photo_id = request.GET.get('photo', None)
@@ -619,10 +621,14 @@ def frontpage(request, album_id=None, page=1, order='newest'):
     else:
         end = int(start + page_size)
     max_page = ceil(float(total) / float(page_size))
-    if order == 'newest':
-        photos = photos.order_by('-created')
-    elif order == 'discussed':
+    if order == 'discussed':
         photos = photos.order_by('-fb_comments_count')
+    elif order == 'closest':
+        if user_lat and user_lng:
+            ref_location = Point(x=float(user_lng), y=float(user_lat), srid=4326)
+            photos = photos.distance(ref_location).order_by('distance')
+    else:
+        photos = photos.order_by('-created')
     photos = photos.annotate(rephoto_count=Count('rephotos'))[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
