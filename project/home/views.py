@@ -622,7 +622,7 @@ def frontpage(request, album_id=None, page=1, order='newest'):
     if order == 'newest':
         photos = photos.order_by('-created')
     elif order == 'discussed':
-        photos = photos.order_by('-fb_comments_count', '-created')
+        photos = photos.order_by('-fb_comments_count')
     photos = photos.annotate(rephoto_count=Count('rephotos'))[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
