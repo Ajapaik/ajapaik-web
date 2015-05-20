@@ -253,8 +253,7 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices():
-    # FIXME: Remove testing limit
-    albums = Album.objects.filter(is_public=True, created__gt='2015-05-01').order_by("-created")
+    albums = Album.objects.filter(is_public=True).order_by("-created")
 
     return albums
 
