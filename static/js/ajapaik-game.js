@@ -220,7 +220,11 @@
                     $('#ajapaik-guess-panel-info-panel-xs').show();
                     $('#ajapaik-guess-panel-description-xs').html(currentPhoto.description);
                     $('#ajapaik-game-photo-description').html(currentPhoto.description);
-                    $('#ajapaik-game-photo-identifier').html('<a target="_blank" id="ajapaik-game-source-link" href="' + currentPhoto.source_url + '">' + currentPhoto.source_name + " " + currentPhoto.source_key + '</a>');
+                    if (currentPhoto.source_url) {
+                        $('#ajapaik-game-photo-identifier').html('<a target="_blank" id="ajapaik-game-source-link" href="' + currentPhoto.source_url + '">' + currentPhoto.source_name + " " + currentPhoto.source_key + '</a>');
+                    } else {
+                        $('#ajapaik-game-photo-identifier').empty();
+                    }
                     showDescriptionButtons();
                 } else {
                     hideDescriptionButtons();

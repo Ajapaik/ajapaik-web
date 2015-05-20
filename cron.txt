@@ -1,0 +1,5 @@
+Put this into crontab
+
+*/1440 * * * * /opt/python27/bin/python2.7 /vagrant/project/manage.py refresh_albums
+*/60 * * * * /opt/python27/bin/python2.7 /vagrant/project/manage.py get_fb_comment_count_for_all_photos
+*/1440 * * * * /opt/python27/bin/python2.7 /vagrant/project/manage.py clearsessions

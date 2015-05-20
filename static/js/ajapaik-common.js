@@ -135,7 +135,8 @@ var map,
     closeStreetviewButton,
     albumSelectionDiv,
     handleAlbumChange,
-    refreshFacebookCommentsCount;
+    refreshFacebookCommentsCount,
+    originalClosestLink;
 
 
 (function ($) {
@@ -444,9 +445,9 @@ var map,
         that.css('opacity', 1);
     };
 
-    getGeolocation = function getLocation() {
+    getGeolocation = function getLocation(callback) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(window.handleGeolocation);
+            navigator.geolocation.getCurrentPosition(callback);
         }
     };
 
@@ -1107,6 +1108,12 @@ var map,
         } else if (window.isMapview) {
             window._gaq.push(['_trackEvent', 'Mapview', 'Album info click']);
         }
+    });
+
+    $(document).on('click', '#ajapaik-filter-closest-link', function (e) {
+        e.preventDefault();
+        originalClosestLink = e.target.href;
+        getGeolocation(window.handleGeolocation);
     });
 
     $(document).on('click', '.ajapaik-album-info-modal-album-link', function () {

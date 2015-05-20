@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<nav>
+    <ul class="pager">
+        {% if album and page > 1 %}
+            <li><a href="{% url 'project.home.views.frontpage' album_id=album.id page=page|add:-1 %}?order={{ order }}&{% if user_lat and user_lng %}?lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Previous page" %}</a></li>
+        {% elif page > 1 %}
+            <li><a href="{% url 'project.home.views.frontpage' page=page|add:-1 %}?order={{ order }}&{% if user_lat and user_lng %}&lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Previous page" %}</a></li>
+        {% endif %}
+        <li class="disabled"><a href="#">{{ start|add:1 }} – {{ end }} / {{ total }}</a></li>
+        {% if album and page < max_page %}
+            <li><a href="{% url 'project.home.views.frontpage' album_id=album.id page=page|add:1 %}?order={{ order }}&{% if user_lat and user_lng %}?lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Next page" %}</a></li>
+        {% elif page < max_page %}
+            <li><a href="{% url 'project.home.views.frontpage' page=page|add:1 %}?order={{ order }}&{% if user_lat and user_lng %}?lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Next page" %}</a></li>
+        {% endif %}
+    </ul>
+</nav>

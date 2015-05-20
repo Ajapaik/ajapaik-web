@@ -584,11 +584,14 @@ def fetch_stream(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def frontpage(request, album_id=None, page=1, order='newest'):
+def frontpage(request, album_id=None, page=1):
     albums = _get_album_choices()
     user_lat = request.GET.get('lat')
     user_lng = request.GET.get('lng')
-    photos = Photo.objects.filter(rephoto_of__isnull=True)
+    order = request.GET.get('order')
+    if not order:
+        order = 'newest'
+    photos = Photo.objects.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     requested_photo_id = request.GET.get('photo', None)
     if requested_photo_id:
@@ -627,9 +630,11 @@ def frontpage(request, album_id=None, page=1, order='newest'):
         if user_lat and user_lng:
             ref_location = Point(x=float(user_lng), y=float(user_lat), srid=4326)
             photos = photos.distance(ref_location).order_by('distance')
+    elif order == 'rephotos':
+        photos = photos.order_by('-rephoto_count')
     else:
         photos = photos.order_by('-created')
-    photos = photos.annotate(rephoto_count=Count('rephotos'))[start:end]
+    photos = photos[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
         p.fb_url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
@@ -641,6 +646,8 @@ def frontpage(request, album_id=None, page=1, order='newest'):
         "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
         "albums": albums,
         "start": start,
+        "user_lat": user_lat,
+        "user_lng": user_lng,
         "end": end,
         "page": int(page),
         "max_page": max_page,

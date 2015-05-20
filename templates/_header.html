@@ -20,37 +20,7 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu" id="ajapaik-filter-selection-navmenu">
-        <ul class="nav navmenu-nav" id="ajapaik-filter-selection-menu">
-            <li>
-                <a href="{% if album %}
-                    {% url 'project.home.views.frontpage' album.id 1 'newest'%}
-                {% else %}
-                    {% url 'project.home.views.frontpage' 'newest'%}
-                {% endif %}">
-                    {% trans 'Newest' %}
-                </a>
-            </li>
-            <li>
-                <a href="{% if album %}
-                    {% url 'project.home.views.frontpage' album.id 1 'closest'%}
-                {% else %}
-                    {% url 'project.home.views.frontpage' 'closest'%}
-                {% endif %}">
-                    {% trans 'Closest' %}
-                </a>
-            </li>
-            <li>
-                <a href="{% if album %}
-                    {% url 'project.home.views.frontpage' album.id 1 'discussed'%}
-                {% else %}
-                    {% url 'project.home.views.frontpage' 'discussed'%}
-                {% endif %}">
-                    {% trans 'Most discussed' %}
-                </a>
-            </li>
-        </ul>
-    </div>
+    {% include "_filter_selection_menu.html" %}
 {% endif %}
 
 <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu hidden-lg hidden-md hidden-sm" id="ajapaik-mobile-header-buttons">
