@@ -1,17 +1,15 @@
 import os
 from uuid import uuid4
-from django.contrib.gis.measure import D
-from django.core.urlresolvers import reverse
-from django.forms import ChoiceField
-from django.utils.deconstruct import deconstructible
-import numpy
-
 from urllib2 import urlopen
 from contextlib import closing
-from json import loads
+from ujson import loads
 from math import cos, sin, atan2, radians, degrees, sqrt
 from datetime import datetime
-import time
+from pandas import DataFrame, Series
+
+from django.core.urlresolvers import reverse
+from django.utils.deconstruct import deconstructible
+import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, SmallIntegerField, BooleanField,\
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField,\
     PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, query, permalink, OneToOneField, \
@@ -24,15 +22,14 @@ from django.contrib.contenttypes import generic
 from django.db.models.signals import post_save, pre_delete
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
-from django.db.models import Q
-from pandas import DataFrame, Series
 from django.core.exceptions import ObjectDoesNotExist
 from sorl.thumbnail import get_thumbnail
-from django.contrib.gis.geos import Point, Polygon
+from django.contrib.gis.geos import Point
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
+
 
 
 # Create profile automatically

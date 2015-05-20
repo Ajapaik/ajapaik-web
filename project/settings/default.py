@@ -55,6 +55,7 @@ DATABASES = {
         'PASSWORD': 'prod_p@ssword',
         'HOST': 'localhost',
         'PORT': '',
+        'CONN_MAX_AGE': 600,
     }
 }
 

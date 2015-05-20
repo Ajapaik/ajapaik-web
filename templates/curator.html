@@ -493,7 +493,9 @@
         window.imageLoaded = function (id) {
             var targetContainer = $('#ajapaik-curator-selection-item-' + window.formatId(id)),
                 targetImage = targetContainer.find('img')[0];
-            targetContainer.find('.ajapaik-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
+            if (targetImage) {
+                targetContainer.find('.ajapaik-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
+            }
         };
         var toggleButtonActive = function ($this) {
             if ($this.hasClass('active')) {
