@@ -666,21 +666,21 @@ var map,
             }
         }
     };
-    refreshFacebookCommentsCount = function (ids) {
-        var queryString = '',
-            first = true;
-        for (var i = 0, l = ids.length; i < l; i += 1) {
-            if (first) {
-                queryString += window.location.protocol + '//' + window.location.host + '/foto/' + ids[i] + '/';
-                first = false;
-            } else {
-                queryString += ',' + window.location.protocol + '//' + window.location.host + '/foto/' + ids[i] + '/';
-            }
-        }
-        $.get('http://graph.facebook.com/?ids=' + queryString, function(response) {
-            window.handleCommentsCountResponse(response);
-        });
-    };
+    //refreshFacebookCommentsCount = function (ids) {
+    //    var queryString = '',
+    //        first = true;
+    //    for (var i = 0, l = ids.length; i < l; i += 1) {
+    //        if (first) {
+    //            queryString += window.location.protocol + '//' + window.location.host + '/foto/' + ids[i] + '/';
+    //            first = false;
+    //        } else {
+    //            queryString += ',' + window.location.protocol + '//' + window.location.host + '/foto/' + ids[i] + '/';
+    //        }
+    //    }
+    //    $.get('http://graph.facebook.com/?ids=' + queryString, function(response) {
+    //        window.handleCommentsCountResponse(response);
+    //    });
+    //};
     windowResizeListenerFunction = function () {
         if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
             mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);

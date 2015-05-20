@@ -23,31 +23,31 @@
         $('.ajapaik-frontpage-image-container').each(function () {
             currentPhotoIds.push($(this).data('id'));
         });
-        window.refreshFacebookCommentsCount(currentPhotoIds);
-        window.handleCommentsCountResponse = function (response) {
-            var target,
-                commentCounts = [];
-            for (var key in response) {
-                if (response.hasOwnProperty(key)) {
-                    target = $('[data-fb-id="' + key + '"]');
-                    if (!response[key].comments) {
-                        target.hide();
-                    } else {
-                        commentCounts.push({id: key.split(/[/]+/).pop(), comments: response[key].comments});
-                        target.show().removeClass('hidden');
-                    }
-                }
-            }
-            $.post(window.updateCommentCountsURL, {
-                //comments: commentCounts,
-                'comments': JSON.stringify([
-                    {
-                        id: '12127', comments: 2
-                    }
-                ]),
-                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-            }, function () {});
-        };
+        //window.refreshFacebookCommentsCount(currentPhotoIds);
+        //window.handleCommentsCountResponse = function (response) {
+        //    var target,
+        //        commentCounts = [];
+        //    for (var key in response) {
+        //        if (response.hasOwnProperty(key)) {
+        //            target = $('[data-fb-id="' + key + '"]');
+        //            if (!response[key].comments) {
+        //                target.hide();
+        //            } else {
+        //                commentCounts.push({id: key.split(/[/]+/).pop(), comments: response[key].comments});
+        //                target.show().removeClass('hidden');
+        //            }
+        //        }
+        //    }
+        //    $.post(window.updateCommentCountsURL, {
+        //        //comments: commentCounts,
+        //        'comments': JSON.stringify([
+        //            {
+        //                id: '12127', comments: 2
+        //            }
+        //        ]),
+        //        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+        //    }, function () {});
+        //};
         window.handleAlbumChange = function () {
             window.location.href = '/photos/' + window.albumId + '/1';
         };
