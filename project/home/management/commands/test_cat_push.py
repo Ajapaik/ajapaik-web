@@ -1,5 +1,5 @@
 # coding=utf-8
-import json
+import ujson as json
 from django.core.management.base import BaseCommand
 import requests
 from project.home.models import CatPushDevice

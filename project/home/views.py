@@ -9,7 +9,7 @@ from math import ceil
 import requests
 # import random
 import datetime
-import json
+import ujson as json
 
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -253,7 +253,8 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices():
-    albums = Album.objects.filter(is_public=True).annotate(photo_count=Count('photos')).order_by("-created")
+    # FIXME: Remove testing limit
+    albums = Album.objects.filter(is_public=True, created__gt='2015-05-01').order_by("-created")
 
     return albums
 
@@ -583,9 +584,9 @@ def fetch_stream(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def frontpage(request, album_id=None, page=1):
+def frontpage(request, album_id=None, page=1, order='newest'):
     albums = _get_album_choices()
-    photos = Photo.objects.filter(rephoto_of__isnull=True).order_by('-created')
+    photos = Photo.objects.filter(rephoto_of__isnull=True)
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     requested_photo_id = request.GET.get('photo', None)
     if requested_photo_id:
@@ -618,6 +619,10 @@ def frontpage(request, album_id=None, page=1):
     else:
         end = int(start + page_size)
     max_page = ceil(float(total) / float(page_size))
+    if order == 'newest':
+        photos = photos.order_by('-created')
+    elif order == 'discussed':
+        photos = photos.order_by('-fb_comments_count', '-created')
     photos = photos.annotate(rephoto_count=Count('rephotos'))[start:end]
     for p in photos:
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
@@ -636,6 +641,7 @@ def frontpage(request, album_id=None, page=1):
         "total": total,
         "photos": photos,
         "is_frontpage": True,
+        "order": order,
         "hostname": "http://%s" % (site.domain, ),
     }))
 
@@ -1419,7 +1425,6 @@ def curator_photo_upload_handler(request):
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
             awarded_curator_points = []
-            print v
             if upload_form.is_valid():
                 if upload_form.cleaned_data["institution"]:
                     upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]

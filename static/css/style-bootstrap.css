@@ -417,6 +417,15 @@ body {
     float: left;
 }
 
+#ajapaik-filter-selection-menu {
+    margin-top: 50px;
+}
+
+#ajapaik-header-filter-button {
+    background-image: url(../images/material-design-icons/ic_filter_list_24px.svg);
+    float: left;
+}
+
 #ajapaik-header-profile-button {
     background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
     position: fixed;

@@ -5,7 +5,7 @@ from project.home.models import Profile
 from contextlib import closing
 from django.conf import settings
 from django.shortcuts import redirect
-from json import loads
+from ujson import loads
 
 APP_ID = "201052296573134"
 APP_KEY = settings.FACEBOOK_APP_KEY

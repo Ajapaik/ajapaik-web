@@ -1,5 +1,5 @@
 import urllib2
-import json
+import usjon as json
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
