@@ -7,7 +7,9 @@ class Command(BaseCommand):
     help = "Set geography field for albums"
 
     def handle(self, *args, **options):
-        albums = Album.objects.filter(geography__isnull=True)
+        albums = Album.objects.all()
         for a in albums:
-            a.geography = Point(x=float(a.lat), y=float(a.lon), srid=4326)
-            a.save()
+            if a.lat and a.lon:
+                print a.id
+                a.geography = Point(x=float(a.lon), y=float(a.lat), srid=4326)
+                a.light_save()
