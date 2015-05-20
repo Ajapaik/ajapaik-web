@@ -63,12 +63,12 @@
     <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
     {% if is_game or is_mapview or is_frontpage %}
-        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button" title="{% trans 'Album selection' %}"
+        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"
                 data-toggle="offcanvas" data-target="#ajapaik-album-selection-navmenu" id="ajapaik-header-menu-button"></button>
         <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container" title="{% trans 'Album details' %}">
             <span id="ajapaik-header-album-name">{% if album %}{{ album.name }}{% endif %}</span>
         </a>
-        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button" title="{% trans 'Filtering' %}"
+        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button {% if order != 'newest' %}ajapaik-header-filter-button-white{% endif %}" title="{% trans 'Filtering' %}"
                 data-toggle="offcanvas" data-target="#ajapaik-filter-selection-navmenu" id="ajapaik-header-filter-button"></button>
     {% endif %}
     {% if is_mapview and album %}

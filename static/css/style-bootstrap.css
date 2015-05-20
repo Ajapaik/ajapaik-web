@@ -422,6 +422,10 @@ body {
     float: left;
 }
 
+.ajapaik-header-menu-button-white {
+    background-image: url(../images/material-design-icons/ic_bookmark_24px_white.svg) !important;
+}
+
 #ajapaik-filter-selection-menu {
     margin-top: 50px;
 }
@@ -429,6 +433,10 @@ body {
 #ajapaik-header-filter-button {
     background-image: url(../images/material-design-icons/ic_filter_list_24px.svg);
     float: left;
+}
+
+.ajapaik-header-filter-button-white {
+    background-image: url(../images/material-design-icons/ic_filter_list_24px_white.svg) !important;
 }
 
 #ajapaik-header-profile-button {
