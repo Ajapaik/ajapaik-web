@@ -925,7 +925,7 @@
         });
 
         $(document).on('click', '#ajapaik-mapview-my-location-button', function () {
-            window.getGeolocation();
+            window.getGeolocation(window.handleGeolocation);
             centerOnMapAfterLocating = true;
         });
 

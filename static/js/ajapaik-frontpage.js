@@ -6,6 +6,7 @@
         window.updateLeaderboard();
         window.nextPhotoLoading = false;
         window.userClosedRephotoTools = false;
+        window.useButtonLink = true;
         var historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             historicPhotoGallerySettings = {
                 captions: false,
@@ -95,6 +96,20 @@
                 }
             });
         };
+        window.handleGeolocation = function (location) {
+            if (window.useButtonLink) {
+                window.location.href = window.originalClosestLink + '&lat=' + location.coords.latitude  + '&lng=' + location.coords.longitude;
+            } else {
+                window.location.href = '?order=closest&lat=' + location.coords.latitude  + '&lng=' + location.coords.longitude;
+            }
+
+        };
+        if (window.getQueryParameterByName('order') === 'closest') {
+            if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
+                window.useButtonLink = false;
+                window.getGeolocation(window.handleGeolocation);
+            }
+        }
         if (window.getQueryParameterByName('photo')) {
             window.loadPhoto(window.getQueryParameterByName('photo'));
         }
