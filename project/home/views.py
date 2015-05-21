@@ -623,7 +623,7 @@ def frontpage(request, album_id=None, page=1):
     else:
         end = int(start + page_size)
     max_page = ceil(float(total) / float(page_size))
-    if order2 == 'closest':
+    if order1 == 'closest':
         if user_lat and user_lng:
             ref_location = Point(x=float(user_lng), y=float(user_lat), srid=4326)
             photos = photos.distance(ref_location).order_by('distance')
