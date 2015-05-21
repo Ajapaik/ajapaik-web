@@ -61,10 +61,9 @@ def _convert_to_degrees(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
-def _calculate_thumbnail_size(p, desired_longest_side):
-    assert isinstance(p, Photo)
-    w = float(p.width)
-    h = float(p.height)
+def _calculate_thumbnail_size(p_width, p_height, desired_longest_side):
+    w = float(p_width)
+    h = float(p_height)
     desired_longest_side = float(desired_longest_side)
     if w > h:
         desired_width = desired_longest_side
@@ -390,7 +389,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
                 user_score_map[each.user_id] = each.points
         for each in geotags:
             # FIXME: Why is this check even needed?
-            if each.score is not None:
+            if each.score > 0:
                 if each.user_id in user_score_map:
                     user_score_map[each.user_id] += each.score
                 else:
@@ -456,6 +455,8 @@ def photo_upload(request, photo_id):
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
+                photo.latest_rephoto = datetime.datetime.now()
+                photo.light_save()
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
 
@@ -631,11 +632,14 @@ def frontpage(request, album_id=None, page=1):
             photos = photos.distance(ref_location).order_by('distance')
     elif order == 'rephotos':
         photos = photos.order_by('-rephoto_count')
+    elif order == 'latest_rephotos':
+        photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
+                              order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
     else:
         photos = photos.order_by('-created')
     photos = photos[start:end]
     for p in photos:
-        p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p, 300)
+        p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p.width, p.height, 300)
         p.fb_url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
     site = Site.objects.get_current()
     return render_to_response("frontpage.html", RequestContext(request, {
@@ -839,28 +843,23 @@ def mapview_photo_upload_modal(request, photo_id):
 def pane_contents(request):
     # TODO: Form
     marker_ids = request.POST.getlist("marker_ids[]")
-    # center_lat = request.POST.get("center_lat")
-    # center_lon = request.POST.get("center_lon")
-    # ref_location = Point(float(center_lat), float(center_lon))
 
-    # http://stackoverflow.com/questions/7035989/geo-django-subclassing-queryset
     data = []
-    for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids).order_by('?'):
-        rephoto_count = p.rephotos.count()
-        im_url = reverse("project.home.views.photo_thumb", args=(p.id, 300))
-        width, height = _calculate_thumbnail_size(p, 300)
-        url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
+    for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids)\
+            .annotate(rephoto_count=Count('rephotos')).order_by('?')\
+            .values_list('id', 'rephoto_count', 'flip', 'description', 'azimuth', 'fb_comments_count', 'width', 'height'):
+        im_url = reverse("project.home.views.photo_thumb", args=(p[0], 300))
+        width, height = _calculate_thumbnail_size(p[6], p[7], 300)
         data.append({
-            "id": p.id,
+            "id": p[0],
             "url": im_url,
-            "rephotos": rephoto_count,
-            "flipped": p.flip,
-            "description": p.description,
-            "azimuth": p.azimuth,
+            "rephotos": p[1],
+            "flipped": p[2],
+            "description": p[3],
+            "azimuth": p[4],
             "width": width,
             "height": height,
-            "fb_url": url,
-            "comments": p.fb_comments_count
+            "comments": p[5]
         })
 
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -1687,46 +1686,6 @@ def update_comment_count(request):
 #         })
 #     return HttpResponse(json.dumps(ret), content_type="application/json")
 
-
-def grid(request):
-    game_album_selection_form = GameAlbumSelectionForm(request.GET)
-    album_selection_form = AlbumSelectionForm(request.GET)
-
-    data = []
-    photo_count = 0
-    album = None
-
-    if game_album_selection_form.is_valid():
-        album = game_album_selection_form.cleaned_data["album"]
-        album_photo_ids = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
-
-        qs = Photo.objects.filter(id__in=album_photo_ids)
-
-        data = qs.get_old_photos_for_grid_view(0, settings.GRID_VIEW_PAGE_SIZE)
-        photo_count = qs.get_old_photo_count_for_grid_view()
-
-    return render_to_response('gallery.html', RequestContext(request, {
-        "data": data,
-        "photo_count": photo_count,
-        "album": album,
-        "start": 0,
-        "album_selection_form": album_selection_form,
-        "page_size": settings.GRID_VIEW_PAGE_SIZE,
-        "is_gallery": True
-    }))
-
-def grid_infinite_scroll(request):
-    album_selection_form = GameAlbumSelectionForm(request.GET)
-
-    data = []
-    if album_selection_form.is_valid():
-        album = album_selection_form.cleaned_data["album"]
-        album_photo_ids = AlbumPhoto.objects.filter(album=album).values_list('photo_id', flat=True)
-        qs = Photo.objects.filter(id__in=album_photo_ids)
-        start = int(request.GET.get('start'))
-        data = qs.get_old_photos_for_grid_view(start, start + settings.GRID_VIEW_PAGE_SIZE)
-
-    return HttpResponse(json.dumps(data), content_type="application/json")
 
 # TODO: Can probably be thrown away
 # @login_required

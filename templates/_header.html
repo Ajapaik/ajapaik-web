@@ -70,6 +70,23 @@
         <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container" title="{% trans 'Album details' %}">
             <span id="ajapaik-header-album-name">{% if album %}{{ album.name }}{% endif %}</span>
         </a>
+        {% if not album %}
+            <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container" title="{% trans 'Order' %}">
+                <span id="ajapaik-header-order-name">
+                    {% if order == "newest" %}
+                        {% trans "Latest added" %}
+                    {% elif order == "closest" %}
+                        {% trans "Closest to you" %}
+                    {% elif order == "discussed" %}
+                        {% trans "Most discussed" %}
+                    {% elif order == "rephotos" %}
+                        {% trans "Most rephotos" %}
+                    {% elif order == "latest_rephotos" %}
+                        {% trans "Latest rephotos" %}
+                    {% endif %}
+                </span>
+            </a>
+        {% endif %}
         <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button {% if order != 'newest' %}ajapaik-header-filter-button-white{% endif %}" title="{% trans 'Filtering' %}"
                 data-toggle="offcanvas" data-target="#ajapaik-filter-selection-navmenu" id="ajapaik-header-filter-button"></button>
     {% endif %}

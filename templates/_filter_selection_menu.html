@@ -38,5 +38,14 @@
                 {% trans 'Most rephotos' %}
             </a>
         </li>
+        <li {% if order == 'latest_rephotos' %}class="active"{% endif %}>
+            <a href="{% if album %}
+                {% url 'project.home.views.frontpage' album_id=album.id page=1%}?order=latest_rephotos
+            {% else %}
+                {% url 'project.home.views.frontpage' page=1 %}?order=latest_rephotos
+            {% endif %}">
+                {% trans 'Latest rephotos' %}
+            </a>
+        </li>
     </ul>
 </div>

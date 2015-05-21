@@ -327,6 +327,7 @@ class Photo(Model):
     area = ForeignKey("Area", related_name="areas", null=True, blank=True)
     rephoto_of = ForeignKey("self", blank=True, null=True, related_name="rephotos")
     fb_comments_count = IntegerField(default=0)
+    latest_rephoto = DateTimeField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
     # scale_factor: old picture's zoom level (float [0.5, 4.0])
