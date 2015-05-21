@@ -9,6 +9,7 @@
         photoPanel,
         i = 0,
         j = 0,
+        l = 0,
         maxIndex = 2,
         lastHighlightedMarker,
         lastSelectedPaneElement,
@@ -494,31 +495,28 @@
             }
             $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
-            currentMapDataRequest = $.post('/map_data/', { album_id: window.albumId, area_id: window.areaId, limit_by_album: !albumFilterButton.hasClass('ajapaik-header-album-filter-button-off'), sw_lat: sw.lat(), sw_lon: sw.lng(), ne_lat: ne.lat(), ne_lon: ne.lng(), csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+            currentMapDataRequest = $.post('/map_data/', {
+                album: window.albumId,
+                area: window.areaId,
+                limit_by_album: !albumFilterButton.hasClass('ajapaik-header-album-filter-button-off'),
+                sw_lat: sw.lat(),
+                sw_lon: sw.lng(),
+                ne_lat: ne.lat(),
+                ne_lon: ne.lng(),
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+            }, function (response) {
                 if (mc) {
                     mc.clearMarkers();
                 }
                 markers.length = 0;
-                $('.ajapaik-geotag-info-panel-geotagged-photo-amount').html(response.geotagged_count);
-                $('.ajapaik-geotag-info-panel-ungeotagged-photo-amount').html(response.ungeotagged_count);
 
-                if (response.geotagged_count === 0 && window.albumId) {
-                    $('.ajapaik-geotag-info-panel-no-photos').show();
-                    var buttons = $('.ajapaik-header-info-button');
-                    if (buttons.length > 0 && !userHasBeenAnnoyedOnce) {
-                        buttons[0].click();
-                        userHasBeenAnnoyedOnce = true;
-                    }
-                } else {
-                    $('.ajapaik-geotag-info-panel-no-photos').hide();
-                }
                 if (response.photos) {
                     window.lastMarkerSet = [];
-                    for (j = 0; j < response.photos.length; j += 1) {
+                    for (j = 0, l = response.photos.length; j < l; j += 1) {
                         p = response.photos[j];
                         arrowIcon.rotation = 0;
-                        if (p[7]) {
-                            arrowIcon.rotation = p[7];
+                        if (p[3]) {
+                            arrowIcon.rotation = p[3];
                             currentIcon = arrowIcon;
                         } else {
                             currentIcon = locationIcon;
@@ -532,9 +530,9 @@
                             id: p[0],
                             icon: currentIcon,
                             rephotoCount: p[4],
-                            position: new window.google.maps.LatLng(p[3], p[2]),
+                            position: new window.google.maps.LatLng(p[1], p[2]),
                             zIndex: 1,
-                            azimuth: p[7],
+                            azimuth: p[3],
                             map: null,
                             anchor: new window.google.maps.Point(0.0, 0.0)
                         });
