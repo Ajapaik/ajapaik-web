@@ -870,64 +870,39 @@ def pane_contents(request):
 def mapview(request, photo_id=None, rephoto_id=None):
     area_selection_form = AreaSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
-    area = None
-    album = None
-    total_photo_count = None
-    geotagged_photo_count = None
-    geotagging_user_count = None
     albums = _get_album_choices()
 
+    area = None
+    album = None
     if area_selection_form.is_valid():
         area = area_selection_form.cleaned_data["area"]
 
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
 
+    selected_photo = None
     selected_rephoto = None
     if rephoto_id:
-        try:
-            selected_rephoto = Photo.objects.get(pk=rephoto_id)
-        except ObjectDoesNotExist:
-            pass
+        selected_rephoto = Photo.objects.filter(pk=rephoto_id).first()
 
-    selected_photo = None
     if photo_id:
-        try:
-            selected_photo = Photo.objects.get(pk=photo_id)
-        except ObjectDoesNotExist:
-            pass
+        selected_photo = Photo.objects.filter(pk=photo_id).first()
     else:
         if selected_rephoto:
-            try:
-                selected_photo = Photo.objects.get(pk=selected_rephoto.rephoto_of.id)
-            except ObjectDoesNotExist:
-                pass
+            selected_photo = Photo.objects.filter(pk=selected_rephoto.rephoto_of.id).first()
 
     if selected_photo and album is None:
         photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
         album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created").first()
 
     if selected_photo and area is None:
-        try:
-            area = Area.objects.get(pk=selected_photo.area_id)
-        except ObjectDoesNotExist:
-            pass
-
-    if album:
-        album_photo_ids = frozenset(album.photos.values_list("id", flat=True))
-        total_photo_count = len(album_photo_ids)
-        geotagged_photo_count = album.photos.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
-        geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
-        geotagging_user_count = geotags_for_album_photos.distinct("user").count()
+        area = Area.objects.filter(pk=selected_photo.area_id).first()
 
     site = Site.objects.get_current()
     ret = {
         "area": area,
         "album": album,
         "albums": albums,
-        "total_photo_count": total_photo_count,
-        "geotagged_photo_count": geotagged_photo_count,
-        "geotagging_user_count": geotagging_user_count,
         "hostname": "http://%s" % (site.domain,),
         "selected_photo": selected_photo,
         "selected_rephoto": selected_rephoto,
@@ -937,15 +912,11 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
     if album is not None:
         ret["title"] = album.name + " - " + _("Browse photos on map")
-        ret["album_selection_form"] = AlbumSelectionForm({"album": album.id})
-        ret["facebook_share_photos"] = album.photos.filter()[:5]
+        ret["facebook_share_photos"] = album.photos.all()[:5]
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
     else:
         ret["title"] = _("Browse photos on map")
-
-    if "album_selection_form" not in ret:
-        ret["album_selection_form"] = AlbumSelectionForm()
 
     return render_to_response("mapview.html", RequestContext(request, ret))
 

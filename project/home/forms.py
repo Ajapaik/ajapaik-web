@@ -17,24 +17,15 @@ class NoValidationMultipleChoiceField(forms.TypedMultipleChoiceField):
 class AreaSelectionForm(forms.Form):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),)
 
-    def __init__(self, *args, **kwargs):
-        super(AreaSelectionForm, self).__init__(*args, **kwargs)
-
 
 class AlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True)
-                                   .order_by('-created').all(), label=_('Choose album'), initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
-
-    def __init__(self, *args, **kwargs):
-        super(AlbumSelectionForm, self).__init__(*args, **kwargs)
+                                   .order_by('-created').all(), label=_('Choose album'),
+                                   initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
 
 
 class GameAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'))
-
-    # FIXME: Pointless __init__ override?
-    def __init__(self, *args, **kwargs):
-        super(GameAlbumSelectionForm, self).__init__(*args, **kwargs)
 
 
 class GamePhotoSelectionForm(forms.Form):
