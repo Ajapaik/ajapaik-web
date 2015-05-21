@@ -341,37 +341,16 @@ class Photo(Model):
         app_label = "project"
 
     class QuerySet(query.QuerySet):
-        @staticmethod
-        def get_album_photo_count_and_total_geotag_count(album=None, area=None):
-            if album is not None:
-                album_photos_qs = album.photos.all()
-                if album.subalbums:
-                    for sa in album.subalbums.all():
-                        album_photos_qs = album_photos_qs | sa.photos.all()
-                ungeotagged_qs = album_photos_qs.filter(
-                    lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct("id")
-                geotagged_qs = album_photos_qs.filter(
-                    lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct("id")
-                return ungeotagged_qs.count(), geotagged_qs.count()
-            if area is not None:
-                area_photos = Photo.objects.filter(area_id=area.id)
-                ungeotagged_qs = area_photos.filter(
-                    lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct("id")
-                geotagged_qs = area_photos.filter(
-                    lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct("id")
-                return ungeotagged_qs.count(), geotagged_qs.count()
-            return None, None
-
         def get_geotagged_photos_list(self, bounding_box=None):
             # TODO: Once we have regions, re-implement caching
             data = []
             qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)\
-                .annotate(rephoto_count=Count('rephotos'))
+                .annotate(rephoto_count=Count('rephotos')).values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
             if bounding_box:
                 qs = qs.filter(lat__gte=bounding_box[0], lon__gte=bounding_box[1], lat__lte=bounding_box[2],
                                lon__lte=bounding_box[3])
             for p in qs:
-                data.append([p.id, None, p.lon, p.lat, p.rephoto_count, None, None, p.azimuth, None, None])
+                data.append([p[0], p[1], p[2], p[3], p[4]])
             return data
 
         @staticmethod

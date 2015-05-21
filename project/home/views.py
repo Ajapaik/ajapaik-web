@@ -931,18 +931,17 @@ def map_objects_by_bounding_box(request):
         limit_by_album = form.cleaned_data["limit_by_album"]
 
         qs = Photo.objects.all()
-        ungeotagged_count = 0
-        geotagged_count = 0
 
-        if album is not None or area is not None:
-            ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album, area)
-            if album and limit_by_album:
-                album_photos_qs = album.photos.all()
-                if album.subalbums:
-                    for sa in album.subalbums.all():
-                        album_photos_qs = album_photos_qs | sa.photos.all()
-                album_photo_ids = album_photos_qs.values_list('id', flat=True)
-                qs = qs.filter(id__in=album_photo_ids)
+        if album and limit_by_album:
+            album_photos_qs = album.photos.all()
+            if album.subalbums:
+                for sa in album.subalbums.all():
+                    album_photos_qs = album_photos_qs | sa.photos.all()
+            album_photo_ids = album_photos_qs.values_list('id', flat=True)
+            qs = qs.filter(id__in=album_photo_ids)
+
+        if area:
+            qs = qs.filter(area=area)
 
         sw_lat = form.cleaned_data["sw_lat"]
         sw_lon = form.cleaned_data["sw_lon"]
@@ -951,9 +950,9 @@ def map_objects_by_bounding_box(request):
         if sw_lat and sw_lon and ne_lat and ne_lon:
             bounding_box = (sw_lat, sw_lon, ne_lat, ne_lon)
             data = qs.get_geotagged_photos_list(bounding_box)
-            data = {"photos": data, "geotagged_count": geotagged_count, "ungeotagged_count": ungeotagged_count}
+            data = {"photos": data}
         else:
-            data = {"photos": [], "geotagged_count": 0, "ungeotagged_count": 0}
+            data = {"photos": []}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
