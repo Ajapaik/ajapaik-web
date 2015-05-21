@@ -586,9 +586,10 @@ def frontpage(request, album_id=None, page=1):
     albums = _get_album_choices()
     user_lat = request.GET.get('lat')
     user_lng = request.GET.get('lng')
-    order = request.GET.get('order')
-    if not order:
-        order = 'latest'
+    order1 = request.GET.get('order1')
+    order2 = request.GET.get('order2')
+    if not order1:
+        order1 = 'time'
     photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     requested_photo_id = request.GET.get('photo', None)
@@ -622,26 +623,27 @@ def frontpage(request, album_id=None, page=1):
     else:
         end = int(start + page_size)
     max_page = ceil(float(total) / float(page_size))
-    if order == 'closest':
+    if order2 == 'closest':
         if user_lat and user_lng:
             ref_location = Point(x=float(user_lng), y=float(user_lat), srid=4326)
             photos = photos.distance(ref_location).order_by('distance')
-    elif order == 'comments':
+    elif order1 == 'size' and order2 == 'comments':
         photos = photos.order_by('-fb_comments_count')
-    elif order == 'rephotos':
+    elif order1 == 'size' and order2 == 'rephotos':
         photos = photos.order_by('-rephoto_count')
-    elif order == 'geotags':
+    elif order1 == 'size' and order2 == 'geotags':
         photos = photos.annotate(geotag_count=Count('geotags')).order_by('-geotag_count')
-    elif order == 'latest_rephotos':
+    elif order1 == 'time' and order2 == 'rephotos':
         photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                               order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
-    elif order == 'latest_comments':
+    elif order1 == 'time' and order2 == 'comments':
         photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
             order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
-    elif order == 'latest_geotags':
+    elif order1 == 'time' and order2 == 'geotags':
         photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
             order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
     else:
+        order1 = 'time'
         photos = photos.order_by('-created')
     photos = photos[start:end]
     for p in photos:
@@ -663,7 +665,8 @@ def frontpage(request, album_id=None, page=1):
         "total": total,
         "photos": photos,
         "is_frontpage": True,
-        "order": order,
+        "order1": order1,
+        "order2": order2,
         "hostname": "http://%s" % (site.domain, ),
     }))
 

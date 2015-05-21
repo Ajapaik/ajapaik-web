@@ -25,8 +25,16 @@ body {
     background-color: rgba(0, 0, 0, .8);
 }
 
+.ajapaik-dark-background > li > a {
+    color: #fff;
+}
+
 #ajapaik-sort-size {
-    float: right;
+
+}
+
+#ajapaik-album-selection-navmenu {
+    z-index: 101;
 }
 
 .dropdown-menu > li {
@@ -36,6 +44,10 @@ body {
 
 .open > ul {
     display: inline-flex !important;
+}
+
+.navbar-collapse.collapse.in {
+    background-color: rgba(0, 0, 0, .8);
 }
 
 .ajapaik-html-game-map {
@@ -150,11 +162,11 @@ body {
     border: none;
     color: white !important;
     cursor: pointer;
-    margin-right: 0;
 }
 
 #ajapaik-album-name-container {
     font-size: 20px;
+    float: left;
     margin-top: 3px;
     margin-left: 0;
     white-space: nowrap;
@@ -442,6 +454,7 @@ body {
 
 #ajapaik-header-menu-button {
     background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
+    float: left;
 }
 
 .ajapaik-header-menu-button-white {
@@ -908,7 +921,7 @@ a.fullscreen {
         width: 100%;
     }
     #ajapaik-album-name-container {
-        max-width: 60px;
+        max-width: 300px;
     }
 }
 
