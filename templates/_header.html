@@ -4,19 +4,21 @@
     <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu" id="ajapaik-album-selection-navmenu">
         <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
             {% for album in albums %}
-                <a href="{% url 'project.home.views.frontpage' album.id 1 %}">
-                    <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
-                         data-id="{{ album.id }}" data-name="{{ album.name }}" data-photos="{{ album.photo_count_with_subalbums }}"
-                         src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}" >
-                    <div class="caption ajapaik-caption-album-selection">
-                        <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
-                        <p>{% blocktrans count counter=album.photo_count %}
-                            {{ counter }} picture
-                        {% plural %}
-                            {{ counter }} pictures
-                        {% endblocktrans %}</p>
-                    </div>
-                </a>
+                {% if album.cover_photo_id %}
+                    <a href="{% url 'project.home.views.frontpage' album.id 1 %}">
+                        <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
+                             data-id="{{ album.id }}" data-name="{{ album.name }}" data-photos="{{ album.photo_count_with_subalbums }}"
+                             src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}" >
+                        <div class="caption ajapaik-caption-album-selection">
+                            <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
+                            <p>{% blocktrans count counter=album.photo_count %}
+                                {{ counter }} picture
+                            {% plural %}
+                                {{ counter }} pictures
+                            {% endblocktrans %}</p>
+                        </div>
+                    </a>
+                {% endif %}
             {% endfor %}
         </ul>
     </div>

@@ -91,7 +91,9 @@
                          onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
                     </div>
                 {% } %}
-                <span class="fb-comments-count ajapaik-comment-count" data-href="{%=o.fb_url%}"></span>
+                {% if (o.comments) %}
+                    <span class="ajapaik-comment-count">{%=o.comments%}</span>
+                {% } %}
             </a>
         </script>
     {% endverbatim %}

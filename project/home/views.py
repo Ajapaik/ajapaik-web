@@ -694,10 +694,10 @@ def photo_url(request, photo_id):
 
 
 def photo_thumb(request, photo_id, thumb_size=150):
-    # cache_key = "ajapaik_pane_photo_thumb_response_%s_%s" % (photo_id, thumb_size)
-    # cached_response = cache.get(cache_key)
-    # if cached_response:
-    #     return cached_response
+    cache_key = "ajapaik_photo_thumb_response_%s_%s" % (photo_id, thumb_size)
+    cached_response = cache.get(cache_key)
+    if cached_response:
+        return cached_response
     p = get_object_or_404(Photo, id=photo_id)
     image_to_use = None
     if p.image_unscaled:
@@ -716,7 +716,7 @@ def photo_thumb(request, photo_id, thumb_size=150):
     response["Content-Length"] = len(content)
     response["Cache-Control"] = "max-age=604800, public"
     response["Expires"] = next_week.strftime("%a, %d %b %y %T GMT")
-    # cache.set(cache_key, response)
+    cache.set(cache_key, response)
     return response
 
 
@@ -847,8 +847,8 @@ def pane_contents(request):
     data = []
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids).order_by('?'):
         rephoto_count = p.rephotos.count()
-        im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
-        width, height = _calculate_thumbnail_size(p, 150)
+        im_url = reverse("project.home.views.photo_thumb", args=(p.id, 300))
+        width, height = _calculate_thumbnail_size(p, 300)
         url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
         data.append({
             "id": p.id,
@@ -859,7 +859,8 @@ def pane_contents(request):
             "azimuth": p.azimuth,
             "width": width,
             "height": height,
-            "fb_url": url
+            "fb_url": url,
+            "comments": p.fb_comments_count
         })
 
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -1271,38 +1272,40 @@ def curator_search(request):
 def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
     if response:
         full_response_json = json.loads(response.text)
-        result = json.loads(response.text)["result"]
-        # FIXME: Ugly ifs, make a sub-routine for the middle
-        if "firstRecordViews" in result:
-            data = result["firstRecordViews"]
-        else:
-            data = result
-
-        existing_photos = Photo.objects.filter(muis_id__in=[x["id"] for x in data])
-        check_dict = {}
-        for each in data:
-            try:
-                existing_photo = existing_photos.get(
-                    muis_id=each["id"], source__description=each["institution"].split(",")[0])
-                each["ajapaikId"] = existing_photo.id
-                check_dict[each["id"]] = False
-            except ObjectDoesNotExist:
-                each["ajapaikId"] = False
-                check_dict[each["id"]] = True
-
-        if remove_existing:
-            data = [x for x in data if not x["ajapaikId"]]
+        result = json.loads(response.text)
+        if "result" in result:
+            result = result["result"]
+            # FIXME: Ugly ifs, make a sub-routine for the middle
             if "firstRecordViews" in result:
-                full_response_json["result"]["ids"] = [x for x in full_response_json["result"]["ids"]
-                                                       if x not in check_dict or check_dict[x]]
+                data = result["firstRecordViews"]
+            else:
+                data = result
 
-        if "firstRecordViews" in result:
-            full_response_json["result"]["firstRecordViews"] = data
-        else:
-            full_response_json["result"] = data
+            existing_photos = Photo.objects.filter(muis_id__in=[x["id"] for x in data])
+            check_dict = {}
+            for each in data:
+                try:
+                    existing_photo = existing_photos.get(
+                        muis_id=each["id"], source__description=each["institution"].split(",")[0])
+                    each["ajapaikId"] = existing_photo.id
+                    check_dict[each["id"]] = False
+                except ObjectDoesNotExist:
+                    each["ajapaikId"] = False
+                    check_dict[each["id"]] = True
 
-        # FIXME: Very risky, what if the people at requests change this?
-        response._content = json.dumps(full_response_json)
+            if remove_existing:
+                data = [x for x in data if not x["ajapaikId"]]
+                if "firstRecordViews" in result:
+                    full_response_json["result"]["ids"] = [x for x in full_response_json["result"]["ids"]
+                                                           if x not in check_dict or check_dict[x]]
+
+            if "firstRecordViews" in result:
+                full_response_json["result"]["firstRecordViews"] = data
+            else:
+                full_response_json["result"] = data
+
+            # FIXME: Very risky, what if the people at requests change this?
+            response._content = json.dumps(full_response_json)
 
     return response
 
@@ -1545,16 +1548,15 @@ def curator_photo_upload_handler(request):
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
-def update_comment_counts(request):
+def update_comment_count(request):
     ret = {}
-    comments = request.POST.get('comments')
-    if comments:
-        comments = json.loads(comments)
-        comments_dict = {c['id']:c['comments'] for c in comments}
-        photos_to_update = Photo.objects.filter(pk__in=comments_dict.keys())
-        for p in photos_to_update:
-            p.fb_comments_count = comments_dict[str(p.id)]
-        Photo.bulk.bulk_update(photos_to_update, update_fields=['fb_comments_count'])
+    photo_id = request.POST.get('photo_id')
+    count = request.POST.get('count')
+    if photo_id:
+        p = Photo.objects.filter(pk=photo_id).first()
+        if photo and count:
+            p.fb_comments_count += int(count)
+            p.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
