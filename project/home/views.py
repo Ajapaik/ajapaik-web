@@ -1,13 +1,11 @@
 # encoding: utf-8
 from copy import deepcopy
 import os
-import random
 import urllib2
 from django.db import connection
 import operator
 from math import ceil
 import requests
-# import random
 import datetime
 import ujson as json
 
@@ -30,14 +28,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework.renderers import JSONRenderer
-from sorl.thumbnail import get_thumbnail
+from sorl.thumbnail import get_thumbnail, delete
 from time import strftime, strptime
 from StringIO import StringIO
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    FrontpagePagingForm, GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm
+    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 
@@ -590,7 +588,7 @@ def frontpage(request, album_id=None, page=1):
     user_lng = request.GET.get('lng')
     order = request.GET.get('order')
     if not order:
-        order = 'newest'
+        order = 'latest'
     photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     requested_photo_id = request.GET.get('photo', None)
@@ -624,17 +622,25 @@ def frontpage(request, album_id=None, page=1):
     else:
         end = int(start + page_size)
     max_page = ceil(float(total) / float(page_size))
-    if order == 'discussed':
-        photos = photos.order_by('-fb_comments_count')
-    elif order == 'closest':
+    if order == 'closest':
         if user_lat and user_lng:
             ref_location = Point(x=float(user_lng), y=float(user_lat), srid=4326)
             photos = photos.distance(ref_location).order_by('distance')
+    elif order == 'comments':
+        photos = photos.order_by('-fb_comments_count')
     elif order == 'rephotos':
         photos = photos.order_by('-rephoto_count')
+    elif order == 'geotags':
+        photos = photos.annotate(geotag_count=Count('geotags')).order_by('-geotag_count')
     elif order == 'latest_rephotos':
         photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                               order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
+    elif order == 'latest_comments':
+        photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
+            order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
+    elif order == 'latest_geotags':
+        photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
+            order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
     else:
         photos = photos.order_by('-created')
     photos = photos[start:end]
@@ -694,11 +700,12 @@ def photo_url(request, photo_id):
     response["Content-Length"] = len(content)
     response["Cache-Control"] = "max-age=604800, public"  # 604800 = 7 days
     response["Expires"] = next_week.strftime("%a, %d %b %y %T GMT")
+
     return response
 
 
 def photo_thumb(request, photo_id, thumb_size=150):
-    cache_key = "ajapaik_photo_thumb_response_%s_%s" % (photo_id, thumb_size)
+    cache_key = "ajapaik_photo_thumb_response_%s_%s_%s" % (settings.SITE_ID, photo_id, thumb_size)
     cached_response = cache.get(cache_key)
     if cached_response:
         return cached_response
@@ -714,7 +721,13 @@ def photo_thumb(request, photo_id, thumb_size=150):
         image_to_use = p.image
     thumb_str = str(thumb_size) + "x" + str(thumb_size)
     im = get_thumbnail(image_to_use, thumb_str, upscale=False)
-    content = im.read()
+    # TODO: See if this fixes stupid broken thumbs
+    try:
+        content = im.read()
+    except IOError:
+        delete(im)
+        im = get_thumbnail(image_to_use, thumb_str, upscale=False)
+        content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
     response["Content-Length"] = len(content)
@@ -973,6 +986,7 @@ def geotag_add(request):
         new_geotag.save()
         tagged_photo = submit_geotag_form.cleaned_data["photo"]
         tagged_photo.set_calculated_fields()
+        tagged_photo.latest_geotag = datetime.datetime.now()
         tagged_photo.save()
         processed_tagged_photo = Photo.objects.filter(pk=tagged_photo.id).get()
         ret["estimated_location"] = [processed_tagged_photo.lat, processed_tagged_photo.lon]
@@ -1526,6 +1540,7 @@ def update_comment_count(request):
         p = Photo.objects.filter(pk=photo_id).first()
         if photo and count:
             p.fb_comments_count += int(count)
+            p.latest_comment = datetime.datetime.now()
             p.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")

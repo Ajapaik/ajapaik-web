@@ -1,3 +1,4 @@
+import datetime
 from django.core.management.base import BaseCommand
 import requests
 from project.home.models import Photo
@@ -26,7 +27,11 @@ class Command(BaseCommand):
                 if 'comments' in v:
                     photo_id = k.split('/')[-2]
                     photo = Photo.objects.get(pk=photo_id)
-                    photo.fb_comments_count = v['comments']
+                    comment_count = int(v['comments'])
+                    if comment_count:
+                        if photo.fb_comments_count is None or comment_count > photo.fb_comments_count:
+                            photo.latest_comment = datetime.datetime.now()
+                    photo.fb_comments_count = comment_count
                     photo.save()
                     print "Updated " + photo_id
             start += 500

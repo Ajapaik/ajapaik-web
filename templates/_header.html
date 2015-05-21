@@ -1,228 +1,339 @@
 {% load i18n %}
 
 {% if is_game or is_mapview or is_frontpage %}
-    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu" id="ajapaik-album-selection-navmenu">
+    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu"
+         id="ajapaik-album-selection-navmenu">
         <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
             {% for album in albums %}
                 {% if album.cover_photo_id %}
                     <a href="{% url 'project.home.views.frontpage' album.id 1 %}">
                         <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
-                             data-id="{{ album.id }}" data-name="{{ album.name }}" data-photos="{{ album.photo_count_with_subalbums }}"
-                             src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}" >
+                             data-id="{{ album.id }}" data-name="{{ album.name }}"
+                             data-photos="{{ album.photo_count_with_subalbums }}"
+                             src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}">
                         <div class="caption ajapaik-caption-album-selection">
                             <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
-                            <p>{% blocktrans count counter=album.photo_count_with_subalbums %}
-                                {{ counter }} picture
-                            {% plural %}
-                                {{ counter }} pictures
-                            {% endblocktrans %}</p>
+                            <p>
+                                {% blocktrans count counter=album.photo_count_with_subalbums %}
+                                    {{ counter }} picture
+                                {% plural %}
+                                    {{ counter }} pictures
+                                {% endblocktrans %}
+                            </p>
                         </div>
                     </a>
                 {% endif %}
             {% endfor %}
         </ul>
     </div>
-    {% include "_filter_selection_menu.html" %}
 {% endif %}
+{##}
+{#<div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu hidden-lg hidden-md hidden-sm" id="ajapaik-mobile-header-buttons">#}
+{#    <div class="col-xs-11 col-xs-offset-1" id="ajapaik-mobile-menu-contents">#}
+{#        {% if album %}#}
+{#            <div class="row">#}
+{#                <button type="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"#}
+{#                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}">#}
+{#                </button><span id="ajapaik-mobile-grid-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show in grid' %}</span>#}
+{#            </div>#}
+{#            <div class="row">#}
+{#                <button type="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"#}
+{#                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}">#}
+{#                </button><span id="ajapaik-mobile-game-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Geotag pictures' %}</span>#}
+{#            </div>#}
+{#        {% else %}#}
+{#            <div class="row">#}
+{#                <p class="label ajapaik-mobile-navmenu-button-label">{% trans "Choose an album" %}</p>#}
+{#            </div>#}
+{#        {% endif %}#}
+{#        <div class="row">#}
+{#            <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"#}
+{#                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}">#}
+{#            </button><span id="ajapaik-mobile-map-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show on map' %}</span>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <button type="button" title="{% trans 'About Ajapaik' %}" id="ajapaik-mobile-about-button"#}
+{#                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">#}
+{#            </button><span id="ajapaik-mobile-about-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'About Ajapaik' %}</span>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <a href="{{ ajapaik_facebook_link }}" type="button" title="{% trans 'Ajapaik on Facebook' %}" id="ajapaik-mobile-facebook-button"#}
+{#                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">#}
+{#            </a><a href="{{ ajapaik_facebook_link }}"><span id="ajapaik-mobile-facebook-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Ajapaik on Facebook' %}</span></a>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 
-<div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu hidden-lg hidden-md hidden-sm" id="ajapaik-mobile-header-buttons">
-    <div class="col-xs-11 col-xs-offset-1" id="ajapaik-mobile-menu-contents">
-        {% if album %}
-            <div class="row">
-                <button type="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"
-                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}">
-                </button><span id="ajapaik-mobile-grid-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show in grid' %}</span>
-            </div>
-            <div class="row">
-                <button type="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"
-                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}">
-                </button><span id="ajapaik-mobile-game-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Geotag pictures' %}</span>
-            </div>
-        {% else %}
-            <div class="row">
-                <p class="label ajapaik-mobile-navmenu-button-label">{% trans "Choose an album" %}</p>
-            </div>
-        {% endif %}
-        <div class="row">
-            <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
-                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}">
-            </button><span id="ajapaik-mobile-map-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Show on map' %}</span>
+<nav class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
+            <a class="navbar-brand ajapaik-brand ajapaik-brand-xs visible-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
         </div>
-        <div class="row">
-            <button type="button" title="{% trans 'About Ajapaik' %}" id="ajapaik-mobile-about-button"
-                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">
-            </button><span id="ajapaik-mobile-about-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'About Ajapaik' %}</span>
-        </div>
-        <div class="row">
-            <a href="{{ ajapaik_facebook_link }}" type="button" title="{% trans 'Ajapaik on Facebook' %}" id="ajapaik-mobile-facebook-button"
-                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button">
-            </a><a href="{{ ajapaik_facebook_link }}"><span id="ajapaik-mobile-facebook-label" class="label ajapaik-mobile-navmenu-button-label">{% trans 'Ajapaik on Facebook' %}</span></a>
-        </div>
-    </div>
-</div>
-
-<div class="navbar navbar-default navbar-fixed-top ajapaik-navbar {% if is_curator %}ajapaik-navbar-curator{% endif %}">
-    <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
-    <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
-    {% if is_game or is_mapview or is_frontpage %}
-        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"
-                data-toggle="offcanvas" data-target="#ajapaik-album-selection-navmenu" id="ajapaik-header-menu-button"></button>
-        <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container" title="{% trans 'Album details' %}">
-            <span id="ajapaik-header-album-name">{% if album %}{{ album.name }}{% endif %}</span>
-        </a>
-        {% if not album %}
-            <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container" title="{% trans 'Order' %}">
-                <span id="ajapaik-header-order-name">
-                    {% if order == "newest" %}
-                        {% trans "Latest added" %}
-                    {% elif order == "closest" %}
-                        {% trans "Closest to you" %}
-                    {% elif order == "discussed" %}
-                        {% trans "Most discussed" %}
-                    {% elif order == "rephotos" %}
-                        {% trans "Most rephotos" %}
-                    {% elif order == "latest_rephotos" %}
-                        {% trans "Latest rephotos" %}
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button
+                    {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"
+                       data-toggle="offcanvas" data-target="#ajapaik-album-selection-navmenu"
+                       id="ajapaik-header-menu-button">
+                    </a>
+                </li>
+                <li>
+                    {% if album %}
+                        <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"
+                           title="{% trans 'Album details' %}">
+                            <span id="ajapaik-header-album-name">{{ album.name }}</span>
+                        </a>
+                    {% else %}
+                        <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"
+                           title="{% trans 'Order' %}">
+                            <span id="ajapaik-header-order-name">
+                                {% if order == "newest" %}
+                                    {% trans "Latest added" %}
+                                {% elif order == "closest" %}
+                                    {% trans "Closest to you" %}
+                                {% elif order == "comments" %}
+                                    {% trans "Most comments" %}
+                                {% elif order == "rephotos" %}
+                                    {% trans "Most rephotos" %}
+                                {% elif order == "latest_rephotos" %}
+                                    {% trans "Latest rephotos" %}
+                                {% elif order == "latest_comments" %}
+                                    {% trans "Latest comments" %}
+                                {% elif order == "latest_geotags" %}
+                                    {% trans "Latest geotags" %}
+                                {% endif %}
+                            </span>
+                        </a>
                     {% endif %}
-                </span>
-            </a>
-        {% endif %}
-        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button {% if order != 'newest' %}ajapaik-header-filter-button-white{% endif %}" title="{% trans 'Filtering' %}"
-                data-toggle="offcanvas" data-target="#ajapaik-filter-selection-navmenu" id="ajapaik-header-filter-button"></button>
-    {% endif %}
-    {% if is_mapview and album %}
-        <button type="button" title="{% trans 'Remove album filter' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-            id="ajapaik-header-album-filter-button"></button>
-    {% endif %}
-    <div class="hidden-xs">
-        {% if album %}
-            <button type="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"
-                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}"></button>
-            <button type="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"
-                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}"></button>
-        {% endif %}
-        {% if is_frontpage or is_mapview or album %}
-            <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
-                        class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}"></button>
-        {% endif %}
-        <button type="button" title="{% trans 'Curate' %}" id="ajapaik-header-curate-button"
-                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_curator %}ajapaik-header-curate-button-white{% endif %}"></button>
-    </div>
-    <div class="visible-xs">
-        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button" title="{% trans 'Options' %}"
-                data-toggle="offcanvas" data-target="#ajapaik-mobile-header-buttons">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <button type="button" title="{% trans 'About Ajapaik' %}" class="hidden-xs navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-            id="ajapaik-header-about-button"></button>
-    <a href="{{ ajapaik_facebook_link }}" target="_blank" title="{% trans 'Ajapaik on Facebook' %}" class="hidden-xs navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-            id="ajapaik-header-facebook-button"></a>
-    <button type="button" title="{% trans 'Profile and leaderboard' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"
-            id="ajapaik-header-profile-button"></button>
-    <div class="score_container">
-        <h4>
-            <a id="full_leaderboard" href="javascript:void(0);">
-                {% trans "Leaderboard" %}
-            </a>
-        </h4>
-        <ul class="scoreboard">
-            {% if leaderboard %}
-                {% include "_block_leaderboard.html" %}
-            {% endif %}
-        </ul>
-        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
-            {% with profile=request.user.profile user=request.user %}
-                <div id="facebook-connected">
-                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
-                </div>
-            {% endwith %}
-        {% else %}
-            <div id="facebook-connect">
-                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-            </div>
-        {% endif %}
-    </div>
-    {% if is_curator %}
-        <div class="container" id="ajapaik-curator-header-tabs">
-            <div role="tabpanel" id="ajapaik-curator-tabpanel">
-                <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
-                    <li role="presentation" class="active">
-                        <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab"
-                           data-toggle="tab">{% trans "Search" %}<span class="badge"
-                                                                       id="ajapaik-curator-result-count">0</span></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab" role="tab"
-                           data-toggle="tab">{% trans "Selection" %}<span class="badge" id="ajapaik-curator-selection-size">0</span></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab" role="tab"
-                           data-toggle="tab">{% trans "My albums" %}<span class="badge" id="ajapaik-curator-my-albums-size">0</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
-                    <div class="row" id="ajapaik-curator-search-controls">
-                        <div class="col-xs-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="ajapaik-curator-full-search"
-                                       placeholder="{% trans "Full search" %}">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"
-                                                   checked="checked">
-                                        </span>
-                                <label class="form-control"
-                                       for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-2">
-                            <button type="button" class="btn btn-primary btn-block"
-                                    id="ajapaik-curator-search-button">
-                                {% trans "Search!" %}
-                            </button>
-                        </div>
-                        <div class="col-xs-2" id="ajapaik-curator-load-more-row">
-                            <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
-                                {% trans "Load more" %}
-                            </button>
-                        </div>
-                        <div class="col-xs-2">
-                            <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">
-                                {% trans "Select all" %}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
-                    <div class="row" id="ajapaik-curator-selection-controls">
-                        <div class="col-xs-2">
-                            <button type="button" class="btn btn-primary btn-block"
-                                    id="ajapaik-curator-clear-selection">
-                                {% trans "Clear selection" %}
-                            </button>
-                        </div>
-                        <div class="col-xs-2">
-                            <button type="button" class="btn btn-success btn-block"
-                                    id="ajapaik-curator-submit-selection">
-                                {% trans "Submit to Ajapaik" %}
-                            </button>
-                        </div>
-                        <div class="col-xs-offset-6 col-xs-2">
-                            <img src="{{ STATIC_URL }}images/large-thumbnails-48.png"
-                                 id="ajapaik-curator-gallery-switch">
-                            <img src="{{ STATIC_URL }}images/list-with-thumbnails-48.png"
-                                 id="ajapaik-curator-list-switch">
-                        </div>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>
-            </div>
+                </li>
+                <li class="dropdown">
+                    <a role="button" class="navbar-toggle dropdown-toggle ajapaik-navbar-toggle ajapaik-header-button
+                    {% if order != 'newest' %}ajapaik-header-filter-button-white{% endif %}" aria-expanded="false"
+                       title="{% trans 'Filtering' %}" data-toggle="dropdown" id="ajapaik-header-filter-button">
+                    </a>
+                    <ul class="dropdown-menu ajapaik-dark-background" role="menu">
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24h-24z" fill="none"/>
+                                    <path class="{% if order == "closest" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94v-2.06h-2v2.06c-4.17.46-7.48 3.77-7.94 7.94h-2.06v2h2.06c.46 4.17 3.77 7.48 7.94 7.94v2.06h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94h2.06v-2h-2.06zm-8.94 8c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path class="{% if order == "latest" or order == "latest_geotags" or order == "latest_comments" or order == "latest_rephotos" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" opacity=".9" d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24h-24z" fill="none"/>
+                                    <path class="{% if order == "latest" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
+                                    <path class="{% if order == "geotags" or order == "latest_geotags" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M18 8c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2-.89 2-2 2c-1.1 0-2-.9-2-2zm-5 12v2h14v-2h-14z"/>
+                                    <path d="M0 0h24v24h-24z" fill="none"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24h-24z" fill="none"/>
+                                    <path class="{% if order == "rephotos" or order == "latest_rephotos" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M4 6h-2v14c0 1.1.9 2 2 2h14v-2h-14v-14zm16-4h-12c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
+                                    <path class="{% if order == "comments" or order == "latest_comments" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M20 2h-16c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2z"/>
+                                    <path d="M0 0h24v24h-24z" fill="none"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li id="ajapaik-sort-size">
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                    <path class="{% if order == "geotags" or order == "comments" or order == "rephotos" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/>
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../navbar/">Default</a></li>
+                <li><a href="../navbar-static-top/">Static top</a></li>
+                <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+            </ul>
         </div>
-    {% endif %}
-    {% include "_language_selection.html" %}
-</div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+{#<div class="navbar navbar-default navbar-fixed-top ajapaik-navbar {% if is_curator %}ajapaik-navbar-curator{% endif %}">#}
+{#    <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>#}
+{#    <a class="navbar-brand ajapaik-brand ajapaik-brand-xs hidden-lg hidden-sm hidden-md" href="/">{% trans "Timepatch (Ajapaik)" %}</a>#}
+{#    {% if is_game or is_mapview or is_frontpage %}#}
+{#        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"#}
+{#                data-toggle="offcanvas" data-target="#ajapaik-album-selection-navmenu" id="ajapaik-header-menu-button"></button>#}
+
+{##}
+
+{#    {% endif %}#}
+{#    {% if is_mapview and album %}#}
+{#        <button type="button" title="{% trans 'Remove album filter' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"#}
+{#            id="ajapaik-header-album-filter-button"></button>#}
+{#    {% endif %}#}
+{#    <div class="hidden-xs">#}
+{#        {% if album %}#}
+{#            <button type="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"#}
+{#                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}"></button>#}
+{#            <button type="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"#}
+{#                    class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}"></button>#}
+{#        {% endif %}#}
+{#        {% if is_frontpage or is_mapview or album %}#}
+{#            <button type="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"#}
+{#                        class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}"></button>#}
+{#        {% endif %}#}
+{#        <button type="button" title="{% trans 'Curate' %}" id="ajapaik-header-curate-button"#}
+{#                class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button {% if is_curator %}ajapaik-header-curate-button-white{% endif %}"></button>#}
+{#    </div>#}
+{#    <div class="visible-xs">#}
+{#        <button type="button" class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button" title="{% trans 'Options' %}"#}
+{#                data-toggle="offcanvas" data-target="#ajapaik-mobile-header-buttons">#}
+{#            <span class="icon-bar"></span>#}
+{#            <span class="icon-bar"></span>#}
+{#            <span class="icon-bar"></span>#}
+{#        </button>#}
+{#    </div>#}
+{#    <button type="button" title="{% trans 'About Ajapaik' %}" class="hidden-xs navbar-btn ajapaik-navbar-toggle ajapaik-header-button"#}
+{#            id="ajapaik-header-about-button"></button>#}
+{#    <a href="{{ ajapaik_facebook_link }}" target="_blank" title="{% trans 'Ajapaik on Facebook' %}" class="hidden-xs navbar-btn ajapaik-navbar-toggle ajapaik-header-button"#}
+{#            id="ajapaik-header-facebook-button"></a>#}
+{#    <button type="button" title="{% trans 'Profile and leaderboard' %}" class="navbar-btn ajapaik-navbar-toggle ajapaik-header-button"#}
+{#            id="ajapaik-header-profile-button"></button>#}
+{#    <div class="score_container">#}
+{#        <h4>#}
+{#            <a id="full_leaderboard" href="javascript:void(0);">#}
+{#                {% trans "Leaderboard" %}#}
+{#            </a>#}
+{#        </h4>#}
+{#        <ul class="scoreboard">#}
+{#            {% if leaderboard %}#}
+{#                {% include "_block_leaderboard.html" %}#}
+{#            {% endif %}#}
+{#        </ul>#}
+{#        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}#}
+{#            {% with profile=request.user.profile user=request.user %}#}
+{#                <div id="facebook-connected">#}
+{#                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>#}
+{#                </div>#}
+{#            {% endwith %}#}
+{#        {% else %}#}
+{#            <div id="facebook-connect">#}
+{#                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>#}
+{#                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    </div>#}
+{#    {% if is_curator %}#}
+{#        <div class="container" id="ajapaik-curator-header-tabs">#}
+{#            <div role="tabpanel" id="ajapaik-curator-tabpanel">#}
+{#                <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">#}
+{#                    <li role="presentation" class="active">#}
+{#                        <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab"#}
+{#                           data-toggle="tab">{% trans "Search" %}<span class="badge"#}
+{#                                                                       id="ajapaik-curator-result-count">0</span></a>#}
+{#                    </li>#}
+{#                    <li role="presentation">#}
+{#                        <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab" role="tab"#}
+{#                           data-toggle="tab">{% trans "Selection" %}<span class="badge" id="ajapaik-curator-selection-size">0</span></a>#}
+{#                    </li>#}
+{#                    <li role="presentation">#}
+{#                        <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab" role="tab"#}
+{#                           data-toggle="tab">{% trans "My albums" %}<span class="badge" id="ajapaik-curator-my-albums-size">0</span></a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#            <div class="tab-content">#}
+{#                <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">#}
+{#                    <div class="row" id="ajapaik-curator-search-controls">#}
+{#                        <div class="col-xs-6">#}
+{#                            <div class="input-group">#}
+{#                                <input type="text" class="form-control" id="ajapaik-curator-full-search"#}
+{#                                       placeholder="{% trans "Full search" %}">#}
+{#                                        <span class="input-group-addon">#}
+{#                                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"#}
+{#                                                   checked="checked">#}
+{#                                        </span>#}
+{#                                <label class="form-control"#}
+{#                                       for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-xs-2">#}
+{#                            <button type="button" class="btn btn-primary btn-block"#}
+{#                                    id="ajapaik-curator-search-button">#}
+{#                                {% trans "Search!" %}#}
+{#                            </button>#}
+{#                        </div>#}
+{#                        <div class="col-xs-2" id="ajapaik-curator-load-more-row">#}
+{#                            <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">#}
+{#                                {% trans "Load more" %}#}
+{#                            </button>#}
+{#                        </div>#}
+{#                        <div class="col-xs-2">#}
+{#                            <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">#}
+{#                                {% trans "Select all" %}#}
+{#                            </button>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">#}
+{#                    <div class="row" id="ajapaik-curator-selection-controls">#}
+{#                        <div class="col-xs-2">#}
+{#                            <button type="button" class="btn btn-primary btn-block"#}
+{#                                    id="ajapaik-curator-clear-selection">#}
+{#                                {% trans "Clear selection" %}#}
+{#                            </button>#}
+{#                        </div>#}
+{#                        <div class="col-xs-2">#}
+{#                            <button type="button" class="btn btn-success btn-block"#}
+{#                                    id="ajapaik-curator-submit-selection">#}
+{#                                {% trans "Submit to Ajapaik" %}#}
+{#                            </button>#}
+{#                        </div>#}
+{#                        <div class="col-xs-offset-6 col-xs-2">#}
+{#                            <img src="{{ STATIC_URL }}images/large-thumbnails-48.png"#}
+{#                                 id="ajapaik-curator-gallery-switch">#}
+{#                            <img src="{{ STATIC_URL }}images/list-with-thumbnails-48.png"#}
+{#                                 id="ajapaik-curator-list-switch">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#    {% include "_language_selection.html" %}#}
+{#</div>#}
+
+
