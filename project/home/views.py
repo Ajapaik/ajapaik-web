@@ -37,7 +37,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    FrontpagePagingForm, GameNextPhotoForm, GamePhotoSelectionForm
+    FrontpagePagingForm, GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 
@@ -922,37 +922,38 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
 
 def map_objects_by_bounding_box(request):
-    data = request.POST
+    form = MapDataRequestForm(request.POST)
 
-    # FIXME: Form for this, especially no ridiculous == "true"
-    album_id = data.get("album_id") or None
-    area_id = data.get("area_id") or None
-    limit_by_album = data.get("limit_by_album") or None
+    data = {}
+    if form.is_valid:
+        album = form.cleaned_data["album"]
+        area = form.cleaned_data["area"]
+        limit_by_album = form.cleaned_data["limit_by_album"]
 
-    if limit_by_album == "true":
-        limit_by_album = True
-    else:
-        limit_by_album = False
+        qs = Photo.objects.all()
+        ungeotagged_count = 0
+        geotagged_count = 0
 
-    qs = Photo.objects.all()
+        if album is not None or area is not None:
+            ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album, area)
+            if album and limit_by_album:
+                album_photos_qs = album.photos.all()
+                if album.subalbums:
+                    for sa in album.subalbums.all():
+                        album_photos_qs = album_photos_qs | sa.photos.all()
+                album_photo_ids = album_photos_qs.values_list('id', flat=True)
+                qs = qs.filter(id__in=album_photo_ids)
 
-    ungeotagged_count = 0
-    geotagged_count = 0
-    if album_id is not None or area_id is not None:
-        ungeotagged_count, geotagged_count = qs.get_album_photo_count_and_total_geotag_count(album_id, area_id)
-        if album_id and limit_by_album:
-            album = Album.objects.get(pk=album_id)
-            album_photo_ids = list(album.photos.values_list("id", flat=True))
-            for sa in album.subalbums.all():
-                album_photo_ids += list(sa.photos.values_list("id", flat=True))
-            qs = qs.filter(id__in=album_photo_ids)
-
-    if data.get("sw_lat") and data.get("sw_lon") and data.get("ne_lat") and data.get("ne_lon"):
-        bounding_box = (float(data.get("sw_lat")), float(data.get("sw_lon")), float(data.get("ne_lat")), float(data.get("ne_lon")))
-        data = qs.get_geotagged_photos_list(bounding_box)
-        data = {"photos": data, "geotagged_count": geotagged_count, "ungeotagged_count": ungeotagged_count}
-    else:
-        data = {"photos": [], "geotagged_count": 0, "ungeotagged_count": 0}
+        sw_lat = form.cleaned_data["sw_lat"]
+        sw_lon = form.cleaned_data["sw_lon"]
+        ne_lat = form.cleaned_data["ne_lat"]
+        ne_lon = form.cleaned_data["ne_lon"]
+        if sw_lat and sw_lon and ne_lat and ne_lon:
+            bounding_box = (sw_lat, sw_lon, ne_lat, ne_lon)
+            data = qs.get_geotagged_photos_list(bounding_box)
+            data = {"photos": data, "geotagged_count": geotagged_count, "ungeotagged_count": ungeotagged_count}
+        else:
+            data = {"photos": [], "geotagged_count": 0, "ungeotagged_count": 0}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 

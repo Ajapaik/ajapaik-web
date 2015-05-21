@@ -8,6 +8,7 @@ from datetime import datetime
 from pandas import DataFrame, Series
 
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.utils.deconstruct import deconstructible
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, SmallIntegerField, BooleanField,\
@@ -341,9 +342,8 @@ class Photo(Model):
 
     class QuerySet(query.QuerySet):
         @staticmethod
-        def get_album_photo_count_and_total_geotag_count(album_id=None, area_id=None):
-            if album_id is not None:
-                album = Album.objects.get(pk=album_id)
+        def get_album_photo_count_and_total_geotag_count(album=None, area=None):
+            if album is not None:
                 album_photos_qs = album.photos.all()
                 if album.subalbums:
                     for sa in album.subalbums.all():
@@ -353,8 +353,8 @@ class Photo(Model):
                 geotagged_qs = album_photos_qs.filter(
                     lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True).distinct("id")
                 return ungeotagged_qs.count(), geotagged_qs.count()
-            if area_id is not None:
-                area_photos = Photo.objects.filter(area_id=area_id)
+            if area is not None:
+                area_photos = Photo.objects.filter(area_id=area.id)
                 ungeotagged_qs = area_photos.filter(
                     lat__isnull=True, lon__isnull=True, rephoto_of__isnull=True).distinct("id")
                 geotagged_qs = area_photos.filter(
@@ -365,13 +365,13 @@ class Photo(Model):
         def get_geotagged_photos_list(self, bounding_box=None):
             # TODO: Once we have regions, re-implement caching
             data = []
-            qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)
+            qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)\
+                .annotate(rephoto_count=Count('rephotos'))
             if bounding_box:
                 qs = qs.filter(lat__gte=bounding_box[0], lon__gte=bounding_box[1], lat__lte=bounding_box[2],
                                lon__lte=bounding_box[3])
             for p in qs:
-                rephoto_count = Photo.objects.filter(rephoto_of=p.id).count()
-                data.append([p.id, None, p.lon, p.lat, rephoto_count, None, None, p.azimuth, None, None])
+                data.append([p.id, None, p.lon, p.lat, p.rephoto_count, None, None, p.azimuth, None, None])
             return data
 
         @staticmethod
