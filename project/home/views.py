@@ -925,7 +925,7 @@ def map_objects_by_bounding_box(request):
     form = MapDataRequestForm(request.POST)
 
     data = {}
-    if form.is_valid:
+    if form.is_valid():
         album = form.cleaned_data["album"]
         area = form.cleaned_data["area"]
         limit_by_album = form.cleaned_data["limit_by_album"]
