@@ -289,6 +289,7 @@ class PhotoManager(GeoManager):
 
 class Photo(Model):
     objects = PhotoManager()
+    geo = GeoManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
