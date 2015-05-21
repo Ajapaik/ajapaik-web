@@ -246,6 +246,8 @@ class Album(Model):
         # Update POSTGIS data on save
         if self.lat and self.lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+        if not self.cover_photo_id and self.photos.count() > 0:
+            self.cover_photo_id = self.photos.order_by('?').first().id
         if self.subalbums and self.id:
             my_photo_ids = list(self.photos.values_list('id', flat=True))
             for sa in self.subalbums.all():
@@ -278,8 +280,14 @@ def delete_parent(sender, **kwargs):
 pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 
+# This has to be here, go figure...
+class PhotoManager(GeoManager):
+    def get_queryset(self):
+        return self.model.QuerySet(self.model)
+
+
 class Photo(Model):
-    objects = GeoManager()
+    objects = PhotoManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
