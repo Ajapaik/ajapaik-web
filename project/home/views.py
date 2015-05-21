@@ -591,7 +591,7 @@ def frontpage(request, album_id=None, page=1):
     order = request.GET.get('order')
     if not order:
         order = 'newest'
-    photos = Photo.objects.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
+    photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
     requested_photo_id = request.GET.get('photo', None)
     if requested_photo_id:
