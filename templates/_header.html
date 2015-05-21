@@ -133,7 +133,7 @@
                         </a>
                         <ul class="dropdown-menu ajapaik-horizontal-dropdown-menu ajapaik-dark-background" role="menu">
                             <li>
-                                <a href="{% ajapaik_ordering_link album 'closest' None %}">
+                                <a href="{% ajapaik_ordering_link album 'closest' 'closest' %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                                         <path d="M0 0h24v24h-24z" fill="none"/>
                                         <path class="{% if order1 == "closest" %}ajapaik-white{% else %}ajapaik-gray{% endif %}"
@@ -150,7 +150,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{% ajapaik_ordering_link album 'time' None %}">
+                                <a href="{% ajapaik_ordering_link album 'time' 'time' %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                                         <path d="M0 0h24v24h-24z" fill="none"/>
                                         <path class="{% if order1 == "time" and not order2 %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
