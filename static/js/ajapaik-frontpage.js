@@ -100,11 +100,11 @@
             if (window.useButtonLink) {
                 window.location.href = window.originalClosestLink + '&lat=' + location.coords.latitude  + '&lng=' + location.coords.longitude;
             } else {
-                window.location.href = '?order=closest&lat=' + location.coords.latitude  + '&lng=' + location.coords.longitude;
+                window.location.href = '?order2=closest&lat=' + location.coords.latitude  + '&lng=' + location.coords.longitude;
             }
 
         };
-        if (window.getQueryParameterByName('order') === 'closest') {
+        if (window.getQueryParameterByName('order2') === 'closest') {
             if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
                 window.useButtonLink = false;
                 window.getGeolocation(window.handleGeolocation);
