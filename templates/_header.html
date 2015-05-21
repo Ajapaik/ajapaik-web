@@ -11,7 +11,7 @@
                              src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}" >
                         <div class="caption ajapaik-caption-album-selection">
                             <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
-                            <p>{% blocktrans count counter=album.photo_count %}
+                            <p>{% blocktrans count counter=album.photo_count_with_subalbums %}
                                 {{ counter }} picture
                             {% plural %}
                                 {{ counter }} pictures
