@@ -2,7 +2,7 @@
 
 <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu" id="ajapaik-filter-selection-navmenu">
     <ul class="nav navmenu-nav" id="ajapaik-filter-selection-menu">
-        <li {% if order == 'newest' %}class="active"{% endif %}>
+        <li {% if order == 'latest' %}class="active"{% endif %}>
             <a href="{% if album %}
                 {% url 'project.home.views.frontpage' album_id=album.id page=1%}?order=newest
             {% else %}
