@@ -1,17 +1,21 @@
-{% load i18n %}
+{% load i18n ajapaik_templatetags %}
 
 <nav>
     <ul class="pager">
-        {% if album and page > 1 %}
-            <li><a href="{% url 'project.home.views.frontpage' album_id=album.id page=page|add:-1 %}?order1={{ order1 }}&{% if user_lat and user_lng %}lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Previous page" %}</a></li>
-        {% elif page > 1 %}
-            <li><a href="{% url 'project.home.views.frontpage' page=page|add:-1 %}?order1={{ order1 }}&{% if user_lat and user_lng %}lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Previous page" %}</a></li>
-        {% endif %}
-        <li class="disabled"><a href="#">{{ start|add:1 }} – {{ end }} / {{ total }}</a></li>
-        {% if album and page < max_page %}
-            <li><a href="{% url 'project.home.views.frontpage' album_id=album.id page=page|add:1 %}?order1={{ order1 }}&{% if user_lat and user_lng %}lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Next page" %}</a></li>
-        {% elif page < max_page %}
-            <li><a href="{% url 'project.home.views.frontpage' page=page|add:1 %}?order1={{ order1 }}&{% if user_lat and user_lng %}lat={{ user_lat }}&lng={{ user_lng }}{% endif %}">{% trans "Next page" %}</a></li>
-        {% endif %}
+        <li>
+            <a id="ajapaik-paging-previous-button" href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:-1 %}">
+                {% trans "Previous page" %}
+            </a>
+        </li>
+        <li class="disabled">
+            <a href="javascript:void(0)" id="ajapaik-pager-stats">
+                {{ start|add:1 }} – {{ end }} / {{ total }}
+            </a>
+        </li>
+        <li>
+            <a id="ajapaik-paging-next-button" href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:1 %}">
+                {% trans "Next page" %}
+            </a>
+        </li>
     </ul>
 </nav>

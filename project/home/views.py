@@ -35,7 +35,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm
+    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 
@@ -582,93 +582,115 @@ def fetch_stream(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def frontpage(request, album_id=None, page=1):
+def frontpage(request):
     albums = _get_album_choices()
-    user_lat = request.GET.get('lat')
-    user_lng = request.GET.get('lng')
-    order1 = request.GET.get('order1')
-    order2 = request.GET.get('order2')
-    if not order1:
-        order1 = 'time'
-    photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
-    page_size = settings.FRONTPAGE_INFINITE_SCROLL_SIZE
-    requested_photo_id = request.GET.get('photo', None)
-    if requested_photo_id:
-        requested_photo_id = int(requested_photo_id)
-    page = int(page)
-    if page <= 0:
-        page = 1
-    album = None
-    if album_id:
-        album = Album.objects.get(pk=album_id)
-        album_photo_ids = list(album.photos.all().values_list('id', flat=True))
-        for sa in album.subalbums.all():
-            album_photo_ids += list(sa.photos.all().values_list('id', flat=True))
-        photos = photos.filter(id__in=album_photo_ids)
-    marker_ids = request.GET.get("set")
-    if marker_ids:
-        marker_ids = marker_ids.split(",")
-        photos = photos.filter(id__in=marker_ids)
-    if requested_photo_id:
-        p = photos.filter(pk=requested_photo_id).first()
-        photo_count_before_requested = photos.filter(created__gt=p.created).count()
-        page = ceil(float(photo_count_before_requested) / float(page_size))
-    total = photos.count()
-    if page > 0:
-        start = int((page - 1) * page_size)
-    else:
-        start = 0
-    if total < page_size:
-        end = total
-    else:
-        end = int(start + page_size)
-    max_page = ceil(float(total) / float(page_size))
-    if order1 == 'closest':
-        if user_lat and user_lng:
-            ref_location = Point(x=float(user_lng), y=float(user_lat), srid=4326)
-            photos = photos.distance(ref_location).order_by('distance')
-    elif order1 == 'amount' and order2 == 'comments':
-        photos = photos.order_by('-fb_comments_count')
-    elif order1 == 'amount' and order2 == 'rephotos':
-        photos = photos.order_by('-rephoto_count')
-    elif order1 == 'amount' and order2 == 'geotags':
-        photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('-geotag_count')
-    elif order1 == 'time' and order2 == 'rephotos':
-        photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
-                              order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
-    elif order1 == 'time' and order2 == 'comments':
-        photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
-            order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
-    elif order1 == 'time' and order2 == 'geotags':
-        photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
-            order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
-    else:
-        order1 = 'time'
-        photos = photos.order_by('-created')
-    photos = photos[start:end]
-    for p in photos:
-        p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p.width, p.height, 300)
-        p.fb_url = request.build_absolute_uri(reverse("project.home.views.photo", args=(p.id,)))
+    data = _get_filtered_data_for_frontpage(request)
     site = Site.objects.get_current()
-    return render_to_response("frontpage.html", RequestContext(request, {
-        "title": _("Timepatch (Ajapaik)"),
-        "facebook_share_photos": photos[:5],
-        "album": album,
-        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
-        "albums": albums,
-        "start": start,
-        "user_lat": user_lat,
-        "user_lng": user_lng,
-        "end": end,
-        "page": int(page),
-        "max_page": max_page,
-        "total": total,
-        "photos": photos,
-        "is_frontpage": True,
-        "order1": order1,
-        "order2": order2,
-        "hostname": "http://%s" % (site.domain, ),
+
+    return render_to_response('frontpage.html', RequestContext(request, {
+        'is_frontpage': True,
+        'title': _('Timepatch (Ajapaik)'),
+        'hostname': 'http://%s' % (site.domain, ),
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+        'facebook_share_photos': data['photos'][:5],
+        'album': data['album'],
+        'albums': albums,
+        'photo': data['photo'],
+        'start': data['start'],
+        'end': data['end'],
+        'page': data['page'],
+        'max_page': data['max_page'],
+        'total': data['total'],
+        'photos': data['photos'],
     }))
+
+
+def frontpage_async_data(request):
+    data = _get_filtered_data_for_frontpage(request)
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def _get_filtered_data_for_frontpage(request):
+    photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
+    filter_form = GalleryFilteringForm(request.GET)
+    page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
+    ret = {}
+    if filter_form.is_valid():
+        album = filter_form.cleaned_data['album']
+        requested_photo = filter_form.cleaned_data['photo']
+        requested_photos = filter_form.cleaned_data['photos']
+        order1 = filter_form.cleaned_data['order1']
+        order2 = filter_form.cleaned_data['order2']
+        lat = filter_form.cleaned_data['lat']
+        lon = filter_form.cleaned_data['lon']
+        page = filter_form.cleaned_data['page']
+        if album:
+            album_photos_qs = album.photos.all()
+            for sa in album.subalbums.all():
+                album_photos_qs = album_photos_qs | sa.photos.all()
+            album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
+            photos = photos.filter(id__in=album_photo_ids)
+        if requested_photos:
+            requested_photos = requested_photos.split(',')
+            photos = photos.filter(id__in=requested_photos)
+        if requested_photo:
+            photo_count_before_requested = photos.filter(created__gt=requested_photo.created).count()
+            page = ceil(float(photo_count_before_requested) / float(page_size))
+        start = (page - 1) * page_size
+        total = photos.count()
+        if total < page_size:
+            end = total
+        else:
+            end = start + page_size
+        max_page = ceil(float(total) / float(page_size))
+        if order1 == 'closest' and lat and lon:
+            ref_location = Point(x=lon, y=lat, srid=4326)
+            photos = photos.distance(ref_location).order_by('distance')
+        elif order1 == 'amount':
+            if order2 == 'comments':
+                photos = photos.order_by('-fb_comments_count')
+            elif order2 == 'rephotos':
+                photos = photos.order_by('-rephoto_count')
+            elif order2 == 'geotags':
+                photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('-geotag_count')
+        elif order1 == 'time':
+            if order2 == 'rephotos':
+                photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
+                    order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
+            elif order2 == 'rephotos':
+                photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
+                    order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
+            elif order2 == 'geotags':
+                photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
+                    order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
+        else:
+            photos = photos.order_by('-created')
+        photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
+                                    'fb_comments_count')[start:end]
+        photos = map(list, photos)
+        for p in photos:
+            p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 300)
+        ret['album'] = album
+        ret['photo'] = requested_photo
+        ret['photos'] = photos
+        ret['start'] = start
+        ret['end'] = end
+        ret['page'] = page
+        ret['total'] = total
+        ret['max_page'] = max_page
+    else:
+        ret['album'] = None
+        ret['photos'] = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
+                                           'rephoto_count', 'fb_comments_count')[0:page_size]
+        ret['start'] = 0
+        ret['end'] = page_size
+        ret['page'] = 1
+        ret['total'] = photos.count()
+        ret['max_page'] = ceil(float(ret['total']) / float(page_size))
+
+    return ret
+
 
 
 def photo_large(request, photo_id):
