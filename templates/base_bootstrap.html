@@ -58,9 +58,9 @@
                 <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}?album={{ album.id }}"/>
             {% elif is_frontpage %}
                 {% if album %}
-                    <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.frontpage' album.id page %}"/>
+                    <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.frontpage' %}?album={{ album.id }}"/>
                 {% else %}
-                    <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.frontpage' page %}"/>
+                    <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.frontpage' %}"/>
                 {% endif %}
             {% else %}
                  <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.game' %}?album={{ album.id }}"/>
@@ -86,7 +86,7 @@
             {% endif %}
             {% if facebook_share_photos %}
                 {% for p in facebook_share_photos %}
-                    <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.id %}"/>
+                    <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' p.0 %}"/>
                 {% endfor %}
             {% endif %}
             {% if curator_random_images %}
@@ -237,6 +237,7 @@
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
+        <script src="{{ STATIC_URL }}js/URI-1.15.1.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     {% endcompress %}
 {% endblock %}

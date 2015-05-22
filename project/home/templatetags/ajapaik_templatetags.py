@@ -1,17 +1,25 @@
-from django import template
-from django.core.urlresolvers import reverse
+from django.template import Library, Node, resolve_variable
 
-register = template.Library()
+register = Library()
 
-@register.simple_tag
-def ajapaik_ordering_link(album, order1, order2):
-    if not order1:
-        order1 = 'time'
-    if not order2:
-        order2 = 'added'
-    if album:
-        url = reverse('project.home.views.frontpage', args=(album.id, 1))
-    else:
-        url = reverse('project.home.views.frontpage', args=(1,))
-    url += '?order1=%s&order2=%s' % (order1, order2)
-    return url
+
+class AddGetParameter(Node):
+    def __init__(self, values):
+        self.values = values
+
+    def render(self, context):
+        req = resolve_variable('request', context)
+        params = req.GET.copy()
+        for key, value in self.values.items():
+            params[key] = value.resolve(context)
+        return '?%s' % params.urlencode()
+
+
+@register.tag
+def add_get(parser, token):
+    pairs = token.split_contents()[1:]
+    values = {}
+    for pair in pairs:
+        s = pair.split('=', 1)
+        values[s[0]] = parser.compile_filter(s[1])
+    return AddGetParameter(values)

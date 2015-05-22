@@ -34,7 +34,15 @@ body {
 }
 
 #ajapaik-album-selection-navmenu {
-    z-index: 101;
+    z-index: 100;
+}
+
+#ajapaik-paging-previous-button {
+    display: none;
+}
+
+#ajapaik-paging-next-button {
+    display: none;
 }
 
 .dropdown-menu > li {

@@ -1,16 +1,6 @@
 from django import forms
-from django.forms import MultipleHiddenInput
-from .models import Area, Album, CatTag, CatAlbum, CatPhoto, Profile, Photo, GeoTag, CatPushDevice
+from .models import Area, Album, CatTag, CatAlbum, CatPhoto, Photo, GeoTag, CatPushDevice
 from django.utils.translation import ugettext_lazy as _
-from project import settings
-
-
-class NoValidationMultipleChoiceField(forms.TypedMultipleChoiceField):
-    def to_python(self, value):
-        return map(self.coerce, value)
-
-    def validate(self, value):
-        pass
 
 
 # TODO: Make forms for everything, there's too much Javascript POST variable checking
@@ -22,6 +12,35 @@ class AlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True)
                                    .order_by('-created').all(), label=_('Choose album'),
                                    initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
+
+
+class GalleryFilteringForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
+    photos = forms.CharField(required=False)
+    page = forms.IntegerField(min_value=1, initial=1, required=False)
+    order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time', required=False)
+    order2 = forms.ChoiceField(choices=[('comments', 'comments'), ('geotags', 'geotags'), ('comments', 'comments'), ('added', 'added')], initial='added', required=False)
+    lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    lon = forms.FloatField(min_value=-180, max_value=180, required=False)
+
+    def clean_page(self):
+        page = self.cleaned_data['page']
+        if page is None:
+            return self.fields['page'].initial
+        return page
+
+    def clean_order1(self):
+        order1 = self.cleaned_data['order1']
+        if order1 is None:
+            return self.fields['order1'].initial
+        return order1
+
+    def clean_order2(self):
+        order2 = self.cleaned_data['order2']
+        if order2 is None:
+            return self.fields['order2'].initial
+        return order2
 
 
 class MapDataRequestForm(forms.Form):
