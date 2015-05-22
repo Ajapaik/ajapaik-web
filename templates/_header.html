@@ -99,13 +99,13 @@
                             <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"
                                title="{% trans 'Order' %}">
                                 <span id="ajapaik-header-order-name">
-                                    {% if order == "latest" %}
+                                    {% if order1 == "time" and order2 == "added" %}
                                         {% trans "Latest added" %}
-                                    {% elif order == "closest" %}
+                                    {% elif order1 == "closest" %}
                                         {% trans "Closest to you" %}
-                                    {% elif order == "comments" %}
+                                    {% elif order1 == "size" and order2 == "comments" %}
                                         {% trans "Most comments" %}
-                                    {% elif order == "rephotos" %}
+                                    {% elif order1 == "size" and order2 == "rephotos" %}
                                         {% trans "Most rephotos" %}
                                     {% elif order == "latest_rephotos" %}
                                         {% trans "Latest rephotos" %}
@@ -133,7 +133,7 @@
                         </a>
                         <ul class="dropdown-menu ajapaik-horizontal-dropdown-menu ajapaik-dark-background" role="menu">
                             <li>
-                                <a href="{% ajapaik_ordering_link album 'closest' 'closest' %}">
+                                <a href="{% ajapaik_ordering_link album 'closest' None %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                                         <path d="M0 0h24v24h-24z" fill="none"/>
                                         <path class="{% if order1 == "closest" %}ajapaik-white{% else %}ajapaik-gray{% endif %}"
@@ -150,7 +150,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{% ajapaik_ordering_link album 'time' 'time' %}">
+                                <a href="{% ajapaik_ordering_link album 'time' 'added' %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                                         <path d="M0 0h24v24h-24z" fill="none"/>
                                         <path class="{% if order1 == "time" and not order2 %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
@@ -182,7 +182,7 @@
                                 </a>
                             </li>
                             <li id="ajapaik-sort-size">
-                                <a href="{% ajapaik_ordering_link album 'size' order2 %}">
+                                <a href="{% ajapaik_ordering_link album 'amount' order2 %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                                         <path class="{% if order1 == "size" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/>
                                         <path d="M0 0h24v24H0z" fill="none"/>

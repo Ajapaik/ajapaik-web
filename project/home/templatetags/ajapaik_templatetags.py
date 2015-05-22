@@ -8,7 +8,7 @@ def ajapaik_ordering_link(album, order1, order2):
     if not order1:
         order1 = 'time'
     if not order2:
-        order2 = 'geotags'
+        order2 = 'added'
     if album:
         url = reverse('project.home.views.frontpage', args=(album.id, 1))
     else:
