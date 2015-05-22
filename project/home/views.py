@@ -627,12 +627,12 @@ def frontpage(request, album_id=None, page=1):
         if user_lat and user_lng:
             ref_location = Point(x=float(user_lng), y=float(user_lat), srid=4326)
             photos = photos.distance(ref_location).order_by('distance')
-    elif order1 == 'size' and order2 == 'comments':
+    elif order1 == 'amount' and order2 == 'comments':
         photos = photos.order_by('-fb_comments_count')
-    elif order1 == 'size' and order2 == 'rephotos':
+    elif order1 == 'amount' and order2 == 'rephotos':
         photos = photos.order_by('-rephoto_count')
-    elif order1 == 'size' and order2 == 'geotags':
-        photos = photos.annotate(geotag_count=Count('geotags')).order_by('-geotag_count')
+    elif order1 == 'amount' and order2 == 'geotags':
+        photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('-geotag_count')
     elif order1 == 'time' and order2 == 'rephotos':
         photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                               order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
