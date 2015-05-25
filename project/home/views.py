@@ -675,7 +675,7 @@ def _get_filtered_data_for_frontpage(request):
         if order1 == 'amount' and order2 == 'geotags':
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
                                             'fb_comments_count', 'geotag_count')[start:end]
-        elif order1 == 'closest':
+        elif order1 == 'closest' and lat and lon:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
                                             'fb_comments_count', 'distance')[start:end]
         else:
