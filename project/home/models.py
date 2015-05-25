@@ -250,10 +250,10 @@ class Album(Model):
         if not self.cover_photo_id and self.photos.count() > 0:
             self.cover_photo_id = self.photos.order_by('?').first().id
         if self.subalbums and self.id:
-            my_photo_ids = list(self.photos.values_list('id', flat=True))
+            album_photos_qs = self.photos.all()
             for sa in self.subalbums.all():
-                my_photo_ids += list(sa.photos.values_list('id', flat=True))
-            self.photo_count_with_subalbums = len(set(my_photo_ids))
+                album_photos_qs = album_photos_qs | sa.photos.all()
+            self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
         super(Album, self).save(*args, **kwargs)
 
     def light_save(self, *args, **kwargs):

@@ -250,6 +250,7 @@
                         }
                         historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings);
                     }
+                    $(window).scrollTop(0);
                 }
             });
         };
@@ -266,6 +267,7 @@
             updateFrontpagePhotosAsync();
         });
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
+            e.stopPropagation();
             if (e.target.dataset.order1) {
                 window.order1 = e.target.dataset.order1;
             }
@@ -306,21 +308,5 @@
             }
         });
         syncFilteringHighlights();
-        $(document).on('click', 'a.dropdown-toggle', function (e) {
-            e.stopPropagation();
-            console.log('dropdown toggle');
-            var target = $('#ajapaik-frontpage-filtering-dropdown');
-            if (target.hasClass('open')) {
-                target.removeClass('open');
-            } else {
-                target.addClass('open');
-            }
-        });
-        $(document).on('click', '#ajapaik-frontpage-filtering-dropdown', function (e) {
-            console.log('li');
-        });
-        $(document).on('click', '#ajapaik-header-filter-button', function (e) {
-            console.log('a');
-        });
     });
 }(jQuery));
