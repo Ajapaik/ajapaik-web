@@ -616,7 +616,7 @@ def frontpage_async_data(request):
 
 
 def _get_filtered_data_for_frontpage(request):
-    photos = Photo.objects.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
+    photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     filter_form = GalleryFilteringForm(request.GET)
     page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
     ret = {}
@@ -672,8 +672,15 @@ def _get_filtered_data_for_frontpage(request):
                     order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
         else:
             photos = photos.order_by('-created')
-        photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                                    'fb_comments_count')[start:end]
+        if order1 == 'amount' and order2 == 'geotags':
+            photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
+                                            'fb_comments_count', 'geotag_count')[start:end]
+        elif order1 == 'closest':
+            photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
+                                            'fb_comments_count', 'distance')[start:end]
+        else:
+            photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
+                'fb_comments_count')[start:end]
         photos = map(list, photos)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 300)
@@ -691,7 +698,6 @@ def _get_filtered_data_for_frontpage(request):
         ret['total'] = total
         ret['max_page'] = max_page
     else:
-        print filter_form.errors
         ret['album'] = None
         ret['photo'] = None
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',

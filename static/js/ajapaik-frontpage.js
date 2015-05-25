@@ -72,11 +72,8 @@
             });
         };
         window.handleGeolocation = function (location) {
-            //if (window.useButtonLink) {
-            //    window.location.href = window.originalClosestLink + '&lat=' + location.coords.latitude  + '&lng=' + location.coords.longitude;
-            //} else {
-            //    window.location.href = '?order1=closest&order2=closest&lat=' + location.coords.latitude  + '&lng=' + location.coords.longitude;
-            //}
+            window.userLat = location.coords.latitude;
+            window.userLon = location.coords.longitude;
         };
         if (window.getQueryParameterByName('order1') === 'closest') {
             if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
@@ -255,11 +252,14 @@
             if (window.order1 !== 'time' && window.order2 === 'added') {
                 window.order2 = 'comments';
             }
+            if (window.order1 === 'closest') {
+                window.getGeolocation(window.handleGeolocation);
+            }
             syncStateToUrl();
             syncFilteringHighlights();
             updateFrontpagePhotosAsync();
         });
-        $('a.dropdown-toggle').click(function () {
+        $(document).on('click', 'a.dropdown-toggle', function () {
             var target = $('#ajapaik-frontpage-filtering-dropdown');
             if (target.hasClass('open')) {
                 target.removeClass('open');
