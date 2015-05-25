@@ -306,13 +306,13 @@
             }
         });
         syncFilteringHighlights();
-        $(document).on('click', 'a.dropdown-toggle', function () {
+        window.dropdownToggle = function () {
             var target = $('#ajapaik-frontpage-filtering-dropdown');
             if (target.hasClass('open')) {
                 target.removeClass('open');
             } else {
                 target.addClass('open');
             }
-        });
+        };
     });
 }(jQuery));

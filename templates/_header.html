@@ -98,23 +98,7 @@
                         {% elif not album and is_frontpage %}
                             <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"
                                title="{% trans 'Order' %}">
-                                <span id="ajapaik-header-order-name">
-                                    {% if order1 == "time" and order2 == "added" %}
-                                        {% trans "Latest added" %}
-                                    {% elif order1 == "closest" %}
-                                        {% trans "Closest to you" %}
-                                    {% elif order1 == "size" and order2 == "comments" %}
-                                        {% trans "Most comments" %}
-                                    {% elif order1 == "size" and order2 == "rephotos" %}
-                                        {% trans "Most rephotos" %}
-                                    {% elif order == "latest_rephotos" %}
-                                        {% trans "Latest rephotos" %}
-                                    {% elif order == "latest_comments" %}
-                                        {% trans "Latest comments" %}
-                                    {% elif order == "latest_geotags" %}
-                                        {% trans "Latest geotags" %}
-                                    {% endif %}
-                                </span>
+                                <span id="ajapaik-header-order-name"></span>
                             </a>
                         {% endif %}
                     </li>
@@ -129,7 +113,7 @@
                     <li id="ajapaik-frontpage-filtering-dropdown" class="dropdown">
                         <a role="button" class="navbar-toggle dropdown-toggle ajapaik-navbar-toggle ajapaik-header-button
                         {% if order2 != 'added' %}ajapaik-header-filter-button-white{% endif %}" aria-expanded="false"
-                           title="{% trans 'Filtering' %}" id="ajapaik-header-filter-button">
+                           title="{% trans 'Filtering' %}" id="ajapaik-header-filter-button" onclick="dropdownToggle()">
                         </a>
                         <ul class="dropdown-menu ajapaik-horizontal-dropdown-menu ajapaik-dark-background" role="menu">
                             {# TODO: Fix data attributes #}
