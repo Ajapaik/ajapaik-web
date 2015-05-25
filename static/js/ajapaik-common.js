@@ -145,7 +145,8 @@ var map,
     albumSelectionDiv.justifiedGallery({
         rowHeight: 270,
         margins: 0,
-        captions: false
+        captions: false,
+        waitThumbnailsLoad: false
     });
 
     getMap = function (startPoint, startingZoom, isGameMap, mapType) {

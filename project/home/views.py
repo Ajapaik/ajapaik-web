@@ -250,7 +250,9 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices():
-    albums = Album.objects.filter(is_public=True).order_by("-created")
+    albums = Album.objects.filter(is_public=True).prefetch_related("cover_photo").order_by("-created")
+    for a in albums:
+        a.cover_photo_width, a.cover_photo_height = _calculate_thumbnail_size(a.cover_photo.width, a.cover_photo.height, 300)
 
     return albums
 
@@ -599,6 +601,8 @@ def frontpage(request):
         'start': data['start'],
         'end': data['end'],
         'page': data['page'],
+        'order1': data['order1'],
+        'order2': data['order2'],
         'max_page': data['max_page'],
         'total': data['total'],
         'photos': data['photos'],
@@ -612,7 +616,7 @@ def frontpage_async_data(request):
 
 
 def _get_filtered_data_for_frontpage(request):
-    photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
+    photos = Photo.objects.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     filter_form = GalleryFilteringForm(request.GET)
     page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
     ret = {}
@@ -639,7 +643,9 @@ def _get_filtered_data_for_frontpage(request):
             page = ceil(float(photo_count_before_requested) / float(page_size))
         start = (page - 1) * page_size
         total = photos.count()
-        if total < page_size:
+        if start > total:
+            start = total
+        if int(start + page_size) > total:
             end = total
         else:
             end = start + page_size
@@ -671,22 +677,29 @@ def _get_filtered_data_for_frontpage(request):
         photos = map(list, photos)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 300)
-        ret['album'] = album
+        ret['album'] = (album.id, album.name)
         ret['photo'] = requested_photo
         ret['photos'] = photos
         ret['start'] = start
         ret['end'] = end
+        ret['order1'] = order1
+        ret['order2'] = order2
         ret['page'] = page
         ret['total'] = total
         ret['max_page'] = max_page
     else:
+        print filter_form.errors
         ret['album'] = None
-        ret['photos'] = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
+        ret['photo'] = None
+        photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                            'rephoto_count', 'fb_comments_count')[0:page_size]
+        ret['total'] = photos.count()
+        photos = map(list, photos)
+        ret['photos'] = photos
         ret['start'] = 0
         ret['end'] = page_size
         ret['page'] = 1
-        ret['total'] = photos.count()
+
         ret['max_page'] = ceil(float(ret['total']) / float(page_size))
 
     return ret

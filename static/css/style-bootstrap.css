@@ -13,11 +13,11 @@ body {
     /*-ms-overflow-style: none;*/
 }
 
-.ajapaik-gray {
+.ajapaik-filter-gray {
     fill: #888;
 }
 
-.ajapaik-white {
+.ajapaik-filter-white {
     fill: #fff;
 }
 
@@ -35,14 +35,6 @@ body {
 
 #ajapaik-album-selection-navmenu {
     z-index: 100;
-}
-
-#ajapaik-paging-previous-button {
-    display: none;
-}
-
-#ajapaik-paging-next-button {
-    display: none;
 }
 
 .dropdown-menu > li {
@@ -2166,13 +2158,13 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     background-color: rgba(0, 0, 0, .7);
 }
 
-/*.navbar-hidden .navbar-brand {*/
-    /*display: none;*/
-/*}*/
+.navbar-hidden .navbar-brand {
+    display: none;
+}
 
-/*.navbar-hidden #ajapaik-curator-header-tabs {*/
-    /*display: none;*/
-/*}*/
+.navbar-hidden #ajapaik-curator-header-tabs {
+    display: none;
+}
 
 .ajapaik-score-container-static {
     display: block !important;

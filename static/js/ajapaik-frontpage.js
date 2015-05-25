@@ -23,6 +23,8 @@
         });
         window.handleAlbumChange = function () {
             //window.location.href = '/photos/' + window.albumId + '/1';
+            syncStateToUrl();
+            updateFrontpagePhotosAsync();
         };
         window.startGuessLocation = function (photoId) {
             if (window.albumId) {
@@ -161,7 +163,7 @@
             $('#ajapaik-header-about-button').click();
             window.docCookies.setItem('ajapaik_closed_general_info', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
         }
-        var syncPagingButtons = function (url) {
+        var syncPagingButtons = function () {
             if (window.currentPage > 1) {
                 pagingPreviousButton.show();
             }
@@ -170,22 +172,44 @@
             } else {
                 pagingNextButton.hide();
             }
-            if (url) {
-                url = window.URI(url).removeSearch('page');
-                pagingNextButton.prop('href', url.addSearch('page', window.currentPage + 1).normalizeSearch());
-                url = window.URI(url).removeSearch('page');
-                pagingPreviousButton.prop('href', url.addSearch('page', window.currentPage - 1).normalizeSearch());
+            $('#ajapaik-pager-stats').text((parseInt(window.start, 10) + 1) + ' - ' + window.end + ' / ' + window.total);
+            var currentURI = window.URI(window.location.href);
+            currentURI.removeSearch('page').addSearch('page', window.currentPage - 1);
+            $('#ajapaik-paging-previous-button').prop('href', currentURI);
+            currentURI.removeSearch('page').addSearch('page', window.currentPage + 1);
+            $('#ajapaik-paging-next-button').prop('href', currentURI);
+        };
+        var syncFilteringHighlights = function () {
+            $('.ajapaik-filter-white').attr('class', 'ajapaik-filter-gray');
+            if (window.order1 === 'time') {
+                $('#ajapaik-time-filter-icon').attr('class', 'ajapaik-filter-white');
+            } else if (window.order1 === 'amount') {
+                $('#ajapaik-amount-filter-icon').attr('class', 'ajapaik-filter-white');
+            } else if (window.order1 === 'closest') {
+                $('#ajapaik-closest-filter-icon').attr('class', 'ajapaik-filter-white');
+            }
+            if (window.order2 === 'comments') {
+                $('#ajapaik-comments-filter-icon').attr('class', 'ajapaik-filter-white');
+            } else if (window.order2 === 'rephotos') {
+                $('#ajapaik-rephotos-filter-icon').attr('class', 'ajapaik-filter-white');
+            } else if (window.order2 === 'added') {
+                $('#ajapaik-added-filter-icon').attr('class', 'ajapaik-filter-white');
+            } else if (window.order2 === 'geotags') {
+                $('#ajapaik-geotags-filter-icon').attr('class', 'ajapaik-filter-white');
             }
         };
-        syncPagingButtons();
-        var updateFrontpagePhotosAsync = function (url) {
+        var updateFrontpagePhotosAsync = function () {
             $.ajax({
-                url: url,
+                url: '/frontpage_async/' + window.location.search,
                 method: 'GET',
                 success: function (response) {
+                    window.start = response.start;
+                    window.end = response.end;
+                    window.total = response.total;
                     window.maxPage = response.max_page;
                     window.currentPage = response.page;
-                    syncPagingButtons(url);
+                    syncStateToUrl();
+                    syncPagingButtons();
                     var targetDiv = $('#ajapaik-frontpage-historic-photos');
                     targetDiv.empty();
                     if (response.photos) {
@@ -194,19 +218,20 @@
                         }
                         historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings);
                     }
-                    $('#ajapaik-pager-stats').html((response.start + 1) + ' - ' + response.end + ' / ' + response.total);
                 }
             });
         };
         $(document).on('click', '#ajapaik-paging-previous-button', function (e) {
             e.preventDefault();
-            var url = '/frontpage_async/?' + e.target.href.split('?')[1] + '&csrfmiddlewaretoken=' + window.docCookies.getItem('csrftoken') + '/';
-            updateFrontpagePhotosAsync(url);
+            window.currentPage -= 1;
+            syncStateToUrl();
+            updateFrontpagePhotosAsync();
         });
         $(document).on('click', '#ajapaik-paging-next-button', function (e) {
             e.preventDefault();
-            var url = '/frontpage_async/?' + e.target.href.split('?')[1] + '&csrfmiddlewaretoken=' + window.docCookies.getItem('csrftoken') + '/';
-            updateFrontpagePhotosAsync(url);
+            window.currentPage += 1;
+            syncStateToUrl();
+            updateFrontpagePhotosAsync();
         });
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
             if (e.target.dataset.order1) {
@@ -221,13 +246,26 @@
             if (e.target.dataset.order2 === 'null') {
                 window.order2 = null;
             }
+            if (window.order1 === 'amount' && !window.order2) {
+                window.order2 = 'comments';
+            }
+            if (window.order1 === 'time' && !window.order2) {
+                window.order2 = 'added';
+            }
+            if (window.order1 !== 'time' && window.order2 === 'added') {
+                window.order2 = 'comments';
+            }
             syncStateToUrl();
+            syncFilteringHighlights();
+            updateFrontpagePhotosAsync();
         });
-        $('#ajapaik-frontpage-filtering-dropdown').on('hide.bs.dropdown', function (e) {
-            var target = $(e.target);
-            return !(target.hasClass('keepopen') || target.parents('.keepopen').length);
-        }).on('hidden.bs.dropdown', function () {
-            updateFrontpagePhotosAsync(window.location.href);
+        $('a.dropdown-toggle').click(function () {
+            var target = $('#ajapaik-frontpage-filtering-dropdown');
+            if (target.hasClass('open')) {
+                target.removeClass('open');
+            } else {
+                target.addClass('open');
+            }
         });
     });
 }(jQuery));
