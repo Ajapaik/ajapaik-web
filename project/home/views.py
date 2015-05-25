@@ -677,7 +677,10 @@ def _get_filtered_data_for_frontpage(request):
         photos = map(list, photos)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 300)
-        ret['album'] = (album.id, album.name)
+        if album:
+            ret['album'] = (album.id, album.name)
+        else:
+            ret['album'] = None
         ret['photo'] = requested_photo
         ret['photos'] = photos
         ret['start'] = start
