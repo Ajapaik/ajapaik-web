@@ -626,6 +626,7 @@ def _get_filtered_data_for_frontpage(request):
         requested_photos = filter_form.cleaned_data['photos']
         order1 = filter_form.cleaned_data['order1']
         order2 = filter_form.cleaned_data['order2']
+        order3 = filter_form.cleaned_data['order3']
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
         page = filter_form.cleaned_data['page']
@@ -652,26 +653,50 @@ def _get_filtered_data_for_frontpage(request):
         max_page = ceil(float(total) / float(page_size))
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
-            photos = photos.distance(ref_location).order_by('distance')
+            if order3 == 'reverse':
+                photos = photos.distance(ref_location).order_by('-distance')
+            else:
+                photos = photos.distance(ref_location).order_by('distance')
         elif order1 == 'amount':
             if order2 == 'comments':
-                photos = photos.order_by('-fb_comments_count')
+                if order3 == 'reverse':
+                    photos = photos.order_by('fb_comments_count')
+                else:
+                    photos = photos.order_by('-fb_comments_count')
             elif order2 == 'rephotos':
-                photos = photos.order_by('-rephoto_count')
+                if order3 == 'reverse':
+                    photos = photos.order_by('rephoto_count')
+                else:
+                    photos = photos.order_by('-rephoto_count')
             elif order2 == 'geotags':
-                photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('-geotag_count')
+                if order3 == 'reverse':
+                    photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('geotag_count')
+                else:
+                    photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('-geotag_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
-                photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
-                    order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
+                if order3 == 'reverse':
+                    photos = photos.order_by('latest_rephoto')
+                else:
+                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
+                        order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
             elif order2 == 'rephotos':
-                photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
-                    order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
+                if order3 == 'reverse':
+                    photos = photos.order_by('latest_comment')
+                else:
+                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
+                        order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
             elif order2 == 'geotags':
-                photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
-                    order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
+                if order3 == 'reverse':
+                    photos = photos.order_by('latest_geotag')
+                else:
+                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
+                        order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
         else:
-            photos = photos.order_by('-created')
+            if order3 == 'reverse':
+                photos = photos.order_by('created')
+            else:
+                photos = photos.order_by('-created')
         if order1 == 'amount' and order2 == 'geotags':
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
                                             'fb_comments_count', 'geotag_count')[start:end]
@@ -694,6 +719,7 @@ def _get_filtered_data_for_frontpage(request):
         ret['end'] = end
         ret['order1'] = order1
         ret['order2'] = order2
+        ret['order3'] = order3
         ret['page'] = page
         ret['total'] = total
         ret['max_page'] = max_page

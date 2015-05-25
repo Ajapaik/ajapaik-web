@@ -3,7 +3,7 @@
 <nav>
     <ul class="pager">
         <li>
-            <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="hidden"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:-1 %}">
+            <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:-1 %}">
                 {% trans "Previous page" %}
             </a>
         </li>
@@ -13,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a id="ajapaik-paging-next-button" {% if page == max_page %}class="hidden"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:1 %}">
+            <a id="ajapaik-paging-next-button" {% if page == max_page %}class="ajapaik-invisible"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:1 %}">
                 {% trans "Next page" %}
             </a>
         </li>

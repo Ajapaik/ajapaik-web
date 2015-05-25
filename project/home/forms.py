@@ -21,6 +21,7 @@ class GalleryFilteringForm(forms.Form):
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time', required=False)
     order2 = forms.ChoiceField(choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('added', 'added')], initial='added', required=False)
+    order3 = forms.ChoiceField(choices=[('reverse', 'reverse'),], initial=None, required=False)
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
 
@@ -41,6 +42,12 @@ class GalleryFilteringForm(forms.Form):
         if order2 is None:
             return self.fields['order2'].initial
         return order2
+
+    def clean_order3(self):
+        order3 = self.cleaned_data['order3']
+        if order3 is None:
+            return self.fields['order3'].initial
+        return order3
 
 
 class MapDataRequestForm(forms.Form):
