@@ -1,172 +1,174 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-19 11:37+0300\n"
+"POT-Creation-Date: 2015-05-25 17:50+0300\n"
 "PO-Revision-Date: 2015-05-19 08:39+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/"
+"ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: project/home/forms.py:18 project/home/forms.py:46
+#: project/home/forms.py:8 project/home/forms.py:55 project/home/forms.py:73
 #: templates/photo_upload.html:58 templates/photo_upload.html.py:218
 msgid "Choose area"
 msgstr ""
 
-#: project/home/forms.py:26 project/home/forms.py:33 project/home/forms.py:45
-#: project/home/forms.py:55
+#: project/home/forms.py:13 project/home/forms.py:54 project/home/forms.py:64
+#: project/home/forms.py:72 project/home/forms.py:82
 msgid "Choose album"
 msgstr ""
 
-#: project/home/forms.py:41 project/home/forms.py:48
+#: project/home/forms.py:68 project/home/forms.py:75
 msgid "Choose photo"
 msgstr ""
 
-#: project/home/models.py:679
+#: project/home/models.py:672
 msgid "Map"
 msgstr "Карта"
 
-#: project/home/models.py:680
+#: project/home/models.py:673
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:681
+#: project/home/models.py:674
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:685
+#: project/home/models.py:678
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:686
+#: project/home/models.py:679
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:687
+#: project/home/models.py:680
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:691
+#: project/home/models.py:684
 msgid "Google map"
 msgstr ""
 
-#: project/home/models.py:692
+#: project/home/models.py:685
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:693
+#: project/home/models.py:686
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:562
+#: project/home/views.py:545
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:566
+#: project/home/views.py:549
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:645 templates/_header.html:57
-#: templates/_header.html.py:58 templates/base_bootstrap.html:8
+#: project/home/views.py:594 templates/_header.html:41
+#: templates/_header.html.py:42 templates/base_bootstrap.html:8
 #: templates/base_bootstrap.html.py:10 templates/base_bootstrap.html:101
 msgid "Timepatch (Ajapaik)"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:938 project/home/views.py:942
-#: project/home/views.py:944
+#: project/home/views.py:1008 project/home/views.py:1011
+#: project/home/views.py:1013
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:1044
+#: project/home/views.py:1111
 msgid "Looks right!"
 msgstr "Выглядит правильно!"
 
-#: project/home/views.py:1047
+#: project/home/views.py:1114
 msgid ""
-"The location seems right. Try submitting an azimuth to earn even more "
-"points!"
+"The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:1050
+#: project/home/views.py:1117
 msgid "The location seems right, but not the azimuth."
 msgstr "Место выглядит правильно, но направление - нет."
 
-#: project/home/views.py:1052
+#: project/home/views.py:1119
 msgid "The location seems right, your azimuth was first."
 msgstr "Место выглядит правильно, ваше направление было первым."
 
-#: project/home/views.py:1054
+#: project/home/views.py:1121
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/views.py:1056
+#: project/home/views.py:1123
 msgid "Your guess was first."
 msgstr "Ваша догадка была первой."
 
-#: project/home/views.py:1084 project/home/views.py:1100
-#: project/home/views.py:1132 templates/_header.html:101
+#: project/home/views.py:1151 project/home/views.py:1167
+#: project/home/views.py:1199
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
-#: project/home/views.py:1225
+#: project/home/views.py:1292
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:1227
+#: project/home/views.py:1294
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1496
+#: project/home/views.py:1565
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1498
+#: project/home/views.py:1567
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1521
+#: project/home/views.py:1590
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1530
+#: project/home/views.py:1599
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1537
+#: project/home/views.py:1608
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1539
+#: project/home/views.py:1610
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/settings/default.py:69
+#: project/settings/default.py:68
 msgid "Estonian"
 msgstr "Эстонский"
 
-#: project/settings/default.py:70
+#: project/settings/default.py:69
 msgid "English"
 msgstr "Английский"
 
-#: project/settings/default.py:71
+#: project/settings/default.py:70
 msgid "Russian"
 msgstr "Русский"
 
-#: project/settings/default.py:72
+#: project/settings/default.py:71
 msgid "Finnish"
 msgstr ""
 
@@ -211,6 +213,40 @@ msgstr "Оригинальная фотография"
 msgid "Rephoto"
 msgstr "Переснимок"
 
+#: templates/_filter_selection_menu.html:11
+msgid "Newest"
+msgstr ""
+
+#: templates/_filter_selection_menu.html:20
+#, fuzzy
+#| msgid "Close"
+msgid "Closest"
+msgstr "Закрыть"
+
+#: templates/_filter_selection_menu.html:29
+msgid "Most discussed"
+msgstr ""
+
+#: templates/_filter_selection_menu.html:38
+#, fuzzy
+#| msgid "Add rephoto"
+msgid "Most rephotos"
+msgstr "Добавить новое фото"
+
+#: templates/_filter_selection_menu.html:47
+#, fuzzy
+#| msgid "Next photo"
+msgid "Latest rephotos"
+msgstr "Следующее фото"
+
+#: templates/_filter_selection_menu.html:56
+msgid "Latest comments"
+msgstr ""
+
+#: templates/_filter_selection_menu.html:65
+msgid "Latest geotags"
+msgstr ""
+
 #: templates/_general_info_modal_content.html:9
 msgid "Ajapaik shows how places have changed over time"
 msgstr ""
@@ -237,7 +273,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
+"                    Ajapaik has <b>%(total_photo_count)s</b> historic "
+"pictures, out of which\n"
 "                "
 msgstr ""
 
@@ -245,7 +282,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n"
+"                    <b>%(total_photos_tagged)s</b> pictures have been put on "
+"the map by\n"
 "                "
 msgstr ""
 
@@ -285,11 +323,13 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                        You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n"
+"                        You have suggested location for <b>"
+"%(user_geotagged_photos)s</b> picture.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                        You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n"
+"                        You have suggested locations for <b>"
+"%(user_geotagged_photos)s</b> pictures.\n"
 "                    "
 msgstr[0] ""
 msgstr[1] ""
@@ -391,131 +431,52 @@ msgstr "Закрыть Street View"
 msgid "Cancel"
 msgstr ""
 
-#: templates/_header.html:13
+#: templates/_header.html:17
 #, python-format
 msgid ""
 "\n"
-"                            %(counter)s picture\n"
-"                        "
+"                                    %(counter)s picture\n"
+"                                "
 msgid_plural ""
 "\n"
-"                            %(counter)s pictures\n"
-"                        "
+"                                    %(counter)s pictures\n"
+"                                "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: templates/_header.html:29 templates/_header.html.py:31
+#: templates/_header.html:49
+msgid "Album selection"
+msgstr ""
+
+#: templates/_header.html:59
+msgid "Album details"
+msgstr ""
+
+#: templates/_header.html:64
+msgid "Order"
+msgstr ""
+
 #: templates/_header.html:72
+msgid "Remove album filter"
+msgstr ""
+
+#: templates/_header.html:80
+msgid "Filtering"
+msgstr ""
+
+#: templates/_header.html:152
 msgid "Show in grid"
 msgstr ""
 
-#: templates/_header.html:34 templates/_header.html.py:36
-#: templates/_header.html:74 templates/_info_modal_content.html:147
+#: templates/_header.html:161 templates/_info_modal_content.html:147
 #: templates/_info_modal_content.html:149
 msgid "Geotag pictures"
 msgstr ""
 
-#: templates/_header.html:40
-msgid "Choose an album"
-msgstr ""
-
-#: templates/_header.html:44 templates/_header.html.py:46
-#: templates/_header.html:78 templates/_info_modal_content.html:138
-msgid "Show on map"
-msgstr ""
-
-#: templates/_header.html:49 templates/_header.html.py:51
-#: templates/_header.html:94
-msgid "Ajapaik on Facebook"
-msgstr ""
-
-#: templates/_header.html:60
-msgid "Album selection"
-msgstr ""
-
-#: templates/_header.html:62
-msgid "Album details"
-msgstr ""
-
-#: templates/_header.html:67
-msgid "Remove album filter"
-msgstr ""
-
-#: templates/_header.html:81
-msgid "Curate"
-msgstr ""
-
-#: templates/_header.html:85
-msgid "Options"
-msgstr ""
-
-#: templates/_header.html:92
-msgid "About Ajapaik"
-msgstr ""
-
-#: templates/_header.html:96
-msgid "Profile and leaderboard"
-msgstr ""
-
-#: templates/_header.html:112 templates/_photo_upload_modal.html:9
-#: templates/photo_upload.html:13
-msgid "User"
-msgstr "Пользователь"
-
-#: templates/_header.html:112 templates/_photo_upload_modal.html:9
-#: templates/photo_upload.html:14
-msgid "Log out"
-msgstr "Выйти"
-
-#: templates/_header.html:117
-msgid "Facebook Connect to save your score and continue later."
-msgstr "Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-ом."
-
-#: templates/_header.html:118 templates/_photo_upload_modal.html:36
-#: templates/curator.html:220 templates/photo_upload.html:261
-msgid "Connect with Facebook"
-msgstr "Соединить с Facebook-ом."
-
-#: templates/_header.html:128
-msgid "Search"
-msgstr ""
-
-#: templates/_header.html:133
-msgid "Selection"
-msgstr ""
-
-#: templates/_header.html:137
-msgid "My albums"
-msgstr ""
-
-#: templates/_header.html:147
-msgid "Full search"
-msgstr ""
-
-#: templates/_header.html:153
-msgid "Filter existing"
-msgstr ""
-
-#: templates/_header.html:159
-msgid "Search!"
-msgstr ""
-
-#: templates/_header.html:164
-msgid "Load more"
-msgstr ""
-
-#: templates/_header.html:169
-msgid "Select all"
-msgstr ""
-
-#: templates/_header.html:179
-msgid "Clear selection"
-msgstr ""
-
-#: templates/_header.html:185
-msgid "Submit to Ajapaik"
+#: templates/_header.html:170
+msgid "Choose language"
 msgstr ""
 
 #: templates/_info_modal_content.html:14 templates/_info_modal_content.html:20
@@ -686,8 +647,16 @@ msgstr ""
 msgid "Share"
 msgstr "Поделиться"
 
-#: templates/_language_selection.html:10
-msgid "Select language"
+#: templates/_info_modal_content.html:138
+msgid "Show on map"
+msgstr ""
+
+#: templates/_paging.html:7
+msgid "Previous page"
+msgstr ""
+
+#: templates/_paging.html:17
+msgid "Next page"
 msgstr ""
 
 #: templates/_photo_modal.html:112
@@ -698,7 +667,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: templates/_photo_modal.html:147 templates/photoview.html:125
+#: templates/_photo_modal.html:147 templates/photoview.html:127
 msgid "Unknown author"
 msgstr ""
 
@@ -738,6 +707,14 @@ msgstr "Добавить новое фото"
 msgid "Discuss"
 msgstr "Обсудить"
 
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
+msgid "User"
+msgstr "Пользователь"
+
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:14
+msgid "Log out"
+msgstr "Выйти"
+
 #: templates/_photo_upload_modal.html:17
 msgid "Taken"
 msgstr "Снято"
@@ -755,12 +732,19 @@ msgstr "Выбрать файл..."
 msgid "Rephoto uploading requires connecting your account with Facebook."
 msgstr "Чтобы добавить современное фото надо соединить аккаунт с Facebook-ом."
 
+#: templates/_photo_upload_modal.html:36 templates/curator.html:220
+#: templates/photo_upload.html:261
+msgid "Connect with Facebook"
+msgstr "Соединить с Facebook-ом."
+
 #: templates/_photo_upload_modal.html:40
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to"
-" you under the"
-msgstr "Cделай как можно более похожую современную фотографию того же места и загрузи её."
+"picture was taken and upload it. Uploaded rephotograph will be attributed to "
+"you under the"
+msgstr ""
+"Cделай как можно более похожую современную фотографию того же места и "
+"загрузи её."
 
 #: templates/_photo_upload_modal.html:41
 msgid "licence"
@@ -798,8 +782,8 @@ msgstr ""
 msgid ""
 "If you know which way the photographer was facing when the photo was taken, "
 "you can earn extra points by submitting the line of sight along with the "
-"coordinates. While the line is dotted, it means you haven't yet locked it in"
-" and only the location will be submitted."
+"coordinates. While the line is dotted, it means you haven't yet locked it in "
+"and only the location will be submitted."
 msgstr ""
 
 #: templates/_tutorial.html:19
@@ -812,8 +796,8 @@ msgstr ""
 msgid ""
 "By default, the location marker is locked to the center of the map. To "
 "change its location, the map itself must be dragged underneath. Sometimes "
-"this may not be desirable and this button unlocks the marker, enabling it to"
-" be dragged as usual."
+"this may not be desirable and this button unlocks the marker, enabling it to "
+"be dragged as usual."
 msgstr ""
 
 #: templates/_tutorial.html:27
@@ -885,16 +869,8 @@ msgstr[3] ""
 
 #: templates/base_bootstrap.html:127
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree"
-" to that."
-msgstr ""
-
-#: templates/base_bootstrap.html:144 templates/base_bootstrap.html.py:146
-msgid "Previous page"
-msgstr ""
-
-#: templates/base_bootstrap.html:150 templates/base_bootstrap.html.py:152
-msgid "Next page"
+"We use cookies for best performance of the site. By using the site you agree "
+"to that."
 msgstr ""
 
 #: templates/cat_results.html:12 templates/cat_results.html.py:21
@@ -994,7 +970,7 @@ msgstr ""
 msgid "Image has rephotos"
 msgstr ""
 
-#: templates/frontpage.html:36
+#: templates/frontpage.html:37
 msgid "Comments"
 msgstr ""
 
@@ -1064,8 +1040,7 @@ msgstr ""
 
 #: templates/photo_upload.html:234
 msgid ""
-"CSV: institution;number;image;title;description;date;url;licence in any "
-"order"
+"CSV: institution;number;image;title;description;date;url;licence in any order"
 msgstr ""
 
 #: templates/photo_upload.html:239
@@ -1080,11 +1055,11 @@ msgstr ""
 msgid "Photo uploading requires connecting your account with Facebook."
 msgstr ""
 
-#: templates/photoview.html:80
+#: templates/photoview.html:81
 msgid "Location on the map"
 msgstr ""
 
-#: templates/photoview.html:87
+#: templates/photoview.html:89
 msgid ""
 "\n"
 "                                    Picture belongs to album\n"
@@ -1098,6 +1073,11 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: templates/photoview.html:130
+#: templates/photoview.html:132
 msgid "Date taken"
 msgstr "Дата фотографии"
+
+#~ msgid "Facebook Connect to save your score and continue later."
+#~ msgstr ""
+#~ "Чтобы сохранить результат, и продолжить позже соедини аккаунт с Facebook-"
+#~ "ом."
