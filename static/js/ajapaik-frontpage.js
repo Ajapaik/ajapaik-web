@@ -306,13 +306,21 @@
             }
         });
         syncFilteringHighlights();
-        window.dropdownToggle = function () {
+        $(document).on('click', 'a.dropdown-toggle', function (e) {
+            e.stopPropagation();
+            console.log('dropdown toggle');
             var target = $('#ajapaik-frontpage-filtering-dropdown');
             if (target.hasClass('open')) {
                 target.removeClass('open');
             } else {
                 target.addClass('open');
             }
-        };
+        });
+        $(document).on('click', '#ajapaik-frontpage-filtering-dropdown', function (e) {
+            console.log('li');
+        });
+        $(document).on('click', '#ajapaik-header-filter-button', function (e) {
+            console.log('a');
+        });
     });
 }(jQuery));
