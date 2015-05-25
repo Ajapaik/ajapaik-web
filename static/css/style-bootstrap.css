@@ -13,6 +13,10 @@ body {
     /*-ms-overflow-style: none;*/
 }
 
+.ajapaik-invisible {
+    visibility: hidden;
+}
+
 .ajapaik-filter-gray {
     fill: #888;
 }

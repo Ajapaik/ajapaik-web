@@ -71,6 +71,7 @@
         window.userLon = null;
         window.order1 = '{{ order1 }}';
         window.order2 = '{{ order2 }}';
+        window.order3 = '{{ order3 }}';
         window.start = '{{ start }}';
         window.end = '{{ end }}';
         window.total = '{{ total }}';
@@ -90,7 +91,7 @@
                 <div class="ajapaik-thumbnail-info-container">
                     {% if (o[6]) { %}
                         {% if (o[4] && o[5]) { %}
-                            <div style="transform: rotate({{ p.6 }}deg);" class="ajapaik-frontpage-azimuth"
+                            <div style="transform: rotate({%=o[6]%}deg);" class="ajapaik-frontpage-azimuth"
                                 title="{%=gettext('Image has location and view direction info')%}">
                             </div>
                         {% } %}
