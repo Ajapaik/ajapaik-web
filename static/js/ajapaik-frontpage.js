@@ -74,6 +74,9 @@
         window.handleGeolocation = function (location) {
             window.userLat = location.coords.latitude;
             window.userLon = location.coords.longitude;
+            syncStateToUrl();
+            syncFilteringHighlights();
+            updateFrontpagePhotosAsync();
         };
         if (window.getQueryParameterByName('order1') === 'closest') {
             if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
@@ -254,10 +257,11 @@
             }
             if (window.order1 === 'closest') {
                 window.getGeolocation(window.handleGeolocation);
+            } else {
+                syncStateToUrl();
+                syncFilteringHighlights();
+                updateFrontpagePhotosAsync();
             }
-            syncStateToUrl();
-            syncFilteringHighlights();
-            updateFrontpagePhotosAsync();
         });
         $(document).on('click', 'a.dropdown-toggle', function () {
             var target = $('#ajapaik-frontpage-filtering-dropdown');
