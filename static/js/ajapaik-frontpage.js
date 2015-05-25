@@ -256,6 +256,9 @@
                 window.order2 = 'comments';
             }
             if (window.order1 === 'closest') {
+                if (window.order2) {
+                    window.order2 = null;
+                }
                 window.getGeolocation(window.handleGeolocation);
             } else {
                 syncStateToUrl();
