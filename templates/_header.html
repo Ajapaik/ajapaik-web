@@ -8,8 +8,8 @@
                 {% if album.cover_photo_id %}
                     <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}">
                         <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"
-                             data-id="{{ album.id }}" data-name="{{ album.name }}"
-                             data-photos="{{ album.photo_count_with_subalbums }}"
+                             data-id="{{ album.id }}" data-name="{{ album.name }}" height="{{ album.cover_photo_height }}"
+                             data-photos="{{ album.photo_count_with_subalbums }}" width="{{ album.cover_photo_width }}"
                              src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}">
                         <div class="caption ajapaik-caption-album-selection">
                             <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
@@ -93,7 +93,7 @@
                         {% if album %}
                             <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"
                                title="{% trans 'Album details' %}">
-                                <span id="ajapaik-header-album-name">{{ album.name }}</span>
+                                <span id="ajapaik-header-album-name">{{ album.1 }}</span>
                             </a>
                         {% elif not album and is_frontpage %}
                             <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"
@@ -126,10 +126,10 @@
                     </li>
                 {% endif %}
                 {% if is_frontpage %}
-                    <li id="ajapaik-frontpage-filtering-dropdown" class="keepopen dropdown">
+                    <li id="ajapaik-frontpage-filtering-dropdown" class="dropdown">
                         <a role="button" class="navbar-toggle dropdown-toggle ajapaik-navbar-toggle ajapaik-header-button
                         {% if order != 'latest' %}ajapaik-header-filter-button-white{% endif %}" aria-expanded="false"
-                           title="{% trans 'Filtering' %}" data-toggle="dropdown" id="ajapaik-header-filter-button">
+                           title="{% trans 'Filtering' %}" id="ajapaik-header-filter-button">
                         </a>
                         <ul class="dropdown-menu ajapaik-horizontal-dropdown-menu ajapaik-dark-background" role="menu">
                             {# TODO: Fix data attributes #}
@@ -137,7 +137,7 @@
                                 <a href="javascript:void(0)" class="ajapaik-filtering-choice" data-order1="closest" data-order2="null">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" data-order1="closest" data-order2="null">
                                         <path data-order1="closest" data-order2="null" d="M0 0h24v24h-24z" fill="none"/>
-                                        <path data-order1="closest" data-order2="null" class="{% if order1 == "closest" %}ajapaik-white{% else %}ajapaik-gray{% endif %}"
+                                        <path data-order1="closest" id="ajapaik-closest-filter-icon" data-order2="null" class="{% if order1 == "closest" %}ajapaik-filter-white{% else %}ajapaik-filter-gray{% endif %}"
                                               d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94v-2.06h-2v2.06c-4.17.46-7.48 3.77-7.94 7.94h-2.06v2h2.06c.46 4.17 3.77 7.48 7.94 7.94v2.06h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94h2.06v-2h-2.06zm-8.94 8c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
                                     </svg>
                                 </a>
@@ -146,7 +146,7 @@
                                 <a href="javascript:void(0)" class="ajapaik-filtering-choice" data-order1="time">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" data-order1="time">
                                         <path d="M0 0h24v24H0z" fill="none" data-order1="time"/>
-                                        <path data-order1="time" class="{% if order1 == "time" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" opacity=".9" d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                                        <path data-order1="time" id="ajapaik-time-filter-icon" class="{% if order1 == "time" %}ajapaik-filter-white{% else %}ajapaik-filter-gray{% endif %}" opacity=".9" d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
                                     </svg>
                                 </a>
                             </li>
@@ -154,14 +154,14 @@
                                 <a href="javascript:void(0)" class="ajapaik-filtering-choice" data-order1="time" data-order2="added">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24" data-order1="time" data-order2="added">
                                         <path d="M0 0h24v24h-24z" fill="none" data-order1="time" data-order2="added"/>
-                                        <path data-order1="time" data-order2="added" class="{% if order1 == "time" and not order2 %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
+                                        <path data-order1="time" id="ajapaik-added-filter-icon" data-order2="added" class="{% if order1 == "time" and not order2 %}ajapaik-filter-white{% else %}ajapaik-filter-gray{% endif %}" d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
                                     </svg>
                                 </a>
                             </li>
                             <li data-order2="geotags">
                                 <a href="javascript:void(0)" class="ajapaik-filtering-choice" data-order2="geotags">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24" data-order2="geotags">
-                                        <path data-order2="geotags" class="{% if order2 == "geotags" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M18 8c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2-.89 2-2 2c-1.1 0-2-.9-2-2zm-5 12v2h14v-2h-14z"/>
+                                        <path data-order2="geotags" id="ajapaik-geotags-filter-icon" class="{% if order2 == "geotags" %}ajapaik-filter-white{% else %}ajapaik-filter-gray{% endif %}" d="M18 8c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2-.89 2-2 2c-1.1 0-2-.9-2-2zm-5 12v2h14v-2h-14z"/>
                                         <path data-order2="geotags" d="M0 0h24v24h-24z" fill="none"/>
                                     </svg>
                                 </a>
@@ -170,14 +170,14 @@
                                 <a href="javascript:void(0)" class="ajapaik-filtering-choice" data-order2="rephotos">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24" data-order2="rephotos">
                                         <path data-order2="rephotos" d="M0 0h24v24h-24z" fill="none"/>
-                                        <path data-order2="rephotos" class="{% if order2 == "rephotos" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M4 6h-2v14c0 1.1.9 2 2 2h14v-2h-14v-14zm16-4h-12c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
+                                        <path data-order2="rephotos" id="ajapaik-rephotos-filter-icon" class="{% if order2 == "rephotos" %}ajapaik-filter-white{% else %}ajapaik-filter-gray{% endif %}" d="M4 6h-2v14c0 1.1.9 2 2 2h14v-2h-14v-14zm16-4h-12c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"/>
                                     </svg>
                                 </a>
                             </li>
                             <li data-order2="comments">
                                 <a href="javascript:void(0)" class="ajapaik-filtering-choice" data-order2="comments">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24" data-order2="comments">
-                                        <path data-order2="comments" class="{% if order2 == "comments" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M20 2h-16c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2z"/>
+                                        <path data-order2="comments" id="ajapaik-comments-filter-icon" class="{% if order2 == "comments" %}ajapaik-filter-white{% else %}ajapaik-filter-gray{% endif %}" d="M20 2h-16c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2z"/>
                                         <path data-order2="comments" d="M0 0h24v24h-24z" fill="none"/>
                                     </svg>
                                 </a>
@@ -185,7 +185,7 @@
                             <li id="ajapaik-sort-size" data-order1="amount">
                                 <a href="javascript:void(0)" class="ajapaik-filtering-choice" data-order1="amount">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" data-order1="amount">
-                                        <path data-order1="amount" class="{% if order1 == "size" %}ajapaik-white{% else %}ajapaik-gray{% endif %}" d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/>
+                                        <path data-order1="amount" id="ajapaik-amount-filter-icon" class="{% if order1 == "amount" %}ajapaik-filter-white{% else %}ajapaik-filter-gray{% endif %}" d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/>
                                         <path data-order1="amount" d="M0 0h24v24H0z" fill="none"/>
                                     </svg>
                                 </a>

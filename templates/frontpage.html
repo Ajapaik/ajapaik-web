@@ -75,7 +75,7 @@
         window.end = '{{ end }}';
         window.total = '{{ total }}';
         {% if album %}
-            window.albumId = {{ album.id }};
+            window.albumId = {{ album.0 }};
         {% endif %}
         window.linkToGame = true;
         window.linkToMap = true;
