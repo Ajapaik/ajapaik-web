@@ -728,6 +728,8 @@ def _get_filtered_data_for_frontpage(request):
         ret['photo'] = None
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                            'rephoto_count', 'fb_comments_count')[0:page_size]
+        ret['order1'] = 'time'
+        ret['order2'] = 'added'
         ret['total'] = photos.count()
         photos = map(list, photos)
         ret['photos'] = photos
