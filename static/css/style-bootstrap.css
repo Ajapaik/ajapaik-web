@@ -25,6 +25,14 @@ body {
     fill: #fff;
 }
 
+.ajapaik-white {
+    fill: #fff;
+}
+
+.ajapaik-gray {
+    fill: #888;
+}
+
 .ajapaik-dark-background {
     background-color: rgba(0, 0, 0, .8);
 }
@@ -405,6 +413,7 @@ body {
     height: 36px;
     background-size: 36px !important;
     margin-left: 6px;
+    margin-top: 6px;
     background-color: transparent !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -439,8 +448,8 @@ body {
 }
 
 #ajapaik-header-grid-button {
-    background-image: url(../images/material-design-icons/ic_photoview_24px.svg);
-    float: left;
+    /*background-image: url(../images/material-design-icons/ic_photoview_24px.svg);*/
+    /*float: left;*/
 }
 
 .ajapaik-header-grid-button-white {

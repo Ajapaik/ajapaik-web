@@ -226,6 +226,11 @@
             if (orderingStringTarget) {
                 orderingStringTarget.html(orderingString);
             }
+            var filterButton = $('#ajapaik-header-filter-button');
+            filterButton.removeClass('ajapaik-header-filter-button-white');
+            if (window.order1 !== 'time' && window.order2 !== 'added') {
+                filterButton.addClass('ajapaik-header-filter-button-white');
+            }
             if (window.order3 === 'reverse') {
                 $('#ajapaik-reverse-filter-icon').attr('class', 'ajapaik-filter-white');
             }

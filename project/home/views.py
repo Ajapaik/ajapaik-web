@@ -680,19 +680,22 @@ def _get_filtered_data_for_frontpage(request):
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
-                    photos = photos.order_by('latest_rephoto')
+                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
+                        order_by=['latest_rephoto_is_null', 'project_photo.latest_rephoto'], )
                 else:
                     photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                         order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
             elif order2 == 'rephotos':
                 if order3 == 'reverse':
-                    photos = photos.order_by('latest_comment')
+                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
+                        order_by=['latest_comment_is_null', 'project_photo.latest_comment'], )
                 else:
                     photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
                         order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.order_by('latest_geotag')
+                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
+                        order_by=['latest_geotag_is_null', 'project_photo.latest_geotag'], )
                 else:
                     photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
                         order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
