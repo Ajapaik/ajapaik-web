@@ -627,6 +627,10 @@ def _get_filtered_data_for_frontpage(request):
         order1 = filter_form.cleaned_data['order1']
         order2 = filter_form.cleaned_data['order2']
         order3 = filter_form.cleaned_data['order3']
+        if not order1:
+            order1 = 'time'
+        if not order2:
+            order2 = 'added'
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
         page = filter_form.cleaned_data['page']
