@@ -946,7 +946,7 @@ def pane_contents(request):
 
     data = []
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids)\
-            .annotate(rephoto_count=Count('rephotos')).order_by('?')\
+            .prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos')).order_by('?')\
             .values_list('id', 'rephoto_count', 'flip', 'description', 'azimuth', 'fb_comments_count', 'width', 'height'):
         im_url = reverse("project.home.views.photo_thumb", args=(p[0], 300))
         width, height = _calculate_thumbnail_size(p[6], p[7], 300)
@@ -1009,7 +1009,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     }
 
     if album is not None:
-        ret["album"] = (album.id, album.name)
+        ret["album"] = (album.id, album.name, album.lat, album.lon)
         ret["title"] = album.name + " - " + _("Browse photos on map")
         ret["facebook_share_photos"] = album.photos.values_list('id')[:5]
     elif area is not None:

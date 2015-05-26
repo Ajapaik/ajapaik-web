@@ -587,11 +587,13 @@
             currentPaneDataRequest = $.post('/pane_contents/', {
                 marker_ids: markerIdsWithinBounds, center_lat: mapCenter.lat(), center_lon: mapCenter.lng(),
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')}, function (response) {
+                var i,
+                    l,
+                    targetDiv = $('#ajapaik-photo-pane-content-container');
                 if (photoPanel) {
                     //photoPanel.content.html(response);
-                    var targetDiv = $('#ajapaik-photo-pane-content-container');
                     targetDiv.empty();
-                    for (var i = 0, l = response.length; i < l; i += 1) {
+                    for (i = 0, l = response.length; i < l; i += 1) {
                         targetDiv.append(tmpl('ajapaik-pane-element-template', response[i]));
                     }
                     targetDiv.justifiedGallery(justifiedGallerySettings);
@@ -603,7 +605,11 @@
                     }
                     photoPanel = $.jsPanel(galleryPanelSettings);
                     photoPanel.content.append('<div id="ajapaik-photo-pane-content-container"></div>');
-                    photoPanel.find('#ajapaik-photo-pane-content-container').justifiedGallery(justifiedGallerySettings);
+                    targetDiv = photoPanel.find('#ajapaik-photo-pane-content-container');
+                    for (i = 0, l = response.length; i < l; i += 1) {
+                        targetDiv.append(tmpl('ajapaik-pane-element-template', response[i]));
+                    }
+                    targetDiv.justifiedGallery(justifiedGallerySettings);
                     //$('.jsPanel-content').scroll(function () {
                     //    window.deselectMarker();
                     //});
