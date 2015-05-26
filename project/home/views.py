@@ -530,7 +530,6 @@ def game(request):
 
     if album:
         ret["album"] = (album.id, album.name, album.lat, album.lon)
-    if album:
         ret["facebook_share_photos"] = album.photos.values_list('id')[:5]
     elif area:
         ret["facebook_share_photos"] = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?").values_list('id')[:5]

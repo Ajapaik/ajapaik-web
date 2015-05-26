@@ -107,9 +107,9 @@
         window.linkToMap = true;
         window.linkToGame = false;
         {% if album.2 and album.3 %}
-            window.start_location = [{{ album.2|safe }}, {{ album.3|safe }}];
+            window.start_location = [{{ album.3|safe }}, {{ album.2|safe }}];
         {% elif area.lat and area.lon %}
-            window.start_location = [{{ area.lat|safe }}, {{ area.lon|safe }}];
+            window.start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
             window.start_location = [26, 59];
         {% endif %}
