@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 17:50+0300\n"
-"PO-Revision-Date: 2015-04-28 14:31+0000\n"
+"POT-Creation-Date: 2015-05-26 13:47+0300\n"
+"PO-Revision-Date: 2015-05-25 20:35+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
@@ -61,45 +61,45 @@ msgstr "Salvesta asukoht ja vaate suund"
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
-#: static/js/ajapaik-frontpage.js:193
-msgid "Earliest"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:195
-msgid "Latest"
-msgstr ""
-
 #: static/js/ajapaik-frontpage.js:200
-msgid "Least"
-msgstr ""
+msgid "Earliest"
+msgstr "Esimesena"
 
 #: static/js/ajapaik-frontpage.js:202
-msgid "Most"
-msgstr ""
+msgid "Latest"
+msgstr "Viimasena"
 
 #: static/js/ajapaik-frontpage.js:207
-msgid "Furthest from you"
-msgstr ""
+msgid "Least"
+msgstr "Vähim"
 
 #: static/js/ajapaik-frontpage.js:209
-msgid "Closest to you"
-msgstr ""
+msgid "Most"
+msgstr "Enim"
 
 #: static/js/ajapaik-frontpage.js:214
+msgid "Furthest from you"
+msgstr "Sinust kaugeimad"
+
+#: static/js/ajapaik-frontpage.js:216
+msgid "Closest to you"
+msgstr "Sulle lähimad"
+
+#: static/js/ajapaik-frontpage.js:221
 msgid "commented"
-msgstr ""
+msgstr "kommenteeritud"
 
-#: static/js/ajapaik-frontpage.js:217
+#: static/js/ajapaik-frontpage.js:224
 msgid "rephotographed"
-msgstr ""
+msgstr "üle pildistatud"
 
-#: static/js/ajapaik-frontpage.js:220
+#: static/js/ajapaik-frontpage.js:227
 msgid "added"
-msgstr ""
+msgstr "lisatud"
 
-#: static/js/ajapaik-frontpage.js:223
+#: static/js/ajapaik-frontpage.js:230
 msgid "geotagged"
-msgstr ""
+msgstr "kaardile märgitud"
 
 #: static/js/ajapaik-game.js:40
 msgid "Vihje vaatamine"

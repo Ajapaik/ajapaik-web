@@ -46,16 +46,45 @@ body {
 }
 
 #ajapaik-album-selection-navmenu {
-    z-index: 100;
+    z-index: 101;
 }
 
 .dropdown-menu > li {
-    display: inline-block;
-    float: left;
+    /*display: inline-block;*/
+    /*float: left;*/
 }
 
 .open > ul {
-    display: inline-flex !important;
+    /*display: inline-flex !important;*/
+}
+
+.ajapaik-change-language-link {
+    color: #fff !important;
+    background: none !important;
+}
+
+.dropdown-menu {
+    width: 100%;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    display: none;
+    float: left;
+    min-width: 160px;
+    background-color: rgba(0,0,0,.8);
+    border-left: none;
+    border-right: none;
+    /*padding: 5px 0;*/
+    margin: 0 auto;
+    text-align: center;
+}
+
+.dropdown-menu li {
+    display: inline-block;
+}
+
+.dropdown-menu li.dropdown .dropdown-menu {
+    top: 210px;
 }
 
 .navbar-collapse.collapse.in {
@@ -117,6 +146,11 @@ body {
     background: rgba(0, 0, 0, .8) none;
     border-width: 0 0 0 0;
     z-index: 100;
+}
+
+.ajapaik-curator-navbar {
+    height: 150px;
+    margin-top: 0;
 }
 
 .ajapaik-navbar-curator {
@@ -239,58 +273,6 @@ body {
     max-width: 100%;
 }
 
-#ajapaik-language-box {
-    position: absolute;
-    right: 0;
-    top: -20px;
-    z-index: 1;
-}
-
-#ajapaik-language-box > form {
-    display: inline;
-}
-
-#ajapaik-language-label {
-    color: white;
-    text-shadow: 2px 1px #8E5D2E;
-    float: right;
-    margin: 30px 12px 0 0;
-}
-
-#ajapaik-language-menu {
-    position: relative;
-    float: right;
-    padding: 7px 7px 7px 5px;
-    margin: 24px 12px 0 0;
-    -moz-background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .9), inset 0 2px 10px rgba(0, 0, 0, .1);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, .9), inset 0 2px 10px rgba(0, 0, 0, .1);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#998E5D2E, endColorstr=#998E5D2E);
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#998E5D2E, endColorstr=#998E5D2E)";
-}
-
-#ajapaik-language-menu div {
-    color: white;
-    font-size: 14px;
-    background: url('../images/langmenu-arr.png') no-repeat right center;
-    padding-right: 17px;
-}
-
-#ajapaik-language-menu select {
-    position: absolute;
-    font-size: 14px;
-    left: -52px;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    cursor: pointer;
-    opacity: 0;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
-}
-
 .filter-box {
     margin-top: 7px;
     padding-left: 10px;
@@ -408,11 +390,15 @@ body {
     margin-top: -5px;
 }
 
+#ajapaik-header-language-dropdown-button {
+    background: none;
+    margin-top: 2px;
+}
+
 .ajapaik-header-button {
     width: 36px;
     height: 36px;
     background-size: 36px !important;
-    margin-left: 6px;
     margin-top: 6px;
     background-color: transparent !important;
     background-repeat: no-repeat !important;
@@ -421,16 +407,6 @@ body {
 
 #ajapaik-header-map-button {
     background-image: url(../images/material-design-icons/ic_map_24px.svg);
-    float: left;
-}
-
-#ajapaik-mobile-facebook-button {
-    background-image: url(../images/material-design-icons/ic_facebook_24px.svg);
-    float: left;
-}
-
-#ajapaik-mobile-about-button {
-    background-image: url(../images/material-design-icons/ic_info_24px.svg);
     float: left;
 }
 
@@ -480,7 +456,7 @@ body {
 
 #ajapaik-header-filter-button {
     background-image: url(../images/material-design-icons/ic_filter_list_24px.svg);
-    float: left;
+    /*float: left;*/
     box-shadow: none;
     -webkit-box-shadow: none;
 }
@@ -491,23 +467,20 @@ body {
 
 #ajapaik-header-profile-button {
     background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
-    position: fixed;
-    right: 76px;
-    z-index: 2;
 }
 
 #ajapaik-header-facebook-button {
     background-image: url(../images/material-design-icons/ic_facebook_24px.svg);
-    position: fixed;
-    right: 126px;
-    z-index: 2;
 }
 
 #ajapaik-header-about-button {
     background-image: url(../images/material-design-icons/ic_info_24px.svg);
-    position: fixed;
-    right: 176px;
-    z-index: 2;
+}
+
+@media (min-width: 1200px) {
+    .modal-xxl {
+        width: 1200px
+    }
 }
 
 #ajapaik-header-album-filter-button {
@@ -775,7 +748,7 @@ a.fullscreen {
     right: 0;
     top: 50px;
     width: 300px;
-    padding: 0 0 7px 0;
+    padding: 0 7px 7px;
     background: #fff;
     display: none;
 }
@@ -1296,22 +1269,6 @@ ul.errorlist {
     margin: 0 auto;
 }
 
-#ajapaik-mobile-header-buttons {
-    background-color: black;
-    width: 225px;
-}
-
-#ajapaik-mobile-menu-contents {
-    margin-top: 50px;
-}
-
-.ajapaik-mobile-navmenu-button-label {
-    color: white;
-    margin-top: 15px;
-    display: block;
-    font-size: 100%;
-}
-
 .ajapaik-photo-modal-previous-button {
     display: block;
     width: 48px;
@@ -1698,12 +1655,11 @@ ul.errorlist {
 
 #ajapaik-curator-container {
     background-color: #fff;
-    margin-top: 50px;
+    margin-top: 125px;
 }
 
 #ajapaik-curator-header-tabs {
-    margin-top: 50px;
-    background-color: white;
+    margin-top: -50px;
 }
 
 .ajapaik-curator-load-more {
@@ -2206,8 +2162,12 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin: 0;
 }
 
-#ajapaik-pager {
-    list-style-type: none;
+.ajapaik-pager {
+    margin-bottom: 1px;
+}
+
+.navbar-collapse.collapse.in > .nav > li {
+    display: inline-block;
 }
 
 #ajapaik-pager li {
