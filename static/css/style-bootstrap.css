@@ -1019,6 +1019,7 @@ a.fullscreen {
     background-size: 25px;
     background-position-y: 3px;
     background-position-x: 3px;
+    background-color: rgba(0,0,0,.4);
     z-index: 2;
 }
 
