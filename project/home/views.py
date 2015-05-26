@@ -641,20 +641,6 @@ def _get_filtered_data_for_frontpage(request):
         if requested_photos:
             requested_photos = requested_photos.split(',')
             photos = photos.filter(id__in=requested_photos)
-        if requested_photo:
-            photo_count_before_requested = photos.filter(created__gt=requested_photo.created).count()
-            page = ceil(float(photo_count_before_requested) / float(page_size))
-        start = (page - 1) * page_size
-        total = photos.count()
-        if start < 0:
-            start = 0
-        if start > total:
-            start = total
-        if int(start + page_size) > total:
-            end = total
-        else:
-            end = start + page_size
-        max_page = ceil(float(total) / float(page_size))
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
@@ -704,6 +690,21 @@ def _get_filtered_data_for_frontpage(request):
                 photos = photos.order_by('created')
             else:
                 photos = photos.order_by('-created')
+        if requested_photo:
+            photo_count_before_requested = list(photos.values_list('id', flat=True)).index(requested_photo.id)
+            page = ceil(float(photo_count_before_requested) / float(page_size))
+        start = (page - 1) * page_size
+        total = photos.count()
+        if start < 0:
+            start = 0
+        if start > total:
+            start = total
+        if int(start + page_size) > total:
+            end = total
+        else:
+            end = start + page_size
+        end = int(end)
+        max_page = ceil(float(total) / float(page_size))
         if order1 == 'amount' and order2 == 'geotags':
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
                                             'fb_comments_count', 'geotag_count')[start:end]
