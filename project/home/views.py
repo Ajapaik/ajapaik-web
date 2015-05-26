@@ -38,6 +38,7 @@ from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionFo
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
+from project.settings import DEBUG
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -627,9 +628,8 @@ def _get_filtered_data_for_frontpage(request):
         order1 = filter_form.cleaned_data['order1']
         order2 = filter_form.cleaned_data['order2']
         order3 = filter_form.cleaned_data['order3']
-        if not order1:
+        if not order1 and not order2:
             order1 = 'time'
-        if not order2:
             order2 = 'added'
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
@@ -648,12 +648,16 @@ def _get_filtered_data_for_frontpage(request):
             page = ceil(float(photo_count_before_requested) / float(page_size))
         start = (page - 1) * page_size
         total = photos.count()
+        if start < 0:
+            start = 0
         if start > total:
             start = total
         if int(start + page_size) > total:
             end = total
         else:
             end = start + page_size
+        print start
+        print end
         max_page = ceil(float(total) / float(page_size))
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
@@ -804,12 +808,15 @@ def photo_thumb(request, photo_id, thumb_size=150):
     thumb_str = str(thumb_size) + "x" + str(thumb_size)
     im = get_thumbnail(image_to_use, thumb_str, upscale=False)
     # TODO: See if this fixes stupid broken thumbs
-    try:
+    if DEBUG:
         content = im.read()
-    except IOError:
-        delete(im)
-        im = get_thumbnail(image_to_use, thumb_str, upscale=False)
-        content = im.read()
+    else:
+        try:
+            content = im.read()
+        except IOError:
+            delete(im)
+            im = get_thumbnail(image_to_use, thumb_str, upscale=False)
+            content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
     response["Content-Length"] = len(content)

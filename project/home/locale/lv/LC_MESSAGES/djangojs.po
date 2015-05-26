@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 17:50+0300\n"
-"PO-Revision-Date: 2015-04-28 09:10+0000\n"
+"POT-Creation-Date: 2015-05-26 13:47+0300\n"
+"PO-Revision-Date: 2015-05-25 14:53+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Latvian (http://www.transifex.com/projects/p/ajapaik/language/"
 "lv/)\n"
@@ -57,43 +57,43 @@ msgstr ""
 msgid "Median guess"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:193
+#: static/js/ajapaik-frontpage.js:200
 msgid "Earliest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:195
+#: static/js/ajapaik-frontpage.js:202
 msgid "Latest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:200
+#: static/js/ajapaik-frontpage.js:207
 msgid "Least"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:202
+#: static/js/ajapaik-frontpage.js:209
 msgid "Most"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:207
+#: static/js/ajapaik-frontpage.js:214
 msgid "Furthest from you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:209
+#: static/js/ajapaik-frontpage.js:216
 msgid "Closest to you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:214
+#: static/js/ajapaik-frontpage.js:221
 msgid "commented"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:217
+#: static/js/ajapaik-frontpage.js:224
 msgid "rephotographed"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:220
+#: static/js/ajapaik-frontpage.js:227
 msgid "added"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:223
+#: static/js/ajapaik-frontpage.js:230
 msgid "geotagged"
 msgstr ""
 

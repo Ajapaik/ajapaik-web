@@ -1172,4 +1172,11 @@ var map,
             $('body').off('jspanelclosed', closeHandler);
         }
     });
+
+    $(window).on('resize', function () {
+        if (window.innerWidth > 768) {
+            $('.navbar-collapse').removeClass('in')
+        }
+    });
+    
 }(jQuery));
