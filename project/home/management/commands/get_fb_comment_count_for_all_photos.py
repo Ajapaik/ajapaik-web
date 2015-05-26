@@ -6,7 +6,7 @@ import ujson as json
 
 
 class Command(BaseCommand):
-    help = 'Ask how many comments each photo has on Facebook'
+    help = 'Ask how many comments each photo has on Facebook, mark earliest and latest if None'
 
     def handle(self, *args, **options):
         photos = Photo.objects.all()
@@ -32,6 +32,10 @@ class Command(BaseCommand):
                         if photo.fb_comments_count is None or comment_count > photo.fb_comments_count:
                             photo.latest_comment = datetime.datetime.now()
                     photo.fb_comments_count = comment_count
-                    photo.save()
+                    if photo.first_comment is None:
+                        photo.first_comment = datetime.datetime.now()
+                    if photo.latest_comment is None:
+                        photo.latest_comment = datetime.datetime.now()
+                    photo.light_save()
                     print "Updated " + photo_id
             start += 500

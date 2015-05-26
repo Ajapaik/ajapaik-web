@@ -327,9 +327,13 @@ class Photo(Model):
     device = ForeignKey("Device", null=True, blank=True)
     area = ForeignKey("Area", related_name="areas", null=True, blank=True)
     rephoto_of = ForeignKey("self", blank=True, null=True, related_name="rephotos")
-    fb_comments_count = IntegerField(default=0)
+    first_rephoto = DateTimeField(null=True, blank=True)
     latest_rephoto = DateTimeField(null=True, blank=True)
+    fb_comments_count = IntegerField(default=0)
+    first_comment = DateTimeField(null=True, blank=True)
     latest_comment = DateTimeField(null=True, blank=True)
+    geotag_count = IntegerField(default=0, db_index=True)
+    first_geotag = DateTimeField(null=True, blank=True)
     latest_geotag = DateTimeField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
@@ -504,6 +508,13 @@ class Photo(Model):
                 a.lat = lat / count
                 a.lon = lon / count
                 a.save()
+        if not self.first_rephoto:
+            first_rephoto = self.rephotos.order_by('-created').first()
+            if first_rephoto:
+                self.first_rephoto = first_rephoto.created
+        last_rephoto = self.rephotos.order_by('created').first()
+        if last_rephoto:
+            self.latest_rephoto = last_rephoto.created
         super(Photo, self).save(*args, **kwargs)
 
     def light_save(self, *args, **kwargs):
@@ -543,6 +554,7 @@ class Photo(Model):
             geotags = GeoTag.objects.filter(photo_id=self.id)
             unique_user_geotag_ids = geotags.distinct("user_id").order_by("user_id", "-created")\
                 .values_list("id", flat=True)
+            self.geotag_count = len(unique_user_geotag_ids)
             unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
             geotag_coord_map = {}
             for g in unique_user_geotags:

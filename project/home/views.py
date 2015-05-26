@@ -456,11 +456,9 @@ def photo_upload(request, photo_id):
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
-                photo.latest_rephoto = datetime.datetime.now()
-                photo.light_save()
+                photo.save()
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
-
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
 
@@ -656,8 +654,6 @@ def _get_filtered_data_for_frontpage(request):
             end = total
         else:
             end = start + page_size
-        print start
-        print end
         max_page = ceil(float(total) / float(page_size))
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
@@ -678,28 +674,28 @@ def _get_filtered_data_for_frontpage(request):
                     photos = photos.order_by('-rephoto_count')
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('geotag_count')
+                    photos = photos.order_by('geotag_count')
                 else:
-                    photos = photos.annotate(geotag_count=Count('geotags__user', distinct=True)).order_by('-geotag_count')
+                    photos = photos.order_by('-geotag_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
-                        order_by=['latest_rephoto_is_null', 'project_photo.latest_rephoto'], )
+                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL', },
+                        order_by=['first_rephoto_is_null', '-project_photo.first_rephoto'], )
                 else:
                     photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                         order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
             elif order2 == 'rephotos':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
-                        order_by=['latest_comment_is_null', 'project_photo.latest_comment'], )
+                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
+                        order_by=['first_comment_is_null', '-project_photo.first_comment'], )
                 else:
                     photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
                         order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
-                        order_by=['latest_geotag_is_null', 'project_photo.latest_geotag'], )
+                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL', },
+                        order_by=['first_geotag_is_null', '-project_photo.first_geotag'], )
                 else:
                     photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
                         order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
@@ -1630,6 +1626,8 @@ def update_comment_count(request):
         if photo and count:
             p.fb_comments_count += int(count)
             p.latest_comment = datetime.datetime.now()
+            if p.first_comment is None:
+                p.first_comment = datetime.datetime.now()
             p.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
