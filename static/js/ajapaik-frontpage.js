@@ -50,6 +50,7 @@
                     window.nextPhotoLoading = false;
                     openPhotoDrawer(result);
                     window.currentlySelectedPhotoId = id;
+                    syncStateToUrl();
                     var imgContainer = $('#ajapaik-frontpage-image-container-' + id),
                         nextId = imgContainer.next().data('id'),
                         previousId = imgContainer.prev().data('id'),
