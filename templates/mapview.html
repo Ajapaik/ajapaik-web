@@ -48,9 +48,9 @@
                 {% endif %}
             {% endif %}
             {% if album %}
-                var albumId = '{{ album.id | safe }}';
-                {% if album.lat and album.lon %}
-                    window.albumLatLng = new window.google.maps.LatLng({{ album.lat | safe }}, {{ album.lon | safe }});
+                var albumId = '{{ album.0 | safe }}';
+                {% if album.1 and album.2 %}
+                    window.albumLatLng = new window.google.maps.LatLng({{ album.2 | safe }}, {{ album.3 | safe }});
                 {% endif %}
             {% endif %}
         var photoModalCurrentImageUrl;
@@ -76,7 +76,7 @@
             <a id="element{%=o.id%}" class="ajapaik-mapview-pane-photo-container"
                data-id="{%=o.id%}" onclick="window.highlightSelected({%=o.id%}, false, event);">
                 <img src=""
-                     data-src="{%=o.url%}/300"
+                     data-src="{%=o.url%}"
                      title="{%=o.description%}"
                      data-id="{%=o.id%}"
                      class="lazyload img-responsive"
@@ -91,7 +91,7 @@
                          onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
                     </div>
                 {% } %}
-                {% if (o.comments) %}
+                {% if (o.comments) { %}
                     <span class="ajapaik-comment-count">{%=o.comments%}</span>
                 {% } %}
             </a>
