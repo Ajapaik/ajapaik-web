@@ -22,9 +22,9 @@
             currentPhotoIds.push($(this).data('id'));
         });
         window.handleAlbumChange = function () {
-            //window.location.href = '/photos/' + window.albumId + '/1';
-            syncStateToUrl();
-            updateFrontpagePhotosAsync();
+            window.location.href = '/?album=' + window.albumId;
+            //syncStateToUrl();
+            //updateFrontpagePhotosAsync();
         };
         window.startGuessLocation = function (photoId) {
             if (window.albumId) {
