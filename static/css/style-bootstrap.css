@@ -436,6 +436,14 @@ body {
     float: left;
 }
 
+#ajapaik-frontpage-filtering-dropdown-menu > li {
+    background: none !important;
+}
+
+#ajapaik-frontpage-filtering-dropdown-menu > li > a {
+    background: none !important;
+}
+
 .ajapaik-header-curate-button-white {
     background-image: url(../images/material-design-icons/ic_add_circle_24px_white.svg) !important;
 }
