@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
 from project.home.models import GeoTag
-from django.contrib.gis.geos import Point
 
 
 class Command(BaseCommand):

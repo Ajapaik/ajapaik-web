@@ -31,6 +31,35 @@
 <nav class="navbar navbar-default navbar-fixed-top ajapaik-navbar {% if is_curator %}ajapaik-curator-navbar{% endif %}">
     <div class="container-fluid">
         <div class="navbar-header">
+            <a role="button" title="{% trans 'Profile and leaderboard' %}"
+               class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
+               id="ajapaik-header-profile-button"></a>
+            <div class="score_container">
+                <h4>
+                    <a id="full_leaderboard" href="javascript:void(0);">
+                        {% trans "Leaderboard" %}
+                    </a>
+                </h4>
+                <ul class="scoreboard">
+                    {% if leaderboard %}
+                        {% include "_block_leaderboard.html" %}
+                    {% endif %}
+                </ul>
+                {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                    {% with profile=request.user.profile user=request.user %}
+                        <div id="facebook-connected">
+                            <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout'
+                                                                                      id='logout-button'>{% trans "Log out" %}</a>.
+                            </p>
+                        </div>
+                    {% endwith %}
+                {% else %}
+                    <div id="facebook-connect">
+                        <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                    </div>
+                {% endif %}
+            </div>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">{% trans "Toggle navigation" %}</span>
@@ -181,36 +210,10 @@
                        class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
                        id="ajapaik-header-facebook-button"></a>
                 </li>
-                <li>
+                <li class="hidden-xs">
                     <a role="button" title="{% trans 'Profile and leaderboard' %}"
                             class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
                             id="ajapaik-header-profile-button"></a>
-                    <div class="score_container">
-                        <h4>
-                            <a id="full_leaderboard" href="javascript:void(0);">
-                                {% trans "Leaderboard" %}
-                            </a>
-                        </h4>
-                        <ul class="scoreboard">
-                            {% if leaderboard %}
-                                {% include "_block_leaderboard.html" %}
-                            {% endif %}
-                        </ul>
-                        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
-                            {% with profile=request.user.profile user=request.user %}
-                                <div id="facebook-connected">
-                                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout'
-                                                                                              id='logout-button'>{% trans "Log out" %}</a>.
-                                    </p>
-                                </div>
-                            {% endwith %}
-                        {% else %}
-                            <div id="facebook-connect">
-                                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                            </div>
-                        {% endif %}
-                    </div>
                 </li>
                 <li class="dropdown">
                     {% get_language_info for LANGUAGE_CODE as lang %}
