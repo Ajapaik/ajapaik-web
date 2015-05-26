@@ -100,16 +100,16 @@
     <script>
         var permalinkURL = '{{ hostname }}/foto/',
             areaId = '{{ area.id|safe }}',
-            albumId = '{{ album.id|safe }}';
+            albumId = '{{ album.0|safe }}';
             {% if photo %}
                 window.preselectedPhotoId = {{ photo.id|safe }};
             {% endif %}
         window.linkToMap = true;
         window.linkToGame = false;
-        {% if album.lat and album.lon %}
-            window.start_location = [{{ album.lon|safe }}, {{ album.lat|safe }}];
+        {% if album.2 and album.3 %}
+            window.start_location = [{{ album.2|safe }}, {{ album.3|safe }}];
         {% elif area.lat and area.lon %}
-            window.start_location = [{{ area.lon|safe }}, {{ area.lat|safe }}];
+            window.start_location = [{{ area.lat|safe }}, {{ area.lon|safe }}];
         {% else %}
             window.start_location = [26, 59];
         {% endif %}

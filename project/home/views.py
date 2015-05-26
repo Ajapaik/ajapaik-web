@@ -529,7 +529,7 @@ def game(request):
         ret["area"] = area
 
     if album:
-        ret["album"] = (album.id, album.name)
+        ret["album"] = (album.id, album.name, album.lat, album.lon)
     if album:
         ret["facebook_share_photos"] = album.photos.values_list('id')[:5]
     elif area:
