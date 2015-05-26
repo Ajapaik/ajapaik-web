@@ -28,9 +28,9 @@
         };
         window.startGuessLocation = function (photoId) {
             if (window.albumId) {
-                window.open('/game/?album=' + window.albumId + '&photo=' + photoId, '_blank');
+                window.open('/game/?album=' + window.albumId + '&photo=' + photoId + '&fromButton=1', '_blank');
             } else {
-                window.open('/game/?photo=' + photoId, '_blank');
+                window.open('/game/?photo=' + photoId + '&fromButton=1', '_blank');
             }
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {

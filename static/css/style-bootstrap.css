@@ -424,8 +424,7 @@ body {
 }
 
 #ajapaik-header-grid-button {
-    /*background-image: url(../images/material-design-icons/ic_photoview_24px.svg);*/
-    /*float: left;*/
+    background-image: url(../images/material-design-icons/ic_photoview_24px.svg);
 }
 
 .ajapaik-header-grid-button-white {
