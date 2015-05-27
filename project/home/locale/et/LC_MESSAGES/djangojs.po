@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-26 13:47+0300\n"
-"PO-Revision-Date: 2015-05-25 20:35+0000\n"
+"POT-Creation-Date: 2015-05-27 13:14+0300\n"
+"PO-Revision-Date: 2015-05-27 08:20+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
@@ -45,7 +45,7 @@ msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
 #: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:650
-#: static/js/ajapaik-map.js:942
+#: static/js/ajapaik-map.js:947
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -61,45 +61,55 @@ msgstr "Salvesta asukoht ja vaate suund"
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
-#: static/js/ajapaik-frontpage.js:200
+#: static/js/ajapaik-frontpage.js:201
 msgid "Earliest"
 msgstr "Esimesena"
 
-#: static/js/ajapaik-frontpage.js:202
+#: static/js/ajapaik-frontpage.js:203
 msgid "Latest"
 msgstr "Viimasena"
 
-#: static/js/ajapaik-frontpage.js:207
+#: static/js/ajapaik-frontpage.js:208
 msgid "Least"
 msgstr "Vähim"
 
-#: static/js/ajapaik-frontpage.js:209
+#: static/js/ajapaik-frontpage.js:210
 msgid "Most"
 msgstr "Enim"
 
-#: static/js/ajapaik-frontpage.js:214
-msgid "Furthest from you"
+#: static/js/ajapaik-frontpage.js:215
+#, fuzzy
+#| msgid "Furthest from you"
+msgid "Pictures furthest from you"
 msgstr "Sinust kaugeimad"
 
-#: static/js/ajapaik-frontpage.js:216
-msgid "Closest to you"
+#: static/js/ajapaik-frontpage.js:217
+#, fuzzy
+#| msgid "Closest to you"
+msgid "Pictures closest to you"
 msgstr "Sulle lähimad"
 
-#: static/js/ajapaik-frontpage.js:221
+#: static/js/ajapaik-frontpage.js:222
 msgid "commented"
 msgstr "kommenteeritud"
 
-#: static/js/ajapaik-frontpage.js:224
+#: static/js/ajapaik-frontpage.js:225
 msgid "rephotographed"
 msgstr "üle pildistatud"
 
-#: static/js/ajapaik-frontpage.js:227
+#: static/js/ajapaik-frontpage.js:228
 msgid "added"
 msgstr "lisatud"
 
-#: static/js/ajapaik-frontpage.js:230
+#: static/js/ajapaik-frontpage.js:231
 msgid "geotagged"
 msgstr "kaardile märgitud"
+
+#: static/js/ajapaik-frontpage.js:234
+#, fuzzy
+#| msgid "Geotag pictures"
+msgid "pictures"
+msgstr "Märgi pilte kaardile"
 
 #: static/js/ajapaik-game.js:40
 msgid "Vihje vaatamine"
@@ -114,10 +124,12 @@ msgstr ""
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 
 #: static/js/ajapaik-game.js:207
-msgid "We are now showing you random photos."
-msgstr ""
-"Oled sellest linnast näinud kõiki pilte, edaspidi näitame uuesti juhuslikult "
-"valitud pilte."
+#, fuzzy
+#| msgid "You have seen all the pictures from this album."
+msgid ""
+"You've seen all the pictures in this album, we are now showing you random "
+"photos."
+msgstr "Oled näinud kõiki pilte sellest albumist."
 
 #: static/js/ajapaik-game.js:209
 msgid "You have seen all the pictures from this album."
@@ -132,11 +144,11 @@ msgstr "Saadud punktid"
 msgid "Your guess"
 msgstr "Sinu pakkumine"
 
-#: static/js/ajapaik-map.js:865
+#: static/js/ajapaik-map.js:870
 msgid "Remove album filter"
 msgstr "Eemalda albumi filter"
 
-#: static/js/ajapaik-map.js:869
+#: static/js/ajapaik-map.js:874
 msgid "Apply album filter"
 msgstr "Rakenda albumi filter"
 
@@ -239,6 +251,11 @@ msgstr "Pildil on asukoha ja vaate suuna info"
 #: static/js/ajapaik-translations.js:26
 msgid "Image has rephotos"
 msgstr "Pildist on ülepildistusi"
+
+#~ msgid "We are now showing you random photos."
+#~ msgstr ""
+#~ "Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti "
+#~ "juhuslikult valitud pilte."
 
 #~ msgid "We doubt about it."
 #~ msgstr "Others have different opinion."

@@ -112,11 +112,13 @@
                 {% if is_frontpage %}
                     {% include "_filtering_dropdown.html" %}
                 {% endif %}
-                <li>
-                    <a role="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"
-                    class="ajapaik-header-button navbar-toggle ajapaik-navbar-toggle {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}">
-                    </a>
-                </li>
+                {% if not is_curator %}
+                    <li>
+                        <a role="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"
+                        class="ajapaik-header-button navbar-toggle ajapaik-navbar-toggle {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}">
+                        </a>
+                    </li>
+                {% endif %}
                 {% if album %}
                     <li>
                         <a role="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"
