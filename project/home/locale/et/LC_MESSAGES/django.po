@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 13:14+0300\n"
-"PO-Revision-Date: 2015-05-25 20:38+0000\n"
+"POT-Creation-Date: 2015-05-27 17:08+0300\n"
+"PO-Revision-Date: 2015-05-27 14:02+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
@@ -215,11 +215,11 @@ msgstr "Viimasel ajal aktiivsemate edetabel"
 msgid "All time leaderboard"
 msgstr "Üldedetabel"
 
-#: templates/_comments.html:7
+#: templates/_comments.html:7 templates/_photo_modal_comments.html:7
 msgid "Original photo"
 msgstr "Ajalooline foto"
 
-#: templates/_comments.html:11
+#: templates/_comments.html:11 templates/_photo_modal_comments.html:11
 msgid "Rephoto"
 msgstr "Ülepildistus"
 
@@ -229,61 +229,63 @@ msgstr "Filter"
 
 #: templates/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
-msgstr ""
+msgstr "Sorteeri kauguse järgi sinust"
 
 #: templates/_filtering_dropdown.html:23
 msgid "Sort by time and ..."
-msgstr ""
+msgstr "Sorteeri aja ja ... järgi"
 
 #: templates/_filtering_dropdown.html:32
 msgid "Sort by photos' time added"
-msgstr ""
+msgstr "Sorteeri pilte lisamise aja järgi"
 
 #: templates/_filtering_dropdown.html:42
 msgid "Sort by geotags' time added or amount"
-msgstr ""
+msgstr "Sorteeri asukohamärgenduste lisamise aja või koguse järgi"
 
 #: templates/_filtering_dropdown.html:52
 msgid "Sort by rephotos' time added or amount"
-msgstr ""
+msgstr "Sorteeri ülepildistuste lisamise aja või koguse järgi"
 
 #: templates/_filtering_dropdown.html:62
 msgid "Sort by comments' time added or amount"
-msgstr ""
+msgstr "Sorteeri kommentaaride lisamise aja või koguse järgi"
 
 #: templates/_filtering_dropdown.html:72
 msgid "Sort by amount and ..."
-msgstr ""
+msgstr "Sorteeri koguse ja ... järgi"
 
 #: templates/_filtering_dropdown.html:81
 msgid "Change sorting order"
-msgstr ""
+msgstr "Muuda sorteerimise järjestus vastupidiseks"
 
 #: templates/_filtering_dropdown.html:90
 msgid "Help"
-msgstr ""
+msgstr "Abi"
 
 #: templates/_filtering_tutorial_modal.html:11
 msgid "How to sort"
-msgstr ""
+msgstr "Kuidas pilte sorteerida"
 
 #: templates/_filtering_tutorial_modal.html:14
 msgid "From this group"
-msgstr ""
+msgstr "Sellest grupist"
 
 #: templates/_filtering_tutorial_modal.html:46
-#, fuzzy
-#| msgid "Choose area"
 msgid "Choose 2 parameters"
-msgstr "Vali koht"
+msgstr "vali kaks parameetrit"
 
-#: templates/_filtering_tutorial_modal.html:58
+#: templates/_filtering_tutorial_modal.html:54
+msgid "or"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:60
 msgid "and"
-msgstr ""
+msgstr "ja"
 
-#: templates/_filtering_tutorial_modal.html:59
+#: templates/_filtering_tutorial_modal.html:61
 msgid "1 of"
-msgstr ""
+msgstr "1 nende hulgast"
 
 #: templates/_general_info_modal_content.html:9
 msgid "Ajapaik shows how places have changed over time"
@@ -504,13 +506,15 @@ msgid_plural ""
 "                                    %(counter)s pictures\n"
 "                                "
 msgstr[0] ""
+"\n"
+"%(counter)s pilt"
 msgstr[1] ""
+"\n"
+"%(counter)s pilti"
 
 #: templates/_header.html:34 templates/_header.html.py:151
-#, fuzzy
-#| msgid "All time leaderboard"
 msgid "Profile and leaderboard"
-msgstr "Üldedetabel"
+msgstr "Profiil ja edetabel"
 
 #: templates/_header.html:51 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
@@ -524,7 +528,7 @@ msgstr "Logi välja"
 
 #: templates/_header.html:58
 msgid "Facebook Connect to save your score and continue later."
-msgstr ""
+msgstr "Kasuta Facebook Connecti oma skoori salvestamiseks"
 
 #: templates/_header.html:59 templates/_photo_upload_modal.html:36
 #: templates/curator.html:220 templates/photo_upload.html:261
@@ -533,17 +537,15 @@ msgstr "Ühenda Facebookiga"
 
 #: templates/_header.html:65
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Ava menüü"
 
 #: templates/_header.html:72 templates/_header.html.py:85
 msgid "Album selection"
 msgstr "Albumi valik"
 
 #: templates/_header.html:77 templates/_header.html.py:78
-#, fuzzy
-#| msgid "Back to map"
 msgid "Back to homepage"
-msgstr "Tagasi kaardile"
+msgstr "Tagasi avalehele"
 
 #: templates/_header.html:95
 msgid "Album details"
@@ -572,73 +574,59 @@ msgstr "Näita kaardil"
 
 #: templates/_header.html:135
 msgid "Curate"
-msgstr ""
+msgstr "Kureeri"
 
 #: templates/_header.html:141
 msgid "About Ajapaik"
-msgstr ""
+msgstr "Ajapaigast"
 
 #: templates/_header.html:146
 msgid "Ajapaik on Facebook"
-msgstr ""
+msgstr "Ajapaik Facebookis"
 
 #: templates/_header.html:158
 msgid "Choose language"
 msgstr "Vali keel"
 
 #: templates/_header.html:182
-#, fuzzy
-#| msgid "Search box"
 msgid "Search"
-msgstr "Otsilahter"
+msgstr "Otsing"
 
 #: templates/_header.html:187
-#, fuzzy
-#| msgid "Album selection"
 msgid "Selection"
-msgstr "Albumi valik"
+msgstr "Valitud pildid"
 
 #: templates/_header.html:191
-#, fuzzy
-#| msgid "Choose albums"
 msgid "My albums"
-msgstr "Vali album"
+msgstr "Minu albumid"
 
 #: templates/_header.html:201
 msgid "Full search"
-msgstr ""
+msgstr "Täisotsing"
 
 #: templates/_header.html:207
-#, fuzzy
-#| msgid "Filtering"
 msgid "Filter existing"
-msgstr "Filter"
+msgstr "Ära näita Ajapaigas olevaid pilte"
 
 #: templates/_header.html:213
-#, fuzzy
-#| msgid "Search box"
 msgid "Search!"
-msgstr "Otsilahter"
+msgstr "Otsi!"
 
 #: templates/_header.html:218
 msgid "Load more"
-msgstr ""
+msgstr "Lae rohkem tulemusi"
 
 #: templates/_header.html:223
-#, fuzzy
-#| msgid "Selected albums:"
 msgid "Select all"
-msgstr "Valitud album(id):"
+msgstr "Vali kõik"
 
 #: templates/_header.html:233
-#, fuzzy
-#| msgid "Album selection"
 msgid "Clear selection"
-msgstr "Albumi valik"
+msgstr "Tühista valik"
 
 #: templates/_header.html:239
 msgid "Submit to Ajapaik"
-msgstr ""
+msgstr "Saada Ajapaika"
 
 #: templates/_info_modal_content.html:14 templates/_info_modal_content.html:20
 msgid "Album curated by"
@@ -1273,30 +1261,3 @@ msgstr[1] ""
 #: templates/photoview.html:132
 msgid "Date taken"
 msgstr "Kuupäev:"
-
-#~ msgid "Newest"
-#~ msgstr "Uusimad"
-
-#~ msgid "Closest"
-#~ msgstr "Lähimad"
-
-#~ msgid "Most discussed"
-#~ msgstr "Enim kommenteeritud"
-
-#~ msgid "Most rephotos"
-#~ msgstr "Enim ülepildistusi"
-
-#~ msgid "Latest rephotos"
-#~ msgstr "Viimased ülepildistused"
-
-#~ msgid "Latest comments"
-#~ msgstr "Viimased kommentaarid"
-
-#~ msgid "Latest geotags"
-#~ msgstr "Viimased asukohamärgendused"
-
-#~ msgid "Previous page"
-#~ msgstr "Tagasi"
-
-#~ msgid "Next page"
-#~ msgstr "Edasi"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 13:14+0300\n"
+"POT-Creation-Date: 2015-05-27 17:08+0300\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:650
+#: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:652
 #: static/js/ajapaik-map.js:947
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -118,12 +118,12 @@ msgstr ""
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: static/js/ajapaik-game.js:334 static/js/ajapaik-game.js.c:336
+#: static/js/ajapaik-game.js:336 static/js/ajapaik-game.js.c:338
 #: static/js/ajapaik-map.js:365 static/js/ajapaik-map.js.c:366
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/ajapaik-game.js:354
+#: static/js/ajapaik-game.js:356
 msgid "Your guess"
 msgstr ""
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 13:14+0300\n"
-"PO-Revision-Date: 2015-05-25 14:52+0000\n"
+"POT-Creation-Date: 2015-05-27 17:08+0300\n"
+"PO-Revision-Date: 2015-05-27 10:17+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/"
 "ru/)\n"
@@ -205,11 +205,11 @@ msgstr "Самые активные пользователи"
 msgid "All time leaderboard"
 msgstr "Лучшие игроки за всё время"
 
-#: templates/_comments.html:7
+#: templates/_comments.html:7 templates/_photo_modal_comments.html:7
 msgid "Original photo"
 msgstr "Оригинальная фотография"
 
-#: templates/_comments.html:11
+#: templates/_comments.html:11 templates/_photo_modal_comments.html:11
 msgid "Rephoto"
 msgstr "Переснимок"
 
@@ -265,11 +265,15 @@ msgstr ""
 msgid "Choose 2 parameters"
 msgstr ""
 
-#: templates/_filtering_tutorial_modal.html:58
+#: templates/_filtering_tutorial_modal.html:54
+msgid "or"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:60
 msgid "and"
 msgstr ""
 
-#: templates/_filtering_tutorial_modal.html:59
+#: templates/_filtering_tutorial_modal.html:61
 msgid "1 of"
 msgstr ""
 
@@ -473,10 +477,8 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: templates/_header.html:34 templates/_header.html.py:151
-#, fuzzy
-#| msgid "All time leaderboard"
 msgid "Profile and leaderboard"
-msgstr "Лучшие игроки за всё время"
+msgstr ""
 
 #: templates/_header.html:51 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
@@ -555,10 +557,8 @@ msgid "Search"
 msgstr ""
 
 #: templates/_header.html:187
-#, fuzzy
-#| msgid "Select file..."
 msgid "Selection"
-msgstr "Выбрать файл..."
+msgstr ""
 
 #: templates/_header.html:191
 msgid "My albums"
@@ -581,10 +581,8 @@ msgid "Load more"
 msgstr ""
 
 #: templates/_header.html:223
-#, fuzzy
-#| msgid "Select file..."
 msgid "Select all"
-msgstr "Выбрать файл..."
+msgstr ""
 
 #: templates/_header.html:233
 msgid "Clear selection"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 13:14+0300\n"
+"POT-Creation-Date: 2015-05-27 17:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,11 +202,11 @@ msgstr ""
 msgid "All time leaderboard"
 msgstr ""
 
-#: templates/_comments.html:7
+#: templates/_comments.html:7 templates/_photo_modal_comments.html:7
 msgid "Original photo"
 msgstr ""
 
-#: templates/_comments.html:11
+#: templates/_comments.html:11 templates/_photo_modal_comments.html:11
 msgid "Rephoto"
 msgstr ""
 
@@ -262,11 +262,15 @@ msgstr ""
 msgid "Choose 2 parameters"
 msgstr ""
 
-#: templates/_filtering_tutorial_modal.html:58
+#: templates/_filtering_tutorial_modal.html:54
+msgid "or"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:60
 msgid "and"
 msgstr ""
 
-#: templates/_filtering_tutorial_modal.html:59
+#: templates/_filtering_tutorial_modal.html:61
 msgid "1 of"
 msgstr ""
 

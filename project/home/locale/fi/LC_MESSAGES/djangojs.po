@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 13:14+0300\n"
-"PO-Revision-Date: 2015-05-25 14:53+0000\n"
+"POT-Creation-Date: 2015-05-27 17:08+0300\n"
+"PO-Revision-Date: 2015-05-27 10:18+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
 "fi/)\n"
@@ -42,7 +42,7 @@ msgstr "Sulje"
 msgid "Save location only"
 msgstr "Tallenna vain sijainti"
 
-#: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:650
+#: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:652
 #: static/js/ajapaik-map.js:947
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -100,10 +100,8 @@ msgid "geotagged"
 msgstr ""
 
 #: static/js/ajapaik-frontpage.js:234
-#, fuzzy
-#| msgid "Geotag pictures"
 msgid "pictures"
-msgstr "Geotägää kuvia"
+msgstr ""
 
 #: static/js/ajapaik-game.js:40
 msgid "Vihje vaatamine"
@@ -118,23 +116,21 @@ msgstr ""
 "kuvailua apunasi, saat 25% vähemmän pisteitä ehdotuksestasi."
 
 #: static/js/ajapaik-game.js:207
-#, fuzzy
-#| msgid "We are now showing you random photos."
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
-msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
+msgstr ""
 
 #: static/js/ajapaik-game.js:209
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: static/js/ajapaik-game.js:334 static/js/ajapaik-game.js.c:336
+#: static/js/ajapaik-game.js:336 static/js/ajapaik-game.js.c:338
 #: static/js/ajapaik-map.js:365 static/js/ajapaik-map.js.c:366
 msgid "Points awarded"
 msgstr "Pistesaldo"
 
-#: static/js/ajapaik-game.js:354
+#: static/js/ajapaik-game.js:356
 msgid "Your guess"
 msgstr "Arvauksesi"
 
