@@ -67,13 +67,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            {% if is_game or is_mapview or is_frontpage %}
+                <a class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button
+                {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"
+                   data-toggle="offcanvas" data-target="#ajapaik-album-selection-navmenu"
+                   id="ajapaik-header-menu-button">
+                </a>
+            {% endif %}
             <a class="navbar-brand ajapaik-brand hidden-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
             <a class="navbar-brand ajapaik-brand ajapaik-brand-xs visible-xs" href="/">{% trans "Timepatch (Ajapaik)" %}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% if is_game or is_mapview or is_frontpage %}
-                    <li>
+                    <li class="hidden-xs">
                         <a class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button
                         {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"
                            data-toggle="offcanvas" data-target="#ajapaik-album-selection-navmenu"

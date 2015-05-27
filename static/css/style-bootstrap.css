@@ -46,7 +46,7 @@ body {
 }
 
 #ajapaik-album-selection-navmenu {
-    z-index: 101;
+    z-index: 100;
 }
 
 .dropdown-menu > li {
@@ -213,8 +213,9 @@ body {
 #ajapaik-album-name-container {
     font-size: 20px;
     float: left;
-    margin-top: 3px;
-    margin-left: 0;
+    margin-top: 2px;
+    margin-left: -10px;
+    margin-right: -10px;
     white-space: nowrap;
     overflow: hidden;
     max-width: 500px;
@@ -450,7 +451,6 @@ body {
 
 #ajapaik-header-menu-button {
     background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
-    float: left;
 }
 
 .ajapaik-header-menu-button-white {
@@ -462,14 +462,19 @@ body {
 }
 
 #ajapaik-header-filter-button {
-    background-image: url(../images/material-design-icons/ic_filter_list_24px.svg);
+    background-image: url(../images/material-design-icons/filter.svg);
     /*float: left;*/
     box-shadow: none;
     -webkit-box-shadow: none;
+    width: 24px;
+    height: 24px;
+    background-size: 24px !important;
+    margin-top: 12px;
+    margin-right: 40px;
 }
 
 .ajapaik-header-filter-button-white {
-    background-image: url(../images/material-design-icons/ic_filter_list_24px_white.svg) !important;
+    background-image: url(../images/material-design-icons/filter_white.svg) !important;
 }
 
 #ajapaik-header-profile-button {
