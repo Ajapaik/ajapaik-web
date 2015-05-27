@@ -329,6 +329,7 @@ class Photo(Model):
     rephoto_of = ForeignKey("self", blank=True, null=True, related_name="rephotos")
     first_rephoto = DateTimeField(null=True, blank=True)
     latest_rephoto = DateTimeField(null=True, blank=True)
+    fb_object_id = CharField(max_length=255, null=True, blank=True)
     fb_comments_count = IntegerField(default=0)
     first_comment = DateTimeField(null=True, blank=True)
     latest_comment = DateTimeField(null=True, blank=True)
@@ -629,6 +630,22 @@ class Photo(Model):
                     else:
                         self.azimuth = None
                         self.azimuth_confidence = None
+
+
+class PhotoComment(Model):
+    photo = ForeignKey("Photo")
+    fb_comment_id = CharField(max_length=255, unique=True)
+    fb_object_id = CharField(max_length=255)
+    fb_comment_parent_id = CharField(max_length=255, blank=True, null=True)
+    fb_user_id = CharField(max_length=255)
+    text = TextField()
+    created = DateTimeField()
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u"%s" % self.text[:50]
 
 
 class DifficultyFeedback(Model):

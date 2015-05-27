@@ -533,9 +533,14 @@
                 window._gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
             }
             {#window.location.href = '{% url 'project.home.views.photo' photo.id %}';#}
-            $('#ajapaik-comments-section').removeClass('hidden');
-            window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
-            window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
+            var commentsSection = $('#ajapaik-comments-section');
+            if (commentsSection.hasClass('hidden')) {
+                commentsSection.removeClass('hidden');
+                window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+                window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
+            } else {
+                commentsSection.addClass('hidden');
+            }
         });
         $(document).on('click', '#ajapaik-comment-tabs li', function () {
             window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
