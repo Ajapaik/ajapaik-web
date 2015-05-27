@@ -204,7 +204,7 @@
                     message;
                 textTarget.hide();
                 if (data.nothing_more_to_show) {
-                    message = window.gettext('We are now showing you random photos.');
+                    message = window.gettext("You've seen all the pictures in this album, we are now showing you random photos.");
                 } else if (data.user_seen_all) {
                     message = window.gettext('You have seen all the pictures from this album.');
                 }

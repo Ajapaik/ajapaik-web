@@ -462,7 +462,6 @@
         $('#ajapaik-photo-modal').modal('toggle');
         photoDrawerOpen = false;
         window.syncMapStateToURL();
-        $('.filter-box').show();
     };
 
     window.uploadCompleted = function (response) {

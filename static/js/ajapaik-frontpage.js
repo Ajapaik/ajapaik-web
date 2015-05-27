@@ -212,9 +212,9 @@
             } else if (window.order1 === 'closest') {
                 $('#ajapaik-closest-filter-icon').attr('class', 'ajapaik-filter-white');
                 if (window.order3 === 'reverse') {
-                    orderingString = window.gettext('Furthest from you');
+                    orderingString = window.gettext('Pictures furthest from you');
                 } else {
-                    orderingString = window.gettext('Closest to you');
+                    orderingString = window.gettext('Pictures closest to you');
                 }
             }
             if (window.order2 === 'comments') {
@@ -230,10 +230,20 @@
                 $('#ajapaik-geotags-filter-icon').attr('class', 'ajapaik-filter-white');
                 orderingString += ' ' + window.gettext('geotagged');
             }
-            orderingString += ' ' + window.gettext('pictures');
+            if (window.order1 !== 'closest') {
+                orderingString += ' ' + window.gettext('pictures');
+            }
             var orderingStringTarget = $('#ajapaik-header-order-name');
             if (orderingStringTarget) {
                 orderingStringTarget.html(orderingString);
+            }
+            var dropdownOrderingString = $('#ajapaik-filter-dropdown-filter-name');
+            if (dropdownOrderingString) {
+                if (window.albumId === null) {
+                    dropdownOrderingString.hide();
+                } else {
+                    dropdownOrderingString.html(orderingString);
+                }
             }
             var filterButton = $('#ajapaik-header-filter-button');
             filterButton.removeClass('ajapaik-header-filter-button-white');

@@ -1142,6 +1142,11 @@ var map,
         map.getStreetView().setVisible(false);
     });
 
+    $(document).on('click', '#ajapaik-filtering-help', function (e) {
+        e.stopPropagation();
+        $('#ajapaik-filtering-tutorial-modal').modal();
+    });
+
     hideUnlockedAzimuth = function () {
         if (!saveDirection) {
             dottedAzimuthLine.setVisible(false);
@@ -1153,6 +1158,11 @@ var map,
             dottedAzimuthLine.setVisible(true);
         }
     };
+
+    $(document).on('click', '#ajapaik-close-filtering-tutorial-modal', function (e) {
+        e.stopPropagation();
+        $('#ajapaik-filtering-tutorial-modal').modal('toggle');
+    });
 
     $('#ajapaik-guess-panel-container').hover(hideUnlockedAzimuth, showUnlockedAzimuth);
 
@@ -1176,7 +1186,7 @@ var map,
 
     $(window).on('resize', function () {
         if (window.innerWidth > 768) {
-            $('.navbar-collapse').removeClass('in')
+            $('.navbar-collapse').removeClass('in');
         }
     });
     
