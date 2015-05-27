@@ -218,6 +218,9 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                {% include "_photo_modal_comments.html" %}
+            </div>
         </div>
     </div>
 </div>
@@ -259,6 +262,7 @@
         window.photoModalRephotoArray.push({
             id: {{ rephoto.id }},
             url: '{% url 'project.home.views.photo_url' rephoto.id %}',
+            fb_url: '{{ hostname }}{{ rephoto.get_detail_url }}',
             {% if rephoto.date %}
                 date: '{{ rephoto.date|date:"d.m.Y" }}',
             {% endif %}
@@ -475,6 +479,8 @@
                     photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[i]));
                     infoDiv.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[i]));
                     window.currentlySelectedRephotoId = targetId;
+                    $('#ajapaik-rephoto-comments').find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
+                    window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
                     if (window.isFrontpage) {
 
                     } else {
@@ -526,7 +532,14 @@
             } else if (window.isMapview) {
                 window._gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
             }
-            window.location.href = '{% url 'project.home.views.photo' photo.id %}';
+            {#window.location.href = '{% url 'project.home.views.photo' photo.id %}';#}
+            $('#ajapaik-comments-section').removeClass('hidden');
+            window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+            window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
+        });
+        $(document).on('click', '#ajapaik-comment-tabs li', function () {
+            window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+            window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
         });
         originalPhotoColumn.mouseenter(function () {
             if (!isMobile) {

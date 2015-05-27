@@ -2096,6 +2096,14 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin-top: 5px;
 }
 
+.ajapaik-margin-bottom-minus-20 {
+    margin-bottom: -20px;
+}
+
+.ajapaik-margin-bottom-minus-7 {
+    margin-bottom: -7px;
+}
+
 @media (max-width: 767px) {
     #content.front-page .photos {
         display: none;

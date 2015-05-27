@@ -269,9 +269,11 @@
                     showDescriptions();
                     hideDescriptionButtons();
                     if (window.straightToSpecify) {
-                        $('#ajapaik-photo-modal-specify-location').click();
-                        window.straightToSpecify = false;
-                        $('.modal-backdrop').hide();
+                        window.setTimeout(function () {
+                            $('#ajapaik-photo-modal-specify-location').click();
+                            window.straightToSpecify = false;
+                            $('.modal-backdrop').hide();
+                        }, 500);
                     }
                 }
             });

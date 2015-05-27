@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 13:14+0300\n"
-"PO-Revision-Date: 2015-05-25 14:52+0000\n"
+"POT-Creation-Date: 2015-05-27 17:08+0300\n"
+"PO-Revision-Date: 2015-05-27 10:17+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
 "fi/)\n"
@@ -215,11 +215,11 @@ msgstr "Viimeaikaisen toiminnan pistetaulukko"
 msgid "All time leaderboard"
 msgstr "Kaikkien aikojen pistetaulukko"
 
-#: templates/_comments.html:7
+#: templates/_comments.html:7 templates/_photo_modal_comments.html:7
 msgid "Original photo"
 msgstr "Alkuperäinen valokuva"
 
-#: templates/_comments.html:11
+#: templates/_comments.html:11 templates/_photo_modal_comments.html:11
 msgid "Rephoto"
 msgstr "Uuskuva"
 
@@ -272,16 +272,18 @@ msgid "From this group"
 msgstr ""
 
 #: templates/_filtering_tutorial_modal.html:46
-#, fuzzy
-#| msgid "Choose area"
 msgid "Choose 2 parameters"
-msgstr "Valitse alue"
+msgstr ""
 
-#: templates/_filtering_tutorial_modal.html:58
+#: templates/_filtering_tutorial_modal.html:54
+msgid "or"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:60
 msgid "and"
 msgstr ""
 
-#: templates/_filtering_tutorial_modal.html:59
+#: templates/_filtering_tutorial_modal.html:61
 msgid "1 of"
 msgstr ""
 
@@ -480,10 +482,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/_header.html:34 templates/_header.html.py:151
-#, fuzzy
-#| msgid "All time leaderboard"
 msgid "Profile and leaderboard"
-msgstr "Kaikkien aikojen pistetaulukko"
+msgstr ""
 
 #: templates/_header.html:51 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
@@ -513,10 +513,8 @@ msgid "Album selection"
 msgstr ""
 
 #: templates/_header.html:77 templates/_header.html.py:78
-#, fuzzy
-#| msgid "Back to map"
 msgid "Back to homepage"
-msgstr "Takaisin karttaan"
+msgstr ""
 
 #: templates/_header.html:95
 msgid "Album details"
@@ -560,22 +558,16 @@ msgid "Choose language"
 msgstr ""
 
 #: templates/_header.html:182
-#, fuzzy
-#| msgid "Search box"
 msgid "Search"
-msgstr "Hakukenttä"
+msgstr ""
 
 #: templates/_header.html:187
-#, fuzzy
-#| msgid "Select file..."
 msgid "Selection"
-msgstr "Valitse tiedosto..."
+msgstr ""
 
 #: templates/_header.html:191
-#, fuzzy
-#| msgid "Choose albums"
 msgid "My albums"
-msgstr "Valitse albumit"
+msgstr ""
 
 #: templates/_header.html:201
 msgid "Full search"
@@ -586,26 +578,20 @@ msgid "Filter existing"
 msgstr ""
 
 #: templates/_header.html:213
-#, fuzzy
-#| msgid "Search box"
 msgid "Search!"
-msgstr "Hakukenttä"
+msgstr ""
 
 #: templates/_header.html:218
 msgid "Load more"
 msgstr ""
 
 #: templates/_header.html:223
-#, fuzzy
-#| msgid "Selected albums:"
 msgid "Select all"
-msgstr "Valitus albumit:"
+msgstr ""
 
 #: templates/_header.html:233
-#, fuzzy
-#| msgid "Collection info"
 msgid "Clear selection"
-msgstr "Kokoelman tiedot"
+msgstr ""
 
 #: templates/_header.html:239
 msgid "Submit to Ajapaik"

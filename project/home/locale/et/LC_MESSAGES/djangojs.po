@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 13:14+0300\n"
-"PO-Revision-Date: 2015-05-27 08:20+0000\n"
+"POT-Creation-Date: 2015-05-27 17:08+0300\n"
+"PO-Revision-Date: 2015-05-27 12:49+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
@@ -44,7 +44,7 @@ msgstr "Sulge"
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:650
+#: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:652
 #: static/js/ajapaik-map.js:947
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -78,16 +78,12 @@ msgid "Most"
 msgstr "Enim"
 
 #: static/js/ajapaik-frontpage.js:215
-#, fuzzy
-#| msgid "Furthest from you"
 msgid "Pictures furthest from you"
-msgstr "Sinust kaugeimad"
+msgstr "Sinust kaugemaid pildid"
 
 #: static/js/ajapaik-frontpage.js:217
-#, fuzzy
-#| msgid "Closest to you"
 msgid "Pictures closest to you"
-msgstr "Sulle lähimad"
+msgstr "Sulle lähimad pildid"
 
 #: static/js/ajapaik-frontpage.js:222
 msgid "commented"
@@ -106,10 +102,8 @@ msgid "geotagged"
 msgstr "kaardile märgitud"
 
 #: static/js/ajapaik-frontpage.js:234
-#, fuzzy
-#| msgid "Geotag pictures"
 msgid "pictures"
-msgstr "Märgi pilte kaardile"
+msgstr "pildid"
 
 #: static/js/ajapaik-game.js:40
 msgid "Vihje vaatamine"
@@ -124,23 +118,23 @@ msgstr ""
 "vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
 
 #: static/js/ajapaik-game.js:207
-#, fuzzy
-#| msgid "You have seen all the pictures from this album."
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
-msgstr "Oled näinud kõiki pilte sellest albumist."
+msgstr ""
+"Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti "
+"juhuslikult valitud pilte."
 
 #: static/js/ajapaik-game.js:209
 msgid "You have seen all the pictures from this album."
 msgstr "Oled näinud kõiki pilte sellest albumist."
 
-#: static/js/ajapaik-game.js:334 static/js/ajapaik-game.js.c:336
+#: static/js/ajapaik-game.js:336 static/js/ajapaik-game.js.c:338
 #: static/js/ajapaik-map.js:365 static/js/ajapaik-map.js.c:366
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
-#: static/js/ajapaik-game.js:354
+#: static/js/ajapaik-game.js:356
 msgid "Your guess"
 msgstr "Sinu pakkumine"
 
@@ -251,11 +245,6 @@ msgstr "Pildil on asukoha ja vaate suuna info"
 #: static/js/ajapaik-translations.js:26
 msgid "Image has rephotos"
 msgstr "Pildist on ülepildistusi"
-
-#~ msgid "We are now showing you random photos."
-#~ msgstr ""
-#~ "Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti "
-#~ "juhuslikult valitud pilte."
 
 #~ msgid "We doubt about it."
 #~ msgstr "Others have different opinion."
