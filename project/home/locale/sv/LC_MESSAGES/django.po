@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-26 13:47+0300\n"
+"POT-Creation-Date: 2015-05-27 13:14+0300\n"
 "PO-Revision-Date: 2015-05-25 14:52+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -32,125 +32,125 @@ msgstr ""
 msgid "Choose photo"
 msgstr ""
 
-#: project/home/models.py:672
+#: project/home/models.py:684
 msgid "Map"
 msgstr ""
 
-#: project/home/models.py:673
+#: project/home/models.py:685
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:674
+#: project/home/models.py:686
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:678
+#: project/home/models.py:690
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:679
+#: project/home/models.py:691
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:680
+#: project/home/models.py:692
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:684
+#: project/home/models.py:696
 msgid "Google map"
 msgstr ""
 
-#: project/home/models.py:685
+#: project/home/models.py:697
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:686
+#: project/home/models.py:698
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:546
+#: project/home/views.py:544
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:550
+#: project/home/views.py:548
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:595 templates/_header.html:41
-#: templates/_header.html.py:42 templates/base_bootstrap.html:8
+#: project/home/views.py:593 templates/_header.html:77
+#: templates/_header.html.py:78 templates/base_bootstrap.html:8
 #: templates/base_bootstrap.html.py:10 templates/base_bootstrap.html:101
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
-#: project/home/views.py:1015 project/home/views.py:1018
-#: project/home/views.py:1020
+#: project/home/views.py:1012 project/home/views.py:1015
+#: project/home/views.py:1017
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:1118
+#: project/home/views.py:1115
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:1121
+#: project/home/views.py:1118
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:1124
+#: project/home/views.py:1121
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:1126
+#: project/home/views.py:1123
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:1128
+#: project/home/views.py:1125
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:1130
+#: project/home/views.py:1127
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:1158 project/home/views.py:1174
-#: project/home/views.py:1206 templates/_header.html:191
+#: project/home/views.py:1155 project/home/views.py:1171
+#: project/home/views.py:1203 templates/_header.html:40
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:1299
+#: project/home/views.py:1296
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:1301
+#: project/home/views.py:1298
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1572
+#: project/home/views.py:1569
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1574
+#: project/home/views.py:1571
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1597
+#: project/home/views.py:1594
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1606
+#: project/home/views.py:1603
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1615
+#: project/home/views.py:1612
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1617
+#: project/home/views.py:1614
 msgid "Not enough data submitted"
 msgstr ""
 
@@ -211,32 +211,64 @@ msgstr ""
 msgid "Rephoto"
 msgstr ""
 
-#: templates/_filter_selection_menu.html:11
-msgid "Newest"
+#: templates/_filtering_dropdown.html:6
+msgid "Filtering"
 msgstr ""
 
-#: templates/_filter_selection_menu.html:20
-msgid "Closest"
+#: templates/_filtering_dropdown.html:12
+msgid "Sort by distance from you"
 msgstr ""
 
-#: templates/_filter_selection_menu.html:29
-msgid "Most discussed"
+#: templates/_filtering_dropdown.html:23
+msgid "Sort by time and ..."
 msgstr ""
 
-#: templates/_filter_selection_menu.html:38
-msgid "Most rephotos"
+#: templates/_filtering_dropdown.html:32
+msgid "Sort by photos' time added"
 msgstr ""
 
-#: templates/_filter_selection_menu.html:47
-msgid "Latest rephotos"
+#: templates/_filtering_dropdown.html:42
+msgid "Sort by geotags' time added or amount"
 msgstr ""
 
-#: templates/_filter_selection_menu.html:56
-msgid "Latest comments"
+#: templates/_filtering_dropdown.html:52
+msgid "Sort by rephotos' time added or amount"
 msgstr ""
 
-#: templates/_filter_selection_menu.html:65
-msgid "Latest geotags"
+#: templates/_filtering_dropdown.html:62
+msgid "Sort by comments' time added or amount"
+msgstr ""
+
+#: templates/_filtering_dropdown.html:72
+msgid "Sort by amount and ..."
+msgstr ""
+
+#: templates/_filtering_dropdown.html:81
+msgid "Change sorting order"
+msgstr ""
+
+#: templates/_filtering_dropdown.html:90
+msgid "Help"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:11
+msgid "How to sort"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:14
+msgid "From this group"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:46
+msgid "Choose 2 parameters"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:58
+msgid "and"
+msgstr ""
+
+#: templates/_filtering_tutorial_modal.html:59
+msgid "1 of"
 msgstr ""
 
 #: templates/_general_info_modal_content.html:9
@@ -430,119 +462,119 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_header.html:36
-msgid "Toggle navigation"
-msgstr ""
-
-#: templates/_header.html:49
-msgid "Album selection"
-msgstr ""
-
-#: templates/_header.html:59
-msgid "Album details"
-msgstr ""
-
-#: templates/_header.html:64
-msgid "Order"
-msgstr ""
-
-#: templates/_header.html:72
-msgid "Remove album filter"
-msgstr ""
-
-#: templates/_header.html:80
-msgid "Filtering"
-msgstr ""
-
-#: templates/_header.html:152
-msgid "Show in grid"
-msgstr ""
-
-#: templates/_header.html:158 templates/_info_modal_content.html:147
-#: templates/_info_modal_content.html:149
-msgid "Geotag pictures"
-msgstr ""
-
-#: templates/_header.html:164 templates/_info_modal_content.html:138
-msgid "Show on map"
-msgstr ""
-
-#: templates/_header.html:169
-msgid "Curate"
-msgstr ""
-
-#: templates/_header.html:175
-msgid "About Ajapaik"
-msgstr ""
-
-#: templates/_header.html:180
-msgid "Ajapaik on Facebook"
-msgstr ""
-
-#: templates/_header.html:185
+#: templates/_header.html:34 templates/_header.html.py:151
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: templates/_header.html:202 templates/_photo_upload_modal.html:9
+#: templates/_header.html:51 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:13
 msgid "User"
 msgstr ""
 
-#: templates/_header.html:203 templates/_photo_upload_modal.html:9
+#: templates/_header.html:52 templates/_photo_upload_modal.html:9
 #: templates/photo_upload.html:14
 msgid "Log out"
 msgstr ""
 
-#: templates/_header.html:209
+#: templates/_header.html:58
 msgid "Facebook Connect to save your score and continue later."
 msgstr ""
 
-#: templates/_header.html:210 templates/_photo_upload_modal.html:36
+#: templates/_header.html:59 templates/_photo_upload_modal.html:36
 #: templates/curator.html:220 templates/photo_upload.html:261
 msgid "Connect with Facebook"
 msgstr ""
 
-#: templates/_header.html:218
+#: templates/_header.html:65
+msgid "Toggle navigation"
+msgstr ""
+
+#: templates/_header.html:72 templates/_header.html.py:85
+msgid "Album selection"
+msgstr ""
+
+#: templates/_header.html:77 templates/_header.html.py:78
+msgid "Back to homepage"
+msgstr ""
+
+#: templates/_header.html:95
+msgid "Album details"
+msgstr ""
+
+#: templates/_header.html:100
+msgid "Order"
+msgstr ""
+
+#: templates/_header.html:108
+msgid "Remove album filter"
+msgstr ""
+
+#: templates/_header.html:117
+msgid "Show in grid"
+msgstr ""
+
+#: templates/_header.html:124 templates/_info_modal_content.html:147
+#: templates/_info_modal_content.html:149
+msgid "Geotag pictures"
+msgstr ""
+
+#: templates/_header.html:130 templates/_info_modal_content.html:138
+msgid "Show on map"
+msgstr ""
+
+#: templates/_header.html:135
+msgid "Curate"
+msgstr ""
+
+#: templates/_header.html:141
+msgid "About Ajapaik"
+msgstr ""
+
+#: templates/_header.html:146
+msgid "Ajapaik on Facebook"
+msgstr ""
+
+#: templates/_header.html:158
 msgid "Choose language"
 msgstr ""
 
-#: templates/_header.html:242
+#: templates/_header.html:182
 msgid "Search"
 msgstr ""
 
-#: templates/_header.html:247
+#: templates/_header.html:187
 msgid "Selection"
 msgstr ""
 
-#: templates/_header.html:251
+#: templates/_header.html:191
 msgid "My albums"
 msgstr ""
 
-#: templates/_header.html:261
+#: templates/_header.html:201
 msgid "Full search"
 msgstr ""
 
-#: templates/_header.html:267
+#: templates/_header.html:207
 msgid "Filter existing"
 msgstr ""
 
-#: templates/_header.html:273
+#: templates/_header.html:213
 msgid "Search!"
 msgstr ""
 
-#: templates/_header.html:278
+#: templates/_header.html:218
 msgid "Load more"
 msgstr ""
 
-#: templates/_header.html:283
+#: templates/_header.html:223
 msgid "Select all"
 msgstr ""
 
-#: templates/_header.html:293
+#: templates/_header.html:233
 msgid "Clear selection"
 msgstr ""
 
-#: templates/_header.html:299
+#: templates/_header.html:239
 msgid "Submit to Ajapaik"
 msgstr ""
 
@@ -691,7 +723,7 @@ msgstr[1] ""
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/_info_modal_content.html:112 templates/_photo_modal.html:194
+#: templates/_info_modal_content.html:112 templates/_photo_modal.html:200
 #: templates/photoview.html:57
 msgid "Share"
 msgstr ""
@@ -702,43 +734,43 @@ msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_photo_modal.html:147 templates/photoview.html:127
+#: templates/_photo_modal.html:153 templates/photoview.html:127
 msgid "Unknown author"
 msgstr ""
 
-#: templates/_photo_modal.html:162 templates/frontpage.html:23
+#: templates/_photo_modal.html:168 templates/frontpage.html:23
 #: templates/game.html:41
 msgid "Image has location and view direction info"
 msgstr ""
 
-#: templates/_photo_modal.html:166 templates/_photo_modal.html.py:178
+#: templates/_photo_modal.html:172 templates/_photo_modal.html.py:184
 msgid "user has submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:168 templates/_photo_modal.html.py:180
+#: templates/_photo_modal.html:174 templates/_photo_modal.html.py:186
 msgid "users have submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:174 templates/frontpage.html:26
+#: templates/_photo_modal.html:180 templates/frontpage.html:26
 #: templates/game.html:42
 msgid "Image has only location, no view direction"
 msgstr ""
 
-#: templates/_photo_modal.html:186 templates/frontpage.html:29
+#: templates/_photo_modal.html:192 templates/frontpage.html:29
 #: templates/game.html:43
 msgid "Image has no location info"
 msgstr ""
 
-#: templates/_photo_modal.html:191 templates/game.html:45
+#: templates/_photo_modal.html:197 templates/game.html:45
 #: templates/game.html.py:85
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: templates/_photo_modal.html:192 templates/photoview.html:77
+#: templates/_photo_modal.html:198 templates/photoview.html:77
 msgid "Add rephoto"
 msgstr ""
 
-#: templates/_photo_modal.html:211
+#: templates/_photo_modal.html:217
 msgid "Discuss"
 msgstr ""
 

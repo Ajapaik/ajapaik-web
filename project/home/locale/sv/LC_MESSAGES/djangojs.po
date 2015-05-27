@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-26 13:47+0300\n"
+"POT-Creation-Date: 2015-05-27 13:14+0300\n"
 "PO-Revision-Date: 2015-05-25 14:53+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -42,7 +42,7 @@ msgid "Save location only"
 msgstr ""
 
 #: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:650
-#: static/js/ajapaik-map.js:942
+#: static/js/ajapaik-map.js:947
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -56,44 +56,48 @@ msgstr ""
 msgid "Median guess"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:200
+#: static/js/ajapaik-frontpage.js:201
 msgid "Earliest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:202
+#: static/js/ajapaik-frontpage.js:203
 msgid "Latest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:207
+#: static/js/ajapaik-frontpage.js:208
 msgid "Least"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:209
+#: static/js/ajapaik-frontpage.js:210
 msgid "Most"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:214
-msgid "Furthest from you"
+#: static/js/ajapaik-frontpage.js:215
+msgid "Pictures furthest from you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:216
-msgid "Closest to you"
+#: static/js/ajapaik-frontpage.js:217
+msgid "Pictures closest to you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:221
+#: static/js/ajapaik-frontpage.js:222
 msgid "commented"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:224
+#: static/js/ajapaik-frontpage.js:225
 msgid "rephotographed"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:227
+#: static/js/ajapaik-frontpage.js:228
 msgid "added"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:230
+#: static/js/ajapaik-frontpage.js:231
 msgid "geotagged"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:234
+msgid "pictures"
 msgstr ""
 
 #: static/js/ajapaik-game.js:40
@@ -107,7 +111,9 @@ msgid ""
 msgstr ""
 
 #: static/js/ajapaik-game.js:207
-msgid "We are now showing you random photos."
+msgid ""
+"You've seen all the pictures in this album, we are now showing you random "
+"photos."
 msgstr ""
 
 #: static/js/ajapaik-game.js:209
@@ -123,11 +129,11 @@ msgstr ""
 msgid "Your guess"
 msgstr ""
 
-#: static/js/ajapaik-map.js:865
+#: static/js/ajapaik-map.js:870
 msgid "Remove album filter"
 msgstr ""
 
-#: static/js/ajapaik-map.js:869
+#: static/js/ajapaik-map.js:874
 msgid "Apply album filter"
 msgstr ""
 
