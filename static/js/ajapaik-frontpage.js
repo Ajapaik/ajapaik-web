@@ -230,6 +230,7 @@
                 $('#ajapaik-geotags-filter-icon').attr('class', 'ajapaik-filter-white');
                 orderingString += ' ' + window.gettext('geotagged');
             }
+            orderingString += ' ' + window.gettext('pictures');
             var orderingStringTarget = $('#ajapaik-header-order-name');
             if (orderingStringTarget) {
                 orderingStringTarget.html(orderingString);
@@ -316,9 +317,10 @@
             }
             if (window.order1 === 'closest') {
                 if (window.order2) {
-                    window.order2 = null;
+                    window.order1 = 'time';
+                } else {
+                    window.getGeolocation(window.handleGeolocation);
                 }
-                window.getGeolocation(window.handleGeolocation);
             } else {
                 syncStateToUrl();
                 syncFilteringHighlights();
