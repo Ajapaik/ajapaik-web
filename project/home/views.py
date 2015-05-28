@@ -31,14 +31,15 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import get_thumbnail, delete
 from time import strftime, strptime
 from StringIO import StringIO
+from project.home.facebook import APP_ID
 from project.home.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness
+    Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness, PhotoComment
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
-from project.settings import DEBUG
+from project.settings import DEBUG, FACEBOOK_APP_SECRET
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -1621,14 +1622,29 @@ def curator_photo_upload_handler(request):
 def update_comment_count(request):
     ret = {}
     photo_id = request.POST.get('photo_id')
-    count = request.POST.get('count')
     if photo_id:
         p = Photo.objects.filter(pk=photo_id).first()
-        if photo and count:
-            p.fb_comments_count += int(count)
-            p.latest_comment = datetime.datetime.now()
-            if p.first_comment is None:
-                p.first_comment = datetime.datetime.now()
+        if p:
+            fql_string = "SELECT text, id, parent_id, object_id, fromid, time FROM comment WHERE object_id IN (" + p.fb_object_id + ")"
+            response = json.loads(requests.get('https://graph.facebook.com/fql?access_token=%s&q=%s' % (APP_ID + '|' + FACEBOOK_APP_SECRET, fql_string)).text)
+            for each in response['data']:
+                existing_comment = PhotoComment.objects.filter(fb_comment_id=each['id']).first()
+                if existing_comment:
+                    existing_comment.text = each['text']
+                    existing_comment.save()
+                else:
+                    new_photo_comment = PhotoComment(
+                        fb_comment_id=each['id'],
+                        fb_comment_parent_id=each['parent_id'],
+                        fb_user_id=each['fromid'],
+                        fb_object_id=each['object_id'],
+                        text=each['text'],
+                        created=datetime.datetime.fromtimestamp(each['time']),
+                        photo=p
+                    )
+                    p.latest_comment = datetime.datetime.now()
+                    new_photo_comment.save()
+            p.fb_comments_count =  len(response['data'])
             p.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
