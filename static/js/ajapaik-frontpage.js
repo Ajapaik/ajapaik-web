@@ -311,10 +311,10 @@
                     window.order3 = $this.data('order3');
                 }
             }
-            if ($this.data('order1') === 'null') {
+            if ($this.data('order1') === 'none') {
                 window.order1 = null;
             }
-            if ($this.data('order2') === 'null') {
+            if ($this.data('order2') === 'none') {
                 window.order2 = null;
             }
             if (window.order1 === 'amount' && !window.order2) {
@@ -329,6 +329,9 @@
             if (window.order1 === 'closest') {
                 if (window.order2) {
                     window.order1 = 'time';
+                    syncStateToUrl();
+                    syncFilteringHighlights();
+                    updateFrontpagePhotosAsync();
                 } else {
                     window.getGeolocation(window.handleGeolocation);
                 }

@@ -49,21 +49,12 @@ body {
     z-index: 100;
 }
 
-.dropdown-menu > li {
-    /*display: inline-block;*/
-    /*float: left;*/
-}
-
-.open > ul {
-    /*display: inline-flex !important;*/
-}
-
 .ajapaik-change-language-link {
     color: #fff !important;
     background: none !important;
 }
 
-.dropdown-menu {
+.ajapaik-black-dropdown-menu {
     width: 100%;
     position: fixed;
     top: 50px;
@@ -79,12 +70,8 @@ body {
     text-align: center;
 }
 
-.dropdown-menu li {
+.ajapaik-black-dropdown-menu li {
     display: inline-block;
-}
-
-.dropdown-menu li.dropdown .dropdown-menu {
-    top: 210px;
 }
 
 .navbar-collapse.collapse.in {
@@ -191,7 +178,7 @@ body {
     background: url(../images/ajapaik_266px.png) no-repeat;
     width: 133px;
     height: 73px;
-    margin: 10px 0 0 20px !important;
+    margin: 10px 10px 0 20px !important;
     background-size: 133px 73px;
     text-indent: -999em;
 }
@@ -425,6 +412,7 @@ body {
 
 #ajapaik-header-menu-button {
     background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
+    margin-right: 0;
 }
 
 .ajapaik-header-menu-button-white {
@@ -453,6 +441,9 @@ body {
 
 #ajapaik-filter-dropdown-filter-name {
     color: #fff;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: -5px;
 }
 
 .ajapaik-header-filter-button-white {

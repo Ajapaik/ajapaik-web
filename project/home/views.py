@@ -583,7 +583,7 @@ def fetch_stream(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def frontpage(request):
+def frontpage(request, album_id=None, page=None):
     albums = _get_album_choices()
     data = _get_filtered_data_for_frontpage(request)
     site = Site.objects.get_current()
