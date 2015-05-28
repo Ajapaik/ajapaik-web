@@ -594,10 +594,12 @@ var map,
         if (!window.isFrontpage) {
             var filterCheckbox = $('#ajapaik-header-album-filter-button'),
                 filterOff = filterCheckbox.hasClass('ajapaik-header-album-filter-button-off');
-            if ((!window.albumId || filterOff) && window.lastMarkerSet) {
+            if ((!window.albumId || filterOff) && window.lastMarkerSet && window.lastMarkerSet.length < 51) {
                 window.location.href = '/?photos=' + window.lastMarkerSet;
-            } else {
+            } else if (window.albumId) {
                 window.location.href = '/?album=' + window.albumId;
+            } else {
+                window.location.href = '/';
             }
         }
     });
