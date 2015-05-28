@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-28 15:33+0300\n"
-"PO-Revision-Date: 2015-05-27 14:02+0000\n"
-"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
+"POT-Creation-Date: 2015-05-28 16:00+0300\n"
+"PO-Revision-Date: 2015-05-28 12:36+0000\n"
+"Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
 "Language: et\n"
@@ -277,7 +277,7 @@ msgstr "vali kaks parameetrit"
 
 #: templates/_filtering_tutorial_modal.html:54
 msgid "or"
-msgstr ""
+msgstr "või"
 
 #: templates/_filtering_tutorial_modal.html:60
 msgid "and"
