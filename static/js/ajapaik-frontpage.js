@@ -233,6 +233,9 @@
             if (window.order1 !== 'closest') {
                 orderingString += ' ' + window.gettext('pictures');
             }
+            if (window.getQueryParameterByName('photos')) {
+                orderingString = window.gettext('Pictures from the map');
+            }
             var orderingStringTarget = $('#ajapaik-header-order-name');
             if (orderingStringTarget) {
                 orderingStringTarget.html(orderingString);

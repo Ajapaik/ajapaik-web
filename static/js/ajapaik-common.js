@@ -592,7 +592,9 @@ var map,
     });
     $(document).on('click', '#ajapaik-header-grid-button', function () {
         if (!window.isFrontpage) {
-            if (!window.albumId && window.lastMarkerSet) {
+            var filterCheckbox = $('#ajapaik-header-album-filter-button'),
+                isChecked = filterCheckbox.is(':checked');
+            if ((!window.albumId || !isChecked) && window.lastMarkerSet) {
                 window.location.href = '/?photos=' + window.lastMarkerSet;
             } else {
                 window.location.href = '/?album=' + window.albumId;
