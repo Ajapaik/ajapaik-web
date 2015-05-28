@@ -201,7 +201,7 @@ body {
     font-size: 20px;
     float: left;
     margin-top: 2px;
-    margin-left: -10px;
+    margin-left: -20px;
     margin-right: -10px;
     white-space: nowrap;
     overflow: hidden;
@@ -412,7 +412,6 @@ body {
 
 #ajapaik-header-menu-button {
     background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
-    margin-right: 0;
     margin-left: 10px;
 }
 
