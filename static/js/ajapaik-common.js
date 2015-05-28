@@ -594,7 +594,7 @@ var map,
         if (!window.isFrontpage) {
             var filterCheckbox = $('#ajapaik-header-album-filter-button'),
                 filterOff = filterCheckbox.hasClass('ajapaik-header-album-filter-button-off');
-            if ((!window.albumId || !filterOff) && window.lastMarkerSet) {
+            if ((!window.albumId || filterOff) && window.lastMarkerSet) {
                 window.location.href = '/?photos=' + window.lastMarkerSet;
             } else {
                 window.location.href = '/?album=' + window.albumId;
