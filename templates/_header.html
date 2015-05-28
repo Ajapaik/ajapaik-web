@@ -36,7 +36,7 @@
                id="ajapaik-header-profile-button"></a>
             <div class="score_container">
                 <h4>
-                    <a id="full_leaderboard" href="javascript:void(0);">
+                    <a id="full_leaderboard" href="#">
                         {% trans "Leaderboard" %}
                     </a>
                 </h4>
@@ -163,7 +163,7 @@
                         {% get_language_info_list for LANGUAGES as languages %}
                         {% for language in languages %}
                             <li>
-                                <a href="javascript:void(0)" data-lang-code="{{ language.code }}"
+                                <a href="#" data-lang-code="{{ language.code }}"
                                     class="ajapaik-change-language-link">{{ language.name_local|title }}
                                 </a>
                             </li>

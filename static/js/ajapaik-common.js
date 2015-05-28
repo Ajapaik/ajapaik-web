@@ -1133,6 +1133,7 @@ var map,
     $(document).on('click', '.ajapaik-change-language-link', function (e) {
         e.preventDefault();
         $('#ajapaik-language').val($(this).attr('data-lang-code'));
+        console.log($(this).attr('data-lang-code'));
         $('#ajapaik-change-language-form').submit();
     });
 
