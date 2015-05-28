@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Lauri Elias, 2015
 # Susanna Ånäs <susanna.anas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-28 15:34+0300\n"
-"PO-Revision-Date: 2015-05-27 10:18+0000\n"
+"POT-Creation-Date: 2015-05-28 16:00+0300\n"
+"PO-Revision-Date: 2015-05-28 12:37+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
 "fi/)\n"
@@ -123,7 +124,7 @@ msgstr ""
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
-msgstr ""
+msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
 
 #: static/js/ajapaik-game.js:209
 msgid "You have seen all the pictures from this album."

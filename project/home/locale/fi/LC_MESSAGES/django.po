@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Lauri Elias, 2015
 # Susanna Ånäs <susanna.anas@gmail.com>, 2015
 # Vahur Puik <vahur@ajapaik.ee>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-28 15:33+0300\n"
-"PO-Revision-Date: 2015-05-27 10:17+0000\n"
+"POT-Creation-Date: 2015-05-28 16:00+0300\n"
+"PO-Revision-Date: 2015-05-28 12:42+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/ajapaik/language/"
 "fi/)\n"
@@ -497,7 +498,7 @@ msgstr "Kirjaudu ulos"
 
 #: templates/_header.html:58
 msgid "Facebook Connect to save your score and continue later."
-msgstr ""
+msgstr "Tallenna pisteesi Facebook Connectilla ja jatka myöhemmin."
 
 #: templates/_header.html:59 templates/_photo_upload_modal.html:36
 #: templates/curator.html:220 templates/photo_upload.html:261
@@ -514,7 +515,7 @@ msgstr ""
 
 #: templates/_header.html:77 templates/_header.html.py:78
 msgid "Back to homepage"
-msgstr ""
+msgstr "Takaisin kotiin"
 
 #: templates/_header.html:95
 msgid "Album details"
@@ -543,7 +544,7 @@ msgstr "Näytä kartalla"
 
 #: templates/_header.html:135
 msgid "Curate"
-msgstr ""
+msgstr "Kuratoi"
 
 #: templates/_header.html:141
 msgid "About Ajapaik"
@@ -555,23 +556,23 @@ msgstr ""
 
 #: templates/_header.html:158
 msgid "Choose language"
-msgstr ""
+msgstr "Valitse kieli"
 
 #: templates/_header.html:182
 msgid "Search"
-msgstr ""
+msgstr "Etsi"
 
 #: templates/_header.html:187
 msgid "Selection"
-msgstr ""
+msgstr "Valinta"
 
 #: templates/_header.html:191
 msgid "My albums"
-msgstr ""
+msgstr "Minun albumini"
 
 #: templates/_header.html:201
 msgid "Full search"
-msgstr ""
+msgstr "Laaja haku"
 
 #: templates/_header.html:207
 msgid "Filter existing"
@@ -579,23 +580,23 @@ msgstr ""
 
 #: templates/_header.html:213
 msgid "Search!"
-msgstr ""
+msgstr "Hae!"
 
 #: templates/_header.html:218
 msgid "Load more"
-msgstr ""
+msgstr "Lataa lisää!"
 
 #: templates/_header.html:223
 msgid "Select all"
-msgstr ""
+msgstr "Valitse kaikki"
 
 #: templates/_header.html:233
 msgid "Clear selection"
-msgstr ""
+msgstr "Tyhjennä valinta"
 
 #: templates/_header.html:239
 msgid "Submit to Ajapaik"
-msgstr ""
+msgstr "Lataa Ajapaikiin"
 
 #: templates/_info_modal_content.html:14 templates/_info_modal_content.html:20
 msgid "Album curated by"
