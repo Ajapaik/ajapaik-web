@@ -4,7 +4,7 @@
     <ul class="pager ajapaik-pager">
         <li>
             <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:-1 %}">
-                <
+                &lt;
             </a>
         </li>
         <li class="disabled">
@@ -14,7 +14,7 @@
         </li>
         <li>
             <a id="ajapaik-paging-next-button" {% if page == max_page %}class="ajapaik-invisible"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:1 %}">
-                >
+                &gt;
             </a>
         </li>
     </ul>
