@@ -974,6 +974,21 @@ var map,
         $('#ajapaik-album-selection-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
     });
+    $(document).on('click', '#ajapaik-photo-modal-discuss', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
+        }
+        var commentsSection = $('#ajapaik-comments-section');
+        if (commentsSection.hasClass('hidden')) {
+            commentsSection.removeClass('hidden');
+            window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+            window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
+        } else {
+            commentsSection.addClass('hidden');
+        }
+    });
     window.openPhotoUploadModal = function () {
         if (window.photoModalCurrentlyOpenPhotoId) {
             $.ajax({
