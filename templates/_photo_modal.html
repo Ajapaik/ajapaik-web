@@ -381,7 +381,7 @@
             } else if (window.isMapview) {
                 window._gaq.push(['_trackEvent', 'Map', 'Photo modal specify location click']);
             }
-            window.startGuessLocation(e.target.dataset.id);
+            window.startGuessLocation($(this).data('id'));
         });
         $('#ajapaik-photo-modal-close-button').click(function (e) {
             e.preventDefault();
@@ -467,7 +467,7 @@
             }
         });
         $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function (e) {
-            var targetId = e.target.dataset.id,
+            var targetId = $(this).data('id'),
                 infoDiv = $('#ajapaik-photo-modal-rephoto-info-column'),
                 photoDiv = $('#ajapaik-modal-rephoto-container');
             if (!targetId) {

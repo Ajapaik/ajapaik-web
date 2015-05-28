@@ -966,10 +966,11 @@ var map,
     });
     $(document).on('click', '.ajapaik-album-selection-item', function (e) {
         e.preventDefault();
+        var $this = $(this);
         window.previousAlbumId = window.albumId;
-        window.albumId = e.target.dataset.id;
-        window.albumName = e.target.dataset.name;
-        window.currentAlbumPhotoCount = e.target.dataset.photos;
+        window.albumId = $this.data('id');
+        window.albumName = $this.data('name');
+        window.currentAlbumPhotoCount = $this.data('photos');
         $('#ajapaik-album-selection-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
     });
