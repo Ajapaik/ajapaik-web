@@ -633,7 +633,7 @@ class Photo(Model):
 
 
 class PhotoComment(Model):
-    photo = ForeignKey("Photo")
+    photo = ForeignKey("Photo", related_name='comments')
     fb_comment_id = CharField(max_length=255, unique=True)
     fb_object_id = CharField(max_length=255)
     fb_comment_parent_id = CharField(max_length=255, blank=True, null=True)
