@@ -10,7 +10,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         albums = Album.objects.annotate(photo_count=Count('photos'))
         for a in albums:
-            print a.id
             if a.photo_count > 0:
                 random_index = randint(0, a.photo_count - 1)
             else:
@@ -27,4 +26,3 @@ class Command(BaseCommand):
                         except IndexError:
                             continue
             a.save()
-            print a.photo_count_with_subalbums
