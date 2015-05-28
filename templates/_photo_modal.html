@@ -408,7 +408,6 @@
         };
         $(document).on('click', '#ajapaik-full-screen-link', function (e) {
             e.preventDefault();
-            console.log($(window).scrollTop());
             window.lastScrollPosition = $(window).scrollTop();
             if (BigScreen.enabled) {
                 BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
