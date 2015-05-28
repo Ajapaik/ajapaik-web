@@ -53,7 +53,7 @@ class GalleryFilteringForm(forms.Form):
 class MapDataRequestForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)
-    limit_by_album = forms.BooleanField(initial=False)
+    limit_by_album = forms.BooleanField(initial=False, required=False)
     sw_lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     sw_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     ne_lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
