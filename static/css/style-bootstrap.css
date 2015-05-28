@@ -1478,7 +1478,7 @@ ul.errorlist {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     padding-top: 50px;
-    z-index: 99;
+    z-index: 99 !important;
 }
 
 #ajapaik-mapview-photo-panel .jsPanel {
