@@ -593,8 +593,8 @@ var map,
     $(document).on('click', '#ajapaik-header-grid-button', function () {
         if (!window.isFrontpage) {
             var filterCheckbox = $('#ajapaik-header-album-filter-button'),
-                isChecked = filterCheckbox.is(':checked');
-            if ((!window.albumId || !isChecked) && window.lastMarkerSet) {
+                filterOff = filterCheckbox.hasClass('ajapaik-header-album-filter-button-off');
+            if ((!window.albumId || !filterOff) && window.lastMarkerSet) {
                 window.location.href = '/?photos=' + window.lastMarkerSet;
             } else {
                 window.location.href = '/?album=' + window.albumId;
