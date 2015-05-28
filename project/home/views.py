@@ -672,7 +672,7 @@ def _get_filtered_data_for_frontpage(request):
                 else:
                     photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                         order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
-            elif order2 == 'rephotos':
+            elif order2 == 'comments':
                 if order3 == 'reverse':
                     photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
                         order_by=['first_comment_is_null', '-project_photo.first_comment'], )
