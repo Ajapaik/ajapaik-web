@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 17:08+0300\n"
+"POT-Creation-Date: 2015-05-28 15:33+0300\n"
 "PO-Revision-Date: 2015-05-27 10:17+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Latvian (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -33,125 +33,125 @@ msgstr ""
 msgid "Choose photo"
 msgstr ""
 
-#: project/home/models.py:684
+#: project/home/models.py:701
 msgid "Map"
 msgstr ""
 
-#: project/home/models.py:685
+#: project/home/models.py:702
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:686
+#: project/home/models.py:703
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:690
+#: project/home/models.py:707
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:691
+#: project/home/models.py:708
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:692
+#: project/home/models.py:709
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:696
+#: project/home/models.py:713
 msgid "Google map"
 msgstr ""
 
-#: project/home/models.py:697
+#: project/home/models.py:714
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:698
+#: project/home/models.py:715
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:544
+#: project/home/views.py:545
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:548
+#: project/home/views.py:549
 msgid "Let's put pictures on the map"
 msgstr ""
 
-#: project/home/views.py:593 templates/_header.html:77
+#: project/home/views.py:594 templates/_header.html:77
 #: templates/_header.html.py:78 templates/base_bootstrap.html:8
 #: templates/base_bootstrap.html.py:10 templates/base_bootstrap.html:101
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: project/home/views.py:1012 project/home/views.py:1015
-#: project/home/views.py:1017
+#: project/home/views.py:1013 project/home/views.py:1016
+#: project/home/views.py:1018
 msgid "Browse photos on map"
 msgstr "Apskatīt attēlus kartē"
 
-#: project/home/views.py:1115
+#: project/home/views.py:1116
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:1118
+#: project/home/views.py:1119
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:1121
+#: project/home/views.py:1122
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:1123
+#: project/home/views.py:1124
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:1125
+#: project/home/views.py:1126
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:1127
+#: project/home/views.py:1128
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:1155 project/home/views.py:1171
-#: project/home/views.py:1203 templates/_header.html:40
+#: project/home/views.py:1156 project/home/views.py:1172
+#: project/home/views.py:1204 templates/_header.html:40
 msgid "Leaderboard"
 msgstr "Līderu tabula"
 
-#: project/home/views.py:1296
+#: project/home/views.py:1297
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:1298
+#: project/home/views.py:1299
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1569
+#: project/home/views.py:1570
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1571
+#: project/home/views.py:1572
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1594
+#: project/home/views.py:1595
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1603
+#: project/home/views.py:1604
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1612
+#: project/home/views.py:1613
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1614
+#: project/home/views.py:1615
 msgid "Not enough data submitted"
 msgstr ""
 

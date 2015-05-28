@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 17:08+0300\n"
+"POT-Creation-Date: 2015-05-28 15:34+0300\n"
 "PO-Revision-Date: 2015-05-27 10:18+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Latvian (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -37,23 +37,23 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: static/js/ajapaik-common.js:702 static/js/ajapaik-common.js.c:823
-#: static/js/ajapaik-common.js:842 static/js/ajapaik-game.js:129
+#: static/js/ajapaik-common.js:704 static/js/ajapaik-common.js.c:825
+#: static/js/ajapaik-common.js:844 static/js/ajapaik-game.js:129
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:734 static/js/ajapaik-game.js:652
-#: static/js/ajapaik-map.js:947
+#: static/js/ajapaik-common.js:736 static/js/ajapaik-game.js:652
+#: static/js/ajapaik-map.js:936
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:758
+#: static/js/ajapaik-common.js:760
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:896
+#: static/js/ajapaik-common.js:898
 msgid "Median guess"
 msgstr ""
 
@@ -101,6 +101,10 @@ msgstr ""
 msgid "pictures"
 msgstr ""
 
+#: static/js/ajapaik-frontpage.js:237
+msgid "Pictures from the map"
+msgstr ""
+
 #: static/js/ajapaik-game.js:40
 msgid "Vihje vaatamine"
 msgstr ""
@@ -122,7 +126,7 @@ msgid "You have seen all the pictures from this album."
 msgstr ""
 
 #: static/js/ajapaik-game.js:336 static/js/ajapaik-game.js.c:338
-#: static/js/ajapaik-map.js:365 static/js/ajapaik-map.js.c:366
+#: static/js/ajapaik-map.js:364 static/js/ajapaik-map.js.c:365
 msgid "Points awarded"
 msgstr ""
 
@@ -130,11 +134,11 @@ msgstr ""
 msgid "Your guess"
 msgstr ""
 
-#: static/js/ajapaik-map.js:870
+#: static/js/ajapaik-map.js:869
 msgid "Remove album filter"
 msgstr ""
 
-#: static/js/ajapaik-map.js:874
+#: static/js/ajapaik-map.js:873
 msgid "Apply album filter"
 msgstr ""
 
