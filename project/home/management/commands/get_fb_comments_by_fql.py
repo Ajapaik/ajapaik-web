@@ -72,6 +72,7 @@ class Command(BaseCommand):
                             fb_comment_id=each['id'],
                             fb_comment_parent_id=each['parent_id'],
                             fb_user_id=each['fromid'],
+                            fb_object_id=each['object_id'],
                             text=each['text'],
                             created=datetime.datetime.fromtimestamp(each['time']),
                             photo=photos.get(fb_object_id=each['object_id'])

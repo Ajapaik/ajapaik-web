@@ -159,22 +159,20 @@
                     _gaq.push(["_trackEvent", "Facebook", "Message sent", a])
                 }), FB.Event.subscribe("comment.create", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment added", a.href]);
-{% comment %}                    var parts = a.href.split('/');
+                    var parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
                         photo_id: parts[parts.length - 2],
-                        count: 1,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     }, function () {
-                    });{% endcomment %}
+                    });
                 }), FB.Event.subscribe("comment.remove", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment removed", a.href]);
-{% comment %}                    var parts = a.href.split('/');
+                    var parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
                         photo_id: parts[parts.length - 2],
-                        count: -1,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     }, function () {
-                    });{% endcomment %}
+                    });
                 }), FB.Event.subscribe("auth.prompt", function () {
                     _gaq.push(["_trackEvent", "Facebook", "Login prompt"])
                 }), FB.Event.subscribe("auth.login", function () {
