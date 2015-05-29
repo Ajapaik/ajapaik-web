@@ -119,7 +119,9 @@
             rephotoFullScreenImage.prop('src', window.photoModalRephotoFullscreenImageUrl);
             $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
             //window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
-            window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
+            if (window.photoModalRephotoFullscreenImageSize) {
+                window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
+            }
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');
             $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
             $('.ajapaik-game-show-description-button').hide();
