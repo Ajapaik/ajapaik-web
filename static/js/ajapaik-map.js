@@ -112,12 +112,14 @@
     openPhotoDrawer = function (content) {
         photoDrawerOpen = true;
         window.syncMapStateToURL();
-        var fullScreenImage = $('#ajapaik-full-screen-image');
+        var fullScreenImage = $('#ajapaik-full-screen-image'),
+            rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image');
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
+            rephotoFullScreenImage.prop('src', window.photoModalRephotoFullscreenImageUrl);
             $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
-            window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
-            //window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
+            //window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
+            window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');
             $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
             $('.ajapaik-game-show-description-button').hide();
