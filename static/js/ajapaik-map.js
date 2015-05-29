@@ -112,13 +112,13 @@
     openPhotoDrawer = function (content) {
         photoDrawerOpen = true;
         window.syncMapStateToURL();
-        var fullScreenImage = $('#ajapaik-mapview-full-screen-image');
+        var fullScreenImage = $('#ajapaik-full-screen-image');
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
             $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
             window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
             //window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
-            window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-mapview-full-screen-image');
+            window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');
             $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
             $('.ajapaik-game-show-description-button').hide();
             if (window.clickSpecifyAfterPageLoad) {
@@ -708,7 +708,7 @@
     window.flipPhoto = function () {
         window.photoModalCurrentPhotoFlipStatus = !window.photoModalCurrentPhotoFlipStatus;
         window.userFlippedPhoto = true;
-        var fullScreenPhoto = $('#ajapaik-mapview-full-screen-image'),
+        var fullScreenPhoto = $('#ajapaik-full-screen-image'),
             guessPhoto = $('#ajapaik-guess-panel-photo');
         if (fullScreenPhoto.hasClass('ajapaik-photo-flipped')) {
             fullScreenPhoto.removeClass('ajapaik-photo-flipped');
@@ -789,23 +789,8 @@
         }
     };
 
-    $(document).on('click', '#ajapaik-mapview-full-screen-link', function (e) {
-        e.preventDefault();
-        if (BigScreen.enabled) {
-            BigScreen.request($('#ajapaik-mapview-fullscreen-image-container')[0]);
-            window.fullscreenEnabled = true;
-            window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
-        }
-    });
 
-    $(document).on('click', '#ajapaik-mapview-full-screen-link-xs', function (e) {
-        e.preventDefault();
-        if (BigScreen.enabled) {
-            BigScreen.request($('#ajapaik-mapview-fullscreen-image-container')[0]);
-            window.fullscreenEnabled = true;
-            window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
-        }
-    });
+
 
     window.initializeMapStateFromOptionalURLParameters = function () {
         var urlMapType = window.getQueryParameterByName('mapType');

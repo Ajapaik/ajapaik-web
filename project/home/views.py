@@ -61,6 +61,7 @@ def _convert_to_degrees(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
+# TODO: This under model
 def _calculate_thumbnail_size(p_width, p_height, desired_longest_side):
     w = float(p_width)
     h = float(p_height)
@@ -74,7 +75,7 @@ def _calculate_thumbnail_size(p_width, p_height, desired_longest_side):
         factor = h / desired_longest_side
         desired_width = w / factor
 
-    return desired_width, desired_height
+    return int(desired_width), int(desired_height)
 
 
 def get_general_info_modal_content(request):
@@ -869,9 +870,9 @@ def heatmap_data(request):
 
 
 # FIXME: This should either be used more or not at all
-def _make_fullscreen(photo):
-    if photo:
-        image = get_thumbnail(photo.image, "1024x1024", upscale=False)
+def _make_fullscreen(p):
+    if p and p.image:
+        image = get_thumbnail(p.image, "1920x1920", upscale=False)
         return {"url": image.url, "size": [image.width, image.height]}
 
 
@@ -895,6 +896,8 @@ def photoslug(request, photo_id, pseudo_slug):
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
+        rephoto = photo_obj.rephotos.all().first()
+
 
     is_frontpage = False
     is_mapview = False
@@ -912,7 +915,6 @@ def photoslug(request, photo_id, pseudo_slug):
     else:
         title = " ".join(photo_obj.description.split(" ")[:5])[:50]
 
-    album = None
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
     albums = Album.objects.filter(pk__in=album_ids, is_public=True)
     album = albums.first()
@@ -920,6 +922,10 @@ def photoslug(request, photo_id, pseudo_slug):
         album_selection_form = AlbumSelectionForm({"album": album.id})
     else:
         album_selection_form = AlbumSelectionForm()
+
+    rephoto_fullscreen = None
+    if rephoto is not None:
+        rephoto_fullscreen = _make_fullscreen(rephoto)
 
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
@@ -934,7 +940,7 @@ def photoslug(request, photo_id, pseudo_slug):
         "geotag_count": geotag_count,
         "azimuth_count": azimuth_count,
         "fullscreen": _make_fullscreen(photo_obj),
-        "rephoto_fullscreen": _make_fullscreen(rephoto),
+        "rephoto_fullscreen": rephoto_fullscreen,
         "title": title,
         "description": ''.join(photo_obj.description.rstrip()).splitlines()[0],
         "rephoto": rephoto,

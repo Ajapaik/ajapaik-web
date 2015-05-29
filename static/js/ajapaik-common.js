@@ -426,7 +426,50 @@ var map,
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
 
+    $('.full-box div').on('click', function (e) {
+        e.preventDefault();
+        if (window.BigScreen.enabled) {
+            window.fullscreenEnabled = false;
+            window.BigScreen.exit();
+            if (window.lastScrollPosition) {
+                $(window).scrollTop(window.lastScrollPosition);
+            }
+        }
+    });
+
+    $(document).on('click', '#ajapaik-full-screen-link', function (e) {
+        e.preventDefault();
+        window.lastScrollPosition = $(window).scrollTop();
+        if (BigScreen.enabled) {
+            BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+            window.fullscreenEnabled = true;
+            /*TODO: Correct events*/
+            window._gaq.push(['_trackEvent', '', 'Full-screen']);
+        }
+    });
+
+    $(document).on('click', '#ajapaik-full-screen-link-xs', function (e) {
+        e.preventDefault();
+        if (BigScreen.enabled) {
+            BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+            window.fullscreenEnabled = true;
+            window._gaq.push(['_trackEvent', '', 'Full-screen']);
+        }
+    });
+
+    $(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
+        e.preventDefault();
+        if (BigScreen.enabled) {
+            BigScreen.request($('#ajapaik-rephoto-fullscreen-image-container')[0]);
+            window.fullscreenEnabled = true;
+            window._gaq.push(['_trackEvent', '', 'Rephoto full-screen']);
+        }
+    });
+
     prepareFullscreen = function (width, height, customSelector) {
+        console.log(width);
+        console.log(height);
+        console.log(customSelector);
         if (!customSelector) {
             customSelector = '#ajapaik-full-screen-image';
         }
