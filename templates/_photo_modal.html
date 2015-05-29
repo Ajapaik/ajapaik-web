@@ -58,9 +58,11 @@
                         {% endif %}
                     {% endif %}
                     <div id="ajapaik-modal-rephoto-container">
-                        <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
-                        <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
-                        <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                        <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="#">
+                            <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                        </a>
                     </div>
                     </div>
                     {% if photo.rephotos.all|length > 1 %}
@@ -224,14 +226,14 @@
         </div>
     </div>
 </div>
-<div class="full-box">
+{% comment %}<div class="full-box">
     <div class="full-pic" id="ajapaik-fullscreen-image-container">
         <img id="ajapaik-full-screen-image" src="{{ fullscreen.url }}"/>
     </div>
 </div>
-{% comment %}<div class="full-box">
+<div class="full-box">
     <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-        <img id="ajapaik-rephoto-full-screen-image" src="{% url 'project.home.views.photo_large' rephoto.id %}"/>
+        <img id="ajapaik-rephoto-full-screen-image" src="{{ rephoto_fullscreen.url }}"/>
     </div>
 </div>{% endcomment %}
 <script>
@@ -263,6 +265,9 @@
             id: {{ rephoto.id }},
             url: '{% url 'project.home.views.photo_url' rephoto.id %}',
             fb_url: '{{ hostname }}{{ rephoto.get_detail_url }}',
+            fullscreen_url: '{% url 'project.home.views.photo_thumb' rephoto.id 1920 %}',
+            fullscreen_width: '{{ rephoto.get_full_screen_image_size.0 }}',
+            fullscreen_height: '{{ rephoto.get_full_screen_image_size.1 }}',
             {% if rephoto.date %}
                 date: '{{ rephoto.date|date:"d.m.Y" }}',
             {% endif %}
@@ -306,9 +311,9 @@
             }
             $('#ajapaik-photo-modal-rephoto-info-column').hide();
         }
-        {% comment %}if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
+        if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
             $('#ajapaik-photo-modal-date-row').show();
-        }{% endcomment %}
+        }
         //TODO: Restore?
         {#History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');#}
         window.currentPhotoURL = '{% url 'project.home.views.photo_url' photo.id %}';
@@ -319,8 +324,12 @@
         {% endif %}
         window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
         window.photoModalFullscreenImageSize = {{ fullscreen.size }};
-        //window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
-        //window.photoModalRephotoFullscreenImageSize = {{ rephoto_fullscreen.size }};
+        window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
+        {% if rephoto_fullscreen %}
+            window.photoModalRephotoFullscreenImageSize = {{ rephoto_fullscreen.size }};
+        {% else %}
+            window.photoModalRephotoFullscreenImageSize = null;
+        {% endif %}
         window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         $(".ajapaik-flip-photo-overlay-button").click(function () {
             var target = $("#ajapaik-modal-photo"),
@@ -387,16 +396,6 @@
             e.preventDefault();
             window.closePhotoDrawer();
         });
-        $('.full-box div').on('click', function (e) {
-            e.preventDefault();
-            if (BigScreen.enabled) {
-                window.fullscreenEnabled = false;
-                BigScreen.exit();
-                if (window.lastScrollPosition) {
-                    $(window).scrollTop(window.lastScrollPosition);
-                }
-            }
-        });
         // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
         BigScreen.onexit = function() {
             if (window.lastScrollPosition) {
@@ -406,23 +405,6 @@
                 }, 500);
             }
         };
-        $(document).on('click', '#ajapaik-full-screen-link', function (e) {
-            e.preventDefault();
-            window.lastScrollPosition = $(window).scrollTop();
-            if (BigScreen.enabled) {
-                BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
-                window.fullscreenEnabled = true;
-                window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
-            }
-        });
-        {% comment %}$(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
-            e.preventDefault();
-            if (BigScreen.enabled) {
-                BigScreen.request($('#ajapaik-rephoto-fullscreen-image-container')[0]);
-                window.fullscreenEnabled = true;
-                window._gaq.push(['_trackEvent', 'Map', 'Full-screen']);
-            }
-        });{% endcomment %}
         $(document).on('click', '#ajapaik-show-rephoto-selection-overlay-button', function () {
             $(this).hide();
             window.userClosedRephotoTools = false;
@@ -465,21 +447,28 @@
                window.syncMapStateToURL();
             }
         });
-        $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function (e) {
+        $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function () {
             var targetId = $(this).data('id'),
                 infoDiv = $('#ajapaik-photo-modal-rephoto-info-column'),
-                photoDiv = $('#ajapaik-modal-rephoto-container');
+                photoDiv = $('#ajapaik-modal-rephoto-container'),
+                fullscreenDiv = $('#ajapaik-rephoto-full-screen-image');
             if (!targetId) {
                 targetId = window.currentlySelectedRephotoId;
             }
             infoDiv.show();
             for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
                 if (window.photoModalRephotoArray[i]['id'] == targetId) {
+                    console.log(photoModalRephotoArray[i]);
+                    fullscreenDiv.prop('src', window.photoModalRephotoArray[i]['fullscreen_url']);
+                    window.prepareFullscreen(window.photoModalRephotoArray[i]['fullscreen_width'],
+                            window.photoModalRephotoArray[i]['fullscreen_height'],
+                            '#ajapaik-rephoto-full-screen-image');
                     photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[i]));
                     infoDiv.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[i]));
                     window.currentlySelectedRephotoId = targetId;
-                    $('#ajapaik-rephoto-comments').find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
-                    window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+                    var commentsDiv = $('#ajapaik-rephoto-comments');
+                    commentsDiv.find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
+                    window.FB.XFBML.parse(commentsDiv.get(0));
                     if (window.isFrontpage) {
 
                     } else {
@@ -580,7 +569,9 @@
 </script>
 {% verbatim %}
     <script id="ajapaik-photo-modal-rephoto-template" type="text/x-tmpl">
-        <img src="{%=o.url%}" id="ajapaik-modal-rephoto" class="img-responsive col-xs-12">
+        <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="#">
+            <img src="{%=o.url%}" id="ajapaik-modal-rephoto" class="img-responsive col-xs-12">
+        </a>
         <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button"
             id="ajapaik-close-rephoto-overlay-button" {% if (!isMobile) { %}
             style="display: none;"{% } %}></button>

@@ -708,13 +708,13 @@
                 window._gaq.push(['_trackEvent', 'Game', 'Full-screen']);
             }
         });
-        $('.full-box img').on('click', function (e) {
+/*        $('.full-box img').on('click', function (e) {
             e.preventDefault();
             if (window.BigScreen.enabled) {
                 window.BigScreen.exit();
                 window.fullscreenEnabled = false;
             }
-        });
+        });*/
         $(document).on('click', '.ajapaik-game-show-description-button', function () {
             showDescriptions();
             hideDescriptionButtons();

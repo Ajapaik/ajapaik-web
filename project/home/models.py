@@ -31,8 +31,6 @@ from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
 
-
-
 # Create profile automatically
 def _user_post_save(sender, instance, **kwargs):
     Profile.objects.get_or_create(user=instance)
@@ -469,6 +467,23 @@ class Photo(Model):
             return "project.home.views.photoslug", [self.id, pseudo_slug, ]
         else:
             return "project.home.views.photo", [self.id, ]
+
+
+    def get_full_screen_image_size(self):
+        w = float(self.width)
+        h = float(self.height)
+        desired_longest_side = float(1920)
+        if w > h:
+            desired_width = desired_longest_side
+            factor = w / desired_longest_side
+            desired_height = h / factor
+        else:
+            desired_height = desired_longest_side
+            factor = h / desired_longest_side
+            desired_width = w / factor
+
+        return int(desired_width), int(desired_height)
+
 
     def get_pseudo_slug(self):
         if self.description is not None and self.description != "":

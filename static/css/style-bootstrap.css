@@ -925,14 +925,6 @@ a.fullscreen {
     cursor: -moz-zoom-in;
 }
 
-.full-box {
-    position: relative;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-}
-
 .full-pic {
     position: absolute;
     left: 0;
@@ -1541,11 +1533,6 @@ ul.errorlist {
     filter: alpha(opacity=40);
 }
 
-#ajapaik-full-screen-link {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-}
-
 #ajapaik-rephoto-full-screen-link {
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -1562,26 +1549,6 @@ ul.errorlist {
 }
 
 #ajapaik-rephoto-full-screen-link img {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-}
-
-#ajapaik-photoview-original-full-screen-link {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-}
-
-#ajapaik-photoview-original-full-screen-link img {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-}
-
-#ajapaik-photoview-rephoto-full-screen-link {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-}
-
-#ajapaik-photoview-rephoto-full-screen-link img {
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
@@ -1614,7 +1581,7 @@ ul.errorlist {
     bottom: 2%;
 }
 
-#ajapaik-game-full-screen-link {
+#ajapaik-full-screen-link {
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
