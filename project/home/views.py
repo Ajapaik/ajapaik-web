@@ -793,7 +793,11 @@ def photo_url(request, photo_id):
     return response
 
 
-def photo_thumb(request, photo_id, thumb_size=150):
+def photo_thumb(request, photo_id=None, thumb_size=150):
+    if not photo_id:
+        p = Photo.objects.order_by('-created').first()
+        if p:
+            photo_id = p.id
     cache_key = "ajapaik_photo_thumb_response_%s_%s_%s" % (settings.SITE_ID, photo_id, thumb_size)
     cached_response = cache.get(cache_key)
     if cached_response:
@@ -829,7 +833,11 @@ def photo_thumb(request, photo_id, thumb_size=150):
     return response
 
 
-def photo(request, photo_id):
+def photo(request, photo_id=None):
+    if not photo_id:
+        p = Photo.objects.order_by('-created').first()
+        if p:
+            photo_id = p.id
     photo = get_object_or_404(Photo, id=photo_id)
     pseudo_slug = photo.get_pseudo_slug()
     # slug not needed if not enough data for slug or ajax request

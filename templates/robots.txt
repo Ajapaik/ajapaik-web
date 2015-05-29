@@ -1,7 +1,6 @@
 User-agent: *
-Disallow: /ajapaikaja/
-Disallow: /game/
 Disallow: /kaart/
 Disallow: /map/
 Disallow: /facebook/
-Disallow: /leaderboard/
+
+Sitemap: http://ajapaik.ee/sitemap.xml
