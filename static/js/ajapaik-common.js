@@ -440,8 +440,8 @@ var map,
     $(document).on('click', '#ajapaik-full-screen-link', function (e) {
         e.preventDefault();
         window.lastScrollPosition = $(window).scrollTop();
-        if (BigScreen.enabled) {
-            BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+        if (window.BigScreen.enabled) {
+            window.BigScreen.request($('#ajapaik-full-screen-image'));
             window.fullscreenEnabled = true;
             /*TODO: Correct events*/
             window._gaq.push(['_trackEvent', '', 'Full-screen']);
@@ -450,8 +450,8 @@ var map,
 
     $(document).on('click', '#ajapaik-full-screen-link-xs', function (e) {
         e.preventDefault();
-        if (BigScreen.enabled) {
-            BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+        if (window.BigScreen.enabled) {
+            window.BigScreen.request($('#ajapaik-full-screen-image'));
             window.fullscreenEnabled = true;
             window._gaq.push(['_trackEvent', '', 'Full-screen']);
         }
@@ -459,17 +459,14 @@ var map,
 
     $(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
         e.preventDefault();
-        if (BigScreen.enabled) {
-            BigScreen.request($('#ajapaik-rephoto-fullscreen-image-container')[0]);
+        if (window.BigScreen.enabled) {
+            window.BigScreen.request($('#ajapaik-rephoto-full-screen-image'));
             window.fullscreenEnabled = true;
             window._gaq.push(['_trackEvent', '', 'Rephoto full-screen']);
         }
     });
 
     prepareFullscreen = function (width, height, customSelector) {
-        console.log(width);
-        console.log(height);
-        console.log(customSelector);
         if (!customSelector) {
             customSelector = '#ajapaik-full-screen-image';
         }
