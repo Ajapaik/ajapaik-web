@@ -286,6 +286,10 @@
                 }
             });
         };
+        $(document).on('click', '.ajapaik-alternative-filter-toggle', function (e) {
+            e.preventDefault();
+            $('#ajapaik-header-filter-button').click();
+        });
         $(document).on('click', '#ajapaik-paging-previous-button', function (e) {
             e.preventDefault();
             window.currentPage -= 1;
