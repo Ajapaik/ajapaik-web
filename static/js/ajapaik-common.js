@@ -447,10 +447,8 @@ var map,
     };
 
     getGeolocation = function getLocation(callback) {
-        console.log("navigator.geolocation");
-        console.log(navigator.geolocation);
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(callback);
+            navigator.geolocation.getCurrentPosition(callback, window.geolocationError);
         }
     };
 
@@ -606,8 +604,26 @@ var map,
         }
     });
     var handleGeolocation = function (position) {
-        console.log(position);
+        $('#ajapaik-geolocation-error').hide();
         window.location.href = '/map?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude + '&limitToAlbum=0&zoom=15';
+    };
+    window.geolocationError = function (error) {
+        var targetElement = $('#ajapaik-geolocation-error-message');
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                targetElement.html(window.gettext('User denied the request for Geolocation.'));
+                break;
+            case error.POSITION_UNAVAILABLE:
+                targetElement.html(window.gettext('Location information is unavailable.'));
+                break;
+            case error.TIMEOUT:
+                targetElement.html(window.gettext('The request to get user location timed out.'));
+                break;
+            case error.UNKNOWN_ERROR:
+                targetElement.html(window.gettext('An unknown error occurred.'));
+                break;
+        }
+        $('#ajapaik-geolocation-error').show();
     };
     $(document).on('click', '#ajapaik-header-map-button', function () {
         if (window.albumId) {
