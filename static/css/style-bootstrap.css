@@ -663,7 +663,7 @@ a.fullscreen {
     width: 0;
     height: 0;
     overflow: hidden;
-    z-index: 1011 !important;
+    z-index: 10000 !important;
 }
 
 .full-pic {
