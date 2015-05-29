@@ -1533,6 +1533,10 @@ ul.errorlist {
     filter: alpha(opacity=40);
 }
 
+#ajapaik-fullscreen-image-container {
+    z-index: 105;
+}
+
 #ajapaik-rephoto-full-screen-link {
     padding-right: 0 !important;
     padding-left: 0 !important;
