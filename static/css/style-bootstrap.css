@@ -1481,6 +1481,11 @@ ul.errorlist {
     z-index: 99 !important;
 }
 
+#ajapaik-geolocation-error {
+    margin-top: 50px;
+    display: none;
+}
+
 #ajapaik-mapview-photo-panel .jsPanel {
     background: none;
 }
