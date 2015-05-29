@@ -165,7 +165,7 @@
             <div class="row">
                 <div class="col-xs-2">
                     {% if photo.lat and photo.lon and photo.azimuth %}
-                        <span id="ajapaik-photo-modal-location-with-azimuth" title="{% trans "Image has location and view direction info" %}"></span>
+                        <a target="_blank" href="{% url "project.home.views.mapview" photo_id=photo.id %}" id="ajapaik-photo-modal-location-with-azimuth" title="{% trans "Image has location and view direction info" %}"></a>
                         {% if geotag_count > 0 %}
                             <span id="ajapaik-photo-modal-geotag-count" title="
                                 {% if geotag_count == 1 %}
@@ -177,7 +177,7 @@
                             </span>
                         {% endif %}
                     {% elif photo.lat and photo.lon %}
-                        <span id="ajapaik-photo-modal-location-without-azimuth" title="{% trans "Image has only location, no view direction" %}"></span>
+                        <a target="_blank" href="{% url "project.home.views.mapview" photo_id=photo.id %}" id="ajapaik-photo-modal-location-without-azimuth" title="{% trans "Image has only location, no view direction" %}"></a>
                         {% if geotag_count > 0 %}
                             <span id="ajapaik-photo-modal-geotag-count" title="
                                 {% if geotag_count == 1 %}

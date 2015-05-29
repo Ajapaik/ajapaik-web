@@ -159,6 +159,7 @@
                     _gaq.push(["_trackEvent", "Facebook", "Message sent", a])
                 }), FB.Event.subscribe("comment.create", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment added", a.href]);
+                    console.log(a);
                     var parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
                         photo_id: parts[parts.length - 2],

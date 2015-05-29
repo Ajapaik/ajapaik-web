@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-28 16:00+0300\n"
+"POT-Creation-Date: 2015-05-29 11:39+0300\n"
 "PO-Revision-Date: 2015-05-28 12:35+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -84,75 +84,75 @@ msgstr ""
 msgid "Timepatch (Ajapaik)"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:1013 project/home/views.py:1016
-#: project/home/views.py:1018
+#: project/home/views.py:1018 project/home/views.py:1021
+#: project/home/views.py:1023
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:1116
+#: project/home/views.py:1121
 msgid "Looks right!"
 msgstr "Выглядит правильно!"
 
-#: project/home/views.py:1119
+#: project/home/views.py:1124
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:1122
+#: project/home/views.py:1127
 msgid "The location seems right, but not the azimuth."
 msgstr "Место выглядит правильно, но направление - нет."
 
-#: project/home/views.py:1124
+#: project/home/views.py:1129
 msgid "The location seems right, your azimuth was first."
 msgstr "Место выглядит правильно, ваше направление было первым."
 
-#: project/home/views.py:1126
+#: project/home/views.py:1131
 msgid "Other users have different opinion."
 msgstr "У остальных пользователей другое мнение."
 
-#: project/home/views.py:1128
+#: project/home/views.py:1133
 msgid "Your guess was first."
 msgstr "Ваша догадка была первой."
 
-#: project/home/views.py:1156 project/home/views.py:1172
-#: project/home/views.py:1204 templates/_header.html:40
+#: project/home/views.py:1161 project/home/views.py:1177
+#: project/home/views.py:1209 templates/_header.html:40
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
-#: project/home/views.py:1297
+#: project/home/views.py:1302
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:1299
+#: project/home/views.py:1304
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1570
+#: project/home/views.py:1575
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1572
+#: project/home/views.py:1577
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1595
+#: project/home/views.py:1600
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1604
+#: project/home/views.py:1609
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1613
+#: project/home/views.py:1618
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1615
+#: project/home/views.py:1620
 msgid "Not enough data submitted"
 msgstr ""
 
@@ -395,6 +395,23 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
+
+#: templates/_general_info_modal_content.html:74
+#: templates/_general_info_modal_content.html:87
+msgid "Ajapaik on EV100"
+msgstr ""
+
+#: templates/_general_info_modal_content.html:82
+msgid "EV100 logo"
+msgstr ""
+
+#: templates/_general_info_modal_content.html:94
+msgid "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
+msgstr ""
+
+#: templates/_general_info_modal_content.html:97
+msgid "Show us your support by signing up as a contributor at the EV100 page"
+msgstr ""
 
 #: templates/_guess_panel.html:14 templates/_guess_panel_xs.html:17
 #: templates/game.html:46 templates/game.html.py:92

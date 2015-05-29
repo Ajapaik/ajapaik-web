@@ -74,8 +74,8 @@
                    id="ajapaik-header-menu-button">
                 </a>
             {% endif %}
-            <a class="navbar-brand ajapaik-brand hidden-xs" href="/" title="{% trans "Back to homepage" %}">{% trans "Timepatch (Ajapaik)" %}</a>
-            <a class="navbar-brand ajapaik-brand ajapaik-brand-xs visible-xs" href="/" title="{% trans "Back to homepage" %}">{% trans "Timepatch (Ajapaik)" %}</a>
+            <a class="navbar-brand ajapaik-brand hidden-xs hidden-sm" href="/" title="{% trans "Back to homepage" %}">{% trans "Timepatch (Ajapaik)" %}</a>
+            <a class="navbar-brand ajapaik-brand ajapaik-brand-xs visible-xs visible-sm" href="/" title="{% trans "Back to homepage" %}">{% trans "Timepatch (Ajapaik)" %}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -96,7 +96,7 @@
                                 <span id="ajapaik-header-album-name">{{ album.1 }}</span>
                             </a>
                         {% elif not album and is_frontpage %}
-                            <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"
+                            <a class="navbar-toggle ajapaik-navbar-toggle ajapaik-alternative-filter-toggle" data-toggle="dropdown" id="ajapaik-album-name-container"
                                title="{% trans 'Order' %}">
                                 <span id="ajapaik-header-order-name"></span>
                             </a>

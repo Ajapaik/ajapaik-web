@@ -447,6 +447,8 @@ var map,
     };
 
     getGeolocation = function getLocation(callback) {
+        console.log("navigator.geolocation");
+        console.log(navigator.geolocation);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(callback);
         }
@@ -604,6 +606,7 @@ var map,
         }
     });
     var handleGeolocation = function (position) {
+        console.log(position);
         window.location.href = '/map?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude + '&limitToAlbum=0&zoom=15';
     };
     $(document).on('click', '#ajapaik-header-map-button', function () {

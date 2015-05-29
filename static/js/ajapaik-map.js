@@ -185,6 +185,9 @@
         if (historyReplacementString.startsWith('/map/&')) {
             historyReplacementString = historyReplacementString.replace('&', '?');
         }
+        if (historyReplacementString.indexOf('?') === -1 && historyReplacementString.indexOf('&') !== -1) {
+            historyReplacementString = historyReplacementString.replace('&', '?');
+        }
         window.History.replaceState(null, window.title, historyReplacementString);
     };
 
