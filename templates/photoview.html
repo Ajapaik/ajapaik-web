@@ -7,13 +7,13 @@
 
 {% block layout %}
     {% include "_rephoto_upload_modal.html" %}
-    <div class="full-box">
+    <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
             <img id="ajapaik-full-screen-image" src="{{ fullscreen.url }}"/>
         </div>
     </div>
     {% if rephoto %}
-        <div class="full-box">
+        <div class="full-box rephoto-full-box">
             <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
                 <img id="ajapaik-rephoto-full-screen-image" src="{% url 'project.home.views.photo_large' rephoto.id %}"/>
             </div>

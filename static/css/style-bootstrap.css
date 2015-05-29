@@ -663,7 +663,14 @@ a.fullscreen {
     width: 0;
     height: 0;
     overflow: hidden;
-    z-index: 10000 !important;
+}
+
+.original-full-box {
+    z-index: 10000;
+}
+
+.rephoto-full-box {
+    z-index: 9999;
 }
 
 .full-pic {
@@ -1532,10 +1539,6 @@ ul.errorlist {
 .translucent-pane-element {
     opacity: 0.4;
     filter: alpha(opacity=40);
-}
-
-#ajapaik-fullscreen-image-container {
-    z-index: 105;
 }
 
 #ajapaik-rephoto-full-screen-link {
