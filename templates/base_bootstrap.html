@@ -134,7 +134,7 @@
     {% csrf_token %}
     <input type="hidden" value="" name="language" id="ajapaik-language" />
 </form>
-<div class="alert alert-danger alert-fixed-top" id="ajapaik-geolocation-error">
+<div class="alert alert-danger alert-fixed-top alert-dismissible" id="ajapaik-geolocation-error">
   <strong>{% trans "Geolocation error" %}:</strong> <span id="ajapaik-geolocation-error-message"></span>
 </div>
 {% include "_general_info_modal.html" %}
