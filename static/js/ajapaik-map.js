@@ -926,6 +926,7 @@
             centerOnMapAfterLocating = true;
         });
         window.handleGeolocation = function (location) {
+            $('#ajapaik-geolocation-error').hide();
             if (centerOnMapAfterLocating) {
                 window.map.setCenter(new window.google.maps.LatLng(location.coords.latitude, location.coords.longitude));
                 centerOnMapAfterLocating = false;

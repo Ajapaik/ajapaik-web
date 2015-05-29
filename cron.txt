@@ -1,5 +1,6 @@
 Put this into crontab
 
-*/1440 * * * * /opt/python27/bin/python2.7 /vagrant/project/manage.py refresh_albums
-*/60 * * * * /opt/python27/bin/python2.7 /vagrant/project/manage.py get_fb_comment_count_for_all_photos
-*/1440 * * * * /opt/python27/bin/python2.7 /vagrant/project/manage.py clearsessions
+* 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py refresh_albums
+30 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py get_fb_comments_by_fql
+45 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py set_latest_and_earliest_comment_and_comment_count_for_all_photos
+* 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py clearsessions

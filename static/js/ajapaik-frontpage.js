@@ -73,6 +73,7 @@
             });
         };
         window.handleGeolocation = function (location) {
+            $('#ajapaik-geolocation-error').hide();
             window.userLat = location.coords.latitude;
             window.userLon = location.coords.longitude;
             syncStateToUrl();
