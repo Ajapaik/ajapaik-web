@@ -1627,9 +1627,12 @@ def curator_photo_upload_handler(request):
 def update_comment_count(request):
     ret = {}
     photo_id = request.POST.get('photo_id')
+    comment_id = request.POST.get('comment_id')
     if photo_id:
         p = Photo.objects.filter(pk=photo_id).first()
         if p:
+            if not p.fb_object_id:
+                p.fb_object_id = comment_id.split('_')[0]
             fql_string = "SELECT text, id, parent_id, object_id, fromid, time FROM comment WHERE object_id IN (" + p.fb_object_id + ")"
             response = json.loads(requests.get('https://graph.facebook.com/fql?access_token=%s&q=%s' % (APP_ID + '|' + FACEBOOK_APP_SECRET, fql_string)).text)
             for each in response['data']:
