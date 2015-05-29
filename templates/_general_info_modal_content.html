@@ -66,6 +66,28 @@
                     {% endblocktrans %}
                 </div>
             {% endif %}
+            <div class="row-fluid">&nbsp;</div>
+            <div class="row-fluid">
+                <div class="media">
+                    <div class="media-left">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        <a title="{% trans "Ajapaik on EV100" %}" target="_blank" href="{% if LANGUAGE_CODE == "et" %}
+                            https://ev100.ee/et/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                        {% elif LANGUAGE_CODE == "ru" %}
+                            https://ev100.ee/ru/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                        {% else %}
+                            https://ev100.ee/en/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                        {% endif %}">
+                            <img class="media-object" src="{{ STATIC_URL }}images/ev100.png"
+                                 alt="{% trans "EV100 logo" %}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{% trans "Ajapaik is a gift for the 100th birthday of the Republic of Estonia" %}</h4>
+                        {% trans "Show us your support by signing up as a contributor at the EV100 page" %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
