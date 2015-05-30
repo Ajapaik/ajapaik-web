@@ -245,7 +245,7 @@ class Album(Model):
         # Update POSTGIS data on save
         if self.lat and self.lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        if not self.cover_photo_id and self.photos.count() > 0:
+        if self.id and not self.cover_photo_id and self.photos.count() > 0:
             self.cover_photo_id = self.photos.order_by('?').first().id
         if self.subalbums and self.id:
             album_photos_qs = self.photos.all()
