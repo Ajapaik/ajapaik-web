@@ -96,11 +96,15 @@
                                 <span id="ajapaik-header-album-name">{{ album.1 }}</span>
                             </a>
                         {% elif not album and is_frontpage %}
-                            <a class="navbar-toggle ajapaik-navbar-toggle ajapaik-alternative-filter-toggle" data-toggle="dropdown" id="ajapaik-album-name-container"
+                            <a href="#" class="navbar-toggle ajapaik-navbar-toggle ajapaik-alternative-filter-toggle" data-toggle="dropdown" id="ajapaik-album-name-container"
                                title="{% trans 'Order' %}">
                                 <span id="ajapaik-header-order-name"></span>
                             </a>
                         {% endif %}
+                        <a href="#" class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-selection-label"
+                           title="{% trans 'Album selection' %}">
+                            <span id="ajapaik-header-album-selection-label">{% trans 'Album selection' %}</span>
+                        </a>
                     </li>
                 {% endif %}
                 {% if is_mapview and album %}
