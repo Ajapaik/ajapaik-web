@@ -562,7 +562,7 @@ def fetch_stream(request):
         form_album = form.cleaned_data["album"]
         form_photo = form.cleaned_data["photo"]
         if form_photo:
-            data = {"photo": qs.get_game_json_format_photo(form_photo), "user_seen_all": False,
+            data = {"photo": Photo.get_game_json_format_photo(form_photo), "user_seen_all": False,
                     "nothing_more_to_show": False}
         else:
             if form_album:
@@ -577,7 +577,7 @@ def fetch_stream(request):
                 qs = qs.filter(area=form_area)
             # FIXME: Ugly
             try:
-                response = qs.get_next_photo_to_geotag(request)
+                response = Photo.get_next_photo_to_geotag(qs, request)
                 data = {"photo": response[0], "user_seen_all": response[1], "nothing_more_to_show": response[2]}
             except IndexError:
                 pass
@@ -585,6 +585,7 @@ def fetch_stream(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
+# Params for old URL support
 def frontpage(request, album_id=None, page=None):
     albums = _get_album_choices()
     data = _get_filtered_data_for_frontpage(request)
@@ -1082,7 +1083,7 @@ def map_objects_by_bounding_box(request):
         ne_lon = form.cleaned_data["ne_lon"]
         if sw_lat and sw_lon and ne_lat and ne_lon:
             bounding_box = (sw_lat, sw_lon, ne_lat, ne_lon)
-            data = qs.get_geotagged_photos_list(bounding_box)
+            data = Photo.get_geotagged_photos_list(qs, bounding_box)
             data = {"photos": data}
         else:
             data = {"photos": []}
