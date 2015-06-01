@@ -1253,6 +1253,7 @@ ul.errorlist {
 
 #ajapaik-modal-photo {
     margin: 0 auto;
+    padding: 0 !important;
 }
 
 .ajapaik-photo-modal-previous-button {
