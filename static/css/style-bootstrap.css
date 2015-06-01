@@ -47,6 +47,7 @@ body {
 
 #ajapaik-album-selection-navmenu {
     z-index: 100;
+    width: 100%;
 }
 
 .ajapaik-change-language-link {
