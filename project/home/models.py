@@ -345,108 +345,95 @@ class Photo(Model):
         ordering = ["-id"]
         app_label = "project"
 
-    class QuerySet(query.QuerySet):
-        def get_geotagged_photos_list(self, bounding_box=None):
-            # TODO: Once we have regions, re-implement caching
-            data = []
-            qs = self.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)\
-                .annotate(rephoto_count=Count('rephotos')).values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
-            if bounding_box:
-                qs = qs.filter(lat__gte=bounding_box[0], lon__gte=bounding_box[1], lat__lte=bounding_box[2],
-                               lon__lte=bounding_box[3])
-            for p in qs:
-                data.append([p[0], p[1], p[2], p[3], p[4]])
-            return data
+    @staticmethod
+    def get_geotagged_photos_list(qs, bounding_box=None):
+        # TODO: Once we have regions, re-implement caching
+        data = []
+        qs = qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)\
+            .annotate(rephoto_count=Count('rephotos')).values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
+        if bounding_box:
+            qs = qs.filter(lat__gte=bounding_box[0], lon__gte=bounding_box[1], lat__lte=bounding_box[2],
+                           lon__lte=bounding_box[3])
+        for p in qs:
+            data.append([p[0], p[1], p[2], p[3], p[4]])
+        return data
 
-        @staticmethod
-        def get_game_json_format_photo(photo):
-            # TODO: proper JSON serialization
-            assert isinstance(photo, Photo)
-            ret = {
-                "id": photo.id,
-                "description": photo.description,
-                "date_text": photo.date_text,
-                "source_key": photo.source_key,
-                "source_url": photo.source_url,
-                "source_name": photo.source.description,
-                "flip": photo.flip,
-                "big": _make_thumbnail(photo, "700x400"),
-                "large": _make_fullscreen(photo),
-                "confidence": photo.confidence,
-                "total_geotags": photo.geotags.count(),
-                "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
-            }
-            if photo.lat and photo.lon:
-                ret["has_coordinates"] = True
-            if photo.azimuth:
-                ret["has_azimuth"] = True
-            return ret
+    @staticmethod
+    def get_game_json_format_photo(photo):
+        # TODO: proper JSON serialization
+        ret = {
+            "id": photo.id,
+            "description": photo.description,
+            "date_text": photo.date_text,
+            "source_key": photo.source_key,
+            "source_url": photo.source_url,
+            "source_name": photo.source.description,
+            "flip": photo.flip,
+            "big": _make_thumbnail(photo, "700x400"),
+            "large": _make_fullscreen(photo),
+            "confidence": photo.confidence,
+            "total_geotags": photo.geotags.count(),
+            "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
+        }
+        if photo.lat and photo.lon:
+            ret["has_coordinates"] = True
+        if photo.azimuth:
+            ret["has_azimuth"] = True
+        return ret
 
-        def get_next_photo_to_geotag(self, request):
-            profile = request.get_user().profile
-            trustworthiness = _calc_trustworthiness(profile.pk)
+    @staticmethod
+    def get_next_photo_to_geotag(qs, request):
+        profile = request.get_user().profile
+        trustworthiness = _calc_trustworthiness(profile.pk)
 
-            all_photos_set = self.all()
-            photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
+        all_photos_set = qs
+        photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
 
-            user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
-            user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
+        user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
+        user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
 
-            user_geotagged_photo_ids = list(user_geotags_for_set.distinct("photo_id").values_list("photo_id", flat=True))
-            user_skipped_photo_ids = list(user_skips_for_set.distinct("photo_id").values_list("photo_id", flat=True))
-            user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
-            user_skipped_less_geotagged_photo_ids = set(user_skipped_photo_ids) - set(user_geotagged_photo_ids)
+        user_geotagged_photo_ids = list(user_geotags_for_set.distinct("photo_id").values_list("photo_id", flat=True))
+        user_skipped_photo_ids = list(user_skips_for_set.distinct("photo_id").values_list("photo_id", flat=True))
+        user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
+        user_skipped_less_geotagged_photo_ids = set(user_skipped_photo_ids) - set(user_geotagged_photo_ids)
 
-            user_seen_all = False
-            nothing_more_to_show = False
+        user_seen_all = False
+        nothing_more_to_show = False
 
-            if "user_skip_array" not in request.session:
-                 request.session["user_skip_array"] = []
+        if "user_skip_array" not in request.session:
+             request.session["user_skip_array"] = []
 
-            if trustworthiness < 0.25:
-                # Novice users should only receive the easiest images to prove themselves
-                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
+        if trustworthiness < 0.25:
+            # Novice users should only receive the easiest images to prove themselves
+            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
+            if ret_qs.count() == 0:
+                # If the user has seen all the photos, offer at random
+                user_seen_all = True
+                ret_qs = all_photos_set.order_by("?")
+        else:
+            # Let's try to show the more experienced users photos they have not yet seen at all
+            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('?')
+            if ret_qs.count() == 0:
+                # If the user has seen them all, let's try showing her photos she
+                # has skipped (but not in this session) or not marked an azimuth on
+                user_seen_all = True
+                ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
+                    .exclude(id__in=request.session["user_skip_array"]).order_by('?')
                 if ret_qs.count() == 0:
-                    # If the user has seen all the photos, offer at random
-                    user_seen_all = True
-                    ret_qs = all_photos_set.order_by("?")
-            else:
-                # Let's try to show the more experienced users photos they have not yet seen at all
-                ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('?')
-                if ret_qs.count() == 0:
-                    # If the user has seen them all, let's try showing her photos she
-                    # has skipped (but not in this session) or not marked an azimuth on
-                    user_seen_all = True
-                    ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
-                        .exclude(id__in=request.session["user_skip_array"]).order_by('?')
+                    # This user has skipped them in this session, show her photos that
+                    # don't have a correct geotag from her
+                    user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
+                    user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
+                    user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct("photo_id").values_list("photo_id", flat=True))
+                    user_correctly_geotagged_photo_ids = set(user_correct_geotags.distinct("photo_id").values_list("photo_id", flat=True))
+                    user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+                    ret_qs = all_photos_set.filter(id__in=user_no_correct_geotags_photo_ids).order_by('?')
                     if ret_qs.count() == 0:
-                        # This user has skipped them in this session, show her photos that
-                        # don't have a correct geotag from her
-                        user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
-                        user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
-                        user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct("photo_id").values_list("photo_id", flat=True))
-                        user_correctly_geotagged_photo_ids = set(user_correct_geotags.distinct("photo_id").values_list("photo_id", flat=True))
-                        user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
-                        ret_qs = all_photos_set.filter(id__in=user_no_correct_geotags_photo_ids).order_by('?')
-                        if ret_qs.count() == 0:
-                            ret_qs = all_photos_set.order_by('?')
-                            nothing_more_to_show = True
-            ret = ret_qs.first()
-            return [self.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
+                        ret_qs = all_photos_set.order_by('?')
+                        nothing_more_to_show = True
+        ret = ret_qs.first()
+        return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
-        def get_old_photos_for_grid_view(self, start, end):
-            data = []
-            for p in self.filter(rephoto_of__isnull=True)[start:end]:
-                im_url = reverse("project.home.views.photo_thumb", args=(p.id,))
-                try:
-                    im = get_thumbnail(p.image, "300x300", upscale=False)
-                    data.append([p.id, im_url, im.size[0], im.size[1]])
-                except (IOError, TypeError):
-                    pass
-            return data
-
-        def get_old_photo_count_for_grid_view(self):
-            return self.filter(rephoto_of__isnull=True).count()
 
     def __unicode__(self):
         return u"%s - %s (%s) (%s)" % (self.id, self.description, self.date_text, self.source_key)
