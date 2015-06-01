@@ -50,11 +50,12 @@ class Command(BaseCommand):
             photo_batch = photos[start:end]
             first = True
             for p in photo_batch:
-                if first:
-                    ids += str(p.fb_object_id)
-                    first = False
-                else:
-                    ids += ',' + str(p.fb_object_id)
+                if len(p.fb_object_id) > 0:
+                    if first:
+                        ids += str(p.fb_object_id)
+                        first = False
+                    else:
+                        ids += ',' + str(p.fb_object_id)
             if len(ids) > 0:
                 fql_string = "SELECT text, id, parent_id, object_id, fromid, time FROM comment WHERE object_id IN (%s)" % ids
                 response = json.loads(requests.get('https://graph.facebook.com/fql?access_token=%s&q=%s' % (APP_ID + '|' + FACEBOOK_APP_SECRET, fql_string)).text)

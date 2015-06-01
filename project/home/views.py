@@ -539,7 +539,7 @@ def game(request):
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
     if album:
-        ret["title"] = album.name
+        ret["title"] = album[1]
     elif area:
         ret["title"] = area.name
     else:
@@ -777,13 +777,13 @@ def photo_large(request, photo_id):
 
 
 def photo_url(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    if photo.cam_scale_factor and photo.rephoto_of:
+    p = get_object_or_404(Photo, id=photo_id)
+    if p.rephoto_of:
         # if rephoto is taken with mobile then make it same width/height as source photo
-        im = get_thumbnail(photo.rephoto_of.image, "800x600")
-        im = get_thumbnail(photo.image, str(im.width) + "x" + str(im.height), crop="center", upscale=False)
+        im = get_thumbnail(p.rephoto_of.image, "800x600")
+        im = get_thumbnail(p.image, str(im.width) + "x" + str(im.height), crop="center", upscale=False)
     else:
-        im = get_thumbnail(photo.image, "800x600", upscale=False)
+        im = get_thumbnail(p.image, "800x600", upscale=False)
     content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
@@ -1559,7 +1559,7 @@ def curator_photo_upload_handler(request):
                                 user=profile,
                                 area=area,
                                 author=upload_form.cleaned_data["creators"],
-                                description=upload_form.cleaned_data["title"].rstrip(),
+                                description=unicode(upload_form.cleaned_data["title"].rstrip()),
                                 source=source,
                                 types=upload_form.cleaned_data["types"],
                                 date_text=upload_form.cleaned_data["date"],

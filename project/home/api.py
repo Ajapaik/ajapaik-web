@@ -5,6 +5,7 @@ from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import never_cache
@@ -16,7 +17,7 @@ from sorl.thumbnail import get_thumbnail
 import time
 from project.home.cat import CustomAuthentication
 from project.home.forms import CatLoginForm, ApiAlbumNearestForm
-from project.home.models import Album
+from project.home.models import Album, Photo
 from project.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS
 
 
@@ -130,19 +131,22 @@ def api_album_nearest(request):
     photos = []
     if form.is_valid():
         album = form.cleaned_data["id"]
-        photos_qs = album.photos.filter()
-        for sa in album.subalbums.all():
-            photos_qs = photos_qs | sa.photos.filter()
+        if album:
+            content["title"] = album.name
+            photos_qs = album.photos.prefetch_related('subalbums')
+            for sa in album.subalbums.all():
+                photos_qs = photos_qs | sa.photos.filter()
+        else:
+            photos_qs = Photo.objects.all()
         lat = form.cleaned_data["latitude"]
         lon = form.cleaned_data["longitude"]
-        content["title"] = album.name
         if form.cleaned_data["range"]:
             nearby_range = form.cleaned_data["range"]
         else:
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
-        ref_location = Point(lat, lon)
+        ref_location = Point(lon, lat)
         album_nearby_photos = photos_qs.filter(rephoto_of__isnull=True, geography__distance_lte=(ref_location,
-            D(m=nearby_range)))[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+            D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:
             date = None
             if p.date:
@@ -153,12 +157,13 @@ def api_album_nearest(request):
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
+                "distance": p.distance.m,
                 "date": date,
                 "author": p.author,
                 "source": p.source_url,
                 "latitude": p.lat,
                 "longitude": p.lon,
-                "rephotos": p.rephotos.count()
+                "rephotos": p.rephoto_count
             })
         content["photos"] = photos
     else:
