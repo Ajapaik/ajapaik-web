@@ -539,7 +539,7 @@ def game(request):
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
     if album:
-        ret["title"] = album.name
+        ret["title"] = album[1]
     elif area:
         ret["title"] = area.name
     else:
