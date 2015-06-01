@@ -591,9 +591,14 @@ def frontpage(request, album_id=None, page=None):
     data = _get_filtered_data_for_frontpage(request)
     site = Site.objects.get_current()
 
+    if data['album']:
+        title = data['album'][1]
+    else:
+        title = _('Timepatch (Ajapaik)')
+
     return render_to_response('frontpage.html', RequestContext(request, {
         'is_frontpage': True,
-        'title': _('Timepatch (Ajapaik)'),
+        'title': title,
         'hostname': 'http://%s' % (site.domain, ),
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'facebook_share_photos': data['photos'][:5],
@@ -887,6 +892,7 @@ def photoslug(request, photo_id, pseudo_slug):
 
     # switch places if rephoto url
     rephoto = None
+    first_rephoto = None
     if hasattr(photo_obj, "rephoto_of") and photo_obj.rephoto_of is not None:
         rephoto = photo_obj
         photo_obj = photo_obj.rephoto_of
@@ -897,7 +903,7 @@ def photoslug(request, photo_id, pseudo_slug):
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
-        rephoto = photo_obj.rephotos.all().first()
+        first_rephoto = photo_obj.rephotos.all().first()
 
 
     is_frontpage = False
@@ -925,8 +931,8 @@ def photoslug(request, photo_id, pseudo_slug):
         album_selection_form = AlbumSelectionForm()
 
     rephoto_fullscreen = None
-    if rephoto is not None:
-        rephoto_fullscreen = _make_fullscreen(rephoto)
+    if first_rephoto is not None:
+        rephoto_fullscreen = _make_fullscreen(first_rephoto)
 
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
