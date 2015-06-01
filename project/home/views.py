@@ -255,7 +255,10 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 def _get_album_choices():
     albums = Album.objects.filter(is_public=True).prefetch_related("cover_photo").order_by("-created")
     for a in albums:
-        a.cover_photo_width, a.cover_photo_height = _calculate_thumbnail_size(a.cover_photo.width, a.cover_photo.height, 300)
+        if a.cover_photo:
+            a.cover_photo_width, a.cover_photo_height = _calculate_thumbnail_size(a.cover_photo.width, a.cover_photo.height, 300)
+        else:
+            a.cover_photo_width, a.cover_photo_height = 300, 200
 
     return albums
 
