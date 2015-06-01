@@ -50,7 +50,11 @@
         {% endif %}
         <meta property="og:type" content="website"/>
         {% if photo or rephoto %}
-            <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+            {% if photo %}
+                <meta property="og:url" content="{{ hostname }}?photo={{ photo.id }}"/>
+            {% elif not photo and rephoto %}
+                <meta property="og:url" content="{{ hostname }}?photo={{ rephoto.rephoto_of.id }}"/>
+            {% endif %}
         {% elif selected_photo %}
             <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}photo/{{ selected_photo.id }}/"/>
         {% elif album %}
@@ -72,13 +76,13 @@
             <meta property="og:image" content="{{ hostname }}{% url 'project.home.views.photo_large' selected_photo.id %}"/>
         {% else %}
             {% if rephoto %}
-                {% thumbnail rephoto.image "700x400" as im %}
+                {% thumbnail rephoto.image "800x600" as im %}
                     <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
                     <meta property="og:image:type" content="image/jpeg"/>
                 {% endthumbnail %}
             {% else %}
                 {% if photo %}
-                    {% thumbnail photo.image "700x400" as im %}
+                    {% thumbnail photo.image "800x600" as im %}
                         <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
                         <meta property="og:image:type" content="image/jpeg"/>
                     {% endthumbnail %}
