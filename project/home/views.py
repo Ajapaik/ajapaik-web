@@ -989,14 +989,19 @@ def mapview(request, photo_id=None, rephoto_id=None):
     area_selection_form = AreaSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     albums = _get_album_choices()
+    photos_qs = Photo.objects.filter(rephoto_of__isnull=True)
 
     area = None
     album = None
     if area_selection_form.is_valid():
         area = area_selection_form.cleaned_data["area"]
+        photos_qs = photos_qs.filter(area=area)
 
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
+        photos_qs = album.photos.prefetch_related('subalbums')
+        for sa in album.subalbums.all():
+            photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
 
     selected_photo = None
     selected_rephoto = None
@@ -1012,13 +1017,23 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if selected_photo and album is None:
         photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
         album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created").first()
+        photos_qs = album.photos.prefetch_related('subalbums').filter(rephoto_of__isnull=True)
+        for sa in album.subalbums.all():
+            photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
 
     if selected_photo and area is None:
         area = Area.objects.filter(pk=selected_photo.area_id).first()
+        photos_qs = photos_qs.filter(area=area).filter(rephoto_of__isnull=True)
+
+    geotagging_user_count = photos_qs.prefetch_related('geotags').distinct('geotags__user').count()
+    geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     site = Site.objects.get_current()
     ret = {
         "area": area,
+        "total_photo_count": photos_qs.distinct('id').count(),
+        "geotagging_user_count": geotagging_user_count,
+        "geotagged_photo_count": geotagged_photo_count,
         "albums": albums,
         "hostname": "http://%s" % (site.domain,),
         "selected_photo": selected_photo,
