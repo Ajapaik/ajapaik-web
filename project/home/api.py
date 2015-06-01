@@ -133,11 +133,11 @@ def api_album_nearest(request):
         album = form.cleaned_data["id"]
         if album:
             content["title"] = album.name
-            photos_qs = album.photos.filter()
+            photos_qs = album.photos.prefetch_related('subalbums')
             for sa in album.subalbums.all():
                 photos_qs = photos_qs | sa.photos.filter()
         else:
-            photos_qs = Photo.geo.all()
+            photos_qs = Photo.objects.all()
         lat = form.cleaned_data["latitude"]
         lon = form.cleaned_data["longitude"]
         if form.cleaned_data["range"]:
@@ -145,7 +145,6 @@ def api_album_nearest(request):
         else:
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
         ref_location = Point(lon, lat)
-        print nearby_range
         album_nearby_photos = photos_qs.filter(rephoto_of__isnull=True, geography__distance_lte=(ref_location,
             D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:

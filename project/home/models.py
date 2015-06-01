@@ -281,8 +281,7 @@ pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 # This has to be here, go figure...
 class PhotoManager(GeoManager):
-    def get_queryset(self):
-        return self.model.QuerySet(self.model)
+    use_for_related_fields = True
 
 
 class Photo(Model):
