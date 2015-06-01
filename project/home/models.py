@@ -248,10 +248,15 @@ class Album(Model):
         if self.id and not self.cover_photo_id and self.photos.count() > 0:
             self.cover_photo_id = self.photos.order_by('?').first().id
         if self.subalbums and self.id:
-            album_photos_qs = self.photos.all()
+            album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
             for sa in self.subalbums.all():
-                album_photos_qs = album_photos_qs | sa.photos.all()
+                album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
             self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
+            if not self.lat:
+                random_photo_with_area = album_photos_qs.filter(area__isnull=False).first()
+                if random_photo_with_area:
+                    self.lat = random_photo_with_area.area.lat
+                    self.lon = random_photo_with_area.area.lon
         super(Album, self).save(*args, **kwargs)
 
     def light_save(self, *args, **kwargs):
