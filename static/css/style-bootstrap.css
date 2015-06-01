@@ -428,6 +428,14 @@ body {
     margin-top: 150px;
 }
 
+#ajapaik-album-selection-label {
+    display: none;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: -5px;
+}
+
 #ajapaik-header-filter-button {
     background-image: url(../images/material-design-icons/filter.svg);
     /*float: left;*/

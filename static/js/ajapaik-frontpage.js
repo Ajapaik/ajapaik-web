@@ -47,11 +47,15 @@
             } else if (orderTitle.length > 0) {
                 orderTitle.text(window.gettext('Album selection'));
             }
+            $('#ajapaik-album-selection-label').show();
+            $('#ajapaik-album-name-container').hide();
             $('#ajapaik-header-grid-button').hide();
             $('#ajapaik-header-filter-button').hide();
             $('#ajapaik-header-map-button').hide();
         }).on('hidden.bs.offcanvas', function () {
             syncFilteringHighlights();
+            $('#ajapaik-album-selection-label').hide();
+            $('#ajapaik-album-name-container').show();
             $('#ajapaik-header-grid-button').show();
             $('#ajapaik-header-filter-button').show();
             $('#ajapaik-header-map-button').show();
