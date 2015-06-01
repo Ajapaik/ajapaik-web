@@ -766,7 +766,7 @@ def _get_filtered_data_for_frontpage(request):
 
 def photo_large(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
-    if photo.cam_scale_factor and photo.rephoto_of:
+    if photo.rephoto_of:
         # TODO: shouldn't this be done where image_unscaled is set?
         # if rephoto is taken with mobile then make it same width/height as source photo
         im = get_thumbnail(photo.rephoto_of.image, "1024x1024", upscale=False)
