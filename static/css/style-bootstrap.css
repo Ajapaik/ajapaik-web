@@ -912,6 +912,9 @@ a.fullscreen {
 #ajapaik-photoview-main-photo-container {
     display: inline-block;
     position: relative;
+}
+
+#ajapaik-photoview-main-photo {
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
