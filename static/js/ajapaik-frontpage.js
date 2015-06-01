@@ -40,7 +40,21 @@
             if (window.albumId) {
                 $('#ajapaik-album-selection-navmenu').scrollTop($(".ajapaik-album-selection-item[data-id='" + window.albumId + "']").offset().top);
             }
+            var albumTitle = $('#ajapaik-header-album-name'),
+                orderTitle = $('#ajapaik-header-order-name');
+            if (albumTitle.length > 0) {
+                albumTitle.text(window.gettext('Album selection'));
+            } else if (orderTitle.length > 0) {
+                orderTitle.text(window.gettext('Album selection'));
+            }
+            $('#ajapaik-header-grid-button').hide();
+            $('#ajapaik-header-filter-button').hide();
+            $('#ajapaik-header-map-button').hide();
         }).on('hidden.bs.offcanvas', function () {
+            syncFilteringHighlights();
+            $('#ajapaik-header-grid-button').show();
+            $('#ajapaik-header-filter-button').show();
+            $('#ajapaik-header-map-button').show();
             $('#ajapaik-album-selection-overlay').hide();
         });
         window.loadPhoto = function (id) {
