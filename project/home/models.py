@@ -279,7 +279,6 @@ def delete_parent(sender, **kwargs):
 pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 
-# This has to be here, go figure...
 class PhotoManager(GeoManager):
     use_for_related_fields = True
 
