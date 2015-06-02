@@ -25,7 +25,7 @@
         <meta property="og:title" content="{{ title }}"/>
         {% if description %}
             <meta property="og:description" content="{{ description }}"/>
-        {% elif not description and is_game and album%}
+        {% elif not description and is_game and album %}
             <meta property="og:description" content="{% blocktrans with album.1 as album_name and album_photo_count as album_photo_count %}{{ album_name }} – Let's put pictures on the map
             Album has {{ album_photo_count }} historic pictures{% endblocktrans %}"/>
         {% elif not description and is_game %}
