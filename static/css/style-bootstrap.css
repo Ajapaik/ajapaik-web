@@ -463,6 +463,10 @@ body {
     background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
 }
 
+#ajapaik-header-profile-button-hidden-xs {
+    background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
+}
+
 #ajapaik-header-facebook-button {
     background-image: url(../images/material-design-icons/ic_facebook_24px.svg);
 }

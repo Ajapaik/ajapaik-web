@@ -3,7 +3,7 @@
 {% if is_game or is_mapview or is_frontpage %}
     <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu"
          id="ajapaik-album-selection-navmenu">
-        <ul class="nav navmenu-nav" id="ajapaik-album-selection-menu">
+        <div class="nav navmenu-nav" id="ajapaik-album-selection-menu">
             {% for album in albums %}
                 {% if album.cover_photo_id %}
                     <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}">
@@ -24,7 +24,7 @@
                     </a>
                 {% endif %}
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endif %}
 
@@ -154,7 +154,7 @@
                 <li class="hidden-xs">
                     <a role="button" title="{% trans 'Profile and leaderboard' %}"
                             class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
-                            id="ajapaik-header-profile-button"></a>
+                            id="ajapaik-header-profile-button-hidden-xs"></a>
                 </li>
                 <li class="dropdown">
                     {% get_language_info for LANGUAGE_CODE as lang %}
