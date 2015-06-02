@@ -448,6 +448,11 @@ var map,
         }
     });
 
+    $(document).on('click', '#ajapaik-full-screen-link-guess-panel', function (e) {
+        e.preventDefault();
+        $('#ajapaik-full-screen-link').click();
+    });
+
     $(document).on('click', '#ajapaik-full-screen-link-xs', function (e) {
         e.preventDefault();
         if (window.BigScreen.enabled) {

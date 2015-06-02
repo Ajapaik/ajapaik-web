@@ -33,7 +33,7 @@
                 {% endif %}
                     <div id="ajapaik-modal-photo-container">
                         <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="#">
-                            <img src="{% url 'project.home.views.photo_url' photo.id %}"
+                            <img src="{% url 'project.home.views.photo_url' photo.id %}" alt="{% trans "Photo modal main photo" %}"
                                  class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                                  id="ajapaik-modal-photo"/>
                         </a>
@@ -59,7 +59,7 @@
                     {% endif %}
                     <div id="ajapaik-modal-rephoto-container">
                         <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="#">
-                            <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"/>
+                            <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}" class="img-responsive col-xs-12" id="ajapaik-modal-rephoto" alt="{% trans "Photo modal rephoto" %}"/>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         </a>
@@ -199,20 +199,20 @@
                         <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}"></span>
                         <span id="ajapaik-photo-modal-add-rephoto" title="{% trans "Add rephoto" %}"></span>
                         <div class="dropdown" id="ajapaik-photo-modal-dropdown">
-                            <span id="ajapaik-photo-modal-share" title="{% trans "Share" %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+                            <span id="ajapaik-photo-modal-share" role="button" title="{% trans "Share" %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
-                                    <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                    <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                         <input type="text" class="form-control"
                                                value="{{ hostname }}{{ photo.get_absolute_url }}">
-                                    </a>
+                                    </div>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1">
+                                    <div role="menuitem" tabindex="-1">
                                         <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}"
                                              data-layout="standard" data-action="like" data-show-faces="true"
                                              data-share="true"></div>
-                                    </a>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

@@ -635,18 +635,6 @@
         $(document).on('click', '#ajapaik-game-close-game-modal', function () {
             window.location.href = '/map?album=' + window.albumId;
         });
-        $(document).on('click', '#ajapaik-all-time-leaderboard-link', function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: window.allTimeLeaderboardURL,
-                success: function (response) {
-                    var modalWindow = $('#ajapaik-all-time-leaderboard-modal');
-                    modalWindow.find('.scoreboard').html(response);
-                    modalWindow.modal();
-                }
-            });
-            window._gaq.push(['_trackEvent', 'Game', 'All time leaderboard']);
-        });
         window.saveLocationButton.click(function () {
             if (window.disableSave) {
                 window.alert(window.gettext('Drag the map so that the marker is where the photographer was standing. You can then set the direction of the view.'));

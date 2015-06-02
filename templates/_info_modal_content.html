@@ -114,22 +114,22 @@
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                         <li role="presentation" class="disabled-link">
-                            <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                            <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                 {% if link_to_map %}
                                     <input type="text" class="form-control" value="{{ share_map_link }}?album={{ album.id }}">
                                 {% else %}
                                     <input type="text" class="form-control" value="{{ share_game_link }}?album={{ album.id }}">
                                 {% endif %}
-                            </a>
+                            </div>
                         </li>
                         <li role="presentation">
-                            <a role="menuitem" tabindex="-1">
+                            <div role="menuitem" tabindex="-1">
                                 {% if link_to_map %}
                                     <div class="fb-like" data-href="{{ share_map_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% else %}
                                     <div class="fb-like" data-href="{{ share_game_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% endif %}
-                            </a>
+                            </div>
                         </li>
                     </ul>
                 </div>

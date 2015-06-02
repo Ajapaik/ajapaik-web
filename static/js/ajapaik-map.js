@@ -953,18 +953,6 @@
         if (window.map !== undefined) {
             window.map.scrollwheel = true;
         }
-        $(document).on('click', '#ajapaik-all-time-leaderboard-link', function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: window.allTimeLeaderboardURL,
-                success: function (response) {
-                    var modalWindow = $('#ajapaik-all-time-leaderboard-modal');
-                    modalWindow.find('.scoreboard').html(response);
-                    modalWindow.modal();
-                }
-            });
-            window._gaq.push(['_trackEvent', 'Map', 'All time leaderboard']);
-        });
         $(document).on('click', '#ajapaik-game-flip-photo-button', function () {
             var button = $(this);
             if (button.hasClass('active')) {
