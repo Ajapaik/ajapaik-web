@@ -645,6 +645,7 @@
 
     window.highlightSelected = function (markerId, fromMarker, event) {
         if (event) {
+            event.preventDefault();
             event.stopPropagation();
         }
         if (currentlySelectedMarkerId == markerId) {
@@ -703,6 +704,7 @@
             }
             window._gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
+        return false;
     };
     window.handleAlbumChange = function () {
         if (window.albumId) {
