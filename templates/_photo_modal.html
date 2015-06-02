@@ -352,6 +352,11 @@
                 } else if (window.isGame) {
                     window._gaq.push(['_trackEvent', 'Game', 'Photo modal previous']);
                 }
+            } else {
+                if (window.isFrontpage) {
+                    window.previousPageOnModalClose = true;
+                    window.closePhotoDrawer();
+                }
             }
         });
         $('.ajapaik-photo-modal-next-button').click(function () {
