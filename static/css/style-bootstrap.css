@@ -1753,7 +1753,6 @@ ul.errorlist {
     text-overflow: ellipsis;
     margin-left: 50px;
     margin-top: 50px;
-    display: none;
 }
 
 #pac-input:focus {
@@ -1773,7 +1772,6 @@ ul.errorlist {
     text-overflow: ellipsis;
     margin-right: 50px;
     margin-top: 50px;
-    display: none;
 }
 
 #pac-input-mapview:focus {
@@ -2020,8 +2018,8 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 #ajapaik-mapview-my-location-button {
-    margin-right: -25px;
-    margin-top: 25px;
+    margin-right: 40px;
+    margin-top: 50px;
 }
 
 @media (max-width: 767px) {
