@@ -24,8 +24,10 @@
             <div class="row-fluid">
                 <div class="{% if rephoto %}col-xs-6{% else %}col-xs-12{% endif %}">
                     <div id="ajapaik-photoview-main-photo-container">
-                        <a class="fullscreen" rel="{{ photo.id }}" id="ajapaik-full-screen-link">
-                            <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}" src="{% url 'project.home.views.photo_url' photo.id %}"/>
+                        <a class="fullscreen" id="ajapaik-full-screen-link">
+                            <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12
+                            {% if photo.flip %}ajapaik-photo-flipped{% endif %}" alt="{% trans "Original photo" %}"
+                             src="{% url 'project.home.views.photo_url' photo.id %}"/>
                         </a>
                         <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;"></button>
                     </div>
@@ -42,8 +44,8 @@
                     {% if photo.source_url %}
                         <div class="row-fluid">
                             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
-                                {{ photo.source.description }} {% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-                            </a>
+                                {{ photo.source.description }} {% if photo.source_key %}{{ photo.source_key }}{% endif %}
+                            </a>{% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
                         </div>
                     {% elif photo.source.description %}
                         <div class="row-fluid">
@@ -58,18 +60,18 @@
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
-                                    <a role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                    <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                         <input type="text" class="form-control"
                                                value="{{ hostname }}{{ photo.get_absolute_url }}">
-                                    </a>
+                                    </div>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1">
+                                    <div role="menuitem" tabindex="-1">
                                         <div class="fb-like" data-href="
                                                 {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
                                              data-layout="standard" data-action="like" data-show-faces="true"
                                              data-share="true"></div>
-                                    </a>
+                                    </div>
                                 </li>
                             </ul>
                             <span class="btn btn-success" id="ajapaik-photoview-add-rephoto-button">
@@ -95,14 +97,16 @@
                                     <a href="{% url 'project.home.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </p>
-                        </div>
+                        </div>f
                     {% endif %}
                 </div>
                 {% if rephoto %}
                     <div class="col-xs-6">
                         <div id="ajapaik-photoview-rephoto-container">
-                            <a class="fullscreen" rel="{{ rephoto.id }}" id="ajapaik-rephoto-full-screen-link">
-                                <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12 {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" src="{% url 'project.home.views.photo_url' rephoto.id %}"/>
+                            <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
+                                <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12
+                                {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" alt="{% trans "Rephoto" %}"
+                                     src="{% url 'project.home.views.photo_url' rephoto.id %}"/>
                             </a>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
