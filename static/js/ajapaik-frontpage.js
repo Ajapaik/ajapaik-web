@@ -173,14 +173,15 @@
             window.currentlySelectedPhotoId = null;
             syncStateToUrl();
             if (window.nextPageOnModalClose) {
-                console.log('clicking next');
                 window.nextPageOnModalClose = false;
-                setTimeout(function () {
+                window.setTimeout(function () {
                     $('#ajapaik-paging-next-button').click();
-                }, 1000);
+                }, 3000);
             } else if (window.previousPageOnModalClose) {
                 window.previousPageOnModalClose = false;
-                $('#ajapaik-paging-previous-button').click();
+                window.setTimeout(function () {
+                    $('#ajapaik-paging-previous-button').click();
+                }, 3000);
             }
         });
         $(document).on('click', '.ajapaik-frontpage-image-container', function (e) {
