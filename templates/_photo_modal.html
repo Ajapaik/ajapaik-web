@@ -365,6 +365,11 @@
                 } else if (window.isGame) {
                     window._gaq.push(['_trackEvent', 'Game', 'Photo modal next']);
                 }
+            } else {
+                if (window.isFrontpage) {
+                    window.nextPageOnModalClose = true;
+                    window.closePhotoDrawer();
+                }
             }
         });
         $('.ajapaik-photo-modal-album-link').click(function () {
