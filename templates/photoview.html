@@ -251,10 +251,12 @@
                     mapURL = '{% url 'project.home.views.mapview' %}';
                 window.location.href =  mapURL + '?album=' + albumId;
             });
-            $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function () {
+            $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
+                e.stopPropagation();
                 window.location.href = '/foto/' + {{ photo.id }};
             });
-            $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function () {
+            $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
+                e.stopPropagation();
                 var targetDiv = $('#ajapaik-photoview-rephoto');
                 if (targetDiv.hasClass('ajapaik-photo-bw')) {
                     targetDiv.removeClass('ajapaik-photo-bw');
