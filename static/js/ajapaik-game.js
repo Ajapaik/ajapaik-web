@@ -241,8 +241,11 @@
                 if (currentPhoto.total_geotags > 0) {
                     $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
                     $('#ajapaik-game-number-of-geotags').show();
+                    $('#ajapaik-game-number-of-geotags-hidden-xs').html(currentPhoto.total_geotags);
+                    $('#ajapaik-game-number-of-geotags-hidden-xs').show();
                 } else {
                     $('#ajapaik-game-number-of-geotags').hide();
+                    $('#ajapaik-game-number-of-geotags-hidden-xs').hide();
                 }
                 $('#ajapaik-game-map-geotag-count').html(currentPhoto.total_geotags);
                 $('#ajapaik-game-map-geotag-with-azimuth-count').html(currentPhoto.geotags_with_azimuth);
