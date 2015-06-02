@@ -985,10 +985,12 @@ def pane_contents(request):
             .prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos')).order_by('?')\
             .values_list('id', 'rephoto_count', 'flip', 'description', 'azimuth', 'fb_comments_count', 'width', 'height'):
         im_url = reverse("project.home.views.photo_thumb", args=(p[0], 300))
+        permalink = reverse("project.home.views.photo", args=(p[0],))
         width, height = _calculate_thumbnail_size(p[6], p[7], 300)
         data.append({
             "id": p[0],
             "url": im_url,
+            "permalink": permalink,
             "rephotos": p[1],
             "flipped": p[2],
             "description": p[3],
