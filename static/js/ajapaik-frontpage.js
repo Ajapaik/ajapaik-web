@@ -322,6 +322,7 @@
         });
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
             e.stopPropagation();
+            console.log(e);
             var $this = $(this);
             if ($this.data('order1')) {
                 window.order1 = $this.data('order1');
