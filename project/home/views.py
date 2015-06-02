@@ -712,8 +712,10 @@ def _get_filtered_data_for_frontpage(request):
             else:
                 photos = photos.order_by('-created')
         if requested_photo:
-            photo_count_before_requested = list(photos.values_list('id', flat=True)).index(requested_photo.id)
-            page = ceil(float(photo_count_before_requested) / float(page_size))
+            ids = list(photos.values_list('id', flat=True))
+            if requested_photo.id in ids:
+                photo_count_before_requested = ids.index(requested_photo.id)
+                page = ceil(float(photo_count_before_requested) / float(page_size))
         start = (page - 1) * page_size
         total = photos.count()
         if start < 0:
