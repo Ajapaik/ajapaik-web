@@ -21,6 +21,7 @@ var map,
     setCursorToAuto,
     bypass = false,
     mapOpts,
+    clickedMapButton = false,
     streetViewOptions = {
         panControl: true,
         panControlOptions: {
@@ -657,6 +658,9 @@ var map,
         switch (error.code) {
             case error.PERMISSION_DENIED:
                 targetElement.html(window.gettext('User denied the request for Geolocation.'));
+                if (window.clickedMapButton) {
+                    window.location.href = '/map/photo/' + window.lastGeotaggedPhotoId;
+                }
                 break;
             case error.POSITION_UNAVAILABLE:
                 targetElement.html(window.gettext('Location information is unavailable.'));
@@ -669,13 +673,17 @@ var map,
                 break;
         }
         $('#ajapaik-geolocation-error').show();
+        window.setTimeout(function () {
+            $('#ajapaik-geolocation-error').hide();
+        }, 3000);
     };
     $(document).on('click', '#ajapaik-header-map-button', function () {
         if (window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
         } else {
+            window.clickedMapButton = true;
             if (window.navigator.geolocation) {
-                window.getGeolocation(handleGeolocation, window.geolocationError);
+                window.getGeolocation(handleGeolocation);
             }
         }
     });
@@ -684,7 +692,7 @@ var map,
             window.location.href = '/map?album=' + window.albumId;
         } else {
             if (window.navigator.geolocation) {
-                window.getGeolocation(handleGeolocation, window.geolocationError);
+                window.getGeolocation(handleGeolocation);
             }
         }
     });
@@ -1211,7 +1219,7 @@ var map,
     $(document).on('click', '#ajapaik-filter-closest-link', function (e) {
         e.preventDefault();
         originalClosestLink = e.target.href;
-        getGeolocation(window.handleGeolocation, window.geolocationError);
+        getGeolocation(window.handleGeolocation);
     });
 
     $(document).on('click', '.ajapaik-album-info-modal-album-link', function () {

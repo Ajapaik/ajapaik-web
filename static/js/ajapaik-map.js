@@ -911,7 +911,7 @@
             window.location.href = '/game?album=' + window.albumId;
         });
         $(document).on('click', '#ajapaik-mapview-my-location-button', function () {
-            window.getGeolocation(window.handleGeolocation, window.geolocationError);
+            window.getGeolocation(window.handleGeolocation);
             centerOnMapAfterLocating = true;
         });
         window.handleGeolocation = function (location) {
