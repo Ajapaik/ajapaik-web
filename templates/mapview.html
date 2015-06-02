@@ -71,7 +71,7 @@
     {% endcompress %}
     {% verbatim %}
         <script id="ajapaik-pane-element-template" type="text/x-tmpl">
-            <a id="element{%=o.id%}" class="ajapaik-mapview-pane-photo-container"
+            <a id="element{%=o.id%}" class="ajapaik-mapview-pane-photo-container" href="{%=o.permalink%}"
                data-id="{%=o.id%}" onclick="window.highlightSelected({%=o.id%}, false, event);">
                 <img src=""
                      data-src="{%=o.url%}"
