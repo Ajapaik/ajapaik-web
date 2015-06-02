@@ -1220,6 +1220,10 @@ ul.errorlist {
     right: 0;
 }
 
+#ajapaik-change-language-form {
+    display: none;
+}
+
 .ajapaik-close-rephoto-overlay-button {
     background: #fff url(../images/material-design-icons/ic_close_24px.svg) no-repeat center !important;
     top: 0;
