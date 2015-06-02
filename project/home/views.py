@@ -554,6 +554,7 @@ def game(request):
     ret["is_game"] = True
     ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
+    ret["last_geotagged_photo_id"] = Photo.objects.order_by('-latest_geotag').first().id
     ret["ajapaik_facebook_link"] = settings.AJAPAIK_FACEBOOK_LINK
 
     return render_to_response("game.html", RequestContext(request, ret))
@@ -619,6 +620,7 @@ def frontpage(request, album_id=None, page=None):
         'max_page': data['max_page'],
         'total': data['total'],
         'photos': data['photos'],
+        'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id
     }))
 
 
@@ -1044,6 +1046,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     site = Site.objects.get_current()
     ret = {
         "area": area,
+        "last_geotagged_photo_id": Photo.objects.order_by('-latest_geotag').first().id,
         "total_photo_count": photos_qs.distinct('id').count(),
         "geotagging_user_count": geotagging_user_count,
         "geotagged_photo_count": geotagged_photo_count,

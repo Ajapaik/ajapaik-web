@@ -97,13 +97,13 @@
             if (window.order1 === 'time' && window.order2 === 'added') {
                 window.order1 = 'closest';
                 window.order2 = undefined;
-                window.getGeolocation(window.handleGeolocation, window.geolocationError);
+                window.getGeolocation(window.handleGeolocation);
             }
         }
         if (window.getQueryParameterByName('order1') === 'closest') {
             if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
                 window.useButtonLink = false;
-                window.getGeolocation(window.handleGeolocation, window.geolocationError);
+                window.getGeolocation(window.handleGeolocation);
             }
         }
         if (window.getQueryParameterByName('photo')) {
@@ -358,7 +358,7 @@
                     syncFilteringHighlights();
                     updateFrontpagePhotosAsync();
                 } else {
-                    window.getGeolocation(window.handleGeolocation, window.geolocationError);
+                    window.getGeolocation(window.handleGeolocation);
                 }
             } else {
                 syncStateToUrl();
