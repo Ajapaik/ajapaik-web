@@ -14,7 +14,7 @@
                     <a target="_blank" href="{% url "project.home.views.photo" %}{{ p.0 }}"
                        class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{{ p.0 }}"
                        data-id="{{ p.0 }}">
-                        <img alt="{{ p.3 }}" src="" data-src="{% url "project.home.views.photo_thumb" p.0 300 %}"
+                        <img alt="{{ p.3 }}" src="#" data-src="{% url "project.home.views.photo_thumb" p.0 300 %}"
                             class="ajapaik-frontpage-image-image lazyload img-responsive" data-id="{{ p.0 }}"
                             width="{{ p.1 }}" height="{{ p.2 }}"/>
                         <div class="ajapaik-thumbnail-info-container">
@@ -51,12 +51,12 @@
     {% include "_full_leaderboard_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
-            <img id="ajapaik-full-screen-image" src=""/>
+            <img id="ajapaik-full-screen-image" src="#"/>
         </div>
     </div>
     <div class="full-box rephoto-full-box">
         <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-            <img id="ajapaik-rephoto-full-screen-image" src=""/>
+            <img id="ajapaik-rephoto-full-screen-image" src="#"/>
         </div>
     </div>
 {% endblock %}

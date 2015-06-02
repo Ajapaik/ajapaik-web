@@ -693,6 +693,9 @@ var map,
             showScoreboard();
         }
     });
+    $(document).on('click', '#ajapaik-header-profile-button-hidden-xs', function () {
+        $('#ajapaik-header-profile-button').click();
+    });
     // Firefox and Opera cannot handle modal taking over focus
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
         $.noop();

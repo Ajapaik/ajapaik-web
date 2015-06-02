@@ -1,7 +1,7 @@
 {% load i18n cache thumbnail compress %}
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
-      xmlns="http://www.w3.org/1999/xhtml" prefix="fb: http://www.facebook.com/2008/fbml">
+      prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
     <title>
         {% if title %}
@@ -25,6 +25,11 @@
         <meta property="og:title" content="{{ title }}"/>
         {% if description %}
             <meta property="og:description" content="{{ description }}"/>
+        {% elif not description and is_game and album%}
+            <meta property="og:description" content="{% blocktrans with album.1 as album_name and album_photo_count as album_photo_count %}{{ album_name }} – Let's put pictures on the map
+            Album has {{ album_photo_count }} historic pictures{% endblocktrans %}"/>
+        {% elif not description and is_game %}
+            <meta property="og:description" content="{% trans "Let's put pictures on the map" %}"/>
         {% elif not description and is_mapview %}
             <meta property="og:description" content="
                 {% blocktrans count counter=total_photo_count %}

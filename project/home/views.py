@@ -535,6 +535,10 @@ def game(request):
 
     if album:
         ret["album"] = (album.id, album.name, album.lat, album.lon)
+        qs = album.photos.filter(rephoto_of__isnull=True)
+        for sa in album.subalbums.all():
+            qs = qs | sa.photos.filter(rephoto_of__isnull=True)
+        ret["album_photo_count"] = qs.count()
         ret["facebook_share_photos"] = album.photos.values_list('id')[:5]
     elif area:
         ret["facebook_share_photos"] = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?").values_list('id')[:5]
@@ -550,7 +554,6 @@ def game(request):
     ret["is_game"] = True
     ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
-    ret["description"] = _("Let's put pictures on the map")
     ret["ajapaik_facebook_link"] = settings.AJAPAIK_FACEBOOK_LINK
 
     return render_to_response("game.html", RequestContext(request, ret))

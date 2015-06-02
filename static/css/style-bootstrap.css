@@ -432,7 +432,7 @@ body {
     display: none;
     color: #fff;
     font-size: 20px;
-    margin-top: 5px;
+    margin-top: 0;
     margin-bottom: -5px;
 }
 
@@ -460,6 +460,10 @@ body {
 }
 
 #ajapaik-header-profile-button {
+    background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
+}
+
+#ajapaik-header-profile-button-hidden-xs {
     background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
 }
 

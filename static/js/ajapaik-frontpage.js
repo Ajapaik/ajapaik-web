@@ -40,13 +40,6 @@
             if (window.albumId) {
                 $('#ajapaik-album-selection-navmenu').scrollTop($(".ajapaik-album-selection-item[data-id='" + window.albumId + "']").offset().top);
             }
-            var albumTitle = $('#ajapaik-header-album-name'),
-                orderTitle = $('#ajapaik-header-order-name');
-            if (albumTitle.length > 0) {
-                albumTitle.text(window.gettext('Album selection'));
-            } else if (orderTitle.length > 0) {
-                orderTitle.text(window.gettext('Album selection'));
-            }
             $('#ajapaik-album-selection-label').show();
             $('#ajapaik-album-name-container').hide();
             $('#ajapaik-header-grid-button').hide();
