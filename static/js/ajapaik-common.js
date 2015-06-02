@@ -1085,6 +1085,9 @@ var map,
             window._gaq.push(['_trackEvent', 'Game', 'Album selection click']);
         }
     });
+    $(document).on('click', '#ajapaik-header-menu-button-hidden-xs', function () {
+        $('#ajapaik-header-menu-button').click();
+    });
     $(document).on('click', '#ajapaik-photo-modal-share', function () {
         if (window.isFrontpage) {
             window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal share click']);

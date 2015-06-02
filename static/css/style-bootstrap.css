@@ -420,6 +420,11 @@ body {
     background-image: url(../images/material-design-icons/ic_bookmark_24px_white.svg) !important;
 }
 
+#ajapaik-header-menu-button-hidden-xs {
+    background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
+    margin-left: 10px;
+}
+
 #ajapaik-filter-selection-menu {
     margin-top: 50px;
 }
@@ -453,6 +458,7 @@ body {
     font-size: 20px;
     margin-top: 5px;
     margin-bottom: -5px;
+    display: block;
 }
 
 .ajapaik-header-filter-button-white {
