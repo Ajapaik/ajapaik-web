@@ -256,14 +256,14 @@ var map,
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
             map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
         } else {
+            myLocationButton = document.createElement('button');
+            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').prop('title', window.gettext('Go to my location')).html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+            map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
             mapviewGameButton = document.createElement('button');
             $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button ajapaik-zero-border-radius').prop('title', window.gettext('Geotag pictures')).html(window.gettext('Geotag pictures'));
             map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
-            myLocationButton = document.createElement('button');
-            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button').prop('title', window.gettext('Go to my location')).html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
-            map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button').html(window.gettext('Close'));
             streetPanorama.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(closeStreetviewButton);
