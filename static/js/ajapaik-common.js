@@ -675,7 +675,7 @@ var map,
             window.location.href = '/map?album=' + window.albumId;
         } else {
             if (window.navigator.geolocation) {
-                window.navigator.geolocation.getCurrentPosition(handleGeolocation);
+                window.getGeolocation(handleGeolocation, window.geolocationError);
             }
         }
     });
@@ -684,7 +684,7 @@ var map,
             window.location.href = '/map?album=' + window.albumId;
         } else {
             if (window.navigator.geolocation) {
-                window.navigator.geolocation.getCurrentPosition(handleGeolocation);
+                window.getGeolocation(handleGeolocation, window.geolocationError);
             }
         }
     });
@@ -1211,7 +1211,7 @@ var map,
     $(document).on('click', '#ajapaik-filter-closest-link', function (e) {
         e.preventDefault();
         originalClosestLink = e.target.href;
-        getGeolocation(window.handleGeolocation);
+        getGeolocation(window.handleGeolocation, window.geolocationError);
     });
 
     $(document).on('click', '.ajapaik-album-info-modal-album-link', function () {

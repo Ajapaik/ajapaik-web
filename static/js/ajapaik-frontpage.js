@@ -97,13 +97,13 @@
             if (window.order1 === 'time' && window.order2 === 'added') {
                 window.order1 = 'closest';
                 window.order2 = undefined;
-                window.getGeolocation(window.handleGeolocation);
+                window.getGeolocation(window.handleGeolocation, window.geolocationError);
             }
         }
         if (window.getQueryParameterByName('order1') === 'closest') {
             if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
                 window.useButtonLink = false;
-                window.getGeolocation(window.handleGeolocation);
+                window.getGeolocation(window.handleGeolocation, window.geolocationError);
             }
         }
         if (window.getQueryParameterByName('photo')) {
@@ -322,7 +322,6 @@
         });
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
             e.stopPropagation();
-            console.log(e);
             var $this = $(this);
             if ($this.data('order1')) {
                 window.order1 = $this.data('order1');
@@ -359,7 +358,7 @@
                     syncFilteringHighlights();
                     updateFrontpagePhotosAsync();
                 } else {
-                    window.getGeolocation(window.handleGeolocation);
+                    window.getGeolocation(window.handleGeolocation, window.geolocationError);
                 }
             } else {
                 syncStateToUrl();
