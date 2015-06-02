@@ -145,7 +145,7 @@ var map,
     albumSelectionDiv = $('#ajapaik-album-selection-menu');
     albumSelectionDiv.justifiedGallery({
         rowHeight: 270,
-        margins: 0,
+        margins: 5,
         captions: false,
         waitThumbnailsLoad: false
     });
@@ -1133,6 +1133,7 @@ var map,
 
     $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
         e.preventDefault();
+        e.stopPropagation();
         var targetDiv = $('#ajapaik-modal-rephoto');
         if (targetDiv.hasClass('ajapaik-photo-bw')) {
             targetDiv.removeClass('ajapaik-photo-bw');

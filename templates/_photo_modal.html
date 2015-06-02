@@ -494,6 +494,7 @@
         });
         $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
             e.preventDefault();
+            e.stopPropagation();
             $('#ajapaik-photo-modal-rephoto-column').hide();
             $('#ajapaik-rephoto-selection').hide();
             $('#ajapaik-show-rephoto-selection-overlay-button').show();
