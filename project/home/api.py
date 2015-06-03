@@ -88,6 +88,7 @@ def api_album_thumb(request, album_id, thumb_size=250):
 
 
 @api_view(['POST'])
+@parser_classes((FormParser,))
 @authentication_classes((CustomAuthentication,))
 @permission_classes((IsAuthenticated,))
 def api_albums(request):
