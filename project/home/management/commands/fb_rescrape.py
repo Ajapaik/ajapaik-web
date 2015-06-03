@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Rescrape all our photo URLs'
 
     def handle(self, *args, **options):
-        photos = Photo.objects.all()
+        photos = Photo.objects.filter(pk=8361)
         query_string = 'http://developers.facebook.com/tools/debug/og/object?q=%s'
         url_template = 'http://ajapaik.ee/foto/%d/'
         for p in photos:
