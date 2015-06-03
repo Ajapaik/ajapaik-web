@@ -179,7 +179,7 @@ def api_album_state(request):
         album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-        album_photos_qs = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).annotate(rephoto_count=Count('rephotos'))
+        album_photos_qs = album_photos_qs.annotate(rephoto_count=Count('rephotos'))
         for p in album_photos_qs:
             date = None
             if p.date:
