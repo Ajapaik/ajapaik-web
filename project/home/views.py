@@ -855,13 +855,13 @@ def photo(request, photo_id=None):
         p = Photo.objects.order_by('-created').first()
         if p:
             photo_id = p.id
-    photo = get_object_or_404(Photo, id=photo_id)
-    pseudo_slug = photo.get_pseudo_slug()
+    p = get_object_or_404(Photo, id=photo_id)
+    pseudo_slug = p.get_pseudo_slug()
     # slug not needed if not enough data for slug or ajax request
     if pseudo_slug != "" and not request.is_ajax():
-        return photoslug(request, photo.id, "")
+        return photoslug(request, p.id, "")
     else:
-        return photoslug(request, photo.id, pseudo_slug)
+        return photoslug(request, p.id, pseudo_slug)
 
 
 def heatmap_data(request):
@@ -895,7 +895,7 @@ def _make_fullscreen(p):
 def photoslug(request, photo_id, pseudo_slug):
     photo_obj = get_object_or_404(Photo, id=photo_id)
     # redirect if slug in url doesn"t match with our pseudo slug
-    if photo_obj.get_pseudo_slug() != pseudo_slug:
+    if pseudo_slug != '' and photo_obj.get_pseudo_slug() != pseudo_slug:
         response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
         response["Location"] = photo_obj.get_absolute_url()
         return response
