@@ -895,7 +895,7 @@ def _make_fullscreen(p):
 def photoslug(request, photo_id, pseudo_slug):
     photo_obj = get_object_or_404(Photo, id=photo_id)
     # redirect if slug in url doesn"t match with our pseudo slug
-    if pseudo_slug != '' and photo_obj.get_pseudo_slug() != pseudo_slug:
+    if photo_obj.get_pseudo_slug() != pseudo_slug:
         response = HttpResponse(content="", status=301)  # HTTP 301 for google juice
         response["Location"] = photo_obj.get_absolute_url()
         return response

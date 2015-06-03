@@ -55,7 +55,19 @@
         {% endif %}
         <meta property="og:type" content="website"/>
         {% if photo or rephoto %}
-            <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+            {% if photo and is_frontpage %}
+                <meta property="og:url" content="{{ hostname }}?photo={{ photo.id }}"/>
+            {% elif not photo and rephoto and is_frontpage %}
+                <meta property="og:url" content="{{ hostname }}?photo={{ rephoto.rephoto_of.id }}"/>
+            {% else %}
+                {% if photo %}
+                    <meta property="og:url" content="{{ hostname }}foto/{{ photo.id }}/"/>
+                {% elif rephoto %}
+                    <meta property="og:url" content="{{ hostname }}foto/{{ rephoto.id }}/"/>
+                {% else %}
+                    <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+                {% endif %}
+            {% endif %}
         {% elif selected_photo %}
             <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}photo/{{ selected_photo.id }}/"/>
         {% elif album %}
