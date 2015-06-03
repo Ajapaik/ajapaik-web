@@ -16,7 +16,7 @@ from rest_framework.response import Response
 from sorl.thumbnail import get_thumbnail
 import time
 from project.home.cat import CustomAuthentication
-from project.home.forms import CatLoginForm, ApiAlbumNearestForm
+from project.home.forms import CatLoginForm, ApiAlbumNearestForm, ApiAlbumStateForm
 from project.home.models import Album, Photo
 from project.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS
 
@@ -131,17 +131,56 @@ def api_album_nearest(request):
                 photos_qs = photos_qs | sa.photos.filter()
         else:
             photos_qs = Photo.objects.all()
-        if form.cleaned_data["latitude"] and form.cleaned_data["longitude"]:
-            lat = round(form.cleaned_data["latitude"], 4)
-            lon = round(form.cleaned_data["longitude"], 4)
+        lat = round(form.cleaned_data["latitude"], 4)
+        lon = round(form.cleaned_data["longitude"], 4)
+        ref_location = Point(lon, lat)
         if form.cleaned_data["range"]:
             nearby_range = form.cleaned_data["range"]
         else:
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
-        ref_location = Point(lon, lat)
         album_nearby_photos = photos_qs.filter(rephoto_of__isnull=True, geography__distance_lte=(ref_location,
             D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:
+            date = None
+            if p.date:
+                date = p.date.strftime('%d-%m-%Y')
+            photos.append({
+                "id": p.id,
+                "image": request.build_absolute_uri(reverse("project.home.views.photo_thumb", args=(p.id,))) + '[DIM]/',
+                "width": p.width,
+                "height": p.height,
+                "title": p.description,
+                "date": date,
+                "author": p.author,
+                "source": p.source_url,
+                "latitude": p.lat,
+                "longitude": p.lon,
+                "rephotos": p.rephoto_count
+            })
+        content["photos"] = photos
+    else:
+        content["error"] = 2
+
+    return Response(content)
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def api_album_state(request):
+    form = ApiAlbumStateForm(request.data)
+    content = {
+        'state': str(int(round(time.time() * 1000)))
+    }
+    photos = []
+    if form.is_valid():
+        album = form.cleaned_data["id"]
+        album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
+        for sa in album.subalbums.all():
+            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+        album_photos_qs = album_photos_qs.annotate(rephoto_count=Count('rephotos'))
+        for p in album_photos_qs:
             date = None
             if p.date:
                 date = p.date.strftime('%d-%m-%Y')
