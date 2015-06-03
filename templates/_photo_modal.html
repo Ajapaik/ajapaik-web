@@ -209,7 +209,7 @@
                                 </li>
                                 <li role="presentation">
                                     <div role="menuitem" tabindex="-1">
-                                        <div class="fb-like" data-href="{{ hostname }}{{ photo.get_absolute_url }}"
+                                        <div id="ajapaik-photo-modal-like" class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
                                              data-layout="standard" data-action="like" data-show-faces="true"
                                              data-share="true"></div>
                                     </div>
@@ -458,7 +458,6 @@
             infoDiv.show();
             for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
                 if (window.photoModalRephotoArray[i]['id'] == targetId) {
-                    console.log(photoModalRephotoArray[i]);
                     fullscreenDiv.prop('src', window.photoModalRephotoArray[i]['fullscreen_url']);
                     window.prepareFullscreen(window.photoModalRephotoArray[i]['fullscreen_width'],
                             window.photoModalRephotoArray[i]['fullscreen_height'],

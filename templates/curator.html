@@ -676,7 +676,7 @@
                             $('#ajapaik-curator-add-area-name-hidden').val(null);
                             feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                                 $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
-                                FB.XFBML.parse();
+                                window.FB.XFBML.parse($('#ajapaik-curator-share-button'));
                             });
                             for (var key in response.photos) {
                                 if (response.photos.hasOwnProperty(key)) {
@@ -773,7 +773,7 @@
         <option>---------------</option>
     </script>
     <script id="ajapaik-curator-share-set-button" type="text/x-tmpl">
-        <div class="fb-share-button" data-href="{%=o.gameLink%}" data-layout="button"></div>
+        <div id="ajapaik-curator-share-button" class="fb-share-button" data-href="{%=o.gameLink%}" data-layout="button"></div>
     </script>
 {% endverbatim %}
 {% endblock %}

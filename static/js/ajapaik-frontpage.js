@@ -163,7 +163,7 @@
                 }
                 $('#ajapaik-guess-panel-description').html(window.currentPhotoDescription).show();
                 $('.ajapaik-game-show-description-button').hide();
-                window.FB.XFBML.parse();
+                window.FB.XFBML.parse($('#ajapaik-photo-modal-like'));
             });
         };
         photoModal.on('shown.bs.modal', function () {
