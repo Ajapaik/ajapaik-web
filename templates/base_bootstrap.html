@@ -1,7 +1,7 @@
 {% load i18n cache thumbnail compress %}
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
-      prefix="fb: http://www.facebook.com/2008/fbml">
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
 <head>
     <title>
         {% if title %}
@@ -141,7 +141,7 @@
 </div>
 <div id="ajapaik-loading-overlay"></div>
 <div id="fb-root"></div>
-<form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
+<form action="/i18n/setlang/" method="post" style="display: none" id="ajapaik-change-language-form">
     {% csrf_token %}
     <input type="hidden" value="" name="language" id="ajapaik-language" />
 </form>
@@ -167,14 +167,11 @@
             try {
                 FB.Event.subscribe("edge.create", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Like added", a])
-                }),
-                FB.Event.subscribe("edge.remove", function (a) {
+                }), FB.Event.subscribe("edge.remove", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Like removed", a])
-                }),
-                FB.Event.subscribe("message.send", function (a) {
+                }), FB.Event.subscribe("message.send", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Message sent", a])
-                }),
-                FB.Event.subscribe("comment.create", function (a) {
+                }), FB.Event.subscribe("comment.create", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment added", a.href]);
                     var parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
@@ -183,8 +180,7 @@
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     }, function () {
                     });
-                }),
-                FB.Event.subscribe("comment.remove", function (a) {
+                }), FB.Event.subscribe("comment.remove", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment removed", a.href]);
                     var parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
