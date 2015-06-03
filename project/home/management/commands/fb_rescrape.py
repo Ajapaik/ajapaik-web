@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Rescrape all our photo URLs'
 
     def handle(self, *args, **options):
-        photos = Photo.objects.order_by('created')
+        photos = Photo.objects.order_by('latest_comment')
         query_string = 'http://graph.facebook.com/?id=%s&scrape=true'
         url_template = 'http://ajapaik.ee/foto/%d/'
         for p in photos:
