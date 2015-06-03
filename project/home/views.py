@@ -539,9 +539,9 @@ def game(request):
         for sa in album.subalbums.all():
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
         ret["album_photo_count"] = qs.count()
-        ret["facebook_share_photos"] = album.photos.values_list('id')[:5]
+        ret["facebook_share_photos"] = album.photos.values_list('id', 'width', 'height')[:5]
     elif area:
-        ret["facebook_share_photos"] = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?").values_list('id')[:5]
+        ret["facebook_share_photos"] = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?").values_list('id', 'width', 'height')[:5]
 
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
@@ -1065,7 +1065,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if album is not None:
         ret["album"] = (album.id, album.name, album.lat, album.lon)
         ret["title"] = album.name + " - " + _("Browse photos on map")
-        ret["facebook_share_photos"] = album.photos.values_list('id')[:5]
+        ret["facebook_share_photos"] = album.photos.values_list('id', 'width', 'height')[:5]
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
     else:

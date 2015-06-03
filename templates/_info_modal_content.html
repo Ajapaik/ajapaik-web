@@ -123,11 +123,11 @@
                             </div>
                         </li>
                         <li role="presentation">
-                            <div role="menuitem" tabindex="-1">
+                            <div id="ajapaik-info-modal-like" role="menuitem" tabindex="-1">
                                 {% if link_to_map %}
-                                    <div id="ajapaik-info-modal-like" class="fb-like" data-href="{{ share_map_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                    <div class="fb-like" data-href="{{ share_map_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% else %}
-                                    <div id="ajapaik-info-modal-like" class="fb-like" data-href="{{ share_game_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                    <div class="fb-like" data-href="{{ share_game_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% endif %}
                             </div>
                         </li>

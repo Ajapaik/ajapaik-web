@@ -676,7 +676,7 @@
                             $('#ajapaik-curator-add-area-name-hidden').val(null);
                             feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                                 $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
-                                window.FB.XFBML.parse($('#ajapaik-curator-share-button').get(0));
+                                window.FB.XFBML.parse();
                             });
                             for (var key in response.photos) {
                                 if (response.photos.hasOwnProperty(key)) {

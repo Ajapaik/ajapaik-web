@@ -204,12 +204,12 @@
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                         <input type="text" class="form-control"
-                                               value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                               value="{{ hostname }}{{ photo.get_detail_url }}">
                                     </div>
                                 </li>
                                 <li role="presentation">
-                                    <div role="menuitem" tabindex="-1">
-                                        <div id="ajapaik-photo-modal-like" class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
+                                    <div id="ajapaik-photo-modal-like" role="menuitem" tabindex="-1">
+                                        <div class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
                                              data-layout="standard" data-action="like" data-show-faces="true"
                                              data-share="true"></div>
                                     </div>
@@ -467,7 +467,7 @@
                     window.currentlySelectedRephotoId = targetId;
                     var commentsDiv = $('#ajapaik-rephoto-comments');
                     commentsDiv.find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
-                    window.FB.XFBML.parse(commentsDiv.get(0));
+                    window.FB.XFBML.parse();
                     if (window.isFrontpage) {
 
                     } else {
