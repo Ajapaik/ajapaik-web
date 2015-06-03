@@ -1,6 +1,6 @@
 {% load i18n cache thumbnail compress %}
 <!DOCTYPE html>
-<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
+<html {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
       xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
 <head>
     <title>
