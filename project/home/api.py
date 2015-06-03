@@ -126,7 +126,7 @@ def api_album_nearest(request):
         album = form.cleaned_data["id"]
         if album:
             content["title"] = album.name
-            photos_qs = album.photos.prefetch_related('subalbums')
+            photos_qs = album.photos.all()
             for sa in album.subalbums.all():
                 photos_qs = photos_qs | sa.photos.filter()
         else:
