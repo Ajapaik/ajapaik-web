@@ -185,7 +185,7 @@ class FrontpagePagingForm(forms.Form):
 
 class ApiAlbumNearestForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
-    latitude = forms.FloatField(min_value=-85.05115, max_value=85)
-    longitude = forms.FloatField(min_value=-180, max_value=180)
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     range = forms.FloatField(required=False)
     state = forms.CharField(max_length=255, required=False)
