@@ -1702,6 +1702,9 @@ def update_comment_count(request):
                     p.latest_comment = datetime.datetime.now()
                     new_photo_comment.save()
             p.fb_comments_count = len(response['data'])
+            if p.fb_comments_count == 0:
+                p.latest_comment = None
+                p.first_comment = None
             p.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")

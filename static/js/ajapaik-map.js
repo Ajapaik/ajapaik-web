@@ -133,7 +133,7 @@
                     }
                 }, 3000);
             }
-            window.FB.XFBML.parse($('#ajapaik-photo-modal-like'));
+            window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
         });
     };
     updateBoundingEdge = function (edge) {

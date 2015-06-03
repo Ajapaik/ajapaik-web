@@ -468,7 +468,7 @@
                 success: function (resp) {
                     targetDiv.html(resp);
                     targetDiv.modal().on('shown.bs.modal', function () {
-                        window.FB.XFBML.parse($('#ajapaik-photo-modal-like'));
+                        window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
                     });
                 }
             });

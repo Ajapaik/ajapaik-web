@@ -266,7 +266,8 @@
             });
             $('#ajapaik-comment-tabs a').click(function (e) {
                 e.preventDefault();
-                FB.XFBML.parse();
+                window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+                window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
                 $(this).tab('show')
             });
             window.uploadCompleted = function (response) {
