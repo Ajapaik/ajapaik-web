@@ -895,11 +895,6 @@ def _make_fullscreen(p):
 def photoslug(request, photo_id, pseudo_slug):
     photo_obj = get_object_or_404(Photo, id=photo_id)
 
-    if pseudo_slug:
-        response = HttpResponse(content="", status=301)
-        response["Location"] = photo_obj.get_detail_url()
-        return response
-
     # switch places if rephoto url
     rephoto = None
     first_rephoto = None
