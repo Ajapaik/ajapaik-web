@@ -93,25 +93,17 @@ def api_album_thumb(request, album_id, thumb_size=250):
 @permission_classes((IsAuthenticated,))
 def api_albums(request):
     error = 0
-    albums = Album.objects.filter(is_public=True).prefetch_related('photos').order_by('-created')
-    album_photos_dict = { x.id: {
-        'photos': list(x.photos.all().values_list('id', flat=True)),
-        'rephotos': list(x.photos.filter(rephoto_of__isnull=False).values_list('id', flat=True))
-    } for x in albums }
+    albums = Album.objects.filter(is_public=True).order_by('-created')
     ret = []
     content = {}
-    for a in albums:
-        if a.subalbum_of_id in album_photos_dict:
-            album_photos_dict[a.subalbum_of_id]['photos'] += album_photos_dict[a.id]['photos']
-            album_photos_dict[a.subalbum_of_id]['rephotos'] += album_photos_dict[a.id]['rephotos']
     for a in albums:
         ret.append({
             'id': a.id,
             'title': a.name,
             'image': request.build_absolute_uri(reverse('project.home.api.api_album_thumb', args=(a.id,))) + '?' + str(time.time()),
             'stats': {
-                'total': len(set(album_photos_dict[a.id]['photos'])),
-                'rephotos': len(set(album_photos_dict[a.id]['rephotos']))
+                'total': a.photo_count_with_subalbums,
+                'rephotos': a.rephoto_count_with_subalbums
             }
         })
     content['error'] = error
@@ -147,7 +139,7 @@ def api_album_nearest(request):
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
         ref_location = Point(lon, lat)
         album_nearby_photos = photos_qs.filter(rephoto_of__isnull=True, geography__distance_lte=(ref_location,
-            D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+            D(m=nearby_range))).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:
             date = None
             if p.date:
@@ -158,7 +150,6 @@ def api_album_nearest(request):
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
-                "distance": p.distance.m,
                 "date": date,
                 "author": p.author,
                 "source": p.source_url,

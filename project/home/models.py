@@ -232,6 +232,7 @@ class Album(Model):
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     cover_photo = ForeignKey("Photo", null=True, blank=True)
     photo_count_with_subalbums = IntegerField(default=0)
+    rephoto_count_with_subalbums = IntegerField(default=0)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -249,9 +250,12 @@ class Album(Model):
             self.cover_photo_id = self.photos.order_by('?').first().id
         if self.subalbums and self.id:
             album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
+            album_rephotos_qs = self.photos.filter(rephoto_of__isnull=False)
             for sa in self.subalbums.all():
                 album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+                album_rephotos_qs = album_rephotos_qs | sa.photos.filter(rephoto_of__isnull=False)
             self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
+            self.rephoto_count_with_subalbums = album_rephotos_qs.distinct('id').count()
             if not self.lat:
                 random_photo_with_area = album_photos_qs.filter(area__isnull=False).first()
                 if random_photo_with_area:
