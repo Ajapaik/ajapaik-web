@@ -608,7 +608,7 @@ def frontpage(request, album_id=None, page=None):
         'title': title,
         'hostname': 'http://%s' % (site.domain, ),
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-        'facebook_share_photos': data['photos'][:5],
+        'facebook_share_photos': data['fb_share_photos'],
         'album': data['album'],
         'albums': albums,
         'photo': data['photo'],
@@ -740,12 +740,18 @@ def _get_filtered_data_for_frontpage(request):
         photos = map(list, photos)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 300)
+        fb_share_photos = []
+        for p in photos[:5]:
+            w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
+            fb_share_photos.append([p[0], w, h])
         if album:
             ret['album'] = (album.id, album.name)
         else:
             ret['album'] = None
         ret['photo'] = requested_photo
         ret['photos'] = photos
+        # FIXME: DRY
+        ret['fb_share_photos'] = fb_share_photos
         ret['start'] = start
         ret['end'] = end
         ret['order1'] = order1
@@ -763,6 +769,11 @@ def _get_filtered_data_for_frontpage(request):
         ret['order2'] = 'added'
         ret['total'] = photos.count()
         photos = map(list, photos)
+        fb_share_photos = []
+        for p in photos[:5]:
+            w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
+            fb_share_photos.append([p[0], w, h])
+        ret['fb_share_photos'] = fb_share_photos
         ret['photos'] = photos
         ret['start'] = 0
         ret['end'] = page_size
@@ -1031,9 +1042,10 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if selected_photo and album is None:
         photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
         album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created").first()
-        photos_qs = album.photos.prefetch_related('subalbums').filter(rephoto_of__isnull=True)
-        for sa in album.subalbums.all():
-            photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+        if album:
+            photos_qs = album.photos.prefetch_related('subalbums').filter(rephoto_of__isnull=True)
+            for sa in album.subalbums.all():
+                photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
 
     if selected_photo and area is None:
         area = Area.objects.filter(pk=selected_photo.area_id).first()

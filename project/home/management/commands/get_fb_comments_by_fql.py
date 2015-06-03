@@ -16,7 +16,7 @@ class Command(BaseCommand):
         photo_count = photos.count()
         start = 0
         end = 500
-        while start < photo_count:
+        while start <= photo_count:
             or_clause = ''
             photo_batch = photos[start:end]
             first = True
@@ -41,11 +41,14 @@ class Command(BaseCommand):
             start += 500
             end += 500
         # Now use the ids to request all comments from Facebook
-        photos = Photo.objects.filter(fb_object_id__isnull=False)
+        photos = Photo.objects.filter(fb_object_id__isnull=False).prefetch_related('comments')
         photo_count = photos.count()
         start = 0
         end = 500
-        while start < photo_count:
+        # Empty comments table
+        for pc in PhotoComment.objects.all():
+            pc.delete()
+        while start <= photo_count:
             ids = ''
             photo_batch = photos[start:end]
             first = True
