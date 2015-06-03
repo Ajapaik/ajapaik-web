@@ -59,8 +59,14 @@
                 <meta property="og:url" content="{{ hostname }}?photo={{ photo.id }}"/>
             {% elif not photo and rephoto and is_frontpage %}
                 <meta property="og:url" content="{{ hostname }}?photo={{ rephoto.rephoto_of.id }}"/>
-            {% elif not is_photoview %}
-                <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+            {% else %}
+                {% if is_photoview and not rephoto %}
+                    <meta property="og:url" content="{{ hostname }}/foto/{{ photo.id }}/"/>
+                {% elif is_photoview and rephoto %}
+                    <meta property="og:url" content="{{ hostname }}/foto/{{ rephoto.id }}/"/>
+                {% else %}
+                    <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+                {% endif %}
             {% endif %}
         {% elif selected_photo %}
             <meta property="og:url" content="{{ hostname }}{% url 'project.home.views.mapview' %}photo/{{ selected_photo.id }}/"/>
