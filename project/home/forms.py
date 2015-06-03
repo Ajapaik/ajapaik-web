@@ -9,9 +9,9 @@ class AreaSelectionForm(forms.Form):
 
 
 class AlbumSelectionForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True)
-                                   .order_by('-created').all(), label=_('Choose album'),
-                                   initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
+   album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True)
+                                  .order_by('-created').all(), label=_('Choose album'),
+                                  initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
 
 
 class GalleryFilteringForm(forms.Form):
