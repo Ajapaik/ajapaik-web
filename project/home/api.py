@@ -131,15 +131,15 @@ def api_album_nearest(request):
                 photos_qs = photos_qs | sa.photos.filter()
         else:
             photos_qs = Photo.objects.all()
-        lat = form.cleaned_data["latitude"]
-        lon = form.cleaned_data["longitude"]
+        lat = round(form.cleaned_data["latitude"], 4)
+        lon = round(form.cleaned_data["longitude"], 4)
         if form.cleaned_data["range"]:
             nearby_range = form.cleaned_data["range"]
         else:
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
         ref_location = Point(lon, lat)
         album_nearby_photos = photos_qs.filter(rephoto_of__isnull=True, geography__distance_lte=(ref_location,
-            D(m=nearby_range))).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+            D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:
             date = None
             if p.date:
