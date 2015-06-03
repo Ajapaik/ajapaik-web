@@ -464,6 +464,8 @@ def photo_upload(request, photo_id):
                 photo.save()
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
+                profile.set_calculated_fields()
+                profile.save()
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
 

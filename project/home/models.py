@@ -519,10 +519,10 @@ class Photo(Model):
                 a.lon = lon / count
                 a.save()
         if not self.first_rephoto:
-            first_rephoto = self.rephotos.order_by('-created').first()
+            first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
                 self.first_rephoto = first_rephoto.created
-        last_rephoto = self.rephotos.order_by('created').first()
+        last_rephoto = self.rephotos.order_by('-created').first()
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
         super(Photo, self).save(*args, **kwargs)
