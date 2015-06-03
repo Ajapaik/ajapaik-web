@@ -138,7 +138,7 @@ def api_album_nearest(request):
             nearby_range = form.cleaned_data["range"]
         else:
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
-        album_nearby_photos = photos_qs.filter(rephoto_of__isnull=True, geography__distance_lte=(ref_location,
+        album_nearby_photos = photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, geography__distance_lte=(ref_location,
             D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:
             date = None
@@ -179,12 +179,13 @@ def api_album_state(request):
         album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.all():
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-        album_photos_qs = album_photos_qs.annotate(rephoto_count=Count('rephotos'))
+        album_photos_qs = album_photos_qs.annotate(rephoto_count=Count('rephotos'), lat__isnull=False, lon__isnull=False)
         for p in album_photos_qs:
             date = None
             if p.date:
                 iso = p.date.isoformat()
-                date = iso.strftime('%d-%m-%Y')
+                date_parts = iso.split('T')[0].split('-')
+                date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
             photos.append({
                 "id": p.id,
                 "image": request.build_absolute_uri(reverse("project.home.views.photo_thumb", args=(p.id,))) + '[DIM]/',
