@@ -183,7 +183,8 @@ def api_album_state(request):
         for p in album_photos_qs:
             date = None
             if p.date:
-                date = p.date.strftime('%d-%m-%Y')
+                iso = p.date.isoformat()
+                date = iso.strftime('%d-%m-%Y')
             photos.append({
                 "id": p.id,
                 "image": request.build_absolute_uri(reverse("project.home.views.photo_thumb", args=(p.id,))) + '[DIM]/',
