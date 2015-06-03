@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         photos = Photo.objects.filter(pk=8361)
-        query_string = 'http://developers.facebook.com/tools/debug/og/object?q=%s'
+        query_string = 'http://graph.facebook.com/?id=%s&scrape=true'
         url_template = 'http://ajapaik.ee/foto/%d/'
         for p in photos:
             print p
