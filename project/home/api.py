@@ -131,8 +131,9 @@ def api_album_nearest(request):
                 photos_qs = photos_qs | sa.photos.filter()
         else:
             photos_qs = Photo.objects.all()
-        lat = round(form.cleaned_data["latitude"], 4)
-        lon = round(form.cleaned_data["longitude"], 4)
+        if form.cleaned_data["latitude"] and form.cleaned_data["longitude"]:
+            lat = round(form.cleaned_data["latitude"], 4)
+            lon = round(form.cleaned_data["longitude"], 4)
         if form.cleaned_data["range"]:
             nearby_range = form.cleaned_data["range"]
         else:
