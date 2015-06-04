@@ -560,27 +560,27 @@
                 }
                 mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
-                if (!clusteringEndedListener) {
-                    clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
-                        var clusters = mc.clusters_,
-                            currentMarkers;
-                        for (var i = 0; i < clusters.length; i += 1) {
-                            currentMarkers = clusters[i].markers_;
-                            if (currentMarkers.length === 1) {
-                                for (var j = 0; j < currentMarkers.length; j += 1) {
-                                    markerIdsWithinBounds.push(currentMarkers[j].id);
-                                }
+                window.google.maps.event.clearListeners(mc, 'clusteringend');
+                clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
+                    var clusters = mc.clusters_,
+                        currentMarkers;
+                    for (var i = 0; i < clusters.length; i += 1) {
+                        currentMarkers = clusters[i].markers_;
+                        if (currentMarkers.length === 1) {
+                            for (var j = 0; j < currentMarkers.length; j += 1) {
+                                markerIdsWithinBounds.push(currentMarkers[j].id);
                             }
                         }
-                        if (window.map.zoom > 17) {
-                            markerIdsWithinBounds = [];
-                            for (i = 0; i < markers.length; i += 1) {
-                                markerIdsWithinBounds.push(markers[i].id);
-                            }
+                    }
+                    if (window.map.zoom > 17) {
+                        markerIdsWithinBounds = [];
+                        for (i = 0; i < markers.length; i += 1) {
+                            markerIdsWithinBounds.push(markers[i].id);
                         }
-                        refreshPane(markerIdsWithinBounds);
-                    });
-                }
+                    }
+                    console.log(markerIdsWithinBounds);
+                    refreshPane(markerIdsWithinBounds);
+                });
             });
         }
     };

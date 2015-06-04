@@ -1175,7 +1175,7 @@ var map,
         }
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
         window.currentlySelectedRephotoId = false;
-        if (window.isFrontpage) {
+        if (window.isFrontpage || window.isPhotoview) {
 
         } else {
             window.syncMapStateToURL();
