@@ -159,6 +159,9 @@
         if (albumSelectionDiv.length > 0) {
             albumSelectionDiv.justifiedGallery(historicPhotoGallerySettings);
         }
+        if (window.albumId) {
+            historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings);
+        }
         $(document).on('click', '.ajapaik-frontpage-image', function () {
             window.loadPhoto($(this).data('id'));
         });
