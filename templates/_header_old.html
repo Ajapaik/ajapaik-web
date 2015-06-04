@@ -1,0 +1,262 @@
+{% load i18n ajapaik_templatetags %}
+
+{#{% if is_game or is_mapview or is_frontpage %}#}
+{#    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg ajapaik-navmenu"#}
+{#         id="ajapaik-album-selection-navmenu">#}
+{#        <div class="nav navmenu-nav" id="ajapaik-album-selection-menu">#}
+{#            {% for album in albums %}#}
+{#                {% if album.cover_photo_id %}#}
+{#                    <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}">#}
+{#                        <img alt="{{ album.name }}" class="img-responsive ajapaik-album-selection-item"#}
+{#                             data-id="{{ album.id }}" data-name="{{ album.name }}" height="{{ album.cover_photo_height }}"#}
+{#                             data-photos="{{ album.photo_count_with_subalbums }}" width="{{ album.cover_photo_width }}"#}
+{#                             src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}">#}
+{#                        <div class="caption ajapaik-caption-album-selection">#}
+{#                            <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>#}
+{#                            <p>#}
+{#                                {% blocktrans count counter=album.photo_count_with_subalbums %}#}
+{#                                    {{ counter }} picture#}
+{#                                {% plural %}#}
+{#                                    {{ counter }} pictures#}
+{#                                {% endblocktrans %}#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+{#{% endif %}#}
+
+<nav class="navbar navbar-default navbar-fixed-top ajapaik-navbar {% if is_curator %}ajapaik-curator-navbar{% endif %}">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a role="button" title="{% trans 'Profile and leaderboard' %}"
+               class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
+               id="ajapaik-header-profile-button"></a>
+            <div class="score_container">
+                <h4>
+                    <a id="full_leaderboard" href="#">
+                        {% trans "Leaderboard" %}
+                    </a>
+                </h4>
+                <ul class="scoreboard">
+                    {% if leaderboard %}
+                        {% include "_block_leaderboard.html" %}
+                    {% endif %}
+                </ul>
+                {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                    {% with profile=request.user.profile user=request.user %}
+                        <div id="facebook-connected">
+                            <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout'
+                                                                                      id='logout-button'>{% trans "Log out" %}</a>.
+                            </p>
+                        </div>
+                    {% endwith %}
+                {% else %}
+                    <div id="facebook-connect">
+                        <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                    </div>
+                {% endif %}
+            </div>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">{% trans "Toggle navigation" %}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% if is_game or is_mapview or is_frontpage %}
+                <a class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button
+                {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"
+                   id="ajapaik-header-menu-button">
+                </a>
+            {% endif %}
+            <a class="navbar-brand ajapaik-brand hidden-xs hidden-sm" href="/" title="{% trans "Back to homepage" %}">{% trans "Timepatch (Ajapaik)" %}</a>
+            <a class="navbar-brand ajapaik-brand ajapaik-brand-xs visible-xs visible-sm" href="/" title="{% trans "Back to homepage" %}">{% trans "Timepatch (Ajapaik)" %}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% if is_game or is_mapview or is_frontpage %}
+                    <li class="hidden-xs">
+                        <a class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button
+                        {% if album %}ajapaik-header-menu-button-white{% endif %}" title="{% trans 'Album selection' %}"
+                           id="ajapaik-header-menu-button-hidden-xs">
+                        </a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-header-title"
+                       title="{% trans 'Album details' %}">
+                        <span id="ajapaik-header-title-span">{{ album.1 }}</span>
+                    </a>
+{#                    {% if album %}#}
+{#                        <a class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-name-container"#}
+{#                           title="{% trans 'Album details' %}">#}
+{#                            <span id="ajapaik-header-album-name">{{ album.1 }}</span>#}
+{#                        </a>#}
+{#                    {% elif not album and is_frontpage %}#}
+{#                        <a href="#" class="navbar-toggle ajapaik-navbar-toggle ajapaik-alternative-filter-toggle" data-toggle="dropdown" id="ajapaik-album-name-container"#}
+{#                           title="{% trans 'Order' %}">#}
+{#                            <span id="ajapaik-header-order-name"></span>#}
+{#                        </a>#}
+{#                    {% endif %}#}
+{#                    <a href="#" class="navbar-toggle ajapaik-navbar-toggle" id="ajapaik-album-selection-label"#}
+{#                       title="{% trans 'Album selection' %}">#}
+{#                        <span id="ajapaik-header-album-selection-label">{% trans 'Album selection' %}</span>#}
+{#                    </a>#}
+                </li>
+                {% if is_mapview and album %}
+                    <li>
+                        <a title="{% trans 'Remove album filter' %}" id="ajapaik-header-album-filter-button"
+                           class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"></a>
+                    </li>
+                {% endif %}
+                {% if is_frontpage %}
+                    {% include "_filtering_dropdown.html" %}
+                {% endif %}
+                {% if not is_curator %}
+                    <li>
+                        <a role="button" title="{% trans 'Show in grid' %}" id="ajapaik-header-grid-button"
+                        class="ajapaik-header-button navbar-toggle ajapaik-navbar-toggle {% if is_frontpage %}ajapaik-header-grid-button-white{% endif %}">
+                        </a>
+                    </li>
+                {% endif %}
+                {% if album %}
+                    <li>
+                        <a role="button" title="{% trans 'Geotag pictures' %}" id="ajapaik-header-game-button"
+                            class="ajapaik-navbar-toggle navbar-toggle ajapaik-header-button {% if is_game %}ajapaik-header-game-button-white{% endif %}"></a>
+                    </li>
+                {% endif %}
+                {% if is_frontpage or is_mapview or album %}
+                    <li>
+                        <a role="button" title="{% trans 'Show on map' %}" id="ajapaik-header-map-button"
+                                class="ajapaik-navbar-toggle navbar-toggle ajapaik-header-button {% if is_mapview %}ajapaik-header-map-button-white{% endif %}"></a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a role="button" title="{% trans 'Curate' %}" id="ajapaik-header-curate-button"
+                        class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button {% if is_curator %}ajapaik-header-curate-button-white{% endif %}"></a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a role="button" title="{% trans 'About Ajapaik' %}"
+                            class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
+                            id="ajapaik-header-about-button"></a>
+                </li>
+                <li>
+                    <a href="{{ ajapaik_facebook_link }}" target="_blank" title="{% trans 'Ajapaik on Facebook' %}"
+                       class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
+                       id="ajapaik-header-facebook-button"></a>
+                </li>
+                <li class="hidden-xs">
+                    <a role="button" title="{% trans 'Profile and leaderboard' %}"
+                            class="navbar-toggle ajapaik-navbar-toggle ajapaik-header-button"
+                            id="ajapaik-header-profile-button-hidden-xs"></a>
+                </li>
+                <li class="dropdown">
+                    {% get_language_info for LANGUAGE_CODE as lang %}
+                    <a role="button" class="navbar-toggle dropdown-toggle ajapaik-navbar-toggle ajapaik-header-button"
+                       aria-expanded="false" title="{% trans 'Choose language' %}" data-toggle="dropdown"
+                       id="ajapaik-header-language-dropdown-button">
+                        {{ lang.code|upper }}
+                    </a>
+                    <ul class="dropdown-menu ajapaik-black-dropdown-menu" role="menu">
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <li>
+                                <a href="#" data-lang-code="{{ language.code }}"
+                                    class="ajapaik-change-language-link">{{ language.name_local|title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% if is_curator %}
+    <div class="container" id="ajapaik-curator-header-tabs">
+        <div role="tabpanel" id="ajapaik-curator-tabpanel">
+            <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
+                <li role="presentation" class="active">
+                    <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab"
+                       data-toggle="tab">{% trans "Search" %}<span class="badge"
+                                                                   id="ajapaik-curator-result-count">0</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab" role="tab"
+                       data-toggle="tab">{% trans "Selection" %}<span class="badge" id="ajapaik-curator-selection-size">0</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab" role="tab"
+                       data-toggle="tab">{% trans "My albums" %}<span class="badge" id="ajapaik-curator-my-albums-size">0</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
+                <div class="row" id="ajapaik-curator-search-controls">
+                    <div class="col-xs-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="ajapaik-curator-full-search"
+                                   placeholder="{% trans "Full search" %}">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"
+                                                   checked="checked">
+                                        </span>
+                            <label class="form-control"
+                                   for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block"
+                                id="ajapaik-curator-search-button">
+                            {% trans "Search!" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2" id="ajapaik-curator-load-more-row">
+                        <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
+                            {% trans "Load more" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">
+                            {% trans "Select all" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
+                <div class="row" id="ajapaik-curator-selection-controls">
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary btn-block"
+                                id="ajapaik-curator-clear-selection">
+                            {% trans "Clear selection" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-success btn-block"
+                                id="ajapaik-curator-submit-selection">
+                            {% trans "Submit to Ajapaik" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-offset-6 col-xs-2">
+                        <img src="{{ STATIC_URL }}images/large-thumbnails-48.png"
+                             id="ajapaik-curator-gallery-switch">
+                        <img src="{{ STATIC_URL }}images/list-with-thumbnails-48.png"
+                             id="ajapaik-curator-list-switch">
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>
+        </div>
+    </div>
+{% endif %}
+</nav>
+
+
+
+

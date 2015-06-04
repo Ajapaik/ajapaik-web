@@ -2,58 +2,45 @@ html {
     position: relative;
     min-height: 100%;
 }
-
-html, body {
-    /*height: 100%;*/
-}
-
 body {
     padding: 50px 0 0 0;
     background-color: #eee;
-    /*-ms-overflow-style: none;*/
 }
-
 .ajapaik-invisible {
     visibility: hidden;
 }
-
 .ajapaik-filter-gray {
     fill: #888;
 }
-
 .ajapaik-filter-white {
     fill: #fff;
 }
-
 .ajapaik-white {
     fill: #fff;
 }
-
 .ajapaik-gray {
     fill: #888;
 }
-
 .ajapaik-dark-background {
     background-color: rgba(0, 0, 0, .8);
 }
-
 .ajapaik-dark-background > li > a {
     color: #fff;
 }
-
-#ajapaik-sort-size {
-
+.ajapaik-no-background {
+    background: none !important;
 }
-
 #ajapaik-album-selection-navmenu {
     z-index: 100;
     width: 100%;
     bottom: 0 !important;
 }
 
-.ajapaik-change-language-link {
-    color: #fff !important;
-    background: none !important;
+#ajapaik-album-filter-box {
+    position: fixed;
+    right: 10px;
+    top: 60px;
+    z-index: 100;
 }
 
 .ajapaik-black-dropdown-menu {
@@ -354,11 +341,6 @@ body {
     margin-top: -5px;
 }
 
-#ajapaik-header-language-dropdown-button {
-    background: none;
-    margin-top: 2px;
-}
-
 .ajapaik-header-button {
     width: 36px;
     height: 36px;
@@ -395,11 +377,6 @@ body {
     background-image: url(../images/material-design-icons/ic_photoview_24px_white.svg) !important;
 }
 
-#ajapaik-header-curate-button {
-    background-image: url(../images/material-design-icons/ic_add_circle_24px.svg);
-    float: left;
-}
-
 #ajapaik-frontpage-filtering-dropdown-menu > li {
     background: none !important;
 }
@@ -409,7 +386,12 @@ body {
 }
 
 .ajapaik-header-curate-button-white {
-    background-image: url(../images/material-design-icons/ic_add_circle_24px_white.svg) !important;
+    fill: white;
+}
+
+body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
+    margin-top: 50px;
+    min-width: 100%;
 }
 
 #ajapaik-header-menu-button {
@@ -468,21 +450,13 @@ body {
     background-image: url(../images/material-design-icons/filter_white.svg) !important;
 }
 
-#ajapaik-header-profile-button {
-    background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
-}
+/*#ajapaik-header-profile-button {*/
+    /*background-image: url(../images/material-design-icons/ic_assessment_24px.svg);*/
+/*}*/
 
-#ajapaik-header-profile-button-hidden-xs {
-    background-image: url(../images/material-design-icons/ic_assessment_24px.svg);
-}
-
-#ajapaik-header-facebook-button {
-    background-image: url(../images/material-design-icons/ic_facebook_24px.svg);
-}
-
-#ajapaik-header-about-button {
-    background-image: url(../images/material-design-icons/ic_info_24px.svg);
-}
+/*#ajapaik-header-profile-button-hidden-xs {*/
+    /*background-image: url(../images/material-design-icons/ic_assessment_24px.svg);*/
+/*}*/
 
 @media (min-width: 1200px) {
     .modal-xxl {
@@ -2136,7 +2110,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 .navbar-hidden .navbar-brand {
-    display: none;
+    display: none !important;
 }
 
 .navbar-hidden #ajapaik-curator-header-tabs {

@@ -1,12 +1,12 @@
 {% load i18n %}
 
-<li id="ajapaik-frontpage-filtering-dropdown" class="dropdown">
-    <a role="button" class="navbar-toggle dropdown-toggle ajapaik-navbar-toggle ajapaik-header-button
-    {% if order2 != 'added' %}ajapaik-header-filter-button-white{% endif %}" aria-expanded="false"
-       title="{% trans 'Filtering' %}" data-toggle="dropdown" id="ajapaik-header-filter-button">
+<li class="dropdown pull-left hidden" id="ajapaik-filtering-dropdown">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background" title="{% trans 'Filtering' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" fill="#888" viewBox="0 0 24 24">
+            <path {% if order2 != 'added' %}class="ajapaik-white"{% endif %} fill="#888" d="M3,2H21V2H21V4H20.92L14,10.92V22.91L10,18.91V10.91L3.09,4H3V2Z" />
+        </svg>
     </a>
-    <ul class="dropdown-menu ajapaik-black-dropdown-menu" id="ajapaik-frontpage-filtering-dropdown-menu" role="menu">
-        <li id="ajapaik-filter-dropdown-filter-name"></li>
+    <ul class="dropdown-menu ajapaik-black-dropdown-menu" role="menu">
         <li data-order1="closest" data-order2="none">
             <a href="#" class="ajapaik-filtering-choice" data-order1="closest" data-order2="none"
                title="{% trans "Sort by distance from you" %}">
@@ -18,7 +18,7 @@
             </a>
         </li>
         <li data-order1="time">
-            <a href="#" class="ajapaik-filtering-choice ajapaik-zero-right-padding" data-order1="time"
+            <a href="#" class="ajapaik-filtering-choice" data-order1="time"
                title="{% trans "Sort by time and ..." %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                     <path d="M0 0h24v24H0z" fill="none"></path>
@@ -27,7 +27,7 @@
             </a>
         </li>
         <li data-order1="time" data-order2="added">
-            <a href="#" class="ajapaik-filtering-choice ajapaik-zero-right-padding"
+            <a href="#" class="ajapaik-filtering-choice"
                data-order1="time" data-order2="added" title="{% trans "Sort by photos' time added" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path d="M0 0h24v24h-24z" fill="none"></path>
@@ -36,7 +36,7 @@
             </a>
         </li>
         <li data-order2="geotags">
-            <a href="#" class="ajapaik-filtering-choice ajapaik-zero-right-padding"
+            <a href="#" class="ajapaik-filtering-choice"
                data-order2="geotags" title="{% trans "Sort by geotags' time added or amount" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-geotags-filter-icon" d="M18 8c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2-.89 2-2 2c-1.1 0-2-.9-2-2zm-5 12v2h14v-2h-14z"></path>
@@ -45,7 +45,7 @@
             </a>
         </li>
         <li data-order2="rephotos">
-            <a href="#" class="ajapaik-filtering-choice ajapaik-zero-right-padding"
+            <a href="#" class="ajapaik-filtering-choice"
                data-order2="rephotos" title="{% trans "Sort by rephotos' time added or amount" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path d="M0 0h24v24h-24z" fill="none"></path>
@@ -63,7 +63,7 @@
             </a>
         </li>
         <li id="ajapaik-sort-size" data-order1="amount">
-            <a href="#" class="ajapaik-filtering-choice ajapaik-zero-left-padding" data-order1="amount"
+            <a href="#" class="ajapaik-filtering-choice" data-order1="amount"
                title="{% trans "Sort by amount and ..." %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-amount-filter-icon" d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"></path>

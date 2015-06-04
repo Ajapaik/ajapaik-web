@@ -701,9 +701,6 @@ var map,
             }
         }
     });
-    $(document).on('click', '#ajapaik-header-curate-button', function () {
-        window.location.href = '/curator/';
-    });
     $(document).on('click', '#ajapaik-header-profile-button', function () {
         if (scoreboardShown) {
             hideScoreboard();
@@ -1051,11 +1048,11 @@ var map,
     $(document).on('click', '.ajapaik-album-selection-item', function (e) {
         e.preventDefault();
         var $this = $(this);
-        window.previousAlbumId = window.albumId;
+        //window.previousAlbumId = window.albumId;
         window.albumId = $this.data('id');
-        window.albumName = $this.data('name');
-        window.currentAlbumPhotoCount = $this.data('photos');
-        $('#ajapaik-album-selection-navmenu').offcanvas('toggle');
+        //window.albumName = $this.data('name');
+        //window.currentAlbumPhotoCount = $this.data('photos');
+        //$('#ajapaik-album-selection-navmenu').offcanvas('toggle');
         window.handleAlbumChange();
     });
     $(document).on('click', '#ajapaik-photo-modal-discuss', function () {
@@ -1208,6 +1205,22 @@ var map,
         window.openPhotoUploadModal();
     });
     $(document).on('click', '#ajapaik-header-menu-button', function () {
+        var albumSelection = $('#ajapaik-album-selection'),
+            frontpageHistoricPhotos = $('#ajapaik-frontpage-historic-photos'),
+            pager = $('#ajapaik-pager');
+        if (albumSelection.hasClass('hidden')) {
+            albumSelection.removeClass('hidden');
+            pager.hide();
+            if (frontpageHistoricPhotos.length > 0) {
+                frontpageHistoricPhotos.addClass('hidden');
+            }
+        } else {
+            albumSelection.addClass('hidden');
+            pager.show();
+            if (frontpageHistoricPhotos.length > 0) {
+                frontpageHistoricPhotos.removeClass('hidden');
+            }
+        }
         if (window.isFrontpage) {
             window._gaq.push(['_trackEvent', 'Gallery', 'Album selection click']);
         } else if (window.isMapview) {

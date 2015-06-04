@@ -1,7 +1,7 @@
 {% load i18n ajapaik_templatetags %}
 
 <nav>
-    <ul class="pager ajapaik-pager">
+    <ul class="pager ajapaik-pager ajapaik-invisible">
         <li>
             <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:-1 %}">
                 &lt;

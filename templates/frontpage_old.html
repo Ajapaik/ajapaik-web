@@ -7,10 +7,10 @@
 
 {% block layout %}
     <div class="container-fluid">
+        <div id="ajapaik-album-selection-overlay"></div>
         <div class="row">
             {% include "_album_selection.html" %}
             <div id="ajapaik-frontpage-historic-photos" {% if not album %}class="hidden"{% endif %}>
-                {# This is for bots and initial page-load, see bottom of page for async template #}
                 {% for p in photos %}
                     <a target="_blank" href="{% url "project.home.views.photo" %}{{ p.0 }}"
                        class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{{ p.0 }}"
@@ -44,16 +44,27 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    {% include "_info_modal.html" %}
+    {% include "_filtering_tutorial_modal.html" %}
+    {% include "_rephoto_upload_modal.html" %}
     {% include "_full_leaderboard_modal.html" %}
+    <div class="full-box original-full-box">
+        <div class="full-pic" id="ajapaik-fullscreen-image-container">
+            <img id="ajapaik-full-screen-image" src="#" alt="{% trans "Original photo on full screen" %}"/>
+        </div>
+    </div>
+    <div class="full-box rephoto-full-box">
+        <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
+            <img id="ajapaik-rephoto-full-screen-image" src="#" alt="{% trans "Rephoto on full screen" %}"/>
+        </div>
+    </div>
 {% endblock %}
-
 {% block specific_js %}
     <script>
         window.title = '{{ title }}';
         window.currentPage = parseInt('{{ page }}', 10);
         window.maxPage = parseInt('{{ max_page }}', 10);
-        window.nextPageOnModalClose = false;
-        window.previousPageOnModalClose = false;
         window.isFrontpage = '{{ is_frontpage|safe }}' === 'True';
         window.photoURL = '{% url "project.home.views.photo" %}';
         window.photoThumbURL = '{% url "project.home.views.photo_thumb" %}';
@@ -80,7 +91,7 @@
         <script id="ajapaik-frontpage-photo-template" type="text/x-tmpl">
             <a target="_blank" href="{%=photoURL%}{%=o[0]%}" class="ajapaik-frontpage-image-container"
             id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}">
-                <img alt="{%=o[3]%}" src="#" data-src="{%=photoThumbURL%}{%=o[0]%}/300"
+                <img alt="{%=o[3]%}" src="" data-src="{%=photoThumbURL%}{%=o[0]%}/300"
                     class="ajapaik-frontpage-image lazyload img-responsive" data-id="{%=o[0]%}"
                     width="{%=o[1]%}" height="{%=o[2]%}"/>
                 <div class="ajapaik-thumbnail-info-container">

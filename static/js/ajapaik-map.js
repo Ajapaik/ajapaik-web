@@ -882,9 +882,9 @@
         $(window.input).show();
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').show();
-            if (window.albumId) {
-                $('#ajapaik-album-selection-navmenu').scrollTop($(".ajapaik-album-selection-item[data-id='" + window.albumId + "']").offset().top);
-            }
+            //if (window.albumId) {
+                //$('#ajapaik-album-selection-navmenu').scrollTop($(".ajapaik-album-selection-item[data-id='" + window.albumId + "']").offset().top);
+            //}
         }).on('hidden.bs.offcanvas', function () {
             $('#ajapaik-album-selection-overlay').hide();
         });
