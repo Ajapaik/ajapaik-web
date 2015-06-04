@@ -558,7 +558,9 @@
                 if (mc && mc.clusters_) {
                     mc.clusters_.length = 0;
                 }
-                window.google.maps.event.clearListeners(mc, 'clusteringend');
+                if (mc) {
+                    window.google.maps.event.clearListeners(mc, 'clusteringend');
+                }
                 mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
                 clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
