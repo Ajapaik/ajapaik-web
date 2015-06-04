@@ -228,8 +228,8 @@
 </div>
 <script>
     // This whole template is total ugliness
-    var hostname = '{{ hostname }}',
-        originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
+    window.hostname = '{{ hostname }}';
+    window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
     window.isFrontpage = '{{ is_frontpage|safe }}';
     if (window.isFrontpage === 'True') {
         window.isFrontpage = true;

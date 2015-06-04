@@ -1165,7 +1165,7 @@ var map,
         $('#ajapaik-photo-modal-rephoto-column').hide();
         $('#ajapaik-rephoto-selection').hide();
         $('#ajapaik-show-rephoto-selection-overlay-button').show();
-        $('#ajapaik-grab-link').find('input').prop('value', hostname + originalPhotoAbsoluteURL);
+        $('#ajapaik-grab-link').find('input').prop('value', window.hostname + originalPhotoAbsoluteURL);
         if (window.isMapview) {
             $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
             $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');

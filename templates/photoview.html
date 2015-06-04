@@ -159,6 +159,8 @@
     <script>
         window.albumId = '{{ album.id }}';
         window.photoId = '{{ photo.id }}';
+        window.hostname = '{{ hostname }}';
+        window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.isPhotoview = true;
         window.gameRedirectURI = '/game?area=' + '{{ area.id }}';
         $(document).ready(function () {
