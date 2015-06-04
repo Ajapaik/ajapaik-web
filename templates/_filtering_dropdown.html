@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<li class="dropdown pull-left hidden" id="ajapaik-filtering-dropdown">
+<li class="dropdown pull-left{% if not album %}hidden{% endif %}" id="ajapaik-filtering-dropdown">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background" title="{% trans 'Filtering' %}">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" fill="#888" viewBox="0 0 24 24">
             <path {% if order2 != 'added' %}class="ajapaik-white"{% endif %} fill="#888" d="M3,2H21V2H21V4H20.92L14,10.92V22.91L10,18.91V10.91L3.09,4H3V2Z" />
