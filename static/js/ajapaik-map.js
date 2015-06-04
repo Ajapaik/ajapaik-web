@@ -561,6 +561,7 @@
                 mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
                 window.google.maps.event.clearListeners(mc, 'clusteringend');
+                clusteringEndedListener = null;
                 clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
                     var clusters = mc.clusters_,
                         currentMarkers;
