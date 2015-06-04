@@ -597,7 +597,7 @@ def fetch_stream(request):
 # Params for old URL support
 def frontpage(request, album_id=None, page=None):
     albums = _get_album_choices()
-    data = _get_filtered_data_for_frontpage(request)
+    data = _get_filtered_data_for_frontpage(request, album_id, page)
     site = Site.objects.get_current()
 
     if data['album']:
@@ -632,13 +632,16 @@ def frontpage_async_data(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def _get_filtered_data_for_frontpage(request):
+def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
     photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     filter_form = GalleryFilteringForm(request.GET)
     page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
     ret = {}
     if filter_form.is_valid():
-        album = filter_form.cleaned_data['album']
+        if album_id:
+            album = Album.objects.get(pk=album_id)
+        else:
+            album = filter_form.cleaned_data['album']
         requested_photo = filter_form.cleaned_data['photo']
         requested_photos = filter_form.cleaned_data['photos']
         order1 = filter_form.cleaned_data['order1']
@@ -649,7 +652,10 @@ def _get_filtered_data_for_frontpage(request):
             order2 = 'added'
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
-        page = filter_form.cleaned_data['page']
+        if page_override:
+            page = int(page_override)
+        else:
+            page = filter_form.cleaned_data['page']
         if album:
             album_photos_qs = album.photos.all()
             for sa in album.subalbums.all():

@@ -5,6 +5,7 @@ var map,
     input,
     searchBox,
     getMap,
+    firstResizeDone = false,
     saveLocation,
     saveLocationCallback,
     saveLocationButton,
@@ -238,11 +239,11 @@ var map,
 
         map = new window.google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
 
-        map.mapTypes.set('OSM', new google.maps.ImageMapType({
+        map.mapTypes.set('OSM', new window.google.maps.ImageMapType({
             getTileUrl: function (coord, zoom) {
                 return 'http://tile.openstreetmap.org/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
             },
-            tileSize: new google.maps.Size(256, 256),
+            tileSize: new window.google.maps.Size(256, 256),
             name: 'OpenStreetMap',
             maxZoom: 18
         }));
@@ -250,7 +251,7 @@ var map,
         lockButton = document.createElement('button');
         $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button');
 
-        map.controls[window.google.maps.ControlPosition.BOTTOM_LEFT].push(lockButton);
+        map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
 
         if (isGameMap) {
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
@@ -283,6 +284,10 @@ var map,
         window.google.maps.event.addListener(map, 'bounds_changed', function () {
             var bounds = map.getBounds();
             searchBox.setBounds(bounds);
+            if (!firstResizeDone) {
+                window.google.maps.event.trigger(map, 'resize');
+                firstResizeDone = true;
+            }
             if (window.toggleVisiblePaneElements) {
                 paneNow = new Date().getTime();
                 if (!lastTriggeredPane) {

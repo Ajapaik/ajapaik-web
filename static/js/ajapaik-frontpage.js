@@ -176,12 +176,12 @@
                 window.nextPageOnModalClose = false;
                 window.setTimeout(function () {
                     $('#ajapaik-paging-next-button').click();
-                }, 3000);
+                }, 1500);
             } else if (window.previousPageOnModalClose) {
                 window.previousPageOnModalClose = false;
                 window.setTimeout(function () {
                     $('#ajapaik-paging-previous-button').click();
-                }, 3000);
+                }, 1500);
             }
         });
         $(document).on('click', '.ajapaik-frontpage-image-container', function (e) {
