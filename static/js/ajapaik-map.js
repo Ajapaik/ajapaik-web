@@ -578,7 +578,6 @@
                                 markerIdsWithinBounds.push(markers[i].id);
                             }
                         }
-                        console.log(markerIdsWithinBounds);
                         refreshPane(markerIdsWithinBounds);
                     });
                 }
