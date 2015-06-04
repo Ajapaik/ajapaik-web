@@ -851,15 +851,12 @@ def photo_thumb(request, photo_id=None, thumb_size=150):
     thumb_str = str(thumb_size) + "x" + str(thumb_size)
     im = get_thumbnail(image_to_use, thumb_str, upscale=False)
     # TODO: See if this fixes stupid broken thumbs
-    if DEBUG:
+    try:
         content = im.read()
-    else:
-        try:
-            content = im.read()
-        except IOError:
-            delete(im)
-            im = get_thumbnail(image_to_use, thumb_str, upscale=False)
-            content = im.read()
+    except IOError:
+        delete(im)
+        im = get_thumbnail(image_to_use, thumb_str, upscale=False)
+        content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
     response["Content-Length"] = len(content)
