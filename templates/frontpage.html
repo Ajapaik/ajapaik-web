@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row">
             {% include "_album_selection.html" %}
-            <div id="ajapaik-frontpage-historic-photos" {% if not album %}class="hidden"{% endif %}>
+            <div id="ajapaik-frontpage-historic-photos" class="ajapaik-invisible{% if not show_photos %} hidden{% endif %}">
                 {# This is for bots and initial page-load, see bottom of page for async template #}
                 {% for p in photos %}
                     <a target="_blank" href="{% url "project.home.views.photo" %}{{ p.0 }}"
@@ -44,7 +44,10 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    {% include "_info_modal.html" %}
     {% include "_full_leaderboard_modal.html" %}
+    {% include "_rephoto_upload_modal.html" %}
 {% endblock %}
 
 {% block specific_js %}
@@ -58,6 +61,7 @@
         window.photoURL = '{% url "project.home.views.photo" %}';
         window.photoThumbURL = '{% url "project.home.views.photo_thumb" %}';
         window.nextPhotoLoading = false;
+        window.photos = window.getQueryParameterByName('photos');
         window.userClosedRephotoTools = false;
         window.useButtonLink = true;
         window.currentlySelectedPhotoId = null;

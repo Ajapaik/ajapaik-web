@@ -614,15 +614,16 @@ var map,
             }
         });
     };
-    $(document).on('click', '#ajapaik-header-game-button', function () {
-        if (window.isPhotoview && window.albumId && window.photoId) {
-            window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
-        } else {
-            if (!window.isGame && window.albumId) {
-                window.location.href = '/game?album=' + window.albumId;
-            }
-        }
-    });
+    //$(document).on('click', '#ajapaik-header-game-button', function (e) {
+    //    e.preventDefault();
+    //    if (window.isPhotoview && window.albumId && window.photoId) {
+    //        window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
+    //    } else {
+    //        if (!window.isGame && window.albumId) {
+    //            window.location.href = '/game?album=' + window.albumId;
+    //        }
+    //    }
+    //});
     $(document).on('click', '#ajapaik-mobile-game-label', function () {
         if (window.isPhotoview && window.albumId && window.photoId) {
             window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
@@ -641,10 +642,11 @@ var map,
             }
         }
     });
-    $(document).on('click', '#ajapaik-header-grid-button', function () {
+    $(document).on('click', '#ajapaik-header-grid-button', function (e) {
+        e.preventDefault();
         if (!window.isFrontpage) {
-            var filterCheckbox = $('#ajapaik-header-album-filter-button'),
-                filterOff = filterCheckbox.hasClass('ajapaik-header-album-filter-button-off');
+            var filterOff = $('ajapaik-header-album-filter-button-off').is(":visible");
+            // TODO: The photo set needs to be POSTed to be of any size
             if ((!window.albumId || filterOff) && window.lastMarkerSet && window.lastMarkerSet.length < 51) {
                 window.location.href = '/?photos=' + window.lastMarkerSet;
             } else if (window.albumId) {
@@ -682,7 +684,8 @@ var map,
             $('#ajapaik-geolocation-error').hide();
         }, 3000);
     };
-    $(document).on('click', '#ajapaik-header-map-button', function () {
+    $(document).on('click', '#ajapaik-header-map-button', function (e) {
+        e.preventDefault();
         if (window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
         } else {
@@ -1204,31 +1207,31 @@ var map,
         }
         window.openPhotoUploadModal();
     });
-    $(document).on('click', '#ajapaik-header-menu-button', function () {
-        var albumSelection = $('#ajapaik-album-selection'),
-            frontpageHistoricPhotos = $('#ajapaik-frontpage-historic-photos'),
-            pager = $('#ajapaik-pager');
-        if (albumSelection.hasClass('hidden')) {
-            albumSelection.removeClass('hidden');
-            pager.hide();
-            if (frontpageHistoricPhotos.length > 0) {
-                frontpageHistoricPhotos.addClass('hidden');
-            }
-        } else {
-            albumSelection.addClass('hidden');
-            pager.show();
-            if (frontpageHistoricPhotos.length > 0) {
-                frontpageHistoricPhotos.removeClass('hidden');
-            }
-        }
-        if (window.isFrontpage) {
-            window._gaq.push(['_trackEvent', 'Gallery', 'Album selection click']);
-        } else if (window.isMapview) {
-            window._gaq.push(['_trackEvent', 'Map', 'Album selection click']);
-        } else if (window.isGame) {
-            window._gaq.push(['_trackEvent', 'Game', 'Album selection click']);
-        }
-    });
+    //$(document).on('click', '#ajapaik-header-menu-button', function () {
+    //    var albumSelection = $('#ajapaik-album-selection'),
+    //        frontpageHistoricPhotos = $('#ajapaik-frontpage-historic-photos'),
+    //        pager = $('#ajapaik-pager');
+    //    if (albumSelection.hasClass('hidden')) {
+    //        albumSelection.removeClass('hidden');
+    //        pager.hide();
+    //        if (frontpageHistoricPhotos.length > 0) {
+    //            frontpageHistoricPhotos.addClass('hidden');
+    //        }
+    //    } else {
+    //        albumSelection.addClass('hidden');
+    //        pager.show();
+    //        if (frontpageHistoricPhotos.length > 0) {
+    //            frontpageHistoricPhotos.removeClass('hidden');
+    //        }
+    //    }
+    //    if (window.isFrontpage) {
+    //        window._gaq.push(['_trackEvent', 'Gallery', 'Album selection click']);
+    //    } else if (window.isMapview) {
+    //        window._gaq.push(['_trackEvent', 'Map', 'Album selection click']);
+    //    } else if (window.isGame) {
+    //        window._gaq.push(['_trackEvent', 'Game', 'Album selection click']);
+    //    }
+    //});
     $(document).on('click', '#ajapaik-header-menu-button-hidden-xs', function () {
         $('#ajapaik-header-menu-button').click();
     });

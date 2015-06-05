@@ -1,7 +1,7 @@
 {% load i18n %}
 
-<div id="ajapaik-album-selection" {% if album %}class='hidden'{% endif %}>
-    <input type="text" id="ajapaik-album-filter-box" placeholder="{% trans "Filtreeri" %}"/>
+<div id="ajapaik-album-selection" class="ajapaik-invisible {% if show_photos %}hidden{% endif %}">
+    <input type="text" id="ajapaik-album-filter-box" placeholder="{% trans "Search album" %}"/>
     {% for album in albums %}
         {% if album.cover_photo_id %}
             <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}">

@@ -363,13 +363,13 @@
         }
     };
     window.syncMapStateToURL = function () {
-        var historyReplacementString = '/game/';
-        if (window.albumId) {
-            historyReplacementString += '?album=' + window.albumId;
-        } else if (window.areaId) {
-            historyReplacementString += '?area=' + window.areaId;
-        }
-        window.History.replaceState(null, window.title, historyReplacementString);
+        //var historyReplacementString = '/game/';
+        //if (window.albumId) {
+        //    historyReplacementString += '?album=' + window.albumId;
+        //} else if (window.areaId) {
+        //    historyReplacementString += '?area=' + window.areaId;
+        //}
+        //window.History.replaceState(null, window.title, historyReplacementString);
     };
     showDescriptions = function () {
         if (window.popoverShown) {
@@ -490,8 +490,8 @@
             $('#ajapaik-album-selection-overlay').hide();
         });
         $('#ajapaik-album-name-container').css('visibility', 'visible');
-        $('#ajapaik-header-map-button').show();
-        $('#ajapaik-header-grid-button').show();
+        //$('#ajapaik-header-map-button').show();
+        //$('#ajapaik-header-grid-button').show();
         $(window.input).show();
         window.syncMapStateToURL();
         $.jQee('space', function () {

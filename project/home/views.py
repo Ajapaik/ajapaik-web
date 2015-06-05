@@ -540,7 +540,7 @@ def game(request):
         qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.all():
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-        ret["album_photo_count"] = qs.count()
+        ret["album_photo_count"] = qs.distinct('id').count()
         ret["facebook_share_photos"] = album.photos.values_list('id', 'width', 'height')[:5]
     elif area:
         ret["facebook_share_photos"] = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?").values_list('id', 'width', 'height')[:5]
@@ -619,9 +619,12 @@ def frontpage(request, album_id=None, page=None):
         'page': data['page'],
         'order1': data['order1'],
         'order2': data['order2'],
+        'order3': data['order3'],
+        'show_photos': data['show_photos'],
         'max_page': data['max_page'],
         'total': data['total'],
         'photos': data['photos'],
+        'is_photoset': data['is_photoset'],
         'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id
     }))
 
@@ -652,6 +655,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             order2 = 'added'
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
+        if album or requested_photos or requested_photo or filter_form.cleaned_data['order1']:
+            show_photos = True
+        else:
+            show_photos = False
         if page_override:
             page = int(page_override)
         else:
@@ -664,7 +671,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.filter(id__in=album_photo_ids)
         if requested_photos:
             requested_photos = requested_photos.split(',')
+            ret['is_photoset'] = True
             photos = photos.filter(id__in=requested_photos)
+        else:
+            ret['is_photoset'] = False
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
@@ -758,6 +768,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             ret['album'] = None
         ret['photo'] = requested_photo
         ret['photos'] = photos
+        ret['show_photos'] = show_photos
         # FIXME: DRY
         ret['fb_share_photos'] = fb_share_photos
         ret['start'] = start
@@ -775,6 +786,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                                            'rephoto_count', 'fb_comments_count')[0:page_size]
         ret['order1'] = 'time'
         ret['order2'] = 'added'
+        ret['order3'] = None
         ret['total'] = photos.count()
         photos = map(list, photos)
         fb_share_photos = []
@@ -786,7 +798,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['start'] = 0
         ret['end'] = page_size
         ret['page'] = 1
-
+        ret['show_photos'] = False
         ret['max_page'] = ceil(float(ret['total']) / float(page_size))
 
     return ret

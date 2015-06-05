@@ -96,7 +96,6 @@
         centerOnMapAfterLocating = false,
         specifyStart,
         specifyStartZoom,
-        albumFilterButton = $('#ajapaik-header-album-filter-button'),
         activateAlbumFilter,
         deactivateAlbumFilter;
     window.loadPhoto = function (id) {
@@ -181,10 +180,10 @@
         if (photoDrawerOpen || window.guessLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
         }
-        if (albumFilterButton.hasClass('ajapaik-header-album-filter-button-off')) {
-            historyReplacementString += '&limitToAlbum=0';
-        } else {
+        if ($('#ajapaik-header-album-filter-button-off').css('display') == 'none') {
             historyReplacementString += '&limitToAlbum=1';
+        } else {
+            historyReplacementString += '&limitToAlbum=0';
         }
         if (historyReplacementString.startsWith('/map/&')) {
             historyReplacementString = historyReplacementString.replace('&', '?');
@@ -503,7 +502,7 @@
             currentMapDataRequest = $.post('/map_data/', {
                 album: window.albumId,
                 area: window.areaId,
-                limit_by_album: !albumFilterButton.hasClass('ajapaik-header-album-filter-button-off'),
+                limit_by_album: $('#ajapaik-header-album-filter-button-off').css('display') == 'none',
                 sw_lat: sw.lat(),
                 sw_lon: sw.lng(),
                 ne_lat: ne.lat(),
@@ -862,17 +861,19 @@
         window.urlParamsInitialized = true;
     };
     activateAlbumFilter = function () {
-        albumFilterButton.removeClass('ajapaik-header-album-filter-button-off');
-        albumFilterButton.prop('title', window.gettext('Remove album filter'));
+        $('#ajapaik-header-album-filter-button-off').hide();
+        $('#ajapaik-header-album-filter-button-on').show();
+        $('#ajapaik-header-album-filter-button').prop('title', window.gettext('Remove album filter'));
     };
     deactivateAlbumFilter = function () {
-        albumFilterButton.addClass('ajapaik-header-album-filter-button-off');
-        albumFilterButton.prop('title', window.gettext('Apply album filter'));
+        $('#ajapaik-header-album-filter-button-off').show();
+        $('#ajapaik-header-album-filter-button-on').hide();
+        $('#ajapaik-header-album-filter-button').prop('title', window.gettext('Apply album filter'));
     };
     $(document).ready(function () {
         $('#ajapaik-album-name-container').css('visibility', 'visible');
-        $('#ajapaik-header-game-button').show();
-        $('#ajapaik-header-grid-button').show();
+        //$('#ajapaik-header-game-button').show();
+        //$('#ajapaik-header-grid-button').show();
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.mapInfoPanelGeotagCountElement = $('#ajapaik-game-map-geotag-count');
         window.mapInfoPanelAzimuthCountElement = $('#ajapaik-game-map-geotag-with-azimuth-count');
@@ -890,9 +891,8 @@
         });
         guessPanelContainer = $('#ajapaik-guess-panel-container');
         $('#ajapaik-game-description-viewing-warning').hide();
-        albumFilterButton.click(function () {
-            var $this = $(this);
-            if ($this.hasClass('ajapaik-header-album-filter-button-off')) {
+        $('#ajapaik-header-album-filter-button').click(function () {
+            if ($('#ajapaik-header-album-filter-button-off').is(':visible')) {
                 activateAlbumFilter();
             } else {
                 deactivateAlbumFilter();
