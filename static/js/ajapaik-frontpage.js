@@ -303,6 +303,8 @@
             e.preventDefault();
             if (!window.albumId) {
                 $('#ajapaik-album-selection').hide();
+                $('#ajapaik-header-album-icon').hide();
+                $('#ajapaik-header-pictures-icon').attr('class', '');
                 $('#ajapaik-filter-dropdown-filter-name').show();
                 $('#ajapaik-pager').removeClass('ajapaik-invisible');
                 $('#ajapaik-filtering-dropdown').removeClass('hidden');

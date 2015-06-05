@@ -41,7 +41,7 @@ body {
 
 #ajapaik-album-filter-box {
     position: fixed;
-    right: 10px;
+    left: 15%;
     top: 60px;
     z-index: 100;
 }
@@ -424,6 +424,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
 
 #ajapaik-header-title {
     font-size: 20px;
+    float: right;
+    margin-left: 10px;
 }
 
 #ajapaik-header-menu-button {
@@ -466,9 +468,9 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
     display: block;
 }
 
-/*#ajapaik-header-profile-button {*/
-    /*background-image: url(../images/material-design-icons/ic_assessment_24px.svg);*/
-/*}*/
+#ajapaik-header-profile-button {
+    padding-top: 8px;
+}
 
 /*#ajapaik-header-profile-button-hidden-xs {*/
     /*background-image: url(../images/material-design-icons/ic_assessment_24px.svg);*/
