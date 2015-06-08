@@ -7,7 +7,6 @@
         mediaUrl = '',
         streamUrl = '/stream/',
         difficultyFeedbackURL = '/difficulty_feedback/',
-        locationToolsOpen = false,
         noticeDiv,
         noticeDivXs,
         playerMarker,
@@ -16,10 +15,6 @@
         nextPhoto,
         lastStatusMessage,
         flipPhoto,
-        showDescriptions,
-        hideDescriptions,
-        showDescriptionButtons,
-        hideDescriptionButtons,
         clearBothersomeListeners,
         reinstateBothersomeListeners,
         photoLoadModalResizeFunction,
@@ -28,6 +23,7 @@
         toggleFlipButtons,
         guessPanelContainer,
         nextPhotoLoading = false;
+    window.locationToolsOpen = false;
     window.photoHistory = [];
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
@@ -105,8 +101,8 @@
             $('.ajapaik-marker-center-lock-button').click();
         }
         $('.ajapaik-marker-center-lock-button').hide();
-        hideDescriptions();
-        showDescriptionButtons();
+        window.hideDescriptions();
+        window.showDescriptionButtons();
         window.disableSave = true;
         window.guessResponseReceived = false;
         window.firstDragDone = false;
@@ -129,7 +125,7 @@
             .addClass('btn-default').text(window.gettext('Save location only')).attr('disabled', 'disabled');
         $('img').removeClass('ajapaik-photo-flipped');
         $('.btn').removeClass('active');
-        locationToolsOpen = false;
+        window.locationToolsOpen = false;
     };
     nextPhoto = function (previous) {
         nextPhotoLoading = true;
@@ -225,9 +221,9 @@
                     } else {
                         $('#ajapaik-game-photo-identifier').empty();
                     }
-                    showDescriptionButtons();
+                    window.showDescriptionButtons();
                 } else {
-                    hideDescriptionButtons();
+                    window.hideDescriptionButtons();
                 }
                 fullScreenImage = $('#ajapaik-full-screen-image');
                 fullScreenImage.prop('src', mediaUrl + currentPhoto.large.url).on('load', function () {
@@ -269,8 +265,8 @@
                 nextPhotoLoading = false;
                 var descStatus = window.descriptionViewHistory[currentPhoto.id];
                 if (descStatus || window.straightToSpecify) {
-                    showDescriptions();
-                    hideDescriptionButtons();
+                    window.showDescriptions();
+                    window.hideDescriptionButtons();
                     if (window.straightToSpecify) {
                         window.setTimeout(function () {
                             $('#ajapaik-photo-modal-specify-location').click();
@@ -371,7 +367,7 @@
         //}
         //window.History.replaceState(null, window.title, historyReplacementString);
     };
-    showDescriptions = function () {
+    window.showDescriptions = function () {
         if (window.popoverShown) {
             $('[data-toggle="popover"]').popover('hide');
             window.popoverShown = false;
@@ -387,19 +383,19 @@
             window._gaq.push(['_trackEvent', 'Game', 'Show description']);
         }
     };
-    showDescriptionButtons = function () {
+    window.showDescriptionButtons = function () {
         $('.ajapaik-game-show-description-button').show();
         $('.ajapaik-game-map-show-description-overlay-button').show();
         $('#ajapaik-game-full-screen-show-description-button').show();
     };
-    hideDescriptions = function () {
+    window.hideDescriptions = function () {
         $('#ajapaik-game-full-screen-description').hide();
         $('#ajapaik-guess-panel-description').hide();
         $('#ajapaik-guess-panel-description-xs').hide();
         $('#ajapaik-game-photo-description').hide();
         $('#ajapaik-game-photo-identifier').hide();
     };
-    hideDescriptionButtons = function () {
+    window.hideDescriptionButtons = function () {
         $('.ajapaik-game-show-description-button').hide();
         $('.ajapaik-game-map-show-description-overlay-button').hide();
         $('#ajapaik-game-full-screen-show-description-button').hide();
@@ -494,71 +490,7 @@
         //$('#ajapaik-header-grid-button').show();
         $(window.input).show();
         window.syncMapStateToURL();
-        $.jQee('space', function () {
-            if (window.fullscreenEnabled) {
-                window.BigScreen.exit();
-                window.fullscreenEnabled = false;
-            }
-            if (!locationToolsOpen) {
-                $('.ajapaik-game-specify-location-button')[0].click();
-            }
-        });
-        $.jQee('enter', function () {
-            if (locationToolsOpen) {
-                if (window.guessResponseReceived) {
-                    $('.ajapaik-game-feedback-next-button')[0].click();
-                } else {
-                    if (!window.streetPanorama.getVisible()) {
-                        // No saving in Street View
-                        $('.ajapaik-save-location-button')[0].click();
-                    }
-                }
-            }
-        });
-        $.jQee('esc', function () {
-            if (locationToolsOpen) {
-                // Skipping photo on close Street View would be confusing
-                if (!window.streetPanorama.getVisible()) {
-                    $('.ajapaik-game-next-photo-button')[0].click();
-                } else {
-                    // Using escape to close street view must also show save button
-                    //window.saveLocationButton.show();
-                    window.streetPanorama.setVisible(false);
-                }
-            } else {
-                $('#ajapaik-game-close-game-modal').click();
-            }
-        });
-        $.jQee('up', function () {
-            showDescriptions();
-            hideDescriptionButtons();
-        });
-        $.jQee('f', function () {
-            $('#ajapaik-game-flip-photo-button').click();
-        });
-        $.jQee('s', function () {
-            var input = $('#pac-input');
-            if (!input.is(':focus')) {
-                $('#pac-input').focus();
-                setTimeout(function () {
-                    $('#pac-input').val('');
-                }, 0);
-            }
-        });
-        $.jQee('left', function () {
-            var buttons = $('.ajapaik-game-previous-photo-button');
-            if (!nextPhotoLoading && buttons.length > 0) {
-                if (!$(buttons[0]).hasClass('disabled')) {
-                    buttons[0].click();
-                }
-            }
-        });
-        $.jQee('right', function () {
-            if (!nextPhotoLoading) {
-                //Many buttons, click only 1
-                $('.ajapaik-game-next-photo-button')[0].click();
-            }
-        });
+
         $('#logout-button').click(function () {
             window._gaq.push(['_trackEvent', 'Game', 'Logout']);
         });
@@ -567,7 +499,7 @@
                 window.BigScreen.exit();
                 window.fullscreenEnabled = false;
             }
-            if (!locationToolsOpen && !nextPhotoLoading) {
+            if (!window.locationToolsOpen && !nextPhotoLoading) {
                 if (window.map.zoom < 17) {
                     window.map.setZoom(17);
                 }
@@ -609,7 +541,7 @@
                 //if (!window.userClosedTutorial) {
                 //    window.openTutorialPanel();
                 //}
-                locationToolsOpen = true;
+                window.locationToolsOpen = true;
                 window._gaq.push(['_trackEvent', 'Game', 'Specify location']);
             }
         });
@@ -707,8 +639,8 @@
             }
         });*/
         $(document).on('click', '.ajapaik-game-show-description-button', function () {
-            showDescriptions();
-            hideDescriptionButtons();
+            window.showDescriptions();
+            window.hideDescriptionButtons();
         });
         $('#ajapaik-game-modal-body').mouseenter(function () {
             if (!window.isMobile) {

@@ -536,7 +536,7 @@ def game(request):
         ret["area"] = area
 
     if album:
-        ret["album"] = (album.id, album.name, album.lat, album.lon)
+        ret["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
         qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.all():
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
@@ -763,7 +763,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
             fb_share_photos.append([p[0], w, h])
         if album:
-            ret['album'] = (album.id, album.name)
+            ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')))
         else:
             ret['album'] = None
         ret['photo'] = requested_photo
@@ -967,6 +967,10 @@ def photoslug(request, photo_id, pseudo_slug):
     if first_rephoto is not None:
         rephoto_fullscreen = _make_fullscreen(first_rephoto)
 
+    photo_obj.tags = ','.join(photo_obj.description.split(' '))
+    if rephoto:
+        rephoto.tags = ','.join(rephoto.description.split(' '))
+
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
         "fb_url": request.build_absolute_uri(reverse("project.home.views.photo", args=(photo_obj.id,))),
@@ -1072,22 +1076,14 @@ def mapview(request, photo_id=None, rephoto_id=None):
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     site = Site.objects.get_current()
-    ret = {
-        "area": area,
-        "last_geotagged_photo_id": Photo.objects.order_by('-latest_geotag').first().id,
-        "total_photo_count": photos_qs.distinct('id').count(),
-        "geotagging_user_count": geotagging_user_count,
-        "geotagged_photo_count": geotagged_photo_count,
-        "albums": albums,
-        "hostname": "http://%s" % (site.domain,),
-        "selected_photo": selected_photo,
-        "selected_rephoto": selected_rephoto,
-        "is_mapview": True,
-        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
-    }
+    ret = {"area": area, "last_geotagged_photo_id": Photo.objects.order_by('-latest_geotag').first().id,
+           "total_photo_count": photos_qs.distinct('id').count(), "geotagging_user_count": geotagging_user_count,
+           "geotagged_photo_count": geotagged_photo_count, "albums": albums, "hostname": "http://%s" % (site.domain,),
+           "selected_photo": selected_photo, "selected_rephoto": selected_rephoto, "is_mapview": True,
+           "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK, "album": None}
 
     if album is not None:
-        ret["album"] = (album.id, album.name, album.lat, album.lon)
+        ret["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
         ret["title"] = album.name + " - " + _("Browse photos on map")
         ret["facebook_share_photos"] = album.photos.values_list('id', 'width', 'height')[:5]
     elif area is not None:

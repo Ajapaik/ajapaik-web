@@ -39,12 +39,12 @@
         var title = '{{ title }}',
             leaderboardFullURL = "{% url "project.home.views.top50" %}",
             difficultyFeedbackURL = "{% url "project.home.views.difficulty_feedback" %}";
-            {% if area %}
-                var areaId = '{{ area.id | safe }}';
-                {% if area.lat and area.lon %}
-                    var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});
-                {% endif %}
-            {% endif %}
+{#            {% if area %}#}
+{#                var areaId = '{{ area.id | safe }}';#}
+{#                {% if area.lat and area.lon %}#}
+{#                    var areaLatLng = new window.google.maps.LatLng({{ area.lat | safe }}, {{ area.lon | safe }});#}
+{#                {% endif %}#}
+{#            {% endif %}#}
             {% if album %}
                 var albumId = '{{ album.0 | safe }}';
                 {% if album.1 and album.2 %}

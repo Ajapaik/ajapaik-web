@@ -48,6 +48,16 @@
     {% include "_info_modal.html" %}
     {% include "_full_leaderboard_modal.html" %}
     {% include "_rephoto_upload_modal.html" %}
+    <div class="full-box original-full-box">
+        <div class="full-pic" id="ajapaik-fullscreen-image-container">
+            <img id="ajapaik-full-screen-image" src="#" alt="{% trans "Original photo on full screen" %}"/>
+        </div>
+    </div>
+    <div class="full-box rephoto-full-box">
+        <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
+            <img id="ajapaik-rephoto-full-screen-image" src="#" alt="{% trans "Rephoto on full screen" %}"/>
+        </div>
+    </div>
 {% endblock %}
 
 {% block specific_js %}

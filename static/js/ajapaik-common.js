@@ -1314,12 +1314,105 @@ var map,
         }
     });
 
+    $(document).on('click', '.ajapaik-photo-modal-previous-button', function (e) {
+        e.preventDefault();
+        if (!$(this).hasClass('ajapaik-photo-modal-previous-button-disabled')) {
+            var previousId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).prev().data('id');
+            if (previousId && !window.nextPhotoLoading) {
+                window.loadPhoto(previousId);
+            }
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal previous']);
+            } else if (window.isGame) {
+                window._gaq.push(['_trackEvent', 'Game', 'Photo modal previous']);
+            }
+        } else {
+            if (window.isFrontpage) {
+                window.previousPageOnModalClose = true;
+                window.closePhotoDrawer();
+            }
+        }
+    });
+
+    $(document).on('click', ".ajapaik-flip-photo-overlay-button", function () {
+        var target = $("#ajapaik-modal-photo"),
+            fullScreenImage = $('#ajapaik-full-screen-image');
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active');
+        }
+        if (target.hasClass("ajapaik-photo-flipped")) {
+            target.removeClass("ajapaik-photo-flipped");
+        } else {
+            target.addClass("ajapaik-photo-flipped");
+        }
+        if (fullScreenImage.hasClass("ajapaik-photo-flipped")) {
+            fullScreenImage.removeClass("ajapaik-photo-flipped");
+        } else {
+            fullScreenImage.addClass("ajapaik-photo-flipped");
+        }
+        window.flipPhoto();
+    });
+
+    $(document).on('click', '.ajapaik-photo-modal-next-button', function () {
+        if (!$(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
+            var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
+            if (nextId && !window.nextPhotoLoading) {
+                window.loadPhoto(nextId);
+            }
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal next']);
+            } else if (window.isGame) {
+                window._gaq.push(['_trackEvent', 'Game', 'Photo modal next']);
+            }
+        } else {
+            if (window.isFrontpage) {
+                window.nextPageOnModalClose = true;
+                window.closePhotoDrawer();
+            }
+        }
+    });
+
+    $(document).on('click', '.ajapaik-photo-modal-album-link', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Album link click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Album link click']);
+        }
+    });
+
+    $(document).on('click', '#ajapaik-photo-modal-specify-location', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Photo modal specify location click']);
+        }
+        window.startGuessLocation($(this).data('id'));
+    });
+
+    $(document).on('click', '#ajapaik-photo-modal-close-button', function (e) {
+        e.preventDefault();
+        window.closePhotoDrawer();
+    });
+
+    // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
+    BigScreen.onexit = function() {
+        if (window.lastScrollPosition) {
+            setTimeout(function () {
+                $(window).scrollTop(window.lastScrollPosition);
+                window.lastScrollPosition = null;
+            }, 500);
+        }
+    };
+
     $(document).on('click', '#ajapaik-mobile-about-label', function () {
         $('#ajapaik-mobile-about-button').click();
     });
 
-    $(document).on('click', '#ajapaik-header-album-name', function (e) {
+    $(document).on('click', '#ajapaik-header-album-more', function (e) {
         e.preventDefault();
+        e.stopPropagation();
         var targetDiv = $('#ajapaik-info-modal');
         if (window.albumId && window.infoModalURL) {
             $.ajax({

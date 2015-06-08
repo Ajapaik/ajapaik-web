@@ -10,6 +10,68 @@
             {% trans "Timepatch (Ajapaik)" %}
         {% endif %}
     </title>
+    <meta name="description" content="
+        {% if is_frontpage %}
+            {% if album %}
+                {% trans 'Gallery of old historic photos from the album' %} {{ album.1 }}
+            {% else %}
+                {% trans 'Historic photo gallery' %}
+            {% endif %}
+        {% elif is_mapview %}
+            {% if album %}
+                {% trans 'Mapped old historic photos from the album' %} {{ album.1 }}
+            {% else %}
+                {% trans 'Mapped old historic photos' %}
+            {% endif %}
+        {% elif is_game %}
+            {% if album %}
+                {% trans 'Help geotag old historic photos from the album' %} {{ album.1 }}
+            {% else %}
+                {% trans 'Help geotag old historic photos' %}
+            {% endif %}
+        {% elif is_photoview %}
+            {% if rephoto %}
+                {% trans 'Before and after view of' %} {{ rephoto.description }}
+            {% elif photo %}
+                {% trans 'Historic photo of' %} {{ photo.description }}
+            {% endif %}
+        {% elif is_curator%}
+            {% trans 'Curate historic photos from museums into Ajapaik for geotagging and rephotographing' %}
+        {% else %}
+            {% trans 'Ajapaik shows how places have changed over time' %}
+        {% endif %}
+        ">
+    <meta name="keywords" content="
+        {% if is_frontpage %}
+            {% if album %}
+                {% trans 'historic,pictures,old,photos' %},{{ album.2 }}
+            {% else %}
+                {% trans 'historic,pictures,old,photos' %}
+            {% endif %}
+        {% elif is_mapview %}
+            {% if album %}
+                {% trans 'historic,pictures,old,photos,map,geotagged,location' %},{{ album.4 }}
+            {% else %}
+                {% trans 'historic,pictures,old,photos,map,geotagged,location' %}
+            {% endif %}
+        {% elif is_game %}
+            {% if album %}
+                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %},{{ album.4 }}
+            {% else %}
+                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %}
+            {% endif %}
+        {% elif is_photoview %}
+            {% if rephoto %}
+                {% trans 'historic,picture,old,photo,before,after' %},{{ rephoto.tags }}
+            {% elif photo %}
+                {% trans 'historic,picture,old,photo' %},{{ photo.tags }}
+            {% endif %}
+        {% elif is_curator %}
+            {% trans 'search,museum,old,photos,pictures,historic' %}
+        {% else %}
+            {% trans 'historic,pictures,old,photos' %}
+        {% endif %}
+        ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
@@ -260,7 +322,6 @@
         <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
         <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.js"></script>
-        <script src="{{ STATIC_URL }}js/ajapaik-keyboard-control.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/tmpl.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/lazysizes-1.1.0-rc3.min.js"></script>
@@ -273,6 +334,7 @@
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
         <script src="{{ STATIC_URL }}js/URI-1.15.1.min.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-keyboard-controls.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
     {% endcompress %}
 {% endblock %}

@@ -1,7 +1,6 @@
 {% load i18n %}
 
 <div id="ajapaik-album-selection" class="ajapaik-invisible {% if show_photos %}hidden{% endif %}">
-    <input type="text" id="ajapaik-album-filter-box" placeholder="{% trans "Search album" %}"/>
     {% for album in albums %}
         {% if album.cover_photo_id %}
             <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}">
@@ -11,13 +10,24 @@
                      src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}">
                 <div class="caption ajapaik-caption-album-selection">
                     <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
-                    <p>
-                        {% blocktrans count counter=album.photo_count_with_subalbums %}
-                            {{ counter }} picture
-                        {% plural %}
-                            {{ counter }} pictures
-                        {% endblocktrans %}
-                    </p>
+                    <div class="ajapaik-album-selection-photo-count">
+                        <span>{{ album.photo_count_with_subalbums }}</span>
+                    </div>
+                    {% if album.geotagged_photo_count_with_subalbums > 0 %}
+                        <div class="ajapaik-album-selection-geotagged-count">
+                            <span>{{ album.geotagged_photo_count_with_subalbums }}</span>
+                        </div>
+                    {% endif %}
+                    {% if album.rephoto_count_with_subalbums > 0 %}
+                        <div class="ajapaik-album-selection-rephoto-count">
+                            <span>{{ album.rephoto_count_with_subalbums }}</span>
+                        </div>
+                    {% endif %}
+                    {% if album.comments_count_with_subalbums > 0 %}
+                        <div class="ajapaik-album-selection-comment-count">
+                            <span>{{ album.comments_count_with_subalbums }}</span>
+                        </div>
+                    {% endif %}
                 </div>
             </a>
         {% endif %}

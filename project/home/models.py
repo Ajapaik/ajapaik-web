@@ -8,7 +8,7 @@ from datetime import datetime
 from pandas import DataFrame, Series
 
 from django.core.urlresolvers import reverse
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.utils.deconstruct import deconstructible
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, SmallIntegerField, BooleanField,\
@@ -233,6 +233,8 @@ class Album(Model):
     cover_photo = ForeignKey("Photo", null=True, blank=True)
     photo_count_with_subalbums = IntegerField(default=0)
     rephoto_count_with_subalbums = IntegerField(default=0)
+    geotagged_photo_count_with_subalbums = IntegerField(default=0)
+    comments_count_with_subalbums = IntegerField(default=0)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -255,7 +257,11 @@ class Album(Model):
                 album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
                 album_rephotos_qs = album_rephotos_qs | sa.photos.filter(rephoto_of__isnull=False)
             self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
+            self.geotagged_photo_count_with_subalbums = album_photos_qs\
+                .filter(lat__isnull=False, lon__isnull=False).distinct('id').count()
             self.rephoto_count_with_subalbums = album_rephotos_qs.distinct('id').count()
+            self.comments_count_with_subalbums = album_photos_qs.distinct('id').filter(fb_comments_count__gt=0).count()
+            self.comments_count_with_subalbums += album_rephotos_qs.distinct('id').filter(fb_comments_count__gt=0).count()
             if not self.lat:
                 random_photo_with_area = album_photos_qs.filter(area__isnull=False).first()
                 if random_photo_with_area:

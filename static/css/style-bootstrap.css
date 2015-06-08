@@ -40,10 +40,18 @@ body {
 }
 
 #ajapaik-album-filter-box {
-    position: fixed;
-    left: 15%;
-    top: 60px;
-    z-index: 100;
+    margin-top: 8px;
+    border-radius: 0;
+}
+
+#ajapaik-frontpage-mode-select {
+    background-color: rgba(0,0,0,.8);
+}
+
+#ajapaik-frontpage-mode-select > li > a {
+    font-size: 20px;
+    color: #fff;
+    background: none !important;
 }
 
 .ajapaik-black-dropdown-menu {
@@ -426,6 +434,63 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
     font-size: 20px;
     float: right;
     margin-left: 10px;
+    margin-right: 10px;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ajapaik-album-selection-photo-count {
+    background-size: 18px;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_image_gray_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-photo-count > span {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+.ajapaik-album-selection-geotagged-count {
+    background-size: 18px;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_place_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-geotagged-count > span {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+.ajapaik-album-selection-rephoto-count {
+    background-size: 18px;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-rephoto-count > span {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+.ajapaik-album-selection-comment-count {
+    background-size: 18px;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_comment_gray_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-comment-count > span {
+    font-size: 13px;
+    margin-left: 25px;
 }
 
 #ajapaik-header-menu-button {
@@ -755,7 +820,7 @@ a.fullscreen {
 }
 
 .score_container {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 50px;
     width: 300px;
@@ -2026,6 +2091,12 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     .ajapaik-mapview-game-button {
         margin-bottom: 30px;
         margin-right: 5px;
+    }
+    #ajapaik-header-title {
+        max-width: 80px;
+    }
+    #ajapaik-album-filter-box {
+        max-width: 80px;
     }
 }
 

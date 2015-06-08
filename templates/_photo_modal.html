@@ -231,17 +231,9 @@
     window.hostname = '{{ hostname }}';
     window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
     window.isFrontpage = '{{ is_frontpage|safe }}';
-    if (window.isFrontpage === 'True') {
-        window.isFrontpage = true;
-    } else {
-        window.isFrontpage = false;
-    }
+    window.isFrontpage = window.isFrontpage === 'True';
     window.isMapview = '{{ is_mapview|safe }}';
-    if (window.isMapview === 'True') {
-        window.isMapview = true;
-    } else {
-        window.isMapview = false;
-    }
+    window.isMapview = window.isMapview === 'True';
     window.photoModalCurrentImageUrl = '{% url 'project.home.views.photo_url' photo.id %}';
     {% if photo.flip %}
         window.photoModalCurrentPhotoFlipStatus = true;
@@ -250,6 +242,20 @@
     {% endif %}
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
+    window.currentPhotoURL = '{% url 'project.home.views.photo_url' photo.id %}';
+    window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
+    window.photoModalFullscreenImageSize = {{ fullscreen.size }};
+    window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
+    {% if rephoto_fullscreen %}
+        window.photoModalRephotoFullscreenImageSize = {{ rephoto_fullscreen.size }};
+    {% else %}
+        window.photoModalRephotoFullscreenImageSize = null;
+    {% endif %}
+    {% if description %}
+        window.currentPhotoDescription = '{{ description }}';
+    {% else %}
+        window.currentPhotoDescription = false;
+    {% endif %}
     {% for rephoto in photo.rephotos.all %}
         window.photoModalRephotoArray.push({
             id: {{ rephoto.id }},
@@ -279,180 +285,7 @@
         });
     {% endfor %}
     $(document).ready(function () {
-        var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
-            rephotoColumn = $('#ajapaik-photo-modal-rephoto-column');
-        $('.dropdown-toggle').dropdown();
-        $('.disabled-link').click(function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        });
-        if (window.photoHistory && window.photoHistory.length > 0) {
-            $('.ajapaik-photo-modal-previous-button').removeClass('disabled');
-        }
-        if (window.userClosedRephotoTools) {
-            $('#ajapaik-rephoto-selection').hide();
-            $('#ajapaik-photo-modal-rephoto-column').hide();
-            if (window.isMapview) {
-                $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
-                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
-            } else {
-                $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
-                $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
-            }
-            $('#ajapaik-photo-modal-rephoto-info-column').hide();
-        }
-        if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
-            $('#ajapaik-photo-modal-date-row').show();
-        }
-        //TODO: Restore?
-        {#History.replaceState(null, '{{ title }} - {% trans "Timepatch (Ajapaik)" %}', '{% if photo.rephotos.all.0 %}{{ photo.rephotos.all.0.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}');#}
-        window.currentPhotoURL = '{% url 'project.home.views.photo_url' photo.id %}';
-        {% if description %}
-            window.currentPhotoDescription = '{{ description }}';
-        {% else %}
-            window.currentPhotoDescription = false;
-        {% endif %}
-        window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
-        window.photoModalFullscreenImageSize = {{ fullscreen.size }};
-        window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
-        {% if rephoto_fullscreen %}
-            window.photoModalRephotoFullscreenImageSize = {{ rephoto_fullscreen.size }};
-        {% else %}
-            window.photoModalRephotoFullscreenImageSize = null;
-        {% endif %}
         window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
-        $(".ajapaik-flip-photo-overlay-button").click(function () {
-            var target = $("#ajapaik-modal-photo"),
-                fullScreenImage = $('#ajapaik-full-screen-image');
-            if ($(this).hasClass('active')) {
-                $(this).removeClass('active');
-            } else {
-                $(this).addClass('active');
-            }
-            if (target.hasClass("ajapaik-photo-flipped")) {
-                target.removeClass("ajapaik-photo-flipped");
-            } else {
-                target.addClass("ajapaik-photo-flipped");
-            }
-            if (fullScreenImage.hasClass("ajapaik-photo-flipped")) {
-                fullScreenImage.removeClass("ajapaik-photo-flipped");
-            } else {
-                fullScreenImage.addClass("ajapaik-photo-flipped");
-            }
-            window.flipPhoto();
-        });
-        $('.ajapaik-photo-modal-previous-button').click(function () {
-            if (!$(this).hasClass('ajapaik-photo-modal-previous-button-disabled')) {
-                var previousId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).prev().data('id');
-                if (previousId && !window.nextPhotoLoading) {
-                    window.loadPhoto(previousId);
-                }
-                if (window.isFrontpage) {
-                    window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal previous']);
-                } else if (window.isGame) {
-                    window._gaq.push(['_trackEvent', 'Game', 'Photo modal previous']);
-                }
-            } else {
-                if (window.isFrontpage) {
-                    window.previousPageOnModalClose = true;
-                    window.closePhotoDrawer();
-                }
-            }
-        });
-        $('.ajapaik-photo-modal-next-button').click(function () {
-            if (!$(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
-                var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
-                if (nextId && !window.nextPhotoLoading) {
-                    window.loadPhoto(nextId);
-                }
-                if (window.isFrontpage) {
-                    window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal next']);
-                } else if (window.isGame) {
-                    window._gaq.push(['_trackEvent', 'Game', 'Photo modal next']);
-                }
-            } else {
-                if (window.isFrontpage) {
-                    window.nextPageOnModalClose = true;
-                    window.closePhotoDrawer();
-                }
-            }
-        });
-        $('.ajapaik-photo-modal-album-link').click(function () {
-            if (window.isFrontpage) {
-                window._gaq.push(['_trackEvent', 'Gallery', 'Album link click']);
-            } else if (window.isMapview) {
-                window._gaq.push(['_trackEvent', 'Map', 'Album link click']);
-            }
-        });
-        $("#ajapaik-photo-modal-specify-location").click(function (e) {
-            if (window.isFrontpage) {
-                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
-            } else if (window.isMapview) {
-                window._gaq.push(['_trackEvent', 'Map', 'Photo modal specify location click']);
-            }
-            window.startGuessLocation($(this).data('id'));
-        });
-        $('#ajapaik-photo-modal-close-button').click(function (e) {
-            e.preventDefault();
-            window.closePhotoDrawer();
-        });
-        // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
-        BigScreen.onexit = function() {
-            if (window.lastScrollPosition) {
-                setTimeout(function () {
-                    $(window).scrollTop(window.lastScrollPosition);
-                    window.lastScrollPosition = null;
-                }, 500);
-            }
-        };
-
-
-        originalPhotoColumn.mouseenter(function () {
-            if (!isMobile) {
-                $('.ajapaik-flip-photo-overlay-button').show();
-                if (window.userClosedRephotoTools) {
-                    $('#ajapaik-show-rephoto-selection-overlay-button').show();
-                }
-            }
-        });
-        originalPhotoColumn.mouseleave(function () {
-            if (!isMobile) {
-                $('.ajapaik-flip-photo-overlay-button').hide();
-                $('#ajapaik-show-rephoto-selection-overlay-button').hide();
-            }
-        });
-        rephotoColumn.mouseenter(function () {
-            if (!isMobile) {
-                if (!window.userClosedRephotoTools) {
-                    $('#ajapaik-close-rephoto-overlay-button').show();
-                    $('#ajapaik-invert-rephoto-overlay-button').show();
-                }
-            }
-        });
-        rephotoColumn.mouseleave(function () {
-            if (!isMobile) {
-                if (!window.userClosedRephotoTools) {
-                    $('#ajapaik-close-rephoto-overlay-button').hide();
-                    $('#ajapaik-invert-rephoto-overlay-button').hide();
-                }
-            }
-        });
-        $.jQee('left', function () {
-            var buttons = $('.ajapaik-photo-modal-previous-button');
-            if (!window.nextPhotoLoading && buttons.length > 0) {
-                if (!$(buttons[0]).hasClass('disabled')) {
-                    buttons[0].click();
-                }
-            }
-        });
-        $.jQee('right', function () {
-            var buttons = $('.ajapaik-photo-modal-next-button');
-            if (!window.nextPhotoLoading && buttons.length > 0) {
-                if (!$(buttons[0]).hasClass('disabled')) {
-                    buttons[0].click();
-                }
-            }
-        });
         $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
     });
 </script>

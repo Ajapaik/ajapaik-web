@@ -143,7 +143,11 @@ def api_album_nearest(request):
         for p in album_nearby_photos:
             date = None
             if p.date:
-                date = p.date.strftime('%d-%m-%Y')
+                iso = p.date.isoformat()
+                date_parts = iso.split('T')[0].split('-')
+                date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
+            elif p.date_text:
+                date = p.date_text
             photos.append({
                 "id": p.id,
                 "image": request.build_absolute_uri(reverse("project.home.views.photo_thumb", args=(p.id,))) + '[DIM]/',
@@ -186,6 +190,8 @@ def api_album_state(request):
                 iso = p.date.isoformat()
                 date_parts = iso.split('T')[0].split('-')
                 date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
+            elif p.date_text:
+                date = p.date_text
             photos.append({
                 "id": p.id,
                 "image": request.build_absolute_uri(reverse("project.home.views.photo_thumb", args=(p.id,))) + '[DIM]/',

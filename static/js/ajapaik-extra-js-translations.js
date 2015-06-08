@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+    // Translations written into template code don't get picked up, force Django with this file
     window.gettext('Invert colors');
     window.gettext('Flip');
     window.gettext('Mark stereophoto');

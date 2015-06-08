@@ -105,6 +105,24 @@
             url: '/foto/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
+                if (window.photoHistory && window.photoHistory.length > 0) {
+                    $('.ajapaik-photo-modal-previous-button').removeClass('disabled');
+                }
+                if (window.userClosedRephotoTools) {
+                    $('#ajapaik-rephoto-selection').hide();
+                    $('#ajapaik-photo-modal-rephoto-column').hide();
+                    if (window.isMapview) {
+                        $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+                        $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
+                    } else {
+                        $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
+                        $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
+                    }
+                    $('#ajapaik-photo-modal-rephoto-info-column').hide();
+                }
+                if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
+                    $('#ajapaik-photo-modal-date-row').show();
+                }
             }
         });
     };
@@ -164,13 +182,14 @@
         if (window.albumId) {
             historyReplacementString += '?album=' + window.albumId;
         }
-        if (window.areaId) {
-            if (!window.albumId) {
-                historyReplacementString += '?area=' + window.areaId;
-            } else {
-                historyReplacementString += '&area=' + window.areaId;
-            }
-        }
+        // TODO: Do we really even need areas any more?
+        //if (window.areaId) {
+        //    if (!window.albumId) {
+        //        historyReplacementString += '?area=' + window.areaId;
+        //    } else {
+        //        historyReplacementString += '&area=' + window.areaId;
+        //    }
+        //}
         historyReplacementString += '&mapType=' + window.map.getMapTypeId();
         if (window.map) {
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
@@ -501,7 +520,7 @@
             sw = updateBoundingEdge(sw);
             currentMapDataRequest = $.post('/map_data/', {
                 album: window.albumId,
-                area: window.areaId,
+                //area: window.areaId,
                 limit_by_album: $('#ajapaik-header-album-filter-button-off').css('display') == 'none',
                 sw_lat: sw.lat(),
                 sw_lon: sw.lng(),
@@ -853,7 +872,7 @@
             activateAlbumFilter();
         }
         if (window.getQueryParameterByName('fromModal') != 1) {
-            $('#ajapaik-header-album-name').click();
+            $('#ajapaik-header-album-more').click();
         }
         window.preselectPhotoId = false;
         window.preselectRephotoId = false;

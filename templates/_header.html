@@ -6,10 +6,90 @@
             <a class="navbar-brand ajapaik-brand hidden-xs hidden-sm" href="/" title="{% trans "Back to homepage" %}">
                 {% trans "Timepatch (Ajapaik)" %}
             </a>
-            <a class="navbar-brand ajapaik-brand ajapaik-brand-xs visible-xs visible-sm" href="/"
-               title="{% trans "Back to homepage" %}">
-                {% trans "Timepatch (Ajapaik)" %}
-            </a>
+        </div>
+        <div class="navbar-header pull-left">
+            <ul class="nav pull-right">
+                {% if album %}
+                    {% if is_mapview or is_game or is_frontpage %}
+                        <li class="dropdown pull-left" id="ajapaik-header-album-name">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
+                                <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="pull-left">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4zm0 15l3-3.86 2.14 2.58 3-3.86L18 19H6z"></path>
+                                </svg>
+                                <span id="ajapaik-header-title" class="pull-left">
+                                    {{ album.1 }}
+                                </span>
+                                <svg id="ajapaik-header-album-more" title="{% trans 'Album details' %}" fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="pull-left">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.97.89 1.66.89H22c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
+                                </svg>
+                            </a>
+                            <ul class="dropdown-menu" id="ajapaik-frontpage-mode-select">
+                                <li>
+                                    <a href="/{% if request.mobile %}?forceAlbum=1{% endif %}" title="Show albums">{% trans "Albums" %}</a>
+                                </li>
+                                <li>
+                                    <a href="/?order1=time&order2=added" id="ajapaik-frontpage-show-pictures-link" title="Show pictures">{% trans "All pictures" %} </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if is_mapview and album %}
+                        <li class="pull-left">
+                            <a title="{% trans 'Remove album filter' %}" id="ajapaik-header-album-filter-button" class="ajapaik-no-background">
+                                <svg id="ajapaik-header-album-filter-button-on" xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#888" d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                                </svg>
+                                <svg id="ajapaik-header-album-filter-button-off" xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="#888" d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                </svg>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% if is_frontpage and not album %}
+                    <li class="dropdown pull-left">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
+                            <svg id="ajapaik-header-album-icon" {% if show_photos %}class="hidden"{% endif %} fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"></path>
+                                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z"></path>
+                            </svg>
+                            <svg id="ajapaik-header-pictures-icon" {% if not show_photos %}class="hidden"{% endif %} fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"></path>
+                            </svg>
+                            <span id="ajapaik-header-title">
+                                {% if show_photos %}
+                                    {% trans "All pictures" %}
+                                {% else %}
+                                    {% trans "Albums" %}
+                                {% endif %}
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu" id="ajapaik-frontpage-mode-select">
+                            <li>
+                                <a href="/{% if request.mobile %}?forceAlbum=1{% endif %}" title="Show albums">{% trans "Albums" %}</a>
+                            </li>
+                            <li>
+                                <a href="#" id="ajapaik-frontpage-show-pictures-link" title="Show pictures">{% trans "All pictures" %} </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if not album %}
+                        <li class="pull-left">
+                            <input type="text" class="form-control" id="ajapaik-album-filter-box" placeholder="{% trans "Search album" %}"/>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% include "_filtering_dropdown.html" %}
+            </ul>
         </div>
         <!-- 'Sticky' (non-collapsing) right-side menu item(s) -->
         <div class="navbar-header pull-right">
@@ -51,7 +131,7 @@
                 </li>
             </ul>
             <!-- Required bootstrap placeholder for the collapsed menu -->
-            <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+            <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle ajapaik-no-background">
                 <span class="sr-only">{% trans "Toggle navigation" %}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -63,59 +143,8 @@
         <div class="collapse navbar-collapse navbar-left">
             <!--                      pull-right keeps the drop-down in line -->
             <ul class="nav navbar-nav pull-right">
-                {% if album %}
-                    <li class="navbar-text pull-left ajapaik-no-background ajapaik-text-white" id="ajapaik-header-album-name" title="{% trans 'Album details' %}">{{ album.1 }}</li>
-                    {% if is_mapview %}
-                        <li>
-                            <a title="{% trans 'Remove album filter' %}" id="ajapaik-header-album-filter-button">
-                                <svg id="ajapaik-header-album-filter-button-on" xmlns="http://www.w3.org/2000/svg"
-                                     width="24" height="24" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path fill="#888" d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-                                </svg>
-                                <svg id="ajapaik-header-album-filter-button-off" xmlns="http://www.w3.org/2000/svg"
-                                     width="24" height="24" viewBox="0 0 24 24">
-                                    <path fill="#888" d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                </svg>
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endif %}
-                {% if is_frontpage %}
-                    <li class="dropdown pull-left">
-                        {% if not album %}
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
-                                <svg id="ajapaik-header-album-icon" {% if show_photos %}class="hidden"{% endif %} fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                    <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"></path>
-                                    <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                    <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z"></path>
-                                </svg>
-                                <svg id="ajapaik-header-pictures-icon" {% if not show_photos %}class="hidden"{% endif %} fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"></path>
-                                </svg>
-                                <span id="ajapaik-header-title">
-                                    {% if show_photos %}
-                                        {% trans "Pictures" %}
-                                    {% else %}
-                                        {% trans "Albums" %}
-                                    {% endif %}
-                                </span>
-                            </a>
-                        {% endif %}
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/{% if is_mobile %}?mfld=1{% endif %}" title="Show albums">{% trans "Albums" %}</a>
-                            </li>
-                            <li>
-                                <a href="#" id="ajapaik-frontpage-show-pictures-link" title="Show pictures">{% trans "Pictures" %} </a>
-                            </li>
-                        </ul>
-                    </li>
-                    {% include "_filtering_dropdown.html" %}
-                {% endif %}
+
+
                 <li class="pull-left">
                     <a role="button" title="{% trans 'Show in grid' %}" href="{% if album %}/?album={{ album.0 }}{% else %}#{% endif %}" id="ajapaik-header-grid-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
                         <svg width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
