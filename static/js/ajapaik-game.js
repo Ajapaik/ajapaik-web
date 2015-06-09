@@ -14,7 +14,6 @@
         playerLatlng,
         nextPhoto,
         lastStatusMessage,
-        flipPhoto,
         clearBothersomeListeners,
         reinstateBothersomeListeners,
         photoLoadModalResizeFunction,
@@ -232,8 +231,8 @@
                     fullScreenImage.unbind('load');
                 });
                 //$('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
-                $('#ajapaik-guess-panel-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
-                $('#ajapaik-guess-panel-full-screen-link-xs').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
+                $('#ajapaik-guess-panel-full-screen-link').prop('href', mediaUrl + currentPhoto.large.url);
+                $('#ajapaik-guess-panel-full-screen-link-xs').prop('href', mediaUrl + currentPhoto.large.url);
                 if (currentPhoto.total_geotags > 0) {
                     $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
                     $('#ajapaik-game-number-of-geotags').show();
@@ -273,6 +272,7 @@
                             window.straightToSpecify = false;
                             $('.modal-backdrop').hide();
                         }, 500);
+                        window.straightToSpecify = false;
                     }
                 }
             });
@@ -280,13 +280,13 @@
             nextPhotoLoading = false;
         }
     };
-    flipPhoto = function () {
+    window.flipPhoto = function () {
+        console.log("Flip");
         window.userFlippedPhoto = !userFlippedPhoto;
         currentPhoto.flip = !currentPhoto.flip;
         var photoElement = $('#ajapaik-game-modal-photo'),
             guessPhotoElement = $('#ajapaik-guess-panel-photo'),
-            guessPhotoElementXs = $('#ajapaik-guess-panel-photo-xs'),
-            fullscreenPhotoElement = $('#ajapaik-full-screen-image');
+            guessPhotoElementXs = $('#ajapaik-guess-panel-photo-xs');
         if (photoElement.hasClass('ajapaik-photo-flipped')) {
             photoElement.removeClass('ajapaik-photo-flipped');
         } else {
@@ -301,11 +301,6 @@
             guessPhotoElementXs.removeClass('ajapaik-photo-flipped');
         } else {
             guessPhotoElementXs.addClass('ajapaik-photo-flipped');
-        }
-        if (fullscreenPhotoElement.hasClass('ajapaik-photo-flipped')) {
-            fullscreenPhotoElement.removeClass('ajapaik-photo-flipped');
-        } else {
-            fullscreenPhotoElement.addClass('ajapaik-photo-flipped');
         }
     };
     // TODO: Lots of duplicate code in this function in every mode (map, grid, game)
@@ -615,12 +610,13 @@
             }
         };
         $(document).on('click', '#ajapaik-game-flip-photo-button', function () {
-            toggleFlipButtons();
-            flipPhoto();
-        });
-        $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
-            toggleFlipButtons();
-            flipPhoto();
+            var $this = $(this);
+            if ($this.hasClass('active')) {
+                $this.removeClass('active');
+            } else {
+                $this.addClass('active');
+            }
+            $('.ajapaik-flip-photo-overlay-button')[0].click();
         });
         $(document).on('click', 'a.fullscreen', function (e) {
             e.preventDefault();

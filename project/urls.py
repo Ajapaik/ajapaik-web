@@ -93,12 +93,14 @@ urlpatterns += patterns('project.home.cat',
 
 urlpatterns += patterns('project.home.api',
     url(r'^api/v1/login/$', 'api_login'),
+    url(r'^api/v1/register/$', 'api_register'),
     url(r'^api/v1/logout/$', 'api_logout'),
     url(r'^api/v1/albums/$', 'api_albums'),
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/$', 'api_album_thumb'),
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'api_album_thumb'),
     url(r'^api/v1/album/nearest/$', 'api_album_nearest'),
-    url(r'^api/v1/album/state/$', 'api_album_state')
+    url(r'^api/v1/album/state/$', 'api_album_state'),
+    url(r'^api/v1/photo/upload/$', 'api_photo_upload')
 )
 
 urlpatterns += patterns('',
@@ -106,8 +108,8 @@ urlpatterns += patterns('',
    url(r'^admin/', include(admin.site.urls)),
    url(r'^admin_tools/', include('admin_tools.urls')),
    url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.home.facebook.facebook_handler'),
-   #url(r'^google_login', 'google_plus.google_login'),
-   #url(r'^oauth2callback', 'google_plus.auth_return'),
+   url(r'^google_login', 'project.home.google_plus.google_login'),
+   url(r'^oauth2callback', 'project.home.google_plus.auth_return'),
    url(r'^i18n/', include('django.conf.urls.i18n')),
    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),

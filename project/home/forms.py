@@ -133,9 +133,18 @@ class CuratorPhotoUploadForm(forms.Form):
 
 
 class CatLoginForm(forms.Form):
-    type = forms.CharField(max_length=255, required=False)
-    username = forms.CharField(max_length=40)
-    password = forms.CharField(max_length=64)
+    type = forms.CharField(max_length=255)
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=255)
+    version = forms.FloatField(required=False)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.CharField(max_length=255, required=False, initial='android')
+
+
+class ApiRegisterForm(forms.Form):
+    type = forms.CharField(max_length=255)
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=255)
     length = forms.IntegerField(required=False, initial=0)
     os = forms.CharField(max_length=255, required=False, initial='android')
 
@@ -144,6 +153,7 @@ class CatAuthForm(forms.Form):
     _s = forms.CharField(max_length=255)
     _u = forms.IntegerField()
     _l = forms.CharField(max_length=2, required=False)
+    _v = forms.FloatField(required=False)
 
 
 class CatPushRegisterForm(forms.ModelForm):
@@ -194,3 +204,17 @@ class ApiAlbumNearestForm(forms.Form):
 class ApiAlbumStateForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True))
     state = forms.CharField(max_length=255, required=False)
+
+
+class ApiPhotoUploadForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85)
+    longitude = forms.FloatField(min_value=-180, max_value=180)
+    accuracy = forms.FloatField(min_value=0)
+    age = forms.FloatField(min_value=0)
+    date = forms.CharField(max_length=30)
+    scale = forms.FloatField()
+    yaw = forms.FloatField()
+    pitch = forms.FloatField()
+    roll = forms.FloatField()
+    original = forms.FileField()

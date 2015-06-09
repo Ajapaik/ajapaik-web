@@ -46,6 +46,7 @@ body {
 
 #ajapaik-frontpage-mode-select {
     background-color: rgba(0,0,0,.8);
+    border-radius: 0;
 }
 
 #ajapaik-frontpage-mode-select > li > a {
@@ -923,11 +924,11 @@ a.fullscreen {
 .score_container #facebook-connect {
     font-size: 12px;
     margin: 6px 15px;
-    /*display: none;*/
 }
 
-.score_container #facebook-connected {
-    /*display: none;*/
+.score_container #google-plus-connect {
+    font-size: 12px;
+    margin: 6px 15px;
 }
 
 .score_container #facebook-connected p {
@@ -939,10 +940,20 @@ a.fullscreen {
     margin: 0 0 10px;
 }
 
+.score_container #google-plus-connect p {
+    margin: 0 0 10px;
+}
+
 #facebook-connect a {
     width: 169px;
     height: 21px;
     background: url(../images/connect-with-facebook.png) no-repeat;
+}
+
+#google-plus-connect a {
+    width: 169px;
+    height: 57px;
+    background: url(../images/connect-with-google.png) no-repeat;
 }
 
 .ir {
@@ -1575,8 +1586,23 @@ ul.errorlist {
 }
 
 #ajapaik-geolocation-error {
-    margin-top: 50px;
     display: none;
+    position: fixed;
+    width: 75%;
+    z-index: 1000;
+    text-align: center;
+    margin: 0 0 0 -37.5%;
+    left: 50%;
+}
+
+#ajapaik-sorting-error {
+    display: none;
+    position: fixed;
+    width: 75%;
+    z-index: 1000;
+    text-align: center;
+    margin: 0 0 0 -37.5%;
+    left: 50%;
 }
 
 #ajapaik-mapview-photo-panel .jsPanel {

@@ -871,9 +871,9 @@
         } else {
             activateAlbumFilter();
         }
-        if (window.getQueryParameterByName('fromModal') != 1) {
-            $('#ajapaik-header-album-more').click();
-        }
+        //if (window.getQueryParameterByName('fromModal') != 1) {
+        //    $('#ajapaik-header-album-more').click();
+        //}
         window.preselectPhotoId = false;
         window.preselectRephotoId = false;
         window.syncMapStateToURL();

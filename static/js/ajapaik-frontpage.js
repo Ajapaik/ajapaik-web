@@ -322,11 +322,26 @@
                 url: '/frontpage_async/' + window.location.search,
                 method: 'GET',
                 success: function (response) {
+                    console.log(response);
                     window.start = response.start;
                     window.end = response.end;
                     window.total = response.total;
                     window.maxPage = response.max_page;
                     window.currentPage = response.page;
+                    if (window.order2 == 'rephotos' && response.photos_with_rephotos === 0) {
+                        $('#ajapaik-sorting-error-message').text(window.gettext('Picture set has no rephotos'));
+                        $('#ajapaik-sorting-error').show();
+                        window.setTimeout(function () {
+                            $('#ajapaik-sorting-error').hide();
+                        }, 2000);
+                    }
+                    if (window.order2 == 'comments' && response.photos_with_comments === 0) {
+                        $('#ajapaik-sorting-error-message').text(window.gettext('Picture set has no comments'));
+                        $('#ajapaik-sorting-error').show();
+                        window.setTimeout(function () {
+                            $('#ajapaik-sorting-error').hide();
+                        }, 2000);
+                    }
                     syncStateToUrl();
                     syncPagingButtons();
                     var targetDiv = $('#ajapaik-frontpage-historic-photos');
@@ -359,6 +374,7 @@
             e.preventDefault();
             if (!window.albumId) {
                 $('#ajapaik-frontpage-show-pictures-link').hide();
+                $('#ajapaik-frontpage-show-albums-link').removeClass('hidden');
                 $('#ajapaik-album-selection').hide();
                 $('#ajapaik-header-album-icon').hide();
                 $('#ajapaik-header-pictures-icon').attr('class', '');
@@ -397,6 +413,8 @@
         });
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
             e.stopPropagation();
+            e.preventDefault();
+            console.log('filter click');
             window.currentPage = 1;
             var $this = $(this);
             if ($this.data('order1')) {

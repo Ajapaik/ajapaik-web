@@ -199,7 +199,7 @@
     {% compress css %}
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jasny-bootstrap-3.1.3/css/jasny-bootstrap.min.css">
+{#        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jasny-bootstrap-3.1.3/css/jasny-bootstrap.min.css">#}
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.theme.min.css">
@@ -223,8 +223,11 @@
     {% csrf_token %}
     <input type="hidden" value="" name="language" id="ajapaik-language" />
 </form>
-<div class="alert alert-danger alert-fixed-top alert-dismissible" id="ajapaik-geolocation-error">
+<div class="alert alert-danger" id="ajapaik-geolocation-error">
   <strong>{% trans "Geolocation error" %}:</strong> <span id="ajapaik-geolocation-error-message"></span>
+</div>
+<div class="alert alert-info" id="ajapaik-sorting-error">
+  <strong>{% trans "Sorting" %}:</strong> <span id="ajapaik-sorting-error-message"></span>
 </div>
 {% include "_general_info_modal.html" %}
 {% block header %}
@@ -314,7 +317,7 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-1.11.2.min.js"></script>
         <script src="{{ STATIC_URL }}libs/bootstrap-3.3.4/js/bootstrap.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jasny-bootstrap-3.1.3/js/jasny-bootstrap.min.js"></script>
+{#        <script src="{{ STATIC_URL }}libs/jasny-bootstrap-3.1.3/js/jasny-bootstrap.min.js"></script>#}
         <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.6-beta.js"></script>
         <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>

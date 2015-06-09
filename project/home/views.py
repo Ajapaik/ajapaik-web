@@ -620,6 +620,8 @@ def frontpage(request, album_id=None, page=None):
         'order1': data['order1'],
         'order2': data['order2'],
         'order3': data['order3'],
+        'photos_with_comments': data['photos_with_comments'],
+        'photos_with_rephotos': data['photos_with_rephotos'],
         'show_photos': data['show_photos'],
         'max_page': data['max_page'],
         'total': data['total'],
@@ -675,6 +677,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.filter(id__in=requested_photos)
         else:
             ret['is_photoset'] = False
+        photos_with_comments = None
+        photos_with_rephotos = None
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
@@ -687,11 +691,13 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('fb_comments_count')
                 else:
                     photos = photos.order_by('-fb_comments_count')
+                photos_with_comments = photos.filter(fb_comments_count__gt=0).count()
             elif order2 == 'rephotos':
                 if order3 == 'reverse':
                     photos = photos.order_by('rephoto_count')
                 else:
                     photos = photos.order_by('-rephoto_count')
+                photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
             elif order2 == 'geotags':
                 if order3 == 'reverse':
                     photos = photos.order_by('geotag_count')
@@ -705,6 +711,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 else:
                     photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                         order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
+                photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
             elif order2 == 'comments':
                 if order3 == 'reverse':
                     photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
@@ -712,6 +719,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 else:
                     photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
                         order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
+                photos_with_comments = photos.filter(fb_comments_count__gt=0).count()
             elif order2 == 'geotags':
                 if order3 == 'reverse':
                     photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL', },
@@ -766,13 +774,18 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')))
         else:
             ret['album'] = None
-        ret['photo'] = requested_photo
+        if requested_photo:
+            ret['photo'] = (requested_photo.id, requested_photo.description)
+        else:
+            ret['photo'] = None
         ret['photos'] = photos
         ret['show_photos'] = show_photos
         # FIXME: DRY
         ret['fb_share_photos'] = fb_share_photos
         ret['start'] = start
         ret['end'] = end
+        ret['photos_with_comments'] = photos_with_comments
+        ret['photos_with_rephotos'] = photos_with_rephotos
         ret['order1'] = order1
         ret['order2'] = order2
         ret['order3'] = order3
@@ -782,6 +795,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
     else:
         ret['album'] = None
         ret['photo'] = None
+        ret['photos_with_comments'] = photos.filter(fb_comments_count__isnull=False).count()
+        ret['photos_with_rephotos'] = photos.filter(rephoto_count__isnull=False).count()
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                            'rephoto_count', 'fb_comments_count')[0:page_size]
         ret['order1'] = 'time'

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-05 17:51+0300\n"
+"POT-Creation-Date: 2015-06-09 12:42+0300\n"
 "PO-Revision-Date: 2015-05-29 16:04+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -53,12 +53,12 @@ msgid "An unknown error occurred."
 msgstr ""
 
 #: static/js/ajapaik-common.js:786 static/js/ajapaik-common.js.c:907
-#: static/js/ajapaik-common.js:926 static/js/ajapaik-game.js:129
+#: static/js/ajapaik-common.js:926 static/js/ajapaik-game.js:124
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:818 static/js/ajapaik-game.js:643
-#: static/js/ajapaik-map.js:934
+#: static/js/ajapaik-common.js:818 static/js/ajapaik-game.js:569
+#: static/js/ajapaik-map.js:953
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
@@ -72,191 +72,199 @@ msgstr ""
 msgid "Median guess"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:206
-msgid "Earliest"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:208
-msgid "Latest"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:213
-msgid "Least"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:215
-msgid "Most"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:220
-msgid "Pictures furthest from you"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:222
-msgid "Pictures closest to you"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:227
-msgid "commented"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:230
-msgid "rephotographed"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:233
-msgid "added"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:236
-msgid "geotagged"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:239
-msgid "pictures"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:242
-msgid "Pictures from the map"
-msgstr ""
-
-#: static/js/ajapaik-frontpage.js:310
-msgid "Pictures"
-msgstr ""
-
-#: static/js/ajapaik-game.js:40
-msgid "Vihje vaatamine"
-msgstr ""
-
-#: static/js/ajapaik-game.js:42
-msgid ""
-"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
-"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
-msgstr ""
-
-#: static/js/ajapaik-game.js:207
-msgid ""
-"You've seen all the pictures in this album, we are now showing you random "
-"photos."
-msgstr ""
-
-#: static/js/ajapaik-game.js:209
-msgid "You have seen all the pictures from this album."
-msgstr ""
-
-#: static/js/ajapaik-game.js:339 static/js/ajapaik-game.js.c:341
-#: static/js/ajapaik-map.js:370 static/js/ajapaik-map.js.c:371
-msgid "Points awarded"
-msgstr ""
-
-#: static/js/ajapaik-game.js:359
-msgid "Your guess"
-msgstr ""
-
-#: static/js/ajapaik-map.js:866
-msgid "Remove album filter"
-msgstr ""
-
-#: static/js/ajapaik-map.js:871
-msgid "Apply album filter"
-msgstr ""
-
-#: static/js/ajapaik-translations.js:3
+#: static/js/ajapaik-extra-js-translations.js:4
 msgid "Invert colors"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:4
+#: static/js/ajapaik-extra-js-translations.js:5
 msgid "Flip"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:5
+#: static/js/ajapaik-extra-js-translations.js:6
 msgid "Mark stereophoto"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:6
+#: static/js/ajapaik-extra-js-translations.js:7
 msgid "Remove from selection"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:7
+#: static/js/ajapaik-extra-js-translations.js:8
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:8
+#: static/js/ajapaik-extra-js-translations.js:9
 msgid "Description"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:9
+#: static/js/ajapaik-extra-js-translations.js:10
 msgid "Author"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:10
+#: static/js/ajapaik-extra-js-translations.js:11
 msgid "Source"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:11
+#: static/js/ajapaik-extra-js-translations.js:12
 msgid "Size"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:12
+#: static/js/ajapaik-extra-js-translations.js:13
 msgid "Institution"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:13
+#: static/js/ajapaik-extra-js-translations.js:14
 msgid "Number"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:14
+#: static/js/ajapaik-extra-js-translations.js:15
 msgid "Date"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:15
+#: static/js/ajapaik-extra-js-translations.js:16
 msgid "URL"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:16
+#: static/js/ajapaik-extra-js-translations.js:17
 msgid "Title"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:17
+#: static/js/ajapaik-extra-js-translations.js:18
 msgid "Licence"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:18
+#: static/js/ajapaik-extra-js-translations.js:19
 msgid "Points"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:19
+#: static/js/ajapaik-extra-js-translations.js:20
 msgid "System error"
 msgstr "Systeemfout"
 
-#: static/js/ajapaik-translations.js:20
+#: static/js/ajapaik-extra-js-translations.js:21
 msgid "Not selected"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:21
+#: static/js/ajapaik-extra-js-translations.js:22
 msgid "photos"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:22
+#: static/js/ajapaik-extra-js-translations.js:23
 msgid "Source ID"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:23
+#: static/js/ajapaik-extra-js-translations.js:24
 msgid "Image has no location info"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:24
+#: static/js/ajapaik-extra-js-translations.js:25
 msgid "Image has only location, no view direction"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:25
+#: static/js/ajapaik-extra-js-translations.js:26
 msgid "Image has location and view direction info"
 msgstr ""
 
-#: static/js/ajapaik-translations.js:26
+#: static/js/ajapaik-extra-js-translations.js:27
 msgid "Image has rephotos"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:264
+msgid "Earliest"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:266
+msgid "Latest"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:271
+msgid "Least"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:273
+msgid "Most"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:278
+msgid "Pictures furthest from you"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:280
+msgid "Pictures closest to you"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:285
+msgid "commented"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:288
+msgid "rephotographed"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:291
+msgid "added"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:294
+msgid "geotagged"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:297
+msgid "pictures"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:300
+msgid "Pictures from the map"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:332
+msgid "Picture set has no rephotos"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:339
+msgid "Picture set has no comments"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:385
+msgid "Pictures"
+msgstr ""
+
+#: static/js/ajapaik-game.js:35
+msgid "Vihje vaatamine"
+msgstr ""
+
+#: static/js/ajapaik-game.js:37
+msgid ""
+"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
+"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
+msgstr ""
+
+#: static/js/ajapaik-game.js:202
+msgid ""
+"You've seen all the pictures in this album, we are now showing you random "
+"photos."
+msgstr ""
+
+#: static/js/ajapaik-game.js:204
+msgid "You have seen all the pictures from this album."
+msgstr ""
+
+#: static/js/ajapaik-game.js:329 static/js/ajapaik-game.js.c:331
+#: static/js/ajapaik-map.js:389 static/js/ajapaik-map.js.c:390
+msgid "Points awarded"
+msgstr ""
+
+#: static/js/ajapaik-game.js:349
+msgid "Your guess"
+msgstr ""
+
+#: static/js/ajapaik-map.js:885
+msgid "Remove album filter"
+msgstr ""
+
+#: static/js/ajapaik-map.js:890
+msgid "Apply album filter"
 msgstr ""
 
 #~ msgid "We doubt about it."

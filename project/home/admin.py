@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.home.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, AlbumPhoto, \
-    Licence, Device, CatAlbum, CatPhoto, CatTag, CatTagPhoto, CatUserFavorite, CatPushDevice, PhotoComment
+    Licence, Device, CatAlbum, CatPhoto, CatTag, CatTagPhoto, CatUserFavorite, CatPushDevice, PhotoComment, \
+    CredentialsModel
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -107,6 +108,9 @@ class CatPushDeviceAdmin(ForeignKeyAutocompleteAdmin):
         'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
     }
 
+class CredentialsAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(PhotoComment)
 admin.site.register(GeoTag, GeoTagAdmin)
@@ -127,3 +131,4 @@ admin.site.register(CatTag)
 admin.site.register(CatTagPhoto, CatTagPhotoAdmin)
 admin.site.register(CatUserFavorite, CatUserFavoriteAdmin)
 admin.site.register(CatPushDevice, CatPushDeviceAdmin)
+admin.site.register(CredentialsModel, CredentialsAdmin)

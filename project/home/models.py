@@ -24,6 +24,8 @@ from django.db.models.signals import post_save, pre_delete
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ObjectDoesNotExist
+from oauth2client.client import OAuth2Credentials
+from oauth2client.django_orm import FlowField, CredentialsField
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point
 from sklearn.cluster import DBSCAN
@@ -802,9 +804,10 @@ class Profile(Model):
     fb_user_friends = TextField(null=True, blank=True)
 
     google_plus_id = CharField(max_length=100, null=True, blank=True)
+    google_plus_email = CharField(max_length=255, null=True, blank=True)
     google_plus_link = CharField(max_length=255, null=True, blank=True)
     google_plus_name = CharField(max_length=255, null=True, blank=True)
-    google_plus_token = CharField(max_length=255, null=True, blank=True)
+    google_plus_token = TextField(null=True, blank=True)
     google_plus_picture = CharField(max_length=255, null=True, blank=True)
 
     modified = DateTimeField(auto_now=True)
@@ -847,14 +850,20 @@ class Profile(Model):
         self.save()
 
     def update_from_google_plus_data(self, token, data):
-        self.user.first_name = data["given_name"]
-        self.user.last_name = data["family_name"]
+        if 'given_name' in data:
+            self.user.first_name = data["given_name"]
+        if 'family_name' in data:
+            self.user.last_name = data["family_name"]
         self.user.save()
 
-        self.google_plus_token = token
+        if isinstance(token, OAuth2Credentials):
+            self.google_plus_token = loads(token.to_json())['access_token']
+        else:
+            self.google_plus_token = token
         self.google_plus_id = data["id"]
         self.google_plus_link = data["link"]
         self.google_plus_name = data["name"]
+        self.google_plus_email = data["email"]
         self.google_plus_picture = data["picture"]
         self.save()
 
@@ -930,6 +939,16 @@ class Profile(Model):
 
     def __unicode__(self):
         return u"%d - %s - %s" % (self.user.id, self.user.username, self.user.get_full_name())
+
+
+class FlowModel(Model):
+    id = ForeignKey(User, primary_key=True)
+    flow = FlowField()
+
+
+class CredentialsModel(Model):
+    id = ForeignKey(User, primary_key=True)
+    credential = CredentialsField()
 
 
 class Source(Model):

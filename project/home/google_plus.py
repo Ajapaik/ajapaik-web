@@ -15,8 +15,9 @@ CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 
 FLOW = flow_from_clientsecrets(
     CLIENT_SECRETS,
-    scope='https://www.googleapis.com/auth/plus.me',
+    scope='https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email',
     redirect_uri=settings.GOOGLE_PLUS_OAUTH2_CALLBACK_URL)
+
 
 def google_login(request):
     storage = Storage(CredentialsModel, 'id', request.user.id, 'credential')
@@ -32,9 +33,10 @@ def google_login(request):
         return HttpResponseRedirect(authorize_url)
     return HttpResponseRedirect(next_uri)
 
+
 def auth_return(request):
-    if not xsrfutil.validate_token(settings.SECRET_KEY, request.REQUEST['state'], request.user):
-        return  HttpResponseBadRequest()
+    if not xsrfutil.validate_token(settings.SECRET_KEY, str(request.REQUEST['state']), request.user):
+        return HttpResponseBadRequest()
     credential = FLOW.step2_exchange(request.REQUEST)
     http = httplib2.Http()
     http = credential.authorize(http)
