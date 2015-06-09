@@ -945,10 +945,16 @@ class FlowModel(Model):
     id = ForeignKey(User, primary_key=True)
     flow = FlowField()
 
+    class Meta:
+        app_label = "project"
+
 
 class CredentialsModel(Model):
     id = ForeignKey(User, primary_key=True)
     credential = CredentialsField()
+
+    class Meta:
+        app_label = "project"
 
 
 class Source(Model):
