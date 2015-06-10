@@ -780,6 +780,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             ret['photo'] = None
         ret['photos'] = photos
         ret['show_photos'] = show_photos
+        ret['is_photoset'] = False
         # FIXME: DRY
         ret['fb_share_photos'] = fb_share_photos
         ret['start'] = start

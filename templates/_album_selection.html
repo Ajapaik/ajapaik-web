@@ -9,7 +9,7 @@
                      data-photos="{{ album.photo_count_with_subalbums }}" width="{{ album.cover_photo_width }}"
                      src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}">
                 <div class="caption ajapaik-caption-album-selection">
-                    <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
+                    <p class="ajapaik-caption-album-selection-album-title" title="{{ album.name }}">{{ album.name }}</p>
                     <div class="ajapaik-album-selection-photo-count" title="{% trans "Pictures in album" %}">
                         <span>{{ album.photo_count_with_subalbums }}</span>
                     </div>

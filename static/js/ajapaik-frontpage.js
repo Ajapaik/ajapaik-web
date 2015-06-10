@@ -124,6 +124,9 @@
             $('#ajapaik-geolocation-error').hide();
             window.userLat = location.coords.latitude;
             window.userLon = location.coords.longitude;
+            window.setTimeout(function () {
+                $('#ajapaik-frontpage-show-pictures-link').click();
+            }, 500);
             syncStateToUrl();
             syncFilteringHighlights();
             updateFrontpagePhotosAsync();
