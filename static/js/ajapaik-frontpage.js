@@ -220,13 +220,17 @@
         };
         albumSelectionDiv.justifiedGallery(historicPhotoGallerySettings).on('jg.complete', function () {
             albumSelectionDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
         }).on('jg.resize', function () {
             albumSelectionDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
         });
         historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings).on('jg.complete', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
         }).on('jg.resize', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
         });
         $(document).on('click', '.ajapaik-frontpage-image', function () {
             window.loadPhoto($(this).data('id'));
@@ -353,6 +357,7 @@
                         }
                         historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings).on('jg.complete', function () {
                             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
+                            $('.footer').removeClass('ajapaik-invisible');
                         });
                     }
                     $('#ajapaik-loading-overlay').hide();

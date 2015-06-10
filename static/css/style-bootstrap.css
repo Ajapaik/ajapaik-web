@@ -449,6 +449,14 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
     overflow: hidden;
 }
 
+#ajapaik-header-album-icon {
+    float: left;
+}
+
+#ajapaik-header-pictures-icon {
+    float: left;
+}
+
 #ajapaik-header-album-more {
     margin-left: 5px;
 }

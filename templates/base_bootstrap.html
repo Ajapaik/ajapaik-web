@@ -235,7 +235,7 @@
 {% endblock header %}
 {% block layout %}{% endblock layout %}
 {% if is_frontpage or is_order %}
-    <footer class="footer text-center">
+    <footer class="footer text-center{% if is_frontpage %} ajapaik-invisible{% endif %}">
         <div class="container-fluid">
             <div class="col-xs-3" id="ajapaik-footer-contact">
                 <div class="row">
