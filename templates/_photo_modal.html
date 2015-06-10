@@ -95,7 +95,9 @@
                         <div class="row-fluid" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
                     {% endif %}
                     {% if photo.description %}
-                        <div class="row-fluid" id="ajapaik-photo-modal-description">{{ photo.description }}</div>
+                        <div class="row-fluid" id="ajapaik-photo-modal-description">
+                            <div>{{ photo.description }}</div>
+                        </div>
                     {% endif %}
                     {% if photo.source_url %}
                         <div class="row-fluid" id="ajapaik-photo-modal-source">

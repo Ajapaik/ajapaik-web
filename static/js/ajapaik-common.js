@@ -688,6 +688,8 @@ var map,
         e.preventDefault();
         if (window.albumId) {
             window.location.href = '/map?album=' + window.albumId;
+        } else if (window.photoId) {
+            window.location.href = '/map/photo/' + window.photoId;
         } else {
             window.clickedMapButton = true;
             if (window.navigator.geolocation) {
@@ -1181,6 +1183,9 @@ var map,
             window.syncMapStateToURL();
         }
         window.userClosedRephotoTools = true;
+    });
+    $(document).on('click', '#ajapaik-grab-link', function (e) {
+        e.stopPropagation();
     });
     $(document).on('click', '#ajapaik-comment-tabs li', function () {
         window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));

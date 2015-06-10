@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-09 12:42+0300\n"
-"PO-Revision-Date: 2015-05-29 16:04+0000\n"
+"POT-Creation-Date: 2015-06-10 16:05+0300\n"
+"PO-Revision-Date: 2015-06-10 12:52+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/ajapaik/language/"
 "nl/)\n"
@@ -52,23 +52,23 @@ msgstr ""
 msgid "An unknown error occurred."
 msgstr ""
 
-#: static/js/ajapaik-common.js:786 static/js/ajapaik-common.js.c:907
-#: static/js/ajapaik-common.js:926 static/js/ajapaik-game.js:124
+#: static/js/ajapaik-common.js:788 static/js/ajapaik-common.js.c:909
+#: static/js/ajapaik-common.js:928 static/js/ajapaik-game.js:124
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:818 static/js/ajapaik-game.js:569
+#: static/js/ajapaik-common.js:820 static/js/ajapaik-game.js:570
 #: static/js/ajapaik-map.js:953
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:842
+#: static/js/ajapaik-common.js:844
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:980
+#: static/js/ajapaik-common.js:982
 msgid "Median guess"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgid "Picture set has no comments"
 msgstr ""
 
 #: static/js/ajapaik-frontpage.js:385
-msgid "Pictures"
+msgid "All pictures"
 msgstr ""
 
 #: static/js/ajapaik-game.js:35
@@ -250,12 +250,12 @@ msgstr ""
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: static/js/ajapaik-game.js:329 static/js/ajapaik-game.js.c:331
+#: static/js/ajapaik-game.js:330 static/js/ajapaik-game.js.c:332
 #: static/js/ajapaik-map.js:389 static/js/ajapaik-map.js.c:390
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/ajapaik-game.js:349
+#: static/js/ajapaik-game.js:350
 msgid "Your guess"
 msgstr ""
 

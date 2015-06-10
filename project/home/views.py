@@ -1745,6 +1745,17 @@ def update_comment_count(request):
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
+def order_photo(request, photo_id):
+    p = Photo.objects.filter(pk=photo_id).first()
+    if p:
+        p_url = reverse('project.home.views.photo_large', args=(photo_id,))
+        p = (p.id, p_url)
+    return render_to_response("order_photo.html", RequestContext(request, {
+        'photo': p,
+        'is_order': True
+    }))
+
+
 # Currently not needed
 # def public_photo_upload(request):
 #     user_profile = request.get_user().profile

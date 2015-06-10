@@ -1,4 +1,5 @@
 from ujson import loads
+from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point
@@ -20,7 +21,7 @@ import time
 from project.home.cat import CustomAuthentication
 from project.home.facebook import APP_ID
 from project.home.forms import CatLoginForm, ApiAlbumNearestForm, ApiAlbumStateForm, ApiRegisterForm, ApiPhotoUploadForm
-from project.home.models import Album, Photo, Profile
+from project.home.models import Album, Photo, Profile, Licence
 from project.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
     GOOGLE_CLIENT_ID
 
@@ -318,24 +319,33 @@ def api_album_state(request):
 @authentication_classes((CustomAuthentication,))
 @permission_classes((IsAuthenticated,))
 def api_photo_upload(request):
-    # id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
-    # latitude = forms.FloatField(min_value=-85.05115, max_value=85)
-    # longitude = forms.FloatField(min_value=-180, max_value=180)
-    # accuracy = forms.FloatField(min_value=0)
-    # age = forms.FloatField(min_value=0)
-    # date = forms.CharField(max_length=30)
-    # scale = forms.FloatField()
-    # yaw = forms.FloatField()
-    # pitch = forms.FloatField()
-    # roll = forms.FloatField()
-    # original = forms.FileField()
     upload_form = ApiPhotoUploadForm(request.data, request.FILES)
     content = {
-        'state': str(int(round(time.time() * 1000)))
+        'error': 0
     }
     if upload_form.is_valid():
-        print "valid"
+        original_photo = upload_form.cleaned_data['id']
+        new_rephoto = Photo(
+            rephoto_of=original_photo,
+            lat=upload_form.cleaned_data['latitude'],
+            lon=upload_form.cleaned_data['longitude'],
+            geography=Point(x=upload_form.cleaned_data['longitude'], y=upload_form.cleaned_data['latitude'], srid=4326),
+            gps_accuracy=upload_form.cleaned_data['accuracy'],
+            gps_fix_age=upload_form.cleaned_data['age'],
+            date=parser.parse(upload_form.cleaned_data['date']),
+            cam_scale_factor=upload_form.cleaned_data['scale'],
+            cam_yaw=upload_form.cleaned_data['yaw'],
+            cam_pitch=upload_form.cleaned_data['pitch'],
+            cam_roll=upload_form.cleaned_data['roll'],
+            licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
+            user=request.user.profile,
+        )
+        new_rephoto.light_save()
+        original_photo.latest_rephoto = new_rephoto.created
+        if not original_photo.first_rephoto:
+            original_photo.first_rephoto = new_rephoto.created
+        original_photo.light_save()
     else:
-        print upload_form.errors
+        content['error'] = 2
 
     return Response(content)

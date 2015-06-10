@@ -353,6 +353,8 @@ class Photo(Model):
     modified = DateTimeField(auto_now=True)
     # scale_factor: old picture's zoom level (float [0.5, 4.0])
     # yaw, pitch, roll: phone orientation (float radians)
+    gps_accuracy = FloatField(null=True, blank=True)
+    gps_fix_age = FloatField(null=True, blank=True)
     cam_scale_factor = FloatField(null=True, blank=True, validators=[MinValueValidator(0.5), MaxValueValidator(4.0)])
     cam_yaw = FloatField(null=True, blank=True)
     cam_pitch = FloatField(null=True, blank=True)

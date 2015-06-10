@@ -22,12 +22,14 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
+from django.core.cache import cache
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
     CatPushRegisterForm
 from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
+from project.settings import SITE_ID
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -291,10 +293,10 @@ def cat_album_state(request):
 
 
 def cat_photo(request, photo_id, thumb_size=600):
-    # cache_key = "ajapaik_cat_photo_response_%s_%s" % (photo_id, thumb_size)
-    # cached_response = cache.get(cache_key)
-    # if cached_response:
-    #     return cached_response
+    cache_key = "ajapaik_cat_photo_response_%s_%s_%s" % (SITE_ID, photo_id, thumb_size)
+    cached_response = cache.get(cache_key)
+    if cached_response:
+        return cached_response
     p = get_object_or_404(CatPhoto, id=photo_id)
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(p.image, thumb_str, upscale=False)
@@ -304,7 +306,7 @@ def cat_photo(request, photo_id, thumb_size=600):
     response['Content-Length'] = len(content)
     response['Cache-Control'] = "max-age=604800, public"
     response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    # cache.set(cache_key, response)
+    cache.set(cache_key, response)
 
     return response
 
