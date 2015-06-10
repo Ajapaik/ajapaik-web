@@ -434,7 +434,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
 #ajapaik-header-title {
     font-size: 20px;
     float: right;
-    margin-left: 10px;
+    margin-left: 5px;
     margin-right: 10px;
     white-space: nowrap;
     -ms-text-overflow: ellipsis;
@@ -442,9 +442,22 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
     overflow: hidden;
 }
 
+#ajapaik-frontpage-show-pictures-link > svg {
+    margin-right: 5px;
+}
+
+#ajapaik-frontpage-show-albums-link > svg {
+    margin-right: 5px;
+}
+
+#ajapaik-frontpage-show-albums-link > a > svg {
+    margin-right: 5px;
+}
+
 .ajapaik-album-selection-photo-count {
     background-size: 18px;
     display: inline-block;
+    line-height: 24px;
     width: 48px;
     height: 24px;
     background: url(../images/material-design-icons/ic_image_gray_24px.svg) no-repeat;
@@ -458,6 +471,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
 .ajapaik-album-selection-geotagged-count {
     background-size: 18px;
     display: inline-block;
+    line-height: 24px;
     width: 48px;
     height: 24px;
     background: url(../images/material-design-icons/ic_place_24px.svg) no-repeat;
@@ -471,6 +485,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
 .ajapaik-album-selection-rephoto-count {
     background-size: 18px;
     display: inline-block;
+    line-height: 24px;
+    margin-left: 5px;
     width: 48px;
     height: 24px;
     background: url(../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat;
@@ -484,6 +500,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
 .ajapaik-album-selection-comment-count {
     background-size: 18px;
     display: inline-block;
+    line-height: 24px;
     width: 48px;
     height: 24px;
     background: url(../images/material-design-icons/ic_comment_gray_24px.svg) no-repeat;

@@ -382,7 +382,7 @@
                 $('#ajapaik-pager').removeClass('ajapaik-invisible');
                 $('#ajapaik-filtering-dropdown').removeClass('hidden');
                 $('#ajapaik-album-filter-box').hide();
-                $('#ajapaik-header-title').text(window.gettext('Pictures'));
+                $('#ajapaik-header-title').text(window.gettext('All pictures'));
                 $('#ajapaik-frontpage-historic-photos').removeClass('hidden').justifiedGallery(historicPhotoGallerySettings);
             } else {
                 window.location.href = '/?order1=time&order2=added';

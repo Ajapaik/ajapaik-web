@@ -75,7 +75,7 @@ MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
 MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'nl', 'ru', 'en', 'et')
 
-SITE_ID = 1
+SITE_ID = 2
 
 USE_I18N = True
 
