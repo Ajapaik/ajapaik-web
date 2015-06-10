@@ -252,9 +252,9 @@ class Album(Model):
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
         if self.id and not self.cover_photo_id and self.photos.count() > 0:
             self.cover_photo_id = self.photos.order_by('?').first().id
-        if self.subalbums and self.id:
+        if self.id:
             album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
-            album_rephotos_qs = self.photos.filter(rephoto_of__isnull=False)
+            album_rephotos_qs = self.photos.filter(rephotos__isnull=False)
             for sa in self.subalbums.all():
                 album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
                 album_rephotos_qs = album_rephotos_qs | sa.photos.filter(rephoto_of__isnull=False)

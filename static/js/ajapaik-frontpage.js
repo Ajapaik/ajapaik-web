@@ -227,7 +227,6 @@
         });
         $(document).on('click', '.ajapaik-frontpage-image', function () {
             window.loadPhoto($(this).data('id'));
-            console.log('click2');
         });
         $('.ajapaik-navbar').autoHidingNavbar();
         window.uploadCompleted = function () {
@@ -322,7 +321,6 @@
                 url: '/frontpage_async/' + window.location.search,
                 method: 'GET',
                 success: function (response) {
-                    console.log(response);
                     window.start = response.start;
                     window.end = response.end;
                     window.total = response.total;
@@ -414,7 +412,6 @@
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            console.log('filter click');
             window.currentPage = 1;
             var $this = $(this);
             if ($this.data('order1')) {

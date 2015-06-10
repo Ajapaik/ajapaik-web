@@ -1247,6 +1247,13 @@ var map,
             window._gaq.push(['_trackEvent', 'Map', 'Photo modal share click']);
         }
     });
+    $(document).on('click', '#ajapaik-sift-pics-link', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Sift.pics link click']);
+        } else if (window.isOrder) {
+            window._gaq.push(['_trackEvent', 'Order', 'Sift.pics link click']);
+        }
+    });
     $(document).on('click', '#full_leaderboard', function (e) {
         e.preventDefault();
         var url = window.leaderboardFullURL;

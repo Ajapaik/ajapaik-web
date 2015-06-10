@@ -23,6 +23,7 @@
 
 {% block specific_js %}
     <script>
+        window.isOrder = true;
         window.photoId = '{{ photo.0 }}';
     </script>
     {% compress js %}

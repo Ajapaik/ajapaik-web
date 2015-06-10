@@ -49,6 +49,10 @@ body {
     border-radius: 0;
 }
 
+#ajapaik-filtering-help {
+    background: none;
+}
+
 #ajapaik-frontpage-mode-select > li > a {
     font-size: 20px;
     color: #fff;

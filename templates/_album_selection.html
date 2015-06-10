@@ -10,21 +10,21 @@
                      src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 300 %}">
                 <div class="caption ajapaik-caption-album-selection">
                     <p class="ajapaik-caption-album-selection-album-title">{{ album.name }}</p>
-                    <div class="ajapaik-album-selection-photo-count">
+                    <div class="ajapaik-album-selection-photo-count" title="{% trans "Pictures in album" %}">
                         <span>{{ album.photo_count_with_subalbums }}</span>
                     </div>
                     {% if album.geotagged_photo_count_with_subalbums > 0 %}
-                        <div class="ajapaik-album-selection-geotagged-count">
+                        <div class="ajapaik-album-selection-geotagged-count" title="{% trans "Pictures geotagged" %}">
                             <span>{{ album.geotagged_photo_count_with_subalbums }}</span>
                         </div>
                     {% endif %}
                     {% if album.rephoto_count_with_subalbums > 0 %}
-                        <div class="ajapaik-album-selection-rephoto-count">
+                        <div class="ajapaik-album-selection-rephoto-count" title="{% trans "Rephotos in album" %}">
                             <span>{{ album.rephoto_count_with_subalbums }}</span>
                         </div>
                     {% endif %}
                     {% if album.comments_count_with_subalbums > 0 %}
-                        <div class="ajapaik-album-selection-comment-count">
+                        <div class="ajapaik-album-selection-comment-count" title="{% trans "Comments in album" %}">
                             <span>{{ album.comments_count_with_subalbums }}</span>
                         </div>
                     {% endif %}

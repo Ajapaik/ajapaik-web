@@ -281,7 +281,6 @@
         }
     };
     window.flipPhoto = function () {
-        console.log("Flip");
         window.userFlippedPhoto = !userFlippedPhoto;
         currentPhoto.flip = !currentPhoto.flip;
         var photoElement = $('#ajapaik-game-modal-photo'),
