@@ -18,6 +18,7 @@
                         <img alt="{{ p.3 }}" src="#" data-src="{% url "project.home.views.photo_thumb" p.0 400 %}"
                             class="ajapaik-frontpage-image lazyload img-responsive" data-id="{{ p.0 }}"
                             width="{{ p.1 }}" height="{{ p.2 }}"/>
+                        <div class="ajapaik-thumbnail-selection-icon{% if p.11 %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ p.0 }}"></div>
                         <div class="ajapaik-thumbnail-info-container">
                             {% if p.4 and p.5 and p.6 %}
                                 <div style="transform: rotate({{ p.6 }}deg);" class="ajapaik-frontpage-azimuth"

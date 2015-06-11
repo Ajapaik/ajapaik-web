@@ -11,7 +11,6 @@
             pagingPreviousButton = $('#ajapaik-paging-previous-button'),
             historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             albumSelectionDiv = $('#ajapaik-album-selection'),
-            albumResizeDone = false,
             historicPhotoGallerySettings = {
                 captions: false,
                 rowHeight: 270,
@@ -21,7 +20,6 @@
                     return !$(el).hasClass('hidden')
                 }
             },
-            historicResizeDone = false,
             openPhotoDrawer,
             fullScreenImage = $('#ajapaik-full-screen-image'),
             rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image'),
@@ -221,21 +219,15 @@
             $('#ajapaik-photo-modal').modal('toggle');
         };
         albumSelectionDiv.on('jg.resize', function () {
-            if (!albumResizeDone) {
-                albumSelectionDiv.removeClass('ajapaik-invisible');
-                $('.footer').removeClass('ajapaik-invisible');
-                albumResizeDone = true;
-            }
+            albumSelectionDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
         }).on('jg.complete', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
         }).justifiedGallery(historicPhotoGallerySettings);
         historicPhotoGalleryDiv.on('jg.resize', function () {
-            if (!historicResizeDone) {
-                historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
-                $('.footer').removeClass('ajapaik-invisible');
-                historicResizeDone = true;
-            }
+            historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
         }).on('jg.complete', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
@@ -312,10 +304,10 @@
             }
             if (window.getQueryParameterByName('photos')) {
                 orderingString = window.gettext('Pictures from the map');
-            }
-            var orderingStringTarget = $('#ajapaik-header-order-name');
-            if (orderingStringTarget) {
-                orderingStringTarget.html(orderingString);
+                var orderingStringTarget = $('#ajapaik-header-title');
+                if (orderingStringTarget) {
+                    orderingStringTarget.html(orderingString);
+                }
             }
             var dropdownOrderingString = $('#ajapaik-filter-dropdown-filter-name');
             if (dropdownOrderingString) {

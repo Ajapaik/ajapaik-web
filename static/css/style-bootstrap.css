@@ -1096,6 +1096,24 @@ a.fullscreen {
     background: rgba(128, 128, 128, 0.5) url("../images/direction_20px_white.png") no-repeat center;
 }
 
+.ajapaik-thumbnail-selection-icon {
+    background-image: url(../images/material-design-icons/ic_check_circle_gray_36px.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 36px;
+    height: 36px;
+    background-size: 36px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+
+.ajapaik-thumbnail-selection-icon-white {
+    background-image: url(../images/material-design-icons/ic_check_circle_white_36px.svg);
+}
+
 .ajapaik-frontpage-azimuth {
     width: 30px;
     height: 30px;
@@ -2046,6 +2064,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin: 0 auto;
     width: 64px;
     height: 64px;
+}
+
+#ajapaik-header-selection-indicator > a > span {
+    margin-left: -25px !important;
 }
 
 #ajapaik-loading-overlay {

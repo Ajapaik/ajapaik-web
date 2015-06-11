@@ -645,7 +645,7 @@ var map,
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
         e.preventDefault();
         if (!window.isFrontpage) {
-            var filterOff = $('ajapaik-header-album-filter-button-off').is(":visible");
+            var filterOff = $('ajapaik-header-album-filter-button-off').css('display') !== 'none';
             // TODO: The photo set needs to be POSTed to be of any size
             if ((!window.albumId || filterOff) && window.lastMarkerSet && window.lastMarkerSet.length < 51) {
                 window.location.href = '/?photos=' + window.lastMarkerSet;
@@ -1191,6 +1191,26 @@ var map,
         window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
         window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
     });
+    $(document).on('click', '.ajapaik-thumbnail-selection-icon', function (e) {
+        var $this = $(this);
+        if ($this.hasClass('ajapaik-thumbnail-selection-icon-white')) {
+            $this.removeClass('ajapaik-thumbnail-selection-icon-white');
+        } else {
+            $this.addClass('ajapaik-thumbnail-selection-icon-white');
+        }
+        var data = {
+            id: $this.data('id'),
+            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+        };
+        $.post(window.photoSelectionURL, data, function (response) {
+            var len = Object.keys(response).length;
+            if (len > 0) {
+                var target = $('#ajapaik-header-selection-indicator');
+                target.removeClass('hidden');
+                target.find('span').html(len);
+            }
+        });
+    });
     window.openPhotoUploadModal = function () {
         if (window.photoModalCurrentlyOpenPhotoId) {
             $.ajax({
@@ -1204,6 +1224,18 @@ var map,
             });
         }
     };
+    $(document).on('mouseenter', '.ajapaik-frontpage-image', function () {
+        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
+    });
+    $(document).on('mouseout', '.ajapaik-frontpage-image', function () {
+        $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+    });
+    $(document).on('mouseenter', '.ajapaik-thumbnail-selection-icon', function () {
+        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
+    });
+    $(document).on('mouseout', '.ajapaik-thumbnail-selection-icon', function () {
+        $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+    });
     $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
         if (window.isFrontpage) {
             window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal add rephoto click']);
@@ -1212,31 +1244,6 @@ var map,
         }
         window.openPhotoUploadModal();
     });
-    //$(document).on('click', '#ajapaik-header-menu-button', function () {
-    //    var albumSelection = $('#ajapaik-album-selection'),
-    //        frontpageHistoricPhotos = $('#ajapaik-frontpage-historic-photos'),
-    //        pager = $('#ajapaik-pager');
-    //    if (albumSelection.hasClass('hidden')) {
-    //        albumSelection.removeClass('hidden');
-    //        pager.hide();
-    //        if (frontpageHistoricPhotos.length > 0) {
-    //            frontpageHistoricPhotos.addClass('hidden');
-    //        }
-    //    } else {
-    //        albumSelection.addClass('hidden');
-    //        pager.show();
-    //        if (frontpageHistoricPhotos.length > 0) {
-    //            frontpageHistoricPhotos.removeClass('hidden');
-    //        }
-    //    }
-    //    if (window.isFrontpage) {
-    //        window._gaq.push(['_trackEvent', 'Gallery', 'Album selection click']);
-    //    } else if (window.isMapview) {
-    //        window._gaq.push(['_trackEvent', 'Map', 'Album selection click']);
-    //    } else if (window.isGame) {
-    //        window._gaq.push(['_trackEvent', 'Game', 'Album selection click']);
-    //    }
-    //});
     $(document).on('click', '#ajapaik-header-menu-button-hidden-xs', function () {
         $('#ajapaik-header-menu-button').click();
     });

@@ -36,7 +36,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness, PhotoComment
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm
+    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 from project.settings import DEBUG, FACEBOOK_APP_SECRET
@@ -753,18 +753,21 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             end = start + page_size
         end = int(end)
         max_page = ceil(float(total) / float(page_size))
+        # FIXME: Stupid
         if order1 == 'amount' and order2 == 'geotags':
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                                            'fb_comments_count', 'geotag_count')[start:end]
+                                            'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count')[start:end]
         elif order1 == 'closest' and lat and lon:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                                            'fb_comments_count', 'distance')[start:end]
+                                            'fb_comments_count', 'geotag_count', 'distance', 'geotag_count')[start:end]
         else:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                'fb_comments_count')[start:end]
+                'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count')[start:end]
         photos = map(list, photos)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 400)
+            if 'photo_selection' in request.session:
+                p[11] = str(p[0]) in request.session['photo_selection']
         fb_share_photos = []
         for p in photos[:5]:
             w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
@@ -818,6 +821,31 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
     return ret
 
+
+def photo_selection(request):
+    form = PhotoSelectionForm(request.POST)
+    if form.is_valid():
+        if 'photo_selection' not in request.session:
+            request.session['photo_selection'] = {}
+        photo_id = str(form.cleaned_data['id'].id)
+        helper = request.session['photo_selection']
+        if photo_id not in request.session['photo_selection']:
+            helper[photo_id] = True
+        else:
+            del helper[photo_id]
+        request.session['photo_selection'] = helper
+
+    return HttpResponse(json.dumps(request.session['photo_selection']), content_type="application/json")
+
+
+def list_photo_selection(request):
+    photos = None
+    if 'photo_selection' in request.session:
+        photos = Photo.objects.filter(pk__in=request.session['photo_selection'])
+
+    return render_to_response('photo_selection.html', RequestContext(request, {
+        'photos': photos
+    }))
 
 
 def photo_large(request, photo_id):

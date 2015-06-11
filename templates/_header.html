@@ -171,8 +171,6 @@
         <div class="collapse navbar-collapse navbar-left">
             <!--                      pull-right keeps the drop-down in line -->
             <ul class="nav navbar-nav pull-right">
-
-
                 <li class="pull-left">
                     <a role="button" title="{% trans 'Show in grid' %}" href="{% if album %}/?album={{ album.0 }}{% else %}#{% endif %}" id="ajapaik-header-grid-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
                         <svg width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -207,6 +205,15 @@
                             <path d="M0 0h24v24h-24z" fill="none"></path>
                             <path fill="#888" {% if is_curator %}class="ajapaik-white"{% endif %} d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"></path>
                         </svg>
+                    </a>
+                </li>
+                <li class="pull-left{% if request.session.photo_selection|length < 1 %} hidden{% endif %}" id="ajapaik-header-selection-indicator">
+                    <a role="button" title="{% trans 'Current selection' %}" href="/view-selection" class="ajapaik-padding-top-6px">
+                        <svg fill="#888" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+                        </svg>
+                        <span class="badge">{{ request.session.photo_selection|length }}</span>
                     </a>
                 </li>
             </ul>

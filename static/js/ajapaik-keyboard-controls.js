@@ -36,16 +36,17 @@
                     }
                 } else if (e.keyCode === 13) {
                     // enter
-                    if (window.locationToolsOpen) {
-                        if (window.guessResponseReceived) {
-                            $('.ajapaik-game-feedback-next-button')[0].click();
-                        } else {
-                            if (!window.streetPanorama.getVisible()) {
-                                // No saving in Street View
-                                $('.ajapaik-save-location-button')[0].click();
-                            }
-                        }
-                    }
+                    // FIXME: Conflicts with search box
+                    //if (window.locationToolsOpen) {
+                    //    if (window.guessResponseReceived) {
+                    //        $('.ajapaik-game-feedback-next-button')[0].click();
+                    //    } else {
+                    //        if (!window.streetPanorama.getVisible()) {
+                    //            // No saving in Street View
+                    //            $('.ajapaik-save-location-button')[0].click();
+                    //        }
+                    //    }
+                    //}
                 } else if (e.keyCode === 27) {
                     // escape
                     if (window.locationToolsOpen) {

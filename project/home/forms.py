@@ -218,3 +218,7 @@ class ApiPhotoUploadForm(forms.Form):
     pitch = forms.FloatField()
     roll = forms.FloatField()
     original = forms.FileField()
+
+
+class PhotoSelectionForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Photo.objects.all())
