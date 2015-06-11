@@ -3,7 +3,7 @@
 <div id="ajapaik-album-selection" class="ajapaik-invisible {% if show_photos %}hidden{% endif %}">
     {% for album in albums %}
         {% if album.cover_photo_id %}
-            <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}&forceAlbum=1">
+            <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}&forceAlbum=1" class="ajapaik-frontpage-album">
                 <img alt="{{ album.name }}" class="img-responsive"
                      data-id="{{ album.id }}" data-name="{{ album.name }}" height="{{ album.cover_photo_height }}"
                      data-photos="{{ album.photo_count_with_subalbums }}" width="{{ album.cover_photo_width }}"

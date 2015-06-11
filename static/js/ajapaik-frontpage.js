@@ -11,6 +11,7 @@
             pagingPreviousButton = $('#ajapaik-paging-previous-button'),
             historicPhotoGalleryDiv = $('#ajapaik-frontpage-historic-photos'),
             albumSelectionDiv = $('#ajapaik-album-selection'),
+            albumResizeDone = false,
             historicPhotoGallerySettings = {
                 captions: false,
                 rowHeight: 270,
@@ -20,6 +21,7 @@
                     return !$(el).hasClass('hidden')
                 }
             },
+            historicResizeDone = false,
             openPhotoDrawer,
             fullScreenImage = $('#ajapaik-full-screen-image'),
             rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image'),
@@ -219,15 +221,21 @@
             $('#ajapaik-photo-modal').modal('toggle');
         };
         albumSelectionDiv.on('jg.resize', function () {
-            albumSelectionDiv.removeClass('ajapaik-invisible');
-            $('.footer').removeClass('ajapaik-invisible');
+            if (!albumResizeDone) {
+                albumSelectionDiv.removeClass('ajapaik-invisible');
+                $('.footer').removeClass('ajapaik-invisible');
+                albumResizeDone = true;
+            }
         }).on('jg.complete', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
         }).justifiedGallery(historicPhotoGallerySettings);
         historicPhotoGalleryDiv.on('jg.resize', function () {
-            historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
-            $('.footer').removeClass('ajapaik-invisible');
+            if (!historicResizeDone) {
+                historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
+                $('.footer').removeClass('ajapaik-invisible');
+                historicResizeDone = true;
+            }
         }).on('jg.complete', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
@@ -417,6 +425,15 @@
                 syncStateToUrl();
                 updateFrontpagePhotosAsync();
             }
+        });
+        $(document).on('click', '.ajapaik-frontpage-album', function (e) {
+            e.preventDefault();
+            if ($('#ajapaik-album-filter-box').val()) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Album click with search term']);
+            } else {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Album click']);
+            }
+            window.location.href = $(this).attr('href');
         });
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
             e.stopPropagation();
