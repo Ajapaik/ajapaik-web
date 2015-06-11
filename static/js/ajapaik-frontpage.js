@@ -221,8 +221,14 @@
         albumSelectionDiv.on('jg.resize', function () {
             albumSelectionDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
+        }).on('jg.complete', function () {
+            historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
         }).justifiedGallery(historicPhotoGallerySettings);
         historicPhotoGalleryDiv.on('jg.resize', function () {
+            historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
+            $('.footer').removeClass('ajapaik-invisible');
+        }).on('jg.complete', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
         }).justifiedGallery(historicPhotoGallerySettings);
