@@ -256,9 +256,9 @@ def _get_album_choices():
     albums = Album.objects.filter(is_public=True).prefetch_related("cover_photo").order_by("-created")
     for a in albums:
         if a.cover_photo:
-            a.cover_photo_width, a.cover_photo_height = _calculate_thumbnail_size(a.cover_photo.width, a.cover_photo.height, 300)
+            a.cover_photo_width, a.cover_photo_height = _calculate_thumbnail_size(a.cover_photo.width, a.cover_photo.height, 400)
         else:
-            a.cover_photo_width, a.cover_photo_height = 300, 200
+            a.cover_photo_width, a.cover_photo_height = 400, 300
 
     return albums
 
@@ -302,20 +302,23 @@ def _get_leaderboard(profile):
     else:
         ret = nearby_ranks
     ret = map(list, ret)
-
+    print "-----"
+    print ret
     # FIXME: This is disgusting : )
     # Add ranks to index 0
     ret[0].insert(0, 1)
     if len(ret) > 1:
-        ret[1].insert(0, profile_rank)
+        ret[1].insert(0, profile_rank - 1)
     if len(ret) > 2:
-        ret[2].insert(0, profile_rank + 1)
+        ret[2].insert(0, profile_rank)
+    print "-----"
+    print ret
     # Add self detection
     ret[0].insert(1, 0)
     if len(ret) > 1:
-        ret[1].insert(1, 1)
+        ret[1].insert(1, 0)
     if len(ret) > 2:
-        ret[2].insert(1, 0)
+        ret[2].insert(1, 1)
 
     return ret
 
@@ -765,7 +768,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 'fb_comments_count')[start:end]
         photos = map(list, photos)
         for p in photos:
-            p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 300)
+            p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 400)
         fb_share_photos = []
         for p in photos[:5]:
             w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
@@ -840,19 +843,37 @@ def photo_large(request, photo_id):
 
 
 def photo_url(request, photo_id):
+    cache_key = "ajapaik_photo_url_response_%s_%s" % (settings.SITE_ID, photo_id)
+    cached_response = cache.get(cache_key)
+    if cached_response:
+        return cached_response
     p = get_object_or_404(Photo, id=photo_id)
     if p.rephoto_of:
         # if rephoto is taken with mobile then make it same width/height as source photo
         im = get_thumbnail(p.rephoto_of.image, "800x600")
         im = get_thumbnail(p.image, str(im.width) + "x" + str(im.height), crop="center", upscale=False)
+        try:
+            content = im.read()
+        except IOError:
+            delete(im)
+            im = get_thumbnail(p.rephoto_of.image, "800x600")
+            im = get_thumbnail(p.image, str(im.width) + "x" + str(im.height), crop="center", upscale=False)
+            content = im.read()
     else:
         im = get_thumbnail(p.image, "800x600", upscale=False)
-    content = im.read()
+        try:
+            content = im.read()
+        except IOError:
+            delete(im)
+            im = get_thumbnail(p.image, "800x600", upscale=False)
+            content = im.read()
+    # TODO: See if this fixes stupid broken thumbs
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
     response["Content-Length"] = len(content)
     response["Cache-Control"] = "max-age=604800, public"  # 604800 = 7 days
     response["Expires"] = next_week.strftime("%a, %d %b %y %T GMT")
+    cache.set(cache_key, response)
 
     return response
 
@@ -1027,9 +1048,9 @@ def pane_contents(request):
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids)\
             .prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos')).order_by('?')\
             .values_list('id', 'rephoto_count', 'flip', 'description', 'azimuth', 'fb_comments_count', 'width', 'height'):
-        im_url = reverse("project.home.views.photo_thumb", args=(p[0], 300))
+        im_url = reverse("project.home.views.photo_thumb", args=(p[0], 400))
         permalink = reverse("project.home.views.photo", args=(p[0],))
-        width, height = _calculate_thumbnail_size(p[6], p[7], 300)
+        width, height = _calculate_thumbnail_size(p[6], p[7], 400)
         data.append({
             "id": p[0],
             "url": im_url,
@@ -1241,6 +1262,7 @@ def leaderboard(request, album_id=None):
     else:
         template = "leaderboard.html"
     site = Site.objects.get_current()
+    print lb
     return render_to_response(template, RequestContext(request, {
         "is_top_50": False,
         "title": _("Leaderboard"),

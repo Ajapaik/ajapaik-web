@@ -15,7 +15,7 @@
                     <a target="_blank" href="{% url "project.home.views.photo" %}{{ p.0 }}"
                        class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{{ p.0 }}"
                        data-id="{{ p.0 }}">
-                        <img alt="{{ p.3 }}" src="#" data-src="{% url "project.home.views.photo_thumb" p.0 300 %}"
+                        <img alt="{{ p.3 }}" src="#" data-src="{% url "project.home.views.photo_thumb" p.0 400 %}"
                             class="ajapaik-frontpage-image lazyload img-responsive" data-id="{{ p.0 }}"
                             width="{{ p.1 }}" height="{{ p.2 }}"/>
                         <div class="ajapaik-thumbnail-info-container">
@@ -95,7 +95,7 @@
         <script id="ajapaik-frontpage-photo-template" type="text/x-tmpl">
             <a target="_blank" href="{%=photoURL%}{%=o[0]%}" class="ajapaik-frontpage-image-container"
             id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}">
-                <img alt="{%=o[3]%}" src="#" data-src="{%=photoThumbURL%}{%=o[0]%}/300"
+                <img alt="{%=o[3]%}" src="#" data-src="{%=photoThumbURL%}{%=o[0]%}/400"
                     class="ajapaik-frontpage-image lazyload img-responsive" data-id="{%=o[0]%}"
                     width="{%=o[1]%}" height="{%=o[2]%}"/>
                 <div class="ajapaik-thumbnail-info-container">
