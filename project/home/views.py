@@ -302,8 +302,6 @@ def _get_leaderboard(profile):
     else:
         ret = nearby_ranks
     ret = map(list, ret)
-    print "-----"
-    print ret
     # FIXME: This is disgusting : )
     # Add ranks to index 0
     ret[0].insert(0, 1)
@@ -311,8 +309,6 @@ def _get_leaderboard(profile):
         ret[1].insert(0, profile_rank - 1)
     if len(ret) > 2:
         ret[2].insert(0, profile_rank)
-    print "-----"
-    print ret
     # Add self detection
     ret[0].insert(1, 0)
     if len(ret) > 1:
@@ -1262,7 +1258,6 @@ def leaderboard(request, album_id=None):
     else:
         template = "leaderboard.html"
     site = Site.objects.get_current()
-    print lb
     return render_to_response(template, RequestContext(request, {
         "is_top_50": False,
         "title": _("Leaderboard"),

@@ -219,22 +219,13 @@
             $('#ajapaik-photo-modal').modal('toggle');
         };
         albumSelectionDiv.on('jg.resize', function () {
-            console.log('complete');
             albumSelectionDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
         }).justifiedGallery(historicPhotoGallerySettings);
-        //    .on('jg.resize', function () {
-        //    albumSelectionDiv.removeClass('ajapaik-invisible');
-        //    $('.footer').removeClass('ajapaik-invisible');
-        //});
         historicPhotoGalleryDiv.on('jg.resize', function () {
             historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
         }).justifiedGallery(historicPhotoGallerySettings);
-        //    .on('jg.resize', function () {
-        //    historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
-        //    $('.footer').removeClass('ajapaik-invisible');
-        //});
         $(document).on('click', '.ajapaik-frontpage-image', function () {
             window.loadPhoto($(this).data('id'));
         });
