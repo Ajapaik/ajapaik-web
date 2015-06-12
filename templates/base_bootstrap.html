@@ -88,8 +88,7 @@
         {% if description %}
             <meta property="og:description" content="{{ description }}"/>
         {% elif not description and is_game and album %}
-            <meta property="og:description" content="{% blocktrans with album.1 as album_name and album_photo_count as album_photo_count %}{{ album_name }} – Let's put pictures on the map!
-            Album has {{ album_photo_count }} historic pictures{% endblocktrans %}"/>
+            <meta property="og:description" content="{% blocktrans with album_photo_count as album_photo_count %}Album has {{ album_photo_count }} historic pictures. Let's put pictures on the map!{% endblocktrans %}"/>
         {% elif not description and is_game %}
             <meta property="og:description" content="{% trans "Let's put pictures on the map" %}"/>
         {% elif not description and is_mapview %}
@@ -209,6 +208,9 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.3.0/source/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style-bootstrap.css"/>
     {% endcompress %}
+    <script>
+        var _gaq=_gaq||[];_gaq.push(["_setAccount","{{ analytics.google_analytics_key }}"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();
+    </script>
 </head>
 <body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
@@ -235,7 +237,7 @@
 {% endblock header %}
 {% block layout %}{% endblock layout %}
 {% if is_frontpage or is_order %}
-    <footer class="footer text-center{% if is_frontpage %} ajapaik-invisible{% endif %}">
+    <footer class="footer text-center">
         <div class="container-fluid">
             <div class="col-xs-3" id="ajapaik-footer-contact">
                 <div class="row">
@@ -319,9 +321,6 @@
             b.src = document.location.protocol + "//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/sdk.js";
             document.getElementById("fb-root").appendChild(b)
         })();
-    </script>
-    <script>
-        var _gaq=_gaq||[];_gaq.push(["_setAccount","{{ analytics.google_analytics_key }}"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();
     </script>
     <script>
         var isMobile = '{{ request.mobile }}',

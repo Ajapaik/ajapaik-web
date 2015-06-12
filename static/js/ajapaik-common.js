@@ -1203,12 +1203,14 @@ var map,
             csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
         };
         $.post(window.photoSelectionURL, data, function (response) {
-            var len = Object.keys(response).length;
+            var len = Object.keys(response).length,
+                target = $('#ajapaik-header-selection-indicator');
             if (len > 0) {
-                var target = $('#ajapaik-header-selection-indicator');
                 target.removeClass('hidden');
-                target.find('span').html(len);
+            } else {
+                target.addClass('hidden');
             }
+            target.find('span').html(len);
         });
     });
     window.openPhotoUploadModal = function () {
@@ -1228,13 +1230,19 @@ var map,
         $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
     });
     $(document).on('mouseout', '.ajapaik-frontpage-image', function () {
-        $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+        var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
+        if (!icon.hasClass('ajapaik-thumbnail-selection-icon-white')) {
+            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+        }
     });
     $(document).on('mouseenter', '.ajapaik-thumbnail-selection-icon', function () {
         $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
     });
     $(document).on('mouseout', '.ajapaik-thumbnail-selection-icon', function () {
-        $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+        var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
+        if (!icon.hasClass('ajapaik-thumbnail-selection-icon-white')) {
+            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+        }
     });
     $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
         if (window.isFrontpage) {
@@ -1244,6 +1252,93 @@ var map,
         }
         window.openPhotoUploadModal();
     });
+    window.loadPossibleParentAlbums = function (parentAlbum) {
+        $.ajax({
+            type: 'POST',
+            url: '/curator_selectable_albums/',
+            data: {
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+            },
+            success: function (response) {
+                var targetDiv = $('#ajapaik-curator-change-album-parent');
+                targetDiv.empty();
+                targetDiv.append(
+                    tmpl(
+                        'ajapaik-curator-my-album-select-option',
+                        {id: -1, name: window.gettext('Not selected')}
+                    )
+                );
+                for (var i = 0, l = response.length; i < l; i += 1) {
+                    if (!response[i].open) {
+                        targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
+                    }
+                }
+                targetDiv.append(tmpl('ajapaik-curator-my-album-select-separator', {}));
+                for (i = 0, l = response.length; i < l; i += 1) {
+                    if (response[i].open) {
+                        targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
+                    }
+                }
+                if (parentAlbum) {
+                    targetDiv.val(parentAlbum);
+                }
+                if (window.isCurator) {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load parent albums success']);
+                } else {
+                    window._gaq.push(['_trackEvent', 'Selection', 'Load parent albums success']);
+                }
+            },
+            error: function () {
+                if (window.isCurator) {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load parent albums error']);
+                } else {
+                    window._gaq.push(['_trackEvent', 'Selection', 'Load parent albums success']);
+                }
+            }
+        });
+    };
+    window.loadSelectableAlbums = function () {
+        $.ajax({
+            type: 'POST',
+            url: '/curator_selectable_albums/',
+            data: {
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+            },
+            success: function (response) {
+                var targetDiv = $('#ajapaik-curator-album-select');
+                targetDiv.empty();
+                targetDiv.append(
+                    tmpl(
+                        'ajapaik-curator-my-album-select-option',
+                        {id: -1, name: window.gettext('Not selected')}
+                    )
+                );
+                for (var i = 0, l = response.length; i < l; i += 1) {
+                    if (!response[i].open) {
+                        targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
+                    }
+                }
+                targetDiv.append(tmpl('ajapaik-curator-my-album-select-separator', {}));
+                for (i = 0, l = response.length; i < l; i += 1) {
+                    if (response[i].open) {
+                        targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
+                    }
+                }
+                if (window.isCurator) {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load album selection success']);
+                } else if (window.isSelection) {
+                    window._gaq.push(['_trackEvent', 'Selection', 'Load album selection success']);
+                }
+            },
+            error: function () {
+                if (window.isCurator) {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load album selection error']);
+                } else if (window.isSelection) {
+                    window._gaq.push(['_trackEvent', 'Selection', 'Load album selection error']);
+                }
+            }
+        });
+    };
     $(document).on('click', '#ajapaik-header-menu-button-hidden-xs', function () {
         $('#ajapaik-header-menu-button').click();
     });

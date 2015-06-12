@@ -1,0 +1,119 @@
+{% load i18n %}
+
+<div class="modal fade" id="ajapaik-choose-albums-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{% trans "Collection info" %}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12" id="ajapaik-curator-upload-error" style="display: none;">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span id="ajapaik-curator-upload-error-message">{% trans "System error" %}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="ajapaik-curator-album-select"><b>{% trans "Choose an existing album" %}</b></label>
+                        <select id="ajapaik-curator-album-select" class="form-control"></select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p><b>{% trans "Or create a new one" %}</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <label for="ajapaik-curator-add-album-name">{% trans "New album name" %}&nbsp;*</label>
+                            </span>
+                            <input class="form-control" type="text" id="ajapaik-curator-add-album-name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <label for="ajapaik-curator-add-album-description">{% trans "New album description" %}</label>
+                            </span>
+                            <textarea class="form-control" id="ajapaik-curator-add-album-description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" id="ajapaik-curator-add-album-public-mutable">
+                            </span>
+                            <label class="form-control" for="ajapaik-curator-add-album-public-mutable">
+                                {% trans "Open album (anyone can add photos)" %}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% if is_selection %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id="ajapaik-curator-add-album-public">
+                                </span>
+                                <label class="form-control" for="ajapaik-curator-add-album-public">
+                                    {% trans "Visible (shown in selection)" %}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label for="ajapaik-curator-change-album-parent">{% trans "Parent album" %}</label>
+                                </span>
+                                <select id="ajapaik-curator-change-album-parent" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if is_curator %}
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label for="ajapaik-curator-add-area-name">{% trans "Place" %}</label>
+                                </span>
+                                <input class="form-control" type="text" id="ajapaik-curator-add-area-name">
+                                <input type="hidden" id="ajapaik-curator-add-area-name-hidden">
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-success" id="ajapaik-curator-confirm-album-selection-button">
+                    {% trans "Upload" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -154,7 +154,7 @@
         syncStateToUrl = function () {
             var currentUrl = window.URI(window.location.href);
             currentUrl.removeSearch('photo').removeSearch('page').removeSearch('order1').removeSearch('order2')
-                .removeSearch('order3').removeSearch('lat').removeSearch('lon');
+                .removeSearch('order3').removeSearch('lat').removeSearch('lon').removeSearch('q');
             if (window.currentlySelectedPhotoId) {
                 currentUrl.addSearch('photo', window.currentlySelectedPhotoId);
             }
@@ -175,6 +175,9 @@
             }
             if (window.userLon) {
                 currentUrl.addSearch('lon', window.userLon);
+            }
+            if (window.albumQuery) {
+                currentUrl.addSearch('q', window.albumQuery);
             }
             window.History.replaceState(null, window.title, currentUrl);
         };
@@ -218,20 +221,8 @@
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('toggle');
         };
-        albumSelectionDiv.on('jg.resize', function () {
-            albumSelectionDiv.removeClass('ajapaik-invisible');
-            $('.footer').removeClass('ajapaik-invisible');
-        }).on('jg.complete', function () {
-            historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
-            $('.footer').removeClass('ajapaik-invisible');
-        }).justifiedGallery(historicPhotoGallerySettings);
-        historicPhotoGalleryDiv.on('jg.resize', function () {
-            historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
-            $('.footer').removeClass('ajapaik-invisible');
-        }).on('jg.complete', function () {
-            historicPhotoGalleryDiv.removeClass('ajapaik-invisible');
-            $('.footer').removeClass('ajapaik-invisible');
-        }).justifiedGallery(historicPhotoGallerySettings);
+        albumSelectionDiv.justifiedGallery(historicPhotoGallerySettings);
+        historicPhotoGalleryDiv.justifiedGallery(historicPhotoGallerySettings);
         $(document).on('click', '.ajapaik-frontpage-image', function () {
             window.loadPhoto($(this).data('id'));
         });
@@ -380,6 +371,18 @@
         $(document).on('click', '#ajapaik-frontpage-show-pictures-link', function (e) {
             e.preventDefault();
             if (!window.albumId) {
+                if (!window.order1) {
+                    window.order1 = 'time';
+                }
+                if (!window.order2) {
+                    window.order2 = 'added';
+                }
+                if (!window.currentPage) {
+                    window.currentPage = 1;
+                }
+                window.albumQuery = null;
+                syncStateToUrl();
+                syncFilteringHighlights();
                 $('#ajapaik-frontpage-show-pictures-link').hide();
                 $('#ajapaik-frontpage-show-albums-link').removeClass('hidden');
                 $('#ajapaik-album-selection').hide();
@@ -399,6 +402,10 @@
             var val = this.value.toLowerCase();
             if (val !== oldVal) {
                 oldVal = val;
+                window.albumQuery = val;
+                window.currentPage = null;
+                window.order1 = null;
+                window.order2 = null;
                 var titles = $('.ajapaik-caption-album-selection-album-title');
                 for (var i = 0, l = titles.length; i < l; i += 1) {
                     if (titles[i].innerHTML.toLowerCase().match(val)) {
@@ -407,9 +414,13 @@
                         $(titles[i]).parent().parent().addClass('hidden');
                     }
                 }
+                syncStateToUrl();
                 albumSelectionDiv.justifiedGallery();
             }
         });
+        if (window.getQueryParameterByName('q')) {
+            $('#ajapaik-album-filter-box').val(window.getQueryParameterByName('q')).trigger('change');
+        }
         $(document).on('click', '#ajapaik-paging-next-button', function (e) {
             e.preventDefault();
             if (window.currentPage < window.maxPage) {

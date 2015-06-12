@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div id="ajapaik-album-selection" class="ajapaik-invisible {% if show_photos %}hidden{% endif %}">
+<div id="ajapaik-album-selection" class="{% if show_photos %}hidden{% endif %}">
     {% for album in albums %}
         {% if album.cover_photo_id %}
             <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}&forceAlbum=1" class="ajapaik-frontpage-album">

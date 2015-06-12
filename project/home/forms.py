@@ -132,6 +132,22 @@ class CuratorPhotoUploadForm(forms.Form):
     stereo = forms.BooleanField(required=False)
 
 
+class SelectionUploadForm(forms.Form):
+    selection = forms.CharField(max_length=100000)
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(
+        atype=Album.CURATED,
+        is_public=True,
+    ), label=_('Choose album'), required=False)
+    parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
+        atype=Album.CURATED,
+        is_public=True, open=True
+    ), label=_('Choose parent album'), required=False)
+    name = forms.CharField(max_length=255, required=False)
+    description = forms.CharField(max_length=2047, required=False)
+    open = forms.BooleanField(initial=False, required=False)
+    public = forms.BooleanField(initial=False, required=False)
+
+
 class CatLoginForm(forms.Form):
     type = forms.CharField(max_length=255)
     username = forms.CharField(max_length=255)
@@ -221,4 +237,5 @@ class ApiPhotoUploadForm(forms.Form):
 
 
 class PhotoSelectionForm(forms.Form):
-    id = forms.ModelChoiceField(queryset=Photo.objects.all())
+    id = forms.ModelChoiceField(queryset=Photo.objects.all(), required=False)
+    clear = forms.BooleanField(initial=False, required=False)

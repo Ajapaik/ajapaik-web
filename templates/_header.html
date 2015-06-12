@@ -207,7 +207,7 @@
                         </svg>
                     </a>
                 </li>
-                <li class="pull-left{% if request.session.photo_selection|length < 1 %} hidden{% endif %}" id="ajapaik-header-selection-indicator">
+                <li class="pull-left{% if not request.session.photo_selection %} hidden{% endif %}" id="ajapaik-header-selection-indicator">
                     <a role="button" title="{% trans 'Current selection' %}" href="/view-selection" class="ajapaik-padding-top-6px">
                         <svg fill="#888" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 0h24v24H0z" fill="none"></path>

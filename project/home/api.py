@@ -44,7 +44,7 @@ def api_login(request):
             uname = uname[:30]
         pw = login_form.cleaned_data['password']
         user = None
-        if t == 'ajapaik':
+        if t == 'ajapaik' or t == 'auto':
             try:
                 user = authenticate(username=uname, password=pw)
             except ObjectDoesNotExist:

@@ -10,95 +10,7 @@
     <div class="container" id="ajapaik-curator-container">
         <div class="col-xs-12">
             {% if request.user.is_authenticated and request.user.profile.fb_id %}
-                <div class="modal fade" id="ajapaik-choose-albums-modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title">{% trans "Collection info" %}</h4>
-                            </div>
-                            <div class="modal-body">
-                                 <div class="row">
-                                    <div class="col-xs-12" id="ajapaik-curator-upload-error" style="display: none;">
-                                        <div class="alert alert-danger" role="alert">
-                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            <span id="ajapaik-curator-upload-error-message">{% trans "System error" %}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <label for="ajapaik-curator-album-select"><b>{% trans "Choose an existing album" %}</b></label>
-                                        <select id="ajapaik-curator-album-select" class="form-control"></select>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <p><b>{% trans "Or create a new one" %}</b></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-album-name">{% trans "New album name" %}&nbsp;*</label>
-                                            </span>
-                                            <input class="form-control" type="text" id="ajapaik-curator-add-album-name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-album-description">{% trans "New album description" %}</label>
-                                            </span>
-                                            <textarea class="form-control" id="ajapaik-curator-add-album-description"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" id="ajapaik-curator-add-album-public-mutable">
-                                            </span>
-                                            <label class="form-control" for="ajapaik-curator-add-album-public-mutable">{% trans "Open album (anyone can add photos)" %}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-add-area-name">{% trans "Place" %}</label>
-                                            </span>
-                                            <input class="form-control" type="text" id="ajapaik-curator-add-area-name">
-                                            <input type="hidden" id="ajapaik-curator-add-area-name-hidden">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    {% trans "Cancel" %}
-                                </button>
-                                <button type="button" class="btn btn-success" id="ajapaik-curator-confirm-area-selection-button">
-                                    {% trans "Upload" %}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include "_album_creation_modal.html" %}
                 <div class="modal fade" id="ajapaik-curator-feedback-modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -213,7 +125,6 @@
                         </div>
                     </div>
                 </div>
-
             {% else %}
                 <div id="facebook-connect" style="margin-top: 75px;">
                     <p>{% trans "Curating requires connecting your account with Facebook." %}</p>
@@ -314,75 +225,6 @@
                 },
                 error: function () {
                     window._gaq.push(['_trackEvent', 'Curator', 'My albums error']);
-                }
-            });
-        };
-        var loadSelectableAlbums = function () {
-            $.ajax({
-                type : 'POST',
-                url : '/curator_selectable_albums/',
-                data: {
-                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                },
-                success : function(response) {
-                    var targetDiv = $('#ajapaik-curator-album-select');
-                    targetDiv.empty();
-                    targetDiv.append(
-                        tmpl(
-                            'ajapaik-curator-my-album-select-option',
-                            {id: -1, name: window.gettext('Not selected')}
-                        )
-                    );
-                    for (var i = 0, l = response.length; i < l; i += 1) {
-                        if (!response[i].open) {
-                           targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
-                        }
-                    }
-                    targetDiv.append(tmpl('ajapaik-curator-my-album-select-separator', {}));
-                    for (i = 0, l = response.length; i < l; i += 1) {
-                        if (response[i].open) {
-                           targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
-                        }
-                    }
-                    window._gaq.push(['_trackEvent', 'Curator', 'Load album selection success']);
-                },
-                error: function () {
-                    window._gaq.push(['_trackEvent', 'Curator', 'Load album selection error']);
-                }
-            });
-        };
-        var loadPossibleParentAlbums = function (parentAlbum) {
-            $.ajax({
-                type : 'POST',
-                url : '/curator_selectable_albums/',
-                data: {
-                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                },
-                success : function(response) {
-                    var targetDiv = $('#ajapaik-curator-change-album-parent');
-                    targetDiv.empty();
-                    targetDiv.append(
-                        tmpl(
-                            'ajapaik-curator-my-album-select-option',
-                            {id: -1, name: window.gettext('Not selected')}
-                        )
-                    );
-                    for (var i = 0, l = response.length; i < l; i += 1) {
-                        if (!response[i].open) {
-                           targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
-                        }
-                    }
-                    targetDiv.append(tmpl('ajapaik-curator-my-album-select-separator', {}));
-                    for (i = 0, l = response.length; i < l; i += 1) {
-                        if (response[i].open) {
-                           targetDiv.append(tmpl('ajapaik-curator-my-album-select-option', response[i]));
-                        }
-                    }
-                    $('#ajapaik-curator-change-album-parent').val(parentAlbum);
-                    window._gaq.push(['_trackEvent', 'Curator', 'Load parent albums success']);
-                },
-                error: function () {
-                    window._gaq.push(['_trackEvent', 'Curator', 'Load parent albums error']);
                 }
             });
         };
@@ -574,7 +416,7 @@
             areaLat = null;
             areaLng = null;
             $('#ajapaik-choose-albums-modal').modal('show');
-            loadSelectableAlbums();
+            window.loadSelectableAlbums();
             window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
         });
         $(document).on('click', '#ajapaik-curator-select-all', function () {
@@ -591,7 +433,7 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(response) {
-                    loadPossibleParentAlbums(response.subalbum_of);
+                    window.loadPossibleParentAlbums(response.subalbum_of);
                     $('#ajapaik-curator-change-album-name').val(response.name);
                     $('#ajapaik-curator-change-album-description').val(response.description);
                     $('#ajapaik-curator-change-album-id').val(response.id);
@@ -634,7 +476,7 @@
                 }
             });
         });
-        $(document).on('click', '#ajapaik-curator-confirm-area-selection-button', function () {
+        $(document).on('click', '#ajapaik-curator-confirm-album-selection-button', function () {
             var confirm = false,
                 album = $('#ajapaik-curator-album-select').val();
             if (Object.keys(window.selectedResults).length < 5 && !album) {
@@ -691,7 +533,7 @@
                             }
                         }
                         loadMyAlbums();
-                        loadSelectableAlbums();
+                        window.loadSelectableAlbums();
                         window._gaq.push(['_trackEvent', 'Curator', 'Upload success']);
                     },
                     error: function () {
@@ -704,6 +546,8 @@
         });
     });
 </script>
+{% include "_curator_album_selection_option.html" %}
+{% include "_curator_album_selection_separator.html" %}
 {% verbatim %}
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
         <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
@@ -765,12 +609,6 @@
                 <i class="glyphicon glyphicon-pencil"></i>
             </button>
         </div>
-    </script>
-    <script id="ajapaik-curator-my-album-select-option" type="text/x-tmpl">
-        <option value="{%=o.id%}">{%=o.name%}</option>
-    </script>
-    <script id="ajapaik-curator-my-album-select-separator" type="text/x-tmpl">
-        <option>---------------</option>
     </script>
     <script id="ajapaik-curator-share-set-button" type="text/x-tmpl">
         <div id="ajapaik-curator-share-button" class="fb-share-button" data-href="{%=o.gameLink%}" data-layout="button"></div>

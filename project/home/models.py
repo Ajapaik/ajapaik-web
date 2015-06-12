@@ -214,11 +214,11 @@ class CatPushDevice(Model):
 
 
 class Album(Model):
-    CURATED, FAVORITES, AUTO = range(3)
+    CURATED, FAVORITES, AUTO= range(3)
     TYPE_CHOICES = (
         (CURATED, "Curated"),
         (FAVORITES, "Favorites"),
-        (AUTO, "Auto")
+        (AUTO, "Auto"),
     )
     name = CharField(max_length=255)
     slug = SlugField(null=True, blank=True, max_length=255)
@@ -228,6 +228,7 @@ class Album(Model):
     profile = ForeignKey("Profile", related_name="albums", blank=True, null=True)
     is_public = BooleanField(default=True)
     open = BooleanField(default=False)
+    ordered = BooleanField(default=False)
     photos = ManyToManyField("Photo", through="AlbumPhoto", related_name="albums")
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)

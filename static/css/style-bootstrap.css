@@ -89,6 +89,7 @@ body {
 
 .ajapaik-body-frontpage {
     margin-bottom: 70px;
+    overflow-y: scroll;
 }
 
 .ajapaik-body-game-map {
@@ -1112,6 +1113,11 @@ a.fullscreen {
 
 .ajapaik-thumbnail-selection-icon-white {
     background-image: url(../images/material-design-icons/ic_check_circle_white_36px.svg);
+    display: block;
+}
+
+.ajapaik-photo-selection-thumbnail-link {
+    position: relative;
 }
 
 .ajapaik-frontpage-azimuth {
@@ -2068,6 +2074,19 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-header-selection-indicator > a > span {
     margin-left: -25px !important;
+}
+
+#ajapaik-selection-top-panel {
+    margin-top: 30px;
+}
+
+.ajapaik-remove-from-selection-button {
+    background: white url(../images/material-design-icons/ic_close_24px.svg) no-repeat center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
 }
 
 #ajapaik-loading-overlay {

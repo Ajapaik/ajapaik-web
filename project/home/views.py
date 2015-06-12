@@ -36,7 +36,8 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
     Album, AlbumPhoto, Area, Licence, _distance_in_meters, _angle_diff, Skip, _calc_trustworthiness, PhotoComment
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
-    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm
+    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
+    SelectionUploadForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 from project.settings import DEBUG, FACEBOOK_APP_SECRET
@@ -74,6 +75,16 @@ def _calculate_thumbnail_size(p_width, p_height, desired_longest_side):
         desired_height = desired_longest_side
         factor = h / desired_longest_side
         desired_width = w / factor
+
+    return int(desired_width), int(desired_height)
+
+
+def _calculate_thumbnail_size_max_height(p_width, p_height, desired_height):
+    w = float(p_width)
+    h = float(p_height)
+    desired_height = float(desired_height)
+    factor = h / desired_height
+    desired_width = w / factor
 
     return int(desired_width), int(desired_height)
 
@@ -767,7 +778,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 400)
             if 'photo_selection' in request.session:
-                p[11] = str(p[0]) in request.session['photo_selection']
+                p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
+            else:
+                p[11] = 0
         fb_share_photos = []
         for p in photos[:5]:
             w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
@@ -807,6 +820,12 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['is_photoset'] = False
         ret['total'] = photos.count()
         photos = map(list, photos)
+        for p in photos:
+            p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 400)
+            if 'photo_selection' in request.session:
+                p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
+            else:
+                p[11] = 0
         fb_share_photos = []
         for p in photos[:5]:
             w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
@@ -824,16 +843,19 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
 def photo_selection(request):
     form = PhotoSelectionForm(request.POST)
+    if 'photo_selection' not in request.session:
+        request.session['photo_selection'] = {}
     if form.is_valid():
-        if 'photo_selection' not in request.session:
+        if form.cleaned_data['clear']:
             request.session['photo_selection'] = {}
-        photo_id = str(form.cleaned_data['id'].id)
-        helper = request.session['photo_selection']
-        if photo_id not in request.session['photo_selection']:
-            helper[photo_id] = True
         else:
-            del helper[photo_id]
-        request.session['photo_selection'] = helper
+            photo_id = str(form.cleaned_data['id'].id)
+            helper = request.session['photo_selection']
+            if photo_id not in request.session['photo_selection']:
+                helper[photo_id] = True
+            else:
+                del helper[photo_id]
+            request.session['photo_selection'] = helper
 
     return HttpResponse(json.dumps(request.session['photo_selection']), content_type="application/json")
 
@@ -841,11 +863,63 @@ def photo_selection(request):
 def list_photo_selection(request):
     photos = None
     if 'photo_selection' in request.session:
-        photos = Photo.objects.filter(pk__in=request.session['photo_selection'])
+        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height')
+        photos = map(list, photos)
+        for p in photos:
+            p[1], p[2] = _calculate_thumbnail_size_max_height(p[1], p[2], 300)
 
     return render_to_response('photo_selection.html', RequestContext(request, {
+        'is_selection': True,
         'photos': photos
     }))
+
+
+def upload_photo_selection(request):
+    form = SelectionUploadForm(request.POST)
+    ret = {
+        'error': False
+    }
+    profile = request.get_user().profile
+    if form.is_valid() and profile.fb_id:
+        a = form.cleaned_data['album']
+        parent_album = form.cleaned_data['parent_album']
+        photo_ids = set(json.loads(form.cleaned_data['selection']))
+        photos = Photo.objects.filter(pk__in=photo_ids)
+        photo_count = photos.count()
+        new_name = form.cleaned_data['name']
+        new_desc = form.cleaned_data['description']
+        if photo_count == len(photo_ids):
+            if a is not None and (a.open or (a.profile and a.profile == profile)):
+                pass
+            elif new_name and new_desc:
+                a = Album(
+                    name = new_name,
+                    description = new_desc,
+                    atype = Album.CURATED,
+                    profile = profile,
+                    ordered = True,
+                    is_public = form.cleaned_data['public'],
+                    open = form.cleaned_data['open']
+                )
+                if parent_album:
+                    a.subalbum_of = parent_album
+                a.save()
+            ret['error'] = _('Problem with album selection')
+            if a:
+                for p in photos:
+                    new_album_photo_link = AlbumPhoto(
+                        photo = p,
+                        album = a
+                    )
+                    new_album_photo_link.save()
+                a.save()
+                ret['message'] = _('Album creation success')
+        else:
+            ret['error'] = _('Faulty data submitted')
+    else:
+        ret['error'] = _('Faulty data submitted')
+
+    return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
 def photo_large(request, photo_id):
@@ -899,6 +973,42 @@ def photo_url(request, photo_id):
     response["Expires"] = next_week.strftime("%a, %d %b %y %T GMT")
     cache.set(cache_key, response)
 
+    return response
+
+
+def fixed_height_photo_thumb(request, photo_id=None, thumb_height=300):
+    if not photo_id:
+        p = Photo.objects.order_by('-created').first()
+        if p:
+            photo_id = p.id
+    cache_key = "ajapaik_fixed_height_photo_thumb_response_%s_%s_%s" % (settings.SITE_ID, photo_id, thumb_height)
+    cached_response = cache.get(cache_key)
+    if cached_response:
+        return cached_response
+    p = get_object_or_404(Photo, id=photo_id)
+    image_to_use = None
+    if p.image_unscaled:
+        try:
+            if os.path.exists(p.image_unscaled.file.name):
+                image_to_use = p.image_unscaled
+        except ValueError:
+            image_to_use = p.image
+    else:
+        image_to_use = p.image
+    thumb_str = "x" + str(thumb_height)
+    im = get_thumbnail(image_to_use, thumb_str)
+    try:
+        content = im.read()
+    except IOError:
+        delete(im)
+        im = get_thumbnail(image_to_use, thumb_str)
+        content = im.read()
+    next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+    response = HttpResponse(content, content_type="image/jpg")
+    response["Content-Length"] = len(content)
+    response["Cache-Control"] = "max-age=604800, public"
+    response["Expires"] = next_week.strftime("%a, %d %b %y %T GMT")
+    cache.set(cache_key, response)
     return response
 
 

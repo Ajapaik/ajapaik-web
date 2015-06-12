@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row">
             {% include "_album_selection.html" %}
-            <div id="ajapaik-frontpage-historic-photos" class="ajapaik-invisible{% if not show_photos %} hidden{% endif %}">
+            <div id="ajapaik-frontpage-historic-photos" class="{% if not show_photos %}hidden{% endif %}">
                 {# This is for bots and initial page-load, see bottom of page for async template #}
                 {% for p in photos %}
                     <a target="_blank" href="{% url "project.home.views.photo" %}{{ p.0 }}"
@@ -18,7 +18,7 @@
                         <img alt="{{ p.3 }}" src="#" data-src="{% url "project.home.views.photo_thumb" p.0 400 %}"
                             class="ajapaik-frontpage-image lazyload img-responsive" data-id="{{ p.0 }}"
                             width="{{ p.1 }}" height="{{ p.2 }}"/>
-                        <div class="ajapaik-thumbnail-selection-icon{% if p.11 %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ p.0 }}"></div>
+                        <div class="ajapaik-thumbnail-selection-icon{% if p.11 == 1 %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ p.0 }}"></div>
                         <div class="ajapaik-thumbnail-info-container">
                             {% if p.4 and p.5 and p.6 %}
                                 <div style="transform: rotate({{ p.6 }}deg);" class="ajapaik-frontpage-azimuth"
@@ -99,6 +99,7 @@
                 <img alt="{%=o[3]%}" src="#" data-src="{%=photoThumbURL%}{%=o[0]%}/400"
                     class="ajapaik-frontpage-image lazyload img-responsive" data-id="{%=o[0]%}"
                     width="{%=o[1]%}" height="{%=o[2]%}"/>
+                <div class="ajapaik-thumbnail-selection-icon{% if (o[11] == 1) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o[0]%}"></div>
                 <div class="ajapaik-thumbnail-info-container">
                     {% if (o[6]) { %}
                         {% if (o[4] && o[5]) { %}
