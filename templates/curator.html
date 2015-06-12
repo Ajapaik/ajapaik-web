@@ -450,7 +450,11 @@
         // TODO: This is basically REST API functionality, no need for custom Django stuff, come to think of it,
         // there's a lot of manual JSON serialization etc. going on everywhere in this codebase...
         $(document).on('click', '#ajapaik-curator-confirm-album-edit-button', function () {
-            var targetId = $('#ajapaik-curator-change-album-id').val();
+            var targetId = $('#ajapaik-curator-change-album-id').val(),
+                parentAlbumId = $('#ajapaik-curator-change-album-parent').val();
+            if (parentAlbumId == -1) {
+                parentAlbumId = null;
+            }
             $('#ajapaik-curator-edit-album-error').hide();
             $.ajax({
                 type : 'POST',
@@ -461,7 +465,7 @@
                     description: $('#ajapaik-curator-change-album-description').val(),
                     open: $('#ajapaik-curator-change-album-open').prop('checked'),
                     is_public: $('#ajapaik-curator-change-album-public').prop('checked'),
-                    parent_album: $('#ajapaik-curator-change-album-parent').val(),
+                    parent_album: parentAlbumId,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function() {

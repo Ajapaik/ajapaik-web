@@ -1680,6 +1680,7 @@ def curator_update_my_album(request):
             return HttpResponse("OK", status=200)
         except ObjectDoesNotExist:
             return HttpResponse("Album does not exist", status=404)
+
     return HttpResponse("Faulty data", status=500)
 
 
