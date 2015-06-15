@@ -78,7 +78,7 @@ class GameNextPhotoForm(forms.Form):
 class CuratorAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(
         atype=Album.CURATED,
-        is_public=True,
+        is_public=True
     ), label=_('Choose album'))
 
     # Should do ownership checking here, but it seems to be left to hacks
@@ -92,7 +92,10 @@ class CuratorAlbumEditForm(forms.Form):
     description = forms.CharField(max_length=2047, required=False)
     open = forms.BooleanField(initial=False, required=False)
     is_public = forms.BooleanField(initial=False, required=False)
-    parent_album = forms.IntegerField(required=False)
+    parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
+        atype=Album.CURATED, subalbum_of__isnull=True,
+        is_public=True, open=True
+    ), label=_('Choose parent album'), required=False)
 
 
 class AddAreaForm(forms.Form):
@@ -105,6 +108,11 @@ class AddAlbumForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
     description = forms.CharField(widget=forms.Textarea, required=False)
     open = forms.BooleanField(required=True, initial=False)
+    is_public = forms.BooleanField(initial=False, required=False)
+    parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
+        atype=Album.CURATED, subalbum_of__isnull=True,
+        is_public=True, open=True
+    ), label=_('Choose parent album'), required=False)
 
 
 class PublicPhotoUploadForm(forms.Form):
@@ -139,7 +147,7 @@ class SelectionUploadForm(forms.Form):
         is_public=True,
     ), label=_('Choose album'), required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED,
+        atype=Album.CURATED, subalbum_of__isnull=True,
         is_public=True, open=True
     ), label=_('Choose parent album'), required=False)
     name = forms.CharField(max_length=255, required=False)

@@ -9,7 +9,7 @@
     {% include "_full_leaderboard_modal.html" %}
     <div class="container" id="ajapaik-curator-container">
         <div class="col-xs-12">
-            {% if request.user.is_authenticated and request.user.profile.fb_id %}
+            {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
                 {% include "_album_creation_modal.html" %}
                 <div class="modal fade" id="ajapaik-curator-feedback-modal">
                     <div class="modal-dialog">
@@ -106,9 +106,9 @@
                                     <div class="col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <label for="ajapaik-curator-change-album-parent">{% trans "Parent album" %}</label>
+                                                <label for="ajapaik-curator-edit-form-change-album-parent">{% trans "Parent album" %}</label>
                                             </span>
-                                            <select id="ajapaik-curator-change-album-parent" class="form-control"></select>
+                                            <select id="ajapaik-curator-edit-form-change-album-parent" class="form-control"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -126,9 +126,12 @@
                     </div>
                 </div>
             {% else %}
-                <div id="facebook-connect" style="margin-top: 75px;">
-                    <p>{% trans "Curating requires connecting your account with Facebook." %}</p>
+                <div id="facebook-connect" style="margin-top: 75px; margin-bottom: 25px;">
+                    <p>{% trans "Curating requires connecting your account with Facebook or Google." %}</p>
                     <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                </div>
+                <div id="google-plus-connect">
+                    <a href="/google_login" class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             {% endif %}
         </div>
@@ -416,6 +419,7 @@
             areaLat = null;
             areaLng = null;
             $('#ajapaik-choose-albums-modal').modal('show');
+            window.loadPossibleParentAlbums();
             window.loadSelectableAlbums();
             window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
         });
@@ -433,7 +437,7 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(response) {
-                    window.loadPossibleParentAlbums(response.subalbum_of);
+                    window.loadPossibleParentAlbums(response.subalbum_of, targetId, '#ajapaik-curator-edit-form-change-album-parent');
                     $('#ajapaik-curator-change-album-name').val(response.name);
                     $('#ajapaik-curator-change-album-description').val(response.description);
                     $('#ajapaik-curator-change-album-id').val(response.id);
@@ -451,7 +455,7 @@
         // there's a lot of manual JSON serialization etc. going on everywhere in this codebase...
         $(document).on('click', '#ajapaik-curator-confirm-album-edit-button', function () {
             var targetId = $('#ajapaik-curator-change-album-id').val(),
-                parentAlbumId = $('#ajapaik-curator-change-album-parent').val();
+                parentAlbumId = $('#ajapaik-curator-edit-form-change-album-parent').val();
             if (parentAlbumId == -1) {
                 parentAlbumId = null;
             }

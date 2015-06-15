@@ -256,7 +256,7 @@ class Album(Model):
         if self.id:
             album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
             album_rephotos_qs = self.photos.filter(rephotos__isnull=False)
-            for sa in self.subalbums.all():
+            for sa in self.subalbums.exclude(atype=Album.AUTO):
                 album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
                 album_rephotos_qs = album_rephotos_qs | sa.photos.filter(rephoto_of__isnull=False)
             self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
@@ -853,6 +853,7 @@ class Profile(Model):
         self.save()
 
     def update_from_google_plus_data(self, token, data):
+        # TODO: Make form
         if 'given_name' in data:
             self.user.first_name = data["given_name"]
         if 'family_name' in data:
@@ -864,10 +865,14 @@ class Profile(Model):
         else:
             self.google_plus_token = token
         self.google_plus_id = data["id"]
-        self.google_plus_link = data["link"]
-        self.google_plus_name = data["name"]
-        self.google_plus_email = data["email"]
-        self.google_plus_picture = data["picture"]
+        if 'link' in data:
+            self.google_plus_link = data["link"]
+        if 'name' in data:
+            self.google_plus_name = data["name"]
+        if 'email' in data:
+            self.google_plus_email = data["email"]
+        if 'picture' in data:
+            self.google_plus_picture = data["picture"]
         self.save()
 
     def merge_from_other(self, other):

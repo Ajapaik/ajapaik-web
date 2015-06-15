@@ -62,30 +62,28 @@
                         </div>
                     </div>
                 </div>
-                {% if is_selection %}
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" id="ajapaik-curator-add-album-public">
-                                </span>
-                                <label class="form-control" for="ajapaik-curator-add-album-public">
-                                    {% trans "Visible (shown in selection)" %}
-                                </label>
-                            </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" id="ajapaik-curator-add-album-public">
+                            </span>
+                            <label class="form-control" for="ajapaik-curator-add-album-public">
+                                {% trans "Visible (shown in selection)" %}
+                            </label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <label for="ajapaik-curator-change-album-parent">{% trans "Parent album" %}</label>
-                                </span>
-                                <select id="ajapaik-curator-change-album-parent" class="form-control"></select>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <label for="ajapaik-curator-change-album-parent">{% trans "Parent album" %}</label>
+                            </span>
+                            <select id="ajapaik-curator-change-album-parent" class="form-control"></select>
                         </div>
                     </div>
-                {% endif %}
+                </div>
                 {% if is_curator %}
                     <br>
                     <div class="row">
@@ -111,7 +109,7 @@
                     {% trans "Cancel" %}
                 </button>
                 <button type="button" class="btn btn-success" id="ajapaik-curator-confirm-album-selection-button">
-                    {% trans "Upload" %}
+                    {% trans "Create album" %}
                 </button>
             </div>
         </div>

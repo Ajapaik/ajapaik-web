@@ -536,10 +536,20 @@
                 if (response.photos) {
                     window.lastMarkerSet = [];
                     for (j = 0, l = response.photos.length; j < l; j += 1) {
+                        var currentAzimuth,
+                            currentPosition,
+                            geodesicEndPoint,
+                            angle,
+                            angleFix;
                         p = response.photos[j];
                         arrowIcon.rotation = 0;
-                        if (p[3]) {
-                            arrowIcon.rotation = p[3];
+                        currentAzimuth = p[3];
+                        currentPosition = new window.google.maps.LatLng(p[1], p[2]);
+                        if (currentAzimuth) {
+                            geodesicEndPoint = Math.calculateMapLineEndPoint(currentAzimuth, currentPosition, 1000);
+                            angle = Math.getAzimuthBetweenTwoPoints(currentPosition, geodesicEndPoint);
+                            angleFix = currentAzimuth - angle;
+                            arrowIcon.rotation = currentAzimuth + angleFix;
                             currentIcon = arrowIcon;
                         } else {
                             currentIcon = locationIcon;
@@ -553,12 +563,14 @@
                             id: p[0],
                             icon: currentIcon,
                             rephotoCount: p[4],
-                            position: new window.google.maps.LatLng(p[1], p[2]),
+                            position: currentPosition,
                             zIndex: 1,
-                            azimuth: p[3],
+                            azimuth: currentAzimuth,
+                            angleFix: angleFix,
                             map: null,
                             anchor: new window.google.maps.Point(0.0, 0.0)
                         });
+                        if (angleFix)
                         window.lastMarkerSet.push(p[0]);
                         (function (id) {
                             window.google.maps.event.addListener(marker, 'click', function () {
@@ -699,7 +711,7 @@
                 maxIndex += 1;
                 markerTemp = markers[i];
                 if (markers[i].azimuth) {
-                    window.dottedAzimuthLine.setPath([markers[i].position, Math.calculateMapLineEndPoint(markers[i].azimuth, markers[i].position, lineLength)]);
+                    window.dottedAzimuthLine.setPath([markers[i].position, Math.simpleCalculateMapLineEndPoint(markers[i].azimuth, markers[i].position, 0.01)]);
                     window.dottedAzimuthLine.setMap(window.map);
                     window.dottedAzimuthLine.setVisible(true);
                 } else {
@@ -756,7 +768,7 @@
                     arrowIcon.scale = 1.5;
                     arrowIcon.strokeWeight = 2;
                     arrowIcon.fillColor = 'white';
-                    arrowIcon.rotation = marker.azimuth;
+                    arrowIcon.rotation = marker.azimuth + marker.angleFix;
                     if (marker.rephotoCount) {
                         arrowIcon.strokeColor = '#007fff';
                     } else {
@@ -780,7 +792,7 @@
                     arrowIcon.scale = 1.0;
                     arrowIcon.strokeWeight = 1;
                     arrowIcon.strokeColor = 'white';
-                    arrowIcon.rotation = marker.azimuth;
+                    arrowIcon.rotation = marker.azimuth + marker.angleFix;
                     if (marker.rephotoCount) {
                         arrowIcon.fillColor = '#007fff';
                     } else {
@@ -977,6 +989,10 @@
         if (window.map !== undefined) {
             window.map.scrollwheel = true;
         }
+        $(document).on('click', '.ajapaik-mapview-pane-photo-container', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
         $(document).on('click', '#ajapaik-game-flip-photo-button', function () {
             var button = $(this);
             if (button.hasClass('active')) {
@@ -993,12 +1009,18 @@
         window.paneImageHoverIn = function (e) {
             var myParent = $(e).parent();
             myParent.find('.ajapaik-azimuth').show();
+            myParent.find('.ajapaik-thumbnail-selection-icon').show();
         };
         window.paneImageHoverOut = function (e) {
             if (parseInt($(this).data('id'), 10) !== parseInt(currentlySelectedMarkerId, 10)) {
                 var myParent = $(e).parent();
                 myParent.find('.ajapaik-azimuth').hide();
             }
+            var icon = myParent.find('.ajapaik-thumbnail-selection-icon');
+            if (!icon.hasClass('ajapaik-thumbnail-selection-icon-white')) {
+                myParent.find('.ajapaik-thumbnail-selection-icon').hide();
+            }
+
         };
         window.paneRephotoCountHoverIn = function (e) {
             var myParent = $(e).parent();

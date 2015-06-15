@@ -58,6 +58,7 @@
                     description: $('#ajapaik-curator-add-album-description').val(),
                     open: $('#ajapaik-curator-add-album-public-mutable').is(':checked'),
                     public: $('#ajapaik-curator-add-album-public').is(':checked'),
+                    parent_album: $('#ajapaik-curator-change-album-parent').val(),
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function (response) {

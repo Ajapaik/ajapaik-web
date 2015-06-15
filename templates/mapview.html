@@ -72,7 +72,7 @@
     {% verbatim %}
         <script id="ajapaik-pane-element-template" type="text/x-tmpl">
             <a id="element{%=o.id%}" class="ajapaik-mapview-pane-photo-container" href="{%=o.permalink%}"
-               data-id="{%=o.id%}" onclick="window.highlightSelected({%=o.id%}, false, event);">
+               data-id="{%=o.id%}" onclick="return false;">
                 <img src=""
                      data-src="{%=o.url%}"
                      title="{%=o.description%}"
@@ -80,6 +80,7 @@
                      class="lazyload img-responsive"
                      height="{%=o.height%}"
                      width="{%=o.width%}"
+                     onclick="window.highlightSelected({%=o.id%}, false, event);"
                      onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
                      onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"/>
                 {% if (o.rephotos) { %}
@@ -88,6 +89,9 @@
                          onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
                          onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
                     </div>
+                {% } %}
+                {% if (userIsSocialConnected) { %}
+                    <div class="ajapaik-thumbnail-selection-icon{% if (o.in_selection) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o.id%}"></div>
                 {% } %}
                 {% if (o.comments) { %}
                     <span class="ajapaik-comment-count">{%=o.comments%}</span>

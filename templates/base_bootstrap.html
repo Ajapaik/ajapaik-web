@@ -335,8 +335,14 @@
             isGame = false,
             generalInfoModalURL = '{% url 'project.home.views.get_general_info_modal_content' %}',
             infoModalURL = '{% url 'project.home.views.get_album_info_modal_content' %}',
-            lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}';
+            lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
+            userIsSocialConnected = false;
         isMobile = isMobile === 'True';
+        {% if request.user.profile.fb_id %}
+            userIsSocialConnected = true;
+        {% elif request.user.profile.google_plus_id %}
+            userIsSocialConnected = true;
+        {% endif %}
     </script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>
     <script src="{{ STATIC_URL }}js/moment-2.9.0.min.js"></script>

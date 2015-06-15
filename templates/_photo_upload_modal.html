@@ -4,7 +4,7 @@
     <div class="modal-content">
         <div class="modal-body">
             <div>
-                {% if request.user.is_authenticated and request.user.profile.fb_id %}
+                {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
                     {% with profile=request.user.profile user=request.user %}
                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
                         <div id="files" class="files">
@@ -31,9 +31,12 @@
                         <br>
                     {% endwith %}
                 {% else %}
-                    <div id="facebook-connect">
-                        <p>{% trans "Rephoto uploading requires connecting your account with Facebook." %}</p>
+                    <div id="facebook-connect" style="margin-bottom: 25px;">
+                        <p>{% trans "Rephoto uploading requires connecting your account with Facebook or Google." %}</p>
                         <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                    </div>
+                    <div id="google-plus-connect">
+                        <a href="/google_login" class="ir">{% trans "Connect with Google" %}</a>
                     </div>
                 {% endif %}
                 <p>

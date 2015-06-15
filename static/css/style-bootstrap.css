@@ -585,6 +585,10 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
     }
 }
 
+#ajapaik-header-album-filter-button {
+    padding-left: 0;
+}
+
 #ajapaik-header-album-filter-button-off {
     display: none;
 }

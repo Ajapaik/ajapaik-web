@@ -133,7 +133,7 @@ def get_album_info_modal_content(request, album_id=1):
     # TODO: Can these queries be optimized?
     album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
     if album.subalbums:
-        for sa in album.subalbums.all():
+        for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
     album_photo_ids = frozenset(album_photos_qs.values_list("id", flat=True))
     ret["total_photo_count"] = len(album_photo_ids)
@@ -295,7 +295,7 @@ def _get_leaderboard(profile):
         .filter(fb_name__isnull=False, score_recent_activity__gt=profile.score_recent_activity).count() + 1
     lb_queryset = Profile.objects.filter(
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name')\
+        Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
             .order_by('-score_recent_activity')
     if profile_rank == 1:
         first_place = None
@@ -307,7 +307,7 @@ def _get_leaderboard(profile):
         else:
             nearby_ranks = list(lb_queryset[1:3])
     else:
-        nearby_ranks = list(lb_queryset[(profile_rank - 1):(profile_rank + 1)])
+        nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
     if first_place:
         ret = first_place + nearby_ranks
     else:
@@ -320,12 +320,14 @@ def _get_leaderboard(profile):
         ret[1].insert(0, profile_rank - 1)
     if len(ret) > 2:
         ret[2].insert(0, profile_rank)
+    if len(ret) > 3:
+        ret[3].insert(0, profile_rank + 1)
     # Add self detection
-    ret[0].insert(1, 0)
-    if len(ret) > 1:
-        ret[1].insert(1, 0)
-    if len(ret) > 2:
-        ret[2].insert(1, 1)
+    for each in ret:
+        if each[6] == profile.id:
+            each.insert(1, 1)
+        else:
+            each.insert(1, 0)
 
     return ret
 
@@ -336,7 +338,7 @@ def _get_album_leaderboard(profile, album_id=None):
         album = Album.objects.get(pk=album_id)
         # TODO: Almost identical code is used in many places, put under album model
         album_photos_qs = album.photos.all()
-        for sa in album.subalbums.all():
+        for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.all()
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
         album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
@@ -369,18 +371,22 @@ def _get_album_leaderboard(profile, album_id=None):
             one_in_front = top_users[self_user_idx - 1]
             board.append((one_in_front[0] + 1, one_in_front[1].user_id == profile.id,
                           user_score_map[one_in_front[1].user_id], one_in_front[1].fb_id, one_in_front[1].fb_name,
-                          one_in_front[1].google_plus_name))
+                          one_in_front[1].google_plus_id, one_in_front[1].google_plus_name, one_in_front[1].user_id,
+                          one_in_front[1].google_plus_picture))
         if self_user_idx > 0:
             # Current user isn't first
             current_user = top_users[self_user_idx]
             board.append((current_user[0] + 1, current_user[1].user_id == profile.id,
                           user_score_map[current_user[1].user_id], current_user[1].fb_id, current_user[1].fb_name,
-                          current_user[1].google_plus_name))
+                          current_user[1].google_plus_id, current_user[1].google_plus_name, current_user[1].user_id,
+                          current_user[1].google_plus_picture))
         if self_user_idx + 1 < len(top_users):
             one_after = top_users[self_user_idx + 1]
             board.append((one_after[0] + 1, one_after[1].user_id == profile.id,
                           user_score_map[one_after[1].user_id], one_after[1].fb_id, one_after[1].fb_name,
-                          one_after[1].google_plus_name))
+                          one_after[1].google_plus_id, one_after[1].google_plus_name, one_after[1].user_id,
+                          one_after[1].google_plus_picture))
+
     return board
 
 
@@ -389,7 +395,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     if album_id:
         album = Album.objects.get(pk=album_id)
         album_photos_qs = album.photos.all()
-        for sa in album.subalbums.all():
+        for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.all()
         album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
         album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
@@ -416,7 +422,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=profile_id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
         board = [(idx + 1, profile.user_id == int(profile_id), user_score_map[profile.user_id], profile.fb_id,
-                  profile.fb_name, profile.google_plus_name) for idx, profile in top_users]
+                  profile.fb_name, profile.google_plus_id, profile.google_plus_name, profile.user_id, profile.google_plus_picture) for idx, profile in top_users]
         return board, album.name
 
     return board, None
@@ -424,10 +430,10 @@ def _get_album_leaderboard50(profile_id, album_id=None):
 
 def _get_all_time_leaderboard50(profile_id):
     lb = Profile.objects.filter(
-        Q(fb_name__isnull=False) | Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name')\
+        Q(fb_name__isnull=False) | Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
             .order_by('-score')[:50]
 
-    return [(rank + 1, data[0] == profile_id, data[1], data[2], data[3]) for rank, data in enumerate(lb)]
+    return [(rank + 1, data[0] == profile_id, data[1], data[2], data[3], data[4], data[5], data[6], data[7]) for rank, data in enumerate(lb)]
 
 
 @csrf_exempt
@@ -548,7 +554,7 @@ def game(request):
     if album:
         ret["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
         qs = album.photos.filter(rephoto_of__isnull=True)
-        for sa in album.subalbums.all():
+        for sa in album.subalbums.exclude(atype=Album.AUTO):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
         ret["album_photo_count"] = qs.distinct('id').count()
         ret["facebook_share_photos"] = album.photos.values_list('id', 'width', 'height')[:5]
@@ -587,7 +593,7 @@ def fetch_stream(request):
             if form_album:
                 # TODO: Could be done later where we're frying our brains with nextPhoto logic anyway
                 photos_ids_in_album = list(form_album.photos.values_list("id", flat=True))
-                subalbums = form_album.subalbums.all()
+                subalbums = form_album.subalbums.exclude(atype=Album.AUTO)
                 for sa in subalbums:
                     photos_ids_in_subalbum = list(sa.photos.values_list("id", flat=True))
                     photos_ids_in_album += photos_ids_in_subalbum
@@ -677,7 +683,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             page = filter_form.cleaned_data['page']
         if album:
             album_photos_qs = album.photos.all()
-            for sa in album.subalbums.all():
+            for sa in album.subalbums.exclude(atype=Album.AUTO):
                 album_photos_qs = album_photos_qs | sa.photos.all()
             album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
             photos = photos.filter(id__in=album_photo_ids)
@@ -880,9 +886,8 @@ def upload_photo_selection(request):
         'error': False
     }
     profile = request.get_user().profile
-    if form.is_valid() and profile.fb_id:
+    if form.is_valid() and (profile.fb_id or profile.google_plus_id):
         a = form.cleaned_data['album']
-        parent_album = form.cleaned_data['parent_album']
         photo_ids = set(json.loads(form.cleaned_data['selection']))
         photos = Photo.objects.filter(pk__in=photo_ids)
         photo_count = photos.count()
@@ -891,20 +896,19 @@ def upload_photo_selection(request):
         if photo_count == len(photo_ids):
             if a is not None and (a.open or (a.profile and a.profile == profile)):
                 pass
-            elif new_name and new_desc:
+            elif new_name:
                 a = Album(
                     name = new_name,
                     description = new_desc,
                     atype = Album.CURATED,
                     profile = profile,
                     ordered = True,
+                    subalbum_of = form.cleaned_data['parent_album'],
                     is_public = form.cleaned_data['public'],
                     open = form.cleaned_data['open']
                 )
-                if parent_album:
-                    a.subalbum_of = parent_album
+                print a.subalbum_of
                 a.save()
-            ret['error'] = _('Problem with album selection')
             if a:
                 for p in photos:
                     new_album_photo_link = AlbumPhoto(
@@ -914,6 +918,8 @@ def upload_photo_selection(request):
                     new_album_photo_link.save()
                 a.save()
                 ret['message'] = _('Album creation success')
+            else:
+                ret['error'] = _('Problem with album selection')
         else:
             ret['error'] = _('Faulty data submitted')
     else:
@@ -1185,6 +1191,9 @@ def pane_contents(request):
         im_url = reverse("project.home.views.photo_thumb", args=(p[0], 400))
         permalink = reverse("project.home.views.photo", args=(p[0],))
         width, height = _calculate_thumbnail_size(p[6], p[7], 400)
+        in_selection = False
+        if 'photo_selection' in request.session:
+            in_selection = str(p[0]) in request.session['photo_selection']
         data.append({
             "id": p[0],
             "url": im_url,
@@ -1195,7 +1204,8 @@ def pane_contents(request):
             "azimuth": p[4],
             "width": width,
             "height": height,
-            "comments": p[5]
+            "comments": p[5],
+            "in_selection": in_selection
         })
 
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -1217,7 +1227,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data["album"]
         photos_qs = album.photos.prefetch_related('subalbums')
-        for sa in album.subalbums.all():
+        for sa in album.subalbums.exclude(atype=Album.AUTO):
             photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
 
     selected_photo = None
@@ -1236,7 +1246,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
         album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created").first()
         if album:
             photos_qs = album.photos.prefetch_related('subalbums').filter(rephoto_of__isnull=True)
-            for sa in album.subalbums.all():
+            for sa in album.subalbums.exclude(atype=Album.AUTO):
                 photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
 
     if selected_photo and area is None:
@@ -1279,7 +1289,7 @@ def map_objects_by_bounding_box(request):
         if album and limit_by_album:
             album_photos_qs = album.photos.all()
             if album.subalbums:
-                for sa in album.subalbums.all():
+                for sa in album.subalbums.exclude(atype=Album.AUTO):
                     album_photos_qs = album_photos_qs | sa.photos.all()
             album_photo_ids = album_photos_qs.values_list('id', flat=True)
             qs = qs.filter(id__in=album_photo_ids)
@@ -1432,9 +1442,9 @@ def top50(request, album_id=None):
         general_leaderboard = _get_all_time_leaderboard50(profile.pk)
     activity_leaderboard_qs = Profile.objects.filter(
         Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name')\
+        Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
                                .order_by('-score_recent_activity')[:50]
-    activity_leaderboard = [(rank + 1, data[0] == profile.id, data[1], data[2], data[3]) for rank, data in enumerate(activity_leaderboard_qs)]
+    activity_leaderboard = [(rank + 1, data[0] == profile.id, data[1], data[2], data[3], data[4], data[5], data[6], data[7]) for rank, data in enumerate(activity_leaderboard_qs)]
     if request.is_ajax():
         template = "_block_leaderboard.html"
     else:
@@ -1638,8 +1648,21 @@ def curator_my_album_list(request):
 def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
-        Album.objects.filter((Q(profile=user_profile) & Q(is_public=True)) | (Q(open=True))).order_by('-created').all(), many=True
+        Album.objects.filter((Q(profile=user_profile) & Q(is_public=True) & ~Q(atype=Album.AUTO)) | (Q(open=True) & ~Q(atype=Album.AUTO))).order_by('-created').all(), many=True
     )
+
+    return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+
+
+def curator_selectable_parent_albums(request, album_id=None):
+    user_profile = request.get_user().profile
+    qs = Album.objects.filter(
+            (Q(profile=user_profile, subalbum_of__isnull=True, is_public=True)) |
+            (Q(open=True, subalbum_of__isnull=True))
+        ).order_by('-created').all()
+    if album_id:
+        qs = qs.exclude(pk=album_id)
+    serializer = CuratorAlbumSelectionAlbumSerializer(qs, many=True)
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
 
@@ -1740,6 +1763,7 @@ def curator_photo_upload_handler(request):
                 description=curator_album_create_form.cleaned_data["description"],
                 atype=Album.CURATED,
                 profile=profile,
+                subalbum_of=curator_album_create_form.cleaned_data['parent_album'],
                 is_public=True,
                 open=curator_album_create_form.cleaned_data["open"]
             )

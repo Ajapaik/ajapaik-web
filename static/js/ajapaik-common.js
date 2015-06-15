@@ -370,6 +370,15 @@ var map,
         return false;
     };
 
+    Math.getAzimuthBetweenTwoPoints = function (p1, p2) {
+        if (p1 && p2) {
+            var x = p2.lat() - p1.lat(),
+                y = p2.lng() - p1.lng();
+            return Math.degrees(Math.atan2(y, x));
+        }
+        return false;
+    };
+
     Math.degrees = function (rad) {
         var ret = rad * (180 / Math.PI);
         if (ret < 0) {
@@ -384,8 +393,8 @@ var map,
 
     Math.simpleCalculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
         azimuth = Math.radians(azimuth);
-        var newX = Math.cos(azimuth) * lineLength + startPoint.lat(),
-            newY = Math.sin(azimuth) * lineLength + startPoint.lng();
+        var newX = (Math.cos(azimuth) * lineLength) + startPoint.lat(),
+            newY = (Math.sin(azimuth) * lineLength) + startPoint.lng();
         return new window.google.maps.LatLng(newX, newY);
     };
 
@@ -800,6 +809,7 @@ var map,
         if (marker.position) {
             if (!window.isMobile && firstDragDone) {
                 dottedAzimuthLine.setPath([marker.position, Math.simpleCalculateMapLineEndPoint(degreeAngle, marker.position, 0.01)]);
+                console.log(Math.bearingBetweenTwoPoints(marker.position, Math.simpleCalculateMapLineEndPoint(degreeAngle, marker.position, 0.01)));
                 dottedAzimuthLine.setMap(map);
                 dottedAzimuthLine.icons = [
                     {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
@@ -1192,6 +1202,7 @@ var map,
         window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
     });
     $(document).on('click', '.ajapaik-thumbnail-selection-icon', function (e) {
+        e.stopPropagation();
         var $this = $(this);
         if ($this.hasClass('ajapaik-thumbnail-selection-icon-white')) {
             $this.removeClass('ajapaik-thumbnail-selection-icon-white');
@@ -1252,15 +1263,25 @@ var map,
         }
         window.openPhotoUploadModal();
     });
-    window.loadPossibleParentAlbums = function (parentAlbum) {
+    window.loadPossibleParentAlbums = function (parentAlbum, currentAlbumId, customSelector) {
+        var url = /curator_selectable_parent_albums/;
+        if (currentAlbumId) {
+            url += currentAlbumId + '/';
+        }
         $.ajax({
             type: 'POST',
-            url: '/curator_selectable_albums/',
+            url: url,
             data: {
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             },
             success: function (response) {
-                var targetDiv = $('#ajapaik-curator-change-album-parent');
+                var targetDiv;
+                if (customSelector) {
+                    targetDiv = $(customSelector);
+                } else {
+                    targetDiv = $('#ajapaik-curator-change-album-parent');
+                }
+                console.log(customSelector);
                 targetDiv.empty();
                 targetDiv.append(
                     tmpl(

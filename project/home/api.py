@@ -177,7 +177,7 @@ def api_album_thumb(request, album_id, thumb_size=250):
     a = get_object_or_404(Album, id=album_id)
     random_image = a.photos.order_by('?').first()
     if not random_image:
-        for sa in a.subalbums.all():
+        for sa in a.subalbums.exclude(atype=Album.AUTO):
             random_image = sa.order_by('?').first()
             if random_image:
                 break
@@ -229,7 +229,7 @@ def api_album_nearest(request):
         if album:
             content["title"] = album.name
             photos_qs = album.photos.all()
-            for sa in album.subalbums.all():
+            for sa in album.subalbums.exclude(atype=Album.AUTO):
                 photos_qs = photos_qs | sa.photos.filter()
         else:
             photos_qs = Photo.objects.all()
@@ -283,7 +283,7 @@ def api_album_state(request):
     if form.is_valid():
         album = form.cleaned_data["id"]
         album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
-        for sa in album.subalbums.all():
+        for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
         album_photos_qs = album_photos_qs.annotate(rephoto_count=Count('rephotos'))
         for p in album_photos_qs:
