@@ -222,8 +222,8 @@
 <div id="ajapaik-loading-overlay"></div>
 <div id="fb-root"></div>
 <form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
-    {% csrf_token %}
     <input type="hidden" value="" name="language" id="ajapaik-language" />
+    {% csrf_token %}
 </form>
 <div class="alert alert-danger" id="ajapaik-geolocation-error">
   <strong>{% trans "Geolocation error" %}:</strong> <span id="ajapaik-geolocation-error-message"></span>

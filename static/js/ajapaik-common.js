@@ -1584,7 +1584,6 @@ var map,
     $(document).on('click', '.ajapaik-change-language-link', function (e) {
         e.preventDefault();
         $('#ajapaik-language').val($(this).attr('data-lang-code'));
-        $('#ajapaik-change-language-form').find('input')[0].value = window.docCookies.getItem('csrftoken');
         $('#ajapaik-change-language-form').submit();
     });
 
