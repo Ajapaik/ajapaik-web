@@ -258,7 +258,7 @@ def api_album_nearest(request):
                 "title": p.description,
                 "date": date,
                 "author": p.author,
-                "source": p.source_url,
+                "source": { p.source.description + ' ' + p.source_key : p.source_url },
                 "latitude": p.lat,
                 "longitude": p.lon,
                 "rephotos": p.rephoto_count
@@ -302,7 +302,7 @@ def api_album_state(request):
                 "title": p.description,
                 "date": date,
                 "author": p.author,
-                "source": p.source_url,
+                "source": { p.source.description + ' ' + p.source_key : p.source_url },
                 "latitude": p.lat,
                 "longitude": p.lon,
                 "rephotos": p.rephoto_count
