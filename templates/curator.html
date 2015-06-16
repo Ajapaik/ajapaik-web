@@ -184,6 +184,7 @@
             areaLat,
             areaLng;
         window.selectedResults = {};
+        window.singleSelection = false;
         $('#ajapaik-curator-full-search').on('keypress', function (e) {
             if (e.keyCode == 13) {
                 $('#ajapaik-curator-search-button').click();
@@ -423,6 +424,13 @@
             window.loadSelectableAlbums();
             window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
         });
+        $(document).on('click', '#ajapaik-curator-submit-single', function () {
+            window._gaq.push(['_trackEvent', 'Curator', 'Submit single']);
+            var id = $(this).data('id');
+            window.singleSelection = {};
+            window.singleSelection[id] = fullResultSet[id];
+            $('#ajapaik-curator-submit-selection').click();
+        });
         $(document).on('click', '#ajapaik-curator-select-all', function () {
             $('img.ajapaik-result-item:not(.ajapaik-curator-selected-image)').click();
             window._gaq.push(['_trackEvent', 'Curator', 'Select all']);
@@ -492,13 +500,18 @@
             } else {
                 confirm = true;
             }
+            var selection = JSON.stringify(window.selectedResults);
+            if (window.singleSelection) {
+                selection = JSON.stringify(window.singleSelection);
+                window.singleSelection = false;
+            }
             if (confirm) {
                 $('#ajapaik-loading-overlay').show();
                 $.ajax({
                     type: 'POST',
                     url: '/curator_upload/',
                     data: {
-                        selection: JSON.stringify(window.selectedResults),
+                        selection: selection,
                         album: album,
                         name: $('#ajapaik-curator-add-album-name').val(),
                         description: $('#ajapaik-curator-add-album-description').val(),
@@ -595,6 +608,7 @@
                         <li class="list-group-item">{%=gettext('Size')%}: <span class="ajapaik-curator-selection-image-size"></span></li>
                     </ul>
                 </div>
+                <button class="btn btn-success" id="ajapaik-curator-submit-single" data-id="{%=o.id%}">{%=gettext('Add to album')%}</button>
                 <div class="ajapaik-curator-selection-feedback-row">
                     <div class="alert alert-success ajapaik-curator-feedback-alert" role="alert"></div>
                     <div class="alert alert-danger ajapaik-curator-feedback-alert" role="alert"></div>

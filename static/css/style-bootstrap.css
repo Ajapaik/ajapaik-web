@@ -5,6 +5,8 @@ html {
 body {
     padding: 50px 0 0 0;
     background-color: #eee;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
 }
 .ajapaik-invisible {
     visibility: hidden;
@@ -2077,7 +2079,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 #ajapaik-header-selection-indicator > a > span {
-    margin-left: -25px !important;
+    margin-left: -20px;
 }
 
 #ajapaik-selection-top-panel {
@@ -2091,6 +2093,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     right: 0;
     width: 36px;
     height: 36px;
+    display: none;
 }
 
 #ajapaik-loading-overlay {

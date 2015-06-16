@@ -654,14 +654,18 @@ var map,
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
         e.preventDefault();
         if (!window.isFrontpage) {
-            var filterOff = $('ajapaik-header-album-filter-button-off').css('display') !== 'none';
-            // TODO: The photo set needs to be POSTed to be of any size
-            if ((!window.albumId || filterOff) && window.lastMarkerSet && window.lastMarkerSet.length < 51) {
-                window.location.href = '/?photos=' + window.lastMarkerSet;
-            } else if (window.albumId) {
-                window.location.href = '/?album=' + window.albumId;
+            if (window.isSelection) {
+                window.history.go(-1);
             } else {
-                window.location.href = '/';
+                var filterOff = window.getQueryParameterByName('limitToAlbum') == 0;
+                // TODO: The photo set needs to be POSTed to be of any size
+                if ((!window.albumId || filterOff) && window.lastMarkerSet && window.lastMarkerSet.length < 51) {
+                    window.location.href = '/?photos=' + window.lastMarkerSet;
+                } else if (window.albumId) {
+                    window.location.href = '/?album=' + window.albumId;
+                } else {
+                    window.location.href = '/';
+                }
             }
         }
     });
@@ -695,14 +699,18 @@ var map,
     };
     $(document).on('click', '#ajapaik-header-map-button', function (e) {
         e.preventDefault();
-        if (window.albumId) {
-            window.location.href = '/map?album=' + window.albumId;
-        } else if (window.photoId) {
-            window.location.href = '/map/photo/' + window.photoId;
+        if (window.isSelection) {
+            window.history.go(-1);
         } else {
-            window.clickedMapButton = true;
-            if (window.navigator.geolocation) {
-                window.getGeolocation(handleGeolocation);
+            if (window.albumId) {
+                window.location.href = '/map?album=' + window.albumId;
+            } else if (window.photoId) {
+                window.location.href = '/map/photo/' + window.photoId;
+            } else {
+                window.clickedMapButton = true;
+                if (window.navigator.geolocation) {
+                    window.getGeolocation(handleGeolocation);
+                }
             }
         }
     });

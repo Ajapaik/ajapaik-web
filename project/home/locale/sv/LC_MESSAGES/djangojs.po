@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-10 16:05+0300\n"
+"POT-Creation-Date: 2015-06-16 14:34+0300\n"
 "PO-Revision-Date: 2015-06-10 12:52+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
@@ -36,40 +36,45 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: static/js/ajapaik-common.js:667
+#: static/js/ajapaik-common.js:680
 msgid "User denied the request for Geolocation."
 msgstr ""
 
-#: static/js/ajapaik-common.js:673
+#: static/js/ajapaik-common.js:686
 msgid "Location information is unavailable."
 msgstr ""
 
-#: static/js/ajapaik-common.js:676
+#: static/js/ajapaik-common.js:689
 msgid "The request to get user location timed out."
 msgstr ""
 
-#: static/js/ajapaik-common.js:679
+#: static/js/ajapaik-common.js:692
 msgid "An unknown error occurred."
 msgstr ""
 
-#: static/js/ajapaik-common.js:788 static/js/ajapaik-common.js.c:909
-#: static/js/ajapaik-common.js:928 static/js/ajapaik-game.js:124
+#: static/js/ajapaik-common.js:805 static/js/ajapaik-common.js.c:927
+#: static/js/ajapaik-common.js:946 static/js/ajapaik-game.js:124
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:820 static/js/ajapaik-game.js:570
-#: static/js/ajapaik-map.js:953
+#: static/js/ajapaik-common.js:838 static/js/ajapaik-game.js:569
+#: static/js/ajapaik-map.js:965
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:844
+#: static/js/ajapaik-common.js:862
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:982
+#: static/js/ajapaik-common.js:1000
 msgid "Median guess"
+msgstr ""
+
+#: static/js/ajapaik-common.js:1297 static/js/ajapaik-common.js.c:1342
+#: static/js/ajapaik-extra-js-translations.js:21
+msgid "Not selected"
 msgstr ""
 
 #: static/js/ajapaik-extra-js-translations.js:4
@@ -139,12 +144,9 @@ msgid "Points"
 msgstr ""
 
 #: static/js/ajapaik-extra-js-translations.js:20
+#: static/js/ajapaik-selection.js:100 static/js/ajapaik-selection.js.c:116
 msgid "System error"
 msgstr "Systemfel"
-
-#: static/js/ajapaik-extra-js-translations.js:21
-msgid "Not selected"
-msgstr ""
 
 #: static/js/ajapaik-extra-js-translations.js:22
 msgid "photos"
@@ -170,63 +172,63 @@ msgstr ""
 msgid "Image has rephotos"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:264
+#: static/js/ajapaik-frontpage.js:258
 msgid "Earliest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:266
+#: static/js/ajapaik-frontpage.js:260
 msgid "Latest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:271
+#: static/js/ajapaik-frontpage.js:265
 msgid "Least"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:273
+#: static/js/ajapaik-frontpage.js:267
 msgid "Most"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:278
+#: static/js/ajapaik-frontpage.js:272
 msgid "Pictures furthest from you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:280
+#: static/js/ajapaik-frontpage.js:274
 msgid "Pictures closest to you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:285
+#: static/js/ajapaik-frontpage.js:279
 msgid "commented"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:288
+#: static/js/ajapaik-frontpage.js:282
 msgid "rephotographed"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:291
+#: static/js/ajapaik-frontpage.js:285
 msgid "added"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:294
+#: static/js/ajapaik-frontpage.js:288
 msgid "geotagged"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:297
+#: static/js/ajapaik-frontpage.js:291
 msgid "pictures"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:300
+#: static/js/ajapaik-frontpage.js:294
 msgid "Pictures from the map"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:332
+#: static/js/ajapaik-frontpage.js:325
 msgid "Picture set has no rephotos"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:339
+#: static/js/ajapaik-frontpage.js:332
 msgid "Picture set has no comments"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:385
+#: static/js/ajapaik-frontpage.js:392
 msgid "All pictures"
 msgstr ""
 
@@ -250,20 +252,20 @@ msgstr ""
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: static/js/ajapaik-game.js:330 static/js/ajapaik-game.js.c:332
+#: static/js/ajapaik-game.js:329 static/js/ajapaik-game.js.c:331
 #: static/js/ajapaik-map.js:389 static/js/ajapaik-map.js.c:390
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/ajapaik-game.js:350
+#: static/js/ajapaik-game.js:349
 msgid "Your guess"
 msgstr ""
 
-#: static/js/ajapaik-map.js:885
+#: static/js/ajapaik-map.js:897
 msgid "Remove album filter"
 msgstr ""
 
-#: static/js/ajapaik-map.js:890
+#: static/js/ajapaik-map.js:902
 msgid "Apply album filter"
 msgstr ""
 

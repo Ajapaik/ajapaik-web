@@ -88,14 +88,12 @@
                             }
                         }
                     });
-
                     originalPhotoColumn.mouseleave(function () {
                         if (!window.isMobile) {
                             $('.ajapaik-flip-photo-overlay-button').hide();
                             $('#ajapaik-show-rephoto-selection-overlay-button').hide();
                         }
                     });
-
                     var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column');
                     rephotoColumn.mouseenter(function () {
                         if (!window.isMobile) {
@@ -105,7 +103,6 @@
                             }
                         }
                     });
-
                     rephotoColumn.mouseleave(function () {
                         if (!window.isMobile) {
                             if (!window.userClosedRephotoTools) {

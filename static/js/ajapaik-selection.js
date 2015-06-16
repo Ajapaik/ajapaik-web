@@ -26,6 +26,21 @@
             e.preventDefault();
             window.loadPhoto($(this).data('id'));
         });
+        $(document).on('mouseenter', '.ajapaik-photo-selection-thumbnail-link', function () {
+            $(this).find('.ajapaik-remove-from-selection-button').show();
+        });
+        $(document).on('mouseenter', '.ajapaik-photo-selection-thumbnail', function () {
+            $(this).parent().find('.ajapaik-remove-from-selection-button').show();
+        });
+        $(document).on('mouseout', '.ajapaik-photo-selection-thumbnail', function () {
+            $(this).parent().find('.ajapaik-remove-from-selection-button').hide();
+        });
+        $(document).on('mouseenter', '.ajapaik-remove-from-selection-button', function () {
+            $(this).show();
+        });
+        $(document).on('mouseout', '.ajapaik-remove-from-selection-button', function () {
+            $(this).hide();
+        });
         $(document).on('click', '#ajapaik-photo-selection-clear-selection-button', function () {
             var data = {
                 clear: true,
@@ -35,6 +50,16 @@
                 window.location.reload();
             });
         });
+        window.closePhotoDrawer = function () {
+            $('#ajapaik-photo-modal').modal('toggle');
+        };
+        window.startGuessLocation = function (photoId) {
+            if (window.albumId) {
+                window.open('/game/?album=' + window.albumId + '&photo=' + photoId + '&fromButton=1', '_blank');
+            } else {
+                window.open('/game/?photo=' + photoId + '&fromButton=1', '_blank');
+            }
+        };
         $(document).on('click', '#ajapaik-curator-confirm-album-selection-button', function () {
             var album = $('#ajapaik-curator-album-select').val(),
                 allElements = $('.ajapaik-photo-selection-thumbnail-link'),

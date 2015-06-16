@@ -209,7 +209,7 @@
                 </li>
                 <li class="pull-left{% if not request.session.photo_selection %} hidden{% endif %}" id="ajapaik-header-selection-indicator">
                     <a role="button" title="{% trans 'Current selection' %}" href="/view-selection" class="ajapaik-padding-top-6px">
-                        <svg fill="#888" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
+                        <svg {% if is_selection %}class="ajapaik-filter-white"{% endif %} fill="#888" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
                         </svg>

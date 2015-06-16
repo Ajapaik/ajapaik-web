@@ -929,20 +929,38 @@ def upload_photo_selection(request):
 
 
 def photo_large(request, photo_id):
-    photo = get_object_or_404(Photo, id=photo_id)
-    if photo.rephoto_of:
+    cache_key = "ajapaik_photo_large_response_%s_%s" % (settings.SITE_ID, photo_id)
+    cached_response = cache.get(cache_key)
+    if cached_response:
+        return cached_response
+    p = get_object_or_404(Photo, id=photo_id)
+    if p.rephoto_of:
         # TODO: shouldn't this be done where image_unscaled is set?
         # if rephoto is taken with mobile then make it same width/height as source photo
-        im = get_thumbnail(photo.rephoto_of.image, "1024x1024", upscale=False)
-        im = get_thumbnail(photo.image, str(im.width) + "x" + str(im.height), crop="center")
+        im = get_thumbnail(p.rephoto_of.image, "1024x1024", upscale=False)
+        im = get_thumbnail(p.image, str(im.width) + "x" + str(im.height), crop="center")
+        try:
+            content = im.read()
+        except IOError:
+            delete(im)
+            im = get_thumbnail(p.rephoto_of.image, "1024x1024", upscale=False)
+            im = get_thumbnail(p.image, str(im.width) + "x" + str(im.height), crop="center")
+            content = im.read()
     else:
-        im = get_thumbnail(photo.image, "1024x1024", upscale=False)
-    content = im.read()
+        im = get_thumbnail(p.image, "1024x1024", upscale=False)
+        try:
+            content = im.read()
+        except IOError:
+            delete(im)
+            im = get_thumbnail(p.image, "1024x1024", upscale=False)
+            content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
     response["Content-Length"] = len(content)
     response["Cache-Control"] = "max-age=604800, public"  # 604800 = 7 days
     response["Expires"] = next_week.strftime("%a, %d %b %y %T GMT")
+    cache.set(cache_key, response)
+
     return response
 
 
@@ -1118,6 +1136,7 @@ def photoslug(request, photo_id, pseudo_slug):
 
     is_frontpage = False
     is_mapview = False
+    is_selection = False
     site = Site.objects.get_current()
     if request.is_ajax():
         template = "_photo_modal.html"
@@ -1125,6 +1144,8 @@ def photoslug(request, photo_id, pseudo_slug):
             is_frontpage = True
         if request.GET.get("isMapview"):
             is_mapview = True
+        if request.GET.get('isSelection'):
+            is_selection = True
     else:
         template = "photoview.html"
     if not photo_obj.description:
@@ -1157,6 +1178,7 @@ def photoslug(request, photo_id, pseudo_slug):
         "albums": albums,
         "is_frontpage": is_frontpage,
         "is_mapview": is_mapview,
+        "is_selection": is_selection,
         "album_selection_form": album_selection_form,
         "geotag_count": geotag_count,
         "azimuth_count": azimuth_count,
@@ -1610,12 +1632,12 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
             existing_photos = Photo.objects.filter(muis_id__in=[x["id"] for x in data])
             check_dict = {}
             for each in data:
-                try:
-                    existing_photo = existing_photos.get(
-                        muis_id=each["id"], source__description=each["institution"].split(",")[0])
+                existing_photo = existing_photos.filter(
+                    muis_id=each["id"], source__description=each["institution"].split(",")[0]).first()
+                if existing_photo:
                     each["ajapaikId"] = existing_photo.id
                     check_dict[each["id"]] = False
-                except ObjectDoesNotExist:
+                else:
                     each["ajapaikId"] = False
                     check_dict[each["id"]] = True
 
