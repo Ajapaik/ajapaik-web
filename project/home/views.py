@@ -820,7 +820,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['photos_with_comments'] = photos.filter(fb_comments_count__isnull=False).count()
         ret['photos_with_rephotos'] = photos.filter(rephoto_count__isnull=False).count()
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
-                                           'rephoto_count', 'fb_comments_count')[0:page_size]
+                                           'rephoto_count', 'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count')[0:page_size]
         ret['order1'] = 'time'
         ret['order2'] = 'added'
         ret['order3'] = None
