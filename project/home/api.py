@@ -7,7 +7,7 @@ from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import never_cache
@@ -195,7 +195,7 @@ def api_album_thumb(request, album_id, thumb_size=250):
 @permission_classes((IsAuthenticated,))
 def api_albums(request):
     error = 0
-    albums = Album.objects.filter(is_public=True).order_by('-created')
+    albums = Album.objects.filter(Q(is_public=True) | Q(profile=request.get_user().profile, atype=Album.CURATED)).order_by('-created')
     ret = []
     content = {}
     for a in albums:
