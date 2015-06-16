@@ -8,7 +8,7 @@
 {% block layout %}
     <div class="container" id="ajapaik-photo-upload-container">
         <div class="col-xs-12">
-            {% if request.user.is_authenticated and request.user.profile.fb_id %}
+            {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
                 {% with profile=request.user.profile user=request.user %}
                     <div class="row"><p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout'
                                                                                                id='logout-button'>{% trans "Log out" %}</a>.

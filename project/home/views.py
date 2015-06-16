@@ -5,6 +5,7 @@ import urllib2
 from django.db import connection
 import operator
 from math import ceil
+from django.db.models.query_utils import Q
 import requests
 import datetime
 import ujson as json
@@ -169,7 +170,7 @@ def get_album_info_modal_content(request, album_id=1):
                        [tuple(album_ids)])
         user_scores = cursor.fetchall()
         user_id_list = [x[0] for x in user_scores]
-        album_curators = Profile.objects.filter(user_id__in=user_id_list, fb_name__isnull=False)
+        album_curators = Profile.objects.filter(user_id__in=user_id_list).filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False))
         album_curators = list(album_curators)
         album_curators.sort(key=lambda z: user_id_list.index(z.id))
         ret["album_curators"] = album_curators
@@ -292,9 +293,9 @@ def _calculate_recent_activity_scores():
 
 def _get_leaderboard(profile):
     profile_rank = Profile.objects\
-        .filter(fb_name__isnull=False, score_recent_activity__gt=profile.score_recent_activity).count() + 1
+        .filter(score_recent_activity__gt=profile.score_recent_activity).filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False)).count() + 1
     lb_queryset = Profile.objects.filter(
-        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
         Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
             .order_by('-score_recent_activity')
     if profile_rank == 1:
@@ -430,7 +431,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
 
 def _get_all_time_leaderboard50(profile_id):
     lb = Profile.objects.filter(
-        Q(fb_name__isnull=False) | Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
+        Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False) | Q(pk=profile_id)).values_list('pk', 'score', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
             .order_by('-score')[:50]
 
     return [(rank + 1, data[0] == profile_id, data[1], data[2], data[3], data[4], data[5], data[6], data[7]) for rank, data in enumerate(lb)]
@@ -907,7 +908,6 @@ def upload_photo_selection(request):
                     is_public = form.cleaned_data['public'],
                     open = form.cleaned_data['open']
                 )
-                print a.subalbum_of
                 a.save()
             if a:
                 for p in photos:
@@ -1463,7 +1463,7 @@ def top50(request, album_id=None):
     else:
         general_leaderboard = _get_all_time_leaderboard50(profile.pk)
     activity_leaderboard_qs = Profile.objects.filter(
-        Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+        Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
         Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
                                .order_by('-score_recent_activity')[:50]
     activity_leaderboard = [(rank + 1, data[0] == profile.id, data[1], data[2], data[3], data[4], data[5], data[6], data[7]) for rank, data in enumerate(activity_leaderboard_qs)]

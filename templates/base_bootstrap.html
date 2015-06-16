@@ -342,8 +342,6 @@
             userIsSocialConnected = true;
         {% elif request.user.profile.google_plus_id %}
             userIsSocialConnected = true;
-        {% else %}
-
         {% endif %}
     </script>
     <script src="{{ STATIC_URL }}js/cookie.min.js"></script>

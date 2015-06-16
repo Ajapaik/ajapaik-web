@@ -54,58 +54,58 @@ class PhotoAdmin(ForeignKeyAutocompleteAdmin):
     inlines = (AlbumPhotoInline,)
 
     related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
         'rephoto_of': ('pk', 'description',)
     }
 
 
 class SkipAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
         'photo': ('pk', 'description',)
     }
 
 
 class GeoTagAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
         'photo': ('pk', 'description',)
     }
 
 
 class ProfileAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
     }
 
 
 class PointsAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
     }
 
 
 class AlbumAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
     }
 
 
 class CatTagPhotoAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
     }
 
 
 class CatUserFavoriteAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
     }
 
 
 class CatPushDeviceAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
-        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name'),
+        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
     }
 
 class CredentialsAdmin(admin.ModelAdmin):

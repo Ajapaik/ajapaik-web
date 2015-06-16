@@ -65,9 +65,13 @@
                 allElements = $('.ajapaik-photo-selection-thumbnail-link'),
                 allIds = [],
                 i,
-                l;
+                l,
+                parentAlbum = $('#ajapaik-curator-change-album-parent').val();
             if (album == -1) {
                 album = null;
+            }
+            if (parentAlbum == -1) {
+                parentAlbum = null;
             }
             for (i = 0, l = allElements.length; i < l; i += 1) {
                 allIds.push($(allElements[i]).data('id'));
@@ -83,7 +87,7 @@
                     description: $('#ajapaik-curator-add-album-description').val(),
                     open: $('#ajapaik-curator-add-album-public-mutable').is(':checked'),
                     public: $('#ajapaik-curator-add-album-public').is(':checked'),
-                    parent_album: $('#ajapaik-curator-change-album-parent').val(),
+                    parent_album: parentAlbum,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function (response) {

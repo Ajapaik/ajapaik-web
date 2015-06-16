@@ -126,6 +126,10 @@
                             <div class="row-fluid">
                                 <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
                             </div>
+                        {% elif rephoto.user.google_plus_name %}
+                            <div class="row-fluid">
+                                <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.google_plus_link }}">{{ rephoto.user.google_plus_name }}</a>&nbsp;{% include '_licence.html' %}
+                            </div>
                         {% else %}
                             <div class="row-fluid">
                                 <b>{% trans "Unknown author" %}</b>

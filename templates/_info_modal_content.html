@@ -13,7 +13,8 @@
             {% if album_curators %}
                 <h6>{% trans "Album curated by" %}
                     {% for curator in album_curators %}
-                        <a target="_blank" href="{{ curator.fb_link }}">{{ curator.fb_name }}</a>{% if not forloop.last %}, {% endif %}
+                        <a target="_blank" href="{% if curator.fb_link %}{{ curator.fb_link }}{% elif curator.google_plus_link %}{{ curator.google_plus_link }}{% endif %}">
+                            {% if curator.fb_name %}{{ curator.fb_name }}{% elif curator.google_plus_name %}{{ curator.google_plus_name }}{% endif %}</a>{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </h6>
             {% else %}

@@ -817,7 +817,6 @@ var map,
         if (marker.position) {
             if (!window.isMobile && firstDragDone) {
                 dottedAzimuthLine.setPath([marker.position, Math.simpleCalculateMapLineEndPoint(degreeAngle, marker.position, 0.01)]);
-                console.log(Math.bearingBetweenTwoPoints(marker.position, Math.simpleCalculateMapLineEndPoint(degreeAngle, marker.position, 0.01)));
                 dottedAzimuthLine.setMap(map);
                 dottedAzimuthLine.icons = [
                     {icon: dottedAzimuthLineSymbol, offset: '0', repeat: '7px'}
@@ -1289,7 +1288,6 @@ var map,
                 } else {
                     targetDiv = $('#ajapaik-curator-change-album-parent');
                 }
-                console.log(customSelector);
                 targetDiv.empty();
                 targetDiv.append(
                     tmpl(

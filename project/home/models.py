@@ -770,7 +770,7 @@ class GeoTag(Model):
             title = self.photo.title[:50]
         if self.photo.description:
             desc = self.photo.description[:50]
-        return u"%s - %s - %s" % (title, desc, self.user.fb_name)
+        return u"%s - %s - %d" % (title, desc, self.user.id)
 
 
 class FacebookManager(Manager):
