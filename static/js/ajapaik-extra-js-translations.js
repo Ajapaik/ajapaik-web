@@ -25,4 +25,5 @@
     window.gettext('Image has only location, no view direction');
     window.gettext('Image has location and view direction info');
     window.gettext('Image has rephotos');
+    window.gettext('Add picture to album');
 }());

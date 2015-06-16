@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-16 14:34+0300\n"
-"PO-Revision-Date: 2015-06-10 12:54+0000\n"
+"POT-Creation-Date: 2015-06-16 17:23+0300\n"
+"PO-Revision-Date: 2015-06-16 14:23+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
 "language/et/)\n"
@@ -55,12 +55,12 @@ msgstr "Asukohainfot päriti liiga kaua."
 msgid "An unknown error occurred."
 msgstr "Muu viga asukohapäringuga."
 
-#: static/js/ajapaik-common.js:805 static/js/ajapaik-common.js.c:927
-#: static/js/ajapaik-common.js:946 static/js/ajapaik-game.js:124
+#: static/js/ajapaik-common.js:805 static/js/ajapaik-common.js.c:926
+#: static/js/ajapaik-common.js:945 static/js/ajapaik-game.js:124
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:838 static/js/ajapaik-game.js:569
+#: static/js/ajapaik-common.js:837 static/js/ajapaik-game.js:569
 #: static/js/ajapaik-map.js:965
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -69,15 +69,15 @@ msgstr ""
 "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
 "pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
-#: static/js/ajapaik-common.js:862
+#: static/js/ajapaik-common.js:861
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: static/js/ajapaik-common.js:1000
+#: static/js/ajapaik-common.js:999
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
-#: static/js/ajapaik-common.js:1297 static/js/ajapaik-common.js.c:1342
+#: static/js/ajapaik-common.js:1295 static/js/ajapaik-common.js.c:1340
 #: static/js/ajapaik-extra-js-translations.js:21
 msgid "Not selected"
 msgstr "..."
@@ -151,7 +151,7 @@ msgid "Points"
 msgstr "Punktid"
 
 #: static/js/ajapaik-extra-js-translations.js:20
-#: static/js/ajapaik-selection.js:100 static/js/ajapaik-selection.js.c:116
+#: static/js/ajapaik-selection.js:104 static/js/ajapaik-selection.js.c:120
 msgid "System error"
 msgstr "Süsteemiviga"
 
@@ -178,6 +178,10 @@ msgstr "Pildil on asukoha ja vaate suuna info"
 #: static/js/ajapaik-extra-js-translations.js:27
 msgid "Image has rephotos"
 msgstr "Pildist on ülepildistusi"
+
+#: static/js/ajapaik-extra-js-translations.js:28
+msgid "Add picture to album"
+msgstr "Lisa pilt albumisse"
 
 #: static/js/ajapaik-frontpage.js:258
 msgid "Earliest"

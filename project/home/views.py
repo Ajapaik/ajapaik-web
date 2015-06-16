@@ -1661,7 +1661,7 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
     serializer = CuratorMyAlbumListAlbumSerializer(
-        Album.objects.filter(Q(profile=user_profile, is_public=True) | Q(profile=user_profile, open=True)).order_by("-created"), many=True
+        Album.objects.filter(Q(profile=user_profile, atype=Album.CURATED)).order_by("-created"), many=True
     )
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")

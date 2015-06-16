@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-16 14:34+0300\n"
-"PO-Revision-Date: 2015-06-16 11:31+0000\n"
+"POT-Creation-Date: 2015-06-16 17:23+0300\n"
+"PO-Revision-Date: 2015-06-16 14:22+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
 "sv/)\n"
@@ -73,11 +73,11 @@ msgstr ""
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:571
+#: project/home/views.py:572
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:622 templates/_header.html:7
+#: project/home/views.py:623 templates/_header.html:7
 #: templates/base_bootstrap.html:8 templates/base_bootstrap.html.py:10
 #: templates/base_bootstrap.html:189
 msgid "Timepatch (Ajapaik)"
@@ -241,7 +241,8 @@ msgid "Cancel"
 msgstr ""
 
 #: templates/_album_creation_modal.html:112
-msgid "Create album"
+#: templates/admin/project/csvphoto/change_list.html:21
+msgid "Submit"
 msgstr ""
 
 #: templates/_album_selection.html:13
@@ -541,7 +542,7 @@ msgid "Next photo"
 msgstr ""
 
 #: templates/_guess_panel.html:61 templates/_guess_panel_xs.html:16
-#: templates/_info_modal_content.html:140
+#: templates/_info_modal_content.html:141
 msgid "Back to map"
 msgstr ""
 
@@ -624,12 +625,12 @@ msgstr ""
 msgid "Show in grid"
 msgstr ""
 
-#: templates/_header.html:185 templates/_info_modal_content.html:147
-#: templates/_info_modal_content.html:149
+#: templates/_header.html:185 templates/_info_modal_content.html:148
+#: templates/_info_modal_content.html:150
 msgid "Geotag pictures"
 msgstr ""
 
-#: templates/_header.html:194 templates/_info_modal_content.html:138
+#: templates/_header.html:194 templates/_info_modal_content.html:139
 msgid "Show on map"
 msgstr ""
 
@@ -690,18 +691,18 @@ msgid "Clear selection"
 msgstr ""
 
 #: templates/_header.html:328
-msgid "Submit to Ajapaik"
+msgid "Submit selection to Ajapaik"
 msgstr ""
 
-#: templates/_info_modal_content.html:14 templates/_info_modal_content.html:20
+#: templates/_info_modal_content.html:14 templates/_info_modal_content.html:21
 msgid "Album curated by"
 msgstr ""
 
-#: templates/_info_modal_content.html:22
+#: templates/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
 msgstr ""
 
-#: templates/_info_modal_content.html:26
+#: templates/_info_modal_content.html:27
 #, python-format
 msgid ""
 "\n"
@@ -714,7 +715,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:31 templates/base_bootstrap.html:101
+#: templates/_info_modal_content.html:32 templates/base_bootstrap.html:101
 #, python-format
 msgid ""
 "\n"
@@ -727,11 +728,11 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:37 templates/base_bootstrap.html:107
+#: templates/_info_modal_content.html:38 templates/base_bootstrap.html:107
 msgid "all the pictures on the map."
 msgstr ""
 
-#: templates/_info_modal_content.html:39 templates/base_bootstrap.html:109
+#: templates/_info_modal_content.html:40 templates/base_bootstrap.html:109
 #, python-format
 msgid ""
 "\n"
@@ -744,19 +745,19 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:48
+#: templates/_info_modal_content.html:49
 msgid "You haven't made any location suggestions for pictures in this album."
 msgstr ""
 
-#: templates/_info_modal_content.html:50
+#: templates/_info_modal_content.html:51
 msgid "You have made a location suggestion for"
 msgstr ""
 
-#: templates/_info_modal_content.html:52
+#: templates/_info_modal_content.html:53
 msgid "all the pictures from this album."
 msgstr ""
 
-#: templates/_info_modal_content.html:54
+#: templates/_info_modal_content.html:55
 #, python-format
 msgid ""
 "\n"
@@ -769,7 +770,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:65
+#: templates/_info_modal_content.html:66
 #, python-format
 msgid ""
 "\n"
@@ -782,7 +783,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:70
+#: templates/_info_modal_content.html:71
 #, python-format
 msgid ""
 "\n"
@@ -795,7 +796,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:75
+#: templates/_info_modal_content.html:76
 #, python-format
 msgid ""
 "\n"
@@ -808,7 +809,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:85
+#: templates/_info_modal_content.html:86
 #, python-format
 msgid ""
 "\n"
@@ -821,7 +822,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:90
+#: templates/_info_modal_content.html:91
 #, python-format
 msgid ""
 "\n"
@@ -834,11 +835,11 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_info_modal_content.html:100
+#: templates/_info_modal_content.html:101
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/_info_modal_content.html:112 templates/_photo_modal.html:204
+#: templates/_info_modal_content.html:113 templates/_photo_modal.html:208
 #: templates/photoview.html:59
 msgid "Share"
 msgstr ""
@@ -865,42 +866,42 @@ msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_photo_modal.html:157 templates/photoview.html:131
+#: templates/_photo_modal.html:161 templates/photoview.html:135
 msgid "Unknown author"
 msgstr ""
 
-#: templates/_photo_modal.html:172 templates/frontpage.html:27
+#: templates/_photo_modal.html:176 templates/frontpage.html:27
 #: templates/game.html:40
 msgid "Image has location and view direction info"
 msgstr ""
 
-#: templates/_photo_modal.html:176 templates/_photo_modal.html.py:188
+#: templates/_photo_modal.html:180 templates/_photo_modal.html.py:192
 msgid "user has submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:178 templates/_photo_modal.html.py:190
+#: templates/_photo_modal.html:182 templates/_photo_modal.html.py:194
 msgid "users have submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:184 templates/frontpage.html:30
+#: templates/_photo_modal.html:188 templates/frontpage.html:30
 #: templates/game.html:41
 msgid "Image has only location, no view direction"
 msgstr ""
 
-#: templates/_photo_modal.html:196 templates/frontpage.html:33
+#: templates/_photo_modal.html:200 templates/frontpage.html:33
 #: templates/game.html:42
 msgid "Image has no location info"
 msgstr ""
 
-#: templates/_photo_modal.html:201 templates/game.html:44
+#: templates/_photo_modal.html:205 templates/game.html:44
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: templates/_photo_modal.html:202 templates/photoview.html:79
+#: templates/_photo_modal.html:206 templates/photoview.html:79
 msgid "Add rephoto"
 msgstr ""
 
-#: templates/_photo_modal.html:221
+#: templates/_photo_modal.html:225
 msgid "Discuss"
 msgstr ""
 
@@ -1029,10 +1030,6 @@ msgstr ""
 
 #: templates/admin/project/csvphoto/change_list.html:19
 msgid "ZIP"
-msgstr ""
-
-#: templates/admin/project/csvphoto/change_list.html:21
-msgid "Submit"
 msgstr ""
 
 #: templates/base_bootstrap.html:16
@@ -1319,10 +1316,10 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/photoview.html:136
+#: templates/photoview.html:140
 msgid "Date taken"
 msgstr ""
 
-#: templates/photoview.html:148
+#: templates/photoview.html:152
 msgid "Rephoto thumbnail"
 msgstr ""
