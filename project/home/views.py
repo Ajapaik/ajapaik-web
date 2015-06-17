@@ -1160,7 +1160,9 @@ def photoslug(request, photo_id, pseudo_slug):
         album_selection_form = AlbumSelectionForm({"album": album.id})
     else:
         album_selection_form = AlbumSelectionForm()
-    album = (album.id,)
+
+    if album:
+        album = (album.id,)
 
     rephoto_fullscreen = None
     if first_rephoto is not None:

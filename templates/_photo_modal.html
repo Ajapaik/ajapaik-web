@@ -37,6 +37,9 @@
                                  class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                                  id="ajapaik-modal-photo"/>
                         </a>
+                        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                            <div class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ photo.id }}"></div>
+                        {% endif %}
                         <button class="btn btn-default ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}" {% if not request.mobile %}style="display: none;"{% endif %}></button>
                         {% if photo.rephotos.all.0 %}
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-show-rephoto-selection-overlay-button {% if photo.rephotos.all|length < 10 %}ajapaik-show-rephoto-selection-overlay-button-{{ photo.rephotos.all | length }}{% else %}ajapaik-show-rephoto-selection-overlay-button-9-plus{% endif %}" id="ajapaik-show-rephoto-selection-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>

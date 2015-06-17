@@ -82,6 +82,7 @@
                     var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
                     originalPhotoColumn.mouseenter(function () {
                         if (!window.isMobile) {
+                            $(this).find('.ajapaik-thumbnail-selection-icon').show();
                             $('.ajapaik-flip-photo-overlay-button').show();
                             if (window.userClosedRephotoTools) {
                                 $('#ajapaik-show-rephoto-selection-overlay-button').show();
@@ -90,6 +91,7 @@
                     });
                     originalPhotoColumn.mouseleave(function () {
                         if (!window.isMobile) {
+                            $(this).find('.ajapaik-thumbnail-selection-icon').hide();
                             $('.ajapaik-flip-photo-overlay-button').hide();
                             $('#ajapaik-show-rephoto-selection-overlay-button').hide();
                         }
