@@ -262,9 +262,11 @@ var map,
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(input);
-            mapviewGameButton = document.createElement('button');
-            $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button ajapaik-zero-border-radius').prop('title', window.gettext('Geotag pictures')).html(window.gettext('Geotag pictures'));
-            map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
+            if (window.albumId) {
+                mapviewGameButton = document.createElement('button');
+                $(mapviewGameButton).addClass('btn btn-success btn-lg ajapaik-mapview-game-button ajapaik-zero-border-radius').prop('title', window.gettext('Geotag pictures')).html(window.gettext('Geotag pictures'));
+                map.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(mapviewGameButton);
+            }
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button').html(window.gettext('Close'));
             streetPanorama.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(closeStreetviewButton);

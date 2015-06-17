@@ -855,7 +855,7 @@ def photo_selection(request):
     if form.is_valid():
         if form.cleaned_data['clear']:
             request.session['photo_selection'] = {}
-        else:
+        elif form.cleaned_data['id']:
             photo_id = str(form.cleaned_data['id'].id)
             helper = request.session['photo_selection']
             if photo_id not in request.session['photo_selection']:
@@ -1160,6 +1160,7 @@ def photoslug(request, photo_id, pseudo_slug):
         album_selection_form = AlbumSelectionForm({"album": album.id})
     else:
         album_selection_form = AlbumSelectionForm()
+    album = (album.id,)
 
     rephoto_fullscreen = None
     if first_rephoto is not None:
@@ -1168,6 +1169,10 @@ def photoslug(request, photo_id, pseudo_slug):
     photo_obj.tags = ','.join(photo_obj.description.split(' '))
     if rephoto:
         rephoto.tags = ','.join(rephoto.description.split(' '))
+
+    if 'photo_selection' in request.session:
+        if str(photo_obj.id) in request.session['photo_selection']:
+            photo_obj.in_selection = True
 
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,

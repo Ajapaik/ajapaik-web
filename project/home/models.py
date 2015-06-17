@@ -652,6 +652,21 @@ class Photo(Model):
                         self.azimuth_confidence = None
 
 
+class PhotoMetadataUpdate(Model):
+    photo = ForeignKey("Photo", related_name='metadata_updates')
+    old_title = CharField(max_length=255, blank=True, null=True)
+    new_title = CharField(max_length=255, blank=True, null=True)
+    old_description = TextField(null=True, blank=True)
+    new_description = TextField(null=True, blank=True)
+    old_author = CharField(null=True, blank=True, max_length=255)
+    new_author = CharField(null=True, blank=True, max_length=255)
+    created = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        app_label = "project"
+
+
+
 class PhotoComment(Model):
     photo = ForeignKey("Photo", related_name='comments')
     fb_comment_id = CharField(max_length=255, unique=True)

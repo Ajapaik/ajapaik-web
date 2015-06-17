@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-16 17:23+0300\n"
+"POT-Creation-Date: 2015-06-17 17:15+0300\n"
 "PO-Revision-Date: 2015-06-16 14:23+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
@@ -31,36 +31,36 @@ msgstr "Abi"
 msgid "Go to my location"
 msgstr "Mine minu asukohta"
 
-#: static/js/ajapaik-common.js:266
+#: static/js/ajapaik-common.js:267
 msgid "Geotag pictures"
 msgstr "Märgi pilte kaardile"
 
-#: static/js/ajapaik-common.js:269
+#: static/js/ajapaik-common.js:271
 msgid "Close"
 msgstr "Sulge"
 
-#: static/js/ajapaik-common.js:680
+#: static/js/ajapaik-common.js:682
 msgid "User denied the request for Geolocation."
 msgstr "Kasutaja keeldus oma asukohta jagamast."
 
-#: static/js/ajapaik-common.js:686
+#: static/js/ajapaik-common.js:688
 msgid "Location information is unavailable."
 msgstr "Asukohainfo ei ole kättesaadav."
 
-#: static/js/ajapaik-common.js:689
+#: static/js/ajapaik-common.js:691
 msgid "The request to get user location timed out."
 msgstr "Asukohainfot päriti liiga kaua."
 
-#: static/js/ajapaik-common.js:692
+#: static/js/ajapaik-common.js:694
 msgid "An unknown error occurred."
 msgstr "Muu viga asukohapäringuga."
 
-#: static/js/ajapaik-common.js:805 static/js/ajapaik-common.js.c:926
-#: static/js/ajapaik-common.js:945 static/js/ajapaik-game.js:124
+#: static/js/ajapaik-common.js:807 static/js/ajapaik-common.js.c:928
+#: static/js/ajapaik-common.js:947 static/js/ajapaik-game.js:124
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: static/js/ajapaik-common.js:837 static/js/ajapaik-game.js:569
+#: static/js/ajapaik-common.js:839 static/js/ajapaik-game.js:569
 #: static/js/ajapaik-map.js:965
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -69,15 +69,15 @@ msgstr ""
 "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
 "pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
-#: static/js/ajapaik-common.js:861
+#: static/js/ajapaik-common.js:863
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: static/js/ajapaik-common.js:999
+#: static/js/ajapaik-common.js:1001
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
-#: static/js/ajapaik-common.js:1295 static/js/ajapaik-common.js.c:1340
+#: static/js/ajapaik-common.js:1297 static/js/ajapaik-common.js.c:1342
 #: static/js/ajapaik-extra-js-translations.js:21
 msgid "Not selected"
 msgstr "..."
@@ -239,7 +239,7 @@ msgstr "Pildivalimis ei ole refotosi"
 msgid "Picture set has no comments"
 msgstr "Pildivalimis ei ole kommentaare"
 
-#: static/js/ajapaik-frontpage.js:392
+#: static/js/ajapaik-frontpage.js:402
 msgid "All pictures"
 msgstr "Kõik pildid"
 

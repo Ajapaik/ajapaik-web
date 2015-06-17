@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-16 17:23+0300\n"
+"POT-Creation-Date: 2015-06-17 17:15+0300\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,51 +26,51 @@ msgstr ""
 msgid "Go to my location"
 msgstr ""
 
-#: static/js/ajapaik-common.js:266
+#: static/js/ajapaik-common.js:267
 msgid "Geotag pictures"
 msgstr ""
 
-#: static/js/ajapaik-common.js:269
+#: static/js/ajapaik-common.js:271
 msgid "Close"
 msgstr ""
 
-#: static/js/ajapaik-common.js:680
+#: static/js/ajapaik-common.js:682
 msgid "User denied the request for Geolocation."
 msgstr ""
 
-#: static/js/ajapaik-common.js:686
+#: static/js/ajapaik-common.js:688
 msgid "Location information is unavailable."
 msgstr ""
 
-#: static/js/ajapaik-common.js:689
+#: static/js/ajapaik-common.js:691
 msgid "The request to get user location timed out."
 msgstr ""
 
-#: static/js/ajapaik-common.js:692
+#: static/js/ajapaik-common.js:694
 msgid "An unknown error occurred."
 msgstr ""
 
-#: static/js/ajapaik-common.js:805 static/js/ajapaik-common.js.c:926
-#: static/js/ajapaik-common.js:945 static/js/ajapaik-game.js:124
+#: static/js/ajapaik-common.js:807 static/js/ajapaik-common.js.c:928
+#: static/js/ajapaik-common.js:947 static/js/ajapaik-game.js:124
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:837 static/js/ajapaik-game.js:569
+#: static/js/ajapaik-common.js:839 static/js/ajapaik-game.js:569
 #: static/js/ajapaik-map.js:965
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
 msgstr ""
 
-#: static/js/ajapaik-common.js:861
+#: static/js/ajapaik-common.js:863
 msgid "Save location and direction"
 msgstr ""
 
-#: static/js/ajapaik-common.js:999
+#: static/js/ajapaik-common.js:1001
 msgid "Median guess"
 msgstr ""
 
-#: static/js/ajapaik-common.js:1295 static/js/ajapaik-common.js.c:1340
+#: static/js/ajapaik-common.js:1297 static/js/ajapaik-common.js.c:1342
 #: static/js/ajapaik-extra-js-translations.js:21
 msgid "Not selected"
 msgstr ""
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Picture set has no comments"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:392
+#: static/js/ajapaik-frontpage.js:402
 msgid "All pictures"
 msgstr ""
 

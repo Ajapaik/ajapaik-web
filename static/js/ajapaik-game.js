@@ -447,22 +447,22 @@
             window.disableSave = false;
         });
         // TODO: DRY
-        if (window.albumId && window.infoModalURL && !window.getQueryParameterByName('fromButton')) {
-            var targetDiv = $('#ajapaik-info-modal');
-            $.ajax({
-                url: window.infoModalURL + window.albumId,
-                data: {
-                    'linkToGame': false,
-                    'linkToMap': true
-                },
-                success: function (resp) {
-                    targetDiv.html(resp);
-                    targetDiv.modal().on('shown.bs.modal', function () {
-                        window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
-                    });
-                }
-            });
-        }
+        //if (window.albumId && window.infoModalURL && !window.getQueryParameterByName('fromButton')) {
+        //    var targetDiv = $('#ajapaik-info-modal');
+        //    $.ajax({
+        //        url: window.infoModalURL + window.albumId,
+        //        data: {
+        //            'linkToGame': false,
+        //            'linkToMap': true
+        //        },
+        //        success: function (resp) {
+        //            targetDiv.html(resp);
+        //            targetDiv.modal().on('shown.bs.modal', function () {
+        //                window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
+        //            });
+        //        }
+        //    });
+        //}
         if (window.getQueryParameterByName('photo')) {
             window.straightToSpecify = true;
         }

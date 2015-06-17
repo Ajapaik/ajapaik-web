@@ -17,7 +17,7 @@
                 margins: 5,
                 waitThumbnailsLoad: false,
                 filter: function (el) {
-                    return !$(el).hasClass('hidden')
+                    return !$(el).hasClass('hidden');
                 }
             },
             openPhotoDrawer,
@@ -365,6 +365,16 @@
                 updateFrontpagePhotosAsync();
             }
         });
+        $(document).on('click', '.ajapaik-album-selection-map-button', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = $(this).attr('data-href');
+        });
+        $(document).on('click', '.ajapaik-album-selection-game-button', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = $(this).attr('data-href');
+        });
         $(document).on('click', '#ajapaik-frontpage-show-pictures-link', function (e) {
             e.preventDefault();
             if (!window.albumId) {
@@ -418,6 +428,11 @@
         if (window.getQueryParameterByName('q')) {
             $('#ajapaik-album-filter-box').val(window.getQueryParameterByName('q')).trigger('change');
         }
+        $('.ajapaik-frontpage-album').hover(function () {
+            $(this).find('.ajapaik-caption-album-selection-upper').removeClass('ajapaik-invisible');
+        }, function () {
+            $(this).find('.ajapaik-caption-album-selection-upper').addClass('ajapaik-invisible');
+        });
         $(document).on('click', '#ajapaik-paging-next-button', function (e) {
             e.preventDefault();
             if (window.currentPage < window.maxPage) {
@@ -428,12 +443,18 @@
         });
         $(document).on('click', '.ajapaik-frontpage-album', function (e) {
             e.preventDefault();
-            if ($('#ajapaik-album-filter-box').val()) {
-                window._gaq.push(['_trackEvent', 'Gallery', 'Album click with search term']);
+            var $this = $(this);
+            if (window.isMobile && window.albumWithOneClickDone != $this.attr('data-id')) {
+                window.albumWithOneClickDone = $this.attr('data-id');
+                $this.find('.ajapaik-caption-album-selection-upper').removeClass('ajapaik-invisible');
             } else {
-                window._gaq.push(['_trackEvent', 'Gallery', 'Album click']);
+                if ($('#ajapaik-album-filter-box').val()) {
+                    window._gaq.push(['_trackEvent', 'Gallery', 'Album click with search term']);
+                } else {
+                    window._gaq.push(['_trackEvent', 'Gallery', 'Album click']);
+                }
+                window.location.href = $this.attr('href');
             }
-            window.location.href = $(this).attr('href');
         });
         $(document).on('click', '.ajapaik-filtering-choice', function (e) {
             e.stopPropagation();

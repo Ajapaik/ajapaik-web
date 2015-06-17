@@ -29,6 +29,7 @@
                             {% if photo.flip %}ajapaik-photo-flipped{% endif %}" alt="{% trans "Original photo" %}"
                              src="{% url 'project.home.views.photo_url' photo.id %}"/>
                         </a>
+                        <div class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ photo.id }}"></div>
                         <button class="btn btn-default ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;"></button>
                     </div>
                     {% if photo.author %}
@@ -53,46 +54,76 @@
                         </div>
                     {% endif %}
                     <div class="row" style="margin-top: 10px;">
-                        <div class="btn-group" role="group" aria-label="...">
-                            <button id="ajapaik-sharing-dropdown-button" class="btn btn-primary"
-                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {% trans "Share" %}
-                            </button>
+                        <div class="dropdown pull-left">
+                            <span id="ajapaik-sharing-dropdown-button" role="button" title="{% trans "Share" %}"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24h-24z" fill="none"></path>
+                                    <path fill="#888" d="M18 16.08c-.76 0-1.44.3-1.96.77l-7.13-4.15c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7l-7.05 4.11c-.54-.5-1.25-.81-2.04-.81-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"></path>
+                                </svg>
+                            </span>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                         <input type="text" class="form-control"
-                                               value="{{ hostname }}{{ photo.get_absolute_url }}">
+                                               value="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                                     </div>
                                 </li>
                                 <li role="presentation">
-                                    <div role="menuitem" tabindex="-1">
-                                        <div class="fb-like" data-href="
-                                                {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+                                    <div id="ajapaik-photo-modal-like" role="menuitem" tabindex="-1">
+                                        <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
                                              data-layout="standard" data-action="like" data-show-faces="true"
                                              data-share="true"></div>
                                     </div>
                                 </li>
                             </ul>
-                            <span class="btn btn-success" id="ajapaik-photoview-add-rephoto-button">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                <span>{% trans "Add rephoto" %}</span>
-                            </span>
-                            {% if photo.lat and photo.lon %}
-                                <button class="btn btn-primary" id="ajapaik-photoview-map-button">
-                                    {% trans "Location on the map" %}
-                                </button>
-                            {% endif %}
                         </div>
+                        <span title="{% trans "Add rephoto" %}" id="ajapaik-photoview-add-rephoto-button" class="pull-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24h-24z" fill="none"></path>
+                                <path fill="#888" d="M4 6h-2v14c0 1.1.9 2 2 2h14v-2h-14v-14zm16-4h-12c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"></path>
+                            </svg>
+                        </span>
+                        <a target="_blank" title="{% trans "Pick the shooting location!" %}" href="{% url "project.home.views.game" %}?photo={{ photo.id }}&fromButton=1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                <path fill="#888" d="M18 8c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2-.89 2-2 2c-1.1 0-2-.9-2-2zm-5 12v2h14v-2h-14z"></path>
+                                <path d="M0 0h24v24h-24z" fill="none"></path>
+                            </svg>
+                        </a>
+                        {% if photo.lat and photo.lon and photo.azimuth %}
+                            <a target="_blank" title="{% trans "Image has location and view direction info" %}"
+                               href="{% url "project.home.views.mapview" photo_id=photo.id %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24h-24z" fill="none"></path>
+                                    <path fill="#888" d="M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z"></path>
+                                </svg>
+                            </a>
+                        {% elif photo.lat and photo.lon %}
+                            <a target="_blank" title="{% trans "Image has only location, no view direction" %}"
+                               href="{% url "project.home.views.mapview" photo_id=photo.id %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                    <path fill="#888" d="M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+                                    <path d="M0 0h24v24h-24z" fill="none"></path>
+                                </svg>
+                            </a>
+                        {% else %}
+                            <span title="{% trans "Image has no location info" %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24h-24zm11.75 11.47l-.11-.11z" fill="none"></path>
+                                    <path fill="#888" d="M12 6.5c1.38 0 2.5 1.12 2.5 2.5 0 .74-.33 1.39-.83 1.85l3.63 3.63c.98-1.86 1.7-3.8 1.7-5.48 0-3.87-3.13-7-7-7-1.98 0-3.76.83-5.04 2.15l3.19 3.19c.46-.52 1.11-.84 1.85-.84zm4.37 9.6l-4.63-4.63-.11-.11-8.36-8.36-1.27 1.27 3.18 3.18c-.11.5-.18 1.02-.18 1.55 0 5.25 7 13 7 13s1.67-1.85 3.38-4.35l3.35 3.35 1.27-1.27-3.63-3.63z"></path>
+                                </svg>
+                            </span>
+                        {% endif %}
                     </div>
                     {% if albums %}
                         <div class="row" style="margin-top: 10px;">
                             <p class="text-left">
-                                {% blocktrans count counter=albums|length %}
-                                    Picture belongs to album
-                                {% plural %}
-                                    Picture belongs to albums:
-                                {% endblocktrans %}
+                                <span id="ajapaik-photoview-belongs-to-albums-indicator" title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
+                                    <svg fill="#888" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="pull-left">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4zm0 15l3-3.86 2.14 2.58 3-3.86L18 19H6z"></path>
+                                    </svg>
+                                </span>
                                 {% for a in albums %}
                                     <a href="{% url 'project.home.views.frontpage' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
@@ -157,6 +188,7 @@
         </div>
         {% include "_comments.html" %}
     </div>
+    {% include "_full_leaderboard_modal.html" %}
 {% endblock %}
 
 {% block specific_js %}
@@ -167,6 +199,10 @@
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.isPhotoview = true;
         window.gameRedirectURI = '/game?area=' + '{{ area.id }}';
+        window.flipPhoto = function () {
+            $.noop();
+        };
+        window.updateLeaderboard();
         $(document).ready(function () {
             var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
@@ -181,30 +217,19 @@
                 window.prepareFullscreen({{ rephoto_fullscreen.size.0 }}, {{ rephoto_fullscreen.size.1 }}, '#ajapaik-rephoto-full-screen-image');
             {% endif %}
             $(document).on('click', '.ajapaik-flip-photo-overlay-button', function () {
-                var $this = $(this);
-                if ($this.hasClass('active')) {
-                    $this.removeClass('active');
-                } else {
-                    $this.addClass('active');
-                }
                 if (mainPhoto.hasClass('ajapaik-photo-flipped')) {
                     mainPhoto.removeClass('ajapaik-photo-flipped');
                 } else {
                     mainPhoto.addClass('ajapaik-photo-flipped');
                 }
-                if (originalFullscreen.hasClass('ajapaik-photo-flipped')) {
-                    originalFullscreen.removeClass('ajapaik-photo-flipped');
-                } else {
-                    originalFullscreen.addClass('ajapaik-photo-flipped');
-                }
             });
-{% comment %}            $('.full-box div').on('click', function (e) {
+          $('.full-box div').on('click', function (e) {
                 if (BigScreen.enabled) {
                     e.preventDefault();
                     window.fullscreenEnabled = false;
                     BigScreen.exit();
                 }
-            });{% endcomment %}
+            });
             if (window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
             }
@@ -212,11 +237,13 @@
                 if (!window.isMobile) {
                     $('.ajapaik-flip-photo-overlay-button').show();
                 }
+                $('.ajapaik-thumbnail-selection-icon').show();
             });
             $(document).on('mouseout', '#ajapaik-photoview-main-photo-container', function () {
                 if (!window.isMobile) {
                     $('.ajapaik-flip-photo-overlay-button').hide();
                 }
+                $('.ajapaik-thumbnail-selection-icon').hide();
             });
             $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
                 if (!window.isMobile) {
@@ -246,6 +273,9 @@
                 {% else %}
                     window.location.href = '/map/photo/' + {{ photo.id }} + '?area=' + {{ area.id }};
                 {% endif %}
+            });
+            $(document).on('click', '#ajapaik-frontpage-show-pictures-link', function () {
+                window.location.href = '/photos/?order1=time&order2=added';
             });
             $(document).on('click', '#ajapaik-photoview-header-game-button', function () {
                 var albumId = $('#id_album').val(),
