@@ -1550,6 +1550,10 @@ ul.errorlist {
     font-size: 24px;
 }
 
+#ajapaik-photoview-geotag-count {
+    font-size: 24px;
+}
+
 #ajapaik-photo-modal-location-with-azimuth {
     background: transparent url(../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
     height: 36px;
@@ -2147,6 +2151,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     background: url(../images/material-design-icons/ic_panorama_24px.svg) no-repeat center center;
 }
 
+.ajapaik-icon-rotate {
+    background: url(../images/material-design-icons/ic_rotate_90_degrees_ccw_black_24px.svg) no-repeat center center;
+}
+
 .ajapaik-icon-delete {
     background: url(../images/material-design-icons/ic_delete_24px.svg) no-repeat center center;
 }
@@ -2266,7 +2274,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 #ajapaik-choose-albums-modal {
-    z-index: 10000;
+    z-index: 1999;
 }
 
 #ajapaik-mapview-close-streetview-button {

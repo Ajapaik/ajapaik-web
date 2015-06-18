@@ -314,6 +314,7 @@ class Photo(Model):
     flip = NullBooleanField()
     invert = NullBooleanField()
     stereo = NullBooleanField()
+    rotated = IntegerField(null=True, blank=True)
     date = DateTimeField(null=True, blank=True)
     date_text = CharField(max_length=255, blank=True, null=True)
     title = CharField(max_length=255, blank=True, null=True)

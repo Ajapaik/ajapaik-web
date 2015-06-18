@@ -1224,6 +1224,7 @@ var map,
                 other.removeClass('ajapaik-thumbnail-selection-icon-white');
             } else {
                 other.addClass('ajapaik-thumbnail-selection-icon-white');
+                other.show();
             }
         }
         var data = {

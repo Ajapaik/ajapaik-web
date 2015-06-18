@@ -114,6 +114,16 @@
                                 </svg>
                             </span>
                         {% endif %}
+                        {% if geotag_count > 0 %}
+                            <span id="ajapaik-photoview-geotag-count" title="
+                                {% if geotag_count == 1 %}
+                                    {{ geotag_count }} {% trans "user has submitted a location for this picture" %}
+                                {% else %}
+                                    {{ geotag_count }} {% trans "users have submitted a location for this picture" %}
+                                {% endif %}
+                                ">{{ geotag_count }}
+                            </span>
+                        {% endif %}
                     </div>
                     {% if albums %}
                         <div class="row" style="margin-top: 10px;">

@@ -26,4 +26,5 @@
     window.gettext('Image has location and view direction info');
     window.gettext('Image has rephotos');
     window.gettext('Add picture to album');
+    window.gettext('Rotate');
 }());

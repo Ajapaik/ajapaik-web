@@ -385,6 +385,13 @@
             toggleButtonActive($this);
             window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
         });
+        $(document).on('click', '.ajapaik-curator-rotate-button', function() {
+            var $this = $(this),
+                targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
+            //window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
+            console.log($this[0].dataset.id);
+            window._gaq.push(['_trackEvent', 'Curator', 'Rotate']);
+        });
         $(document).on('click', '.ajapaik-curator-delete-button', function() {
             var targetId = $(this)[0].dataset.id,
                 targetResultItem = $('#ajapaik-result-item-' + window.formatId(targetId)),
@@ -585,6 +592,9 @@
                       <button title="{%=gettext('Mark stereophoto')%}" type="button" class="btn btn-default {% if (o.stereo) { %}active{% } %} ajapaik-curator-stereo-button" data-id="{%=o.id%}">
                         <i class="glyphicon ajapaik-icon ajapaik-icon-stereo"></i>
                         <i class="glyphicon ajapaik-icon ajapaik-icon-stereo"></i>
+                      </button>
+                      <button title="{%=gettext('Rotate')%}" type="button" class="btn btn-default ajapaik-curator-rotate-button" data-id="{%=o.id%}">
+                        <i class="glyphicon ajapaik-icon ajapaik-icon-rotate"></i>
                       </button>
                       <button title="{%=gettext('Remove from selection')%}" type="button" class="btn btn-default ajapaik-curator-delete-button" data-id="{%=o.id%}">
                         <i class="glyphicon ajapaik-icon ajapaik-icon-delete"></i>
