@@ -19,8 +19,21 @@ class Command(BaseCommand):
         push_recipients = CatPushDevice.objects.all()
         values = {
             "registration_ids": [x.token for x in push_recipients],
-            "data": {"album": 5, "title": "Photos by Johannes Pääsuke"},
+            "data": {"album": 7, "title": "Elmar Einasto"},
             "collapse_key": "message"
+        }
+        values = json.dumps(values)
+
+        response = requests.post(url=GCM_ENDPOINT, data=values, headers=headers)
+
+        print response
+        print response.content
+
+        push_recipients = CatPushDevice.objects.all()
+        values = {
+            "registration_ids": [x.token for x in push_recipients],
+            "data": {"album": 8, "title": "Konstantin Kalamees"},
+            "collapse_key": "message2"
         }
         values = json.dumps(values)
 
