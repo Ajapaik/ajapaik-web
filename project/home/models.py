@@ -177,7 +177,6 @@ class CatPhoto(Model):
 
     class Meta:
         app_label = "project"
-        unique_together = (("source", "source_key"),)
 
     def __unicode__(self):
         return u"%s" % self.title
