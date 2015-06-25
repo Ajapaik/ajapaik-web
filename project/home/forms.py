@@ -138,6 +138,7 @@ class CuratorPhotoUploadForm(forms.Form):
     flip = forms.BooleanField(required=False)
     invert = forms.BooleanField(required=False)
     stereo = forms.BooleanField(required=False)
+    rotated = forms.FloatField(min_value=0, max_value=270, required=False)
 
 
 class SelectionUploadForm(forms.Form):

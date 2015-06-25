@@ -387,9 +387,25 @@
         });
         $(document).on('click', '.ajapaik-curator-rotate-button', function() {
             var $this = $(this),
-                targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
-            //window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
-            console.log($this[0].dataset.id);
+                targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId($this[0].dataset.id)),
+                targetImage = targetSelectionItem.find('img'),
+                arrayItem = window.selectedResults[$this[0].dataset.id];
+            if (!arrayItem.rotated) {
+                arrayItem.rotated = 90;
+                targetImage.addClass('rotate90');
+            } else {
+                arrayItem.rotated += 90;
+                var classToAdd = null;
+                if (arrayItem.rotated == 360) {
+                    arrayItem.rotated = 0;
+                } else {
+                    classToAdd = 'rotate' + arrayItem.rotated;
+                }
+                targetImage.removeClass('rotate90').removeClass('rotate180').removeClass('rotate270');
+                if (classToAdd) {
+                    targetImage.addClass(classToAdd);
+                }
+            }
             window._gaq.push(['_trackEvent', 'Curator', 'Rotate']);
         });
         $(document).on('click', '.ajapaik-curator-delete-button', function() {

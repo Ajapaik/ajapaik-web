@@ -65,17 +65,20 @@ def _convert_to_degrees(value):
 
 # TODO: This under model
 def _calculate_thumbnail_size(p_width, p_height, desired_longest_side):
-    w = float(p_width)
-    h = float(p_height)
-    desired_longest_side = float(desired_longest_side)
-    if w > h:
-        desired_width = desired_longest_side
-        factor = w / desired_longest_side
-        desired_height = h / factor
+    if p_width and p_height:
+        w = float(p_width)
+        h = float(p_height)
+        desired_longest_side = float(desired_longest_side)
+        if w > h:
+            desired_width = desired_longest_side
+            factor = w / desired_longest_side
+            desired_height = h / factor
+        else:
+            desired_height = desired_longest_side
+            factor = h / desired_longest_side
+            desired_width = w / factor
     else:
-        desired_height = desired_longest_side
-        factor = h / desired_longest_side
-        desired_width = w / factor
+        return 400, 300
 
     return int(desired_width), int(desired_height)
 
@@ -669,9 +672,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         order1 = filter_form.cleaned_data['order1']
         order2 = filter_form.cleaned_data['order2']
         order3 = filter_form.cleaned_data['order3']
+        default_ordering = False
         if not order1 and not order2:
             order1 = 'time'
             order2 = 'added'
+            default_ordering = True
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
         if album or requested_photos or requested_photo or filter_form.cleaned_data['order1']:
@@ -782,24 +787,30 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
                 'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count')[start:end]
         photos = map(list, photos)
+        if default_ordering and album and album.ordered:
+            album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id', flat=True)
+            for each in album_photos_links_order:
+                photos = sorted(photos, key=lambda x: x[0] == each)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size(p[1], p[2], 400)
             if 'photo_selection' in request.session:
                 p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
             else:
                 p[11] = 0
-        fb_share_photos = []
-        for p in photos[:5]:
-            w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
-            fb_share_photos.append([p[0], w, h])
         if album:
             ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')))
         else:
             ret['album'] = None
+        fb_share_photos = []
         if requested_photo:
             ret['photo'] = (requested_photo.id, requested_photo.description)
+            w, h = _calculate_thumbnail_size(requested_photo.width, requested_photo.height, 1024)
+            fb_share_photos = [requested_photo.id, w, h]
         else:
             ret['photo'] = None
+            for p in photos[:5]:
+                w, h = _calculate_thumbnail_size(p[1], p[2], 1024)
+                fb_share_photos.append([p[0], w, h])
         ret['photos'] = photos
         ret['show_photos'] = show_photos
         # FIXME: DRY
@@ -889,39 +900,39 @@ def upload_photo_selection(request):
     profile = request.get_user().profile
     if form.is_valid() and (profile.fb_id or profile.google_plus_id):
         a = form.cleaned_data['album']
-        photo_ids = set(json.loads(form.cleaned_data['selection']))
-        photos = Photo.objects.filter(pk__in=photo_ids)
-        photo_count = photos.count()
+        photo_ids = json.loads(form.cleaned_data['selection'])
+        #photos = Photo.objects.filter(pk__in=photo_ids)
+        #photo_count = photos.count()
         new_name = form.cleaned_data['name']
         new_desc = form.cleaned_data['description']
-        if photo_count == len(photo_ids):
-            if a is not None and (a.open or (a.profile and a.profile == profile)):
-                pass
-            elif new_name:
-                a = Album(
-                    name = new_name,
-                    description = new_desc,
-                    atype = Album.CURATED,
-                    profile = profile,
-                    ordered = True,
-                    subalbum_of = form.cleaned_data['parent_album'],
-                    is_public = form.cleaned_data['public'],
-                    open = form.cleaned_data['open']
+        #if photo_count == len(photo_ids):
+        if a is not None and (a.open or (a.profile and a.profile == profile)):
+            pass
+        elif new_name:
+            a = Album(
+                name = new_name,
+                description = new_desc,
+                atype = Album.CURATED,
+                profile = profile,
+                ordered = True,
+                subalbum_of = form.cleaned_data['parent_album'],
+                is_public = form.cleaned_data['public'],
+                open = form.cleaned_data['open']
+            )
+            a.save()
+        if a:
+            for pid in photo_ids:
+                new_album_photo_link = AlbumPhoto(
+                    photo = Photo.objects.get(pk=pid),
+                    album = a
                 )
-                a.save()
-            if a:
-                for p in photos:
-                    new_album_photo_link = AlbumPhoto(
-                        photo = p,
-                        album = a
-                    )
-                    new_album_photo_link.save()
-                a.save()
-                ret['message'] = _('Album creation success')
-            else:
-                ret['error'] = _('Problem with album selection')
+                new_album_photo_link.save()
+            a.save()
+            ret['message'] = _('Album creation success')
         else:
-            ret['error'] = _('Faulty data submitted')
+            ret['error'] = _('Problem with album selection')
+        #else:
+            #ret['error'] = _('Faulty data submitted')
     else:
         ret['error'] = _('Faulty data submitted')
 
@@ -1721,10 +1732,10 @@ def curator_update_my_album(request):
             album.description = album_edit_form.cleaned_data["description"]
             album.open = album_edit_form.cleaned_data["open"]
             album.is_public = album_edit_form.cleaned_data["is_public"]
-            parent_album_id = album_edit_form.cleaned_data["parent_album"]
-            if parent_album_id:
+            parent_album = album_edit_form.cleaned_data["parent_album"]
+            if parent_album:
                 try:
-                    parent_album = Album.objects.get(Q(profile=user_profile, pk=parent_album_id) | Q(open=True, pk=parent_album_id))
+                    parent_album = Album.objects.get(Q(profile=user_profile, pk=parent_album.id) | Q(open=True, pk=parent_album.id))
                     album.subalbum_of = parent_album
                 except ObjectDoesNotExist:
                     return HttpResponse("Faulty data", status=500)
@@ -1838,11 +1849,11 @@ def curator_photo_upload_handler(request):
                             new_photo = Photo(
                                 user=profile,
                                 area=area,
-                                author=upload_form.cleaned_data["creators"],
-                                description=unicode(upload_form.cleaned_data["title"].rstrip()),
+                                author=upload_form.cleaned_data["creators"].encode('utf-8'),
+                                description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
                                 source=source,
-                                types=upload_form.cleaned_data["types"],
-                                date_text=upload_form.cleaned_data["date"],
+                                types=upload_form.cleaned_data["types"].encode('utf-8'),
+                                date_text=upload_form.cleaned_data["date"].encode('utf-8'),
                                 licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
                                 muis_id=upload_form.cleaned_data["id"],
                                 source_key=upload_form.cleaned_data["identifyingNumber"],
@@ -1850,6 +1861,7 @@ def curator_photo_upload_handler(request):
                                 flip=upload_form.cleaned_data["flip"],
                                 invert=upload_form.cleaned_data["invert"],
                                 stereo=upload_form.cleaned_data["stereo"],
+                                rotated=upload_form.cleaned_data["rotated"]
                             )
                             new_photo.save()
                             opener = urllib2.build_opener()
@@ -1861,6 +1873,11 @@ def curator_photo_upload_handler(request):
                                 img = Image.open(photo_path)
                                 inverted_grayscale_image = ImageOps.invert(img).convert('L')
                                 inverted_grayscale_image.save(photo_path)
+                            if new_photo.rotated > 0:
+                                photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+                                img = Image.open(photo_path)
+                                rot = img.rotate(new_photo.rotated, expand=1)
+                                rot.save(photo_path)
                             new_photo.width = new_photo.image.width
                             new_photo.height = new_photo.image.height
                             longest_side = max(new_photo.width, new_photo.height)

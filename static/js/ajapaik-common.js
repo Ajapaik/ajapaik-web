@@ -1219,12 +1219,14 @@ var map,
         } else {
             $this.addClass('ajapaik-thumbnail-selection-icon-white');
         }
-        if (other) {
-            if (other.hasClass('ajapaik-thumbnail-selection-icon-white')) {
-                other.removeClass('ajapaik-thumbnail-selection-icon-white');
-            } else {
-                other.addClass('ajapaik-thumbnail-selection-icon-white');
-                other.show();
+        if ($this.parent().attr('id') == 'ajapaik-modal-photo-container') {
+            if (other) {
+                if (other.hasClass('ajapaik-thumbnail-selection-icon-white')) {
+                    other.removeClass('ajapaik-thumbnail-selection-icon-white');
+                } else {
+                    other.addClass('ajapaik-thumbnail-selection-icon-white');
+                    other.show();
+                }
             }
         }
         var data = {

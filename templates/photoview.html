@@ -278,10 +278,10 @@
                 });
             });
             $(document).on('click', '#ajapaik-photoview-map-button', function () {
-                {% if album.id %}
-                    window.location.href = '/map/photo/' + {{ photo.id }} + '?album=' + {{ album.id }};
+                {% if album.0 %}
+                    window.location.href = '/map/photo/' + {{ photo.id }} + '?album=' + {{ album.0 }};
                 {% else %}
-                    window.location.href = '/map/photo/' + {{ photo.id }} + '?area=' + {{ area.id }};
+                    window.location.href = '/map/photo/' + {{ photo.id }};
                 {% endif %}
             });
             $(document).on('click', '#ajapaik-frontpage-show-pictures-link', function () {

@@ -447,6 +447,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
 #ajapaik-header-title {
     font-size: 20px;
     float: right;
+    max-width: 200px;
     margin-left: 5px;
     white-space: nowrap;
     -ms-text-overflow: ellipsis;
@@ -2174,7 +2175,27 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 .ajapaik-curator-selection-image {
+    transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -ms-transform-origin: top left;
+}
 
+.ajapaik-curator-selection-image.rotate90 {
+    transform: rotate(90deg) translateY(-100%);
+    -webkit-transform: rotate(90deg) translateY(-100%);
+    -ms-transform: rotate(90deg) translateY(-100%);
+}
+
+.ajapaik-curator-selection-image.rotate180 {
+    transform: rotate(180deg) translate(-100%,-100%);
+    -webkit-transform: rotate(180deg) translate(-100%,-100%);
+    -ms-transform: rotate(180deg) translateX(-100%,-100%);
+}
+
+.ajapaik-curator-selection-image.rotate270 {
+    transform: rotate(270deg) translateX(-100%);
+    -webkit-transform: rotate(270deg) translateX(-100%);
+    -ms-transform: rotate(270deg) translateX(-100%);
 }
 
 .ajapaik-curator-selection-image-min-max {
