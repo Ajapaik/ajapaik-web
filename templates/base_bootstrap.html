@@ -201,11 +201,6 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
     {% compress css %}
-{#        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap.min.css">#}
-{#        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-3.3.4/css/bootstrap-theme.min.css">#}
-{#        <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css">#}
-{#        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.css">#}
-{#        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.theme.min.css">#}
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.4.min.css"/>
@@ -361,8 +356,10 @@
             userIsSocialConnected = true;
         {% endif %}
     </script>
-
-{#    <script src="{{ STATIC_URL }}js/moment-2.9.0.min.js"></script>#}
+    {# TODO: We don't need tons of file upload stuff for the small rephoto upload windows, we certainly don't need moment.js, #}
+    {# we probably don't need jquery-ui, if we rework these, we will no longer need datetimepicker, we don't need jsPanel #}
+    {# just for showing the sidepanels in game and map mode, URI and jquery.history also seem redundant, #}
+    {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -371,21 +368,14 @@
     <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3&amp;libraries=places,visualization"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.14.30/js/bootstrap-datetimepicker.min.js"></script>
     {% compress js %}
-{#        <script src="{{ STATIC_URL }}js/jquery-1.11.2.min.js"></script>#}
-{#        <script src="{{ STATIC_URL }}libs/bootstrap-3.3.4/js/bootstrap.min.js"></script>#}
-{#        <script src="{{ STATIC_URL }}libs/jasny-bootstrap-3.1.3/js/jasny-bootstrap.min.js"></script>#}
+        <script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-cookie.js"></script>
-{#        <script src="{{ STATIC_URL }}libs/jquery-ui-1.11.2/jquery-ui.min.js"></script>#}
         <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.6-beta.js"></script>
         <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.history.html5.min.js"></script>
         <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
-{#        <script src="{{ STATIC_URL }}js/eu-cookie.min.js"></script>#}
-        <script src="{{ STATIC_URL }}libs/jsPanel-2.5.2/jspanel/jquery.jspanel.min.js"></script>
-        <script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/lazysizes-1.1.3.min.js"></script>
-{#        <script src="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>#}
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>
         <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
