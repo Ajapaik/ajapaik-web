@@ -117,7 +117,7 @@
         <meta property="og:type" content="website"/>
         {% if photo or rephoto %}
             {% if photo and is_frontpage %}
-                <meta property="og:url" content="{{ hostname }}?photo={{ photo.id }}"/>
+                <meta property="og:url" content="{{ hostname }}?photo={{ photo.0 }}"/>
             {% elif not photo and rephoto and is_frontpage %}
                 <meta property="og:url" content="{{ hostname }}?photo={{ rephoto.rephoto_of.id }}"/>
             {% else %}
