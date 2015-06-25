@@ -736,9 +736,9 @@ var map,
         $('#ajapaik-header-profile-button').click();
     });
     // Firefox and Opera cannot handle modal taking over focus
-    $.fn.modal.Constructor.prototype.enforceFocus = function () {
-        $.noop();
-    };
+    //$.fn.modal.Constructor.prototype.enforceFocus = function () {
+    //    $.noop();
+    //};
     // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
     wheelEventFF = function (e) {
         now = new Date().getTime();
