@@ -805,7 +805,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         if requested_photo:
             ret['photo'] = (requested_photo.id, requested_photo.description)
             w, h = _calculate_thumbnail_size(requested_photo.width, requested_photo.height, 1024)
-            fb_share_photos = [requested_photo.id, w, h]
+            fb_share_photos = [[requested_photo.id, w, h]]
         else:
             ret['photo'] = None
             for p in photos[:5]:

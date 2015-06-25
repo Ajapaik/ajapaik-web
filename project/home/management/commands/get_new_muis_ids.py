@@ -1,3 +1,4 @@
+# encoding: utf-8
 from django.core.management.base import BaseCommand
 import requests
 from project import settings
@@ -10,11 +11,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         photos = Photo.objects.filter(muis_id__isnull=False)
-        req_template = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":"%s"},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}'
+        req_template = u'{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":"%s"},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}'
         for p in photos:
             first_part = p.muis_id.split(':')[-1].split('_')[0]
             request_params = req_template % (first_part, p.source_key)
-            response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
+            response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params.encode('utf-8'))
             result = json.loads(response.text)["result"]
             for each in result["firstRecordViews"]:
                 if each["mediaOrder"] == 0 and first_part in each["id"]:
