@@ -181,7 +181,8 @@
             window.History.replaceState(null, window.title, currentUrl);
         };
         openPhotoDrawer = function (content) {
-            photoModal.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
+            photoModal.html(content);
+            photoModal.modal().find('#ajapaik-modal-photo').on('load', function () {
                 fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
                 rephotoFullScreenImage.prop('src', window.photoModalRephotoFullscreenImageUrl);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0],
