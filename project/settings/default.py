@@ -14,8 +14,6 @@ DEFER_JAVASCRIPT = False
 
 FRONTPAGE_DEFAULT_PAGE_SIZE = 50
 
-CURATOR_ENABLED = False
-
 AJAPAIK_FACEBOOK_LINK = 'http://www.facebook.com/ajapaik'
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
