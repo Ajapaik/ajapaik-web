@@ -1661,8 +1661,7 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
             existing_photos = Photo.objects.filter(muis_id__in=[x["id"] for x in data])
             check_dict = {}
             for each in data:
-                existing_photo = existing_photos.filter(
-                    muis_id=each["id"], source__description=each["institution"].split(",")[0]).first()
+                existing_photo = existing_photos.filter(muis_id=each["id"]).first()
                 if existing_photo:
                     each["ajapaikId"] = existing_photo.id
                     check_dict[each["id"]] = False
