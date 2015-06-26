@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-17 17:15+0300\n"
-"PO-Revision-Date: 2015-06-10 12:52+0000\n"
+"POT-Creation-Date: 2015-06-26 17:36+0300\n"
+"PO-Revision-Date: 2015-06-26 14:35+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
 "sv/)\n"
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Median guess"
 msgstr ""
 
-#: static/js/ajapaik-common.js:1297 static/js/ajapaik-common.js.c:1342
+#: static/js/ajapaik-common.js:1308 static/js/ajapaik-common.js.c:1353
 #: static/js/ajapaik-extra-js-translations.js:21
 msgid "Not selected"
 msgstr ""
@@ -176,63 +176,67 @@ msgstr ""
 msgid "Add picture to album"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:258
+#: static/js/ajapaik-extra-js-translations.js:29
+msgid "Rotate"
+msgstr ""
+
+#: static/js/ajapaik-frontpage.js:262
 msgid "Earliest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:260
+#: static/js/ajapaik-frontpage.js:264
 msgid "Latest"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:265
+#: static/js/ajapaik-frontpage.js:269
 msgid "Least"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:267
+#: static/js/ajapaik-frontpage.js:271
 msgid "Most"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:272
+#: static/js/ajapaik-frontpage.js:276
 msgid "Pictures furthest from you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:274
+#: static/js/ajapaik-frontpage.js:278
 msgid "Pictures closest to you"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:279
+#: static/js/ajapaik-frontpage.js:283
 msgid "commented"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:282
+#: static/js/ajapaik-frontpage.js:286
 msgid "rephotographed"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:285
+#: static/js/ajapaik-frontpage.js:289
 msgid "added"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:288
+#: static/js/ajapaik-frontpage.js:292
 msgid "geotagged"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:291
+#: static/js/ajapaik-frontpage.js:295
 msgid "pictures"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:294
+#: static/js/ajapaik-frontpage.js:298
 msgid "Pictures from the map"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:325
+#: static/js/ajapaik-frontpage.js:329
 msgid "Picture set has no rephotos"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:332
+#: static/js/ajapaik-frontpage.js:336
 msgid "Picture set has no comments"
 msgstr ""
 
-#: static/js/ajapaik-frontpage.js:402
+#: static/js/ajapaik-frontpage.js:406
 msgid "All pictures"
 msgstr ""
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-17 17:15+0300\n"
-"PO-Revision-Date: 2015-06-17 14:12+0000\n"
+"POT-Creation-Date: 2015-06-26 17:36+0300\n"
+"PO-Revision-Date: 2015-06-26 14:35+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/ajapaik/language/"
 "sv/)\n"
@@ -24,7 +24,7 @@ msgid "Choose area"
 msgstr ""
 
 #: project/home/forms.py:13 project/home/forms.py:54 project/home/forms.py:64
-#: project/home/forms.py:72 project/home/forms.py:82 project/home/forms.py:148
+#: project/home/forms.py:72 project/home/forms.py:82 project/home/forms.py:149
 msgid "Choose album"
 msgstr ""
 
@@ -33,153 +33,153 @@ msgid "Choose photo"
 msgstr ""
 
 #: project/home/forms.py:98 project/home/forms.py:115
-#: project/home/forms.py:152
+#: project/home/forms.py:153
 msgid "Choose parent album"
 msgstr ""
 
-#: project/home/models.py:736
+#: project/home/models.py:741
 msgid "Map"
 msgstr ""
 
-#: project/home/models.py:737
+#: project/home/models.py:742
 msgid "EXIF"
 msgstr ""
 
-#: project/home/models.py:738
+#: project/home/models.py:743
 msgid "GPS"
 msgstr ""
 
-#: project/home/models.py:742
+#: project/home/models.py:747
 msgid "Game"
 msgstr ""
 
-#: project/home/models.py:743
+#: project/home/models.py:748
 msgid "Map view"
 msgstr ""
 
-#: project/home/models.py:744
+#: project/home/models.py:749
 msgid "Grid"
 msgstr ""
 
-#: project/home/models.py:748
+#: project/home/models.py:753
 msgid "Google map"
 msgstr ""
 
-#: project/home/models.py:749
+#: project/home/models.py:754
 msgid "Google satellite"
 msgstr ""
 
-#: project/home/models.py:750
+#: project/home/models.py:755
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:572
+#: project/home/views.py:586
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:623 templates/_header.html:7
+#: project/home/views.py:637 templates/_header.html:7
 #: templates/base_bootstrap.html:8 templates/base_bootstrap.html.py:10
 #: templates/base_bootstrap.html:189
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
-#: project/home/views.py:920
+#: project/home/views.py:942
 msgid "Album creation success"
 msgstr ""
 
-#: project/home/views.py:922
+#: project/home/views.py:944
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/home/views.py:924 project/home/views.py:926
+#: project/home/views.py:948
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/home/views.py:1295 project/home/views.py:1298
-#: project/home/views.py:1300
+#: project/home/views.py:1319 project/home/views.py:1322
+#: project/home/views.py:1324
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/home/views.py:1398
+#: project/home/views.py:1422
 msgid "Looks right!"
 msgstr ""
 
-#: project/home/views.py:1401
+#: project/home/views.py:1425
 msgid ""
 "The location seems right. Try submitting an azimuth to earn even more points!"
 msgstr ""
 
-#: project/home/views.py:1404
+#: project/home/views.py:1428
 msgid "The location seems right, but not the azimuth."
 msgstr ""
 
-#: project/home/views.py:1406
+#: project/home/views.py:1430
 msgid "The location seems right, your azimuth was first."
 msgstr ""
 
-#: project/home/views.py:1408
+#: project/home/views.py:1432
 msgid "Other users have different opinion."
 msgstr ""
 
-#: project/home/views.py:1410
+#: project/home/views.py:1434
 msgid "Your guess was first."
 msgstr ""
 
-#: project/home/views.py:1438 project/home/views.py:1454
-#: project/home/views.py:1486 templates/_header.html:93
+#: project/home/views.py:1462 project/home/views.py:1478
+#: project/home/views.py:1510 templates/_header.html:93
 msgid "Leaderboard"
 msgstr ""
 
-#: project/home/views.py:1579
+#: project/home/views.py:1603
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:1581
+#: project/home/views.py:1605
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1867
+#: project/home/views.py:1897
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1869
+#: project/home/views.py:1899
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1892
+#: project/home/views.py:1922
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1901
+#: project/home/views.py:1931
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1910
+#: project/home/views.py:1940
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1912
+#: project/home/views.py:1942
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/settings/default.py:68
+#: project/settings/default.py:66
 msgid "Estonian"
 msgstr ""
 
-#: project/settings/default.py:69
+#: project/settings/default.py:67
 msgid "English"
 msgstr ""
 
-#: project/settings/default.py:70
+#: project/settings/default.py:68
 msgid "Russian"
 msgstr ""
 
-#: project/settings/default.py:71
+#: project/settings/default.py:69
 msgid "Finnish"
 msgstr ""
 
@@ -300,7 +300,7 @@ msgid "Original photo"
 msgstr ""
 
 #: templates/_comments.html:11 templates/_photo_modal_comments.html:11
-#: templates/photoview.html:139
+#: templates/photoview.html:149
 msgid "Rephoto"
 msgstr ""
 
@@ -847,7 +847,7 @@ msgstr[1] ""
 msgid "Some nearby albums"
 msgstr ""
 
-#: templates/_info_modal_content.html:113 templates/_photo_modal.html:208
+#: templates/_info_modal_content.html:113 templates/_photo_modal.html:211
 #: templates/photoview.html:58
 msgid "Share"
 msgstr ""
@@ -864,53 +864,55 @@ msgstr ""
 msgid "Photo modal main photo"
 msgstr ""
 
-#: templates/_photo_modal.html:62
+#: templates/_photo_modal.html:65
 msgid "Photo modal rephoto"
 msgstr ""
 
-#: templates/_photo_modal.html:116 templates/photoview.html:121
+#: templates/_photo_modal.html:119 templates/photoview.html:131
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/_photo_modal.html:161 templates/photoview.html:166
+#: templates/_photo_modal.html:164 templates/photoview.html:176
 msgid "Unknown author"
 msgstr ""
 
-#: templates/_photo_modal.html:176 templates/frontpage.html:27
+#: templates/_photo_modal.html:179 templates/frontpage.html:27
 #: templates/game.html:40 templates/photoview.html:94
 msgid "Image has location and view direction info"
 msgstr ""
 
-#: templates/_photo_modal.html:180 templates/_photo_modal.html.py:192
+#: templates/_photo_modal.html:183 templates/_photo_modal.html.py:195
+#: templates/photoview.html:120
 msgid "user has submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:182 templates/_photo_modal.html.py:194
+#: templates/_photo_modal.html:185 templates/_photo_modal.html.py:197
+#: templates/photoview.html:122
 msgid "users have submitted a location for this picture"
 msgstr ""
 
-#: templates/_photo_modal.html:188 templates/frontpage.html:30
+#: templates/_photo_modal.html:191 templates/frontpage.html:30
 #: templates/game.html:41 templates/photoview.html:102
 msgid "Image has only location, no view direction"
 msgstr ""
 
-#: templates/_photo_modal.html:200 templates/frontpage.html:33
+#: templates/_photo_modal.html:203 templates/frontpage.html:33
 #: templates/game.html:42 templates/photoview.html:110
 msgid "Image has no location info"
 msgstr ""
 
-#: templates/_photo_modal.html:205 templates/game.html:44
+#: templates/_photo_modal.html:208 templates/game.html:44
 #: templates/photoview.html:87
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: templates/_photo_modal.html:206 templates/photoview.html:81
+#: templates/_photo_modal.html:209 templates/photoview.html:81
 msgid "Add rephoto"
 msgstr ""
 
-#: templates/_photo_modal.html:225
+#: templates/_photo_modal.html:228
 msgid "Discuss"
 msgstr ""
 
@@ -1128,21 +1130,25 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/base_bootstrap.html:218
+#: templates/base_bootstrap.html:227
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
 msgstr ""
 
-#: templates/base_bootstrap.html:229
+#: templates/base_bootstrap.html:238
 msgid "Geolocation error"
 msgstr ""
 
-#: templates/base_bootstrap.html:232
+#: templates/base_bootstrap.html:241
 msgid "Sorting"
 msgstr ""
 
-#: templates/base_bootstrap.html:268
+#: templates/base_bootstrap.html:256
+msgid "Estonian Photographic Heritage Society"
+msgstr ""
+
+#: templates/base_bootstrap.html:280
 msgid "See also – Sift.pics"
 msgstr ""
 
@@ -1309,10 +1315,10 @@ msgstr ""
 msgid "Photo uploading requires connecting your account with Facebook."
 msgstr ""
 
-#: templates/photoview.html:171
+#: templates/photoview.html:181
 msgid "Date taken"
 msgstr ""
 
-#: templates/photoview.html:183
+#: templates/photoview.html:193
 msgid "Rephoto thumbnail"
 msgstr ""
