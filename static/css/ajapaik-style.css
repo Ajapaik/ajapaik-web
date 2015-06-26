@@ -447,7 +447,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
 #ajapaik-header-title {
     font-size: 20px;
     float: right;
-    max-width: 200px;
     margin-left: 5px;
     white-space: nowrap;
     -ms-text-overflow: ellipsis;
@@ -1039,6 +1038,9 @@ a.fullscreen {
     #ajapaik-album-name-container {
         max-width: 200px;
     }
+    #ajapaik-header-title {
+        max-width: 200px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -1046,6 +1048,9 @@ a.fullscreen {
         width: 100%;
     }
     #ajapaik-album-name-container {
+        max-width: 300px;
+    }
+    #ajapaik-header-title {
         max-width: 300px;
     }
 }

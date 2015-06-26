@@ -247,23 +247,23 @@ class Album(Model):
         return u"%s" % self.name
 
     def save(self, *args, **kwargs):
-        # Update POSTGIS data on save
         if self.lat and self.lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
         if self.id and not self.cover_photo_id and self.photos.count() > 0:
             self.cover_photo_id = self.photos.order_by('?').first().id
         if self.id:
             album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
-            album_rephotos_qs = self.photos.filter(rephotos__isnull=False)
             for sa in self.subalbums.exclude(atype=Album.AUTO):
                 album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-                album_rephotos_qs = album_rephotos_qs | sa.photos.filter(rephoto_of__isnull=False)
+            album_photos_with_rephotos_qs = album_photos_qs.filter(rephotos__isnull=False).prefetch_related('rephotos').distinct('id')
             self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
             self.geotagged_photo_count_with_subalbums = album_photos_qs\
                 .filter(lat__isnull=False, lon__isnull=False).distinct('id').count()
-            self.rephoto_count_with_subalbums = album_rephotos_qs.distinct('id').count()
-            self.comments_count_with_subalbums = album_photos_qs.distinct('id').filter(fb_comments_count__gt=0).count()
-            self.comments_count_with_subalbums += album_rephotos_qs.distinct('id').filter(fb_comments_count__gt=0).count()
+            self.rephoto_count_with_subalbums = album_photos_qs.aggregate(rephoto_count=Count('rephotos'))['rephoto_count']
+            self.comments_count_with_subalbums = album_photos_qs.aggregate(comment_count=Sum('fb_comments_count'))['comment_count']
+            for each in album_photos_with_rephotos_qs:
+                for rp in each.rephotos.all():
+                    self.comments_count_with_subalbums += rp.fb_comments_count
             if not self.lat:
                 random_photo_with_area = album_photos_qs.filter(area__isnull=False).first()
                 if random_photo_with_area:

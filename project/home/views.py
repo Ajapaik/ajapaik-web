@@ -491,6 +491,8 @@ def photo_upload(request, photo_id):
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
                 photo.save()
+                for each in photo.albums.all():
+                    each.save()
                 re_photo.image.save(f.name, fileobj)
                 new_id = re_photo.pk
                 profile.set_calculated_fields()
@@ -1977,6 +1979,8 @@ def update_comment_count(request):
                 p.latest_comment = None
                 p.first_comment = None
             p.light_save()
+            for each in p.albums.all():
+                each.save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
