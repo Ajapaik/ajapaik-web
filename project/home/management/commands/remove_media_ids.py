@@ -10,5 +10,6 @@ class Command(BaseCommand):
         for p in photos:
             parts = p.muis_id.split('_')
             p.muis_id = parts[0]
-            p.muis_media_id = parts[1]
+            if len(parts) > 1:
+                p.muis_media_id = parts[1]
             p.light_save()
