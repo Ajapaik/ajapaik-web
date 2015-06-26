@@ -260,7 +260,11 @@ class Album(Model):
             self.geotagged_photo_count_with_subalbums = album_photos_qs\
                 .filter(lat__isnull=False, lon__isnull=False).distinct('id').count()
             self.rephoto_count_with_subalbums = album_photos_qs.aggregate(rephoto_count=Count('rephotos'))['rephoto_count']
+            if not self.rephoto_count_with_subalbums:
+                self.rephoto_count_with_subalbums = 0
             self.comments_count_with_subalbums = album_photos_qs.aggregate(comment_count=Sum('fb_comments_count'))['comment_count']
+            if not self.comments_count_with_subalbums:
+                self.comments_count_with_subalbums = 0
             for each in album_photos_with_rephotos_qs:
                 for rp in each.rephotos.all():
                     self.comments_count_with_subalbums += rp.fb_comments_count
