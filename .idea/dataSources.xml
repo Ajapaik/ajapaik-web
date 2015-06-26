@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="3215748564">
+  <component name="DataSourceManagerImpl" format="xml" hash="167118470">
     <data-source source="LOCAL" name="Django default" uuid="b9ef137d-6798-461b-ad55-a609faacf490">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
@@ -20,6 +20,13 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/valimimoodul</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="PostgreSQL - rephoto_backup@localhost" uuid="b61b8406-909d-460e-ad0a-790c24cf8972">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/rephoto_backup</jdbc-url>
       <libraries />
     </data-source>
   </component>
