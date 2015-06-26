@@ -2167,11 +2167,15 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #ajapaik-curator-gallery-switch {
     border: 1px solid;
     padding: 2px;
+    background-color: #fff;
+    cursor: pointer;
 }
 
 #ajapaik-curator-list-switch {
     border: 1px solid;
     padding: 2px;
+    background-color: #fff;
+    cursor: pointer;
 }
 
 .ajapaik-curator-selection-image {

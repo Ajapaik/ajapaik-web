@@ -321,11 +321,20 @@ def _get_leaderboard(profile):
     # Add ranks to index 0
     ret[0].insert(0, 1)
     if len(ret) > 1:
-        ret[1].insert(0, profile_rank - 1)
+        if first_place:
+            ret[1].insert(0, profile_rank - 1)
+        else:
+            ret[1].insert(0, 2)
     if len(ret) > 2:
-        ret[2].insert(0, profile_rank)
+        if first_place:
+            ret[2].insert(0, profile_rank)
+        else:
+            ret[2].insert(0, 3)
     if len(ret) > 3:
-        ret[3].insert(0, profile_rank + 1)
+        if first_place:
+            ret[3].insert(0, profile_rank + 1)
+        else:
+            ret[3].insert(0, 4)
     # Add self detection
     for each in ret:
         if each[6] == profile.id:
@@ -1852,8 +1861,8 @@ def curator_photo_upload_handler(request):
                                 author=upload_form.cleaned_data["creators"].encode('utf-8'),
                                 description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
                                 source=source,
-                                types=upload_form.cleaned_data["types"].encode('utf-8'),
-                                date_text=upload_form.cleaned_data["date"].encode('utf-8'),
+                                types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data["types"] else None,
+                                date_text=upload_form.cleaned_data["date"].encode('utf-8') if upload_form.cleaned_data["date"] else None,
                                 licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
                                 muis_id=upload_form.cleaned_data["id"],
                                 source_key=upload_form.cleaned_data["identifyingNumber"],

@@ -229,6 +229,7 @@
         $('.ajapaik-navbar').autoHidingNavbar();
         window.uploadCompleted = function () {
             $('#ajapaik-rephoto-upload-modal').modal('toggle');
+            window.location.reload();
         };
         if (!window.docCookies.getItem('ajapaik_closed_general_info')) {
             $('#ajapaik-header-about-button').click();
