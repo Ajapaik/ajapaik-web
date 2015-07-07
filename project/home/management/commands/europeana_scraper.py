@@ -13,51 +13,68 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         urls = [
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_299600.html?start=13&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_690026.html?start=115&query=where%3Ag%C3%B6teborg&startPage=97&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_300042.html?start=15&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_307247.html?start=16&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_307478.html?start=17&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_319506.html?start=18&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_690014.html?start=23&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_307905.html?start=26&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_309814.html?start=27&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_310029.html?start=28&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_316942.html?start=29&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_318136.html?start=32&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_722928.html?start=39&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_722183.html?start=38&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_326322.html?start=37&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_398207.html?start=60&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_688940.html?start=66&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_690069.html?start=70&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_721782.html?start=71&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/91674/GSM_delobjekt_226922.html?start=86&query=where%3Ag%C3%B6teborg&startPage=1&qf=TYPE%3AIMAGE&qf=YEAR%3A1900&qt=false&rows=96&format=labels"
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7592.html?start=1&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_6426.html?start=2&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7589.html?start=3&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7601.html?start=4&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_9703.html?start=8&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_9702.html?start=7&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_6424.html?start=6&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_6795.html?start=5&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_9704.html?start=9&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7593.html?start=10&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7594.html?start=11&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7595.html?start=12&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7598.html?start=13&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7599.html?start=14&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_7600.html?start=15&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_3450.html?start=17&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_3451.html?start=18&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_3453.html?start=19&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_3449.html?start=20&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
+            "http://www.europeana.eu/portal/record/08535/local__default__F_3452.html?start=21&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
         ]
-        area = Area.objects.filter(name='Göteborg').first()
+        area = Area.objects.filter(name='Vienna').first()
         if not area:
-            new_area = Area(name='Göteborg')
+            new_area = Area(name='Vienna')
+            new_area.lat = '48.2000'
+            new_area.lon = '16.3667'
             new_area.save()
             area = new_area
-        new_album = Album.objects.get(name='Göteborg')
+        new_album = Album.objects.filter(name='Vienna').first()
+        if not new_album:
+            new_album = Album(
+                name='Vienna',
+                atype=Album.CURATED
+            )
+            new_album.save()
         new_album.save()
-        translation.activate('sv')
+        translation.activate('de')
         for url in urls:
             result = requests.get(url)
             tree = html.fromstring(result.text)
             image_url = tree.xpath('//td[@property="isShownBy http://www.europeana.eu/schemas/edm/isShownBy"]/text()')[0]
             source_url = tree.xpath('//td[@property="isShownAt http://www.europeana.eu/schemas/edm/isShownAt"]/text()')[0]
-            source = Source.objects.get(description='Göteborgs stadsmuseum')
-            description = tree.xpath('//span[@property="description http://purl.org/dc/elements/1.1/description"]/text()')[0]
+            author = tree.xpath('//span[@property="creator http://purl.org/dc/elements/1.1/creator"]/text()')[0]
+            source = Source.objects.filter(name="Architekturmuseum der Technischen Universität Berlin in der Universitätsbibliothek").first()
+            if not source:
+                source = Source(
+                    name="Architekturmuseum der Technischen Universität Berlin in der Universitätsbibliothek",
+                    description="Architekturmuseum der Technischen Universität Berlin in der Universitätsbibliothek"
+                )
+                source.save()
+            description = tree.xpath('//span[@property="subject http://purl.org/dc/elements/1.1/subject"]/text()')[0]
+            source_key = tree.xpath('//span[@property="identifier http://purl.org/dc/elements/1.1/identifier"]/text()')[0]
             if not description:
-                description = tree.xpath('//span[@property="spatial http://purl.org/dc/terms/spatial"]/text()')[0]
+                description = tree.xpath('//span[@property="title http://purl.org/dc/terms/title"]/text()')[0]
             new_photo = Photo(
                 description = description,
-                source_key = source_url.split('/')[-1],
+                source_key = source_key,
                 source=source,
                 source_url = source_url,
                 area=area,
-                licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
+                author=author,
+                licence=Licence.objects.get(name="Attribution-NonCommercial-ShareAlike 4.0 International"),
             )
             new_photo.save()
             opener = urllib2.build_opener()
@@ -67,4 +84,3 @@ class Command(BaseCommand):
             new_photo.width = new_photo.image.width
             new_photo.height = new_photo.image.height
             AlbumPhoto(album=new_album, photo=new_photo).save()
-

@@ -69,9 +69,9 @@ LANGUAGES = (
     ('fi', gettext('Finnish')),
 )
 
-MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl')
+MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl', 'de')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'nl', 'ru', 'en', 'et')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'nl', 'de', 'ru', 'en', 'et')
 
 SITE_ID = 2
 
