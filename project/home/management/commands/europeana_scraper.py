@@ -13,17 +13,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         urls = [
-            "http://www.europeana.eu/portal/record/08535/local__default__F_7592.html?start=1&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_6426.html?start=2&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_7589.html?start=3&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_7601.html?start=4&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_9703.html?start=8&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_9702.html?start=7&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_6424.html?start=6&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_6795.html?start=5&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_9704.html?start=9&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_7593.html?start=10&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
-            "http://www.europeana.eu/portal/record/08535/local__default__F_7594.html?start=11&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
             "http://www.europeana.eu/portal/record/08535/local__default__F_7595.html?start=12&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
             "http://www.europeana.eu/portal/record/08535/local__default__F_7598.html?start=13&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
             "http://www.europeana.eu/portal/record/08535/local__default__F_7599.html?start=14&query=*%3A*&startPage=1&qf=ansicht&qf=where%3Avienna&qf=REUSABILITY%3Arestricted&qf=photograph&qt=false&rows=96&format=labels",
