@@ -41,10 +41,10 @@ class Command(BaseCommand):
             new_area.lon = '16.3667'
             new_area.save()
             area = new_area
-        new_album = Album.objects.filter(name='Vienna').first()
+        new_album = Album.objects.filter(name='Vienna, Austria').first()
         if not new_album:
             new_album = Album(
-                name='Vienna',
+                name='Vienna, Austria',
                 atype=Album.CURATED
             )
             new_album.save()
