@@ -201,7 +201,7 @@ def _get_exif_data(img):
             for t in value:
                 sub_decoded = GPSTAGS.get(t, t)
                 exif_data[str(decoded) + "." + str(sub_decoded)] = value[t]
-        elif len(str(value)) < 50:
+        elif len(value.encode('utf-8')) < 50:
             exif_data[decoded] = value
         else:
             exif_data[decoded] = None
@@ -410,9 +410,12 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         album_photos_qs = album.photos.all()
         for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.all()
-        album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
-        album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
-                                      .values_list('rephoto_of_id', flat=True))
+        album_photo_ids = frozenset(album_photos_qs.prefetch_related('rephotos').values_list('id', flat=True))
+        album_photos_with_rephotos = album_photos_qs.filter(rephotos__isnull=False)
+        album_rephoto_ids = []
+        for each in album_photos_with_rephotos:
+            for rp in each.rephotos.all():
+                album_rephoto_ids.append(rp.id)
         photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids, points__gt=0) | Q(photo_id__in=album_rephoto_ids, points__gt=0))
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         # TODO: This should not be done in Python memory, but with a query
@@ -493,7 +496,7 @@ def photo_upload(request, photo_id):
                 photo.save()
                 for each in photo.albums.all():
                     each.save()
-                re_photo.image.save(f.name, fileobj)
+                re_photo.image.save('rephoto.jpg', fileobj)
                 new_id = re_photo.pk
                 profile.set_calculated_fields()
                 profile.save()
@@ -912,38 +915,35 @@ def upload_photo_selection(request):
     if form.is_valid() and (profile.fb_id or profile.google_plus_id):
         a = form.cleaned_data['album']
         photo_ids = json.loads(form.cleaned_data['selection'])
-        #photos = Photo.objects.filter(pk__in=photo_ids)
-        #photo_count = photos.count()
         new_name = form.cleaned_data['name']
         new_desc = form.cleaned_data['description']
-        #if photo_count == len(photo_ids):
         if a is not None and (a.open or (a.profile and a.profile == profile)):
             pass
         elif new_name:
             a = Album(
-                name = new_name,
-                description = new_desc,
-                atype = Album.CURATED,
-                profile = profile,
-                ordered = True,
-                subalbum_of = form.cleaned_data['parent_album'],
-                is_public = form.cleaned_data['public'],
-                open = form.cleaned_data['open']
+                name=new_name,
+                description=new_desc,
+                atype=Album.CURATED,
+                profile=profile,
+                lat=form.cleaned_data['areaLat'],
+                lon=form.cleaned_data['areaLng'],
+                ordered=True,
+                subalbum_of=form.cleaned_data['parent_album'],
+                is_public=form.cleaned_data['public'],
+                open=form.cleaned_data['open']
             )
             a.save()
         if a:
             for pid in photo_ids:
                 new_album_photo_link = AlbumPhoto(
-                    photo = Photo.objects.get(pk=pid),
-                    album = a
+                    photo=Photo.objects.get(pk=pid),
+                    album=a
                 )
                 new_album_photo_link.save()
             a.save()
             ret['message'] = _('Album creation success')
         else:
             ret['error'] = _('Problem with album selection')
-        #else:
-            #ret['error'] = _('Faulty data submitted')
     else:
         ret['error'] = _('Faulty data submitted')
 
@@ -1742,6 +1742,9 @@ def curator_update_my_album(request):
             album.description = album_edit_form.cleaned_data["description"]
             album.open = album_edit_form.cleaned_data["open"]
             album.is_public = album_edit_form.cleaned_data["is_public"]
+            if album_edit_form.cleaned_data['areaLat'] and album_edit_form.cleaned_data['areaLng']:
+                album.lat = album_edit_form.cleaned_data['areaLat']
+                album.lng = album_edit_form.cleaned_data['areaLng']
             parent_album = album_edit_form.cleaned_data["parent_album"]
             if parent_album:
                 try:

@@ -3,6 +3,8 @@
     /*jslint nomen: true*/
     /*jslint browser: true*/
     $(document).ready(function () {
+        var areaLat,
+            areaLng;
         $('#ajapaik-selection-middle-panel').find('.panel-body').sortable();
         window.updateLeaderboard();
         var openPhotoDrawer = function (content) {
@@ -60,6 +62,18 @@
                 window.open('/game/?photo=' + photoId + '&fromButton=1', '_blank');
             }
         };
+        var input = document.getElementById('ajapaik-curator-add-area-name');
+        if (input) {
+            var options = {};
+            var autocomplete = new window.google.maps.places.Autocomplete(input, options);
+            window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+                $('#ajapaik-curator-add-area-name-hidden').val(place.name);
+                areaLat = place.geometry.location.lat();
+                areaLng = place.geometry.location.lng();
+                window._gaq.push(['_trackEvent', 'Selection', 'Autocomplete place changed']);
+            });
+        }
         $(document).on('click', '#ajapaik-curator-confirm-album-selection-button', function () {
             var album = $('#ajapaik-curator-album-select').val(),
                 allElements = $('.ajapaik-photo-selection-thumbnail-link'),
@@ -88,6 +102,8 @@
                     open: $('#ajapaik-curator-add-album-public-mutable').is(':checked'),
                     public: $('#ajapaik-curator-add-album-public').is(':checked'),
                     parent_album: parentAlbum,
+                    areaLat: areaLat,
+                    areaLng: areaLng,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function (response) {
@@ -110,6 +126,11 @@
                         //    //$($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
                         //    //window.FB.XFBML.parse();
                         //});
+                        $('#ajapaik-curator-add-area-name').val(null);
+                        areaLat = null;
+                        areaLng = null;
+                        window.loadPossibleParentAlbums();
+                        window.loadSelectableAlbums();
                     }
                     window.loadSelectableAlbums();
                     window._gaq.push(['_trackEvent', 'Selection', 'Upload success']);

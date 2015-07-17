@@ -130,13 +130,14 @@
             syncFilteringHighlights();
             updateFrontpagePhotosAsync();
         };
-        if (window.isMobile && !window.forceAlbum) {
-            if (window.order1 === 'time' && window.order2 === 'added') {
-                window.order1 = 'closest';
-                window.order2 = undefined;
-                window.getGeolocation(window.handleGeolocation);
-            }
-        }
+        // TODO: Decide what to do, this redirect breaks UX
+        //if (window.isMobile && !window.forceAlbum) {
+        //    if (window.order1 === 'time' && window.order2 === 'added') {
+        //        window.order1 = 'closest';
+        //        window.order2 = undefined;
+        //        window.getGeolocation(window.handleGeolocation);
+        //    }
+        //}
         if (window.getQueryParameterByName('order1') === 'closest') {
             if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
                 window.useButtonLink = false;
@@ -231,10 +232,10 @@
             $('#ajapaik-rephoto-upload-modal').modal('toggle');
             window.location.reload();
         };
-        if (!window.docCookies.getItem('ajapaik_closed_general_info')) {
-            $('#ajapaik-header-about-button').click();
-            window.docCookies.setItem('ajapaik_closed_general_info', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
-        }
+        //if (!window.docCookies.getItem('ajapaik_closed_general_info')) {
+        //    $('#ajapaik-header-about-button').click();
+        //    window.docCookies.setItem('ajapaik_closed_general_info', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
+        //}
         var syncPagingButtons = function () {
             if (window.currentPage > 1) {
                 pagingPreviousButton.show().removeClass('ajapaik-invisible');

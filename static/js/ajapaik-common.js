@@ -1550,6 +1550,19 @@ var map,
         window.closePhotoDrawer();
     });
 
+    $(document).on('change', '#ajapaik-curator-create-new-album-checkbox', function () {
+        var $this = $(this),
+            creationField = $('.ajapaik-curator-new-album-creation-field'),
+            existingFields = $('.ajapaik-curator-add-to-existing-album-field');
+        if ($this.is(':checked')) {
+            creationField.show();
+            existingFields.hide();
+        } else {
+            creationField.hide();
+            existingFields.show();
+        }
+    });
+
     // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
     BigScreen.onexit = function() {
         if (window.lastScrollPosition) {

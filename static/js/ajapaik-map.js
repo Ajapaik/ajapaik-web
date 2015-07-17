@@ -123,6 +123,40 @@
                 if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
                     $('#ajapaik-photo-modal-date-row').show();
                 }
+                var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
+                originalPhotoColumn.mouseenter(function () {
+                    if (!window.isMobile) {
+                        $(this).find('.ajapaik-thumbnail-selection-icon').show();
+                        $('.ajapaik-flip-photo-overlay-button').show();
+                        if (window.userClosedRephotoTools) {
+                            $('#ajapaik-show-rephoto-selection-overlay-button').show();
+                        }
+                    }
+                });
+                originalPhotoColumn.mouseleave(function () {
+                    if (!window.isMobile) {
+                        $(this).find('.ajapaik-thumbnail-selection-icon').hide();
+                        $('.ajapaik-flip-photo-overlay-button').hide();
+                        $('#ajapaik-show-rephoto-selection-overlay-button').hide();
+                    }
+                });
+                var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column');
+                rephotoColumn.mouseenter(function () {
+                    if (!window.isMobile) {
+                        if (!window.userClosedRephotoTools) {
+                            $('#ajapaik-close-rephoto-overlay-button').show();
+                            $('#ajapaik-invert-rephoto-overlay-button').show();
+                        }
+                    }
+                });
+                rephotoColumn.mouseleave(function () {
+                    if (!window.isMobile) {
+                        if (!window.userClosedRephotoTools) {
+                            $('#ajapaik-close-rephoto-overlay-button').hide();
+                            $('#ajapaik-invert-rephoto-overlay-button').hide();
+                        }
+                    }
+                });
             }
         });
     };

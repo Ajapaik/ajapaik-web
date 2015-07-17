@@ -96,6 +96,8 @@ class CuratorAlbumEditForm(forms.Form):
         atype=Album.CURATED, subalbum_of__isnull=True,
         is_public=True, open=True
     ), label=_('Choose parent album'), required=False)
+    areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 
 class AddAreaForm(forms.Form):
@@ -155,6 +157,8 @@ class SelectionUploadForm(forms.Form):
     description = forms.CharField(max_length=2047, required=False)
     open = forms.BooleanField(initial=False, required=False)
     public = forms.BooleanField(initial=False, required=False)
+    areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 
 class CatLoginForm(forms.Form):

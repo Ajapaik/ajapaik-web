@@ -1034,7 +1034,16 @@ a.fullscreen {
     margin-top: 0;
 }
 
-@media (max-width: 991px) {
+@media (min-width: 320px) {
+    #ajapaik-album-name-container {
+        max-width: 80px;
+    }
+    #ajapaik-header-title {
+        max-width: 80px;
+    }
+}
+
+@media (min-width: 480px) {
     #ajapaik-album-name-container {
         max-width: 200px;
     }
@@ -1043,15 +1052,43 @@ a.fullscreen {
     }
 }
 
+@media (min-width: 768px) {
+    #ajapaik-album-name-container {
+        max-width: 175px;
+    }
+    #ajapaik-header-title {
+        max-width: 175px;
+    }
+}
+
+@media (min-width: 992px) {
+    #ajapaik-album-name-container {
+        max-width: 225px;
+    }
+    #ajapaik-header-title {
+        max-width: 225px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #ajapaik-album-name-container {
+        max-width: 430px;
+    }
+    #ajapaik-header-title {
+        max-width: 430px;
+    }
+}
+
 @media (max-width: 767px) {
     .modal-dialog-center {
         width: 100%;
     }
-    #ajapaik-album-name-container {
-        max-width: 300px;
+    .ajapaik-mapview-game-button {
+        margin-bottom: 30px;
+        margin-right: 5px;
     }
-    #ajapaik-header-title {
-        max-width: 300px;
+    #ajapaik-album-filter-box {
+        max-width: 80px;
     }
 }
 
@@ -2063,6 +2100,10 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     margin-top: 20px;
 }
 
+.ajapaik-curator-new-album-creation-field {
+    display: none;
+}
+
 #ajapaik-curator-tabpanel {
     margin-top: 10px;
 }
@@ -2184,24 +2225,31 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 .ajapaik-curator-selection-image {
-    transform-origin: top left;
-    -webkit-transform-origin: top left;
-    -ms-transform-origin: top left;
+
 }
 
 .ajapaik-curator-selection-image.rotate90 {
+    transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -ms-transform-origin: top left;
     transform: rotate(90deg) translateY(-100%);
     -webkit-transform: rotate(90deg) translateY(-100%);
     -ms-transform: rotate(90deg) translateY(-100%);
 }
 
 .ajapaik-curator-selection-image.rotate180 {
+    transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -ms-transform-origin: top left;
     transform: rotate(180deg) translate(-100%,-100%);
     -webkit-transform: rotate(180deg) translate(-100%,-100%);
     -ms-transform: rotate(180deg) translateX(-100%,-100%);
 }
 
 .ajapaik-curator-selection-image.rotate270 {
+    transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -ms-transform-origin: top left;
     transform: rotate(270deg) translateX(-100%);
     -webkit-transform: rotate(270deg) translateX(-100%);
     -ms-transform: rotate(270deg) translateX(-100%);
@@ -2241,19 +2289,6 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 #ajapaik-mapview-my-location-button {
     margin-right: 40px;
     margin-top: 50px;
-}
-
-@media (max-width: 767px) {
-    .ajapaik-mapview-game-button {
-        margin-bottom: 30px;
-        margin-right: 5px;
-    }
-    #ajapaik-header-title {
-        max-width: 80px;
-    }
-    #ajapaik-album-filter-box {
-        max-width: 80px;
-    }
 }
 
 #id_album {

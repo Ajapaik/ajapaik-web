@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ajapaik-curator-add-to-existing-album-field">
                     <div class="col-xs-12">
                         <label for="ajapaik-curator-album-select"><b>{% trans "Choose an existing album" %}</b></label>
                         <select id="ajapaik-curator-album-select" class="form-control"></select>
@@ -27,10 +27,11 @@
                 <br>
                 <div class="row">
                     <div class="col-xs-12">
-                        <p><b>{% trans "Or create a new one" %}</b></p>
+                        <label for="ajapaik-curator-create-new-album-checkbox"><b>{% trans "Or create a new one" %}</b></label>
+                        <input type="checkbox" id="ajapaik-curator-create-new-album-checkbox">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ajapaik-curator-new-album-creation-field">
                     <div class="col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -40,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ajapaik-curator-new-album-creation-field">
                     <div class="col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -50,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ajapaik-curator-new-album-creation-field">
                     <div class="col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -62,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ajapaik-curator-new-album-creation-field">
                     <div class="col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -74,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ajapaik-curator-new-album-creation-field">
                     <div class="col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -84,25 +85,23 @@
                         </div>
                     </div>
                 </div>
-                {% if is_curator %}
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
+                <br>
+                <div class="row ajapaik-curator-new-album-creation-field">
+                    <div class="col-xs-12">
+                        <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
+                    </div>
+                </div>
+                <div class="row ajapaik-curator-new-album-creation-field">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <label for="ajapaik-curator-add-area-name">{% trans "Place" %}</label>
+                            </span>
+                            <input class="form-control" type="text" id="ajapaik-curator-add-area-name">
+                            <input type="hidden" id="ajapaik-curator-add-area-name-hidden">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <label for="ajapaik-curator-add-area-name">{% trans "Place" %}</label>
-                                </span>
-                                <input class="form-control" type="text" id="ajapaik-curator-add-area-name">
-                                <input type="hidden" id="ajapaik-curator-add-area-name-hidden">
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">

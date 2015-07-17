@@ -112,6 +112,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <label for="ajapaik-curator-change-area-name">{% trans "Place" %}</label>
+                                            </span>
+                                            <input class="form-control" type="text" id="ajapaik-curator-change-area-name">
+                                            <input type="hidden" id="ajapaik-curator-change-area-name-hidden">
+                                        </div>
+                                    </div>
+                                </div>
                                 <input type="hidden" id="ajapaik-curator-change-album-id">
                             </div>
                             <div class="modal-footer">
@@ -170,6 +187,18 @@
                     window._gaq.push(['_trackEvent', 'Curator', 'Autocomplete place changed']);
                 });
             }
+            var changeInput = document.getElementById('ajapaik-curator-change-area-name');
+            if (changeInput) {
+                var changeOptions = {};
+                var changeAutocomplete = new window.google.maps.places.Autocomplete(changeInput, changeOptions);
+                window.google.maps.event.addListener(changeAutocomplete, 'place_changed', function() {
+                    var place = changeAutocomplete.getPlace();
+                    $('#ajapaik-curator-change-area-name-hidden').val(place.name);
+                    changeAreaLat = place.geometry.location.lat();
+                    changeAreaLng = place.geometry.location.lng();
+                    window._gaq.push(['_trackEvent', 'Curator', 'Change autocomplete place changed']);
+                });
+            }
             loadMyAlbums();
             $('.ajapaik-navbar').autoHidingNavbar();
         });
@@ -182,7 +211,9 @@
             selectionDiv = $('#ajapaik-curator-selection'),
             resultDiv = $('#ajapaik-curator-search-results'),
             areaLat,
-            areaLng;
+            areaLng,
+            changeAreaLat,
+            changeAreaLng;
         window.selectedResults = {};
         window.singleSelection = false;
         $('#ajapaik-curator-full-search').on('keypress', function (e) {
@@ -501,11 +532,16 @@
                     open: $('#ajapaik-curator-change-album-open').prop('checked'),
                     is_public: $('#ajapaik-curator-change-album-public').prop('checked'),
                     parent_album: parentAlbumId,
+                    areaLat: changeAreaLat,
+                    areaLng: changeAreaLng,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function() {
                     $('#ajapaik-curator-edit-album-error').hide();
                     $('#ajapaik-curator-edit-my-album-modal').modal('hide');
+                    changeAreaLat = null;
+                    changeAreaLng = null;
+                    $('#ajapaik-curator-change-area-name').val(null);
                     loadMyAlbums();
                     window._gaq.push(['_trackEvent', 'Curator', 'Edit success']);
                 },
