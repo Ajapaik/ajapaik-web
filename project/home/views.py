@@ -201,7 +201,7 @@ def _get_exif_data(img):
             for t in value:
                 sub_decoded = GPSTAGS.get(t, t)
                 exif_data[str(decoded) + "." + str(sub_decoded)] = value[t]
-        elif len(value.encode('utf-8')) < 50:
+        elif len(str(value)) < 50:
             exif_data[decoded] = value
         else:
             exif_data[decoded] = None
