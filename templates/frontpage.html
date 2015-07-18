@@ -16,7 +16,7 @@
                        class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{{ p.0 }}"
                        data-id="{{ p.0 }}" onclick="return false;">
                         <img alt="{{ p.3 }}" src="#" data-src="{% url "project.home.views.photo_thumb" p.0 400 %}"
-                            class="ajapaik-frontpage-image lazyload img-responsive" data-id="{{ p.0 }}"
+                            class="ajapaik-frontpage-image lazyload img-responsive{% if p.12 %} ajapaik-photo-flipped{% endif %}" data-id="{{ p.0 }}"
                             width="{{ p.1 }}" height="{{ p.2 }}"/>
                         {% if request.user.profile.fb_id or request.user.profile.google_plus_id %}
                             <div class="ajapaik-thumbnail-selection-icon{% if p.11 == 1 %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ p.0 }}"></div>
@@ -99,7 +99,7 @@
             <a target="_blank" href="{%=photoURL%}{%=o[0]%}" class="ajapaik-frontpage-image-container"
             id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}" onclick="return false;">
                 <img alt="{%=o[3]%}" src="#" data-src="{%=photoThumbURL%}{%=o[0]%}/400"
-                    class="ajapaik-frontpage-image lazyload img-responsive" data-id="{%=o[0]%}"
+                    class="ajapaik-frontpage-image lazyload img-responsive{% if (o[12]) { %} ajapaik-photo-flipped{% } %}" data-id="{%=o[0]%}"
                     width="{%=o[1]%}" height="{%=o[2]%}"/>
                 {% if (userIsSocialConnected) { %}
                     <div class="ajapaik-thumbnail-selection-icon{% if (o[11] == 1) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o[0]%}"></div>

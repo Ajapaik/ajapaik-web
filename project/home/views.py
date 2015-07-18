@@ -793,13 +793,13 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # FIXME: Stupid
         if order1 == 'amount' and order2 == 'geotags':
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                                            'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count')[start:end]
+                                            'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[start:end]
         elif order1 == 'closest' and lat and lon:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                                            'fb_comments_count', 'geotag_count', 'distance', 'geotag_count')[start:end]
+                                            'fb_comments_count', 'geotag_count', 'distance', 'geotag_count', 'flip')[start:end]
         else:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count')[start:end]
+                'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[start:end]
         photos = map(list, photos)
         if default_ordering and album and album.ordered:
             album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id', flat=True)
