@@ -185,6 +185,10 @@
             photoModal.html(content);
             photoModal.modal().find('#ajapaik-modal-photo').on('load', function () {
                 fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
+                fullScreenImage.removeClass('ajapaik-photo-flipped');
+                if (window.photoModalCurrentPhotoFlipStatus) {
+                    fullScreenImage.addClass('ajapaik-photo-flipped');
+                }
                 rephotoFullScreenImage.prop('src', window.photoModalRephotoFullscreenImageUrl);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0],
                     window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');

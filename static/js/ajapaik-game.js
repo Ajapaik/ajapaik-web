@@ -230,6 +230,12 @@
                     $('#ajapaik-game-full-screen-description').html(currentPhoto.description);
                     fullScreenImage.unbind('load');
                 });
+                fullScreenImage.removeClass('ajapaik-photo-flipped');
+                modalPhoto.removeClass('ajapaik-photo-flipped');
+                if (currentPhoto.flip) {
+                    fullScreenImage.addClass('ajapaik-photo-flipped');
+                    modalPhoto.addClass('ajapaik-photo-flipped');
+                }
                 //$('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
                 $('#ajapaik-guess-panel-full-screen-link').prop('href', mediaUrl + currentPhoto.large.url);
                 $('#ajapaik-guess-panel-full-screen-link-xs').prop('href', mediaUrl + currentPhoto.large.url);

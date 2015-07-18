@@ -78,7 +78,7 @@
                      data-src="{%=o.url%}"
                      title="{%=o.description%}"
                      data-id="{%=o.id%}"
-                     class="lazyload img-responsive"
+                     class="lazyload img-responsive{% if (o.flipped) { %} ajapaik-photo-flipped{% } %}"
                      height="{%=o.height%}"
                      width="{%=o.width%}"
                      onclick="window.highlightSelected({%=o.id%}, false, event);"
