@@ -2255,6 +2255,24 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     -ms-transform: rotate(270deg) translateX(-100%);
 }
 
+.ajapaik-curator-selection-image.rotate90-flipped {
+    transform: rotate(90deg) scaleX(-1);
+    -webkit-transform: rotate(90deg) scaleX(-1);
+    -ms-transform: rotate(90deg) scaleX(-1);
+}
+
+.ajapaik-curator-selection-image.rotate180-flipped {
+    transform: rotate(180deg) scaleX(-1);
+    -webkit-transform: rotate(180deg) scaleX(-1);
+    -ms-transform: rotate(180deg) scaleX(-1);
+}
+
+.ajapaik-curator-selection-image.rotate270-flipped {
+    transform: rotate(270deg) scaleX(-1);
+    -webkit-transform: rotate(270deg) scaleX(-1);
+    -ms-transform: rotate(270deg) scaleX(-1);
+}
+
 .ajapaik-curator-selection-image-min-max {
     max-height: 100px;
     min-height: 100px;

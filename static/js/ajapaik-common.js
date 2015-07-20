@@ -1552,13 +1552,13 @@ var map,
 
     $(document).on('change', '#ajapaik-curator-create-new-album-checkbox', function () {
         var $this = $(this),
-            creationField = $('.ajapaik-curator-new-album-creation-field'),
+            creationFields = $('.ajapaik-curator-new-album-creation-field'),
             existingFields = $('.ajapaik-curator-add-to-existing-album-field');
         if ($this.is(':checked')) {
-            creationField.show();
+            creationFields.show();
             existingFields.hide();
         } else {
-            creationField.hide();
+            creationFields.hide().empty();
             existingFields.show();
         }
     });

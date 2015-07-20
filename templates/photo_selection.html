@@ -24,11 +24,11 @@
                 <div class="panel panel-default" id="ajapaik-selection-middle-panel">
                     <div class="panel-body">
                         {% for p in photos %}
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="min-height: 330px;">
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="ajapaik-frontpage-image-container-{{ p.0 }}" style="min-height: 330px;" data-id="{{ p.0 }}">
                                 <a href="{% url "project.home.views.photo" p.0 %}"
                                    class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.0 }}">
                                     <img src="{% url "project.home.views.fixed_height_photo_thumb" p.0 300 %}"
-                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="..." class="img-responsive ajapaik-photo-selection-thumbnail">
+                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="..." class="img-responsive ajapaik-photo-selection-thumbnail{% if p.3 %} ajapaik-photo-flipped{% endif %}">
                                     <div class="ajapaik-remove-from-selection-button" data-id="{{ p.0 }}"></div>
                                 </a>
                             </div>

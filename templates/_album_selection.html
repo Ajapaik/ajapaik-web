@@ -4,7 +4,7 @@
     {% for album in albums %}
         {% if album.cover_photo_id %}
             <a href="{% url 'project.home.views.frontpage' %}?album={{ album.id }}&forceAlbum=1" class="ajapaik-frontpage-album" data-id="{{ album.id }}">
-                <img alt="{{ album.name }}" class="img-responsive lazyload"
+                <img alt="{{ album.name }}" class="img-responsive lazyload{% if album.cover_photo_flipped %} ajapaik-photo-flipped{% endif %}"
                      data-id="{{ album.id }}" data-name="{{ album.name }}" height="{{ album.cover_photo_height }}"
                      data-photos="{{ album.photo_count_with_subalbums }}" width="{{ album.cover_photo_width }}"
                      src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 400 %}">

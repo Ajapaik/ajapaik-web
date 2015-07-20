@@ -895,7 +895,7 @@ def photo_selection(request):
 def list_photo_selection(request):
     photos = None
     if 'photo_selection' in request.session:
-        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height')
+        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height', 'flip')
         photos = map(list, photos)
         for p in photos:
             p[1], p[2] = _calculate_thumbnail_size_max_height(p[1], p[2], 300)
@@ -1744,7 +1744,7 @@ def curator_update_my_album(request):
             album.is_public = album_edit_form.cleaned_data["is_public"]
             if album_edit_form.cleaned_data['areaLat'] and album_edit_form.cleaned_data['areaLng']:
                 album.lat = album_edit_form.cleaned_data['areaLat']
-                album.lng = album_edit_form.cleaned_data['areaLng']
+                album.lon = album_edit_form.cleaned_data['areaLng']
             parent_album = album_edit_form.cleaned_data["parent_album"]
             if parent_album:
                 try:
@@ -1817,7 +1817,7 @@ def curator_photo_upload_handler(request):
                 atype=Album.CURATED,
                 profile=profile,
                 subalbum_of=curator_album_create_form.cleaned_data['parent_album'],
-                is_public=True,
+                is_public=curator_album_create_form.cleaned_data["is_public"],
                 open=curator_album_create_form.cleaned_data["open"]
             )
             album.save()
@@ -1851,7 +1851,8 @@ def curator_photo_upload_handler(request):
                 if upload_form.cleaned_data["id"] and upload_form.cleaned_data["id"] != "":
                     try:
                         existing_photo = Photo.objects.filter(
-                            source=source, muis_id=upload_form.cleaned_data["id"]).get()
+                            source=source, muis_id=upload_form.cleaned_data["id"].split('_')[0],
+                            muis_media_id=upload_form.cleaned_data["id"].split('_')[1]).get()
                     except ObjectDoesNotExist:
                         pass
                     if not existing_photo:
@@ -1938,6 +1939,8 @@ def curator_photo_upload_handler(request):
         ret["total_points_for_curating"] = total_points_for_curating
         if album:
             album.save()
+            if album.subalbum_of:
+                album.subalbum_of.save()
     else:
         if not selection or len(selection) == 0:
             error = _("Please add photos to your album")

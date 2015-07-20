@@ -168,7 +168,10 @@
         $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
             rephotoFullScreenImage.prop('src', window.photoModalRephotoFullscreenImageUrl);
-            $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
+            $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl).removeClass('ajapaik-photo-flipped');
+            if (window.photoModalCurrentPhotoFlipStatus) {
+                $('#ajapaik-guess-panel-photo').addClass('ajapaik-photo-flipped');
+            }
             //window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1]);
             if (window.photoModalRephotoFullscreenImageSize) {
                 window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
@@ -311,13 +314,19 @@
                 }
             });
             $('#ajapaik-guess-panel-stats').show();
-            $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl);
+            $('#ajapaik-guess-panel-photo').prop('src', window.photoModalCurrentImageUrl).removeClass('ajapaik-photo-flipped');
+            if (window.photoModalCurrentPhotoFlipStatus) {
+                $('#ajapaik-guess-panel-photo').addClass('ajapaik-photo-flipped');
+            }
             if (!mq.matches) {
                 if (window.currentPhotoDescription) {
                     $('#ajapaik-guess-panel-description-xs').html(window.currentPhotoDescription);
                     $('#ajapaik-guess-panel-info-panel-xs').show();
                 }
                 $('#ajapaik-guess-panel-photo-xs').prop('src', window.photoModalCurrentImageUrl);
+                if (window.photoModalCurrentPhotoFlipStatus) {
+                    $('#ajapaik-guess-panel-photo-xs').addClass('ajapaik-photo-flipped');
+                }
             }
             switchSearchBoxPosition();
             window.userFlippedPhoto = false;

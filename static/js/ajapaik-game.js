@@ -27,6 +27,9 @@
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
     window.straightToSpecify = false;
+    window.startGuessLocation = function () {
+
+    };
     photoLoadModalResizeFunction = function () {
         var trigger = 'manual';
         window.popover = $('[data-toggle="popover"]').popover({
@@ -527,9 +530,15 @@
                 $('#ajapaik-game-photo-modal').modal('hide');
                 window.setCursorToAuto();
                 //$('.ajapaik-marker-center-lock-button').show();
-                $('#ajapaik-guess-panel-photo').prop('src', mediaUrl + currentPhoto.big.url);
+                $('#ajapaik-guess-panel-photo').prop('src', mediaUrl + currentPhoto.big.url).removeClass('ajapaik-photo-flipped');
+                if (currentPhoto.flip) {
+                    $('#ajapaik-guess-panel-photo').addClass('ajapaik-photo-flipped');
+                }
                 if (!mq.matches) {
                     $('#ajapaik-guess-panel-photo-xs').prop('src', mediaUrl + currentPhoto.big.url);
+                    if (currentPhoto.flip) {
+                        $('#ajapaik-guess-panel-photo-xs').addClass('ajapaik-photo-flipped');
+                    }
                 }
                 if (!window.gameHintUsed) {
                     $('#ajapaik-guess-panel-description').hide();

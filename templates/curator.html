@@ -403,9 +403,23 @@
             toggleButtonActive($this);
             if (target.hasClass('ajapaik-photo-flipped')) {
                 target.removeClass('ajapaik-photo-flipped');
+                if (target.hasClass('rotate90-flipped')) {
+                    target.removeClass('rotate90-flipped').addClass('rotate90');
+                } else if (target.hasClass('rotate180-flipped')) {
+                    target.removeClass('rotate180-flipped').addClass('rotate180');
+                } else if (target.hasClass('rotate270-flipped')) {
+                    target.removeClass('rotate270-flipped').addClass('rotate270');
+                }
                 window.selectedResults[$this[0].dataset.id].flip = false;
             } else {
                 target.addClass('ajapaik-photo-flipped');
+                if (target.hasClass('rotate90')) {
+                    target.removeClass('rotate90').addClass('rotate90-flipped');
+                } else if (target.hasClass('rotate180')) {
+                    target.removeClass('rotate180').addClass('rotate180-flipped');
+                } else if (target.hasClass('rotate270')) {
+                    target.removeClass('rotate270').addClass('rotate270-flipped');
+                }
                 window.selectedResults[$this[0].dataset.id].flip = true;
             }
             window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
@@ -423,7 +437,11 @@
                 arrayItem = window.selectedResults[$this[0].dataset.id];
             if (!arrayItem.rotated) {
                 arrayItem.rotated = 90;
-                targetImage.addClass('rotate90');
+                if (arrayItem.flip) {
+                    targetImage.addClass('rotate90-flipped');
+                } else {
+                    targetImage.addClass('rotate90');
+                }
             } else {
                 arrayItem.rotated += 90;
                 var classToAdd = null;
@@ -431,8 +449,12 @@
                     arrayItem.rotated = 0;
                 } else {
                     classToAdd = 'rotate' + arrayItem.rotated;
+                    if (arrayItem.flip) {
+                        classToAdd += '-flipped';
+                    }
                 }
-                targetImage.removeClass('rotate90').removeClass('rotate180').removeClass('rotate270');
+                targetImage.removeClass('rotate90').removeClass('rotate180')
+                        .removeClass('rotate270').removeClass('rotate90-flipped').removeClass('rotate180-flipped').removeClass('rotate270-flipped');
                 if (classToAdd) {
                     targetImage.addClass(classToAdd);
                 }
@@ -574,7 +596,9 @@
                         album: album,
                         name: $('#ajapaik-curator-add-album-name').val(),
                         description: $('#ajapaik-curator-add-album-description').val(),
-                        open: $('#ajapaik-curator-add-album-public-mutable').val(),
+                        open: $('#ajapaik-curator-add-album-public-mutable').prop('checked'),
+                        is_public: $('#ajapaik-curator-add-album-public').prop('checked'),
+                        parent_album: $('#ajapaik-curator-change-album-parent').val(),
                         areaName: $('#ajapaik-curator-add-area-name-hidden').val(),
                         areaLat: areaLat,
                         areaLng: areaLng,

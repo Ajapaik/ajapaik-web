@@ -109,7 +109,7 @@ class AddAreaForm(forms.Form):
 class AddAlbumForm(forms.Form):
     name = forms.CharField(max_length=255, required=True)
     description = forms.CharField(widget=forms.Textarea, required=False)
-    open = forms.BooleanField(required=True, initial=False)
+    open = forms.BooleanField(required=False, initial=False)
     is_public = forms.BooleanField(initial=False, required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
         atype=Album.CURATED, subalbum_of__isnull=True,

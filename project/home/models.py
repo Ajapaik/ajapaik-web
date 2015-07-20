@@ -233,6 +233,7 @@ class Album(Model):
     lon = FloatField(null=True, blank=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     cover_photo = ForeignKey("Photo", null=True, blank=True)
+    cover_photo_flipped = BooleanField(default=False)
     photo_count_with_subalbums = IntegerField(default=0)
     rephoto_count_with_subalbums = IntegerField(default=0)
     geotagged_photo_count_with_subalbums = IntegerField(default=0)
@@ -250,7 +251,10 @@ class Album(Model):
         if self.lat and self.lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
         if self.id and not self.cover_photo_id and self.photos.count() > 0:
-            self.cover_photo_id = self.photos.order_by('?').first().id
+            random_photo = self.photos.order_by('?').first()
+            self.cover_photo_id = random_photo.id
+            if random_photo.flip:
+                self.cover_photo_flipped = random_photo.flip
         if self.id:
             album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
             for sa in self.subalbums.exclude(atype=Album.AUTO):
