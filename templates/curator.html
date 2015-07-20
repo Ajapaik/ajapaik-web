@@ -575,13 +575,17 @@
         });
         $(document).on('click', '#ajapaik-curator-confirm-album-selection-button', function () {
             var confirm = false,
-                album = $('#ajapaik-curator-album-select').val();
+                album = $('#ajapaik-curator-album-select').val(),
+                parentAlbum = $('#ajapaik-curator-change-album-parent').val();
             if (Object.keys(window.selectedResults).length < 5 && !album) {
                 confirm = window.confirm(window.gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.'));
             } else {
                 confirm = true;
             }
             var selection = JSON.stringify(window.selectedResults);
+            if (parentAlbum == -1) {
+                parentAlbum = null;
+            }
             if (window.singleSelection) {
                 selection = JSON.stringify(window.singleSelection);
                 window.singleSelection = false;
@@ -598,7 +602,7 @@
                         description: $('#ajapaik-curator-add-album-description').val(),
                         open: $('#ajapaik-curator-add-album-public-mutable').prop('checked'),
                         is_public: $('#ajapaik-curator-add-album-public').prop('checked'),
-                        parent_album: $('#ajapaik-curator-change-album-parent').val(),
+                        parent_album: parentAlbum,
                         areaName: $('#ajapaik-curator-add-area-name-hidden').val(),
                         areaLat: areaLat,
                         areaLng: areaLng,

@@ -1,0 +1,33 @@
+{% verbatim %}
+    <script id="ajapaik-photo-modal-rephoto-info-template" type="text/x-tmpl">
+        {% if (o.source && o.sourceKey && o.sourceURL) { %}
+            {% if (o.author) { %}
+                <div class="row-fluid"><b>{%=o.author%}</b>{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
+            {% } %}
+            <div class="row-fluid">
+                <a id="ajapaik-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
+                   target="_blank">
+                    {%=o.source%} {%=o.sourceKey%}
+                </a>
+            </div>
+        {% } else { %}
+            {% if (o.author) { %}
+                <div class="row-fluid"><b>{%=o.author%}</b>{% endverbatim %}{% include "_licence.html" %}{% verbatim %}</div>
+            {% } else { %}
+                {% if (o.FBUserName) { %}
+                    <div class="row-fluid">
+                        <a target="_blank" href="{%=o.FBUserLink%}">
+                            {%=o.FBUserName%}
+                        </a>
+                        {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                    </div>
+                {% } else { %}
+                    <div class="row-fluid"><b>{%=gettext('Unknown author')%}</b></div>
+                {% } %}
+            {% } %}
+        {% } %}
+        {% if (o.date) { %}
+            <div class="row-fluid">{%=o.date%}</div>
+        {% } %}
+    </script>
+{% endverbatim %}

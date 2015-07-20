@@ -1161,7 +1161,7 @@ def photoslug(request, photo_id, pseudo_slug):
     is_selection = False
     site = Site.objects.get_current()
     if request.is_ajax():
-        template = "_photo_modal.html"
+        template = "_photo_modal_new.html"
         if request.GET.get("isFrontpage"):
             is_frontpage = True
         if request.GET.get("isMapview"):
@@ -1942,6 +1942,7 @@ def curator_photo_upload_handler(request):
             if album.subalbum_of:
                 album.subalbum_of.save()
     else:
+        print curator_album_create_form.errors
         if not selection or len(selection) == 0:
             error = _("Please add photos to your album")
         else:

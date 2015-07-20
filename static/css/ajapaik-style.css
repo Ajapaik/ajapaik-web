@@ -329,6 +329,14 @@ body {
     display: none;
 }
 
+.ajapaik-minimap-confirm-geotag-button {
+    background: #fff url(../images/material-design-icons/ic_thumb_up_black_24px.svg) no-repeat center !important;
+    width: 36px;
+    height: 36px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 .ajapaik-marker-center-lock-button:hover {
     background-color: #fff !important;
 }
@@ -1480,32 +1488,19 @@ ul.errorlist {
     width: 48px;
     height: 48px;
     cursor: pointer;
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.3);
     background-repeat: no-repeat;
     background-position: center;
     background-image: url(../images/material-design-icons/ic_chevron_left_24px.svg);
     background-size: 48px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    z-index: 1;
 }
 
 .ajapaik-photo-modal-previous-button-disabled {
     background-image: url(../images/material-design-icons/ic_chevron_left_24px_gray.svg);
-}
-
-.ajapaik-photo-modal-vertical-align {
-    width: 100%;
-    height: 100%;
-
-    display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-
-    display: -ms-box;
-    -ms-box-pack: center;
-    -ms-box-align: center;
-
-    display: box;
-    box-pack: center;
-    box-align: center;
 }
 
 .ajapaik-photo-modal-next-button {
@@ -1514,15 +1509,28 @@ ul.errorlist {
     height: 48px;
     cursor: pointer;
     float: right;
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.3);
     background-repeat: no-repeat;
     background-position: center;
     background-image: url(../images/material-design-icons/ic_chevron_right_24px.svg);
     background-size: 48px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
 }
 
 .ajapaik-photo-modal-next-button-disabled {
     background-image: url(../images/material-design-icons/ic_chevron_right_24px_gray.svg);
+}
+
+#ajapaik-photo-modal-map-container {
+    display: inline-block;
+    position: relative;
+}
+
+#ajapaik-photo-modal-map-canvas {
+    width: 100%;
+    height: 100%;
 }
 
 #ajapaik-photo-modal-albums-icon {
@@ -1666,6 +1674,8 @@ ul.errorlist {
 #ajapaik-modal-photo-container {
     position: relative;
     display: inline-block;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 #ajapaik-modal-rephoto-container {
@@ -2030,6 +2040,8 @@ width: 345px;
 
 a[href^="http://maps.google.com/maps"]{display:none !important}
 
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
 #cookie-notice-container {
     z-index: 10000;
     position: absolute;
@@ -2200,6 +2212,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 .ajapaik-icon-rotate {
     background: url(../images/material-design-icons/ic_rotate_90_degrees_ccw_black_24px.svg) no-repeat center center;
+    transform: scaleX(-1);
 }
 
 .ajapaik-icon-delete {
@@ -2229,48 +2242,39 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 }
 
 .ajapaik-curator-selection-image.rotate90 {
-    transform-origin: top left;
-    -webkit-transform-origin: top left;
-    -ms-transform-origin: top left;
-    transform: rotate(90deg) translateY(-100%);
-    -webkit-transform: rotate(90deg) translateY(-100%);
-    -ms-transform: rotate(90deg) translateY(-100%);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
 }
 
 .ajapaik-curator-selection-image.rotate180 {
-    transform-origin: top left;
-    -webkit-transform-origin: top left;
-    -ms-transform-origin: top left;
-    transform: rotate(180deg) translate(-100%,-100%);
-    -webkit-transform: rotate(180deg) translate(-100%,-100%);
-    -ms-transform: rotate(180deg) translateX(-100%,-100%);
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
 }
 
 .ajapaik-curator-selection-image.rotate270 {
-    transform-origin: top left;
-    -webkit-transform-origin: top left;
-    -ms-transform-origin: top left;
-    transform: rotate(270deg) translateX(-100%);
-    -webkit-transform: rotate(270deg) translateX(-100%);
-    -ms-transform: rotate(270deg) translateX(-100%);
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
 }
 
 .ajapaik-curator-selection-image.rotate90-flipped {
-    transform: rotate(90deg) scaleX(-1);
-    -webkit-transform: rotate(90deg) scaleX(-1);
-    -ms-transform: rotate(90deg) scaleX(-1);
+    transform: scaleX(-1) rotate(90deg);
+    -webkit-transform: scaleX(-1) rotate(90deg);
+    -ms-transform: scaleX(-1) rotate(90deg);
 }
 
 .ajapaik-curator-selection-image.rotate180-flipped {
-    transform: rotate(180deg) scaleX(-1);
-    -webkit-transform: rotate(180deg) scaleX(-1);
-    -ms-transform: rotate(180deg) scaleX(-1);
+    transform: scaleX(-1) rotate(180deg);
+    -webkit-transform: scaleX(-1) rotate(180deg);
+    -ms-transform: scaleX(-1) rotate(180deg);
 }
 
 .ajapaik-curator-selection-image.rotate270-flipped {
-    transform: rotate(270deg) scaleX(-1);
-    -webkit-transform: rotate(270deg) scaleX(-1);
-    -ms-transform: rotate(270deg) scaleX(-1);
+    transform: scaleX(-1) rotate(270deg);
+    -webkit-transform: scaleX(-1) rotate(270deg);
+    -ms-transform: scaleX(-1) rotate(270deg);
 }
 
 .ajapaik-curator-selection-image-min-max {
