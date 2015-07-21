@@ -157,6 +157,7 @@
                         }
                     }
                 });
+                window.showPhotoMapIfApplicable();
             }
         });
     };
@@ -187,9 +188,13 @@
                     }
                 }, 3000);
             }
+            window.showPhotoMapIfApplicable();
             window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
         });
     };
+    $('#ajapaik-photo-modal').on('shown.bs.modal', function () {
+        window.showPhotoMapIfApplicable();
+    });
     updateBoundingEdge = function (edge) {
         var scale = Math.pow(2, window.map.getZoom()),
             projection = window.map.getProjection(),

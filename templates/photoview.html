@@ -208,7 +208,7 @@
         window.hostname = '{{ hostname }}';
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.isPhotoview = true;
-        window.gameRedirectURI = '/game?area=' + '{{ area.id }}';
+        window.gameRedirectURI = '/geotag?area=' + '{{ area.id }}';
         window.flipPhoto = function () {
             $.noop();
         };
@@ -285,7 +285,7 @@
                 {% endif %}
             });
             $(document).on('click', '#ajapaik-frontpage-show-pictures-link', function () {
-                window.location.href = '/photos/?order1=time&order2=added';
+                window.location.href = '/photos/?order1=time&amp;order2=added';
             });
             $(document).on('click', '#ajapaik-photoview-header-game-button', function () {
                 var albumId = $('#id_album').val(),

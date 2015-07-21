@@ -217,6 +217,10 @@ class SubmitGeotagForm(forms.ModelForm):
         exclude = ('user', 'trustworthiness')
 
 
+class ConfirmGeotagForm(forms.Form):
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+
+
 class FrontpagePagingForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
     page = forms.IntegerField(min_value=1, required=False)

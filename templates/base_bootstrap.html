@@ -245,6 +245,12 @@
     {% include "_header.html" %}
 {% endblock header %}
 {% block layout %}{% endblock layout %}
+{% get_current_language as LANGUAGE_CODE %}
+{% if LANGUAGE_CODE == 'et' and not request.mobile %}
+    <div id="ajapaik-feedback-div">
+        <a id="ajapaik-feedback-link" href="https://goo.gl/1ZHEUy" target="_blank">{% trans "feedback" %}</a>
+    </div>
+{% endif %}
 {% if is_frontpage or is_order %}
     <footer class="footer text-center">
         <div class="container-fluid">
@@ -337,6 +343,7 @@
     <script>
         var isMobile = '{{ request.mobile }}',
             saveLocationURL = '{% url 'project.home.views.geotag_add' %}',
+            confirmLocationURL = '{% url 'project.home.views.geotag_confirm' %}',
             updateCommentCountURL = '{% url 'project.home.views.update_comment_count' %}',
             leaderboardUpdateURL = '{% url 'project.home.views.leaderboard' %}',
             flipFeedbackURL = '{% url 'project.home.views.leaderboard' %}',

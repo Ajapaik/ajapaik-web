@@ -397,11 +397,14 @@ class Photo(Model):
             "source_key": photo.source_key,
             "source_url": photo.source_url,
             "source_name": photo.source.description,
+            "lat": photo.lat,
+            "lon": photo.lon,
+            "azimuth": photo.azimuth,
             "flip": photo.flip,
             "big": _make_thumbnail(photo, "700x400"),
             "large": _make_fullscreen(photo),
             "confidence": photo.confidence,
-            "total_geotags": photo.geotags.count(),
+            "total_geotags": photo.geotags.distinct('user').count(),
             "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
         }
         if photo.lat and photo.lon:
@@ -740,11 +743,12 @@ class Points(Model):
 
 
 class GeoTag(Model):
-    MAP, EXIF, GPS = range(3)
+    MAP, EXIF, GPS, CONFIRMATION = range(4)
     TYPE_CHOICES = (
         (MAP, _("Map")),
         (EXIF, _("EXIF")),
         (GPS, _("GPS")),
+        (CONFIRMATION, _("Confirmation")),
     )
     GAME, MAP_VIEW, GRID = range(3)
     ORIGIN_CHOICES = (

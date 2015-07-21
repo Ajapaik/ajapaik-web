@@ -38,7 +38,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
-    SelectionUploadForm
+    SelectionUploadForm, ConfirmGeotagForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 from project.settings import DEBUG, FACEBOOK_APP_SECRET
@@ -1440,6 +1440,38 @@ def geotag_add(request):
                  request.session["user_skip_array"] = []
             request.session["user_skip_array"].append(submit_geotag_form.data["photo_id"])
             request.session.modified = True
+
+    return HttpResponse(json.dumps(ret), content_type="application/json")
+
+
+@login_required()
+def geotag_confirm(request):
+    form = ConfirmGeotagForm(request.POST)
+    ret = {
+        'message': 'OK'
+    }
+    if form.is_valid() and request.user.profile:
+        p = form.cleaned_data['photo']
+        trust = _calc_trustworthiness(request.user.id)
+        if p.lat and p.lon:
+            confirmed_geotag = GeoTag(
+                lat=p.lat,
+                lon=p.lon,
+                origin=GeoTag.MAP_VIEW,
+                type=GeoTag.CONFIRMATION,
+                map_type=GeoTag.OPEN_STREETMAP,
+                hint_used=True,
+                user=request.user.profile,
+                photo=p,
+                is_correct=True,
+                score=int(trust * 50),
+                azimuth_score=0,
+                trustworthiness=trust
+            )
+            if p.azimuth:
+                confirmed_geotag.azimuth = p.azimuth
+                confirmed_geotag.azimuth_correct = True
+            confirmed_geotag.save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 

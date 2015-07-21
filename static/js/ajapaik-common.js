@@ -637,10 +637,10 @@ var map,
     //});
     $(document).on('click', '#ajapaik-mobile-game-label', function () {
         if (window.isPhotoview && window.albumId && window.photoId) {
-            window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
+            window.location.href = '/geotag?album=' + window.albumId + '&photo=' + window.photoId;
         } else {
             if (!window.isGame && window.albumId) {
-                window.location.href = '/game?album=' + window.albumId;
+                window.location.href = '/geotag?album=' + window.albumId;
             }
         }
     });
@@ -725,14 +725,18 @@ var map,
             }
         }
     });
-    $(document).on('click', '#ajapaik-header-profile-button', function () {
+    $(document).on('click', '#ajapaik-header-profile-button', function (e) {
+        e.preventDefault();
+        window.updateLeaderboard();
         if (scoreboardShown) {
             hideScoreboard();
         } else {
             showScoreboard();
         }
     });
-    $(document).on('click', '#ajapaik-header-profile-button-hidden-xs', function () {
+    $(document).on('click', '#ajapaik-header-profile-button-hidden-xs', function (e) {
+        e.preventDefault();
+        window.updateLeaderboard();
         $('#ajapaik-header-profile-button').click();
     });
     // Firefox and Opera cannot handle modal taking over focus
@@ -1054,6 +1058,148 @@ var map,
             }
         }
     });
+    $(document).on('click', '.ajapaik-minimap-confirm-geotag-button', function () {
+        var $this = $(this);
+        if (!$this.hasClass('ajapaik-minimap-confirm-geotag-button-done')) {
+            var photoId = $(this).data('id');
+            $.post(window.confirmLocationURL, {
+                photo: photoId,
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+            }, function () {
+                $this.addClass('ajapaik-minimap-confirm-geotag-button-done');
+            });
+            if (window.isGame) {
+                $('.ajapaik-game-next-photo-button')[0].click();
+            }
+        }
+    });
+    $(document).on('click', '.ajapaik-minimap-start-guess-CTA-button', function () {
+        if (window.isFrontpage) {
+            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal CTA specify location click']);
+        } else if (window.isMapview) {
+            window._gaq.push(['_trackEvent', 'Map', 'Photo modal CTA specify location click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Photo modal CTA specify location click']);
+        }
+        if (window.isGame) {
+            $('.ajapaik-game-specify-location-button')[0].click();
+        } else {
+            window.startGuessLocation($(this).data('id'));
+        }
+    });
+    window.showPhotoMapIfApplicable = function () {
+        var arrowIcon = {
+            path: 'M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z',
+            strokeColor: 'white',
+            strokeOpacity: 1,
+            strokeWeight: 1,
+            fillColor: 'black',
+            fillOpacity: 1,
+            rotation: 0,
+            scale: 1.0,
+            anchor: new window.google.maps.Point(12, 12)
+        },
+        locationIcon = {
+            path: 'M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+            strokeColor: 'white',
+            strokeOpacity: 1,
+            strokeWeight: 1,
+            fillColor: 'black',
+            fillOpacity: 1,
+            scale: 1.0,
+            anchor: new window.google.maps.Point(12, 0)
+        },
+        currentIcon;
+        var container = $('#ajapaik-modal-photo-container'),
+            mapContainer = $('#ajapaik-photo-modal-map-container');
+        if (!window.isMobile && mapContainer.length > 0 && (!photoModalRephotoArray
+            || photoModalRephotoArray.length === 0 || window.userClosedRephotoTools)) {
+            mapContainer.show().css('height', container.height());
+            if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
+                $('#ajapaik-minimap-disabled-overlay').show();
+            } else {
+                $('#ajapaik-minimap-disabled-overlay').hide();
+            }
+            var center,
+                minimapLargeCTAButton;
+            if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
+                center = {
+                    lat: 59.4372,
+                    lng: 24.7453
+                };
+                minimapLargeCTAButton = document.createElement('button');
+                $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button');
+            } else {
+                center = {
+                    lat: window.photoModalPhotoLat,
+                    lng: window.photoModalPhotoLng
+                };
+                minimapLargeCTAButton = null;
+                $('.ajapaik-minimap-start-guess-CTA-button').remove();
+            }
+            window.miniMap = new window.google.maps.Map(document.getElementById('ajapaik-photo-modal-map-canvas'), {
+                center: center,
+                zoom: 17,
+                mapTypeControl: false,
+                mapTypeId: 'OSM'
+            });
+            var minimapConfirmGeotagButton = document.createElement('button');
+            $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
+                .addClass('ajapaik-minimap-confirm-geotag-button')
+                .prop('title', window.gettext('Confirm correct location'))
+                .data('id', window.photoModalCurrentlyOpenPhotoId);
+            window.miniMap.controls[window.google.maps.ControlPosition.BOTTOM_LEFT].push(minimapConfirmGeotagButton);
+            var minimapStartGuessButton = document.createElement('button');
+            $(minimapStartGuessButton).addClass('btn').addClass('btn-default')
+                .addClass('ajapaik-minimap-start-guess-button')
+                .prop('title', window.gettext('Submit your own location'));
+            window.miniMap.controls[window.google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
+            var minimapGeotaggingUserNumber = document.createElement('div');
+            $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number')
+                .prop('title', window.gettext('Geotagged by this many users')).text(window.photoModalGeotaggingUserCount);
+            var minimapGeotaggingUserIcon = document.createElement('div');
+            minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
+            if (window.photoModalGeotaggingUserCount < 2) {
+                $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-single-person');
+            } else {
+                $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-multiple-people');
+            }
+            window.miniMap.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(minimapGeotaggingUserNumber);
+            if (minimapLargeCTAButton) {
+                $('.ajapaik-minimap-start-guess-CTA-button').remove();
+                var mapCanvas = $('#ajapaik-photo-modal-map-canvas');
+                $(minimapLargeCTAButton).css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')
+                    .css('margin-top', ((mapCanvas.height() / 2) - 35) + 'px').attr('data-id', window.photoModalCurrentlyOpenPhotoId);
+                mapContainer.append(minimapLargeCTAButton);
+            }
+            window.miniMap.mapTypes.set('OSM', new window.google.maps.ImageMapType({
+                getTileUrl: function (coord, zoom) {
+                    return 'http://tile.openstreetmap.org/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
+                },
+                tileSize: new window.google.maps.Size(256, 256),
+                name: 'OpenStreetMap',
+                maxZoom: 18
+            }));
+            if (window.photoModalPhotoAzimuth) {
+                arrowIcon.rotation = window.photoModalPhotoAzimuth;
+                currentIcon = arrowIcon;
+            } else {
+                currentIcon = locationIcon;
+            }
+            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                window.miniMapMarker = new window.google.maps.Marker({
+                    position: center,
+                    map: window.miniMap,
+                    title: window.gettext('Current location'),
+                    icon: currentIcon
+                });
+            }
+            $('#ajapaik-modal-photo-container-container').removeClass('col-xs-12').addClass('col-xs-9');
+        }
+    };
+    $(document).on('click', '.ajapaik-minimap-start-guess-button', function () {
+        $('#ajapaik-photo-modal-specify-location').click();
+    });
     $(document).on('click', '.ajapaik-show-tutorial-button', function () {
         if (!gameHintUsed && !popoverShown && currentPhotoDescription && !window.isMobile) {
             $('[data-toggle="popover"]').popover('show');
@@ -1093,6 +1239,9 @@ var map,
         } else {
             commentsSection.addClass('hidden');
         }
+    });
+    $(document).on('click', '#ajapaik-feedback-link', function () {
+        window._gaq.push(['_trackEvent', 'General', 'Feedback link click']);
     });
     $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function () {
         var targetId = $(this).data('id'),
@@ -1528,6 +1677,8 @@ var map,
             window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
         } else if (window.isMapview) {
             window._gaq.push(['_trackEvent', 'Map', 'Photo modal specify location click']);
+        } else if (window.isGame) {
+            window._gaq.push(['_trackEvent', 'Game', 'Photo modal specify location click']);
         }
         window.startGuessLocation($(this).data('id'));
     });

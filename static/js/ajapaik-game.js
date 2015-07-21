@@ -39,6 +39,7 @@
             html: true,
             content: window.gettext('Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra.')
         });
+        window.showPhotoMapIfApplicable();
         window.docCookies.setItem('ajapaik_seen_hint_view_popover', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', 'ajapaik.ee', false);
     };
     clearBothersomeListeners = function () {
@@ -242,6 +243,11 @@
                 //$('#ajapaik-full-screen-link').prop('rel', currentPhoto.id).prop('href', mediaUrl + currentPhoto.large.url);
                 $('#ajapaik-guess-panel-full-screen-link').prop('href', mediaUrl + currentPhoto.large.url);
                 $('#ajapaik-guess-panel-full-screen-link-xs').prop('href', mediaUrl + currentPhoto.large.url);
+                window.photoModalGeotaggingUserCount = currentPhoto.total_geotags;
+                window.photoModalPhotoLat = currentPhoto.lat;
+                window.photoModalPhotoLng = currentPhoto.lon;
+                window.photoModalPhotoAzimuth = currentPhoto.azimuth;
+                window.photoModalCurrentlyOpenPhotoId = currentPhoto.id;
                 if (currentPhoto.total_geotags > 0) {
                     $('#ajapaik-game-number-of-geotags').html(currentPhoto.total_geotags);
                     $('#ajapaik-game-number-of-geotags').show();
@@ -475,9 +481,12 @@
         if (window.getQueryParameterByName('photo')) {
             window.straightToSpecify = true;
         }
+        $('#ajapaik-game-photo-modal').on('shown.bs.modal', function () {
+            window.showPhotoMapIfApplicable();
+        });
         window.handleAlbumChange = function () {
             if (window.albumId) {
-                window.location.href = '/game?album=' + window.albumId;
+                window.location.href = '/geotag?album=' + window.albumId;
             }
         };
         $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
@@ -655,10 +664,14 @@
         $('#ajapaik-game-modal-body').mouseenter(function () {
             if (!window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
+                $('.ajapaik-photo-modal-next-button').show();
+                $('.ajapaik-photo-modal-previous-button').show();
             }
         }).mouseleave(function () {
             if (!window.isMobile && !window.fullscreenEnabled) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
+                $('.ajapaik-photo-modal-next-button').hide();
+                $('.ajapaik-photo-modal-previous-button').hide();
             }
         });
     });

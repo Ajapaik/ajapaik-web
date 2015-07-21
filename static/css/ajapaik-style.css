@@ -331,10 +331,106 @@ body {
 
 .ajapaik-minimap-confirm-geotag-button {
     background: #fff url(../images/material-design-icons/ic_thumb_up_black_24px.svg) no-repeat center !important;
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 48px;
     margin-left: 10px;
     margin-bottom: 10px;
+    border-radius: 0;
+    border: none;
+}
+
+.ajapaik-minimap-confirm-geotag-button-done {
+    background: #fff url(../images/material-design-icons/ic_thumb_up_blue_24px.svg) no-repeat center !important;
+}
+
+.ajapaik-minimap-start-guess-button {
+    background: #fff url(../images/material-design-icons/ic_mode_edit_black_24px.svg) no-repeat center !important;
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 0;
+    border: none;
+}
+
+.ajapaik-minimap-geotagging-user-number {
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.ajapaik-minimap-geotagging-user-single-person {
+    background: transparent url(../images/material-design-icons/ic_person_black_24px.svg) no-repeat center !important;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 3px;
+}
+
+.ajapaik-minimap-geotagging-user-multiple-people {
+    background: transparent url(../images/material-design-icons/ic_people_black_24px.svg) no-repeat center !important;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 3px;
+}
+
+#ajapaik-minimap-disabled-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,255,255,.7);
+    z-index: 1000;
+    display: none;
+}
+
+.ajapaik-minimap-start-guess-CTA-button {
+    background: transparent url(../images/material-design-icons/ic_pin_drop_50px.svg) no-repeat center !important;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    z-index: 2000;
+}
+
+#ajapaik-feedback-div {
+    height: 104px;
+    width: 104px;
+    position: fixed;
+    top: 60%;
+    left: 0;
+    z-index: 999;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+#ajapaik-feedback-div a {
+    display: block;
+    background: #8E1313;
+    height: 40px;
+    width: 105px;
+    padding: 8px 16px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: solid 1px #333;
+    border-left: solid 1px #333;
+    border-right: solid 1px #fff;
+}
+
+#ajapaik-feedback-div a:hover {
+    background: #06c;
 }
 
 .ajapaik-marker-center-lock-button:hover {
@@ -1363,6 +1459,7 @@ ul.errorlist {
     width: 48px;
     height: 48px;
     position: absolute;
+    border-radius: 0;
     top: 0;
     right: 0;
 }
@@ -1526,6 +1623,8 @@ ul.errorlist {
 #ajapaik-photo-modal-map-container {
     display: inline-block;
     position: relative;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 #ajapaik-photo-modal-map-canvas {
@@ -1556,14 +1655,29 @@ ul.errorlist {
     float: right;
 }
 
+/*#ajapaik-photo-modal-specify-location {*/
+    /*background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;*/
+    /*height: 36px;*/
+    /*width: 36px;*/
+    /*background-size: 36px;*/
+    /*display: inline-block;*/
+    /*float: right;*/
+    /*cursor: pointer;*/
+/*}*/
+
 #ajapaik-photo-modal-specify-location {
-    background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;
-    height: 36px;
-    width: 36px;
-    background-size: 36px;
+    display: none;
+}
+
+#ajapaik-zone-ee-logo {
     display: inline-block;
-    float: right;
-    cursor: pointer;
+    width: 100px;
+    height: 20px;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 #ajapaik-photo-modal-share {
