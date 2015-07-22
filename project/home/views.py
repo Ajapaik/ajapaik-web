@@ -1798,10 +1798,8 @@ def curator_photo_upload_handler(request):
     area_name = request.POST.get("areaName")
     area_lat = request.POST.get("areaLat")
     area_lon = request.POST.get("areaLng")
-    area = None
-    try:
-        area = Area.objects.get(name=area_name)
-    except ObjectDoesNotExist:
+    area = Area.objects.filter(name=area_name).first()
+    if not area:
         if area_name and area_lat and area_lon:
             area = Area(
                 name=area_name,
