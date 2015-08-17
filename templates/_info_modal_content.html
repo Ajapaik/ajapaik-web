@@ -118,8 +118,10 @@
                             <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                 {% if link_to_map %}
                                     <input type="text" class="form-control" value="{{ share_map_link }}?album={{ album.id }}">
-                                {% else %}
+                                {% elif link_to_game %}
                                     <input type="text" class="form-control" value="{{ share_game_link }}?album={{ album.id }}">
+                                {% else %}
+                                    <input type="text" class="form-control" value="{{ share_gallery_link }}?album={{ album.id }}">
                                 {% endif %}
                             </div>
                         </li>

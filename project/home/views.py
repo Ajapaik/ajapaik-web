@@ -183,6 +183,7 @@ def get_album_info_modal_content(request, album_id=1):
             Point(album.lon, album.lat), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
     ret["share_game_link"] = request.build_absolute_uri(reverse("project.home.views.game"))
     ret["share_map_link"] = request.build_absolute_uri(reverse("project.home.views.mapview"))
+    ret["share_gallery_link"] = request.build_absolute_uri(reverse("project.home.views.frontpage"))
 
     return render_to_response("_info_modal_content.html", RequestContext(request, ret))
 
