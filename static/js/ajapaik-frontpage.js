@@ -531,6 +531,11 @@
             //    syncFilteringHighlights();
             //    updateFrontpagePhotosAsync();
             //}
+            if (window.order1 === 'closest') {
+                if (!window.userLat || !window.userLon) {
+                    window.getGeolocation(window.handleGeolocation, window.geolocationError);
+                }
+            }
             if (window.order1 === 'amount') {
                 if (!window.order2) {
                     window.order2 = 'comments';
