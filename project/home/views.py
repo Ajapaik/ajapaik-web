@@ -1488,7 +1488,7 @@ def geotag_confirm(request):
                 user=profile,
                 photo=p,
                 is_correct=True,
-                score=int(trust * 50),
+                score=max(1, int(trust * 50)),
                 azimuth_score=0,
                 trustworthiness=trust
             )
@@ -1813,6 +1813,8 @@ def curator_update_my_album(request):
                     album.subalbum_of = parent_album
                 except ObjectDoesNotExist:
                     return HttpResponse("Faulty data", status=500)
+            else:
+                album.subalbum_of = None
             album.save()
             return HttpResponse("OK", status=200)
         except ObjectDoesNotExist:
