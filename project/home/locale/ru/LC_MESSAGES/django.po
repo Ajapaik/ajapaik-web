@@ -1,24 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 18:31+0300\n"
-"PO-Revision-Date: 2015-07-21 15:27+0000\n"
+"POT-Creation-Date: 2015-08-17 17:46+0300\n"
+"PO-Revision-Date: 2015-08-17 14:48+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/ajapaik/language/"
-"ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: project/home/forms.py:8 project/home/forms.py:55 project/home/forms.py:73
 #: templates/photo_upload.html:58 templates/photo_upload.html.py:218
@@ -79,97 +76,86 @@ msgstr ""
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/home/views.py:589
+#: project/home/views.py:596
 msgid "Geotagging game"
 msgstr ""
 
-#: project/home/views.py:640 templates/_header.html:7
+#: project/home/views.py:647 templates/_header.html:7
 #: templates/base_bootstrap.html:8 templates/base_bootstrap.html.py:10
 #: templates/base_bootstrap.html:189
 msgid "Timepatch (Ajapaik)"
 msgstr "Аяпаик (Ajapaik)"
 
-#: project/home/views.py:944
+#: project/home/views.py:951
 msgid "Album creation success"
 msgstr ""
 
-#: project/home/views.py:946
+#: project/home/views.py:953
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/home/views.py:948
+#: project/home/views.py:955
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/home/views.py:1319 project/home/views.py:1322
-#: project/home/views.py:1324
+#: project/home/views.py:1335 project/home/views.py:1338
+#: project/home/views.py:1340
 msgid "Browse photos on map"
 msgstr "Смотри фото на карте"
 
-#: project/home/views.py:1422
-msgid "Looks right!"
-msgstr "Выглядит правильно!"
-
-#: project/home/views.py:1425
+#: project/home/views.py:1453
 msgid ""
-"The location seems right. Try submitting an azimuth to earn even more points!"
+"Your contribution didn't change the estimated location for the photo, not "
+"yet anyway."
 msgstr ""
 
-#: project/home/views.py:1428
-msgid "The location seems right, but not the azimuth."
-msgstr "Место выглядит правильно, но направление - нет."
+#: project/home/views.py:1455
+msgid "The photo has been mapped to a new location thanks to you."
+msgstr ""
 
-#: project/home/views.py:1430
-msgid "The location seems right, your azimuth was first."
-msgstr "Место выглядит правильно, ваше направление было первым."
-
-#: project/home/views.py:1432
-msgid "Other users have different opinion."
-msgstr "У остальных пользователей другое мнение."
-
-#: project/home/views.py:1434
+#: project/home/views.py:1457
 msgid "Your guess was first."
 msgstr "Ваша догадка была первой."
 
-#: project/home/views.py:1494 project/home/views.py:1510
-#: project/home/views.py:1542 templates/_header.html:93
+#: project/home/views.py:1523 project/home/views.py:1539
+#: project/home/views.py:1571 templates/_header.html:93
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
-#: project/home/views.py:1635
+#: project/home/views.py:1664
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/home/views.py:1637
+#: project/home/views.py:1666
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/home/views.py:1933
+#: project/home/views.py:1970
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/home/views.py:1935
+#: project/home/views.py:1972
 msgid "OK"
 msgstr ""
 
-#: project/home/views.py:1958
+#: project/home/views.py:1995
 msgid "Error uploading file"
 msgstr ""
 
-#: project/home/views.py:1967
+#: project/home/views.py:2004
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/home/views.py:1979
+#: project/home/views.py:2016
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/home/views.py:1981
+#: project/home/views.py:2018
 msgid "Not enough data submitted"
 msgstr ""
 
@@ -252,27 +238,27 @@ msgid "Submit"
 msgstr ""
 
 #: templates/_album_selection.html:13
-msgid "Show pictures on map"
-msgstr ""
-
-#: templates/_album_selection.html:15
-msgid "Geotag pictures in album"
-msgstr ""
-
-#: templates/_album_selection.html:19
 msgid "Pictures in album"
 msgstr ""
 
-#: templates/_album_selection.html:23
+#: templates/_album_selection.html:17
 msgid "Pictures geotagged"
 msgstr ""
 
-#: templates/_album_selection.html:28
+#: templates/_album_selection.html:22
 msgid "Rephotos in album"
 msgstr ""
 
-#: templates/_album_selection.html:33
+#: templates/_album_selection.html:27
 msgid "Comments in album"
+msgstr ""
+
+#: templates/_album_selection.html:33
+msgid "Show pictures on map"
+msgstr ""
+
+#: templates/_album_selection.html:35
+msgid "Geotag pictures in album"
 msgstr ""
 
 #: templates/_block_leaderboard.html:6 templates/_block_leaderboard.html:16
@@ -374,6 +360,36 @@ msgstr ""
 msgid "1 of"
 msgstr ""
 
+#: templates/_full_leaderboard_modal.html:18 templates/_header.html:104
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:13
+msgid "User"
+msgstr "Пользователь"
+
+#: templates/_full_leaderboard_modal.html:19 templates/_header.html:105
+#: templates/_photo_upload_modal.html:9 templates/photo_upload.html:14
+msgid "Log out"
+msgstr "Выйти"
+
+#: templates/_full_leaderboard_modal.html:25 templates/_header.html:111
+msgid "Facebook Connect to save your score and continue later."
+msgstr ""
+
+#: templates/_full_leaderboard_modal.html:26 templates/_header.html:112
+#: templates/_photo_upload_modal.html:36 templates/curator.html:148
+#: templates/photo_selection.html:54 templates/photo_upload.html:261
+msgid "Connect with Facebook"
+msgstr "Соединить с Facebook-ом."
+
+#: templates/_full_leaderboard_modal.html:29 templates/_header.html:115
+msgid "Log in via Google to save your score and continue later."
+msgstr ""
+
+#: templates/_full_leaderboard_modal.html:30 templates/_header.html:116
+#: templates/_photo_upload_modal.html:39 templates/curator.html:151
+#: templates/photo_selection.html:57
+msgid "Connect with Google"
+msgstr ""
+
 #: templates/_general_info_modal_content.html:9
 #: templates/base_bootstrap.html:41
 msgid "Ajapaik shows how places have changed over time"
@@ -401,8 +417,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Ajapaik has <b>%(total_photo_count)s</b> historic "
-"pictures, out of which\n"
+"                    Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
 "                "
 msgstr ""
 
@@ -410,8 +425,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    <b>%(total_photos_tagged)s</b> pictures have been put on "
-"the map by\n"
+"                    <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n"
 "                "
 msgstr ""
 
@@ -451,13 +465,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                        You have suggested location for <b>"
-"%(user_geotagged_photos)s</b> picture.\n"
+"                        You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                        You have suggested locations for <b>"
-"%(user_geotagged_photos)s</b> pictures.\n"
+"                        You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n"
 "                    "
 msgstr[0] ""
 msgstr[1] ""
@@ -566,7 +578,7 @@ msgid "Next photo"
 msgstr "Следующее фото"
 
 #: templates/_guess_panel.html:61 templates/_guess_panel_xs.html:16
-#: templates/_info_modal_content.html:141
+#: templates/_info_modal_content.html:143
 msgid "Back to map"
 msgstr ""
 
@@ -612,35 +624,6 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: templates/_header.html:104 templates/_photo_upload_modal.html:9
-#: templates/photo_upload.html:13
-msgid "User"
-msgstr "Пользователь"
-
-#: templates/_header.html:105 templates/_photo_upload_modal.html:9
-#: templates/photo_upload.html:14
-msgid "Log out"
-msgstr "Выйти"
-
-#: templates/_header.html:111
-msgid "Facebook Connect to save your score and continue later."
-msgstr ""
-
-#: templates/_header.html:112 templates/_photo_upload_modal.html:36
-#: templates/curator.html:148 templates/photo_selection.html:54
-#: templates/photo_upload.html:261
-msgid "Connect with Facebook"
-msgstr "Соединить с Facebook-ом."
-
-#: templates/_header.html:115
-msgid "Log in via Google to save your score and continue later."
-msgstr ""
-
-#: templates/_header.html:116 templates/_photo_upload_modal.html:39
-#: templates/curator.html:151 templates/photo_selection.html:57
-msgid "Connect with Google"
-msgstr ""
-
 #: templates/_header.html:124
 msgid "Toggle navigation"
 msgstr ""
@@ -649,12 +632,12 @@ msgstr ""
 msgid "Show in grid"
 msgstr ""
 
-#: templates/_header.html:150 templates/_info_modal_content.html:148
-#: templates/_info_modal_content.html:150
+#: templates/_header.html:150 templates/_info_modal_content.html:150
+#: templates/_info_modal_content.html:152
 msgid "Geotag pictures"
 msgstr ""
 
-#: templates/_header.html:159 templates/_info_modal_content.html:139
+#: templates/_header.html:159 templates/_info_modal_content.html:141
 msgid "Show on map"
 msgstr ""
 
@@ -948,11 +931,9 @@ msgstr ""
 #: templates/_photo_upload_modal.html:43
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to "
-"you under the"
-msgstr ""
-"Cделай как можно более похожую современную фотографию того же места и "
-"загрузи её."
+"picture was taken and upload it. Uploaded rephotograph will be attributed to"
+" you under the"
+msgstr "Cделай как можно более похожую современную фотографию того же места и загрузи её."
 
 #: templates/_photo_upload_modal.html:44
 msgid "licence"
@@ -990,8 +971,8 @@ msgstr ""
 msgid ""
 "If you know which way the photographer was facing when the photo was taken, "
 "you can earn extra points by submitting the line of sight along with the "
-"coordinates. While the line is dotted, it means you haven't yet locked it in "
-"and only the location will be submitted."
+"coordinates. While the line is dotted, it means you haven't yet locked it in"
+" and only the location will be submitted."
 msgstr ""
 
 #: templates/_tutorial.html:19
@@ -1004,8 +985,8 @@ msgstr ""
 msgid ""
 "By default, the location marker is locked to the center of the map. To "
 "change its location, the map itself must be dragged underneath. Sometimes "
-"this may not be desirable and this button unlocks the marker, enabling it to "
-"be dragged as usual."
+"this may not be desirable and this button unlocks the marker, enabling it to"
+" be dragged as usual."
 msgstr ""
 
 #: templates/_tutorial.html:27
@@ -1122,8 +1103,8 @@ msgstr ""
 #: templates/base_bootstrap.html:91
 #, python-format
 msgid ""
-"Album has %(album_photo_count)s historic pictures. Let's put pictures on the "
-"map!"
+"Album has %(album_photo_count)s historic pictures. Let's put pictures on the"
+" map!"
 msgstr ""
 
 #: templates/base_bootstrap.html:93
@@ -1147,8 +1128,8 @@ msgstr[3] ""
 
 #: templates/base_bootstrap.html:227
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree "
-"to that."
+"We use cookies for best performance of the site. By using the site you agree"
+" to that."
 msgstr ""
 
 #: templates/base_bootstrap.html:238
@@ -1281,8 +1262,8 @@ msgstr ""
 
 #: templates/photo_selection.html:53
 msgid ""
-"Creating or editing albums requires connecting your account with Facebook or "
-"Google."
+"Creating or editing albums requires connecting your account with Facebook or"
+" Google."
 msgstr ""
 
 #: templates/photo_upload.html:23 templates/photo_upload.html.py:222
@@ -1331,7 +1312,8 @@ msgstr ""
 
 #: templates/photo_upload.html:234
 msgid ""
-"CSV: institution;number;image;title;description;date;url;licence in any order"
+"CSV: institution;number;image;title;description;date;url;licence in any "
+"order"
 msgstr ""
 
 #: templates/photo_upload.html:239

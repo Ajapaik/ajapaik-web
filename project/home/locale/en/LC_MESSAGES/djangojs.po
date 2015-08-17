@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 18:31+0300\n"
+"POT-Creation-Date: 2015-08-17 17:46+0300\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Save location only"
 msgstr ""
 
-#: static/js/ajapaik-common.js:843 static/js/ajapaik-game.js:593
+#: static/js/ajapaik-common.js:843 static/js/ajapaik-game.js:596
 #: static/js/ajapaik-map.js:1013
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
@@ -74,23 +74,23 @@ msgstr ""
 msgid "Median guess"
 msgstr ""
 
-#: static/js/ajapaik-common.js:1149
+#: static/js/ajapaik-common.js:1156
 msgid "Confirm correct location"
 msgstr ""
 
-#: static/js/ajapaik-common.js:1155
+#: static/js/ajapaik-common.js:1165
 msgid "Submit your own location"
 msgstr ""
 
-#: static/js/ajapaik-common.js:1159
+#: static/js/ajapaik-common.js:1169
 msgid "Geotagged by this many users"
 msgstr ""
 
-#: static/js/ajapaik-common.js:1193
+#: static/js/ajapaik-common.js:1203
 msgid "Current location"
 msgstr ""
 
-#: static/js/ajapaik-common.js:1444 static/js/ajapaik-common.js.c:1489
+#: static/js/ajapaik-common.js:1454 static/js/ajapaik-common.js.c:1499
 #: static/js/ajapaik-extra-js-translations.js:21
 msgid "Not selected"
 msgstr ""
@@ -278,12 +278,12 @@ msgstr ""
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: static/js/ajapaik-game.js:344 static/js/ajapaik-game.js.c:346
+#: static/js/ajapaik-game.js:347 static/js/ajapaik-game.js.c:349
 #: static/js/ajapaik-map.js:437 static/js/ajapaik-map.js.c:438
 msgid "Points awarded"
 msgstr ""
 
-#: static/js/ajapaik-game.js:364
+#: static/js/ajapaik-game.js:367
 msgid "Your guess"
 msgstr ""
 
