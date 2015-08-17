@@ -1696,7 +1696,7 @@ var map,
             creationFields.show();
             existingFields.hide();
         } else {
-            creationFields.hide().empty();
+            creationFields.hide();
             existingFields.show();
         }
     });

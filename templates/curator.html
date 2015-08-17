@@ -623,7 +623,9 @@
                             $('#ajapaik-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
                             $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
                             $('#ajapaik-curator-add-album-name').val(null);
+                            $('#ajapaik-curator-add-album-description').val(null);
                             $('#ajapaik-curator-add-area-name-hidden').val(null);
+                            $('#ajapaik-curator-create-new-album-checkbox').val(false);
                             feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                                 $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
                                 window.FB.XFBML.parse();

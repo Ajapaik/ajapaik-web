@@ -1879,10 +1879,20 @@ def curator_photo_upload_handler(request):
                     source = Source.objects.get(name="AJP")
                 existing_photo = None
                 if upload_form.cleaned_data["id"] and upload_form.cleaned_data["id"] != "":
+                    incoming_muis_id = upload_form.cleaned_data["id"]
+                    if '_' in incoming_muis_id:
+                        muis_id = incoming_muis_id.split('_')[0]
+                        muis_media_id = incoming_muis_id.split('_')[1]
+                    else:
+                        muis_id = incoming_muis_id
+                        muis_media_id = None
                     try:
-                        existing_photo = Photo.objects.filter(
-                            source=source, muis_id=upload_form.cleaned_data["id"].split('_')[0],
-                            muis_media_id=upload_form.cleaned_data["id"].split('_')[1]).get()
+                        if muis_media_id:
+                            existing_photo = Photo.objects.filter(
+                                source=source, muis_id=muis_id, muis_media_id=muis_media_id).get()
+                        else:
+                            existing_photo = Photo.objects.filter(
+                                source=source, muis_id=muis_id).get()
                     except ObjectDoesNotExist:
                         pass
                     if not existing_photo:
