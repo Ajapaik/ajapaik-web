@@ -277,12 +277,12 @@
                 }
                 reinstateBothersomeListeners();
                 nextPhotoLoading = false;
+                if (currentPhoto.lat && currentPhoto.lon) {
+                    window.map.setCenter(new window.google.maps.LatLng(currentPhoto.lat, currentPhoto.lon));
+                }
                 var descStatus = window.descriptionViewHistory[currentPhoto.id];
                 if (descStatus || window.straightToSpecify) {
                     window.showDescriptions();
-                    if (currentPhoto.lat && currentPhoto.lon) {
-                        window.map.setCenter(new window.google.maps.LatLng(currentPhoto.lat, currentPhoto.lon));
-                    }
                     window.hideDescriptionButtons();
                     if (window.straightToSpecify) {
                         window.setTimeout(function () {

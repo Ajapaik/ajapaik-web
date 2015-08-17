@@ -544,6 +544,9 @@
                     window.order2 = 'geotags';
                 }
             }
+            if (window.order2 && window.order1 === 'closest') {
+                window.order1 = 'time';
+            }
             if (window.order1 === 'time' && !window.order2) {
                 window.order2 = 'added';
             }
