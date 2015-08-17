@@ -1076,36 +1076,36 @@ a.fullscreen {
     padding-right: 10px;
 }
 
-.score_container #facebook-connect {
+.score_container .facebook-connect {
     font-size: 12px;
     margin: 6px 15px;
 }
 
-.score_container #google-plus-connect {
+.score_container .google-plus-connect {
     font-size: 12px;
     margin: 20px 15px 6px;
 }
 
-.score_container #facebook-connected p {
+.score_container .facebook-connected p {
     font-size: 14px;
     margin: 6px 15px;
 }
 
-.score_container #facebook-connect p {
+.score_container .facebook-connect p {
     margin: 0 0 10px;
 }
 
-.score_container #google-plus-connect p {
+.score_container .google-plus-connect p {
     margin: 0 0 10px;
 }
 
-#facebook-connect a {
+.facebook-connect a {
     width: 169px;
     height: 21px;
     background: url(../images/connect-with-facebook.png) no-repeat;
 }
 
-#google-plus-connect a {
+.google-plus-connect a {
     width: 169px;
     height: 57px;
     background: url(../images/connect-with-google.png) no-repeat;

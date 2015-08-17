@@ -31,11 +31,11 @@
                         <br>
                     {% endwith %}
                 {% else %}
-                    <div id="facebook-connect" style="margin-bottom: 25px;">
+                    <div class="facebook-connect" style="margin-bottom: 25px;">
                         <p>{% trans "Rephoto uploading requires connecting your account with Facebook or Google." %}</p>
                         <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
                     </div>
-                    <div id="google-plus-connect">
+                    <div class="google-plus-connect">
                         <a href="/google_login" class="ir">{% trans "Connect with Google" %}</a>
                     </div>
                 {% endif %}

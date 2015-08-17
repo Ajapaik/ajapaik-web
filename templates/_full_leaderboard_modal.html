@@ -12,6 +12,24 @@
                     <div class="single">
                         <div class="score_container" style="padding-top: 0;">
                             <ul class="scoreboard"></ul>
+                            {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                                {% with profile=request.user.profile user=request.user %}
+                                    <div class="facebook-connected">
+                                        <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.
+                                            <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.
+                                        </p>
+                                    </div>
+                                {% endwith %}
+                            {% else %}
+                                <div class="facebook-connect">
+                                    <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
+                                    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                                </div>
+                                <div class="google-plus-connect">
+                                    <p>{% trans "Log in via Google to save your score and continue later." %}</p>
+                                    <a href="/google_login/" class="ir">{% trans "Connect with Google" %}</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
