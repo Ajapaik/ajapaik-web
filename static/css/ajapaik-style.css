@@ -403,7 +403,7 @@ body {
     height: 104px;
     width: 104px;
     position: fixed;
-    top: 60%;
+    bottom: 5%;
     left: 0;
     z-index: 999;
     transform: rotate(-90deg);
