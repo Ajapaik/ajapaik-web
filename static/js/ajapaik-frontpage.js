@@ -302,7 +302,7 @@
             } else if (window.order2 === 'rephotos') {
                 $('#ajapaik-rephotos-filter-icon').attr('class', 'ajapaik-filter-white');
                 orderingString += ' ' + window.gettext('rephotographed');
-            } else if (window.order2 === 'added') {
+            } else if (window.order2 === 'added' && window.order1 !== 'closest') {
                 $('#ajapaik-added-filter-icon').attr('class', 'ajapaik-filter-white');
                 orderingString += ' ' + window.gettext('added');
             } else if (window.order2 === 'geotags') {
@@ -452,12 +452,9 @@
             $('#ajapaik-album-filter-box').val(window.getQueryParameterByName('q')).trigger('change');
         }
         $('.ajapaik-frontpage-album').hover(function () {
-            //$(this).find('.ajapaik-caption-album-selection-bottom').removeClass('ajapaik-invisible');
-            $(this).find('.ajapaik-album-selection-game-button').removeClass('ajapaik-invisible');
-            $(this).find('.ajapaik-album-selection-map-button').removeClass('ajapaik-invisible');
+            $(this).find('.ajapaik-album-selection-caption-bottom').removeClass('hidden');
         }, function () {
-            $(this).find('.ajapaik-album-selection-game-button').addClass('ajapaik-invisible');
-            $(this).find('.ajapaik-album-selection-map-button').addClass('ajapaik-invisible');
+            $(this).find('.ajapaik-album-selection-caption-bottom').addClass('hidden');
         });
         $(document).on('click', '#ajapaik-paging-next-button', function (e) {
             e.preventDefault();
@@ -477,8 +474,7 @@
             var $this = $(this);
             if (window.isMobile && window.albumWithOneClickDone != $this.attr('data-id')) {
                 window.albumWithOneClickDone = $this.attr('data-id');
-                $this.find('.ajapaik-album-selection-game-button').removeClass('ajapaik-invisible');
-                $this.find('.ajapaik-album-selection-map-button').removeClass('ajapaik-invisible');
+                $this.find('.ajapaik-album-selection-caption-bottom').removeClass('hidden');
             } else {
                 if ($('#ajapaik-album-filter-box').val()) {
                     window._gaq.push(['_trackEvent', 'Gallery', 'Album click with search term']);
@@ -512,29 +508,43 @@
             if ($this.data('order2') === 'none') {
                 window.order2 = null;
             }
-            if (window.order1 === 'amount' && !window.order2) {
-                window.order2 = 'comments';
+            //if (window.order1 === 'amount' && !window.order2) {
+            //    window.order2 = 'comments';
+            //}
+            //if (window.order1 === 'time' && !window.order2) {
+            //    window.order2 = 'added';
+            //}
+            //if (window.order1 !== 'time' && window.order2 === 'added') {
+            //    window.order2 = 'comments';
+            //}
+            //if (window.order1 === 'closest') {
+            //    if (window.order2) {
+            //        //window.order1 = 'time';
+            //        syncStateToUrl();
+            //        syncFilteringHighlights();
+            //        updateFrontpagePhotosAsync();
+            //    } else {
+            //        window.getGeolocation(window.handleGeolocation, window.geolocationError);
+            //    }
+            //} else {
+            //    syncStateToUrl();
+            //    syncFilteringHighlights();
+            //    updateFrontpagePhotosAsync();
+            //}
+            if (window.order1 === 'amount') {
+                if (!window.order2) {
+                    window.order2 = 'comments';
+                }
+                if (window.order2 === 'added') {
+                    window.order2 = 'geotags';
+                }
             }
             if (window.order1 === 'time' && !window.order2) {
                 window.order2 = 'added';
             }
-            if (window.order1 !== 'time' && window.order2 === 'added') {
-                window.order2 = 'comments';
-            }
-            if (window.order1 === 'closest') {
-                if (window.order2) {
-                    window.order1 = 'time';
-                    syncStateToUrl();
-                    syncFilteringHighlights();
-                    updateFrontpagePhotosAsync();
-                } else {
-                    window.getGeolocation(window.handleGeolocation, window.geolocationError);
-                }
-            } else {
-                syncStateToUrl();
-                syncFilteringHighlights();
-                updateFrontpagePhotosAsync();
-            }
+            syncStateToUrl();
+            syncFilteringHighlights();
+            updateFrontpagePhotosAsync();
         });
         syncFilteringHighlights();
     });

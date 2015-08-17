@@ -28,10 +28,12 @@
                             <span>{{ album.comments_count_with_subalbums }}</span>
                         </div>
                     {% endif %}
-                    {% if album.geotagged_photo_count_with_subalbums > 0 %}
-                        <div class="ajapaik-album-selection-map-button ajapaik-invisible" role="button" title="{% trans "Show pictures on map" %}" data-href="{% url "project.home.views.mapview" %}?album={{ album.id }}"></div>
-                    {% endif %}
-                    <div class="ajapaik-album-selection-game-button ajapaik-invisible" role="button" title="{% trans "Geotag pictures in album" %}" data-href="{% url "project.home.views.game" %}?album={{ album.id }}"></div>
+                    <div class="ajapaik-album-selection-caption-bottom hidden">
+                        {% if album.geotagged_photo_count_with_subalbums > 0 %}
+                            <div class="ajapaik-album-selection-map-button" role="button" title="{% trans "Show pictures on map" %}" data-href="{% url "project.home.views.mapview" %}?album={{ album.id }}"></div>
+                        {% endif %}
+                        <div class="ajapaik-album-selection-game-button" role="button" title="{% trans "Geotag pictures in album" %}" data-href="{% url "project.home.views.game" %}?album={{ album.id }}"></div>
+                    </div>
                 </div>
             </a>
         {% endif %}

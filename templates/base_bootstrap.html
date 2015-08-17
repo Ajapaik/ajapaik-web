@@ -254,7 +254,7 @@
 {% if is_frontpage or is_order %}
     <footer class="footer text-center">
         <div class="container-fluid">
-            <div class="col-xs-3" id="ajapaik-footer-contact">
+            <div class="col-sm-3 hidden-xs" id="ajapaik-footer-contact">
                 <div class="row">
                     <a class="pull-left" href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
                 </div>
@@ -263,7 +263,7 @@
                 </div>
             </div>
             <nav>
-                <ul class="pager col-xs-6{% if not show_photos %} ajapaik-invisible{% endif %}" id="ajapaik-pager">
+                <ul class="pager col-xs-12 col-sm-6{% if not show_photos %} ajapaik-invisible{% endif %}" id="ajapaik-pager">
                     <li>
                         <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.home.views.frontpage' %}{% add_get page=page|add:-1 %}">
                             &lt;
@@ -281,7 +281,7 @@
                     </li>
                 </ul>
             </nav>
-            <div class="col-xs-3" id="ajapaik-footer-links">
+            <div class="col-sm-3 hidden-xs" id="ajapaik-footer-links">
                 <div class="row">
                     <a class="pull-right" id="ajapaik-sift-pics-link" target="_blank" href="http://sift.pics.by.ajapaik.ee/">{% trans "See also – Sift.pics" %}</a>
                 </div>

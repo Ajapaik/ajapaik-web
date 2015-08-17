@@ -1396,7 +1396,6 @@ def geotag_add(request):
         tagged_photo = submit_geotag_form.cleaned_data["photo"]
         initial_lat = tagged_photo.lat
         initial_lon = tagged_photo.lon
-        initial_azimuth = tagged_photo.azimuth
         tagged_photo.set_calculated_fields()
         tagged_photo.latest_geotag = datetime.datetime.now()
         tagged_photo.save()
@@ -1471,6 +1470,7 @@ def geotag_add(request):
 @login_required()
 def geotag_confirm(request):
     form = ConfirmGeotagForm(request.POST)
+    profile = request.user.profile
     ret = {
         'message': 'OK'
     }
@@ -1485,7 +1485,7 @@ def geotag_confirm(request):
                 type=GeoTag.CONFIRMATION,
                 map_type=GeoTag.OPEN_STREETMAP,
                 hint_used=True,
-                user=request.user.profile,
+                user=profile,
                 photo=p,
                 is_correct=True,
                 score=int(trust * 50),
@@ -1496,6 +1496,10 @@ def geotag_confirm(request):
                 confirmed_geotag.azimuth = p.azimuth
                 confirmed_geotag.azimuth_correct = True
             confirmed_geotag.save()
+            Points(user=profile, action=Points.GEOTAG, geotag=confirmed_geotag, points=confirmed_geotag.score,
+                   created=datetime.datetime.now()).save()
+            profile.set_calculated_fields()
+            profile.save()
             ret["new_geotag_count"] = GeoTag.objects.filter(photo=p).distinct('user').count()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")

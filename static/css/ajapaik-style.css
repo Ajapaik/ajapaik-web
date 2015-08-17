@@ -2570,14 +2570,16 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     margin-bottom: 10px;
 }
 
+.ajapaik-album-selection-caption-bottom {
+    width: 100%;
+}
+
 .ajapaik-album-selection-map-button {
     background-image: url(../images/material-design-icons/ic_map_24px.svg);
     width: 36px;
     height: 36px;
     background-size: 36px;
-    position: absolute;
-    top: 5px;
-    right: 41px;
+    float: right;
 }
 
 .ajapaik-album-selection-game-button {
@@ -2585,9 +2587,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     width: 36px;
     height: 36px;
     background-size: 36px;
-    position: absolute;
-    top: 5px;
-    right: 0;
+    float: right;
 }
 
 .ajapaik-caption-album-selection-album-title {
