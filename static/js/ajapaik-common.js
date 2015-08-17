@@ -1065,8 +1065,15 @@ var map,
             $.post(window.confirmLocationURL, {
                 photo: photoId,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-            }, function () {
+            }, function (response) {
                 $this.addClass('ajapaik-minimap-confirm-geotag-button-done');
+                var statDiv = $('.ajapaik-minimap-geotagging-user-number');
+                statDiv.empty().text(response.new_geotag_count);
+                if (response.new_geotag_count > 1) {
+                    statDiv.append('<div class="ajapaik-minimap-geotagging-user-multiple-people"></div>');
+                } else {
+                    statDiv.append('<div class="ajapaik-minimap-geotagging-user-single-person"></div>');
+                }
             });
             if (window.isGame) {
                 $('.ajapaik-game-next-photo-button')[0].click();
@@ -1148,6 +1155,9 @@ var map,
                 .addClass('ajapaik-minimap-confirm-geotag-button')
                 .prop('title', window.gettext('Confirm correct location'))
                 .data('id', window.photoModalCurrentlyOpenPhotoId);
+            if (window.photoModalUserHasConfirmedThisLocation) {
+                $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
+            }
             window.miniMap.controls[window.google.maps.ControlPosition.BOTTOM_LEFT].push(minimapConfirmGeotagButton);
             var minimapStartGuessButton = document.createElement('button');
             $(minimapStartGuessButton).addClass('btn').addClass('btn-default')

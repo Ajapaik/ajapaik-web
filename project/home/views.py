@@ -1199,8 +1199,16 @@ def photoslug(request, photo_id, pseudo_slug):
         if str(photo_obj.id) in request.session['photo_selection']:
             photo_obj.in_selection = True
 
+    user_confirmed_this_location = 'false'
+    last_user_geotag_for_this_photo = GeoTag.objects.filter(photo=photo_obj, user=request.user.profile)\
+        .order_by('-created').first()
+    if last_user_geotag_for_this_photo:
+        if last_user_geotag_for_this_photo.lat == photo_obj.lat and last_user_geotag_for_this_photo.lon == photo_obj.lon:
+            user_confirmed_this_location = 'true'
+
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
+        "user_confirmed_this_location": user_confirmed_this_location,
         "fb_url": request.build_absolute_uri(reverse("project.home.views.photo", args=(photo_obj.id,))),
         "licence": Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         "area": photo_obj.area,
@@ -1473,6 +1481,7 @@ def geotag_confirm(request):
                 confirmed_geotag.azimuth = p.azimuth
                 confirmed_geotag.azimuth_correct = True
             confirmed_geotag.save()
+            ret["new_geotag_count"] = GeoTag.objects.filter(photo=p).distinct('user').count()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
