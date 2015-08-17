@@ -1734,7 +1734,8 @@ var map,
                 url: window.infoModalURL + window.albumId,
                 data: {
                     linkToMap: window.linkToMap,
-                    linkToGame: window.linkToGame
+                    linkToGame: window.linkToGame,
+                    linkToGallery: window.linkToGallery
                 },
                 success: function (resp) {
                     targetDiv.html(resp);
@@ -1751,6 +1752,29 @@ var map,
         } else if (window.isMapview) {
             window._gaq.push(['_trackEvent', 'Mapview', 'Album info click']);
         }
+    });
+
+    $(document).on('click', '.ajapaik-caption-album-selection-album-more-button', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var targetDiv = $('#ajapaik-info-modal');
+        if ($(this).data('id') && window.infoModalURL) {
+            $.ajax({
+                url: window.infoModalURL + $(this).data('id'),
+                data: {
+                    linkToMap: true,
+                    linkToGame: true,
+                    linkToGallery: true
+                },
+                success: function (resp) {
+                    targetDiv.html(resp);
+                    targetDiv.modal().on('shown.bs.modal', function () {
+                        window.FB.XFBML.parse($('#ajapaik-info-modal-like').get(0));
+                    });
+                }
+            });
+        }
+        window._gaq.push(['_trackEvent', 'Gallery', 'Album caption info click']);
     });
 
     $(document).on('click', '.ajapaik-change-language-link', function (e) {

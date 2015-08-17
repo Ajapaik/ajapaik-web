@@ -91,8 +91,9 @@
         {% if album %}
             window.albumId = {{ album.0 }};
         {% endif %}
-        window.linkToGame = false;
-        window.linkToMap = false;
+        window.linkToGame = true;
+        window.linkToMap = true;
+        window.linkToGallery = true;
     </script>
     {% verbatim %}
         <script id="ajapaik-frontpage-photo-template" type="text/x-tmpl">

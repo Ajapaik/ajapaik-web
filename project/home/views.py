@@ -128,10 +128,16 @@ def get_album_info_modal_content(request, album_id=1):
         link_to_map = True
     else:
         link_to_map = False
+    link_to_gallery = request.GET.get('linkToGallery', None)
+    if link_to_gallery == "true":
+        link_to_gallery = True
+    else:
+        link_to_gallery = False
     ret = {
         "album": album,
         "link_to_map": link_to_map,
-        "link_to_game": link_to_game
+        "link_to_game": link_to_game,
+        "link_to_gallery": link_to_gallery
     }
 
     # TODO: Can these queries be optimized?
@@ -1200,11 +1206,12 @@ def photoslug(request, photo_id, pseudo_slug):
             photo_obj.in_selection = True
 
     user_confirmed_this_location = 'false'
-    last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.user.profile)\
-        .order_by('-created').first()
-    if last_user_confirm_geotag_for_this_photo:
-        if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
-            user_confirmed_this_location = 'true'
+    if hasattr(request.user, 'profile'):
+        last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.user.profile)\
+            .order_by('-created').first()
+        if last_user_confirm_geotag_for_this_photo:
+            if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
+                user_confirmed_this_location = 'true'
 
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
@@ -1387,6 +1394,9 @@ def geotag_add(request):
         new_geotag.trustworthiness = trust
         new_geotag.save()
         tagged_photo = submit_geotag_form.cleaned_data["photo"]
+        initial_lat = tagged_photo.lat
+        initial_lon = tagged_photo.lon
+        initial_azimuth = tagged_photo.azimuth
         tagged_photo.set_calculated_fields()
         tagged_photo.latest_geotag = datetime.datetime.now()
         tagged_photo.save()
@@ -1426,19 +1436,24 @@ def geotag_add(request):
         ret["confidence"] = processed_tagged_photo.confidence
         profile.set_calculated_fields()
         profile.save()
-        if processed_geotag.origin == GeoTag.GAME:
-            if processed_geotag.is_correct:
-                ret["feedback_message"] = _("Looks right!")
-                if not processed_geotag.azimuth:
-                    ret["feedback_message"] = \
-                        _("The location seems right. Try submitting an azimuth to earn even more points!")
-                else:
-                    if not processed_geotag.azimuth_correct:
-                        ret["feedback_message"] = _("The location seems right, but not the azimuth.")
-                    if ret["azimuth_tags"] == 1:
-                        ret["feedback_message"] = _("The location seems right, your azimuth was first.")
+        ret["feedback_message"] = ""
+        processed_photo = Photo.objects.filter(pk=tagged_photo.pk).first()
+        if processed_geotag.origin == GeoTag.GAME and processed_photo:
+            # if processed_geotag.is_correct:
+            #     ret["feedback_message"] = _("Looks right!")
+            #     if not processed_geotag.azimuth:
+            #         ret["feedback_message"] = _("The location seems right. Try submitting an azimuth to earn even more points!")
+            #     else:
+            #         if not processed_geotag.azimuth_correct:
+            #             ret["feedback_message"] = _("The location seems right, but not the azimuth.")
+            #         if ret["azimuth_tags"] == 1:
+            #             ret["feedback_message"] = _("The location seems right, your azimuth was first.")
+            # else:
+            #     ret["feedback_message"] = _("Other users have different opinion.")
+            if processed_photo.lat == initial_lat and processed_photo.lon == initial_lon:
+                ret["feedback_message"] = _("Your contribution didn't change the estimated location for the photo, not yet anyway.")
             else:
-                ret["feedback_message"] = _("Other users have different opinion.")
+                ret["feedback_message"] = _("The photo has been mapped to a new location thanks to you.")
             if len(geotags_for_this_photo) == 1:
                 ret["feedback_message"] = _("Your guess was first.")
     else:

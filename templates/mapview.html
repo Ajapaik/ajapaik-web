@@ -54,6 +54,7 @@
         var photoModalCurrentImageUrl;
         window.linkToMap = false;
         window.linkToGame = true;
+        window.linkToGallery = true;
         {% if selected_photo %}
             var preselectPhotoId = '{{ selected_photo.id }}';
             {% if selected_photo.lat and selected_photo.lon %}

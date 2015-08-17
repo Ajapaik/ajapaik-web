@@ -8,14 +8,8 @@
                      data-id="{{ album.id }}" data-name="{{ album.name }}" height="{{ album.cover_photo_height }}"
                      data-photos="{{ album.photo_count_with_subalbums }}" width="{{ album.cover_photo_width }}"
                      src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 400 %}">
-                <div class="ajapaik-caption-album-selection-upper ajapaik-invisible">
-                    {% if album.geotagged_photo_count_with_subalbums > 0 %}
-                        <div class="ajapaik-album-selection-map-button" role="button" title="{% trans "Show pictures on map" %}" data-href="{% url "project.home.views.mapview" %}?album={{ album.id }}"></div>
-                    {% endif %}
-                    <div class="ajapaik-album-selection-game-button" role="button" title="{% trans "Geotag pictures in album" %}" data-href="{% url "project.home.views.game" %}?album={{ album.id }}"></div>
-                </div>
                 <div class="caption ajapaik-caption-album-selection">
-                    <p class="ajapaik-caption-album-selection-album-title" title="{{ album.name }}">{{ album.name }}</p>
+                    <p class="ajapaik-caption-album-selection-album-title" title="{{ album.name }}">{{ album.name }} <span class="ajapaik-caption-album-selection-album-more-button" data-id="{{ album.id }}"></span></p>
                     <div class="ajapaik-album-selection-photo-count" title="{% trans "Pictures in album" %}">
                         <span>{{ album.photo_count_with_subalbums }}</span>
                     </div>
@@ -34,6 +28,10 @@
                             <span>{{ album.comments_count_with_subalbums }}</span>
                         </div>
                     {% endif %}
+                    {% if album.geotagged_photo_count_with_subalbums > 0 %}
+                        <div class="ajapaik-album-selection-map-button ajapaik-invisible" role="button" title="{% trans "Show pictures on map" %}" data-href="{% url "project.home.views.mapview" %}?album={{ album.id }}"></div>
+                    {% endif %}
+                    <div class="ajapaik-album-selection-game-button ajapaik-invisible" role="button" title="{% trans "Geotag pictures in album" %}" data-href="{% url "project.home.views.game" %}?album={{ album.id }}"></div>
                 </div>
             </a>
         {% endif %}

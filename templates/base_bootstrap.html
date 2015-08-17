@@ -203,7 +203,7 @@
     {% compress css %}
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.5.4.min.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.6.0.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.5.2/jspanel/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/ajapaik-style.css"/>
     {% endcompress %}
@@ -247,7 +247,7 @@
 {% block layout %}{% endblock layout %}
 {% get_current_language as LANGUAGE_CODE %}
 {% if LANGUAGE_CODE == 'et' and not request.mobile %}
-    <div id="ajapaik-feedback-div">
+    <div id="ajapaik-feedback-div" class="hidden-xs">
         <a id="ajapaik-feedback-link" href="https://goo.gl/1ZHEUy" target="_blank">{% trans "feedback" %}</a>
     </div>
 {% endif %}
@@ -378,7 +378,7 @@
         <script src="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
         <script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-cookie.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.6-beta.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.6.0.min.js"></script>
         <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.history.html5.min.js"></script>
         <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>

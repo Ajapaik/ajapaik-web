@@ -452,9 +452,12 @@
             $('#ajapaik-album-filter-box').val(window.getQueryParameterByName('q')).trigger('change');
         }
         $('.ajapaik-frontpage-album').hover(function () {
-            $(this).find('.ajapaik-caption-album-selection-upper').removeClass('ajapaik-invisible');
+            //$(this).find('.ajapaik-caption-album-selection-bottom').removeClass('ajapaik-invisible');
+            $(this).find('.ajapaik-album-selection-game-button').removeClass('ajapaik-invisible');
+            $(this).find('.ajapaik-album-selection-map-button').removeClass('ajapaik-invisible');
         }, function () {
-            $(this).find('.ajapaik-caption-album-selection-upper').addClass('ajapaik-invisible');
+            $(this).find('.ajapaik-album-selection-game-button').addClass('ajapaik-invisible');
+            $(this).find('.ajapaik-album-selection-map-button').addClass('ajapaik-invisible');
         });
         $(document).on('click', '#ajapaik-paging-next-button', function (e) {
             e.preventDefault();
@@ -474,7 +477,8 @@
             var $this = $(this);
             if (window.isMobile && window.albumWithOneClickDone != $this.attr('data-id')) {
                 window.albumWithOneClickDone = $this.attr('data-id');
-                $this.find('.ajapaik-caption-album-selection-upper').removeClass('ajapaik-invisible');
+                $this.find('.ajapaik-album-selection-game-button').removeClass('ajapaik-invisible');
+                $this.find('.ajapaik-album-selection-map-button').removeClass('ajapaik-invisible');
             } else {
                 if ($('#ajapaik-album-filter-box').val()) {
                     window._gaq.push(['_trackEvent', 'Gallery', 'Album click with search term']);
