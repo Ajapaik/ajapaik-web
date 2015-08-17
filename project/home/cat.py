@@ -21,7 +21,7 @@ from rest_framework.parsers import FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
-from sorl.thumbnail import get_thumbnail
+from sorl.thumbnail import get_thumbnail, delete
 from django.core.cache import cache
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
     CatPushRegisterForm
@@ -117,7 +117,12 @@ def cat_album_thumb(request, album_id, thumb_size=250):
     random_image = a.photos.order_by('?').first()
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(random_image.image, thumb_str, upscale=False)
-    content = im.read()
+    try:
+        content = im.read()
+    except IOError:
+        delete(im)
+        im = get_thumbnail(random_image.image, thumb_str, upscale=False)
+        content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
 
     return response
