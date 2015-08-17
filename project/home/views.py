@@ -1200,10 +1200,10 @@ def photoslug(request, photo_id, pseudo_slug):
             photo_obj.in_selection = True
 
     user_confirmed_this_location = 'false'
-    last_user_geotag_for_this_photo = GeoTag.objects.filter(photo=photo_obj, user=request.user.profile)\
+    last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.user.profile)\
         .order_by('-created').first()
-    if last_user_geotag_for_this_photo:
-        if last_user_geotag_for_this_photo.lat == photo_obj.lat and last_user_geotag_for_this_photo.lon == photo_obj.lon:
+    if last_user_confirm_geotag_for_this_photo:
+        if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
             user_confirmed_this_location = 'true'
 
     return render_to_response(template, RequestContext(request, {
