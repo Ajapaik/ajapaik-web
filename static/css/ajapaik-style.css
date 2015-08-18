@@ -1062,6 +1062,10 @@ a.fullscreen {
 
 .score_container ul.scoreboard li .name {
     float: left;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .score_container ul.scoreboard li .photo {

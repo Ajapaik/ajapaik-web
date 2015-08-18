@@ -308,40 +308,50 @@ def _get_leaderboard(profile):
         Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
         Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id', 'google_plus_picture')\
             .order_by('-score_recent_activity')
-    if profile_rank == 1:
-        first_place = None
-    else:
-        first_place = list((lb_queryset.first(),))
-    if profile_rank <= 3:
-        if not first_place:
-            nearby_ranks = list(lb_queryset[0:3])
-        else:
-            nearby_ranks = list(lb_queryset[1:3])
-    else:
-        nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
-    if first_place:
-        ret = first_place + nearby_ranks
-    else:
-        ret = nearby_ranks
-    ret = map(list, ret)
+    start = profile_rank - 2
+    if start < 0:
+        start = 0
+    nearby_ranks = list(lb_queryset[start:profile_rank+1])
+    # if profile_rank == 1:
+    #     first_place = None
+    # else:
+    #     first_place = list((lb_queryset.first(),))
+    # if profile_rank <= 3:
+    #     if not first_place:
+    #         nearby_ranks = list(lb_queryset[0:3])
+    #     else:
+    #         nearby_ranks = list(lb_queryset[1:3])
+    # else:
+    #     nearby_ranks = list(lb_queryset[(profile_rank - 2):(profile_rank + 1)])
+    # if first_place:
+    #     ret = first_place + nearby_ranks
+    # else:
+    #     ret = nearby_ranks
+    ret = map(list, nearby_ranks)
+    if len(ret) > 0:
+        ret[0].insert(0, start + 1)
+    if len(ret) > 1:
+        ret[1].insert(0, start + 2)
+    if len(ret) > 2:
+        ret[2].insert(0, start + 3)
     # FIXME: This is disgusting : )
     # Add ranks to index 0
-    ret[0].insert(0, 1)
-    if len(ret) > 1:
-        if first_place:
-            ret[1].insert(0, profile_rank - 1)
-        else:
-            ret[1].insert(0, 2)
-    if len(ret) > 2:
-        if first_place:
-            ret[2].insert(0, profile_rank)
-        else:
-            ret[2].insert(0, 3)
-    if len(ret) > 3:
-        if first_place:
-            ret[3].insert(0, profile_rank + 1)
-        else:
-            ret[3].insert(0, 4)
+    # ret[0].insert(0, 1)
+    # if len(ret) > 1:
+    #     if first_place:
+    #         ret[1].insert(0, profile_rank - 1)
+    #     else:
+    #         ret[1].insert(0, 2)
+    # if len(ret) > 2:
+    #     if first_place:
+    #         ret[2].insert(0, profile_rank)
+    #     else:
+    #         ret[2].insert(0, 3)
+    # if len(ret) > 3:
+    #     if first_place:
+    #         ret[3].insert(0, profile_rank + 1)
+    #     else:
+    #         ret[3].insert(0, 4)
     # Add self detection
     for each in ret:
         if each[6] == profile.id:
@@ -2015,7 +2025,6 @@ def curator_photo_upload_handler(request):
             if album.subalbum_of:
                 album.subalbum_of.save()
     else:
-        print curator_album_create_form.errors
         if not selection or len(selection) == 0:
             error = _("Please add photos to your album")
         else:

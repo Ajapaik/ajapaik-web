@@ -77,8 +77,7 @@ class GameNextPhotoForm(forms.Form):
 
 class CuratorAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED,
-        is_public=True
+        atype=Album.CURATED
     ), label=_('Choose album'))
 
     # Should do ownership checking here, but it seems to be left to hacks

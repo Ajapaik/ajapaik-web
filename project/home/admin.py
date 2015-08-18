@@ -82,6 +82,8 @@ class ProfileAdmin(ForeignKeyAutocompleteAdmin):
 class PointsAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
         'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
+        'photo': ('pk', 'description',),
+        'geotag': ('pk', 'photo__description')
     }
 
 
