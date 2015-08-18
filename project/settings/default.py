@@ -153,6 +153,7 @@ EXTERNAL_APPS = (
     'rest_framework',
     'compressor',
     'modeltranslation',
+    'haystack'
 )
 
 LOCAL_APPS = (
@@ -161,6 +162,13 @@ LOCAL_APPS = (
 )
 
 INSTALLED_APPS = ADMIN_TOOL_APPS + CORE_APPS + LOCAL_APPS + EXTERNAL_APPS
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
+    },
+}
 
 AUTHENTICATION_BACKENDS = (
     'project.home.user_middleware.AuthBackend',

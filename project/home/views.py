@@ -38,7 +38,7 @@ from project.home.models import Photo, Profile, Source, Device, DifficultyFeedba
 from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
-    SelectionUploadForm, ConfirmGeotagForm
+    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 from project.settings import DEBUG, FACEBOOK_APP_SECRET
@@ -732,6 +732,12 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             ret['is_photoset'] = False
         photos_with_comments = None
         photos_with_rephotos = None
+        q = filter_form.cleaned_data['q']
+        if q:
+            photo_search_form = HaystackPhotoSearchForm({'q': q})
+            search_query_set = photo_search_form.search()
+            results = [r.pk for r in search_query_set]
+            photos = photos.filter(pk__in=results)
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':

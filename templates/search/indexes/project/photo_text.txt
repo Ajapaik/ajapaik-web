@@ -1,0 +1,7 @@
+{{ object.description_et }}
+{{ object.description_sv }}
+{{ object.description_de }}
+{{ object.description_fi }}
+{{ object.description_ru }}
+{{ object.description_nl }}
+{{ object.description_en }}

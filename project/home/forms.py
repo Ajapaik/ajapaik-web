@@ -1,6 +1,7 @@
 from django import forms
 from .models import Area, Album, CatTag, CatAlbum, CatPhoto, Photo, GeoTag, CatPushDevice
 from django.utils.translation import ugettext_lazy as _
+from haystack.forms import SearchForm
 
 
 # TODO: Make forms for everything, there's too much Javascript POST variable checking
@@ -24,6 +25,7 @@ class GalleryFilteringForm(forms.Form):
     order3 = forms.ChoiceField(choices=[('reverse', 'reverse'),], initial=None, required=False)
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
+    q = forms.CharField(required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']
@@ -48,6 +50,16 @@ class GalleryFilteringForm(forms.Form):
         if order3 is None:
             return self.fields['order3'].initial
         return order3
+
+
+class HaystackPhotoSearchForm(SearchForm):
+    def search(self):
+        sqs = super(HaystackPhotoSearchForm, self).search().models(Photo)
+
+        if not self.is_valid():
+            return self.no_query_found()
+
+        return sqs
 
 
 class MapDataRequestForm(forms.Form):
