@@ -1713,6 +1713,21 @@ var map,
         }
     });
 
+    $(document).on('keyup', '#ajapaik-curator-album-filter', function () {
+        var filter = $(this).val();
+        if (filter === "") {
+            $('option').show();
+        } else {
+            $('#ajapaik-curator-album-select').find('option').each(function() {
+                if ($(this).text().indexOf(filter) > 0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+
     // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
     BigScreen.onexit = function() {
         if (window.lastScrollPosition) {
