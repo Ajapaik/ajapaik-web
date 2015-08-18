@@ -1078,6 +1078,13 @@ var map,
             if (window.isGame) {
                 $('.ajapaik-game-next-photo-button')[0].click();
             }
+            if (window.isFrontpage) {
+                window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal confirm location click']);
+            } else if (window.isMapview) {
+                window._gaq.push(['_trackEvent', 'Map', 'Photo modal confirm location click']);
+            } else if (window.isGame) {
+                window._gaq.push(['_trackEvent', 'Game', 'Photo modal confirm location click']);
+            }
         }
     });
     $(document).on('click', '.ajapaik-minimap-start-guess-CTA-button', function () {
