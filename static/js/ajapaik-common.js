@@ -1562,7 +1562,9 @@ var map,
     });
     $(document).on('click', '#ajapaik-info-window-leaderboard-link', function (e) {
         e.preventDefault();
+        window.albumId = $(this).data('id');
         $('#full_leaderboard').click();
+        window.albumId = null;
     });
 
     $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {

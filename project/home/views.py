@@ -905,8 +905,7 @@ def list_photo_selection(request):
         photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height', 'flip')
         photos = map(list, photos)
         for p in photos:
-            if p[1] and p[2]:
-                p[1], p[2] = _calculate_thumbnail_size_max_height(p[1], p[2], 300)
+            p[1], p[2] = _calculate_thumbnail_size_max_height(p[1], p[2], 300)
 
     return render_to_response('photo_selection.html', RequestContext(request, {
         'is_selection': True,
@@ -2297,6 +2296,8 @@ def csv_upload(request):
             author=meta_for_this_image.get("author")
         )
         p.image.name = upload_file_name
+        p.width = p.image.width
+        p.height = p.image.height
         p.save()
         ap = AlbumPhoto(album=album, photo=p).save()
     album.save()
