@@ -511,13 +511,19 @@ body {
     /*background-image: url(../images/material-design-icons/ic_pin_drop_24px_white.svg) !important;*/
 /*}*/
 
-/*#ajapaik-header-grid-button {*/
-    /*background-image: url(../images/material-design-icons/ic_photoview_24px.svg);*/
-/*}*/
+path:hover {
+    fill: white;
+}
+
+.ajapaik-fixed-gray:hover {
+    fill: #888 !important;
+}
 
 /*.ajapaik-header-grid-button-white {*/
     /*background-image: url(../images/material-design-icons/ic_photoview_24px_white.svg) !important;*/
 /*}*/
+
+
 
 .ajapaik-filtering-choice {
     background: none !important;
@@ -2582,12 +2588,20 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     float: right;
 }
 
+.ajapaik-album-selection-map-button:hover {
+    background-image: url(../images/material-design-icons/ic_map_24px_white.svg);
+}
+
 .ajapaik-album-selection-game-button {
     background-image: url(../images/material-design-icons/ic_pin_drop_24px.svg);
     width: 36px;
     height: 36px;
     background-size: 36px;
     float: right;
+}
+
+.ajapaik-album-selection-game-button:hover {
+    background-image: url(../images/material-design-icons/ic_pin_drop_24px_white.svg);
 }
 
 .ajapaik-caption-album-selection-album-title {
@@ -2606,6 +2620,10 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     left: 5px;
     top: 7px;
     display: inline-block;
+}
+
+.ajapaik-caption-album-selection-album-more-button:hover {
+    background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
 }
 
 .ajapaik-caption-album-selection p {

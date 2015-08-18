@@ -45,18 +45,20 @@
                 {% if photo.rephotos.all.0 %}
                     <div class="{% if photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}"
                          id="ajapaik-photo-modal-rephoto-column">
-                        <div id="ajapaik-modal-rephoto-container">
-                            <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="#">
-                                <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}"
-                                     class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"
-                                     alt="{% trans "Photo modal rephoto" %}"/>
-                                <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button"
-                                        id="ajapaik-close-rephoto-overlay-button"
-                                        {% if not request.mobile %}style="display: none;"{% endif %}></button>
-                                <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button"
-                                        id="ajapaik-invert-rephoto-overlay-button"
-                                        {% if not request.mobile %}style="display: none;"{% endif %}></button>
-                            </a>
+                        <div id="ajapaik-modal-rephoto-container-container" class="col-xs-12">
+                            <div id="ajapaik-modal-rephoto-container">
+                                <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="#">
+                                    <img src="{% url 'project.home.views.photo_url' photo.rephotos.all.0.id %}"
+                                         class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"
+                                         alt="{% trans "Photo modal rephoto" %}"/>
+                                    <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
+                                            id="ajapaik-close-rephoto-overlay-button"
+                                            {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                                    <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button ajapaik-zero-border-radius"
+                                            id="ajapaik-invert-rephoto-overlay-button"
+                                            {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     {% if photo.rephotos.all|length > 1 %}
