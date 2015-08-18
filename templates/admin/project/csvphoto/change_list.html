@@ -10,7 +10,7 @@
 
 {% block content %}
     {% block content_title %}{% endblock %}
-    <form enctype="multipart/form-data" method="post" action="/csv_upload/">
+    <form enctype="multipart/form-data" method="post" action="/csv-upload/">
         {% csrf_token %}
         <label for="ajapaik-csv-upload-album-id">{% trans "Album ID" %}</label>
         <input name="album_id" type="number" id="ajapaik-csv-upload-album-id"/>

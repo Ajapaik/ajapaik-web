@@ -6,14 +6,12 @@ from ujson import loads
 from math import cos, sin, atan2, radians, degrees, sqrt
 from datetime import datetime
 from pandas import DataFrame, Series
-
-from django.core.urlresolvers import reverse
 from django.db.models import Count, Sum
 from django.utils.deconstruct import deconstructible
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, SmallIntegerField, BooleanField,\
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField,\
-    PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, query, permalink, OneToOneField, \
+    PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, permalink, OneToOneField, \
     PositiveIntegerField, DateField
 from django.core.validators import MinValueValidator
 from django.core.validators import MaxValueValidator

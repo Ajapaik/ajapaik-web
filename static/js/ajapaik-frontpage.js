@@ -466,8 +466,11 @@
             }
         });
         window.addEventListener('popstate', function (e) {
-            if (e && e.originalEvent && !e.originalEvent.state.ajapaikTag) return;
-            window.location.reload();
+            if (!e.state) {
+                return false;
+            } else {
+                window.location.reload();
+            }
         });
         $(document).on('click', '.ajapaik-frontpage-album', function (e) {
             e.preventDefault();
