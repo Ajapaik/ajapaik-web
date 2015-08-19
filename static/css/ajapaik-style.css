@@ -335,7 +335,10 @@ body {
 }
 
 .ajapaik-minimap-confirm-geotag-button {
-    background: #fff url(../images/material-design-icons/ic_thumb_up_black_24px.svg) no-repeat center !important;
+    background-color: #fff;
+    background-image: url(../images/material-design-icons/ic_thumb_up_black_24px.svg);
+    background-repeat: no-repeat;
+    background-position: center;
     width: 75px;
     height: 75px;
     background-size: 36px !important;
@@ -346,7 +349,7 @@ body {
 }
 
 .ajapaik-minimap-confirm-geotag-button-done {
-    background: #fff url(../images/material-design-icons/ic_thumb_up_blue_24px.svg) no-repeat center !important;
+    background-image: url(../images/material-design-icons/ic_thumb_up_blue_24px.svg);
 }
 
 .ajapaik-minimap-start-guess-button {
