@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-17 17:46+0300\n"
+"POT-Creation-Date: 2015-08-19 18:17+0300\n"
 "PO-Revision-Date: 2015-07-21 15:31+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/ajapaik/"
@@ -81,23 +81,23 @@ msgstr "Salvesta asukoht ja vaate suund"
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
-#: static/js/ajapaik-common.js:1156
+#: static/js/ajapaik-common.js:1163
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: static/js/ajapaik-common.js:1165
+#: static/js/ajapaik-common.js:1172
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: static/js/ajapaik-common.js:1169
+#: static/js/ajapaik-common.js:1176
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: static/js/ajapaik-common.js:1203
+#: static/js/ajapaik-common.js:1232
 msgid "Current location"
 msgstr "Pakutud asukoht"
 
-#: static/js/ajapaik-common.js:1454 static/js/ajapaik-common.js.c:1499
+#: static/js/ajapaik-common.js:1483 static/js/ajapaik-common.js.c:1528
 #: static/js/ajapaik-extra-js-translations.js:21
 msgid "Not selected"
 msgstr "..."
@@ -207,63 +207,63 @@ msgstr "Lisa pilt albumisse"
 msgid "Rotate"
 msgstr "Pööra"
 
-#: static/js/ajapaik-frontpage.js:280
+#: static/js/ajapaik-frontpage.js:285
 msgid "Earliest"
 msgstr "Esimesena"
 
-#: static/js/ajapaik-frontpage.js:282
+#: static/js/ajapaik-frontpage.js:287
 msgid "Latest"
 msgstr "Viimasena"
 
-#: static/js/ajapaik-frontpage.js:287
+#: static/js/ajapaik-frontpage.js:292
 msgid "Least"
 msgstr "Vähim"
 
-#: static/js/ajapaik-frontpage.js:289
+#: static/js/ajapaik-frontpage.js:294
 msgid "Most"
 msgstr "Enim"
 
-#: static/js/ajapaik-frontpage.js:294
+#: static/js/ajapaik-frontpage.js:299
 msgid "Pictures furthest from you"
 msgstr "Sinust kaugemaid pildid"
 
-#: static/js/ajapaik-frontpage.js:296
+#: static/js/ajapaik-frontpage.js:301
 msgid "Pictures closest to you"
 msgstr "Sulle lähimad pildid"
 
-#: static/js/ajapaik-frontpage.js:301
+#: static/js/ajapaik-frontpage.js:306
 msgid "commented"
 msgstr "kommenteeritud"
 
-#: static/js/ajapaik-frontpage.js:304
+#: static/js/ajapaik-frontpage.js:309
 msgid "rephotographed"
 msgstr "üle pildistatud"
 
-#: static/js/ajapaik-frontpage.js:307
+#: static/js/ajapaik-frontpage.js:312
 msgid "added"
 msgstr "lisatud"
 
-#: static/js/ajapaik-frontpage.js:310
+#: static/js/ajapaik-frontpage.js:315
 msgid "geotagged"
 msgstr "kaardile märgitud"
 
-#: static/js/ajapaik-frontpage.js:313
+#: static/js/ajapaik-frontpage.js:318
 msgid "pictures"
 msgstr "pildid"
 
-#: static/js/ajapaik-frontpage.js:316
+#: static/js/ajapaik-frontpage.js:321
 msgid "Pictures from the map"
 msgstr "Kaardiakna pildid"
 
-#: static/js/ajapaik-frontpage.js:347
+#: static/js/ajapaik-frontpage.js:352
 msgid "Picture set has no rephotos"
 msgstr "Pildivalimis ei ole refotosi"
 
-#: static/js/ajapaik-frontpage.js:354
+#: static/js/ajapaik-frontpage.js:359
 msgid "Picture set has no comments"
 msgstr "Pildivalimis ei ole kommentaare"
 
-#: static/js/ajapaik-frontpage.js:425
+#: static/js/ajapaik-frontpage.js:431
 msgid "All pictures"
 msgstr "Kõik pildid"
 

@@ -1218,7 +1218,7 @@ var map,
                     clickable: false,
                     map: miniMap
                 });
-                window.minimapDottedAzimuthLine.setPath([start, Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth + angleFix, start, 1000)]);
+                window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.01)]);
             } else {
                 if (window.minimapDottedAzimuthLine) {
                     window.minimapDottedAzimuthLine.setVisible(false);
