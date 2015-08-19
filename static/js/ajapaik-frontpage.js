@@ -473,8 +473,8 @@
             }, 1000);
         };
         if (window.getQueryParameterByName('q')) {
-            // TODO: Also for photos' filter
             $('#ajapaik-album-filter-box').val(window.getQueryParameterByName('q')).trigger('change');
+            $('#ajapaik-photo-filter-box').val(window.getQueryParameterByName('q'));
         }
         $('.ajapaik-frontpage-album').hover(function () {
             $(this).find('.ajapaik-album-selection-caption-bottom').removeClass('hidden');
