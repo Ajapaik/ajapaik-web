@@ -252,7 +252,7 @@
         if (historyReplacementString.indexOf('?') === -1 && historyReplacementString.indexOf('&') !== -1) {
             historyReplacementString = historyReplacementString.replace('&', '?');
         }
-        window.History.replaceState(null, window.title, historyReplacementString);
+        window.history.replaceState(null, window.title, historyReplacementString);
     };
 
     switchSearchBoxPosition = function () {

@@ -1110,7 +1110,7 @@ var map,
             fillColor: 'black',
             fillOpacity: 1,
             rotation: 0,
-            scale: 1.0,
+            scale: 1.5,
             anchor: new window.google.maps.Point(12, 12)
         },
         locationIcon = {
@@ -1120,7 +1120,7 @@ var map,
             strokeWeight: 1,
             fillColor: 'black',
             fillOpacity: 1,
-            scale: 1.0,
+            scale: 1.5,
             anchor: new window.google.maps.Point(12, 0)
         },
         currentIcon;
@@ -1198,9 +1198,31 @@ var map,
                 maxZoom: 18
             }));
             if (window.photoModalPhotoAzimuth) {
-                arrowIcon.rotation = window.photoModalPhotoAzimuth;
+                var start = new window.google.maps.LatLng(center.lat, center.lng);
+                var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 1000);
+                var angle = Math.getAzimuthBetweenTwoPoints(start, geodesicEndPoint);
+                var angleFix = window.photoModalPhotoAzimuth - angle;
+                arrowIcon.rotation = window.photoModalPhotoAzimuth + angleFix;
                 currentIcon = arrowIcon;
+                window.minimapDottedAzimuthLine = new window.google.maps.Polyline({
+                    geodesic: false,
+                    strokeOpacity: 0,
+                    icons: [
+                        {
+                            icon: dottedAzimuthLineSymbol,
+                            offset: '0',
+                            repeat: '7px'
+                        }
+                    ],
+                    visible: true,
+                    clickable: false,
+                    map: miniMap
+                });
+                window.minimapDottedAzimuthLine.setPath([start, Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth + angleFix, start, 1000)]);
             } else {
+                if (window.minimapDottedAzimuthLine) {
+                    window.minimapDottedAzimuthLine.setVisible(false);
+                }
                 currentIcon = locationIcon;
             }
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {

@@ -42,6 +42,7 @@
             window.nextPhotoLoading = true;
             window.photoModalPhotoLat = null;
             window.photoModalPhotoLng = null;
+            window.photoModalPhotoAzimuth = null;
             $.ajax({
                 cache: false,
                 url: '/foto/' + id + '/?isFrontpage=1',
@@ -192,7 +193,7 @@
             } else if (window.photoQuery) {
                 currentUrl.addSearch('q', window.photoQuery);
             }
-            window.History.replaceState(null, window.title, currentUrl);
+            window.history.replaceState(null, window.title, currentUrl);
         };
         openPhotoDrawer = function (content) {
             photoModal.html(content);

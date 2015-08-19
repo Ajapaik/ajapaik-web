@@ -377,7 +377,7 @@
         //} else if (window.areaId) {
         //    historyReplacementString += '?area=' + window.areaId;
         //}
-        //window.History.replaceState(null, window.title, historyReplacementString);
+        //window.history.replaceState(null, window.title, historyReplacementString);
     };
     window.showDescriptions = function () {
         if (window.popoverShown) {

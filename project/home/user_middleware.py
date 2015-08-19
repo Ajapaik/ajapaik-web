@@ -1,7 +1,6 @@
 # http://docs.djangoproject.com/en/dev/topics/http/middleware/
 # http://docs.djangoproject.com/en/dev/topics/auth/
 from django.core.exceptions import ObjectDoesNotExist
-
 from project.home import models
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -44,18 +43,18 @@ class AuthBackend(object):
             try:
                 user = User.objects.get(username=username)
                 if user.check_password(password):
-                    models.Action.log("user_middleware.login.success", {'username': username})
+                    models.Action.log('user_middleware.login.success', {'username': username})
                     return user
                 else:
-                    models.Action.log("user_middleware.login.error", {'username': username})
+                    models.Action.log('user_middleware.login.error', {'username': username})
                     return None
             except ObjectDoesNotExist:
                 return None
 
-        random_username = u"_%s_%s" % (username[:25], User.objects.make_random_password(length=3))
+        random_username = u'_%s_%s' % (username[:25], User.objects.make_random_password(length=3))
         user = User.objects.create_user(username=random_username)
         user.save()
-        models.Action.log("user_middleware.create", related_object=user)
+        models.Action.log('user_middleware.create', related_object=user)
         return user
 
     def get_user(self, user_id):

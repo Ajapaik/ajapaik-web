@@ -1,4 +1,5 @@
 from ujson import loads
+import urllib2
 from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -178,11 +179,16 @@ def api_album_thumb(request, album_id, thumb_size=250):
     random_image = a.photos.order_by('?').first()
     if not random_image:
         for sa in a.subalbums.exclude(atype=Album.AUTO):
-            random_image = sa.order_by('?').first()
+            random_image = sa.photos.order_by('?').first()
             if random_image:
                 break
-    thumb_str = str(thumb_size) + 'x' + str(thumb_size)
-    im = get_thumbnail(random_image.image, thumb_str, upscale=False)
+    size_str = str(thumb_size)
+    thumb_str = size_str + 'x' + size_str
+    try:
+        im = get_thumbnail(random_image.image, thumb_str, upscale=False)
+    except AttributeError:
+        # Broken image, return Murray
+        im = urllib2.urlopen('http://fillmurray.com/' + size_str + '/' + size_str + '/')
     content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
 

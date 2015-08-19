@@ -733,7 +733,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         photos_with_comments = None
         photos_with_rephotos = None
         q = filter_form.cleaned_data['q']
-        if q:
+        if q and show_photos:
             photo_search_form = HaystackPhotoSearchForm({'q': q})
             search_query_set = photo_search_form.search()
             results = [r.pk for r in search_query_set]

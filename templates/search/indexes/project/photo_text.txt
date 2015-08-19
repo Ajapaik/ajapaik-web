@@ -5,3 +5,8 @@
 {{ object.description_ru }}
 {{ object.description_nl }}
 {{ object.description_en }}
+{{ object.author }}
+{{ object.types }}
+{{ object.source }}
+{{ object.source_key }}
+{{ object.address }}

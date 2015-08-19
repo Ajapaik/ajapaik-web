@@ -39,7 +39,7 @@
                     {% endif %}
                     {% if photo.description %}
                         <div class="row-fluid">
-                            {{ photo.description }}
+                            {{ photo.description }}{% if photo.address %} ({% trans "Address" %}: {{ photo.address }}){% endif %}
                         </div>
                     {% endif %}
                     {% if photo.source_url %}

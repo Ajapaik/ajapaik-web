@@ -337,6 +337,7 @@ class Photo(Model):
                      db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     bounding_circle_radius = FloatField(null=True, blank=True)
+    address = CharField(max_length=255, blank=True, null=True)
     azimuth = FloatField(null=True, blank=True)
     confidence = FloatField(default=0, null=True, blank=True)
     azimuth_confidence = FloatField(default=0, null=True, blank=True)
@@ -975,20 +976,22 @@ class Profile(Model):
         return u"%d - %s - %s" % (self.user.id, self.user.username, self.user.get_full_name())
 
 
+# For Google login
 class FlowModel(Model):
     id = ForeignKey(User, primary_key=True)
     flow = FlowField()
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
 
 
+# For Google login
 class CredentialsModel(Model):
     id = ForeignKey(User, primary_key=True)
     credential = CredentialsField()
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
 
 
 class Source(Model):
@@ -1001,7 +1004,7 @@ class Source(Model):
         return self.name
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
 
 
 class Device(Model):
@@ -1012,26 +1015,30 @@ class Device(Model):
     software = CharField(null=True, blank=True, max_length=255)
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
 
     def __unicode__(self):
-        return "%s %s %s %s %s" % (self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
+        return '%s %s %s %s %s' % (self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
 
 
 class Skip(Model):
-    user = ForeignKey("Profile", related_name="skips")
-    photo = ForeignKey("Photo")
+    user = ForeignKey('Profile', related_name='skips')
+    photo = ForeignKey('Photo')
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
+
+    def __unicode__(self):
+        return '%i %i' % (self.user.pk, self.photo.pk)
 
 
+# TODO: Do we need this? Kind of violating users' privacy, no?
 class Action(Model):
     type = CharField(max_length=255)
     related_type = ForeignKey(ContentType, null=True, blank=True)
     related_id = PositiveIntegerField(null=True, blank=True)
-    related_object = generic.GenericForeignKey("related_type", "related_id")
+    related_object = generic.GenericForeignKey('related_type', 'related_id')
     params = json.JSONField(null=True, blank=True)
 
     @classmethod
@@ -1043,19 +1050,19 @@ class Action(Model):
         return obj
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
 
 
 class CSVPhoto(Photo):
     # This is a fake class for adding an admin page
     class Meta:
         proxy = True
-        app_label = "project"
+        app_label = 'project'
 
-        #Possible fix for proxy models not getting their auto-generated permissions and stuff
+        # Possible fix for proxy models not getting their auto-generated permissions and stuff
         # class Migration(SchemaMigration):
         # 	def forwards(self, orm):
-        # 		orm.send_create_signal("project", ["CSVPhoto"])
+        # 		orm.send_create_signal('project', ['CSVPhoto'])
         #
         # 	def backwards(self, orm):
         # 		pass
@@ -1063,11 +1070,23 @@ class CSVPhoto(Photo):
 
 class Licence(Model):
     name = CharField(max_length=255)
-    url = CharField(max_length=255, blank=True, null=True)
-    image_url = TextField(blank=True, null=True)
+    url = URLField(blank=True, null=True)
+    image_url = URLField(blank=True, null=True)
 
     class Meta:
-        app_label = "project"
+        app_label = 'project'
 
     def __unicode__(self):
-        return "%s" % self.name
+        return '%s' % self.name
+
+
+class GoogleMapsReverseGeocode(Model):
+    lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)], db_index=True)
+    lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], db_index=True)
+    response = json.JSONField()
+
+    class Meta:
+        app_label = 'project'
+
+    def __unicode__(self):
+        return '%d;%d' % (self.lat, self.lon)
