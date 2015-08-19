@@ -1721,18 +1721,22 @@ var map,
     });
 
     $(document).on('keyup', '#ajapaik-curator-album-filter', function () {
-        var filter = $(this).val();
+        var filter = $(this).val().toLowerCase();
         if (filter === "") {
             $('option').show();
         } else {
             $('#ajapaik-curator-album-select').find('option').each(function() {
-                if ($(this).text().indexOf(filter) > 0) {
+                if ($(this).text().toLowerCase().indexOf(filter) > 0) {
                     $(this).show();
                 } else {
                     $(this).hide();
                 }
             });
         }
+    });
+
+    $(document).on('hidden.bs.modal', '#ajapaik-choose-albums-modal', function () {
+        $('#ajapaik-curator-album-filter').val(null);
     });
 
     // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427

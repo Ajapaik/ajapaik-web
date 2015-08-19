@@ -46,6 +46,11 @@ body {
     border-radius: 0;
 }
 
+#ajapaik-photo-filter-box {
+    margin-top: 8px;
+    border-radius: 0;
+}
+
 #ajapaik-frontpage-mode-select {
     background-color: rgba(0,0,0,.8);
     border-radius: 0;
@@ -331,8 +336,9 @@ body {
 
 .ajapaik-minimap-confirm-geotag-button {
     background: #fff url(../images/material-design-icons/ic_thumb_up_black_24px.svg) no-repeat center !important;
-    width: 48px;
-    height: 48px;
+    width: 75px;
+    height: 75px;
+    background-size: 36px !important;
     margin-left: 10px;
     margin-bottom: 10px;
     border-radius: 0;
@@ -345,8 +351,9 @@ body {
 
 .ajapaik-minimap-start-guess-button {
     background: #fff url(../images/material-design-icons/ic_mode_edit_black_24px.svg) no-repeat center !important;
-    width: 48px;
-    height: 48px;
+    width: 75px;
+    height: 75px;
+    background-size: 36px !important;
     margin-right: 10px;
     margin-bottom: 10px;
     border-radius: 0;
@@ -527,10 +534,6 @@ path:hover {
 
 .ajapaik-filtering-choice {
     background: none !important;
-}
-
-#ajapaik-filtering-dropdown > a {
-    padding-left: 0;
 }
 
 #ajapaik-frontpage-filtering-dropdown-menu > li {
@@ -1203,6 +1206,9 @@ a.fullscreen {
         margin-right: 5px;
     }
     #ajapaik-album-filter-box {
+        max-width: 80px;
+    }
+    #ajapaik-photo-filter-box {
         max-width: 80px;
     }
 }

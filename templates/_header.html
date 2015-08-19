@@ -71,6 +71,10 @@
                         <li class="pull-left">
                             <input type="text" class="form-control" id="ajapaik-album-filter-box" placeholder="{% trans "Search album" %}"/>
                         </li>
+                    {% else %}
+                        <li class="pull-left">
+                            <input type="text" class="form-control" id="ajapaik-photo-filter-box" placeholder="{% trans "Search photos" %}"/>
+                        </li>
                     {% endif %}
                 {% endif %}
                 {% include "_filtering_dropdown.html" %}
