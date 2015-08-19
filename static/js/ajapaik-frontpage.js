@@ -467,6 +467,7 @@
                     window.albumQuery = null;
                     window.photoQuery = val;
                     window.currentPage = null;
+                    window._gaq.push(['_trackEvent', 'Frontpage', 'Search photos']);
                     syncStateToUrl();
                     updateFrontpagePhotosAsync();
                 }
