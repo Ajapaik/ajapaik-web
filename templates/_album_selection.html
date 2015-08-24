@@ -9,7 +9,7 @@
                      data-photos="{{ album.photo_count_with_subalbums }}" width="{{ album.cover_photo_width }}"
                      src="{% url 'project.home.views.photo_thumb' album.cover_photo_id 400 %}">
                 <div class="caption ajapaik-caption-album-selection">
-                    <p class="ajapaik-caption-album-selection-album-title" title="{{ album.name }}">{{ album.name }} <span class="ajapaik-caption-album-selection-album-more-button" data-id="{{ album.id }}"></span></p>
+                    <p class="ajapaik-caption-album-selection-album-title" title="{{ album.name }}">{{ album.name }}</p>
                     <div class="ajapaik-album-selection-photo-count" title="{% trans "Pictures in album" %}">
                         <span>{{ album.photo_count_with_subalbums }}</span>
                     </div>
@@ -29,6 +29,7 @@
                         </div>
                     {% endif %}
                     <div class="ajapaik-album-selection-caption-bottom hidden">
+                        <div class="ajapaik-album-selection-album-more-button" role="button" title="{% trans 'Album details' %}" data-id="{{ album.id }}"></div>
                         {% if album.geotagged_photo_count_with_subalbums > 0 %}
                             <div class="ajapaik-album-selection-map-button" role="button" title="{% trans "Show pictures on map" %}" data-href="{% url "project.home.views.mapview" %}?album={{ album.id }}"></div>
                         {% endif %}

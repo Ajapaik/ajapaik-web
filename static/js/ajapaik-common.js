@@ -1807,7 +1807,7 @@ var map,
         }
     });
 
-    $(document).on('click', '.ajapaik-caption-album-selection-album-more-button', function (e) {
+    $(document).on('click', '.ajapaik-album-selection-album-more-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var targetDiv = $('#ajapaik-info-modal');

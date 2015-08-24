@@ -2624,18 +2624,15 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     text-overflow: ellipsis;
 }
 
-.ajapaik-caption-album-selection-album-more-button {
+.ajapaik-album-selection-album-more-button {
     background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
-    width: 24px;
-    height: 24px;
-    background-size: 24px;
-    position: relative;
-    left: 5px;
-    top: 7px;
-    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background-size: 36px;
+    float: right;
 }
 
-.ajapaik-caption-album-selection-album-more-button:hover {
+.ajapaik-album-selection-album-more-button:hover {
     background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
 }
 
