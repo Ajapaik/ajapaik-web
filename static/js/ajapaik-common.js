@@ -673,7 +673,7 @@ var map,
     });
     var handleGeolocation = function (position) {
         $('#ajapaik-geolocation-error').hide();
-        window.location.href = '/map?order1=closest&lat=' + position.coords.latitude + '&lng=' + position.coords.longitude + '&limitToAlbum=0&zoom=15';
+        window.location.href = '/map?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude + '&limitToAlbum=0&zoom=15';
     };
     window.geolocationError = function (error) {
         var targetElement = $('#ajapaik-geolocation-error-message');
