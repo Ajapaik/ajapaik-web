@@ -1817,7 +1817,8 @@ var map,
                 data: {
                     linkToMap: true,
                     linkToGame: true,
-                    linkToGallery: true
+                    linkToGallery: true,
+                    fbShareGallery: true
                 },
                 success: function (resp) {
                     targetDiv.html(resp);
