@@ -151,7 +151,7 @@
         //    }
         //}
         if (window.getQueryParameterByName('order1') === 'closest') {
-            if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lng')) {
+            if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lon')) {
                 window.useButtonLink = false;
                 window.getGeolocation(window.handleGeolocation);
             }

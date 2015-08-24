@@ -116,18 +116,20 @@
                     <ul class="dropdown-menu " role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                         <li role="presentation" class="disabled-link">
                             <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                {% if link_to_gallery %}
+                                {% if fb_share_gallery %}
                                     <input type="text" class="form-control" value="{{ share_gallery_link }}?album={{ album.id }}">
-                                {% elif link_to_map %}
+                                {% elif fb_share_map %}
                                     <input type="text" class="form-control" value="{{ share_map_link }}?album={{ album.id }}">
-                                {% elif link_to_game %}
+                                {% else %}
                                     <input type="text" class="form-control" value="{{ share_game_link }}?album={{ album.id }}">
                                 {% endif %}
                             </div>
                         </li>
                         <li role="presentation">
                             <div id="ajapaik-info-modal-like" role="menuitem" tabindex="-1">
-                                {% if link_to_map %}
+                                {% if fb_share_gallery %}
+                                    <div class="fb-like" data-href="{{ share_gallery_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                {% elif fb_share_map %}
                                     <div class="fb-like" data-href="{{ share_map_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% else %}
                                     <div class="fb-like" data-href="{{ share_game_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>

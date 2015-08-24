@@ -133,11 +133,29 @@ def get_album_info_modal_content(request, album_id=1):
         link_to_gallery = True
     else:
         link_to_gallery = False
+    fb_share_game = request.GET.get('fbShareGame', None)
+    if fb_share_game == "true":
+        fb_share_game = True
+    else:
+        fb_share_game = False
+    fb_share_map = request.GET.get('fbShareMap', None)
+    if fb_share_map == "true":
+        fb_share_map = True
+    else:
+        fb_share_map = False
+    fb_share_gallery = request.GET.get('fbShareGallery', None)
+    if fb_share_gallery == "true":
+        fb_share_gallery = True
+    else:
+        fb_share_gallery = False
     ret = {
         "album": album,
         "link_to_map": link_to_map,
         "link_to_game": link_to_game,
-        "link_to_gallery": link_to_gallery
+        "link_to_gallery": link_to_gallery,
+        "fb_share_game": fb_share_game,
+        "fb_share_map": fb_share_map,
+        "fb_share_gallery": fb_share_gallery,
     }
 
     # TODO: Can these queries be optimized?
@@ -1693,6 +1711,7 @@ def _curator_get_records_by_ids(ids):
     ids_str = ['"' + each + '"' for each in ids]
     request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
     response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
+    response.encoding = 'utf-8'
 
     return response
 
@@ -1713,6 +1732,7 @@ def curator_search(request):
         full_search = full_search.encode('utf-8')
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
         response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
+        response.encoding = 'utf-8'
 
     if filter_existing:
         response = _curator_check_if_photos_in_ajapaik(response, True)

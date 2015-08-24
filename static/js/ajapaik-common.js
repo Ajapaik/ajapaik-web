@@ -1785,7 +1785,10 @@ var map,
                 data: {
                     linkToMap: window.linkToMap,
                     linkToGame: window.linkToGame,
-                    linkToGallery: window.linkToGallery
+                    linkToGallery: window.linkToGallery,
+                    fbShareGame: window.fbShareGame,
+                    fbShareMap: window.fbShareMap,
+                    fbShareGallery: window.fbShareGallery
                 },
                 success: function (resp) {
                     targetDiv.html(resp);

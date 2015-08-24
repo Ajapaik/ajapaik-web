@@ -94,6 +94,7 @@
         window.linkToMap = true;
         window.linkToGame = false;
         window.linkToGallery = true;
+        window.fbShareGame = true;
         {% if album.2 and album.3 %}
             window.start_location = [{{ album.3|safe }}, {{ album.2|safe }}];
         {% elif area.lat and area.lon %}

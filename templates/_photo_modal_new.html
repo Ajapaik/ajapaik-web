@@ -78,8 +78,10 @@
         </div>
         <div class="modal-footer">
             <div class="row text-left">
-                {% if photo.rephotos.all|length > 0 %}
+                {% if photo.rephotos.all|length > 1 %}
                     <div class="col-xs-5" id="ajapaik-photo-modal-original-photo-info-column">
+                {% elif photo.rephotos.all|length > 0 %}
+                    <div class="col-xs-6" id="ajapaik-photo-modal-original-photo-info-column">
                 {% elif photo.rephotos.all|length == 0 %}
                     <div class="col-xs-12" id="ajapaik-photo-modal-original-photo-info-column">
                 {% endif %}
