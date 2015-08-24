@@ -538,6 +538,7 @@
                 window.order2 = null;
             }
             if (window.order1 === 'closest') {
+                window.order2 = null;
                 if (!window.userLat || !window.userLon) {
                     window.getGeolocation(window.handleGeolocation, window.geolocationError);
                 }
