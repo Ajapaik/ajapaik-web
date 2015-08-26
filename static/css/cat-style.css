@@ -18,3 +18,12 @@
 #cat-filtering-panel {
     margin-top: 50px;
 }
+
+.cat-photo-caption {
+    display: block !important;
+    background-color: rgba(0, 0, 0, .7) !important;
+    min-height: 30px !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

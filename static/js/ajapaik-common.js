@@ -1748,7 +1748,9 @@ var map,
             $('option').show();
         } else {
             $('#ajapaik-curator-album-select').find('option').each(function() {
-                if ($(this).text().toLowerCase().indexOf(filter) > 0) {
+                console.log($(this).text().toLowerCase());
+                console.log(filter);
+                if ($(this).text().toLowerCase().indexOf(filter) > -1) {
                     $(this).show();
                 } else {
                     $(this).hide();

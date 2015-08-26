@@ -1,6 +1,6 @@
 {% extends "base_bootstrap.html" %}
 
-{% load compress i18n %}
+{% load compress i18n ajapaik_templatetags %}
 
 {% block specific_css %}
     {% compress css %}
@@ -15,24 +15,38 @@
 {% block layout %}
     <div class="col-xs-3 col-lg-2">
         <ul class="nav nav-pills nav-stacked" id="cat-filtering-panel">
-            {% for t in tag_dict %}
+            {% for k, v in tag_dict.items %}
                 <li role="presentation">
                     <div class="container">
-                        <p>{{ t }}</p>
                         <div class="btn-group btn-group-justified col-xs-12" data-toggle="buttons">
-                            <label class="btn btn-default">
-                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ t }}" value="1">{% trans "Yes" %}
+                            <label class="btn btn-default {% if selected_tag_value_dict|access:k > 2 %}active{% endif %}">
+                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="-1" {% if selected_tag_value_dict|access:k > 2 %}checked="checked"{% endif %}>{{ v.left }}
                             </label>
-                            <label class="btn btn-default">
-                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ t }}" value="0">{% trans "N/A" %}
+                            <label class="btn btn-default {% if selected_tag_value_dict|access:k > 1 %}active{% endif %}">
+                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="0" {% if selected_tag_value_dict|access:k > 1 %}checked="checked"{% endif %}>{% trans "N/A" %}
                             </label>
-                            <label class="btn btn-default">
-                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ t }}" value="-1">{% trans "No" %}
+                            <label class="btn btn-default {% if selected_tag_value_dict|access:k > 0 %}active{% endif %}">
+                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="1" {% if selected_tag_value_dict|access:k > 0 %}checked="checked"{% endif %}>{{ v.right }}
                             </label>
                         </div>
                     </div>
                 </li>
             {% endfor %}
+            <li role="presentation">
+                <nav>
+                    <ul class="pager">
+                        <li class="previous">
+                            <a id="cat-pager-previous" href="#">{% trans "Previous" %}</a>
+                        </li>
+                        <li class="disabled">
+                            <a id="cat-pager-page" href="#">{{ page }}</a>
+                        </li>
+                        <li class="next">
+                            <a id="cat-pager-next" href="#">{% trans "Next" %}</a>
+                        </li>
+                    </ul>
+                </nav>
+            </li>
         </ul>
     </div>
     <div class="col-xs-9 col-lg-10">

@@ -11,7 +11,7 @@ from django.contrib.sessions.models import Session
 # from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
-from django.db import IntegrityError
+from django.db import IntegrityError, connection
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
@@ -31,6 +31,7 @@ from rest_framework import authentication
 from rest_framework import exceptions
 import random
 from project.home.serializers import CatResultsPhotoSerializer
+from project.home.views import _calculate_thumbnail_size
 from project.settings import SITE_ID
 from ujson import dumps
 
@@ -413,49 +414,52 @@ def cat_results(request):
     filter_form = CatResultsFilteringForm(request.GET)
     json_state = {}
     tag_dict = dict(CatTag.objects.values_list('name', 'id'))
+    for key in tag_dict:
+        tag_dict[key] = {
+            'id': tag_dict[key],
+            'left': key.split('_')[0].capitalize(),
+            'right': key.split('_')[2].capitalize()
+        }
+    selected_tag_value_dict = {}
     photo_serializer = None
     page = 0
     if filter_form.is_valid():
         cd = filter_form.cleaned_data
         if cd['page']:
             page = cd['page']
-        # FIXME: Custom query saved me, if someone figures out how to query __tags__name='x' and __tags__through__value__in(1, 0, -1) via ORM, be my guest
         if cd['show_pictures'] or cd['album']:
-            photo_raw_query = [
-                'SELECT DISTINCT(project_catphoto.id) FROM project_catphoto',
-                'INNER JOIN project_cattagphoto ON project_cattagphoto.photo_id = project_catphoto.id'
-            ]
+            photos = CatPhoto.objects.all()
             if cd['album']:
                 json_state['albumId'] = cd['album'].pk
-                photo_raw_query.append('INNER JOIN project_catalbum_photos ON project_catalbum_photos.catphoto_id = project_catphoto.id')
+                photos = photos.filter(album=cd['album'])
             if cd['show_pictures']:
                 json_state['showPictures'] = True
-            first = True
             for k in cd:
                 if k in tag_dict.keys():
                     if cd[k]:
-                        value_str = ','.join(cd[k])
-                        if first:
-                            photo_raw_query.append('WHERE project_cattagphoto.value IN (%s) AND project_cattagphoto.tag_id = %s' % (value_str, tag_dict[k]))
-                            first = False
-                        else:
-                            photo_raw_query.append('OR project_cattagphoto.value IN (%s) AND project_cattagphoto.tag_id = %s' % (value_str, tag_dict[k]))
-            if cd['album']:
-                if first:
-                    photo_raw_query.append('WHERE project_catalbum_photos.catalbum_id = %s' % json_state['albumId'])
-                else:
-                    photo_raw_query.append('AND project_catalbum_photos.catalbum_id = %s' % json_state['albumId'])
-            photo_raw_query.append('OFFSET %i LIMIT 10' % (page * 10))
-            photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.raw(' '.join(photo_raw_query)), many=True)
+                        photos = photos.filter(tags__name=k, cattagphoto__value__in=(cd[k]))
+                    if k not in selected_tag_value_dict:
+                        selected_tag_value_dict[k] = 0
+                    if '1' in cd[k]:
+                        selected_tag_value_dict[k] += 1
+                    if '0' in cd[k]:
+                        selected_tag_value_dict[k] += 1
+                    if '-1' in cd[k]:
+                        selected_tag_value_dict[k] += 1
+            photos = photos.distinct()
+            photo_serializer = CatResultsPhotoSerializer(photos[page * 10: (page + 1) * 10], many=True)
     if request.is_ajax():
         if not photo_serializer:
             photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.all()[page * 10: (page + 1) * 10], many=True)
         return HttpResponse(JSONRenderer().render(photo_serializer.data), content_type="application/json")
     else:
         albums = CatAlbum.objects.all()
+        json_state['page'] = page
         return render_to_response('cat_results.html', RequestContext(request, {
             'albums': albums,
             'tag_dict': tag_dict,
+            'page': page,
+            'selected_tag_value_dict': selected_tag_value_dict,
             'state_json': dumps(json_state)
         }))
 

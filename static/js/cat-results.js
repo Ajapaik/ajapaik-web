@@ -5,10 +5,12 @@
     /*global URI */
     /*global getPhotosURL */
     /*global tmpl */
+    /*global console */
     window.Cat = function () {
         this.selectedAlbumId = null;
         this.getPhotosURL = getPhotosURL;
         this.photoLoadTimeout = null;
+        this.page = 0;
     };
     window.Cat.prototype = {
         switchToAlbumSelection: function () {
@@ -20,7 +22,6 @@
             $('#cat-photo-view').addClass('hidden');
         },
         switchToPhotoView: function () {
-            this.syncStateToURL();
             this.loadPhotos();
             $('#cat-header-showing-albums').addClass('hidden');
             $('#cat-header-showing-pictures').removeClass('hidden');
@@ -31,6 +32,9 @@
             var currentURL = URI(location.href);
             if (this.selectedAlbumId) {
                 currentURL.removeSearch('album').addSearch('album', this.selectedAlbumId);
+            }
+            if (this.page) {
+                currentURL.removeSearch('page').addSearch('page', this.page);
             }
             history.replaceState(null, window.title, currentURL);
         },
@@ -49,7 +53,7 @@
                     targetDiv.justifiedGallery();
                 },
                 error: function () {
-                    console.log('error');
+                    console.log('Error getting photos');
                 }
             });
         },
@@ -72,11 +76,13 @@
             $('#cat-photo-view').justifiedGallery({
                 rowHeight: 270,
                 margins: 5,
-                captions: false
+                captions: false,
+                waitThumbnailsLoad: false
             });
             $('.cat-album-selection-element').click(function (e) {
                 e.preventDefault();
                 that.selectedAlbumId = $(this).data('id');
+                that.syncStateToURL();
                 that.switchToPhotoView();
             });
             $('.cat-filtering-checkbox').change(function () {
@@ -89,6 +95,22 @@
                 history.replaceState(null, window.title, currentURL);
                 that.delayedLoadPhotos();
             });
+            $('#cat-pager-previous').click(function (e) {
+                e.preventDefault();
+                if (that.page > 0) {
+                    that.page -= 1;
+                    $('#cat-pager-page').html(that.page);
+                    that.syncStateToURL();
+                    that.delayedLoadPhotos();
+                }
+            });
+            $('#cat-pager-next').click(function (e) {
+                e.preventDefault();
+                that.page += 1;
+                $('#cat-pager-page').html(that.page);
+                that.syncStateToURL();
+                that.delayedLoadPhotos();
+            });
         },
         initializeState: function (state) {
             if (state.albumId || state.showPictures) {
@@ -96,6 +118,7 @@
             } else {
                 this.switchToAlbumSelection();
             }
+            this.page = state.page;
         }
     };
 }());

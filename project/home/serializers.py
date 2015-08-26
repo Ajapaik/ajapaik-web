@@ -10,9 +10,12 @@ class PhotoSerializer(serializers.ModelSerializer):
 
 
 class CatResultsPhotoSerializer(serializers.ModelSerializer):
+    thumb_height = serializers.IntegerField()
+    thumb_width = serializers.IntegerField()
+
     class Meta:
         model = CatPhoto
-        fields = ('id', 'title')
+        fields = ('id', 'title', 'thumb_height', 'thumb_width')
 
 
 class AreaSerializer(serializers.ModelSerializer):

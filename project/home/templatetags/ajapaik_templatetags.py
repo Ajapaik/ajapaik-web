@@ -23,3 +23,8 @@ def add_get(parser, token):
         s = pair.split('=', 1)
         values[s[0]] = parser.compile_filter(s[1])
     return AddGetParameter(values)
+
+
+@register.filter(name='access')
+def access(value, arg):
+    return value[arg]

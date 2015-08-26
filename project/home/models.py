@@ -32,6 +32,8 @@ from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
 
 # Create profile automatically
+
+
 def _user_post_save(sender, instance, **kwargs):
     Profile.objects.get_or_create(user=instance)
 
@@ -71,6 +73,25 @@ def _make_thumbnail(photo, size):
 def _make_fullscreen(photo):
     image = get_thumbnail(photo.image, "1024x1024", upscale=False)
     return {"url": image.url, "size": [image.width, image.height]}
+
+
+def _calculate_thumbnail_size(p_width, p_height, desired_longest_side):
+    if p_width and p_height:
+        w = float(p_width)
+        h = float(p_height)
+        desired_longest_side = float(desired_longest_side)
+        if w > h:
+            desired_width = desired_longest_side
+            factor = w / desired_longest_side
+            desired_height = h / factor
+        else:
+            desired_height = desired_longest_side
+            factor = h / desired_longest_side
+            desired_width = w / factor
+    else:
+        return 400, 300
+
+    return int(desired_width), int(desired_height)
 
 
 def _angle_diff(angle1, angle2):
@@ -185,6 +206,12 @@ class CatPhoto(Model):
         if self.source_key:
             return str(self.source.description + " " + self.source_key)
         return self.source.name
+
+    def thumb_width(self):
+        return _calculate_thumbnail_size(self.width, self.height, 400)[0]
+
+    def thumb_height(self):
+        return _calculate_thumbnail_size(self.width, self.height, 400)[1]
 
 
 class CatAlbum(Model):
