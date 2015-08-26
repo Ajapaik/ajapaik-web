@@ -49,6 +49,7 @@ body {
 #ajapaik-photo-filter-box {
     margin-top: 8px;
     border-radius: 0;
+    max-width: 100px;
 }
 
 #ajapaik-frontpage-mode-select {
@@ -1166,28 +1167,28 @@ a.fullscreen {
 
 @media (min-width: 480px) {
     #ajapaik-album-name-container {
-        max-width: 200px;
+        max-width: 50px;
     }
     #ajapaik-header-title {
-        max-width: 200px;
+        max-width: 50px;
     }
 }
 
 @media (min-width: 768px) {
     #ajapaik-album-name-container {
-        max-width: 175px;
+        max-width: 50px;
     }
     #ajapaik-header-title {
-        max-width: 175px;
+        max-width: 50px;
     }
 }
 
 @media (min-width: 992px) {
     #ajapaik-album-name-container {
-        max-width: 225px;
+        max-width: 125px;
     }
     #ajapaik-header-title {
-        max-width: 225px;
+        max-width: 125px;
     }
 }
 
@@ -1686,7 +1687,12 @@ ul.errorlist {
 /*}*/
 
 #ajapaik-photo-modal-specify-location {
-    display: none;
+    background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    float: right;
+    display: inline-block;
+    background-size: 36px;
 }
 
 #ajapaik-zone-ee-logo {

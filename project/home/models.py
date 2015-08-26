@@ -164,7 +164,9 @@ class CatUserFavorite(Model):
 class CatPhoto(Model):
     title = CharField(max_length=255)
     description = TextField(null=True, blank=True)
-    image = ImageField(upload_to="cat", max_length=255)
+    height = IntegerField(null=True, blank=True)
+    width = IntegerField(null=True, blank=True)
+    image = ImageField(upload_to="cat", max_length=255, height_field='height', width_field='width')
     author = CharField(max_length=255, null=True, blank=True)
     source = ForeignKey("Source", null=True, blank=True)
     source_url = URLField(null=True, blank=True, max_length=255)

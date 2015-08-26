@@ -1,24 +1,70 @@
-{% extends 'base_bootstrap.html' %}
+{% extends "base_bootstrap.html" %}
 
-{% load i18n %}
+{% load compress i18n %}
+
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/cat-style.css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block header %}
-    {% include '_header.html' %}
+    {% include "_cat_header.html" %}
 {% endblock %}
 
 {% block layout %}
-    <div class='container'>
-        <div class='col-xs-offset-3 col-xs-9'>
-            <a class='btn btn-primary' href='/cat/v1/results/{{ next }}'>{% trans 'Next' %}</a>
-            {% for p, extra in photos %}
-                <div class='row'>
-                    <img class='img-responsive' src='{% url 'project.home.cat.cat_photo' p.id %}'>
-                    {% for k, v in extra.iteritems %}
-                        <span class='badge'>{{ k }} {{ v }}</span>
-                    {% endfor %}
-                </div>
+    <div class="col-xs-3 col-lg-2">
+        <ul class="nav nav-pills nav-stacked" id="cat-filtering-panel">
+            {% for t in tag_dict %}
+                <li role="presentation">
+                    <div class="container">
+                        <p>{{ t }}</p>
+                        <div class="btn-group btn-group-justified col-xs-12" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ t }}" value="1">{% trans "Yes" %}
+                            </label>
+                            <label class="btn btn-default">
+                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ t }}" value="0">{% trans "N/A" %}
+                            </label>
+                            <label class="btn btn-default">
+                                <input class="cat-filtering-checkbox" type="checkbox" name="{{ t }}" value="-1">{% trans "No" %}
+                            </label>
+                        </div>
+                    </div>
+                </li>
             {% endfor %}
-            <a class='btn btn-primary' href='/cat/v1/results/{{ next }}'>{% trans 'Next' %}</a>
-        </div>
+        </ul>
     </div>
+    <div class="col-xs-9 col-lg-10">
+        <div class="col-xs-12" id="cat-album-selection">
+            {% for a in albums %}
+                <a href="" class="cat-album-selection-element" data-id="{{ a.pk }}" title="">
+                    <img src="{% url 'project.home.cat.cat_album_thumb' a.pk 400 %}" alt="" title="">
+                    <div class="caption ajapaik-caption-album-selection">
+                        <p title="{{ a.title }}">{{ a.title }}</p>
+                        <p title="{{ a.subtitle }}">{{ a.subtitle }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col-xs-12 hidden" id="cat-photo-view"></div>
+    </div>
+    <div class="hidden">
+        {% include "_cat_results_photo_js_template.html" %}
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script src="{{ STATIC_URL }}js/cat-results.js"></script>
+    <script>
+        var getPhotosURL = '{% url 'project.home.cat.cat_results' %}',
+            photoThumbURL = '{% url 'project.home.cat.cat_photo' %}';
+    </script>
+    <script>
+        $(document).ready(function () {
+            var cat = new Cat();
+            cat.initialize();
+            cat.initializeState({{ state_json|safe }});
+        });
+    </script>
 {% endblock %}

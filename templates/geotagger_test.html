@@ -1,0 +1,21 @@
+{% extends "base_bootstrap.html" %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    {% include "_geotagger.html" %}
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        $(document).ready(function () {
+            var geo = new Geotagger();
+            geo.initializeState({
+                thumbSrc: '/media/cache/95/6a/956ac413b1fed0e3b44f274901ffbba1.jpg'
+            });
+            geo.initializeMap();
+        });
+    </script>
+{% endblock %}

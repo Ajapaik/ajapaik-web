@@ -1,0 +1,42 @@
+{% load i18n %}
+
+<nav class="navbar navbar-default navbar-fixed-top ajapaik-navbar">
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand ajapaik-brand hidden-xs" href="/" title="{% trans "Back to homepage" %}">
+                {% trans "Timepatch (Ajapaik)" %}
+            </a>
+            <a class="hidden-xs" id="cat-brand-dummy"></a>
+        </div>
+        <div class="navbar-header pull-left">
+            <ul class="nav pull-right">
+                <li class="dropdown pull-left">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
+                        <div class="hidden" id="cat-header-showing-albums">
+                            <i class="material-icons">collections bookmark</i>
+                            <span class="pull-left">{% trans "Albums" %}</span>
+                        </div>
+                        <div class="hidden" id="cat-header-showing-pictures">
+                            <i class="material-icons">collections</i>
+                            <span class="pull-left">{% trans "All pictures" %}</span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" id="cat-mode-select">
+                        <li>
+                            <a href="{% url "project.home.cat.cat_results" %}" id="cat-show-albums-link"
+                               title="Show albums">
+                                <i class="material-icons">collections bookmark</i>{% trans "Albums" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url "project.home.cat.cat_results" %}?show_pictures=1"
+                               id="cat-show-pictures-link" title="Show pictures">
+                                <i class="material-icons">collections bookmark</i>{% trans "All pictures" %}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

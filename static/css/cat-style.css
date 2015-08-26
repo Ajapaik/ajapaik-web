@@ -1,0 +1,20 @@
+#cat-brand-dummy {
+    width: 160px;
+    display: block;
+    height: 50px;
+}
+
+#cat-mode-select {
+    background-color: rgba(0, 0, 0, .8);
+    border-radius: 0;
+}
+
+#cat-mode-select > li > a {
+    font-size: 20px;
+    color: #fff;
+    background: none !important;
+}
+
+#cat-filtering-panel {
+    margin-top: 50px;
+}

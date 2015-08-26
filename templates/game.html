@@ -16,7 +16,7 @@
                 <div class="modal-body" id="ajapaik-game-modal-body">
                     <div class="row-fluid">
                         <div id="ajapaik-modal-photo-container" class="col-xs-12">
-                            <div class="col-xs-9">
+                            <div class="col-xs-12 col-sm-9">
                                 <div id="ajapaik-game-modal-photo-container">
                                     <div class="ajapaik-photo-modal-previous-button ajapaik-game-previous-photo-button" {% if not request.mobile %}style="display: none;"{% endif %}></div>
                                     <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="">
@@ -43,7 +43,7 @@
 {#                        <span id="ajapaik-photo-modal-location-without-azimuth" style="display: none;" title="{% trans "Image has only location, no view direction" %}"></span>#}
 {#                        <span id="ajapaik-photo-modal-no-location" style="display: none;" title="{% trans "Image has no location info" %}"></span>#}
 {#                        <span id="ajapaik-photo-modal-geotag-count"><span id="ajapaik-game-number-of-geotags"></span></span>#}
-                        <span id="ajapaik-photo-modal-specify-location" class="ajapaik-game-specify-location-button" title="{% trans "Pick the shooting location!" %}"></span>
+                        <span id="ajapaik-photo-modal-specify-location" class="ajapaik-game-specify-location-button visible-xs" title="{% trans "Pick the shooting location!" %}"></span>
                         <span id="ajapaik-game-show-description" style="display: none;" class="ajapaik-game-show-description-button" title="{% trans "Show description" %}"></span>
                     </div>
                     <div class="row hidden-xs text-left">

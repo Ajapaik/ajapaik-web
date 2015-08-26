@@ -73,9 +73,6 @@
                         </li>
                     {% endif %}
                 {% endif %}
-                <li class="pull-left">
-                    <input type="text" class="form-control" id="ajapaik-photo-filter-box" {% if not show_photos %}style="display: none;"{% endif %} placeholder="{% trans "Search photos" %}"/>
-                </li>
                 {% include "_filtering_dropdown.html" %}
             </ul>
         </div>
@@ -135,6 +132,9 @@
         <div class="collapse navbar-collapse navbar-left">
             <!--                      pull-right keeps the drop-down in line -->
             <ul class="nav navbar-nav pull-right">
+                <li class="pull-left">
+                    <input type="text" class="form-control" id="ajapaik-photo-filter-box" {% if not show_photos %}style="display: none;"{% endif %} placeholder="{% trans "Search photos" %}"/>
+                </li>
                 {% if not is_photoview %}
                     <li class="pull-left">
                         <a role="button" title="{% trans 'Show in grid' %}" href="{% if album %}/?album={{ album.0 }}{% else %}#{% endif %}" id="ajapaik-header-grid-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">

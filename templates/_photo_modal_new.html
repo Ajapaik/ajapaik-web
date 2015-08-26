@@ -11,7 +11,7 @@
             <div class="row-fluid" style="height: 100%; width: 100%;">
                 <div class="{% if photo.rephotos.all|length == 0 %}col-xs-12{% elif photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}"
                      id="ajapaik-photo-modal-original-photo-column">
-                    <div id="ajapaik-modal-photo-container-container" {% if photo.lat and photo.lon %}class="col-xs-9"{% endif %}>
+                    <div id="ajapaik-modal-photo-container-container" {% if photo.lat and photo.lon and not request.mobile %}class="col-xs-9"{% endif %}>
                         <div id="ajapaik-modal-photo-container">
                             <div class="ajapaik-photo-modal-previous-button"
                                  {% if not request.mobile %}style="display: none;"{% endif %}></div>
@@ -214,7 +214,7 @@
 {#                    </div>#}
                     <div class="col-xs-12">
                         <div class="row-fluid ajapaik-margin-top-5">
-                            <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}"
+                            <span id="ajapaik-photo-modal-specify-location" class="visible-xs" data-id="{{ photo.id }}"
                                   title="{% trans "Pick the shooting location!" %}"></span>
                             <span id="ajapaik-photo-modal-add-rephoto" title="{% trans "Add rephoto" %}"></span>
 

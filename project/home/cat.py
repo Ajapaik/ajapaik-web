@@ -12,24 +12,27 @@ from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 from rest_framework.parsers import FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail, delete
 from django.core.cache import cache
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
-    CatPushRegisterForm
+    CatPushRegisterForm, CatResultsFilteringForm
 from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
+from project.home.serializers import CatResultsPhotoSerializer
 from project.settings import SITE_ID
+from ujson import dumps
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -297,7 +300,9 @@ def cat_album_state(request):
     return Response(_get_album_state(request, cat_album_state_form))
 
 
-def cat_photo(request, photo_id, thumb_size=600):
+def cat_photo(request, photo_id=None, thumb_size=600):
+    if not photo_id:
+        photo_id = CatPhoto.objects.order_by('?').first().pk
     cache_key = "ajapaik_cat_photo_response_%s_%s_%s" % (SITE_ID, photo_id, thumb_size)
     cached_response = cache.get(cache_key)
     if cached_response:
@@ -404,45 +409,96 @@ def user_favorite_remove(request):
     return Response(content)
 
 
-def cat_results(request, page=1):
-    tagged_photos = list(CatPhoto.objects.annotate(tag_count=Count('tags')).filter(tag_count__gt=0).order_by(
-        '-tag_count')[(int(page) - 1) * 20: int(page) * 20])
-    photo_tags = CatTagPhoto.objects.filter(photo_id__in=[x.id for x in tagged_photos])
-    tags = CatTag.objects.all()
-    tag_tally = {}
-    # FIXME: All this needs to be done with SQL, then again, not so important anyway
-    for tp in tagged_photos:
-        tag_tally[tp.id] = {}
-        for tag in tags:
-            tag_tally[tp.id][tag.name] = [0, 0, 0]
-    for pt in photo_tags:
-        if pt.value == -1:
-            tag_tally[pt.photo_id][pt.tag.name][0] += 1
-        elif pt.value == 0:
-            tag_tally[pt.photo_id][pt.tag.name][1] += 1
-        else:
-            tag_tally[pt.photo_id][pt.tag.name][2] += 1
-    ret = []
-    for tp in tagged_photos:
-        tp.my_tags = {}
-        for t in tags:
-            one_or_other = t.name.split('_or_')
-            vals = tag_tally[tp.id][t.name]
-            greatest_index = vals.index(max(vals))
-            if greatest_index == 0 and vals[greatest_index] > 0:
-                tp.my_tags[one_or_other[0]] = vals[greatest_index]
-            elif greatest_index == 2 and vals[greatest_index] > 0:
-                tp.my_tags[one_or_other[1]] = vals[greatest_index]
-            elif greatest_index == 1:
-                if vals[greatest_index] == 0:
-                    del(tp.my_tags[t.name + ' NA'])
+def cat_results(request):
+    filter_form = CatResultsFilteringForm(request.GET)
+    json_state = {}
+    tag_dict = dict(CatTag.objects.values_list('name', 'id'))
+    photo_serializer = None
+    page = 0
+    if filter_form.is_valid():
+        cd = filter_form.cleaned_data
+        if cd['page']:
+            page = cd['page']
+        # FIXME: Custom query saved me, if someone figures out how to query __tags__name='x' and __tags__through__value__in(1, 0, -1) via ORM, be my guest
+        if cd['show_pictures'] or cd['album']:
+            photo_raw_query = [
+                'SELECT DISTINCT(project_catphoto.id) FROM project_catphoto',
+                'INNER JOIN project_cattagphoto ON project_cattagphoto.photo_id = project_catphoto.id'
+            ]
+            if cd['album']:
+                json_state['albumId'] = cd['album'].pk
+                photo_raw_query.append('INNER JOIN project_catalbum_photos ON project_catalbum_photos.catphoto_id = project_catphoto.id')
+            if cd['show_pictures']:
+                json_state['showPictures'] = True
+            first = True
+            for k in cd:
+                if k in tag_dict.keys():
+                    if cd[k]:
+                        value_str = ','.join(cd[k])
+                        if first:
+                            photo_raw_query.append('WHERE project_cattagphoto.value IN (%s) AND project_cattagphoto.tag_id = %s' % (value_str, tag_dict[k]))
+                            first = False
+                        else:
+                            photo_raw_query.append('OR project_cattagphoto.value IN (%s) AND project_cattagphoto.tag_id = %s' % (value_str, tag_dict[k]))
+            if cd['album']:
+                if first:
+                    photo_raw_query.append('WHERE project_catalbum_photos.catalbum_id = %s' % json_state['albumId'])
                 else:
-                    tp.my_tags[t.name + ' NA'] = vals[greatest_index]
-        ret.append((tp, tp.my_tags))
-    return render_to_response('cat_results.html', RequestContext(request, {
-        'photos': ret,
-        'next': int(page) + 1
-    }))
+                    photo_raw_query.append('AND project_catalbum_photos.catalbum_id = %s' % json_state['albumId'])
+            photo_raw_query.append('OFFSET %i LIMIT 10' % (page * 10))
+            photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.raw(' '.join(photo_raw_query)), many=True)
+    if request.is_ajax():
+        if not photo_serializer:
+            photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.all()[page * 10: (page + 1) * 10], many=True)
+        return HttpResponse(JSONRenderer().render(photo_serializer.data), content_type="application/json")
+    else:
+        albums = CatAlbum.objects.all()
+        return render_to_response('cat_results.html', RequestContext(request, {
+            'albums': albums,
+            'tag_dict': tag_dict,
+            'state_json': dumps(json_state)
+        }))
+
+
+# def cat_results(request, page=1):
+#     tagged_photos = list(CatPhoto.objects.annotate(tag_count=Count('tags')).filter(tag_count__gt=0).order_by(
+#         '-tag_count')[(int(page) - 1) * 20: int(page) * 20])
+#     photo_tags = CatTagPhoto.objects.filter(photo_id__in=[x.id for x in tagged_photos])
+#     tags = CatTag.objects.all()
+#     tag_tally = {}
+#     # FIXME: All this needs to be done with SQL, then again, not so important anyway
+#     for tp in tagged_photos:
+#         tag_tally[tp.id] = {}
+#         for tag in tags:
+#             tag_tally[tp.id][tag.name] = [0, 0, 0]
+#     for pt in photo_tags:
+#         if pt.value == -1:
+#             tag_tally[pt.photo_id][pt.tag.name][0] += 1
+#         elif pt.value == 0:
+#             tag_tally[pt.photo_id][pt.tag.name][1] += 1
+#         else:
+#             tag_tally[pt.photo_id][pt.tag.name][2] += 1
+#     ret = []
+#     for tp in tagged_photos:
+#         tp.my_tags = {}
+#         for t in tags:
+#             one_or_other = t.name.split('_or_')
+#             vals = tag_tally[tp.id][t.name]
+#             greatest_index = vals.index(max(vals))
+#             if greatest_index == 0 and vals[greatest_index] > 0:
+#                 tp.my_tags[one_or_other[0]] = vals[greatest_index]
+#             elif greatest_index == 2 and vals[greatest_index] > 0:
+#                 tp.my_tags[one_or_other[1]] = vals[greatest_index]
+#             elif greatest_index == 1:
+#                 if vals[greatest_index] == 0:
+#                     del(tp.my_tags[t.name + ' NA'])
+#                 else:
+#                     tp.my_tags[t.name + ' NA'] = vals[greatest_index]
+#         ret.append((tp, tp.my_tags))
+#     return render_to_response('cat_results.html', RequestContext(request, {
+#         'photos': ret,
+#         'next': int(page) + 1
+#     }))
 
 
 @api_view(['POST'])

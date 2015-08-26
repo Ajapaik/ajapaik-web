@@ -31,6 +31,7 @@ urlpatterns = patterns('project.home.views',
    url(r'^game/$', 'game', name='game'),
    url(r'^geotag/$', 'game', name='game'),
    url(r'^kaart/$', 'mapview', name='map'),
+   url(r'^geotagger/$', 'geotagger', name='geotagger'),
    url(r'^map/$', 'mapview', name='map'),
    url(r'^map/photo/(?P<photo_id>\d+)/$', 'mapview', name='map'),
    url(r'^map/rephoto/(?P<rephoto_id>\d+)/$', 'mapview', name='map'),
@@ -82,6 +83,7 @@ urlpatterns = patterns('project.home.views',
 )
 
 urlpatterns += patterns('project.home.cat',
+   url(r'^cat/results/$', 'cat_results'),
    url(r'^cat/v1/login/$', 'cat_login'),
    url(r'^cat/v1/logout/$', 'cat_logout'),
    url(r'^cat/v1/albums/$', 'cat_albums'),
@@ -92,12 +94,13 @@ urlpatterns += patterns('project.home.cat',
    url(r'^cat/v1/user/favorite/remove/$', 'user_favorite_remove'),
    url(r'^cat/v1/user/device/register/$', 'cat_register_push'),
    url(r'^cat/v1/user/device/unregister/$', 'cat_deregister_push'),
+   url(r'^cat/v1/photo/$', 'cat_photo'),
    url(r'^cat/v1/photo/(?P<photo_id>\d+)/$', 'cat_photo'),
    url(r'^cat/v1/photo/(?P<photo_id>\d+)/(?P<thumb_size>.*)/$', 'cat_photo'),
    url(r'^cat/v1/album_thumb/(?P<album_id>\d+)/$', 'cat_album_thumb'),
    url(r'^cat/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'cat_album_thumb'),
-   url(r'^cat/v1/results/$', 'cat_results'),
-   url(r'^cat/v1/results/(?P<page>\d+)/$', 'cat_results')
+   # url(r'^cat/v1/results/$', 'cat_results'),
+   # url(r'^cat/v1/results/(?P<page>\d+)/$', 'cat_results')
 )
 
 urlpatterns += patterns('project.home.api',

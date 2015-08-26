@@ -222,6 +222,22 @@ class CatFavoriteForm(forms.Form):
     state = forms.CharField(max_length=255, required=False)
 
 
+
+class CatResultsFilteringForm(forms.Form):
+    CHOICES = ((1, 1), (0, 0), (-1, -1))
+    interior_or_exterior = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    urban_or_rural = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    view_or_social = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    ground_or_raised = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    one_or_many = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    whole_or_detail = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    staged_or_natural = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    public_or_private = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    album = forms.ModelChoiceField(queryset=CatAlbum.objects.all(), required=False)
+    show_pictures = forms.BooleanField(required=False)
+    page = forms.IntegerField(required=False)
+
+
 class SubmitGeotagForm(forms.ModelForm):
     class Meta:
         model = GeoTag

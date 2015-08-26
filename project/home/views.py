@@ -631,6 +631,13 @@ def game(request):
     return render_to_response("game.html", RequestContext(request, ret))
 
 
+def geotagger(request):
+    ret = {
+        'is_test_geotagger': True
+    }
+    return render_to_response('geotagger_test.html', RequestContext(request, ret))
+
+
 def fetch_stream(request):
     form = GameNextPhotoForm(request.GET)
     data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}

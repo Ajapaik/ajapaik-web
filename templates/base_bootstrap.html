@@ -1,6 +1,6 @@
 {% load i18n cache thumbnail compress ajapaik_templatetags %}
 <!DOCTYPE html>
-<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
+<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview or is_test_geotagger %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
     <title>
@@ -199,14 +199,16 @@
 {#    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">#}
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
-{#    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">#}
+    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
     {% compress css %}
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.6.0.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.5.2/jspanel/jquery.jspanel.min.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/ajapaik-style.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/ajapaik-style-new.css"/>
     {% endcompress %}
+    {% block specific_css %}{% endblock %}
     <script>
         var _gaq = _gaq || [];
         _gaq.push(["_setAccount", "{{ analytics.google_analytics_key }}"]);
@@ -221,7 +223,7 @@
         })();
     </script>
 </head>
-<body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
+<body class="{% if is_game or is_mapview or is_test_geotagger %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
@@ -392,6 +394,7 @@
         <script src="{{ STATIC_URL }}js/URI-1.15.1.min.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-keyboard-controls.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
+        <script src="{{ STATIC_URL }}js/ajapaik-geotagger.js"></script>
     {% endcompress %}
 {% endblock %}
 {% block specific_js %}{% endblock %}

@@ -1,5 +1,4 @@
-from django.core.urlresolvers import reverse
-from models import Photo, Area, Source, Album, CatAlbum
+from models import Photo, Area, Source, Album, CatPhoto
 from rest_framework import serializers
 
 
@@ -8,6 +7,12 @@ class PhotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = ('id', 'image', 'date_text', 'title', 'description', 'source_key', 'source_url', 'source', 'area', 'lat', 'lon',
                   'azimuth', 'confidence', 'azimuth_confidence')
+
+
+class CatResultsPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CatPhoto
+        fields = ('id', 'title')
 
 
 class AreaSerializer(serializers.ModelSerializer):
