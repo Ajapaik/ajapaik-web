@@ -42,6 +42,9 @@
             $('#cat-photo-view').removeClass('hidden');
             $('#cat-filtering-panel').removeClass('hidden');
         },
+        removeFiltersFromURL: function () {
+
+        },
         syncStateToURL: function () {
             var currentURL = URI(location.href);
             currentURL.removeSearch('album').removeSearch('page');

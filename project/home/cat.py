@@ -27,7 +27,7 @@ from sorl.thumbnail import get_thumbnail, delete
 from django.core.cache import cache
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
     CatPushRegisterForm, CatResultsFilteringForm
-from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile
+from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile, Action
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
@@ -434,7 +434,7 @@ def cat_results(request):
         if cd['page']:
             page = cd['page']
         if cd['show_pictures'] or cd['album']:
-            photos = CatPhoto.objects.all()
+            photos = CatPhoto.objects.prefetch_related('tags')
             if cd['album']:
                 json_state['albumId'] = cd['album'].pk
                 json_state['albumName'] = cd['album'].title
@@ -445,19 +445,19 @@ def cat_results(request):
                 if k in tag_dict.keys():
                     if cd[k]:
                         for val in cd[k]:
-                            photos = photos | photos.filter(tags__name=k, cattagphoto__value=val)\
+                            photos = photos.filter(tags__name=k, cattagphoto__value=val)\
                                 .annotate(val_count=ConditionalCount(when=Q(cattagphoto__value=val)))\
                                 .filter(val_count__gt=1)
-                    if k not in selected_tag_value_dict:
-                        selected_tag_value_dict[k] = 0
-                    if '1' in cd[k]:
-                        selected_tag_value_dict[k] += 1
-                    if '0' in cd[k]:
-                        selected_tag_value_dict[k] += 1
-                    if '-1' in cd[k]:
-                        selected_tag_value_dict[k] += 1
-            photos = photos.distinct()
-            photo_serializer = CatResultsPhotoSerializer(photos[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE], many=True)
+                        if k not in selected_tag_value_dict:
+                            selected_tag_value_dict[k] = 0
+                        if '1' in cd[k]:
+                            selected_tag_value_dict[k] += 1
+                        if '0' in cd[k]:
+                            selected_tag_value_dict[k] += 1
+                        if '-1' in cd[k]:
+                            selected_tag_value_dict[k] += 1
+            photos = photos.distinct()[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
+            photo_serializer = CatResultsPhotoSerializer(photos, many=True)
     if request.is_ajax():
         if not photo_serializer:
             photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.all()[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE], many=True)

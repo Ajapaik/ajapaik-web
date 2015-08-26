@@ -156,7 +156,7 @@ class CatTagPhoto(Model):
     album = ForeignKey("CatAlbum")
     photo = ForeignKey("CatPhoto")
     profile = ForeignKey("Profile", related_name="tags")
-    value = IntegerField()
+    value = IntegerField(db_index=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
