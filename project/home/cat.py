@@ -445,7 +445,7 @@ def cat_results(request):
                 if k in tag_dict.keys():
                     if cd[k]:
                         for val in cd[k]:
-                            photos = photos.filter(tags__name=k, cattagphoto__value=val)\
+                            photos = photos | photos.filter(tags__name=k, cattagphoto__value=val)\
                                 .annotate(val_count=ConditionalCount(when=Q(cattagphoto__value=val)))\
                                 .filter(val_count__gt=1)
                     if k not in selected_tag_value_dict:
