@@ -444,19 +444,28 @@ def cat_results(request):
             for k in cd:
                 if k in tag_dict.keys():
                     if cd[k]:
-                        for val in cd[k]:
-                            photos = photos.filter(tags__name=k, cattagphoto__value=val)\
-                                .annotate(val_count=ConditionalCount(when=Q(cattagphoto__value=val)))\
-                                .filter(val_count__gt=1)
+                        photos = photos.filter(tags__name=k, cattagphoto__value__in=cd[k])#\
+                            # .annotate(zero_count=ConditionalCount(when=Q(cattagphoto__value=0)))\
+                            # .annotate(one_count=ConditionalCount(when=Q(cattagphoto__value=1)))\
+                            # .annotate(minus_one_count=ConditionalCount(when=Q(cattagphoto__value=-1)))
                         if k not in selected_tag_value_dict:
                             selected_tag_value_dict[k] = 0
                         if '1' in cd[k]:
                             selected_tag_value_dict[k] += 1
+                            photos = photos.annotate(one_count=ConditionalCount(when=Q(cattagphoto__value=1))).filter(tags__name=k, one_count__gt=1)
                         if '0' in cd[k]:
                             selected_tag_value_dict[k] += 1
+                            photos = photos.annotate(zero_count=ConditionalCount(when=Q(cattagphoto__value=0))).filter(tags__name=k, zero_count__gt=1)
                         if '-1' in cd[k]:
                             selected_tag_value_dict[k] += 1
+                            photos = photos.annotate(minus_one_count=ConditionalCount(when=Q(cattagphoto__value=-1))).filter(tags__name=k, minus_one_count__gt=1)
             photos = photos.distinct()[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
+            # for p in photos:
+            #     print p.id
+            #     print p.zero_count
+            #     print p.one_count
+            #     print p.minus_one_count
+            #     print "----------"
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
     if request.is_ajax():
         if not photo_serializer:
