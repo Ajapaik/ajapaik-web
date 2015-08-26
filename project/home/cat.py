@@ -8,6 +8,7 @@ from pytz import utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
+from djconnagg import ConditionalCount
 # from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
@@ -32,7 +33,7 @@ from rest_framework import exceptions
 import random
 from project.home.serializers import CatResultsPhotoSerializer
 from project.home.views import _calculate_thumbnail_size
-from project.settings import SITE_ID
+from project.settings import SITE_ID, CAT_RESULTS_PAGE_SIZE
 from ujson import dumps
 
 
@@ -311,7 +312,12 @@ def cat_photo(request, photo_id=None, thumb_size=600):
     p = get_object_or_404(CatPhoto, id=photo_id)
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(p.image, thumb_str, upscale=False)
-    content = im.read()
+    try:
+        content = im.read()
+    except IOError:
+        delete(im)
+        im = get_thumbnail(p.image, thumb_str, upscale=False)
+        content = im.read()
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
@@ -431,13 +437,17 @@ def cat_results(request):
             photos = CatPhoto.objects.all()
             if cd['album']:
                 json_state['albumId'] = cd['album'].pk
+                json_state['albumName'] = cd['album'].title
                 photos = photos.filter(album=cd['album'])
             if cd['show_pictures']:
                 json_state['showPictures'] = True
             for k in cd:
                 if k in tag_dict.keys():
                     if cd[k]:
-                        photos = photos.filter(tags__name=k, cattagphoto__value__in=(cd[k]))
+                        for val in cd[k]:
+                            photos = photos.filter(tags__name=k, cattagphoto__value=val)\
+                                .annotate(val_count=ConditionalCount(when=Q(cattagphoto__value=val)))\
+                                .filter(val_count__gt=1)
                     if k not in selected_tag_value_dict:
                         selected_tag_value_dict[k] = 0
                     if '1' in cd[k]:
@@ -446,11 +456,11 @@ def cat_results(request):
                         selected_tag_value_dict[k] += 1
                     if '-1' in cd[k]:
                         selected_tag_value_dict[k] += 1
-            photos = photos.distinct()
-            photo_serializer = CatResultsPhotoSerializer(photos[page * 10: (page + 1) * 10], many=True)
+            photos = photos.distinct().order_by('?')
+            photo_serializer = CatResultsPhotoSerializer(photos[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE], many=True)
     if request.is_ajax():
         if not photo_serializer:
-            photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.all()[page * 10: (page + 1) * 10], many=True)
+            photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.all()[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE], many=True)
         return HttpResponse(JSONRenderer().render(photo_serializer.data), content_type="application/json")
     else:
         albums = CatAlbum.objects.all()

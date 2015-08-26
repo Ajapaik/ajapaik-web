@@ -27,3 +27,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+#cat-header-mode > div > span {
+    font-size: 20px;
+}
