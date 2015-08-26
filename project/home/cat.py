@@ -456,7 +456,7 @@ def cat_results(request):
                         selected_tag_value_dict[k] += 1
                     if '-1' in cd[k]:
                         selected_tag_value_dict[k] += 1
-            photos = photos.distinct().order_by('?')
+            photos = photos.distinct()
             photo_serializer = CatResultsPhotoSerializer(photos[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE], many=True)
     if request.is_ajax():
         if not photo_serializer:
