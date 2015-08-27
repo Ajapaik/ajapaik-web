@@ -419,16 +419,20 @@ def user_favorite_remove(request):
 def cat_results(request):
     filter_form = CatResultsFilteringForm(request.GET)
     json_state = {}
-    tag_dict = dict(CatTag.objects.values_list('name', 'id'))
+    tag_dict = dict(CatTag.objects.exclude(name='public_or_private').values_list('name', 'id'))
     for key in tag_dict:
         tag_dict[key] = {
             'id': tag_dict[key],
             'left': key.split('_')[0].capitalize(),
             'right': key.split('_')[2].capitalize()
         }
+    json_state['filterNames'] = tag_dict.keys()
     selected_tag_value_dict = {}
     photo_serializer = None
     page = 0
+    total_results = 0
+    current_result_set_start = 0
+    current_result_set_end = 0
     if filter_form.is_valid():
         cd = filter_form.cleaned_data
         if cd['page']:
@@ -459,18 +463,27 @@ def cat_results(request):
                         if '-1' in cd[k]:
                             selected_tag_value_dict[k] += 1
                             #photos = photos.annotate(minus_one_count=ConditionalCount(when=Q(cattagphoto__value=-1))).filter(tags__name=k, minus_one_count__gt=1)
-            photos = photos.distinct()[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
-            # for p in photos:
-            #     print p.id
-            #     print p.zero_count
-            #     print p.one_count
-            #     print p.minus_one_count
-            #     print "----------"
+
+            photos = photos.distinct()
+            total_results = photos.count()
+            json_state['totalResults'] = total_results
+            photos = photos[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
+            current_result_set_start = page * CAT_RESULTS_PAGE_SIZE
+            current_result_set_end = (page + 1) * CAT_RESULTS_PAGE_SIZE
+            json_state['currentResultSetStart'] = current_result_set_start
+            json_state['currentResultSetEnd'] = current_result_set_end
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
+            json_state['photos'] = photo_serializer.data
     if request.is_ajax():
         if not photo_serializer:
-            photo_serializer = CatResultsPhotoSerializer(CatPhoto.objects.all()[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE], many=True)
-        return HttpResponse(JSONRenderer().render(photo_serializer.data), content_type="application/json")
+            photos = CatPhoto.objects.all()
+            json_state['totalResults'] = photos.count()
+            photos = photos[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
+            json_state['currentResultSetStart'] = page * CAT_RESULTS_PAGE_SIZE
+            json_state['currentResultSetEnd'] = (page + 1) * CAT_RESULTS_PAGE_SIZE
+            photo_serializer = CatResultsPhotoSerializer(photos, many=True)
+            json_state['photos'] = photo_serializer.data
+        return HttpResponse(JSONRenderer().render(json_state), content_type="application/json")
     else:
         albums = CatAlbum.objects.all()
         json_state['page'] = page
@@ -478,6 +491,9 @@ def cat_results(request):
             'albums': albums,
             'tag_dict': tag_dict,
             'page': page,
+            'current_result_set_start': current_result_set_start,
+            'current_result_set_end': current_result_set_end,
+            'total_results': total_results,
             'selected_tag_value_dict': selected_tag_value_dict,
             'state_json': dumps(json_state)
         }))

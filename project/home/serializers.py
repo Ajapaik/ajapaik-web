@@ -15,7 +15,7 @@ class CatResultsPhotoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CatPhoto
-        fields = ('id', 'title', 'thumb_height', 'thumb_width')
+        fields = ('id', 'title', 'thumb_height', 'thumb_width', 'source_url')
 
 
 class AreaSerializer(serializers.ModelSerializer):

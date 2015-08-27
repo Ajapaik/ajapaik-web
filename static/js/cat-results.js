@@ -12,12 +12,17 @@
         this.getPhotosURL = getPhotosURL;
         this.photoLoadTimeout = null;
         this.page = 0;
+        this.currentResultSetStart = null;
+        this.currentResultSetEnd = null;
+        this.totalResults = 0;
+        this.filterNames = [];
     };
     window.Cat.prototype = {
         switchToAlbumSelection: function () {
             this.selectedAlbumId = null;
             this.selectedAlbumTitle = null;
             this.page = 0;
+            this.removeFiltersFromURL();
             this.updatePaging();
             this.syncStateToURL();
             $('#cat-header-showing-albums').removeClass('hidden');
@@ -26,6 +31,7 @@
             $('#cat-album-selection').removeClass('hidden');
             $('#cat-photo-view').addClass('hidden');
             $('#cat-filtering-panel').addClass('hidden');
+            $('#cat-pager').addClass('hidden');
         },
         switchToPhotoView: function () {
             this.loadPhotos();
@@ -38,12 +44,19 @@
                 $('#cat-header-showing-pictures').removeClass('hidden');
                 showingAlbumPictures.addClass('hidden');
             }
+            $('#cat-pager').removeClass('hidden');
             $('#cat-album-selection').addClass('hidden');
             $('#cat-photo-view').removeClass('hidden');
             $('#cat-filtering-panel').removeClass('hidden');
         },
         removeFiltersFromURL: function () {
-
+            var i,
+                l = this.filterNames.length,
+                currentURL = URI(location.href);
+            for (i = 0; i < l; i += 1) {
+                currentURL.removeSearch(this.filterNames[i]);
+            }
+            history.replaceState(null, window.title, currentURL);
         },
         syncStateToURL: function () {
             var currentURL = URI(location.href);
@@ -57,16 +70,21 @@
             history.replaceState(null, window.title, currentURL);
         },
         loadPhotos: function () {
+            var that = this;
             $.ajax({
                 url: this.getPhotosURL + location.search,
                 method: 'GET',
                 success: function (response) {
                     var i,
-                        l = response.length,
+                        l = response.photos.length,
                         targetDiv = $('#cat-photo-view');
+                    that.currentResultSetStart = response.currentResultSetStart;
+                    that.currentResultSetEnd = response.currentResultSetEnd;
+                    that.totalResults = response.totalResults;
+                    that.updateResultSetStats();
                     targetDiv.empty();
                     for (i = 0; i < l; i += 1) {
-                        targetDiv.append(tmpl('cat-results-photo-template', response[i]));
+                        targetDiv.append(tmpl('cat-results-photo-template', response.photos[i]));
                     }
                     targetDiv.justifiedGallery();
                 },
@@ -77,6 +95,13 @@
         },
         updatePaging: function () {
             $('#cat-pager-page').html(this.page);
+        },
+        updateResultSetStats: function () {
+            $('#cat-result-set-stats').html(this.currentResultSetStart + ' - ' + this.currentResultSetEnd + ' / ' + this.totalResults);
+        },
+        initializeFilterBox: function () {
+            $('.cat-filtering-checkbox').attr('checked', false);
+            $('.cat-filtering-button').removeClass('active');
         },
         delayedLoadPhotos: function () {
             var that = this;
@@ -106,6 +131,8 @@
                 that.selectedAlbumId = $this.data('id');
                 that.selectedAlbumTitle = $this.data('title');
                 that.page = 0;
+                that.initializeFilterBox();
+                that.removeFiltersFromURL();
                 that.syncStateToURL();
                 that.switchToPhotoView();
             });
@@ -116,6 +143,9 @@
                 } else {
                     currentURL.removeSearch(this.name, this.value);
                 }
+                that.page = 0;
+                currentURL.removeSearch('page').addSearch('page', that.page);
+                that.updatePaging();
                 history.replaceState(null, window.title, currentURL);
                 that.delayedLoadPhotos();
             });
@@ -143,12 +173,11 @@
                 that.selectedAlbumId = null;
                 that.selectedAlbumTitle = null;
                 that.page = 0;
+                that.removeFiltersFromURL();
+                that.initializeFilterBox();
                 that.updatePaging();
                 that.syncStateToURL();
                 that.switchToPhotoView();
-            });
-            $('.cat-results-photo-container').click(function (e) {
-                e.preventDefault();
             });
         },
         initializeState: function (state) {
@@ -160,6 +189,9 @@
                 this.switchToAlbumSelection();
             }
             this.page = state.page;
+            this.filterNames = state.filterNames;
+            this.currentResultSetStart = state.currentResultSetStart;
+            this.currentResultSetEnd = state.currentResultSetEnd;
         }
     };
 }());
