@@ -462,7 +462,7 @@ def cat_results(request):
             photos = photos.distinct()
             total_results = photos.count()
             json_state['totalResults'] = total_results
-            photos = photos[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
+            photos = photos.annotate(favorited=Count('catuserfavorite')).order_by('-favorited')[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
             current_result_set_start = page * CAT_RESULTS_PAGE_SIZE
             current_result_set_end = (page + 1) * CAT_RESULTS_PAGE_SIZE
             json_state['currentResultSetStart'] = current_result_set_start
@@ -473,7 +473,7 @@ def cat_results(request):
         if not photo_serializer:
             photos = CatPhoto.objects.all()
             json_state['totalResults'] = photos.count()
-            photos = photos[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
+            photos = photos.annotate(favorited=Count('catuserfavorite')).order_by('-favorited')[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
             json_state['currentResultSetStart'] = page * CAT_RESULTS_PAGE_SIZE
             json_state['currentResultSetEnd'] = (page + 1) * CAT_RESULTS_PAGE_SIZE
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
