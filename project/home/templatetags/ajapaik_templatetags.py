@@ -25,6 +25,10 @@ def add_get(parser, token):
     return AddGetParameter(values)
 
 
-@register.filter(name='access')
-def access(value, arg):
-    return value[arg]
+@register.filter
+def get_item(container, key):
+    if type(container) is dict:
+        return container.get(key)
+    elif type(container) in (list, tuple):
+        return container[key] if len(container) > key else None
+    return None

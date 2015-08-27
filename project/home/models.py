@@ -151,6 +151,24 @@ class CatTag(Model):
         return u"%s" % self.name
 
 
+class CatRealTag(Model):
+    name = CharField(max_length=255, unique=True)
+
+    class Meta:
+        app_label = "project"
+
+    def __unicode__(self):
+        return u"%s" % self.name
+
+
+class CatAppliedTag(Model):
+    tag = ForeignKey("CatRealTag")
+    photo = ForeignKey("CatPhoto")
+
+    class Meta:
+        app_label = "project"
+
+
 class CatTagPhoto(Model):
     tag = ForeignKey("CatTag")
     album = ForeignKey("CatAlbum")

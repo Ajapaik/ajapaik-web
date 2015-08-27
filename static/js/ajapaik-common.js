@@ -1748,8 +1748,6 @@ var map,
             $('option').show();
         } else {
             $('#ajapaik-curator-album-select').find('option').each(function() {
-                console.log($(this).text().toLowerCase());
-                console.log(filter);
                 if ($(this).text().toLowerCase().indexOf(filter) > -1) {
                     $(this).show();
                 } else {

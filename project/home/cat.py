@@ -419,7 +419,7 @@ def user_favorite_remove(request):
 def cat_results(request):
     filter_form = CatResultsFilteringForm(request.GET)
     json_state = {}
-    tag_dict = dict(CatTag.objects.exclude(name='public_or_private').values_list('name', 'id'))
+    tag_dict = dict(CatTag.objects.filter(active=True).values_list('name', 'id'))
     for key in tag_dict:
         tag_dict[key] = {
             'id': tag_dict[key],
@@ -448,22 +448,17 @@ def cat_results(request):
             for k in cd:
                 if k in tag_dict.keys():
                     if cd[k]:
-                        photos = photos.filter(tags__name=k, cattagphoto__value__in=cd[k])#\
-                            # .annotate(zero_count=ConditionalCount(when=Q(cattagphoto__value=0)))\
-                            # .annotate(one_count=ConditionalCount(when=Q(cattagphoto__value=1)))\
-                            # .annotate(minus_one_count=ConditionalCount(when=Q(cattagphoto__value=-1)))
                         if k not in selected_tag_value_dict:
-                            selected_tag_value_dict[k] = 0
+                            selected_tag_value_dict[k] = {'left': False, 'na': False, 'right': False}
                         if '1' in cd[k]:
-                            selected_tag_value_dict[k] += 1
-                            #photos = photos.annotate(one_count=ConditionalCount(when=Q(cattagphoto__value=1))).filter(tags__name=k, one_count__gt=1)
+                            selected_tag_value_dict[k]['left'] = True
+                            photos = photos.filter(catappliedtag__tag__name=tag_dict[k]['left'].lower())
                         if '0' in cd[k]:
-                            selected_tag_value_dict[k] += 1
-                            #photos = photos.annotate(zero_count=ConditionalCount(when=Q(cattagphoto__value=0))).filter(tags__name=k, zero_count__gt=1)
+                            selected_tag_value_dict[k]['na'] = True
+                            photos = photos.filter(catappliedtag__tag__name=(k + '_NA'))
                         if '-1' in cd[k]:
-                            selected_tag_value_dict[k] += 1
-                            #photos = photos.annotate(minus_one_count=ConditionalCount(when=Q(cattagphoto__value=-1))).filter(tags__name=k, minus_one_count__gt=1)
-
+                            selected_tag_value_dict[k]['right'] = True
+                            photos = photos.filter(catappliedtag__tag__name=tag_dict[k]['right'].lower())
             photos = photos.distinct()
             total_results = photos.count()
             json_state['totalResults'] = total_results
