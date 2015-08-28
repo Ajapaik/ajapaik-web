@@ -1,6 +1,6 @@
 {% load i18n cache thumbnail compress ajapaik_templatetags %}
 <!DOCTYPE html>
-<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview or is_test_geotagger %} class="ajapaik-html-game-map"{% endif %}
+<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview or is_test_geotagger or is_tag %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
     <title>
@@ -211,7 +211,11 @@
     {% block specific_css %}{% endblock %}
     <script>
         var _gaq = _gaq || [];
-        _gaq.push(["_setAccount", "{{ analytics.google_analytics_key }}"]);
+        {% if cat_google_analytics_key %}
+            _gaq.push(["_setAccount", "{{ cat_google_analytics_key }}"]);
+        {% else %}
+            _gaq.push(["_setAccount", "{{ analytics.google_analytics_key }}"]);
+        {% endif %}
         _gaq.push(["_trackPageview"]);
         (function () {
             var a = document.createElement("script");
@@ -223,7 +227,7 @@
         })();
     </script>
 </head>
-<body class="{% if is_game or is_mapview or is_test_geotagger %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
+<body class="{% if is_game or is_mapview or is_test_geotagger or is_tag %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
 <div id="cookie-notice-container" style="display: none;">
     <div id="cookie-notice">
         <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>

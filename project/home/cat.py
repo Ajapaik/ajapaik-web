@@ -8,33 +8,32 @@ from pytz import utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
-from djconnagg import ConditionalCount
-# from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
-from django.db import IntegrityError, connection
-from django.db.models import Count, Q
+from django.db import IntegrityError
+from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 from rest_framework.parsers import FormParser
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, BasePermission
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail, delete
 from django.core.cache import cache
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
-    CatPushRegisterForm, CatResultsFilteringForm
-from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile, Action
+    CatPushRegisterForm, CatResultsFilteringForm, CatTaggerAlbumSelectionForm
+from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
-from project.home.serializers import CatResultsPhotoSerializer
-from project.home.views import _calculate_thumbnail_size
-from project.settings import SITE_ID, CAT_RESULTS_PAGE_SIZE
+from project.home.serializers import CatResultsPhotoSerializer, CatTaggerTagSerializer
+from project.settings import SITE_ID, CAT_RESULTS_PAGE_SIZE, CAT_GOOGLE_ANALYTICS_KEY
 from ujson import dumps
+from django.utils.translation import ugettext as _
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -56,6 +55,14 @@ class CustomAuthentication(authentication.BaseAuthentication):
                 raise exceptions.AuthenticationFailed('No user/session')
 
         return user, None
+
+
+class AnonymousUserPermission(BasePermission):
+    def has_permission(self, request, view):
+        user = request.user
+        if not user:
+            user = request.get_user()
+        return user.is_authenticated()
 
 
 def custom_exception_handler(exc, context):
@@ -213,6 +220,8 @@ def _get_album_state(request, form):
         tag_count_dict = {}
         for each in user_tags:
             tag_count_dict[each['photo']] = each['tag_count']
+        user_favorites = CatUserFavorite.objects.filter(profile=request.get_user().profile, album=album)\
+            .values_list('photo_id', flat=True)
         for p in album.photos.all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
                 profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
@@ -229,7 +238,8 @@ def _get_album_state(request, form):
                 'author': p.author,
                 'user_tags': tag_count_dict[p.id] if p.id in tag_count_dict else 0,
                 'source': {'name': p.get_source_with_key(), 'url': p.source_url},
-                'tag': random.sample(available_cat_tags, min(len(available_cat_tags), to_get))
+                'tag': random.sample(available_cat_tags, min(len(available_cat_tags), to_get)),
+                'is_user_favorite': p.id in user_favorites
             })
         content['photos'] = sorted(content['photos'],
                                    key=lambda y: (y['user_tags'], random.randint(0, len(content['photos']))))
@@ -295,8 +305,8 @@ def _get_user_data(request, remove_favorite=None, add_favorite=None):
 
 @api_view(['POST'])
 @parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
+@authentication_classes((SessionAuthentication, CustomAuthentication))
+@permission_classes((AnonymousUserPermission, IsAuthenticated))
 def cat_album_state(request):
     cat_album_state_form = CatAlbumStateForm(request.data)
     return Response(_get_album_state(request, cat_album_state_form))
@@ -330,8 +340,8 @@ def cat_photo(request, photo_id=None, thumb_size=600):
 
 @api_view(['POST'])
 @parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
+@authentication_classes((SessionAuthentication, CustomAuthentication))
+@permission_classes((AnonymousUserPermission, IsAuthenticated))
 def cat_tag(request):
     cat_tag_form = CatTagForm(request.data)
     content = {
@@ -365,8 +375,8 @@ def user_me(request):
 
 @api_view(['POST'])
 @parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
+@authentication_classes((SessionAuthentication, CustomAuthentication))
+@permission_classes((AnonymousUserPermission, IsAuthenticated))
 def user_favorite_add(request):
     cat_favorite_form = CatFavoriteForm(request.data)
     profile = request.get_user().profile
@@ -391,8 +401,8 @@ def user_favorite_add(request):
 
 @api_view(['POST'])
 @parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
+@authentication_classes((SessionAuthentication, CustomAuthentication))
+@permission_classes((AnonymousUserPermission, IsAuthenticated))
 def user_favorite_remove(request):
     cat_favorite_form = CatFavoriteForm(request.data)
     profile = request.get_user().profile
@@ -483,6 +493,9 @@ def cat_results(request):
         albums = CatAlbum.objects.all()
         json_state['page'] = page
         return render_to_response('cat_results.html', RequestContext(request, {
+            'title': _('Sift.pics picture categorisation app by Ajapaik.ee'),
+            'cat_google_analytics_key': CAT_GOOGLE_ANALYTICS_KEY,
+            'is_filter': True,
             'albums': albums,
             'tag_dict': tag_dict,
             'page': page,
@@ -494,45 +507,47 @@ def cat_results(request):
         }))
 
 
-# def cat_results(request, page=1):
-#     tagged_photos = list(CatPhoto.objects.annotate(tag_count=Count('tags')).filter(tag_count__gt=0).order_by(
-#         '-tag_count')[(int(page) - 1) * 20: int(page) * 20])
-#     photo_tags = CatTagPhoto.objects.filter(photo_id__in=[x.id for x in tagged_photos])
-#     tags = CatTag.objects.all()
-#     tag_tally = {}
-#     # FIXME: All this needs to be done with SQL, then again, not so important anyway
-#     for tp in tagged_photos:
-#         tag_tally[tp.id] = {}
-#         for tag in tags:
-#             tag_tally[tp.id][tag.name] = [0, 0, 0]
-#     for pt in photo_tags:
-#         if pt.value == -1:
-#             tag_tally[pt.photo_id][pt.tag.name][0] += 1
-#         elif pt.value == 0:
-#             tag_tally[pt.photo_id][pt.tag.name][1] += 1
-#         else:
-#             tag_tally[pt.photo_id][pt.tag.name][2] += 1
-#     ret = []
-#     for tp in tagged_photos:
-#         tp.my_tags = {}
-#         for t in tags:
-#             one_or_other = t.name.split('_or_')
-#             vals = tag_tally[tp.id][t.name]
-#             greatest_index = vals.index(max(vals))
-#             if greatest_index == 0 and vals[greatest_index] > 0:
-#                 tp.my_tags[one_or_other[0]] = vals[greatest_index]
-#             elif greatest_index == 2 and vals[greatest_index] > 0:
-#                 tp.my_tags[one_or_other[1]] = vals[greatest_index]
-#             elif greatest_index == 1:
-#                 if vals[greatest_index] == 0:
-#                     del(tp.my_tags[t.name + ' NA'])
-#                 else:
-#                     tp.my_tags[t.name + ' NA'] = vals[greatest_index]
-#         ret.append((tp, tp.my_tags))
-#     return render_to_response('cat_results.html', RequestContext(request, {
-#         'photos': ret,
-#         'next': int(page) + 1
-#     }))
+
+def cat_about(request):
+    return render_to_response('cat_about.html', RequestContext(request, {
+        'title': _('Sift.pics picture categorisation app by Ajapaik.ee'),
+        'cat_google_analytics_key': CAT_GOOGLE_ANALYTICS_KEY,
+        'is_about': True
+    }))
+
+
+def cat_tagger(request):
+    state = {}
+    album_selection_form = CatTaggerAlbumSelectionForm(request.GET)
+    request.get_user()
+    all_tags = CatTag.objects.all()
+    icon_map = {
+        'interior': 'local_hotel',
+        'exterior': 'nature_people',
+        'view': 'home',
+        'social': 'accessibility',
+        'ground': 'nature_people',
+        'raised': 'filter_drama',
+        'rural': 'nature',
+        'urban': 'location_city',
+        'one': 'person',
+        'many': 'group_add',
+        'public': 'public',
+        'private': 'vpn_lock',
+        'whole': 'landscape',
+        'detail': 'local_florist',
+        'staged': 'account_box',
+        'natural': 'directions_walk'
+    }
+    state['allTags'] = { x.name: {'leftIcon': icon_map[x.name.split('_')[0]], 'rightIcon': icon_map[x.name.split('_')[-1]]} for x in all_tags }
+    albums = CatAlbum.objects.all()
+    return render_to_response('cat_tagger.html', RequestContext(request, {
+        'title': _('Sift.pics picture categorisation app by Ajapaik.ee'),
+        'cat_google_analytics_key': CAT_GOOGLE_ANALYTICS_KEY,
+        'is_tag': True,
+        'albums': albums,
+        'state_json': dumps(state)
+    }))
 
 
 @api_view(['POST'])

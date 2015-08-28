@@ -28,7 +28,7 @@
             $('#cat-header-showing-albums').removeClass('hidden');
             $('#cat-header-showing-pictures').addClass('hidden');
             $('#cat-header-showing-album-pictures').addClass('hidden');
-            $('#cat-album-selection').removeClass('hidden');
+            $('#cat-album-selection').removeClass('hidden').parent().removeClass('col-xs-7 col-sm-8 col-lg-9');
             $('#cat-photo-view').addClass('hidden');
             $('#cat-filtering-panel').addClass('hidden');
             $('#cat-pager').addClass('hidden');
@@ -45,7 +45,7 @@
                 showingAlbumPictures.addClass('hidden');
             }
             $('#cat-pager').removeClass('hidden');
-            $('#cat-album-selection').addClass('hidden');
+            $('#cat-album-selection').addClass('hidden').parent().addClass('col-xs-7 col-sm-8 col-lg-9');
             $('#cat-photo-view').removeClass('hidden');
             $('#cat-filtering-panel').removeClass('hidden');
         },

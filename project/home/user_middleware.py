@@ -8,7 +8,7 @@ from functools import partial
 
 
 def get_user(request):
-    if request.user.is_authenticated():
+    if request.user and request.user.is_authenticated():
         return request.user
     else:
         session_id = request.session._get_or_create_session_key()

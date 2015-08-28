@@ -151,6 +151,10 @@ var map,
         waitThumbnailsLoad: false
     });
 
+    String.prototype.capitalize = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    };
+
     getMap = function (startPoint, startingZoom, isGameMap, mapType) {
         var latLng,
             zoomLevel,

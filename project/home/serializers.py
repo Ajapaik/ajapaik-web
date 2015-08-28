@@ -1,4 +1,4 @@
-from models import Photo, Area, Source, Album, CatPhoto
+from models import Photo, Area, Source, Album, CatPhoto, CatTag
 from rest_framework import serializers
 
 
@@ -16,6 +16,12 @@ class CatResultsPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CatPhoto
         fields = ('id', 'title', 'thumb_height', 'thumb_width', 'source_url')
+
+
+class CatTaggerTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CatTag
+        fields = ('name',)
 
 
 class AreaSerializer(serializers.ModelSerializer):

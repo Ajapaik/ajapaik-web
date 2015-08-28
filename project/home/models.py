@@ -36,6 +36,9 @@ from bulk_update.manager import BulkUpdateManager
 
 def _user_post_save(sender, instance, **kwargs):
     Profile.objects.get_or_create(user=instance)
+    def create_auth_token(sender, instance=None, created=False, **kwargs):
+        if created:
+            Token.objects.create(user=instance)
 
 
 def _calc_trustworthiness(user_id):
@@ -175,6 +178,7 @@ class CatTagPhoto(Model):
     photo = ForeignKey("CatPhoto")
     profile = ForeignKey("Profile", related_name="tags")
     value = IntegerField(db_index=True)
+    source = CharField(max_length=3, default='mob')
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 

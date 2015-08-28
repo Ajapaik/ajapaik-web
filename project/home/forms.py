@@ -213,6 +213,7 @@ class CatTagForm(forms.Form):
     photo = forms.ModelChoiceField(queryset=CatPhoto.objects.all())
     tag = forms.ModelChoiceField(queryset=CatTag.objects.all(), to_field_name='name')
     value = forms.TypedChoiceField(choices=[(-1, -1), (0, 0), (1, 1)], coerce=int)
+    source = forms.CharField(max_length=255, required=False)
     state = forms.CharField(max_length=255, required=False)
 
 
@@ -236,6 +237,10 @@ class CatResultsFilteringForm(forms.Form):
     album = forms.ModelChoiceField(queryset=CatAlbum.objects.all(), required=False)
     show_pictures = forms.BooleanField(required=False)
     page = forms.IntegerField(required=False)
+
+
+class CatTaggerAlbumSelectionForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
 
 
 class SubmitGeotagForm(forms.ModelForm):

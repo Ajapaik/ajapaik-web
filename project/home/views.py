@@ -5,7 +5,6 @@ import urllib2
 from django.db import connection
 import operator
 from math import ceil
-from django.db.models.query_utils import Q
 import requests
 import datetime
 import ujson as json
@@ -41,7 +40,7 @@ from project.home.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionFo
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm
 from project.home.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
-from project.settings import DEBUG, FACEBOOK_APP_SECRET
+from project.settings import FACEBOOK_APP_SECRET
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -1247,8 +1246,8 @@ def photoslug(request, photo_id, pseudo_slug):
             photo_obj.in_selection = True
 
     user_confirmed_this_location = 'false'
-    if hasattr(request.user, 'profile'):
-        last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.user.profile)\
+    if hasattr(request.get_user(), 'profile'):
+        last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.get_user().profile)\
             .order_by('-created').first()
         if last_user_confirm_geotag_for_this_photo:
             if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
@@ -1511,13 +1510,13 @@ def geotag_add(request):
 @login_required()
 def geotag_confirm(request):
     form = ConfirmGeotagForm(request.POST)
-    profile = request.user.profile
+    profile = request.get_user().profile
     ret = {
         'message': 'OK'
     }
-    if form.is_valid() and request.user.profile:
+    if form.is_valid() and request.get_user().profile:
         p = form.cleaned_data['photo']
-        trust = _calc_trustworthiness(request.user.id)
+        trust = _calc_trustworthiness(request.get_user().id)
         if p.lat and p.lon:
             confirmed_geotag = GeoTag(
                 lat=p.lat,
