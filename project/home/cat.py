@@ -15,7 +15,7 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 from rest_framework.parsers import FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny, BasePermission
@@ -30,7 +30,7 @@ from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUser
 from rest_framework import authentication
 from rest_framework import exceptions
 import random
-from project.home.serializers import CatResultsPhotoSerializer, CatTaggerTagSerializer
+from project.home.serializers import CatResultsPhotoSerializer
 from project.settings import SITE_ID, CAT_RESULTS_PAGE_SIZE, CAT_GOOGLE_ANALYTICS_KEY
 from ujson import dumps
 from django.utils.translation import ugettext as _
@@ -353,6 +353,7 @@ def cat_tag(request):
             album=cat_tag_form.cleaned_data['id'],
             photo=cat_tag_form.cleaned_data['photo'],
             profile=request.get_user().profile,
+            source=cat_tag_form.cleaned_data['source'],
             value=cat_tag_form.cleaned_data['value']
         )
         tag.save()

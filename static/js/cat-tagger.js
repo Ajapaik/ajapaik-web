@@ -79,7 +79,6 @@
                 method: 'POST',
                 success: function (response) {
                     if (parseInt(response.error, 10) === 0) {
-                        console.log(response);
                         loadingOverlay.hide();
                         that.photos = response.photos;
                         that.selectedAlbumTitle = response.title;
