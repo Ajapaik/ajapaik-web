@@ -25,7 +25,7 @@ from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail, delete
 from django.core.cache import cache
 from project.home.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, \
-    CatPushRegisterForm, CatResultsFilteringForm, CatTaggerAlbumSelectionForm
+    CatPushRegisterForm, CatResultsFilteringForm
 from project.home.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, Profile
 from rest_framework import authentication
 from rest_framework import exceptions
@@ -518,7 +518,7 @@ def cat_about(request):
 
 def cat_tagger(request):
     state = {}
-    album_selection_form = CatTaggerAlbumSelectionForm(request.GET)
+    #album_selection_form = CatTaggerAlbumSelectionForm(request.GET)
     request.get_user()
     all_tags = CatTag.objects.all()
     icon_map = {
