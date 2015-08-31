@@ -33,7 +33,8 @@
 }
 
 #cat-tagger-current-photo {
-    height: 70%;
+    height: auto;
+    width: auto;
     max-height: 70%;
     max-width: 100%;
 }
@@ -46,4 +47,20 @@
 .cat-btn-group {
     width: 50%;
     margin-left: 25%;
+}
+
+.cat-tagger-tag-button:focus {
+    background-color: #fff;
+    border-color: #adadad;
+    box-shadow: none;
+    outline: none;
+    -webkit-box-shadow: none;
+}
+
+.cat-tagger-tag-button:active {
+    background-color: #fff;
+    border-color: #adadad;
+    box-shadow: none;
+    outline: none;
+    -webkit-box-shadow: none;
 }

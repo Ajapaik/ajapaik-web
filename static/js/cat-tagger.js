@@ -42,7 +42,6 @@
             $('#cat-tagger-current-photo').attr('src', this.currentPhoto.image.replace('[DIM]', '800'));
             $('#cat-tagger-photo-description').html(this.currentPhoto.title).addClass('hidden');
             this.updateFavoriteButton();
-            this.nextTag();
         },
         updateFavoriteButton: function () {
             var favoriteButton = $('#cat-tagger-favorite-button');
@@ -164,6 +163,9 @@
                         console.log('Error saving tag');
                     }
                 });
+            });
+            $('#cat-tagger-current-photo').load(function () {
+                that.nextTag();
             });
         },
         initializeState: function (state) {
