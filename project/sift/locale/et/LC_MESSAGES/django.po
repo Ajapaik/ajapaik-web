@@ -1,18 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
+# Lauri Elias, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 15:45+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2015-09-04 00:18+0300\n"
+"PO-Revision-Date: 2015-09-03 21:16+0000\n"
+"Last-Translator: Lauri Elias\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,96 +21,98 @@ msgstr ""
 
 #: project/sift/settings/default.py:61
 msgid "Estonian"
-msgstr ""
+msgstr "Eesti"
 
 #: project/sift/settings/default.py:62
 msgid "English"
-msgstr ""
+msgstr "Inglise"
 
 #: project/sift/settings/default.py:63
 msgid "Finnish"
-msgstr ""
+msgstr "Soome"
 
 #: project/sift/templates/_cat_header.html:6
 msgid "Back to homepage"
-msgstr ""
+msgstr "Tagasi kodulehele"
 
 #: project/sift/templates/_cat_header.html:7
 #: project/sift/templates/base.html:7 project/sift/templates/base.html.py:9
 msgid "Sift.pics"
-msgstr ""
+msgstr "Sift.pics"
 
 #: project/sift/templates/_cat_header.html:17
 #: project/sift/templates/_cat_header.html:33
 #: project/sift/templates/_cat_mode_select.html:25
 #: project/sift/templates/_cat_mode_select.html:38
 msgid "Albums"
-msgstr ""
+msgstr "Albumid"
 
 #: project/sift/templates/_cat_header.html:22
 #: project/sift/templates/_cat_header.html:39
 #: project/sift/templates/_cat_mode_select.html:23
 #: project/sift/templates/_cat_mode_select.html:47
 msgid "All pictures"
-msgstr ""
+msgstr "Kõik pildid"
 
 #: project/sift/templates/_cat_header.html:46
 msgid "Tag photos"
-msgstr ""
+msgstr "Sorteeri fotosid"
 
 #: project/sift/templates/_cat_header.html:51
 msgid "Filter by tags"
-msgstr ""
+msgstr "Filtreeri"
 
 #: project/sift/templates/_cat_header.html:59
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Näita/peida navigatsioon"
 
 #: project/sift/templates/_cat_header.html:68
 msgid "About"
-msgstr ""
+msgstr "Meist"
 
 #: project/sift/templates/_cat_header.html:75
 msgid "Choose language"
-msgstr ""
+msgstr "Vali keel"
 
 #: project/sift/templates/base.html:12
 msgid "Sift.pics picture categorisation app by Ajapaik.ee"
-msgstr ""
+msgstr "Sift.pics piltide kategoriseerimise rakendus Ajapaigalt"
 
 #: project/sift/templates/base.html:13
 msgid "tagging,historic,old,photos,pictures"
-msgstr ""
+msgstr "täägimine,ajaloolised,vanad,fotod,pildid"
 
 #: project/sift/templates/base.html:47
 msgid ""
 "We use cookies for best performance of the site. By using the site you agree "
 "to that."
 msgstr ""
+"Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades peate "
+"sellega nõus olema."
 
 #: project/sift/templates/cat_about.html:12
 msgid "Published on March 28, 2015"
-msgstr ""
+msgstr "Avaldatud 28. märtsil 2015. aastal"
 
 #: project/sift/templates/cat_about.html:13
 msgid "Download from Play Store"
-msgstr ""
+msgstr "Lae alla Play poest"
 
 #: project/sift/templates/cat_about.html:15
 msgid "Second Prize"
-msgstr ""
+msgstr "Teine koht"
 
 #: project/sift/templates/cat_about.html:16
 msgid "Hack4Fi Hack your heritage competition"
-msgstr ""
+msgstr "Hack4Fi Hack your heritage võistlus"
 
 #: project/sift/templates/cat_about.html:16
 msgid "March 26"
-msgstr ""
+msgstr "26. märts"
 
 #: project/sift/templates/cat_about.html:17
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: project/sift/templates/cat_about.html:19
 msgid ""
@@ -140,11 +143,11 @@ msgstr ""
 
 #: project/sift/templates/cat_about.html:31
 msgid "Team"
-msgstr ""
+msgstr "Meeskond"
 
 #: project/sift/templates/cat_about.html:32
 msgid "concept: Vahur Puik"
-msgstr ""
+msgstr "kontseptsioon: Vahur Puik"
 
 #: project/sift/templates/cat_about.html:33
 msgid "back-end development: Lauri Elias"
@@ -154,23 +157,15 @@ msgstr ""
 msgid "android app development: Janek Priimann"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:23
+#: project/sift/templates/cat_results.html:20
 #: project/sift/templates/cat_tagger.html:25
 msgid "N/A"
-msgstr ""
+msgstr "Ei sobi"
 
-#: project/sift/templates/cat_results.html:38
+#: project/sift/templates/cat_results.html:39
 msgid "Previous"
-msgstr ""
+msgstr "Eelmine"
 
-#: project/sift/templates/cat_results.html:44
+#: project/sift/templates/cat_results.html:45
 msgid "Next"
-msgstr ""
-
-#: templates/404.html:5 templates/404.html.py:11
-msgid "Page Not Found"
-msgstr ""
-
-#: templates/404.html:14
-msgid "Back"
-msgstr ""
+msgstr "Järgmine"
