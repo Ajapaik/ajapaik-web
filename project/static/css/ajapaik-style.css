@@ -119,6 +119,9 @@ body {
 .ajapaik-padding-top-6px {
     padding-top: 6px !important;
 }
+.ajapaik-margin-right-minus-20px {
+    margin-right: -20px;
+}
 
 /*.navbar {*/
     /*display: block;*/
