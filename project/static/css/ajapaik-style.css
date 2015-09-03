@@ -1,0 +1,2668 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    padding: 50px 0 0 0;
+    background-color: #eee;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
+.ajapaik-invisible {
+    visibility: hidden;
+}
+.ajapaik-filter-gray {
+    fill: #888;
+}
+.ajapaik-filter-white {
+    fill: #fff;
+}
+.ajapaik-white {
+    fill: #fff;
+}
+.ajapaik-gray {
+    fill: #888;
+}
+.ajapaik-text-white {
+    color: #fff !important;
+}
+.ajapaik-dark-background {
+    background-color: rgba(0, 0, 0, .8);
+}
+.ajapaik-dark-background > li > a {
+    color: #fff;
+}
+.ajapaik-no-background {
+    background: none !important;
+}
+#ajapaik-album-selection-navmenu {
+    z-index: 100;
+    width: 100%;
+    bottom: 0 !important;
+}
+
+#ajapaik-album-filter-box {
+    margin-top: 8px;
+    border-radius: 0;
+}
+
+#ajapaik-photo-filter-box {
+    margin-top: 8px;
+    border-radius: 0;
+    max-width: 100px;
+}
+
+#ajapaik-frontpage-mode-select {
+    background-color: rgba(0,0,0,.8);
+    border-radius: 0;
+}
+
+#ajapaik-filtering-help {
+    background: none;
+}
+
+#ajapaik-frontpage-mode-select > li > a {
+    font-size: 20px;
+    color: #fff;
+    background: none !important;
+}
+
+.ajapaik-black-dropdown-menu {
+    width: 100%;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    display: none;
+    float: left;
+    min-width: 160px;
+    background-color: rgba(0,0,0,.8);
+    border-left: none;
+    border-right: none;
+    /*padding: 5px 0;*/
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ajapaik-black-dropdown-menu li {
+    display: inline-block;
+}
+
+.navbar-collapse.collapse.in {
+    background-color: rgba(0, 0, 0, .8);
+}
+
+.ajapaik-html-game-map {
+    height: 100%;
+}
+
+.ajapaik-body-frontpage {
+    margin-bottom: 70px;
+    overflow-y: scroll;
+}
+
+.ajapaik-body-game-map {
+    height: 100%;
+}
+
+.ajapaik-flex {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.navmenu {
+    padding-top: 50px;
+}
+
+.ajapaik-padding-top-6px {
+    padding-top: 6px !important;
+}
+
+/*.navbar {*/
+    /*display: block;*/
+    /*text-align: center;*/
+/*}*/
+
+/*.navbar-brand {*/
+    /*display: inline-block;*/
+    /*float: none;*/
+/*}*/
+
+/*.navbar-toggle {*/
+    /*position: absolute;*/
+    /*float: left;*/
+    /*margin-left: 15px;*/
+/*}*/
+
+.container {
+  max-width: 100%;
+}
+
+.ajapaik-margin-left-minus-10-px {
+    margin-left: -10px;
+}
+
+.ajapaik-margin-left-minus-20-px {
+    margin-left: -20px;
+}
+
+/*@media (min-width: 1px) {*/
+  /*.navbar-toggle {*/
+    /*display: block !important;*/
+  /*}*/
+/*}*/
+
+.ajapaik-navbar {
+    height: 50px;
+    background: rgba(0, 0, 0, .8) none;
+    border-width: 0 0 0 0;
+    z-index: 100;
+    margin-bottom: 0 !important;
+}
+
+.ajapaik-curator-navbar {
+    height: 150px;
+    margin-top: 0;
+}
+
+.ajapaik-navbar-curator {
+    margin-bottom: 50px;
+}
+
+.ajapaik-navmenu {
+    margin-top: 50px;
+    padding-top: 0;
+    z-index: 100;
+}
+
+.ajapaik-btn-white-space-nowrap {
+    white-space: nowrap !important;
+}
+
+.ajapaik-caption {
+    display: block !important;
+    background-color: rgba(0, 0, 0, .7) !important;
+    min-height: 30px !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 90px !important;
+}
+
+.ajapaik-caption-album-selection {
+    display: block !important;
+    background-color: rgba(0, 0, 0, .7) !important;
+    min-height: 30px !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ajapaik-brand {
+    float: left;
+    background: url(../images/ajapaik_266px.png) no-repeat;
+    position: fixed;
+    width: 133px;
+    height: 73px;
+    margin: 10px 0 0 20px !important;
+    background-size: 133px 73px;
+    text-indent: -999em;
+}
+
+.ajapaik-brand-xs {
+    background: url(../images/ajapaik_marker_45px.png) no-repeat;
+    width: 45px;
+    height: 61px;
+    background-size: 45px 61px;
+    margin: 5px 0 0 10px;
+}
+
+.ajapaik-navbar-toggle {
+    border: none;
+    color: white !important;
+    cursor: pointer;
+}
+
+#ajapaik-album-name-container {
+    font-size: 20px;
+    float: left;
+    margin-top: 2px;
+    margin-left: -20px;
+    margin-right: -10px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 500px;
+    background-color: transparent !important;
+    text-overflow: ellipsis;
+}
+
+#ajapaik-album-name-container:hover {
+    color: white !important;
+}
+
+#ajapaik-album-name-container:focus {
+    color: white !important;
+}
+
+#mapview-photo-modal-dialog .modal-content {
+    border-radius: 0;
+}
+
+/*@media (min-width: 992px) {*/
+  /*body {*/
+    /*padding: 0 0 0 300px;*/
+  /*}*/
+  /*.navmenu {*/
+    /*padding-top: 0;*/
+  /*}*/
+  /*.navbar {*/
+    /*display: none !important; *//* IE8 fix */
+  /*}*/
+/*}*/
+
+.ajapaik-frontpage-image-container {
+    display: none;
+    opacity: 1 !important;
+}
+
+#ajapaik-header-logo {
+    background: url(../images/ajapaik_266px.png) no-repeat;
+    width: 133px;
+    height: 73px;
+    margin: 10px 0 0 20px;
+    background-size: 133px 73px;
+    text-indent: -999em;
+    z-index: 1031;
+}
+
+#ajapaik-header {
+    height: 50px;
+    background-color: rgba(0, 0, 0, .8);
+    border-color: transparent;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    border-radius: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.ajapaik-photo-flipped {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.ajapaik-photo-inverted {
+    filter: invert(1) grayscale(1);
+    -webkit-filter: invert(1) grayscale(1);
+}
+
+.ajapaik-photo-bw {
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+}
+
+#ajapaik-game-fullscreen-image-container {
+    width: 100%;
+    height: 100%;
+}
+
+.ajapaik-grid-close-map-button {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1002;
+}
+
+.ajapaik-save-location-button {
+
+}
+
+.ajapaik-marker-center-lock-button {
+    background: #fff url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg) no-repeat center !important;
+    width: 60px;
+    height: 36px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.ajapaik-minimap-confirm-geotag-button {
+    background-color: #fff;
+    background-image: url(../images/material-design-icons/ic_thumb_up_black_24px.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 75px;
+    height: 75px;
+    background-size: 36px !important;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 0;
+    border: none;
+}
+
+.ajapaik-minimap-confirm-geotag-button-done {
+    background-image: url(../images/material-design-icons/ic_thumb_up_blue_24px.svg);
+}
+
+.ajapaik-minimap-start-guess-button {
+    background: #fff url(../images/material-design-icons/ic_mode_edit_black_24px.svg) no-repeat center !important;
+    width: 75px;
+    height: 75px;
+    background-size: 36px !important;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 0;
+    border: none;
+}
+
+.ajapaik-minimap-geotagging-user-number {
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 30px;
+    background-color: white;
+}
+
+.ajapaik-minimap-geotagging-user-single-person {
+    background: transparent url(../images/material-design-icons/ic_person_black_24px.svg) no-repeat center !important;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 3px;
+}
+
+.ajapaik-minimap-geotagging-user-multiple-people {
+    background: transparent url(../images/material-design-icons/ic_people_black_24px.svg) no-repeat center !important;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 3px;
+}
+
+#ajapaik-minimap-disabled-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,255,255,.7);
+    z-index: 1000;
+    display: none;
+}
+
+.ajapaik-minimap-start-guess-CTA-button {
+    background: transparent url(../images/material-design-icons/ic_pin_drop_50px.svg) no-repeat center !important;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    z-index: 2000;
+}
+
+#ajapaik-feedback-div {
+    height: 104px;
+    width: 104px;
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    z-index: 999;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+#ajapaik-feedback-div a {
+    display: block;
+    background: #8E1313;
+    height: 40px;
+    width: 115px;
+    padding: 8px 16px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: solid 1px #333;
+    border-left: solid 1px #333;
+    border-right: solid 1px #fff;
+}
+
+#ajapaik-feedback-div a:hover {
+    background: #06c;
+}
+
+.ajapaik-marker-center-lock-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button:active {
+    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button.active {
+    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-marker-center-lock-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-marker-center-lock-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button {
+    background: #fff url(../images/material-design-icons/ic_help_24px.svg) no-repeat center !important;
+    width: 36px;
+    height: 36px;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+}
+
+.ajapaik-header-score-language .ajapaik-show-tutorial-button {
+    top: 3px;
+    right: 70px;
+}
+
+.ajapaik-header-info-button {
+    background: #fff url(../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
+    width: 36px;
+    height: 36px;
+    margin-top: -5px;
+}
+
+.ajapaik-header-button {
+    width: 36px;
+    height: 36px;
+    background-size: 36px !important;
+    margin-top: 6px;
+    background-color: transparent !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+/*#ajapaik-header-map-button {*/
+    /*background-image: url(../images/material-design-icons/ic_map_24px.svg);*/
+    /*float: left;*/
+/*}*/
+
+/*.ajapaik-header-map-button-white {*/
+    /*background-image: url(../images/material-design-icons/ic_map_24px_white.svg) !important;*/
+/*}*/
+
+/*#ajapaik-header-game-button {*/
+    /*background-image: url(../images/material-design-icons/ic_pin_drop_24px.svg);*/
+    /*float: left;*/
+/*}*/
+
+/*.ajapaik-header-game-button-white {*/
+    /*background-image: url(../images/material-design-icons/ic_pin_drop_24px_white.svg) !important;*/
+/*}*/
+
+path:hover {
+    fill: white;
+}
+
+.ajapaik-fixed-gray:hover {
+    fill: #888 !important;
+}
+
+/*.ajapaik-header-grid-button-white {*/
+    /*background-image: url(../images/material-design-icons/ic_photoview_24px_white.svg) !important;*/
+/*}*/
+
+
+
+.ajapaik-filtering-choice {
+    background: none !important;
+}
+
+#ajapaik-frontpage-filtering-dropdown-menu > li {
+    background: none !important;
+}
+
+#ajapaik-frontpage-filtering-dropdown-menu > li > a {
+    background: none !important;
+}
+
+.ajapaik-header-curate-button-white {
+    fill: white;
+}
+
+body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
+    margin-top: 50px;
+    min-width: 100%;
+}
+
+#ajapaik-header-album-name {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#ajapaik-header-title {
+    font-size: 20px;
+    float: right;
+    margin-left: 5px;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#ajapaik-header-album-icon {
+    float: left;
+}
+
+#ajapaik-header-pictures-icon {
+    float: left;
+}
+
+#ajapaik-header-image-icon {
+    float: left;
+    margin-top: -7px;
+}
+
+#ajapaik-header-album-more {
+    margin-left: 5px;
+}
+
+#ajapaik-frontpage-show-pictures-link > svg {
+    margin-right: 5px;
+}
+
+#ajapaik-frontpage-show-albums-link > svg {
+    margin-right: 5px;
+}
+
+#ajapaik-frontpage-show-albums-link > a > svg {
+    margin-right: 5px;
+}
+
+.ajapaik-album-selection-photo-count {
+    background-size: 18px;
+    display: inline-block;
+    line-height: 24px;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_image_gray_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-photo-count > span {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+.ajapaik-album-selection-geotagged-count {
+    background-size: 18px;
+    display: inline-block;
+    line-height: 24px;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_place_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-geotagged-count > span {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+.ajapaik-album-selection-rephoto-count {
+    background-size: 18px;
+    display: inline-block;
+    line-height: 24px;
+    margin-left: 5px;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-rephoto-count > span {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+.ajapaik-album-selection-comment-count {
+    background-size: 18px;
+    display: inline-block;
+    line-height: 24px;
+    width: 48px;
+    height: 24px;
+    background: url(../images/material-design-icons/ic_comment_gray_24px.svg) no-repeat;
+}
+
+.ajapaik-album-selection-comment-count > span {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+#ajapaik-header-menu-button {
+    background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
+    margin-left: 10px;
+}
+
+.ajapaik-header-menu-button-white {
+    background-image: url(../images/material-design-icons/ic_bookmark_24px_white.svg) !important;
+}
+
+#ajapaik-header-menu-button-hidden-xs {
+    background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
+    margin-left: 10px;
+}
+
+#ajapaik-filter-selection-menu {
+    margin-top: 50px;
+}
+
+#ajapaik-filtering-tutorial-modal-content {
+    margin-top: 150px;
+}
+
+#ajapaik-album-selection-label {
+    display: none;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: -5px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#ajapaik-filter-dropdown-filter-name {
+    color: #fff;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: -5px;
+    display: block;
+}
+
+#ajapaik-header-profile-button {
+    padding-top: 8px;
+}
+
+/*#ajapaik-header-profile-button-hidden-xs {*/
+    /*background-image: url(../images/material-design-icons/ic_assessment_24px.svg);*/
+/*}*/
+
+@media (min-width: 1200px) {
+    .modal-xxl {
+        width: 1200px
+    }
+}
+
+#ajapaik-header-album-filter-button {
+    padding-left: 0;
+}
+
+#ajapaik-header-album-filter-button-off {
+    display: none;
+}
+
+/*#ajapaik-header-album-filter-button {*/
+    /*background-image: url(../images/material-design-icons/ic_check_box_24px.svg);*/
+    /*background-size: 24px !important;*/
+    /*margin-top: 8px;*/
+    /*margin-left: -10px;*/
+    /*margin-right: 20px;*/
+    /*float: left;*/
+/*}*/
+
+/*.ajapaik-header-album-filter-button-off {*/
+    /*background-image: url(../images/material-design-icons/ic_check_box_outline_blank_24px.svg) !important;*/
+/*}*/
+
+.ajapaik-show-tutorial-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button:active {
+    background-image: url(../images/material-design-icons/ic_help_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button.active {
+    background-image: url(../images/material-design-icons/ic_help_24px.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-show-tutorial-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-show-tutorial-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+
+#ajapaik-map-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#ajapaik-map-container {
+    height: 100%;
+    width: 100%;
+    z-index: 98;
+}
+
+
+#ajapaik-guess-panel-container-xs {
+    width: 100%;
+    min-width: 100%;
+    height: 0;
+    max-height: 50%;
+    z-index: 2000;
+    padding: 0;
+    display: none;
+}
+
+#ajapaik-guess-panel-photo-container-xs {
+    padding: 0;
+    height: 100%;
+}
+
+#ajapaik-guess-panel-photo-container-xs .col-xs-6 {
+    padding: 0;
+    height: 100%;
+}
+
+#ajapaik-guess-panel-photo-container-column-xs {
+    padding: 0;
+}
+
+#ajapaik-guess-panel-photo-xs {
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+}
+
+#ajapaik-guess-panel-container {
+    width: 0;
+    display: none;
+    z-index: 2;
+    background-color: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+#ajapaik-guess-feedback-panel {
+    display: none;
+    height: 50%;
+    margin-top: 10px;
+}
+
+#ajapaik-guess-feedback-panel-xs {
+    display: none;
+    height: 30%;
+    max-height: 30%;
+}
+
+#ajapaik-guess-feedback-panel-xs .row {
+    margin: 5px auto 0;
+}
+
+/*#ajapaik-map-button-container {*/
+
+/*}*/
+
+/*#ajapaik-map-button-container .row {*/
+    /*position: absolute;*/
+    /*bottom: 25px;*/
+    /*right: 25px;*/
+    /*padding-left: 25px;*/
+    /*width: 30%;*/
+/*}*/
+
+#ajapaik-map-button-container-xs {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+    display: none;
+}
+
+#ajapaik-guess-panel-info-panel {
+    margin-top: 10px;
+}
+
+#ajapaik-guess-panel-info-panel-xs {
+    display: none;
+}
+
+#ajapaik-guess-panel-info-panel-xs .panel {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+#ajapaik-map-button-container-xs .btn {
+    margin-top: 10px;
+}
+
+#ajapaik-map-button-container .btn {
+    margin-top: 5px;
+}
+
+#ajapaik-guess-feedback-panel .row {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    padding-left: 25px;
+    width: 25%;
+}
+
+#ajapaik-guess-panel-container p {
+    white-space: normal;
+    overflow: hidden;
+}
+
+#ajapaik-guess-panel-container .row {
+    margin-top: 10px;
+}
+
+#ajapaik-geotag-feedback-panel {
+    height: 46%;
+    max-height: 46%;
+}
+
+#ajapaik-guess-panel-photo {
+    margin: 0 auto;
+}
+
+#ajapaik-game-status-message {
+    margin-top: 10px;
+}
+
+a.fullscreen {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+}
+
+.full-box {
+    position: relative;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.original-full-box {
+    z-index: 10000;
+}
+
+.rephoto-full-box {
+    z-index: 9999;
+}
+
+.full-pic {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: black url('../images/ajax_loader_gray_256.gif') center center no-repeat;
+    background-size: 128px 128px;
+    width: 100%;
+    height: 100%;
+}
+
+.full-pic img {
+    min-width: 128px;
+    min-height: 128px;
+    opacity: 0;
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+}
+
+.center-marker {
+    position: absolute;
+    background: url('../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    margin-left: -12px;
+    margin-top: -33px;
+    height: 33px;
+    width: 24px;
+    cursor: pointer;
+}
+
+#ajapaik-grid-guess-notice-container {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 1004;
+}
+
+#ajapaik-grid-guess-notice-container .panel-body {
+    padding: 30px;
+}
+
+.modal-backdrop {
+    z-index: 98;
+}
+
+#ajapaik-game-photo-modal {
+    z-index: 99;
+}
+
+.modal-backdrop.in {
+    opacity: 0.8;
+}
+
+.ajapaik-grid-close-guess-notice-button {
+    margin-top: 20px;
+}
+
+#ajapaik-grid-container {
+    margin-top: 75px;
+}
+
+.score_container {
+    position: fixed;
+    right: 0;
+    top: 50px;
+    width: 300px;
+    padding: 0 7px 7px;
+    background: #fff;
+    display: none;
+}
+
+.single .score_container {
+    position: static;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/*.score_container h2 {*/
+    /*color: #ccc;*/
+    /*font-size: 10px;*/
+    /*font-weight: 700;*/
+    /*letter-spacing: 3px;*/
+    /*text-align: center;*/
+    /*text-transform: uppercase;*/
+    /*margin: 3px 0 4px;*/
+/*}*/
+
+.score_container ul.scoreboard {
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 10px 0 0;
+}
+
+.score_container ul.scoreboard li {
+    position: relative;
+    font-size: 12px;
+    line-height: 1;
+    list-style: none;
+    clear: both;
+    /*display: none;*/
+    border-bottom: 1px solid #efefef;
+    padding: 0 15px;
+    height: 29px;
+}
+
+.single .score_container ul.scoreboard li {
+    display: block;
+    font-size: 12px;
+    list-style: none;
+    line-height: 12px;
+    border-bottom: 1px solid #efefef;
+    padding: 0 15px;
+    height: 31px;
+}
+
+.score_container ul.scoreboard li.you {
+    font-weight: 700;
+    display: list-item !important;
+    background: #efefef;
+}
+
+.ajapaik-leaderboard-you {
+    background: #efefef;
+    font-weight: bold;
+}
+
+.score_container ul.scoreboard li.first {
+    padding-bottom: 10px;
+}
+
+.score_container ul.scoreboard li span {
+    padding: 8px 0 0;
+}
+
+.score_container ul.scoreboard li .position {
+    float: left;
+    width: 27px;
+}
+
+.score_container ul.scoreboard li .name {
+    float: left;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.score_container ul.scoreboard li .photo {
+    line-height: 0;
+    float: right;
+    margin-right: -25px;
+    padding: 0;
+}
+
+.score_container ul.scoreboard li .photo img {
+    border: 3px solid #fff;
+    width: 23px;
+    height: 23px;
+}
+
+.score_container ul.scoreboard li .score {
+    float: right;
+    padding-right: 10px;
+}
+
+.score_container .facebook-connect {
+    font-size: 12px;
+    margin: 6px 15px;
+}
+
+.score_container .google-plus-connect {
+    font-size: 12px;
+    margin: 20px 15px 6px;
+}
+
+.score_container .facebook-connected p {
+    font-size: 14px;
+    margin: 6px 15px;
+}
+
+.score_container .facebook-connect p {
+    margin: 0 0 10px;
+}
+
+.score_container .google-plus-connect p {
+    margin: 0 0 10px;
+}
+
+.facebook-connect a {
+    width: 169px;
+    height: 21px;
+    background: url(../images/connect-with-facebook.png) no-repeat;
+}
+
+.google-plus-connect a {
+    width: 169px;
+    height: 57px;
+    background: url(../images/connect-with-google.png) no-repeat;
+    margin-top: -5px;
+}
+
+.ir {
+    display: block;
+    text-indent: -999em;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    text-align: left;
+    direction: ltr;
+}
+
+.modal-content {
+    margin-top: 75px;
+    min-width: 50%;
+    min-height: 400px;
+}
+
+/*FIXME: dafuq*/
+.ajapaik-margin-top-100 {
+    margin-top: 125px;
+}
+
+.modal-body {
+    overflow-y: auto;
+}
+
+.modal-footer {
+    margin-top: 0;
+}
+
+@media (min-width: 320px) {
+    #ajapaik-album-name-container {
+        max-width: 80px;
+    }
+    #ajapaik-header-title {
+        max-width: 80px;
+    }
+}
+
+@media (min-width: 480px) {
+    #ajapaik-album-name-container {
+        max-width: 50px;
+    }
+    #ajapaik-header-title {
+        max-width: 50px;
+    }
+}
+
+@media (min-width: 768px) {
+    #ajapaik-album-name-container {
+        max-width: 50px;
+    }
+    #ajapaik-header-title {
+        max-width: 50px;
+    }
+}
+
+@media (min-width: 992px) {
+    #ajapaik-album-name-container {
+        max-width: 125px;
+    }
+    #ajapaik-header-title {
+        max-width: 125px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #ajapaik-album-name-container {
+        max-width: 430px;
+    }
+    #ajapaik-header-title {
+        max-width: 430px;
+    }
+}
+
+@media (max-width: 767px) {
+    .modal-dialog-center {
+        width: 100%;
+    }
+    .ajapaik-mapview-game-button {
+        margin-bottom: 30px;
+        margin-right: 5px;
+    }
+    #ajapaik-album-filter-box {
+        max-width: 80px;
+    }
+    #ajapaik-photo-filter-box {
+        max-width: 80px;
+    }
+}
+
+#ajapaik-game-modal-photo-container {
+    display: inline-block;
+    position: relative;
+}
+
+#ajapaik-photoview-main-photo-container {
+    display: inline-block;
+    position: relative;
+}
+
+#ajapaik-photoview-main-photo {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-photoview-rephoto-container {
+    display: inline-block;
+    position: relative;
+}
+
+#ajapaik-game-modal-photo {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-game-modal-photo-container img {
+    margin: 0 auto;
+}
+
+a.fullscreen {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+}
+
+.full-pic {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: black url('../images/ajax_loader_gray_256.gif') center center no-repeat;
+    background-size: 128px 128px;
+    width: 100%;
+    height: 100%;
+}
+
+.full-pic img {
+    min-width: 128px;
+    min-height: 128px;
+    opacity: 0;
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+}
+
+.ajapaik-azimuth {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: rgba(128, 128, 128, 0.5) url("../images/direction_20px_white.png") no-repeat center;
+}
+
+.ajapaik-thumbnail-selection-icon {
+    background-image: url(../images/material-design-icons/ic_check_circle_gray_36px.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 36px;
+    height: 36px;
+    background-size: 36px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.ajapaik-thumbnail-selection-icon-white {
+    background-image: url(../images/material-design-icons/ic_check_circle_white_36px.svg);
+    display: block;
+}
+
+.ajapaik-photo-selection-thumbnail-link {
+    position: relative;
+}
+
+.ajapaik-frontpage-azimuth {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: url(../images/material-design-icons/ic_navigation_24px.svg) no-repeat center;
+    float: right;
+}
+
+.ajapaik-frontpage-location-known {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: url(../images/material-design-icons/ic_location_on_24px.svg) no-repeat center;
+    float: right;
+}
+
+.ajapaik-frontpage-location-unknown {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: url(../images/material-design-icons/ic_location_off_24px.svg) no-repeat center;
+    float: right;
+}
+
+.ajapaik-rephoto-count {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position-y: 3px;
+    background-position-x: 3px;
+    background-color: rgba(0,0,0,.4);
+    z-index: 2;
+}
+
+.ajapaik-rephoto-count-1 {
+    background-image: url(../images/material-design-icons/ic_filter_1_24px.svg);
+}
+
+.ajapaik-rephoto-count-2 {
+    background-image: url(../images/material-design-icons/ic_filter_2_24px.svg);
+}
+
+.ajapaik-rephoto-count-3 {
+    background-image: url(../images/material-design-icons/ic_filter_3_24px.svg);
+}
+
+.ajapaik-rephoto-count-4 {
+    background-image: url(../images/material-design-icons/ic_filter_4_24px.svg);
+}
+
+.ajapaik-rephoto-count-5 {
+    background-image: url(../images/material-design-icons/ic_filter_5_24px.svg);
+}
+
+.ajapaik-rephoto-count-6 {
+    background-image: url(../images/material-design-icons/ic_filter_6_24px.svg);
+}
+
+.ajapaik-rephoto-count-7 {
+    background-image: url(../images/material-design-icons/ic_filter_7_24px.svg);
+}
+
+.ajapaik-rephoto-count-8 {
+    background-image: url(../images/material-design-icons/ic_filter_8_24px.svg);
+}
+
+.ajapaik-rephoto-count-9 {
+    background-image: url(../images/material-design-icons/ic_filter_9_24px.svg);
+}
+
+.ajapaik-frontpage-comments-count {
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background-image: url(../images/material-design-icons/ic_messenger_24px.svg);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position-y: 3px;
+    background-position-x: 3px;
+    z-index: 2;
+    display: inline-block;
+    float: right;
+}
+
+.ajapaik-frontpage-rephoto-count {
+    width: 30px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position-y: 3px;
+    background-position-x: 3px;
+    z-index: 2;
+    display: inline-block;
+    float: right;
+}
+
+.ajapaik-frontpage-rephoto-count-1 {
+    background-image: url(../images/material-design-icons/ic_filter_1_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-2 {
+    background-image: url(../images/material-design-icons/ic_filter_2_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-3 {
+    background-image: url(../images/material-design-icons/ic_filter_3_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-4 {
+    background-image: url(../images/material-design-icons/ic_filter_4_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-5 {
+    background-image: url(../images/material-design-icons/ic_filter_5_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-6 {
+    background-image: url(../images/material-design-icons/ic_filter_6_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-7 {
+    background-image: url(../images/material-design-icons/ic_filter_7_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-8 {
+    background-image: url(../images/material-design-icons/ic_filter_8_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-9 {
+    background-image: url(../images/material-design-icons/ic_filter_9_24px.svg);
+}
+
+.ajapaik-frontpage-rephoto-count-9-plus {
+    background-image: url(../images/material-design-icons/ic_filter_9_plus_24px.svg);
+}
+
+.ajapaik-comment-count {
+    position: absolute;
+    background-image: url(../images/material-design-icons/ic_messenger_24px.svg);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position-y: 1px;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    color: black;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 30px;
+    text-align: center;
+}
+
+.ajapaik-mapview-pane-photo-container {
+    display: inline-block;
+    position: relative;
+    opacity: 1 !important;
+}
+
+
+ul.errorlist {
+    display: none;
+}
+
+.ajapaik-flip-photo-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    border-radius: 0;
+    top: 0;
+    right: 0;
+}
+
+.ajapaik-flip-photo-overlay-button:hover {
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button:active {
+    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button.active {
+    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button.active:focus {
+    outline: none;
+}
+
+.ajapaik-flip-photo-overlay-button:focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-flip-photo-overlay-button.focus {
+    outline: none;
+    background-color: #fff !important;
+}
+
+.ajapaik-game-map-show-description-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_description_24px.svg) no-repeat center !important;
+    bottom: 0;
+    left: 0;
+}
+
+.ajapaik-overlay-button {
+    background-color: #fff !important;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button {
+    background-color: #fff !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    bottom: 0;
+    right: 0;
+}
+
+#ajapaik-change-language-form {
+    display: none;
+}
+
+.ajapaik-close-rephoto-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_close_24px.svg) no-repeat center !important;
+    top: 0;
+    right: 0;
+}
+
+.ajapaik-invert-rephoto-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center !important;
+    bottom: 0;
+    right: 0;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-1 {
+    background-image: url(../images/material-design-icons/ic_filter_1_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-2 {
+    background-image: url(../images/material-design-icons/ic_filter_2_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-3 {
+    background-image: url(../images/material-design-icons/ic_filter_3_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-4 {
+    background-image: url(../images/material-design-icons/ic_filter_4_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-5 {
+    background-image: url(../images/material-design-icons/ic_filter_5_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-6 {
+    background-image: url(../images/material-design-icons/ic_filter_6_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-7 {
+    background-image: url(../images/material-design-icons/ic_filter_7_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-8 {
+    background-image: url(../images/material-design-icons/ic_filter_8_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-9 {
+    background-image: url(../images/material-design-icons/ic_filter_9_24px_black.svg) !important;
+}
+
+.ajapaik-show-rephoto-selection-overlay-button-9-plus {
+    background-image: url(../images/material-design-icons/ic_filter_9_plus_24px_black.svg) !important;
+}
+
+.ajapaik-fullscreen-overlay-button {
+    background: #fff url(../images/material-design-icons/ic_fullscreen_24px.svg) no-repeat center !important;
+    right: 0;
+    bottom: 0;
+}
+
+#ajapaik-modal-photo {
+    margin: 0 auto;
+    padding: 0 !important;
+}
+
+.ajapaik-photo-modal-previous-button {
+    display: block;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.3);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../images/material-design-icons/ic_chevron_left_24px.svg);
+    background-size: 48px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    z-index: 1;
+}
+
+.ajapaik-photo-modal-previous-button-disabled {
+    background-image: url(../images/material-design-icons/ic_chevron_left_24px_gray.svg);
+}
+
+.ajapaik-photo-modal-next-button {
+    display: block;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    float: right;
+    background-color: rgba(255,255,255,0.3);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../images/material-design-icons/ic_chevron_right_24px.svg);
+    background-size: 48px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+}
+
+.ajapaik-photo-modal-next-button-disabled {
+    background-image: url(../images/material-design-icons/ic_chevron_right_24px_gray.svg);
+}
+
+#ajapaik-photo-modal-map-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#ajapaik-photo-modal-map-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#ajapaik-photo-modal-albums-icon {
+    background: transparent url(../images/material-design-icons/ic_bookmark_24px.svg) no-repeat center;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    float: left;
+    margin-left: -5px;
+}
+
+#ajapaik-game-show-description {
+    background: transparent url(../images/material-design-icons/ic_subject_24px.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+}
+
+#ajapaik-photo-modal-dropdown {
+    float: right;
+}
+
+/*#ajapaik-photo-modal-specify-location {*/
+    /*background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;*/
+    /*height: 36px;*/
+    /*width: 36px;*/
+    /*background-size: 36px;*/
+    /*display: inline-block;*/
+    /*float: right;*/
+    /*cursor: pointer;*/
+/*}*/
+
+#ajapaik-photo-modal-specify-location {
+    background: transparent url(../images/material-design-icons/ic_pin_drop_24px.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    float: right;
+    display: inline-block;
+    background-size: 36px;
+}
+
+#ajapaik-zone-ee-logo {
+    display: inline-block;
+    width: 100px;
+    height: 20px;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+#ajapaik-photo-modal-share {
+    background: transparent url(../images/material-design-icons/ic_share_24px.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
+    display: inline-block;
+    float: right;
+    cursor: pointer;
+}
+
+#ajapaik-photo-modal-discuss {
+    background: transparent url(../images/material-design-icons/ic_messenger_24px_gray.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
+    display: inline-block;
+    float: right;
+    cursor: pointer;
+}
+
+#ajapaik-photo-modal-add-rephoto {
+    background: transparent url(../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
+    display: inline-block;
+    float: right;
+    cursor: pointer;
+}
+
+#ajapaik-photo-modal-geotag-count {
+    float: left;
+    font-size: 24px;
+}
+
+#ajapaik-photoview-geotag-count {
+    font-size: 24px;
+}
+
+#ajapaik-photo-modal-location-with-azimuth {
+    background: transparent url(../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
+    display: inline-block;
+    float: left;
+}
+
+#ajapaik-photo-modal-location-without-azimuth {
+    background: transparent url(../images/material-design-icons/ic_location_on_24px_gray.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
+    display: inline-block;
+    float: lefT;
+}
+
+#ajapaik-photo-modal-no-location {
+    background: transparent url(../images/material-design-icons/ic_location_off_24px_gray.svg) no-repeat center;
+    height: 36px;
+    width: 36px;
+    background-size: 36px;
+    display: inline-block;
+    float: left;
+}
+
+#ajapaik-mapview-feedback-panel {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    top: auto !important;
+    left: auto !important;
+    padding: 10px !important;
+}
+
+#ajapaik-grid-feedback-panel {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+
+.ajapaik-game-guess-photo-container {
+    display: inline-block;
+    position: relative;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.ajapaik-game-guess-photo-container img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-mapview-guess-photo-container {
+    position: relative;
+    display: inline-block;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#ajapaik-mapview-guess-photo-container img {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#ajapaik-modal-photo-container {
+    position: relative;
+    display: inline-block;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#ajapaik-modal-rephoto-container {
+    position: relative;
+    display: inline-block;
+}
+
+#ajapaik-modal-body {
+    text-align: center;
+}
+
+#ajapaik-game-modal-body {
+    text-align: center;
+}
+
+#ajapaik-info-modal-body {
+    margin-left: 10px;
+}
+
+.ajapaik-photo-modal-rephoto-thumb {
+    margin: 0 auto 3%;
+}
+
+.ajapaik-licence {
+    text-decoration: none;
+}
+
+#ajapaik-photo-modal-rephoto-date-taken {
+    display: inline;
+}
+
+#ajapaik-mapview-photo-panel {
+    padding-right: 10px !important;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 50px;
+    z-index: 99 !important;
+}
+
+#ajapaik-geolocation-error {
+    display: none;
+    position: fixed;
+    width: 75%;
+    z-index: 1000;
+    text-align: center;
+    margin: 0 0 0 -37.5%;
+    left: 50%;
+}
+
+#ajapaik-sorting-error {
+    display: none;
+    position: fixed;
+    width: 75%;
+    z-index: 1000;
+    text-align: center;
+    margin: 0 0 0 -37.5%;
+    left: 50%;
+}
+
+#ajapaik-mapview-photo-panel .jsPanel {
+    background: none;
+}
+
+#ajapaik-mapview-photo-panel .jsPanel-content {
+    background: none;
+    overflow-y: scroll !important;
+}
+
+.ui-resizable-se {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+}
+
+.ui-resizable-e {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10px;
+    height: 100%;
+    cursor: e-resize;
+}
+
+.tutorial-item td {
+    vertical-align: top;
+    padding-right: 10px !important;
+}
+
+.tutorial-item td img {
+    height: 33px;
+    width: 25px;
+}
+
+#ajapaik-tutorial-js-panel-content {
+    display: none;
+    border-collapse: collapse;
+}
+
+#ajapaik-tutorial-list {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.jsPanel-title {
+    font-variant: normal !important;
+}
+
+.translucent-pane-element {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+#ajapaik-rephoto-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-rephoto-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-rephoto-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#ajapaik-rephoto-full-screen-link img {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.ajapaik-photo-modal-rephoto-thumb img {
+    margin: 0 auto;
+}
+
+#ajapaik-game-full-screen-button-container {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+}
+
+#ajapaik-game-full-screen-button-container .row {
+    margin-bottom: 10px;
+}
+
+#ajapaik-game-full-screen-description {
+    position: fixed;
+    bottom: 2%;
+    left: 2%;
+    color: white;
+    width: 80%;
+}
+
+#ajapaik-game-full-screen-show-description-button {
+    position: fixed;
+    left: 2%;
+    bottom: 2%;
+}
+
+#ajapaik-full-screen-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.ajapaik-fileupload-datepicker-container {
+    display: inline-block;
+}
+
+#ajapaik-rephoto-selection {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 300px;
+}
+
+#ajapaik-photoview-container {
+    margin-top: 20px;
+}
+#ajapaik-photoview-container .col-xs-6 {
+	min-width: 280px;
+}
+
+#ajapaik-photoview-container .col-xs-2 {
+	min-width: 140px;
+}
+
+#ajapaik-photo-upload-container {
+    padding-top: 100px;
+}
+
+#ajapaik-curator-container {
+    background-color: #fff;
+    margin-top: 125px;
+}
+
+#ajapaik-curator-header-tabs {
+    margin-top: -50px;
+}
+
+.ajapaik-curator-load-more {
+    display: none;
+}
+
+#ajapaik-curator-load-more-row {
+    display: none;
+}
+
+#ajapaik-comments-section {
+    padding-top: 25px;
+    margin-bottom: 100px;
+}
+
+.ajapaik-photoview-rephoto-thumb {
+    margin-bottom: 2%;
+}
+
+.ajapaik-no-left-margin-row {
+    margin-left: 0 !important;
+}
+
+.ajapaik-no-right-margin-row {
+    margin-right: 0 !important;
+}
+
+#ajapaik-photoview-date-taken {
+    display: inline;
+}
+
+#ajapaik-photoview-rephoto-selection {
+    text-align: center;
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+.ajapaik-upload-photo-button {
+    margin-left: 5px !important;
+    display: inline-block;
+}
+
+.dropdown .fb_iframe_widget span,
+.dropdown iframe.fb_iframe_widget_lift,
+.dropdown .fb_iframe_widget iframe {
+    width:500px !important;
+    height:20px !important;
+    position:relative;
+}
+
+#ajapaik-tutorial-js-panel {
+    z-index: 10000;
+    max-width: 50%;
+    margin-top: 50px;
+}
+
+@media (max-width: 767px) {
+    #ajapaik-tutorial-js-panel {
+        max-width: 100%;
+        margin-top: 100px;
+    }
+}
+
+#ajapaik-create-album-modal .input-group-addon {
+    min-width: 200px;
+}
+
+#ajapaik-create-area-modal .input-group-addon {
+    min-width: 200px;
+}
+
+#ajapaik-geotag-info-js-panel .jsPanel-content {
+    margin: 10px;
+}
+
+.controls {
+    margin-top: 16px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.pac-container {
+    z-index: 10000 !important;
+}
+
+#pac-input {
+    background-color: #fff;
+    padding: 0 11px 0 13px;
+    width: 200px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+    margin-right: -1px;
+    padding-right: 14px; /* Regular padding-left + 1. */
+    width: 201px;
+}
+
+#pac-input-mapview {
+    background-color: #fff;
+    padding: 0 11px 0 13px;
+    width: 200px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+#pac-input-mapview:focus {
+    border-color: #4d90fe;
+    margin-left: -1px;
+    padding-right: 14px; /* Regular padding-left + 1. */
+    width: 201px;
+}
+
+.pac-container {
+    font-family: Roboto;
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#target {
+width: 345px;
+}
+.btn {
+    white-space: normal;
+    overflow: hidden;
+}
+
+.ajapaik-less-column-padding {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+/*::-webkit-scrollbar {*/
+    /*display: none;*/
+/*}*/
+
+.gm-style-cc { display:none; }
+
+a[href^="http://maps.google.com/maps"]{display:none !important}
+
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+#cookie-notice-container {
+    z-index: 10000;
+    position: absolute;
+    width: 100%;
+}
+
+#cookie-notice {
+    width: 50%;
+    background-color: white;
+    opacity: 0.9;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    font-family: 'Droid Serif', arial, sans-serif;
+}
+
+#cookie-notice span {
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 20px;
+    padding-top: 10px;
+    width: 75%;
+    padding-bottom: 5px;
+}
+
+#cookie-notice p {
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    padding: 3px 6px;
+    position: absolute;
+    top: -8px;
+    right: 11px;
+    margin: 0;
+    font-weight: bold;
+    font-family: 'Droid Serif', arial, sans-serif;
+    cursor: pointer;
+    font-size: 12px !important;
+    line-height: initial !important;
+}
+
+.ajapaik-curator-selected-image {
+    opacity: 0.5;
+}
+
+#ajapaik-curator-search-results {
+    margin-top: 60px;
+}
+
+#ajapaik-curator-result-count {
+    margin-left: 5px;
+}
+
+#ajapaik-curator-selection-size {
+    margin-left: 5px;
+}
+
+#ajapaik-curator-selection {
+    margin-top: 100px;
+}
+
+#ajapaik-curator-my-albums-size {
+    margin-left: 5px;
+}
+
+#ajapaik-curator-my-albums {
+    display: none;
+    margin-top: 20px;
+}
+
+.ajapaik-curator-new-album-creation-field {
+    display: none;
+}
+
+#ajapaik-curator-tabpanel {
+    margin-top: 10px;
+}
+
+.ajapaik-result-item {
+    min-height: 100px;
+}
+
+.ajapaik-curator-selection-item {
+    margin-top: 10px;
+}
+
+#ajapaik-curator-search-controls {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#ajapaik-curator-selection-controls {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#ajapaik-curator-bottom-load-more-row {
+    margin-bottom: 10px;
+}
+
+#ajapaik-loading-indicator {
+    margin: 0 auto;
+    width: 64px;
+    height: 64px;
+}
+
+#ajapaik-header-selection-indicator > a > span {
+    margin-left: -20px;
+}
+
+#ajapaik-selection-top-panel {
+    margin-top: 30px;
+}
+
+.ajapaik-remove-from-selection-button {
+    background: white url(../images/material-design-icons/ic_close_24px.svg) no-repeat center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    display: none;
+}
+
+#ajapaik-loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5) url(../images/ajax_loader_gray_256.gif) no-repeat center;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+}
+
+#ajapaik-album-selection-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+    width: 100%;
+    height: 100%;
+    z-index: 98;
+}
+
+.ajapaik-icon {
+    height: 24px;
+    width: 24px;
+}
+
+.ajapaik-icon-invert-colors {
+    background: url(../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center center;
+}
+
+.ajapaik-icon-my-location {
+    margin-top: 2px;
+    background: url(../images/material-design-icons/ic_my_location_24px.svg) no-repeat center center;
+}
+
+.ajapaik-icon-flip {
+    background: url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center center;
+}
+
+.ajapaik-icon-stereo {
+    background: url(../images/material-design-icons/ic_panorama_24px.svg) no-repeat center center;
+}
+
+.ajapaik-icon-rotate {
+    background: url(../images/material-design-icons/ic_rotate_90_degrees_ccw_black_24px.svg) no-repeat center center;
+    transform: scaleX(-1);
+}
+
+.ajapaik-icon-delete {
+    background: url(../images/material-design-icons/ic_delete_24px.svg) no-repeat center center;
+}
+
+.ajapaik-curator-selection-button-row {
+    margin-bottom: 10px;
+}
+
+#ajapaik-curator-gallery-switch {
+    border: 1px solid;
+    padding: 2px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#ajapaik-curator-list-switch {
+    border: 1px solid;
+    padding: 2px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.ajapaik-curator-selection-image {
+
+}
+
+.ajapaik-curator-selection-image.rotate90 {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+}
+
+.ajapaik-curator-selection-image.rotate180 {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+}
+
+.ajapaik-curator-selection-image.rotate270 {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+}
+
+.ajapaik-curator-selection-image.rotate90-flipped {
+    transform: scaleX(-1) rotate(90deg);
+    -webkit-transform: scaleX(-1) rotate(90deg);
+    -ms-transform: scaleX(-1) rotate(90deg);
+}
+
+.ajapaik-curator-selection-image.rotate180-flipped {
+    transform: scaleX(-1) rotate(180deg);
+    -webkit-transform: scaleX(-1) rotate(180deg);
+    -ms-transform: scaleX(-1) rotate(180deg);
+}
+
+.ajapaik-curator-selection-image.rotate270-flipped {
+    transform: scaleX(-1) rotate(270deg);
+    -webkit-transform: scaleX(-1) rotate(270deg);
+    -ms-transform: scaleX(-1) rotate(270deg);
+}
+
+.ajapaik-curator-selection-image-min-max {
+    max-height: 100px;
+    min-height: 100px;
+}
+
+#ajapaik-curator-destination-area {
+    display: none;
+}
+
+.ajapaik-curator-feedback-alert {
+    display: none;
+}
+
+.ajapaik-already-have-indicator {
+    float: right;
+}
+
+#ajapaik-photo-pane-content-container {
+    margin-bottom: 50px;
+    min-width: 20%;
+}
+
+#ajapaik-game-modal-header {
+    border: none;
+}
+
+.ajapaik-mapview-game-button {
+    margin-bottom: 6%;
+    margin-right: 6%;
+}
+
+#ajapaik-mapview-my-location-button {
+    margin-right: 40px;
+    margin-top: 50px;
+}
+
+#id_album {
+    max-width: 150px;
+}
+
+#ajapaik-game-close-game-modal {
+    z-index: 2000 !important;
+}
+
+#ajapaik-game-no-geotags-yet-message {
+    display: none;
+    margin-top: 10px;
+}
+
+#ajapaik-game-number-of-geotags-message {
+    display: none;
+    margin-top: 10px;
+}
+
+#ajapaik-game-one-geotag-message {
+    display: none;
+    margin-top: 10px;
+}
+
+#ajapaik-info-modal-game-button {
+    padding-top: 10px;
+}
+
+.ajapaik-zero-border-radius {
+    border-radius: 0;
+}
+
+.ajapaik-zero-right-padding {
+    padding-right: 0 !important;
+}
+
+.ajapaik-zero-left-padding {
+    padding-left: 0 !important;
+}
+
+.fb_comments_count_zero {
+    display: none;
+}
+
+.fb_comments_count {
+    font-weight: bold;
+}
+
+#ajapaik-choose-albums-modal {
+    z-index: 1999;
+}
+
+#ajapaik-mapview-close-streetview-button {
+    margin-right: 3%;
+    margin-bottom: 3%;
+}
+
+.ajapaik-no-bottom-border-modal-header {
+    border-bottom: none;
+}
+
+.ajapaik-margin-top-5 {
+    margin-top: 5px;
+}
+
+.ajapaik-margin-bottom-minus-20 {
+    margin-bottom: -20px;
+}
+
+.ajapaik-margin-bottom-minus-7 {
+    margin-bottom: -7px;
+}
+
+@media (max-width: 767px) {
+    #content.front-page .photos {
+        display: none;
+    }
+    #content.front-page .introduction {
+        float: left;
+        margin-left: 20px;
+    }
+}
+
+.ajapaik-frontpage-album-image-container .caption {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ajapaik-frontpage-historic-image-container .caption {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ajapaik-thumbnail-info-container {
+    width: 90px;
+    height: 30px;
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.navbar-hidden .navbar-brand {
+    display: none !important;
+}
+
+.navbar-hidden #ajapaik-curator-header-tabs {
+    display: none;
+}
+
+.ajapaik-score-container-static {
+    display: block !important;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#ajapaik-footer-contact {
+    margin-top: 20px;
+}
+
+#ajapaik-footer-contact > .row > a {
+    color: #fff;
+}
+
+#ajapaik-footer-links {
+    margin-top: 20px;
+}
+
+#ajapaik-footer-links > .row > a {
+    color: #fff;
+}
+
+.ajapaik-pagination {
+    margin-bottom: 10px;
+}
+
+.ajapaik-album-selection-caption-bottom {
+    width: 100%;
+}
+
+.ajapaik-album-selection-map-button {
+    background-image: url(../images/material-design-icons/ic_map_24px.svg);
+    width: 36px;
+    height: 36px;
+    background-size: 36px;
+    float: right;
+}
+
+.ajapaik-album-selection-map-button:hover {
+    background-image: url(../images/material-design-icons/ic_map_24px_white.svg);
+}
+
+.ajapaik-album-selection-game-button {
+    background-image: url(../images/material-design-icons/ic_pin_drop_24px.svg);
+    width: 36px;
+    height: 36px;
+    background-size: 36px;
+    float: right;
+}
+
+.ajapaik-album-selection-game-button:hover {
+    background-image: url(../images/material-design-icons/ic_pin_drop_24px_white.svg);
+}
+
+.ajapaik-caption-album-selection-album-title {
+    text-transform: uppercase;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ajapaik-album-selection-album-more-button {
+    background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
+    width: 36px;
+    height: 36px;
+    background-size: 36px;
+    float: right;
+}
+
+.ajapaik-album-selection-album-more-button:hover {
+    background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
+}
+
+.ajapaik-caption-album-selection p {
+    margin: 0;
+}
+
+#ajapaik-pager {
+    margin-bottom: 1px;
+}
+
+.navbar-collapse.collapse.in > .nav > li {
+    display: inline-block;
+}
+
+#ajapaik-pager li {
+    display: inline-block;
+}
+
+#ajapaik-pager-next-link {
+    height: 48px;
+    width: 48px;
+    background: transparent url(../images/material-design-icons/ic_chevron_right_24px.svg) no-repeat center;
+}
+
+#ajapaik-pager-previous-link {
+    height: 48px;
+    width: 48px;
+    background: transparent url(../images/material-design-icons/ic_chevron_left_24px.svg) no-repeat center;
+}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load i18n compress static %}
+
+{% block header %}
+    {% include "_cat_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container cat-margin-top-50">
+        <br><br>
+        <p>{% trans "Published on March 28, 2015" %}: <a href="https://play.google.com/store/apps/details?id=pics.sift.app">
+            <b>{% trans "Download from Play Store" %}</b>
+        </a></p>
+        <p>{% trans "Second Prize" %} @ <a href="http://hack4.fi">
+            {% trans "Hack4Fi Hack your heritage competition" %}</a>, {% trans "March 26" %}</p>
+        <p>{% trans "Twitter" %}: <a href="https://twitter.com/SiftPics">@SiftPics</a></p>
+        <p><a href="https://www.facebook.com/Sift.pics">Facebook.com/Sift.pics</a></p>
+        <p>{% blocktrans %}Historic photographs in public collections very often lack <b>basic classificatory tags</b> &#8211;
+            whether a picture is an <b>interior or exterior view</b>, has the picture been taken from
+            <b>ground level or from a raised viewpoint</b> (a higher floor window or tower), is it a view photograph
+            depicting mainly a <b>place</b> or a reportage photo about an <b>event</b> etc. Most of these decisions
+            are easy to make for everyone only by looking at a picture, so it is useful to capture that information
+            that would enable <b>bulk filtering of images</b> afterwards.{% endblocktrans %}</p>
+        <p>{% blocktrans %}<b>Sift.pics</b> is a participatory <b>crowdsourcing application</b>
+            for that kind of binary categorisation about images. We take in pictures from
+            public collections that users start to browse and ask them to make couple of
+            sorting decisions, they can favorite (bookmark) images, see the title of the
+            image and open the image in an official web repository.{% endblocktrans %}</p>
+        <br><br>
+        <p><b>{% trans "Team" %}</b>
+        <p>{% trans "concept: Vahur Puik" %} <a href="https://twitter.com/puik">@puik</a></p>
+        <p>{% trans "back-end development: Lauri Elias" %}</p>
+        <p>{% trans "android app development: Janek Priimann" %}</p>
+    </div>
+    {% block specific_js %}
+        {% compress js %}
+            <script>
+                var taggerURL = '{% url 'project.sift.views.cat_tagger' %}',
+                    filterURL = '{% url 'project.sift.views.cat_results' %}';
+            </script>
+            <script src="{% static "js/cat-about.js" %}"></script>
+        {% endcompress %}
+    {% endblock %}
+{% endblock %}
+
+
+

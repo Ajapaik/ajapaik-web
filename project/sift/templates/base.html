@@ -1,0 +1,89 @@
+{% load i18n thumbnail compress static %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE }}">
+<head>
+    <title>
+        {% if title %}
+            {{ title }} - {% trans "Sift.pics" %}
+        {% else %}
+            {% trans "Sift.pics" %}
+        {% endif %}
+    </title>
+    <meta name="description" content="{% trans "Sift.pics picture categorisation app by Ajapaik.ee" %}">
+    <meta name="keywords" content="{% trans "tagging,historic,old,photos,pictures" %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
+    <meta charset="UTF-8"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static "images/sift-favicons/apple-icon-57x57.png" %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static "images/sift-favicons/apple-icon-60x60.png" %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static "images/sift-favicons/apple-icon-72x72.png" %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static "images/sift-favicons/apple-icon-76x76.png" %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static "images/sift-favicons/apple-icon-114x114.png" %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static "images/sift-favicons/apple-icon-120x120.png" %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static "images/sift-favicons/apple-icon-144x144.png" %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static "images/sift-favicons/apple-icon-152x152.png" %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "images/sift-favicons/apple-icon-180x180.png" %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static "images/sift-favicons/android-icon-192x192.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "images/sift-favicons/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static "images/sift-favicons/favicon-96x96.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "images/sift-favicons/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "images/sift-favicons/manifest.json" %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static "images/sift-favicons/ms-icon-144x144.png" %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/justifiedGallery-3.6.0.min.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/cat-style.css" %}"/>
+    {% endcompress %}
+    {% block specific_css %}{% endblock %}
+</head>
+<body>
+<div id="cat-cookie-notice-container">
+    <div id="cat-cookie-notice">
+        <span id="cat-cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
+        <p id="cat-cookie-notice-close" onclick="setEUCookie();">X</p>
+    </div>
+</div>
+<div id="cat-loading-overlay"></div>
+<form action="/i18n/setlang/" method="post" id="cat-change-language-form">
+    <input type="hidden" value="" name="language" id="cat-language" />
+    <input type="hidden" value="{{ request.get_full_path }}" name="next" />
+    {% csrf_token %}
+</form>
+{% block header %}
+    {% include "_cat_header.html" %}
+{% endblock header %}
+{% block layout %}{% endblock layout %}
+{% block global_js %}
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {% compress js %}
+        <script src="{% static "js/tmpl.min.js" %}"></script>
+        <script src="{% static "js/ajapaik-cookie.js" %}"></script>
+        <script src="{% static "js/jquery.justifiedGallery-3.6.0.min.js" %}"></script>
+        <script src="{% static "js/lazysizes-1.1.5-rc1.min.js" %}"></script>
+        <script src="{% static "js/URI-1.15.1.min.js" %}"></script>
+        <script src="{% static "js/cat-common.js" %}"></script>
+        <script>
+            var _gaq = _gaq || [];
+            _gaq.push(["_setAccount", "{{ analytics.google_analytics_key }}"]);
+            _gaq.push(["_trackPageview"]);
+            (function () {
+                var a = document.createElement("script");
+                a.type = "text/javascript";
+                a.async = !0;
+                a.src = ("https:" == document.location.protocol ? "https://" : "http://") + "stats.g.doubleclick.net/dc.js";
+                var b = document.getElementsByTagName("script")[0];
+                b.parentNode.insertBefore(a, b)
+            })();
+        </script>
+    {% endcompress %}
+{% endblock %}
+{% block specific_js %}{% endblock %}
+</body>
+</html>

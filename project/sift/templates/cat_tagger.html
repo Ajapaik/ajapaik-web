@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load compress i18n static %}
+
+{% block header %}
+    {% include "_cat_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container text-center cat-full-height cat-margin-top-50 hidden" id="cat-tagger-container">
+        <div class="col-xs-12 cat-full-height">
+            <div class="row cat-full-height">
+                <div id="cat-tagger-image-and-button-container">
+                    <img id="cat-tagger-current-photo" src="">
+                    <div class="btn-group btn-group-justified cat-btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default cat-tagger-tag-button" data-value="-1">
+                                <i id="cat-tagger-left" class="material-icons"></i>
+                                <span class="text-capitalize" id="cat-tagger-left-text"></span>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default cat-tagger-tag-button" data-value="0">
+                                <i id="cat-tagger-na" class="material-icons">cancel</i>
+                                <span>{% trans "N/A" %}</span>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default cat-tagger-tag-button" data-value="1">
+                                <i id="cat-tagger-right" class="material-icons"></i>
+                                <span class="text-capitalize" id="cat-tagger-right-text"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-justified cat-btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" id="cat-tagger-favorite-button" class="btn btn-default">
+                                <i id="cat-tagger-favorite" class="material-icons">favorite</i>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="cat-tagger-info-button" class="btn btn-default">
+                                <i id="cat-tagger-info" class="material-icons">info</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row hidden" id="cat-tagger-photo-description"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "_cat_album_selection.html" %}
+{% endblock %}
+
+{% block specific_js %}
+    {% compress js %}
+        <script src="{% static "js/cat-tagger.js" %}"></script>
+        <script>
+            var loadAlbumURL = '{% url 'project.sift.views.cat_album_state' %}',
+                tagURL = '{% url 'project.sift.views.cat_tag' %}',
+                filterURL = '{% url 'project.sift.views.cat_results' %}',
+                favoriteAddURL = '{% url 'project.sift.views.user_favorite_add' %}',
+                favoriteRemoveURL = '{% url 'project.sift.views.user_favorite_remove' %}';
+            $(document).ready(function () {
+                var catTagger = new CatTagger();
+                catTagger.initialize();
+                catTagger.initializeState({{ state_json|safe }});
+            });
+        </script>
+    {% endcompress %}
+{% endblock %}
+
+
+

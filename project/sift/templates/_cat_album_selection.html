@@ -1,0 +1,19 @@
+{# FIXME: This component is uneccessary as the sift.pics API already gives out albums #}
+<div class="col-xs-12 cat-margin-top-50">
+    <div class="col-xs-12" id="cat-album-selection">
+        {% for a in albums %}
+            <a href="" class="cat-album-selection-element" data-id="{{ a.pk }}" data-title="{{ a.title }}"
+               title="{{ a.title }}">
+                <img src="{% url 'project.sift.views.cat_album_thumb' a.pk 400 %}" alt="{{ a.title }}"
+                     title="{{ a.title }}">
+                <div class="caption cat-caption-album-selection">
+                    <p title="{{ a.title }}">{{ a.title }}</p>
+                    <p title="{{ a.subtitle }}">{{ a.subtitle }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    {% if is_filter %}
+        <div class="col-xs-12 hidden" id="cat-photo-view"></div>
+    {% endif %}
+</div>

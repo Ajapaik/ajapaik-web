@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="633737269">
-    <data-source source="LOCAL" name="Django default" uuid="b9ef137d-6798-461b-ad55-a609faacf490">
-      <driver-ref>postgresql</driver-ref>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/rephoto_dev</jdbc-url>
-      <libraries />
-    </data-source>
+  <component name="DataSourceManagerImpl" format="xml" hash="3114660220">
     <data-source source="LOCAL" name="PostgreSQL - rephoto@ajapaik.ee" uuid="aace76d3-c6c5-4f1b-9e23-c1651573c1ad">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -22,11 +16,11 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/valimimoodul</jdbc-url>
       <libraries />
     </data-source>
-    <data-source source="LOCAL" name="PostgreSQL - rephoto_backup@localhost" uuid="b61b8406-909d-460e-ad0a-790c24cf8972">
+    <data-source source="LOCAL" name="PostgreSQL - rephoto_dev@localhost" uuid="8029803c-d231-4290-b6fa-f23b8e8cde2b">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/rephoto_backup</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/rephoto_dev</jdbc-url>
       <libraries />
     </data-source>
   </component>
