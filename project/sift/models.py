@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, SmallIntegerField, BooleanField, ForeignKey, IntegerField, \
     DateTimeField, TextField, ImageField, URLField, ManyToManyField, OneToOneField
+from django.db.models.signals import post_save
 
 from project.utils import calculate_thumbnail_size
 from project.common.models import BaseSource
@@ -15,6 +16,12 @@ class CatProfile(Model):
     class Meta:
         db_table = 'project_catprofile'
 
+
+def _user_post_save(sender, instance, **kwargs):
+    CatProfile.objects.get_or_create(user=instance)
+
+
+post_save.connect(_user_post_save, sender=User)
 
 class CatTag(Model):
     name = CharField(max_length=255, unique=True)

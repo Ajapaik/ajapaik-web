@@ -61,8 +61,8 @@ def _make_fullscreen(photo):
     return {"url": image.url, "size": [image.width, image.height]}
 
 
+# TODO: Somehow this fires from Sift too...
 def _user_post_save(sender, instance, **kwargs):
-    print "ajapaik user post save"
     Profile.objects.get_or_create(user=instance)
 
 
