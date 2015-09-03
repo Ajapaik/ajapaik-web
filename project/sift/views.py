@@ -440,6 +440,24 @@ def user_favorite_remove(request):
 
     return Response(content)
 
+icon_map = {
+    'interior': 'local_hotel',
+    'exterior': 'nature_people',
+    'view': 'home',
+    'social': 'accessibility',
+    'ground': 'nature_people',
+    'raised': 'filter_drama',
+    'rural': 'nature',
+    'urban': 'location_city',
+    'one': 'person',
+    'many': 'group_add',
+    'public': 'public',
+    'private': 'vpn_lock',
+    'whole': 'landscape',
+    'detail': 'local_florist',
+    'staged': 'account_box',
+    'natural': 'directions_walk'
+}
 
 @vary_on_headers('X-Requested-With')
 def cat_results(request):
@@ -450,7 +468,9 @@ def cat_results(request):
         tag_dict[key] = {
             'id': tag_dict[key],
             'left': key.split('_')[0].capitalize(),
-            'right': key.split('_')[2].capitalize()
+            'right': key.split('_')[2].capitalize(),
+            'left_icon': icon_map[key.split('_')[0]],
+            'right_icon': icon_map[key.split('_')[2]],
         }
     json_state['filterNames'] = tag_dict.keys()
     selected_tag_value_dict = {}
@@ -550,24 +570,6 @@ def cat_tagger(request):
         state['albumName'] = album_selection_form.cleaned_data['album'].title
     request.get_user()
     all_tags = CatTag.objects.all()
-    icon_map = {
-        'interior': 'local_hotel',
-        'exterior': 'nature_people',
-        'view': 'home',
-        'social': 'accessibility',
-        'ground': 'nature_people',
-        'raised': 'filter_drama',
-        'rural': 'nature',
-        'urban': 'location_city',
-        'one': 'person',
-        'many': 'group_add',
-        'public': 'public',
-        'private': 'vpn_lock',
-        'whole': 'landscape',
-        'detail': 'local_florist',
-        'staged': 'account_box',
-        'natural': 'directions_walk'
-    }
     state['allTags'] = { x.name: {'leftIcon': icon_map[x.name.split('_')[0]], 'rightIcon': icon_map[x.name.split('_')[-1]]} for x in all_tags }
     albums = CatAlbum.objects.all()
     return render_to_response('cat_tagger.html', RequestContext(request, {
