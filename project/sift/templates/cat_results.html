@@ -12,14 +12,14 @@
             {% for k, v in tag_dict.items %}
                 <li role="presentation">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-default cat-filtering-button {% if selected_tag_value_dict|get_item:k|get_item:"right" %}active{% endif %}">
+                        <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"right" %}active{% endif %}">
                             <i class="material-icons">{{ v.left_icon }}</i>
                             <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="-1" {% if selected_tag_value_dict|get_item:k|get_item:"right" %} checked="checked"{% endif %}>{% trans v.left %}
                         </label>
-                        <label class="btn btn-default cat-filtering-button {% if selected_tag_value_dict|get_item:k|get_item:"na" %}active{% endif %}">
+                        <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"na" %}active{% endif %}">
                             <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="0" {% if selected_tag_value_dict|get_item:k|get_item:"na" %}checked="checked"{% endif %}>{% trans "N/A" %}
                         </label>
-                        <label class="btn btn-default cat-filtering-button {% if selected_tag_value_dict|get_item:k|get_item:"left" %}active{% endif %}">
+                        <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"left" %}active{% endif %}">
                             <i class="material-icons">{{ v.right_icon }}</i>
                             <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="1" {% if selected_tag_value_dict|get_item:k|get_item:"left" %}checked="checked"{% endif %}>{% trans v.right %}
                         </label>

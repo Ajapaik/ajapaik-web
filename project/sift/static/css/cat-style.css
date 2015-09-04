@@ -134,6 +134,9 @@
     height: 100%;
 }
 /*Override classes*/
+#cat-body {
+    overflow-y: scroll;
+}
 .cat-text-white {
     color: #fff !important;
 }
@@ -145,6 +148,8 @@
 }
 .navbar-collapse.navbar-right.collapse.in {
     margin-top: 50px;
+    background-color: rgba(0,0,0,.8);
+    width: 100%;
 }
 .cat-btn-group {
     width: 100%;

@@ -6,7 +6,7 @@
     /*global getPhotosURL */
     /*global taggerURL */
     /*global tmpl */
-    /*global console */
+    /*global _gaq */
     window.Cat = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
@@ -71,6 +71,9 @@
             }
             history.replaceState(null, window.title, currentURL);
         },
+        reportPhotosLoadError: function () {
+            _gaq.push(['_trackEvent', 'filtering', 'error', 'photos', -1000, true]);
+        },
         loadPhotos: function () {
             var that = this;
             $.ajax({
@@ -91,7 +94,7 @@
                     targetDiv.justifiedGallery();
                 },
                 error: function () {
-                    console.log('Error getting photos');
+                    that.reportPhotosLoadError();
                 }
             });
         },

@@ -2,7 +2,6 @@
     'use strict';
     /*jslint nomen: true*/
     /*global $ */
-    /*global console */
     /*global loadAlbumURL */
     /*global favoriteAddURL */
     /*global favoriteRemoveURL */
@@ -11,6 +10,7 @@
     /*global filterURL */
     /*global gettext */
     /*global docCookies */
+    /*global _gaq */
     window.CatTagger = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
@@ -44,6 +44,10 @@
             this.currentPhotoTagIndex = -1;
             this.currentPhoto = this.photos[this.currentPhotoIndex];
             $('#cat-tagger-current-photo').attr('src', this.currentPhoto.image.replace('[DIM]', '800'));
+            $('#cat-tagger-current-photo-link').attr('href', this.currentPhoto.source.url)
+                .attr('data-id', this.currentPhoto.id);
+            $('#cat-tagger-favorite-button').attr('data-id', this.currentPhoto.id);
+            $('#cat-tagger-info-button').attr('data-id', this.currentPhoto.id);
             $('#cat-tagger-photo-description').html(this.currentPhoto.title).addClass('hidden');
             this.updateFavoriteButton();
         },
@@ -77,6 +81,18 @@
             }
             history.replaceState(null, window.title, currentURL);
         },
+        reportTaggingError: function () {
+            _gaq.push(['_trackEvent', 'tagging', 'error', 'tag', -1000, true]);
+        },
+        reportAlbumLoadError: function () {
+            _gaq.push(['_trackEvent', 'tagging', 'error', 'album', -1000, true]);
+        },
+        reportFavoritingError: function () {
+            _gaq.push(['_trackEvent', 'tagging', 'error', 'favorite', -1000, true]);
+        },
+        reportImageLoadError: function () {
+            _gaq.push(['_trackEvent', 'tagging', 'error', 'image', -1000, true]);
+        },
         loadAlbum: function () {
             var loadingOverlay = $('#cat-loading-overlay'),
                 that = this;
@@ -96,10 +112,12 @@
                         that.selectedAlbumTitle = response.title;
                         that.switchToTaggingView();
                         that.nextPhoto();
+                    } else {
+                        that.reportAlbumLoadError();
                     }
                 },
                 error: function () {
-                    console.log('Error getting album data');
+                    that.reportAlbumLoadError();
                     loadingOverlay.hide();
                 }
             });
@@ -128,9 +146,11 @@
             });
             $('#cat-tagger-favorite-button').click(function () {
                 var $this = $(this),
-                    url;
+                    url,
+                    remove = false;
                 if ($this.hasClass('active')) {
                     url = that.removeFavoriteURL;
+                    remove = true;
                 } else {
                     url = that.addFavoriteURL;
                 }
@@ -144,12 +164,14 @@
                     method: 'POST',
                     success: function (response) {
                         if (parseInt(response.error, 10) === 0) {
-                            that.currentPhoto.is_user_favorite = true;
+                            that.currentPhoto.is_user_favorite = !remove;
                             that.updateFavoriteButton();
+                        } else {
+                            that.reportFavoritingError();
                         }
                     },
                     error: function () {
-                        console.log('Error saving favorite');
+                        that.reportFavoritingError();
                     }
                 });
             });
@@ -169,15 +191,19 @@
                     success: function (response) {
                         if (parseInt(response.error, 10) === 0) {
                             that.nextTag();
+                        } else {
+                            that.reportTaggingError();
                         }
                     },
                     error: function () {
-                        console.log('Error saving tag');
+                        that.reportTaggingError();
                     }
                 });
             });
             $('#cat-tagger-current-photo').load(function () {
                 that.nextTag();
+            }).error(function () {
+                that.reportImageLoadError();
             });
             $('#cat-show-albums-link').click(function () {
                 that.switchToAlbumSelection();

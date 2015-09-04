@@ -41,7 +41,7 @@
     {% endcompress %}
     {% block specific_css %}{% endblock %}
 </head>
-<body>
+<body id="cat-body">
 <div id="cat-cookie-notice-container">
     <div id="cat-cookie-notice">
         <span id="cat-cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
@@ -63,6 +63,10 @@
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     {% compress js %}
+        <script>
+            var isFiltering = '{% if is_filter %}true{% endif %}',
+                isTagger = '{% if is_tag %}true{% endif %}';
+        </script>
         <script src="{% static "js/tmpl.min.js" %}"></script>
         <script src="{% static "js/ajapaik-cookie.js" %}"></script>
         <script src="{% static "js/jquery.justifiedGallery-3.6.0.min.js" %}"></script>
