@@ -16,39 +16,39 @@ class ForceDefaultLanguageMiddleware(object):
         if request.META.has_key('HTTP_ACCEPT_LANGUAGE'):
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
-class SessionBasedLocaleWithRedirectMiddleware(object):
-    """
-    This Middleware saves the desired content language in the user session.
-    The SessionMiddleware has to be activated.
-    """
-    def process_request(self, request):
-        if 'language' in request.POST:
-            language = request.POST['language']
-            request.session['language'] = language
-        elif 'language' in request.GET:
-            language = request.GET['language']
-            request.session['language'] = language
-        elif 'language' in request.session:
-            language = request.session['language']
-        else:
-            language = settings.LANGUAGE_CODE
-
-        for lang in settings.LANGUAGES:
-            if lang[0] == language and language != translation.get_language():
-                translation.activate(language)
-
-        request.LANGUAGE_CODE = translation.get_language()
-
-    def process_response(self, request, response):
-        patch_vary_headers(response, ('Accept-Language',))
-        if 'Content-Language' not in response:
-            response['Content-Language'] = translation.get_language()
-        translation.deactivate()
-
-        if 'redirect_to' in request.POST or 'redirect_to' in request.GET:
-            if 'redirect_to' in request.POST:
-                return redirect(request.GET['redirect_to'])
-            elif 'redirect_to' in request.GET:
-                return redirect(request.GET['redirect_to'])
-
-        return response
+# class SessionBasedLocaleWithRedirectMiddleware(object):
+#     """
+#     This Middleware saves the desired content language in the user session.
+#     The SessionMiddleware has to be activated.
+#     """
+#     def process_request(self, request):
+#         if 'language' in request.POST:
+#             language = request.POST['language']
+#             request.session['language'] = language
+#         elif 'language' in request.GET:
+#             language = request.GET['language']
+#             request.session['language'] = language
+#         elif 'language' in request.session:
+#             language = request.session['language']
+#         else:
+#             language = settings.LANGUAGE_CODE
+#
+#         for lang in settings.LANGUAGES:
+#             if lang[0] == language and language != translation.get_language():
+#                 translation.activate(language)
+#
+#         request.LANGUAGE_CODE = translation.get_language()
+#
+#     def process_response(self, request, response):
+#         patch_vary_headers(response, ('Accept-Language',))
+#         if 'Content-Language' not in response:
+#             response['Content-Language'] = translation.get_language()
+#         translation.deactivate()
+#
+#         if 'redirect_to' in request.POST or 'redirect_to' in request.GET:
+#             if 'redirect_to' in request.POST:
+#                 return redirect(request.GET['redirect_to'])
+#             elif 'redirect_to' in request.GET:
+#                 return redirect(request.GET['redirect_to'])
+#
+#         return response

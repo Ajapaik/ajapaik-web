@@ -1,0 +1,25 @@
+{% verbatim %}
+    <script id="cat-album-selection-album-template" type="text/x-tmpl">
+        <a href="" class="cat-album-selection-element" data-id="{%=o.id%}" data-title="{%=o.title%}"
+           title="{%=o.title%}">
+            <img src="{%=albumThumbURL%}{%=o.id%}/400/" alt="{%=o.title%}"
+                 title="{%=o.title%}">
+            <div class="cat-album-selection-more-info">
+                <i class="material-icons">info-outline</i>
+            </div>
+            <div class="caption cat-caption-album-selection cat-force-show">
+                <p title="{%=o.title%}">{%=o.title%}</p>
+                <p title="{%=o.subtitle%}">{%=o.subtitle%}</p>
+            </div>
+            <div class="caption cat-caption-album-full-info hidden">
+                <p class="cat-font-size-28">{%=o.total%} {%=gettext("pictures in album")%}</p>
+                <p></p>
+                <p class="cat-font-size-20">{%=gettext("You have made")%} {%=o.decisions%} {%=gettext("decisions")%}</p>
+                <p class="cat-font-size-20">{%=gettext("about")%} {%=o.tagged%} {%=gettext("pictures in this")%}</p>
+                <p class="cat-font-size-20">{%=gettext("album")%}. {%=gettext("You are contributor")%}</p>
+                <p class="cat-font-size-20">{%=gettext("number")%} {%=o.stats.rank%}.</p>
+                <p>{%=o.stats.users%} {%=gettext("users have made")%} {%=o.stats.decisions%} {%=gettext("decisions about")%} {%=o.stats.tagged%} {%=gettext("pictures")%}.</p>
+            </div>
+        </a>
+    </script>
+{% endverbatim %}

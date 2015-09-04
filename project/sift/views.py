@@ -150,8 +150,8 @@ def cat_album_thumb(request, album_id, thumb_size=250):
 
 
 @api_view(['POST'])
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
+@authentication_classes((SessionAuthentication, CustomAuthentication))
+@permission_classes((AnonymousUserPermission, IsAuthenticated))
 def cat_albums(request):
     error = 0
     albums = CatAlbum.objects.all().order_by('-created')

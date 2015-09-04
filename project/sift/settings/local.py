@@ -28,8 +28,6 @@ GOOGLE_API_KEY  = 'AIzaSyC43wIs4RNEMGJp43h_XYA0SBnUL9Jq9S8'
 
 ALLOWED_HOSTS = ['.sift.pics']
 
-MIDDLEWARE_CLASSES += ('project.ajapaik.middleware.ProfileMiddleware',)
-
 if DEBUG:
     # set INTERNAL_IPS to entire local network
     from fnmatch import fnmatch

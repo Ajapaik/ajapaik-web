@@ -3,6 +3,7 @@
     /*jslint nomen: true*/
     /*global $ */
     /*global loadAlbumURL */
+    /*global getAlbumsURL */
     /*global favoriteAddURL */
     /*global favoriteRemoveURL */
     /*global URI */
@@ -11,10 +12,12 @@
     /*global gettext */
     /*global docCookies */
     /*global _gaq */
+    /*global tmpl */
     window.CatTagger = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
         this.loadAlbumURL = loadAlbumURL;
+        this.getAlbumsURL = getAlbumsURL;
         this.addFavoriteURL = favoriteAddURL;
         this.removeFavoriteURL = favoriteRemoveURL;
         this.filterURL = filterURL;
@@ -32,12 +35,14 @@
             $('#cat-header-showing-albums').addClass('hidden');
         },
         switchToAlbumSelection: function () {
+            this.loadAlbums();
             this.selectedAlbumId = null;
             this.selectedAlbumTitle = null;
             $('#cat-album-selection').parent().removeClass('hidden');
             $('#cat-tagger-container').addClass('hidden');
             $('#cat-header-showing-album-pictures').addClass('hidden');
             $('#cat-header-showing-albums').removeClass('hidden');
+            this.syncStateToURL();
         },
         nextPhoto: function () {
             this.currentPhotoIndex += 1;
@@ -93,6 +98,36 @@
         reportImageLoadError: function () {
             _gaq.push(['_trackEvent', 'tagging', 'error', 'image', -1000, true]);
         },
+        reportAlbumsLoadError: function () {
+            _gaq.push(['_trackEvent', 'tagging', 'error', 'albums', -1000, true]);
+        },
+        loadAlbums: function () {
+            var that = this;
+            $.ajax({
+                url: that.getAlbumsURL,
+                data: {
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                method: 'POST',
+                success: function (response) {
+                    if (parseInt(response.error, 10) === 0) {
+                        var i,
+                            l = response.albums.length,
+                            targetDiv = $('#cat-album-selection');
+                        targetDiv.empty();
+                        for (i = 0; i < l; i += 1) {
+                            targetDiv.append(tmpl('cat-album-selection-album-template', response.albums[i]));
+                        }
+                        targetDiv.justifiedGallery();
+                    } else {
+                        that.reportAlbumsLoadError();
+                    }
+                },
+                error: function () {
+                    that.reportAlbumsLoadError();
+                }
+            });
+        },
         loadAlbum: function () {
             var loadingOverlay = $('#cat-loading-overlay'),
                 that = this;
@@ -129,7 +164,7 @@
                 margins: 5,
                 captions: false
             });
-            $('.cat-album-selection-element').click(function (e) {
+            $(document).on('click', '.cat-album-selection-element', function (e) {
                 e.preventDefault();
                 var $this = $(this);
                 that.selectedAlbumId = $this.data('id');

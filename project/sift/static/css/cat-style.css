@@ -103,12 +103,33 @@
 }
 /*Album selection*/
 .cat-caption-album-selection {
-    display: block !important;
     background-color: rgba(0, 0, 0, .7) !important;
     min-height: 30px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.cat-caption-album-full-info {
+    background-color: rgba(0, 0, 0, .7) !important;
+    min-height: 90%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.cat-album-selection-more-info {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255,255,255,.7);
+    color: #888;
+}
+.cat-font-size-28 {
+    font-size: 28px;
+}
+.cat-font-size-20 {
+    font-size: 20px;
 }
 /*Filtering*/
 .cat-photo-caption {
@@ -170,4 +191,7 @@
     box-shadow: none;
     outline: none;
     -webkit-box-shadow: none;
+}
+.cat-force-show {
+    display: block !important;
 }

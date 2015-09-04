@@ -59,7 +59,7 @@
     $('#cat-tagger-info-button').click(function () {
         _gaq.push(['_trackEvent', 'tagging', 'click', 'photo-description-' + $(this).attr('data-id'), 50, false]);
     });
-    $('.cat-album-selection-element').click(function () {
+    $(document).on('click', '.cat-album-selection-element', function () {
         if (isTagger) {
             _gaq.push(['_trackEvent', 'tagging', 'click', 'select-album-' + $(this).attr('data-id'), 25, false]);
         } else if (isFiltering) {
@@ -83,5 +83,16 @@
     });
     $('#cat-puik-twitter-link').click(function () {
         _gaq.push(['_trackEvent', 'about', 'click', 'puik-twitter-link', 25, false]);
+    });
+    $(document).on('click', '.cat-album-selection-more-info', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = $(this).parent();
+        parent.find('.cat-caption-album-full-info').toggleClass('hidden').toggleClass('cat-force-show');
+        parent.find('.cat-caption-album-selection').toggleClass('hidden').toggleClass('cat-force-show');
+    });
+    $(document).on('click', '.cat-caption-album-full-info', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
     });
 }());

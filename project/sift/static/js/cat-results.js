@@ -4,13 +4,16 @@
     /*global $ */
     /*global URI */
     /*global getPhotosURL */
+    /*global getAlbumsURL */
     /*global taggerURL */
     /*global tmpl */
     /*global _gaq */
+    /*global docCookies */
     window.Cat = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
         this.getPhotosURL = getPhotosURL;
+        this.getAlbumsURL = getAlbumsURL;
         this.taggerURL = taggerURL;
         this.photoLoadTimeout = null;
         this.page = 0;
@@ -21,6 +24,7 @@
     };
     window.Cat.prototype = {
         switchToAlbumSelection: function () {
+            this.loadAlbums();
             this.selectedAlbumId = null;
             this.selectedAlbumTitle = null;
             this.page = 0;
@@ -74,10 +78,40 @@
         reportPhotosLoadError: function () {
             _gaq.push(['_trackEvent', 'filtering', 'error', 'photos', -1000, true]);
         },
+        reportAlbumsLoadError: function () {
+            _gaq.push(['_trackEvent', 'filtering', 'error', 'albums', -1000, true]);
+        },
+        loadAlbums: function () {
+            var that = this;
+            $.ajax({
+                url: that.getAlbumsURL,
+                data: {
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                method: 'POST',
+                success: function (response) {
+                    if (parseInt(response.error, 10) === 0) {
+                        var i,
+                            l = response.albums.length,
+                            targetDiv = $('#cat-album-selection');
+                        targetDiv.empty();
+                        for (i = 0; i < l; i += 1) {
+                            targetDiv.append(tmpl('cat-album-selection-album-template', response.albums[i]));
+                        }
+                        targetDiv.justifiedGallery();
+                    } else {
+                        that.reportAlbumsLoadError();
+                    }
+                },
+                error: function () {
+                    that.reportAlbumsLoadError();
+                }
+            });
+        },
         loadPhotos: function () {
             var that = this;
             $.ajax({
-                url: this.getPhotosURL + location.search,
+                url: that.getPhotosURL + location.search,
                 method: 'GET',
                 success: function (response) {
                     var i,
@@ -130,7 +164,7 @@
                 captions: false,
                 waitThumbnailsLoad: false
             });
-            $('.cat-album-selection-element').click(function (e) {
+            $(document).on('click', '.cat-album-selection-element', function (e) {
                 e.preventDefault();
                 var $this = $(this);
                 that.selectedAlbumId = $this.data('id');

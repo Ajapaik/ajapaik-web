@@ -26,6 +26,7 @@ urlpatterns = patterns('project.sift.views',
    url(r'^cat/v1/photo/$', 'cat_photo'),
    url(r'^cat/v1/photo/(?P<photo_id>\d+)/$', 'cat_photo'),
    url(r'^cat/v1/photo/(?P<photo_id>\d+)/(?P<thumb_size>.*)/$', 'cat_photo'),
+   url(r'^cat/v1/album_thumb/$', 'cat_album_thumb'),
    url(r'^cat/v1/album_thumb/(?P<album_id>\d+)/$', 'cat_album_thumb'),
    url(r'^cat/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'cat_album_thumb'),
 )

@@ -104,7 +104,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mobi.middleware.MobileDetectionMiddleware',
-    'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
+    #'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'project.ajapaik.user_middleware.UserMiddleware',
 )
 
