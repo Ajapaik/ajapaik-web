@@ -92,13 +92,14 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-
+    'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
+    'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'project.sift.user_middleware.UserMiddleware',
 )
 
