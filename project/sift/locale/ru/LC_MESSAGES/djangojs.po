@@ -21,7 +21,7 @@ msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:5
 msgid "Interior"
-msgstr ""
+msgstr "Interior"
 
 #: project/sift/static/js/cat-extra-js-translations.js:6
 msgid "Exterior"

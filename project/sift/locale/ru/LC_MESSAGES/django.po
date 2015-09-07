@@ -21,7 +21,7 @@ msgstr ""
 
 #: project/sift/settings/default.py:61
 msgid "Estonian"
-msgstr ""
+msgstr "Estonian"
 
 #: project/sift/settings/default.py:62
 msgid "English"
