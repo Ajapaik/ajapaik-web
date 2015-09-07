@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Vahur Puik <vahur@ajapaik.ee>, 2015
 msgid ""
@@ -9,14 +9,13 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-07 17:59+0300\n"
-"PO-Revision-Date: 2015-09-07 11:56+0000\n"
+"PO-Revision-Date: 2015-09-07 15:04+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/static/js/cat-extra-js-translations.js:5
@@ -77,15 +76,15 @@ msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:19
 msgid "pictures in album"
-msgstr ""
+msgstr "pilti albumis"
 
 #: project/sift/static/js/cat-extra-js-translations.js:20
 msgid "You have made"
-msgstr ""
+msgstr "Oled teinud"
 
 #: project/sift/static/js/cat-extra-js-translations.js:21
 msgid "decisions"
-msgstr ""
+msgstr "otsust"
 
 #: project/sift/static/js/cat-extra-js-translations.js:22
 msgid "about"
@@ -93,24 +92,24 @@ msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:23
 msgid "pictures in this"
-msgstr ""
+msgstr "pildi kohta selles"
 
 #: project/sift/static/js/cat-extra-js-translations.js:24
 msgid "album"
-msgstr ""
+msgstr "albumis"
 
 #: project/sift/static/js/cat-extra-js-translations.js:25
 msgid "You are contributor number"
-msgstr ""
+msgstr "Oled panustaja number"
 
 #: project/sift/static/js/cat-extra-js-translations.js:26
 msgid "users have made"
-msgstr ""
+msgstr "kasutajat on teinud"
 
 #: project/sift/static/js/cat-extra-js-translations.js:27
 msgid "decisions about"
-msgstr ""
+msgstr "otsust"
 
 #: project/sift/static/js/cat-extra-js-translations.js:28
 msgid "pictures"
-msgstr ""
+msgstr "pildi kohta"

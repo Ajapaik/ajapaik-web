@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Lauri Elias, 2015
 # Vahur Puik <vahur@ajapaik.ee>, 2015
@@ -10,14 +10,13 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-07 17:50+0300\n"
-"PO-Revision-Date: 2015-09-07 11:53+0000\n"
+"PO-Revision-Date: 2015-09-07 15:04+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/settings/default.py:61
@@ -71,7 +70,7 @@ msgstr "Näita/peida navigatsioon"
 
 #: project/sift/templates/_cat_header.html:78
 msgid "Sift.pics on Google Play"
-msgstr ""
+msgstr "Sift.pics rakendus Google Play poes"
 
 #: project/sift/templates/_cat_header.html:83
 msgid "About"
@@ -91,11 +90,9 @@ msgstr "täägimine,ajaloolised,vanad,fotod,pildid"
 
 #: project/sift/templates/base.html:47
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree "
-"to that."
-msgstr ""
-"Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades peate "
-"sellega nõus olema."
+"We use cookies for best performance of the site. By using the site you agree"
+" to that."
+msgstr "Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades peate sellega nõus olema."
 
 #: project/sift/templates/cat_about.html:12
 msgid "Published on March 28, 2015"
@@ -123,41 +120,22 @@ msgstr "Twitter"
 
 #: project/sift/templates/cat_about.html:19
 msgid ""
-"Historic photographs in public collections very often lack <b>basic "
-"classificatory tags</b> &#8211;\n"
-"            whether a picture is an <b>interior or exterior view</b>, has "
-"the picture been taken from\n"
-"            <b>ground level or from a raised viewpoint</b> (a higher floor "
-"window or tower), is it a view photograph\n"
-"            depicting mainly a <b>place</b> or a reportage photo about an "
-"<b>event</b> etc. Most of these decisions\n"
-"            are easy to make for everyone only by looking at a picture, so "
-"it is useful to capture that information\n"
+"Historic photographs in public collections very often lack <b>basic classificatory tags</b> &#8211;\n"
+"            whether a picture is an <b>interior or exterior view</b>, has the picture been taken from\n"
+"            <b>ground level or from a raised viewpoint</b> (a higher floor window or tower), is it a view photograph\n"
+"            depicting mainly a <b>place</b> or a reportage photo about an <b>event</b> etc. Most of these decisions\n"
+"            are easy to make for everyone only by looking at a picture, so it is useful to capture that information\n"
 "            that would enable <b>bulk filtering of images</b> afterwards."
-msgstr ""
-"Väga tihti ei ole muuseumide-arhiivide fotokogude piltidel küljes lihtsaid "
-"<b>kategoriseerivaid märksõnu</b>: kas tegemist on <b>sise- või "
-"välisvaatega</b>, kas pildistatud on <b>maapinnalt või mõnest kõrgemast "
-"punktist</b> (nt tornist, kõrgema korruse aknast), kas tegemist on pigem "
-"mingit kohta kujutava <b>vaatega</b> või ennekõike inimesi kujutava "
-"<b>sündmusliku ülesvõttega</b>. Selliseid määratlusi oskab üldiselt teha "
-"igaüks lihtsalt pildile vaadates ning kui see info oleks piltide küljes, "
-"saaksime pilte nende tunnuste järgi sorteerida-filtreerida."
+msgstr "Väga tihti ei ole muuseumide-arhiivide fotokogude piltidel küljes lihtsaid <b>kategoriseerivaid märksõnu</b>: kas tegemist on <b>sise- või välisvaatega</b>, kas pildistatud on <b>maapinnalt või mõnest kõrgemast punktist</b> (nt tornist, kõrgema korruse aknast), kas tegemist on pigem mingit kohta kujutava <b>vaatega</b> või ennekõike inimesi kujutava <b>sündmusliku ülesvõttega</b>. Selliseid määratlusi oskab üldiselt teha igaüks lihtsalt pildile vaadates ning kui see info oleks piltide küljes, saaksime pilte nende tunnuste järgi sorteerida-filtreerida."
 
 #: project/sift/templates/cat_about.html:25
 msgid ""
 "<b>Sift.pics</b> is a participatory <b>crowdsourcing application</b>\n"
-"            for that kind of binary categorisation about images. We take in "
-"pictures from\n"
-"            public collections that users start to browse and ask them to "
-"make couple of\n"
-"            sorting decisions, they can favorite (bookmark) images, see the "
-"title of the\n"
+"            for that kind of binary categorisation about images. We take in pictures from\n"
+"            public collections that users start to browse and ask them to make couple of\n"
+"            sorting decisions, they can favorite (bookmark) images, see the title of the\n"
 "            image and open the image in an official web repository."
-msgstr ""
-"Sift.pics on rahvahankeline rakendus piltide kategoriseerimiseks. Pildid "
-"pärinevad avalikest kollektsioonidest ja me palume kasutajatel teha iga "
-"pildi juures 2 kategoriseerivat otsust (kokku on kategoriseeringupaare 7)."
+msgstr "Sift.pics on rahvahankeline rakendus piltide kategoriseerimiseks. Pildid pärinevad avalikest kollektsioonidest ja me palume kasutajatel teha iga pildi juures 2 kategoriseerivat otsust (kokku on kategoriseeringupaare 7)."
 
 #: project/sift/templates/cat_about.html:31
 msgid "Team"
@@ -190,8 +168,8 @@ msgstr "Järgmine"
 
 #: templates/404.html:5 templates/404.html.py:11
 msgid "Page Not Found"
-msgstr ""
+msgstr "Lehekülge ei leitud"
 
 #: templates/404.html:14
 msgid "Back"
-msgstr ""
+msgstr "Tagasi"
