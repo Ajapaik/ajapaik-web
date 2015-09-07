@@ -7,8 +7,10 @@
     /*global isFiltering */
     $('.cat-change-language-link').click(function (e) {
         e.preventDefault();
-        _gaq.push(['_trackEvent', 'navigation', 'click', 'change-language', 1, true]);
-        $('#cat-language').val($(this).attr('data-lang-code'));
+        var langCode = $(this).attr('data-lang-code');
+        _gaq.push(['_trackEvent', 'navigation', 'click', 'change-language-' + langCode, 1, true]);
+        $('#cat-language').val(langCode);
+        $('input[name=csrfmiddlewaretoken]').val(window.docCookies.getItem('csrftoken'));
         $('#cat-change-language-form').submit();
     });
     $('#cat-brand').click(function () {
@@ -36,7 +38,7 @@
         _gaq.push(['_trackEvent', 'navigation', 'click', 'about', 25, false]);
     });
     $('#cat-choose-language').click(function () {
-        _gaq.push(['_trackEvent', 'navigation', 'click', 'change-language-' + $(this).attr('data-lang-code'), 1, true]);
+        _gaq.push(['_trackEvent', 'navigation', 'click', 'change-language', 1, true]);
     });
     $('.cat-filtering-button').click(function () {
         _gaq.push(['_trackEvent', 'filtering', 'click', 'toggle-filter-' + $(this).attr('data-name'), 50, false]);

@@ -461,6 +461,8 @@ icon_map = {
 
 @vary_on_headers('X-Requested-With')
 def cat_results(request):
+    # Ensure user has profile
+    request.get_user()
     filter_form = CatResultsFilteringForm(request.GET)
     json_state = {}
     tag_dict = dict(CatTag.objects.filter(active=True).values_list('name', 'id'))
@@ -557,12 +559,16 @@ def cat_results(request):
 
 
 def cat_about(request):
+    # Ensure user has profile
+    request.get_user()
     return render_to_response('cat_about.html', RequestContext(request, {
         'is_about': True
     }))
 
 
 def cat_tagger(request):
+    # Ensure user has profile
+    request.get_user()
     state = {}
     album_selection_form = CatTaggerAlbumSelectionForm(request.GET)
     if album_selection_form.is_valid():
