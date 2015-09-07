@@ -25,10 +25,10 @@
     $('#cat-show-pictures-link').click(function () {
         _gaq.push(['_trackEvent', 'navigation', 'click', 'show-pictures', 25, false]);
     });
-    $('#cat-header-tag-link').click(function () {
+    $('.cat-header-tag-link').click(function () {
         _gaq.push(['_trackEvent', 'navigation', 'click', 'tagging', 25, false]);
     });
-    $('#cat-header-filter-link').click(function () {
+    $('.cat-header-filter-link').click(function () {
         _gaq.push(['_trackEvent', 'navigation', 'click', 'filtering', 25, false]);
     });
     $('#cat-toggle-nav').click(function () {

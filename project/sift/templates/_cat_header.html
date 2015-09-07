@@ -42,13 +42,13 @@
                         {% endif %}
                     </ul>
                 </li>
-                <li class="pull-left" id="cat-header-tag">
-                    <a href="#" title="{% trans "Tag photos" %}" class="cat-no-background{% if is_tag %} cat-text-white{% else %} cat-text-gray{% endif %}" id="cat-header-tag-link">
+                <li class="pull-left cat-header-tag hidden-xs">
+                    <a href="#" title="{% trans "Tag photos" %}" class="cat-no-background cat-header-tag-link{% if is_tag %} cat-text-white{% else %} cat-text-gray{% endif %}">
                         <i class="material-icons">local_offer</i>
                     </a>
                 </li>
-                <li class="pull-left" id="cat-header-filter">
-                    <a href="#" title="{% trans "Filter by tags" %}" class="cat-no-background{% if is_filter %} cat-text-white{% else %} cat-text-gray{% endif %}" id="cat-header-filter-link">
+                <li class="pull-left cat-header-filter hidden-xs">
+                    <a href="#" title="{% trans "Filter by tags" %}" class="cat-no-background cat-header-filter-link{% if is_filter %} cat-text-white{% else %} cat-text-gray{% endif %}">
                         <i class="material-icons">filter_list</i>
                     </a>
                 </li>
@@ -64,6 +64,21 @@
         </div>
         <div class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav pull-right">
+                <li class="pull-left cat-header-tag visible-xs">
+                    <a href="#" title="{% trans "Tag photos" %}" class="cat-no-background cat-header-tag-link{% if is_tag %} cat-text-white{% else %} cat-text-gray{% endif %}">
+                        <i class="material-icons">local_offer</i>
+                    </a>
+                </li>
+                <li class="pull-left cat-header-filter visible-xs">
+                    <a href="#" title="{% trans "Filter by tags" %}" class="cat-no-background cat-header-filter-link{% if is_filter %} cat-text-white{% else %} cat-text-gray{% endif %}">
+                        <i class="material-icons">filter_list</i>
+                    </a>
+                </li>
+                <li class="pull-left">
+                    <a id="cat-header-play-store-link" target="_blank" title="{% trans 'Sift.pics on Google Play' %}" href="https://play.google.com/store/apps/details?id=pics.sift.app">
+                        <i class="material-icons"></i>
+                    </a>
+                </li>
                 <li class="pull-left{% if is_about %} active{% endif %}">
                     <a id="cat-about-link" title="{% trans 'About' %}" href="{% url "project.sift.views.cat_about" %}" class="cat-no-background{% if is_about %} cat-text-white{% else %} cat-text-gray{% endif %}">
                         <i class="material-icons">help</i>

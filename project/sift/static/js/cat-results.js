@@ -218,7 +218,7 @@
                 that.syncStateToURL();
                 that.switchToPhotoView();
             });
-            $('#cat-header-tag-link').click(function () {
+            $('.cat-header-tag-link').click(function () {
                 if (that.selectedAlbumId) {
                     location.href = that.taggerURL + '?album=' + that.selectedAlbumId;
                 } else {

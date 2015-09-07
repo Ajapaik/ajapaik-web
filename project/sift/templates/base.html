@@ -41,7 +41,7 @@
     {% endcompress %}
     {% block specific_css %}{% endblock %}
 </head>
-<body id="cat-body">
+<body id="cat-body" class="{% if is_filter %}cat-body-no-scroll{% endif %}">
 <div id="cat-cookie-notice-container">
     <div id="cat-cookie-notice">
         <span id="cat-cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>

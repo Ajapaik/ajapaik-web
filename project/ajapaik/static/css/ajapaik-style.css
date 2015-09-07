@@ -554,6 +554,11 @@ path:hover {
 body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
     margin-top: 50px;
     min-width: 100%;
+    overflow-x: hidden;
+}
+
+body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajapaik-header-map-button {
+    margin-right: 0 !important;
 }
 
 #ajapaik-header-album-name {

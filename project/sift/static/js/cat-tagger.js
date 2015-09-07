@@ -53,15 +53,18 @@
                 .attr('data-id', this.currentPhoto.id);
             $('#cat-tagger-favorite-button').attr('data-id', this.currentPhoto.id);
             $('#cat-tagger-info-button').attr('data-id', this.currentPhoto.id);
-            $('#cat-tagger-photo-description').html(this.currentPhoto.title).addClass('hidden');
+            $('#cat-tagger-photo-description-container').addClass('hidden');
+            $('#cat-tagger-photo-description').html(this.currentPhoto.title);
+            var sourceDiv = $('#cat-tagger-photo-source');
+            sourceDiv.find('a').attr('href', this.currentPhoto.source.url).find('span').html(this.currentPhoto.source.name);
             this.updateFavoriteButton();
         },
         updateFavoriteButton: function () {
             var favoriteButton = $('#cat-tagger-favorite-button');
             if (this.currentPhoto.is_user_favorite) {
-                favoriteButton.addClass('active');
+                favoriteButton.find('i').html('favorite');
             } else {
-                favoriteButton.removeClass('active');
+                favoriteButton.find('i').html('favorite_outline');
             }
         },
         nextTag: function () {
@@ -172,12 +175,7 @@
                 that.loadAlbum();
             });
             $('#cat-tagger-info-button').click(function () {
-                var target = $('#cat-tagger-photo-description');
-                if (target.hasClass('hidden')) {
-                    target.removeClass('hidden');
-                } else {
-                    target.addClass('hidden');
-                }
+                $('#cat-tagger-photo-description-container').toggleClass('hidden');
             });
             $('#cat-tagger-favorite-button').click(function () {
                 var $this = $(this),
@@ -243,7 +241,7 @@
             $('#cat-show-albums-link').click(function () {
                 that.switchToAlbumSelection();
             });
-            $('#cat-header-filter-link').click(function () {
+            $('.cat-header-filter-link').click(function () {
                 if (that.selectedAlbumId) {
                     location.href = that.filterURL + '?album=' + that.selectedAlbumId;
                 } else {

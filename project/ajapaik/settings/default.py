@@ -31,6 +31,7 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 STATICFILES_DIRS = (
     '%s/project/static' % ABSOLUTE_PROJECT_ROOT,
+    '%s/project/ajapaik/static' % ABSOLUTE_PROJECT_ROOT,
 )
 
 LOCALE_PATHS = (
@@ -98,6 +99,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -105,7 +107,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mobi.middleware.MobileDetectionMiddleware',
-    #'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
+    'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'project.ajapaik.user_middleware.UserMiddleware',
 )
 

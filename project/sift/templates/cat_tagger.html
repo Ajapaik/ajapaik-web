@@ -11,9 +11,19 @@
         <div class="col-xs-12 cat-full-height">
             <div class="row cat-full-height">
                 <div id="cat-tagger-image-and-button-container">
-                    <a id="cat-tagger-current-photo-link" href="" target="_blank">
-                        <img id="cat-tagger-current-photo" src="">
-                    </a>
+                    <div id="cat-tagger-image-and-desc-container">
+                        <a id="cat-tagger-current-photo-link" href="" target="_blank">
+                            <img id="cat-tagger-current-photo" class="img-responsive" src="">
+                        </a>
+                        <div class="hidden" id="cat-tagger-photo-description-container">
+                            <p id="cat-tagger-photo-description"></p>
+                            <p id="cat-tagger-photo-source">
+                                <a href="" target="_blank">
+                                    <span></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                     <div class="btn-group btn-group-justified cat-btn-group" role="group" aria-label="...">
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-default cat-tagger-tag-button" data-value="-1">
@@ -34,10 +44,11 @@
                             </button>
                         </div>
                     </div>
+                    <br/>
                     <div class="btn-group btn-group-justified cat-btn-group" role="group" aria-label="...">
                         <div class="btn-group" role="group">
                             <button type="button" id="cat-tagger-favorite-button" class="btn btn-default">
-                                <i id="cat-tagger-favorite" class="material-icons">favorite</i>
+                                <i id="cat-tagger-favorite" class="material-icons">favorite_outline</i>
                             </button>
                         </div>
                         <div class="btn-group" role="group">
@@ -46,13 +57,12 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row hidden" id="cat-tagger-photo-description"></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-xs-12 cat-margin-top-50">
-        <div class="col-xs-12" id="cat-album-selection"></div>
+        <div class="col-xs-12 cat-no-right-padding cat-no-left-padding" id="cat-album-selection"></div>
     </div>
     <div class="hidden">
         {% include "_cat_album_selection_album_js_template.html" %}
