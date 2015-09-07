@@ -16,4 +16,14 @@
     gettext('Natural');
     gettext('Public');
     gettext('Private');
+    gettext('pictures in album');
+    gettext('You have made');
+    gettext('decisions');
+    gettext('about');
+    gettext('pictures in this');
+    gettext('album');
+    gettext('You are contributor number');
+    gettext('users have made');
+    gettext('decisions about');
+    gettext('pictures');
 }());

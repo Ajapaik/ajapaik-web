@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 17:51+0300\n"
+"POT-Creation-Date: 2015-09-07 17:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:5
 msgid "Interior"
-msgstr "Interior"
+msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:6
 msgid "Exterior"
@@ -73,4 +73,44 @@ msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:18
 msgid "Private"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:19
+msgid "pictures in album"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:20
+msgid "You have made"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:21
+msgid "decisions"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:22
+msgid "about"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:23
+msgid "pictures in this"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:24
+msgid "album"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:25
+msgid "You are contributor number"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:26
+msgid "users have made"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:27
+msgid "decisions about"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:28
+msgid "pictures"
 msgstr ""

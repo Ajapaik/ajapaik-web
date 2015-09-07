@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 17:51+0300\n"
+"POT-Creation-Date: 2015-09-07 17:59+0300\n"
 "PO-Revision-Date: 2015-09-03 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
@@ -72,4 +72,44 @@ msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:18
 msgid "Private"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:19
+msgid "pictures in album"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:20
+msgid "You have made"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:21
+msgid "decisions"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:22
+msgid "about"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:23
+msgid "pictures in this"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:24
+msgid "album"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:25
+msgid "You are contributor number"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:26
+msgid "users have made"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:27
+msgid "decisions about"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:28
+msgid "pictures"
 msgstr ""
