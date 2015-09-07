@@ -192,6 +192,10 @@
     color: white;
     text-decoration: underline;
 }
+/*About*/
+#cat-about-container > p {
+    color: white;
+}
 /*Override classes*/
 #cat-body {
     background-color: black;

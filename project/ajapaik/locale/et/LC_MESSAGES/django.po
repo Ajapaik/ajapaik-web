@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-04 00:18+0300\n"
-"PO-Revision-Date: 2015-08-19 15:16+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2015-09-07 17:50+0300\n"
+"PO-Revision-Date: 2015-09-07 11:47+0000\n"
+"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -82,19 +82,19 @@ msgstr "Google satelliit"
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/ajapaik/settings/default.py:66
+#: project/ajapaik/settings/default.py:67
 msgid "Estonian"
 msgstr "eesti"
 
-#: project/ajapaik/settings/default.py:67
+#: project/ajapaik/settings/default.py:68
 msgid "English"
 msgstr "inglise"
 
-#: project/ajapaik/settings/default.py:68
+#: project/ajapaik/settings/default.py:69
 msgid "Russian"
 msgstr "vene"
 
-#: project/ajapaik/settings/default.py:69
+#: project/ajapaik/settings/default.py:70
 msgid "Finnish"
 msgstr "soome"
 
@@ -1286,61 +1286,59 @@ msgstr ""
 
 #: project/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
-msgstr ""
+msgstr "Sisevaade"
 
 #: project/ajapaik/templates/extra_translations.html:3
 msgid "Exterior "
-msgstr ""
+msgstr "Välisvaade"
 
 #: project/ajapaik/templates/extra_translations.html:4
 msgid "Urban "
-msgstr ""
+msgstr "Linn"
 
 #: project/ajapaik/templates/extra_translations.html:5
 msgid "Rural "
-msgstr ""
+msgstr "Maa"
 
 #: project/ajapaik/templates/extra_translations.html:6
 msgid "View "
-msgstr ""
+msgstr "Vaade"
 
 #: project/ajapaik/templates/extra_translations.html:7
 msgid "Social "
-msgstr ""
+msgstr "Inimesed"
 
 #: project/ajapaik/templates/extra_translations.html:8
 msgid "Ground "
-msgstr ""
+msgstr "Maapinnalt"
 
 #: project/ajapaik/templates/extra_translations.html:9
 msgid "Raised "
-msgstr ""
+msgstr "Kõrgemalt"
 
 #: project/ajapaik/templates/extra_translations.html:10
 msgid "One "
-msgstr ""
+msgstr "Üks inimene"
 
 #: project/ajapaik/templates/extra_translations.html:11
 msgid "Many "
-msgstr ""
+msgstr "Mitu inimest"
 
 #: project/ajapaik/templates/extra_translations.html:12
 msgid "Whole "
-msgstr ""
+msgstr "Üldvaade"
 
 #: project/ajapaik/templates/extra_translations.html:13
 msgid "Detail "
-msgstr ""
+msgstr "Lähivaade"
 
 #: project/ajapaik/templates/extra_translations.html:14
-#, fuzzy
-#| msgid "Geotagged by"
 msgid "Staged "
-msgstr "Unikaalseid asukohapakkumisi"
+msgstr "Poseeritud"
 
 #: project/ajapaik/templates/extra_translations.html:15
 msgid "Natural "
-msgstr ""
+msgstr "Loomulik"
 
 #: project/ajapaik/templates/extra_translations.html:16
 msgid "Public "
@@ -1588,18 +1586,7 @@ msgstr "Palun lisa oma albumisse fotosid"
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#: templates/404.html:5 templates/404.html.py:11
-msgid "Page Not Found"
-msgstr "Lehekülge ei leitud"
-
-#: templates/404.html:14
-msgid "Back"
-msgstr "Tagasi"
-
 #, fuzzy
-#~| msgid "Rephoto"
-#~ msgid "Photos"
-#~ msgstr "Ülepildistus"
-
-#~ msgid "Next"
-#~ msgstr "Järgmine"
+#~| msgid "Back home"
+#~ msgid "Back"
+#~ msgstr "Tagasi avalehele"

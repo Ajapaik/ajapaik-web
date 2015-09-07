@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-04 00:18+0300\n"
+"POT-Creation-Date: 2015-09-07 17:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,10 +53,12 @@ msgid "All pictures"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:46
+#: project/sift/templates/_cat_header.html:68
 msgid "Tag photos"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:51
+#: project/sift/templates/_cat_header.html:73
 msgid "Filter by tags"
 msgstr ""
 
@@ -64,11 +66,15 @@ msgstr ""
 msgid "Toggle navigation"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:68
+#: project/sift/templates/_cat_header.html:78
+msgid "Sift.pics on Google Play"
+msgstr ""
+
+#: project/sift/templates/_cat_header.html:83
 msgid "About"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:75
+#: project/sift/templates/_cat_header.html:90
 msgid "Choose language"
 msgstr ""
 
@@ -154,14 +160,22 @@ msgid "android app development: Janek Priimann"
 msgstr ""
 
 #: project/sift/templates/cat_results.html:20
-#: project/sift/templates/cat_tagger.html:25
+#: project/sift/templates/cat_tagger.html:37
 msgid "N/A"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:39
+#: project/sift/templates/cat_results.html:42
 msgid "Previous"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:45
+#: project/sift/templates/cat_results.html:48
 msgid "Next"
+msgstr ""
+
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
+msgid "Back"
 msgstr ""

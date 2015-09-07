@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-04 00:18+0300\n"
+"POT-Creation-Date: 2015-09-07 17:50+0300\n"
 "PO-Revision-Date: 2015-08-19 15:06+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Latvian (http://www.transifex.com/estonian-photographic-"
@@ -80,19 +80,19 @@ msgstr ""
 msgid "OpenStreetMap"
 msgstr ""
 
-#: project/ajapaik/settings/default.py:66
+#: project/ajapaik/settings/default.py:67
 msgid "Estonian"
 msgstr "Igauņu"
 
-#: project/ajapaik/settings/default.py:67
+#: project/ajapaik/settings/default.py:68
 msgid "English"
 msgstr "Angļu"
 
-#: project/ajapaik/settings/default.py:68
+#: project/ajapaik/settings/default.py:69
 msgid "Russian"
 msgstr "Krievu"
 
-#: project/ajapaik/settings/default.py:69
+#: project/ajapaik/settings/default.py:70
 msgid "Finnish"
 msgstr ""
 
@@ -1464,12 +1464,4 @@ msgstr ""
 
 #: project/ajapaik/views.py:1973
 msgid "Not enough data submitted"
-msgstr ""
-
-#: templates/404.html:5 templates/404.html.py:11
-msgid "Page Not Found"
-msgstr ""
-
-#: templates/404.html:14
-msgid "Back"
 msgstr ""

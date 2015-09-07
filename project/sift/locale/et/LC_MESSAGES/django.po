@@ -4,13 +4,14 @@
 #
 # Translators:
 # Lauri Elias, 2015
+# Vahur Puik <vahur@ajapaik.ee>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-04 00:18+0300\n"
-"PO-Revision-Date: 2015-09-03 21:16+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2015-09-07 17:50+0300\n"
+"PO-Revision-Date: 2015-09-07 11:53+0000\n"
+"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -55,10 +56,12 @@ msgid "All pictures"
 msgstr "Kõik pildid"
 
 #: project/sift/templates/_cat_header.html:46
+#: project/sift/templates/_cat_header.html:68
 msgid "Tag photos"
 msgstr "Sorteeri fotosid"
 
 #: project/sift/templates/_cat_header.html:51
+#: project/sift/templates/_cat_header.html:73
 msgid "Filter by tags"
 msgstr "Filtreeri"
 
@@ -66,11 +69,15 @@ msgstr "Filtreeri"
 msgid "Toggle navigation"
 msgstr "Näita/peida navigatsioon"
 
-#: project/sift/templates/_cat_header.html:68
+#: project/sift/templates/_cat_header.html:78
+msgid "Sift.pics on Google Play"
+msgstr ""
+
+#: project/sift/templates/_cat_header.html:83
 msgid "About"
 msgstr "Meist"
 
-#: project/sift/templates/_cat_header.html:75
+#: project/sift/templates/_cat_header.html:90
 msgid "Choose language"
 msgstr "Vali keel"
 
@@ -128,6 +135,14 @@ msgid ""
 "it is useful to capture that information\n"
 "            that would enable <b>bulk filtering of images</b> afterwards."
 msgstr ""
+"Väga tihti ei ole muuseumide-arhiivide fotokogude piltidel küljes lihtsaid "
+"<b>kategoriseerivaid märksõnu</b>: kas tegemist on <b>sise- või "
+"välisvaatega</b>, kas pildistatud on <b>maapinnalt või mõnest kõrgemast "
+"punktist</b> (nt tornist, kõrgema korruse aknast), kas tegemist on pigem "
+"mingit kohta kujutava <b>vaatega</b> või ennekõike inimesi kujutava "
+"<b>sündmusliku ülesvõttega</b>. Selliseid määratlusi oskab üldiselt teha "
+"igaüks lihtsalt pildile vaadates ning kui see info oleks piltide küljes, "
+"saaksime pilte nende tunnuste järgi sorteerida-filtreerida."
 
 #: project/sift/templates/cat_about.html:25
 msgid ""
@@ -140,6 +155,9 @@ msgid ""
 "title of the\n"
 "            image and open the image in an official web repository."
 msgstr ""
+"Sift.pics on rahvahankeline rakendus piltide kategoriseerimiseks. Pildid "
+"pärinevad avalikest kollektsioonidest ja me palume kasutajatel teha iga "
+"pildi juures 2 kategoriseerivat otsust (kokku on kategoriseeringupaare 7)."
 
 #: project/sift/templates/cat_about.html:31
 msgid "Team"
@@ -151,21 +169,29 @@ msgstr "kontseptsioon: Vahur Puik"
 
 #: project/sift/templates/cat_about.html:33
 msgid "back-end development: Lauri Elias"
-msgstr ""
+msgstr "back-end arendus: Lauri Elias"
 
 #: project/sift/templates/cat_about.html:34
 msgid "android app development: Janek Priimann"
-msgstr ""
+msgstr "android rakenduse arendus: Janek Priimann"
 
 #: project/sift/templates/cat_results.html:20
-#: project/sift/templates/cat_tagger.html:25
+#: project/sift/templates/cat_tagger.html:37
 msgid "N/A"
 msgstr "Ei sobi"
 
-#: project/sift/templates/cat_results.html:39
+#: project/sift/templates/cat_results.html:42
 msgid "Previous"
 msgstr "Eelmine"
 
-#: project/sift/templates/cat_results.html:45
+#: project/sift/templates/cat_results.html:48
 msgid "Next"
 msgstr "Järgmine"
+
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
+msgid "Back"
+msgstr ""

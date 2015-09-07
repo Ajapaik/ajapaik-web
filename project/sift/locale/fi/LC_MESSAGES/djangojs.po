@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Ajapaik\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-07 17:51+0300\n"
+"PO-Revision-Date: 2015-09-03 21:05+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/fi/)\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: project/sift/static/js/cat-extra-js-translations.js:5
+msgid "Interior"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:6
+msgid "Exterior"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:7
+msgid "Urban"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:8
+msgid "Rural"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:9
+msgid "Ground"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:10
+msgid "Raised"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:11
+msgid "One"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:12
+msgid "Many"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:13
+msgid "Whole"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:14
+msgid "Detail"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:15
+msgid "Staged"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:16
+msgid "Natural"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:17
+msgid "Public"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:18
+msgid "Private"
+msgstr ""
