@@ -12,14 +12,14 @@
             {% for k, v in tag_dict.items %}
                 <li role="presentation">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"right" %}active{% endif %}">
+                        <label data-name="{{ k }}" title="{% trans v.left %}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"right" %}active{% endif %}">
                             <i class="material-icons">{{ v.left_icon }}</i>
                             <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="-1" {% if selected_tag_value_dict|get_item:k|get_item:"right" %} checked="checked"{% endif %}><span>{% trans v.left %}</span>
                         </label>
-                        <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"na" %}active{% endif %}">
+                        <label data-name="{{ k }}" title="{% trans "N/A" %}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"na" %}active{% endif %}">
                             <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="0" {% if selected_tag_value_dict|get_item:k|get_item:"na" %}checked="checked"{% endif %}><span>{% trans "N/A" %}</span>
                         </label>
-                        <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"left" %}active{% endif %}">
+                        <label data-name="{{ k }}" title="{% trans v.right %}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"left" %}active{% endif %}">
                             <i class="material-icons">{{ v.right_icon }}</i>
                             <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="1" {% if selected_tag_value_dict|get_item:k|get_item:"left" %}checked="checked"{% endif %}><span>{% trans v.right %}</span>
                         </label>
@@ -27,7 +27,7 @@
                 </li>
             {% endfor %}
             <li role="presentation">
-                <p class="text-center" id="cat-result-set-stats">{{ current_result_set_start }} - {{ current_result_set_end }} / {{ total_results }}</p>
+                <p class="text-center" id="cat-result-set-stats" title="{% trans "Result set position" %}">{{ current_result_set_start }} - {{ current_result_set_end }} / {{ total_results }}</p>
             </li>
         </ul>
     </div>
@@ -39,13 +39,13 @@
         <nav>
             <ul class="pager">
                 <li>
-                    <a id="cat-pager-previous" href="#">{% trans "Previous" %}</a>
+                    <a id="cat-pager-previous" href="#" title="{% trans "Previous" %}">{% trans "Previous" %}</a>
                 </li>
                 <li class="disabled">
-                    <a id="cat-pager-page" href="#">{{ page }}</a>
+                    <a id="cat-pager-page" href="#" title="{% trans "Current page" %}">{{ page }}</a>
                 </li>
                 <li>
-                    <a id="cat-pager-next" href="#">{% trans "Next" %}</a>
+                    <a id="cat-pager-next" href="#" title="{% trans "Next" %}">{% trans "Next" %}</a>
                 </li>
             </ul>
         </nav>

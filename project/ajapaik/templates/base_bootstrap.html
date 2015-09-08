@@ -1,4 +1,4 @@
-{% load i18n cache thumbnail compress ajapaik_templatetags %}
+{% load i18n cache thumbnail compress ajapaik_templatetags static %}
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview or is_test_geotagger or is_tag %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
@@ -370,7 +370,6 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3&amp;libraries=places,visualization"></script>
-    <script src="http://s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
     {% compress js %}
         <script src="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
         <script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
@@ -391,13 +390,14 @@
         <script src="{{ STATIC_URL }}js/ajapaik-keyboard-controls.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-geotagger.js"></script>
+        <script src="{% static "js/cookieconsent.min.js" %}"></script>
         <script type="text/javascript">
             window.cookieconsent_options = {
                 message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
                 dismiss: '{% trans "Got it!" %}',
                 learnMore: '{% trans "More info" %}',
                 link: null,
-                theme: 'dark-bottom'
+                theme: '{% static "css/cookieconsent.min.css" %}'
             };
         </script>
     {% endcompress %}

@@ -74,7 +74,6 @@
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="http://s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
     {% compress js %}
         <script>
             var isFiltering = '{% if is_filter %}true{% endif %}',
@@ -86,13 +85,14 @@
         <script src="{% static "js/lazysizes-1.2.0.min.js" %}"></script>
         <script src="{% static "js/URI-1.15.1.min.js" %}"></script>
         <script src="{% static "js/cat-common.js" %}"></script>
+        <script src="{% static "js/cookieconsent.min.js" %}"></script>
         <script type="text/javascript">
             window.cookieconsent_options = {
                 message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
                 dismiss: '{% trans "Got it!" %}',
                 learnMore: '{% trans "More info" %}',
                 link: null,
-                theme: 'dark-bottom'
+                theme: '{% static "css/cookieconsent.min.css" %}'
             };
         </script>
         <script>

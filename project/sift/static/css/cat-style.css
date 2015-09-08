@@ -146,6 +146,11 @@
 #cat-filtering-panel {
     margin-top: 200px;
 }
+@media(max-width:767px) {
+    #cat-filtering-panel {
+        margin-top: 75px;
+    }
+}
 #cat-pager {
     margin-bottom: 60px;
 }

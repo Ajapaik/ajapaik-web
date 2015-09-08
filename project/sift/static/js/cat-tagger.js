@@ -50,15 +50,17 @@
             this.currentPhotoIndex += 1;
             this.currentPhotoTagIndex = -1;
             this.currentPhoto = this.photos[this.currentPhotoIndex];
-            $('#cat-tagger-current-photo').attr('src', this.currentPhoto.image.replace('[DIM]', '800'));
+            $('#cat-tagger-current-photo').attr('src', this.currentPhoto.image.replace('[DIM]', '800'))
+                .attr('alt', this.currentPhoto.title);
             $('#cat-tagger-current-photo-link').attr('href', this.currentPhoto.source.url)
-                .attr('data-id', this.currentPhoto.id);
+                .attr('data-id', this.currentPhoto.id).attr('title', this.currentPhoto.title);
             $('#cat-tagger-favorite-button').attr('data-id', this.currentPhoto.id);
             $('#cat-tagger-info-button').attr('data-id', this.currentPhoto.id);
             $('#cat-tagger-photo-description-container').addClass('hidden');
-            $('#cat-tagger-photo-description').html(this.currentPhoto.title);
+            $('#cat-tagger-photo-description').html(this.currentPhoto.title).attr('title', this.currentPhoto.title);
             var sourceDiv = $('#cat-tagger-photo-source');
-            sourceDiv.find('a').attr('href', this.currentPhoto.source.url).find('span').html(this.currentPhoto.source.name);
+            sourceDiv.find('a').attr('href', this.currentPhoto.source.url).attr('title', this.currentPhoto.title)
+                .find('span').html(this.currentPhoto.source.name);
             this.updateFavoriteButton();
         },
         updateFavoriteButton: function () {
