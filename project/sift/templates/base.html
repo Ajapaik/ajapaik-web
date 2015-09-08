@@ -40,6 +40,19 @@
         <link rel="stylesheet" href="{% static "css/cat-style.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(["_setAccount", "{{ analytics.google_analytics_key }}"]);
+        _gaq.push(["_trackPageview"]);
+        (function () {
+            var a = document.createElement("script");
+            a.type = "text/javascript";
+            a.async = !0;
+            a.src = ("https:" == document.location.protocol ? "https://" : "http://") + "stats.g.doubleclick.net/dc.js";
+            var b = document.getElementsByTagName("script")[0];
+            b.parentNode.insertBefore(a, b)
+        })();
+    </script>
 </head>
 <body id="cat-body" class="{% if is_filter %}cat-body-no-scroll{% endif %}">
 <div id="cat-loading-overlay"></div>
@@ -73,19 +86,6 @@
         <script src="{% static "js/lazysizes-1.2.0.min.js" %}"></script>
         <script src="{% static "js/URI-1.15.1.min.js" %}"></script>
         <script src="{% static "js/cat-common.js" %}"></script>
-        <script>
-            var _gaq = _gaq || [];
-            _gaq.push(["_setAccount", "{{ analytics.google_analytics_key }}"]);
-            _gaq.push(["_trackPageview"]);
-            (function () {
-                var a = document.createElement("script");
-                a.type = "text/javascript";
-                a.async = !0;
-                a.src = ("https:" == document.location.protocol ? "https://" : "http://") + "stats.g.doubleclick.net/dc.js";
-                var b = document.getElementsByTagName("script")[0];
-                b.parentNode.insertBefore(a, b)
-            })();
-        </script>
         <script type="text/javascript">
             window.cookieconsent_options = {
                 message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
