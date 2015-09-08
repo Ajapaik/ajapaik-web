@@ -13,6 +13,7 @@
     /*global docCookies */
     /*global _gaq */
     /*global tmpl */
+    /*global originalWindowTitle */
     window.CatTagger = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
@@ -26,6 +27,7 @@
         this.currentPhoto = null;
         this.currentPhotoTagIndex = -1;
         this.photos = null;
+        this.originalWindowTitle = originalWindowTitle;
     };
     window.CatTagger.prototype = {
         switchToTaggingView: function () {
@@ -75,18 +77,21 @@
                 var currentTag = this.currentPhoto.tag[this.currentPhotoTagIndex],
                     parts = currentTag.split('_');
                 $('#cat-tagger-left').html(this.allTags[currentTag].leftIcon).parent().attr('data-tag', currentTag);
-                $('#cat-tagger-left-text').html(gettext((parts[0].toString())));
+                $('#cat-tagger-left-text').html(gettext((parts[0].toString().capitalizeFirstLetter())));
                 $('#cat-tagger-right').html(this.allTags[currentTag].rightIcon).parent().attr('data-tag', currentTag);
-                $('#cat-tagger-right-text').html(gettext(parts[(parts.length - 1)]));
+                $('#cat-tagger-right-text').html(gettext(parts[(parts.length - 1)].capitalizeFirstLetter()));
                 $('#cat-tagger-na').parent().attr('data-tag', currentTag);
             }
         },
         syncStateToURL: function () {
-            var currentURL = URI(location.href);
+            var currentURL = URI(location.href),
+                replacementTitle = originalWindowTitle;
             currentURL.removeSearch('album');
             if (this.selectedAlbumId) {
                 currentURL.addSearch('album', this.selectedAlbumId);
+                replacementTitle = this.selectedAlbumTitle + ' - ' + this.originalWindowTitle;
             }
+            document.title = replacementTitle;
             history.replaceState(null, window.title, currentURL);
         },
         reportTaggingError: function () {
@@ -116,7 +121,15 @@
                     if (parseInt(response.error, 10) === 0) {
                         var i,
                             l = response.albums.length,
-                            targetDiv = $('#cat-album-selection');
+                            targetDiv = $('#cat-album-selection'),
+                            fmt = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures. You are contributor number %(rank)s.'),
+                            statString = interpolate(fmt, {
+                                users: response.stats.users,
+                                decisions: response.stats.decisions,
+                                pictures: response.stats.tagged,
+                                rank: response.stats.rank
+                            }, true);
+                        $('#cat-footer-text').html(statString).show();
                         targetDiv.empty();
                         for (i = 0; i < l; i += 1) {
                             targetDiv.append(tmpl('cat-album-selection-album-template', response.albums[i]));
@@ -150,6 +163,7 @@
                         that.selectedAlbumTitle = response.title;
                         that.switchToTaggingView();
                         that.nextPhoto();
+                        $('#cat-footer-text').hide();
                     } else {
                         that.reportAlbumLoadError();
                     }

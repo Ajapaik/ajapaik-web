@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 17:50+0300\n"
+"POT-Creation-Date: 2015-09-08 14:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1085,30 +1085,38 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: project/ajapaik/templates/base_bootstrap.html:229
-msgid ""
-"We use cookies for best performance of the site. By using the site you agree "
-"to that."
-msgstr ""
-
-#: project/ajapaik/templates/base_bootstrap.html:241
+#: project/ajapaik/templates/base_bootstrap.html:235
 msgid "Geolocation error"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:244
+#: project/ajapaik/templates/base_bootstrap.html:238
 msgid "Sorting"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:254
+#: project/ajapaik/templates/base_bootstrap.html:248
 msgid "feedback"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:265
+#: project/ajapaik/templates/base_bootstrap.html:259
 msgid "Estonian Photographic Heritage Society"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:289
+#: project/ajapaik/templates/base_bootstrap.html:283
 msgid "See also – Sift.pics"
+msgstr ""
+
+#: project/ajapaik/templates/base_bootstrap.html:396
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website"
+msgstr ""
+
+#: project/ajapaik/templates/base_bootstrap.html:397
+msgid "Got it!"
+msgstr ""
+
+#: project/ajapaik/templates/base_bootstrap.html:398
+msgid "More info"
 msgstr ""
 
 #: project/ajapaik/templates/curator.html:24

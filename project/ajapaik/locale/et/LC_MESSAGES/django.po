@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 17:50+0300\n"
-"PO-Revision-Date: 2015-09-07 11:47+0000\n"
+"POT-Creation-Date: 2015-09-08 14:45+0300\n"
+"PO-Revision-Date: 2015-09-08 11:30+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
@@ -1205,33 +1205,39 @@ msgstr[1] ""
 "                            Albumis on %(counter)s fotot,\n"
 "                        "
 
-#: project/ajapaik/templates/base_bootstrap.html:229
-msgid ""
-"We use cookies for best performance of the site. By using the site you agree "
-"to that."
-msgstr ""
-"Kasutame Ajapaiga veebirakenduses nn küpsiseid, lehte kasutades peate "
-"sellega nõus olema."
-
-#: project/ajapaik/templates/base_bootstrap.html:241
+#: project/ajapaik/templates/base_bootstrap.html:235
 msgid "Geolocation error"
 msgstr "Viga asukoha määramisel"
 
-#: project/ajapaik/templates/base_bootstrap.html:244
+#: project/ajapaik/templates/base_bootstrap.html:238
 msgid "Sorting"
 msgstr "Sorteerimine"
 
-#: project/ajapaik/templates/base_bootstrap.html:254
+#: project/ajapaik/templates/base_bootstrap.html:248
 msgid "feedback"
 msgstr "tagasiside"
 
-#: project/ajapaik/templates/base_bootstrap.html:265
+#: project/ajapaik/templates/base_bootstrap.html:259
 msgid "Estonian Photographic Heritage Society"
 msgstr "MTÜ Eesti Fotopärand"
 
-#: project/ajapaik/templates/base_bootstrap.html:289
+#: project/ajapaik/templates/base_bootstrap.html:283
 msgid "See also – Sift.pics"
 msgstr "Vaata ka – Sift.pics"
+
+#: project/ajapaik/templates/base_bootstrap.html:396
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website"
+msgstr "Teie parema kogemuse huvides kasutab see lehekülg küpsiseid"
+
+#: project/ajapaik/templates/base_bootstrap.html:397
+msgid "Got it!"
+msgstr "Sain!"
+
+#: project/ajapaik/templates/base_bootstrap.html:398
+msgid "More info"
+msgstr "Rohkem infot"
 
 #: project/ajapaik/templates/curator.html:24
 msgid ""
@@ -1342,11 +1348,11 @@ msgstr "Loomulik"
 
 #: project/ajapaik/templates/extra_translations.html:16
 msgid "Public "
-msgstr ""
+msgstr "Avalik"
 
 #: project/ajapaik/templates/extra_translations.html:17
 msgid "Private "
-msgstr ""
+msgstr "Eravaldus"
 
 #: project/ajapaik/templates/frontpage.html:27
 #: project/ajapaik/templates/photoview.html:94
@@ -1585,8 +1591,3 @@ msgstr "Palun lisa oma albumisse fotosid"
 #: project/ajapaik/views.py:1973
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
-
-#, fuzzy
-#~| msgid "Back home"
-#~ msgid "Back"
-#~ msgstr "Tagasi avalehele"

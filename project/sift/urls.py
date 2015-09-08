@@ -1,18 +1,20 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.views import serve
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
+from project.sift.sitemaps import StaticViewSitemap, AlbumResultSitemap, AlbumTagSitemap
 
 admin.autodiscover()
 
 # TODO: Locale specific URLs
 urlpatterns = patterns('project.sift.views',
    url(r'^logout/', 'logout'),
-   url(r'^$', 'cat_results'),
-   url(r'^about/$', 'cat_about'),
-   url(r'^tag/$', 'cat_tagger'),
-   url(r'^filter/$', 'cat_results'),
+   url(r'^$', 'cat_results', name='cat_landing'),
+   url(r'^about/$', 'cat_about', name='cat_about'),
+   url(r'^tag/$', 'cat_tagger', name='cat_tagger'),
+   url(r'^filter/$', 'cat_results', name='cat_results'),
    url(r'^cat/v1/login/$', 'cat_login'),
    url(r'^cat/v1/logout/$', 'cat_logout'),
    url(r'^cat/v1/albums/$', 'cat_albums'),
@@ -38,6 +40,7 @@ urlpatterns += patterns('',
    url(r'^i18n/', include('django.conf.urls.i18n')),
    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
+   url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'album_filter_urls': AlbumResultSitemap, 'album_tag_urls': AlbumTagSitemap, 'static_pages': StaticViewSitemap}}, name='django.contrib.sitemaps.views.sitemap'),
 )
 
 handler500 = 'project.ajapaik.views.custom_500'

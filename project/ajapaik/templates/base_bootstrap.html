@@ -224,12 +224,6 @@
     </script>
 </head>
 <body class="{% if is_game or is_mapview or is_test_geotagger or is_tag %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
-<div id="cookie-notice-container" style="display: none;">
-    <div id="cookie-notice">
-        <span id="cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
-        <p id="cookie-notice-close" onclick="setEUCookie();">X</p>
-    </div>
-</div>
 <div id="ajapaik-loading-overlay"></div>
 <div id="fb-root"></div>
 <form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
@@ -376,6 +370,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3&amp;libraries=places,visualization"></script>
+    <script src="http://s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
     {% compress js %}
         <script src="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
         <script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
@@ -396,6 +391,15 @@
         <script src="{{ STATIC_URL }}js/ajapaik-keyboard-controls.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-geotagger.js"></script>
+        <script type="text/javascript">
+            window.cookieconsent_options = {
+                message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
+                dismiss: '{% trans "Got it!" %}',
+                learnMore: '{% trans "More info" %}',
+                link: null,
+                theme: 'dark-bottom'
+            };
+        </script>
     {% endcompress %}
 {% endblock %}
 {% block specific_js %}{% endblock %}

@@ -12,16 +12,16 @@
                 <p title="{%=o.subtitle%}">{%=o.subtitle%}</p>
             </div>
             <div class="caption cat-caption-album-full-info hidden">
-                <p>{%=o.total%} {%=gettext("pictures in album")%}</p>
-                <br/>
                 <p>
-                    {%=gettext("You have made")%} {%=o.decisions%} {%=gettext("decisions")%}
-                    {%=gettext("about")%} {%=o.tagged%} {%=gettext("pictures in this")%} {%=gettext("album")%}.
-                    {%=gettext("You are contributor number")%} {%=o.stats.rank%}.
+                    {%=interpolate(albumSelectionStatisticsTemplate1, {pictures: o.total,}, true)%}
                 </p>
                 <br/>
-                <p class="cat-caption-album-info-last-line">{%=o.stats.users%} {%=gettext("users have made")%} {%=o.stats.decisions%}
-                    {%=gettext("decisions about")%} {%=o.stats.tagged%} {%=gettext("pictures")%}.
+                <p>
+                    {%=interpolate(albumSelectionStatisticsTemplate2, {decisions: o.decisions, pictures: o.tagged, rank: o.stats.rank,}, true)%}
+                </p>
+                <br/>
+                <p class="cat-caption-album-info-last-line">
+                    {%=interpolate(albumSelectionStatisticsTemplate3, {users: o.stats.users, decisions: o.stats.decisions, pictures: o.stats.tagged,}, true)%}
                 </p>
             </div>
         </a>

@@ -93,8 +93,7 @@
         parent.find('.cat-caption-album-full-info').toggleClass('hidden').toggleClass('cat-force-show');
         parent.find('.cat-caption-album-selection').toggleClass('hidden').toggleClass('cat-force-show');
     });
-    $(document).on('click', '.cat-caption-album-full-info', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    });
+    String.prototype.capitalizeFirstLetter = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    };
 }());

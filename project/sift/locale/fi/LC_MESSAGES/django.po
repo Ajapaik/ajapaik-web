@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 17:50+0300\n"
-"PO-Revision-Date: 2015-09-07 14:56+0000\n"
+"POT-Creation-Date: 2015-09-08 14:45+0300\n"
+"PO-Revision-Date: 2015-09-08 11:37+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/settings/default.py:61
@@ -35,6 +36,8 @@ msgstr ""
 
 #: project/sift/templates/_cat_header.html:7
 #: project/sift/templates/base.html:7 project/sift/templates/base.html.py:9
+#: project/sift/templates/cat_results.html:70
+#: project/sift/templates/cat_tagger.html:83
 msgid "Sift.pics"
 msgstr ""
 
@@ -53,28 +56,28 @@ msgid "All pictures"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:46
-#: project/sift/templates/_cat_header.html:68
+#: project/sift/templates/_cat_header.html:72
 msgid "Tag photos"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:51
-#: project/sift/templates/_cat_header.html:73
+#: project/sift/templates/_cat_header.html:77
 msgid "Filter by tags"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:59
+#: project/sift/templates/_cat_header.html:63
 msgid "Toggle navigation"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:78
+#: project/sift/templates/_cat_header.html:86
 msgid "Sift.pics on Google Play"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:83
+#: project/sift/templates/_cat_header.html:91 project/sift/views.py:591
 msgid "About"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:90
+#: project/sift/templates/_cat_header.html:98
 msgid "Choose language"
 msgstr ""
 
@@ -86,10 +89,18 @@ msgstr ""
 msgid "tagging,historic,old,photos,pictures"
 msgstr ""
 
-#: project/sift/templates/base.html:47
+#: project/sift/templates/base.html:91
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree"
-" to that."
+"This website uses cookies to ensure you get the best experience on our "
+"website"
+msgstr ""
+
+#: project/sift/templates/base.html:92
+msgid "Got it!"
+msgstr ""
+
+#: project/sift/templates/base.html:93
+msgid "More info"
 msgstr ""
 
 #: project/sift/templates/cat_about.html:12
@@ -118,20 +129,28 @@ msgstr ""
 
 #: project/sift/templates/cat_about.html:19
 msgid ""
-"Historic photographs in public collections very often lack <b>basic classificatory tags</b> &#8211;\n"
-"            whether a picture is an <b>interior or exterior view</b>, has the picture been taken from\n"
-"            <b>ground level or from a raised viewpoint</b> (a higher floor window or tower), is it a view photograph\n"
-"            depicting mainly a <b>place</b> or a reportage photo about an <b>event</b> etc. Most of these decisions\n"
-"            are easy to make for everyone only by looking at a picture, so it is useful to capture that information\n"
+"Historic photographs in public collections very often lack <b>basic "
+"classificatory tags</b> &#8211;\n"
+"            whether a picture is an <b>interior or exterior view</b>, has "
+"the picture been taken from\n"
+"            <b>ground level or from a raised viewpoint</b> (a higher floor "
+"window or tower), is it a view photograph\n"
+"            depicting mainly a <b>place</b> or a reportage photo about an "
+"<b>event</b> etc. Most of these decisions\n"
+"            are easy to make for everyone only by looking at a picture, so "
+"it is useful to capture that information\n"
 "            that would enable <b>bulk filtering of images</b> afterwards."
 msgstr ""
 
 #: project/sift/templates/cat_about.html:25
 msgid ""
 "<b>Sift.pics</b> is a participatory <b>crowdsourcing application</b>\n"
-"            for that kind of binary categorisation about images. We take in pictures from\n"
-"            public collections that users start to browse and ask them to make couple of\n"
-"            sorting decisions, they can favorite (bookmark) images, see the title of the\n"
+"            for that kind of binary categorisation about images. We take in "
+"pictures from\n"
+"            public collections that users start to browse and ask them to "
+"make couple of\n"
+"            sorting decisions, they can favorite (bookmark) images, see the "
+"title of the\n"
 "            image and open the image in an official web repository."
 msgstr ""
 
@@ -162,6 +181,80 @@ msgstr ""
 
 #: project/sift/templates/cat_results.html:48
 msgid "Next"
+msgstr ""
+
+#: project/sift/templates/cat_results.html:70 project/sift/views.py:569
+#: project/sift/views.py:571
+msgid "Filter photos by tags"
+msgstr ""
+
+#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:601
+#: project/sift/views.py:605
+msgid "Tag historic photos"
+msgstr ""
+
+#: project/sift/views.py:464
+msgid "Interior"
+msgstr ""
+
+#: project/sift/views.py:465
+msgid "Exterior"
+msgstr ""
+
+#: project/sift/views.py:466
+msgid "View"
+msgstr ""
+
+#: project/sift/views.py:467
+msgid "Social"
+msgstr ""
+
+#: project/sift/views.py:468
+msgid "Ground"
+msgstr ""
+
+#: project/sift/views.py:469
+msgid "Raised"
+msgstr ""
+
+#: project/sift/views.py:470
+msgid "Rural"
+msgstr ""
+
+#: project/sift/views.py:471
+msgid "Urban"
+msgstr ""
+
+#: project/sift/views.py:472
+msgid "One"
+msgstr ""
+
+#: project/sift/views.py:473
+msgid "Many"
+msgstr ""
+
+#: project/sift/views.py:474
+msgid "Public"
+msgstr ""
+
+#: project/sift/views.py:475
+msgid "Private"
+msgstr ""
+
+#: project/sift/views.py:476
+msgid "Whole"
+msgstr ""
+
+#: project/sift/views.py:477
+msgid "Detail"
+msgstr ""
+
+#: project/sift/views.py:478
+msgid "Staged"
+msgstr ""
+
+#: project/sift/views.py:479
+msgid "Natural"
 msgstr ""
 
 #: templates/404.html:5 templates/404.html.py:11

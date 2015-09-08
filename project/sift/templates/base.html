@@ -42,12 +42,6 @@
     {% block specific_css %}{% endblock %}
 </head>
 <body id="cat-body" class="{% if is_filter %}cat-body-no-scroll{% endif %}">
-<div id="cat-cookie-notice-container">
-    <div id="cat-cookie-notice">
-        <span id="cat-cookie-notice-text">{% trans "We use cookies for best performance of the site. By using the site you agree to that." %}</span>
-        <p id="cat-cookie-notice-close" onclick="setEUCookie();">X</p>
-    </div>
-</div>
 <div id="cat-loading-overlay"></div>
 <form action="/i18n/setlang/" method="post" id="cat-change-language-form">
     <input type="hidden" value="" name="language" id="cat-language" />
@@ -58,10 +52,16 @@
     {% include "_cat_header.html" %}
 {% endblock header %}
 {% block layout %}{% endblock layout %}
+<footer class="footer">
+    <div class="container-fluid">
+        <p id="cat-footer-text" class="text-muted"></p>
+    </div>
+</footer>
 {% block global_js %}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
     {% compress js %}
         <script>
             var isFiltering = '{% if is_filter %}true{% endif %}',
@@ -85,6 +85,20 @@
                 var b = document.getElementsByTagName("script")[0];
                 b.parentNode.insertBefore(a, b)
             })();
+        </script>
+        <script type="text/javascript">
+            window.cookieconsent_options = {
+                message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
+                dismiss: '{% trans "Got it!" %}',
+                learnMore: '{% trans "More info" %}',
+                link: null,
+                theme: 'dark-bottom'
+            };
+        </script>
+        <script>
+            var albumSelectionStatisticsTemplate1 = gettext('%(pictures)s pictures in album'),
+                albumSelectionStatisticsTemplate2 = gettext('You have made %(decisions)s decisions about %(pictures)s pictures in this album. You are contributor number %(rank)s.'),
+                albumSelectionStatisticsTemplate3 = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.');
         </script>
     {% endcompress %}
 {% endblock %}

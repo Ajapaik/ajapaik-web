@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 17:50+0300\n"
+"POT-Creation-Date: 2015-09-08 14:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,8 @@ msgstr ""
 
 #: project/sift/templates/_cat_header.html:7
 #: project/sift/templates/base.html:7 project/sift/templates/base.html.py:9
+#: project/sift/templates/cat_results.html:70
+#: project/sift/templates/cat_tagger.html:83
 msgid "Sift.pics"
 msgstr ""
 
@@ -53,28 +55,28 @@ msgid "All pictures"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:46
-#: project/sift/templates/_cat_header.html:68
+#: project/sift/templates/_cat_header.html:72
 msgid "Tag photos"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:51
-#: project/sift/templates/_cat_header.html:73
+#: project/sift/templates/_cat_header.html:77
 msgid "Filter by tags"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:59
+#: project/sift/templates/_cat_header.html:63
 msgid "Toggle navigation"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:78
+#: project/sift/templates/_cat_header.html:86
 msgid "Sift.pics on Google Play"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:83
+#: project/sift/templates/_cat_header.html:91 project/sift/views.py:591
 msgid "About"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:90
+#: project/sift/templates/_cat_header.html:98
 msgid "Choose language"
 msgstr ""
 
@@ -86,10 +88,18 @@ msgstr ""
 msgid "tagging,historic,old,photos,pictures"
 msgstr ""
 
-#: project/sift/templates/base.html:47
+#: project/sift/templates/base.html:91
 msgid ""
-"We use cookies for best performance of the site. By using the site you agree "
-"to that."
+"This website uses cookies to ensure you get the best experience on our "
+"website"
+msgstr ""
+
+#: project/sift/templates/base.html:92
+msgid "Got it!"
+msgstr ""
+
+#: project/sift/templates/base.html:93
+msgid "More info"
 msgstr ""
 
 #: project/sift/templates/cat_about.html:12
@@ -162,7 +172,7 @@ msgstr ""
 #: project/sift/templates/cat_results.html:20
 #: project/sift/templates/cat_tagger.html:37
 msgid "N/A"
-msgstr ""
+msgstr "Not applicable"
 
 #: project/sift/templates/cat_results.html:42
 msgid "Previous"
@@ -170,6 +180,80 @@ msgstr ""
 
 #: project/sift/templates/cat_results.html:48
 msgid "Next"
+msgstr ""
+
+#: project/sift/templates/cat_results.html:70 project/sift/views.py:569
+#: project/sift/views.py:571
+msgid "Filter photos by tags"
+msgstr ""
+
+#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:601
+#: project/sift/views.py:605
+msgid "Tag historic photos"
+msgstr ""
+
+#: project/sift/views.py:464
+msgid "Interior"
+msgstr ""
+
+#: project/sift/views.py:465
+msgid "Exterior"
+msgstr ""
+
+#: project/sift/views.py:466
+msgid "View"
+msgstr ""
+
+#: project/sift/views.py:467
+msgid "Social"
+msgstr ""
+
+#: project/sift/views.py:468
+msgid "Ground"
+msgstr ""
+
+#: project/sift/views.py:469
+msgid "Raised"
+msgstr ""
+
+#: project/sift/views.py:470
+msgid "Rural"
+msgstr "Countryside"
+
+#: project/sift/views.py:471
+msgid "Urban"
+msgstr ""
+
+#: project/sift/views.py:472
+msgid "One"
+msgstr "One person"
+
+#: project/sift/views.py:473
+msgid "Many"
+msgstr "Many people"
+
+#: project/sift/views.py:474
+msgid "Public"
+msgstr ""
+
+#: project/sift/views.py:475
+msgid "Private"
+msgstr ""
+
+#: project/sift/views.py:476
+msgid "Whole"
+msgstr "General"
+
+#: project/sift/views.py:477
+msgid "Detail"
+msgstr "Close-up"
+
+#: project/sift/views.py:478
+msgid "Staged"
+msgstr ""
+
+#: project/sift/views.py:479
+msgid "Natural"
 msgstr ""
 
 #: templates/404.html:5 templates/404.html.py:11

@@ -14,14 +14,14 @@
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
                         <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"right" %}active{% endif %}">
                             <i class="material-icons">{{ v.left_icon }}</i>
-                            <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="-1" {% if selected_tag_value_dict|get_item:k|get_item:"right" %} checked="checked"{% endif %}>{% trans v.left %}
+                            <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="-1" {% if selected_tag_value_dict|get_item:k|get_item:"right" %} checked="checked"{% endif %}><span>{% trans v.left %}</span>
                         </label>
                         <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"na" %}active{% endif %}">
-                            <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="0" {% if selected_tag_value_dict|get_item:k|get_item:"na" %}checked="checked"{% endif %}>{% trans "N/A" %}
+                            <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="0" {% if selected_tag_value_dict|get_item:k|get_item:"na" %}checked="checked"{% endif %}><span>{% trans "N/A" %}</span>
                         </label>
                         <label data-name="{{ k }}" class="btn btn-default cat-filtering-button cat-text-overflow-ellipsis {% if selected_tag_value_dict|get_item:k|get_item:"left" %}active{% endif %}">
                             <i class="material-icons">{{ v.right_icon }}</i>
-                            <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="1" {% if selected_tag_value_dict|get_item:k|get_item:"left" %}checked="checked"{% endif %}>{% trans v.right %}
+                            <input class="cat-filtering-checkbox" type="checkbox" name="{{ k }}" value="1" {% if selected_tag_value_dict|get_item:k|get_item:"left" %}checked="checked"{% endif %}><span>{% trans v.right %}</span>
                         </label>
                     </div>
                 </li>
@@ -66,7 +66,8 @@
                 getAlbumsURL = '{% url 'project.sift.views.cat_albums' %}',
                 photoThumbURL = '{% url 'project.sift.views.cat_photo' %}',
                 albumThumbURL = '{% url 'project.sift.views.cat_album_thumb' %}',
-                taggerURL = '{% url 'project.sift.views.cat_tagger' %}';
+                taggerURL = '{% url 'project.sift.views.cat_tagger' %}',
+                originalWindowTitle = '{% trans "Filter photos by tags" %} - {% trans "Sift.pics" %}';
         </script>
         <script>
             $(document).ready(function () {

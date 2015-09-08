@@ -79,7 +79,8 @@
                 tagURL = '{% url 'project.sift.views.cat_tag' %}',
                 filterURL = '{% url 'project.sift.views.cat_results' %}',
                 favoriteAddURL = '{% url 'project.sift.views.user_favorite_add' %}',
-                favoriteRemoveURL = '{% url 'project.sift.views.user_favorite_remove' %}';
+                favoriteRemoveURL = '{% url 'project.sift.views.user_favorite_remove' %}',
+                originalWindowTitle = '{% trans "Tag historic photos" %} - {% trans "Sift.pics" %}';
             $(document).ready(function () {
                 var catTagger = new CatTagger();
                 catTagger.initialize();

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 17:59+0300\n"
+"POT-Creation-Date: 2015-09-08 15:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,41 +74,32 @@ msgid "Private"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:19
-msgid "pictures in album"
+msgid "View"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:20
-msgid "You have made"
+msgid "Social"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:21
-msgid "decisions"
+msgid "%(pictures)s pictures in album"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:22
-msgid "about"
+msgid ""
+"You have made %(decisions)s decisions about %(pictures)s pictures in this "
+"album. You are contributor number %(rank)s."
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:23
-msgid "pictures in this"
+msgid ""
+"%(users)s users have made %(decisions)s decisions about %(pictures)s "
+"pictures."
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:24
-msgid "album"
-msgstr ""
-
-#: project/sift/static/js/cat-extra-js-translations.js:25
-msgid "You are contributor number"
-msgstr ""
-
-#: project/sift/static/js/cat-extra-js-translations.js:26
-msgid "users have made"
-msgstr ""
-
-#: project/sift/static/js/cat-extra-js-translations.js:27
-msgid "decisions about"
-msgstr ""
-
-#: project/sift/static/js/cat-extra-js-translations.js:28
-msgid "pictures"
+#: project/sift/static/js/cat-results.js:104
+#: project/sift/static/js/cat-tagger.js:125
+msgid ""
+"%(users)s users have made %(decisions)s decisions about %(pictures)s "
+"pictures. You are contributor number %(rank)s."
 msgstr ""

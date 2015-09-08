@@ -32,57 +32,32 @@
 #cat-header-mode > div > span {
     font-size: 20px;
 }
+.cat-header-link > i:hover {
+    color: white;
+}
+.cat-header-link > i > svg > path:hover {
+    fill: white;
+}
 .cat-text-overflow-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-#cat-header-play-store-link > i {
-    background-image: url(../images/google-play.svg);
-    width: 24px;
-    height: 24px;
 }
 @media (max-width: 768px) {
     .cat-text-overflow-ellipsis {
         max-width: 175px;
     }
 }
-/*EU Cookie*/
-#cat-cookie-notice-container {
-    position: absolute;
-    width: 100%;
-    display: none;
+/*Footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
 }
-#cat-cookie-notice {
-    width: 50%;
-    background-color: white;
-    opacity: 0.9;
-    text-align: center;
-    margin: 0 auto;
-    position: relative;
-}
-#cat-cookie-notice span {
-    vertical-align: middle;
-    display: inline-block;
-    line-height: 20px;
-    padding-top: 10px;
-    width: 75%;
-    padding-bottom: 5px;
-}
-#cat-cookie-notice p {
-    background-color: black;
+#cat-footer-text {
     color: white;
-    border-radius: 50px;
-    padding: 3px 6px;
-    position: absolute;
-    top: -8px;
-    right: 11px;
-    margin: 0;
-    font-weight: bold;
-    font-family: 'Droid Serif', arial, sans-serif;
-    cursor: pointer;
-    font-size: 12px !important;
-    line-height: initial !important;
+    font-size: 18px;
 }
 /*Utilities*/
 #cat-loading-overlay {
@@ -119,13 +94,18 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    line-height: 100%;
 }
 .cat-caption-album-selection > p:first-of-type {
     font-size: 18px;
 }
 .cat-caption-album-full-info {
+    line-height: 200%;
     background-color: rgba(0, 0, 0, .7) !important;
     min-height: 100%;
+}
+#cat-album-selection {
+    margin-bottom: 60px;
 }
 .cat-album-selection-more-info {
     position: absolute;
@@ -157,8 +137,17 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+.cat-filtering-button > span {
+    display: block;
+}
+#cat-result-set-stats {
+    color: white;
+}
 #cat-filtering-panel {
     margin-top: 200px;
+}
+#cat-pager {
+    margin-bottom: 60px;
 }
 /*Tagging*/
 #cat-tagger-image-and-button-container {
@@ -199,6 +188,7 @@
 /*Override classes*/
 #cat-body {
     background-color: black;
+    margin-bottom: 60px;
 }
 .cat-body-scroll {
     overflow-y: scroll;
@@ -246,18 +236,22 @@
     background-color: #888 !important;
 }
 .cat-btn-group > .btn-group > .btn:active {
-    background-color: black;
+    background-color: black !important;
     border: none;
     box-shadow: none;
     outline: none;
     -webkit-box-shadow: none;
 }
 .cat-btn-group > .btn-group > .btn:focus {
-    background-color: black;
+    background-color: black !important;
     border: none;
     box-shadow: none;
     outline: none;
     -webkit-box-shadow: none;
+}
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 

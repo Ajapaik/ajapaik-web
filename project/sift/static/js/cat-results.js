@@ -9,6 +9,9 @@
     /*global tmpl */
     /*global _gaq */
     /*global docCookies */
+    /*global originalWindowTitle */
+    /*global gettext */
+    /*global interpolate */
     window.Cat = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
@@ -16,18 +19,19 @@
         this.getAlbumsURL = getAlbumsURL;
         this.taggerURL = taggerURL;
         this.photoLoadTimeout = null;
-        this.page = 0;
+        this.page = 1;
         this.currentResultSetStart = null;
         this.currentResultSetEnd = null;
         this.totalResults = 0;
         this.filterNames = [];
+        this.originalWindowTitle = originalWindowTitle;
     };
     window.Cat.prototype = {
         switchToAlbumSelection: function () {
             this.loadAlbums();
             this.selectedAlbumId = null;
             this.selectedAlbumTitle = null;
-            this.page = 0;
+            this.page = 1;
             this.removeFiltersFromURL();
             this.updatePaging();
             this.syncStateToURL();
@@ -65,15 +69,18 @@
             history.replaceState(null, window.title, currentURL);
         },
         syncStateToURL: function () {
-            var currentURL = URI(location.href);
+            var currentURL = URI(location.href),
+                replacementTitle = this.originalWindowTitle;
             currentURL.removeSearch('album').removeSearch('page');
             if (this.selectedAlbumId) {
                 currentURL.addSearch('album', this.selectedAlbumId);
+                replacementTitle = this.selectedAlbumTitle + ' - ' + this.originalWindowTitle;
             }
             if (this.page) {
                 currentURL.addSearch('page', this.page);
             }
-            history.replaceState(null, window.title, currentURL);
+            document.title = replacementTitle;
+            history.replaceState(null, replacementTitle, currentURL);
         },
         reportPhotosLoadError: function () {
             _gaq.push(['_trackEvent', 'filtering', 'error', 'photos', -1000, true]);
@@ -93,7 +100,15 @@
                     if (parseInt(response.error, 10) === 0) {
                         var i,
                             l = response.albums.length,
-                            targetDiv = $('#cat-album-selection');
+                            targetDiv = $('#cat-album-selection'),
+                            fmt = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures. You are contributor number %(rank)s.'),
+                            statString = interpolate(fmt, {
+                                users: response.stats.users,
+                                decisions: response.stats.decisions,
+                                pictures: response.stats.tagged,
+                                rank: response.stats.rank
+                            }, true);
+                        $('#cat-footer-text').html(statString);
                         targetDiv.empty();
                         for (i = 0; i < l; i += 1) {
                             targetDiv.append(tmpl('cat-album-selection-album-template', response.albums[i]));
@@ -169,7 +184,7 @@
                 var $this = $(this);
                 that.selectedAlbumId = $this.data('id');
                 that.selectedAlbumTitle = $this.data('title');
-                that.page = 0;
+                that.page = 1;
                 that.initializeFilterBox();
                 that.removeFiltersFromURL();
                 that.syncStateToURL();
@@ -182,7 +197,7 @@
                 } else {
                     currentURL.removeSearch(this.name, this.value);
                 }
-                that.page = 0;
+                that.page = 1;
                 currentURL.removeSearch('page').addSearch('page', that.page);
                 that.updatePaging();
                 history.replaceState(null, window.title, currentURL);
@@ -190,7 +205,7 @@
             });
             $('#cat-pager-previous').click(function (e) {
                 e.preventDefault();
-                if (that.page > 0) {
+                if (that.page > 1) {
                     that.page -= 1;
                     that.updatePaging();
                     that.syncStateToURL();
@@ -211,7 +226,7 @@
             $('#cat-show-pictures-link').click(function () {
                 that.selectedAlbumId = null;
                 that.selectedAlbumTitle = null;
-                that.page = 0;
+                that.page = 1;
                 that.removeFiltersFromURL();
                 that.initializeFilterBox();
                 that.updatePaging();

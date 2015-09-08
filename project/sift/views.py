@@ -31,6 +31,7 @@ from sorl.thumbnail import get_thumbnail, delete
 from django.core.cache import cache
 from rest_framework import authentication
 from rest_framework import exceptions
+from django.utils.translation import ugettext as _
 
 from project.sift.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, CatResultsFilteringForm, \
     CatPushRegisterForm
@@ -459,6 +460,24 @@ icon_map = {
     'natural': 'directions_walk'
 }
 
+# Extra translations for Django to pick up
+_('Interior')
+_('Exterior')
+_('View')
+_('Social')
+_('Ground')
+_('Raised')
+_('Rural')
+_('Urban')
+_('One')
+_('Many')
+_('Public')
+_('Private')
+_('Whole')
+_('Detail')
+_('Staged')
+_('Natural')
+
 @vary_on_headers('X-Requested-With')
 def cat_results(request):
     # Ensure user has profile
@@ -469,10 +488,10 @@ def cat_results(request):
     for key in tag_dict:
         tag_dict[key] = {
             'id': tag_dict[key],
-            'left': key.split('_')[0].capitalize(),
-            'right': key.split('_')[2].capitalize(),
-            'left_icon': icon_map[key.split('_')[0]],
-            'right_icon': icon_map[key.split('_')[2]],
+            'left': key.split('_')[0].strip().capitalize(),
+            'right': key.split('_')[2].strip().capitalize(),
+            'left_icon': icon_map[key.split('_')[0]].strip(),
+            'right_icon': icon_map[key.split('_')[2]].strip(),
         }
     json_state['filterNames'] = tag_dict.keys()
     selected_tag_value_dict = {}
@@ -485,8 +504,10 @@ def cat_results(request):
         cd = filter_form.cleaned_data
         if cd['page']:
             page = cd['page']
-        if cd['show_pictures'] or cd['album'] or not (cd['show_pictures'] and cd['album']):
-            photos = CatPhoto.objects.prefetch_related('tags')
+            if page > 0:
+                page -= 1
+        if cd['show_pictures'] or cd['album']:
+            photos = CatPhoto.objects.all()
             if cd['album']:
                 json_state['albumId'] = cd['album'].pk
                 json_state['albumName'] = cd['album'].title
@@ -510,18 +531,18 @@ def cat_results(request):
             photos = photos.distinct()
             total_results = photos.count()
             json_state['totalResults'] = total_results
-            photos = photos.annotate(favorited=Count('catuserfavorite')).order_by('-favorited')[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
+            photos = photos.annotate(favorited=Count('catuserfavorite')).order_by('-favorited')[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]#.prefetch_related('source')
             current_result_set_start = page * CAT_RESULTS_PAGE_SIZE
             current_result_set_end = (page + 1) * CAT_RESULTS_PAGE_SIZE
             json_state['currentResultSetStart'] = current_result_set_start
             json_state['currentResultSetEnd'] = current_result_set_end
-            potential_existing_ajapaik_photos = Photo.objects.filter(source_key__in=(x['source_key'] for x in photos.values('source_key', 'favorited')))
-            for cp in photos:
-                cp.in_ajapaik = False
-                for ap in potential_existing_ajapaik_photos:
-                    if ap.source == cp.source and ap.source_key == cp.source_key:
-                        cp.in_ajapaik = True
-                        break
+            # potential_existing_ajapaik_photos = Photo.objects.filter(source_key__in=(x['source_key'] for x in photos.values('source_key', 'favorited'))).prefetch_related('source')
+            # for cp in photos:
+            #     cp.in_ajapaik = False
+            #     for ap in potential_existing_ajapaik_photos:
+            #         if ap.source == cp.source and ap.source_key == cp.source_key:
+            #             cp.in_ajapaik = True
+            #             break
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
             json_state['photos'] = photo_serializer.data
     if request.is_ajax():
@@ -543,12 +564,17 @@ def cat_results(request):
         return HttpResponse(JSONRenderer().render(json_state), content_type="application/json")
     else:
         albums = CatAlbum.objects.all()
-        json_state['page'] = page
+        json_state['page'] = page + 1
+        if 'albumName' in json_state:
+            title = json_state['albumName'] + ' - ' + _('Filter photos by tags')
+        else:
+            title = _('Filter photos by tags')
         return render_to_response('cat_results.html', RequestContext(request, {
+            'title': title,
             'is_filter': True,
             'albums': albums,
             'tag_dict': tag_dict,
-            'page': page,
+            'page': page + 1,
             'current_result_set_start': current_result_set_start,
             'current_result_set_end': current_result_set_end,
             'total_results': total_results,
@@ -562,6 +588,7 @@ def cat_about(request):
     # Ensure user has profile
     request.get_user()
     return render_to_response('cat_about.html', RequestContext(request, {
+        'title': _('About'),
         'is_about': True
     }))
 
@@ -571,14 +598,17 @@ def cat_tagger(request):
     request.get_user()
     state = {}
     album_selection_form = CatTaggerAlbumSelectionForm(request.GET)
+    title = _('Tag historic photos')
     if album_selection_form.is_valid():
         state['albumId'] = album_selection_form.cleaned_data['album'].pk
         state['albumName'] = album_selection_form.cleaned_data['album'].title
+        title = state['albumName'] + ' - ' + _('Tag historic photos')
     request.get_user()
     all_tags = CatTag.objects.all()
     state['allTags'] = { x.name: {'leftIcon': icon_map[x.name.split('_')[0]], 'rightIcon': icon_map[x.name.split('_')[-1]]} for x in all_tags }
     albums = CatAlbum.objects.all()
     return render_to_response('cat_tagger.html', RequestContext(request, {
+        'title': title,
         'is_tag': True,
         'albums': albums,
         'state_json': dumps(state)
