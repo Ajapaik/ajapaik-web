@@ -46,10 +46,7 @@ urlpatterns += patterns('',
 handler500 = 'project.ajapaik.views.custom_500'
 handler404 = 'project.ajapaik.views.custom_404'
 
-if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
-    urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')), )
-else:
-    urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')), )
+urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')), )
 
 if settings.DEBUG:
     urlpatterns += patterns('', (r'^media/(.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}), )
