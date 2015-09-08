@@ -506,7 +506,7 @@ def cat_results(request):
             page = cd['page']
             if page > 0:
                 page -= 1
-        if cd['show_pictures'] or cd['album']:
+        if cd['show_pictures'] or cd['album'] or not (cd['show_pictures'] and cd['album']):
             photos = CatPhoto.objects.all()
             if cd['album']:
                 json_state['albumId'] = cd['album'].pk
