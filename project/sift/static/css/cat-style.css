@@ -232,23 +232,32 @@
     border-radius: 0;
     border: none;
 }
-.cat-btn-group > .btn-group > .btn:hover {
-    background-color: #888 !important;
-}
+
 .cat-btn-group > .btn-group > .btn:active {
-    background-color: black !important;
+    background-color: black;
     border: none;
     box-shadow: none;
     outline: none;
     -webkit-box-shadow: none;
 }
 .cat-btn-group > .btn-group > .btn:focus {
-    background-color: black !important;
+    background-color: black;
     border: none;
     box-shadow: none;
     outline: none;
     -webkit-box-shadow: none;
 }
+
+.cat-btn-group > .btn-group > .btn:hover {
+    background-color: #888;
+}
+
+@media screen and (max-width: 480px) {
+    .cat-btn-group > .btn-group > .btn:hover {
+        background-color: black;
+    }
+}
+
 html {
   position: relative;
   min-height: 100%;
