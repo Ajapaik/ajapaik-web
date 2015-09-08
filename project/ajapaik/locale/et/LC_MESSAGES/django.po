@@ -1233,7 +1233,7 @@ msgstr "Teie parema kogemuse huvides kasutab see lehekülg küpsiseid"
 
 #: project/ajapaik/templates/base_bootstrap.html:397
 msgid "Got it!"
-msgstr "Sain!"
+msgstr "Mis siis ikka!"
 
 #: project/ajapaik/templates/base_bootstrap.html:398
 msgid "More info"
