@@ -267,5 +267,8 @@ html {
   position: relative;
   min-height: 100%;
 }
+.cat-body-always-scroll {
+    overflow-y: scroll;
+}
 
 

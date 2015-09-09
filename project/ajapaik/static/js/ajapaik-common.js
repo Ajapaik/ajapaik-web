@@ -1076,7 +1076,7 @@ var map,
                 }
             });
             if (window.isGame) {
-                $('.ajapaik-game-next-photo-button')[0].click();
+                window.nextPhoto();
             }
             if (window.isFrontpage) {
                 window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal confirm location click']);

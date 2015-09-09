@@ -277,6 +277,7 @@ class Photo(Model):
             "confidence": photo.confidence,
             "total_geotags": photo.geotags.distinct('user').count(),
             "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
+            "user_already_confirmed": photo.user_already_confirmed
         }
         if photo.lat and photo.lon:
             ret["has_coordinates"] = True
@@ -335,6 +336,11 @@ class Photo(Model):
                         ret_qs = all_photos_set.order_by('?')
                         nothing_more_to_show = True
         ret = ret_qs.first()
+        last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION)\
+            .order_by('-created').first()
+        if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
+                 and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
+            ret.user_already_confirmed = True
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
 

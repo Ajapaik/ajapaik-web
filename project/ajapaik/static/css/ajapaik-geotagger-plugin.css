@@ -1,0 +1,112 @@
+#ajp-geotagging-container {
+    height: 100%;
+    width: 100%;
+}
+#ajp-geotagger-map-canvas {
+    height: 100%;
+    width: 100%;
+}
+.ajp-no-border-radius {
+    border-radius: 0;
+}
+.ajp-full-height {
+    height: 100%;
+}
+.ajp-full-width {
+    width: 100%;
+}
+.ajp-no-padding {
+    padding: 0 !important;
+}
+@media(max-width:767px) {
+    #ajp-geotagger-map-container {
+        max-height: 70%;
+    }
+    #ajp-geotagger-panel {
+        max-height: 30%;
+    }
+}
+#ajp-geotagger-full-screen-link {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+}
+#ajp-geotagger-full-screen-box {
+    position: relative;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+#ajp-geotagger-full-screen-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: black url('../images/ajax_loader_gray_256.gif') center center no-repeat;
+    background-size: 128px 128px;
+    width: 100%;
+    height: 100%;
+}
+#ajp-geotagger-full-screen-image {
+    min-width: 128px;
+    min-height: 128px;
+    opacity: 0;
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+}
+#ajp-geotagger-lock-button {
+    background: #fff url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg)
+        no-repeat center !important;
+    width: 60px;
+    height: 36px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+#ajp-geotagger-mode-selection {
+    margin-top: 10px;
+}
+#ajp-geotagger-search-box {
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    padding: 0 11px 0 13px;
+    width: 200px;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+#ajp-geotagger-guess-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    cursor: pointer;
+}
+#ajp-geotagger-guess-marker.vantage {
+    background: url('../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
+    margin-left: -12px;
+    margin-top: -33px;
+    height: 33px;
+    width: 24px;
+}
+#ajp-geotagger-guess-marker.object {
+    background: url('../images/material-design-icons/ic_place_24px_black.svg') no-repeat;
+    margin-left: -12px;
+    margin-top: -24px;
+    height: 33px;
+    width: 24px;
+}
+#ajp-geotagger-guess-marker.approximate {
+    border-radius: 50%;
+    margin-left: -250px;
+    margin-top: -250px;
+    height: 500px;
+    width: 500px;
+    background-color: rgba(255,255,255,.5);
+}

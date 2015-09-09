@@ -54,7 +54,7 @@
         })();
     </script>
 </head>
-<body id="cat-body" class="{% if is_filter %}cat-body-no-scroll{% endif %}">
+<body id="cat-body" class="{% if is_filter %}cat-body-always-scroll{% endif %}">
 <div id="cat-loading-overlay"></div>
 <form action="/i18n/setlang/" method="post" id="cat-change-language-form">
     <input type="hidden" value="" name="language" id="cat-language" />

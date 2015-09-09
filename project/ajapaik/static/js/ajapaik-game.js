@@ -12,7 +12,6 @@
         playerMarker,
         location,
         playerLatlng,
-        nextPhoto,
         lastStatusMessage,
         clearBothersomeListeners,
         reinstateBothersomeListeners,
@@ -130,7 +129,7 @@
         $('.btn').removeClass('active');
         window.locationToolsOpen = false;
     };
-    nextPhoto = function (previous) {
+    window.nextPhoto = function (previous) {
         nextPhotoLoading = true;
         window.userFlippedPhoto = false;
         $('#pac-input').val(null);
@@ -276,6 +275,11 @@
                     noLocationIndicator.show();
                 }
                 reinstateBothersomeListeners();
+                if (currentPhoto.user_already_confirmed) {
+                    window.photoModalUserHasConfirmedThisLocation = true;
+                } else {
+                    window.photoModalUserHasConfirmedThisLocation = false;
+                }
                 nextPhotoLoading = false;
                 if (currentPhoto.lat && currentPhoto.lon) {
                     window.map.setCenter(new window.google.maps.LatLng(currentPhoto.lat, currentPhoto.lon));
@@ -435,7 +439,7 @@
         } else {
             window.getMap(undefined, undefined, true);
         }
-        nextPhoto();
+        window.nextPhoto();
         // To support touchscreens, we have an invisible marker underneath a fake one (otherwise it's laggy)
         window.marker = new window.google.maps.Marker({
             map: window.map,
@@ -577,14 +581,14 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 };
                 $.post(window.saveLocationURL, data, function () {
-                    nextPhoto();
+                    window.nextPhoto();
                 });
                 window._gaq.push(['_trackEvent', 'Game', 'Next photo']);
             }
         });
         $(document).on('click', '.ajapaik-game-previous-photo-button', function () {
             if (!nextPhotoLoading && !$(this).hasClass('ajapaik-game-previous-photo-button-disabled')) {
-                nextPhoto(true);
+                window.nextPhoto(true);
                 window._gaq.push(['_trackEvent', 'Game', 'Previous photo']);
             }
         });
@@ -616,7 +620,7 @@
             $.post(difficultyFeedbackURL, data, function () {
                 $.noop();
             });
-            nextPhoto();
+            window.nextPhoto();
         });
         toggleFlipButtons = function () {
             var targets = $('.ajapaik-flip-photo-overlay-button'),
