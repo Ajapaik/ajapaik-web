@@ -1170,13 +1170,10 @@ def photoslug(request, photo_id, pseudo_slug):
 
     user_confirmed_this_location = 'false'
     if hasattr(request.get_user(), 'profile'):
-        print "here"
         last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.get_user().profile)\
             .order_by('-created').first()
         if last_user_confirm_geotag_for_this_photo:
-            print "here"
             if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
-                print "here"
                 user_confirmed_this_location = 'true'
 
     return render_to_response(template, RequestContext(request, {
