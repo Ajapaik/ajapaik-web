@@ -13,13 +13,11 @@
             </div>
             <div class="caption cat-caption-album-full-info hidden">
                 <p>
-                    {%=interpolate(albumSelectionStatisticsTemplate1, {pictures: o.total,}, true)%}
+                    <b>{%=interpolate(albumSelectionStatisticsTemplate1, {pictures: o.total,}, true)%}</b>
                 </p>
-                <br/>
                 <p>
                     {%=interpolate(albumSelectionStatisticsTemplate2, {decisions: o.decisions, pictures: o.tagged, rank: o.stats.rank,}, true)%}
                 </p>
-                <br/>
                 <p class="cat-caption-album-info-last-line">
                     {%=interpolate(albumSelectionStatisticsTemplate3, {users: o.stats.users, decisions: o.stats.decisions, pictures: o.stats.tagged,}, true)%}
                 </p>

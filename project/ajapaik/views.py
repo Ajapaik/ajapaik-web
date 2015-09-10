@@ -1170,10 +1170,13 @@ def photoslug(request, photo_id, pseudo_slug):
 
     user_confirmed_this_location = 'false'
     if hasattr(request.get_user(), 'profile'):
+        print "here"
         last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.get_user().profile)\
             .order_by('-created').first()
         if last_user_confirm_geotag_for_this_photo:
+            print "here"
             if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
+                print "here"
                 user_confirmed_this_location = 'true'
 
     return render_to_response(template, RequestContext(request, {
@@ -1424,14 +1427,13 @@ def geotag_confirm(request):
     ret = {
         'message': 'OK'
     }
-    if form.is_valid() and request.get_user().profile:
+    if form.is_valid():
         p = form.cleaned_data['photo']
         # Check if user is eligible to confirm location (again)
         last_confirm_geotag_by_this_user_for_p = p.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION)\
             .order_by('-created').first()
-        if last_confirm_geotag_by_this_user_for_p and p.lat and p.lon \
-                and (last_confirm_geotag_by_this_user_for_p.lat != p.lat
-                     and last_confirm_geotag_by_this_user_for_p.lon != p.lon):
+        if not last_confirm_geotag_by_this_user_for_p or (p.lat and p.lon and (
+                last_confirm_geotag_by_this_user_for_p.lat != p.lat and last_confirm_geotag_by_this_user_for_p.lon != p.lon)):
             trust = _calc_trustworthiness(request.get_user().id)
             confirmed_geotag = GeoTag(
                 lat=p.lat,
@@ -1457,7 +1459,7 @@ def geotag_confirm(request):
             p.save()
             profile.set_calculated_fields()
             profile.save()
-            ret["new_geotag_count"] = GeoTag.objects.filter(photo=p).distinct('user').count()
+        ret["new_geotag_count"] = GeoTag.objects.filter(photo=p).distinct('user').count()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
