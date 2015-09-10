@@ -567,8 +567,8 @@ def fetch_stream(request):
         form_album = form.cleaned_data["album"]
         form_photo = form.cleaned_data["photo"]
         # TODO: Correct implementation
-        form_photo.user_already_confirmed = False
         if form_photo:
+            form_photo.user_already_confirmed = False
             data = {"photo": Photo.get_game_json_format_photo(form_photo), "user_seen_all": False,
                     "nothing_more_to_show": False}
         else:
