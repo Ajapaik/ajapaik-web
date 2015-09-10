@@ -625,6 +625,12 @@ class GeoTag(Model):
         (GPS, _("GPS")),
         (CONFIRMATION, _("Confirmation")),
     )
+    # VANTAGE_POINT, OBJECT, APPROXIMATE = range(3)
+    # GEOTAGGER_TYPE_CHOICES = (
+    #     (VANTAGE_POINT, _("Vantage point")),
+    #     (OBJECT, _("Object")),
+    #     (APPROXIMATE, _("Approximate")),
+    # )
     GAME, MAP_VIEW, GRID = range(3)
     ORIGIN_CHOICES = (
         (GAME, _("Game")),
@@ -646,6 +652,7 @@ class GeoTag(Model):
     zoom_level = IntegerField(null=True, blank=True)
     origin = PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
     type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
+    # geotagger_type = PositiveSmallIntegerField(choices=GEOTAGGER_TYPE_CHOICES, default=0)
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
     user = ForeignKey("Profile", related_name="geotags")

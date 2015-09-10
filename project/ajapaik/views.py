@@ -1339,7 +1339,6 @@ def map_objects_by_bounding_box(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-@login_required
 def geotag_add(request):
     submit_geotag_form = SubmitGeotagForm(request.POST)
     profile = request.get_user().profile
@@ -1417,7 +1416,6 @@ def geotag_add(request):
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
-@login_required()
 def geotag_confirm(request):
     form = ConfirmGeotagForm(request.POST)
     profile = request.get_user().profile
@@ -2188,7 +2186,6 @@ def order_photo(request, photo_id):
 #     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
-@login_required
 @user_passes_test(lambda u: u.groups.filter(name="csv_uploaders").count() == 1, login_url="/admin/")
 def csv_upload(request):
     import csv, zipfile, hashlib

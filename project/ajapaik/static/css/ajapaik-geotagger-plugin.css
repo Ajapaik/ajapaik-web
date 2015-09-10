@@ -54,12 +54,18 @@
     cursor: -moz-zoom-out;
 }
 #ajp-geotagger-lock-button {
-    background: #fff url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg)
-        no-repeat center !important;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg);
     width: 60px;
     height: 36px;
     margin-left: 10px;
     margin-bottom: 10px;
+    display: none;
+}
+#ajp-geotagger-lock-button.active {
+    background-image:  url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg);
 }
 #ajp-geotagger-mode-selection {
     margin-top: 10px;
@@ -109,4 +115,10 @@
     height: 500px;
     width: 500px;
     background-color: rgba(255,255,255,.5);
+}
+.ajp-photo-flipped {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }

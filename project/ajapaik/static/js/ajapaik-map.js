@@ -3,6 +3,7 @@
     /*jslint nomen: true*/
     var photoId,
         currentMapBounds,
+        limitByAlbum,
         ne,
         sw,
         p,
@@ -241,7 +242,7 @@
         if (photoDrawerOpen || window.guessLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
         }
-        if ($('#ajapaik-header-album-filter-button-off').css('display') == 'none') {
+        if (limitByAlbum) {
             historyReplacementString += '&limitToAlbum=1';
         } else {
             historyReplacementString += '&limitToAlbum=0';
@@ -569,7 +570,7 @@
             currentMapDataRequest = $.post('/map_data/', {
                 album: window.albumId,
                 //area: window.areaId,
-                limit_by_album: $('#ajapaik-header-album-filter-button-off').css('display') == 'none',
+                limit_by_album: limitByAlbum,
                 sw_lat: sw.lat(),
                 sw_lon: sw.lng(),
                 ne_lat: ne.lat(),
@@ -940,11 +941,13 @@
         window.urlParamsInitialized = true;
     };
     activateAlbumFilter = function () {
+        limitByAlbum = true;
         $('#ajapaik-header-album-filter-button-off').hide();
         $('#ajapaik-header-album-filter-button-on').show();
         $('#ajapaik-header-album-filter-button').prop('title', window.gettext('Remove album filter'));
     };
     deactivateAlbumFilter = function () {
+        limitByAlbum = false;
         $('#ajapaik-header-album-filter-button-off').show();
         $('#ajapaik-header-album-filter-button-on').hide();
         $('#ajapaik-header-album-filter-button').prop('title', window.gettext('Apply album filter'));
@@ -971,7 +974,7 @@
         guessPanelContainer = $('#ajapaik-guess-panel-container');
         $('#ajapaik-game-description-viewing-warning').hide();
         $('#ajapaik-header-album-filter-button').click(function () {
-            if ($('#ajapaik-header-album-filter-button-off').is(':visible')) {
+            if (!limitByAlbum) {
                 activateAlbumFilter();
             } else {
                 deactivateAlbumFilter();
