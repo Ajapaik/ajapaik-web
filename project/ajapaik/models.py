@@ -338,6 +338,7 @@ class Photo(Model):
         ret = ret_qs.first()
         last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION)\
             .order_by('-created').first()
+        ret.user_already_confirmed = False
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                  and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
