@@ -1694,6 +1694,8 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
                     full_response_json["result"]["ids"] = [x for x in full_response_json["result"]["ids"]
                                                            if x not in check_dict or check_dict[x]]
 
+            data = sorted(data, key=lambda k: k['id'])
+
             if "firstRecordViews" in result:
                 full_response_json["result"]["firstRecordViews"] = data
             else:
