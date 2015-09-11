@@ -10,6 +10,7 @@
     /*global tagURL */
     /*global filterURL */
     /*global gettext */
+    /*global interpolate */
     /*global docCookies */
     /*global _gaq */
     /*global tmpl */
@@ -124,13 +125,20 @@
                         var i,
                             l = response.albums.length,
                             targetDiv = $('#cat-album-selection'),
-                            fmt = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures. You are contributor number %(rank)s.'),
-                            statString = interpolate(fmt, {
+                            fmt1 = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.'),
+                            fmt2 = gettext('You are contributor number %(rank)s.'),
+                            statString1 = interpolate(fmt1, {
                                 users: response.stats.users,
                                 decisions: response.stats.decisions,
-                                pictures: response.stats.tagged,
+                                pictures: response.stats.tagged
+                            }, true),
+                            statString2 = interpolate(fmt2, {
                                 rank: response.stats.rank
-                            }, true);
+                            }, true),
+                            statString = statString1;
+                        if (response.stats.rank != 0) {
+                            statString += ' ' + statString2;
+                        }
                         $('#cat-footer-text').html(statString).show();
                         targetDiv.empty();
                         for (i = 0; i < l; i += 1) {

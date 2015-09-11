@@ -147,7 +147,8 @@ EXTERNAL_APPS = (
     'sorl.thumbnail',
     'rest_framework',
     'compressor',
-    'modeltranslation'
+    'modeltranslation',
+    'haystack'
 )
 
 LOCAL_APPS = (
@@ -186,3 +187,10 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 GCM_ENDPOINT = "http://android.googleapis.com/gcm/send"
 CAT_RESULTS_PAGE_SIZE = 25
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
+    },
+}

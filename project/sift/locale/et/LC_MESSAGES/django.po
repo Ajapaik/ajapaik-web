@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Lauri Elias, 2015
 # Lauri Elias, 2015
@@ -10,15 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 14:45+0300\n"
-"PO-Revision-Date: 2015-09-08 11:40+0000\n"
-"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/et/)\n"
-"Language: et\n"
+"POT-Creation-Date: 2015-09-11 12:26+0300\n"
+"PO-Revision-Date: 2015-09-11 09:33+0000\n"
+"Last-Translator: Lauri Elias\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/settings/default.py:61
@@ -39,7 +38,7 @@ msgstr "Tagasi kodulehele"
 
 #: project/sift/templates/_cat_header.html:7
 #: project/sift/templates/base.html:7 project/sift/templates/base.html.py:9
-#: project/sift/templates/cat_results.html:70
+#: project/sift/templates/cat_results.html:76
 #: project/sift/templates/cat_tagger.html:83
 msgid "Sift.pics"
 msgstr "Sift.pics"
@@ -76,11 +75,11 @@ msgstr "Näita/peida navigatsioon"
 msgid "Sift.pics on Google Play"
 msgstr "Sift.pics rakendus Google Play poes"
 
-#: project/sift/templates/_cat_header.html:91 project/sift/views.py:591
+#: project/sift/templates/_cat_header.html:95 project/sift/views.py:603
 msgid "About"
 msgstr "Meist"
 
-#: project/sift/templates/_cat_header.html:98
+#: project/sift/templates/_cat_header.html:102
 msgid "Choose language"
 msgstr "Vali keel"
 
@@ -92,19 +91,17 @@ msgstr "Sift.pics piltide kategoriseerimise rakendus Ajapaigalt"
 msgid "tagging,historic,old,photos,pictures"
 msgstr "täägimine,ajaloolised,vanad,fotod,pildid"
 
-#: project/sift/templates/base.html:91
+#: project/sift/templates/base.html:93
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
-msgstr ""
-"Sift.pics veebileht kasutab küpsiseid. Lehte kasutades peate sellega "
-"leppima ;)"
+msgstr "Sift.pics veebileht kasutab küpsiseid. Lehte kasutades peate sellega leppima ;)"
 
-#: project/sift/templates/base.html:92
+#: project/sift/templates/base.html:94
 msgid "Got it!"
 msgstr "Mis siis ikka!"
 
-#: project/sift/templates/base.html:93
+#: project/sift/templates/base.html:95
 msgid "More info"
 msgstr "Täpsem info"
 
@@ -112,6 +109,7 @@ msgstr "Täpsem info"
 msgid "Published on March 28, 2015"
 msgstr "Avaldatud 28. märtsil 2015. aastal"
 
+#: project/sift/templates/cat_about.html:12
 #: project/sift/templates/cat_about.html:13
 msgid "Download from Play Store"
 msgstr "Lae alla Play poest"
@@ -120,6 +118,7 @@ msgstr "Lae alla Play poest"
 msgid "Second Prize"
 msgstr "Teine koht"
 
+#: project/sift/templates/cat_about.html:15
 #: project/sift/templates/cat_about.html:16
 msgid "Hack4Fi Hack your heritage competition"
 msgstr "Hack4Fi Hack your heritage võistlus"
@@ -132,43 +131,32 @@ msgstr "26. märts"
 msgid "Twitter"
 msgstr "Twitter"
 
+#: project/sift/templates/cat_about.html:17
+msgid "Sift.pics on Twitter"
+msgstr "Sift.pics Twitteris"
+
+#: project/sift/templates/cat_about.html:18
+msgid "Sift.pics on Facebook"
+msgstr "Sift.pics Facebookis"
+
 #: project/sift/templates/cat_about.html:19
 msgid ""
-"Historic photographs in public collections very often lack <b>basic "
-"classificatory tags</b> &#8211;\n"
-"            whether a picture is an <b>interior or exterior view</b>, has "
-"the picture been taken from\n"
-"            <b>ground level or from a raised viewpoint</b> (a higher floor "
-"window or tower), is it a view photograph\n"
-"            depicting mainly a <b>place</b> or a reportage photo about an "
-"<b>event</b> etc. Most of these decisions\n"
-"            are easy to make for everyone only by looking at a picture, so "
-"it is useful to capture that information\n"
+"Historic photographs in public collections very often lack <b>basic classificatory tags</b> &#8211;\n"
+"            whether a picture is an <b>interior or exterior view</b>, has the picture been taken from\n"
+"            <b>ground level or from a raised viewpoint</b> (a higher floor window or tower), is it a view photograph\n"
+"            depicting mainly a <b>place</b> or a reportage photo about an <b>event</b> etc. Most of these decisions\n"
+"            are easy to make for everyone only by looking at a picture, so it is useful to capture that information\n"
 "            that would enable <b>bulk filtering of images</b> afterwards."
-msgstr ""
-"Väga tihti ei ole muuseumide-arhiivide fotokogude piltidel küljes lihtsaid "
-"<b>kategoriseerivaid märksõnu</b>: kas tegemist on <b>sise- või "
-"välisvaatega</b>, kas pildistatud on <b>maapinnalt või mõnest kõrgemast "
-"punktist</b> (nt tornist, kõrgema korruse aknast), kas tegemist on pigem "
-"mingit kohta kujutava <b>vaatega</b> või ennekõike inimesi kujutava "
-"<b>sündmusliku ülesvõttega</b>. Selliseid määratlusi oskab üldiselt teha "
-"igaüks lihtsalt pildile vaadates ning kui see info oleks piltide küljes, "
-"saaksime pilte nende tunnuste järgi sorteerida-filtreerida."
+msgstr "Väga tihti ei ole muuseumide-arhiivide fotokogude piltidel küljes lihtsaid <b>kategoriseerivaid märksõnu</b>: kas tegemist on <b>sise- või välisvaatega</b>, kas pildistatud on <b>maapinnalt või mõnest kõrgemast punktist</b> (nt tornist, kõrgema korruse aknast), kas tegemist on pigem mingit kohta kujutava <b>vaatega</b> või ennekõike inimesi kujutava <b>sündmusliku ülesvõttega</b>. Selliseid määratlusi oskab üldiselt teha igaüks lihtsalt pildile vaadates ning kui see info oleks piltide küljes, saaksime pilte nende tunnuste järgi sorteerida-filtreerida."
 
 #: project/sift/templates/cat_about.html:25
 msgid ""
 "<b>Sift.pics</b> is a participatory <b>crowdsourcing application</b>\n"
-"            for that kind of binary categorisation about images. We take in "
-"pictures from\n"
-"            public collections that users start to browse and ask them to "
-"make couple of\n"
-"            sorting decisions, they can favorite (bookmark) images, see the "
-"title of the\n"
+"            for that kind of binary categorisation about images. We take in pictures from\n"
+"            public collections that users start to browse and ask them to make couple of\n"
+"            sorting decisions, they can favorite (bookmark) images, see the title of the\n"
 "            image and open the image in an official web repository."
-msgstr ""
-"Sift.pics on rahvahankeline rakendus piltide kategoriseerimiseks. Pildid "
-"pärinevad avalikest kollektsioonidest ja me palume kasutajatel teha iga "
-"pildi juures 2 kategoriseerivat otsust (kokku on kategoriseeringupaare 7)."
+msgstr "Sift.pics on rahvahankeline rakendus piltide kategoriseerimiseks. Pildid pärinevad avalikest kollektsioonidest ja me palume kasutajatel teha iga pildi juures 2 kategoriseerivat otsust (kokku on kategoriseeringupaare 7)."
 
 #: project/sift/templates/cat_about.html:31
 msgid "Team"
@@ -178,6 +166,10 @@ msgstr "Meeskond"
 msgid "concept: Vahur Puik"
 msgstr "kontseptsioon: Vahur Puik"
 
+#: project/sift/templates/cat_about.html:32
+msgid "Vahur Puik on Twitter"
+msgstr "Vahur Puik Twitteris"
+
 #: project/sift/templates/cat_about.html:33
 msgid "back-end development: Lauri Elias"
 msgstr "back-end arendus: Lauri Elias"
@@ -186,26 +178,39 @@ msgstr "back-end arendus: Lauri Elias"
 msgid "android app development: Janek Priimann"
 msgstr "android rakenduse arendus: Janek Priimann"
 
-#: project/sift/templates/cat_results.html:20
+#: project/sift/templates/cat_results.html:16
+msgid "Search"
+msgstr "Otsing"
+
+#: project/sift/templates/cat_results.html:25
+#: project/sift/templates/cat_results.html:26
 #: project/sift/templates/cat_tagger.html:37
 msgid "N/A"
 msgstr "Ei sobi"
 
-#: project/sift/templates/cat_results.html:42
+#: project/sift/templates/cat_results.html:36
+msgid "Result set position"
+msgstr "Järg tulemustes"
+
+#: project/sift/templates/cat_results.html:48
 msgid "Previous"
 msgstr "Eelmine"
 
-#: project/sift/templates/cat_results.html:48
+#: project/sift/templates/cat_results.html:51
+msgid "Current page"
+msgstr "Lehekülg"
+
+#: project/sift/templates/cat_results.html:54
 msgid "Next"
 msgstr "Järgmine"
 
-#: project/sift/templates/cat_results.html:70 project/sift/views.py:569
-#: project/sift/views.py:571
+#: project/sift/templates/cat_results.html:76 project/sift/views.py:580
+#: project/sift/views.py:582
 msgid "Filter photos by tags"
 msgstr "Filtreeri fotosid kategooriate alusel"
 
-#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:601
-#: project/sift/views.py:605
+#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:613
+#: project/sift/views.py:617
 msgid "Tag historic photos"
 msgstr "Kategoriseeri vanu fotosid"
 
@@ -251,11 +256,11 @@ msgstr "Mitu inimest"
 
 #: project/sift/views.py:474
 msgid "Public"
-msgstr ""
+msgstr "Avalik"
 
 #: project/sift/views.py:475
 msgid "Private"
-msgstr ""
+msgstr "Era"
 
 #: project/sift/views.py:476
 msgid "Whole"

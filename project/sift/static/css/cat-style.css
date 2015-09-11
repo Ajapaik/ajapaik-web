@@ -65,10 +65,34 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .5) url(../images/ajax-loader-gray-256.gif) no-repeat center;
     width: 100%;
     height: 100%;
     z-index: 2000;
+}
+.cat-spinner {
+    height: 28px;
+    width: 28px;
+    animation: rotate 0.8s infinite linear;
+    border: 8px solid #fff;
+    border-right-color: transparent;
+    border-radius: 50%;
+}
+.cat-spinner.cat-spinner-main {
+    position: relative;
+    top: 50%;
+    margin: 0 auto;
+}
+.cat-spinner.cat-spinner-results {
+    display: none;
+    margin: 0 auto 20px;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 .cat-margin-top-50 {
     margin-top: 50px;
@@ -142,6 +166,7 @@
 }
 #cat-result-set-stats {
     color: white;
+    font-size: 18px;
 }
 #cat-filtering-panel {
     margin-top: 200px;
@@ -270,5 +295,4 @@ html {
 .cat-body-always-scroll {
     overflow-y: scroll;
 }
-
 

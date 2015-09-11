@@ -55,7 +55,9 @@
     </script>
 </head>
 <body id="cat-body" class="{% if is_filter %}cat-body-always-scroll{% endif %}">
-<div id="cat-loading-overlay"></div>
+<div id="cat-loading-overlay">
+    <div class="cat-spinner cat-spinner-main"></div>
+</div>
 <form action="/i18n/setlang/" method="post" id="cat-change-language-form">
     <input type="hidden" value="" name="language" id="cat-language" />
     <input type="hidden" value="{{ request.get_full_path }}" name="next" />
@@ -97,8 +99,9 @@
         </script>
         <script>
             var albumSelectionStatisticsTemplate1 = gettext('%(pictures)s pictures in album'),
-                albumSelectionStatisticsTemplate2 = gettext('You have made %(decisions)s decisions about %(pictures)s pictures in this album. You are contributor number %(rank)s.'),
-                albumSelectionStatisticsTemplate3 = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.');
+                albumSelectionStatisticsTemplate2 = gettext('You have made %(decisions)s decisions about %(pictures)s pictures in this album.'),
+                albumSelectionStatisticsTemplate3 = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.'),
+                albumSelectionStatisticsTemplate4 = gettext('You are contributor number %(rank)s.');
         </script>
     {% endcompress %}
 {% endblock %}

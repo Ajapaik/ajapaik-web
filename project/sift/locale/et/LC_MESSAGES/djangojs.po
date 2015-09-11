@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Lauri Elias, 2015
 # Lauri Elias, 2015
@@ -10,15 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 15:00+0300\n"
-"PO-Revision-Date: 2015-09-08 11:47+0000\n"
-"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/et/)\n"
-"Language: et\n"
+"POT-Creation-Date: 2015-09-11 12:26+0300\n"
+"PO-Revision-Date: 2015-09-11 09:30+0000\n"
+"Last-Translator: Lauri Elias\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/static/js/cat-extra-js-translations.js:5
@@ -92,23 +91,19 @@ msgstr "%(pictures)s pilti albumis"
 #: project/sift/static/js/cat-extra-js-translations.js:22
 msgid ""
 "You have made %(decisions)s decisions about %(pictures)s pictures in this "
-"album. You are contributor number %(rank)s."
-msgstr ""
-"Oled teinud %(decisions)s otsust %(pictures)s pildi kohta selles albumis. "
-"Oled panustaja number %(rank)s."
+"album."
+msgstr "Oled teinud %(decisions)s otsust %(pictures)s pildi kohta selles albumis."
 
 #: project/sift/static/js/cat-extra-js-translations.js:23
+#: project/sift/static/js/cat-results.js:105
+#: project/sift/static/js/cat-tagger.js:129
+msgid "You are contributor number %(rank)s."
+msgstr "Oled panustaja number %(rank)s."
+
+#: project/sift/static/js/cat-extra-js-translations.js:24
+#: project/sift/static/js/cat-results.js:104
+#: project/sift/static/js/cat-tagger.js:128
 msgid ""
 "%(users)s users have made %(decisions)s decisions about %(pictures)s "
 "pictures."
-msgstr ""
-"%(users)s kasutajat on teinud %(decisions)s otsust %(pictures)s pildi kohta."
-
-#: project/sift/static/js/cat-results.js:104
-#: project/sift/static/js/cat-tagger.js:125
-msgid ""
-"%(users)s users have made %(decisions)s decisions about %(pictures)s "
-"pictures. You are contributor number %(rank)s."
-msgstr ""
-"%(users)s kasutajat on teinud %(decisions)s otsust %(pictures)s pildi kohta. "
-"Oled panustaja number %(rank)s."
+msgstr "%(users)s kasutajat on teinud %(decisions)s otsust %(pictures)s pildi kohta."

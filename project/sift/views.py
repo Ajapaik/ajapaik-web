@@ -34,7 +34,7 @@ from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 
 from project.sift.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, CatResultsFilteringForm, \
-    CatPushRegisterForm
+    CatPushRegisterForm, HaystackCatPhotoSearchForm
 from project.sift.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, CatProfile
 from project.ajapaik.models import Photo
 from project.sift.serializers import CatResultsPhotoSerializer
@@ -500,6 +500,7 @@ def cat_results(request):
     total_results = 0
     current_result_set_start = 0
     current_result_set_end = 0
+    q = ''
     if filter_form.is_valid():
         cd = filter_form.cleaned_data
         if cd['page']:
@@ -528,12 +529,22 @@ def cat_results(request):
                         if '-1' in cd[k]:
                             selected_tag_value_dict[k]['right'] = True
                             photos = photos.filter(catappliedtag__tag__name=tag_dict[k]['right'].lower())
+            if cd['q']:
+                q = cd['q']
+                cat_photo_search_form = HaystackCatPhotoSearchForm({'q': q})
+                search_query_set = cat_photo_search_form.search()
+                results = [r.pk for r in search_query_set]
+                photos = photos.filter(pk__in=results)
             photos = photos.distinct()
             total_results = photos.count()
             json_state['totalResults'] = total_results
             photos = photos.annotate(favorited=Count('catuserfavorite')).order_by('-favorited')[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]#.prefetch_related('source')
             current_result_set_start = page * CAT_RESULTS_PAGE_SIZE
             current_result_set_end = (page + 1) * CAT_RESULTS_PAGE_SIZE
+            if current_result_set_start == 0:
+                current_result_set_start = 1
+            if current_result_set_end > total_results:
+                current_result_set_end = total_results
             json_state['currentResultSetStart'] = current_result_set_start
             json_state['currentResultSetEnd'] = current_result_set_end
             # potential_existing_ajapaik_photos = Photo.objects.filter(source_key__in=(x['source_key'] for x in photos.values('source_key', 'favorited'))).prefetch_related('source')
@@ -552,13 +563,13 @@ def cat_results(request):
             photos = photos.annotate(favorited=Count('catuserfavorite')).order_by('-favorited')[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
             json_state['currentResultSetStart'] = page * CAT_RESULTS_PAGE_SIZE
             json_state['currentResultSetEnd'] = (page + 1) * CAT_RESULTS_PAGE_SIZE
-            potential_existing_ajapaik_photos = Photo.objects.filter(source_key__in=(photos.values_list('source_key', flat=True)))
-            for cp in photos:
-                cp.in_ajapaik = False
-                for ap in potential_existing_ajapaik_photos:
-                    if ap.source == cp.source and ap.source_key == cp.source_key:
-                        cp.in_ajapaik = True
-                        break
+            # potential_existing_ajapaik_photos = Photo.objects.filter(source_key__in=(photos.values_list('source_key', flat=True)))
+            # for cp in photos:
+            #     cp.in_ajapaik = False
+            #     for ap in potential_existing_ajapaik_photos:
+            #         if ap.source == cp.source and ap.source_key == cp.source_key:
+            #             cp.in_ajapaik = True
+            #             break
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
             json_state['photos'] = photo_serializer.data
         return HttpResponse(JSONRenderer().render(json_state), content_type="application/json")
@@ -572,6 +583,7 @@ def cat_results(request):
         return render_to_response('cat_results.html', RequestContext(request, {
             'title': title,
             'is_filter': True,
+            'q': q,
             'albums': albums,
             'tag_dict': tag_dict,
             'page': page + 1,

@@ -101,13 +101,20 @@
                         var i,
                             l = response.albums.length,
                             targetDiv = $('#cat-album-selection'),
-                            fmt = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures. You are contributor number %(rank)s.'),
-                            statString = interpolate(fmt, {
+                            fmt1 = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.'),
+                            fmt2 = gettext('You are contributor number %(rank)s.'),
+                            statString1 = interpolate(fmt1, {
                                 users: response.stats.users,
                                 decisions: response.stats.decisions,
                                 pictures: response.stats.tagged,
+                            }, true),
+                            statString2 = interpolate(fmt2, {
                                 rank: response.stats.rank
-                            }, true);
+                            }, true),
+                            statString = statString1;
+                        if (response.stats.rank != 0) {
+                            statString += ' ' + statString2;
+                        }
                         $('#cat-footer-text').html(statString);
                         targetDiv.empty();
                         for (i = 0; i < l; i += 1) {
@@ -125,6 +132,7 @@
         },
         loadPhotos: function () {
             var that = this;
+            $('.cat-spinner-results').show();
             $.ajax({
                 url: that.getPhotosURL + location.search,
                 method: 'GET',
@@ -132,6 +140,7 @@
                     var i,
                         l = response.photos.length,
                         targetDiv = $('#cat-photo-view');
+                    $('.cat-spinner-results').hide();
                     that.currentResultSetStart = response.currentResultSetStart;
                     that.currentResultSetEnd = response.currentResultSetEnd;
                     that.totalResults = response.totalResults;
@@ -143,9 +152,13 @@
                     targetDiv.justifiedGallery();
                 },
                 error: function () {
+                    $('.cat-spinner-results').hide();
                     that.reportPhotosLoadError();
                 }
             });
+        },
+        reportSearch: function (term) {
+            _gaq.push(['_trackEvent', 'filtering', 'search', term, 0, false]);
         },
         updatePaging: function () {
             $('#cat-pager-page').html(this.page);
@@ -164,6 +177,15 @@
             }
             that.photoLoadTimeout = setTimeout(function () {
                 that.loadPhotos();
+            }, 1000);
+        },
+        delayedReportSearch: function (term) {
+            var that = this;
+            if (that.searchReportTimeout) {
+                clearTimeout(that.searchReportTimeout);
+            }
+            that.searchReportTimeout = setTimeout(function () {
+                that.reportSearch(term);
             }, 1000);
         },
         initialize: function () {
@@ -201,6 +223,19 @@
                 currentURL.removeSearch('page').addSearch('page', that.page);
                 that.updatePaging();
                 history.replaceState(null, window.title, currentURL);
+                that.delayedLoadPhotos();
+            });
+            $('#cat-filtering-searchbox').on('change textInput input', function () {
+                var currentURL = URI(location.href),
+                    q = $(this).val();
+                that.page = 1;
+                currentURL.removeSearch('page').removeSearch('q').addSearch('page', that.page);
+                if (q) {
+                    currentURL.addSearch('q', q);
+                }
+                that.updatePaging();
+                history.replaceState(null, window.title, currentURL);
+                that.delayedReportSearch(q);
                 that.delayedLoadPhotos();
             });
             $('#cat-pager-previous').click(function (e) {

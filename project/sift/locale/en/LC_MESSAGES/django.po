@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 14:45+0300\n"
+"POT-Creation-Date: 2015-09-11 12:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: project/sift/templates/_cat_header.html:7
 #: project/sift/templates/base.html:7 project/sift/templates/base.html.py:9
-#: project/sift/templates/cat_results.html:70
+#: project/sift/templates/cat_results.html:76
 #: project/sift/templates/cat_tagger.html:83
 msgid "Sift.pics"
 msgstr ""
@@ -72,11 +72,11 @@ msgstr ""
 msgid "Sift.pics on Google Play"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:91 project/sift/views.py:591
+#: project/sift/templates/_cat_header.html:95 project/sift/views.py:603
 msgid "About"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:98
+#: project/sift/templates/_cat_header.html:102
 msgid "Choose language"
 msgstr ""
 
@@ -88,17 +88,17 @@ msgstr ""
 msgid "tagging,historic,old,photos,pictures"
 msgstr ""
 
-#: project/sift/templates/base.html:91
+#: project/sift/templates/base.html:93
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
 msgstr ""
 
-#: project/sift/templates/base.html:92
+#: project/sift/templates/base.html:94
 msgid "Got it!"
 msgstr ""
 
-#: project/sift/templates/base.html:93
+#: project/sift/templates/base.html:95
 msgid "More info"
 msgstr ""
 
@@ -106,6 +106,7 @@ msgstr ""
 msgid "Published on March 28, 2015"
 msgstr ""
 
+#: project/sift/templates/cat_about.html:12
 #: project/sift/templates/cat_about.html:13
 msgid "Download from Play Store"
 msgstr ""
@@ -114,6 +115,7 @@ msgstr ""
 msgid "Second Prize"
 msgstr ""
 
+#: project/sift/templates/cat_about.html:15
 #: project/sift/templates/cat_about.html:16
 msgid "Hack4Fi Hack your heritage competition"
 msgstr ""
@@ -124,6 +126,14 @@ msgstr ""
 
 #: project/sift/templates/cat_about.html:17
 msgid "Twitter"
+msgstr ""
+
+#: project/sift/templates/cat_about.html:17
+msgid "Sift.pics on Twitter"
+msgstr ""
+
+#: project/sift/templates/cat_about.html:18
+msgid "Sift.pics on Facebook"
 msgstr ""
 
 #: project/sift/templates/cat_about.html:19
@@ -161,6 +171,10 @@ msgstr ""
 msgid "concept: Vahur Puik"
 msgstr ""
 
+#: project/sift/templates/cat_about.html:32
+msgid "Vahur Puik on Twitter"
+msgstr ""
+
 #: project/sift/templates/cat_about.html:33
 msgid "back-end development: Lauri Elias"
 msgstr ""
@@ -169,26 +183,39 @@ msgstr ""
 msgid "android app development: Janek Priimann"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:20
+#: project/sift/templates/cat_results.html:16
+msgid "Search"
+msgstr ""
+
+#: project/sift/templates/cat_results.html:25
+#: project/sift/templates/cat_results.html:26
 #: project/sift/templates/cat_tagger.html:37
 msgid "N/A"
 msgstr "Not applicable"
 
-#: project/sift/templates/cat_results.html:42
-msgid "Previous"
+#: project/sift/templates/cat_results.html:36
+msgid "Result set position"
 msgstr ""
 
 #: project/sift/templates/cat_results.html:48
+msgid "Previous"
+msgstr ""
+
+#: project/sift/templates/cat_results.html:51
+msgid "Current page"
+msgstr ""
+
+#: project/sift/templates/cat_results.html:54
 msgid "Next"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:70 project/sift/views.py:569
-#: project/sift/views.py:571
+#: project/sift/templates/cat_results.html:76 project/sift/views.py:580
+#: project/sift/views.py:582
 msgid "Filter photos by tags"
 msgstr ""
 
-#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:601
-#: project/sift/views.py:605
+#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:613
+#: project/sift/views.py:617
 msgid "Tag historic photos"
 msgstr ""
 

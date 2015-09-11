@@ -1,0 +1,5 @@
+{{ object.title }}
+{{ object.description }}
+{{ object.author }}
+{{ object.source }}
+{{ object.source_key }}

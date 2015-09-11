@@ -16,7 +16,10 @@
                     <b>{%=interpolate(albumSelectionStatisticsTemplate1, {pictures: o.total,}, true)%}</b>
                 </p>
                 <p>
-                    {%=interpolate(albumSelectionStatisticsTemplate2, {decisions: o.decisions, pictures: o.tagged, rank: o.stats.rank,}, true)%}
+                    {%=interpolate(albumSelectionStatisticsTemplate2, {decisions: o.decisions, pictures: o.tagged}, true)%}
+                    {% if (o.stats.rank > 0) { %}
+                        {%=interpolate(albumSelectionStatisticsTemplate4, {rank: o.stats.rank}, true)%}
+                    {% } %}
                 </p>
                 <p class="cat-caption-album-info-last-line">
                     {%=interpolate(albumSelectionStatisticsTemplate3, {users: o.stats.users, decisions: o.stats.decisions, pictures: o.stats.tagged,}, true)%}

@@ -1,4 +1,5 @@
 from django import forms
+from haystack.forms import SearchForm
 from project.sift.models import CatPushDevice, CatPhoto, CatTag, CatAlbum
 
 
@@ -58,7 +59,18 @@ class CatResultsFilteringForm(forms.Form):
     album = forms.ModelChoiceField(queryset=CatAlbum.objects.all(), required=False)
     show_pictures = forms.BooleanField(required=False)
     page = forms.IntegerField(required=False)
+    q = forms.CharField(required=False)
 
 
 class CatTaggerAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
+
+
+class HaystackCatPhotoSearchForm(SearchForm):
+    def search(self):
+        sqs = super(HaystackCatPhotoSearchForm, self).search().models(CatPhoto)
+
+        if not self.is_valid():
+            return self.no_query_found()
+
+        return sqs

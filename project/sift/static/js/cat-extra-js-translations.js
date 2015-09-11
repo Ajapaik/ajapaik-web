@@ -19,6 +19,7 @@
     gettext('View');
     gettext('Social');
     gettext('%(pictures)s pictures in album');
-    gettext('You have made %(decisions)s decisions about %(pictures)s pictures in this album. You are contributor number %(rank)s.');
+    gettext('You have made %(decisions)s decisions about %(pictures)s pictures in this album.');
+    gettext('You are contributor number %(rank)s.');
     gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.');
 }());

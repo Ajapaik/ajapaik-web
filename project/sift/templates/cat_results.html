@@ -9,6 +9,12 @@
 {% block layout %}
     <div class="col-xs-5 col-sm-4 col-lg-3">
         <ul class="nav nav-pills nav-stacked hidden" id="cat-filtering-panel">
+            <li role="presentation">
+                <div class="cat-spinner cat-spinner-results"></div>
+            </li>
+            <li role="presentation">
+                <input id="cat-filtering-searchbox" class="form-control" value="{{ q }}" type="text" name="q" placeholder="{% trans "Search" %}">
+            </li>
             {% for k, v in tag_dict.items %}
                 <li role="presentation">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">

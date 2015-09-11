@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 15:00+0300\n"
-"PO-Revision-Date: 2015-09-08 11:46+0000\n"
+"POT-Creation-Date: 2015-09-11 12:26+0300\n"
+"PO-Revision-Date: 2015-09-11 09:27+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/static/js/cat-extra-js-translations.js:5
@@ -89,18 +88,19 @@ msgstr ""
 #: project/sift/static/js/cat-extra-js-translations.js:22
 msgid ""
 "You have made %(decisions)s decisions about %(pictures)s pictures in this "
-"album. You are contributor number %(rank)s."
+"album."
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:23
+#: project/sift/static/js/cat-results.js:105
+#: project/sift/static/js/cat-tagger.js:129
+msgid "You are contributor number %(rank)s."
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:24
+#: project/sift/static/js/cat-results.js:104
+#: project/sift/static/js/cat-tagger.js:128
 msgid ""
 "%(users)s users have made %(decisions)s decisions about %(pictures)s "
 "pictures."
-msgstr ""
-
-#: project/sift/static/js/cat-results.js:104
-#: project/sift/static/js/cat-tagger.js:125
-msgid ""
-"%(users)s users have made %(decisions)s decisions about %(pictures)s "
-"pictures. You are contributor number %(rank)s."
 msgstr ""
