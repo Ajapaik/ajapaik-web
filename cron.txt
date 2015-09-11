@@ -6,6 +6,7 @@ Put this into crontab
 0 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py clearsessions --settings=ajapaik.settings
 15 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py reverse_geocode_photos --settings=ajapaik.settings
 30 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py update_index --settings=ajapaik.settings
+45 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py update_index --settings=sift.settings
 0 6 2 * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py update_metadata_from_muis --settings=ajapaik.settings
 0 6 16 * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py update_metadata_from_muis --settings=ajapaik.settings
 0 * * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py set_applied_tags_for_cat_photos --settings=sift.settings
