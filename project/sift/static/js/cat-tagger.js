@@ -205,7 +205,7 @@
                 var $this = $(this),
                     url,
                     remove = false;
-                if ($this.hasClass('active')) {
+                if ($this.find('i').html() === 'favorite') {
                     url = that.removeFavoriteURL;
                     remove = true;
                 } else {
