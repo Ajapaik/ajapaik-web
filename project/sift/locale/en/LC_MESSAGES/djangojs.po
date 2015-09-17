@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-11 12:26+0300\n"
+"POT-Creation-Date: 2015-09-17 13:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,11 +51,11 @@ msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:13
 msgid "Whole"
-msgstr ""
+msgstr "General"
 
 #: project/sift/static/js/cat-extra-js-translations.js:14
 msgid "Detail"
-msgstr ""
+msgstr "Close-up"
 
 #: project/sift/static/js/cat-extra-js-translations.js:15
 msgid "Staged"

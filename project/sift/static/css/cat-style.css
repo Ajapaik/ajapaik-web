@@ -223,6 +223,11 @@
 .cat-body-scroll {
     overflow-y: scroll;
 }
+#cat-ministry-of-culture-logo {
+    filter: invert(1) grayscale(1);
+    -webkit-filter: invert(1) grayscale(1);
+    max-width: 400px;
+}
 .cat-text-white {
     color: #fff !important;
 }

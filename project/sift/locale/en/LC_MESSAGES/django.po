@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-11 12:26+0300\n"
+"POT-Creation-Date: 2015-09-17 13:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,6 +181,15 @@ msgstr ""
 
 #: project/sift/templates/cat_about.html:34
 msgid "android app development: Janek Priimann"
+msgstr ""
+
+#: project/sift/templates/cat_about.html:36
+msgid "Sift.pics has received a grant from the Estonian Ministry of Culture"
+msgstr ""
+
+#: project/sift/templates/cat_about.html:37
+#: project/sift/templates/cat_about.html:38
+msgid "Estonian Ministry of Culture"
 msgstr ""
 
 #: project/sift/templates/cat_results.html:16

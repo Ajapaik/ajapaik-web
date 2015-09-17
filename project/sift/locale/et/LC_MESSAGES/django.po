@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-11 12:26+0300\n"
-"PO-Revision-Date: 2015-09-11 09:33+0000\n"
+"POT-Creation-Date: 2015-09-17 13:01+0300\n"
+"PO-Revision-Date: 2015-09-17 10:03+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -177,6 +177,15 @@ msgstr "back-end arendus: Lauri Elias"
 #: project/sift/templates/cat_about.html:34
 msgid "android app development: Janek Priimann"
 msgstr "android rakenduse arendus: Janek Priimann"
+
+#: project/sift/templates/cat_about.html:36
+msgid "Sift.pics has received a grant from the Estonian Ministry of Culture"
+msgstr "Sift.picsi arendust on toetanud Eesti Vabariigi Kultuuriministeerium 2015. a digitaalse kultuuripärandi taotlusvoorust"
+
+#: project/sift/templates/cat_about.html:37
+#: project/sift/templates/cat_about.html:38
+msgid "Estonian Ministry of Culture"
+msgstr "Kultuuriministeerium"
 
 #: project/sift/templates/cat_results.html:16
 msgid "Search"
