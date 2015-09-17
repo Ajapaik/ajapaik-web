@@ -1,6 +1,7 @@
 #ajp-geotagging-container {
     height: 100%;
     width: 100%;
+    display: none;
 }
 #ajp-geotagger-map-canvas {
     height: 100%;
@@ -18,13 +19,138 @@
 .ajp-no-padding {
     padding: 0 !important;
 }
-@media(max-width:767px) {
+#ajp-geotagger-panel {
+    background-color: rgba(0,0,0,.8);
+    height: 100%;
+}
+#ajp-geotagger-button-controls {
+
+}
+#ajp-geotagger-map-container {
+    height: 100%;
+}
+@media(max-width:992px) {
     #ajp-geotagger-map-container {
         max-height: 70%;
     }
     #ajp-geotagger-panel {
         max-height: 30%;
     }
+    #ajp-geotagger-button-controls {
+        float: right;
+    }
+}
+#ajp-geotagger-login-container {
+    height: 50px;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#ajp-geotagger-login-container > i {
+    font-size: 48px;
+}
+#ajp-geotagger-current-login {
+    position: relative;
+    font-size: 18px;
+    padding-left: 10px;
+    bottom: 15px;
+}
+#ajp-geotagger-game-buttons {
+
+}
+#ajp-geotagger-skip-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+#ajp-geotagger-skip-button:hover {
+    color: black;
+}
+#ajp-geotagger-save-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+#ajp-geotagger-save-button:hover {
+    color: black;
+}
+#ajp-geotagger-description {
+    color: white;
+    margin: 10px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 20px;
+    max-height: 40px;
+}
+#ajp-geotagger-source {
+    color: white;
+    margin: 10px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 20px;
+    max-height: 40px;
+}
+#ajp-geotagger-stats-container {
+    color: white;
+    width: 100%;
+    float: left;
+    cursor: default;
+}
+#ajp-geotagger-current-stats {
+    font-size: 18px;
+    margin-left: 5px;
+    position: relative;
+    bottom: 5px;
+}
+#ajp-geotagger-image-thumb {
+    float: right;
+}
+.ajp-image-responsive {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+}
+#ajp-geotagger-flip-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    box-shadow: none;
+}
+#ajp-geotagger-flip-button.active {
+    color: #007fff;
+}
+#ajp-geotagger-description-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    float: left;
+}
+#ajp-geotagger-description-button > i {
+    font-size: 36px;
+}
+#ajp-geotagger-save-button.btn-success {
+    background-color: #449d44;
+}
+#ajp-geotagger-save-button.btn-warning {
+    background-color: #f0ad4e;
 }
 #ajp-geotagger-full-screen-link {
     cursor: -webkit-zoom-in;
@@ -69,6 +195,9 @@
 }
 #ajp-geotagger-mode-selection {
     margin-top: 10px;
+    margin-right: 10px;
+    /*No need before we figure our how to calculate it all*/
+    display: none;
 }
 #ajp-geotagger-search-box {
     border: 1px solid transparent;
@@ -80,7 +209,7 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     background-color: #fff;
     padding: 0 11px 0 13px;
-    width: 200px;
+    width: 300px;
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
@@ -110,15 +239,63 @@
 }
 #ajp-geotagger-guess-marker.approximate {
     border-radius: 50%;
-    margin-left: -250px;
-    margin-top: -250px;
-    height: 500px;
-    width: 500px;
-    background-color: rgba(255,255,255,.5);
+    margin-left: -12.5vw;
+    margin-top: -12.5vw;
+    height: 25vw;
+    width: 25vw;
+    border: 1px dashed black;
+    pointer-events: none;
 }
 .ajp-photo-flipped {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+}
+#ajp-geotagger-map-instruction-text {
+    font-size: 16px;
+    margin-bottom: 50px;
+    background-color: rgba(255,255,255,.7);
+    margin-left: 40px;
+    margin-right: 40px;
+    max-width: 500px;
+}
+#ajp-geotagger-map-instruction-text > p {
+    margin: 10px;
+}
+#ajp-geotagger-close-instructions-button {
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    color: white;
+    height: 24px;
+    width: 24px;
+    border: none;
+    padding: 0;
+    background-color: rgba(0,0,0,.8);
+}
+#ajp-geotagger-open-instructions-button {
+    display: none;
+    border: none;
+    background-color: transparent;
+}
+#ajp-geotagger-feedback {
+    display: none;
+}
+[class*='ajp-cols-'].row > * {
+    float: none;
+    position: relative;
+    display: inline-block;
+    /* old ie fixes */
+    *zoom: 1;
+    *display: inline;
+}
+
+.row.ajp-cols-bottom > * {
+    vertical-align: bottom;
+}
+
+.row.ajp-cols-middle > * {
+    vertical-align: middle;
 }

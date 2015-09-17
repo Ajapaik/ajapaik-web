@@ -560,7 +560,7 @@ def geotagger(request):
 
 def fetch_stream(request):
     form = GameNextPhotoForm(request.GET)
-    data = {"photo": None, "user_seen_all": False, "nothing_more_to_show": False}
+    data = {"photo": None, "userSeenAll": False, "nothingMoreToShow": False}
     if form.is_valid():
         qs = Photo.objects.filter(rephoto_of__isnull=True)
         form_area = form.cleaned_data["area"]
@@ -569,8 +569,8 @@ def fetch_stream(request):
         # TODO: Correct implementation
         if form_photo:
             form_photo.user_already_confirmed = False
-            data = {"photo": Photo.get_game_json_format_photo(form_photo), "user_seen_all": False,
-                    "nothing_more_to_show": False}
+            data = {"photo": Photo.get_game_json_format_photo(form_photo), "userSeenAll": False,
+                    "nothingMoreToShow": False}
         else:
             if form_album:
                 # TODO: Could be done later where we're frying our brains with nextPhoto logic anyway
@@ -585,7 +585,7 @@ def fetch_stream(request):
             # FIXME: Ugly
             try:
                 response = Photo.get_next_photo_to_geotag(qs, request)
-                data = {"photo": response[0], "user_seen_all": response[1], "nothing_more_to_show": response[2]}
+                data = {"photo": response[0], "userSeenAll": response[1], "nothingMoreToShow": response[2]}
             except IndexError:
                 pass
 
@@ -1131,7 +1131,7 @@ def photoslug(request, photo_id, pseudo_slug):
     is_selection = False
     site = Site.objects.get_current()
     if request.is_ajax():
-        template = "_photo_modal_new.html"
+        template = "_photo_modal.html"
         if request.GET.get("isFrontpage"):
             is_frontpage = True
         if request.GET.get("isMapview"):
@@ -2258,3 +2258,9 @@ def csv_upload(request):
         AlbumPhoto(album=album, photo=p).save()
     album.save()
     return HttpResponse("OK")
+
+def column_align_test(request):
+    ret = {
+        'is_col_test': True
+    }
+    return render_to_response('column_align_test.html', RequestContext(request, ret))

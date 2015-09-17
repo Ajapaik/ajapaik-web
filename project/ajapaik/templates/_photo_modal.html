@@ -235,6 +235,7 @@
             window.photoModalFullscreenImageSize = {{ fullscreen.size }};
             window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
             window.photoModalGeotaggingUserCount = {{ geotag_count }};
+            window.photoModalAzimuthCount = {{ azimuth_count }};
             window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
             {% if photo.lat and photo.lon %}
                 window.photoModalPhotoLat = {{ photo.lat }};
@@ -253,6 +254,9 @@
             {% else %}
                 window.currentPhotoDescription = false;
             {% endif %}
+            window.currentPhotoSourceName = '{{ photo.source.description }}';
+            window.currentPhotoSourceKey = '{{ photo.source_key }}';
+            window.currentPhotoSourceURL = '{{ photo.source_url }}';
             {% for rephoto in photo.rephotos.all %}
                 window.photoModalRephotoArray.push({
                     id: {{ rephoto.id }},

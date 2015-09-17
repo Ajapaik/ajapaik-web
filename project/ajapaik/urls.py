@@ -11,7 +11,7 @@ from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
    url(r'^stream/', 'fetch_stream'),
-   url(r'^difficulty_feedback/', 'difficulty_feedback'),
+   url(r'^difficulty-feedback/', 'difficulty_feedback'),
    url(r'^update_comment_count/', 'update_comment_count'),
    url(r'^geotag/add/', 'geotag_add'),
    url(r'^geotag/confirm/', 'geotag_confirm'),
@@ -70,7 +70,7 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^public_area_create_handler/$', 'public_add_area'),
    # url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
    url(r'^csv-upload/$', 'csv_upload'),
-   # url(r'^europeana/$', 'europeana'),
+   url(r'^column-align-test/$', 'column_align_test')
 )
 
 urlpatterns += patterns('project.ajapaik.api',

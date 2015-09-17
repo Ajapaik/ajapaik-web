@@ -1,0 +1,37 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress static %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <style>
+        .full-height {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <div class="container-fluid full-height">
+        <div class="row full-height">
+            <div class="col-xs-12 col-sm-12 col-md-9 full-height" id="my-map-part">
+                <div id="my-map-container" class="full-height"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 full-height" id="my-control-part">
+
+            </div>
+        </div>
+        <div class="row ajp-cols-bottom">
+            <div class="col-xs-6" style="background-color: red;"><h3>Heading</h3><h4>Sub Heading</h4></div><div class="col-xs-6" style="background-color: green;">qwe</div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        map = new google.maps.Map(document.getElementById('my-map-container'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 8
+        });
+    </script>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% load i18n cache thumbnail compress ajapaik_templatetags static %}
 <!DOCTYPE html>
-<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview or is_test_geotagger or is_tag %} class="ajapaik-html-game-map"{% endif %}
+<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview or is_col_test or is_tag %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
     <title>
@@ -196,7 +196,6 @@
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-{#    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">#}
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
@@ -204,7 +203,7 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.6.0.min.css"/>
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jsPanel-2.5.2/jspanel/jquery.jspanel.min.css"/>
+        <link rel="stylesheet" href="{% static "libs/jsPanel-2.5.2/jspanel/jquery.jspanel.min.css" %}"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/ajapaik-style.css"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/ajapaik-geotagger-plugin.css"/>
     {% endcompress %}
@@ -223,7 +222,7 @@
         })();
     </script>
 </head>
-<body class="{% if is_game or is_mapview or is_test_geotagger or is_tag %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
+<body class="{% if is_game or is_mapview or is_col_test or is_tag %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
 <div id="ajapaik-loading-overlay"></div>
 <div id="fb-root"></div>
 <form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
@@ -340,6 +339,7 @@
     <script>
         var isMobile = '{{ request.mobile }}',
             saveLocationURL = '{% url 'project.ajapaik.views.geotag_add' %}',
+            difficultyFeedbackURL = '{% url 'project.ajapaik.views.difficulty_feedback' %}',
             confirmLocationURL = '{% url 'project.ajapaik.views.geotag_confirm' %}',
             updateCommentCountURL = '{% url 'project.ajapaik.views.update_comment_count' %}',
             leaderboardUpdateURL = '{% url 'project.ajapaik.views.leaderboard' %}',
@@ -353,7 +353,7 @@
             generalInfoModalURL = '{% url 'project.ajapaik.views.get_general_info_modal_content' %}',
             infoModalURL = '{% url 'project.ajapaik.views.get_album_info_modal_content' %}',
             lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
-            userIsSocialConnected = false;
+            userIsSocialConnected = false,
         isMobile = isMobile === 'True';
         {% if request.user.profile.fb_id %}
             userIsSocialConnected = true;

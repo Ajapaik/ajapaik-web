@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Lauri Elias, 2015
 # Lauri Elias, 2015
@@ -10,98 +10,86 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 15:00+0300\n"
-"PO-Revision-Date: 2015-09-03 20:56+0000\n"
+"POT-Creation-Date: 2015-09-17 14:42+0300\n"
+"PO-Revision-Date: 2015-09-17 11:52+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/ajapaik/static/js/ajapaik-common.js:123
-msgid "Tutorial"
-msgstr "Abi"
-
-#: project/ajapaik/static/js/ajapaik-common.js:252
+#: project/ajapaik/static/js/ajapaik-common.js:235
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:373
 msgid "Toggle map center lock"
 msgstr "Ava/lukusta kaardimarker"
 
-#: project/ajapaik/static/js/ajapaik-common.js:261
+#: project/ajapaik/static/js/ajapaik-common.js:244
 msgid "Go to my location"
 msgstr "Mine minu asukohta"
 
-#: project/ajapaik/static/js/ajapaik-common.js:267
-msgid "Geotag pictures"
-msgstr "Märgi pilte kaardile"
-
-#: project/ajapaik/static/js/ajapaik-common.js:271
+#: project/ajapaik/static/js/ajapaik-common.js:249
 msgid "Close"
 msgstr "Sulge"
 
-#: project/ajapaik/static/js/ajapaik-common.js:682
+#: project/ajapaik/static/js/ajapaik-common.js:660
 msgid "User denied the request for Geolocation."
 msgstr "Kasutaja keeldus oma asukohta jagamast."
 
-#: project/ajapaik/static/js/ajapaik-common.js:688
+#: project/ajapaik/static/js/ajapaik-common.js:666
 msgid "Location information is unavailable."
 msgstr "Asukohainfo ei ole kättesaadav."
 
-#: project/ajapaik/static/js/ajapaik-common.js:691
+#: project/ajapaik/static/js/ajapaik-common.js:669
 msgid "The request to get user location timed out."
 msgstr "Asukohainfot päriti liiga kaua."
 
-#: project/ajapaik/static/js/ajapaik-common.js:694
+#: project/ajapaik/static/js/ajapaik-common.js:672
 msgid "An unknown error occurred."
 msgstr "Muu viga asukohapäringuga."
 
-#: project/ajapaik/static/js/ajapaik-common.js:811
-#: project/ajapaik/static/js/ajapaik-common.js:932
-#: project/ajapaik/static/js/ajapaik-common.js:951
-#: project/ajapaik/static/js/ajapaik-game.js:128
+#: project/ajapaik/static/js/ajapaik-common.js:789
+#: project/ajapaik/static/js/ajapaik-common.js:910
+#: project/ajapaik/static/js/ajapaik-common.js:929
 msgid "Save location only"
 msgstr "Salvesta ainult asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:843
-#: project/ajapaik/static/js/ajapaik-game.js:596
-#: project/ajapaik/static/js/ajapaik-map.js:1013
+#: project/ajapaik/static/js/ajapaik-common.js:821
 msgid ""
 "Drag the map so that the marker is where the photographer was standing. You "
 "can then set the direction of the view."
-msgstr ""
-"Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
-"pilti tehes. Järgmise klikiga saad määrata vaate suuna."
+msgstr "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
-#: project/ajapaik/static/js/ajapaik-common.js:867
+#: project/ajapaik/static/js/ajapaik-common.js:845
 msgid "Save location and direction"
 msgstr "Salvesta asukoht ja vaate suund"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1005
+#: project/ajapaik/static/js/ajapaik-common.js:983
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:487
 msgid "Median guess"
 msgstr "Keskmine pakkumine"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1163
+#: project/ajapaik/static/js/ajapaik-common.js:1141
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1172
+#: project/ajapaik/static/js/ajapaik-common.js:1150
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1176
+#: project/ajapaik/static/js/ajapaik-common.js:1154
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1232
+#: project/ajapaik/static/js/ajapaik-common.js:1210
 msgid "Current location"
 msgstr "Pakutud asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1483
-#: project/ajapaik/static/js/ajapaik-common.js:1528
+#: project/ajapaik/static/js/ajapaik-common.js:1446
+#: project/ajapaik/static/js/ajapaik-common.js:1491
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Not selected"
 msgstr "..."
@@ -126,9 +114,7 @@ msgstr "Eemalda valikust"
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
-msgstr ""
-"Pilt on juba Ajapaigas. Selle saab albumisse lisada, aga selle eest ei saa "
-"kureerimise punkte"
+msgstr "Pilt on juba Ajapaigas. Selle saab albumisse lisada, aga selle eest ei saa kureerimise punkte"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Description"
@@ -212,106 +198,167 @@ msgstr "Lisa pilt albumisse"
 msgid "Rotate"
 msgstr "Pööra"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:285
+#: project/ajapaik/static/js/ajapaik-frontpage.js:332
 msgid "Earliest"
 msgstr "Esimesena"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:287
+#: project/ajapaik/static/js/ajapaik-frontpage.js:334
 msgid "Latest"
 msgstr "Viimasena"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:292
+#: project/ajapaik/static/js/ajapaik-frontpage.js:339
 msgid "Least"
 msgstr "Vähim"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:294
+#: project/ajapaik/static/js/ajapaik-frontpage.js:341
 msgid "Most"
 msgstr "Enim"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:299
+#: project/ajapaik/static/js/ajapaik-frontpage.js:346
 msgid "Pictures furthest from you"
 msgstr "Sinust kaugemaid pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:301
+#: project/ajapaik/static/js/ajapaik-frontpage.js:348
 msgid "Pictures closest to you"
 msgstr "Sulle lähimad pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:306
+#: project/ajapaik/static/js/ajapaik-frontpage.js:353
 msgid "commented"
 msgstr "kommenteeritud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:309
+#: project/ajapaik/static/js/ajapaik-frontpage.js:356
 msgid "rephotographed"
 msgstr "üle pildistatud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:312
+#: project/ajapaik/static/js/ajapaik-frontpage.js:359
 msgid "added"
 msgstr "lisatud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:315
+#: project/ajapaik/static/js/ajapaik-frontpage.js:362
 msgid "geotagged"
 msgstr "kaardile märgitud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:318
+#: project/ajapaik/static/js/ajapaik-frontpage.js:365
 msgid "pictures"
 msgstr "pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:321
+#: project/ajapaik/static/js/ajapaik-frontpage.js:368
 msgid "Pictures from the map"
 msgstr "Kaardiakna pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:352
+#: project/ajapaik/static/js/ajapaik-frontpage.js:399
 msgid "Picture set has no rephotos"
 msgstr "Pildivalimis ei ole refotosi"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:359
+#: project/ajapaik/static/js/ajapaik-frontpage.js:406
 msgid "Picture set has no comments"
 msgstr "Pildivalimis ei ole kommentaare"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:431
+#: project/ajapaik/static/js/ajapaik-frontpage.js:479
 msgid "All pictures"
 msgstr "Kõik pildid"
 
-#: project/ajapaik/static/js/ajapaik-game.js:38
-msgid "Vihje vaatamine"
-msgstr "Vihje vaatamine"
-
-#: project/ajapaik/static/js/ajapaik-game.js:40
-msgid ""
-"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
-"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
-msgstr ""
-"Pildi kirjeldus muuseumikogus, mis ei pruugi alati olla õige. Kirjelduse "
-"vaatamine vähendab asukohapakkumise eest saadavaid punkte veerandi võrra."
-
-#: project/ajapaik/static/js/ajapaik-game.js:206
+#: project/ajapaik/static/js/ajapaik-game.js:171
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
-msgstr ""
-"Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti "
-"juhuslikult valitud pilte."
+msgstr "Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti juhuslikult valitud pilte."
 
-#: project/ajapaik/static/js/ajapaik-game.js:208
+#: project/ajapaik/static/js/ajapaik-game.js:173
 msgid "You have seen all the pictures from this album."
 msgstr "Oled näinud kõiki pilte sellest albumist."
 
-#: project/ajapaik/static/js/ajapaik-game.js:347
-#: project/ajapaik/static/js/ajapaik-game.js:349
-#: project/ajapaik/static/js/ajapaik-map.js:437
-#: project/ajapaik/static/js/ajapaik-map.js:438
-msgid "Points awarded"
-msgstr "Saadud punktid"
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:313
+msgid "You're anonymous"
+msgstr "Oled anonüümne kasutaja"
 
-#: project/ajapaik/static/js/ajapaik-game.js:367
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:386
+msgid "Approximate"
+msgstr "Umbkaudne"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:393
+msgid "Vantage point"
+msgstr "Vaatekoht"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:400
+msgid "Object"
+msgstr "Objekt"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:407
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:590
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:707
+msgid ""
+"Grab and drag the MAP so that the marker is where the photographer was "
+"standing."
+msgstr "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf pilti tehes. Järgmise klikiga saad määrata vaate suuna."
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:408
+msgid "Search box"
+msgstr "Otsilahter"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:409
+msgid "Thank you!"
+msgstr "Aitäh!"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:499
 msgid "Your guess"
 msgstr "Sinu pakkumine"
 
-#: project/ajapaik/static/js/ajapaik-map.js:945
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:513
+msgid "Depicted location has changed"
+msgstr "Pildil olev koht on muutunud"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
+msgid "Continue"
+msgstr "Jätka"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:516
+msgid "a little"
+msgstr "vähe"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:517
+msgid "a lot"
+msgstr "palju"
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
+msgid ""
+"Click the green button to save both the location and the direction of the "
+"view. Click on the map to unlock the direction, drag map to correct the "
+"location."
+msgstr "Rohelisest nupust saad salvestada nii pildi tegemise koha kui ka vaate suuna. Klikk kaardil võtab suuna lukust lahti, asukoha korrigeerimiseks nihuta kaarti."
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:705
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:712
+msgid ""
+"Click on the map to lock the direction of the view or click yellow button to"
+" save only the location."
+msgstr "Klikk kaardil lukustab vaate suuna. Ainult asukoha salvestamiseks vajuta kollast nuppu."
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:714
+msgid "Drag the MARKER to where the photographer was standing."
+msgstr "Nihuta MARKER sinna, kus fotograaf seisis."
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:718
+msgid ""
+"Drag the map so that the circle covers the approximate location, click save "
+"when ready."
+msgstr "Nihuta ja suumi kaarti nii, et ring kataks pildi tegemise ligikaudse koha."
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:720
+msgid ""
+"Drag the map so that the marker is on top of the object you see on the "
+"picture, click save when ready."
+msgstr "Nihuta kaarti nii, et marker jääks pildil kujutatud objekti peale, seejärel salvesta."
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:830
+msgid "Points awarded"
+msgstr "Saadud punktid"
+
+#: project/ajapaik/static/js/ajapaik-map.js:659
 msgid "Remove album filter"
 msgstr "Eemalda albumi filter"
 
-#: project/ajapaik/static/js/ajapaik-map.js:950
+#: project/ajapaik/static/js/ajapaik-map.js:665
 msgid "Apply album filter"
 msgstr "Rakenda albumi filter"
 

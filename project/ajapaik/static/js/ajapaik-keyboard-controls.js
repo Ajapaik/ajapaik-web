@@ -65,7 +65,6 @@
                     window.hideDescriptionButtons();
                 } else if (e.keyCode === 70 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                     // f
-                    $('#ajapaik-game-flip-photo-button').click();
                 } else if (e.keyCode === 83) {
                     // s
                     var input = $('#pac-input');

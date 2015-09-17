@@ -149,7 +149,7 @@
             <div class="btn-group btn-group-justified" id="ajapaik-info-modal-game-button" role="group" aria-label="...">
                 <div class="btn-group" role="group">
                     {% if link_to_game %}
-                        <a class="btn btn-success ajapaik-zero-border-radius" href="{{ share_game_link }}?album={{ album.id }}&fromButton=1">{% trans "Geotag pictures" %}</a>
+                        <a class="btn btn-success ajapaik-zero-border-radius" href="{{ share_game_link }}?album={{ album.id }}">{% trans "Geotag pictures" %}</a>
                     {% else %}
                         <a class="btn btn-success ajapaik-zero-border-radius" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
                     {% endif %}

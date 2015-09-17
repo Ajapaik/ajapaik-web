@@ -1,15 +1,15 @@
 {% extends "base_bootstrap.html" %}
-{% load i18n compress %}
+{% load i18n compress static %}
 
 {% block header %}
     {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
-    <div class="container-fluid">
+    <div class="container-fluid" id="ajapaik-frontpage-container">
         <div class="row">
             {% include "_album_selection.html" %}
-            <div id="ajapaik-frontpage-historic-photos" class="{% if not show_photos %}hidden{% endif %}">
+            <div id="ajapaik-frontpage-historic-photos" class="ajapaik-invisible{% if not show_photos %} hidden{% endif %}">
                 {# This is for bots and initial page-load, see bottom of page for async template #}
                 {% for p in photos %}
                     <a target="_blank" href="{% url "project.ajapaik.views.photo" %}{{ p.0 }}"
@@ -47,6 +47,7 @@
             </div>
         </div>
     </div>
+    <div id="ajp-geotagging-container"></div>
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
     {% include "_info_modal.html" %}
     {% include "_full_leaderboard_modal.html" %}
@@ -90,6 +91,10 @@
         window.total = '{{ total }}';
         {% if album %}
             window.albumId = {{ album.0 }};
+            {% if album.lat and album.lon %}
+                window.albumLat = album.lat;
+                window.albumLon = album.lon;
+            {% endif %}
         {% endif %}
         window.linkToGame = true;
         window.linkToMap = true;
@@ -138,6 +143,9 @@
         </script>
     {% endverbatim %}
     {% compress js %}
-        <script src="{{ STATIC_URL }}js/ajapaik-frontpage.js"></script>
+        <script src="{% static "js/ajapaik-frontpage.js" %}"></script>
+        <script>
+            $('#ajp-geotagging-container').AjapaikGeotagger();
+        </script>
     {% endcompress %}
 {% endblock %}

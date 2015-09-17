@@ -264,25 +264,18 @@ class Photo(Model):
         ret = {
             "id": photo.id,
             "description": photo.description,
-            "date_text": photo.date_text,
-            "source_key": photo.source_key,
-            "source_url": photo.source_url,
-            "source_name": photo.source.description,
+            "sourceKey": photo.source_key,
+            "sourceURL": photo.source_url,
+            "sourceName": photo.source.description,
             "lat": photo.lat,
             "lon": photo.lon,
             "azimuth": photo.azimuth,
-            "flip": photo.flip,
             "big": _make_thumbnail(photo, "700x400"),
             "large": _make_fullscreen(photo),
-            "confidence": photo.confidence,
-            "total_geotags": photo.geotags.distinct('user').count(),
-            "geotags_with_azimuth": photo.geotags.filter(azimuth__isnull=False).count(),
-            "user_already_confirmed": photo.user_already_confirmed
+            "totalGeotags": photo.geotags.distinct('user').count(),
+            "geotagsWithAzimuth": photo.geotags.filter(azimuth__isnull=False).distinct('user').count(),
+            "userAlreadyConfirmed": photo.user_already_confirmed
         }
-        if photo.lat and photo.lon:
-            ret["has_coordinates"] = True
-        if photo.azimuth:
-            ret["has_azimuth"] = True
         return ret
 
     @staticmethod

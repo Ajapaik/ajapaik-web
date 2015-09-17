@@ -231,27 +231,6 @@ body {
     cursor: pointer;
 }
 
-#ajapaik-album-name-container {
-    font-size: 20px;
-    float: left;
-    margin-top: 2px;
-    margin-left: -20px;
-    margin-right: -10px;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 500px;
-    background-color: transparent !important;
-    text-overflow: ellipsis;
-}
-
-#ajapaik-album-name-container:hover {
-    color: white !important;
-}
-
-#ajapaik-album-name-container:focus {
-    color: white !important;
-}
-
 #mapview-photo-modal-dialog .modal-content {
     border-radius: 0;
 }
@@ -342,8 +321,8 @@ body {
     background-image: url(../images/material-design-icons/ic_thumb_up_black_24px.svg);
     background-repeat: no-repeat;
     background-position: center;
-    width: 75px;
-    height: 75px;
+    min-width: 36px;
+    min-height: 36px;
     background-size: 36px !important;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -357,13 +336,37 @@ body {
 
 .ajapaik-minimap-start-guess-button {
     background: #fff url(../images/material-design-icons/ic_mode_edit_black_24px.svg) no-repeat center !important;
-    width: 75px;
-    height: 75px;
+    min-width: 36px;
+    min-height: 36px;
     background-size: 36px !important;
     margin-right: 10px;
     margin-bottom: 10px;
     border-radius: 0;
     border: none;
+}
+
+@media (min-width: 768px) {
+    .ajapaik-minimap-start-guess-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .ajapaik-minimap-confirm-geotag-button {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (min-width: 992px) {
+    .ajapaik-minimap-start-guess-button {
+        width: 75px;
+        height: 75px;
+    }
+
+    .ajapaik-minimap-confirm-geotag-button {
+        width: 75px;
+        height: 75px;
+    }
 }
 
 .ajapaik-minimap-geotagging-user-number {
@@ -475,19 +478,7 @@ body {
     background-color: #fff !important;
 }
 
-.ajapaik-show-tutorial-button {
-    background: #fff url(../images/material-design-icons/ic_help_24px.svg) no-repeat center !important;
-    width: 36px;
-    height: 36px;
-    position: fixed;
-    top: 5px;
-    right: 5px;
-}
 
-.ajapaik-header-score-language .ajapaik-show-tutorial-button {
-    top: 3px;
-    right: 70px;
-}
 
 .ajapaik-header-info-button {
     background: #fff url(../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
@@ -683,9 +674,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     margin-top: 50px;
 }
 
-#ajapaik-filtering-tutorial-modal-content {
-    margin-top: 150px;
-}
+
 
 #ajapaik-album-selection-label {
     display: none;
@@ -740,33 +729,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     /*background-image: url(../images/material-design-icons/ic_check_box_outline_blank_24px.svg) !important;*/
 /*}*/
 
-.ajapaik-show-tutorial-button:hover {
-    background-color: #fff !important;
-}
 
-.ajapaik-show-tutorial-button:active {
-    background-image: url(../images/material-design-icons/ic_help_24px.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-show-tutorial-button.active {
-    background-image: url(../images/material-design-icons/ic_help_24px.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-show-tutorial-button.active:focus {
-    outline: none;
-}
-
-.ajapaik-show-tutorial-button:focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
-.ajapaik-show-tutorial-button.focus {
-    outline: none;
-    background-color: #fff !important;
-}
 
 
 #ajapaik-map-canvas {
@@ -1165,45 +1128,30 @@ a.fullscreen {
 }
 
 @media (min-width: 320px) {
-    #ajapaik-album-name-container {
-        max-width: 80px;
-    }
     #ajapaik-header-title {
         max-width: 80px;
     }
 }
 
 @media (min-width: 480px) {
-    #ajapaik-album-name-container {
-        max-width: 50px;
-    }
     #ajapaik-header-title {
         max-width: 50px;
     }
 }
 
 @media (min-width: 768px) {
-    #ajapaik-album-name-container {
-        max-width: 50px;
-    }
     #ajapaik-header-title {
         max-width: 50px;
     }
 }
 
 @media (min-width: 992px) {
-    #ajapaik-album-name-container {
-        max-width: 125px;
-    }
     #ajapaik-header-title {
         max-width: 125px;
     }
 }
 
 @media (min-width: 1200px) {
-    #ajapaik-album-name-container {
-        max-width: 430px;
-    }
     #ajapaik-header-title {
         max-width: 430px;
     }
@@ -1212,10 +1160,6 @@ a.fullscreen {
 @media (max-width: 767px) {
     .modal-dialog-center {
         width: 100%;
-    }
-    .ajapaik-mapview-game-button {
-        margin-bottom: 30px;
-        margin-right: 5px;
     }
     #ajapaik-album-filter-box {
         max-width: 80px;
@@ -1521,12 +1465,6 @@ ul.errorlist {
     background-color: #fff !important;
 }
 
-.ajapaik-game-map-show-description-overlay-button {
-    background: #fff url(../images/material-design-icons/ic_description_24px.svg) no-repeat center !important;
-    bottom: 0;
-    left: 0;
-}
-
 .ajapaik-overlay-button {
     background-color: #fff !important;
     width: 48px;
@@ -1795,6 +1733,14 @@ ul.errorlist {
     right: 15px;
 }
 
+#ajapaik-game-photo-description {
+    display: none;
+}
+
+#ajapaik-game-photo-identifier {
+    display: none;
+}
+
 .ajapaik-game-guess-photo-container {
     display: inline-block;
     position: relative;
@@ -1908,26 +1854,8 @@ ul.errorlist {
     cursor: e-resize;
 }
 
-.tutorial-item td {
-    vertical-align: top;
-    padding-right: 10px !important;
-}
 
-.tutorial-item td img {
-    height: 33px;
-    width: 25px;
-}
 
-#ajapaik-tutorial-js-panel-content {
-    display: none;
-    border-collapse: collapse;
-}
-
-#ajapaik-tutorial-list {
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-top: 15px;
-}
 
 .jsPanel-title {
     font-variant: normal !important;
@@ -1970,14 +1898,6 @@ ul.errorlist {
 
 #ajapaik-game-full-screen-button-container .row {
     margin-bottom: 10px;
-}
-
-#ajapaik-game-full-screen-description {
-    position: fixed;
-    bottom: 2%;
-    left: 2%;
-    color: white;
-    width: 80%;
 }
 
 #ajapaik-game-full-screen-show-description-button {
@@ -2410,12 +2330,6 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #ajapaik-game-modal-header {
     border: none;
 }
-
-.ajapaik-mapview-game-button {
-    margin-bottom: 6%;
-    margin-right: 6%;
-}
-
 #ajapaik-mapview-my-location-button {
     margin-right: 40px;
     margin-top: 50px;

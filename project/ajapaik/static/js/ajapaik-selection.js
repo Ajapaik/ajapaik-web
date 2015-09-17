@@ -72,9 +72,9 @@
         };
         window.startGuessLocation = function (photoId) {
             if (window.albumId) {
-                window.open('/geotag/?album=' + window.albumId + '&photo=' + photoId + '&fromButton=1', '_blank');
+                window.open('/geotag/?album=' + window.albumId + '&photo=' + photoId, '_blank');
             } else {
-                window.open('/geotag/?photo=' + photoId + '&fromButton=1', '_blank');
+                window.open('/geotag/?photo=' + photoId, '_blank');
             }
         };
         var input = document.getElementById('ajapaik-curator-add-area-name');
