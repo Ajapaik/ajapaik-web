@@ -1,6 +1,4 @@
 User-agent: *
-Disallow: /kaart/
-Disallow: /map/
 Disallow: /facebook/
 
 Sitemap: http://ajapaik.ee/sitemap.xml

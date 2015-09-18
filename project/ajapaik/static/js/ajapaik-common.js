@@ -1,3 +1,4 @@
+/*global tmpl*/
 var map,
     disableSave = true,
     streetPanorama,
@@ -436,7 +437,10 @@ var map,
         e.preventDefault();
         window.lastScrollPosition = $(window).scrollTop();
         if (window.BigScreen.enabled) {
-            window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+            var div = $('#ajapaik-fullscreen-image-container'),
+                img = div.find('img');
+            img.attr('src', img.attr('data-src'));
+            window.BigScreen.request(div[0]);
             window.fullscreenEnabled = true;
             /*TODO: Correct events*/
             window._gaq.push(['_trackEvent', '', 'Full-screen']);
@@ -448,19 +452,13 @@ var map,
         $('#ajapaik-full-screen-link').click();
     });
 
-    $(document).on('click', '#ajapaik-full-screen-link-xs', function (e) {
-        e.preventDefault();
-        if (window.BigScreen.enabled) {
-            window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
-            window.fullscreenEnabled = true;
-            window._gaq.push(['_trackEvent', '', 'Full-screen']);
-        }
-    });
-
     $(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
         e.preventDefault();
         if (window.BigScreen.enabled) {
-            window.BigScreen.request($('#ajapaik-rephoto-fullscreen-image-container')[0]);
+            var div = $('#ajapaik-rephoto-fullscreen-image-container'),
+                img = div.find('img');
+            img.attr('src', img.attr('data-src'));
+            window.BigScreen.request(div[0]);
             window.fullscreenEnabled = true;
             window._gaq.push(['_trackEvent', '', 'Rephoto full-screen']);
         }
@@ -603,16 +601,6 @@ var map,
             }
         });
     };
-    //$(document).on('click', '#ajapaik-header-game-button', function (e) {
-    //    e.preventDefault();
-    //    if (window.isPhotoview && window.albumId && window.photoId) {
-    //        window.location.href = '/game?album=' + window.albumId + '&photo=' + window.photoId;
-    //    } else {
-    //        if (!window.isGame && window.albumId) {
-    //            window.location.href = '/game?album=' + window.albumId;
-    //        }
-    //    }
-    //});
     $(document).on('click', '#ajapaik-mobile-game-label', function () {
         if (window.isPhotoview && window.albumId && window.photoId) {
             window.location.href = '/geotag?album=' + window.albumId + '&photo=' + window.photoId;
@@ -1256,7 +1244,7 @@ var map,
         infoDiv.show();
         for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
             if (window.photoModalRephotoArray[i]['id'] == targetId) {
-                fullscreenDiv.prop('src', window.photoModalRephotoArray[i]['fullscreen_url']);
+                fullscreenDiv.attr('data-src', window.photoModalRephotoArray[i]['fullscreen_url']);
                 window.prepareFullscreen(window.photoModalRephotoArray[i]['fullscreen_width'],
                         window.photoModalRephotoArray[i]['fullscreen_height'],
                         '#ajapaik-rephoto-full-screen-image');

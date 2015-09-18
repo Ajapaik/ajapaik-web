@@ -2536,6 +2536,10 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     display: inline-block;
 }
 
+.navbar-collapse.collapsing {
+    display: none;
+}
+
 #ajapaik-pager li {
     display: inline-block;
 }

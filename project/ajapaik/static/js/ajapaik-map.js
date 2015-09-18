@@ -162,8 +162,8 @@
         var fullScreenImage = $('#ajapaik-full-screen-image'),
             rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image');
         target.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
-            fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
-            rephotoFullScreenImage.prop('src', window.photoModalRephotoFullscreenImageUrl);
+            fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl);
+            rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl);
             if (window.photoModalRephotoFullscreenImageSize) {
                 window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
             }

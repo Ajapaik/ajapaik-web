@@ -135,13 +135,15 @@
                 if (that.options.markerLocked) {
                     that.realMarker.setPosition(that.map.getCenter());
                 }
+                that.azimuthLine.setVisible(true);
             }
         };
-        this.mapDragListenerFunction = function () {
+        this.mapCenterChangedListener = function () {
             if (!that.feedbackMode) {
                 if (that.options.markerLocked) {
                     that.realMarker.setPosition(that.map.getCenter());
                 }
+                that.azimuthLine.setVisible(false);
             }
         };
         this.mapDragstartListenerFunction = function () {
@@ -246,11 +248,9 @@
             "            </div>",
             "        </div>",
             "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding' id='ajp-geotagger-feedback'>",
-            "            <div class='panel panel-primary'>",
-            "                <div class='panel-heading'>",
-            "                    <div class='panel-title'></div>",
-            "                </div>",
+            "            <div class='panel'>",
             "                <div class='panel-body'>",
+            "                    <p id='ajp-geotagger-feedback-thanks'></p>",
             "                    <p id='ajp-geotagger-feedback-message' class='hidden-xs'></p>",
             "                    <p id='ajp-geotagger-feedback-points'></p>",
             "                    <p id='ajp-geotagger-feedback-difficulty-prompt' class='hidden-xs'></p>",
@@ -406,7 +406,7 @@
             this.mapInstructions.find('p')
                 .text(gettext('Grab and drag the MAP so that the marker is where the photographer was standing.'));
             searchBox.attr('placeholder', gettext('Search box'));
-            $('#ajp-geotagger-feedback').find('.panel-title').html(gettext('Thank you!'));
+            $('#ajp-geotagger-feedback').find('#ajp-geotagger-feedback-thanks').html(gettext('Thank you!'));
             this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(searchBox.get(0));
             this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.mapInstructions.get(0));
             this.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.mapOpenInstructionsButton.get(0));
@@ -520,7 +520,7 @@
             google.maps.event.addListener(this.map, 'mousemove', this.mapMousemoveListenerFunction);
             google.maps.event.addListener(this.map, 'dragstart', this.mapDragstartListenerFunction);
             google.maps.event.addListener(this.map, 'dragend', this.mapDragendListenerFunction);
-            google.maps.event.addListener(this.map, 'drag', this.mapDragListenerFunction);
+            google.maps.event.addListener(this.map, 'center_changed', this.mapCenterChangedListener);
             google.maps.event.addListener(this.map, 'idle', this.mapIdleListenerFunction);
             google.maps.event.addListener(this.map, 'click', this.mapClickListenerFunction);
             google.maps.event.addListener(this.realMarker, 'drag', this.mapMarkerDragListenerFunction);
@@ -586,7 +586,7 @@
             $('#ajp-geotagger-feedback').hide();
             $('#ajp-geotagger-flip-button').removeClass('active');
             $('#ajp-geotagger-button-controls').show();
-            $('#ajp-geotagger-game-buttons').show();
+            $('#ajp-geotagger-confirm-controls').show();
             $('#ajp-geotagger-map-instruction-text').find('p').text(gettext('Grab and drag the MAP so that the marker is where the photographer was standing.'));
             this.map.setCenter(new google.maps.LatLng(options.startLat, options.startLng));
             this.options.currentPhotoId = options.photoId;
@@ -726,7 +726,6 @@
             $('#ajp-geotagger-full-screen-image').toggleClass('ajp-photo-flipped');
         },
         fitGuessPhotosToContainers: function () {
-            console.log('fitting');
             var newMargin,
                 targetParent = this.geotaggerImageThumb.parent().parent(),
                 confirmControls = $('#ajp-geotagger-confirm-controls'),
@@ -826,11 +825,12 @@
                     $('input[name="difficulty"]').prop('checked', false);
                     that.lockButton.hide();
                     $('#ajp-geotagger-button-controls').hide();
-                    $('#ajp-geotagger-game-buttons').hide();
+                    $('#ajp-geotagger-confirm-controls').hide();
                     $('#ajp-geotagger-feedback-points').html(gettext('Points awarded') + ': ' + response.current_score);
                     $('#ajp-geotagger-feedback-message').html(response.feedback_message);
                     $('#ajp-geotagger-feedback').show();
                     $('#ajp-geotagger-current-stats').hide();
+                    that.fitGuessPhotosToContainers();
                     if (response.heatmap_points) {
                         that.displayFeedbackHeatmap(response);
                         that.realMarker.setVisible(false);

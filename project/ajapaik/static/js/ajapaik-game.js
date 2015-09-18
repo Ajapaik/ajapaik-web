@@ -186,7 +186,7 @@
                 window.photoModalCurrentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 modalPhoto.on('load', photoLoadModalResizeFunction);
-                fullScreenImage.prop('src', currentPhoto.large.url).on('load', function () {
+                fullScreenImage.attr('data-src', currentPhoto.large.url).on('load', function () {
                     window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
                     fullScreenImage.unbind('load');
                 });
@@ -310,7 +310,10 @@
         $(document).on('click', 'a.fullscreen', function (e) {
             e.preventDefault();
             if (window.BigScreen.enabled) {
-                window.BigScreen.request($('#ajapaik-fullscreen-image-container')[0]);
+                var div = $('#ajapaik-fullscreen-image-container'),
+                    img = div.find('img');
+                img.attr('src', img.attr('data-src'));
+                window.BigScreen.request(div[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
                 window.fullscreenEnabled = true;
                 _gaq.push(['_trackEvent', 'Game', 'Full-screen']);

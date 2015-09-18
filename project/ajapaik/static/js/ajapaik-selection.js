@@ -3,6 +3,7 @@
     /*jslint nomen: true*/
     /*jslint browser: true*/
     $(document).ready(function () {
+        // TODO: Made in a rush, clean up when there's time
         var areaLat,
             areaLng;
         $('#ajapaik-selection-middle-panel').find('.panel-body').sortable();
@@ -10,7 +11,7 @@
         var openPhotoDrawer = function (content) {
             var fullScreenImage = $('#ajapaik-full-screen-image');
             $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
-                fullScreenImage.prop('src', window.photoModalFullscreenImageUrl);
+                fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');
                 window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
             });
@@ -134,13 +135,8 @@
                         $('#ajapaik-curator-upload-error').hide();
                         $('#ajapaik-curator-upload-error-message').html(window.gettext('System error'));
                         $('#ajapaik-choose-albums-modal').modal('hide');
-                        //var feedbackModalDiv = $('#ajapaik-curator-feedback-modal');
                         $('#ajapaik-curator-add-album-name').val(null);
                         $('#ajapaik-curator-add-area-name-hidden').val(null);
-                        //feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
-                        //    //$($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
-                        //    //window.FB.XFBML.parse();
-                        //});
                         $('#ajapaik-curator-add-area-name').val(null);
                         areaLat = null;
                         areaLng = null;
