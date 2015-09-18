@@ -9,13 +9,13 @@
     {% include "_rephoto_upload_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
-            <img id="ajapaik-full-screen-image" src='' data-src="{{ fullscreen.url }}" alt="{% trans "Original photo on full screen" %}"/>
+            <img id="ajapaik-full-screen-image" src="{{ fullscreen.url }}" alt="{{ photo.description }}"/>
         </div>
     </div>
     {% if rephoto %}
         <div class="full-box rephoto-full-box">
             <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-                <img id="ajapaik-rephoto-full-screen-image" src='' data-src="{% url 'project.ajapaik.views.photo_large' rephoto.id %}" alt="{% trans "Rephoto on full screen" %}"/>
+                <img id="ajapaik-rephoto-full-screen-image" src="{% url 'project.ajapaik.views.photo_large' rephoto.id %}" alt="{{ photo.description }}"/>
             </div>
         </div>
     {% endif %}
@@ -26,7 +26,7 @@
                     <div id="ajapaik-photoview-main-photo-container">
                         <a class="fullscreen" id="ajapaik-full-screen-link">
                             <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12
-                            {% if photo.flip %}ajapaik-photo-flipped{% endif %}" alt="{% trans "Original photo" %}"
+                            {% if photo.flip %}ajapaik-photo-flipped{% endif %}" alt="{{ photo.description }}"
                              src="{% url 'project.ajapaik.views.photo_url' photo.id %}"/>
                         </a>
                         <div class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ photo.id }}"></div>
@@ -146,7 +146,7 @@
                         <div id="ajapaik-photoview-rephoto-container">
                             <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
                                 <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12
-                                {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" alt="{% trans "Rephoto" %}"
+                                {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" alt="{{ photo.description }} {% trans "rephoto" %}"
                                      src="{% url 'project.ajapaik.views.photo_url' rephoto.id %}"/>
                             </a>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
@@ -190,7 +190,7 @@
                 {% for rephoto in photo.rephotos.all %}
                     <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
                         <a href="{% url 'project.ajapaik.views.photo' rephoto.id %}" class="col-xs-12">
-                            <img src="{% url 'project.ajapaik.views.photo_thumb' rephoto.id 250 %}" class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb" alt="{% trans "Rephoto thumbnail" %}" />
+                            <img src="{% url 'project.ajapaik.views.photo_thumb' rephoto.id 250 %}" class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb" alt="{{ photo.description }} {% trans "rephoto" %}" />
                         </a>
                     </div>
                 {% endfor %}

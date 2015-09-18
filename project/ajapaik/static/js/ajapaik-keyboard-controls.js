@@ -51,13 +51,14 @@
                     // escape
                     if (window.locationToolsOpen) {
                         // Skipping photo on close Street View would be confusing
-                        if (!window.streetPanorama.getVisible()) {
-                            $('.ajapaik-game-next-photo-button')[0].click();
+                        var sp = $('#ajp-geotagging-container').data('AjapaikGeotagger').streetPanorama;
+                        if (!sp.getVisible()) {
+                            window.stopGuessLocation();
                         } else {
-                            window.streetPanorama.setVisible(false);
+                            sp.setVisible(false);
                         }
                     } else {
-                        $('#ajapaik-game-close-game-modal').click();
+                        window.stopGuessLocation();
                     }
                 } else if (e.keyCode === 38) {
                     // up arrow
@@ -67,7 +68,7 @@
                     // f
                 } else if (e.keyCode === 83) {
                     // s
-                    var input = $('#pac-input');
+                    var input = $('#ajp-geotagger-search-box');
                     if (!input.is(':focus')) {
                         input.focus();
                         setTimeout(function () {

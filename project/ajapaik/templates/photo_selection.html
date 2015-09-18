@@ -28,7 +28,7 @@
                                 <a href="{% url "project.ajapaik.views.photo" p.0 %}"
                                    class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.0 }}">
                                     <img src="{% url "project.ajapaik.views.fixed_height_photo_thumb" p.0 300 %}"
-                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="..." class="img-responsive ajapaik-photo-selection-thumbnail{% if p.3 %} ajapaik-photo-flipped{% endif %}">
+                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="{{ p.4 }}" class="img-responsive ajapaik-photo-selection-thumbnail{% if p.3 %} ajapaik-photo-flipped{% endif %}">
                                     <div class="ajapaik-remove-from-selection-button" data-id="{{ p.0 }}"></div>
                                 </a>
                             </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="full-box original-full-box">
                 <div class="full-pic" id="ajapaik-fullscreen-image-container">
-                    <img id="ajapaik-full-screen-image" src="#" alt="{% trans "Original photo on full screen" %}"/>
+                    <img id="ajapaik-full-screen-image" src="#" alt=""/>
                 </div>
             </div>
             <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>

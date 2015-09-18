@@ -223,7 +223,9 @@
     </script>
 </head>
 <body class="{% if is_game or is_mapview or is_col_test or is_tag %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
-<div id="ajapaik-loading-overlay"></div>
+<div id="ajapaik-loading-overlay">
+    <div id="ajapaik-spinner"></div>
+</div>
 <div id="fb-root"></div>
 <form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
     <input type="hidden" value="" name="language" id="ajapaik-language" />
@@ -337,7 +339,7 @@
         })();
     </script>
     <script>
-        var isMobile = '{{ request.mobile }}',
+        var isMobile = '{{ request.mobile }}' === 'True',
             saveLocationURL = '{% url 'project.ajapaik.views.geotag_add' %}',
             difficultyFeedbackURL = '{% url 'project.ajapaik.views.difficulty_feedback' %}',
             confirmLocationURL = '{% url 'project.ajapaik.views.geotag_confirm' %}',
@@ -353,12 +355,12 @@
             generalInfoModalURL = '{% url 'project.ajapaik.views.get_general_info_modal_content' %}',
             infoModalURL = '{% url 'project.ajapaik.views.get_album_info_modal_content' %}',
             lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
-            userIsSocialConnected = false,
-        isMobile = isMobile === 'True';
         {% if request.user.profile.fb_id %}
             userIsSocialConnected = true;
         {% elif request.user.profile.google_plus_id %}
             userIsSocialConnected = true;
+        {% else %}
+            userIsSocialConnected = false;
         {% endif %}
     </script>
     {# TODO: We don't need tons of file upload stuff for the small rephoto upload windows, we certainly don't need moment.js, #}

@@ -171,21 +171,10 @@ var map,
                 zoom: zoomLevel,
                 scrollwheel: false,
                 center: latLng,
-                mapTypeControl: true,
-                zoomControl: true,
+                mapTypeControl: false,
+                zoomControl: false,
                 panControl: false,
-                zoomControlOptions: {
-                    position: window.google.maps.ControlPosition.LEFT_CENTER
-                },
-                streetViewControl: true,
-                streetViewControlOptions: {
-                    position: window.google.maps.ControlPosition.LEFT_CENTER
-                },
-                streetView: streetPanorama,
-                mapTypeControlOptions: {
-                    mapTypeIds: mapTypeIds,
-                    position: window.google.maps.ControlPosition.BOTTOM_CENTER
-                }
+                streetViewControl: false
             };
         } else {
             mapOpts = {
@@ -232,10 +221,10 @@ var map,
             maxZoom: 18
         }));
 
-        lockButton = document.createElement('button');
-        $(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button').prop('title', window.gettext('Toggle map center lock'));
+        //lockButton = document.createElement('button');
+        //$(lockButton).addClass('btn').addClass('btn-default').addClass('ajapaik-marker-center-lock-button').prop('title', window.gettext('Toggle map center lock'));
 
-        map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
+        //map.controls[window.google.maps.ControlPosition.LEFT_CENTER].push(lockButton);
 
         if (isGameMap) {
             //input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
@@ -280,18 +269,15 @@ var map,
             });
         }
 
-
-
-
-        if (isGameMap) {
-            $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
-                var that = $(this);
-                if (!that.data('win')) {
-                    that.data('win').bindTo('position', map, 'center');
-                }
-                that.data('win').open(map);
-            });
-        }
+        //if (isGameMap) {
+        //    $('<div/>').addClass('center-marker').appendTo(map.getDiv()).click(function () {
+        //        var that = $(this);
+        //        if (!that.data('win')) {
+        //            that.data('win').bindTo('position', map, 'center');
+        //        }
+        //        that.data('win').open(map);
+        //    });
+        //}
 
         streetviewVisibleChangedListener = window.google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             if (streetPanorama.getVisible()) {
@@ -302,13 +288,13 @@ var map,
                     $('#ajapaik-mapview-photo-panel').hide();
                 }
                 // Currently we are not displaying the save button when Street View is open
-                saveLocationButton.hide();
-                $('.ajapaik-close-streetview-button').show();
+                //saveLocationButton.hide();
+                //$('.ajapaik-close-streetview-button').show();
             } else {
                 if (!guessLocationStarted) {
                     $('#ajapaik-mapview-photo-panel').show();
                 }
-                $('.ajapaik-close-streetview-button').hide();
+                //$('.ajapaik-close-streetview-button').hide();
                 //saveLocationButton.show();
             }
         });
@@ -321,10 +307,10 @@ var map,
             }
         });
 
-        streetviewCloseclickListener = window.google.maps.event.addListener(streetPanorama, 'closeclick', function () {
+        //streetviewCloseclickListener = window.google.maps.event.addListener(streetPanorama, 'closeclick', function () {
             // Closing Street View from the X button must also show the save button again
-            saveLocationButton.show();
-        });
+            //saveLocationButton.show();
+        //});
 
         mapTypeChangedListener = window.google.maps.event.addListener(map, 'maptypeid_changed', function () {
             if (isGameMap) {
@@ -336,21 +322,21 @@ var map,
         });
     };
 
-    Math.getAzimuthBetweenMouseAndMarker = function (e, marker) {
-        var x = e.latLng.lat() - marker.position.lat(),
-            y = e.latLng.lng() - marker.position.lng();
-        return Math.atan2(y, x);
-    };
-
-    Math.getAzimuthBetweenTwoMarkers = function (marker1, marker2) {
-        if (marker1 && marker2) {
-            var x = marker2.position.lat() - marker1.position.lat(),
-                y = marker2.position.lng() - marker1.position.lng();
-            return Math.atan2(y, x);
-        }
-        return false;
-    };
-
+    //Math.getAzimuthBetweenMouseAndMarker = function (e, marker) {
+    //    var x = e.latLng.lat() - marker.position.lat(),
+    //        y = e.latLng.lng() - marker.position.lng();
+    //    return Math.atan2(y, x);
+    //};
+    //
+    //Math.getAzimuthBetweenTwoMarkers = function (marker1, marker2) {
+    //    if (marker1 && marker2) {
+    //        var x = marker2.position.lat() - marker1.position.lat(),
+    //            y = marker2.position.lng() - marker1.position.lng();
+    //        return Math.atan2(y, x);
+    //    }
+    //    return false;
+    //};
+    //
     Math.getAzimuthBetweenTwoPoints = function (p1, p2) {
         if (p1 && p2) {
             var x = p2.lat() - p1.lat(),
@@ -359,7 +345,7 @@ var map,
         }
         return false;
     };
-
+    //
     Math.degrees = function (rad) {
         var ret = rad * (180 / Math.PI);
         if (ret < 0) {
@@ -367,18 +353,18 @@ var map,
         }
         return ret;
     };
-
+    //
     Math.radians = function (degrees) {
         return degrees * Math.PI / 180;
     };
-
+    //
     Math.simpleCalculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
         azimuth = Math.radians(azimuth);
         var newX = (Math.cos(azimuth) * lineLength) + startPoint.lat(),
             newY = (Math.sin(azimuth) * lineLength) + startPoint.lng();
         return new window.google.maps.LatLng(newX, newY);
     };
-
+    //
     Math.calculateMapLineEndPoint = function (bearing, startPoint, distance) {
         var earthRadius = 6371e3,
             angularDistance = distance / earthRadius,
@@ -393,7 +379,7 @@ var map,
 
         return new window.google.maps.LatLng(Math.degrees(endLatRadians), Math.degrees(endLonRadians));
     };
-
+    //
     dottedAzimuthLineSymbol = {
         path: window.google.maps.SymbolPath.CIRCLE,
         strokeOpacity: 1,
@@ -447,10 +433,10 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-full-screen-link-guess-panel', function (e) {
-        e.preventDefault();
-        $('#ajapaik-full-screen-link').click();
-    });
+    //$(document).on('click', '#ajapaik-full-screen-link-guess-panel', function (e) {
+    //    e.preventDefault();
+    //    $('#ajapaik-full-screen-link').click();
+    //});
 
     $(document).on('click', '#ajapaik-rephoto-full-screen-link', function (e) {
         e.preventDefault();
@@ -509,116 +495,116 @@ var map,
         }
     };
 
-    saveLocationCallback = function (resp) {
-        var message = resp.feedback_message,
-            hideFeedback = false,
-            heatmapPoints,
-            currentScore = 0,
-            tagsWithAzimuth = 0,
-            newEstimatedLocation,
-            confidence = 0;
-        if (resp.is_correct) {
-            hideFeedback = false;
-            if (gameMap) {
-                window._gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
-            } else {
-                window._gaq.push(['_trackEvent', 'Map', 'Correct coordinates']);
-            }
-        } else if (resp.location_is_unclear) {
-            if (gameMap) {
-                window._gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
-            } else {
-                window._gaq.push(['_trackEvent', 'Map', 'Coordinates uncertain']);
-            }
-        } else if (!resp.is_correct) {
-            hideFeedback = true;
-            if (gameMap) {
-                window._gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
-            } else {
-                window._gaq.push(['_trackEvent', 'Map', 'Wrong coordinates']);
-            }
-        }
-        if (resp.heatmap_points) {
-            heatmapPoints = resp.heatmap_points;
-        }
-        if (resp.azimuth_tags) {
-            tagsWithAzimuth = resp.azimuth_tags;
-        }
-        if (resp.current_score) {
-            currentScore = resp.current_score;
-        }
-        if (resp.estimated_location) {
-            newEstimatedLocation = resp.estimated_location;
-        }
-        if (resp.confidence) {
-            confidence = resp.confidence;
-        }
-        window.handleGuessResponse({feedbackMessage: message, hideFeedback: hideFeedback,
-            heatmapPoints: heatmapPoints, currentScore: currentScore, tagsWithAzimuth: tagsWithAzimuth,
-            newEstimatedLocation: newEstimatedLocation, confidence: confidence});
-    };
+    //saveLocationCallback = function (resp) {
+    //    var message = resp.feedback_message,
+    //        hideFeedback = false,
+    //        heatmapPoints,
+    //        currentScore = 0,
+    //        tagsWithAzimuth = 0,
+    //        newEstimatedLocation,
+    //        confidence = 0;
+    //    if (resp.is_correct) {
+    //        hideFeedback = false;
+    //        if (gameMap) {
+    //            window._gaq.push(['_trackEvent', 'Game', 'Correct coordinates']);
+    //        } else {
+    //            window._gaq.push(['_trackEvent', 'Map', 'Correct coordinates']);
+    //        }
+    //    } else if (resp.location_is_unclear) {
+    //        if (gameMap) {
+    //            window._gaq.push(['_trackEvent', 'Game', 'Coordinates uncertain']);
+    //        } else {
+    //            window._gaq.push(['_trackEvent', 'Map', 'Coordinates uncertain']);
+    //        }
+    //    } else if (!resp.is_correct) {
+    //        hideFeedback = true;
+    //        if (gameMap) {
+    //            window._gaq.push(['_trackEvent', 'Game', 'Wrong coordinates']);
+    //        } else {
+    //            window._gaq.push(['_trackEvent', 'Map', 'Wrong coordinates']);
+    //        }
+    //    }
+    //    if (resp.heatmap_points) {
+    //        heatmapPoints = resp.heatmap_points;
+    //    }
+    //    if (resp.azimuth_tags) {
+    //        tagsWithAzimuth = resp.azimuth_tags;
+    //    }
+    //    if (resp.current_score) {
+    //        currentScore = resp.current_score;
+    //    }
+    //    if (resp.estimated_location) {
+    //        newEstimatedLocation = resp.estimated_location;
+    //    }
+    //    if (resp.confidence) {
+    //        confidence = resp.confidence;
+    //    }
+    //    window.handleGuessResponse({feedbackMessage: message, hideFeedback: hideFeedback,
+    //        heatmapPoints: heatmapPoints, currentScore: currentScore, tagsWithAzimuth: tagsWithAzimuth,
+    //        newEstimatedLocation: newEstimatedLocation, confidence: confidence});
+    //};
 
-    saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
-        var mapTypeId = map.getMapTypeId(),
-            lat = marker.getPosition().lat(),
-            lon = marker.getPosition().lng();
-        if (mapTypeId === 'roadmap') {
-            mapTypeId = 0;
-        } else if (mapTypeId === 'hybrid') {
-            mapTypeId = 1;
-        } else {
-            mapTypeId = 2;
-        }
-        var data = {
-                photo: photoId,
-                hint_used: hintUsed,
-                zoom_level: map.zoom,
-                map_type: mapTypeId,
-                type: 0,
-                origin: origin,
-                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-            };
-        if (lat && lon) {
-            data.lat = lat;
-            data.lon = lon;
-        }
-        if (degreeAngle && saveDirection) {
-            data.azimuth = degreeAngle;
-            data.azimuth_line_end_lat = azimuthLineEndPoint[0];
-            data.azimuth_line_end_lon = azimuthLineEndPoint[1];
-        } else {
-            dottedAzimuthLine.setVisible(false);
-        }
-        if (userFlippedPhoto) {
-            data.flip = photoFlipStatus;
-        }
-        $.ajax({
-            url: window.saveLocationURL,
-            data: data,
-            method: 'POST',
-            success: function (resp) {
-                saveLocationCallback(resp);
-            }
-        });
-    };
-    $(document).on('click', '#ajapaik-mobile-game-label', function () {
-        if (window.isPhotoview && window.albumId && window.photoId) {
-            window.location.href = '/geotag?album=' + window.albumId + '&photo=' + window.photoId;
-        } else {
-            if (!window.isGame && window.albumId) {
-                window.location.href = '/geotag?album=' + window.albumId;
-            }
-        }
-    });
-    $(document).on('click', '#ajapaik-mobile-grid-label', function () {
-        if (!window.isFrontpage && window.albumId) {
-            if (window.getQueryParameterByName('limitToAlbum') == 0 && window.lastMarkerSet) {
-                window.location.href = '/photos?set=' + window.lastMarkerSet;
-            } else {
-                window.location.href = '/photos/' + window.albumId + '/1';
-            }
-        }
-    });
+    //saveLocation = function (marker, photoId, photoFlipStatus, hintUsed, userFlippedPhoto, degreeAngle, azimuthLineEndPoint, origin) {
+    //    var mapTypeId = map.getMapTypeId(),
+    //        lat = marker.getPosition().lat(),
+    //        lon = marker.getPosition().lng();
+    //    if (mapTypeId === 'roadmap') {
+    //        mapTypeId = 0;
+    //    } else if (mapTypeId === 'hybrid') {
+    //        mapTypeId = 1;
+    //    } else {
+    //        mapTypeId = 2;
+    //    }
+    //    var data = {
+    //            photo: photoId,
+    //            hint_used: hintUsed,
+    //            zoom_level: map.zoom,
+    //            map_type: mapTypeId,
+    //            type: 0,
+    //            origin: origin,
+    //            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+    //        };
+    //    if (lat && lon) {
+    //        data.lat = lat;
+    //        data.lon = lon;
+    //    }
+    //    if (degreeAngle && saveDirection) {
+    //        data.azimuth = degreeAngle;
+    //        data.azimuth_line_end_lat = azimuthLineEndPoint[0];
+    //        data.azimuth_line_end_lon = azimuthLineEndPoint[1];
+    //    } else {
+    //        dottedAzimuthLine.setVisible(false);
+    //    }
+    //    if (userFlippedPhoto) {
+    //        data.flip = photoFlipStatus;
+    //    }
+    //    $.ajax({
+    //        url: window.saveLocationURL,
+    //        data: data,
+    //        method: 'POST',
+    //        success: function (resp) {
+    //            saveLocationCallback(resp);
+    //        }
+    //    });
+    //};
+    //$(document).on('click', '#ajapaik-mobile-game-label', function () {
+    //    if (window.isPhotoview && window.albumId && window.photoId) {
+    //        window.location.href = '/geotag?album=' + window.albumId + '&photo=' + window.photoId;
+    //    } else {
+    //        if (!window.isGame && window.albumId) {
+    //            window.location.href = '/geotag?album=' + window.albumId;
+    //        }
+    //    }
+    //});
+    //$(document).on('click', '#ajapaik-mobile-grid-label', function () {
+    //    if (!window.isFrontpage && window.albumId) {
+    //        if (window.getQueryParameterByName('limitToAlbum') == 0 && window.lastMarkerSet) {
+    //            window.location.href = '/photos?set=' + window.lastMarkerSet;
+    //        } else {
+    //            window.location.href = '/photos/' + window.albumId + '/1';
+    //        }
+    //    }
+    //});
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
         e.preventDefault();
         if (!window.isFrontpage) {
@@ -682,15 +668,15 @@ var map,
             }
         }
     });
-    $(document).on('click', '#ajapaik-mobile-map-label', function () {
-        if (window.albumId) {
-            window.location.href = '/map?album=' + window.albumId;
-        } else {
-            if (window.navigator.geolocation) {
-                window.getGeolocation(handleGeolocation);
-            }
-        }
-    });
+    //$(document).on('click', '#ajapaik-mobile-map-label', function () {
+    //    if (window.albumId) {
+    //        window.location.href = '/map?album=' + window.albumId;
+    //    } else {
+    //        if (window.navigator.geolocation) {
+    //            window.getGeolocation(handleGeolocation);
+    //        }
+    //    }
+    //});
     $(document).on('click', '#ajapaik-header-profile-button', function (e) {
         e.preventDefault();
         window.updateLeaderboard();
@@ -710,38 +696,38 @@ var map,
     //    $.noop();
     //};
     // Our own custom zooming functions to fix the otherwise laggy zooming for mobile
-    wheelEventFF = function (e) {
-        now = new Date().getTime();
-        if (!lastTriggeredWheeling) {
-            lastTriggeredWheeling = now - 250;
-        }
-        if (now - 250 > lastTriggeredWheeling) {
-            lastTriggeredWheeling = now;
-            if (e.detail < 0) {
-                map.setZoom(map.zoom + 1);
-            } else {
-                if (map.zoom > 14) {
-                    map.setZoom(map.zoom - 1);
-                }
-            }
-        }
-    };
-    wheelEventNonFF = function (e) {
-        now = new Date().getTime();
-        if (!lastTriggeredWheeling) {
-            lastTriggeredWheeling = now - 100;
-        }
-        if (now - 100 > lastTriggeredWheeling) {
-            lastTriggeredWheeling = now;
-            if (e.wheelDelta > 0) {
-                map.setZoom(map.zoom + 1);
-            } else {
-                if (map.zoom > 14) {
-                    map.setZoom(map.zoom - 1);
-                }
-            }
-        }
-    };
+    //wheelEventFF = function (e) {
+    //    now = new Date().getTime();
+    //    if (!lastTriggeredWheeling) {
+    //        lastTriggeredWheeling = now - 250;
+    //    }
+    //    if (now - 250 > lastTriggeredWheeling) {
+    //        lastTriggeredWheeling = now;
+    //        if (e.detail < 0) {
+    //            map.setZoom(map.zoom + 1);
+    //        } else {
+    //            if (map.zoom > 14) {
+    //                map.setZoom(map.zoom - 1);
+    //            }
+    //        }
+    //    }
+    //};
+    //wheelEventNonFF = function (e) {
+    //    now = new Date().getTime();
+    //    if (!lastTriggeredWheeling) {
+    //        lastTriggeredWheeling = now - 100;
+    //    }
+    //    if (now - 100 > lastTriggeredWheeling) {
+    //        lastTriggeredWheeling = now;
+    //        if (e.wheelDelta > 0) {
+    //            map.setZoom(map.zoom + 1);
+    //        } else {
+    //            if (map.zoom > 14) {
+    //                map.setZoom(map.zoom - 1);
+    //            }
+    //        }
+    //    }
+    //};
     //refreshFacebookCommentsCount = function (ids) {
     //    var queryString = '',
     //        first = true;
@@ -757,16 +743,16 @@ var map,
     //        window.handleCommentsCountResponse(response);
     //    });
     //};
-    windowResizeListenerFunction = function () {
-        if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
-            mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
-            mapMousemoveListenerActive = true;
-            dottedAzimuthLine.setVisible(false);
-            if (panoramaMarker) {
-                panoramaMarker.setVisible(false);
-            }
-        }
-    };
+    //windowResizeListenerFunction = function () {
+    //    if (markerLocked && !fullscreenEnabled && !guessResponseReceived) {
+    //        mapMousemoveListener = window.google.maps.event.addListener(map, 'mousemove', mapMousemoveListenerFunction);
+    //        mapMousemoveListenerActive = true;
+    //        dottedAzimuthLine.setVisible(false);
+    //        if (panoramaMarker) {
+    //            panoramaMarker.setVisible(false);
+    //        }
+    //    }
+    //};
     mapMousemoveListenerFunction = function (e) {
         // The mouse is moving, therefore we haven't locked on a direction
         saveDirection = false;
@@ -1199,7 +1185,10 @@ var map,
                     icon: currentIcon
                 });
             }
-            $('#ajapaik-modal-photo-container-container').removeClass('col-xs-12').addClass('col-xs-9');
+            //if (window.userClosedRephotoTools || !window.photoModalPhotoLat || !window.photoModalPhotoLng) {
+                $('#ajapaik-modal-photo-container-container').removeClass('col-xs-12').addClass('col-xs-9');
+            //}
+
         }
     };
     $(document).on('click', '.ajapaik-minimap-start-guess-button', function () {
@@ -1577,24 +1566,24 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-mobile-about-button', function (e) {
-        var targetDiv = $('#ajapaik-general-info-modal');
-        if (window.generalInfoModalURL) {
-            $.ajax({
-                url: window.generalInfoModalURL,
-                success: function (resp) {
-                    targetDiv.html(resp).modal();
-                }
-            });
-        }
-        if (window.isFrontpage) {
-            window._gaq.push(['_trackEvent', 'Gallery', 'General info click']);
-        } else if (window.isGame) {
-            window._gaq.push(['_trackEvent', 'Game', 'General info click']);
-        } else if (window.isMapview) {
-            window._gaq.push(['_trackEvent', 'Mapview', 'General info click']);
-        }
-    });
+    //$(document).on('click', '#ajapaik-mobile-about-button', function (e) {
+    //    var targetDiv = $('#ajapaik-general-info-modal');
+    //    if (window.generalInfoModalURL) {
+    //        $.ajax({
+    //            url: window.generalInfoModalURL,
+    //            success: function (resp) {
+    //                targetDiv.html(resp).modal();
+    //            }
+    //        });
+    //    }
+    //    if (window.isFrontpage) {
+    //        window._gaq.push(['_trackEvent', 'Gallery', 'General info click']);
+    //    } else if (window.isGame) {
+    //        window._gaq.push(['_trackEvent', 'Game', 'General info click']);
+    //    } else if (window.isMapview) {
+    //        window._gaq.push(['_trackEvent', 'Mapview', 'General info click']);
+    //    }
+    //});
 
     $(document).on('click', '.ajapaik-photo-modal-previous-button', function (e) {
         e.preventDefault();
@@ -1722,9 +1711,9 @@ var map,
         }
     };
 
-    $(document).on('click', '#ajapaik-mobile-about-label', function () {
-        $('#ajapaik-mobile-about-button').click();
-    });
+    //$(document).on('click', '#ajapaik-mobile-about-label', function () {
+    //    $('#ajapaik-mobile-about-button').click();
+    //});
 
     $(document).on('click', '#ajapaik-header-album-more', function (e) {
         e.preventDefault();
@@ -1805,9 +1794,9 @@ var map,
         }
     });
 
-    $(document).on('click', '.ajapaik-close-streetview-button', function () {
-        map.getStreetView().setVisible(false);
-    });
+    //$(document).on('click', '.ajapaik-close-streetview-button', function () {
+    //    map.getStreetView().setVisible(false);
+    //});
 
     $(document).on('click', '#ajapaik-mapview-close-streetview-button', function () {
         map.getStreetView().setVisible(false);
@@ -1818,17 +1807,17 @@ var map,
         $('#ajapaik-filtering-tutorial-modal').modal();
     });
 
-    hideUnlockedAzimuth = function () {
-        if (!saveDirection) {
-            dottedAzimuthLine.setVisible(false);
-        }
-    };
-
-    showUnlockedAzimuth = function () {
-        if (!saveDirection) {
-            dottedAzimuthLine.setVisible(true);
-        }
-    };
+    //hideUnlockedAzimuth = function () {
+    //    if (!saveDirection) {
+    //        dottedAzimuthLine.setVisible(false);
+    //    }
+    //};
+    //
+    //showUnlockedAzimuth = function () {
+    //    if (!saveDirection) {
+    //        dottedAzimuthLine.setVisible(true);
+    //    }
+    //};
 
     $(document).on('click', '#ajapaik-close-filtering-tutorial-modal', function (e) {
         e.stopPropagation();

@@ -80,7 +80,7 @@
 }
 
 #ajp-geotagger-skip-button:hover {
-    color: black;
+    background-color: #888;
 }
 
 #ajp-geotagger-save-button {
@@ -90,7 +90,23 @@
 }
 
 #ajp-geotagger-save-button:hover {
-    color: black;
+    background-color: #888;
+}
+
+#ajp-geotagger-save-button.btn-success {
+    background-color: #449d44;
+}
+
+#ajp-geotagger-save-button.btn-success:hover {
+    background-color: rgba(68,157,68,.7);
+}
+
+#ajp-geotagger-save-button.btn-warning {
+    background-color: #f0ad4e;
+}
+
+#ajp-geotagger-save-button.btn-warning:hover {
+    background-color: rgba(240,173,78,.7)
 }
 
 #ajp-geotagger-description {
@@ -117,6 +133,17 @@
     -webkit-line-clamp: 2;
     line-height: 20px;
     max-height: 40px;
+}
+
+@media (max-width: 767px) {
+    #ajp-geotagger-description {
+        -webkit-line-clamp: 1;
+        max-height: 20px;
+    }
+    #ajp-geotagger-source {
+        -webkit-line-clamp: 1;
+        max-height: 20px;
+    }
 }
 
 #ajp-geotagger-stats-container {
@@ -173,14 +200,6 @@
     font-size: 36px;
 }
 
-#ajp-geotagger-save-button.btn-success {
-    background-color: #449d44;
-}
-
-#ajp-geotagger-save-button.btn-warning {
-    background-color: #f0ad4e;
-}
-
 #ajp-geotagger-full-screen-link {
     cursor: -webkit-zoom-in;
     cursor: -moz-zoom-in;
@@ -198,7 +217,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    background: black url('../images/ajax_loader_gray_256.gif') center center no-repeat;
+    background: black center center no-repeat;
     background-size: 128px 128px;
     width: 100%;
     height: 100%;
@@ -324,6 +343,14 @@
     display: none;
     border: none;
     background-color: transparent;
+    right: 5px !important;
+    bottom: 5px !important;
+}
+
+#ajp-geotagger-show-search-button {
+    border: none;
+    background-color: transparent;
+    top: 5px !important;
 }
 
 #ajp-geotagger-feedback {
@@ -341,4 +368,8 @@
 #ajp-geotagger-feedback-next-button {
     border-radius: 0;
     margin-top: 10px;
+}
+
+.ajp-invisible {
+    visibility: hidden;
 }

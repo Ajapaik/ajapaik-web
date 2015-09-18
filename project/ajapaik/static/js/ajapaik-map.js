@@ -117,6 +117,8 @@
                         originalPhotoColumn.removeClass('col-xs-4').removeClass('col-xs-5').addClass('col-xs-10');
                     }
                     $('#ajapaik-photo-modal-rephoto-info-column').hide();
+                } else {
+                    $('#ajapaik-modal-photo-container-container').removeClass('col-xs-9').addClass('col-xs-12');
                 }
                 if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
                     $('#ajapaik-photo-modal-date-row').show();
@@ -162,8 +164,8 @@
         var fullScreenImage = $('#ajapaik-full-screen-image'),
             rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image');
         target.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
-            fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl);
-            rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl);
+            fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
+            rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
             if (window.photoModalRephotoFullscreenImageSize) {
                 window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0], window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
             }
@@ -669,11 +671,6 @@
         window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.isMapview = true;
         $(window.input).show();
-        $('.ajapaik-navmenu').on('shown.bs.offcanvas', function () {
-            $('#ajapaik-album-selection-overlay').show();
-        }).on('hidden.bs.offcanvas', function () {
-            $('#ajapaik-album-selection-overlay').hide();
-        });
         guessPanelContainer = $('#ajapaik-guess-panel-container');
         $('#ajapaik-game-description-viewing-warning').hide();
         $('#ajapaik-header-album-filter-button').click(function () {

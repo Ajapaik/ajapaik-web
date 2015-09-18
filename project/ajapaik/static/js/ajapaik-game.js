@@ -186,7 +186,8 @@
                 window.photoModalCurrentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 modalPhoto.on('load', photoLoadModalResizeFunction);
-                fullScreenImage.attr('data-src', currentPhoto.large.url).on('load', function () {
+                fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
+                    .on('load', function () {
                     window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
                     fullScreenImage.unbind('load');
                 });

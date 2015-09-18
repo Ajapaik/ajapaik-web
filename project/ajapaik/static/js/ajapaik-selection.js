@@ -11,7 +11,7 @@
         var openPhotoDrawer = function (content) {
             var fullScreenImage = $('#ajapaik-full-screen-image');
             $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
-                fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl);
+                fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');
                 window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
             });

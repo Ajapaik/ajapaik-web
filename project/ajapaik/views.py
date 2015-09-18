@@ -865,7 +865,7 @@ def photo_selection(request):
 def list_photo_selection(request):
     photos = None
     if 'photo_selection' in request.session:
-        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height', 'flip')
+        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height', 'flip', 'description')
         photos = map(list, photos)
         for p in photos:
             p[1], p[2] = calculate_thumbnail_size_max_height(p[1], p[2], 300)

@@ -45,6 +45,7 @@
                 lat: 59,
                 lng: 26
             },
+            disableDoubleClickZoom: true,
             scrollwheel: false,
             mapTypeControl: true,
             mapTypeId: this.OSM_MAPTYPE_ID,
@@ -107,24 +108,50 @@
         this.mapClickListenerFunction = function (e) {
             if (!that.feedbackMode && that.firstMoveDone) {
                 if (that.options.mode === 'vantage') {
-                    if (that.drawAzimuthLineOnMouseMove) {
-                        that.panoramaMarker.setPosition(e.latLng);
-                        that.panoramaMarker.setVisible(true);
-                        that.saveAzimuth = true;
-                        that.drawAzimuthLineOnMouseMove = false;
-                        that.angleBetweenMouseAndMarker = that.radiansToDegrees(that.getAzimuthBetweenMouseAndMarker(e));
-                        that.angleBetweenMarkerAndPanoramaMarker = that.angleBetweenMouseAndMarker;
-                        that.azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
-                        that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
-                        that.azimuthLine.icons[0].repeat = '2px';
-                        that.setCursorToAuto();
-                        that.setSaveButtonToLocationAndAzimuth();
+                    if (isMobile) {
+                        console.log('mobile click');
+                        if (that.azimuthLine.visible) {
+                            console.log('line visible');
+                            that.azimuthLine.setVisible(false);
+                            that.panoramaMarker.setVisible(false);
+                            that.saveAzimuth = false;
+                            that.drawAzimuthLineOnMouseMove = true;
+                            that.azimuthLine.icons[0].repeat = '7px';
+                            that.setSaveButtonToLocationOnly();
+                        } else {
+                            console.log('line not visible');
+                            that.azimuthLine.setVisible(true);
+                            that.panoramaMarker.setPosition(e.latLng);
+                            that.panoramaMarker.setVisible(true);
+                            that.saveAzimuth = true;
+                            that.angleBetweenMouseAndMarker = that.radiansToDegrees(that.getAzimuthBetweenMouseAndMarker(e));
+                            that.angleBetweenMarkerAndPanoramaMarker = that.angleBetweenMouseAndMarker;
+                            that.azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
+                            that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
+                            that.azimuthLine.icons[0].repeat = '2px';
+                            that.setCursorToAuto();
+                            that.setSaveButtonToLocationAndAzimuth();
+                        }
                     } else {
-                        that.panoramaMarker.setVisible(false);
-                        that.saveAzimuth = false;
-                        that.drawAzimuthLineOnMouseMove = true;
-                        that.azimuthLine.icons[0].repeat = '7px';
-                        that.setSaveButtonToLocationOnly();
+                        if (that.drawAzimuthLineOnMouseMove) {
+                            that.panoramaMarker.setPosition(e.latLng);
+                            that.panoramaMarker.setVisible(true);
+                            that.saveAzimuth = true;
+                            that.drawAzimuthLineOnMouseMove = false;
+                            that.angleBetweenMouseAndMarker = that.radiansToDegrees(that.getAzimuthBetweenMouseAndMarker(e));
+                            that.angleBetweenMarkerAndPanoramaMarker = that.angleBetweenMouseAndMarker;
+                            that.azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
+                            that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
+                            that.azimuthLine.icons[0].repeat = '2px';
+                            that.setCursorToAuto();
+                            that.setSaveButtonToLocationAndAzimuth();
+                        } else {
+                            that.panoramaMarker.setVisible(false);
+                            that.saveAzimuth = false;
+                            that.drawAzimuthLineOnMouseMove = true;
+                            that.azimuthLine.icons[0].repeat = '7px';
+                            that.setSaveButtonToLocationOnly();
+                        }
                     }
                 }
                 that.setCorrectInstructionString();
@@ -135,7 +162,9 @@
                 if (that.options.markerLocked) {
                     that.realMarker.setPosition(that.map.getCenter());
                 }
-                that.azimuthLine.setVisible(true);
+                if (!isMobile) {
+                    that.azimuthLine.setVisible(true);
+                }
             }
         };
         this.mapCenterChangedListener = function () {
@@ -143,13 +172,16 @@
                 if (that.options.markerLocked) {
                     that.realMarker.setPosition(that.map.getCenter());
                 }
-                that.azimuthLine.setVisible(false);
+                if (!isMobile) {
+                    that.azimuthLine.setVisible(false);
+                }
             }
         };
         this.mapDragstartListenerFunction = function () {
             if (!that.feedbackMode) {
                 that.drawAzimuthLineOnMouseMove = false;
                 that.azimuthLine.setVisible(false);
+                that.panoramaMarker.setVisible(false);
                 that.setCorrectInstructionString();
             }
         };
@@ -160,7 +192,7 @@
                 if (that.options.mode === 'vantage') {
                     that.lockButton.show();
                 }
-                if (that.options.mode === 'vantage') {
+                if (that.options.mode === 'vantage' && !isMobile) {
                     that.drawAzimuthLineOnMouseMove = true;
                     that.azimuthLine.setVisible(true);
                 }
@@ -183,7 +215,7 @@
         };
         this.mapMarkerDragendListenerFunction = function () {
             if (!that.feedbackMode) {
-                if (that.mapMarkerDragendListenerActive) {
+                if (that.mapMarkerDragendListenerActive && !isMobile) {
                     that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
                 }
             }
@@ -356,6 +388,11 @@
                 "   <i class='material-icons'>info</i>",
                 "</button>"
             ].join('\n'));
+            this.mapShowSearchButton = $([
+                "<button id='ajp-geotagger-show-search-button'>",
+                "   <i class='material-icons'>search</i>",
+                "</button>"
+            ].join('\n'));
             this.streetPanorama = new google.maps.StreetViewPanorama(
                 document.getElementById('ajp-geotagger-map-canvas'),
                 this.streetViewOptions
@@ -370,6 +407,9 @@
                 name: 'OSM',
                 maxZoom: 18
             }));
+            if (isMobile) {
+                this.lockButton.addClass('hidden');
+            }
             this.lockButton.attr('title', gettext('Toggle map center lock')).click(function () {
                 if (that.firstMoveDone && that.options.mode === 'vantage') {
                     var $this = $(this);
@@ -381,6 +421,10 @@
                 }
                 that.setCorrectInstructionString();
                 that.options.firstMoveDone = false;
+            });
+            this.mapShowSearchButton.click(function () {
+                $('#ajp-geotagger-search-box').toggleClass('hidden');
+                google.maps.event.trigger(that.map, 'resize');
             });
             modeSelectionButtonGroup.find('#ajp-geotagger-approximate-mode-button')
                 .attr('title', gettext('Approximate')).html(gettext('Approximate')).click(function () {
@@ -410,6 +454,7 @@
             this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(searchBox.get(0));
             this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.mapInstructions.get(0));
             this.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.mapOpenInstructionsButton.get(0));
+            this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.mapShowSearchButton.get(0));
             this.placesSearchBox = new google.maps.places.SearchBox((searchBox.get(0)));
             google.maps.event.addListener(this.placesSearchBox, 'places_changed', function () {
                 var places = that.placesSearchBox.getPlaces();
@@ -445,6 +490,7 @@
             });
             this.mapOpenInstructionsButton.click(function () {
                 that.showInstructions();
+                google.maps.event.trigger(that.map, 'resize');
             });
             feedbackNextButton.click(function () {
                 $.ajax({
@@ -622,6 +668,11 @@
                 this.feedbackEstimatedLocationMarker.setVisible(false);
             }
             $('#ajp-geotagger-guess-marker').show();
+            if (isMobile) {
+                $('#ajp-geotagger-search-box').addClass('hidden');
+            } else {
+                $('#ajp-geotagger-show-search-button').hide();
+            }
             this.feedbackMode = false;
             this.guessingStarted = true;
             google.maps.event.trigger(this.map, 'resize');
@@ -730,18 +781,29 @@
                 targetParent = this.geotaggerImageThumb.parent().parent(),
                 confirmControls = $('#ajp-geotagger-confirm-controls'),
                 buttonControls = $('#ajp-geotagger-button-controls'),
-                geotaggerPanel = $('#ajp-geotagger-panel');
+                geotaggerPanel = $('#ajp-geotagger-panel'),
+                thumbHeight = this.geotaggerImageThumb.height();
             if (window.matchMedia("(min-width: 992px)").matches) {
+                confirmControls.removeClass('col-xs-offset-6 col-sm-offset-6');
                 targetParent.css('width', geotaggerPanel.width()).css('height', 'auto');
-                newMargin = geotaggerPanel.height() - buttonControls.height() - this.geotaggerImageThumb.height() - 41;
+                newMargin = geotaggerPanel.height() - buttonControls.height() - thumbHeight - 41;
                 if (newMargin > 0) {
                     confirmControls.css('margin-top', newMargin + 'px');
                 }
+                geotaggerPanel.css('max-height', '100%').css('height', '100%');
             } else {
-                targetParent.css('height', geotaggerPanel.height()).css('width', '50%');
-                newMargin = geotaggerPanel.height() - buttonControls.height() - 41;
+                geotaggerPanel.css('max-height', '30%').css('height', '100%');
+                targetParent.css('height', geotaggerPanel.height() + 'px').css('width', '50%');
+                newMargin = thumbHeight - buttonControls.height() - 41;
                 if (newMargin > 0) {
                     confirmControls.css('margin-top', newMargin + 'px');
+                }
+                // On small screens, don't constrain whole interface to screen height
+                geotaggerPanel.css('max-height', '100%').css('height', 'auto');
+                if (thumbHeight < buttonControls.height()) {
+                    confirmControls.addClass('col-xs-offset-6 col-sm-offset-6');
+                } else {
+                    confirmControls.removeClass('col-xs-offset-6 col-sm-offset-6');
                 }
             }
         },
@@ -770,6 +832,7 @@
             $('#ajp-geotagger-save-button').removeClass('btn-disabled btn-warning').addClass('btn-success');
         },
         saveSkip: function () {
+            $('#ajp-geotagger-game-buttons').hide();
             $.ajax({
                 type: 'POST',
                 url: saveLocationURL,
@@ -777,10 +840,17 @@
                     photo: this.options.currentPhotoId,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
+                success: function () {
+                    $('#ajp-geotagger-game-buttons').show();
+                },
+                error: function () {
+                    $('#ajp-geotagger-game-buttons').show();
+                },
                 dataType: 'json'
             });
         },
         saveGeotag: function () {
+            $('#ajp-geotagger-game-buttons').hide();
             this.feedbackMode = true;
             this.mapMarkerDragListenerActive = false;
             this.mapMarkerDragendListenerActive = false;
@@ -838,6 +908,10 @@
                         that.playerGuessMarker.setPosition(playerGuessLatlng);
                         that.playerGuessMarker.setVisible(true);
                     }
+                    $('#ajp-geotagger-game-buttons').show();
+                },
+                error: function () {
+                    $('#ajp-geotagger-game-buttons').show();
                 },
                 dataType: 'json'
             });
