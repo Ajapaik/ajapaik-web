@@ -210,10 +210,10 @@ class ApiAlbumStateForm(forms.Form):
 
 class ApiPhotoUploadForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
-    latitude = forms.FloatField(min_value=-85.05115, max_value=85)
-    longitude = forms.FloatField(min_value=-180, max_value=180)
-    accuracy = forms.FloatField(min_value=0)
-    age = forms.FloatField(min_value=0)
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
+    accuracy = forms.FloatField(min_value=0, required=False)
+    age = forms.FloatField(min_value=0, required=False)
     date = forms.CharField(max_length=30)
     scale = forms.FloatField()
     yaw = forms.FloatField()
