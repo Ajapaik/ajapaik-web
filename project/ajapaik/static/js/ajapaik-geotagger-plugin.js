@@ -871,6 +871,7 @@
                     lat: lat,
                     lon: lon,
                     type: 0,
+                    zoom_level: this.map.getZoom(),
                     photo: this.options.currentPhotoId,
                     hint_used: this.hintUsed,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
@@ -921,6 +922,7 @@
                     window.photoModalGeotaggingUserCount = response.new_geotag_count;
                     window.photoModalPhotoLat = response.estimated_location[0];
                     window.photoModalPhotoLng = response.estimated_location[1];
+                    window.photoModalPhotoAzimuth = response.azimuth;
                     $('#ajp-geotagger-game-buttons').show();
                 },
                 error: function () {

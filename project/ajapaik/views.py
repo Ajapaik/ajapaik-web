@@ -1363,6 +1363,8 @@ def geotag_add(request):
         tagged_photo.save()
         processed_tagged_photo = Photo.objects.filter(pk=tagged_photo.id).get()
         ret["estimated_location"] = [processed_tagged_photo.lat, processed_tagged_photo.lon]
+        if processed_tagged_photo.azimuth:
+            ret["azimuth"] = processed_tagged_photo.azimuth
         processed_geotag = GeoTag.objects.filter(pk=new_geotag.id).get()
         if processed_geotag.origin == GeoTag.GAME:
             if len(tagged_photo.geotags.all()) == 1:
