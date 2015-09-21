@@ -10,4 +10,4 @@ class Command(BaseCommand):
         for p in photos:
             if 'portaal' in p.source_url:
                 p.source_url = p.source_url.replace('/portaal', '')
-                p.light_save()
+                p.save()
