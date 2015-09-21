@@ -11,7 +11,6 @@
     /*global updateLeaderboard*/
     /*global stopGuessLocation*/
     /*global userIsSocialConnected*/
-    /*global updateStatDiv*/
     var AjapaikGeotagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -920,6 +919,8 @@
                     }
                     // TODO: Let's try not to couple geotagger with everything else like last time
                     window.photoModalGeotaggingUserCount = response.new_geotag_count;
+                    window.photoModalPhotoLat = response.estimated_location[0];
+                    window.photoModalPhotoLng = response.estimated_location[1];
                     $('#ajp-geotagger-game-buttons').show();
                 },
                 error: function () {
