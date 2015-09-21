@@ -338,8 +338,10 @@ def api_photo_upload(request):
         geography = None
         if lat and lng:
             geography = Point(x=lng, y=lat, srid=4326)
+        # TODO: Image scaling etc
         new_rephoto = Photo(
             image_unscaled=upload_form.cleaned_data['original'],
+            image=upload_form.cleaned_data['original'],
             rephoto_of=original_photo,
             lat=lat,
             lon=lng,
