@@ -9,5 +9,8 @@ class Command(BaseCommand):
         photos = CatPhoto.objects.all()
         for p in photos:
             if 'portaal' in p.source_url:
+                print p.source_url
                 p.source_url = p.source_url.replace('/portaal', '')
+                print p.source_url
+                print "-----"
                 p.save()
