@@ -22,7 +22,8 @@ import time
 from project.sift.forms import CatLoginForm
 from project.sift.views import CustomAuthentication
 from project.ajapaik.facebook import APP_ID
-from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiRegisterForm, ApiPhotoUploadForm
+from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiRegisterForm, ApiPhotoUploadForm, \
+    ApiUserMeForm
 from project.ajapaik.models import Album, Photo, Profile, Licence
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
     GOOGLE_CLIENT_ID
@@ -363,6 +364,36 @@ def api_photo_upload(request):
         original_photo.light_save()
         profile.update_rephoto_score()
         profile.save()
+    else:
+        content['error'] = 2
+
+    return Response(content)
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def api_user_me(request):
+    profile = request.user.profile
+    content = {
+        'error': 0,
+        'state': str(int(round(time.time() * 1000)))
+    }
+    form = ApiUserMeForm(request.POST)
+    if form.is_valid():
+        if profile.fb_name:
+            content['name'] = profile.fb_name
+        elif profile.google_plus_name:
+            content['name'] = profile.google_plus_name
+        content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
+        general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
+        general_user_rank = 0
+        for i in range(0, len(general_user_leaderboard)):
+            if general_user_leaderboard[i].user_id == profile.user_id:
+                general_user_rank = (i + 1)
+                break
+        content['rank'] = general_user_rank
     else:
         content['error'] = 2
 

@@ -222,6 +222,10 @@ class ApiPhotoUploadForm(forms.Form):
     original = forms.FileField()
 
 
+class ApiUserMeForm(forms.Form):
+    state = forms.CharField(max_length=255, required=False)
+
+
 class PhotoSelectionForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.all(), required=False)
     clear = forms.BooleanField(initial=False, required=False)

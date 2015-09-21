@@ -82,7 +82,8 @@ urlpatterns += patterns('project.ajapaik.api',
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'api_album_thumb'),
     url(r'^api/v1/album/nearest/$', 'api_album_nearest'),
     url(r'^api/v1/album/state/$', 'api_album_state'),
-    url(r'^api/v1/photo/upload/$', 'api_photo_upload')
+    url(r'^api/v1/photo/upload/$', 'api_photo_upload'),
+    url(r'^api/v1/user/me/$', 'api_user_me')
 )
 
 urlpatterns += patterns('',
