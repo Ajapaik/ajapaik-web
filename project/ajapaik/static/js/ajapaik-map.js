@@ -239,6 +239,9 @@
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                 startLat = window.photoModalPhotoLat;
                 startLon = window.photoModalPhotoLng;
+            } else {
+                startLat = 59;
+                startLon = 26;
             }
             $('#ajapaik-map-container').hide();
             $('#ajapaik-photo-modal').hide();
@@ -262,7 +265,7 @@
                 isGame: false,
                 isMapview: true,
                 isGallery: false,
-                tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions'),
+                tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions') === 'true',
                 hintUsed: true
             });
             $('body').css('overflow', 'auto');
@@ -601,9 +604,9 @@
         var urlMapType = window.getQueryParameterByName('mapType');
         if (window.getQueryParameterByName('fromSelect')) {
             if (window.albumLatLng) {
-                window.getMap(window.albumLatLng, 13, false, urlMapType);
+                window.getMap(window.albumLatLng, 16, false, urlMapType);
             } else if (window.areaLatLng) {
-                window.getMap(window.areaLatLng, 13, false, urlMapType);
+                window.getMap(window.areaLatLng, 16, false, urlMapType);
             }
         } else {
             if (window.preselectPhotoId) {
@@ -621,12 +624,12 @@
                     window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false, urlMapType);
                 } else if (window.albumLatLng) {
                     // There's nothing preselected, but we do know the album the photo's in
-                    window.getMap(window.albumLatLng, 13, false, urlMapType);
+                    window.getMap(window.albumLatLng, 16, false, urlMapType);
                 } else if (window.areaLatLng) {
-                    window.getMap(window.areaLatLng, 13, false, urlMapType);
+                    window.getMap(window.areaLatLng, 16, false, urlMapType);
                 } else {
                     // No idea
-                    window.getMap(null, 13, false, urlMapType);
+                    window.getMap(null, 16, false, urlMapType);
                 }
             }
             if (window.preselectPhotoId && window.getQueryParameterByName('straightToSpecify')) {

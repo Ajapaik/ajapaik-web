@@ -122,7 +122,8 @@ var map,
     albumSelectionDiv,
     handleAlbumChange,
     refreshFacebookCommentsCount,
-    originalClosestLink;
+    originalClosestLink,
+    updateStatDiv;
 
 
 (function ($) {
@@ -976,6 +977,16 @@ var map,
         heatmap.setOptions({radius: 50, dissipating: false});
     };
 
+    updateStatDiv = function (count) {
+        var statDiv = $('.ajapaik-minimap-geotagging-user-number');
+        statDiv.empty().text(count);
+        if (count) {
+            statDiv.append('<div class="ajapaik-minimap-geotagging-user-multiple-people"></div>');
+        } else {
+            statDiv.append('<div class="ajapaik-minimap-geotagging-user-single-person"></div>');
+        }
+    };
+
     $(document).on('click', '.ajapaik-marker-center-lock-button', function () {
         if (firstDragDone) {
             var t = $(this);
@@ -1019,13 +1030,7 @@ var map,
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             }, function (response) {
                 $this.addClass('ajapaik-minimap-confirm-geotag-button-done');
-                var statDiv = $('.ajapaik-minimap-geotagging-user-number');
-                statDiv.empty().text(response.new_geotag_count);
-                if (response.new_geotag_count > 1) {
-                    statDiv.append('<div class="ajapaik-minimap-geotagging-user-multiple-people"></div>');
-                } else {
-                    statDiv.append('<div class="ajapaik-minimap-geotagging-user-single-person"></div>');
-                }
+                updateStatDiv(response.new_geotag_count);
             });
             if (window.isGame) {
                 window.nextPhoto();

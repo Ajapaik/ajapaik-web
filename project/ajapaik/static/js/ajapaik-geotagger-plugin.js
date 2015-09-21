@@ -11,6 +11,7 @@
     /*global updateLeaderboard*/
     /*global stopGuessLocation*/
     /*global userIsSocialConnected*/
+    /*global updateStatDiv*/
     var AjapaikGeotagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -109,9 +110,7 @@
             if (!that.feedbackMode && that.firstMoveDone) {
                 if (that.options.mode === 'vantage') {
                     if (isMobile) {
-                        console.log('mobile click');
                         if (that.azimuthLine.visible) {
-                            console.log('line visible');
                             that.azimuthLine.setVisible(false);
                             that.panoramaMarker.setVisible(false);
                             that.saveAzimuth = false;
@@ -119,7 +118,6 @@
                             that.azimuthLine.icons[0].repeat = '7px';
                             that.setSaveButtonToLocationOnly();
                         } else {
-                            console.log('line not visible');
                             that.azimuthLine.setVisible(true);
                             that.panoramaMarker.setPosition(e.latLng);
                             that.panoramaMarker.setVisible(true);
@@ -188,6 +186,7 @@
         this.mapDragendListenerFunction = function () {
             if (!that.feedbackMode) {
                 that.firstMoveDone = true;
+                that.setCursorToPanorama();
                 that.setSaveButtonToLocationOnly();
                 if (that.options.mode === 'vantage') {
                     that.lockButton.show();
@@ -634,7 +633,6 @@
             $('#ajp-geotagger-button-controls').show();
             $('#ajp-geotagger-confirm-controls').show();
             $('#ajp-geotagger-map-instruction-text').find('p').text(gettext('Grab and drag the MAP so that the marker is where the photographer was standing.'));
-            this.map.setCenter(new google.maps.LatLng(options.startLat, options.startLng));
             this.options.currentPhotoId = options.photoId;
             this.options.fullScreenSrc = options.fullScreenSrc;
             this.options.fullScreenWidth = options.fullScreenWidth;
@@ -643,9 +641,12 @@
             this.options.isGame = options.isGame;
             this.options.isGallery = options.isGallery;
             this.firstMoveDone = false;
+            this.setSaveButtonToInitial();
             this.options.tutorialClosed = options.tutorialClosed;
             if (options.tutorialClosed) {
                 this.hideInstructions();
+            } else {
+                this.showInstructions();
             }
             this.hintUsed = options.hintUsed;
             if (options.hintUsed) {
@@ -676,6 +677,8 @@
             this.feedbackMode = false;
             this.guessingStarted = true;
             google.maps.event.trigger(this.map, 'resize');
+            this.map.setCenter(new google.maps.LatLng(options.startLat, options.startLng));
+            this.map.setZoom(16);
         },
         radiansToDegrees: function (rad) {
             var ret = rad * (180 / Math.PI);
@@ -709,7 +712,7 @@
         setCursorToPanorama: function () {
             this.map.setOptions({
                 draggableCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto',
-                draggingCursor: 'auto'
+                draggingCursor: 'url(/static/images/material-design-icons/ajapaik_custom_size_panorama.svg) 18 18, auto'
             });
         },
         setCursorToAuto: function () {
@@ -760,6 +763,8 @@
                     }
                 } else {
                     if (this.saveAzimuth) {
+                        element.text(gettext('Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location.'));
+                    } else if (this.firstMoveDone) {
                         element.text(gettext('Click on the map to lock the direction of the view or click yellow button to save only the location.'));
                     } else {
                         element.text(gettext('Drag the MARKER to where the photographer was standing.'));
@@ -808,6 +813,8 @@
             }
         },
         showInstructions: function () {
+            docCookies.setItem('ajapaik_closed_geotagger_instructions', false, 'Fri, 31 Dec 9999 23:59:59 GMT', '/',
+                document.domain, false);
             this.mapInstructions.show();
             this.mapOpenInstructionsButton.hide();
             google.maps.event.trigger(this.map, 'resize');
@@ -824,6 +831,9 @@
             this.source.removeClass('hidden');
             this.hintUsed = true;
             this.fitGuessPhotosToContainers();
+        },
+        setSaveButtonToInitial: function () {
+            $('#ajp-geotagger-save-button').removeClass('btn-warning btn-success').addClass('btn-disabled');
         },
         setSaveButtonToLocationOnly: function () {
             $('#ajp-geotagger-save-button').removeClass('btn-disabled btn-success').addClass('btn-warning');
@@ -908,6 +918,8 @@
                         that.playerGuessMarker.setPosition(playerGuessLatlng);
                         that.playerGuessMarker.setVisible(true);
                     }
+                    // TODO: Let's try not to couple geotagger with everything else like last time
+                    window.photoModalGeotaggingUserCount = response.new_geotag_count;
                     $('#ajp-geotagger-game-buttons').show();
                 },
                 error: function () {

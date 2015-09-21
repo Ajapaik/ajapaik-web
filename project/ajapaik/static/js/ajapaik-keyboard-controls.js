@@ -23,6 +23,16 @@
                         }
                     }
                 }
+                if (e.keyCode === 32 && window.currentlySelectedPhotoId) {
+                    // space
+                    if (window.fullscreenEnabled) {
+                        window.BigScreen.exit();
+                        window.fullscreenEnabled = false;
+                    }
+                    if (!window.locationToolsOpen) {
+                        $('#ajapaik-photo-modal-specify-location').click();
+                    }
+                }
             }
             if (window.isGame) {
                 if (e.keyCode === 32) {

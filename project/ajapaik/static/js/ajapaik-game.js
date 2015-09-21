@@ -35,6 +35,9 @@
         } else if (window.startLocation[0] && window.startLocation[1]) {
             startLat = window.startLocation[1];
             startLon = window.startLocation[0];
+        } else {
+                startLat = 59;
+                startLon = 26;
         }
         $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
             thumbSrc: '/foto_thumb/' + currentPhoto.id + '/500/',
@@ -55,7 +58,7 @@
             isGame: true,
             isMapview: false,
             isGallery: false,
-            tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions'),
+            tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions') === 'true',
             hintUsed: window.gameHintUsed
         });
         $('body').css('overflow', 'auto');

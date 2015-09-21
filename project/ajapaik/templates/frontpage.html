@@ -91,9 +91,9 @@
         window.total = '{{ total }}';
         {% if album %}
             window.albumId = {{ album.0 }};
-            {% if album.lat and album.lon %}
-                window.albumLat = album.lat;
-                window.albumLon = album.lon;
+            {% if album.3 and album.4 %}
+                window.albumLat = {{ album.3 }};
+                window.albumLon = {{ album.4 }};
             {% endif %}
         {% endif %}
         window.linkToGame = true;

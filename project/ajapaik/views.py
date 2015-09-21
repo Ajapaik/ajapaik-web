@@ -782,7 +782,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             else:
                 p[11] = 0
         if album:
-            ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')))
+            ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon)
         else:
             ret['album'] = None
         fb_share_photos = []
@@ -1088,15 +1088,15 @@ def heatmap_data(request):
             target_photo = target_photo.rephoto_of
         if target_photo.lat and target_photo.lon:
             res["estimated_location"] = [target_photo.lat, target_photo.lon]
-        res["confidence"] = target_photo.confidence
+        #res["confidence"] = target_photo.confidence
         res["heatmap_points"] = target_photo.get_heatmap_points()
-        res["azimuth_tags"] = 0
-        for point in res["heatmap_points"]:
-            try:
-                if point[2]:
-                    res["azimuth_tags"] += 1
-            except IndexError:
-                pass
+        #res["azimuth_tags"] = 0
+        # for point in res["heatmap_points"]:
+        #     try:
+        #         if point[2]:
+        #             res["azimuth_tags"] += 1
+        #     except IndexError:
+        #         pass
     return HttpResponse(json.dumps(res), content_type="application/json")
 
 
@@ -1345,7 +1345,7 @@ def geotag_add(request):
     submit_geotag_form = SubmitGeotagForm(request.POST)
     profile = request.get_user().profile
     ret = {
-        "location_correct": False,
+        #"location_correct": False,
         "this_guess_score": 0
     }
     if submit_geotag_form.is_valid():
@@ -1387,14 +1387,15 @@ def geotag_add(request):
         processed_geotag.azimuth_score = azimuth_score
         processed_geotag.score = score + azimuth_score
         processed_geotag.save()
-        ret["is_correct"] = processed_geotag.is_correct
+        #ret["is_correct"] = processed_geotag.is_correct
         ret["current_score"] = processed_geotag.score
         Points(user=profile, action=Points.GEOTAG, geotag=processed_geotag, points=processed_geotag.score,
                created=datetime.datetime.now()).save()
         geotags_for_this_photo = GeoTag.objects.filter(photo=tagged_photo)
+        ret["new_geotag_count"] = geotags_for_this_photo.distinct('user').count()
         ret["heatmap_points"] = [[x.lat, x.lon] for x in geotags_for_this_photo]
-        ret["azimuth_tags"] = geotags_for_this_photo.filter(azimuth__isnull=False).count()
-        ret["confidence"] = processed_tagged_photo.confidence
+        #ret["azimuth_tags"] = geotags_for_this_photo.filter(azimuth__isnull=False).count()
+        #ret["confidence"] = processed_tagged_photo.confidence
         profile.set_calculated_fields()
         profile.save()
         ret["feedback_message"] = ""

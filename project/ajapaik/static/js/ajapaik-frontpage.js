@@ -44,11 +44,14 @@
             } else if (window.albumLat && window.albumLon) {
                 startLat = window.albumLat;
                 startLon = window.albumLon;
+            } else {
+                startLat = 59;
+                startLon = 26;
             }
             $('#ajapaik-frontpage-container').hide();
             $('#ajapaik-photo-modal').hide();
             $('html').addClass('ajapaik-html-game-map');
-            $('body').removeClass('ajapaik-body-frontpage').addClass('ajapaik-body-game-map').css('overflow', 'auto');
+            $('body').removeClass('ajapaik-body-frontpage').addClass('ajapaik-body-game-map');
             $('.modal-backdrop').hide();
             $('.footer').hide();
             $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
@@ -70,7 +73,7 @@
                 isGame: false,
                 isMapview: false,
                 isGallery: true,
-                tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions'),
+                tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions') === 'true',
                 hintUsed: true
             });
             window.locationToolsOpen = true;
@@ -81,7 +84,7 @@
             $('#ajapaik-frontpage-container').show();
             $('#ajapaik-photo-modal').show();
             $('html').removeClass('ajapaik-html-game-map');
-            $('body').addClass('ajapaik-body-frontpage').removeClass('ajapaik-body-game-map').css('overflow', 'hidden');;
+            $('body').addClass('ajapaik-body-frontpage').removeClass('ajapaik-body-game-map');
             $('.modal-backdrop').show();
             $('.footer').show();
             window.locationToolsOpen = false;
