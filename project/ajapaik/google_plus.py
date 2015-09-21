@@ -46,7 +46,7 @@ def auth_return(request):
     content = loads(content)
     try:
         profile = Profile.objects.get(google_plus_id=content['id'])
-        request_profile = request.user.profile
+        request_profile = request.get_user().profile
         if request.user.is_authenticated():
             request.log_action('google_plus.merge', {'id': content['id']}, profile)
             profile.merge_from_other(request_profile)
