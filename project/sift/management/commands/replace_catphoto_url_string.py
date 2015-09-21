@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = CatPhoto.objects.all()
         for p in photos:
-            if 'portaal' in str(p.source_url):
+            if 'portaal' in p.source_url.split('/'):
                 print p.source_url
                 p.source_url = p.source_url.replace('/portaal', '')
                 print p.source_url
