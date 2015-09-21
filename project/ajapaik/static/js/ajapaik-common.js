@@ -1184,7 +1184,7 @@ var map,
             }
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                 window.miniMapMarker = new window.google.maps.Marker({
-                    position: center,
+                    position: new window.google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng),
                     map: window.miniMap,
                     title: window.gettext('Current location'),
                     icon: currentIcon
