@@ -361,7 +361,7 @@ def api_photo_upload(request):
         if not original_photo.first_rephoto:
             original_photo.first_rephoto = new_rephoto.created
         original_photo.light_save()
-        profile.set_calculated_fields()
+        profile.update_rephoto_score()
         profile.save()
     else:
         content['error'] = 2
