@@ -12,5 +12,6 @@ class Command(BaseCommand):
             p.geotags.update(is_correct=True)
             p.set_calculated_fields()
             p.save()
-            p.user.set_calculated_fields()
-            p.user.save()
+            if p.user:
+                p.user.set_calculated_fields()
+                p.user.save()
