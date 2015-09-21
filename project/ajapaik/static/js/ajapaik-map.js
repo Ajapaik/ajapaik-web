@@ -612,7 +612,9 @@
             if (window.preselectPhotoId) {
                 // There's a selected photo specified in the URL, select when ready
                 currentlySelectedMarkerId = window.preselectPhotoId;
-                markerIdToHighlightAfterPageLoad = window.preselectPhotoId;
+                if (window.preselectPhotoLat && window.preselectPhotoLat) {
+                    markerIdToHighlightAfterPageLoad = window.preselectPhotoId;
+                }
             }
             if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
                 // User has very specific parameters, allow to take precedence

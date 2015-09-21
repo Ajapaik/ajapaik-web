@@ -639,6 +639,12 @@
             this.options.isMapview = options.isMapview;
             this.options.isGame = options.isGame;
             this.options.isGallery = options.isGallery;
+            this.options.markerLocked = options.markerLocked;
+            if (options.markerLocked) {
+                this.lockMapToCenter();
+            } else {
+                this.unlockMapFromCenter();
+            }
             this.firstMoveDone = false;
             this.setSaveButtonToInitial();
             this.options.tutorialClosed = options.tutorialClosed;
