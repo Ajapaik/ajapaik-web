@@ -1,6 +1,6 @@
 {% load i18n cache thumbnail compress ajapaik_templatetags static %}
 <!DOCTYPE html>
-<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview or is_col_test or is_tag %} class="ajapaik-html-game-map"{% endif %}
+<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
     <title>
@@ -191,8 +191,8 @@
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/ajapaik_marker_57px.png"/>
+    <link rel="shortcut icon" type="image/ico" href="{% static "images/favicon.ico" %}"/>
+    <link rel="apple-touch-icon" href="{% static "images/ajapaik_marker_57px.png" %}"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -200,12 +200,12 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/justifiedGallery-3.6.0.min.css"/>
+        <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
+        <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
+        <link rel="stylesheet" href="{% static "css/justifiedGallery-3.6.0.min.css" %}"/>
         <link rel="stylesheet" href="{% static "libs/jsPanel-2.5.2/jspanel/jquery.jspanel.min.css" %}"/>
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/ajapaik-style.css"/>
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/ajapaik-geotagger-plugin.css"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
     <script>
@@ -222,7 +222,7 @@
         })();
     </script>
 </head>
-<body class="{% if is_game or is_mapview or is_col_test or is_tag %}ajapaik-flex ajapaik-body-game-map{% endif %} {% if is_frontpage %}ajapaik-body-frontpage{% endif %}">
+<body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}">
 <div id="ajapaik-loading-overlay">
     <div id="ajapaik-spinner"></div>
 </div>
@@ -340,24 +340,20 @@
     </script>
     <script>
         var isMobile = '{{ request.mobile }}' === 'True',
+            isMapview = false,
+            isGame = false,
+            isFrontpage = false,
             saveLocationURL = '{% url 'project.ajapaik.views.geotag_add' %}',
             difficultyFeedbackURL = '{% url 'project.ajapaik.views.difficulty_feedback' %}',
             confirmLocationURL = '{% url 'project.ajapaik.views.geotag_confirm' %}',
             updateCommentCountURL = '{% url 'project.ajapaik.views.update_comment_count' %}',
             leaderboardUpdateURL = '{% url 'project.ajapaik.views.leaderboard' %}',
-            flipFeedbackURL = '{% url 'project.ajapaik.views.leaderboard' %}',
-            allTimeLeaderboardURL = '{% url 'project.ajapaik.views.all_time_leaderboard' %}',
             leaderboardFullURL = '{% url 'project.ajapaik.views.top50' %}',
             photoSelectionURL = '{% url 'project.ajapaik.views.photo_selection' %}',
-            isMapview = false,
-            isGame = false,
-            isFrontpage = false,
             generalInfoModalURL = '{% url 'project.ajapaik.views.get_general_info_modal_content' %}',
             infoModalURL = '{% url 'project.ajapaik.views.get_album_info_modal_content' %}',
             lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
-        {% if request.user.profile.fb_id %}
-            userIsSocialConnected = true;
-        {% elif request.user.profile.google_plus_id %}
+        {% if request.user.profile.fb_id or request.user.profile.google_plus_id %}
             userIsSocialConnected = true;
         {% else %}
             userIsSocialConnected = false;
@@ -365,7 +361,7 @@
     </script>
     {# TODO: We don't need tons of file upload stuff for the small rephoto upload windows, we certainly don't need moment.js, #}
     {# we probably don't need jquery-ui, if we rework these, we will no longer need datetimepicker, we don't need jsPanel #}
-    {# just for showing the sidepanels in game and map mode #}
+    {# just for showing the sidepanels in game and map mode, we don't need mobile detect if we give up jsPanel #}
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -374,25 +370,26 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3&amp;libraries=places,visualization"></script>
     {% compress js %}
-        <script src="{{ STATIC_URL }}libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
-        <script src="{{ STATIC_URL }}js/ajapaik-cookie.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery.justifiedGallery-3.6.0.min.js"></script>
-        <script src="{{ STATIC_URL }}js/mobile-detect-0.4.3.min.js"></script>
-        <script src="{{ STATIC_URL }}js/bigscreen-2.0.4.min.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js"></script>
-        <script src="{{ STATIC_URL }}js/lazysizes-1.2.0.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js"></script>
-        <script src="{{ STATIC_URL }}libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js"></script>
-        <script src="{{ STATIC_URL }}js/URI-1.15.1.min.js"></script>
-        <script src="{{ STATIC_URL }}js/ajapaik-keyboard-controls.js"></script>
-        <script src="{{ STATIC_URL }}js/ajapaik-common.js"></script>
-        <script src="{{ STATIC_URL }}js/ajapaik-geotagger-plugin.js"></script>
+        <script src="{% static "libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js" %}"></script>
+        <script src="{% static "js/tmpl.min.js" %}"></script>
+        <script src="{% static "js/ajapaik-cookie.js" %}"></script>
+        <script src="{% static "js/jquery.justifiedGallery-3.6.0.min.js" %}"></script>
+        <script src="{% static "js/mobile-detect-0.4.3.min.js" %}"></script>
+        <script src="{% static "js/bigscreen-2.0.4.min.js" %}"></script>
+        <script src="{% static "js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js" %}"></script>
+        <script src="{% static "js/lazysizes-1.2.0.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js" %}"></script>
+        <script src="{% static "js/URI-1.15.1.min.js" %}"></script>
+        <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
+        <script src="{% static "js/ajapaik-common.js" %}"></script>
+        <script src="{% static "js/ajapaik-ga.js" %}"></script>
+        <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
         <script src="{% static "js/cookieconsent.min.js" %}"></script>
         <script type="text/javascript">
             window.cookieconsent_options = {

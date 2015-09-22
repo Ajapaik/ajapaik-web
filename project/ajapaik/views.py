@@ -1344,10 +1344,7 @@ def map_objects_by_bounding_box(request):
 def geotag_add(request):
     submit_geotag_form = SubmitGeotagForm(request.POST)
     profile = request.get_user().profile
-    ret = {
-        #"location_correct": False,
-        "this_guess_score": 0
-    }
+    ret = {}
     if submit_geotag_form.is_valid():
         azimuth_score = 0
         new_geotag = submit_geotag_form.save(commit=False)
@@ -1539,22 +1536,26 @@ def difficulty_feedback(request):
     if not user_profile:
         return HttpResponse("Error", status=500)
     user_trustworthiness = _calc_trustworthiness(user_profile.pk)
-    user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
-    level = request.POST.get("level") or None
-    photo_id = request.POST.get("photo_id") or None
-    # FIXME: Why so many lines?
-    if user_profile and level and photo_id:
-        feedback_object = DifficultyFeedback()
-        feedback_object.user_profile = user_profile
-        feedback_object.level = level
-        feedback_object.photo_id = photo_id
-        feedback_object.trustworthiness = user_trustworthiness
-        feedback_object.geotag = user_last_geotag
-        feedback_object.save()
-    photo = Photo.objects.get(id=photo_id)
-    # FIXME: Shouldn't use costly set_calculated_fields here, maybe send extra var to lighten it
-    photo.set_calculated_fields()
-    photo.save()
+    try:
+        user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created")[:1].get()
+        level = request.POST.get("level") or None
+        photo_id = request.POST.get("photo_id") or None
+        # FIXME: Why so many lines?
+        if user_profile and level and photo_id and user_last_geotag:
+            feedback_object = DifficultyFeedback()
+            feedback_object.user_profile = user_profile
+            feedback_object.level = level
+            feedback_object.photo_id = photo_id
+            feedback_object.trustworthiness = user_trustworthiness
+            feedback_object.geotag = user_last_geotag
+            feedback_object.save()
+            photo = Photo.objects.get(id=photo_id)
+            # FIXME: Shouldn't use costly set_calculated_fields here, maybe send extra var to lighten it
+            photo.set_calculated_fields()
+            photo.save()
+    except ObjectDoesNotExist:
+        pass
+
     return HttpResponse("OK")
 
 

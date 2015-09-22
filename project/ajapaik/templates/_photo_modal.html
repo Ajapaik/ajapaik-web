@@ -223,11 +223,6 @@
             window.isMapview = '{{ is_mapview|safe }}';
             window.isMapview = window.isMapview === 'True';
             window.photoModalCurrentImageUrl = '{% url 'project.ajapaik.views.photo_url' photo.id %}';
-            {% if photo.flip %}
-                window.photoModalCurrentPhotoFlipStatus = true;
-            {% else %}
-                window.photoModalCurrentPhotoFlipStatus = false;
-            {% endif %}
             window.photoModalRephotoArray = [];
             window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
             window.currentPhotoURL = '{% url 'project.ajapaik.views.photo_url' photo.id %}';
@@ -242,7 +237,12 @@
                 window.photoModalPhotoLng = {{ photo.lon }};
                 {% if photo.azimuth %}
                     window.photoModalPhotoAzimuth = {{ photo.azimuth }};
+                {% else %}
+                    window.photoModalPhotoAzimuth = null;
                 {% endif %}
+            {% else %}
+                window.photoModalPhotoLat = null;
+                window.photoModalPhotoLng = null;
             {% endif %}
             {% if rephoto_fullscreen %}
                 window.photoModalRephotoFullscreenImageSize = {{ rephoto_fullscreen.size }};

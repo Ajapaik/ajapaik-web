@@ -314,7 +314,6 @@
             if (currentMapDataRequest) {
                 currentMapDataRequest.abort();
             }
-            $('.ajapaik-marker-center-lock-button').hide();
             sw = updateBoundingEdge(sw);
             currentMapDataRequest = $.post('/map_data/', {
                 album: window.albumId,
@@ -465,9 +464,7 @@
         if (lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
-        if (!window.guessResponseReceived) {
-            window.dottedAzimuthLine.setVisible(false);
-        }
+        window.dottedAzimuthLine.setVisible(false);
         window.syncMapStateToURL();
     };
 
@@ -538,8 +535,6 @@
         }
     };
     window.flipPhoto = function () {
-        window.photoModalCurrentPhotoFlipStatus = !window.photoModalCurrentPhotoFlipStatus;
-        window.userFlippedPhoto = true;
         var fullScreenPhoto = $('#ajapaik-full-screen-image');
         if (fullScreenPhoto.hasClass('ajapaik-photo-flipped')) {
             fullScreenPhoto.removeClass('ajapaik-photo-flipped');
@@ -673,7 +668,6 @@
     };
     $(document).ready(function () {
         window.updateLeaderboard();
-        window.realMapElement = $('#ajapaik-map-canvas')[0];
         window.isMapview = true;
         $(window.input).show();
         guessPanelContainer = $('#ajapaik-guess-panel-container');

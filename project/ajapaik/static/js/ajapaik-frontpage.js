@@ -242,9 +242,6 @@
             photoModal.modal().find('#ajapaik-modal-photo').on('load', function () {
                 fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                 fullScreenImage.removeClass('ajapaik-photo-flipped');
-                if (window.photoModalCurrentPhotoFlipStatus) {
-                    fullScreenImage.addClass('ajapaik-photo-flipped');
-                }
                 rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0],
                     window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');

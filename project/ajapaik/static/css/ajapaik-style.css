@@ -307,15 +307,6 @@ body {
 
 }
 
-.ajapaik-marker-center-lock-button {
-    background: #fff url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg) no-repeat center !important;
-    width: 60px;
-    height: 36px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    display: none;
-}
-
 .ajapaik-minimap-confirm-geotag-button {
     background-color: #fff;
     background-image: url(../images/material-design-icons/ic_thumb_up_black_24px.svg);
@@ -449,35 +440,6 @@ body {
 #ajapaik-feedback-div a:hover {
     background: #06c;
 }
-
-.ajapaik-marker-center-lock-button:hover {
-    background-color: #fff !important;
-}
-
-.ajapaik-marker-center-lock-button:active {
-    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-marker-center-lock-button.active {
-    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg) !important;
-    background-color: #fff !important;
-}
-
-.ajapaik-marker-center-lock-button.active:focus {
-    outline: none;
-}
-
-.ajapaik-marker-center-lock-button:focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
-.ajapaik-marker-center-lock-button.focus {
-    outline: none;
-    background-color: #fff !important;
-}
-
 
 
 .ajapaik-header-info-button {
@@ -697,10 +659,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 #ajapaik-header-profile-button {
     padding-top: 8px;
 }
-
-/*#ajapaik-header-profile-button-hidden-xs {*/
-    /*background-image: url(../images/material-design-icons/ic_assessment_24px.svg);*/
-/*}*/
 
 @media (min-width: 1200px) {
     .modal-xxl {

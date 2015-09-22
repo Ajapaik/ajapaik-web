@@ -163,6 +163,7 @@
 #ajp-geotagger-image-thumb {
     margin-right: auto;
     margin-left: auto;
+    max-height: 250px;
 }
 
 .ajp-image-responsive {
@@ -372,4 +373,9 @@
 
 .ajp-invisible {
     visibility: hidden;
+}
+
+#ajp-extra-close-streetview-button {
+    bottom: 3% !important;
+    right: 3% !important;
 }
