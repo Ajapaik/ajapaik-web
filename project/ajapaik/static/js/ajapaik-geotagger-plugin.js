@@ -443,8 +443,14 @@
                     var $this = $(this);
                     if ($this.hasClass('active')) {
                         that.lockMapToCenter();
+                        if (typeof window.reportGeotaggerMapLock === 'function') {
+                            window.reportGeotaggerMapLock(this.options.currentPhotoId);
+                        }
                     } else {
                         that.unlockMapFromCenter();
+                        if (typeof window.reportGeotaggerMapUnlock === 'function') {
+                            window.reportGeotaggerMapUnlock(this.options.currentPhotoId);
+                        }
                     }
                 }
                 that.setCorrectInstructionString();
@@ -803,9 +809,6 @@
             this.map.setCenter(this.realMarker.position);
             this.setCursorToPanorama();
             this.options.markerLocked = true;
-            if (typeof window.reportGeotaggerMapLock === 'function') {
-                window.reportGeotaggerMapLock(this.options.currentPhotoId);
-            }
         },
         unlockMapFromCenter: function () {
             $('#ajp-geotagger-guess-marker').hide();
@@ -819,9 +822,6 @@
             this.mapMarkerDragendListenerActive = true;
             this.setCursorToAuto();
             this.options.markerLocked = false;
-            if (typeof window.reportGeotaggerMapUnlock === 'function') {
-                window.reportGeotaggerMapUnlock(this.options.currentPhotoId);
-            }
         },
         setCorrectInstructionString: function () {
             var element = $('#ajp-geotagger-map-instruction-text').find('p');
@@ -1062,7 +1062,7 @@
                 if (typeof window.reportGeotaggerSearch === 'function') {
                     window.reportGeotaggerSearch(term);
                 }
-            }, 1000);
+            }, 2000);
         }
     };
     $.fn.AjapaikGeotagger = function (options) {

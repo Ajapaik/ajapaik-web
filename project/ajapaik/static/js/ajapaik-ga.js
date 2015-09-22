@@ -17,37 +17,37 @@
         _gaq.push(['_trackEvent', 'geotagger', 'marker-drag-end', null, 0, false]);
     };
     window.reportGeotaggerFullScreenOpen = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'open-full-screen', id, 0, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'open-full-screen', id.toString(), 0, false]);
     };
     window.reportGeotaggerStreetPanoramaOpen = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'open-street-view', id, 0, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'open-street-view', id.toString(), 0, false]);
     };
     window.reportGeotaggerMapUnlock = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'unlock', id, 0, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'unlock', id.toString(), 0, false]);
     };
     window.reportGeotaggerMapLock = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'lock', id, 0, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'lock', id.toString(), 0, false]);
     };
     window.reportGeotaggerShowSearch = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'show-search', id, 0, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'show-search', id.toString(), 0, false]);
     };
     window.reportGeotaggerSearch = function (term) {
         _gaq.push(['_trackEvent', 'geotagger', 'search', term, 0, false]);
     };
     window.reportGeotaggerShowDescription = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'show-description', id, 0, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'show-description', id.toString(), 0, false]);
     };
     window.reportGeotaggerFlip = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'flip', id, 0, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'flip', id.toString(), 0, false]);
     };
     window.reportGeotaggerSkip = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'skip', id, -25, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'skip', id.toString(), -25, false]);
     };
     window.reportGeotaggerSaveLocationOnly = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'save-location-only', id, 50, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'save-location-only', id.toString(), 50, false]);
     };
     window.reportGeotaggerSaveLocationAndDirection = function (id) {
-        _gaq.push(['_trackEvent', 'geotagger', 'save-location-and-direction', id, 100, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'save-location-and-direction', id.toString(), 100, false]);
     };
     window.reportGeotaggerShowInstructions = function () {
         _gaq.push(['_trackEvent', 'geotagger', 'show-instructions', null, 0, false]);
@@ -56,7 +56,7 @@
         _gaq.push(['_trackEvent', 'geotagger', 'hide-instructions', null, 0, false]);
     };
     window.reportGeotaggerSendFeedback = function (value) {
-        _gaq.push(['_trackEvent', 'geotagger', 'send-feedback', value, 25, false]);
+        _gaq.push(['_trackEvent', 'geotagger', 'send-feedback', value.toString(), 25, false]);
     };
     window.reportGeotaggerCorrect = function () {
         _gaq.push(['_trackEvent', 'geotagger', 'tag-feedback', 'correct', 100, false]);
