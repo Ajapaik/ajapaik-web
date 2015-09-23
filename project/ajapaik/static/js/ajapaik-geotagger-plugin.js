@@ -451,12 +451,12 @@
                     if ($this.hasClass('active')) {
                         that.lockMapToCenter();
                         if (typeof window.reportGeotaggerMapLock === 'function') {
-                            window.reportGeotaggerMapLock(this.options.currentPhotoId);
+                            window.reportGeotaggerMapLock(that.options.currentPhotoId);
                         }
                     } else {
                         that.unlockMapFromCenter();
                         if (typeof window.reportGeotaggerMapUnlock === 'function') {
-                            window.reportGeotaggerMapUnlock(this.options.currentPhotoId);
+                            window.reportGeotaggerMapUnlock(that.options.currentPhotoId);
                         }
                     }
                 }
