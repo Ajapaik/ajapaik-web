@@ -721,6 +721,7 @@
             this.options.isGallery = options.isGallery;
             this.options.markerLocked = options.markerLocked;
             this.streetPanorama.setVisible(false);
+            this.azimuthLine.setVisible(false);
             if (options.markerLocked) {
                 this.lockMapToCenter();
             } else {
