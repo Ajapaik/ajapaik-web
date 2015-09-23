@@ -1211,18 +1211,37 @@ var map,
         }
     });
 
-    $(document).on('click', '.ajapaik-album-selection-album-more-button', function (e) {
+    $(document).on('click', '.ajapaik-album-selection-album-more-button, .ajapaik-photo-modal-album-more-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var targetDiv = $('#ajapaik-info-modal');
         if ($(this).data('id') && window.infoModalURL) {
+            var fbShareGallery = true,
+                fbShareMap = false,
+                fbShareGame = false,
+                linkToGallery = true,
+                linkToMap = true,
+                linkToGame = true;
+            if (window.isGallery) {
+                fbShareGallery = true;
+                fbShareMap = false;
+                linkToGallery = false;
+                linkToMap = true;
+            } else if (window.isMapview) {
+                fbShareGallery = false;
+                fbShareMap = true;
+                linkToGallery = true;
+                linkToMap = false;
+            }
             $.ajax({
                 url: window.infoModalURL + $(this).data('id'),
                 data: {
-                    linkToMap: true,
-                    linkToGame: true,
-                    linkToGallery: true,
-                    fbShareGallery: true
+                    linkToMap: linkToMap,
+                    linkToGame: linkToGame,
+                    linkToGallery: linkToGallery,
+                    fbShareGallery: fbShareGallery,
+                    fbShareMap: fbShareMap,
+                    fbShareGame: fbShareGame
                 },
                 success: function (resp) {
                     targetDiv.html(resp);
@@ -1232,7 +1251,11 @@ var map,
                 }
             });
         }
-        _gaq.push(['_trackEvent', 'Gallery', 'Album caption info click']);
+        if (window.isGallery) {
+           _gaq.push(['_trackEvent', 'Gallery', 'Album caption info click']);
+        } else if (window.isMapview) {
+            _gaq.push(['_trackEvent', 'Mapview', 'Album caption info click']);
+        }
     });
 
     $(document).on('click', '.ajapaik-change-language-link', function (e) {

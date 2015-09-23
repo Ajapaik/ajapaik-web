@@ -99,7 +99,7 @@
             }
         };
         this.mapMousemoveListenerFunction = function (e) {
-            if (!that.feedbackMode) {
+            if (!that.feedbackMode && that.firstMoveDone) {
                 if (that.drawAzimuthLineOnMouseMove) {
                     that.angleBetweenMouseAndMarker = that.radiansToDegrees(that.getAzimuthBetweenMouseAndMarker(e));
                     that.azimuthLine.icons[0].repeat = '7px';
@@ -131,7 +131,7 @@
                             that.azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
                             that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
                             that.azimuthLine.icons[0].repeat = '2px';
-                            that.setCursorToAuto();
+                            //that.setCursorToAuto();
                             that.setSaveButtonToLocationAndAzimuth();
                         }
                     } else {
@@ -145,7 +145,7 @@
                             that.azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
                             that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
                             that.azimuthLine.icons[0].repeat = '2px';
-                            that.setCursorToAuto();
+                            //that.setCursorToAuto();
                             that.setSaveButtonToLocationAndAzimuth();
                         } else {
                             that.panoramaMarker.setVisible(false);
@@ -180,6 +180,7 @@
                 if (!isMobile) {
                     that.azimuthLine.setVisible(false);
                 }
+                that.setCursorToPanorama();
             }
         };
         this.mapDragstartListenerFunction = function () {
@@ -200,7 +201,6 @@
         this.mapDragendListenerFunction = function () {
             if (!that.feedbackMode) {
                 that.firstMoveDone = true;
-                that.setCursorToPanorama();
                 that.setSaveButtonToLocationOnly();
                 if (that.options.mode === 'vantage') {
                     that.lockButton.show();
@@ -218,8 +218,10 @@
         this.mapMarkerDragListenerFunction = function () {
             if (!that.feedbackMode) {
                 if (that.mapMarkerDragListenerActive) {
-                    that.angleBetweenMarkerAndPanoramaMarker =
-                        that.radiansToDegrees(that.getAzimuthBetweenTwoMarkers(that.realMarker, that.panoramaMarker));
+                    if (that.panoramaMarker && that.realMarker) {
+                        that.angleBetweenMarkerAndPanoramaMarker =
+                            that.radiansToDegrees(that.getAzimuthBetweenTwoMarkers(that.realMarker, that.panoramaMarker));
+                    }
                     that.azimuthLine.setPath([that.realMarker.position,
                         that.simpleCalculateMapLineEndPoint(that.angleBetweenMarkerAndPanoramaMarker,
                             that.panoramaMarker.position, 0.01)]);
@@ -231,6 +233,9 @@
                 if (that.mapMarkerDragendListenerActive && !isMobile) {
                     that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
                 }
+                that.drawAzimuthLineOnMouseMove = true;
+                that.firstMoveDone = true;
+                that.azimuthLine.setVisible(true);
             }
             if (typeof window.reportGeotaggerMarkerDragend === 'function') {
                 window.reportGeotaggerMarkerDragend();
@@ -439,7 +444,7 @@
                 this.lockButton.addClass('hidden');
             }
             this.lockButton.attr('title', gettext('Toggle map center lock')).click(function () {
-                if (that.firstMoveDone && that.options.mode === 'vantage') {
+                if (that.options.mode === 'vantage') {
                     var $this = $(this);
                     if ($this.hasClass('active')) {
                         that.lockMapToCenter();
@@ -798,6 +803,7 @@
         },
         lockMapToCenter: function () {
             $('#ajp-geotagger-guess-marker').show();
+            this.firstMoveDone = false;
             this.lockButton.removeClass('active');
             this.realMarker.setVisible(false);
             this.realMarker.set('draggable', false);
@@ -809,9 +815,14 @@
             this.map.setCenter(this.realMarker.position);
             this.setCursorToPanorama();
             this.options.markerLocked = true;
+            this.azimuthLine.setVisible(false);
+            this.panoramaMarker.setVisible(false);
+            this.saveAzimuth = false;
+            this.setCorrectInstructionString();
         },
         unlockMapFromCenter: function () {
             $('#ajp-geotagger-guess-marker').hide();
+            this.firstMoveDone = false;
             this.lockButton.addClass('active');
             this.realMarker.setVisible(true);
             this.realMarker.set('draggable', true);
@@ -822,6 +833,10 @@
             this.mapMarkerDragendListenerActive = true;
             this.setCursorToAuto();
             this.options.markerLocked = false;
+            this.azimuthLine.setVisible(false);
+            this.panoramaMarker.setVisible(false);
+            this.saveAzimuth = false;
+            this.setCorrectInstructionString();
         },
         setCorrectInstructionString: function () {
             var element = $('#ajp-geotagger-map-instruction-text').find('p');
@@ -842,7 +857,7 @@
                     } else if (this.firstMoveDone) {
                         element.text(gettext('Click on the map to lock the direction of the view or click yellow button to save only the location.'));
                     } else {
-                        element.text(gettext('Drag the MARKER to where the photographer was standing.'));
+                        element.text(gettext('Now you can drag the MARKER where the photographer was standing and the MAP separately.'));
                     }
                 }
             } else if (this.options.mode === 'approximate') {

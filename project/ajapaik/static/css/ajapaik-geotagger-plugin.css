@@ -378,4 +378,6 @@
 #ajp-extra-close-streetview-button {
     bottom: 3% !important;
     right: 3% !important;
+    min-width: 150px;
+    border-radius: 0;
 }

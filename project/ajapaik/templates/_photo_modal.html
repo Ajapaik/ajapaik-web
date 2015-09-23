@@ -109,21 +109,28 @@
                 {% endif %}
                 {% if albums|length > 0 %}
                     <div class="row-fluid">
-                        <span id="ajapaik-photo-modal-albums-icon"
-                              title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}"></span>
-                        {% if is_mapview %}
-                            {% for a in albums %}
+                        {% for a in albums %}
+                            <div class="row ajapaik-no-left-margin-row">
+                                {% if forloop.first %}
+                                    <i class="material-icons ajapaik-photo-modal-album-icon"
+                                       title="{% blocktrans count counter=albums|length %}
+                                            Picture belongs to album
+                                        {% plural %}
+                                            Picture belongs to albums:
+                                        {% endblocktrans %}">photo_album</i>
+                                {% endif %}
                                 <a class="ajapaik-photo-modal-album-link"
-                                   href="{% url 'project.ajapaik.views.mapview' %}?album={{ a.id }}">{{ a.name }}</a>
-                                {% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        {% elif is_frontpage or is_selection %}
-                            {% for a in albums %}
-                                <a class="ajapaik-photo-modal-album-link"
-                                   href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">{{ a.name }}</a>
-                                {% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        {% endif %}
+                                   href="{% if is_mapview %}
+                                        {% url 'project.ajapaik.views.mapview' %}?album={{ a.id }}
+                                    {% elif is_frontpage or is_selection %}
+                                        {% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}
+                                    {% endif %}">
+                                    {{ a.name }}
+                                </a>
+                                <div class="ajapaik-photo-modal-album-more-button" role="button"
+                                     title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
+                            </div>
+                        {% endfor %}
                     </div>
                 {% endif %}
                 </div>
