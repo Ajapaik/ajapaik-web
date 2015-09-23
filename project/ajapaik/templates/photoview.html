@@ -23,7 +23,7 @@
     <div class="container-fluid" id="ajapaik-photoview-container">
         <div class="col-xs-10">
             <div class="row-fluid">
-                <div class="{% if rephoto %}col-xs-6{% else %}col-xs-9{% endif %}">
+                <div class="{% if rephoto %}col-xs-6{% elif is_mobile %}col-xs-12{% else %}col-xs-9{% endif %}">
                     <div id="ajapaik-photoview-main-photo-container">
                         <a class="fullscreen" id="ajapaik-full-screen-link">
                             <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12

@@ -1162,7 +1162,7 @@ def photoslug(request, photo_id, pseudo_slug):
         rephoto_fullscreen = _make_fullscreen(first_rephoto)
 
     photo_obj.tags = ','.join(photo_obj.description.split(' '))
-    if rephoto:
+    if rephoto and rephoto.description:
         rephoto.tags = ','.join(rephoto.description.split(' '))
 
     if 'photo_selection' in request.session:
