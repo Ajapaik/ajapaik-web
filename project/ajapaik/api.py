@@ -228,7 +228,7 @@ def api_albums(request):
 #@authentication_classes((CustomAuthentication,))
 @permission_classes((AllowAny,))
 def api_album_nearest(request):
-    if request.METHOD == 'GET':
+    if request.method == 'GET':
         form = ApiAlbumNearestForm(request.query_params)
     else:
         form = ApiAlbumNearestForm(request.data)
