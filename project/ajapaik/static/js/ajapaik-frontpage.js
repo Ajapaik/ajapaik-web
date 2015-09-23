@@ -240,7 +240,6 @@
         openPhotoDrawer = function (content) {
             photoModal.html(content);
             photoModal.modal().find('#ajapaik-modal-photo').on('load', function () {
-                fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                 fullScreenImage.removeClass('ajapaik-photo-flipped');
                 rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                 window.prepareFullscreen(window.photoModalFullscreenImageSize[0],
@@ -248,6 +247,12 @@
                 if (window.photoModalRephotoFullscreenImageSize) {
                     window.prepareFullscreen(window.photoModalRephotoFullscreenImageSize[0],
                         window.photoModalRephotoFullscreenImageSize[1], '#ajapaik-rephoto-full-screen-image');
+                }
+                if (window.fullscreenEnabled) {
+                    fullScreenImage.attr('src', window.photoModalFullscreenImageUrl)
+                        .attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
+                } else {
+                    fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                 }
                 window.showPhotoMapIfApplicable();
                 $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');

@@ -1108,6 +1108,7 @@ def _make_fullscreen(p):
 
 
 def photoslug(request, photo_id, pseudo_slug):
+    request.get_user()
     photo_obj = get_object_or_404(Photo, id=photo_id)
 
     # switch places if rephoto url

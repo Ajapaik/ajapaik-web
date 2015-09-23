@@ -641,6 +641,9 @@
                                     } else {
                                         $(targetDiv.find('.alert-success')[0]).html(item.message).show();
                                     }
+                                    if (item.message === 'OK') {
+                                        window._gaq.push(['_trackEvent', 'Curator', 'New photo in Ajapaik', null, 100, false]);
+                                    }
                                 }
                             }
                         }

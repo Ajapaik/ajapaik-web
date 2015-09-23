@@ -117,11 +117,11 @@
                         <li role="presentation" class="disabled-link">
                             <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                 {% if fb_share_gallery %}
-                                    <input type="text" class="form-control" value="{{ share_gallery_link }}?album={{ album.id }}">
+                                    <a href="{{ share_gallery_link }}?album={{ album.id }}">{{ share_gallery_link }}?album={{ album.id }}</a>
                                 {% elif fb_share_map %}
-                                    <input type="text" class="form-control" value="{{ share_map_link }}?album={{ album.id }}">
+                                    <a href="{{ share_map_link }}?album={{ album.id }}">{{ share_map_link }}?album={{ album.id }}</a>
                                 {% else %}
-                                    <input type="text" class="form-control" value="{{ share_game_link }}?album={{ album.id }}">
+                                    <a href="{{ share_game_link }}?album={{ album.id }}">{{ share_game_link }}?album={{ album.id }}</a>
                                 {% endif %}
                             </div>
                         </li>

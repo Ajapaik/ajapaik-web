@@ -189,11 +189,19 @@
                 window.photoModalCurrentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 modalPhoto.on('load', photoLoadModalResizeFunction);
-                fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
-                    .on('load', function () {
-                    window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
-                    fullScreenImage.unbind('load');
-                });
+                if (window.fullscreenEnabled) {
+                    fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
+                        .on('load', function () {
+                        window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
+                        fullScreenImage.unbind('load');
+                    });
+                } else {
+                    fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
+                        .on('load', function () {
+                        window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
+                        fullScreenImage.unbind('load');
+                    });
+                }
                 fullScreenImage.removeClass('ajapaik-photo-flipped');
                 modalPhoto.removeClass('ajapaik-photo-flipped');
                 flipOverlayButtons.removeClass('active');

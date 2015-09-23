@@ -188,6 +188,7 @@
                 that.drawAzimuthLineOnMouseMove = false;
                 that.azimuthLine.setVisible(false);
                 that.panoramaMarker.setVisible(false);
+                that.saveAzimuth = false;
                 that.setCorrectInstructionString();
                 if (typeof window.reportGeotaggerMapDragstart === 'function') {
                     window.reportGeotaggerMapDragstart();
@@ -225,6 +226,7 @@
                     that.azimuthLine.setPath([that.realMarker.position,
                         that.simpleCalculateMapLineEndPoint(that.angleBetweenMarkerAndPanoramaMarker,
                             that.panoramaMarker.position, 0.01)]);
+                    that.azimuthLine.icons[0].repeat = '7px';
                 }
             }
         };
@@ -233,9 +235,9 @@
                 if (that.mapMarkerDragendListenerActive && !isMobile) {
                     that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
                 }
-                that.drawAzimuthLineOnMouseMove = true;
                 that.firstMoveDone = true;
                 that.azimuthLine.setVisible(true);
+                that.azimuthLine.icons[0].repeat = '2px';
             }
             if (typeof window.reportGeotaggerMarkerDragend === 'function') {
                 window.reportGeotaggerMarkerDragend();
@@ -495,6 +497,10 @@
                 .text(gettext('Grab and drag the MAP so that the marker is where the photographer was standing.'));
             searchBox.attr('placeholder', gettext('Search box')).on('change textInput input', function () {
                 that.delayedReportSearch($(this).val());
+            }).on('focus', function () {
+                window.hotkeysActive = false;
+            }).on('blur', function () {
+                window.hotkeysActive = true;
             });
             $('#ajp-geotagger-feedback').find('#ajp-geotagger-feedback-thanks').html(gettext('Thank you!'));
             this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(searchBox.get(0));

@@ -222,10 +222,10 @@ def api_albums(request):
     return Response(content)
 
 
+# TODO: Re-enable authentication, allow only POST, remove GET stuff
 @api_view(['POST', 'GET'])
 @parser_classes((FormParser,))
-# TODO: Re-enable!
-#@authentication_classes((CustomAuthentication,))
+# @authentication_classes((CustomAuthentication,))
 @permission_classes((AllowAny,))
 def api_album_nearest(request):
     if request.method == 'GET':

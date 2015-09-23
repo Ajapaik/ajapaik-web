@@ -171,6 +171,11 @@ var map,
                 .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
+            $(input).on('focus', function () {
+                window.hotkeysActive = false;
+            }).on('blur', function () {
+                window.hotkeysActive = true;
+            });
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button')
@@ -526,7 +531,7 @@ var map,
         }
     });
 
-    window.showPhotoMapIfApplicable = function () {
+    window.showPhotoMapIfApplicable = function (isPhotoview) {
         var arrowIcon = {
             path: 'M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z',
             strokeColor: 'white',
@@ -553,7 +558,11 @@ var map,
             mapContainer = $('#ajapaik-photo-modal-map-container');
         if (!window.isMobile && mapContainer.length > 0 && (!photoModalRephotoArray ||
             photoModalRephotoArray.length === 0 || userClosedRephotoTools)) {
-            mapContainer.show().css('height', container.height());
+            if (isPhotoview) {
+                mapContainer.css('height', $('#ajapaik-photoview-main-photo').height());
+            } else {
+                mapContainer.show().css('height', container.height());
+            }
             if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
                 $('#ajapaik-minimap-disabled-overlay').show();
             } else {
@@ -771,7 +780,7 @@ var map,
         $('#ajapaik-photo-modal-rephoto-column').hide();
         $('#ajapaik-rephoto-selection').hide();
         $('#ajapaik-show-rephoto-selection-overlay-button').show();
-        $('#ajapaik-grab-link').find('input').prop('value', window.hostname + window.originalPhotoAbsoluteURL);
+        $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
         $('#ajapaik-photo-modal-original-photo-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
         $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-xs-5').removeClass('col-xs-6').addClass('col-xs-12');
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
@@ -1232,9 +1241,14 @@ var map,
                 fbShareMap = true;
                 linkToGallery = true;
                 linkToMap = false;
+            } else if (window.isPhotoview) {
+                fbShareGallery = true;
+                fbShareMap = false;
+                linkToGallery = true;
+                linkToMap = true;
             }
             $.ajax({
-                url: window.infoModalURL + $(this).data('id'),
+                url: window.infoModalURL + $(this).data('id') + '/',
                 data: {
                     linkToMap: linkToMap,
                     linkToGame: linkToGame,

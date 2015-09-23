@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-17 14:42+0300\n"
+"POT-Creation-Date: 2015-09-23 16:53+0300\n"
 "PO-Revision-Date: 2015-09-17 10:02+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
@@ -92,10 +92,6 @@ msgid "English"
 msgstr "englanti"
 
 #: project/ajapaik/settings/default.py:69
-msgid "Russian"
-msgstr "venäjä"
-
-#: project/ajapaik/settings/default.py:70
 msgid "Finnish"
 msgstr "suomi"
 
@@ -181,6 +177,8 @@ msgstr ""
 
 #: project/ajapaik/templates/_album_selection.html:32
 #: project/ajapaik/templates/_header.html:24
+#: project/ajapaik/templates/_photo_modal.html:127
+#: project/ajapaik/templates/photoview.html:148
 msgid "Album details"
 msgstr ""
 
@@ -224,13 +222,11 @@ msgstr "Kaikkien aikojen pistetaulukko"
 
 #: project/ajapaik/templates/_comments.html:7
 #: project/ajapaik/templates/_photo_modal_comments.html:7
-#: project/ajapaik/templates/photoview.html:29
 msgid "Original photo"
 msgstr "Alkuperäinen valokuva"
 
 #: project/ajapaik/templates/_comments.html:11
 #: project/ajapaik/templates/_photo_modal_comments.html:11
-#: project/ajapaik/templates/photoview.html:149
 msgid "Rephoto"
 msgstr "Uuskuva"
 
@@ -510,8 +506,8 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:93 project/ajapaik/views.py:1479
-#: project/ajapaik/views.py:1495 project/ajapaik/views.py:1527
+#: project/ajapaik/templates/_header.html:93 project/ajapaik/views.py:1480
+#: project/ajapaik/views.py:1496 project/ajapaik/views.py:1528
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
@@ -801,8 +797,8 @@ msgid "Some nearby albums"
 msgstr "Lähellä olevia albumeita"
 
 #: project/ajapaik/templates/_info_modal_content.html:113
-#: project/ajapaik/templates/_photo_modal.html:188
-#: project/ajapaik/templates/photoview.html:58
+#: project/ajapaik/templates/_photo_modal.html:191
+#: project/ajapaik/templates/photoview.html:64
 msgid "Share"
 msgstr "Jaa"
 
@@ -818,38 +814,33 @@ msgstr ""
 msgid "User Google photo"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:20
-msgid "Photo modal main photo"
-msgstr ""
-
-#: project/ajapaik/templates/_photo_modal.html:53
-msgid "Photo modal rephoto"
-msgstr ""
-
-#: project/ajapaik/templates/_photo_modal.html:113
-#: project/ajapaik/templates/photoview.html:131
+#: project/ajapaik/templates/_photo_modal.html:116
+#: project/ajapaik/templates/photoview.html:141
+#, fuzzy
+#| msgid "Parent album"
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sisältävä albumi"
+msgstr[1] "Sisältävä albumi"
 
-#: project/ajapaik/templates/_photo_modal.html:168
-#: project/ajapaik/templates/photoview.html:176
+#: project/ajapaik/templates/_photo_modal.html:171
+#: project/ajapaik/templates/photoview.html:194
 msgid "Unknown author"
 msgstr "Tuntematon tekijä"
 
-#: project/ajapaik/templates/_photo_modal.html:184
+#: project/ajapaik/templates/_photo_modal.html:187
 #: project/ajapaik/templates/game.html:51
-#: project/ajapaik/templates/photoview.html:87
+#: project/ajapaik/templates/photoview.html:94
+#: project/ajapaik/templates/photoview.html:160
 msgid "Pick the shooting location!"
 msgstr "Valitse kuvauspaikka"
 
-#: project/ajapaik/templates/_photo_modal.html:185
-#: project/ajapaik/templates/photoview.html:81
+#: project/ajapaik/templates/_photo_modal.html:188
+#: project/ajapaik/templates/photoview.html:88
 msgid "Add rephoto"
 msgstr "Lisää uuskuva"
 
-#: project/ajapaik/templates/_photo_modal.html:206
+#: project/ajapaik/templates/_photo_modal.html:208
 msgid "Discuss"
 msgstr "Keskustele"
 
@@ -1022,23 +1013,23 @@ msgstr[1] ""
 "                    Albumissa on %(counter)s valokuvaa,\n"
 "                "
 
-#: project/ajapaik/templates/base_bootstrap.html:234
+#: project/ajapaik/templates/base_bootstrap.html:236
 msgid "Geolocation error"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:237
+#: project/ajapaik/templates/base_bootstrap.html:239
 msgid "Sorting"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:247
+#: project/ajapaik/templates/base_bootstrap.html:249
 msgid "feedback"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:258
+#: project/ajapaik/templates/base_bootstrap.html:260
 msgid "Estonian Photographic Heritage Society"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:282
+#: project/ajapaik/templates/base_bootstrap.html:284
 msgid "See also – Sift.pics"
 msgstr ""
 
@@ -1174,17 +1165,17 @@ msgid "Private "
 msgstr ""
 
 #: project/ajapaik/templates/frontpage.html:27
-#: project/ajapaik/templates/photoview.html:94
+#: project/ajapaik/templates/photoview.html:101
 msgid "Image has location and view direction info"
 msgstr ""
 
 #: project/ajapaik/templates/frontpage.html:30
-#: project/ajapaik/templates/photoview.html:102
+#: project/ajapaik/templates/photoview.html:109
 msgid "Image has only location, no view direction"
 msgstr ""
 
 #: project/ajapaik/templates/frontpage.html:33
-#: project/ajapaik/templates/photoview.html:110
+#: project/ajapaik/templates/photoview.html:117
 msgid "Image has no location info"
 msgstr ""
 
@@ -1194,20 +1185,6 @@ msgstr ""
 
 #: project/ajapaik/templates/frontpage.html:41
 msgid "Comments"
-msgstr ""
-
-#: project/ajapaik/templates/frontpage.html:58
-#: project/ajapaik/templates/game.html:82
-#: project/ajapaik/templates/mapview.html:21
-#: project/ajapaik/templates/photo_selection.html:41
-#: project/ajapaik/templates/photoview.html:12
-msgid "Original photo on full screen"
-msgstr ""
-
-#: project/ajapaik/templates/frontpage.html:63
-#: project/ajapaik/templates/mapview.html:26
-#: project/ajapaik/templates/photoview.html:18
-msgid "Rephoto on full screen"
 msgstr ""
 
 #: project/ajapaik/templates/game.html:26
@@ -1234,7 +1211,7 @@ msgstr "ehdotusta on lisätty tälle kuvalle. Lisää omasi!"
 msgid "Back home"
 msgstr "Takaisin kotiin"
 
-#: project/ajapaik/templates/mapview.html:13
+#: project/ajapaik/templates/mapview.html:12
 msgid "Search box"
 msgstr "Hakukenttä"
 
@@ -1313,25 +1290,28 @@ msgstr "Valittu alue:"
 msgid "Photo uploading requires connecting your account with Facebook."
 msgstr "Valokuvan lataaminen vaatii tilin yhdistämistä Facebookiin"
 
-#: project/ajapaik/templates/photoview.html:42
-msgid "Address"
+#: project/ajapaik/templates/photoview.html:48
+msgid "Approximate address"
 msgstr ""
 
-#: project/ajapaik/templates/photoview.html:120
+#: project/ajapaik/templates/photoview.html:127
 msgid "user has submitted a location for this picture"
 msgstr "käyttäjä on merkinnyt sijainnin tälle kuvalle"
 
-#: project/ajapaik/templates/photoview.html:122
+#: project/ajapaik/templates/photoview.html:129
 msgid "users have submitted a location for this picture"
 msgstr "käyttäjää on merkinnyt sijainnin tälle kuvalle"
 
-#: project/ajapaik/templates/photoview.html:181
+#: project/ajapaik/templates/photoview.html:167
+#: project/ajapaik/templates/photoview.html:211
+#, fuzzy
+#| msgid "Rephoto"
+msgid "rephoto"
+msgstr "Uuskuva"
+
+#: project/ajapaik/templates/photoview.html:199
 msgid "Date taken"
 msgstr "Kuvauspäivä"
-
-#: project/ajapaik/templates/photoview.html:193
-msgid "Rephoto thumbnail"
-msgstr ""
 
 #: project/ajapaik/views.py:544
 msgid "Geotagging game"
@@ -1349,26 +1329,26 @@ msgstr ""
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:1298 project/ajapaik/views.py:1301
-#: project/ajapaik/views.py:1303
+#: project/ajapaik/views.py:1299 project/ajapaik/views.py:1302
+#: project/ajapaik/views.py:1304
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: project/ajapaik/views.py:1404
+#: project/ajapaik/views.py:1405
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr ""
 
-#: project/ajapaik/views.py:1406
+#: project/ajapaik/views.py:1407
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: project/ajapaik/views.py:1408
+#: project/ajapaik/views.py:1409
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: project/ajapaik/views.py:1620
+#: project/ajapaik/views.py:1622
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -1376,11 +1356,11 @@ msgstr ""
 "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
 "jaa syntynyt albumi!"
 
-#: project/ajapaik/views.py:1622
+#: project/ajapaik/views.py:1624
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - kuratoi"
 
-#: project/ajapaik/views.py:1932
+#: project/ajapaik/views.py:1934
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
@@ -1390,27 +1370,88 @@ msgstr ""
 "sen sijainnin kartalle, mutta sitä ei näytetä muille käyttäjille ennen kuin "
 "saamme korkealaatuisemman kuvan instituutiosta."
 
-#: project/ajapaik/views.py:1934
+#: project/ajapaik/views.py:1936
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:1957
+#: project/ajapaik/views.py:1959
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
-#: project/ajapaik/views.py:1966
+#: project/ajapaik/views.py:1968
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: project/ajapaik/views.py:1977
+#: project/ajapaik/views.py:1979
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: project/ajapaik/views.py:1979
+#: project/ajapaik/views.py:1981
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
 #, fuzzy
-#~| msgid "Back home"
-#~ msgid "Back"
-#~ msgstr "Takaisin kotiin"
+#| msgid "Back home"
+msgid "Back"
+msgstr "Takaisin kotiin"
+
+#, fuzzy
+#~| msgid ""
+#~| "\n"
+#~| "                            %(counter)s picture in this album.\n"
+#~| "                        "
+#~| msgid_plural ""
+#~| "\n"
+#~| "                            %(counter)s pictures in this album.\n"
+#~| "                        "
+#~ msgid ""
+#~ "\n"
+#~ "                                            Picture belongs to album\n"
+#~ "                                        "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                                            Picture belongs to albums:\n"
+#~ "                                        "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "                            %(counter)s kuva tässä albumissa.\n"
+#~ "                        "
+#~ msgstr[1] ""
+#~ "\n"
+#~ "                            %(counter)s kuvaa tässä albumissa.\n"
+#~ "                        "
+
+#, fuzzy
+#~| msgid ""
+#~| "\n"
+#~| "                            %(counter)s picture in this album.\n"
+#~| "                        "
+#~| msgid_plural ""
+#~| "\n"
+#~| "                            %(counter)s pictures in this album.\n"
+#~| "                        "
+#~ msgid ""
+#~ "\n"
+#~ "                                                Picture belongs to album\n"
+#~ "                                            "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                                                Picture belongs to "
+#~ "albums:\n"
+#~ "                                            "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "                            %(counter)s kuva tässä albumissa.\n"
+#~ "                        "
+#~ msgstr[1] ""
+#~ "\n"
+#~ "                            %(counter)s kuvaa tässä albumissa.\n"
+#~ "                        "
+
+#~ msgid "Russian"
+#~ msgstr "venäjä"

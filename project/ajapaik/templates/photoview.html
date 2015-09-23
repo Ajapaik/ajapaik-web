@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block layout %}
+    {% include "_info_modal.html" %}
     {% include "_rephoto_upload_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
@@ -22,7 +23,7 @@
     <div class="container-fluid" id="ajapaik-photoview-container">
         <div class="col-xs-10">
             <div class="row-fluid">
-                <div class="{% if rephoto %}col-xs-6{% else %}col-xs-12{% endif %}">
+                <div class="{% if rephoto %}col-xs-6{% else %}col-xs-9{% endif %}">
                     <div id="ajapaik-photoview-main-photo-container">
                         <a class="fullscreen" id="ajapaik-full-screen-link">
                             <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12
@@ -39,7 +40,12 @@
                     {% endif %}
                     {% if photo.description %}
                         <div class="row-fluid">
-                            {{ photo.description }}{% if photo.address %} ({% trans "Address" %}: {{ photo.address }}){% endif %}
+                            {{ photo.description }}
+                        </div>
+                    {% endif %}
+                    {% if photo.address %}
+                        <div class="row-fluid">
+                            <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
                         </div>
                     {% endif %}
                     {% if photo.source_url %}
@@ -65,8 +71,9 @@
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                        <input type="text" class="form-control"
-                                               value="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
+                                        <a href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
+                                            {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
+                                        </a>
                                     </div>
                                 </li>
                                 <li role="presentation">
@@ -127,20 +134,31 @@
                     </div>
                     {% if albums %}
                         <div class="row" style="margin-top: 10px;">
-                            <p class="text-left">
-                                <span id="ajapaik-photoview-belongs-to-albums-indicator" title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
-                                    <svg fill="#888" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="pull-left">
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4zm0 15l3-3.86 2.14 2.58 3-3.86L18 19H6z"></path>
-                                    </svg>
-                                </span>
-                                {% for a in albums %}
-                                    <a href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </p>
+                            {% for a in albums %}
+                                <div class="row ajapaik-no-left-margin-row">
+                                    {% if forloop.first %}
+                                        <i class="material-icons ajapaik-photo-modal-album-icon"
+                                           title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">photo_album</i>
+                                    {% endif %}
+                                    <a class="ajapaik-photo-modal-album-link"
+                                       href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">
+                                        {{ a.name }}
+                                    </a>
+                                    <div class="ajapaik-photo-modal-album-more-button" role="button"
+                                         title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
+                                </div>
+                            {% endfor %}
                         </div>
                     {% endif %}
                 </div>
+                {% if not rephoto %}
+                    <div id="ajapaik-photo-modal-map-container" class="col-xs-3">
+                        <div id="ajapaik-minimap-disabled-overlay"></div>
+                        <div id="ajapaik-photo-modal-map-canvas"></div>
+                    </div>
+                    <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}"
+                          title="{% trans "Pick the shooting location!" %}" style="display: none;"></span>
+                {% endif %}
                 {% if rephoto %}
                     <div class="col-xs-6">
                         <div id="ajapaik-photoview-rephoto-container">
@@ -199,6 +217,7 @@
         {% include "_comments.html" %}
     </div>
     {% include "_full_leaderboard_modal.html" %}
+    <div id="ajp-geotagging-container"></div>
 {% endblock %}
 
 {% block specific_js %}
@@ -206,7 +225,25 @@
         window.albumId = '{{ album.id }}';
         window.photoId = '{{ photo.id }}';
         window.hostname = '{{ hostname }}';
+        // Some fake variables to reuse photo modal mini-map component
+        {% if photo.lat and photo.lon %}
+            window.photoModalPhotoLat = {{ photo.lat }};
+            window.photoModalPhotoLng = {{ photo.lon }};
+        {% endif %}
+        {% if photo.azimuth %}
+            window.photoModalPhotoAzimuth = {{ photo.azimuth }};
+        {% endif %}
+        {% if album.lat and album.lon %}
+            window.albumLat = {{ album.lat }};
+            window.albumLon = {{ album.lon }};
+        {% endif %}
+        window.currentPhotoSourceName = '{{ photo.source.description }}';
+        window.currentPhotoSourceKey = '{{ photo.source_key }}';
+        window.currentPhotoSourceURL = '{{ photo.source_url }}';
+        window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
+        window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
+        window.photoModalGeotaggingUserCount = {{ geotag_count }};
         window.isPhotoview = true;
         window.flipPhoto = function () {
             $.noop();
@@ -216,6 +253,10 @@
             var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-full-screen-image');
+            $('#ajp-geotagging-container').AjapaikGeotagger();
+            mainPhoto.on('load', function () {
+                window.showPhotoMapIfApplicable(true);
+            });
             $('.dropdown-toggle').dropdown();
             $('.disabled-link').click(function (event) {
                 event.preventDefault();
@@ -320,6 +361,57 @@
                 if (response && response.new_id) {
                     window.location.reload();
                 }
+            };
+            window.syncStateToUrl = function () {
+                $.noop();
+            };
+            window.startGuessLocation = function (photoId) {
+                var startLat,
+                    startLon;
+                if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                    startLat = window.photoModalPhotoLat;
+                    startLon = window.photoModalPhotoLng;
+                } else if (window.albumLat && window.albumLon) {
+                    startLat = window.albumLat;
+                    startLon = window.albumLon;
+                } else {
+                    startLat = 59;
+                    startLon = 26;
+                }
+                $('#ajapaik-photoview-container').hide();
+                $('html').addClass('ajapaik-html-game-map');
+                $('body').addClass('ajapaik-body-game-map');
+                $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
+                    thumbSrc: '/foto_thumb/' + photoId + '/400',
+                    fullScreenSrc: window.photoModalFullscreenImageUrl,
+                    description: window.currentPhotoDescription,
+                    sourceKey: window.currentPhotoSourceKey,
+                    sourceName: window.currentPhotoSourceName,
+                    sourceURL: window.currentPhotoSourceURL,
+                    fullScreenWidth: {{ fullscreen.size.0 }},
+                    fullScreenHeight: {{ fullscreen.size.1 }},
+                    startLat: startLat,
+                    startLng: startLon,
+                    photoId: photoId,
+                    uniqueGeotagCount: window.photoModalGeotaggingUserCount,
+                    uniqueGeotagWithAzimuthCount: window.photoModalAzimuthCount,
+                    mode: 'vantage',
+                    markerLocked: true,
+                    isGame: false,
+                    isMapview: false,
+                    isGallery: true,
+                    tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions') === 'true',
+                    hintUsed: true
+                });
+                window.locationToolsOpen = true;
+            };
+            window.stopGuessLocation = function () {
+                $('#ajapaik-photoview-container').show();
+                $('html').removeClass('ajapaik-html-game-map');
+                $('body').removeClass('ajapaik-body-game-map');
+                $('#ajp-geotagging-container').hide();
+                window.locationToolsOpen = false;
+                window.showPhotoMapIfApplicable();
             };
             window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         });
