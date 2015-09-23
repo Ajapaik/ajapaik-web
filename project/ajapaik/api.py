@@ -225,8 +225,8 @@ def api_albums(request):
 @api_view(['POST'])
 @parser_classes((FormParser,))
 # TODO: Re-enable!
-#@authentication_classes((CustomAuthentication,))
-#@permission_classes((IsAuthenticated,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated, AllowAny))
 def api_album_nearest(request):
     form = ApiAlbumNearestForm(request.data)
     content = {
