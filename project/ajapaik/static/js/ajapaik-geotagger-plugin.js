@@ -219,14 +219,14 @@
         this.mapMarkerDragListenerFunction = function () {
             if (!that.feedbackMode) {
                 if (that.mapMarkerDragListenerActive) {
-                    if (that.panoramaMarker && that.realMarker) {
+                    if (that.panoramaMarker && that.realMarker && that.panoramaMarker.position && that.realMarker.position) {
                         that.angleBetweenMarkerAndPanoramaMarker =
                             that.radiansToDegrees(that.getAzimuthBetweenTwoMarkers(that.realMarker, that.panoramaMarker));
+                        that.azimuthLine.setPath([that.realMarker.position,
+                            that.simpleCalculateMapLineEndPoint(that.angleBetweenMarkerAndPanoramaMarker,
+                                that.panoramaMarker.position, 0.01)]);
+                        that.azimuthLine.icons[0].repeat = '7px';
                     }
-                    that.azimuthLine.setPath([that.realMarker.position,
-                        that.simpleCalculateMapLineEndPoint(that.angleBetweenMarkerAndPanoramaMarker,
-                            that.panoramaMarker.position, 0.01)]);
-                    that.azimuthLine.icons[0].repeat = '7px';
                 }
             }
         };
