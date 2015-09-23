@@ -222,7 +222,7 @@ def api_albums(request):
     return Response(content)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @parser_classes((FormParser,))
 # TODO: Re-enable!
 #@authentication_classes((CustomAuthentication,))
