@@ -228,7 +228,10 @@ def api_albums(request):
 #@authentication_classes((CustomAuthentication,))
 @permission_classes((AllowAny,))
 def api_album_nearest(request):
-    form = ApiAlbumNearestForm(request.data)
+    if request.METHOD == 'GET':
+        form = ApiAlbumNearestForm(request.query_params)
+    else:
+        form = ApiAlbumNearestForm(request.data)
     content = {
         'state': str(int(round(time.time() * 1000)))
     }
