@@ -183,12 +183,17 @@
             });
         };
         window.handleGeolocation = function (location) {
-            $('#ajapaik-geolocation-error').hide();
-            window.userLat = location.coords.latitude;
-            window.userLon = location.coords.longitude;
-            syncStateToUrl();
-            syncFilteringHighlights();
-            updateFrontpagePhotosAsync();
+            if (window.clickedMapButton) {
+                $('#ajapaik-geolocation-error').hide();
+                window.location.href = '/map?lat=' + location.coords.latitude + '&lng=' + location.coords.longitude + '&limitToAlbum=0&zoom=15';
+            } else {
+                $('#ajapaik-geolocation-error').hide();
+                window.userLat = location.coords.latitude;
+                window.userLon = location.coords.longitude;
+                syncStateToUrl();
+                syncFilteringHighlights();
+                updateFrontpagePhotosAsync();
+            }
         };
         if (window.getQueryParameterByName('order1') === 'closest') {
             if (!window.getQueryParameterByName('lat') || !window.getQueryParameterByName('lon')) {
