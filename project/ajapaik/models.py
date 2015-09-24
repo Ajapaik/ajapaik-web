@@ -847,7 +847,7 @@ class Profile(Model):
     def set_calculated_fields(self):
         all_time_score = 0
         for p in self.points.all():
-            if p.score:
+            if p.points:
                 all_time_score += p.points
         self.score = all_time_score
 
