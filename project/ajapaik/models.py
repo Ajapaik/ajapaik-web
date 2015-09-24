@@ -846,11 +846,10 @@ class Profile(Model):
 
     def set_calculated_fields(self):
         all_time_score = 0
-        for g in self.geotags.all():
-            if g.score:
-                all_time_score += g.score
+        for p in self.points.all():
+            if p.score:
+                all_time_score += p.points
         self.score = all_time_score
-        self.score += self.score_rephoto
 
 # For Google login
 class FlowModel(Model):

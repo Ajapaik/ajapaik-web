@@ -268,7 +268,7 @@ def _calculate_recent_activity_scores():
     for each in recent_actors:
         each.score_recent_activity = recent_action_dict[each.pk]['total_points']
     Profile.objects.bulk_update(recent_actors, update_fields=['score_recent_activity'])
-    # # Check for people who somehow no longer have actions among the last 5000
+    # Check for people who somehow no longer have actions among the last 5000
     orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(pk__in=[x.pk for x in recent_actors])
     orphan_profiles.update(score_recent_activity=0)
 
@@ -453,8 +453,9 @@ def photo_upload(request, photo_id):
                     each.save()
                 re_photo.image.save('rephoto.jpg', fileobj)
                 new_id = re_photo.pk
-                profile.set_calculated_fields()
-                profile.save()
+                #profile.update_rephoto_score()
+                #profile.set_calculated_fields()
+                #profile.save()
                 img = Image.open(settings.MEDIA_ROOT + "/" + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
 
@@ -481,6 +482,8 @@ def photo_upload(request, photo_id):
                         re_photo.image.save(str(re_photo.image), ContentFile(output_file.getvalue()))
 
         profile.update_rephoto_score()
+        profile.set_calculated_fields()
+        profile.save()
 
     return HttpResponse(json.dumps({"new_id": new_id}), content_type="application/json")
 
