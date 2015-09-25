@@ -117,22 +117,22 @@
                         <li role="presentation" class="disabled-link">
                             <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                 {% if fb_share_gallery %}
-                                    <a href="{{ share_gallery_link }}?album={{ album.id }}">{{ share_gallery_link }}?album={{ album.id }}</a>
+                                    <a href="{{ share_gallery_link }}">{{ share_gallery_link }}</a>
                                 {% elif fb_share_map %}
-                                    <a href="{{ share_map_link }}?album={{ album.id }}">{{ share_map_link }}?album={{ album.id }}</a>
+                                    <a href="{{ share_map_link }}">{{ share_map_link }}</a>
                                 {% else %}
-                                    <a href="{{ share_game_link }}?album={{ album.id }}">{{ share_game_link }}?album={{ album.id }}</a>
+                                    <a href="{{ share_game_link }}">{{ share_game_link }}</a>
                                 {% endif %}
                             </div>
                         </li>
                         <li role="presentation">
                             <div id="ajapaik-info-modal-like" role="menuitem" tabindex="-1">
                                 {% if fb_share_gallery %}
-                                    <div class="fb-like" data-href="{{ share_gallery_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                    <div class="fb-like" data-href="{{ share_gallery_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% elif fb_share_map %}
-                                    <div class="fb-like" data-href="{{ share_map_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                    <div class="fb-like" data-href="{{ share_map_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% else %}
-                                    <div class="fb-like" data-href="{{ share_game_link }}?album={{ album.id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                    <div class="fb-like" data-href="{{ share_game_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 {% endif %}
                             </div>
                         </li>
@@ -140,7 +140,7 @@
                 </div>
                 <div class="btn-group" role="group">
                     {% if link_to_map %}
-                        <a class="btn btn-primary ajapaik-zero-border-radius" href="{{ share_map_link }}?album={{ album.id }}&fromModal=1">{% trans "Show on map" %}</a>
+                        <a class="btn btn-primary ajapaik-zero-border-radius" href="{{ share_map_link }}&fromModal=1">{% trans "Show on map" %}</a>
                     {% else %}
                         <a class="btn btn-primary ajapaik-zero-border-radius" data-dismiss="modal">{% trans "Back to map" %}</a>
                     {% endif %}
@@ -149,7 +149,7 @@
             <div class="btn-group btn-group-justified" id="ajapaik-info-modal-game-button" role="group" aria-label="...">
                 <div class="btn-group" role="group">
                     {% if link_to_game %}
-                        <a class="btn btn-success ajapaik-zero-border-radius" href="{{ share_game_link }}?album={{ album.id }}">{% trans "Geotag pictures" %}</a>
+                        <a class="btn btn-success ajapaik-zero-border-radius" href="{{ share_game_link }}">{% trans "Geotag pictures" %}</a>
                     {% else %}
                         <a class="btn btn-success ajapaik-zero-border-radius" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
                     {% endif %}

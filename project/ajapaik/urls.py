@@ -17,7 +17,6 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^geotag/confirm/', 'geotag_confirm'),
    url(r'^general_info_modal_content/$', 'get_general_info_modal_content', name='general_info_modal_content'),
    url(r'^info_modal_content/$', 'get_album_info_modal_content', name='info_modal_content'),
-   url(r'^info_modal_content/(?P<album_id>\d+)/$', 'get_album_info_modal_content', name='info_modal_content'),
    url(r'^ajapaikaja/$', 'game', name='game'),
    url(r'^game/$', 'game', name='game'),
    url(r'^geotag/$', 'game', name='game'),
@@ -83,7 +82,12 @@ urlpatterns += patterns('project.ajapaik.api',
     url(r'^api/v1/album/nearest/$', 'api_album_nearest'),
     url(r'^api/v1/album/state/$', 'api_album_state'),
     url(r'^api/v1/photo/upload/$', 'api_photo_upload'),
-    url(r'^api/v1/user/me/$', 'api_user_me')
+    url(r'^api/v1/user/me/$', 'api_user_me'),
+    url(r'^api/v1/photo/state/$', 'api_photo_state')
+)
+
+urlpatterns += patterns('project.ajapaik.delfi',
+    url(r'^delfi_api/v1/photos_bbox/$', 'photos_bbox'),
 )
 
 urlpatterns += patterns('',

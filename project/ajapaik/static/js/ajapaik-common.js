@@ -1194,8 +1194,9 @@ var map,
         var targetDiv = $('#ajapaik-info-modal');
         if (window.albumId && window.infoModalURL) {
             $.ajax({
-                url: window.infoModalURL + window.albumId,
+                url: window.infoModalURL,
                 data: {
+                    album: window.albumId,
                     linkToMap: window.linkToMap,
                     linkToGame: window.linkToGame,
                     linkToGallery: window.linkToGallery,
@@ -1248,8 +1249,9 @@ var map,
                 linkToMap = true;
             }
             $.ajax({
-                url: window.infoModalURL + $(this).data('id') + '/',
+                url: window.infoModalURL,
                 data: {
+                    album: $(this).data('id'),
                     linkToMap: linkToMap,
                     linkToGame: linkToGame,
                     linkToGallery: linkToGallery,

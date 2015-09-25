@@ -23,7 +23,7 @@ from project.sift.forms import CatLoginForm
 from project.sift.views import CustomAuthentication
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiRegisterForm, ApiPhotoUploadForm, \
-    ApiUserMeForm
+    ApiUserMeForm, ApiPhotoStateForm
 from project.ajapaik.models import Album, Photo, Profile, Licence
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
     GOOGLE_CLIENT_ID
@@ -222,16 +222,12 @@ def api_albums(request):
     return Response(content)
 
 
-# TODO: Re-enable authentication, allow only POST, remove GET stuff
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 @parser_classes((FormParser,))
-# @authentication_classes((CustomAuthentication,))
-@permission_classes((AllowAny,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
 def api_album_nearest(request):
-    if request.method == 'GET':
-        form = ApiAlbumNearestForm(request.query_params)
-    else:
-        form = ApiAlbumNearestForm(request.data)
+    form = ApiAlbumNearestForm(request.data)
     content = {
         'state': str(int(round(time.time() * 1000)))
     }
@@ -384,7 +380,7 @@ def api_user_me(request):
         'error': 0,
         'state': str(int(round(time.time() * 1000)))
     }
-    form = ApiUserMeForm(request.POST)
+    form = ApiUserMeForm(request.data)
     if form.is_valid():
         if profile.fb_name:
             content['name'] = profile.fb_name
@@ -398,6 +394,44 @@ def api_user_me(request):
                 general_user_rank = (i + 1)
                 break
         content['rank'] = general_user_rank
+    else:
+        content['error'] = 2
+
+    return Response(content)
+
+
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def api_photo_state(request):
+    form = ApiPhotoStateForm(request.data)
+    content = {
+        'error': 0
+    }
+    if form.is_valid():
+        p = form.cleaned_data['id']
+        # FIXME: DRY
+        date = None
+        if p.date:
+            iso = p.date.isoformat()
+            date_parts = iso.split('T')[0].split('-')
+            date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
+        elif p.date_text:
+            date = p.date_text
+        content['photo'] = {
+            'id': p.id,
+            'image': request.build_absolute_uri(reverse('project.ajapaik.views.photo_thumb', args=(p.id,))) + '[DIM]/',
+            'width': p.width,
+            'height': p.height,
+            'title': p.description,
+            'date': date,
+            'author': p.author,
+            'source': { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url },
+            'latitude': p.lat,
+            'longitude': p.lon,
+            'rephotos': p.rephoto_count
+        }
     else:
         content['error'] = 2
 

@@ -1,7 +1,7 @@
 from math import cos, sin, radians, atan2, sqrt
 
 
-# FIXME: Ugly functions, make better or import from numpy, scipy, pandas or whatever library we have anyway
+# FIXME: Ugly functions, make better or import from whatever library we have anyway
 def calculate_thumbnail_size(p_width, p_height, desired_longest_side):
     if p_width and p_height:
         w = float(p_width)

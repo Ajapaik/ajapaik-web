@@ -9,6 +9,7 @@ import ujson as json
 from PIL import Image, ImageFile, ImageOps
 from time import strftime, strptime
 from StringIO import StringIO
+from django.contrib.gis.gdal import CoordTransform, SpatialReference
 
 from django.db import connection
 import requests
@@ -38,7 +39,7 @@ from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
-    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm
+    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET
@@ -68,102 +69,75 @@ def get_general_info_modal_content(request):
     return render_to_response("_general_info_modal_content.html", RequestContext(request, ret))
 
 
-def get_album_info_modal_content(request, album_id=1):
+def get_album_info_modal_content(request):
     profile = request.get_user().profile
-    album = Album.objects.get(pk=album_id)
-    # FIXME: Ugly
-    link_to_game = request.GET.get('linkToGame', None)
-    if link_to_game == "true":
-        link_to_game = True
-    else:
-        link_to_game = False
-    link_to_map = request.GET.get('linkToMap', None)
-    if link_to_map == "true":
-        link_to_map = True
-    else:
-        link_to_map = False
-    link_to_gallery = request.GET.get('linkToGallery', None)
-    if link_to_gallery == "true":
-        link_to_gallery = True
-    else:
-        link_to_gallery = False
-    fb_share_game = request.GET.get('fbShareGame', None)
-    if fb_share_game == "true":
-        fb_share_game = True
-    else:
-        fb_share_game = False
-    fb_share_map = request.GET.get('fbShareMap', None)
-    if fb_share_map == "true":
-        fb_share_map = True
-    else:
-        fb_share_map = False
-    fb_share_gallery = request.GET.get('fbShareGallery', None)
-    if fb_share_gallery == "true":
-        fb_share_gallery = True
-    else:
-        fb_share_gallery = False
-    ret = {
-        "album": album,
-        "link_to_map": link_to_map,
-        "link_to_game": link_to_game,
-        "link_to_gallery": link_to_gallery,
-        "fb_share_game": fb_share_game,
-        "fb_share_map": fb_share_map,
-        "fb_share_gallery": fb_share_gallery,
-    }
+    form = AlbumInfoModalForm(request.GET)
+    if form.is_valid():
+        album = form.cleaned_data['album']
+        ret = {
+            'album': album,
+            'link_to_map': form.cleaned_data['linkToMap'],
+            'link_to_game': form.cleaned_data['linkToGame'],
+            'link_to_gallery': form.cleaned_data['linkToGallery'],
+            'fb_share_game': form.cleaned_data['fbShareGame'],
+            'fb_share_map': form.cleaned_data['fbShareMap'],
+            'fb_share_gallery': form.cleaned_data['fbShareGallery'],
+        }
 
-    # TODO: Can these queries be optimized?
-    album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
-    if album.subalbums:
-        for sa in album.subalbums.exclude(atype=Album.AUTO):
-            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-    album_photo_ids = frozenset(album_photos_qs.values_list("id", flat=True))
-    ret["total_photo_count"] = len(album_photo_ids)
-    ret["geotagged_photo_count"] = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).distinct("id").count()
+        album_photos_qs = album.get_historic_photos_queryset_with_subalbums()
+        album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
+        ret['total_photo_count'] = len(album_photo_ids)
+        ret['geotagged_photo_count'] = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).distinct('id').count()
 
-    geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
-    ret["user_geotagged_photo_count"] = geotags_for_album_photos.filter(user=profile).distinct("photo_id").count()
-    ret["geotagging_user_count"] = geotags_for_album_photos.distinct("user").count()
+        geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
+        ret['user_geotagged_photo_count'] = geotags_for_album_photos.filter(user=profile).distinct('photo_id').count()
+        ret['geotagging_user_count'] = geotags_for_album_photos.distinct('user').count()
 
-    album_rephotos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids)
-    ret["rephoto_count"] = album_rephotos.count()
-    ret["rephoto_user_count"] = album_rephotos.distinct("user").count()
-    ret["rephotographed_photo_count"] = album_rephotos.distinct("rephoto_of").count()
+        album_rephotos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids)
+        ret['rephoto_count'] = album_rephotos.count()
+        ret['rephoto_user_count'] = album_rephotos.distinct('user').count()
+        ret['rephotographed_photo_count'] = album_rephotos.distinct('rephoto_of').count()
 
-    album_user_rephotos = album_rephotos.filter(user=profile)
-    ret["user_rephoto_count"] = album_user_rephotos.count()
-    ret["user_rephotographed_photo_count"] = album_user_rephotos.distinct("rephoto_of").count()
-    if ret["rephoto_user_count"] == 1 and ret["user_rephoto_count"] == ret["rephoto_count"]:
-        ret["user_made_all_rephotos"] = True
-    else:
-        ret["user_made_all_rephotos"] = False
+        album_user_rephotos = album_rephotos.filter(user=profile)
+        ret['user_rephoto_count'] = album_user_rephotos.count()
+        ret['user_rephotographed_photo_count'] = album_user_rephotos.distinct('rephoto_of').count()
+        if ret['rephoto_user_count'] == 1 and ret['user_rephoto_count'] == ret['rephoto_count']:
+            ret['user_made_all_rephotos'] = True
+        else:
+            ret['user_made_all_rephotos'] = False
 
-    # TODO: Figure out how to trick Django into doing this
-    album_ids = [x.album_id for x in AlbumPhoto.objects.filter(
-        photo_id__in=album_photo_ids, album__is_public=True).distinct('album_id')]
-    if album_ids:
-        cursor = connection.cursor()
-        cursor.execute("SELECT project_photo.user_id, COUNT(project_photo.user_id) AS user_score FROM project_photo "
-                       "INNER JOIN project_albumphoto ON project_photo.id = project_albumphoto.photo_id "
-                       "INNER JOIN project_profile ON project_profile.user_id = project_photo.user_id "
-                       "WHERE project_albumphoto.album_id IN %s AND project_photo.rephoto_of_id IS NULL "
-                       "GROUP BY project_photo.user_id ORDER BY user_score DESC",
-                       [tuple(album_ids)])
-        user_scores = cursor.fetchall()
-        user_id_list = [x[0] for x in user_scores]
-        album_curators = Profile.objects.filter(user_id__in=user_id_list).filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False))
+        # Get all users that have either curated into selected photo set or re-curated into selected album
+        album_photo_ids = album_photo_ids
+        users_curated_into_this_or_sub = AlbumPhoto.objects.filter(photo_id__in=album_photo_ids, profile__isnull=False,
+            type=AlbumPhoto.CURATED, album=album).values('profile').annotate(count=Count('profile'))
+        users_recurated_into_this = AlbumPhoto.objects.filter(album=album, type=AlbumPhoto.RECURATED,
+            profile__isnull=False).values('profile').annotate(count=Count('profile'))
+        final_score_dict = {}
+        for u in users_curated_into_this_or_sub:
+            final_score_dict[u['profile']] = u['count']
+        for u in users_recurated_into_this:
+            if u['profile'] in final_score_dict:
+                final_score_dict[u['profile']] += u['count']
+            else:
+                final_score_dict[u['profile']] = u['count']
+        album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys())\
+            .filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False))
+        final_score_dict = [x[0] for x in sorted(final_score_dict.items(), key=operator.itemgetter(1), reverse=True)]
         album_curators = list(album_curators)
-        album_curators.sort(key=lambda z: user_id_list.index(z.id))
-        ret["album_curators"] = album_curators
+        album_curators.sort(key=lambda z: final_score_dict.index(z.id))
+        ret['album_curators'] = album_curators
 
-    if album.lat and album.lon:
-        ret["nearby_albums"] = Album.objects.filter(geography__distance_lte=(
-            Point(album.lon, album.lat), D(m=50000)), is_public=True).exclude(id__in=[album.id]).order_by("?")[:3]
-    ret["share_game_link"] = request.build_absolute_uri(reverse("project.ajapaik.views.game"))
-    ret["share_map_link"] = request.build_absolute_uri(reverse("project.ajapaik.views.mapview"))
-    ret["share_gallery_link"] = request.build_absolute_uri(reverse("project.ajapaik.views.frontpage"))
+        if album.lat and album.lon:
+            ret['nearby_albums'] = Album.objects.filter(geography__distance_lte=(
+                Point(album.lon, album.lat), D(m=50000)), is_public=True, atype=Album.CURATED).exclude(id=album.id).order_by('?')[:3]
+        album_id_str = str(album.id)
+        ret['share_game_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.game')) + '?album=' + album_id_str
+        ret['share_map_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.mapview'))+ '?album=' + album_id_str
+        ret['share_gallery_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.frontpage'))+ '?album=' + album_id_str
 
-    return render_to_response("_info_modal_content.html", RequestContext(request, ret))
+        return render_to_response('_info_modal_content.html', RequestContext(request, ret))
+
+    return HttpResponse('Error')
 
 
 def _get_exif_data(img):
@@ -311,7 +285,8 @@ def _get_album_leaderboard(profile, album_id=None):
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
         album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
                               .values_list('rephoto_of_id', flat=True))
-        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids))
+        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids)).exclude(action=Points.PHOTO_RECURATION)
+        photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album, action=Points.PHOTO_RECURATION)
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
         for each in photo_points:
@@ -362,16 +337,15 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     board = []
     if album_id:
         album = Album.objects.get(pk=album_id)
-        album_photos_qs = album.photos.all()
-        for sa in album.subalbums.exclude(atype=Album.AUTO):
-            album_photos_qs = album_photos_qs | sa.photos.all()
+        album_photos_qs = album.get_historic_photos_queryset_with_subalbums()
         album_photo_ids = frozenset(album_photos_qs.prefetch_related('rephotos').values_list('id', flat=True))
         album_photos_with_rephotos = album_photos_qs.filter(rephotos__isnull=False)
         album_rephoto_ids = []
         for each in album_photos_with_rephotos:
             for rp in each.rephotos.all():
                 album_rephoto_ids.append(rp.id)
-        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids, points__gt=0) | Q(photo_id__in=album_rephoto_ids, points__gt=0))
+        photo_points = Points.objects.filter(Q(photo_id__in=album_photo_ids, points__gt=0) | Q(photo_id__in=album_rephoto_ids, points__gt=0)).exclude(action=Points.PHOTO_RECURATION)
+        photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album, action=Points.PHOTO_RECURATION)
         geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         # TODO: This should not be done in Python memory, but with a query
         user_score_map = {}
@@ -908,12 +882,19 @@ def upload_photo_selection(request):
             a.save()
         if a:
             for pid in photo_ids:
-                new_album_photo_link = AlbumPhoto(
-                    photo=Photo.objects.get(pk=pid),
-                    album=a
-                )
-                new_album_photo_link.save()
+                existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
+                if not existing_link:
+                    new_album_photo_link = AlbumPhoto(
+                        photo=Photo.objects.get(pk=pid),
+                        album=a,
+                        profile=profile,
+                        type=AlbumPhoto.RECURATED
+                    )
+                    Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a, created=datetime.datetime.now()).save()
+                    new_album_photo_link.save()
             a.save()
+            profile.set_calculated_fields()
+            profile.save()
             ret['message'] = _('Album creation success')
         else:
             ret['error'] = _('Problem with album selection')
@@ -984,7 +965,6 @@ def photo_url(request, photo_id):
             delete(im)
             im = get_thumbnail(p.image, "800x600", upscale=False)
             content = im.read()
-    # TODO: See if this fixes stupid broken thumbs
     next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
     response = HttpResponse(content, content_type="image/jpg")
     response["Content-Length"] = len(content)
@@ -1052,7 +1032,6 @@ def photo_thumb(request, photo_id=None, thumb_size=150):
         image_to_use = p.image
     thumb_str = str(thumb_size) + "x" + str(thumb_size)
     im = get_thumbnail(image_to_use, thumb_str, upscale=False)
-    # TODO: See if this fixes stupid broken thumbs
     try:
         content = im.read()
     except IOError:
@@ -1942,10 +1921,10 @@ def curator_photo_upload_handler(request):
                             points_for_curating.save()
                             awarded_curator_points.append(points_for_curating)
                             if album:
-                                ap = AlbumPhoto(photo=new_photo, album=album)
+                                ap = AlbumPhoto(photo=new_photo, album=album, profile=profile, type=AlbumPhoto.CURATED)
                                 ap.save()
                                 created_album_photo_links.append(ap)
-                            ap = AlbumPhoto(photo=new_photo, album=default_album)
+                            ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile, type=AlbumPhoto.CURATED)
                             ap.save()
                             created_album_photo_links.append(ap)
                             ret["photos"][k]["success"] = True
@@ -1962,10 +1941,12 @@ def curator_photo_upload_handler(request):
                             ret["photos"][k]["error"] = _("Error uploading file")
                     else:
                         if album:
-                            ap = AlbumPhoto(photo=existing_photo, album=album)
+                            ap = AlbumPhoto(photo=existing_photo, album=album, profile=profile, type=AlbumPhoto.RECURATED)
                             ap.save()
-                        dap = AlbumPhoto(photo=existing_photo, album=default_album)
+                        dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile, type=AlbumPhoto.RECURATED)
                         dap.save()
+                        Points(user=profile, action=Points.PHOTO_RECURATION, photo=existing_photo, points=30,
+                               album=album, created=datetime.datetime.now()).save()
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
@@ -2197,7 +2178,7 @@ def order_photo(request, photo_id):
 @user_passes_test(lambda u: u.groups.filter(name="csv_uploaders").count() == 1, login_url="/admin/")
 def csv_upload(request):
     import csv, zipfile, hashlib
-
+    profile = request.get_user().profile
     csv_file = request.FILES["csv_file"]
     # Broke for some reason
     # dialect = csv.Sniffer().sniff(csv_file.read(1024), delimiters=";,")
@@ -2260,7 +2241,7 @@ def csv_upload(request):
         p.width = p.image.width
         p.height = p.image.height
         p.save()
-        AlbumPhoto(album=album, photo=p).save()
+        AlbumPhoto(album=album, photo=p, profile=profile).save()
     album.save()
     return HttpResponse("OK")
 

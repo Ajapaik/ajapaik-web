@@ -82,19 +82,28 @@ class Area(Model):
 
 
 class AlbumPhoto(Model):
-    album = ForeignKey("Album")
-    photo = ForeignKey("Photo")
+    CURATED, RECURATED, MANUAL = range(3)
+    TYPE_CHOICES = (
+        (CURATED, 'Curated'),
+        (RECURATED, 'Re-curated'),
+        (MANUAL, 'Manual')
+    )
+    
+    album = ForeignKey('Album')
+    photo = ForeignKey('Photo')
+    profile = ForeignKey('Profile', blank=True, null=True)
+    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL)
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "project_albumphoto"
+        db_table = 'project_albumphoto'
 
     def __unicode__(self):
-        return u"%d - %d" % (self.album.id, self.photo.id)
+        return u'%d - %d' % (self.album.id, self.photo.id)
 
 
 class Album(Model):
-    CURATED, FAVORITES, AUTO= range(3)
+    CURATED, FAVORITES, AUTO = range(3)
     TYPE_CHOICES = (
         (CURATED, "Curated"),
         (FAVORITES, "Favorites"),
@@ -127,6 +136,14 @@ class Album(Model):
 
     def __unicode__(self):
         return u"%s" % self.name
+
+    def get_historic_photos_queryset_with_subalbums(self):
+        qs = self.photos.filter(rephoto_of__isnull=True)
+        if self.subalbums:
+            for sa in self.subalbums.filter(atype=Album.CURATED):
+                qs = qs | sa.photos.filter(rephoto_of__isnull=True)
+
+        return qs
 
     def save(self, *args, **kwargs):
         if self.lat and self.lon:
@@ -587,17 +604,19 @@ class FlipFeedback(Model):
 
 
 class Points(Model):
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION = range(4)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION = range(5)
     ACTION_CHOICES = (
         (GEOTAG, "Geotag"),
         (REPHOTO, "Rephoto"),
         (PHOTO_UPLOAD, "Photo upload"),
         (PHOTO_CURATION, "Photo curation"),
+        (PHOTO_RECURATION, "Photo re-curation")
     )
 
     user = ForeignKey("Profile", related_name="points")
     action = PositiveSmallIntegerField(choices=ACTION_CHOICES)
     photo = ForeignKey("Photo", null=True, blank=True)
+    album = ForeignKey("Album", null=True, blank=True)
     geotag = ForeignKey("GeoTag", null=True, blank=True)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)

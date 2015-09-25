@@ -1,10 +1,12 @@
 from django import forms
+from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from .models import Area, Album, Photo, GeoTag
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
+from django.contrib.gis.geos import Point
 
 
-# TODO: Make forms for everything, there's too much Javascript POST variable checking
+# TODO: Make forms for everything, there's too much individual POST variable checking
 class AreaSelectionForm(forms.Form):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),)
 
@@ -222,6 +224,10 @@ class ApiPhotoUploadForm(forms.Form):
     original = forms.FileField()
 
 
+class ApiPhotoStateForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+
+
 class ApiUserMeForm(forms.Form):
     state = forms.CharField(max_length=255, required=False)
 
@@ -229,3 +235,40 @@ class ApiUserMeForm(forms.Form):
 class PhotoSelectionForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.all(), required=False)
     clear = forms.BooleanField(initial=False, required=False)
+
+
+class AlbumInfoModalForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True))
+    linkToGame = forms.BooleanField(required=False)
+    linkToMap = forms.BooleanField(required=False)
+    linkToGallery = forms.BooleanField(required=False)
+    fbShareGame = forms.BooleanField(required=False)
+    fbShareMap = forms.BooleanField(required=False)
+    fbShareGallery = forms.BooleanField(required=False)
+
+
+class DelfiBboxRequestForm(forms.Form):
+    bbox = forms.CharField()
+
+    def clean(self):
+        cleaned_data = super(DelfiBboxRequestForm, self).clean()
+        bbox_str = cleaned_data.get('bbox')
+        bbox_parts = bbox_str.split(',')
+        if len(bbox_parts) != 4:
+            raise forms.ValidationError(_('Bounding box must have 4 comma-separated members'))
+        else:
+            try:
+                bbox_parts = [float(x) for x in bbox_parts]
+            except:
+                raise forms.ValidationError(_('Bounding box values must be numbers'))
+            our_ref = SpatialReference(4326)
+            delfi_ref = SpatialReference(3301)
+            trans = CoordTransform(delfi_ref, our_ref)
+            top_left = Point(y=bbox_parts[1], x=bbox_parts[0], srid=3301)
+            bottom_right = Point(y=bbox_parts[3], x=bbox_parts[2], srid=3301)
+            top_left.transform(trans)
+            bottom_right.transform(trans)
+            cleaned_data['top_left'] = top_left
+            cleaned_data['bottom_right'] = bottom_right
+
+        return cleaned_data

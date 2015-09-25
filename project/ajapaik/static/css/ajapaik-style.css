@@ -1097,7 +1097,7 @@ a.fullscreen {
 
 @media (min-width: 480px) {
     #ajapaik-header-title {
-        max-width: 50px;
+        max-width: 80px;
     }
 }
 
@@ -1109,13 +1109,13 @@ a.fullscreen {
 
 @media (min-width: 992px) {
     #ajapaik-header-title {
-        max-width: 125px;
+        max-width: 120px;
     }
 }
 
 @media (min-width: 1200px) {
     #ajapaik-header-title {
-        max-width: 430px;
+        max-width: 340px;
     }
 }
 
