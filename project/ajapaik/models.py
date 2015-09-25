@@ -373,7 +373,6 @@ class Photo(Model):
         else:
             return "project.ajapaik.views.photo", [self.id, ]
 
-
     def get_full_screen_image_size(self):
         w = float(self.width)
         h = float(self.height)

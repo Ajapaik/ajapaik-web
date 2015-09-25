@@ -406,9 +406,6 @@ def api_user_me(request):
 @permission_classes((IsAuthenticated,))
 def api_photo_state(request):
     form = ApiPhotoStateForm(request.data)
-    content = {
-        'error': 0
-    }
     if form.is_valid():
         p = form.cleaned_data['id']
         # FIXME: DRY
@@ -419,7 +416,7 @@ def api_photo_state(request):
             date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
         elif p.date_text:
             date = p.date_text
-        content['photo'] = {
+        content = {
             'id': p.id,
             'image': request.build_absolute_uri(reverse('project.ajapaik.views.photo_thumb', args=(p.id,))) + '[DIM]/',
             'width': p.width,
@@ -430,9 +427,12 @@ def api_photo_state(request):
             'source': { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url },
             'latitude': p.lat,
             'longitude': p.lon,
-            'rephotos': p.rephotos.count()
+            'rephotos': p.rephotos.count(),
+            'error': 0
         }
     else:
-        content['error'] = 2
+        content = {
+            'error': 2
+        }
 
     return Response(content)
