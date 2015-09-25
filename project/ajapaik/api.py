@@ -430,7 +430,7 @@ def api_photo_state(request):
             'source': { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url },
             'latitude': p.lat,
             'longitude': p.lon,
-            'rephotos': p.rephoto_count
+            'rephotos': p.rephotos.count()
         }
     else:
         content['error'] = 2
