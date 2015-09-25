@@ -25,11 +25,11 @@ def photos_bbox(request):
         photos = []
         for p in qs:
             location = Point(x=p.lon, y=p.lat, srid=4326)
-            #location.transform(trans)
+            location.transform(trans)
             photos.append({
                 'latitude': location.y,
                 'longitude': location.x,
-                'url': request.build_absolute_uri(reverse('project.ajapaik.views.photo', args=(p.id,))),
+                'url': request.build_absolute_uri(reverse('project.ajapaik.views.photoslug', args=(p.id, p.get_pseudo_slug()))),
                 'thumbUrl': request.build_absolute_uri(reverse('project.ajapaik.views.photo_thumb', args=(p.id, 400)))
             })
 
