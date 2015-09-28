@@ -1120,11 +1120,17 @@ a.fullscreen {
     #ajapaik-header-title {
         max-width: 120px;
     }
+    #pac-input-mapview {
+        width: 200px !important;
+    }
 }
 
 @media (min-width: 1200px) {
     #ajapaik-header-title {
         max-width: 340px;
+    }
+    #pac-input-mapview {
+        width: 200px !important;
     }
 }
 

@@ -17,7 +17,7 @@
                                  {% if not request.mobile %}style="display: none;"{% endif %}></div>
                             <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="#">
                                 <img src="{% url 'project.ajapaik.views.photo_url' photo.id %}"
-                                     alt="{{ photo.description }}"
+                                     alt="{{ photo.description }}" title="{{ photo.description }}"
                                      class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                                      id="ajapaik-modal-photo"/>
                             </a>
@@ -50,7 +50,7 @@
                                 <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="#">
                                     <img src="{% url 'project.ajapaik.views.photo_url' photo.rephotos.all.0.id %}"
                                          class="img-responsive col-xs-12" id="ajapaik-modal-rephoto"
-                                         alt="{{ photo.description }}"/>
+                                         alt="{{ photo.description }}" title="{{ photo.description }}"/>
                                     <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
                                             id="ajapaik-close-rephoto-overlay-button"
                                             {% if not request.mobile %}style="display: none;"{% endif %}></button>

@@ -52,7 +52,7 @@
             this.currentPhotoTagIndex = -1;
             this.currentPhoto = this.photos[this.currentPhotoIndex];
             $('#cat-tagger-current-photo').attr('src', this.currentPhoto.image.replace('[DIM]', '800'))
-                .attr('alt', this.currentPhoto.title);
+                .attr('alt', this.currentPhoto.title).attr('title', this.currentPhoto.title);
             $('#cat-tagger-current-photo-link').attr('href', this.currentPhoto.source.url)
                 .attr('data-id', this.currentPhoto.id).attr('title', this.currentPhoto.title);
             $('#cat-tagger-favorite-button').attr('data-id', this.currentPhoto.id);

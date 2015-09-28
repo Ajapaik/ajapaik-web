@@ -176,6 +176,7 @@ def api_register(request):
 
 
 @never_cache
+@permission_classes((AllowAny,))
 def api_album_thumb(request, album_id, thumb_size=250):
     a = get_object_or_404(Album, id=album_id)
     random_image = a.photos.order_by('?').first()
