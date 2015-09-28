@@ -190,7 +190,7 @@ def api_album_thumb(request, album_id, thumb_size=250):
     try:
         im = get_thumbnail(random_image.image, thumb_str, upscale=False)
     except AttributeError:
-        im = get_thumbnail(urllib2.urlopen('http://rlv.zcache.com/doge_sticker-raf4b2dbd11ec4a7992e8bf94601ace75_v9wth_8byvr_512.jpg'), thumb_str, upscale=False)
+        im = urllib2.urlopen('http://rlv.zcache.com/doge_sticker-raf4b2dbd11ec4a7992e8bf94601ace75_v9wth_8byvr_512.jpg')
     content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
 
@@ -291,7 +291,7 @@ def api_album_state(request):
     photos = []
     if form.is_valid():
         album = form.cleaned_data["id"]
-        content['title'] = album.title
+        content['title'] = album.name
         album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
