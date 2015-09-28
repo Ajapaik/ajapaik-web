@@ -292,6 +292,7 @@ def api_album_state(request):
     photos = []
     if form.is_valid():
         album = form.cleaned_data["id"]
+        content['title'] = album.title
         album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
