@@ -189,10 +189,10 @@ def api_album_thumb(request, album_id, thumb_size=250):
     thumb_str = size_str + 'x' + size_str
     try:
         im = get_thumbnail(random_image.image, thumb_str, upscale=False)
-        content = im.read()
-    except:
-        content = ''
-
+    except AttributeError:
+        # Broken image, return Murray
+        im = urllib2.urlopen('http://rlv.zcache.com/doge_sticker-raf4b2dbd11ec4a7992e8bf94601ace75_v9wth_8byvr_512.jpg')
+    content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
 
     return response
