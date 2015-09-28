@@ -398,7 +398,7 @@
         var updateFrontpagePhotosAsync = function () {
             $('#ajapaik-loading-overlay').show();
             $.ajax({
-                url: '/frontpage_async/' + window.location.search,
+                url: window.frontpageAsyncURL + window.location.search,
                 method: 'GET',
                 success: function (response) {
                     window.start = response.start;

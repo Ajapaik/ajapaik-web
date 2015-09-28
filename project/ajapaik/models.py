@@ -60,6 +60,15 @@ def _make_fullscreen(photo):
     image = get_thumbnail(photo.image, "1024x1024", upscale=False)
     return {"url": image.url, "size": [image.width, image.height]}
 
+def _get_pseudo_slug_for_photo(description, source_key, created):
+    if description is not None and description != "":
+        slug = "-".join(slugify(description).split("-")[:6])[:60]
+    elif source_key is not None and source_key != "":
+        slug = slugify(source_key)
+    else:
+        slug = slugify(created.__format__("%Y-%m-%d"))
+    return slug
+
 
 # TODO: Somehow this fires from Sift too...
 def _user_post_save(sender, instance, **kwargs):

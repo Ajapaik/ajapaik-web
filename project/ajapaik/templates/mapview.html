@@ -32,7 +32,9 @@
         $('#ajp-geotagging-container').AjapaikGeotagger();
         var title = '{{ title }}',
             leaderboardFullURL = "{% url "project.ajapaik.views.top50" %}",
-            difficultyFeedbackURL = "{% url "project.ajapaik.views.difficulty_feedback" %}";
+            difficultyFeedbackURL = "{% url "project.ajapaik.views.difficulty_feedback" %}",
+            mapDataURL = "{% url "project.ajapaik.views.map_objects_by_bounding_box" %}",
+            paneContentsURL = "{% url "project.ajapaik.views.pane_contents" %}";
             {% if album %}
                 var albumId = '{{ album.0 | safe }}';
                 {% if album.1 and album.2 %}

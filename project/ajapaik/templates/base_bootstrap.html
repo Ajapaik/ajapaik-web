@@ -352,6 +352,9 @@
             photoSelectionURL = '{% url 'project.ajapaik.views.photo_selection' %}',
             generalInfoModalURL = '{% url 'project.ajapaik.views.get_general_info_modal_content' %}',
             infoModalURL = '{% url 'project.ajapaik.views.get_album_info_modal_content' %}',
+            photoUploadModalURL = '{% url 'project.ajapaik.views.mapview_photo_upload_modal' %}',
+            curatorSelectableAlbumsURL = '{% url 'project.ajapaik.views.curator_selectable_albums' %}',
+            curatorSelectableParentAlbumsURL = '{% url 'project.ajapaik.views.curator_selectable_parent_albums' %}',
             lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
             hotkeysActive = true,
         {% if request.user.profile.fb_id or request.user.profile.google_plus_id %}

@@ -148,7 +148,7 @@
                     <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <div class="google-plus-connect">
-                    <a href="/google_login" class="ir">{% trans "Connect with Google" %}</a>
+                    <a href="/google-login" class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             {% endif %}
         </div>
@@ -204,7 +204,7 @@
         });
         var gameUrl = '{% url "project.ajapaik.views.game" %}',
             resultCount = 0,
-            url = '/curator_search/',
+            url = '{% url "project.ajapaik.views.curator_search" %}',
             start = 200,
             resultIds = [],
             fullResultSet = {},
@@ -243,7 +243,7 @@
         var loadMyAlbums = function () {
             $.ajax({
                 type : 'POST',
-                url : '/curator_album_list/',
+                url : '{% url "project.ajapaik.views.curator_my_album_list" %}',
                 data: {
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
@@ -517,7 +517,7 @@
             var targetId = $(this)[0].dataset.id;
             $.ajax({
                 type : 'POST',
-                url : '/curator_album_info/',
+                url : '{% url "project.ajapaik.views.curator_get_album_info" %}',
                 data: {
                     albumId: targetId,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
@@ -548,7 +548,7 @@
             $('#ajapaik-curator-edit-album-error').hide();
             $.ajax({
                 type : 'POST',
-                url : '/curator_update_my_album/',
+                url : '{% url "project.ajapaik.views.curator_update_my_album" %}',
                 data: {
                     albumId: targetId,
                     name: $('#ajapaik-curator-change-album-name').val(),
@@ -596,7 +596,7 @@
                 $('#ajapaik-loading-overlay').show();
                 $.ajax({
                     type: 'POST',
-                    url: '/curator_upload/',
+                    url: '{% url "project.ajapaik.views.curator_photo_upload_handler" %}',
                     data: {
                         selection: selection,
                         album: album,

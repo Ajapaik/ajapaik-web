@@ -35,7 +35,7 @@ from sorl.thumbnail import get_thumbnail, delete
 
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment
+    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
@@ -528,13 +528,6 @@ def game(request):
     return render_to_response("game.html", RequestContext(request, ret))
 
 
-def geotagger(request):
-    ret = {
-        'is_test_geotagger': True
-    }
-    return render_to_response('geotagger_test.html', RequestContext(request, ret))
-
-
 def fetch_stream(request):
     form = GameNextPhotoForm(request.GET)
     data = {"photo": None, "userSeenAll": False, "nothingMoreToShow": False}
@@ -740,10 +733,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # FIXME: Stupid
         if order1 == 'amount' and order2 == 'geotags':
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                                            'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[start:end]
+                'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[start:end]
         elif order1 == 'closest' and lat and lon:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
-                                            'fb_comments_count', 'geotag_count', 'distance', 'geotag_count', 'flip')[start:end]
+                'fb_comments_count', 'geotag_count', 'distance', 'geotag_count', 'flip')[start:end]
         else:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth', 'rephoto_count',
                 'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[start:end]
@@ -752,12 +745,14 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id', flat=True)
             for each in album_photos_links_order:
                 photos = sorted(photos, key=lambda x: x[0] == each)
+        # FIXME: Replacing objects with arrays is not a good idea, the small speed boost isn't worth it
         for p in photos:
             p[1], p[2] = calculate_thumbnail_size(p[1], p[2], 400)
             if 'photo_selection' in request.session:
                 p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
             else:
                 p[11] = 0
+            p.append(_get_pseudo_slug_for_photo(p[3], None, None))
         if album:
             ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon)
         else:
@@ -940,7 +935,7 @@ def photo_large(request, photo_id):
     return response
 
 
-def photo_url(request, photo_id):
+def photo_url(request, photo_id, pseudo_slug=None):
     cache_key = "ajapaik_photo_url_response_%s_%s" % (settings.SITE_ID, photo_id)
     cached_response = cache.get(cache_key)
     if cached_response:
@@ -1011,7 +1006,9 @@ def fixed_height_photo_thumb(request, photo_id=None, thumb_height=300):
     return response
 
 
-def photo_thumb(request, photo_id=None, thumb_size=150):
+def photo_thumb(request, photo_id=None, thumb_size=None, pseudo_slug=None):
+    if not thumb_size:
+        thumb_size = 150
     if not photo_id:
         p = Photo.objects.order_by('-created').first()
         if p:
@@ -1055,31 +1052,10 @@ def photo(request, photo_id=None):
     p = get_object_or_404(Photo, id=photo_id)
     pseudo_slug = p.get_pseudo_slug()
     # slug not needed if not enough data for slug or ajax request
-    if pseudo_slug != "" and not request.is_ajax():
+    if pseudo_slug != "":
         return photoslug(request, p.id, "")
     else:
         return photoslug(request, p.id, pseudo_slug)
-
-
-def heatmap_data(request):
-    res = {}
-    photo_id = request.GET.get("photo_id") or None
-    if photo_id:
-        target_photo = Photo.objects.filter(pk=photo_id).get()
-        if hasattr(target_photo, "rephoto_of") and target_photo.rephoto_of is not None:
-            target_photo = target_photo.rephoto_of
-        if target_photo.lat and target_photo.lon:
-            res["estimated_location"] = [target_photo.lat, target_photo.lon]
-        #res["confidence"] = target_photo.confidence
-        res["heatmap_points"] = target_photo.get_heatmap_points()
-        #res["azimuth_tags"] = 0
-        # for point in res["heatmap_points"]:
-        #     try:
-        #         if point[2]:
-        #             res["azimuth_tags"] += 1
-        #     except IndexError:
-        #         pass
-    return HttpResponse(json.dumps(res), content_type="application/json")
 
 
 # FIXME: This should either be used more or not at all
@@ -1201,8 +1177,9 @@ def pane_contents(request):
     for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids)\
             .prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos')).order_by('?')\
             .values_list('id', 'rephoto_count', 'flip', 'description', 'azimuth', 'fb_comments_count', 'width', 'height'):
-        im_url = reverse("project.ajapaik.views.photo_thumb", args=(p[0], 400))
-        permalink = reverse("project.ajapaik.views.photo", args=(p[0],))
+        pseudo_slug = _get_pseudo_slug_for_photo(p[3], None, None)
+        im_url = reverse("project.ajapaik.views.photo_thumb", args=(p[0], 400, pseudo_slug))
+        permalink = reverse("project.ajapaik.views.photoslug", args=(p[0], pseudo_slug))
         width, height = calculate_thumbnail_size(p[6], p[7], 400)
         in_selection = False
         if 'photo_selection' in request.session:
@@ -2008,15 +1985,15 @@ def update_comment_count(request):
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
-def order_photo(request, photo_id):
-    p = Photo.objects.filter(pk=photo_id).first()
-    if p:
-        p_url = reverse('project.ajapaik.views.photo_large', args=(photo_id,))
-        p = (p.id, p_url)
-    return render_to_response("order_photo.html", RequestContext(request, {
-        'photo': p,
-        'is_order': True
-    }))
+# def order_photo(request, photo_id):
+#     p = Photo.objects.filter(pk=photo_id).first()
+#     if p:
+#         p_url = reverse('project.ajapaik.views.photo_large', args=(photo_id,))
+#         p = (p.id, p_url)
+#     return render_to_response("order_photo.html", RequestContext(request, {
+#         'photo': p,
+#         'is_order': True
+#     }))
 
 
 # Currently not needed
@@ -2244,9 +2221,3 @@ def csv_upload(request):
         AlbumPhoto(album=album, photo=p, profile=profile).save()
     album.save()
     return HttpResponse("OK")
-
-def column_align_test(request):
-    ret = {
-        'is_col_test': True
-    }
-    return render_to_response('column_align_test.html', RequestContext(request, ret))

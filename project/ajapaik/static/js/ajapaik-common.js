@@ -329,7 +329,7 @@ var map,
         if (window.BigScreen.enabled) {
             var div = $('#ajapaik-fullscreen-image-container'),
                 img = div.find('img');
-            img.attr('src', img.attr('data-src'));
+            img.attr('src', img.attr('data-src')).show();
             window.BigScreen.request(div[0]);
             fullscreenEnabled = true;
             if (window.isGame) {
@@ -338,6 +338,8 @@ var map,
                 _gaq.push(['_trackEvent', 'Mapview', 'Full-screen']);
             } else if (window.isGallery) {
                 _gaq.push(['_trackEvent', 'Gallery', 'Full-screen']);
+            } else if (window.isPhotoview) {
+                _gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
             }
         }
     });
@@ -347,7 +349,7 @@ var map,
         if (window.BigScreen.enabled) {
             var div = $('#ajapaik-rephoto-fullscreen-image-container'),
                 img = div.find('img');
-            img.attr('src', img.attr('data-src'));
+            img.attr('src', img.attr('data-src')).show();
             window.BigScreen.request(div[0]);
             fullscreenEnabled = true;
             if (window.isGame) {
@@ -356,6 +358,8 @@ var map,
                 _gaq.push(['_trackEvent', 'Mapview', 'Rephoto full-screen']);
             } else if (window.isGallery) {
                 _gaq.push(['_trackEvent', 'Gallery', 'Rephoto full-screen']);
+            } else if (window.isPhotoview) {
+                _gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
             }
         }
     });
@@ -840,7 +844,7 @@ var map,
         if (window.photoModalCurrentlyOpenPhotoId) {
             $.ajax({
                 cache: false,
-                url: '/photo_upload_modal/' + window.photoModalCurrentlyOpenPhotoId + '/',
+                url: window.photoUploadModalURL + window.photoModalCurrentlyOpenPhotoId + '/',
                 success: function (result) {
                     var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal');
                     rephotoUploadModal.data('bs.modal', null);
@@ -876,7 +880,7 @@ var map,
         window.openPhotoUploadModal();
     });
     window.loadPossibleParentAlbums = function (parentAlbum, currentAlbumId, customSelector) {
-        var url = /curator_selectable_parent_albums/;
+        var url = window.curatorSelectableParentAlbumsURL;
         if (currentAlbumId) {
             url += currentAlbumId + '/';
         }
@@ -932,7 +936,7 @@ var map,
     window.loadSelectableAlbums = function () {
         $.ajax({
             type: 'POST',
-            url: '/curator_selectable_albums/',
+            url: window.curatorSelectableAlbumsURL,
             data: {
                 csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             },

@@ -315,7 +315,7 @@
                 currentMapDataRequest.abort();
             }
             sw = updateBoundingEdge(sw);
-            currentMapDataRequest = $.post('/map_data/', {
+            currentMapDataRequest = $.post(window.mapDataURL, {
                 album: window.albumId,
                 //area: window.areaId,
                 limit_by_album: limitByAlbum,
@@ -419,7 +419,7 @@
                 currentPaneDataRequest.abort();
             }
             var mapCenter = window.map.getCenter();
-            currentPaneDataRequest = $.post('/pane_contents/', {
+            currentPaneDataRequest = $.post(window.paneContentsURL, {
                 marker_ids: markerIdsWithinBounds, center_lat: mapCenter.lat(), center_lon: mapCenter.lng(),
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             }, function (response) {
