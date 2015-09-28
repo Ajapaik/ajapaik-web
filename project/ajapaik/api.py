@@ -189,10 +189,10 @@ def api_album_thumb(request, album_id, thumb_size=250):
     thumb_str = size_str + 'x' + size_str
     try:
         im = get_thumbnail(random_image.image, thumb_str, upscale=False)
-    except AttributeError:
-        # Broken image, return Murray
-        im = urllib2.urlopen('http://fillmurray.com/' + size_str + '/' + size_str)
-    content = im.read()
+        content = im.read()
+    except:
+        content = ''
+
     response = HttpResponse(content, content_type='image/jpg')
 
     return response
