@@ -254,6 +254,7 @@
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-full-screen-image');
             $('#ajp-geotagging-container').AjapaikGeotagger();
+            window.showPhotoMapIfApplicable(true);
             mainPhoto.on('load', function () {
                 window.showPhotoMapIfApplicable(true);
             });
