@@ -1093,17 +1093,26 @@ a.fullscreen {
     #ajapaik-header-title {
         max-width: 80px;
     }
+    #pac-input-mapview {
+        width: 90px !important;
+    }
 }
 
 @media (min-width: 480px) {
     #ajapaik-header-title {
         max-width: 80px;
     }
+    #pac-input-mapview {
+        width: 90px !important;
+    }
 }
 
 @media (min-width: 768px) {
     #ajapaik-header-title {
         max-width: 50px;
+    }
+    #pac-input-mapview {
+        width: 90px !important;
     }
 }
 
@@ -2013,7 +2022,7 @@ ul.errorlist {
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
-    margin-right: 50px;
+    margin-right: 25px;
     margin-top: 50px;
 }
 

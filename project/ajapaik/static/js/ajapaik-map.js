@@ -191,7 +191,7 @@
         if (!currentPaneWidth) {
             currentPaneWidth = $(window).width() / 5;
         }
-        edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + currentPaneWidth + 50) / scale;
+        edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + currentPaneWidth + 20) / scale;
         return projection.fromPointToLatLng(edgePixelCoordinates);
     };
     window.syncMapStateToURL = function () {
