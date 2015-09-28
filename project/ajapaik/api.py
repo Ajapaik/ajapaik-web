@@ -284,6 +284,7 @@ def api_album_nearest(request):
 @permission_classes((IsAuthenticated,))
 def api_album_state(request):
     form = ApiAlbumStateForm(request.data)
+    profile = request.user.profile
     content = {
         'state': str(int(round(time.time() * 1000)))
     }
@@ -293,7 +294,7 @@ def api_album_state(request):
         album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-        album_photos_qs = album_photos_qs.annotate(rephoto_count=Count('rephotos'))
+        album_photos_qs = album_photos_qs.prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos'))
         for p in album_photos_qs:
             date = None
             if p.date:
@@ -313,7 +314,8 @@ def api_album_state(request):
                 "source": { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url },
                 "latitude": p.lat,
                 "longitude": p.lon,
-                "rephotos": p.rephoto_count
+                "rephotos": p.rephoto_count,
+                "uploads": p.rephotos.filter(user=profile).count(),
             })
         content["photos"] = photos
     else:
@@ -406,6 +408,7 @@ def api_user_me(request):
 @permission_classes((IsAuthenticated,))
 def api_photo_state(request):
     form = ApiPhotoStateForm(request.data)
+    profile = request.user.profile
     if form.is_valid():
         p = form.cleaned_data['id']
         # FIXME: DRY
@@ -428,6 +431,7 @@ def api_photo_state(request):
             'latitude': p.lat,
             'longitude': p.lon,
             'rephotos': p.rephotos.count(),
+            'uploads': p.rephotos.filter(user=profile).count(),
             'error': 0
         }
     else:
