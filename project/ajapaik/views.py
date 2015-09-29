@@ -35,11 +35,11 @@ from sorl.thumbnail import get_thumbnail, delete
 
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo
+    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
-    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm
+    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET
@@ -679,6 +679,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('geotag_count')
                 else:
                     photos = photos.order_by('-geotag_count')
+            elif order2 == 'likes':
+                if order3 == 'reverse':
+                    photos = photos.order_by('like_count')
+                else:
+                    photos = photos.order_by('-like_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
@@ -703,6 +708,13 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 else:
                     photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
                         order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
+            elif order2 == 'likes':
+                if order3 == 'reverse':
+                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL', },
+                        order_by=['first_like_is_null', 'project_photo.first_like'], )
+                else:
+                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL', },
+                        order_by=['latest_like_is_null', '-project_photo.latest_like'], )
             elif order2 == 'added':
                 if order3 == 'reverse':
                     photos = photos.order_by('created')
@@ -1066,7 +1078,7 @@ def _make_fullscreen(p):
 
 
 def photoslug(request, photo_id, pseudo_slug):
-    request.get_user()
+    profile = request.get_user().profile
     photo_obj = get_object_or_404(Photo, id=photo_id)
 
     # switch places if rephoto url
@@ -1128,12 +1140,22 @@ def photoslug(request, photo_id, pseudo_slug):
             photo_obj.in_selection = True
 
     user_confirmed_this_location = 'false'
-    if hasattr(request.get_user(), 'profile'):
-        last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.get_user().profile)\
-            .order_by('-created').first()
-        if last_user_confirm_geotag_for_this_photo:
-            if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
-                user_confirmed_this_location = 'true'
+    last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.get_user().profile)\
+        .order_by('-created').first()
+    if last_user_confirm_geotag_for_this_photo:
+        if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
+            user_confirmed_this_location = 'true'
+
+    photo_obj.user_likes = False
+    photo_obj.user_loves = False
+    likes = PhotoLike.objects.filter(photo=photo_obj)
+    photo_obj.like_count = likes.count()
+    like = likes.filter(profile=profile).first()
+    if like:
+        if like.level == 1:
+            photo_obj.user_likes = True
+        elif like.level == 2:
+            photo_obj.user_loves = True
 
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
@@ -1981,6 +2003,49 @@ def update_comment_count(request):
             p.light_save()
             for each in p.albums.all():
                 each.save()
+
+    return HttpResponse(json.dumps(ret), content_type="application/json")
+
+
+def update_like_state(request):
+    profile = request.get_user().profile
+    form = PhotoLikeForm(request.POST)
+    ret = {}
+    if form.is_valid() and profile:
+        p = form.cleaned_data['photo']
+        like = PhotoLike.objects.filter(photo=p, profile=profile).first()
+        if like:
+            if like.level == 1:
+                like.level = 2
+                like.save()
+                ret['level'] = 2
+            elif like.level == 2:
+                like.delete()
+                ret['level'] = 0
+                p.first_like = None
+                p.latest_list = None
+        else:
+            like = PhotoLike(
+                profile=profile,
+                photo=p,
+                level=1
+            )
+            like.save()
+            ret['level'] = 1
+        like_count = p.likes.count()
+        ret['likeCount'] = like_count
+        p.like_count = like_count
+        if like_count > 0:
+            first_like = p.likes.order_by('created').first()
+            latest_like = p.likes.order_by('-created').first()
+            if first_like:
+                p.first_like = first_like.created
+            if latest_like:
+                p.latest_like = latest_like.created
+        else:
+            p.first_like = None
+            p.latest_like = None
+        p.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 

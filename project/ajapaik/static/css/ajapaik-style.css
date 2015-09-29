@@ -427,7 +427,7 @@ body {
 
 #ajapaik-feedback-div a {
     display: block;
-    background: #8E1313;
+    background: #981D2A;
     height: 40px;
     width: 115px;
     padding: 8px 16px;
@@ -444,7 +444,6 @@ body {
 #ajapaik-feedback-div a:hover {
     background: #06c;
 }
-
 
 .ajapaik-header-info-button {
     background: #fff url(../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
@@ -1198,12 +1197,12 @@ a.fullscreen {
 }
 
 .ajapaik-thumbnail-selection-icon {
-    background-image: url(../images/material-design-icons/ic_check_circle_gray_36px.svg);
-    background-repeat: no-repeat;
-    background-position: center;
     width: 36px;
     height: 36px;
     background-size: 36px;
+    background-color: transparent;
+    border: none;
+    color: #888;
     position: absolute;
     top: 0;
     left: 0;
@@ -1211,7 +1210,7 @@ a.fullscreen {
 }
 
 .ajapaik-thumbnail-selection-icon-white {
-    background-image: url(../images/material-design-icons/ic_check_circle_white_36px.svg);
+    color: white;
     display: block;
 }
 
@@ -1395,56 +1394,125 @@ ul.errorlist {
 }
 
 .ajapaik-flip-photo-overlay-button {
-    background: #fff url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center !important;
     width: 48px;
     height: 48px;
     position: absolute;
     border-radius: 0;
     top: 0;
     right: 0;
+    border : none;
+    background-color: rgba(255, 255, 255, .3);
 }
 
 .ajapaik-flip-photo-overlay-button:hover {
-    background-color: #fff !important;
-}
-
-.ajapaik-flip-photo-overlay-button:active {
-    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
-    background-color: #fff !important;
+    color: #007fff;
 }
 
 .ajapaik-flip-photo-overlay-button.active {
-    background-image: url(../images/material-design-icons/ic_flip_24px_active.svg) !important;
-    background-color: #fff !important;
+    color: #007fff;
 }
 
-.ajapaik-flip-photo-overlay-button.active:focus {
-    outline: none;
+.ajapaik-like-photo-overlay-button {
+    height: 48px;
+    position: absolute;
+    border-radius: 0;
+    bottom: 0;
+    left: 0;
+    border : none;
+    background-color: rgba(255, 255, 255, .3);
 }
 
-.ajapaik-flip-photo-overlay-button:focus {
-    outline: none;
-    background-color: #fff !important;
+.ajapaik-like-photo-overlay-button > i {
+    font-size: 24px;
+    padding-top: 6px;
 }
 
-.ajapaik-flip-photo-overlay-button.focus {
-    outline: none;
-    background-color: #fff !important;
+.ajapaik-like-photo-overlay-button.big > i {
+    font-size: 36px;
+}
+
+.ajapaik-like-photo-overlay-button:hover {
+    color: #007fff !important;
+}
+
+.ajapaik-like-photo-overlay-button.active {
+    color: #A42733;
+}
+
+.ajapaik-like-photo-overlay-button.active.big {
+    color: #981D2A;
+}
+
+.ajapaik-photo-modal-previous-button {
+    display: block;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.3);
+    background-size: 48px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    z-index: 1;
+}
+
+.ajapaik-photo-modal-previous-button > i {
+    font-size: 48px;
+}
+
+.ajapaik-photo-modal-previous-button:hover {
+    color: #007fff;
+}
+
+.ajapaik-photo-modal-previous-button-disabled {
+    color: gray;
+}
+
+.ajapaik-photo-modal-next-button {
+    display: block;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    float: right;
+    background-color: rgba(255,255,255,0.3);
+    background-size: 48px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+}
+
+.ajapaik-photo-modal-next-button > i {
+    font-size: 48px;
+}
+
+.ajapaik-photo-modal-next-button:hover {
+    color: #007fff;
+}
+
+.ajapaik-photo-modal-next-button-disabled {
+    color: gray;
 }
 
 .ajapaik-overlay-button {
-    background-color: #fff !important;
+    background-color: rgba(255,255,255,.3);
     width: 48px;
     height: 48px;
     position: absolute;
 }
 
-.ajapaik-show-rephoto-selection-overlay-button {
-    background-color: #fff !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
+#ajapaik-show-rephoto-selection-overlay-button {
+    background-color: rgba(255,255,255,.3);
     bottom: 0;
     right: 0;
+    border: none;
+}
+
+#ajapaik-show-rephoto-selection-overlay-button:hover {
+    color: #007fff;
+}
+
+#ajapaik-show-rephoto-selection-overlay-button:active {
+    color: #007fff;
 }
 
 #ajapaik-change-language-form {
@@ -1463,46 +1531,6 @@ ul.errorlist {
     right: 0;
 }
 
-.ajapaik-show-rephoto-selection-overlay-button-1 {
-    background-image: url(../images/material-design-icons/ic_filter_1_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-2 {
-    background-image: url(../images/material-design-icons/ic_filter_2_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-3 {
-    background-image: url(../images/material-design-icons/ic_filter_3_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-4 {
-    background-image: url(../images/material-design-icons/ic_filter_4_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-5 {
-    background-image: url(../images/material-design-icons/ic_filter_5_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-6 {
-    background-image: url(../images/material-design-icons/ic_filter_6_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-7 {
-    background-image: url(../images/material-design-icons/ic_filter_7_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-8 {
-    background-image: url(../images/material-design-icons/ic_filter_8_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-9 {
-    background-image: url(../images/material-design-icons/ic_filter_9_24px_black.svg) !important;
-}
-
-.ajapaik-show-rephoto-selection-overlay-button-9-plus {
-    background-image: url(../images/material-design-icons/ic_filter_9_plus_24px_black.svg) !important;
-}
-
 .ajapaik-fullscreen-overlay-button {
     background: #fff url(../images/material-design-icons/ic_fullscreen_24px.svg) no-repeat center !important;
     right: 0;
@@ -1512,46 +1540,6 @@ ul.errorlist {
 #ajapaik-modal-photo {
     margin: 0 auto;
     padding: 0 !important;
-}
-
-.ajapaik-photo-modal-previous-button {
-    display: block;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    background-color: rgba(255,255,255,0.3);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url(../images/material-design-icons/ic_chevron_left_24px.svg);
-    background-size: 48px;
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    z-index: 1;
-}
-
-.ajapaik-photo-modal-previous-button-disabled {
-    background-image: url(../images/material-design-icons/ic_chevron_left_24px_gray.svg);
-}
-
-.ajapaik-photo-modal-next-button {
-    display: block;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    float: right;
-    background-color: rgba(255,255,255,0.3);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url(../images/material-design-icons/ic_chevron_right_24px.svg);
-    background-size: 48px;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-}
-
-.ajapaik-photo-modal-next-button-disabled {
-    background-image: url(../images/material-design-icons/ic_chevron_right_24px_gray.svg);
 }
 
 #ajapaik-photo-modal-map-container {

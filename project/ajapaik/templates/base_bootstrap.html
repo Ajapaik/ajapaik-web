@@ -350,6 +350,7 @@
             leaderboardUpdateURL = '{% url 'project.ajapaik.views.leaderboard' %}',
             leaderboardFullURL = '{% url 'project.ajapaik.views.top50' %}',
             photoSelectionURL = '{% url 'project.ajapaik.views.photo_selection' %}',
+            photoLikeURL = '{% url 'project.ajapaik.views.update_like_state' %}',
             generalInfoModalURL = '{% url 'project.ajapaik.views.get_general_info_modal_content' %}',
             infoModalURL = '{% url 'project.ajapaik.views.get_album_info_modal_content' %}',
             photoUploadModalURL = '{% url 'project.ajapaik.views.mapview_photo_upload_modal' %}',
@@ -395,6 +396,7 @@
         <script src="{% static "js/ajapaik-ga.js" %}"></script>
         <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
         <script src="{% static "js/cookieconsent.min.js" %}"></script>
+        <script src="{% static "hitcount/hitcount-jquery.js" %}"></script>
         <script type="text/javascript">
             window.cookieconsent_options = {
                 message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',

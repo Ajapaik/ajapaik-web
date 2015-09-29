@@ -3,7 +3,9 @@
 /*global _gaq*/
 /*global leaderboardUpdateURL*/
 /*global gettext*/
-/*global BigScreen */
+/*global BigScreen*/
+/*global photoLikeURL*/
+/*global docCookies*/
 var map,
     streetPanorama,
     input,
@@ -502,7 +504,7 @@ var map,
             var photoId = $(this).data('id');
             $.post(window.confirmLocationURL, {
                 photo: photoId,
-                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             }, function (response) {
                 $this.addClass('ajapaik-minimap-confirm-geotag-button-done');
                 updateStatDiv(response.new_geotag_count);
@@ -827,7 +829,7 @@ var map,
         }
         var data = {
             id: $this.data('id'),
-            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+            csrfmiddlewaretoken: docCookies.getItem('csrftoken')
         };
         $.post(window.photoSelectionURL, data, function (response) {
             var len = Object.keys(response).length,
@@ -888,7 +890,7 @@ var map,
             type: 'POST',
             url: url,
             data: {
-                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             },
             success: function (response) {
                 var targetDiv;
@@ -938,7 +940,7 @@ var map,
             type: 'POST',
             url: window.curatorSelectableAlbumsURL,
             data: {
-                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             },
             success: function (response) {
                 var targetDiv = $('#ajapaik-curator-album-select');
@@ -1105,6 +1107,28 @@ var map,
             fullScreenImage.addClass("ajapaik-photo-flipped");
         }
         window.flipPhoto();
+    });
+
+    $(document).on('click', '.ajapaik-like-photo-overlay-button', function () {
+        var $this = $(this),
+            $i = $this.find('i'),
+            $likeCount = $this.find('.ajapaik-like-count');
+        $.post(photoLikeURL, {
+            photo: window.photoModalCurrentlyOpenPhotoId,
+            csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+        }, function (response) {
+            if (response.level === 0) {
+                $i.html('favorite_outline');
+                $this.removeClass('active big');
+            } else if (response.level === 1) {
+                $i.html('favorite');
+                $this.addClass('active');
+            } else if (response.level === 2) {
+                $i.html('favorite');
+                $this.addClass('big');
+            }
+            $likeCount.html(response.likeCount);
+        });
     });
 
     $(document).on('click', '.ajapaik-photo-modal-next-button', function () {
@@ -1281,7 +1305,7 @@ var map,
     $(document).on('click', '.ajapaik-change-language-link', function (e) {
         e.preventDefault();
         $('#ajapaik-language').val($(this).attr('data-lang-code'));
-        $('input[name=csrfmiddlewaretoken]').val(window.docCookies.getItem('csrftoken'));
+        $('input[name=csrfmiddlewaretoken]').val(docCookies.getItem('csrftoken'));
         $('#ajapaik-change-language-form').submit();
     });
 

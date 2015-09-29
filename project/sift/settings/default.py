@@ -194,3 +194,6 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     },
 }
+
+# Why does Sift want this?
+FACEBOOK_APP_KEY = ''

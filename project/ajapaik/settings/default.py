@@ -155,7 +155,7 @@ EXTERNAL_APPS = (
     'rest_framework',
     'compressor',
     'modeltranslation',
-    'haystack'
+    'haystack',
 )
 
 LOCAL_APPS = (

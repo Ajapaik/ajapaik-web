@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
-from .models import Area, Album, Photo, GeoTag
+from .models import Area, Album, Photo, GeoTag, PhotoLike
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from django.contrib.gis.geos import Point
@@ -235,6 +235,12 @@ class ApiUserMeForm(forms.Form):
 class PhotoSelectionForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.all(), required=False)
     clear = forms.BooleanField(initial=False, required=False)
+
+
+class PhotoLikeForm(forms.ModelForm):
+    class Meta:
+        model = PhotoLike
+        fields = ('photo',)
 
 
 class AlbumInfoModalForm(forms.Form):

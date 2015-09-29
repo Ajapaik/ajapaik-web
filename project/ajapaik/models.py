@@ -253,6 +253,9 @@ class Photo(Model):
     fb_comments_count = IntegerField(default=0)
     first_comment = DateTimeField(null=True, blank=True)
     latest_comment = DateTimeField(null=True, blank=True)
+    like_count = IntegerField(default=0, db_index=True)
+    first_like = DateTimeField(null=True, blank=True)
+    latest_like = DateTimeField(null=True, blank=True)
     geotag_count = IntegerField(default=0, db_index=True)
     first_geotag = DateTimeField(null=True, blank=True)
     latest_geotag = DateTimeField(null=True, blank=True)
@@ -559,6 +562,7 @@ class Photo(Model):
                         self.azimuth_confidence = None
 
 
+
 class PhotoMetadataUpdate(Model):
     photo = ForeignKey("Photo", related_name='metadata_updates')
     old_title = CharField(max_length=255, blank=True, null=True)
@@ -587,6 +591,13 @@ class PhotoComment(Model):
 
     def __unicode__(self):
         return u"%s" % self.text[:50]
+
+
+class PhotoLike(Model):
+    photo = ForeignKey('Photo', related_name='likes')
+    profile = ForeignKey('Profile')
+    level = PositiveSmallIntegerField(default=1)
+    created = DateTimeField(auto_now_add=True)
 
 
 class DifficultyFeedback(Model):
