@@ -380,6 +380,9 @@
             } else if (window.order2 === 'likes') {
                 $('#ajapaik-likes-filter-icon').attr('class', 'ajapaik-filter-white');
                 orderingString += ' ' + window.gettext('liked');
+            } else if (window.order2 === 'views') {
+                $('#ajapaik-views-filter-icon').attr('class', 'ajapaik-filter-white');
+                orderingString += ' ' + window.gettext('viewed');
             }
             if (window.order1 !== 'closest') {
                 orderingString += ' ' + window.gettext('pictures');

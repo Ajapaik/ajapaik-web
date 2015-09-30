@@ -26,26 +26,6 @@
                                     <path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.97.89 1.66.89H22c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
                                 </svg>
                             </a>
-                            <ul class="dropdown-menu" id="ajapaik-frontpage-mode-select" style="margin-top: 12px;">
-                                <li>
-                                    <a href="/{% if request.mobile %}?forceAlbum=1{% endif %}" id="ajapaik-frontpage-show-albums-link" title="Show albums">
-                                        <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"></path>
-                                            <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                            <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z"></path>
-                                        </svg>{% trans "Albums" %}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/?order1=time&amp;order2=added" id="ajapaik-frontpage-show-pictures-link" title="Show pictures">
-                                        <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"></path>
-                                        </svg>{% trans "All pictures" %}
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     {% endif %}
                     {% if is_mapview and album %}

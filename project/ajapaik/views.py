@@ -9,12 +9,10 @@ import ujson as json
 from PIL import Image, ImageFile, ImageOps
 from time import strftime, strptime
 from StringIO import StringIO
-from django.contrib.gis.gdal import CoordTransform, SpatialReference
 
-from django.db import connection
 import requests
 from PIL.ExifTags import TAGS, GPSTAGS
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
@@ -606,6 +604,7 @@ def frontpage_async_data(request):
 
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
+    profile = request.get_user().profile
     photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
     filter_form = GalleryFilteringForm(request.GET)
     page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
@@ -620,6 +619,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         order1 = filter_form.cleaned_data['order1']
         order2 = filter_form.cleaned_data['order2']
         order3 = filter_form.cleaned_data['order3']
+        my_likes_only = filter_form.cleaned_data['myLikes']
+        my_rephotos_only = filter_form.cleaned_data['myRephotos']
         default_ordering = False
         if not order1 and not order2:
             order1 = 'time'
@@ -627,7 +628,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             default_ordering = True
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
-        if album or requested_photos or requested_photo or filter_form.cleaned_data['order1']:
+        if album or requested_photos or requested_photo or my_likes_only or my_rephotos_only or filter_form.cleaned_data['order1']:
             show_photos = True
         else:
             show_photos = False
@@ -647,6 +648,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.filter(id__in=requested_photos)
         else:
             ret['is_photoset'] = False
+        if my_likes_only:
+            photos = photos.filter(likes__profile=profile)
+        if my_rephotos_only:
+            photos = photos.filter(rephotos__user=profile)
         photos_with_comments = None
         photos_with_rephotos = None
         q = filter_form.cleaned_data['q']
@@ -684,6 +689,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('like_count')
                 else:
                     photos = photos.order_by('-like_count')
+            elif order2 == 'views':
+                if order3 == 'reverse':
+                    photos = photos.order_by('view_count')
+                else:
+                    photos = photos.order_by('-view_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
@@ -715,6 +725,13 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 else:
                     photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL', },
                         order_by=['latest_like_is_null', '-project_photo.latest_like'], )
+            elif order2 == 'views':
+                if order3 == 'reverse':
+                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL', },
+                        order_by=['first_view_is_null', 'project_photo.first_view'], )
+                else:
+                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL', },
+                        order_by=['latest_view_is_null', '-project_photo.latest_view'], )
             elif order2 == 'added':
                 if order3 == 'reverse':
                     photos = photos.order_by('created')
@@ -1095,7 +1112,17 @@ def photoslug(request, photo_id, pseudo_slug):
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
         first_rephoto = photo_obj.rephotos.all().first()
-
+        if 'user_view_array' not in request.session:
+             request.session['user_view_array'] = []
+        if photo_obj.id not in request.session['user_view_array']:
+            photo_obj.view_count += 1
+        now = datetime.datetime.now()
+        if not photo_obj.first_view:
+            photo_obj.first_view = now
+        photo_obj.latest_view = now
+        photo_obj.light_save()
+        request.session['user_view_array'].append(photo_obj.id)
+        request.session.modified = True
 
     is_frontpage = False
     is_mapview = False
@@ -2032,7 +2059,7 @@ def update_like_state(request):
             )
             like.save()
             ret['level'] = 1
-        like_count = p.likes.count()
+        like_count = p.likes.aggregate(Sum('level'))
         ret['likeCount'] = like_count
         p.like_count = like_count
         if like_count > 0:

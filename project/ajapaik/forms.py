@@ -23,11 +23,13 @@ class GalleryFilteringForm(forms.Form):
     photos = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time', required=False)
-    order2 = forms.ChoiceField(choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('added', 'added')], initial='added', required=False)
+    order2 = forms.ChoiceField(choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'), ('likes', 'likes'), ('added', 'added')], initial='added', required=False)
     order3 = forms.ChoiceField(choices=[('reverse', 'reverse'),], initial=None, required=False)
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     q = forms.CharField(required=False)
+    myLikes = forms.BooleanField(required=False)
+    myRephotos = forms.BooleanField(required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']
