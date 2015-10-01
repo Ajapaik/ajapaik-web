@@ -37,9 +37,10 @@ from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
-    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm
+    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
+    AlbumSelectionFilteringForm, HaystackAlbumSearchForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
-    CuratorAlbumInfoSerializer
+    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
@@ -218,8 +219,11 @@ def _extract_and_save_data_from_exif(photo_with_exif):
         return False
 
 
-def _get_album_choices():
-    albums = Album.objects.filter(is_public=True).prefetch_related("cover_photo").order_by("-created")
+def _get_album_choices(qs=None, start=None, end=None):
+    if qs:
+        albums = qs.prefetch_related("cover_photo").order_by("-created")[start:end]
+    else:
+        albums = Album.objects.filter(is_public=True).prefetch_related("cover_photo").order_by("-created")[start:end]
     for a in albums:
         if a.cover_photo:
             a.cover_photo_width, a.cover_photo_height = calculate_thumbnail_size(a.cover_photo.width, a.cover_photo.height, 400)
@@ -586,6 +590,8 @@ def frontpage(request, album_id=None, page=None):
         'order1': data['order1'],
         'order2': data['order2'],
         'order3': data['order3'],
+        'my_likes_only': data['my_likes_only'],
+        'my_rephotos_only': data['my_rephotos_only'],
         'photos_with_comments': data['photos_with_comments'],
         'photos_with_rephotos': data['photos_with_rephotos'],
         'show_photos': data['show_photos'],
@@ -601,6 +607,45 @@ def frontpage_async_data(request):
     data = _get_filtered_data_for_frontpage(request)
 
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def frontpage_async_albums(request):
+    form = AlbumSelectionFilteringForm(request.GET)
+    ret = {}
+    if form.is_valid():
+        page = form.cleaned_data['page']
+        if page is None:
+            page = 1
+        page_size = settings.FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE
+        start = (page - 1) * page_size
+        albums = Album.objects.filter(is_public=True)
+        total = albums.count()
+        if start < 0:
+            start = 0
+        if start > total:
+            start = total
+        if int(start + page_size) > total:
+            end = total
+        else:
+            end = start + page_size
+        end = int(end)
+        max_page = int(ceil(float(total) / float(page_size)))
+        q = form.cleaned_data['q']
+        if q:
+            album_search_form = HaystackAlbumSearchForm({'q': q})
+            search_query_set = album_search_form.search()
+            results = [r.pk for r in search_query_set]
+            albums = albums.filter(pk__in=results)
+        albums = _get_album_choices(albums, start, end)
+        serializer = FrontpageAlbumSerializer(albums, many=True)
+        ret['start'] = start
+        ret['end'] = end
+        ret['total'] = total
+        ret['max_page'] = max_page
+        ret['page'] = page
+        ret['albums'] = JSONRenderer().render(serializer.data)
+
+    return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
@@ -810,6 +855,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['page'] = page
         ret['total'] = total
         ret['max_page'] = max_page
+        ret['my_likes_only'] = my_likes_only
+        ret['my_rephotos_only'] = my_rephotos_only
     else:
         ret['album'] = None
         ret['photo'] = None
@@ -821,6 +868,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['order2'] = 'added'
         ret['order3'] = None
         ret['is_photoset'] = False
+        ret['my_likes_only'] = False
+        ret['my_rephotos_only'] = False
         ret['total'] = photos.count()
         photos = map(list, photos)
         for p in photos:
@@ -2059,7 +2108,7 @@ def update_like_state(request):
             )
             like.save()
             ret['level'] = 1
-        like_count = p.likes.aggregate(Sum('level'))
+        like_count = p.likes.aggregate(Sum('level'))['level__sum']
         ret['likeCount'] = like_count
         p.like_count = like_count
         if like_count > 0:

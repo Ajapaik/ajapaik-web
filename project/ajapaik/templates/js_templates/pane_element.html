@@ -1,0 +1,33 @@
+{% verbatim %}
+    <script id="ajapaik-pane-element-template" type="text/x-tmpl">
+        <a id="element{%=o.id%}" class="ajapaik-mapview-pane-photo-container" href="{%=o.permalink%}"
+           data-id="{%=o.id%}" onclick="return false;">
+            <img src=""
+                 data-src="{%=o.url%}"
+                 alt="{%=o.description%}"
+                 title="{%=o.description%}"
+                 data-id="{%=o.id%}"
+                 class="lazyload img-responsive{% if (o.flipped) { %} ajapaik-photo-flipped{% } %}"
+                 height="{%=o.height%}"
+                 width="{%=o.width%}"
+                 onclick="window.highlightSelected({%=o.id%}, false, event);"
+                 onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
+                 onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"/>
+            {% if (o.rephotos) { %}
+                <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o.rephotos%}"
+                     data-id="{%=o.id%}"
+                     onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
+                     onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
+                </div>
+            {% } %}
+            {% if (userIsSocialConnected) { %}
+                <button class="ajapaik-thumbnail-selection-icon{% if (o.in_selection) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o.id%}">
+                    <i class="material-icons">check_circle</i>
+                </button>
+            {% } %}
+            {% if (o.comments) { %}
+                <span class="ajapaik-comment-count">{%=o.comments%}</span>
+            {% } %}
+        </a>
+    </script>
+{% endverbatim %}

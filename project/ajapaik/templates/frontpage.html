@@ -8,45 +8,8 @@
 {% block layout %}
     <div class="container-fluid" id="ajapaik-frontpage-container">
         <div class="row">
-            {% include "_album_selection.html" %}
-            <div id="ajapaik-frontpage-historic-photos" class="ajapaik-invisible{% if not show_photos %} hidden{% endif %}">
-                {# This is for bots and initial page-load, see bottom of page for async template #}
-                {% for p in photos %}
-                    <a target="_blank" href="{% url "project.ajapaik.views.photoslug" p.0 p.13 %}"
-                       class="ajapaik-frontpage-image-container" id="ajapaik-frontpage-image-container-{{ p.0 }}"
-                       data-id="{{ p.0 }}" onclick="return false;">
-                        <img alt="{{ p.3 }}" title="{{ p.3 }}" src="#" data-src="{% url "project.ajapaik.views.photo_thumb" p.0 400 p.13 %}"
-                            class="ajapaik-frontpage-image lazyload img-responsive{% if p.12 %} ajapaik-photo-flipped{% endif %}" data-id="{{ p.0 }}"
-                            width="{{ p.1 }}" height="{{ p.2 }}"/>
-                        {% if request.user.profile.fb_id or request.user.profile.google_plus_id %}
-                            <button class="ajapaik-thumbnail-selection-icon{% if p.11 == 1 %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ p.0 }}">
-                                <i class="material-icons">check_circle</i>
-                            </button>
-                        {% endif %}
-                        <div class="ajapaik-thumbnail-info-container">
-                            {% if p.4 and p.5 and p.6 %}
-                                <div style="transform: rotate({{ p.6 }}deg);" class="ajapaik-frontpage-azimuth"
-                                     title="{% trans "Image has location and view direction info" %}"></div>
-                            {% elif p.4 and p.5 %}
-                                <div class="ajapaik-frontpage-location-known"
-                                     title="{% trans "Image has only location, no view direction" %}"></div>
-                            {% else %}
-                                <div class="ajapaik-frontpage-location-unknown"
-                                     title="{% trans "Image has no location info" %}"></div>
-                            {% endif %}
-                            {% if p.7 > 0 %}
-                                <div class="ajapaik-frontpage-rephoto-count
-                                    ajapaik-frontpage-rephoto-count-{{ p.7 }}"
-                                     title="{% trans "Image has rephotos" %}"></div>
-                            {% endif %}
-                            <span class="ajapaik-frontpage-comments-count {% if p.8 == 0 %}hidden{% endif %}"
-                                  title="{% trans "Comments" %}">
-                            </span>
-                        </div>
-                        <div class="caption ajapaik-caption">{{ p.3 }}</div>
-                    </a>
-                {% endfor %}
-            </div>
+            <div id="ajapaik-album-selection" class="ajapaik-invisible{% if show_photos %} hidden{% endif %}"></div>
+            <div id="ajapaik-frontpage-historic-photos" class="ajapaik-invisible{% if not show_photos %} hidden{% endif %}"></div>
         </div>
     </div>
     <div id="ajp-geotagging-container"></div>
@@ -74,10 +37,10 @@
         window.maxPage = parseInt('{{ max_page }}', 10);
         window.nextPageOnModalClose = false;
         window.previousPageOnModalClose = false;
-        window.isFrontpage = '{{ is_frontpage|safe }}' === 'True';
         window.photoURL = '{% url "project.ajapaik.views.photo" %}';
         window.photoThumbURL = '{% url "project.ajapaik.views.photo_thumb" %}';
         window.frontpageAsyncURL = '{% url "project.ajapaik.views.frontpage_async_data" %}';
+        window.frontpageAlbumsAsyncURL = '{% url "project.ajapaik.views.frontpage_async_albums" %}';
         window.nextPhotoLoading = false;
         window.photos = window.getQueryParameterByName('photos');
         window.userClosedRephotoTools = false;
@@ -92,8 +55,13 @@
         window.start = '{{ start }}';
         window.end = '{{ end }}';
         window.total = '{{ total }}';
+        window.isFrontpage = '{{ is_frontpage|safe }}' === 'True';
+        window.showPhotos = '{{ show_photos|safe }}' === 'True';
+        window.myLikes = '{{ my_likes_only|safe }}' === 'True';
+        window.myRephotos = '{{ my_rephotos_only|safe }}' === 'True';
         {% if album %}
             window.albumId = {{ album.0 }};
+            window.albumName = '{{ album.1 }}';
             {% if album.3 and album.4 %}
                 window.albumLat = {{ album.3 }};
                 window.albumLon = {{ album.4 }};
@@ -104,49 +72,8 @@
         window.linkToGallery = true;
         window.fbShareGallery = true;
     </script>
-    {% verbatim %}
-        <script id="ajapaik-frontpage-photo-template" type="text/x-tmpl">
-            <a target="_blank" href="{%=photoURL%}{%=o[0]%}/{%=o[13]%}" class="ajapaik-frontpage-image-container"
-            id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}" onclick="return false;">
-                <img alt="{%=o[3]%}" title="{%=o[3]%}" src="#" data-src="{%=photoThumbURL%}{%=o[0]%}/400/{%=o[13]%}"
-                    class="ajapaik-frontpage-image lazyload img-responsive{% if (o[12]) { %} ajapaik-photo-flipped{% } %}" data-id="{%=o[0]%}"
-                    width="{%=o[1]%}" height="{%=o[2]%}"/>
-                {% if (userIsSocialConnected) { %}
-                    <button class="ajapaik-thumbnail-selection-icon{% if (o[11] == 1) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o[0]%}">
-                        <i class="material-icons">check_circle</i>
-                    </button>
-                {% } %}
-                <div class="ajapaik-thumbnail-info-container">
-                    {% if (o[6]) { %}
-                        {% if (o[4] && o[5]) { %}
-                            <div style="transform: rotate({%=o[6]%}deg);" class="ajapaik-frontpage-azimuth"
-                                title="{%=gettext('Image has location and view direction info')%}">
-                            </div>
-                        {% } %}
-                    {% } else { %}
-                        {% if (o[4] && o[5]) { %}
-                            <div class="ajapaik-frontpage-location-known"
-                                title="{%=gettext('Image has only location, no view direction')%}">
-                            </div>
-                        {% } %}
-                    {% } %}
-                    {% if (!o[4]) { %}
-                        <div class="ajapaik-frontpage-location-unknown" "{%=gettext('Image has no location info')%}"></div>
-                    {% } %}
-                    {% if (o[7] > 0) { %}
-                        <div class="ajapaik-frontpage-rephoto-count
-                            ajapaik-frontpage-rephoto-count-{%=o[7]%}"
-                            title="{%=gettext('Image has rephotos')%}">
-                        </div>
-                    {% } %}
-                    <span class="ajapaik-frontpage-comments-count {% if (o[8] == 0) { %}hidden{% } %}"
-                        title="{%=gettext('Comments')%}">
-                    </span>
-                </div>
-                <div class="caption ajapaik-caption">{%=o[3]%}</div>
-            </a>
-        </script>
-    {% endverbatim %}
+    {% include "js_templates/frontpage_album_template.html" %}
+    {% include "js_templates/frontpage_photo_template.html" %}
     {% compress js %}
         <script src="{% static "js/ajapaik-frontpage.js" %}"></script>
         <script>

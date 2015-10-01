@@ -261,7 +261,7 @@
                 </div>
             </div>
             <nav>
-                <ul class="pager col-xs-12 col-sm-6{% if not show_photos %} ajapaik-invisible{% endif %}" id="ajapaik-pager">
+                <ul class="pager col-xs-12 col-sm-6" id="ajapaik-pager">
                     <li>
                         <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">
                             &lt;
@@ -356,6 +356,8 @@
             photoUploadModalURL = '{% url 'project.ajapaik.views.mapview_photo_upload_modal' %}',
             curatorSelectableAlbumsURL = '{% url 'project.ajapaik.views.curator_selectable_albums' %}',
             curatorSelectableParentAlbumsURL = '{% url 'project.ajapaik.views.curator_selectable_parent_albums' %}',
+            mapviewURL = '{% url 'project.ajapaik.views.mapview' %}',
+            gameURL = '{% url 'project.ajapaik.views.game' %}',
             lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
             hotkeysActive = true,
         {% if request.user.profile.fb_id or request.user.profile.google_plus_id %}

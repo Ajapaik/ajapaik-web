@@ -639,7 +639,7 @@ var map,
             }));
             if (window.photoModalPhotoAzimuth) {
                 var start = new google.maps.LatLng(center.lat, center.lng);
-                var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 1000);
+                var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 2000);
                 var angle = Math.getAzimuthBetweenTwoPoints(start, geodesicEndPoint);
                 var angleFix = window.photoModalPhotoAzimuth - angle;
                 arrowIcon.rotation = window.photoModalPhotoAzimuth + angleFix;
@@ -658,7 +658,7 @@ var map,
                     clickable: false,
                     map: window.miniMap
                 });
-                window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.01)]);
+                window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.02)]);
             } else {
                 if (window.minimapDottedAzimuthLine) {
                     window.minimapDottedAzimuthLine.setVisible(false);

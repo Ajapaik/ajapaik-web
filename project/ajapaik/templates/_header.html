@@ -1,4 +1,4 @@
-{% load i18n ajapaik_templatetags %}
+{% load i18n ajapaik_templatetags staticfiles %}
 
 <nav class="navbar navbar-default navbar-fixed-top ajapaik-navbar{% if is_curator %} ajapaik-curator-navbar{% endif %}">
     <div class="container-fluid">
@@ -6,7 +6,7 @@
             <a class="navbar-brand ajapaik-brand hidden-xs hidden-sm" href="/" title="{% trans "Back to homepage" %}">
                 {% trans "Timepatch (Ajapaik)" %}
             </a>
-            <a class="hidden-xs hidden-sm" style="width: 160px; display: block; height: 50px;"></a>
+            <a id="ajapaik-brand-dummy" class="hidden-xs hidden-sm"></a>
         </div>
         <div class="navbar-header pull-left">
             <ul class="nav pull-right">
@@ -14,33 +14,19 @@
                     {% if is_mapview or is_game or is_frontpage %}
                         <li class="dropdown pull-left" id="ajapaik-header-album-name">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
-                                <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="pull-left">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4zm0 15l3-3.86 2.14 2.58 3-3.86L18 19H6z"></path>
-                                </svg>
+                                <i class="material-icons pull-left">photo_album</i>
                                 <span id="ajapaik-header-title" class="pull-left">
                                     {{ album.1 }}
                                 </span>
-                                <svg id="ajapaik-header-album-more" title="{% trans 'Album details' %}" fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="pull-left">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.97.89 1.66.89H22c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
-                                </svg>
+                                <i id="ajapaik-header-album-more" class="material-icons" title="{% trans 'Album details' %}">more</i>
                             </a>
                         </li>
                     {% endif %}
                     {% if is_mapview and album %}
                         <li class="pull-left">
                             <a title="{% trans 'Remove album filter' %}" id="ajapaik-header-album-filter-button" class="ajapaik-no-background">
-                                <svg id="ajapaik-header-album-filter-button-on" xmlns="http://www.w3.org/2000/svg"
-                                     width="24" height="24" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path fill="#888" d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-                                </svg>
-                                <svg id="ajapaik-header-album-filter-button-off" xmlns="http://www.w3.org/2000/svg"
-                                     width="24" height="24" viewBox="0 0 24 24">
-                                    <path fill="#888" d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                </svg>
+                                <i id="ajapaik-header-album-filter-button-on" class="material-icons ajapaik-gray-button">check_box</i>
+                                <i id="ajapaik-header-album-filter-button-off" class="material-icons ajapaik-gray-button">check_box_outline</i>
                             </a>
                         </li>
                     {% endif %}
@@ -62,10 +48,7 @@
                 <li class="pull-right">
                     <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
                        id="ajapaik-header-profile-button" class="ajapaik-no-background">
-                        <svg height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="{% if request.user.profile.fb_id or request.user.profile.google_plus_id %}#fff{% else %}#888{% endif %}" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"></path>
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                        </svg>
+                        <i class="material-icons ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id %} ajapaik-text-white{% endif %}">account_circle</i>
                     </a>
                     <div class="score_container">
                         <h4>
@@ -107,10 +90,9 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-
-        <!-- The Collapsing items            navbar-left or navbar-right -->
+        <!-- The Collapsing items navbar-left or navbar-right -->
         <div class="collapse navbar-collapse navbar-left">
-            <!--                      pull-right keeps the drop-down in line -->
+            <!-- pull-right keeps the drop-down in line -->
             <ul class="nav navbar-nav pull-right">
                 <li class="pull-left">
                     <input type="text" class="form-control" id="ajapaik-photo-filter-box" {% if not show_photos %}style="display: none;"{% endif %} placeholder="{% trans "Search photos" %}"/>
@@ -131,45 +113,31 @@
                 {% if album and not is_photoview %}
                     <li class="pull-left">
                         <a role="button" title="{% trans 'Geotag pictures' %}" {% if album %}href="/geotag/?album={{ album.0 }}{% if photo %}&photo={{ photo.id }}{% endif %}"{% endif %} class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
-                                <path fill="#888" {% if is_game %}class="ajapaik-white"{% endif %} d="M18 8c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2-.89 2-2 2c-1.1 0-2-.9-2-2zm-5 12v2h14v-2h-14z"></path>
-                                <path d="M0 0h24v24h-24z" fill="none"></path>
-                            </svg>
+                            <i class="material-icons ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">pin_drop</i>
                         </a>
                     </li>
                 {% endif %}
                 <li class="pull-left">
                     <a role="button" title="{% trans 'Show on map' %}" href="{% if album %}/map/?album={{ album.0 }}{% else %}#{% endif %}" id="ajapaik-header-map-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
-                            <path fill="#888" {% if is_mapview %}class="ajapaik-white"{% endif %}
-                                  d="M20.5 3l-.16.03-5.34 2.07-6-2.1-5.64 1.9c-.21.07-.36.25-.36.48v15.12c0 .28.22.5.5.5l.16-.03 5.34-2.07 6 2.1 5.64-1.9c.21-.07.36-.25.36-.48v-15.12c0-.28-.22-.5-.5-.5zm-5.5 16l-6-2.11v-11.89l6 2.11v11.89z"></path>
-                            <path d="M0 0h24v24h-24z" fill="none"></path>
-                        </svg>
+                        <i class="material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
                     </a>
                 </li>
                 <li class="pull-left hidden-xs">
-                    <a role="button" title="{% trans 'Curate' %}" href="/curator" class="ajapaik-padding-top-6px">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24h-24z" fill="none"></path>
-                            <path fill="#888" {% if is_curator %}class="ajapaik-white"{% endif %} d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"></path>
-                        </svg>
+                    <a role="button" title="{% trans 'Curate' %}" href="{% url "project.ajapaik.views.curator" %}" class="ajapaik-padding-top-6px">
+                        <i class="material-icons ajapaik-gray-button{% if is_curator %} ajapaik-text-white{% endif %}">add_circle</i>
                     </a>
                 </li>
                 <li class="pull-left{% if not request.session.photo_selection %} hidden{% endif %}" id="ajapaik-header-selection-indicator">
                     <a role="button" title="{% trans 'Current selection' %}" href="/view-selection" class="ajapaik-padding-top-6px">
-                        <svg {% if is_selection %}class="ajapaik-filter-white"{% endif %} fill="#888" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
-                        </svg>
+                        <i class="material-icons ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>
                         <span class="badge">{{ request.session.photo_selection|length }}</span>
                     </a>
                 </li>
             </ul>
         </div>
-
         <!-- Additional navbar items -->
         <div class="collapse navbar-collapse navbar-right">
-            <!--                      pull-right keeps the drop-down in line -->
+            <!-- pull-right keeps the drop-down in line -->
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown pull-right">
                     {% get_language_info for LANGUAGE_CODE as lang %}
@@ -190,10 +158,7 @@
                 </li>
                 <li class="pull-right">
                     <a role="button" title="{% trans 'About Ajapaik' %}" id="ajapaik-header-about-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-10px">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path fill="#888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
-                        </svg>
+                        <i class="material-icons ajapaik-gray-button">info</i>
                     </a>
                 </li>
                 <li class="pull-right">
@@ -212,20 +177,21 @@
                 <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">
                     <li role="presentation" class="active">
                         <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab" role="tab"
-                           data-toggle="tab">{% trans "Search" %}<span class="badge"
-                                                                       id="ajapaik-curator-result-count">0</span></a>
+                           data-toggle="tab">{% trans "Search" %}
+                            <span class="badge" id="ajapaik-curator-result-count">0</span>
+                        </a>
                     </li>
                     <li role="presentation">
-                        <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab"
-                           role="tab"
-                           data-toggle="tab">{% trans "Selection" %}<span class="badge"
-                                                                          id="ajapaik-curator-selection-size">0</span></a>
+                        <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab" role="tab"
+                           data-toggle="tab">{% trans "Selection" %}
+                            <span class="badge" id="ajapaik-curator-selection-size">0</span>
+                        </a>
                     </li>
                     <li role="presentation">
-                        <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab"
-                           role="tab"
-                           data-toggle="tab">{% trans "My albums" %}<span class="badge"
-                                                                          id="ajapaik-curator-my-albums-size">0</span></a>
+                        <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab" role="tab"
+                           data-toggle="tab">{% trans "My albums" %}
+                            <span class="badge" id="ajapaik-curator-my-albums-size">0</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -277,10 +243,8 @@
                             </button>
                         </div>
                         <div class="col-xs-offset-6 col-xs-2">
-                            <img src="{{ STATIC_URL }}images/large-thumbnails-48.png"
-                                 id="ajapaik-curator-gallery-switch">
-                            <img src="{{ STATIC_URL }}images/list-with-thumbnails-48.png"
-                                 id="ajapaik-curator-list-switch">
+                            <img src="{% static "images/large-thumbnails-48.png" %}" id="ajapaik-curator-gallery-switch">
+                            <img src="{% static "images/list-with-thumbnails-48.png"%}" id="ajapaik-curator-list-switch">
                         </div>
                     </div>
                 </div>

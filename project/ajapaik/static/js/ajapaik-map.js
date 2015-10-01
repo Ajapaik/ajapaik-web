@@ -343,7 +343,7 @@
                         currentAzimuth = p[3];
                         currentPosition = new window.google.maps.LatLng(p[1], p[2]);
                         if (currentAzimuth) {
-                            geodesicEndPoint = Math.calculateMapLineEndPoint(currentAzimuth, currentPosition, 1000);
+                            geodesicEndPoint = Math.calculateMapLineEndPoint(currentAzimuth, currentPosition, 2000);
                             angle = Math.getAzimuthBetweenTwoPoints(currentPosition, geodesicEndPoint);
                             angleFix = currentAzimuth - angle;
                             arrowIcon.rotation = currentAzimuth + angleFix;
@@ -501,7 +501,7 @@
                 maxIndex += 1;
                 markerTemp = markers[i];
                 if (markers[i].azimuth) {
-                    window.dottedAzimuthLine.setPath([markers[i].position, Math.simpleCalculateMapLineEndPoint(markers[i].azimuth, markers[i].position, 0.01)]);
+                    window.dottedAzimuthLine.setPath([markers[i].position, Math.simpleCalculateMapLineEndPoint(markers[i].azimuth, markers[i].position, 0.02)]);
                     window.dottedAzimuthLine.setMap(window.map);
                     window.dottedAzimuthLine.setVisible(true);
                 } else {

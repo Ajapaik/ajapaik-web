@@ -1,0 +1,43 @@
+{% verbatim %}
+    <script id="ajapaik-frontpage-photo-template" type="text/x-tmpl">
+        <a target="_blank" href="{%=photoURL%}{%=o[0]%}/{%=o[13]%}" class="ajapaik-frontpage-image-container"
+        id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}" onclick="return false;">
+            <img alt="{%=o[3]%}" title="{%=o[3]%}" src="#" data-src="{%=photoThumbURL%}{%=o[0]%}/400/{%=o[13]%}"
+                class="ajapaik-frontpage-image lazyload img-responsive{% if (o[12]) { %} ajapaik-photo-flipped{% } %}" data-id="{%=o[0]%}"
+                width="{%=o[1]%}" height="{%=o[2]%}"/>
+            {% if (userIsSocialConnected) { %}
+                <button class="ajapaik-thumbnail-selection-icon{% if (o[11] == 1) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o[0]%}">
+                    <i class="material-icons">check_circle</i>
+                </button>
+            {% } %}
+            <div class="ajapaik-thumbnail-info-container">
+                {% if (o[6]) { %}
+                    {% if (o[4] && o[5]) { %}
+                        <div style="transform: rotate({%=o[6]%}deg);" class="ajapaik-frontpage-azimuth"
+                            title="{%=gettext('Image has location and view direction info')%}">
+                        </div>
+                    {% } %}
+                {% } else { %}
+                    {% if (o[4] && o[5]) { %}
+                        <div class="ajapaik-frontpage-location-known"
+                            title="{%=gettext('Image has only location, no view direction')%}">
+                        </div>
+                    {% } %}
+                {% } %}
+                {% if (!o[4]) { %}
+                    <div class="ajapaik-frontpage-location-unknown" "{%=gettext('Image has no location info')%}"></div>
+                {% } %}
+                {% if (o[7] > 0) { %}
+                    <div class="ajapaik-frontpage-rephoto-count
+                        ajapaik-frontpage-rephoto-count-{%=o[7]%}"
+                        title="{%=gettext('Image has rephotos')%}">
+                    </div>
+                {% } %}
+                <span class="ajapaik-frontpage-comments-count {% if (o[8] == 0) { %}hidden{% } %}"
+                    title="{%=gettext('Comments')%}">
+                </span>
+            </div>
+            <div class="caption ajapaik-caption">{%=o[3]%}</div>
+        </a>
+    </script>
+{% endverbatim %}

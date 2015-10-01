@@ -26,6 +26,9 @@ body {
 .ajapaik-text-white {
     color: #fff !important;
 }
+.ajapaik-text-gray {
+    color: #888 !important;
+}
 .ajapaik-dark-background {
     background-color: rgba(0, 0, 0, .8);
 }
@@ -55,6 +58,7 @@ body {
 #ajapaik-frontpage-mode-select {
     background-color: rgba(0,0,0,.8);
     border-radius: 0;
+    margin-top: 15px;
 }
 
 #ajapaik-filtering-help {
@@ -535,6 +539,10 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     overflow: hidden;
 }
 
+#ajapaik-header-about-button > i {
+    font-size: 36px;
+}
+
 #ajapaik-header-album-icon {
     float: left;
 }
@@ -543,9 +551,16 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     float: left;
 }
 
+#ajapaik-header-likes-icon {
+    float: left;
+}
+
+#ajapaik-header-rephotos-icon {
+    float: left;
+}
+
 #ajapaik-header-image-icon {
     float: left;
-    margin-top: -7px;
 }
 
 #ajapaik-header-album-more {
@@ -557,6 +572,14 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 
 #ajapaik-frontpage-show-albums-link > svg {
+    margin-right: 5px;
+}
+
+#ajapaik-frontpage-show-liked-link > svg {
+    margin-right: 5px;
+}
+
+#ajapaik-frontpage-show-rephotographed-link > svg {
     margin-right: 5px;
 }
 
@@ -661,6 +684,10 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 
 #ajapaik-header-profile-button {
     padding-top: 8px;
+}
+
+#ajapaik-header-profile-button > i {
+    font-size: 36px;
 }
 
 @media (min-width: 1200px) {
@@ -2556,4 +2583,23 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     height: 48px;
     width: 48px;
     background: transparent url(../images/material-design-icons/ic_chevron_left_24px.svg) no-repeat center;
+}
+
+#ajapaik-brand-dummy {
+    width: 160px;
+    display: block;
+    height: 50px;
+}
+
+.ajapaik-gray-button {
+    color: #888;
+    font-size: 36px;
+}
+
+.ajapaik-gray-button:hover {
+    color: #fff;
+}
+
+#ajapaik-header-selected-mode > i {
+    display: none;
 }

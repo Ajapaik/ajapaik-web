@@ -1,68 +1,33 @@
 {% load i18n %}
 
 <li class="dropdown pull-left">
-    <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white" {% if is_photoview %}style="width: 48px;"{% endif %}>
-        <svg id="ajapaik-header-album-icon" {% if show_photos or is_photoview %}class="hidden"{% endif %} fill="#fff" height="24"
-             viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0h24v24H0V0z" fill="none"></path>
-            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"></path>
-            <path d="M0 0h24v24H0V0z" fill="none"></path>
-            <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z"></path>
-        </svg>
-        <svg id="ajapaik-header-pictures-icon" {% if not show_photos or is_photoview %}class="hidden"{% endif %} fill="#fff" height="24"
-             viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"></path>
-        </svg>
-        <svg id="ajapaik-header-image-icon" {% if not is_photoview %}class="hidden"{% endif %} fill="#fff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path>
-        </svg>
-        <span id="ajapaik-header-title">
-            {% if show_photos %}
-                {% trans "All pictures" %}
-            {% elif not is_photoview %}
-                {% trans "Albums" %}
-            {% endif %}
-        </span>
+    <a href="#" data-toggle="dropdown" id="ajapaik-header-selected-mode" class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
+        <i id="ajapaik-header-album-icon" class="material-icons">collections_bookmark</i>
+        <i id="ajapaik-header-pictures-icon" class="material-icons">collections</i>
+        <i id="ajapaik-header-image-icon" class="material-icons">insert_image</i>
+        <i id="ajapaik-header-likes-icon" class="material-icons">favorite</i>
+        <i id="ajapaik-header-rephotos-icon" class="material-icons">library_add</i>
+        <span id="ajapaik-header-title" title=""></span>
     </a>
-    <ul class="dropdown-menu" id="ajapaik-frontpage-mode-select" style="{% if not is_photoview %}margin-top: 12px;{% else %}margin-top: 6px;{% endif %}">
-        <li id="ajapaik-frontpage-show-albums-link" {% if not show_photos and not is_photoview %}class="hidden"{% endif %}>
-            <a href="/{% if request.mobile %}?forceAlbum=1{% endif %}" title="Show albums">
-                <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0V0z" fill="none"></path>
-                    <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"></path>
-                    <path d="M0 0h24v24H0V0z" fill="none"></path>
-                    <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z"></path>
-                </svg>
-                {% trans "Albums" %}
+    <ul class="dropdown-menu" id="ajapaik-frontpage-mode-select">
+        <li data-mode="albums">
+            <a href="#" id="ajapaik-frontpage-show-albums-link" title="Show albums">
+                <i class="material-icons">collections_bookmark</i> {% trans "Albums" %}
             </a>
         </li>
-        <li {% if show_photos %}class="hidden"{% endif %}>
+        <li data-mode="pictures">
             <a href="#" id="ajapaik-frontpage-show-pictures-link" title="Show pictures">
-                <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"></path>
-                </svg>
-                {% trans "All pictures" %}
+                <i class="material-icons">collections</i> {% trans "All pictures" %}
             </a>
         </li>
-        <li>
-            <a href="/?order1=time&amp;order2=added&amp;myLikes=1" id="ajapaik-frontpage-show-liked-link" title="Show liked by me">
-                <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                </svg>
-                {% trans "My likes" %}
+        <li data-mode="likes">
+            <a href="#" id="ajapaik-frontpage-show-liked-link" title="Show liked by me">
+                <i class="material-icons">favorite</i> {% trans "My likes" %}
             </a>
         </li>
-        <li>
-            <a href="/?order1=time&amp;order2=added&amp;myRephotos=1" id="ajapaik-frontpage-show-rephotographed-link" title="Show rephotographed by me">
-                <svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M4 6h-2v14c0 1.1.9 2 2 2h14v-2h-14v-14zm16-4h-12c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"></path>
-                </svg>
-                {% trans "My rephotos" %}
+        <li data-mode="rephotos">
+            <a href="#" id="ajapaik-frontpage-show-rephotographed-link" title="Show rephotographed by me">
+                <i class="material-icons">library_add</i> {% trans "My rephotos" %}
             </a>
         </li>
     </ul>

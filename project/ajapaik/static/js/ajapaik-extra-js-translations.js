@@ -28,4 +28,11 @@
     gettext('Image has rephotos');
     gettext('Add picture to album');
     gettext('Rotate');
+    gettext('Pictures in album');
+    gettext('Pictures geotagged');
+    gettext('Rephotos in album');
+    gettext('Comments in album');
+    gettext('Album details');
+    gettext('Show pictures on map');
+    gettext('Geotag pictures in album');
 }());

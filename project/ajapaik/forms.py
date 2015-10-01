@@ -17,6 +17,11 @@ class AlbumSelectionForm(forms.Form):
                                   initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
 
 
+class AlbumSelectionFilteringForm(forms.Form):
+    q = forms.CharField(required=False)
+    page = forms.IntegerField(min_value=1, initial=1, required=False)
+
+
 class GalleryFilteringForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
@@ -59,6 +64,16 @@ class GalleryFilteringForm(forms.Form):
 class HaystackPhotoSearchForm(SearchForm):
     def search(self):
         sqs = super(HaystackPhotoSearchForm, self).search().models(Photo)
+
+        if not self.is_valid():
+            return self.no_query_found()
+
+        return sqs
+
+
+class HaystackAlbumSearchForm(SearchForm):
+    def search(self):
+        sqs = super(HaystackAlbumSearchForm, self).search().models(Album)
 
         if not self.is_valid():
             return self.no_query_found()
@@ -224,6 +239,7 @@ class ApiPhotoUploadForm(forms.Form):
     pitch = forms.FloatField()
     roll = forms.FloatField()
     original = forms.FileField()
+    flip = forms.IntegerField(min_value=0, max_value=1)
 
 
 class ApiPhotoStateForm(forms.Form):

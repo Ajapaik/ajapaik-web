@@ -357,6 +357,7 @@ def api_photo_upload(request):
             cam_yaw=upload_form.cleaned_data['yaw'],
             cam_pitch=upload_form.cleaned_data['pitch'],
             cam_roll=upload_form.cleaned_data['roll'],
+            flip=upload_form.cleaned_data['flip'],
             licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
             user=profile,
         )

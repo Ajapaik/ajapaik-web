@@ -106,7 +106,7 @@
                     that.panoramaMarker.setVisible(false);
                     that.azimuthLine.setPath([that.realMarker.position,
                         that.simpleCalculateMapLineEndPoint(that.angleBetweenMouseAndMarker,
-                            that.realMarker.position, 0.01)]);
+                            that.realMarker.position, 0.02)]);
                 }
             }
         };
@@ -224,7 +224,7 @@
                             that.radiansToDegrees(that.getAzimuthBetweenTwoMarkers(that.realMarker, that.panoramaMarker));
                         that.azimuthLine.setPath([that.realMarker.position,
                             that.simpleCalculateMapLineEndPoint(that.angleBetweenMarkerAndPanoramaMarker,
-                                that.panoramaMarker.position, 0.01)]);
+                                that.panoramaMarker.position, 0.02)]);
                         that.azimuthLine.icons[0].repeat = '7px';
                     }
                 }

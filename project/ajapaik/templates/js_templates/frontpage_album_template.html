@@ -1,0 +1,38 @@
+{% verbatim %}
+    <script id="ajapaik-frontpage-album-template" type="text/x-tmpl">
+        <a href="/?album={%=o.id%}" class="ajapaik-frontpage-album" data-id="{%=o.id%}">
+            <img alt="{%=o.name%}" class="img-responsive lazyload{% if (o.cover_photo_flipped) { %} ajapaik-photo-flipped{% } %}"
+                 data-id="{%=o.id%}" data-name="{%=o.name%}" height="{%=o.cover_photo_height%}"
+                 data-photos="{%=o.photo_count_with_subalbums%}" width="{%=o.cover_photo_width%}"
+                 src="{%=photoThumbURL%}{%=o.cover_photo%}/400/">
+            <div class="caption ajapaik-caption-album-selection">
+                <p class="ajapaik-caption-album-selection-album-title" title="{%=o.name%}">{%=o.name%}</p>
+                <div class="ajapaik-album-selection-photo-count" title="{%=gettext('Pictures in album')%}">
+                    <span>{%=o.photo_count_with_subalbums%}</span>
+                </div>
+                {% if (o.geotagged_photo_count_with_subalbums > 0) { %}
+                    <div class="ajapaik-album-selection-geotagged-count" title="{%=gettext('Pictures geotagged')%}">
+                        <span>{%=o.geotagged_photo_count_with_subalbums%}</span>
+                    </div>
+                {% } %}
+                {% if (o.rephoto_count_with_subalbums > 0) { %}
+                    <div class="ajapaik-album-selection-rephoto-count" title="{%=gettext('Rephotos in album')%}">
+                        <span>{%=o.rephoto_count_with_subalbums%}</span>
+                    </div>
+                {% } %}
+                {% if (o.comments_count_with_subalbums > 0) { %}
+                    <div class="ajapaik-album-selection-comment-count" title="{%=gettext('Comments in album')%}">
+                        <span>{%=o.comments_count_with_subalbums%}</span>
+                    </div>
+                {% } %}
+                <div class="ajapaik-album-selection-caption-bottom hidden">
+                    <div class="ajapaik-album-selection-album-more-button" role="button" title="{%=gettext('Album details')%}" data-id="{%=o.id%}"></div
+                    {% if (o.geotagged_photo_count_with_subalbums > 0) { %}
+                        <div class="ajapaik-album-selection-map-button" role="button" title="{%=gettext('Show pictures on map')%}" data-href="{%=mapviewURL%}?album={%=o.id%}"></div>
+                    {% } %}
+                    <div class="ajapaik-album-selection-game-button" role="button" title="{%=gettext('Geotag pictures in album')%}" data-href="{%=gameURL%}?album={%=o.id%}"></div>
+                </div>
+            </div>
+        </a>
+    </script>
+{% endverbatim %}

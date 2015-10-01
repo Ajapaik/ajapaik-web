@@ -4,10 +4,10 @@ from django.contrib.staticfiles.views import serve
 from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
+
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
-
-# TODO: Locale specific URLs
+# TODO: Locale specific URLs?
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
    url(r'^stream/', 'fetch_stream'),
@@ -48,17 +48,12 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^foto_url/(?P<photo_id>\d+)/$', 'photo_url'),
    url(r'^photo-url/(?P<photo_id>\d+)/$', 'photo_url'),
    url(r'^photo-url/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photo_url'),
-   # url(r'^foto_thumb/$', 'photo_thumb', name="photo_thumb"),
-   # url(r'^foto_thumb/(?P<photo_id>\d+)/$', 'photo_thumb', name="photo_thumb"),
-   # url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>.*)/', 'photo_thumb', name="photo_thumb"),
-   # url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', 'photo_thumb', name="photo_thumb"),
    url(r'^photo-thumb/$', 'photo_thumb'),
    url(r'^photo-thumb/(?P<photo_id>\d+)/$', 'photo_thumb'),
    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', 'photo_thumb'),
    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', 'photo_thumb'),
-   #url(r'^fixed_height_foto_thumb/(?P<photo_id>\d+)/(?P<thumb_height>.*)/$', 'fixed_height_photo_thumb', name="fixed_height_photo_thumb"),
-   url(r'^fixed-height-photo-thumb/(?P<photo_id>\d+)/(?P<thumb_height>.*)/$', 'fixed_height_photo_thumb', name="fixed_height_photo_thumb"),
-   #url(r'^order-photo/(?P<photo_id>\d+)/$', 'order_photo', name="order_photo"),
+   url(r'^fixed-height-photo-thumb/(?P<photo_id>\d+)/(?P<thumb_height>.*)/$','fixed_height_photo_thumb', name="fixed_height_photo_thumb"),
+   # url(r'^order-photo/(?P<photo_id>\d+)/$', 'order_photo', name="order_photo"),
    url(r'^photo-selection/$', 'photo_selection', name="photo_selection"),
    url(r'^view-selection/$', 'list_photo_selection', name="list_photo_selection"),
    url(r'^upload-selection/$', 'upload_photo_selection', name="upload_photo_selection"),
@@ -66,7 +61,8 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^photos/$', 'frontpage', name='frontpage_photos'),
    url(r'^photos/(?P<page>\d+)/$', 'frontpage', name='frontpage_photos'),
    url(r'^photos/(?P<album_id>\d+)/(?P<page>\d+)/$', 'frontpage', name='frontpage_photos'),
-   url(r'^frontpage-async/$', 'frontpage_async_data', name='frontpage_async_data'),
+   url(r'^frontpage-async/$', 'frontpage_async_data'),
+   url(r'^frontpage-async-albums/$', 'frontpage_async_albums'),
    url(r'^curator/$', 'curator'),
    url(r'^curator-album-info/$', 'curator_get_album_info'),
    url(r'^curator-update-my-album/$', 'curator_update_my_album'),
@@ -103,18 +99,17 @@ urlpatterns += patterns('project.ajapaik.delfi',
 )
 
 urlpatterns += patterns('',
-   url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
-   url(r'^admin/', include(admin.site.urls)),
-   url(r'^admin_tools/', include('admin_tools.urls')),
-   url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
-   url(r'^google-login', 'project.ajapaik.google_plus.google_login'),
-   url(r'^oauth2callback', 'project.ajapaik.google_plus.auth_return'),
-   url(r'^i18n/', include('django.conf.urls.i18n')),
-   url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
-   url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
-   url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom'), name='feed'),
-   url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'photo_permalinks': PhotoSitemap, 'static_pages': StaticViewSitemap}},
-       name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin_tools/', include('admin_tools.urls')),
+    url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
+    url(r'^google-login', 'project.ajapaik.google_plus.google_login'),
+    url(r'^oauth2callback', 'project.ajapaik.google_plus.auth_return'),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
+    url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom'), name='feed'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'photo_permalinks': PhotoSitemap, 'static_pages': StaticViewSitemap}}, name='django.contrib.sitemaps.views.sitemap'),
 )
 
 handler500 = 'project.ajapaik.views.custom_500'
