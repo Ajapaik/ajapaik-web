@@ -95,7 +95,7 @@ urlpatterns += patterns('project.ajapaik.api',
 )
 
 urlpatterns += patterns('project.ajapaik.delfi',
-    url(r'^delfi_api/v1/photos_bbox/$', 'photos_bbox'),
+    url(r'^delfi-api/v1/photos_bbox/$', 'photos_bbox'),
 )
 
 urlpatterns += patterns('',
