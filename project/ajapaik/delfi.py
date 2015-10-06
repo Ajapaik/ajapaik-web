@@ -31,7 +31,7 @@ def photos_bbox(request):
                 'longitude': location.x,
                 'author': p.author,
                 'description': p.description,
-                'source': p.source.name + ' ' + p.source_key,
+                'source': p.source.description + ' ' + p.source_key,
                 'url': request.build_absolute_uri(reverse('project.ajapaik.views.photoslug', args=(p.id, p.get_pseudo_slug()))),
                 'thumbUrl': request.build_absolute_uri(reverse('project.ajapaik.views.photo_thumb', args=(p.id, 400)))
             })
