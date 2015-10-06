@@ -296,3 +296,7 @@ class DelfiBboxRequestForm(forms.Form):
             cleaned_data['bottom_right'] = bottom_right
 
         return cleaned_data
+
+
+class DelfiPhotoInfoRequestForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))

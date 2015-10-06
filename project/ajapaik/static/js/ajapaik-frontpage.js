@@ -180,6 +180,9 @@
             },
             updateFrontpageAlbumsAsync = function () {
                 $('#ajapaik-loading-overlay').show();
+                $('#ajapaik-filtering-dropdown').addClass('hidden');
+                $('#ajapaik-album-filter-box').parent().addClass('hidden');
+                syncStateToUrl();
                 $.ajax({
                     url: window.frontpageAlbumsAsyncURL + window.location.search,
                     method: 'GET',
@@ -211,6 +214,9 @@
             },
             updateFrontpagePhotosAsync = function () {
                 $('#ajapaik-loading-overlay').show();
+                $('#ajapaik-filtering-dropdown').removeClass('hidden');
+                $('#ajapaik-album-filter-box').parent().addClass('hidden');
+                syncStateToUrl();
                 $.ajax({
                     url: window.frontpageAsyncURL + window.location.search,
                     method: 'GET',
@@ -257,12 +263,12 @@
                 var selectedModeDiv = $('#ajapaik-header-selected-mode'),
                     title;
                 selectedModeDiv.find('i').hide();
-                albumSelectionDiv.hide();
+                albumSelectionDiv.addClass('ajapaik-invisible hidden');
                 historicPhotoGalleryDiv.show();
                 if (!window.showPhotos) {
                     title = gettext('Albums');
-                    albumSelectionDiv.show();
-                    historicPhotoGalleryDiv.hide();
+                    albumSelectionDiv.removeClass('ajapaik-invisible hidden');
+                    historicPhotoGalleryDiv.addClass('ajapaik-invisible hidden');
                     $('#ajapaik-header-album-icon').show();
                     updateFrontpageAlbumsAsync();
                 } else if (window.myLikes) {
@@ -276,6 +282,8 @@
                 } else if (!window.albumId) {
                     title = gettext('All photos');
                     $('#ajapaik-header-pictures-icon').show();
+                    albumSelectionDiv.addClass('ajapaik-invisible hidden');
+                    historicPhotoGalleryDiv.removeClass('ajapaik-invisible hidden');
                     updateFrontpagePhotosAsync();
                 }
                 selectedModeDiv.find('span').text(title);
@@ -598,21 +606,21 @@
             switch (selectedMode) {
                 case 'pictures':
                     window.showPhotos = true;
-                    updateFrontpagePhotosAsync();
+                    //updateFrontpagePhotosAsync();
                     break;
                 case 'albums':
                     window.showPhotos = false;
-                    updateFrontpageAlbumsAsync();
+                    //updateFrontpageAlbumsAsync();
                     break;
                 case 'likes':
                     window.myLikes = true;
                     window.showPhotos = true;
-                    updateFrontpagePhotosAsync();
+                    //updateFrontpagePhotosAsync();
                     break;
                 case 'rephotos':
                     window.myRephotos = true;
                     window.showPhotos = true;
-                    updateFrontpagePhotosAsync();
+                    //updateFrontpagePhotosAsync();
                     break;
             }
             updateModeSelection();
