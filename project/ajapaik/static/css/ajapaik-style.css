@@ -23,6 +23,9 @@ body {
 .ajapaik-gray {
     fill: #888;
 }
+.ajapaik-force-gray {
+    fill: #888 !important;
+}
 .ajapaik-text-white {
     color: #fff !important;
 }
