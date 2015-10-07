@@ -9,6 +9,7 @@
     /*global FB*/
     /*global tmpl*/
     /*global JSON*/
+    /*global _gaq*/
     $(document).ready(function () {
         var pagingNextButton = $('#ajapaik-paging-next-button'),
             pagingPreviousButton = $('#ajapaik-paging-previous-button'),
@@ -92,7 +93,9 @@
             },
             oldVal,
             oldPhotoSearchVal,
+            oldAlbumSearchVal,
             timeout,
+            albumSearchTimeout,
             syncFilteringHighlights = function () {
                 var orderingString = '';
                 $('.ajapaik-filter-white').attr('class', 'ajapaik-filter-gray');
@@ -181,7 +184,7 @@
             updateFrontpageAlbumsAsync = function () {
                 $('#ajapaik-loading-overlay').show();
                 $('#ajapaik-filtering-dropdown').addClass('hidden');
-                $('#ajapaik-album-filter-box').parent().addClass('hidden');
+                $('#ajapaik-album-filter-box').removeClass('hidden');
                 syncStateToUrl();
                 $.ajax({
                     url: window.frontpageAlbumsAsyncURL + window.location.search,
@@ -197,13 +200,11 @@
                         syncPagingButtons();
                         var targetDiv = $('#ajapaik-album-selection');
                         targetDiv.empty();
-                        if (response.albums) {
-                            response.albums = JSON.parse(response.albums);
-                            for (var i = 0, l = response.albums.length; i < l; i += 1) {
-                                targetDiv.append(tmpl('ajapaik-frontpage-album-template', response.albums[i]));
-                            }
-                            albumSelectionDiv.justifiedGallery();
+                        response.albums = JSON.parse(response.albums);
+                        for (var i = 0, l = response.albums.length; i < l; i += 1) {
+                            targetDiv.append(tmpl('ajapaik-frontpage-album-template', response.albums[i]));
                         }
+                        albumSelectionDiv.justifiedGallery();
                         $('#ajapaik-loading-overlay').hide();
                         $(window).scrollTop(0);
                     },
@@ -298,27 +299,27 @@
                         window.albumQuery = null;
                         window.photoQuery = val;
                         window.currentPage = null;
-                        window._gaq.push(['_trackEvent', 'Frontpage', 'Search photos']);
+                        _gaq.push(['_trackEvent', 'Frontpage', 'Search photos']);
                         syncStateToUrl();
                         updateFrontpagePhotosAsync();
                     }
                 }, 1000);
             },
             doDelayedAlbumFiltering = function (val) {
-                //if (albumSearchTimeout) {
-                //    clearTimeout(albumSearchTimeout);
-                //}
-                //albumSearchTimeout = setTimeout(function () {
-                //    if (val !== oldAlbumSearchVal) {
-                //        oldAlbumSearchVal = val;
-                //        window.albumQuery = null;
-                //        window.photoQuery = val;
-                //        window.currentPage = null;
-                //        window._gaq.push(['_trackEvent', 'Frontpage', 'Search photos']);
-                //        syncStateToUrl();
-                //        updateFrontpagePhotosAsync();
-                //    }
-                //}, 1000);
+                if (albumSearchTimeout) {
+                    clearTimeout(albumSearchTimeout);
+                }
+                albumSearchTimeout = setTimeout(function () {
+                    if (val !== oldAlbumSearchVal) {
+                        oldAlbumSearchVal = val;
+                        window.albumQuery = val;
+                        window.photoQuery = null;
+                        window.currentPage = null;
+                        _gaq.push(['_trackEvent', 'Frontpage', 'Search albums']);
+                        syncStateToUrl();
+                        updateFrontpageAlbumsAsync();
+                    }
+                }, 1000);
             };
         updateModeSelection();
         window.updateLeaderboard();
@@ -523,7 +524,7 @@
         photoModal.on('shown.bs.modal', function () {
             showPhotoMapIfApplicable();
             $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
-            window._gaq.push(['_trackEvent', 'Gallery', 'Photo modal open']);
+            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal open']);
             syncStateToUrl();
             if (window.straightToSpecify) {
                 window.straightToSpecify = false;
@@ -664,9 +665,9 @@
                 $this.find('.ajapaik-album-selection-caption-bottom').removeClass('hidden');
             } else {
                 if ($('#ajapaik-album-filter-box').val()) {
-                    window._gaq.push(['_trackEvent', 'Gallery', 'Album click with search term']);
+                    _gaq.push(['_trackEvent', 'Gallery', 'Album click with search term']);
                 } else {
-                    window._gaq.push(['_trackEvent', 'Gallery', 'Album click']);
+                    _gaq.push(['_trackEvent', 'Gallery', 'Album click']);
                 }
                 window.location.href = $this.attr('href');
             }
