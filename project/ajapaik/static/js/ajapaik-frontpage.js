@@ -57,14 +57,16 @@
                 if (window.currentlySelectedPhotoId) {
                     currentUrl.addSearch('photo', window.currentlySelectedPhotoId);
                 }
-                if (window.order1) {
-                    currentUrl.addSearch('order1', window.order1);
-                }
-                if (window.order2) {
-                    currentUrl.addSearch('order2', window.order2);
-                }
-                if (window.order3) {
-                    currentUrl.addSearch('order3', window.order3);
+                if (window.showPhotos) {
+                    if (window.order1) {
+                        currentUrl.addSearch('order1', window.order1);
+                    }
+                    if (window.order2) {
+                        currentUrl.addSearch('order2', window.order2);
+                    }
+                    if (window.order3) {
+                        currentUrl.addSearch('order3', window.order3);
+                    }
                 }
                 if (window.currentPage) {
                     currentUrl.addSearch('page', window.currentPage);
@@ -91,7 +93,6 @@
                 }
                 window.history.replaceState(null, window.title, currentUrl);
             },
-            oldVal,
             oldPhotoSearchVal,
             oldAlbumSearchVal,
             timeout,
@@ -185,6 +186,8 @@
                 $('#ajapaik-loading-overlay').show();
                 $('#ajapaik-filtering-dropdown').addClass('hidden');
                 $('#ajapaik-album-filter-box').removeClass('hidden');
+                $('#ajapaik-photo-filter-box').addClass('hidden');
+                $('#ajapaik-frontpage-historic-photos').addClass('hidden');
                 syncStateToUrl();
                 $.ajax({
                     url: window.frontpageAlbumsAsyncURL + window.location.search,
@@ -214,9 +217,12 @@
                 });
             },
             updateFrontpagePhotosAsync = function () {
+                var targetDiv = $('#ajapaik-frontpage-historic-photos');
+                targetDiv.removeClass('hidden ajapaik-invisible');
                 $('#ajapaik-loading-overlay').show();
                 $('#ajapaik-filtering-dropdown').removeClass('hidden');
-                $('#ajapaik-album-filter-box').parent().addClass('hidden');
+                $('#ajapaik-album-filter-box').addClass('hidden');
+                $('#ajapaik-photo-filter-box').removeClass('hidden').show();
                 syncStateToUrl();
                 $.ajax({
                     url: window.frontpageAsyncURL + window.location.search,
@@ -244,7 +250,7 @@
                         }
                         syncStateToUrl();
                         syncPagingButtons();
-                        var targetDiv = $('#ajapaik-frontpage-historic-photos');
+
                         targetDiv.empty();
                         if (response.photos) {
                             for (var i = 0, l = response.photos.length; i < l; i += 1) {
@@ -285,6 +291,8 @@
                     $('#ajapaik-header-pictures-icon').show();
                     albumSelectionDiv.addClass('ajapaik-invisible hidden');
                     historicPhotoGalleryDiv.removeClass('ajapaik-invisible hidden');
+                    updateFrontpagePhotosAsync();
+                } else if (window.albumId) {
                     updateFrontpagePhotosAsync();
                 }
                 selectedModeDiv.find('span').text(title);
@@ -591,7 +599,6 @@
             e.preventDefault();
             var $this = $(this),
                 selectedMode = $this.data('mode');
-            window.albumId = null;
             window.albumQuery = null;
             if (!window.order1) {
                 window.order1 = 'time';
@@ -607,10 +614,17 @@
             switch (selectedMode) {
                 case 'pictures':
                     window.showPhotos = true;
+                    //window.albumId = null;
                     //updateFrontpagePhotosAsync();
                     break;
                 case 'albums':
+                    if (window.albumId) {
+                        window.location.href = '/';
+                    }
                     window.showPhotos = false;
+                    window.order1 = null;
+                    window.order2 = null;
+                    window.order3 = null;
                     //updateFrontpageAlbumsAsync();
                     break;
                 case 'likes':

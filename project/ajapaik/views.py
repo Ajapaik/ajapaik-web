@@ -566,7 +566,7 @@ def fetch_stream(request):
 
 # Params for old URL support
 def frontpage(request, album_id=None, page=None):
-    albums = _get_album_choices()
+    # albums = get_album_choices()
     data = _get_filtered_data_for_frontpage(request, album_id, page)
     site = Site.objects.get_current()
 
@@ -578,15 +578,15 @@ def frontpage(request, album_id=None, page=None):
     return render_to_response('frontpage.html', RequestContext(request, {
         'is_frontpage': True,
         'title': title,
-        'hostname': 'http://%s' % (site.domain, ),
+        'hostname': 'http://%s' % (site.domain,),
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'facebook_share_photos': data['fb_share_photos'],
         'album': data['album'],
-        'albums': albums,
+        # 'albums': albums,
         'photo': data['photo'],
-        'start': data['start'],
-        'end': data['end'],
-        'page': data['page'],
+        # 'start': data['start'],
+        # 'end': data['end'],
+        # 'page': data['page'],
         'order1': data['order1'],
         'order2': data['order2'],
         'order3': data['order3'],
@@ -595,9 +595,9 @@ def frontpage(request, album_id=None, page=None):
         'photos_with_comments': data['photos_with_comments'],
         'photos_with_rephotos': data['photos_with_rephotos'],
         'show_photos': data['show_photos'],
-        'max_page': data['max_page'],
-        'total': data['total'],
-        'photos': data['photos'],
+        # 'max_page': data['max_page'],
+        # 'total': data['total'],
+        # 'photos': data['photos'],
         'is_photoset': data['is_photoset'],
         'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id
     }))
@@ -619,6 +619,12 @@ def frontpage_async_albums(request):
         page_size = settings.FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE
         start = (page - 1) * page_size
         albums = Album.objects.filter(is_public=True)
+        q = form.cleaned_data['q']
+        if q:
+            album_search_form = HaystackAlbumSearchForm({'q': q})
+            search_query_set = album_search_form.search()
+            results = [r.pk for r in search_query_set]
+            albums = albums.filter(pk__in=results)
         total = albums.count()
         if start < 0:
             start = 0
@@ -630,12 +636,7 @@ def frontpage_async_albums(request):
             end = start + page_size
         end = int(end)
         max_page = int(ceil(float(total) / float(page_size)))
-        q = form.cleaned_data['q']
-        if q:
-            album_search_form = HaystackAlbumSearchForm({'q': q})
-            search_query_set = album_search_form.search()
-            results = [r.pk for r in search_query_set]
-            albums = albums.filter(pk__in=results)
+
         albums = _get_album_choices(albums, start, end)
         serializer = FrontpageAlbumSerializer(albums, many=True)
         ret['start'] = start

@@ -20,6 +20,28 @@
                                 </span>
                                 <i id="ajapaik-header-album-more" class="material-icons" title="{% trans 'Album details' %}">more</i>
                             </a>
+                            <ul class="dropdown-menu with-album" id="ajapaik-frontpage-mode-select">
+                                <li data-mode="albums">
+                                    <a href="#" id="ajapaik-frontpage-show-albums-link" title="Show albums">
+                                        <i class="material-icons">collections_bookmark</i> {% trans "Albums" %}
+                                    </a>
+                                </li>
+                                <li data-mode="pictures">
+                                    <a href="#" id="ajapaik-frontpage-show-pictures-link" title="Show pictures">
+                                        <i class="material-icons">collections</i> {% trans "All pictures" %}
+                                    </a>
+                                </li>
+                                <li data-mode="likes">
+                                    <a href="#" id="ajapaik-frontpage-show-liked-link" title="Show liked by me">
+                                        <i class="material-icons">favorite</i> {% trans "My likes" %}
+                                    </a>
+                                </li>
+                                <li data-mode="rephotos">
+                                    <a href="#" id="ajapaik-frontpage-show-rephotographed-link" title="Show rephotographed by me">
+                                        <i class="material-icons">library_add</i> {% trans "My rephotos" %}
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     {% endif %}
                     {% if is_mapview and album %}
@@ -33,11 +55,9 @@
                 {% endif %}
                 {% if is_frontpage and not album %}
                     {% include "_mode_select.html" %}
-                    {% if not show_photos %}
-                        <li class="pull-left">
-                            <input type="text" class="form-control" id="ajapaik-album-filter-box" placeholder="{% trans "Search album" %}"/>
-                        </li>
-                    {% endif %}
+                    <li class="pull-left">
+                        <input type="text" class="form-control" id="ajapaik-album-filter-box" placeholder="{% trans "Search album" %}"/>
+                    </li>
                 {% endif %}
                 {% include "_filtering_dropdown.html" %}
             </ul>

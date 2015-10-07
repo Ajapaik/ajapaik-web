@@ -61,6 +61,10 @@ body {
     margin-top: 15px;
 }
 
+#ajapaik-frontpage-mode-select.with-album {
+    margin-top: 0px;
+}
+
 #ajapaik-filtering-help {
     background: none;
 }
@@ -1757,6 +1761,13 @@ ul.errorlist {
 #ajapaik-modal-rephoto-container {
     position: relative;
     display: inline-block;
+}
+
+#ajapaik-modal-rephoto {
+    display: block;
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
 }
 
 #ajapaik-modal-body {
