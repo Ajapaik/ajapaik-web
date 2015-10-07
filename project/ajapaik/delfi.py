@@ -44,13 +44,18 @@ def photo_info(request):
     form = DelfiPhotoInfoRequestForm(request.query_params)
     if form.is_valid():
         photo = form.cleaned_data['id']
+        our_ref = SpatialReference(4326)
+        delfi_ref = SpatialReference(3301)
+        trans = CoordTransform(our_ref, delfi_ref)
+        location = Point(x=photo.lon, y=photo.lat, srid=4326)
+        location.transform(trans)
 
         return Response({
             'id': photo.id,
             'author': photo.author,
             'description': photo.description,
-            'latitude': photo.lat,
-            'longitude': photo.lon,
+            'latitude': location.y,
+            'longitude': location.x,
             'source': photo.source.description + ' ' + photo.source_key,
             'url': request.build_absolute_uri(reverse('project.ajapaik.views.photoslug', args=(photo.id, photo.get_pseudo_slug()))),
             'thumbUrl': request.build_absolute_uri(reverse('project.ajapaik.views.photo_thumb', args=(photo.id, 400)))
