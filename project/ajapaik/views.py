@@ -2115,6 +2115,8 @@ def update_like_state(request):
             like.save()
             ret['level'] = 1
         like_sum = p.likes.aggregate(Sum('level'))['level__sum']
+        if not like_sum:
+            like_sum = 0
         like_count = p.likes.distinct('profile').count()
         ret['likeCount'] = like_count
         p.like_count = like_sum

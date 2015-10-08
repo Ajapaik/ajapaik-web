@@ -37,7 +37,7 @@ msgid "Rural"
 msgstr "Maa"
 
 #: project/sift/static/js/cat-extra-js-translations.js:9
-msgid "Man-made"
+msgid "Manmade"
 msgstr "Ehitatud"
 
 #: project/sift/static/js/cat-extra-js-translations.js:10
