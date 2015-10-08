@@ -3,7 +3,7 @@
  *  An extension for Bootstrap's fixed navbar which hides the navbar while the page is scrolling downwards and shows it the other way. The plugin is able to show/hide the navbar programmatically as well.
  *  http://www.virtuosoft.eu/code/bootstrap-autohidingnavbar/
  *
- *  Made by Istv?n Ujj-Mész?ros
+ *  Made by Istvan Ujj-Meszaros
  *  Under Apache License v2.0 License
  */
 ;(function($, window, document, undefined) {
