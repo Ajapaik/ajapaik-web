@@ -25,7 +25,7 @@ def photos_bbox(request):
                                   lon__gte=form.cleaned_data['top_left'].x,
                                   lat__lte=form.cleaned_data['bottom_right'].y,
                                   lon__lte=form.cleaned_data['bottom_right'].x).filter(
-            geography__distance_lte=(Point(ref_location.y, ref_location.x), D(m=3000)))
+            geography__distance_lte=(ref_location, D(m=3000)))
         our_ref = SpatialReference(4326)
         delfi_ref = SpatialReference(3301)
         trans = CoordTransform(our_ref, delfi_ref)
