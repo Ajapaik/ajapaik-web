@@ -284,7 +284,7 @@
                     $('#ajapaik-header-album-icon').show();
                     updateFrontpageAlbumsAsync();
                 } else if (window.myLikes) {
-                    title = gettext('My likes');
+                    title = gettext('My favorites');
                     $('#ajapaik-header-likes-icon').show();
                     updateFrontpagePhotosAsync();
                 } else if (window.myRephotos) {
