@@ -1231,7 +1231,7 @@ def photoslug(request, photo_id, pseudo_slug):
     photo_obj.user_likes = False
     photo_obj.user_loves = False
     likes = PhotoLike.objects.filter(photo=photo_obj)
-    photo_obj.like_count = likes.count()
+    photo_obj.like_count = likes.distinct('profile').count()
     like = likes.filter(profile=profile).first()
     if like:
         if like.level == 1:
@@ -2114,9 +2114,10 @@ def update_like_state(request):
             )
             like.save()
             ret['level'] = 1
-        like_count = p.likes.aggregate(Sum('level'))['level__sum']
+        like_sum = p.likes.aggregate(Sum('level'))['level__sum']
+        like_count = p.likes.distinct('profile').count()
         ret['likeCount'] = like_count
-        p.like_count = like_count
+        p.like_count = like_sum
         if like_count > 0:
             first_like = p.likes.order_by('created').first()
             latest_like = p.likes.order_by('-created').first()
