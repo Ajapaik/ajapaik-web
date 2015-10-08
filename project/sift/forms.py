@@ -50,6 +50,7 @@ class CatResultsFilteringForm(forms.Form):
     CHOICES = ((1, 1), (0, 0), (-1, -1))
     interior_or_exterior = forms.MultipleChoiceField(choices=CHOICES, required=False)
     urban_or_rural = forms.MultipleChoiceField(choices=CHOICES, required=False)
+    manmade_or_nature = forms.MultipleChoiceField(choices=CHOICES, required=False)
     view_or_social = forms.MultipleChoiceField(choices=CHOICES, required=False)
     ground_or_raised = forms.MultipleChoiceField(choices=CHOICES, required=False)
     one_or_many = forms.MultipleChoiceField(choices=CHOICES, required=False)

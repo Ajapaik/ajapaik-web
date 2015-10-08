@@ -599,6 +599,9 @@
             e.preventDefault();
             var $this = $(this),
                 selectedMode = $this.data('mode');
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
             window.albumQuery = null;
             if (!window.order1) {
                 window.order1 = 'time';

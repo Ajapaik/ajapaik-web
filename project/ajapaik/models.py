@@ -598,7 +598,7 @@ class PhotoComment(Model):
 
 class PhotoLike(Model):
     photo = ForeignKey('Photo', related_name='likes')
-    profile = ForeignKey('Profile')
+    profile = ForeignKey('Profile', related_name='likes')
     level = PositiveSmallIntegerField(default=1)
     created = DateTimeField(auto_now_add=True)
 

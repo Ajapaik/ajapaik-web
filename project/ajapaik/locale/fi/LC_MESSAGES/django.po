@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-07 15:35+0300\n"
-"PO-Revision-Date: 2015-10-07 12:36+0000\n"
+"POT-Creation-Date: 2015-10-08 12:26+0300\n"
+"PO-Revision-Date: 2015-10-08 09:27+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1307,11 +1307,3 @@ msgstr "Lisää kuvia albumiisi"
 #: project/ajapaik/views.py:2041
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
-
-#: templates/404.html:5 templates/404.html.py:11
-msgid "Page Not Found"
-msgstr ""
-
-#: templates/404.html:14
-msgid "Back"
-msgstr ""

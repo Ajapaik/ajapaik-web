@@ -78,6 +78,10 @@ body {
     background: none !important;
 }
 
+#ajapaik-frontpage-mode-select > li.disabled > a {
+    color: #888 !important;
+}
+
 .ajapaik-black-dropdown-menu {
     width: 100%;
     position: fixed;

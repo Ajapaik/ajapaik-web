@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 15:30+0300\n"
+"POT-Creation-Date: 2015-10-08 12:27+0300\n"
 "PO-Revision-Date: 2015-09-11 09:27+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
@@ -35,70 +35,78 @@ msgid "Rural"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:9
-msgid "Ground"
+msgid "Man-made"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:10
-msgid "Raised"
+msgid "Nature"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:11
-msgid "One"
+msgid "Ground"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:12
-msgid "Many"
+msgid "Raised"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:13
-msgid "Whole"
+msgid "One"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:14
-msgid "Detail"
+msgid "Many"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:15
-msgid "Staged"
+msgid "Whole"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:16
-msgid "Natural"
+msgid "Detail"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:17
-msgid "Public"
+msgid "Staged"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:18
-msgid "Private"
+msgid "Natural"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:19
-msgid "View"
+msgid "Public"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:20
-msgid "Social"
+msgid "Private"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:21
-msgid "%(pictures)s pictures in album"
+msgid "View"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:22
+msgid "Social"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:23
+msgid "%(pictures)s pictures in album"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:24
 msgid ""
 "You have made %(decisions)s decisions about %(pictures)s pictures in this "
 "album."
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:23
+#: project/sift/static/js/cat-extra-js-translations.js:25
 #: project/sift/static/js/cat-results.js:105
 #: project/sift/static/js/cat-tagger.js:129
 msgid "You are contributor number %(rank)s."
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:24
+#: project/sift/static/js/cat-extra-js-translations.js:26
 #: project/sift/static/js/cat-results.js:104
 #: project/sift/static/js/cat-tagger.js:128
 msgid ""

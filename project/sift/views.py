@@ -450,6 +450,8 @@ icon_map = {
     'raised': 'filter_drama',
     'rural': 'nature',
     'urban': 'location_city',
+    'nature': 'nature',
+    'manmade': 'location_city',
     'one': 'person',
     'many': 'group_add',
     'public': 'public',
@@ -477,6 +479,8 @@ _('Whole')
 _('Detail')
 _('Staged')
 _('Natural')
+_('Manmade')
+_('Nature')
 
 @vary_on_headers('X-Requested-With')
 def cat_results(request):
@@ -523,6 +527,7 @@ def cat_results(request):
                         if '1' in cd[k]:
                             selected_tag_value_dict[k]['left'] = True
                             photos = photos.filter(catappliedtag__tag__name=tag_dict[k]['left'].lower())
+                            print tag_dict[k]['left'].lower()
                         if '0' in cd[k]:
                             selected_tag_value_dict[k]['na'] = True
                             photos = photos.filter(catappliedtag__tag__name=(k + '_NA'))
@@ -616,7 +621,7 @@ def cat_tagger(request):
         state['albumName'] = album_selection_form.cleaned_data['album'].title
         title = state['albumName'] + ' - ' + _('Tag historic photos')
     request.get_user()
-    all_tags = CatTag.objects.all()
+    all_tags = CatTag.objects.filter(active=True)
     state['allTags'] = { x.name: {'leftIcon': icon_map[x.name.split('_')[0]], 'rightIcon': icon_map[x.name.split('_')[-1]]} for x in all_tags }
     albums = CatAlbum.objects.all()
     return render_to_response('cat_tagger.html', RequestContext(request, {

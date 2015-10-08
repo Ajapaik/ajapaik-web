@@ -566,9 +566,12 @@ def fetch_stream(request):
 
 # Params for old URL support
 def frontpage(request, album_id=None, page=None):
-    # albums = get_album_choices()
+    profile = request.get_user().profile
     data = _get_filtered_data_for_frontpage(request, album_id, page)
     site = Site.objects.get_current()
+
+    user_has_likes = profile.likes.count() > 0
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
 
     if data['album']:
         title = data['album'][1]
@@ -590,6 +593,8 @@ def frontpage(request, album_id=None, page=None):
         'order1': data['order1'],
         'order2': data['order2'],
         'order3': data['order3'],
+        'user_has_likes': user_has_likes,
+        'user_has_rephotos': user_has_rephotos,
         'my_likes_only': data['my_likes_only'],
         'my_rephotos_only': data['my_rephotos_only'],
         'photos_with_comments': data['photos_with_comments'],

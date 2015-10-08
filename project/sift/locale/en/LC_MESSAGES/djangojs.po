@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 15:30+0300\n"
+"POT-Creation-Date: 2015-10-08 12:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,70 +34,78 @@ msgid "Rural"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:9
-msgid "Ground"
+msgid "Man-made"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:10
-msgid "Raised"
+msgid "Nature"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:11
-msgid "One"
+msgid "Ground"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:12
-msgid "Many"
+msgid "Raised"
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:13
+msgid "One"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:14
+msgid "Many"
+msgstr ""
+
+#: project/sift/static/js/cat-extra-js-translations.js:15
 msgid "Whole"
 msgstr "General"
 
-#: project/sift/static/js/cat-extra-js-translations.js:14
+#: project/sift/static/js/cat-extra-js-translations.js:16
 msgid "Detail"
 msgstr "Close-up"
 
-#: project/sift/static/js/cat-extra-js-translations.js:15
+#: project/sift/static/js/cat-extra-js-translations.js:17
 msgid "Staged"
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:16
+#: project/sift/static/js/cat-extra-js-translations.js:18
 msgid "Natural"
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:17
+#: project/sift/static/js/cat-extra-js-translations.js:19
 msgid "Public"
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:18
+#: project/sift/static/js/cat-extra-js-translations.js:20
 msgid "Private"
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:19
+#: project/sift/static/js/cat-extra-js-translations.js:21
 msgid "View"
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:20
+#: project/sift/static/js/cat-extra-js-translations.js:22
 msgid "Social"
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:21
+#: project/sift/static/js/cat-extra-js-translations.js:23
 msgid "%(pictures)s pictures in album"
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:22
+#: project/sift/static/js/cat-extra-js-translations.js:24
 msgid ""
 "You have made %(decisions)s decisions about %(pictures)s pictures in this "
 "album."
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:23
+#: project/sift/static/js/cat-extra-js-translations.js:25
 #: project/sift/static/js/cat-results.js:105
 #: project/sift/static/js/cat-tagger.js:129
 msgid "You are contributor number %(rank)s."
 msgstr ""
 
-#: project/sift/static/js/cat-extra-js-translations.js:24
+#: project/sift/static/js/cat-extra-js-translations.js:26
 #: project/sift/static/js/cat-results.js:104
 #: project/sift/static/js/cat-tagger.js:128
 msgid ""

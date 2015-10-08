@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Lauri Elias, 2015
 # Lauri Elias, 2015
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-07 15:35+0300\n"
+"POT-Creation-Date: 2015-10-08 12:27+0300\n"
 "PO-Revision-Date: 2015-10-07 12:36+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
@@ -63,8 +64,8 @@ msgstr ""
 msgid "Current location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:906
-#: project/ajapaik/static/js/ajapaik-common.js:951
+#: project/ajapaik/static/js/ajapaik-common.js:914
+#: project/ajapaik/static/js/ajapaik-common.js:959
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Not selected"
 msgstr "Ei valittu"
@@ -89,7 +90,9 @@ msgstr "Poista valinta"
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
-msgstr "Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä kuratointipisteitä"
+msgstr ""
+"Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä "
+"kuratointipisteitä"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Description"
@@ -361,8 +364,8 @@ msgstr ""
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:855
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:864
 msgid ""
-"Click on the map to lock the direction of the view or click yellow button to"
-" save only the location."
+"Click on the map to lock the direction of the view or click yellow button to "
+"save only the location."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:862

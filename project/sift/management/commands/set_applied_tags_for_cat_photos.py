@@ -20,6 +20,7 @@ class Command(BaseCommand):
                 tag_tally[t.photo_id][t.tag.name][1] += 1
             elif t.value == -1:
                 tag_tally[t.photo_id][t.tag.name][2] += 1
+
         CatAppliedTag.objects.all().delete()
         for pk, pv in tag_tally.items():
             for tk, tv in pv.items():

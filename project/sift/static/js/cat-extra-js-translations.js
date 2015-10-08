@@ -6,6 +6,8 @@
     gettext('Exterior');
     gettext('Urban');
     gettext('Rural');
+    gettext('Man-made');
+    gettext('Nature');
     gettext('Ground');
     gettext('Raised');
     gettext('One');

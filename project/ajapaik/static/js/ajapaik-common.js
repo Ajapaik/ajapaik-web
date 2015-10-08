@@ -1136,6 +1136,7 @@ var map,
                 $this.addClass('big');
             }
             $likeCount.html(response.likeCount);
+            $('#ajapaik-frontpage-show-liked-link').parent().removeClass('disabled');
         });
     });
 

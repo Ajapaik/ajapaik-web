@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-07 15:35+0300\n"
+"POT-Creation-Date: 2015-10-08 12:27+0300\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,8 +59,8 @@ msgstr ""
 msgid "Current location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:906
-#: project/ajapaik/static/js/ajapaik-common.js:951
+#: project/ajapaik/static/js/ajapaik-common.js:914
+#: project/ajapaik/static/js/ajapaik-common.js:959
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Not selected"
 msgstr ""
