@@ -630,6 +630,9 @@
                         window.location.href = '/';
                     }
                     window.showPhotos = false;
+                    var currentUrl = window.URI(window.location.href);
+                    currentUrl.removeSearch('photos');
+                    window.history.replaceState(null, window.title, currentUrl);
                     window.order1 = null;
                     window.order2 = null;
                     window.order3 = null;
