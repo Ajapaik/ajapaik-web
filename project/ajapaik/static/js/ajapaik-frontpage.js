@@ -210,6 +210,11 @@
                         albumSelectionDiv.justifiedGallery();
                         $('#ajapaik-loading-overlay').hide();
                         $(window).scrollTop(0);
+                        $('.ajapaik-frontpage-album').hover(function () {
+                            $(this).find('.ajapaik-album-selection-caption-bottom').removeClass('hidden');
+                        }, function () {
+                            $(this).find('.ajapaik-album-selection-caption-bottom').addClass('hidden');
+                        });
                     },
                     error: function () {
                         $('#ajapaik-loading-overlay').hide();
@@ -648,11 +653,6 @@
         });
         $(document).on('change textInput input', '#ajapaik-photo-filter-box', function () {
             doDelayedPhotoFiltering($(this).val());
-        });
-        $('.ajapaik-frontpage-album').hover(function () {
-            $(this).find('.ajapaik-album-selection-caption-bottom').removeClass('hidden');
-        }, function () {
-            $(this).find('.ajapaik-album-selection-caption-bottom').addClass('hidden');
         });
         $(document).on('click', '#ajapaik-paging-next-button', function (e) {
             e.preventDefault();
