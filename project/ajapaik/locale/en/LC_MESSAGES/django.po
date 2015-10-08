@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 12:26+0300\n"
+"POT-Creation-Date: 2015-10-08 14:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -459,7 +459,7 @@ msgstr ""
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:189
-#: project/ajapaik/views.py:576
+#: project/ajapaik/views.py:579
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
@@ -469,9 +469,19 @@ msgstr ""
 msgid "Album details"
 msgstr ""
 
+#: project/ajapaik/templates/_header.html:25
+#: project/ajapaik/templates/_mode_select.html:14
+msgid "Show albums"
+msgstr ""
+
 #: project/ajapaik/templates/_header.html:26
 #: project/ajapaik/templates/_mode_select.html:15
 msgid "Albums"
+msgstr ""
+
+#: project/ajapaik/templates/_header.html:30
+#: project/ajapaik/templates/_mode_select.html:19
+msgid "Show pictures"
 msgstr ""
 
 #: project/ajapaik/templates/_header.html:31
@@ -479,9 +489,14 @@ msgstr ""
 msgid "All pictures"
 msgstr ""
 
+#: project/ajapaik/templates/_header.html:35
+#: project/ajapaik/templates/_mode_select.html:24
+msgid "Show my favorites"
+msgstr ""
+
 #: project/ajapaik/templates/_header.html:36
 #: project/ajapaik/templates/_mode_select.html:25
-msgid "My likes"
+msgid "My favorites"
 msgstr ""
 
 #: project/ajapaik/templates/_header.html:41
@@ -501,8 +516,8 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1538
-#: project/ajapaik/views.py:1554 project/ajapaik/views.py:1586
+#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1543
+#: project/ajapaik/views.py:1559 project/ajapaik/views.py:1591
 msgid "Leaderboard"
 msgstr ""
 
@@ -755,6 +770,10 @@ msgstr ""
 
 #: project/ajapaik/templates/_leaderboard_positions.html:10
 msgid "User Google photo"
+msgstr ""
+
+#: project/ajapaik/templates/_mode_select.html:29
+msgid "Show rephotographed by me"
 msgstr ""
 
 #: project/ajapaik/templates/_photo_modal.html:37
@@ -1239,70 +1258,78 @@ msgstr ""
 msgid "Geotagging game"
 msgstr ""
 
-#: project/ajapaik/views.py:972
+#: project/ajapaik/views.py:977
 msgid "Album creation success"
 msgstr ""
 
-#: project/ajapaik/views.py:974
+#: project/ajapaik/views.py:979
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/ajapaik/views.py:976
+#: project/ajapaik/views.py:981
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:1357 project/ajapaik/views.py:1360
-#: project/ajapaik/views.py:1362
+#: project/ajapaik/views.py:1362 project/ajapaik/views.py:1365
+#: project/ajapaik/views.py:1367
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/ajapaik/views.py:1463
+#: project/ajapaik/views.py:1468
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr ""
 
-#: project/ajapaik/views.py:1465
+#: project/ajapaik/views.py:1470
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: project/ajapaik/views.py:1467
+#: project/ajapaik/views.py:1472
 msgid "Your guess was first."
 msgstr ""
 
-#: project/ajapaik/views.py:1680
+#: project/ajapaik/views.py:1685
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/ajapaik/views.py:1682
+#: project/ajapaik/views.py:1687
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/ajapaik/views.py:1992
+#: project/ajapaik/views.py:1997
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/ajapaik/views.py:1994
+#: project/ajapaik/views.py:1999
 msgid "OK"
 msgstr ""
 
-#: project/ajapaik/views.py:2017
+#: project/ajapaik/views.py:2022
 msgid "Error uploading file"
 msgstr ""
 
-#: project/ajapaik/views.py:2028
+#: project/ajapaik/views.py:2033
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/ajapaik/views.py:2039
+#: project/ajapaik/views.py:2044
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/ajapaik/views.py:2041
+#: project/ajapaik/views.py:2046
 msgid "Not enough data submitted"
+msgstr ""
+
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
+msgid "Back"
 msgstr ""

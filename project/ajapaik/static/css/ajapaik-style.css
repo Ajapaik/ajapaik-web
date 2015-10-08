@@ -2621,3 +2621,13 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #ajapaik-header-selected-mode > i {
     display: none;
 }
+
+#ajapaik-header-album-filter-button-on {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#ajapaik-header-album-filter-button-off {
+    font-size: 24px;
+    cursor: pointer;
+}
