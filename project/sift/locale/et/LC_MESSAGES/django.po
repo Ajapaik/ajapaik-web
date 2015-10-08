@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 12:26+0300\n"
-"PO-Revision-Date: 2015-10-08 09:28+0000\n"
+"POT-Creation-Date: 2015-10-08 14:47+0300\n"
+"PO-Revision-Date: 2015-10-08 11:49+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Näita/peida navigatsioon"
 msgid "Sift.pics on Google Play"
 msgstr "Sift.pics rakendus Google Play poes"
 
-#: project/sift/templates/_cat_header.html:95 project/sift/views.py:607
+#: project/sift/templates/_cat_header.html:95 project/sift/views.py:608
 msgid "About"
 msgstr "Meist"
 
@@ -213,13 +213,13 @@ msgstr "Lehekülg"
 msgid "Next"
 msgstr "Järgmine"
 
-#: project/sift/templates/cat_results.html:76 project/sift/views.py:584
-#: project/sift/views.py:586
+#: project/sift/templates/cat_results.html:76 project/sift/views.py:585
+#: project/sift/views.py:587
 msgid "Filter photos by tags"
 msgstr "Filtreeri fotosid kategooriate alusel"
 
-#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:617
-#: project/sift/views.py:621
+#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:618
+#: project/sift/views.py:622
 msgid "Tag historic photos"
 msgstr "Kategoriseeri vanu fotosid"
 
@@ -294,11 +294,3 @@ msgstr "Ehitatud"
 #: project/sift/views.py:483
 msgid "Nature"
 msgstr "Loodus"
-
-#: templates/404.html:5 templates/404.html.py:11
-msgid "Page Not Found"
-msgstr "Lehekülge ei leitud"
-
-#: templates/404.html:14
-msgid "Back"
-msgstr "Tagasi"
