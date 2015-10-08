@@ -202,8 +202,8 @@
     {% compress css %}
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
-        <link rel="stylesheet" href="{% static "css/justifiedGallery-3.6.0.min.css" %}"/>
-        <link rel="stylesheet" href="{% static "libs/jsPanel-2.5.2/jspanel/jquery.jspanel.min.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/justifiedGallery-3.6.1.css" %}"/>
+        <link rel="stylesheet" href="{% static "libs/jsPanel-2.5.2/jspanel/jquery.jspanel.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
     {% endcompress %}
@@ -376,35 +376,35 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3&amp;libraries=places,visualization"></script>
+    <script src="http://s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
     {% compress js %}
-        <script src="{% static "libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js" %}"></script>
-        <script src="{% static "js/tmpl.min.js" %}"></script>
+        <script src="{% static "libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.js" %}"></script>
+        <script src="{% static "js/tmpl.js" %}"></script>
         <script src="{% static "js/ajapaik-cookie.js" %}"></script>
-        <script src="{% static "js/jquery.justifiedGallery-3.6.0.min.js" %}"></script>
-        <script src="{% static "js/mobile-detect-0.4.3.min.js" %}"></script>
-        <script src="{% static "js/bigscreen-2.0.4.min.js" %}"></script>
-        <script src="{% static "js/jquery.bootstrap-autohidingnavbar-1.0.0.min.js" %}"></script>
-        <script src="{% static "js/lazysizes-1.2.0.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image.all-1.13.0.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js" %}"></script>
-        <script src="{% static "js/URI-1.15.1.min.js" %}"></script>
+        <script src="{% static "js/jquery.justifiedGallery-3.6.1.js" %}"></script>
+        <script src="{% static "js/mobile-detect-0.4.3.js" %}"></script>
+        <script src="{% static "js/bigscreen-2.0.5.js" %}"></script>
+        <script src="{% static "js/jquery.bootstrap-autohidingnavbar-1.0.4.js" %}"></script>
+        <script src="{% static "js/lazysizes-1.3.0.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js" %}"></script>
+        <script src="{% static "js/jquery.URI-1.15.1.js" %}"></script>
         <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
         <script src="{% static "js/ajapaik-common.js" %}"></script>
         <script src="{% static "js/ajapaik-ga.js" %}"></script>
         <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
-        <script src="{% static "js/cookieconsent.min.js" %}"></script>
         <script type="text/javascript">
             window.cookieconsent_options = {
                 message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
                 dismiss: '{% trans "Got it!" %}',
                 learnMore: '{% trans "More info" %}',
                 link: null,
-                theme: '{% static "css/cookieconsent.min.css" %}'
+                theme: 'dark-bottom'
             };
         </script>
     {% endcompress %}

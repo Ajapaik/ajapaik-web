@@ -5,7 +5,7 @@
     {% include "_header.html" %}
     {% block specific_css %}
         {% compress css %}
-            <link rel="stylesheet" href="{{ STATIC_URL }}libs/cropper-0.10.0/dist/cropper.min.css"/>
+            <link rel="stylesheet" href="{{ STATIC_URL }}libs/cropper-0.10.0/dist/cropper.css"/>
         {% endcompress %}
     {% endblock %}
 {% endblock %}
@@ -27,7 +27,7 @@
         window.photoId = '{{ photo.0 }}';
     </script>
     {% compress js %}
-        <script src="{{ STATIC_URL }}libs/cropper-0.10.0/dist/cropper.min.js"></script>
+        <script src="{{ STATIC_URL }}libs/cropper-0.10.0/dist/cropper.js"></script>
         <script src="{{ STATIC_URL }}js/ajapaik-order.js"></script>
     {% endcompress %}
 {% endblock %}
