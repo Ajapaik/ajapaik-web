@@ -1,4 +1,5 @@
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
+from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -15,12 +16,16 @@ def photos_bbox(request):
     if form.is_valid():
         ref_location = Point(x=(form.cleaned_data['top_left'].x + form.cleaned_data['bottom_right'].x) / 2,
                              y=(form.cleaned_data['bottom_right'].y + form.cleaned_data['top_left'].y) / 2, srid=4326)
+        print form.cleaned_data['top_left']
+        print form.cleaned_data['bottom_right']
+        print ref_location.y
+        print ref_location.x
         qs = Photo.objects.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False,
                                   lat__gte=form.cleaned_data['top_left'].y,
                                   lon__gte=form.cleaned_data['top_left'].x,
                                   lat__lte=form.cleaned_data['bottom_right'].y,
-                                  lon__lte=form.cleaned_data['bottom_right'].x,
-        ).distance(ref_location).order_by('distance')[:500]
+                                  lon__lte=form.cleaned_data['bottom_right'].x).filter(
+            geography__distance_lte=(Point(ref_location.y, ref_location.x), D(m=3000)))
         our_ref = SpatialReference(4326)
         delfi_ref = SpatialReference(3301)
         trans = CoordTransform(our_ref, delfi_ref)
