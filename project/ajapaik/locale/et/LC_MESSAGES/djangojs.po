@@ -273,7 +273,7 @@ msgid "Albums"
 msgstr "Albumid"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:282
-msgid "My likes"
+msgid "My favorites"
 msgstr "Minu lemmikud"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:286
