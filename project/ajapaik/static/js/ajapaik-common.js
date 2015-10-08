@@ -673,6 +673,14 @@ var map,
                     icon: currentIcon
                 });
             }
+            window.miniMapStreetView = window.miniMap.getStreetView();
+            google.maps.event.addListener(window.miniMapStreetView, 'visible_changed', function() {
+                if (window.miniMapStreetView.getVisible()) {
+                    window.miniMapMarker.setIcon(locationIcon);
+                } else {
+                    window.miniMapMarker.setIcon(arrowIcon);
+                }
+            });
             $('#ajapaik-modal-photo-container-container').removeClass('col-xs-12').addClass('col-xs-9');
         }
     };

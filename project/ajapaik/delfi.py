@@ -13,14 +13,14 @@ from django.contrib.gis.geos import Point
 def photos_bbox(request):
     form = DelfiBboxRequestForm(request.query_params)
     if form.is_valid():
-        ref_location = Point(x=(form.cleaned_data['top_left'].x + form.cleaned_data['bottom_right'].x) / 2,
-                             y=(form.cleaned_data['bottom_right'].y + form.cleaned_data['top_left'].y) / 2, srid=4326)
+        # ref_location = Point(x=(form.cleaned_data['top_left'].x + form.cleaned_data['bottom_right'].x) / 2,
+        #                      y=(form.cleaned_data['bottom_right'].y + form.cleaned_data['top_left'].y) / 2, srid=4326)
         qs = Photo.objects.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False,
                                   lat__gte=form.cleaned_data['top_left'].y,
                                   lon__gte=form.cleaned_data['top_left'].x,
                                   lat__lte=form.cleaned_data['bottom_right'].y,
-                                  lon__lte=form.cleaned_data['bottom_right'].x).distance(ref_location).order_by(
-            'distance')[:500]
+                                  lon__lte=form.cleaned_data['bottom_right'].x).order_by(
+            '?')[:500]
         our_ref = SpatialReference(4326)
         delfi_ref = SpatialReference(3301)
         trans = CoordTransform(our_ref, delfi_ref)
