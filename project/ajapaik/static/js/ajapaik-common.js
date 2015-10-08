@@ -1128,7 +1128,7 @@ var map,
             csrfmiddlewaretoken: docCookies.getItem('csrftoken')
         }, function (response) {
             if (response.level === 0) {
-                $i.html('favorite_outline');
+                $i.html('favorite_border');
                 $this.removeClass('active big');
             } else if (response.level === 1) {
                 $i.html('favorite');

@@ -41,7 +41,7 @@
                                 {% if photo.user_likes or photo.user_loves %}
                                     <i class="material-icons">favorite</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
                                 {% else %}
-                                    <i class="material-icons">favorite_outline</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
+                                    <i class="material-icons">favorite_border</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
                                 {% endif %}
                             </button>
                             {% if photo.rephotos.all.0 %}

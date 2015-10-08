@@ -69,7 +69,7 @@
             if (this.currentPhoto.is_user_favorite) {
                 favoriteButton.find('i').html('favorite');
             } else {
-                favoriteButton.find('i').html('favorite_outline');
+                favoriteButton.find('i').html('favorite_border');
             }
         },
         nextTag: function () {
