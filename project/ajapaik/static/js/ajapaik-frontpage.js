@@ -670,12 +670,12 @@
                 }
             }
         });
-        window.addEventListener('popstate', function (e) {
-            if (!e.state) {
-                return false;
-            } else {
-                window.location.reload();
-            }
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                window.addEventListener('popstate', function () {
+                    window.location.reload();
+                });
+            }, 0);
         });
         $(document).on('click', '.ajapaik-frontpage-album', function (e) {
             e.preventDefault();
