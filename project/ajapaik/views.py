@@ -589,7 +589,7 @@ def frontpage(request, album_id=None, page=None):
         'photo': data['photo'],
         # 'start': data['start'],
         # 'end': data['end'],
-        # 'page': data['page'],
+        'page': data['page'],
         'order1': data['order1'],
         'order2': data['order2'],
         'order3': data['order3'],
