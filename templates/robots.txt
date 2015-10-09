@@ -1,4 +1,5 @@
 User-agent: *
 Disallow: /facebook/
+Disallow: /photo-upload-modal/
 
 Sitemap: http://ajapaik.ee/sitemap.xml

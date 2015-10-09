@@ -1492,6 +1492,7 @@ ul.errorlist {
     left: 10px;
     top: 50%;
     z-index: 1;
+    border: none;
 }
 
 .ajapaik-photo-modal-previous-button > i {
@@ -1517,6 +1518,7 @@ ul.errorlist {
     position: absolute;
     right: 10px;
     top: 50%;
+    border: none;
 }
 
 .ajapaik-photo-modal-next-button > i {
