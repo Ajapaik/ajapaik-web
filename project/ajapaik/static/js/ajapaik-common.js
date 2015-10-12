@@ -865,19 +865,9 @@ var map,
             });
         }
     };
-    $(document).on('mouseenter', '.ajapaik-frontpage-image', function () {
+    $(document).on('hover', '.ajapaik-frontpage-image', function () {
         $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
-    });
-    $(document).on('mouseout', '.ajapaik-frontpage-image', function () {
-        var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
-        if (!icon.hasClass('ajapaik-thumbnail-selection-icon-white')) {
-            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
-        }
-    });
-    $(document).on('mouseenter', '.ajapaik-thumbnail-selection-icon', function () {
-        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
-    });
-    $(document).on('mouseout', '.ajapaik-thumbnail-selection-icon', function () {
+    }, function () {
         var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
         if (!icon.hasClass('ajapaik-thumbnail-selection-icon-white')) {
             $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
