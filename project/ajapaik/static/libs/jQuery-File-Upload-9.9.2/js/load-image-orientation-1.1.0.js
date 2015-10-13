@@ -56,7 +56,7 @@
             ctx.scale(-1, 1);
             break;
         case 3:
-            // 180° rotate left
+            // 180 rotate left
             ctx.translate(width, height);
             ctx.rotate(Math.PI);
             break;
@@ -71,7 +71,7 @@
             ctx.scale(1, -1);
             break;
         case 6:
-            // 90° rotate right
+            // 90 rotate right
             ctx.rotate(0.5 * Math.PI);
             ctx.translate(0, -height);
             break;
@@ -82,7 +82,7 @@
             ctx.scale(-1, 1);
             break;
         case 8:
-            // 90° rotate left
+            // 90 rotate left
             ctx.rotate(-0.5 * Math.PI);
             ctx.translate(-width, 0);
             break;
@@ -112,7 +112,7 @@
             newOptions.right = options.left;
             break;
         case 3:
-            // 180° rotate left
+            // 180 rotate left
             newOptions.left = options.right;
             newOptions.top = options.bottom;
             newOptions.right = options.left;
@@ -131,7 +131,7 @@
             newOptions.bottom = options.right;
             break;
         case 6:
-            // 90° rotate right
+            // 90 rotate right
             newOptions.left = options.top;
             newOptions.top = options.right;
             newOptions.right = options.bottom;
@@ -145,7 +145,7 @@
             newOptions.bottom = options.left;
             break;
         case 8:
-            // 90° rotate left
+            // 90 rotate left
             newOptions.left = options.bottom;
             newOptions.top = options.left;
             newOptions.right = options.top;
