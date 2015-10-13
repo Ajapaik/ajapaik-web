@@ -7,7 +7,7 @@
  *
  * Image meta data handling implementation
  * based on the help and contribution of
- * Achim Stöhr.
+ * Achim Stohr.
  *
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
