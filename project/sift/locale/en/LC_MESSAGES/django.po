@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 14:47+0300\n"
+"POT-Creation-Date: 2015-10-13 16:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,42 @@ msgstr ""
 msgid "Finnish"
 msgstr ""
 
+#: project/sift/templates/_cat_album_creation_modal.html:10
+msgid "Collection info"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:17
+msgid "System error"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:23
+msgid "Filter selection"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:25
+msgid "Choose an existing album"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:32
+msgid "Or create a new one"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:40
+msgid "New album name"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:50
+msgid "New album description"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:59
+msgid "Cancel"
+msgstr ""
+
+#: project/sift/templates/_cat_album_creation_modal.html:62
+msgid "Submit"
+msgstr ""
+
 #: project/sift/templates/_cat_header.html:6
 msgid "Back to homepage"
 msgstr ""
@@ -44,6 +80,7 @@ msgstr ""
 #: project/sift/templates/_cat_header.html:33
 #: project/sift/templates/_cat_mode_select.html:25
 #: project/sift/templates/_cat_mode_select.html:38
+#: project/sift/templates/cat_curator.html:31
 msgid "Albums"
 msgstr ""
 
@@ -55,28 +92,33 @@ msgid "All pictures"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:46
-#: project/sift/templates/_cat_header.html:72
+#: project/sift/templates/_cat_header.html:79
 msgid "Tag photos"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:51
-#: project/sift/templates/_cat_header.html:77
+#: project/sift/templates/_cat_header.html:84
 msgid "Filter by tags"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:63
+#: project/sift/templates/_cat_header.html:61
+#: project/sift/templates/_cat_header.html:94
+msgid "Curate photos"
+msgstr ""
+
+#: project/sift/templates/_cat_header.html:70
 msgid "Toggle navigation"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:86
+#: project/sift/templates/_cat_header.html:100
 msgid "Sift.pics on Google Play"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:95 project/sift/views.py:608
+#: project/sift/templates/_cat_header.html:109 project/sift/views.py:603
 msgid "About"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:102
+#: project/sift/templates/_cat_header.html:116
 msgid "Choose language"
 msgstr ""
 
@@ -192,8 +234,73 @@ msgstr ""
 msgid "Estonian Ministry of Culture"
 msgstr ""
 
+#: project/sift/templates/cat_curator.html:19
 #: project/sift/templates/cat_results.html:16
 msgid "Search"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:25
+msgid "Selection"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:43
+msgid "Full search"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:49
+msgid "Filter existing"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:55
+msgid "Search!"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:60
+msgid "Load more"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:65
+msgid "Select all"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:69
+msgid "Start"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:70
+msgid "Step"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:78
+msgid "Clear selection"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:83
+msgid "Submit selection to Sift"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:111
+msgid "Edit your album"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:118
+msgid "Error"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:126
+msgid "Title"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:136
+msgid "Subtitle"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:147
+msgid "Close"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:150
+msgid "Save"
 msgstr ""
 
 #: project/sift/templates/cat_results.html:25
@@ -218,84 +325,104 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:76 project/sift/views.py:585
-#: project/sift/views.py:587
+#: project/sift/templates/cat_results.html:76 project/sift/views.py:578
+#: project/sift/views.py:580
 msgid "Filter photos by tags"
 msgstr ""
 
-#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:618
-#: project/sift/views.py:622
+#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:615
+#: project/sift/views.py:619
 msgid "Tag historic photos"
 msgstr ""
 
-#: project/sift/views.py:466
+#: project/sift/views.py:472
 msgid "Interior"
 msgstr ""
 
-#: project/sift/views.py:467
+#: project/sift/views.py:473
 msgid "Exterior"
 msgstr ""
 
-#: project/sift/views.py:468
+#: project/sift/views.py:474
 msgid "View"
 msgstr ""
 
-#: project/sift/views.py:469
+#: project/sift/views.py:475
 msgid "Social"
 msgstr ""
 
-#: project/sift/views.py:470
+#: project/sift/views.py:476
 msgid "Ground"
 msgstr ""
 
-#: project/sift/views.py:471
+#: project/sift/views.py:477
 msgid "Raised"
 msgstr ""
 
-#: project/sift/views.py:472
+#: project/sift/views.py:478
 msgid "Rural"
 msgstr "Countryside"
 
-#: project/sift/views.py:473
+#: project/sift/views.py:479
 msgid "Urban"
 msgstr ""
 
-#: project/sift/views.py:474
+#: project/sift/views.py:480
 msgid "One"
 msgstr "One person"
 
-#: project/sift/views.py:475
+#: project/sift/views.py:481
 msgid "Many"
 msgstr "Many people"
 
-#: project/sift/views.py:476
+#: project/sift/views.py:482
 msgid "Public"
 msgstr ""
 
-#: project/sift/views.py:477
+#: project/sift/views.py:483
 msgid "Private"
 msgstr ""
 
-#: project/sift/views.py:478
+#: project/sift/views.py:484
 msgid "Whole"
 msgstr "General"
 
-#: project/sift/views.py:479
+#: project/sift/views.py:485
 msgid "Detail"
 msgstr "Close-up"
 
-#: project/sift/views.py:480
+#: project/sift/views.py:486
 msgid "Staged"
 msgstr ""
 
-#: project/sift/views.py:481
+#: project/sift/views.py:487
 msgid "Natural"
 msgstr ""
 
-#: project/sift/views.py:482
+#: project/sift/views.py:488
 msgid "Manmade"
 msgstr "Man-made"
 
-#: project/sift/views.py:483
+#: project/sift/views.py:489
 msgid "Nature"
+msgstr ""
+
+#: project/sift/views.py:918
+msgid "OK"
+msgstr ""
+
+#: project/sift/views.py:928
+msgid "Error uploading file"
+msgstr ""
+
+#: project/sift/views.py:934
+msgid "Photo already exists in Sift"
+msgstr ""
+
+#: project/sift/views.py:939
+msgid "Please add photos to your album"
+msgstr ""
+
+#: project/sift/views.py:941
+msgid "Not enough data submitted"
 msgstr ""

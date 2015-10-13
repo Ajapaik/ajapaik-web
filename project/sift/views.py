@@ -931,7 +931,7 @@ def cat_curator_upload_handler(request):
                             album.photos.add(existing_photo)
                         ret['photos'][k] = {}
                         ret['photos'][k]['success'] = True
-                        ret['photos'][k]['message'] = _('Photo already exists in Ajapaik')
+                        ret['photos'][k]['message'] = _('Photo already exists in Sift')
         if album:
             album.save()
     else:

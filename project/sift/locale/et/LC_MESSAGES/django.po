@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 14:47+0300\n"
-"PO-Revision-Date: 2015-10-08 11:49+0000\n"
+"POT-Creation-Date: 2015-10-13 16:32+0300\n"
+"PO-Revision-Date: 2015-10-13 13:34+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,42 @@ msgstr "Inglise"
 msgid "Finnish"
 msgstr "Soome"
 
+#: project/sift/templates/_cat_album_creation_modal.html:10
+msgid "Collection info"
+msgstr "Albumi info"
+
+#: project/sift/templates/_cat_album_creation_modal.html:17
+msgid "System error"
+msgstr "Süsteemiviga"
+
+#: project/sift/templates/_cat_album_creation_modal.html:23
+msgid "Filter selection"
+msgstr "Filtreeri valikut"
+
+#: project/sift/templates/_cat_album_creation_modal.html:25
+msgid "Choose an existing album"
+msgstr "Vali mõni olemasolev album..."
+
+#: project/sift/templates/_cat_album_creation_modal.html:32
+msgid "Or create a new one"
+msgstr "või loo uus album"
+
+#: project/sift/templates/_cat_album_creation_modal.html:40
+msgid "New album name"
+msgstr "Uue albumi pealkiri"
+
+#: project/sift/templates/_cat_album_creation_modal.html:50
+msgid "New album description"
+msgstr "Uue albumi kirjeldus"
+
+#: project/sift/templates/_cat_album_creation_modal.html:59
+msgid "Cancel"
+msgstr "Loobu"
+
+#: project/sift/templates/_cat_album_creation_modal.html:62
+msgid "Submit"
+msgstr "Saada"
+
 #: project/sift/templates/_cat_header.html:6
 msgid "Back to homepage"
 msgstr "Tagasi kodulehele"
@@ -47,6 +83,7 @@ msgstr "Sift.pics"
 #: project/sift/templates/_cat_header.html:33
 #: project/sift/templates/_cat_mode_select.html:25
 #: project/sift/templates/_cat_mode_select.html:38
+#: project/sift/templates/cat_curator.html:31
 msgid "Albums"
 msgstr "Albumid"
 
@@ -58,28 +95,33 @@ msgid "All pictures"
 msgstr "Kõik pildid"
 
 #: project/sift/templates/_cat_header.html:46
-#: project/sift/templates/_cat_header.html:72
+#: project/sift/templates/_cat_header.html:79
 msgid "Tag photos"
 msgstr "Sorteeri fotosid"
 
 #: project/sift/templates/_cat_header.html:51
-#: project/sift/templates/_cat_header.html:77
+#: project/sift/templates/_cat_header.html:84
 msgid "Filter by tags"
 msgstr "Filtreeri"
 
-#: project/sift/templates/_cat_header.html:63
+#: project/sift/templates/_cat_header.html:61
+#: project/sift/templates/_cat_header.html:94
+msgid "Curate photos"
+msgstr "Kureeri fotosid"
+
+#: project/sift/templates/_cat_header.html:70
 msgid "Toggle navigation"
 msgstr "Näita/peida navigatsioon"
 
-#: project/sift/templates/_cat_header.html:86
+#: project/sift/templates/_cat_header.html:100
 msgid "Sift.pics on Google Play"
 msgstr "Sift.pics rakendus Google Play poes"
 
-#: project/sift/templates/_cat_header.html:95 project/sift/views.py:608
+#: project/sift/templates/_cat_header.html:109 project/sift/views.py:603
 msgid "About"
 msgstr "Meist"
 
-#: project/sift/templates/_cat_header.html:102
+#: project/sift/templates/_cat_header.html:116
 msgid "Choose language"
 msgstr "Vali keel"
 
@@ -187,9 +229,74 @@ msgstr "Sift.picsi arendust on toetanud Eesti Vabariigi Kultuuriministeerium 201
 msgid "Estonian Ministry of Culture"
 msgstr "Kultuuriministeerium"
 
+#: project/sift/templates/cat_curator.html:19
 #: project/sift/templates/cat_results.html:16
 msgid "Search"
 msgstr "Otsing"
+
+#: project/sift/templates/cat_curator.html:25
+msgid "Selection"
+msgstr "Valitud pildid"
+
+#: project/sift/templates/cat_curator.html:43
+msgid "Full search"
+msgstr "Täisotsing"
+
+#: project/sift/templates/cat_curator.html:49
+msgid "Filter existing"
+msgstr "Ära näita Ajapaigas olevaid pilte"
+
+#: project/sift/templates/cat_curator.html:55
+msgid "Search!"
+msgstr "Otsi!"
+
+#: project/sift/templates/cat_curator.html:60
+msgid "Load more"
+msgstr "Lae rohkem tulemusi"
+
+#: project/sift/templates/cat_curator.html:65
+msgid "Select all"
+msgstr "Vali kõik"
+
+#: project/sift/templates/cat_curator.html:69
+msgid "Start"
+msgstr "Alusta kohalt"
+
+#: project/sift/templates/cat_curator.html:70
+msgid "Step"
+msgstr "Samm"
+
+#: project/sift/templates/cat_curator.html:78
+msgid "Clear selection"
+msgstr "Tühista valik"
+
+#: project/sift/templates/cat_curator.html:83
+msgid "Submit selection to Sift"
+msgstr "Saada valim Sift'i"
+
+#: project/sift/templates/cat_curator.html:111
+msgid "Edit your album"
+msgstr "Redigeeri oma albumi infot"
+
+#: project/sift/templates/cat_curator.html:118
+msgid "Error"
+msgstr "Viga"
+
+#: project/sift/templates/cat_curator.html:126
+msgid "Title"
+msgstr "Pealkiri"
+
+#: project/sift/templates/cat_curator.html:136
+msgid "Subtitle"
+msgstr "Alampealkiri"
+
+#: project/sift/templates/cat_curator.html:147
+msgid "Close"
+msgstr "Sulge"
+
+#: project/sift/templates/cat_curator.html:150
+msgid "Save"
+msgstr "Salvesta"
 
 #: project/sift/templates/cat_results.html:25
 #: project/sift/templates/cat_results.html:26
@@ -213,84 +320,104 @@ msgstr "Lehekülg"
 msgid "Next"
 msgstr "Järgmine"
 
-#: project/sift/templates/cat_results.html:76 project/sift/views.py:585
-#: project/sift/views.py:587
+#: project/sift/templates/cat_results.html:76 project/sift/views.py:578
+#: project/sift/views.py:580
 msgid "Filter photos by tags"
 msgstr "Filtreeri fotosid kategooriate alusel"
 
-#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:618
-#: project/sift/views.py:622
+#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:615
+#: project/sift/views.py:619
 msgid "Tag historic photos"
 msgstr "Kategoriseeri vanu fotosid"
 
-#: project/sift/views.py:466
+#: project/sift/views.py:472
 msgid "Interior"
 msgstr "Sisevaade"
 
-#: project/sift/views.py:467
+#: project/sift/views.py:473
 msgid "Exterior"
 msgstr "Välisvaade"
 
-#: project/sift/views.py:468
+#: project/sift/views.py:474
 msgid "View"
 msgstr "Vaade"
 
-#: project/sift/views.py:469
+#: project/sift/views.py:475
 msgid "Social"
 msgstr "Inimesed"
 
-#: project/sift/views.py:470
+#: project/sift/views.py:476
 msgid "Ground"
 msgstr "Maapinnalt"
 
-#: project/sift/views.py:471
+#: project/sift/views.py:477
 msgid "Raised"
 msgstr "Kõrgemalt"
 
-#: project/sift/views.py:472
+#: project/sift/views.py:478
 msgid "Rural"
 msgstr "Maa"
 
-#: project/sift/views.py:473
+#: project/sift/views.py:479
 msgid "Urban"
 msgstr "Linn"
 
-#: project/sift/views.py:474
+#: project/sift/views.py:480
 msgid "One"
 msgstr "Üks inimene"
 
-#: project/sift/views.py:475
+#: project/sift/views.py:481
 msgid "Many"
 msgstr "Mitu inimest"
 
-#: project/sift/views.py:476
+#: project/sift/views.py:482
 msgid "Public"
 msgstr "Avalik"
 
-#: project/sift/views.py:477
+#: project/sift/views.py:483
 msgid "Private"
 msgstr "Era"
 
-#: project/sift/views.py:478
+#: project/sift/views.py:484
 msgid "Whole"
 msgstr "Üldvaade"
 
-#: project/sift/views.py:479
+#: project/sift/views.py:485
 msgid "Detail"
 msgstr "Lähivaade"
 
-#: project/sift/views.py:480
+#: project/sift/views.py:486
 msgid "Staged"
 msgstr "Poseeritud"
 
-#: project/sift/views.py:481
+#: project/sift/views.py:487
 msgid "Natural"
 msgstr "Loomulik"
 
-#: project/sift/views.py:482
+#: project/sift/views.py:488
 msgid "Manmade"
 msgstr "Ehitatud"
 
-#: project/sift/views.py:483
+#: project/sift/views.py:489
 msgid "Nature"
 msgstr "Loodus"
+
+#: project/sift/views.py:918
+msgid "OK"
+msgstr "OK"
+
+#: project/sift/views.py:928
+msgid "Error uploading file"
+msgstr "Faili üleslaadimine ebaõnnestus"
+
+#: project/sift/views.py:934
+msgid "Photo already exists in Sift"
+msgstr "Pilt on juba Sift'is"
+
+#: project/sift/views.py:939
+msgid "Please add photos to your album"
+msgstr "Palun lisa oma albumisse fotosid"
+
+#: project/sift/views.py:941
+msgid "Not enough data submitted"
+msgstr "Osa vajalikke välju täitmata"

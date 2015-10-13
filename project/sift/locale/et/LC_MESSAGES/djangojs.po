@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 12:27+0300\n"
-"PO-Revision-Date: 2015-10-08 09:28+0000\n"
+"POT-Creation-Date: 2015-10-13 16:31+0300\n"
+"PO-Revision-Date: 2015-10-13 13:34+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: project/sift/static/js/cat-curator.js:68
+msgid "Not selected"
+msgstr "Pole valitud"
+
+#: project/sift/static/js/cat-curator.js:377
+msgid ""
+"Are you sure you want to create an album with less than 5 photos? We "
+"recommend to create albums with at least 10 or more pictures."
+msgstr "Oled kindel, et soovid lisada albumi vähem kui 5 fotoga? Soovitame vähemalt 10 panna."
+
+#: project/sift/static/js/cat-curator.js:401
+msgid "System error"
+msgstr "Süsteemiviga"
 
 #: project/sift/static/js/cat-extra-js-translations.js:5
 msgid "Interior"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 14:47+0300\n"
+"POT-Creation-Date: 2015-10-13 16:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,32 +17,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: project/ajapaik/forms.py:11 project/ajapaik/forms.py:86
-#: project/ajapaik/forms.py:104 project/ajapaik/templates/photo_upload.html:58
+#: project/ajapaik/forms.py:14 project/ajapaik/forms.py:89
+#: project/ajapaik/forms.py:107 project/ajapaik/templates/photo_upload.html:58
 #: project/ajapaik/templates/photo_upload.html:218
 msgid "Choose area"
 msgstr ""
 
-#: project/ajapaik/forms.py:16 project/ajapaik/forms.py:85
-#: project/ajapaik/forms.py:95 project/ajapaik/forms.py:103
-#: project/ajapaik/forms.py:112 project/ajapaik/forms.py:181
+#: project/ajapaik/forms.py:19 project/ajapaik/forms.py:88
+#: project/ajapaik/forms.py:98 project/ajapaik/forms.py:106
+#: project/ajapaik/forms.py:115 project/ajapaik/forms.py:124
+#: project/ajapaik/forms.py:192
 msgid "Choose album"
 msgstr ""
 
-#: project/ajapaik/forms.py:99 project/ajapaik/forms.py:106
+#: project/ajapaik/forms.py:102 project/ajapaik/forms.py:109
 msgid "Choose photo"
 msgstr ""
 
-#: project/ajapaik/forms.py:128 project/ajapaik/forms.py:147
-#: project/ajapaik/forms.py:185
+#: project/ajapaik/forms.py:138 project/ajapaik/forms.py:157
+#: project/ajapaik/forms.py:196
 msgid "Choose parent album"
 msgstr ""
 
-#: project/ajapaik/forms.py:282
+#: project/ajapaik/forms.py:293
 msgid "Bounding box must have 4 comma-separated members"
 msgstr ""
 
-#: project/ajapaik/forms.py:287
+#: project/ajapaik/forms.py:298
 msgid "Bounding box values must be numbers"
 msgstr ""
 
@@ -459,7 +460,7 @@ msgstr ""
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:189
-#: project/ajapaik/views.py:579
+#: project/ajapaik/views.py:582
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
@@ -516,8 +517,8 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1543
-#: project/ajapaik/views.py:1559 project/ajapaik/views.py:1591
+#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1556
+#: project/ajapaik/views.py:1572 project/ajapaik/views.py:1604
 msgid "Leaderboard"
 msgstr ""
 
@@ -529,79 +530,79 @@ msgstr ""
 msgid "Search photos"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:122
+#: project/ajapaik/templates/_header.html:121
 msgid "Show in grid"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:135
+#: project/ajapaik/templates/_header.html:131
 #: project/ajapaik/templates/_info_modal_content.html:152
 #: project/ajapaik/templates/_info_modal_content.html:154
 msgid "Geotag pictures"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:141
+#: project/ajapaik/templates/_header.html:137
 #: project/ajapaik/templates/_info_modal_content.html:143
 msgid "Show on map"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:146
+#: project/ajapaik/templates/_header.html:142
 msgid "Curate"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:151
+#: project/ajapaik/templates/_header.html:147
 msgid "Current selection"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:165
+#: project/ajapaik/templates/_header.html:161
 msgid "Choose language"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:180
+#: project/ajapaik/templates/_header.html:176
 msgid "About Ajapaik"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:185
+#: project/ajapaik/templates/_header.html:181
 msgid "Ajapaik on Facebook"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:200
+#: project/ajapaik/templates/_header.html:196
 msgid "Search"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:206
+#: project/ajapaik/templates/_header.html:202
 msgid "Selection"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:212
+#: project/ajapaik/templates/_header.html:208
 msgid "My albums"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:224
+#: project/ajapaik/templates/_header.html:220
 msgid "Full search"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:230
+#: project/ajapaik/templates/_header.html:226
 msgid "Filter existing"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:236
+#: project/ajapaik/templates/_header.html:232
 msgid "Search!"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:241
+#: project/ajapaik/templates/_header.html:237
 msgid "Load more"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:246
+#: project/ajapaik/templates/_header.html:242
 msgid "Select all"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:256
+#: project/ajapaik/templates/_header.html:252
 #: project/ajapaik/templates/photo_selection.html:19
 msgid "Clear selection"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:262
+#: project/ajapaik/templates/_header.html:258
 msgid "Submit selection to Ajapaik"
 msgstr ""
 
@@ -989,17 +990,17 @@ msgstr ""
 msgid "See also – Sift.pics"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:403
+#: project/ajapaik/templates/base_bootstrap.html:408
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:404
+#: project/ajapaik/templates/base_bootstrap.html:409
 msgid "Got it!"
 msgstr ""
 
-#: project/ajapaik/templates/base_bootstrap.html:405
+#: project/ajapaik/templates/base_bootstrap.html:410
 msgid "More info"
 msgstr ""
 
@@ -1254,75 +1255,75 @@ msgstr ""
 msgid "Date taken"
 msgstr ""
 
-#: project/ajapaik/views.py:523
+#: project/ajapaik/views.py:526
 msgid "Geotagging game"
 msgstr ""
 
-#: project/ajapaik/views.py:977
+#: project/ajapaik/views.py:980
 msgid "Album creation success"
 msgstr ""
 
-#: project/ajapaik/views.py:979
+#: project/ajapaik/views.py:982
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/ajapaik/views.py:981
+#: project/ajapaik/views.py:984
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:1362 project/ajapaik/views.py:1365
-#: project/ajapaik/views.py:1367
+#: project/ajapaik/views.py:1375 project/ajapaik/views.py:1378
+#: project/ajapaik/views.py:1380
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/ajapaik/views.py:1468
+#: project/ajapaik/views.py:1481
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr ""
 
-#: project/ajapaik/views.py:1470
+#: project/ajapaik/views.py:1483
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: project/ajapaik/views.py:1472
+#: project/ajapaik/views.py:1485
 msgid "Your guess was first."
 msgstr ""
 
-#: project/ajapaik/views.py:1685
+#: project/ajapaik/views.py:1698
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/ajapaik/views.py:1687
+#: project/ajapaik/views.py:1700
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/ajapaik/views.py:1997
+#: project/ajapaik/views.py:2010
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr ""
 
-#: project/ajapaik/views.py:1999
+#: project/ajapaik/views.py:2012
 msgid "OK"
 msgstr ""
 
-#: project/ajapaik/views.py:2022
+#: project/ajapaik/views.py:2035
 msgid "Error uploading file"
 msgstr ""
 
-#: project/ajapaik/views.py:2033
+#: project/ajapaik/views.py:2046
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/ajapaik/views.py:2044
+#: project/ajapaik/views.py:2057
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/ajapaik/views.py:2046
+#: project/ajapaik/views.py:2059
 msgid "Not enough data submitted"
 msgstr ""
 

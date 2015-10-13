@@ -7,6 +7,7 @@
     gettext('Mark stereophoto');
     gettext('Remove from selection');
     gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded');
+    gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.');
     gettext('Description');
     gettext('Author');
     gettext('Source');
