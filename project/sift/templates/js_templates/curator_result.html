@@ -5,6 +5,7 @@
                 data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}"
                 class="img-responsive cat-result-item {% if (selectedResults[o.id]) { %}cat-curator-selected-image{% } %}"
                 id="cat-result-item-{%=formatId(o.id)%}">
+            <div class="caption cat-photo-caption">{%=o.idx%}</div>
         </a>
     </script>
 {% endverbatim %}

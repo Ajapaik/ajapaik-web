@@ -140,6 +140,7 @@ $(function () {
                     $('#cat-curator-load-more-row').hide();
                 }
                 for (var i = 0, l = msg.result.length; i < l; i += 1) {
+                    msg.result[i].idx = start - 200 + i;
                     createResultElement(msg.result[i]);
                 }
                 $('#cat-loading-overlay').hide();
@@ -175,6 +176,7 @@ $(function () {
                     $('#cat-curator-load-more-row').hide();
                 }
                 for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
+                    msg.result.firstRecordViews[i].idx = i;
                     createResultElement(msg.result.firstRecordViews[i]);
                 }
             },
