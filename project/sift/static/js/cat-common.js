@@ -5,6 +5,7 @@
     /*global _gaq */
     /*global isTagger */
     /*global isFiltering */
+    /*global curatorURL */
     $('.cat-change-language-link').click(function (e) {
         e.preventDefault();
         var langCode = $(this).attr('data-lang-code');
@@ -12,6 +13,9 @@
         $('#cat-language').val(langCode);
         $('input[name=csrfmiddlewaretoken]').val(window.docCookies.getItem('csrftoken'));
         $('#cat-change-language-form').submit();
+    });
+    $('.cat-header-curator-link').click(function () {
+        location.href = curatorURL;
     });
     $('#cat-brand').click(function () {
         _gaq.push(['_trackEvent', 'navigation', 'click', 'logo', 0, true]);

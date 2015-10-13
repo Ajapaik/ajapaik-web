@@ -3,12 +3,17 @@ from copy import deepcopy
 import time
 import datetime
 import random
-from ujson import dumps
+from ujson import dumps, loads
+import urllib2
+import operator
+from PIL import Image
+from PIL import ImageOps
 
+from django.contrib.auth.decorators import user_passes_test
+from django.core.files.base import ContentFile
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from django.views.decorators.vary import vary_on_headers
-import operator
 from pytz import utc
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -20,6 +25,7 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
+import requests
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 from rest_framework.parsers import FormParser
@@ -34,12 +40,12 @@ from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 
 from project.sift.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, CatResultsFilteringForm, \
-    CatPushRegisterForm, HaystackCatPhotoSearchForm
-from project.sift.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, CatProfile
-from project.ajapaik.models import Photo
-from project.sift.serializers import CatResultsPhotoSerializer
+    CatPushRegisterForm, HaystackCatPhotoSearchForm, CatCuratorAlbumEditForm, CatCuratorAlbumAddForm, \
+    CatCuratorPhotoUploadForm
+from project.sift.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, CatProfile, Source
+from project.sift.serializers import CatResultsPhotoSerializer, CatCuratorAlbumSelectionAlbumSerializer
 from project.sift.forms import CatTaggerAlbumSelectionForm
-from project.sift.settings import SITE_ID, CAT_RESULTS_PAGE_SIZE
+from project.sift.settings import SITE_ID, CAT_RESULTS_PAGE_SIZE, AJAPAIK_VALIMIMOODUL_URL, MEDIA_ROOT
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
@@ -157,7 +163,7 @@ def cat_albums(request):
     error = 0
     albums = CatAlbum.objects.all().order_by('-created')
     ret = []
-    profile = request.user.profile
+    profile = request.get_user().catprofile
     all_tags = CatTagPhoto.objects.all()
     all_distinct_profile_tags = all_tags.distinct('profile')
     general_user_leaderboard = CatProfile.objects.filter(pk__in=[x.profile_id for x in all_distinct_profile_tags])\
@@ -228,16 +234,16 @@ def _get_album_state(request, form):
         content['title'] = album.title
         content['subtitle'] = album.subtitle
         content['image'] = request.build_absolute_uri(reverse('project.sift.views.cat_album_thumb', args=(album.id,)))
-        user_tags = CatTagPhoto.objects.filter(profile=request.get_user().profile, album=album)\
+        user_tags = CatTagPhoto.objects.filter(profile=request.get_user().catprofile, album=album)\
             .values('photo').annotate(tag_count=Count('profile'))
         tag_count_dict = {}
         for each in user_tags:
             tag_count_dict[each['photo']] = each['tag_count']
-        user_favorites = CatUserFavorite.objects.filter(profile=request.get_user().profile, album=album)\
+        user_favorites = CatUserFavorite.objects.filter(profile=request.get_user().catprofile, album=album)\
             .values_list('photo_id', flat=True)
         for p in album.photos.all():
             available_cat_tags = all_cat_tags - set(CatTagPhoto.objects.filter(
-                profile=request.get_user().profile, album=album, photo=p).values_list('tag__name', flat=True))
+                profile=request.get_user().catprofile, album=album, photo=p).values_list('tag__name', flat=True))
             if form.cleaned_data['max'] == 0:
                 to_get = len(available_cat_tags)
             elif 'max' not in form.cleaned_data or form.cleaned_data['max'] is None:
@@ -280,7 +286,7 @@ def _get_favorite_object_json_form(request, obj):
 
 
 def _get_user_data(request, remove_favorite=None, add_favorite=None):
-    profile = request.get_user().profile
+    profile = request.get_user().catprofile
     user_cat_tags = CatTagPhoto.objects.filter(profile=profile)
     all_distinct_profile_tags = CatTagPhoto.objects.distinct('profile')
     general_user_leaderboard = CatProfile.objects.filter(pk__in=[x.profile_id for x in all_distinct_profile_tags])\
@@ -365,7 +371,7 @@ def cat_tag(request):
             tag=cat_tag_form.cleaned_data['tag'],
             album=cat_tag_form.cleaned_data['id'],
             photo=cat_tag_form.cleaned_data['photo'],
-            profile_id=request.get_user().profile.id,
+            profile_id=request.get_user().catprofile.id,
             source=cat_tag_form.cleaned_data['source'],
             value=cat_tag_form.cleaned_data['value']
         )
@@ -395,7 +401,7 @@ def user_me(request):
 @permission_classes((AnonymousUserPermission, IsAuthenticated))
 def user_favorite_add(request):
     cat_favorite_form = CatFavoriteForm(request.data)
-    profile = request.get_user().profile
+    profile = request.get_user().catprofile
     content = {
         'error': 2
     }
@@ -421,7 +427,7 @@ def user_favorite_add(request):
 @permission_classes((AnonymousUserPermission, IsAuthenticated))
 def user_favorite_remove(request):
     cat_favorite_form = CatFavoriteForm(request.data)
-    profile = request.get_user().profile
+    profile = request.get_user().catprofile
     content = {
         'error': 2
     }
@@ -485,7 +491,8 @@ _('Nature')
 @vary_on_headers('X-Requested-With')
 def cat_results(request):
     # Ensure user has profile
-    request.get_user()
+    user = request.get_user()
+    user_can_curate = user.groups.filter(name='sift_curators').exists()
     filter_form = CatResultsFilteringForm(request.GET)
     json_state = {}
     tag_dict = dict(CatTag.objects.filter(active=True).values_list('name', 'id'))
@@ -552,13 +559,6 @@ def cat_results(request):
                 current_result_set_end = total_results
             json_state['currentResultSetStart'] = current_result_set_start
             json_state['currentResultSetEnd'] = current_result_set_end
-            # potential_existing_ajapaik_photos = Photo.objects.filter(source_key__in=(x['source_key'] for x in photos.values('source_key', 'favorited'))).prefetch_related('source')
-            # for cp in photos:
-            #     cp.in_ajapaik = False
-            #     for ap in potential_existing_ajapaik_photos:
-            #         if ap.source == cp.source and ap.source_key == cp.source_key:
-            #             cp.in_ajapaik = True
-            #             break
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
             json_state['photos'] = photo_serializer.data
     if request.is_ajax():
@@ -568,13 +568,6 @@ def cat_results(request):
             photos = photos.annotate(favorited=Count('catuserfavorite')).order_by('-favorited')[page * CAT_RESULTS_PAGE_SIZE: (page + 1) * CAT_RESULTS_PAGE_SIZE]
             json_state['currentResultSetStart'] = page * CAT_RESULTS_PAGE_SIZE
             json_state['currentResultSetEnd'] = (page + 1) * CAT_RESULTS_PAGE_SIZE
-            # potential_existing_ajapaik_photos = Photo.objects.filter(source_key__in=(photos.values_list('source_key', flat=True)))
-            # for cp in photos:
-            #     cp.in_ajapaik = False
-            #     for ap in potential_existing_ajapaik_photos:
-            #         if ap.source == cp.source and ap.source_key == cp.source_key:
-            #             cp.in_ajapaik = True
-            #             break
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
             json_state['photos'] = photo_serializer.data
         return HttpResponse(JSONRenderer().render(json_state), content_type="application/json")
@@ -596,23 +589,27 @@ def cat_results(request):
             'current_result_set_end': current_result_set_end,
             'total_results': total_results,
             'selected_tag_value_dict': selected_tag_value_dict,
-            'state_json': dumps(json_state)
+            'state_json': dumps(json_state),
+            'user_can_curate': user_can_curate
         }))
 
 
 
 def cat_about(request):
     # Ensure user has profile
-    request.get_user()
+    user = request.get_user()
+    user_can_curate = user.groups.filter(name='sift_curators').exists()
     return render_to_response('cat_about.html', RequestContext(request, {
         'title': _('About'),
-        'is_about': True
+        'is_about': True,
+        'user_can_curate': user_can_curate
     }))
 
 
 def cat_tagger(request):
     # Ensure user has profile
-    request.get_user()
+    user = request.get_user()
+    user_can_curate = user.groups.filter(name='sift_curators').exists()
     state = {}
     album_selection_form = CatTaggerAlbumSelectionForm(request.GET)
     title = _('Tag historic photos')
@@ -628,7 +625,8 @@ def cat_tagger(request):
         'title': title,
         'is_tag': True,
         'albums': albums,
-        'state_json': dumps(state)
+        'state_json': dumps(state),
+        'user_can_curate': user_can_curate
     }))
 
 
@@ -638,7 +636,7 @@ def cat_tagger(request):
 @permission_classes((IsAuthenticated,))
 def cat_register_push(request):
     cat_push_register_form = CatPushRegisterForm(request.data)
-    profile = request.get_user().profile
+    profile = request.get_user().catprofile
     cat_push_register_form.data["profile"] = profile
     content = {
         'error': 4
@@ -667,7 +665,7 @@ def cat_register_push(request):
 @permission_classes((IsAuthenticated,))
 def cat_deregister_push(request):
     cat_push_register_form = CatPushRegisterForm(request.data)
-    profile = request.get_user().profile
+    profile = request.get_user().catprofile
     content = {
         'error': 0
     }
@@ -696,3 +694,253 @@ def logout(request):
         return redirect(request.META["HTTP_REFERER"])
 
     return redirect("/")
+
+
+@user_passes_test(lambda u: u.groups.filter(name='sift_curators').count() == 1, login_url='/admin/')
+def cat_curator(request):
+    user = request.get_user()
+    user_can_curate = user.groups.filter(name='sift_curators').exists()
+    return render_to_response('cat_curator.html', RequestContext(request, {
+        'is_curator': True,
+        'user_can_curate': user_can_curate
+    }))
+
+
+def _curator_get_records_by_ids(ids):
+    ids_str = ['"' + each + '"' for each in ids]
+    request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
+    response = requests.post(AJAPAIK_VALIMIMOODUL_URL, data=request_params)
+    response.encoding = 'utf-8'
+
+    return response
+
+
+def _curator_check_if_photos_in_sift(response, remove_existing=False):
+    if response:
+        full_response_json = loads(response.text)
+        result = loads(response.text)
+        if 'result' in result:
+            result = result['result']
+            if 'firstRecordViews' in result:
+                data = result['firstRecordViews']
+            else:
+                data = result
+
+            existing_photos = CatPhoto.objects.filter(muis_id__in=[x['id'].split('_')[0] for x in data])
+            check_dict = {}
+            for each in data:
+                id_parts = each['id'].split('_')
+                if len(id_parts) > 1:
+                    existing_photo = existing_photos.filter(muis_id=id_parts[0], muis_media_id=id_parts[1]).first()
+                else:
+                    existing_photo = existing_photos.filter(muis_id=id_parts[0]).first()
+                if existing_photo:
+                    each['siftId'] = existing_photo.id
+                    check_dict[each['id']] = False
+                else:
+                    each['siftId'] = False
+                    check_dict[each['id']] = True
+
+            if remove_existing:
+                data = [x for x in data if not x['siftId']]
+                if 'firstRecordViews' in result:
+                    full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
+                                                           if x not in check_dict or check_dict[x]]
+
+            data = sorted(data, key=lambda k: k['id'])
+
+            if 'firstRecordViews' in result:
+                full_response_json['result']['firstRecordViews'] = data
+            else:
+                full_response_json['result'] = data
+
+            # FIXME: Very risky, what if the people at requests change this?
+            response._content = dumps(full_response_json)
+
+    return response
+
+
+def cat_curator_search(request):
+    full_search = request.POST.get('fullSearch') or None
+    # TODO: See if Django forms can handle lists
+    ids = request.POST.getlist('ids[]') or None
+    filter_existing = request.POST.get('filterExisting') == 'true'
+    response = []
+    if ids is not None:
+        response = _curator_get_records_by_ids(ids)
+    if full_search is not None:
+        full_search = full_search.encode('utf-8')
+        request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
+        response = requests.post(AJAPAIK_VALIMIMOODUL_URL, data=request_params)
+        response.encoding = 'utf-8'
+
+    if filter_existing:
+        response = _curator_check_if_photos_in_sift(response, True)
+    else:
+        response = _curator_check_if_photos_in_sift(response)
+
+    return HttpResponse(response, content_type='application/json')
+
+
+def cat_curator_load_albums(request):
+    serializer = CatCuratorAlbumSelectionAlbumSerializer(
+        CatAlbum.objects.order_by('-created').all(), many=True
+    )
+
+    return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+
+
+def cat_curator_load_album(request):
+    form = CatTaggerAlbumSelectionForm(request.POST)
+    if form.is_valid():
+        serializer = CatCuratorAlbumSelectionAlbumSerializer(form.cleaned_data['album'])
+        return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+    
+    return HttpResponse('No album ID', status=500)
+
+
+@user_passes_test(lambda u: u.groups.filter(name='sift_curators').count() == 1, login_url='/admin/')
+def cat_curator_edit_album(request):
+    album_edit_form = CatCuratorAlbumEditForm(request.POST)
+    if album_edit_form.is_valid():
+        a = album_edit_form.cleaned_data['album']
+        a.title = album_edit_form.cleaned_data['title']
+        a.subtitle = album_edit_form.cleaned_data['subtitle']
+        a.save()
+        return HttpResponse('OK', status=200)
+
+    return HttpResponse('Faulty data', status=500)
+
+
+@user_passes_test(lambda u: u.groups.filter(name='sift_curators').count() == 1, login_url='/admin/')
+def cat_curator_upload_handler(request):
+    profile = request.get_user().catprofile
+
+    curator_album_select_form = CatTaggerAlbumSelectionForm(request.POST)
+    curator_album_create_form = CatCuratorAlbumAddForm(request.POST)
+
+    selection_json = request.POST.get('selection') or None
+    selection = None
+    if selection_json is not None:
+        # Query again to block porn
+        parsed_selection = loads(selection_json)
+        ids = [k for k, v in parsed_selection.iteritems()]
+        response = _curator_get_records_by_ids(ids)
+        parsed_response = loads(response.text)['result']
+        parsed_kv = {}
+        for each in parsed_response:
+            parsed_kv[each['id']] = each
+        for k, v in parsed_selection.iteritems():
+            for sk, sv in parsed_kv[k].iteritems():
+                parsed_selection[k][sk] = sv
+        selection = parsed_selection
+
+    ret = {
+        'photos': {}
+    }
+
+    if selection and len(selection) > 0 and profile is not None \
+            and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
+        if curator_album_select_form.is_valid():
+            album = curator_album_select_form.cleaned_data['album']
+        else:
+            album = CatAlbum(
+                title=curator_album_create_form.cleaned_data['title'],
+                subtitle=curator_album_create_form.cleaned_data['subtitle'],
+            )
+            album.save()
+        ret['album_id'] = album.id
+        for k, v in selection.iteritems():
+            upload_form = CatCuratorPhotoUploadForm(v)
+            if upload_form.is_valid():
+                if upload_form.cleaned_data['institution']:
+                    upload_form.cleaned_data['institution'] = upload_form.cleaned_data['institution'].split(',')[0]
+                    source = Source.objects.filter(description=upload_form.cleaned_data['institution']).first()
+                    if not source:
+                        source = Source(
+                            name=upload_form.cleaned_data['institution'],
+                            description=upload_form.cleaned_data['institution']
+                        )
+                        source.save()
+                else:
+                    source = Source.objects.get(name='AJP')
+                if upload_form.cleaned_data['id'] and upload_form.cleaned_data['id'] != '':
+                    incoming_muis_id = upload_form.cleaned_data['id']
+                    if '_' in incoming_muis_id:
+                        muis_id = incoming_muis_id.split('_')[0]
+                        muis_media_id = incoming_muis_id.split('_')[1]
+                    else:
+                        muis_id = incoming_muis_id
+                        muis_media_id = None
+                    if muis_media_id:
+                        existing_photo = CatPhoto.objects.filter(source=source, muis_id=muis_id,
+                                                                 muis_media_id=muis_media_id).first()
+                    else:
+                        existing_photo = CatPhoto.objects.filter(source=source, muis_id=muis_id).first()
+                    if not existing_photo:
+                        new_photo = None
+                        try:
+                            new_photo = CatPhoto(
+                                title=upload_form.cleaned_data['title'].rstrip().encode('utf-8'),
+                                author=upload_form.cleaned_data['creators'].encode('utf-8'),
+                                source=source,
+                                source_key=upload_form.cleaned_data['identifyingNumber'],
+                                source_url=upload_form.cleaned_data['urlToRecord'],
+                                muis_id=upload_form.cleaned_data['id'].split('_')[0],
+                                muis_media_id=upload_form.cleaned_data['id'].split('_')[1] if len(upload_form.cleaned_data['id'].split('_')) > 1 else None,
+                                flip=upload_form.cleaned_data['flip'],
+                                invert=upload_form.cleaned_data['invert'],
+                                stereo=upload_form.cleaned_data['stereo'],
+                                rotated=upload_form.cleaned_data['rotated']
+                            )
+                            new_photo.save()
+                            opener = urllib2.build_opener()
+                            opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+                            img_response = opener.open(upload_form.cleaned_data['imageUrl'])
+                            new_photo.image.save('cat-muis.jpg', ContentFile(img_response.read()))
+                            photo_path = MEDIA_ROOT + '/' + str(new_photo.image)
+                            if new_photo.invert:
+                                img = Image.open(photo_path)
+                                inverted_grayscale_image = ImageOps.invert(img).convert('L')
+                                inverted_grayscale_image.save(photo_path)
+                            if new_photo.rotated > 0:
+                                img = Image.open(photo_path)
+                                rot = img.rotate(new_photo.rotated, expand=1)
+                                rot.save(photo_path)
+                                new_photo.width = rot.size[0]
+                                new_photo.height = rot.size[1]
+                                new_photo.save()
+                            if new_photo.flip:
+                                img = Image.open(photo_path)
+                                flipped = img.transpose(Image.FLIP_LEFT_RIGHT)
+                                flipped.save(photo_path)
+                            ret['photos'][k] = {}
+                            ret['photos'][k]['message'] = _('OK')
+                            new_photo.save()
+                            if album:
+                                album.photos.add(new_photo)
+                            ret['photos'][k]['success'] = True
+                        except:
+                            if new_photo:
+                                new_photo.image.delete()
+                                new_photo.delete()
+                            ret['photos'][k] = {}
+                            ret['photos'][k]['error'] = _('Error uploading file')
+                    else:
+                        if album:
+                            album.photos.add(existing_photo)
+                        ret['photos'][k] = {}
+                        ret['photos'][k]['success'] = True
+                        ret['photos'][k]['message'] = _('Photo already exists in Ajapaik')
+        if album:
+            album.save()
+    else:
+        if not selection or len(selection) == 0:
+            error = _('Please add photos to your album')
+        else:
+            error = _('Not enough data submitted')
+        ret = {
+            'error': error
+        }
+
+    return HttpResponse(dumps(ret), content_type='application/json')

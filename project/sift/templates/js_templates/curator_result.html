@@ -1,0 +1,10 @@
+{% verbatim %}
+    <script id="cat-curator-result-template" type="text/x-tmpl">
+        <a class="thumbnail col-xs-2" title="{%=o.title%}">
+            <img src="{%='http://ajapaik.ee:8080/ajapaik-service/images/' + o.cachedThumbnailUrl %}"
+                data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}"
+                class="img-responsive cat-result-item {% if (selectedResults[o.id]) { %}cat-curator-selected-image{% } %}"
+                id="cat-result-item-{%=formatId(o.id)%}">
+        </a>
+    </script>
+{% endverbatim %}

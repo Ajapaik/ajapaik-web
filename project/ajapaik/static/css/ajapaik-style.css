@@ -2296,39 +2296,39 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 }
 
 .ajapaik-curator-selection-image.rotate90 {
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
 }
 
 .ajapaik-curator-selection-image.rotate180 {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
+    transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
 }
 
 .ajapaik-curator-selection-image.rotate270 {
-    transform: rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
+    transform: rotate(-270deg);
+    -webkit-transform: rotate(-270deg);
+    -ms-transform: rotate(-270deg);
 }
 
 .ajapaik-curator-selection-image.rotate90-flipped {
-    transform: scaleX(-1) rotate(90deg);
-    -webkit-transform: scaleX(-1) rotate(90deg);
-    -ms-transform: scaleX(-1) rotate(90deg);
+    transform: scaleX(-1) rotate(-90deg);
+    -webkit-transform: scaleX(-1) rotate(-90deg);
+    -ms-transform: scaleX(-1) rotate(-90deg);
 }
 
 .ajapaik-curator-selection-image.rotate180-flipped {
-    transform: scaleX(-1) rotate(180deg);
-    -webkit-transform: scaleX(-1) rotate(180deg);
-    -ms-transform: scaleX(-1) rotate(180deg);
+    transform: scaleX(-1) rotate(-180deg);
+    -webkit-transform: scaleX(-1) rotate(-180deg);
+    -ms-transform: scaleX(-1) rotate(-180deg);
 }
 
 .ajapaik-curator-selection-image.rotate270-flipped {
-    transform: scaleX(-1) rotate(270deg);
-    -webkit-transform: scaleX(-1) rotate(270deg);
-    -ms-transform: scaleX(-1) rotate(270deg);
+    transform: scaleX(-1) rotate(-270deg);
+    -webkit-transform: scaleX(-1) rotate(-270deg);
+    -ms-transform: scaleX(-1) rotate(-270deg);
 }
 
 .ajapaik-curator-selection-image-min-max {

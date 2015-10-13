@@ -343,6 +343,7 @@
         window.startGuessLocation = function (photoId) {
             var startLat,
                 startLon;
+            window.startGuessScrollTop = $(window).scrollTop();
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                 startLat = window.photoModalPhotoLat;
                 startLon = window.photoModalPhotoLng;
@@ -361,6 +362,7 @@
             $('.footer').hide();
             $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
                 thumbSrc: '/foto_thumb/' + photoId + '/400',
+                photoFlipped: window.photoModalCurrentPhotoFlipped,
                 fullScreenSrc: window.photoModalFullscreenImageUrl,
                 description: window.currentPhotoDescription,
                 sourceKey: window.currentPhotoSourceKey,
@@ -395,6 +397,12 @@
             window.locationToolsOpen = false;
             syncStateToUrl();
             showPhotoMapIfApplicable();
+            if (window.startGuessScrollTop) {
+                setTimeout(function () {
+                    $(window).scrollTop(window.startGuessScrollTop);
+                    window.startGuessScrollTop = null;
+                }, 1000);
+            }
         };
         window.loadPhoto = function (id) {
             window.nextPhotoLoading = true;

@@ -1,0 +1,67 @@
+{% load i18n %}
+
+<div class="modal fade" id="cat-choose-albums-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{% trans "Collection info" %}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12" id="cat-curator-upload-error" style="display: none;">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span id="cat-curator-upload-error-message">{% trans "System error" %}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cat-curator-add-to-existing-album-field">
+                    <div class="col-xs-12">
+                        <label for="cat-curator-album-filter"><b>{% trans "Filter selection" %}</b></label>
+                        <input id="cat-curator-album-filter" type="text" class="form-control">
+                        <label for="cat-curator-album-select"><b>{% trans "Choose an existing album" %}</b></label>
+                        <select id="cat-curator-album-select" class="form-control"></select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="cat-curator-create-new-album-checkbox"><b>{% trans "Or create a new one" %}</b></label>
+                        <input type="checkbox" id="cat-curator-create-new-album-checkbox">
+                    </div>
+                </div>
+                <div class="row cat-curator-new-album-creation-field">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <label for="cat-curator-add-album-name">{% trans "New album name" %}&nbsp;*</label>
+                            </span>
+                            <input class="form-control" type="text" id="cat-curator-add-album-name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row cat-curator-new-album-creation-field">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <label for="cat-curator-add-album-description">{% trans "New album description" %}</label>
+                            </span>
+                            <textarea class="form-control" id="cat-curator-add-album-description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cat-curator-cancel-album-selection-button">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-success" id="cat-curator-confirm-album-selection-button">
+                    {% trans "Submit" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

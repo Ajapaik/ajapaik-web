@@ -41,6 +41,7 @@
         }
         $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
             thumbSrc: '/foto_thumb/' + currentPhoto.id + '/500/',
+            photoFlipped: currentPhoto.flip,
             fullScreenSrc: currentPhoto.large.url,
             description: currentPhoto.description,
             sourceKey: currentPhoto.sourceKey,
@@ -325,6 +326,11 @@
                 var div = $('#ajapaik-fullscreen-image-container'),
                     img = div.find('img');
                 img.attr('src', img.attr('data-src'));
+                if (currentPhoto.flip) {
+                    img.addClass('ajapaik-photo-flipped');
+                } else {
+                    img.removeClass('ajapaik-photo-flipped');
+                }
                 window.BigScreen.request(div[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
                 window.fullscreenEnabled = true;

@@ -1,4 +1,4 @@
-from models import CatPhoto, CatTag
+from models import CatPhoto, CatTag, CatAlbum
 from rest_framework import serializers
 
 
@@ -15,3 +15,11 @@ class CatTaggerTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = CatTag
         fields = ('name',)
+
+
+class CatCuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
+    photo_count = serializers.IntegerField(source='photos.count')
+
+    class Meta:
+        model = CatAlbum
+        fields = ('id', 'title', 'subtitle', 'photo_count')

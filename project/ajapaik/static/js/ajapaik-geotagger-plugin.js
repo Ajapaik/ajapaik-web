@@ -534,7 +534,6 @@
             $('#ajp-geotagger-flip-button').click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                $(this).toggleClass('active');
                 that.flipImages();
                 if (typeof window.reportGeotaggerFlip === 'function') {
                     window.reportGeotaggerFlip(that.options.currentPhotoId);
@@ -765,6 +764,9 @@
             google.maps.event.trigger(this.map, 'resize');
             this.map.setCenter(new google.maps.LatLng(options.startLat, options.startLng));
             this.map.setZoom(16);
+            if (options.photoFlipped) {
+                this.flipImages();
+            }
         },
         radiansToDegrees: function (rad) {
             var ret = rad * (180 / Math.PI);
@@ -874,6 +876,7 @@
             google.maps.event.trigger(this.map, 'resize');
         },
         flipImages: function () {
+            $('#ajp-geotagger-flip-button').toggleClass('active');
             this.geotaggerImageThumb.toggleClass('ajp-photo-flipped');
             $('#ajp-geotagger-full-screen-image').toggleClass('ajp-photo-flipped');
         },
@@ -939,6 +942,7 @@
         },
         saveSkip: function () {
             $('#ajp-geotagger-game-buttons').hide();
+
             $.ajax({
                 type: 'POST',
                 url: saveLocationURL,
@@ -1014,6 +1018,7 @@
                     $('#ajp-geotagger-feedback-message').html(response.feedback_message);
                     $('#ajp-geotagger-feedback').show();
                     $('#ajp-geotagger-current-stats').hide();
+                    $('#ajp-geotagger-search-box').val(null);
                     that.fitGuessPhotosToContainers();
                     if (response.heatmap_points) {
                         that.displayFeedbackHeatmap(response);

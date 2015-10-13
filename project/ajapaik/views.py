@@ -477,6 +477,9 @@ def logout(request):
 
 @ensure_csrf_cookie
 def game(request):
+    profile = request.get_user().profile
+    user_has_likes = profile.likes.count() > 0
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
@@ -1153,6 +1156,9 @@ def photoslug(request, photo_id, pseudo_slug):
     profile = request.get_user().profile
     photo_obj = get_object_or_404(Photo, id=photo_id)
 
+    user_has_likes = profile.likes.count() > 0
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
+
     # switch places if rephoto url
     rephoto = None
     first_rephoto = None
@@ -1260,7 +1266,9 @@ def photoslug(request, photo_id, pseudo_slug):
         "rephoto": rephoto,
         "hostname": "http://%s" % (site.domain, ),
         "is_photoview": True,
-        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
+        "user_has_likes": user_has_likes,
+        "user_has_rephotos": user_has_rephotos
     }))
 
 
@@ -1307,10 +1315,14 @@ def pane_contents(request):
 
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
+    profile = request.get_user().profile
     area_selection_form = AreaSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     albums = _get_album_choices()
     photos_qs = Photo.objects.filter(rephoto_of__isnull=True)
+
+    user_has_likes = profile.likes.count() > 0
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
 
     area = None
     album = None
@@ -1355,7 +1367,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
            "total_photo_count": photos_qs.distinct('id').count(), "geotagging_user_count": geotagging_user_count,
            "geotagged_photo_count": geotagged_photo_count, "albums": albums, "hostname": "http://%s" % (site.domain,),
            "selected_photo": selected_photo, "selected_rephoto": selected_rephoto, "is_mapview": True,
-           "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK, "album": None}
+           "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK, "album": None, "user_has_likes": user_has_likes,
+           "user_has_rephotos": user_has_rephotos}
 
     if album is not None:
         ret["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))

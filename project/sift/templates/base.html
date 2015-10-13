@@ -101,7 +101,8 @@
             var albumSelectionStatisticsTemplate1 = gettext('%(pictures)s pictures in album'),
                 albumSelectionStatisticsTemplate2 = gettext('You have made %(decisions)s decisions about %(pictures)s pictures in this album.'),
                 albumSelectionStatisticsTemplate3 = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.'),
-                albumSelectionStatisticsTemplate4 = gettext('You are contributor number %(rank)s.');
+                albumSelectionStatisticsTemplate4 = gettext('You are contributor number %(rank)s.'),
+                curatorURL = '{% url 'project.sift.views.cat_curator' %}';
         </script>
     {% endcompress %}
 {% endblock %}

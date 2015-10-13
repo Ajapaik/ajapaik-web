@@ -179,11 +179,10 @@ class Album(Model):
             for each in album_photos_with_rephotos_qs:
                 for rp in each.rephotos.all():
                     self.comments_count_with_subalbums += rp.fb_comments_count
-            if not self.lat:
-                random_photo_with_area = album_photos_qs.filter(area__isnull=False).first()
-                if random_photo_with_area:
-                    self.lat = random_photo_with_area.area.lat
-                    self.lon = random_photo_with_area.area.lon
+            random_photo_with_location = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).first()
+            if random_photo_with_location:
+                self.lat = random_photo_with_location.lat
+                self.lon = random_photo_with_location.lon
         super(Album, self).save(*args, **kwargs)
 
     def light_save(self, *args, **kwargs):
@@ -303,6 +302,7 @@ class Photo(Model):
             "lon": photo.lon,
             "azimuth": photo.azimuth,
             "big": _make_thumbnail(photo, "700x400"),
+            "flip": photo.flip,
             "large": _make_fullscreen(photo),
             "totalGeotags": photo.geotags.distinct('user').count(),
             "geotagsWithAzimuth": photo.geotags.filter(azimuth__isnull=False).distinct('user').count(),
@@ -828,6 +828,7 @@ class Profile(Model):
         other.skips.update(user=self)
         other.geotags.update(user=self)
         other.points.update(user=self)
+        other.likes.update(profile=self)
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(

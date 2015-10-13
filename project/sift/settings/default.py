@@ -197,3 +197,5 @@ HAYSTACK_CONNECTIONS = {
 
 # Why does Sift want this?
 FACEBOOK_APP_KEY = ''
+
+AJAPAIK_VALIMIMOODUL_URL = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'

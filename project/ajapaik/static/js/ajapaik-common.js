@@ -332,6 +332,11 @@ var map,
             var div = $('#ajapaik-fullscreen-image-container'),
                 img = div.find('img');
             img.attr('src', img.attr('data-src')).show();
+            if (window.photoModalCurrentPhotoFlipped) {
+                img.addClass('ajapaik-photo-flipped');
+            } else {
+                img.removeClass('ajapaik-photo-flipped');
+            }
             window.BigScreen.request(div[0]);
             fullscreenEnabled = true;
             if (window.isGame) {
@@ -412,19 +417,21 @@ var map,
     };
 
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
-        e.preventDefault();
-        if (!window.isFrontpage) {
-            if (window.isSelection) {
-                window.history.go(-1);
-            } else {
-                var filterOff = parseInt(getQueryParameterByName('limitToAlbum'), 10) === 0;
-                // TODO: The photo set needs to be POSTed to be of any size, made nginx allow larger GETs for now
-                if ((!window.albumId || filterOff) && window.lastMarkerSet && window.lastMarkerSet.length < 251) {
-                    window.location.href = '/?photos=' + window.lastMarkerSet;
-                } else if (window.albumId) {
-                    window.location.href = '/?album=' + window.albumId;
+        if (!window.isPhotoview) {
+            e.preventDefault();
+            if (!window.isFrontpage) {
+                if (window.isSelection) {
+                    window.history.go(-1);
                 } else {
-                    window.location.href = '/';
+                    var filterOff = parseInt(getQueryParameterByName('limitToAlbum'), 10) === 0;
+                    // TODO: The photo set needs to be POSTed to be of any size, made nginx allow larger GETs for now
+                    if ((!window.albumId || filterOff) && window.lastMarkerSet && window.lastMarkerSet.length < 251) {
+                        window.location.href = '/?photos=' + window.lastMarkerSet;
+                    } else if (window.albumId) {
+                        window.location.href = '/?album=' + window.albumId;
+                    } else {
+                        window.location.href = '/';
+                    }
                 }
             }
         }
@@ -1350,4 +1357,29 @@ var map,
             return this.indexOf(str) === 0;
         };
     }
+
+    $('#ajapaik-frontpage-mode-select ').find('li').click(function (e) {
+        if (!window.isFrontpage) {
+            e.preventDefault();
+            var $this = $(this),
+                selectedMode = $this.data('mode');
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            switch (selectedMode) {
+                case 'pictures':
+                    window.location.href = '/?order1=time&order2=added&page=1';
+                    break;
+                case 'albums':
+                    window.location.href = '/';
+                    break;
+                case 'likes':
+                    window.location.href = '/?order1=time&order2=added&page=1&myLikes=1';
+                    break;
+                case 'rephotos':
+                    window.location.href = '/?order1=time&order2=added&page=1&myRephotos=1';
+                    break;
+            }
+        }
+    });
 }(jQuery));

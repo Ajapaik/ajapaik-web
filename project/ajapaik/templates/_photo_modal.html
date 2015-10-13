@@ -245,6 +245,7 @@
             window.isMapview = '{{ is_mapview|safe }}';
             window.isMapview = window.isMapview === 'True';
             window.photoModalCurrentImageUrl = '{% url 'project.ajapaik.views.photo_url' photo.id %}';
+            window.photoModalCurrentPhotoFlipped = '{{ photo.flip|safe }}' === 'True';
             window.photoModalRephotoArray = [];
             window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
             window.currentPhotoURL = '{% url 'project.ajapaik.views.photo_url' photo.id %}';

@@ -1,0 +1,50 @@
+{% verbatim %}
+    <script id="cat-curator-selection-template" type="text/x-tmpl">
+        <div class="row cat-curator-selection-item" id="cat-curator-selection-item-{%=formatId(o.id)%}">
+            <img class="col-xs-6 img-responsive cat-curator-selection-image {% if (o.invert) { %}cat-photo-inverted{% } %} {% if (o.flip) { %}cat-photo-flipped{% } %}" src="{%=o.imageUrl%}" onload="imageLoaded('{%=o.id%}')">
+            <div class="col-xs-6 cat-curator-selection-controls">
+                <div>
+                    <div class="btn-group" role="group">
+                      <button title="{%=gettext('Invert colors')%}" type="button" class="btn btn-default {% if (o.invert) { %}active{% } %} cat-curator-invert-colors-button" data-id="{%=o.id%}">
+                        <i class="material-icons">invert_colors</i>
+                      </button>
+                      <button title="{%=gettext('Flip')%}" type="button" class="btn btn-default {% if (o.flip) { %}active{% } %} cat-curator-flip-button" data-id="{%=o.id%}">
+                        <i class="material-icons">flip</i>
+                      </button>
+                      <button title="{%=gettext('Mark stereophoto')%}" type="button" class="btn btn-default {% if (o.stereo) { %}active{% } %} cat-curator-stereo-button" data-id="{%=o.id%}">
+                        <i class="material-icons">panorama</i>
+                        <i class="material-icons">panorama</i>
+                      </button>
+                      <button title="{%=gettext('Rotate')%}" type="button" class="btn btn-default cat-curator-rotate-button" data-id="{%=o.id%}">
+                        <i class="material-icons">rotate_90_degrees_ccw</i>
+                      </button>
+                      <button title="{%=gettext('Remove from selection')%}" type="button" class="btn btn-default cat-curator-delete-button" data-id="{%=o.id%}">
+                        <i class="material-icons">delete</i>
+                      </button>
+                    </div>
+                    {% if (o.siftId) { %}
+                        <svg title="{%=gettext('Already in Sift')%}" class="cat-already-have-indicator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="#888" d="M3,2H21V2H21V4H20.92L14,10.92V22.91L10,18.91V10.91L3.09,4H3V2Z" ></path>
+                        </svg>
+                    {% } %}
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{%=o.title%}</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">{%=gettext('Description')%}: {%=o.description%}</li>
+                        <li class="list-group-item">{%=gettext('Author')%}: {%=o.creators%}</li>
+                        <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>
+                        <li class="list-group-item">{%=gettext('Source ID')%}: <a target="_blank" href="{%=o.urlToRecord%}">{%=o.identifyingNumber%}</a></li>
+                        <li class="list-group-item">{%=gettext('Size')%}: <span class="cat-curator-selection-image-size"></span></li>
+                    </ul>
+                </div>
+                <div class="cat-curator-selection-feedback-row">
+                    <div class="alert alert-success cat-curator-feedback-alert" role="alert"></div>
+                    <div class="alert alert-danger cat-curator-feedback-alert" role="alert"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+{% endverbatim %}
