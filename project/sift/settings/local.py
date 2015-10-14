@@ -39,7 +39,7 @@ if DEBUG:
                     return True
             return False
 
-    INTERNAL_IPS = WildcardNetwork(['127.0.0.1', '192.168.*.*', '84.50.154.83'])
+    INTERNAL_IPS = WildcardNetwork(['127.0.0.1', '192.168.*.*', '193.40.56.37'])
 
     # URL that handles the media, static, etc.
     STATIC_URL = '/static/'

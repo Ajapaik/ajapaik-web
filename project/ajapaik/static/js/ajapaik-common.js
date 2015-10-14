@@ -872,7 +872,20 @@ var map,
             });
         }
     };
-    $(document).on('hover', '.ajapaik-frontpage-image', function () {
+    // Hover on dyanmic elements doesn't work...
+    $(document).on('mouseenter', '.ajapaik-frontpage-image', function () {
+        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
+    });
+    $(document).on('mouseleave', '.ajapaik-frontpage-image', function () {
+        var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
+        if (!icon.hasClass('ajapaik-thumbnail-selection-icon-white')) {
+            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+        }
+    });
+    $(document).on('mouseenter', '.ajapaik-thumbnail-selection-icon', function (e) {
+        $(this).show();
+    });
+    $(document.body).delegate('.ajapaik-frontpage-image', 'hover', function(){
         $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
     }, function () {
         var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');

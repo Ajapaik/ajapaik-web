@@ -67,6 +67,10 @@ class CatTaggerAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
 
 
+class CatPhotoSelectionForm(forms.Form):
+    photo = forms.ModelChoiceField(queryset=CatPhoto.objects.all())
+
+
 class HaystackCatPhotoSearchForm(SearchForm):
     def search(self):
         sqs = super(HaystackCatPhotoSearchForm, self).search().models(CatPhoto)

@@ -331,7 +331,7 @@ def cat_album_state(request):
     return Response(_get_album_state(request, cat_album_state_form))
 
 
-def cat_photo(request, photo_id=None, thumb_size=600):
+def cat_photo(request, photo_id=None, thumb_size=600, slug=None):
     if not photo_id:
         photo_id = CatPhoto.objects.order_by('?').first().pk
     cache_key = "ajapaik_cat_photo_response_%s_%s_%s" % (SITE_ID, photo_id, thumb_size)
@@ -944,3 +944,13 @@ def cat_curator_upload_handler(request):
         }
 
     return HttpResponse(dumps(ret), content_type='application/json')
+
+
+def photo_permalink(request, photo_id, photo_slug=None):
+    context = {}
+    p = CatPhoto.objects.filter(pk=photo_id).prefetch_related('applied_tags').first()
+    if p:
+        context['title'] = p.title
+        context['photo'] = p
+        context['tags'] = p.applied_tags.all()
+    return render_to_response('cat_photo_permalink.html', RequestContext(request, context))

@@ -4,6 +4,7 @@ from ujson import loads
 from math import degrees
 from datetime import datetime
 from pandas import DataFrame, Series
+from django.core.urlresolvers import reverse
 
 from django.db.models import Count, Sum, OneToOneField, DateField
 import numpy
@@ -97,7 +98,7 @@ class AlbumPhoto(Model):
         (RECURATED, 'Re-curated'),
         (MANUAL, 'Manual')
     )
-    
+
     album = ForeignKey('Album')
     photo = ForeignKey('Photo')
     profile = ForeignKey('Profile', blank=True, null=True)
@@ -369,13 +370,11 @@ class Photo(Model):
             ret.user_already_confirmed = True
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
-
     def __unicode__(self):
         return u"%s - %s (%s) (%s)" % (self.id, self.description, self.date_text, self.source_key)
 
-    @permalink
     def get_detail_url(self):
-        return "project.ajapaik.views.photo", [self.id, ]
+        return reverse('foto', args=(self.pk,))
 
     @permalink
     def get_absolute_url(self):

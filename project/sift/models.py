@@ -1,3 +1,4 @@
+from autoslug import AutoSlugField
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, SmallIntegerField, BooleanField, ForeignKey, IntegerField, \
     DateTimeField, TextField, ImageField, URLField, ManyToManyField, OneToOneField, NullBooleanField
@@ -53,7 +54,7 @@ class CatRealTag(Model):
 
 class CatAppliedTag(Model):
     tag = ForeignKey('CatRealTag')
-    photo = ForeignKey('CatPhoto')
+    photo = ForeignKey('CatPhoto', related_name='applied_tags')
 
     class Meta:
         db_table = 'project_catappliedtag'
@@ -93,6 +94,7 @@ class CatUserFavorite(Model):
 
 class CatPhoto(Model):
     title = CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', always_update=True)
     description = TextField(null=True, blank=True)
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)

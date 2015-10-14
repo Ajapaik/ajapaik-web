@@ -1,0 +1,22 @@
+{% extends "cat_base.html" %}
+
+{% block layout %}
+    <div class="container cat-margin-top-125" id="cat-permalink-container">
+        <figure>
+            <img src="{% url 'project.sift.views.cat_photo' photo.id 800 photo.slug %}"
+                 class="img-responsive"
+                 width="{{ photo.width }}" height="{{ photo.height }}"
+                 alt="{% if photo.description %}{{ photo.description }}{% else %}{{ photo.title }}{% endif %}"
+                 title="{{ photo.title }}">
+            <figcaption>
+                <h3>{{ photo.title }}</h3>
+            </figcaption>
+        </figure>
+        {% if photo.description and photo.description != photo.title %}
+            <h5>{{ photo.description }}</h5>
+        {% endif %}
+        {% for tag in tags %}
+            <p>{{ tag.tag.name }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
