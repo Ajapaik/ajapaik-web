@@ -659,7 +659,7 @@ def frontpage_async_albums(request):
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
     profile = request.get_user().profile
-    photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos'))
+    photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos', distinct=True))
     filter_form = GalleryFilteringForm(request.GET)
     page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
     ret = {}
