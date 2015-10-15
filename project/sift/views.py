@@ -558,14 +558,13 @@ def cat_results(request):
                             selected_tag_value_dict[k] = {'left': False, 'na': False, 'right': False}
                         if '1' in cd[k]:
                             selected_tag_value_dict[k]['left'] = True
-                            photos = photos.filter(applied_tags__tag__name=tag_dict[k]['left'].lower())
-                            print tag_dict[k]['left'].lower()
+                            photos = photos.filter(applied_tags__tag__name=tag_dict[k]['right'].lower())
                         if '0' in cd[k]:
                             selected_tag_value_dict[k]['na'] = True
                             photos = photos.filter(applied_tags__tag__name=(k + '_NA'))
                         if '-1' in cd[k]:
                             selected_tag_value_dict[k]['right'] = True
-                            photos = photos.filter(applied_tags__tag__name=tag_dict[k]['right'].lower())
+                            photos = photos.filter(applied_tags__tag__name=tag_dict[k]['left'].lower())
             if cd['q']:
                 q = cd['q']
                 cat_photo_search_form = HaystackCatPhotoSearchForm({'q': q})
