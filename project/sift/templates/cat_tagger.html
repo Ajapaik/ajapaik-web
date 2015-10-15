@@ -57,6 +57,22 @@
                             </button>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="span6 cat-row-content-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false" id="cat-tagger-share-button">
+                                    <i class="material-icons">share</i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a id="cat-tagger-share-link"></a></li>
+                                </ul>
+                            </div>
+                            <div class="fb-like" data-cat-id="" data-href="" data-layout="standard"
+                                 data-action="like" data-show-faces="true" data-colorscheme="dark" data-share="true">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,9 +94,9 @@
                 albumThumbURL = '{% url 'project.sift.views.cat_album_thumb' %}',
                 tagURL = '{% url 'project.sift.views.cat_tag' %}',
                 filterURL = '{% url 'project.sift.views.cat_results' %}',
-                favoriteAddURL = '{% url 'project.sift.views.user_favorite_add' %}',
-                favoriteRemoveURL = '{% url 'project.sift.views.user_favorite_remove' %}',
-                originalWindowTitle = '{% trans "Tag historic photos" %} - {% trans "Sift.pics" %}';
+                permalinkBlankURL = '{% url "project.sift.views.photo_permalink" %}',
+                originalWindowTitle = '{% trans "Tag historic photos" %} - {% trans "Sift.pics" %}',
+                baseURL = '{{ request.get_host }}';
             $(document).ready(function () {
                 var catTagger = new CatTagger();
                 catTagger.initialize();

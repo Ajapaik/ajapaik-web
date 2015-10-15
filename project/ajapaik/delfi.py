@@ -13,7 +13,7 @@ from django.contrib.gis.geos import Point
 def photos_bbox(request):
     form = DelfiBboxRequestForm(request.query_params)
     if form.is_valid():
-        qs = Photo.objects.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False,
+        qs = Photo.objects.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False, confidence__gte=0.2,
                                   lat__gte=form.cleaned_data['top_left'].y,
                                   lon__gte=form.cleaned_data['top_left'].x,
                                   lat__lte=form.cleaned_data['bottom_right'].y,

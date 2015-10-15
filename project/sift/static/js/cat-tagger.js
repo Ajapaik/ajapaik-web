@@ -6,6 +6,8 @@
     /*global getAlbumsURL */
     /*global favoriteAddURL */
     /*global favoriteRemoveURL */
+    /*global permalinkBlankURL */
+    /*global baseURL */
     /*global URI */
     /*global tagURL */
     /*global filterURL */
@@ -53,7 +55,10 @@
             this.currentPhoto = this.photos[this.currentPhotoIndex];
             $('#cat-tagger-current-photo').attr('src', this.currentPhoto.image.replace('[DIM]', '800'))
                 .attr('alt', this.currentPhoto.title).attr('title', this.currentPhoto.title);
-            $('#cat-tagger-current-photo-link').attr('href', this.currentPhoto.source.url)
+            var shareURL = permalinkBlankURL + this.currentPhoto.id + '/';
+            $('.fb-like').attr('data-href', shareURL).attr('data-cat-id', this.currentPhoto.id);
+            $('#cat-tagger-share-link').html('http://' + baseURL + shareURL);
+            $('#cat-tagger-current-photo-link').attr('href', shareURL + this.currentPhoto.slug)
                 .attr('data-id', this.currentPhoto.id).attr('title', this.currentPhoto.title);
             $('#cat-tagger-favorite-button').attr('data-id', this.currentPhoto.id);
             $('#cat-tagger-info-button').attr('data-id', this.currentPhoto.id);

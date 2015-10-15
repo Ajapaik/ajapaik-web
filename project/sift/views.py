@@ -258,7 +258,8 @@ def _get_album_state(request, form):
                 'user_tags': tag_count_dict[p.id] if p.id in tag_count_dict else 0,
                 'source': {'name': p.get_source_with_key(), 'url': p.source_url},
                 'tag': random.sample(available_cat_tags, min(len(available_cat_tags), to_get)),
-                'is_user_favorite': p.id in user_favorites
+                'is_user_favorite': p.id in user_favorites,
+                'slug': p.slug
             })
         content['photos'] = sorted(content['photos'],
                                    key=lambda y: (y['user_tags'], random.randint(0, len(content['photos']))))
@@ -417,6 +418,8 @@ def user_favorite_add(request):
         except IntegrityError:
             content = _get_user_data(request)
             content['error'] = 0
+        content['favoriteCount'] = CatUserFavorite.objects.filter(album=cat_favorite_form.cleaned_data['album'],
+                                                                  photo=cat_favorite_form.cleaned_data['photo']).count()
 
     return Response(content)
 
@@ -444,6 +447,8 @@ def user_favorite_remove(request):
         except ObjectDoesNotExist:
             content = _get_user_data(request)
             content['error'] = 2
+        content['favoriteCount'] = CatUserFavorite.objects.filter(album=cat_favorite_form.cleaned_data['album'],
+                                                                  photo=cat_favorite_form.cleaned_data['photo']).count()
 
     return Response(content)
 
@@ -487,6 +492,26 @@ _('Staged')
 _('Natural')
 _('Manmade')
 _('Nature')
+
+_('interior')
+_('exterior')
+_('view')
+_('social')
+_('ground')
+_('raised')
+_('rural')
+_('urban')
+_('one')
+_('many')
+_('public')
+_('private')
+_('whole')
+_('detail')
+_('staged')
+_('natural')
+_('manmade')
+_('nature')
+
 
 @vary_on_headers('X-Requested-With')
 def cat_results(request):
@@ -533,14 +558,14 @@ def cat_results(request):
                             selected_tag_value_dict[k] = {'left': False, 'na': False, 'right': False}
                         if '1' in cd[k]:
                             selected_tag_value_dict[k]['left'] = True
-                            photos = photos.filter(catappliedtag__tag__name=tag_dict[k]['left'].lower())
+                            photos = photos.filter(applied_tags__tag__name=tag_dict[k]['left'].lower())
                             print tag_dict[k]['left'].lower()
                         if '0' in cd[k]:
                             selected_tag_value_dict[k]['na'] = True
-                            photos = photos.filter(catappliedtag__tag__name=(k + '_NA'))
+                            photos = photos.filter(applied_tags__tag__name=(k + '_NA'))
                         if '-1' in cd[k]:
                             selected_tag_value_dict[k]['right'] = True
-                            photos = photos.filter(catappliedtag__tag__name=tag_dict[k]['right'].lower())
+                            photos = photos.filter(applied_tags__tag__name=tag_dict[k]['right'].lower())
             if cd['q']:
                 q = cd['q']
                 cat_photo_search_form = HaystackCatPhotoSearchForm({'q': q})
@@ -559,6 +584,8 @@ def cat_results(request):
                 current_result_set_end = total_results
             json_state['currentResultSetStart'] = current_result_set_start
             json_state['currentResultSetEnd'] = current_result_set_end
+            for p in photos:
+                p.permalink = reverse('project.sift.views.photo_permalink', args=(p.id, p.slug))
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
             json_state['photos'] = photo_serializer.data
     if request.is_ajax():
@@ -946,11 +973,30 @@ def cat_curator_upload_handler(request):
     return HttpResponse(dumps(ret), content_type='application/json')
 
 
-def photo_permalink(request, photo_id, photo_slug=None):
+def photo_permalink(request, photo_id=None, photo_slug=None):
+    profile = request.get_user().catprofile
+    if not photo_id:
+        photo_id = CatPhoto.objects.order_by('?').first().pk
     context = {}
-    p = CatPhoto.objects.filter(pk=photo_id).prefetch_related('applied_tags').first()
+    p = CatPhoto.objects.filter(pk=photo_id).prefetch_related('album').prefetch_related('source')\
+        .prefetch_related('applied_tags').prefetch_related('applied_tags__tag').first()
     if p:
         context['title'] = p.title
         context['photo'] = p
-        context['tags'] = p.applied_tags.all()
+        context['tag_map'] = {}
+        tags = CatTag.objects.all()
+        for t in tags:
+            parts = t.name.split('_')
+            context['tag_map'][parts[0]] = [t.name, -1]
+            context['tag_map'][t.name + '_NA'] = [t.name, 0]
+            context['tag_map'][parts[-1]] = [t.name, 1]
+        album = p.album.first()
+        if album:
+            context['album_id'] = album.pk
+            context['like_count'] = CatUserFavorite.objects.filter(album=album, photo=p).count()
+            fav_object = CatUserFavorite.objects.filter(album=album, photo=p, profile=profile).first()
+            if fav_object:
+                context['is_user_favorite'] = True
+            else:
+                context['is_user_favorite'] = False
     return render_to_response('cat_photo_permalink.html', RequestContext(request, context))

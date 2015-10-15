@@ -6,6 +6,9 @@
     /*global isTagger */
     /*global isFiltering */
     /*global curatorURL */
+    var reportPermalinkFavoritingError = function () {
+        _gaq.push(['_trackEvent', 'permalink', 'error', 'favorite', -1000, true]);
+    };
     $('.cat-change-language-link').click(function (e) {
         e.preventDefault();
         var langCode = $(this).attr('data-lang-code');
@@ -54,7 +57,7 @@
         _gaq.push(['_trackEvent', 'filtering', 'click', 'pager-next', 0, false]);
     });
     $(document).on('click', '.cat-photo-result', function () {
-        _gaq.push(['_trackEvent', 'filtering', 'click', 'photo-source-link-' + $(this).attr('data-id'), 0, false]);
+        _gaq.push(['_trackEvent', 'filtering', 'click', 'photo-permalink-' + $(this).attr('data-id'), 0, false]);
     });
     $('.cat-tagger-tag-button').click(function () {
         _gaq.push(['_trackEvent', 'tagging', 'click', 'tag-photo', 100, false]);
@@ -73,7 +76,7 @@
         }
     });
     $('#cat-tagger-current-photo-link').click(function () {
-        _gaq.push(['_trackEvent', 'tagging', 'click', 'photo-source-link-' + $(this).attr('data-id'), 0, false]);
+        _gaq.push(['_trackEvent', 'tagging', 'click', 'photo-permalink-' + $(this).attr('data-id'), 0, false]);
     });
     $('#cat-play-store-link').click(function () {
         _gaq.push(['_trackEvent', 'about', 'click', 'play-store-link', 100, false]);
@@ -89,6 +92,31 @@
     });
     $('#cat-puik-twitter-link').click(function () {
         _gaq.push(['_trackEvent', 'about', 'click', 'puik-twitter-link', 10, false]);
+    });
+    $('#cat-permalink-full-screen-link').click(function () {
+        _gaq.push(['_trackEvent', 'permalink', 'click', 'full-screen', 10, false]);
+    });
+    $('#cat-permalink-favorite-button').click(function () {
+        _gaq.push(['_trackEvent', 'permalink', 'click', 'favorite-photo-' + $(this).attr('data-id'), 25, false]);
+    });
+    $('#cat-permalink-source-link').click(function () {
+        _gaq.push(['_trackEvent', 'permalink', 'click', 'source-link-' + $(this).attr('data-id'), 0, false]);
+    });
+    $('.cat-permalink-filter-album-link').click(function () {
+        _gaq.push(['_trackEvent', 'permalink', 'click', 'filter-album-' + $(this).attr('data-id'), 10, false]);
+    });
+    $('.cat-permalink-tag-album-link').click(function () {
+        _gaq.push(['_trackEvent', 'permalink', 'click', 'tag-album-' + $(this).attr('data-id'), 10, false]);
+    });
+    $('.cat-tagger-tag-link').click(function () {
+        _gaq.push(['_trackEvent', 'permalink', 'click', 'tag-link-' + $(this).attr('data-tag'), 10, false]);
+    });
+    $('.fb-like').click(function () {
+        if (isTagger) {
+            _gaq.push(['_trackEvent', 'tagging', 'click', 'facebook-like-' + $(this).attr('data-cat-id'), 100, false]);
+        } else {
+            _gaq.push(['_trackEvent', 'permalink', 'click', 'facebook-like-' + $(this).attr('data-cat-id'), 100, false]);
+        }
     });
     $(document).on('click', '.cat-album-selection-more-info', function (e) {
         e.preventDefault();

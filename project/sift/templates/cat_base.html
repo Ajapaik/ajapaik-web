@@ -72,6 +72,11 @@
         <p id="cat-footer-text" class="text-muted"></p>
     </div>
 </footer>
+{% if request.LANGUAGE_CODE == 'et' and not request.mobile %}
+    <div id="cat-feedback-div" class="hidden-xs">
+        <a id="cat-feedback-link" href="https://goo.gl/95CBMI" target="_blank">{% trans "feedback" %}</a>
+    </div>
+{% endif %}
 {% block global_js %}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -87,6 +92,7 @@
         <script src="{% static "js/ajapaik-cookie.js" %}"></script>
         <script src="{% static "js/jquery.justifiedGallery-3.6.1.js" %}"></script>
         <script src="{% static "js/lazysizes-1.3.0.js" %}"></script>
+        <script src="{% static "js/bigscreen-2.0.5.js" %}"></script>
         <script src="{% static "js/cat-common.js" %}"></script>
         <script type="text/javascript">
             window.cookieconsent_options = {
@@ -102,9 +108,30 @@
                 albumSelectionStatisticsTemplate2 = gettext('You have made %(decisions)s decisions about %(pictures)s pictures in this album.'),
                 albumSelectionStatisticsTemplate3 = gettext('%(users)s users have made %(decisions)s decisions about %(pictures)s pictures.'),
                 albumSelectionStatisticsTemplate4 = gettext('You are contributor number %(rank)s.'),
-                curatorURL = '{% url 'project.sift.views.cat_curator' %}';
+                curatorURL = '{% url 'project.sift.views.cat_curator' %}',
+                favoriteAddURL = '{% url 'project.sift.views.user_favorite_add' %}',
+                favoriteRemoveURL = '{% url 'project.sift.views.user_favorite_remove' %}';
         </script>
     {% endcompress %}
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '489848077850414',
+                xfbml: true,
+                version: 'v2.5'
+            });
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/{% if request.LANGUAGE_CODE == 'et' %}et_EE{% elif request.LANGUAGE_CODE == 'fi'%}fi_FI{% else %}en_UK{% endif %}/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
 </body>

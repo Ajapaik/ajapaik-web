@@ -4,7 +4,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.views import serve
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
-from project.sift.sitemaps import StaticViewSitemap, AlbumResultSitemap, AlbumTagSitemap
+from project.sift.sitemaps import StaticViewSitemap, AlbumResultSitemap, AlbumTagSitemap, PhotoSitemap
 
 admin.autodiscover()
 
@@ -16,6 +16,7 @@ urlpatterns = patterns('project.sift.views',
     url(r'^tag/$', 'cat_tagger', name='cat_tagger'),
     url(r'^filter/$', 'cat_results', name='cat_results'),
     url(r'^curator/$', 'cat_curator', name='cat_curator'),
+    url(r'^photo/$', 'photo_permalink'),
     url(r'^photo/(?P<photo_id>\d+)/$', 'photo_permalink'),
     url(r'^photo/(?P<photo_id>\d+)/(?P<photo_slug>.*)/$', 'photo_permalink'),
     url(r'^curator/albums/$', 'cat_curator_load_albums', name='cat_curator_load_albums'),
@@ -49,7 +50,7 @@ urlpatterns += patterns('',
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'album_filter_urls': AlbumResultSitemap, 'album_tag_urls': AlbumTagSitemap, 'static_pages': StaticViewSitemap}}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'album_filter_urls': AlbumResultSitemap, 'album_tag_urls': AlbumTagSitemap, 'static_pages': StaticViewSitemap, 'photo_urls': PhotoSitemap}}, name='django.contrib.sitemaps.views.sitemap'),
 )
 
 handler500 = 'project.ajapaik.views.custom_500'

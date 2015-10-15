@@ -1,22 +1,95 @@
 {% extends "cat_base.html" %}
 
+{% load i18n compress static cat_templatetags %}
+
 {% block layout %}
+    <div class="cat-full-box">
+        <div class="cat-full-pic">
+            <img id="cat-permalink-full-screen-image" src=""
+             class="lazyload" title="{{ photo.title }}"
+             alt="{% if photo.description %}{{ photo.description }}{% else %}{{ photo.title }}{% endif %}"
+             data-src="{% url 'project.sift.views.cat_photo' photo.pk 1920 photo.slug %}">
+        </div>
+    </div>
     <div class="container cat-margin-top-125" id="cat-permalink-container">
         <figure>
-            <img src="{% url 'project.sift.views.cat_photo' photo.id 800 photo.slug %}"
+            <a href="" id="cat-permalink-full-screen-link">
+                <img src="{% url 'project.sift.views.cat_photo' photo.id 800 photo.slug %}"
                  class="img-responsive"
                  width="{{ photo.width }}" height="{{ photo.height }}"
                  alt="{% if photo.description %}{{ photo.description }}{% else %}{{ photo.title }}{% endif %}"
                  title="{{ photo.title }}">
+            </a>
             <figcaption>
                 <h3>{{ photo.title }}</h3>
             </figcaption>
+            {% if photo.description and photo.description != photo.title %}
+                <h5>{{ photo.description }}</h5>
+            {% endif %}
+            <p>{% trans "Author" %}: {{ photo.author }}</p>
+            <p>{% trans "Source" %}: <a id="cat-permalink-source-link" data-id="{{ photo.pk }}" title="{{ photo.source.description }}" href="{{ photo.source_url }}">{{ photo.source.description }} {{ photo.source_key }}</a></p>
+            <p>{% blocktrans count counter=photo.album.all|length %}Album{% plural %}Albums{% endblocktrans %}:
+                {% for a in photo.album.all %}
+                    {% if forloop.last %}
+                        {{ a.title }} <a data-id="{{ a.pk }}" class="cat-permalink-tag-album-link" title="{% trans "Tag photos in this album" %}" href="{% url "project.sift.views.cat_tagger" %}?album={{ a.pk }}">
+                            <i class="material-icons" id="cat-permalink-album-tagger-link">local_offer</i>
+                        </a>
+                        <a data-id="{{ a.pk }}" class="cat-permalink-filter-album-link" title="{% trans "Filter photos by tags in this album" %}" href="{% url "project.sift.views.cat_results" %}?album={{ a.pk }}">
+                            <i class="material-icons">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="#888" d="M3,2H21V2H21V4H20.92L14,10.92V22.91L10,18.91V10.91L3.09,4H3V2Z" ></path>
+                                </svg>
+                            </i>
+                        </a>
+                    {% else %}
+                        {{ a.title }} <a data-id="{{ a.pk }}" class="cat-permalink-tag-album-link" title="{% trans "Tag photos in this album" %}" href="{% url "project.sift.views.cat_tagger" %}?album={{ a.pk }}">
+                            <i class="material-icons" id="cat-permalink-album-tagger-link">local_offer</i>
+                        </a>
+                        <a data-id="{{ a.pk }}" class="cat-permalink-filter-album-link" title="{% trans "Filter photos by tags in this album" %}" href="{% url "project.sift.views.cat_results" %}?album={{ a.pk }}">
+                            <i class="material-icons">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="#888" d="M3,2H21V2H21V4H20.92L14,10.92V22.91L10,18.91V10.91L3.09,4H3V2Z" ></path>
+                                </svg>
+                            </i>
+                        </a>,
+                    {% endif %}
+                {% endfor %}
+            </p>
+            {% if photo.allied_tags.all|length > 0 %}
+                <p>
+                    {% trans "Our users have tagged this photo" %}:
+                    {% for tag in photo.applied_tags.all %}
+                        {% if forloop.last %}
+                            <a class="cat-tagger-tag-link" data-tag="{{ tag.tag.name }}" href="{% url "project.sift.views.cat_results" %}?{{ tag_map|get_item:tag.tag.name|get_item:0 }}={{ tag_map|get_item:tag.tag.name|get_item:1 }}&show_pictures=1">{% trans tag.tag.name %}</a>
+                        {% else %}
+                            <a class="cat-tagger-tag-link" data-tag="{{ tag.tag.name }}" href="{% url "project.sift.views.cat_results" %}?{{ tag_map|get_item:tag.tag.name|get_item:0 }}={{ tag_map|get_item:tag.tag.name|get_item:1 }}&show_pictures=1">{% trans tag.tag.name %}</a>,
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
         </figure>
-        {% if photo.description and photo.description != photo.title %}
-            <h5>{{ photo.description }}</h5>
-        {% endif %}
-        {% for tag in tags %}
-            <p>{{ tag.tag.name }}</p>
-        {% endfor %}
+        <button type="button" id="cat-permalink-favorite-button" data-id="{{ photo.pk }}" class="btn btn-default">
+            <i id="cat-tagger-favorite" class="material-icons">{% if is_user_favorite %}favorite{% else %}favorite_border{% endif %}</i>
+            <span id="cat-permalink-like-count">{{ like_count }}</span>
+        </button>
+        <div class="fb-like" data-cat-id="{{ photo.pk }}" data-href="{% url "project.sift.views.photo_permalink" photo.id %}" data-layout="standard"
+             data-action="like" data-show-faces="true" data-colorscheme="dark" data-share="true">
+        </div>
+        <div class="fb-comments" data-colorscheme="dark" data-href="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.get_host }}{% url "project.sift.views.photo_permalink" photo.id %}" data-numposts="5"></div>
     </div>
+{% endblock %}
+
+{% block specific_js %}
+    {% compress js %}
+        <script>
+            var fullScreenWidth = {{ photo.width }},
+                fullScreenHeight = {{ photo.height }},
+                albumId = {{ album_id }},
+                photoId = {{ photo.pk }},
+                isUserFavorite = '{{ is_user_favorite|safe }}' === 'True',
+                taggerURL = '{% url 'project.sift.views.cat_tagger' %}',
+                filterURL = '{% url 'project.sift.views.cat_results' %}';
+        </script>
+        <script src="{% static "js/cat-permalink.js" %}"></script>
+    {% endcompress %}
 {% endblock %}

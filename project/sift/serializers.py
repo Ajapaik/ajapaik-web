@@ -5,10 +5,11 @@ from rest_framework import serializers
 class CatResultsPhotoSerializer(serializers.ModelSerializer):
     thumb_height = serializers.IntegerField()
     thumb_width = serializers.IntegerField()
+    permalink = serializers.URLField()
 
     class Meta:
         model = CatPhoto
-        fields = ('id', 'title', 'thumb_height', 'thumb_width', 'source_url')
+        fields = ('id', 'title', 'thumb_height', 'thumb_width', 'permalink')
 
 
 class CatTaggerTagSerializer(serializers.ModelSerializer):
