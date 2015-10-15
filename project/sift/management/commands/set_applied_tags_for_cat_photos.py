@@ -15,11 +15,11 @@ class Command(BaseCommand):
             if t.tag.name not in tag_tally[t.photo_id]:
                 tag_tally[t.photo_id][t.tag.name] = [0, 0, 0]
             if t.value == 1:
-                tag_tally[t.photo_id][t.tag.name][0] += 1
+                tag_tally[t.photo_id][t.tag.name][2] += 1
             elif t.value == 0:
                 tag_tally[t.photo_id][t.tag.name][1] += 1
             elif t.value == -1:
-                tag_tally[t.photo_id][t.tag.name][2] += 1
+                tag_tally[t.photo_id][t.tag.name][0] += 1
 
         CatAppliedTag.objects.all().delete()
         for pk, pv in tag_tally.items():
