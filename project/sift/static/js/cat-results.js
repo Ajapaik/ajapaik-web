@@ -269,6 +269,7 @@
             $('#cat-show-pictures-link').click(function () {
                 that.selectedAlbumId = null;
                 that.selectedAlbumTitle = null;
+                that.showPictures = true;
                 that.page = 1;
                 that.removeFiltersFromURL();
                 that.initializeFilterBox();
