@@ -543,7 +543,7 @@ def cat_results(request):
     user_can_curate = user.groups.filter(name='sift_curators').exists()
     filter_form = CatResultsFilteringForm(request.GET)
     json_state = {}
-    tag_dict = dict(CatTag.objects.filter(active=True).exclue(name='urban_or_rural').values_list('name', 'id'))
+    tag_dict = dict(CatTag.objects.filter(active=True).exclude(name='urban_or_rural').values_list('name', 'id'))
     for key in tag_dict:
         tag_dict[key] = {
             'id': tag_dict[key],
