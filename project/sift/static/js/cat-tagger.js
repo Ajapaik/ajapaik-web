@@ -17,6 +17,7 @@
     /*global _gaq */
     /*global tmpl */
     /*global originalWindowTitle */
+    /*global FB*/
     window.CatTagger = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
@@ -57,6 +58,7 @@
                 .attr('alt', this.currentPhoto.title).attr('title', this.currentPhoto.title);
             var shareURL = permalinkBlankURL + this.currentPhoto.id + '/';
             $('.fb-like').attr('data-href', 'http://' + baseURL + shareURL).attr('data-cat-id', this.currentPhoto.id);
+            FB.XFBML.parse();
             $('#cat-tagger-share-link').html('http://' + baseURL + shareURL);
             $('#cat-tagger-current-photo-link').attr('href', shareURL + this.currentPhoto.slug)
                 .attr('data-id', this.currentPhoto.id).attr('title', this.currentPhoto.title);
