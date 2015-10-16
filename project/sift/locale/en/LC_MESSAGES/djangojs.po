@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-13 16:31+0300\n"
+"POT-Creation-Date: 2015-10-16 13:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,13 +21,13 @@ msgstr ""
 msgid "Not selected"
 msgstr ""
 
-#: project/sift/static/js/cat-curator.js:377
+#: project/sift/static/js/cat-curator.js:382
 msgid ""
 "Are you sure you want to create an album with less than 5 photos? We "
 "recommend to create albums with at least 10 or more pictures."
 msgstr ""
 
-#: project/sift/static/js/cat-curator.js:401
+#: project/sift/static/js/cat-curator.js:406
 msgid "System error"
 msgstr ""
 
@@ -114,14 +114,14 @@ msgid ""
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:25
-#: project/sift/static/js/cat-results.js:105
-#: project/sift/static/js/cat-tagger.js:129
+#: project/sift/static/js/cat-results.js:112
+#: project/sift/static/js/cat-tagger.js:134
 msgid "You are contributor number %(rank)s."
 msgstr ""
 
 #: project/sift/static/js/cat-extra-js-translations.js:26
-#: project/sift/static/js/cat-results.js:104
-#: project/sift/static/js/cat-tagger.js:128
+#: project/sift/static/js/cat-results.js:111
+#: project/sift/static/js/cat-tagger.js:133
 msgid ""
 "%(users)s users have made %(decisions)s decisions about %(pictures)s "
 "pictures."

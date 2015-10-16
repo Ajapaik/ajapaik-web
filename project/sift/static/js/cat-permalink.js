@@ -24,8 +24,8 @@
             } else {
                 newHeight = screen.height;
             }
-            image.css('margin-left', (screen.width - newWidth) / 2 + 'px');
-            image.css('margin-top', (screen.height - newHeight) / 2 + 'px');
+            //image.css('margin-left', (screen.width - newWidth) / 2 + 'px');
+            //image.css('margin-top', (screen.height - newHeight) / 2 + 'px');
             image.css('width', newWidth);
             image.css('height', newHeight);
             image.css('opacity', 1);
@@ -39,9 +39,11 @@
     $('#cat-permalink-full-screen-link').click(function (e) {
         e.preventDefault();
         if (BigScreen.enabled) {
-            fullScreenElement.attr('src', fullScreenElement.attr('data-src')).load(function () {
-                prepareFullScreen();
-            });
+            if (!fullScreenElement.attr('src')) {
+                fullScreenElement.attr('src', fullScreenElement.attr('data-src')).load(function () {
+                    prepareFullScreen();
+                });
+            }
             BigScreen.request(fullScreenElement.get(0));
             fullScreenElement.show();
         }

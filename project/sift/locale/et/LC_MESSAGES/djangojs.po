@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Lauri Elias, 2015
 # Lauri Elias, 2015
@@ -10,27 +10,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-13 16:31+0300\n"
+"POT-Creation-Date: 2015-10-16 13:28+0300\n"
 "PO-Revision-Date: 2015-10-13 13:34+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/static/js/cat-curator.js:68
 msgid "Not selected"
 msgstr "Pole valitud"
 
-#: project/sift/static/js/cat-curator.js:377
+#: project/sift/static/js/cat-curator.js:382
 msgid ""
 "Are you sure you want to create an album with less than 5 photos? We "
 "recommend to create albums with at least 10 or more pictures."
-msgstr "Oled kindel, et soovid lisada albumi vähem kui 5 fotoga? Soovitame vähemalt 10 panna."
+msgstr ""
+"Oled kindel, et soovid lisada albumi vähem kui 5 fotoga? Soovitame vähemalt "
+"10 panna."
 
-#: project/sift/static/js/cat-curator.js:401
+#: project/sift/static/js/cat-curator.js:406
 msgid "System error"
 msgstr "Süsteemiviga"
 
@@ -114,18 +117,20 @@ msgstr "%(pictures)s pilti albumis"
 msgid ""
 "You have made %(decisions)s decisions about %(pictures)s pictures in this "
 "album."
-msgstr "Oled teinud %(decisions)s otsust %(pictures)s pildi kohta selles albumis."
+msgstr ""
+"Oled teinud %(decisions)s otsust %(pictures)s pildi kohta selles albumis."
 
 #: project/sift/static/js/cat-extra-js-translations.js:25
-#: project/sift/static/js/cat-results.js:105
-#: project/sift/static/js/cat-tagger.js:129
+#: project/sift/static/js/cat-results.js:112
+#: project/sift/static/js/cat-tagger.js:134
 msgid "You are contributor number %(rank)s."
 msgstr "Oled panustaja number %(rank)s."
 
 #: project/sift/static/js/cat-extra-js-translations.js:26
-#: project/sift/static/js/cat-results.js:104
-#: project/sift/static/js/cat-tagger.js:128
+#: project/sift/static/js/cat-results.js:111
+#: project/sift/static/js/cat-tagger.js:133
 msgid ""
 "%(users)s users have made %(decisions)s decisions about %(pictures)s "
 "pictures."
-msgstr "%(users)s kasutajat on teinud %(decisions)s otsust %(pictures)s pildi kohta."
+msgstr ""
+"%(users)s kasutajat on teinud %(decisions)s otsust %(pictures)s pildi kohta."

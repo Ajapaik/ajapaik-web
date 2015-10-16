@@ -33,6 +33,8 @@ from project.common.models import BaseSource
 from project.utils import average_angle
 from project.utils import angle_diff
 
+from haystack import connections
+
 
 def _calc_trustworthiness(user_id):
     total_tries = 0
@@ -185,6 +187,7 @@ class Album(Model):
                 self.lat = random_photo_with_location.lat
                 self.lon = random_photo_with_location.lon
         super(Album, self).save(*args, **kwargs)
+        connections['default'].get_unified_index().get_index(Album).update_object(self)
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)

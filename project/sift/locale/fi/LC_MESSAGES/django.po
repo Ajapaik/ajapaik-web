@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-13 16:32+0300\n"
-"PO-Revision-Date: 2015-10-13 13:23+0000\n"
+"POT-Creation-Date: 2015-10-16 13:27+0300\n"
+"PO-Revision-Date: 2015-10-16 10:28+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/fi/)\n"
-"Language: fi\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/sift/settings/default.py:61
@@ -71,9 +70,10 @@ msgid "Back to homepage"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:7
-#: project/sift/templates/base.html:7 project/sift/templates/base.html.py:9
+#: project/sift/templates/cat_base.html:7
+#: project/sift/templates/cat_base.html:9
 #: project/sift/templates/cat_results.html:76
-#: project/sift/templates/cat_tagger.html:83
+#: project/sift/templates/cat_tagger.html:98
 msgid "Sift.pics"
 msgstr ""
 
@@ -115,34 +115,12 @@ msgstr ""
 msgid "Sift.pics on Google Play"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:109 project/sift/views.py:603
+#: project/sift/templates/_cat_header.html:109 project/sift/views.py:637
 msgid "About"
 msgstr ""
 
 #: project/sift/templates/_cat_header.html:116
 msgid "Choose language"
-msgstr ""
-
-#: project/sift/templates/base.html:12
-msgid "Sift.pics picture categorisation app by Ajapaik.ee"
-msgstr ""
-
-#: project/sift/templates/base.html:13
-msgid "tagging,historic,old,photos,pictures"
-msgstr ""
-
-#: project/sift/templates/base.html:93
-msgid ""
-"This website uses cookies to ensure you get the best experience on our "
-"website"
-msgstr ""
-
-#: project/sift/templates/base.html:94
-msgid "Got it!"
-msgstr ""
-
-#: project/sift/templates/base.html:95
-msgid "More info"
 msgstr ""
 
 #: project/sift/templates/cat_about.html:12
@@ -154,85 +132,103 @@ msgstr ""
 msgid "Download from Play Store"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:15
+#: project/sift/templates/cat_about.html:19
 msgid "Second Prize"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:15
-#: project/sift/templates/cat_about.html:16
+#: project/sift/templates/cat_about.html:19
+#: project/sift/templates/cat_about.html:20
 msgid "Hack4Fi Hack your heritage competition"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:16
+#: project/sift/templates/cat_about.html:20
 msgid "March 26"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:17
+#: project/sift/templates/cat_about.html:21
 msgid "Twitter"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:17
+#: project/sift/templates/cat_about.html:21
 msgid "Sift.pics on Twitter"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:18
+#: project/sift/templates/cat_about.html:22
 msgid "Sift.pics on Facebook"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:19
+#: project/sift/templates/cat_about.html:23
 msgid ""
-"Historic photographs in public collections very often lack <b>basic "
-"classificatory tags</b> &#8211;\n"
-"            whether a picture is an <b>interior or exterior view</b>, has "
-"the picture been taken from\n"
-"            <b>ground level or from a raised viewpoint</b> (a higher floor "
-"window or tower), is it a view photograph\n"
-"            depicting mainly a <b>place</b> or a reportage photo about an "
-"<b>event</b> etc. Most of these decisions\n"
-"            are easy to make for everyone only by looking at a picture, so "
-"it is useful to capture that information\n"
+"Historic photographs in public collections very often lack <b>basic classificatory tags</b> &#8211;\n"
+"            whether a picture is an <b>interior or exterior view</b>, has the picture been taken from\n"
+"            <b>ground level or from a raised viewpoint</b> (a higher floor window or tower), is it a view photograph\n"
+"            depicting mainly a <b>place</b> or a reportage photo about an <b>event</b> etc. Most of these decisions\n"
+"            are easy to make for everyone only by looking at a picture, so it is useful to capture that information\n"
 "            that would enable <b>bulk filtering of images</b> afterwards."
 msgstr ""
 
-#: project/sift/templates/cat_about.html:25
+#: project/sift/templates/cat_about.html:29
 msgid ""
 "<b>Sift.pics</b> is a participatory <b>crowdsourcing application</b>\n"
-"            for that kind of binary categorisation about images. We take in "
-"pictures from\n"
-"            public collections that users start to browse and ask them to "
-"make couple of\n"
-"            sorting decisions, they can favorite (bookmark) images, see the "
-"title of the\n"
+"            for that kind of binary categorisation about images. We take in pictures from\n"
+"            public collections that users start to browse and ask them to make couple of\n"
+"            sorting decisions, they can favorite (bookmark) images, see the title of the\n"
 "            image and open the image in an official web repository."
 msgstr ""
 
-#: project/sift/templates/cat_about.html:31
+#: project/sift/templates/cat_about.html:35
 msgid "Team"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:32
+#: project/sift/templates/cat_about.html:36
 msgid "concept: Vahur Puik"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:32
+#: project/sift/templates/cat_about.html:36
 msgid "Vahur Puik on Twitter"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:33
+#: project/sift/templates/cat_about.html:37
 msgid "back-end development: Lauri Elias"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:34
+#: project/sift/templates/cat_about.html:38
 msgid "android app development: Janek Priimann"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:36
+#: project/sift/templates/cat_about.html:40
 msgid "Sift.pics has received a grant from the Estonian Ministry of Culture"
 msgstr ""
 
-#: project/sift/templates/cat_about.html:37
-#: project/sift/templates/cat_about.html:38
+#: project/sift/templates/cat_about.html:41
+#: project/sift/templates/cat_about.html:42
 msgid "Estonian Ministry of Culture"
+msgstr ""
+
+#: project/sift/templates/cat_base.html:12
+msgid "Sift.pics picture categorisation app by Ajapaik.ee"
+msgstr ""
+
+#: project/sift/templates/cat_base.html:13
+msgid "tagging,historic,old,photos,pictures"
+msgstr ""
+
+#: project/sift/templates/cat_base.html:77
+msgid "feedback"
+msgstr ""
+
+#: project/sift/templates/cat_base.html:99
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website"
+msgstr ""
+
+#: project/sift/templates/cat_base.html:100
+msgid "Got it!"
+msgstr ""
+
+#: project/sift/templates/cat_base.html:101
+msgid "More info"
 msgstr ""
 
 #: project/sift/templates/cat_curator.html:19
@@ -269,39 +265,75 @@ msgid "Start"
 msgstr ""
 
 #: project/sift/templates/cat_curator.html:70
+msgid "Stop"
+msgstr ""
+
+#: project/sift/templates/cat_curator.html:71
 msgid "Step"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:78
+#: project/sift/templates/cat_curator.html:79
 msgid "Clear selection"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:83
+#: project/sift/templates/cat_curator.html:84
 msgid "Submit selection to Sift"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:111
+#: project/sift/templates/cat_curator.html:112
 msgid "Edit your album"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:118
+#: project/sift/templates/cat_curator.html:119
 msgid "Error"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:126
+#: project/sift/templates/cat_curator.html:127
 msgid "Title"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:136
+#: project/sift/templates/cat_curator.html:137
 msgid "Subtitle"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:147
+#: project/sift/templates/cat_curator.html:148
 msgid "Close"
 msgstr ""
 
-#: project/sift/templates/cat_curator.html:150
+#: project/sift/templates/cat_curator.html:151
 msgid "Save"
+msgstr ""
+
+#: project/sift/templates/cat_photo_permalink.html:32
+msgid "Author"
+msgstr ""
+
+#: project/sift/templates/cat_photo_permalink.html:34
+msgid "Source"
+msgstr ""
+
+#: project/sift/templates/cat_photo_permalink.html:35
+msgid "Album"
+msgid_plural "Albums"
+msgstr[0] ""
+msgstr[1] ""
+
+#: project/sift/templates/cat_photo_permalink.html:38
+#: project/sift/templates/cat_photo_permalink.html:49
+msgid "Tag photos in this album"
+msgstr ""
+
+#: project/sift/templates/cat_photo_permalink.html:41
+#: project/sift/templates/cat_photo_permalink.html:52
+msgid "Filter photos by tags in this album"
+msgstr ""
+
+#: project/sift/templates/cat_photo_permalink.html:64
+msgid "Our users have tagged this photo"
+msgstr ""
+
+#: project/sift/templates/cat_photo_permalink.html:76
+msgid "Favorite this photo"
 msgstr ""
 
 #: project/sift/templates/cat_results.html:25
@@ -326,104 +358,226 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:76 project/sift/views.py:578
-#: project/sift/views.py:580
+#: project/sift/templates/cat_results.html:76 project/sift/views.py:612
+#: project/sift/views.py:614
 msgid "Filter photos by tags"
 msgstr ""
 
-#: project/sift/templates/cat_tagger.html:83 project/sift/views.py:615
-#: project/sift/views.py:619
+#: project/sift/templates/cat_tagger.html:98 project/sift/views.py:649
+#: project/sift/views.py:653
 msgid "Tag historic photos"
 msgstr ""
 
-#: project/sift/views.py:472
+#: project/sift/views.py:475
 msgid "Interior"
 msgstr ""
 
-#: project/sift/views.py:473
+#: project/sift/views.py:476
 msgid "Exterior"
 msgstr ""
 
-#: project/sift/views.py:474
+#: project/sift/views.py:477
 msgid "View"
 msgstr ""
 
-#: project/sift/views.py:475
+#: project/sift/views.py:478
 msgid "Social"
 msgstr ""
 
-#: project/sift/views.py:476
+#: project/sift/views.py:479
 msgid "Ground"
 msgstr ""
 
-#: project/sift/views.py:477
+#: project/sift/views.py:480
 msgid "Raised"
 msgstr ""
 
-#: project/sift/views.py:478
+#: project/sift/views.py:481
 msgid "Rural"
 msgstr ""
 
-#: project/sift/views.py:479
+#: project/sift/views.py:482
 msgid "Urban"
 msgstr ""
 
-#: project/sift/views.py:480
+#: project/sift/views.py:483
 msgid "One"
 msgstr ""
 
-#: project/sift/views.py:481
+#: project/sift/views.py:484
 msgid "Many"
 msgstr ""
 
-#: project/sift/views.py:482
+#: project/sift/views.py:485
 msgid "Public"
 msgstr ""
 
-#: project/sift/views.py:483
+#: project/sift/views.py:486
 msgid "Private"
 msgstr ""
 
-#: project/sift/views.py:484
+#: project/sift/views.py:487
 msgid "Whole"
 msgstr ""
 
-#: project/sift/views.py:485
+#: project/sift/views.py:488
 msgid "Detail"
 msgstr ""
 
-#: project/sift/views.py:486
+#: project/sift/views.py:489
 msgid "Staged"
 msgstr ""
 
-#: project/sift/views.py:487
+#: project/sift/views.py:490
 msgid "Natural"
 msgstr ""
 
-#: project/sift/views.py:488
+#: project/sift/views.py:491
 msgid "Manmade"
 msgstr "Man-made"
 
-#: project/sift/views.py:489
+#: project/sift/views.py:492
 msgid "Nature"
 msgstr ""
 
-#: project/sift/views.py:918
+#: project/sift/views.py:494
+msgid "interior"
+msgstr ""
+
+#: project/sift/views.py:495
+msgid "exterior"
+msgstr ""
+
+#: project/sift/views.py:496
+msgid "view"
+msgstr ""
+
+#: project/sift/views.py:497
+msgid "social"
+msgstr ""
+
+#: project/sift/views.py:498
+msgid "ground"
+msgstr ""
+
+#: project/sift/views.py:499
+msgid "raised"
+msgstr ""
+
+#: project/sift/views.py:500
+#| msgid "Rural"
+msgid "rural"
+msgstr ""
+
+#: project/sift/views.py:501
+msgid "urban"
+msgstr ""
+
+#: project/sift/views.py:502
+#| msgid "One"
+msgid "one"
+msgstr ""
+
+#: project/sift/views.py:503
+msgid "many"
+msgstr ""
+
+#: project/sift/views.py:504
+msgid "public"
+msgstr ""
+
+#: project/sift/views.py:505
+msgid "private"
+msgstr ""
+
+#: project/sift/views.py:506
+#| msgid "Whole"
+msgid "whole"
+msgstr ""
+
+#: project/sift/views.py:507
+#| msgid "Detail"
+msgid "detail"
+msgstr ""
+
+#: project/sift/views.py:508
+msgid "staged"
+msgstr ""
+
+#: project/sift/views.py:509
+#| msgid "Rural"
+msgid "natural"
+msgstr ""
+
+#: project/sift/views.py:510
+#| msgid "Manmade"
+msgid "manmade"
+msgstr ""
+
+#: project/sift/views.py:511
+msgid "nature"
+msgstr ""
+
+#: project/sift/views.py:513
+msgid "interior_or_exterior_NA"
+msgstr ""
+
+#: project/sift/views.py:514
+msgid "view_or_social_NA"
+msgstr ""
+
+#: project/sift/views.py:515
+msgid "ground_or_raised_NA"
+msgstr ""
+
+#: project/sift/views.py:516
+msgid "urban_or_rural_NA"
+msgstr ""
+
+#: project/sift/views.py:517
+msgid "one_or_many_NA"
+msgstr ""
+
+#: project/sift/views.py:518
+msgid "public_or_private_NA"
+msgstr ""
+
+#: project/sift/views.py:519
+msgid "whole_or_detail_NA"
+msgstr ""
+
+#: project/sift/views.py:520
+msgid "staged_or_natural_NA"
+msgstr ""
+
+#: project/sift/views.py:521
+msgid "manmade_or_nature_NA"
+msgstr ""
+
+#: project/sift/views.py:952
 msgid "OK"
 msgstr ""
 
-#: project/sift/views.py:928
+#: project/sift/views.py:962
 msgid "Error uploading file"
 msgstr ""
 
-#: project/sift/views.py:934
+#: project/sift/views.py:968
 msgid "Photo already exists in Sift"
 msgstr ""
 
-#: project/sift/views.py:939
+#: project/sift/views.py:973
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/sift/views.py:941
+#: project/sift/views.py:975
 msgid "Not enough data submitted"
+msgstr ""
+
+#: templates/404.html:5 templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:14
+msgid "Back"
 msgstr ""

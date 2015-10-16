@@ -73,7 +73,8 @@
                 photoThumbURL = '{% url 'project.sift.views.cat_photo' %}',
                 albumThumbURL = '{% url 'project.sift.views.cat_album_thumb' %}',
                 taggerURL = '{% url 'project.sift.views.cat_tagger' %}',
-                originalWindowTitle = '{% trans "Filter photos by tags" %} - {% trans "Sift.pics" %}';
+                originalWindowTitle = '{% trans "Filter photos by tags" %} - {% trans "Sift.pics" %}',
+                showPictures = '{{ show_pictures|safe }}' === 'True';
         </script>
         <script>
             $(document).ready(function () {

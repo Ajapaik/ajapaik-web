@@ -12,6 +12,7 @@
     /*global originalWindowTitle */
     /*global gettext */
     /*global interpolate */
+    /*global showPictures */
     window.Cat = function () {
         this.selectedAlbumId = null;
         this.selectedAlbumTitle = null;
@@ -25,12 +26,14 @@
         this.totalResults = 0;
         this.filterNames = [];
         this.originalWindowTitle = originalWindowTitle;
+        this.showPictures = showPictures;
     };
     window.Cat.prototype = {
         switchToAlbumSelection: function () {
             this.loadAlbums();
             this.selectedAlbumId = null;
             this.selectedAlbumTitle = null;
+            this.showPictures = false;
             this.page = 1;
             this.removeFiltersFromURL();
             this.updatePaging();
@@ -45,6 +48,7 @@
         },
         switchToPhotoView: function () {
             this.loadPhotos();
+            this.showPictures = true;
             $('#cat-header-showing-albums').addClass('hidden');
             var showingAlbumPictures = $('#cat-header-showing-album-pictures');
             if (this.selectedAlbumId) {
@@ -71,10 +75,13 @@
         syncStateToURL: function () {
             var currentURL = URI(location.href),
                 replacementTitle = this.originalWindowTitle;
-            currentURL.removeSearch('album').removeSearch('page');
+            currentURL.removeSearch('album').removeSearch('page').removeSearch('show_pictures');
             if (this.selectedAlbumId) {
                 currentURL.addSearch('album', this.selectedAlbumId);
                 replacementTitle = this.selectedAlbumTitle + ' - ' + this.originalWindowTitle;
+            }
+            if (this.showPictures) {
+                currentURL.addSearch('show_pictures', 1);
             }
             if (this.page) {
                 currentURL.addSearch('page', this.page);
@@ -206,6 +213,7 @@
                 var $this = $(this);
                 that.selectedAlbumId = $this.data('id');
                 that.selectedAlbumTitle = $this.data('title');
+                that.showPictures = true;
                 that.page = 1;
                 that.initializeFilterBox();
                 that.removeFiltersFromURL();

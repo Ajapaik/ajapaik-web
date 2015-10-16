@@ -157,6 +157,7 @@
     line-height: 200%;
     background-color: rgba(0, 0, 0, .7) !important;
     min-height: 100%;
+    z-index: 10000;
 }
 
 #cat-album-selection {
@@ -169,7 +170,7 @@
     right: 5px;
     width: 24px;
     height: 24px;
-    z-index: 2;
+    z-index: 10001;
     color: white;
 }
 
@@ -457,4 +458,8 @@ html {
 
 .cat-header-fb-like {
     margin-top: 12px;
+}
+
+#cat-permalink-like-row {
+    margin-bottom: 10px;
 }

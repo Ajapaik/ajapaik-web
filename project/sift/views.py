@@ -22,7 +22,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.db.models import Count
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 import requests
@@ -333,8 +333,6 @@ def cat_album_state(request):
 
 
 def cat_photo(request, photo_id=None, thumb_size=600, slug=None):
-    if not photo_id:
-        photo_id = CatPhoto.objects.order_by('?').first().pk
     cache_key = "ajapaik_cat_photo_response_%s_%s_%s" % (SITE_ID, photo_id, thumb_size)
     cached_response = cache.get(cache_key)
     if cached_response:
@@ -511,6 +509,16 @@ _('staged')
 _('natural')
 _('manmade')
 _('nature')
+
+_('interior_or_exterior_NA')
+_('view_or_social_NA')
+_('ground_or_raised_NA')
+_('urban_or_rural_NA')
+_('one_or_many_NA')
+_('public_or_private_NA')
+_('whole_or_detail_NA')
+_('staged_or_natural_NA')
+_('manmade_or_nature_NA')
 
 
 @vary_on_headers('X-Requested-With')
@@ -972,6 +980,12 @@ def cat_curator_upload_handler(request):
     return HttpResponse(dumps(ret), content_type='application/json')
 
 
+def _calculate_thumbnail_size(image, size_str):
+    thumb = get_thumbnail(image, size_str, upscale=False)
+
+    return thumb.size[0], thumb.size[1]
+
+
 def photo_permalink(request, photo_id=None, photo_slug=None):
     profile = request.get_user().catprofile
     if not photo_id:
@@ -982,6 +996,8 @@ def photo_permalink(request, photo_id=None, photo_slug=None):
     if p:
         context['title'] = p.title
         context['photo'] = p
+        p.full_screen_width, p.full_screen_height = _calculate_thumbnail_size(p.image, '1920x1080')
+        p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p.image, '800x600')
         context['tag_map'] = {}
         tags = CatTag.objects.all()
         for t in tags:
@@ -998,4 +1014,7 @@ def photo_permalink(request, photo_id=None, photo_slug=None):
                 context['is_user_favorite'] = True
             else:
                 context['is_user_favorite'] = False
+    else:
+        raise Http404('No such photo')
+
     return render_to_response('cat_photo_permalink.html', RequestContext(request, context))
