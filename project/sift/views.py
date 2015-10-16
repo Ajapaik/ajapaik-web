@@ -22,7 +22,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.db.models import Count
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 import requests
@@ -1009,12 +1009,14 @@ def _calculate_thumbnail_size(image, size_str):
 
 
 def photo_permalink(request, photo_id=None, photo_slug=None):
-    profile = request.get_user().catprofile
     if not photo_id:
         photo_id = CatPhoto.objects.order_by('?').first().pk
-    context = {}
     p = CatPhoto.objects.filter(pk=photo_id).prefetch_related('album').prefetch_related('source')\
         .prefetch_related('applied_tags').prefetch_related('applied_tags__tag').first()
+    if not photo_slug or photo_slug != p.slug:
+        return HttpResponsePermanentRedirect(reverse('project.sift.views.photo_permalink', args=(p.pk, p.slug)))
+    profile = request.get_user().catprofile
+    context = {}
     if p:
         context['title'] = p.title
         context['photo'] = p
