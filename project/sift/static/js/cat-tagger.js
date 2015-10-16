@@ -56,7 +56,7 @@
             $('#cat-tagger-current-photo').attr('src', this.currentPhoto.image.replace('[DIM]', '800'))
                 .attr('alt', this.currentPhoto.title).attr('title', this.currentPhoto.title);
             var shareURL = permalinkBlankURL + this.currentPhoto.id + '/';
-            $('.fb-like').attr('data-href', shareURL).attr('data-cat-id', this.currentPhoto.id);
+            $('.fb-like').attr('data-href', 'http://' + baseURL + shareURL).attr('data-cat-id', this.currentPhoto.id);
             $('#cat-tagger-share-link').html('http://' + baseURL + shareURL);
             $('#cat-tagger-current-photo-link').attr('href', shareURL + this.currentPhoto.slug)
                 .attr('data-id', this.currentPhoto.id).attr('title', this.currentPhoto.title);
