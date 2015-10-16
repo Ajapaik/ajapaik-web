@@ -12,6 +12,8 @@ admin.autodiscover()
 urlpatterns = patterns('project.sift.views',
     url(r'^logout/', 'logout'),
     url(r'^$', 'cat_results', name='cat_landing'),
+    url(r'^$m/', 'cat_results', name='cat_landing'),
+    url(r'^$mobile/', 'cat_results', name='cat_landing'),
     url(r'^about/$', 'cat_about', name='cat_about'),
     url(r'^tag/$', 'cat_tagger', name='cat_tagger'),
     url(r'^filter/$', 'cat_results', name='cat_results'),
