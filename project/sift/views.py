@@ -543,7 +543,7 @@ def cat_results(request):
     user_can_curate = user.groups.filter(name='sift_curators').exists()
     filter_form = CatResultsFilteringForm(request.GET)
     json_state = {}
-    tag_dict = dict(CatTag.objects.filter(active=True).values_list('name', 'id'))
+    tag_dict = dict(CatTag.objects.filter(active=True).exclue(name='urban_or_rural').values_list('name', 'id'))
     for key in tag_dict:
         tag_dict[key] = {
             'id': tag_dict[key],
@@ -673,7 +673,7 @@ def cat_tagger(request):
         title = state['albumName'] + ' - ' + _('Tag historic photos')
         fb_share_photos = _get_fb_share_photos(album_selection_form.cleaned_data['album'].photos.order_by('?')[:5])
     request.get_user()
-    all_tags = CatTag.objects.filter(active=True)
+    all_tags = CatTag.objects.filter(active=True).exclude(name='urban_or_rural')
     state['allTags'] = { x.name: {'leftIcon': icon_map[x.name.split('_')[0]], 'rightIcon': icon_map[x.name.split('_')[-1]]} for x in all_tags }
     albums = CatAlbum.objects.all()
     return render_to_response('cat_tagger.html', RequestContext(request, {
