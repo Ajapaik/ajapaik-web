@@ -521,6 +521,21 @@ _('staged_or_natural_NA')
 _('manmade_or_nature_NA')
 
 
+def _get_fb_share_photos(qs):
+    count = 0
+    ret = []
+    for each in qs:
+        if count < 5:
+            thumb = get_thumbnail(each.image, '1920x1080', upscale=False)
+            each.fb_width, each.fb_height = thumb.size[0], thumb.size[1]
+            ret.append(each)
+        else:
+            break
+        count += 1
+
+    return ret
+
+
 @vary_on_headers('X-Requested-With')
 def cat_results(request):
     # Ensure user has profile
@@ -545,6 +560,8 @@ def cat_results(request):
     current_result_set_start = 0
     current_result_set_end = 0
     q = ''
+    fb_share_photos = None
+    # TODO: Now that we reorganized to use AJAX queries for content, no more need to return for regular HTML
     if filter_form.is_valid():
         cd = filter_form.cleaned_data
         if cd['page']:
@@ -557,7 +574,7 @@ def cat_results(request):
                 json_state['albumId'] = cd['album'].pk
                 json_state['albumName'] = cd['album'].title
                 photos = photos.filter(album=cd['album'])
-            if cd['show_pictures']:
+            if cd['show_pictures'] or cd['q']:
                 json_state['showPictures'] = True
             for k in cd:
                 if k in tag_dict.keys():
@@ -591,6 +608,7 @@ def cat_results(request):
                 current_result_set_end = total_results
             json_state['currentResultSetStart'] = current_result_set_start
             json_state['currentResultSetEnd'] = current_result_set_end
+            fb_share_photos = _get_fb_share_photos(photos)
             for p in photos:
                 p.permalink = reverse('project.sift.views.photo_permalink', args=(p.id, p.slug))
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
@@ -615,6 +633,7 @@ def cat_results(request):
         return render_to_response('cat_results.html', RequestContext(request, {
             'title': title,
             'is_filter': True,
+            'fb_share_photos': fb_share_photos,
             'q': q,
             'albums': albums,
             'tag_dict': tag_dict,
@@ -647,10 +666,12 @@ def cat_tagger(request):
     state = {}
     album_selection_form = CatTaggerAlbumSelectionForm(request.GET)
     title = _('Tag historic photos')
+    fb_share_photos = None
     if album_selection_form.is_valid():
         state['albumId'] = album_selection_form.cleaned_data['album'].pk
         state['albumName'] = album_selection_form.cleaned_data['album'].title
         title = state['albumName'] + ' - ' + _('Tag historic photos')
+        fb_share_photos = _get_fb_share_photos(album_selection_form.cleaned_data['album'].photos.order_by('?')[:5])
     request.get_user()
     all_tags = CatTag.objects.filter(active=True)
     state['allTags'] = { x.name: {'leftIcon': icon_map[x.name.split('_')[0]], 'rightIcon': icon_map[x.name.split('_')[-1]]} for x in all_tags }
@@ -659,6 +680,7 @@ def cat_tagger(request):
         'title': title,
         'is_tag': True,
         'albums': albums,
+        'fb_share_photos': fb_share_photos,
         'state_json': dumps(state),
         'user_can_curate': user_can_curate
     }))

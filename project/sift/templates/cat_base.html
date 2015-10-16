@@ -39,6 +39,13 @@
         <link rel="stylesheet" href="{% static "css/justifiedGallery-3.6.1.css" %}"/>
         <link rel="stylesheet" href="{% static "css/cat-style.css" %}"/>
     {% endcompress %}
+    {% if fb_share_photos %}
+        {% for p in fb_share_photos %}
+            <meta property="og:image" content="http://{{ request.get_host }}{% url 'project.sift.views.cat_photo' p.pk 1920 p.slug %}"/>
+            <meta property="og:image:width" content="{{ p.fb_width }}" />
+            <meta property="og:image:height" content="{{ p.fb_height }}" />
+        {% endfor %}
+    {% endif %}
     {% block specific_css %}{% endblock %}
     <script>
         var _gaq = _gaq || [];
