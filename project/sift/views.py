@@ -826,7 +826,7 @@ def cat_curator_search(request):
         response = _curator_get_records_by_ids(ids)
     if full_search is not None:
         full_search = full_search.encode('utf-8')
-        request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":200,"digital":true}],"id":0}' % full_search
+        request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":["MUSEUM",null,null],"pageSize":10000,"digital":true}],"id":0}' % full_search
         response = requests.post(AJAPAIK_VALIMIMOODUL_URL, data=request_params)
         response.encoding = 'utf-8'
 
