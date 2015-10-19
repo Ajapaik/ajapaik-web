@@ -14,4 +14,3 @@ class Command(BaseCommand):
             print p.id
             url = url_template % p.id
             requests.post(query_string % url)
-s
