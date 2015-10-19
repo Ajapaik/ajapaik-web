@@ -310,7 +310,10 @@ class Photo(Model):
             "large": _make_fullscreen(photo),
             "totalGeotags": photo.geotags.distinct('user').count(),
             "geotagsWithAzimuth": photo.geotags.filter(azimuth__isnull=False).distinct('user').count(),
-            "userAlreadyConfirmed": photo.user_already_confirmed
+            "userAlreadyConfirmed": photo.user_already_confirmed,
+            "userLikes": photo.user_likes,
+            "userLoves": photo.user_loves,
+            "userLikeCount": photo.user_like_count
         }
         return ret
 
@@ -371,6 +374,9 @@ class Photo(Model):
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                  and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
+        ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
+        ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
+        ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
     def __unicode__(self):

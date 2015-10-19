@@ -59,7 +59,7 @@
             var shareURL = permalinkBlankURL + this.currentPhoto.id + '/';
             $('.fb-like').attr('data-href', 'http://' + baseURL + shareURL).attr('data-cat-id', this.currentPhoto.id);
             FB.XFBML.parse();
-            $('#cat-tagger-share-link').html('http://' + baseURL + shareURL);
+            $('#cat-tagger-share-link').html('<a traget="_blank" href="http://' + baseURL + shareURL + '">http://' + baseURL + shareURL + '</a>');
             $('#cat-tagger-current-photo-link').attr('href', shareURL + this.currentPhoto.slug)
                 .attr('data-id', this.currentPhoto.id).attr('title', this.currentPhoto.title);
             $('#cat-tagger-favorite-button').attr('data-id', this.currentPhoto.id);
@@ -81,7 +81,7 @@
         },
         nextTag: function () {
             this.currentPhotoTagIndex += 1;
-            if (this.currentPhotoTagIndex > 1) {
+            if (this.currentPhotoTagIndex > 1 || this.currentPhotoTagIndex > (this.currentPhoto.tag.length - 1)) {
                 this.nextPhoto();
             } else {
                 var currentTag = this.currentPhoto.tag[this.currentPhotoTagIndex],

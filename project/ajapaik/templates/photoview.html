@@ -54,6 +54,11 @@
                     {% if photo.description %}
                         <div class="row-fluid">
                             {{ photo.description }}
+                            <div id="ajapaik-photo-modal-like">
+                                <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+                                     data-layout="standard" data-action="like" data-show-faces="true"
+                                     data-share="true"></div>
+                            </div>
                         </div>
                     {% endif %}
                     {% if photo.address %}
@@ -87,13 +92,6 @@
                                         <a href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                                             {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
                                         </a>
-                                    </div>
-                                </li>
-                                <li role="presentation">
-                                    <div id="ajapaik-photo-modal-like" role="menuitem" tabindex="-1">
-                                        <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
-                                             data-layout="standard" data-action="like" data-show-faces="true"
-                                             data-share="true"></div>
                                     </div>
                                 </li>
                             </ul>
@@ -180,8 +178,8 @@
                                 {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" alt="{{ photo.description }} {% trans "rephoto" %}"
                                      src="{% url 'project.ajapaik.views.photo_url' rephoto.id rephoto.get_pseudo_slug %}"/>
                             </a>
-                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
-                            <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons">close</i></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons">invert_colors</i></button>
                         </div>
                         {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
                             {% if rephoto.author %}
@@ -240,15 +238,15 @@
         window.hostname = '{{ hostname }}';
         // Some fake variables to reuse photo modal mini-map component
         {% if photo.lat and photo.lon %}
-            window.photoModalPhotoLat = {{ photo.lat }};
-            window.photoModalPhotoLng = {{ photo.lon }};
+            window.photoModalPhotoLat = {{ photo.lat|safe }};
+            window.photoModalPhotoLng = {{ photo.lon|safe }};
         {% endif %}
         {% if photo.azimuth %}
-            window.photoModalPhotoAzimuth = {{ photo.azimuth }};
+            window.photoModalPhotoAzimuth = {{ photo.azimuth|safe }};
         {% endif %}
-        {% if album.lat and album.lon %}
-            window.albumLat = {{ album.lat }};
-            window.albumLon = {{ album.lon }};
+        {% if album.1 and album.2 %}
+            window.albumLat = {{ album.1|safe }};
+            window.albumLon = {{ album.2|safe }};
         {% endif %}
         window.currentPhotoSourceName = '{{ photo.source.description }}';
         window.currentPhotoSourceKey = '{{ photo.source_key }}';

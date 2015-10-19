@@ -673,12 +673,17 @@ var map,
                 currentIcon = locationIcon;
             }
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                if (window.miniMapMarker) {
+                    window.miniMapMarker.setMap(null);
+                    window.miniMapMarker = null;
+                }
                 window.miniMapMarker = new google.maps.Marker({
                     position: new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng),
                     map: window.miniMap,
                     title: gettext('Current location'),
                     icon: currentIcon
                 });
+                window.miniMapMarker.setIcon(currentIcon);
             }
             window.miniMapStreetView = window.miniMap.getStreetView();
             google.maps.event.addListener(window.miniMapStreetView, 'visible_changed', function() {
@@ -686,7 +691,9 @@ var map,
                     if (window.miniMapStreetView.getVisible()) {
                         window.miniMapMarker.setIcon(locationIcon);
                     } else {
-                        window.miniMapMarker.setIcon(arrowIcon);
+                        if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                            window.miniMapMarker.setIcon(arrowIcon);
+                        }
                     }
                 }
             });

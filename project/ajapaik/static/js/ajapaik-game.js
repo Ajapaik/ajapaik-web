@@ -148,6 +148,18 @@
                     descStatus;
                 textTarget.hide();
                 currentPhoto = data.photo;
+                var likeButton = $('.ajapaik-like-photo-overlay-button');
+                if (currentPhoto.userLikes) {
+                    likeButton.addClass('active').removeClass('big');
+                    likeButton.find('.material-icons').html('favorite');
+                } else if (currentPhoto.userLoves) {
+                    likeButton.addClass('active big');
+                    likeButton.find('.material-icons').html('favorite');
+                } else {
+                    likeButton.removeClass('active big');
+                    likeButton.find('.material-icons').html('favorite_border');
+                }
+                likeButton.find('.ajapaik-like-count').html(currentPhoto.userLikeCount);
                 descStatus = window.descriptionViewHistory[currentPhoto.id];
                 // Remove JS-breaking formatting if some has snuck in
                 currentPhoto.description = currentPhoto.description.replace(/(\r\n|\n|\r)/gm, '');

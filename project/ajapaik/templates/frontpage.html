@@ -63,8 +63,8 @@
             window.albumId = {{ album.0 }};
             window.albumName = '{{ album.1 }}';
             {% if album.3 and album.4 %}
-                window.albumLat = {{ album.3 }};
-                window.albumLon = {{ album.4 }};
+                window.albumLat = {{ album.3|safe }};
+                window.albumLon = {{ album.4|safe }};
             {% endif %}
         {% endif %}
         window.linkToGame = true;

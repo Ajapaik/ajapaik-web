@@ -38,7 +38,7 @@
             {% if album %}
                 var albumId = '{{ album.0 | safe }}';
                 {% if album.1 and album.2 %}
-                    window.albumLatLng = new window.google.maps.LatLng({{ album.2 | safe }}, {{ album.3 | safe }});
+                    window.albumLatLng = new window.google.maps.LatLng({{ album.2|safe }}, {{ album.3|safe }});
                 {% endif %}
             {% endif %}
         var photoModalCurrentImageUrl;

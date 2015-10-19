@@ -72,11 +72,13 @@
                                          alt="{{ photo.description }}" title="{{ photo.description }}"/>
                                     <button class="ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
                                             id="ajapaik-close-rephoto-overlay-button"
-                                            {% if not request.mobile %}style="display: none;"{% endif %}></button>
+                                            {% if not request.mobile %}style="display: none;"{% endif %}>
+                                        <i class="material-icons">close</i>
+                                    </button>
                                     <button class="ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button ajapaik-zero-border-radius"
                                             id="ajapaik-invert-rephoto-overlay-button"
                                             {% if not request.mobile %}style="display: none;"{% endif %}>
-
+                                        <i class="material-icons">invert_colors</i>
                                     </button>
                                 </a>
                             </div>
@@ -112,6 +114,11 @@
                 {% if photo.description %}
                     <div class="row-fluid" id="ajapaik-photo-modal-description">
                         <div title="{{ photo.description }}">{{ photo.description }}</div>
+                        <div id="ajapaik-photo-modal-like">
+                            <div class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
+                                 data-layout="standard" data-action="like" data-show-faces="true"
+                                 data-share="true"></div>
+                        </div>
                     </div>
                 {% endif %}
                 {% if photo.source_url %}
@@ -216,13 +223,6 @@
                                             <a href="{{ hostname }}{{ photo.get_detail_url }}">{{ hostname }}{{ photo.get_detail_url }}</a>
                                         </div>
                                     </li>
-                                    <li role="presentation">
-                                        <div id="ajapaik-photo-modal-like" role="menuitem" tabindex="-1">
-                                            <div class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
-                                                 data-layout="standard" data-action="like" data-show-faces="true"
-                                                 data-share="true"></div>
-                                        </div>
-                                    </li>
                                 </ul>
                             </div>
                             <span id="ajapaik-photo-modal-discuss" title="{% trans "Discuss" %}"><span
@@ -256,8 +256,8 @@
             window.photoModalAzimuthCount = {{ azimuth_count }};
             window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
             {% if photo.lat and photo.lon %}
-                window.photoModalPhotoLat = {{ photo.lat }};
-                window.photoModalPhotoLng = {{ photo.lon }};
+                window.photoModalPhotoLat = {{ photo.lat|safe }};
+                window.photoModalPhotoLng = {{ photo.lon|safe }};
                 {% if photo.azimuth %}
                     window.photoModalPhotoAzimuth = {{ photo.azimuth }};
                 {% else %}

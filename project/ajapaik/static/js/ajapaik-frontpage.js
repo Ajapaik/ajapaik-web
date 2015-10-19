@@ -394,6 +394,7 @@
             $('body').addClass('ajapaik-body-frontpage').removeClass('ajapaik-body-game-map');
             $('.modal-backdrop').show();
             $('.footer').show();
+            updateFrontpagePhotosAsync();
             window.locationToolsOpen = false;
             syncStateToUrl();
             showPhotoMapIfApplicable();
@@ -630,6 +631,9 @@
             switch (selectedMode) {
                 case 'pictures':
                     window.showPhotos = true;
+                    var currentUrl1 = window.URI(window.location.href);
+                    currentUrl1.removeSearch('photos');
+                    window.history.replaceState(null, window.title, currentUrl1);
                     //window.albumId = null;
                     //updateFrontpagePhotosAsync();
                     break;
@@ -638,9 +642,9 @@
                         window.location.href = '/';
                     }
                     window.showPhotos = false;
-                    var currentUrl = window.URI(window.location.href);
-                    currentUrl.removeSearch('photos');
-                    window.history.replaceState(null, window.title, currentUrl);
+                    var currentUrl2 = window.URI(window.location.href);
+                    currentUrl2.removeSearch('photos');
+                    window.history.replaceState(null, window.title, currentUrl2);
                     window.order1 = null;
                     window.order2 = null;
                     window.order3 = null;

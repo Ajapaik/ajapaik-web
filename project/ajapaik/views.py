@@ -534,6 +534,7 @@ def game(request):
 
 
 def fetch_stream(request):
+    profile = request.get_user().profile
     form = GameNextPhotoForm(request.GET)
     data = {"photo": None, "userSeenAll": False, "nothingMoreToShow": False}
     if form.is_valid():
@@ -544,6 +545,9 @@ def fetch_stream(request):
         # TODO: Correct implementation
         if form_photo:
             form_photo.user_already_confirmed = False
+            form_photo.user_likes = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=1).exists()
+            form_photo.user_loves = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=2).exists()
+            form_photo.user_like_count = PhotoLike.objects.filter(photo=form_photo).distinct('profile').count()
             data = {"photo": Photo.get_game_json_format_photo(form_photo), "userSeenAll": False,
                     "nothingMoreToShow": False}
         else:
@@ -1213,7 +1217,7 @@ def photoslug(request, photo_id, pseudo_slug):
         album_selection_form = AlbumSelectionForm()
 
     if album:
-        album = (album.id,)
+        album = (album.id, album.lat, album.lon)
 
     rephoto_fullscreen = None
     if first_rephoto is not None:

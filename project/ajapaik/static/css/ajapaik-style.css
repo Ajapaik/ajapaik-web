@@ -1560,15 +1560,25 @@ ul.errorlist {
 }
 
 .ajapaik-close-rephoto-overlay-button {
-    background: #fff url(../images/material-design-icons/ic_close_24px.svg) no-repeat center !important;
+    border: none;
     top: 0;
     right: 0;
+    border-radius: 0;
+}
+
+.ajapaik-close-rephoto-overlay-button:hover {
+    color: #007fff;
 }
 
 .ajapaik-invert-rephoto-overlay-button {
-    background: #fff url(../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center !important;
+    border: none;
     bottom: 0;
     right: 0;
+    border-radius: 0;
+}
+
+.ajapaik-invert-rephoto-overlay-button:hover {
+    color: #007fff;
 }
 
 .ajapaik-fullscreen-overlay-button {
