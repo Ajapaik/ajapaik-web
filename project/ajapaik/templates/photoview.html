@@ -33,12 +33,12 @@
                              src="{% url 'project.ajapaik.views.photo_url' photo.id photo.get_pseudo_slug %}"/>
                         </a>
                         {% if previous_photo %}
-                            <a class="ajapaik-photo-modal-previous-button" href="{% url 'project.ajapaik.views.photoslug' previous_photo.pk previous_photo.slug %}">
+                            <a class="ajapaik-photo-modal-previous-button" href="{% url 'project.ajapaik.views.photoslug' previous_photo.pk previous_photo.get_pseudo_slug %}">
                                 <i class="material-icons">navigate_before</i>
                             </a>
                         {% endif %}
                         {% if next_photo %}
-                            <a class="ajapaik-photo-modal-next-button" href="{% url 'project.ajapaik.views.photoslug' next_photo.pk next_photo.slug %}">
+                            <a class="ajapaik-photo-modal-next-button" href="{% url 'project.ajapaik.views.photoslug' next_photo.pk next_photo.get_pseudo_slug %}">
                                 <i class="material-icons">navigate_next</i>
                             </a>
                         {% endif %}
