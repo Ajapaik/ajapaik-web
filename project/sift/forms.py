@@ -29,6 +29,7 @@ class CatAlbumStateForm(forms.Form):
     id = forms.ModelChoiceField(queryset=CatAlbum.objects.all())
     max = forms.IntegerField(required=False)
     state = forms.CharField(max_length=255, required=False)
+    is_web = forms.BooleanField(required=False, initial=False)
 
 
 class CatTagForm(forms.Form):

@@ -105,6 +105,17 @@
                         </i>
                     </a>
                 </li>
+                <li class="pull-left">
+                    <a id="cat-header-facebook-link" class="cat-header-link"
+                       title="{% trans 'Sift.pics on Facebook' %}"
+                       href="https://www.facebook.com/Sift.pics">
+                        <i class="material-icons">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="#888" d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z"></path>
+                            </svg>
+                        </i>
+                    </a>
+                </li>
                 <li class="pull-left{% if is_about %} active{% endif %}">
                     <a id="cat-about-link" title="{% trans 'About' %}" href="{% url "project.sift.views.cat_about" %}" class="cat-header-link cat-no-background{% if is_about %} cat-text-white{% else %} cat-text-gray{% endif %}">
                         <i class="material-icons">help</i>

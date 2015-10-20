@@ -229,7 +229,11 @@ def _get_album_state(request, form):
         'state': str(int(round(time.time() * 1000)))
     }
     if form.is_valid():
-        all_cat_tags = set(CatTag.objects.filter(active=True).exclude(name='manmade_or_nature').values_list('name', flat=True))
+        if form.cleaned_data['is_web']:
+            all_cat_tags = CatTag.objects.filter(active=True).exclude(name='urban_or_rural')
+        else:
+            all_cat_tags = CatTag.objects.filter(active=True).exclude(name='manmade_or_nature')
+        all_cat_tags = set(all_cat_tags.values_list('name', flat=True))
         album = form.cleaned_data['id']
         content['title'] = album.title
         content['subtitle'] = album.subtitle

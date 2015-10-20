@@ -1096,22 +1096,27 @@ var map,
     //});
 
     $(document).on('click', '.ajapaik-photo-modal-previous-button', function (e) {
-        e.preventDefault();
-        if (!$(this).hasClass('ajapaik-photo-modal-previous-button-disabled')) {
-            var previousId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).prev().data('id');
-            if (previousId && !window.nextPhotoLoading) {
-                window.loadPhoto(previousId);
-            }
-            if (window.isFrontpage) {
-                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal previous']);
-            } else if (window.isGame) {
-                _gaq.push(['_trackEvent', 'Game', 'Photo modal previous']);
+        var $this = $(this);
+        if (!isPhotoview) {
+            e.preventDefault();
+            if (!$this.hasClass('ajapaik-photo-modal-previous-button-disabled')) {
+                var previousId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).prev().data('id');
+                if (previousId && !window.nextPhotoLoading) {
+                    window.loadPhoto(previousId);
+                }
+                if (window.isFrontpage) {
+                    _gaq.push(['_trackEvent', 'Gallery', 'Photo modal previous']);
+                } else if (window.isGame) {
+                    _gaq.push(['_trackEvent', 'Game', 'Photo modal previous']);
+                }
+            } else {
+                if (window.isFrontpage) {
+                    window.previousPageOnModalClose = true;
+                    window.closePhotoDrawer();
+                }
             }
         } else {
-            if (window.isFrontpage) {
-                window.previousPageOnModalClose = true;
-                window.closePhotoDrawer();
-            }
+            _gaq.push(['_trackEvent', 'Photoview', 'Previous']);
         }
     });
 
@@ -1160,21 +1165,25 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-photo-modal-next-button', function () {
-        if (!$(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
-            var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
-            if (nextId && !window.nextPhotoLoading) {
-                window.loadPhoto(nextId);
-            }
-            if (window.isFrontpage) {
-                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal next']);
-            } else if (window.isGame) {
-                _gaq.push(['_trackEvent', 'Game', 'Photo modal next']);
+        if (!isPhotoview) {
+            if (!$(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
+                var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
+                if (nextId && !window.nextPhotoLoading) {
+                    window.loadPhoto(nextId);
+                }
+                if (window.isFrontpage) {
+                    _gaq.push(['_trackEvent', 'Gallery', 'Photo modal next']);
+                } else if (window.isGame) {
+                    _gaq.push(['_trackEvent', 'Game', 'Photo modal next']);
+                }
+            } else {
+                if (window.isFrontpage) {
+                    window.nextPageOnModalClose = true;
+                    window.closePhotoDrawer();
+                }
             }
         } else {
-            if (window.isFrontpage) {
-                window.nextPageOnModalClose = true;
-                window.closePhotoDrawer();
-            }
+            _gaq.push(['_trackEvent', 'Photoview', 'Next']);
         }
     });
 

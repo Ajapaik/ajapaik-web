@@ -32,6 +32,16 @@
                             {% if photo.flip %}ajapaik-photo-flipped{% endif %}" alt="{{ photo.description }}"
                              src="{% url 'project.ajapaik.views.photo_url' photo.id photo.get_pseudo_slug %}"/>
                         </a>
+                        {% if previous_photo %}
+                            <a class="ajapaik-photo-modal-previous-button" href="{% url 'project.ajapaik.views.photoslug' previous_photo.pk previous_photo.slug %}">
+                                <i class="material-icons">navigate_before</i>
+                            </a>
+                        {% endif %}
+                        {% if next_photo %}
+                            <a class="ajapaik-photo-modal-next-button" href="{% url 'project.ajapaik.views.photoslug' next_photo.pk next_photo.slug %}">
+                                <i class="material-icons">navigate_next</i>
+                            </a>
+                        {% endif %}
                         <button class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ photo.id }}">
                             <i class="material-icons">check_circle</i>
                         </button>

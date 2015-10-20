@@ -169,6 +169,7 @@
                 url: this.loadAlbumURL,
                 data: {
                     id: this.selectedAlbumId,
+                    is_web: true,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
                 method: 'POST',

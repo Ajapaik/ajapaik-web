@@ -38,6 +38,12 @@
     $('.cat-header-filter-link').click(function () {
         _gaq.push(['_trackEvent', 'navigation', 'click', 'filtering', 0, false]);
     });
+    $('#cat-header-facebook-link').click(function () {
+        _gaq.push(['_trackEvent', 'navigation', 'click', 'facebook-link', 10, false]);
+    });
+    $('#cat-header-play-store-link').click(function () {
+        _gaq.push(['_trackEvent', 'navigation', 'click', 'play-store-link', 100, false]);
+    });
     $('#cat-toggle-nav').click(function () {
         _gaq.push(['_trackEvent', 'navigation', 'click', 'toggle-mobile-nav', 0, true]);
     });

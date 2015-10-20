@@ -298,7 +298,7 @@ def _get_album_leaderboard(profile, album_id=None):
                 user_score_map[each.user_id] = each.points
         for each in geotags:
             # FIXME: Why is this check necessary? How can there be NULL score geotags? Race conditions somehow?
-            if each.score:
+            if each.score is not None:
                 if each.user_id in user_score_map:
                     user_score_map[each.user_id] += each.score
                 else:
@@ -1211,10 +1211,18 @@ def photoslug(request, photo_id, pseudo_slug):
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
     albums = Album.objects.filter(pk__in=album_ids, is_public=True)
     album = albums.first()
+    next_photo = None
+    previous_photo = None
     if album:
         album_selection_form = AlbumSelectionForm({"album": album.id})
+        if not request.is_ajax():
+            next_photo = album.photos.filter(pk=photo_obj.pk + 1).first()
+            previous_photo = album.photos.filter(pk=photo_obj.pk - 1).first()
     else:
         album_selection_form = AlbumSelectionForm()
+        if not request.is_ajax():
+            next_photo = Photo.objects.filter(pk=photo_obj.pk + 1).first()
+            previous_photo = Photo.objects.filter(pk=photo_obj.pk - 1).first()
 
     if album:
         album = (album.id, album.lat, album.lon)
@@ -1272,7 +1280,9 @@ def photoslug(request, photo_id, pseudo_slug):
         "is_photoview": True,
         "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
         "user_has_likes": user_has_likes,
-        "user_has_rephotos": user_has_rephotos
+        "user_has_rephotos": user_has_rephotos,
+        "next_photo": next_photo,
+        "previous_photo": previous_photo
     }))
 
 
