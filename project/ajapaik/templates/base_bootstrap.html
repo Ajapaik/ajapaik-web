@@ -147,37 +147,52 @@
             <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
         {% endif %}
         {% if selected_photo %}
-            <meta property="og:image" content="{{ hostname }}{% url 'project.ajapaik.views.photo_large' selected_photo.id %}"/>
-            <meta property="og:image:width" content="{{ selected_photo.width }}" />
-            <meta property="og:image:height" content="{{ selected_photo.height }}" />
+            <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" selected_photo.0 selected_photo.1 %}">
+            <meta property="og:image:type" content="image/jpeg"/>
+            <meta property="og:image:width" content="{{ selected_photo.2 }}" />
+            <meta property="og:image:height" content="{{ selected_photo.3 }}" />
         {% else %}
+            {% if not is_photoview %}
             {% if rephoto %}
-                {% thumbnail rephoto.image "800x600" as im %}
-                    <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
-                    <meta property="og:image:type" content="image/jpeg"/>
-                    <meta property="og:image:width" content="{{ im.width }}" />
-                    <meta property="og:image:height" content="{{ im.height }}" />
-                {% endthumbnail %}
+                <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" rephoto.0 rephoto.1 %}"/>
+                <meta property="og:image:type" content="image/jpeg"/>
+                <meta property="og:image:width" content="{{ rephoto.2 }}" />
+                <meta property="og:image:height" content="{{ rephoto.3 }}" />
             {% else %}
                 {% if photo %}
-                    {% thumbnail photo.image "800x600" as im %}
-                        <meta property="og:image" content="{{ hostname }}{{ im.url }}"/>
+                    <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" photo.0 photo.1 %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                    <meta property="og:image:width" content="{{ photo.2 }}" />
+                    <meta property="og:image:height" content="{{ photo.3 }}" />
+                {% endif %}
+            {% endif %}
+            {% else %}
+                {% if rephoto %}
+                    <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" rephoto.pk rephoto.get_pseudo_slug %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                    <meta property="og:image:width" content="{{ rephoto.width }}" />
+                    <meta property="og:image:height" content="{{ rephoto.height }}" />
+                {% else %}
+                    {% if photo %}
+                        <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" photo.pk photo.get_pseudo_slug %}"/>
                         <meta property="og:image:type" content="image/jpeg"/>
-                        <meta property="og:image:width" content="{{ im.width }}" />
-                        <meta property="og:image:height" content="{{ im.height }}" />
-                    {% endthumbnail %}
+                        <meta property="og:image:width" content="{{ photo.width }}" />
+                        <meta property="og:image:height" content="{{ photo.height }}" />
+                    {% endif %}
                 {% endif %}
             {% endif %}
             {% if facebook_share_photos %}
                 {% for p in facebook_share_photos %}
-                    <meta property="og:image" content="{{ hostname }}{% url 'project.ajapaik.views.photo_large' p.0 %}"/>
-                    <meta property="og:image:width" content="{{ p.1 }}" />
-                    <meta property="og:image:height" content="{{ p.2 }}" />
+                    <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" p.0 p.1 %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                    <meta property="og:image:width" content="{{ p.2 }}" />
+                    <meta property="og:image:height" content="{{ p.3 }}" />
                 {% endfor %}
             {% endif %}
             {% if curator_random_images %}
                 {% for each in curator_random_images %}
-                    <meta property="og:image" content="{{ hostname }}{% url 'project.ajapaik.views.photo_large' each.id %}"/>
+                    <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" each.pk each.get_pseudo_slug %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
                     <meta property="og:image:width" content="{{ each.width }}" />
                     <meta property="og:image:height" content="{{ each.height }}" />
                 {% endfor %}

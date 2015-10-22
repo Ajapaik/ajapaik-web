@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         activate('et')
-        photos_with_muis_id = Photo.objects.filter(muis_id__isnull=False).prefetch_related('metadata_updates')
+        photos_with_muis_id = Photo.objects.filter(external_id__isnull=False).prefetch_related('metadata_updates')
         for p in photos_with_muis_id:
             for mu in p.metadata_updates.order_by('-created'):
                 if mu.old_description:

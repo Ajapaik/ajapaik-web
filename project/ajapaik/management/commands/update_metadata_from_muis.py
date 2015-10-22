@@ -12,8 +12,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         activate('et')
-        photos_with_muis_id = Photo.objects.filter(muis_id__isnull=False)
-        photo_dict = {p.muis_id: p for p in photos_with_muis_id}
+        photos_with_muis_id = Photo.objects.filter(external_id__isnull=False)
+        photo_dict = {p.external_id: p for p in photos_with_muis_id}
         photo_count = len(photo_dict)
         start = 0
         end = 500

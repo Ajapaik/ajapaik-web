@@ -19,7 +19,7 @@
         window.loadPhoto = function (id) {
             $.ajax({
                 cache: false,
-                url: '/foto/' + id + '/?isSelection=1',
+                url: '/photo/' + id + '/?isSelection=1',
                 success: function (result) {
                     openPhotoDrawer(result);
                     var imgContainer = $('#ajapaik-frontpage-image-container-' + id),

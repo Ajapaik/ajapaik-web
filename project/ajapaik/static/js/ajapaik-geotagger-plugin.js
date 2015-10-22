@@ -990,6 +990,9 @@
                 data.origin = 2;
             } else if (this.options.isMapview) {
                 data.origin = 1;
+            } else {
+                // Permalink
+                data.origin = 3;
             }
             if (that.saveAzimuth) {
                 data.azimuth = this.angleBetweenMarkerAndPanoramaMarker;

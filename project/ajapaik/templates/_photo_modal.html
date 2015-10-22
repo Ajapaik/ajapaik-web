@@ -18,7 +18,7 @@
                                 <i class="material-icons">navigate_before</i>
                             </div>
                             <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="#">
-                                <img src="{% url 'project.ajapaik.views.photo_url' photo.id %}"
+                                <img src="{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"
                                      alt="{{ photo.description }}" title="{{ photo.description }}"
                                      class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
                                      id="ajapaik-modal-photo"/>
@@ -67,7 +67,7 @@
                         <div id="ajapaik-modal-rephoto-container-container" class="col-xs-12">
                             <div id="ajapaik-modal-rephoto-container">
                                 <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="#">
-                                    <img src="{% url 'project.ajapaik.views.photo_url' photo.rephotos.all.0.id %}"
+                                    <img src="{% url 'project.ajapaik.views.image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
                                          class="col-xs-12 img-responsive" id="ajapaik-modal-rephoto"
                                          alt="{{ photo.description }}" title="{{ photo.description }}"/>
                                     <button class="ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
@@ -90,7 +90,7 @@
                                 <div class="row ajapaik-photo-modal-rephoto-thumb"
                                      id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
                                     <img class="img-responsive col-xs-12"
-                                         src="{% url 'project.ajapaik.views.photo_thumb' rephoto.id 100 %}"
+                                         src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
                                          data-id="{{ rephoto.id }}"/>
                                 </div>
                             {% endfor %}
@@ -244,11 +244,12 @@
             window.isFrontpage = window.isFrontpage === 'True';
             window.isMapview = '{{ is_mapview|safe }}';
             window.isMapview = window.isMapview === 'True';
-            window.photoModalCurrentImageUrl = '{% url 'project.ajapaik.views.photo_url' photo.id %}';
+            // TODO: Clean
+            window.photoModalCurrentImageUrl = '{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}';
+            window.currentPhotoURL = '{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}';
             window.photoModalCurrentPhotoFlipped = '{{ photo.flip|safe }}' === 'True';
             window.photoModalRephotoArray = [];
             window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
-            window.currentPhotoURL = '{% url 'project.ajapaik.views.photo_url' photo.id %}';
             window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
             window.photoModalFullscreenImageSize = {{ fullscreen.size }};
             window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
@@ -283,11 +284,11 @@
             {% for rephoto in photo.rephotos.all %}
                 window.photoModalRephotoArray.push({
                     id: {{ rephoto.id }},
-                    url: '{% url 'project.ajapaik.views.photo_url' rephoto.id %}',
+                    url: '{% url 'project.ajapaik.views.image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}',
                     fb_url: '{{ hostname }}{{ rephoto.get_detail_url }}',
-                    fullscreen_url: '{% url 'project.ajapaik.views.photo_thumb' rephoto.id 1920 %}',
-                    fullscreen_width: '{{ rephoto.get_full_screen_image_size.0 }}',
-                    fullscreen_height: '{{ rephoto.get_full_screen_image_size.1 }}',
+                    fullscreen_url: '{% url 'project.ajapaik.views.image_full' rephoto.pk rephoto.get_pseudo_slug %}',
+                    fullscreen_width: '{{ rephoto.width }}',
+                    fullscreen_height: '{{ rephoto.height }}',
                     {% if rephoto.date %}
                         date: '{{ rephoto.date|date:"d.m.Y" }}',
                     {% endif %}

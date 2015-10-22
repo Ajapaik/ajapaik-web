@@ -260,7 +260,7 @@ def api_album_nearest(request):
                 date = p.date_text
             photos.append({
                 "id": p.id,
-                "image": request.build_absolute_uri(reverse("project.ajapaik.views.photo_thumb", args=(p.id,))) + '[DIM]/',
+                "image": request.build_absolute_uri(reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
@@ -306,7 +306,7 @@ def api_album_state(request):
                 date = p.date_text
             photos.append({
                 "id": p.id,
-                "image": request.build_absolute_uri(reverse("project.ajapaik.views.photo_thumb", args=(p.id,))) + '[DIM]/',
+                "image": request.build_absolute_uri(reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
@@ -423,7 +423,7 @@ def api_photo_state(request):
             date = p.date_text
         content = {
             'id': p.id,
-            'image': request.build_absolute_uri(reverse('project.ajapaik.views.photo_thumb', args=(p.id,))) + '[DIM]/',
+            'image': request.build_absolute_uri(reverse('project.ajapaik.views.image_thumb', args=(p.id,))) + '[DIM]/',
             'width': p.width,
             'height': p.height,
             'title': p.description,

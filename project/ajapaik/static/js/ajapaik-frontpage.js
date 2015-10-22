@@ -361,7 +361,7 @@
             $('.modal-backdrop').hide();
             $('.footer').hide();
             $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
-                thumbSrc: '/foto_thumb/' + photoId + '/400',
+                thumbSrc: '/photo-thumb/' + photoId + '/400/',
                 photoFlipped: window.photoModalCurrentPhotoFlipped,
                 fullScreenSrc: window.photoModalFullscreenImageUrl,
                 description: window.currentPhotoDescription,

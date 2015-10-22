@@ -13,6 +13,7 @@ class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
     description_en = indexes.CharField(model_attr='description_et', null=True)
     author = indexes.CharField(model_attr='author', null=True)
     types = indexes.CharField(model_attr='types', null=True)
+    keywords = indexes.CharField(model_attr='keywords', null=True)
     source = indexes.CharField(model_attr='source__description', null=True)
     source_key = indexes.CharField(model_attr='source_key', null=True)
     address = indexes.CharField(model_attr='address', null=True)

@@ -218,12 +218,6 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" id="ajapaik-curator-full-search"
                                        placeholder="{% trans "Full search" %}">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"
-                                                   checked="checked">
-                                        </span>
-                                <label class="form-control"
-                                       for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>
                             </div>
                         </div>
                         <div class="col-xs-2">
@@ -241,6 +235,22 @@
                             <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">
                                 {% trans "Select all" %}
                             </button>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id="ajapaik-curator-search-filter-existing" checked="checked">
+                                </span>
+                                <label class="form-control" for="ajapaik-curator-search-filter-existing">{% trans "Filter existing" %}</label>
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id="ajapaik-curator-search-use-muis" checked="checked">
+                                </span>
+                                <label class="form-control" for="ajapaik-curator-search-use-muis">{% trans "MUIS" %}</label>
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id="ajapaik-curator-search-use-digar" checked="checked">
+                                </span>
+                                <label class="form-control" for="ajapaik-curator-search-use-digar">{% trans "DIGAR" %}</label>
+                            </div>
                         </div>
                     </div>
                 </div>

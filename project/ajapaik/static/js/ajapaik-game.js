@@ -40,7 +40,7 @@
                 startLon = 26;
         }
         $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
-            thumbSrc: '/foto_thumb/' + currentPhoto.id + '/500/',
+            thumbSrc: '/photo-thumb/' + currentPhoto.id + '/400/',
             photoFlipped: currentPhoto.flip,
             fullScreenSrc: currentPhoto.large.url,
             description: currentPhoto.description,

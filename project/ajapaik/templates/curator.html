@@ -266,7 +266,9 @@
         $(document).on('click', '.ajapaik-curator-load-more', function () {
             $('#ajapaik-loading-overlay').show();
             var slice = resultIds.slice(start, start + 200),
-                filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked');
+                filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked'),
+                useMUIS = $('#ajapaik-curator-search-use-muis').prop('checked'),
+                useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked');
             start += 200;
             $.ajax({
                 type : 'POST',
@@ -275,6 +277,8 @@
                     //testing: true,
                     ids: slice,
                     filterExisting: filterValue,
+                    useMUIS: useMUIS,
+                    useDIGAR: useDIGAR,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(msg) {
@@ -302,7 +306,9 @@
             $('#ajapaik-loading-overlay').show();
             $('.ajapaik-curator-feedback-alert').hide();
             $('#ajapaik-curator-search-results').empty();
-            var filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked');
+            var filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked'),
+                useMUIS = $('#ajapaik-curator-search-use-muis').prop('checked'),
+                useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked');
             $.ajax({
                 type : 'POST',
                 url : url,
@@ -310,6 +316,8 @@
                     //testing: true,
                     fullSearch: $('#ajapaik-curator-full-search').val(),
                     filterExisting: filterValue,
+                    useMUIS: useMUIS,
+                    useDIGAR: useDIGAR,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success : function(msg) {
@@ -362,7 +370,7 @@
         var replaceAll = function(string, find, replace) {
             return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
         };
-        window.photoPermalink = '{% url "project.ajapaik.views.photo" %}';
+        window.photoPermalink = '{% url "project.ajapaik.views.photoslug" %}';
         window.formatId = function (id) {
             id = replaceAll(id, ':', '');
             id = replaceAll(id, '.', '');

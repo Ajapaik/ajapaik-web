@@ -2160,6 +2160,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 .ajapaik-result-item {
     min-height: 100px;
+    max-height: 100px;
 }
 
 .ajapaik-curator-selection-item {

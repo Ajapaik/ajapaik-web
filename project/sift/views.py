@@ -12,7 +12,7 @@ from PIL import ImageOps
 from django.contrib.auth.decorators import user_passes_test
 from django.core.files.base import ContentFile
 from django.utils.translation import activate
-from django.views.decorators.cache import never_cache
+from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.vary import vary_on_headers
 from pytz import utc
 from django.contrib.auth import authenticate, login
@@ -360,6 +360,14 @@ def cat_photo(request, photo_id=None, thumb_size=600, slug=None):
     return response
 
 
+@cache_control(max_age=604800)
+def cat_photo_full(request, photo_id=None, slug=None):
+    p = get_object_or_404(CatPhoto, id=photo_id)
+    content = p.image.read()
+
+    return HttpResponse(content, content_type='image/jpg')
+
+
 @api_view(['POST'])
 @parser_classes((FormParser,))
 @authentication_classes((SessionAuthentication, CustomAuthentication))
@@ -530,9 +538,7 @@ def _get_fb_share_photos(qs):
     ret = []
     for each in qs:
         if count < 5:
-            thumb = get_thumbnail(each.image, '1920x1080', upscale=False)
-            each.fb_width, each.fb_height = thumb.size[0], thumb.size[1]
-            ret.append(each)
+            ret.append([each.pk, each.get_pseudo_slug(), each.width, each.height])
         else:
             break
         count += 1
@@ -612,7 +618,7 @@ def cat_results(request):
                 current_result_set_end = total_results
             json_state['currentResultSetStart'] = current_result_set_start
             json_state['currentResultSetEnd'] = current_result_set_end
-            fb_share_photos = _get_fb_share_photos(photos)
+            fb_share_photos = _get_fb_share_photos(photos[:5])
             for p in photos:
                 p.permalink = reverse('project.sift.views.photo_permalink', args=(p.id, p.slug))
             photo_serializer = CatResultsPhotoSerializer(photos, many=True)
@@ -1024,7 +1030,7 @@ def photo_permalink(request, photo_id=None, photo_slug=None):
     if p:
         context['title'] = p.title
         context['photo'] = p
-        p.full_screen_width, p.full_screen_height = _calculate_thumbnail_size(p.image, '1920x1080')
+        p.full_screen_width, p.full_screen_height = p.width, p.height
         p.thumb_width, p.thumb_height = _calculate_thumbnail_size(p.image, '800x600')
         context['tag_map'] = {}
         tags = CatTag.objects.all()

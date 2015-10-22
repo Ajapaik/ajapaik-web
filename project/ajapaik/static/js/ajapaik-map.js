@@ -98,7 +98,7 @@
         photoId = id;
         $.ajax({
             cache: false,
-            url: '/foto/' + id + '/?isMapview=1',
+            url: '/photo/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
                 var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
@@ -247,7 +247,7 @@
             $('#ajapaik-photo-modal').hide();
             $('.modal-backdrop').hide();
             $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
-                thumbSrc: '/foto_thumb/' + photoId + '/400',
+                thumbSrc: '/photo-thumb/' + photoId + '/400/',
                 fullScreenSrc: window.photoModalFullscreenImageUrl,
                 description: window.currentPhotoDescription,
                 sourceKey: window.currentPhotoSourceKey,

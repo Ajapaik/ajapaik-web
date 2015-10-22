@@ -53,7 +53,7 @@
     /*global window, $ */
     $(function () {
         'use strict';
-        var url = '{% url 'project.ajapaik.views.photo_upload' photo.pk %}';
+        var url = '{% url 'project.ajapaik.views.rephoto_upload' photo.pk %}';
         $('#ajapaik-fileupload-datepicker').datetimepicker();
         $('#ajapaik-upload-photo-button').on('click', function () {
             var $this = $(this),

@@ -54,14 +54,10 @@ def _calc_trustworthiness(user_id):
     return trust
 
 
-# TODO: Are these two really needed?
-def _make_thumbnail(photo, size):
-    image = get_thumbnail(photo.image, size)
-    return {"url": image.url, "size": [image.width, image.height]}
-
 def _make_fullscreen(photo):
-    image = get_thumbnail(photo.image, "1024x1024", upscale=False)
-    return {"url": image.url, "size": [image.width, image.height]}
+    return {"url": reverse('project.ajapaik.views.image_full', (photo.pk, photo.get_pseudo_slug())),
+            "size": [photo.width, photo.height]}
+
 
 def _get_pseudo_slug_for_photo(description, source_key, created):
     if description is not None and description != "":
@@ -158,13 +154,6 @@ class Album(Model):
         return qs
 
     def save(self, *args, **kwargs):
-        if self.lat and self.lon:
-            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        if self.id and not self.cover_photo_id and self.photos.count() > 0:
-            random_photo = self.photos.order_by('?').first()
-            self.cover_photo_id = random_photo.id
-            if random_photo.flip:
-                self.cover_photo_flipped = random_photo.flip
         if self.id:
             album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
             for sa in self.subalbums.exclude(atype=Album.AUTO):
@@ -186,6 +175,13 @@ class Album(Model):
             if random_photo_with_location:
                 self.lat = random_photo_with_location.lat
                 self.lon = random_photo_with_location.lon
+        if self.lat and self.lon:
+            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+        if self.id and not self.cover_photo_id and self.photos.count() > 0:
+            random_photo = self.photos.order_by('?').first()
+            self.cover_photo_id = random_photo.id
+            if random_photo.flip:
+                self.cover_photo_flipped = random_photo.flip
         super(Album, self).save(*args, **kwargs)
         connections['default'].get_unified_index().get_index(Album).update_object(self)
 
@@ -208,28 +204,33 @@ class PhotoManager(GeoManager):
 
 
 class Photo(Model):
+    # FIXME: Why objects and geo? Shouldn't just objects be enough?
     objects = PhotoManager()
     geo = GeoManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    image = ImageField(upload_to="uploads", blank=True, null=True, max_length=255,
-                       height_field='height', width_field='width')
-    image_unscaled = ImageField(upload_to="uploads", blank=True, null=True, max_length=255)
+    image = ImageField(upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
+                       width_field='width')
+    image_unscaled = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)
     flip = NullBooleanField()
     invert = NullBooleanField()
     stereo = NullBooleanField()
+    # In degrees
     rotated = IntegerField(null=True, blank=True)
     date = DateTimeField(null=True, blank=True)
     date_text = CharField(max_length=255, blank=True, null=True)
     title = CharField(max_length=255, blank=True, null=True)
     description = TextField(null=True, blank=True)
     author = CharField(null=True, blank=True, max_length=255)
-    licence = ForeignKey("Licence", null=True, blank=True)
+    licence = ForeignKey('Licence', null=True, blank=True)
+    # Basically keywords describing medium
     types = CharField(max_length=255, blank=True, null=True)
-    user = ForeignKey("ajapaik.Profile", related_name="photos", blank=True, null=True)
+    keywords = TextField(null=True, blank=True)
+    user = ForeignKey('Profile', related_name='photos', blank=True, null=True)
+    # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
     guess_level = FloatField(default=3)
     lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)],
@@ -237,19 +238,21 @@ class Photo(Model):
     lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)],
                      db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
+    # Should effectively lock the location
     bounding_circle_radius = FloatField(null=True, blank=True)
     address = CharField(max_length=255, blank=True, null=True)
     azimuth = FloatField(null=True, blank=True)
     confidence = FloatField(default=0, null=True, blank=True)
     azimuth_confidence = FloatField(default=0, null=True, blank=True)
     source_key = CharField(max_length=100, null=True, blank=True)
-    muis_id = CharField(max_length=100, null=True, blank=True)
-    muis_media_id = CharField(max_length=100, null=True, blank=True)
+    external_id = CharField(max_length=100, null=True, blank=True)
+    external_sub_id = CharField(max_length=100, null=True, blank=True)
     source_url = URLField(null=True, blank=True, max_length=1023)
-    source = ForeignKey("Source", null=True, blank=True)
-    device = ForeignKey("Device", null=True, blank=True)
-    area = ForeignKey("Area", related_name="areas", null=True, blank=True)
-    rephoto_of = ForeignKey("self", blank=True, null=True, related_name="rephotos")
+    source = ForeignKey('Source', null=True, blank=True)
+    device = ForeignKey('Device', null=True, blank=True)
+    # Useless
+    area = ForeignKey('Area', related_name='areas', null=True, blank=True)
+    rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos')
     first_rephoto = DateTimeField(null=True, blank=True)
     latest_rephoto = DateTimeField(null=True, blank=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
@@ -277,43 +280,31 @@ class Photo(Model):
     cam_roll = FloatField(null=True, blank=True)
 
     class Meta:
-        ordering = ["-id"]
-        db_table = "project_photo"
-
-    @staticmethod
-    def get_geotagged_photos_list(qs, bounding_box=None):
-        # TODO: Once we have regions, re-implement caching
-        data = []
-        qs = qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)\
-            .annotate(rephoto_count=Count('rephotos')).values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
-        if bounding_box:
-            qs = qs.filter(lat__gte=bounding_box[0], lon__gte=bounding_box[1], lat__lte=bounding_box[2],
-                           lon__lte=bounding_box[3])
-        for p in qs:
-            data.append([p[0], p[1], p[2], p[3], p[4]])
-        return data
+        ordering = ['-id']
+        db_table = 'project_photo'
 
     @staticmethod
     def get_game_json_format_photo(photo):
         # TODO: proper JSON serialization
+        image = get_thumbnail(photo.image, '800x600', upscale=False)
         ret = {
-            "id": photo.id,
-            "description": photo.description,
-            "sourceKey": photo.source_key,
-            "sourceURL": photo.source_url,
-            "sourceName": photo.source.description,
-            "lat": photo.lat,
-            "lon": photo.lon,
-            "azimuth": photo.azimuth,
-            "big": _make_thumbnail(photo, "700x400"),
-            "flip": photo.flip,
-            "large": _make_fullscreen(photo),
-            "totalGeotags": photo.geotags.distinct('user').count(),
-            "geotagsWithAzimuth": photo.geotags.filter(azimuth__isnull=False).distinct('user').count(),
-            "userAlreadyConfirmed": photo.user_already_confirmed,
-            "userLikes": photo.user_likes,
-            "userLoves": photo.user_loves,
-            "userLikeCount": photo.user_like_count
+            'id': photo.id,
+            'description': photo.description,
+            'sourceKey': photo.source_key,
+            'sourceURL': photo.source_url,
+            'sourceName': photo.source.description,
+            'lat': photo.lat,
+            'lon': photo.lon,
+            'azimuth': photo.azimuth,
+            'big': {'url': image.url, 'size': [image.width, image.height]},
+            'flip': photo.flip,
+            'large': _make_fullscreen(photo),
+            'totalGeotags': photo.geotags.distinct('user').count(),
+            'geotagsWithAzimuth': photo.geotags.filter(azimuth__isnull=False).distinct('user').count(),
+            'userAlreadyConfirmed': photo.user_already_confirmed,
+            'userLikes': photo.user_likes,
+            'userLoves': photo.user_loves,
+            'userLikeCount': photo.user_like_count
         }
         return ret
 
@@ -323,29 +314,29 @@ class Photo(Model):
         trustworthiness = _calc_trustworthiness(profile.pk)
 
         all_photos_set = qs
-        photo_ids = frozenset(all_photos_set.values_list("id", flat=True))
+        photo_ids = frozenset(all_photos_set.values_list('id', flat=True))
 
         user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
         user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
 
-        user_geotagged_photo_ids = list(user_geotags_for_set.distinct("photo_id").values_list("photo_id", flat=True))
-        user_skipped_photo_ids = list(user_skips_for_set.distinct("photo_id").values_list("photo_id", flat=True))
+        user_geotagged_photo_ids = list(user_geotags_for_set.distinct('photo_id').values_list('photo_id', flat=True))
+        user_skipped_photo_ids = list(user_skips_for_set.distinct('photo_id').values_list('photo_id', flat=True))
         user_has_seen_photo_ids = set(user_geotagged_photo_ids + user_skipped_photo_ids)
         user_skipped_less_geotagged_photo_ids = set(user_skipped_photo_ids) - set(user_geotagged_photo_ids)
 
         user_seen_all = False
         nothing_more_to_show = False
 
-        if "user_skip_array" not in request.session:
-             request.session["user_skip_array"] = []
+        if 'user_skip_array' not in request.session:
+             request.session['user_skip_array'] = []
 
         if trustworthiness < 0.25:
             # Novice users should only receive the easiest images to prove themselves
-            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by("guess_level", "-confidence")
+            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('guess_level', '-confidence')
             if ret_qs.count() == 0:
                 # If the user has seen all the photos, offer at random
                 user_seen_all = True
-                ret_qs = all_photos_set.order_by("?")
+                ret_qs = all_photos_set.order_by('?')
         else:
             # Let's try to show the more experienced users photos they have not yet seen at all
             ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('?')
@@ -354,14 +345,14 @@ class Photo(Model):
                 # has skipped (but not in this session) or not marked an azimuth on
                 user_seen_all = True
                 ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
-                    .exclude(id__in=request.session["user_skip_array"]).order_by('?')
+                    .exclude(id__in=request.session['user_skip_array']).order_by('?')
                 if ret_qs.count() == 0:
                     # This user has skipped them in this session, show her photos that
                     # don't have a correct geotag from her
                     user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
                     user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
-                    user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct("photo_id").values_list("photo_id", flat=True))
-                    user_correctly_geotagged_photo_ids = set(user_correct_geotags.distinct("photo_id").values_list("photo_id", flat=True))
+                    user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct('photo_id').values_list('photo_id', flat=True))
+                    user_correctly_geotagged_photo_ids = set(user_correct_geotags.distinct('photo_id').values_list('photo_id', flat=True))
                     user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
                     ret_qs = all_photos_set.filter(id__in=user_no_correct_geotags_photo_ids).order_by('?')
                     if ret_qs.count() == 0:
@@ -380,48 +371,28 @@ class Photo(Model):
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
     def __unicode__(self):
-        return u"%s - %s (%s) (%s)" % (self.id, self.description, self.date_text, self.source_key)
+        return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
 
     def get_detail_url(self):
+        # Legacy URL needs to stay this way for now for Facebook
         return reverse('foto', args=(self.pk,))
 
     @permalink
     def get_absolute_url(self):
-        pseudo_slug = self.get_pseudo_slug()
-        rephoto = self.rephoto_of
-        if rephoto:
-            pass
-        if pseudo_slug != "":
-            return "project.ajapaik.views.photoslug", [self.id, pseudo_slug, ]
-        else:
-            return "project.ajapaik.views.photo", [self.id, ]
-
-    def get_full_screen_image_size(self):
-        w = float(self.width)
-        h = float(self.height)
-        desired_longest_side = float(1920)
-        if w > h:
-            desired_width = desired_longest_side
-            factor = w / desired_longest_side
-            desired_height = h / factor
-        else:
-            desired_height = desired_longest_side
-            factor = h / desired_longest_side
-            desired_width = w / factor
-
-        return int(desired_width), int(desired_height)
+        return 'project.ajapaik.views.photoslug', [self.id, self.get_pseudo_slug()]
 
     def get_pseudo_slug(self):
-        if self.description is not None and self.description != "":
-            slug = "-".join(slugify(self.description).split("-")[:6])[:60]
-        elif self.source_key is not None and self.source_key != "":
+        if self.description is not None and self.description != '':
+            slug = '-'.join(slugify(self.description).split('-')[:6])[:60]
+        elif self.source_key is not None and self.source_key != '':
             slug = slugify(self.source_key)
         else:
-            slug = slugify(self.created.__format__("%Y-%m-%d"))
+            slug = slugify(self.created.__format__('%Y-%m-%d'))
+
         return slug
 
     def get_heatmap_points(self):
-        valid_geotags = self.geotags.distinct("user_id").order_by("user_id", "-created")
+        valid_geotags = self.geotags.distinct('user_id').order_by('user_id', '-created')
         data = []
         for each in valid_geotags:
             serialized = [each.lat, each.lon]
@@ -434,22 +405,6 @@ class Photo(Model):
         # Update POSTGIS data on save
         if self.lat and self.lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        # Calculate average coordinates for album
-        album_ids = set(AlbumPhoto.objects.filter(photo_id=self.id).values_list("album_id", flat=True))
-        albums = Album.objects.filter(id__in=album_ids)
-        for a in albums:
-            photos_with_location = a.photos.filter(lat__isnull=False, lon__isnull=False).all()
-            lat = 0
-            lon = 0
-            count = 0
-            for p in photos_with_location:
-                lat += p.lat
-                lon += p.lon
-                count += 1
-            if lat > 0 and lon > 0 and count > 0:
-                a.lat = lat / count
-                a.lon = lon / count
-                a.save()
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
@@ -494,8 +449,8 @@ class Photo(Model):
 
         if not self.bounding_circle_radius:
             geotags = GeoTag.objects.filter(photo_id=self.id)
-            unique_user_geotag_ids = geotags.distinct("user_id").order_by("user_id", "-created")\
-                .values_list("id", flat=True)
+            unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created')\
+                .values_list('id', flat=True)
             self.geotag_count = len(unique_user_geotag_ids)
             unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
             geotag_coord_map = {}
@@ -506,8 +461,8 @@ class Photo(Model):
                 else:
                     geotag_coord_map[key] = [g]
             if unique_user_geotags:
-                df = DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=["lon", "lat"])
-                coordinates = df.as_matrix(columns=["lon", "lat"])
+                df = DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=['lon', 'lat'])
+                coordinates = df.as_matrix(columns=['lon', 'lat'])
                 db = DBSCAN(eps=0.0003, min_samples=1).fit(coordinates)
                 labels = db.labels_
                 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
@@ -523,7 +478,7 @@ class Photo(Model):
                     lat.append(representative_point[0])
                     lon.append(representative_point[1])
                     members.append(cluster)
-                rs = DataFrame({"lat": lat, "lon": lon, "members": members})
+                rs = DataFrame({'lat': lat, 'lon': lon, 'members': members})
                 max_trust = 0
                 point = None
                 selected_geotags = None
@@ -537,11 +492,11 @@ class Photo(Model):
                             trust_sum += gg.trustworthiness
                     if trust_sum >= max_trust:
                         max_trust = trust_sum
-                        point = {"lat": a[1], "lon": a[2]}
+                        point = {'lat': a[1], 'lon': a[2]}
                         selected_geotags = current_geotags
                 if point:
-                    self.lat = point["lat"]
-                    self.lon = point["lon"]
+                    self.lat = point['lat']
+                    self.lon = point['lon']
                     self.confidence = float(len(selected_geotags)) / float(len(geotags))
                 geotags.update(is_correct=False, azimuth_correct=False)
                 if selected_geotags:
@@ -662,29 +617,32 @@ class Points(Model):
 
 class GeoTag(Model):
     MAP, EXIF, GPS, CONFIRMATION = range(4)
+    # FIXME: EXIF and GPS have never been used
     TYPE_CHOICES = (
-        (MAP, _("Map")),
-        (EXIF, _("EXIF")),
-        (GPS, _("GPS")),
-        (CONFIRMATION, _("Confirmation")),
+        (MAP, _('Map')),
+        (EXIF, _('EXIF')),
+        (GPS, _('GPS')),
+        (CONFIRMATION, _('Confirmation')),
     )
+    # TODO: Different ways of tagging
     # VANTAGE_POINT, OBJECT, APPROXIMATE = range(3)
     # GEOTAGGER_TYPE_CHOICES = (
-    #     (VANTAGE_POINT, _("Vantage point")),
-    #     (OBJECT, _("Object")),
-    #     (APPROXIMATE, _("Approximate")),
+    #     (VANTAGE_POINT, _('Vantage point')),
+    #     (OBJECT, _('Object')),
+    #     (APPROXIMATE, _('Approximate')),
     # )
-    GAME, MAP_VIEW, GRID = range(3)
+    GAME, MAP_VIEW, GALLERY, PERMALINK = range(4)
     ORIGIN_CHOICES = (
-        (GAME, _("Game")),
-        (MAP_VIEW, _("Map view")),
-        (GRID, _("Grid")),
+        (GAME, _('Game')),
+        (MAP_VIEW, _('Map view')),
+        (GALLERY, _('Gallery')),
+        (PERMALINK, _('Permalink')),
     )
     GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP = range(3)
     MAP_TYPE_CHOICES = (
-        (GOOGLE_MAP, _("Google map")),
-        (GOOGLE_SATELLITE, _("Google satellite")),
-        (OPEN_STREETMAP, _("OpenStreetMap"))
+        (GOOGLE_MAP, _('Google map')),
+        (GOOGLE_SATELLITE, _('Google satellite')),
+        (OPEN_STREETMAP, _('OpenStreetMap'))
     )
     lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
     lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
@@ -698,8 +656,8 @@ class GeoTag(Model):
     # geotagger_type = PositiveSmallIntegerField(choices=GEOTAGGER_TYPE_CHOICES, default=0)
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
-    user = ForeignKey("Profile", related_name="geotags")
-    photo = ForeignKey("Photo", related_name="geotags")
+    user = ForeignKey('Profile', related_name='geotags')
+    photo = ForeignKey('Photo', related_name='geotags')
     is_correct = BooleanField(default=False)
     azimuth_correct = BooleanField(default=False)
     score = IntegerField(null=True, blank=True)
@@ -709,7 +667,7 @@ class GeoTag(Model):
     modified = DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = "project_geotag"
+        db_table = 'project_geotag'
 
     def save(self, *args, **kwargs):
         self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
@@ -721,9 +679,9 @@ class GeoTag(Model):
         desc = None
         if self.photo.title:
             title = self.photo.title[:50]
-        if self.photo.description:
+        elif self.photo.description:
             desc = self.photo.description[:50]
-        return u"%s - %s - %d" % (title, desc, self.user.id)
+        return u'%s - %s - %d' % (title, desc, self.user.id)
 
 
 class FacebookManager(Manager):

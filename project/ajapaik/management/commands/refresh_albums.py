@@ -10,6 +10,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         albums = Album.objects.exclude(atype=Album.AUTO).annotate(photo_count=Count('photos'))
         for a in albums:
+            if not a.lat and not a.lon:
+                random_photo_with_location = a.get_historic_photos_queryset_with_subalbums().order_by('?').first()
+                a.lat = random_photo_with_location.lat
+                a.lon = random_photo_with_location.lon
             if a.photo_count > 0:
                 random_index = randint(0, a.photo_count - 1)
             else:
