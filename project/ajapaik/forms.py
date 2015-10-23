@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
+from haystack.query import SearchQuerySet
 from .models import Area, Album, Photo, GeoTag, PhotoLike
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
@@ -63,10 +64,10 @@ class GalleryFilteringForm(forms.Form):
 
 class HaystackPhotoSearchForm(SearchForm):
     def search(self):
-        sqs = super(HaystackPhotoSearchForm, self).search().models(Photo)
-
         if not self.is_valid():
             return self.no_query_found()
+        else:
+            sqs = super(HaystackPhotoSearchForm, self).search().models(Photo)
 
         return sqs
 

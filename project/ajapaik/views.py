@@ -1912,7 +1912,7 @@ def curator_photo_upload_handler(request):
                             )
                             new_photo.save()
                             if upload_form.cleaned_data["collections"] == "DIGAR":
-                                new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key) + '_1.jpg'
+                                new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
                             else:
                                 opener = urllib2.build_opener()
                                 opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
