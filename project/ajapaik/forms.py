@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
-from haystack.query import SearchQuerySet
-from .models import Area, Album, Photo, GeoTag, PhotoLike
+from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from django.contrib.gis.geos import Point
@@ -35,7 +34,7 @@ class GalleryFilteringForm(forms.Form):
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     q = forms.CharField(required=False)
     myLikes = forms.BooleanField(required=False)
-    myRephotos = forms.BooleanField(required=False)
+    rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']

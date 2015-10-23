@@ -1406,7 +1406,7 @@ var map,
                     window.location.href = '/?order1=time&order2=added&page=1&myLikes=1';
                     break;
                 case 'rephotos':
-                    window.location.href = '/?order1=time&order2=added&page=1&myRephotos=1';
+                    window.location.href = '/?order1=time&order2=added&page=1&rephotosBy=' + window.currentProfileId;
                     break;
             }
         }

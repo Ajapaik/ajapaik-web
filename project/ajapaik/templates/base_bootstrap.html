@@ -427,6 +427,16 @@
                 theme: 'dark-bottom'
             };
         </script>
+        <script type="text/javascript">
+            {% if request.user.profile %}
+                window.currentProfileId = {{ request.user.profile.pk }};
+                {% if request.user.profile.fb_name %}
+                    window.currentProfileName = '{{ request.user.profile.fb_name }}';
+                {% elif request.user.profile.google_plus_name %}
+                    window.currentProfileName = '{{ request.user.profile.google_plus_name }}';
+                {% endif %}
+            {% endif %}
+        </script>
     {% endcompress %}
 {% endblock %}
 {% block specific_js %}{% endblock %}

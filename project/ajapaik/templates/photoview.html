@@ -10,14 +10,14 @@
     {% include "_rephoto_upload_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
-            <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;" src="" data-src="{{ fullscreen.url }}" alt="{{ photo.description }}"
+            <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;" data-src="{{ fullscreen.url }}" alt="{{ photo.description }}"
                  title="{{ photo.description }}"/>
         </div>
     </div>
     {% if rephoto %}
         <div class="full-box rephoto-full-box">
             <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-                <img id="ajapaik-rephoto-full-screen-image" class="lazyload" style="display: none;" src="" data-src="{% url "project.ajapaik.views.image_full" rephoto.pk %}"
+                <img id="ajapaik-rephoto-full-screen-image" class="lazyload" style="display: none;" data-src="{% url "project.ajapaik.views.image_full" rephoto.pk %}"
                      alt="{{ photo.description }} {% trans "rephoto" %}" title="{{ photo.description }} {% trans "rephoto" %}"/>
             </div>
         </div>

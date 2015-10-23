@@ -202,8 +202,7 @@
 }
 
 #ajp-geotagger-full-screen-link {
-    cursor: -webkit-zoom-in;
-    cursor: -moz-zoom-in;
+    cursor: zoom-in;
 }
 
 #ajp-geotagger-full-screen-box {
@@ -228,8 +227,7 @@
     min-width: 128px;
     min-height: 128px;
     opacity: 0;
-    cursor: -webkit-zoom-out;
-    cursor: -moz-zoom-out;
+    cursor: zoom-out;
 }
 
 #ajp-geotagger-lock-button {

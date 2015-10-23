@@ -874,8 +874,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 
 a.fullscreen {
-    cursor: -webkit-zoom-in;
-    cursor: -moz-zoom-in;
+    cursor: zoom-in;
 }
 
 .full-box {
@@ -908,8 +907,7 @@ a.fullscreen {
     min-width: 128px;
     min-height: 128px;
     opacity: 0;
-    cursor: -webkit-zoom-out;
-    cursor: -moz-zoom-out;
+    cursor: zoom-out;
 }
 
 .center-marker {
@@ -1213,16 +1211,14 @@ a.fullscreen {
 }
 
 a.fullscreen {
-    cursor: -webkit-zoom-in;
-    cursor: -moz-zoom-in;
+    cursor: zoom-in;
 }
 
 .full-pic img {
     min-width: 128px;
     min-height: 128px;
     opacity: 0;
-    cursor: -webkit-zoom-out;
-    cursor: -moz-zoom-out;
+    cursor: zoom-out;
 }
 
 .ajapaik-azimuth {

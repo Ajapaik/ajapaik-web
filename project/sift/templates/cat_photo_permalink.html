@@ -15,11 +15,11 @@
                 </a>
                 <div class="cat-full-box">
                     <div class="cat-full-pic">
-                        <img id="cat-permalink-full-screen-image" src=""
+                        <img id="cat-permalink-full-screen-image"
                          class="lazyload" title="{{ photo.title }}"
                          width="{{ photo.full_screen_width }}" height="{{ photo.full_screen_height }}"
                          alt="{% if photo.description %}{{ photo.description }}{% else %}{{ photo.title }}{% endif %}"
-                         data-src="{% url 'project.sift.views.cat_photo_full' photo.pk photo.slug %}">
+                         data-src="{% url 'project.sift.views.cat_photo_full' photo.pk 800 photo.get_pseudo_slug %}">
                     </div>
                 </div>
                 <figcaption>

@@ -10,6 +10,7 @@
     /*global tmpl*/
     /*global JSON*/
     /*global _gaq*/
+    /*global interpolate*/
     $(document).ready(function () {
         var pagingNextButton = $('#ajapaik-paging-next-button'),
             pagingPreviousButton = $('#ajapaik-paging-previous-button'),
@@ -53,7 +54,7 @@
                 var currentUrl = window.URI(window.location.href);
                 currentUrl.removeSearch('photo').removeSearch('page').removeSearch('order1').removeSearch('order2')
                     .removeSearch('order3').removeSearch('lat').removeSearch('lon').removeSearch('q')
-                    .removeSearch('locationToolsOpen').removeSearch('myLikes').removeSearch('myRephotos');
+                    .removeSearch('locationToolsOpen').removeSearch('myLikes').removeSearch('rephotosBy');
                 if (window.currentlySelectedPhotoId) {
                     currentUrl.addSearch('photo', window.currentlySelectedPhotoId);
                 }
@@ -80,8 +81,8 @@
                 if (window.myLikes) {
                     currentUrl.addSearch('myLikes', 1);
                 }
-                if (window.myRephotos) {
-                    currentUrl.addSearch('myRephotos', 1);
+                if (window.rephotosBy) {
+                    currentUrl.addSearch('rephotosBy', window.rephotosBy);
                 }
                 if (window.albumQuery) {
                     currentUrl.addSearch('q', window.albumQuery);
@@ -255,9 +256,8 @@
                         }
                         syncStateToUrl();
                         syncPagingButtons();
-
                         targetDiv.empty();
-                        if (response.photos) {
+                        if (response.photos.length > 0) {
                             for (var i = 0, l = response.photos.length; i < l; i += 1) {
                                 targetDiv.append(tmpl('ajapaik-frontpage-photo-template', response.photos[i]));
                             }
@@ -287,8 +287,13 @@
                     title = gettext('My favorites');
                     $('#ajapaik-header-likes-icon').show();
                     updateFrontpagePhotosAsync();
-                } else if (window.myRephotos) {
-                    title = gettext('My rephotos');
+                } else if (window.rephotosBy) {
+                    if (window.rephotosBy === window.currentProfileId) {
+                        title = gettext('My rephotos');
+                    } else {
+                        var fmt = gettext('Rephotos by %(user)s');
+                        title = interpolate(fmt, {user: window.rephotosByName}, true);
+                    }
                     $('#ajapaik-header-rephotos-icon').show();
                     updateFrontpagePhotosAsync();
                 } else if (!window.albumId) {
@@ -627,7 +632,8 @@
             syncStateToUrl();
             syncFilteringHighlights();
             window.myLikes = false;
-            window.myRephotos = false;
+            window.rephotosBy = null;
+            window.rephotosByName = null;
             switch (selectedMode) {
                 case 'pictures':
                     window.showPhotos = true;
@@ -656,7 +662,8 @@
                     //updateFrontpagePhotosAsync();
                     break;
                 case 'rephotos':
-                    window.myRephotos = true;
+                    window.rephotosBy = window.currentProfileId;
+                    window.rephotosByName = window.currentProfileName;
                     window.showPhotos = true;
                     //updateFrontpagePhotosAsync();
                     break;

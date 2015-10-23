@@ -634,7 +634,8 @@ def frontpage(request, album_id=None, page=None):
         'user_has_likes': user_has_likes,
         'user_has_rephotos': user_has_rephotos,
         'my_likes_only': data['my_likes_only'],
-        'my_rephotos_only': data['my_rephotos_only'],
+        'rephotos_by': data['rephotos_by'],
+        'rephotos_by_name': data['rephotos_by_name'],
         'photos_with_comments': data['photos_with_comments'],
         'photos_with_rephotos': data['photos_with_rephotos'],
         'show_photos': data['show_photos'],
@@ -710,7 +711,17 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         order2 = filter_form.cleaned_data['order2']
         order3 = filter_form.cleaned_data['order3']
         my_likes_only = filter_form.cleaned_data['myLikes']
-        my_rephotos_only = filter_form.cleaned_data['myRephotos']
+        rephotos_by = None
+        rephotos_by_name = None
+        if filter_form.cleaned_data['rephotosBy']:
+            rephotos_by = filter_form.cleaned_data['rephotosBy']
+            name = None
+            if rephotos_by.fb_name:
+                name = rephotos_by.fb_name
+            elif rephotos_by.google_plus_name:
+                name = rephotos_by.google_plus_name
+            rephotos_by = rephotos_by.pk
+            rephotos_by_name = name
         default_ordering = False
         if not order1 and not order2:
             order1 = 'time'
@@ -718,7 +729,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             default_ordering = True
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
-        if album or requested_photos or requested_photo or my_likes_only or my_rephotos_only \
+        if album or requested_photos or requested_photo or my_likes_only or rephotos_by \
                 or filter_form.cleaned_data['order1']:
             show_photos = True
         else:
@@ -741,8 +752,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             ret['is_photoset'] = False
         if my_likes_only:
             photos = photos.filter(likes__profile=profile)
-        if my_rephotos_only:
-            photos = photos.filter(rephotos__user=profile)
+        if rephotos_by:
+            rephotos_profile = Profile.objects.filter(pk=rephotos_by).first()
+            if rephotos_profile:
+                photos = photos.filter(rephotos__user=rephotos_profile)
         photos_with_comments = None
         photos_with_rephotos = None
         q = filter_form.cleaned_data['q']
@@ -902,7 +915,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['total'] = total
         ret['max_page'] = max_page
         ret['my_likes_only'] = my_likes_only
-        ret['my_rephotos_only'] = my_rephotos_only
+        ret['rephotos_by'] = rephotos_by
+        ret['rephotos_by_name'] = rephotos_by_name
     else:
         ret['album'] = None
         ret['photo'] = None
@@ -916,7 +930,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['order3'] = None
         ret['is_photoset'] = False
         ret['my_likes_only'] = False
-        ret['my_rephotos_only'] = False
+        ret['rephotos_by'] = None
         ret['total'] = photos.count()
         photos = map(list, photos)
         for p in photos:

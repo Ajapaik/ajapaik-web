@@ -88,20 +88,20 @@
                         }
                     }
                 }
-            }
-            if (window.isPhotoview) {
-                var targets;
-                if (e.keyCode === 37) {
-                    // left
-                    targets = $('.ajapaik-photo-modal-previous-button');
-                    if (targets.length > 0) {
-                        targets[0].click();
-                    }
-                } else if (e.keyCode === 39) {
-                    // right
-                    targets = $('.ajapaik-photo-modal-next-button');
-                    if (targets.length > 0) {
-                        targets[0].click();
+                if (window.isPhotoview && !window.locationToolsOpen) {
+                    var targets;
+                    if (e.keyCode === 37) {
+                        // left
+                        targets = $('.ajapaik-photo-modal-previous-button');
+                        if (targets.length > 0) {
+                            targets[0].click();
+                        }
+                    } else if (e.keyCode === 39) {
+                        // right
+                        targets = $('.ajapaik-photo-modal-next-button');
+                        if (targets.length > 0) {
+                            targets[0].click();
+                        }
                     }
                 }
             }

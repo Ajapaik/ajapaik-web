@@ -284,7 +284,7 @@
             "    <div class='col-xs-12 col-sm-12 col-md-3 ajp-no-padding ajp-cols-bottom' id='ajp-geotagger-panel'>",
             "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding'>",
             "           <a id='ajp-geotagger-full-screen-link'>",
-            "               <img id='ajp-geotagger-image-thumb' src='' class='ajp-image-responsive'>",
+            "               <img id='ajp-geotagger-image-thumb' class='ajp-image-responsive'>",
             "           </a>",
             "           <button type='button' id='ajp-geotagger-flip-button' class='btn btn-default ajp-no-border-radius'>",
             "               <i class='material-icons'>flip</i>",
@@ -341,7 +341,7 @@
             "</div>",
             "<div id='ajp-geotagger-full-screen-box'>",
             "    <div id='ajp-geotagger-full-screen-container'>",
-            "       <img src='' id='ajp-geotagger-full-screen-image'>",
+            "       <img id='ajp-geotagger-full-screen-image'>",
             "    </div>",
             "</div>"
         ].join('\n'));

@@ -98,12 +98,12 @@
    * @returns {String} the suffix to use
    */
   JustifiedGallery.prototype.newSrc = function (imageSrc, imgWidth, imgHeight) {
-    var matchRes = imageSrc.match(this.settings.extension);
-    var ext = (matchRes != null) ? matchRes[0] : '';
-    var newImageSrc = imageSrc.replace(this.settings.extension, '');
-    newImageSrc = this.removeSuffix(newImageSrc, this.getUsedSuffix(newImageSrc));
-    newImageSrc += this.getSuffix(imgWidth, imgHeight) + ext;
-    return newImageSrc;
+      var matchRes = imageSrc.match(this.settings.extension);
+      var ext = (matchRes != null) ? matchRes[0] : '';
+      var newImageSrc = imageSrc.replace(this.settings.extension, '');
+      newImageSrc = this.removeSuffix(newImageSrc, this.getUsedSuffix(newImageSrc));
+      newImageSrc += this.getSuffix(imgWidth, imgHeight) + ext;
+      return newImageSrc;
   };
 
   /**
