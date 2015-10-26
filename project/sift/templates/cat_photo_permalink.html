@@ -19,7 +19,7 @@
                          class="lazyload" title="{{ photo.title }}"
                          width="{{ photo.full_screen_width }}" height="{{ photo.full_screen_height }}"
                          alt="{% if photo.description %}{{ photo.description }}{% else %}{{ photo.title }}{% endif %}"
-                         data-src="{% url 'project.sift.views.cat_photo_full' photo.pk 800 photo.get_pseudo_slug %}">
+                         data-src="{% url 'project.sift.views.cat_photo_full' photo.pk 800 photo.slug %}">
                     </div>
                 </div>
                 <figcaption>
