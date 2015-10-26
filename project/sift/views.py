@@ -538,7 +538,7 @@ def _get_fb_share_photos(qs):
     ret = []
     for each in qs:
         if count < 5:
-            ret.append([each.pk, each.get_pseudo_slug(), each.width, each.height])
+            ret.append([each.pk, each.slug, each.width, each.height])
         else:
             break
         count += 1
