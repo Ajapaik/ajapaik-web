@@ -549,8 +549,9 @@ def game(request):
         facebook_share_photos = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?")
 
     ret["facebook_share_photos"] = []
-    for each in facebook_share_photos[:5]:
-        ret["facebook_share_photos"].append([each.pk, each.get_pseudo_slug(), each.width, each.height])
+    if facebook_share_photos:
+        for each in facebook_share_photos[:5]:
+            ret["facebook_share_photos"].append([each.pk, each.get_pseudo_slug(), each.width, each.height])
 
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
