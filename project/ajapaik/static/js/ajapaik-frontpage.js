@@ -339,6 +339,13 @@
                     }
                 }, 1000);
             };
+        if (getQueryParameterByName('q')) {
+            var query = getQueryParameterByName('q');
+            $('#ajapaik-album-filter-box').val(query).trigger('change');
+            $('#ajapaik-photo-filter-box').val(query);
+            window.photoQuery = query;
+            window.albumQuery = query;
+        }
         updateModeSelection();
         window.updateLeaderboard();
         // Local implementations for common functionality
@@ -531,10 +538,6 @@
             window.location.reload();
         };
         // Reactions to specific URL params
-        if (getQueryParameterByName('q')) {
-            $('#ajapaik-album-filter-box').val(getQueryParameterByName('q')).trigger('change');
-            $('#ajapaik-photo-filter-box').val(getQueryParameterByName('q'));
-        }
         if (getQueryParameterByName('photo')) {
             window.loadPhoto(getQueryParameterByName('photo'));
         }
