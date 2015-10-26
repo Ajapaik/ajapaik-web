@@ -186,7 +186,7 @@
                             <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
                                 <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12
                                 {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" alt="{{ photo.description }} {% trans "rephoto" %}"
-                                     src="{% url 'project.ajapaik.views.photo_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"/>
+                                     src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"/>
                             </a>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons">close</i></button>
                             <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons">invert_colors</i></button>
