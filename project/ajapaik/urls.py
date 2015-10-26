@@ -50,7 +50,7 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^foto_thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', 'image_thumb'),
    url(r'^foto_url/(?P<photo_id>\d+)/$', 'image_thumb'),
    url(r'^foto_large/(?P<photo_id>\d+)/$', 'image_full'),
-   url(r'^foto_large/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/$', 'image_full'),
+   url(r'^foto_large/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'image_full'),
    url(r'^photo-url/(?P<photo_id>\d+)/$', 'image_thumb'),
    url(r'^photo-url/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'image_thumb'),
    # Preferred URLs
