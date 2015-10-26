@@ -55,7 +55,7 @@ def _calc_trustworthiness(user_id):
 
 
 def _make_fullscreen(photo):
-    return {"url": reverse('project.ajapaik.views.image_full', (photo.pk, photo.get_pseudo_slug())),
+    return {"url": reverse('project.ajapaik.views.image_full', args=(photo.pk, photo.get_pseudo_slug())),
             "size": [photo.width, photo.height]}
 
 
