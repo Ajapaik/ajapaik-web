@@ -152,7 +152,7 @@
             <meta property="og:image:width" content="{{ selected_photo.width }}" />
             <meta property="og:image:height" content="{{ selected_photo.height }}" />
         {% else %}
-            {% if not is_photoview %}
+            {% if not is_photoview and not is_game %}
                 {% if rephoto %}
                     <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" rephoto.0 rephoto.1 %}"/>
                     <meta property="og:image:type" content="image/jpeg"/>
