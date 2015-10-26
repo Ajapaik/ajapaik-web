@@ -3,7 +3,7 @@ import codecs
 import sys
 from django.core.management import BaseCommand
 from django.db.models import Q
-from project.ajapaik.models import Profile, Photo, Points, PhotoComment, PhotoLike
+from project.ajapaik.models import Profile, Photo, Points, PhotoComment, PhotoLike, _calc_trustworthiness
 from project.ajapaik.settings import ABSOLUTE_PROJECT_ROOT
 
 reload(sys)
@@ -22,9 +22,8 @@ class Command(BaseCommand):
             if first_geotag:
                 first_geotag = first_geotag.created
             latest_geotag = p.geotags.order_by('-created').first()
-            trustworthiness = 0
+            trustworthiness = _calc_trustworthiness(p.user_id)
             if latest_geotag:
-                trustworthiness = latest_geotag.trustworthiness
                 latest_geotag = latest_geotag.created
             geotag_count = p.geotags.count()
             first_rephoto = Photo.objects.filter(rephoto_of__isnull=False, user_id=p.user_id).order_by('created').first()
