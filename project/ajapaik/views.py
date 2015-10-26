@@ -1276,7 +1276,11 @@ def mapview(request, photo_id=None, rephoto_id=None):
     if album is not None:
         ret["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
         ret["title"] = album.name + " - " + _("Browse photos on map")
-        ret["facebook_share_photos"] = album.photos.all()[:5]
+        ret["facebook_share_photos"] = []
+        facebook_share_photos = album.photos.all()[:5]
+        for each in facebook_share_photos:
+            each = [each.pk, each.get_pseudo_slug(), each.width, each.height]
+            ret["facebook_share_photos"].append(each)
     elif area is not None:
         ret["title"] = area.name + " - " + _("Browse photos on map")
     else:

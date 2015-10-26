@@ -149,8 +149,8 @@
         {% if selected_photo %}
             <meta property="og:image" content="{{ hostname }}{% url "project.ajapaik.views.image_full" selected_photo.pk selected_photo.get_pseudo_slug %}">
             <meta property="og:image:type" content="image/jpeg"/>
-            <meta property="og:image:width" content="{{ selected_photo.2 }}" />
-            <meta property="og:image:height" content="{{ selected_photo.3 }}" />
+            <meta property="og:image:width" content="{{ selected_photo.width }}" />
+            <meta property="og:image:height" content="{{ selected_photo.height }}" />
         {% else %}
             {% if not is_photoview %}
                 {% if rephoto %}
