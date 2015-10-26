@@ -920,6 +920,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
     else:
         ret['album'] = None
         ret['photo'] = None
+        ret['rephotos_by'] = None
+        ret['rephotos_by_name'] = None
         ret['photos_with_comments'] = photos.filter(fb_comments_count__isnull=False).count()
         ret['photos_with_rephotos'] = photos.filter(rephoto_count__isnull=False).count()
         qs_for_fb = photos[:5]
