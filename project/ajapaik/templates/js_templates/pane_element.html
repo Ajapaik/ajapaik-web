@@ -2,11 +2,11 @@
     <script id="ajapaik-pane-element-template" type="text/x-tmpl">
         <a id="element{%=o.id%}" class="ajapaik-mapview-pane-photo-container" href="{%=o.permalink%}"
            data-id="{%=o.id%}" onclick="return false;">
-            <img data-src="{%=o.url%}"
+            <img src="{%=o.url%}"
                  alt="{%=o.description%}"
                  title="{%=o.description%}"
                  data-id="{%=o.id%}"
-                 class="lazyload img-responsive{% if (o.flipped) { %} ajapaik-photo-flipped{% } %}"
+                 class="img-responsive{% if (o.flipped) { %} ajapaik-photo-flipped{% } %}"
                  height="{%=o.height%}"
                  width="{%=o.width%}"
                  onclick="window.highlightSelected({%=o.id%}, false, event);"
