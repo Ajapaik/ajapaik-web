@@ -361,7 +361,7 @@ def cat_photo(request, photo_id=None, thumb_size=600, slug=None):
 
 
 @cache_control(max_age=604800)
-def cat_photo_full(request, photo_id=None, slug=None):
+def cat_photo_full(request, photo_id=None, photo_slug=None):
     p = get_object_or_404(CatPhoto, id=photo_id)
     content = p.image.read()
 
