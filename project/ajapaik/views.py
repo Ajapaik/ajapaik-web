@@ -537,15 +537,20 @@ def game(request):
                 area = Area.objects.get(pk=old_city_id)
         ret["area"] = area
 
+    facebook_share_photos = None
     if album:
         ret["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
         qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.exclude(atype=Album.AUTO):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
         ret["album_photo_count"] = qs.distinct('id').count()
-        ret["facebook_share_photos"] = album.photos.all()
+        facebook_share_photos = album.photos.all()[5]
     elif area:
-        ret["facebook_share_photos"] = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?")[:5]
+        facebook_share_photos = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?")[:5]
+
+    ret["facebook_share_photos"] = []
+    for each in facebook_share_photos:
+        ret["facebook_share_photos"].append([each.pk, each.get_pseudo_slug(), each.width, each.height])
 
     site = Site.objects.get_current()
     ret["hostname"] = "http://%s" % (site.domain, )
@@ -560,6 +565,8 @@ def game(request):
     ret["album_selection_form"] = album_selection_form
     ret["last_geotagged_photo_id"] = Photo.objects.order_by('-latest_geotag').first().id
     ret["ajapaik_facebook_link"] = settings.AJAPAIK_FACEBOOK_LINK
+    ret["user_has_likes"] = user_has_likes
+    ret["user_has_rephotos"] = user_has_rephotos
 
     return render_to_response("game.html", RequestContext(request, ret))
 
