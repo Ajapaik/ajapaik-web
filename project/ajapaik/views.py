@@ -62,7 +62,12 @@ def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
         thumb_size = 250
     p = get_object_or_404(Photo, id=photo_id)
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
-    im = get_thumbnail(p.image, thumb_str, upscale=False)
+    if p.rephoto_of:
+        original_thumb = get_thumbnail(p.rephoto_of.image, thumb_str, upscale=False)
+        thumb_str = str(original_thumb.size[0]) + 'x' + str(original_thumb.size[1])
+        im = get_thumbnail(p.image, thumb_str, upscale=True, downscale=True, crop='center')
+    else:
+        im = get_thumbnail(p.image, thumb_str, upscale=False)
     try:
         content = im.read()
     except IOError:
@@ -1070,7 +1075,9 @@ def photoslug(request, photo_id, pseudo_slug=None):
 
     geotag_count = 0
     azimuth_count = 0
+    original_thumb_size = None
     if photo_obj:
+        original_thumb_size = get_thumbnail(photo_obj.image, '800x800').size
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
@@ -1157,6 +1164,7 @@ def photoslug(request, photo_id, pseudo_slug=None):
 
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
+        "original_thumb_size": original_thumb_size,
         "user_confirmed_this_location": user_confirmed_this_location,
         "fb_url": request.build_absolute_uri(reverse("project.ajapaik.views.photoslug", args=(photo_obj.id,))),
         "licence": Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
