@@ -369,6 +369,8 @@ class Photo(Model):
         ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
         ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
         ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
+        ret.view_count += 1
+        ret.light_save()
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
     def __unicode__(self):
