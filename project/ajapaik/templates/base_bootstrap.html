@@ -264,10 +264,10 @@
         <a id="ajapaik-feedback-link" href="https://goo.gl/1ZHEUy" target="_blank">{% trans "feedback" %}</a>
     </div>
 {% endif %}
-{% if is_frontpage or is_order %}
+{% if is_frontpage or is_order or is_newsletter and not newsletter %}
     <footer class="footer text-center">
         <div class="container-fluid">
-            <div class="col-sm-3 hidden-xs" id="ajapaik-footer-contact">
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-4" id="ajapaik-footer-contact">
                 <div class="row">
                     <a class="pull-left" href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
                 </div>
@@ -275,26 +275,35 @@
                     <a class="pull-left" id="ajapaik-photographic-heritage-link" target="_blank" href="http://fotopärand.org.ee/">{% trans "Estonian Photographic Heritage Society" %}</a>
                 </div>
             </div>
-            <nav>
-                <ul class="pager col-xs-12 col-sm-6" id="ajapaik-pager">
-                    <li>
-                        <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">
-                            &lt;
-                        </a>
-                    </li>
-                    <li class="disabled">
-                        <a href="#" id="ajapaik-pager-stats">
-                            {{ start|add:1 }} – {{ end }} / {{ total }}
-                        </a>
-                    </li>
-                    <li>
-                        <a id="ajapaik-paging-next-button" {% if page == max_page %}class="ajapaik-invisible"{% endif %} href="{% url 'project.ajapaik.views.frontpage' %}{% add_get page=page|add:1 %}">
-                            &gt;
-                        </a>
-                    </li>
-                </ul>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4" id="ajapaik-footer-newsletter">
+                <div class="row">
+                    {% if LANGUAGE_CODE == 'et' %}
+                        <a href="{% url "project.ajapaik.views.newsletter" %}">{% trans "Newsletter" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+            <nav class="col-lg-6 col-md-4 col-sm-4 hidden-xs">
+                {% if not is_newsletter %}
+                    <ul class="pager" id="ajapaik-pager">
+                        <li>
+                            <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">
+                                &lt;
+                            </a>
+                        </li>
+                        <li class="disabled">
+                            <a href="#" id="ajapaik-pager-stats">
+                                {{ start|add:1 }} – {{ end }} / {{ total }}
+                            </a>
+                        </li>
+                        <li>
+                            <a id="ajapaik-paging-next-button" {% if page == max_page %}class="ajapaik-invisible"{% endif %} href="{% url 'project.ajapaik.views.frontpage' %}{% add_get page=page|add:1 %}">
+                                &gt;
+                            </a>
+                        </li>
+                    </ul>
+                {% endif %}
             </nav>
-            <div class="col-sm-3 hidden-xs" id="ajapaik-footer-links">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4" id="ajapaik-footer-links">
                 <div class="row">
                     <a class="pull-right" id="ajapaik-sift-pics-link" target="_blank" href="http://sift.pics/">{% trans "See also – Sift.pics" %}</a>
                 </div>

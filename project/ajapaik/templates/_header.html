@@ -143,6 +143,13 @@
                         <i class="material-icons ajapaik-gray-button{% if is_curator %} ajapaik-text-white{% endif %}">add_circle</i>
                     </a>
                 </li>
+                {% if is_newsletter %}
+                    <li class="pull-left" id="ajapaik-header-nesletter">
+                        <a role="button" title="{% trans 'Newsletters' %}" href="/uudiskiri/" class="ajapaik-padding-top-6px">
+                            <i class="material-icons ajapaik-gray-button ajapaik-text-white">email</i>
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="pull-left{% if not request.session.photo_selection %} hidden{% endif %}" id="ajapaik-header-selection-indicator">
                     <a role="button" title="{% trans 'Current selection' %}" href="/view-selection" class="ajapaik-padding-top-6px">
                         <i class="material-icons ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>

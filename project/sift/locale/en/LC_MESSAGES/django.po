@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-16 13:27+0300\n"
+"POT-Creation-Date: 2015-10-26 16:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,14 @@ msgstr ""
 
 #: project/sift/settings/default.py:63
 msgid "Finnish"
+msgstr ""
+
+#: project/sift/templates/404.html:5 project/sift/templates/404.html.py:11
+msgid "Page Not Found"
+msgstr ""
+
+#: project/sift/templates/404.html:14
+msgid "Back"
 msgstr ""
 
 #: project/sift/templates/_cat_album_creation_modal.html:10
@@ -115,11 +123,16 @@ msgstr ""
 msgid "Sift.pics on Google Play"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:109 project/sift/views.py:637
+#: project/sift/templates/_cat_header.html:110
+#: project/sift/templates/cat_about.html:22
+msgid "Sift.pics on Facebook"
+msgstr ""
+
+#: project/sift/templates/_cat_header.html:120 project/sift/views.py:666
 msgid "About"
 msgstr ""
 
-#: project/sift/templates/_cat_header.html:116
+#: project/sift/templates/_cat_header.html:127
 msgid "Choose language"
 msgstr ""
 
@@ -151,10 +164,6 @@ msgstr ""
 
 #: project/sift/templates/cat_about.html:21
 msgid "Sift.pics on Twitter"
-msgstr ""
-
-#: project/sift/templates/cat_about.html:22
-msgid "Sift.pics on Facebook"
 msgstr ""
 
 #: project/sift/templates/cat_about.html:23
@@ -221,21 +230,21 @@ msgstr ""
 msgid "tagging,historic,old,photos,pictures"
 msgstr ""
 
-#: project/sift/templates/cat_base.html:77
+#: project/sift/templates/cat_base.html:86
 msgid "feedback"
 msgstr ""
 
-#: project/sift/templates/cat_base.html:99
+#: project/sift/templates/cat_base.html:108
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
 msgstr ""
 
-#: project/sift/templates/cat_base.html:100
+#: project/sift/templates/cat_base.html:109
 msgid "Got it!"
 msgstr ""
 
-#: project/sift/templates/cat_base.html:101
+#: project/sift/templates/cat_base.html:110
 msgid "More info"
 msgstr ""
 
@@ -366,232 +375,224 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: project/sift/templates/cat_results.html:76 project/sift/views.py:612
-#: project/sift/views.py:614
+#: project/sift/templates/cat_results.html:76 project/sift/views.py:640
+#: project/sift/views.py:642
 msgid "Filter photos by tags"
 msgstr ""
 
-#: project/sift/templates/cat_tagger.html:98 project/sift/views.py:649
-#: project/sift/views.py:653
+#: project/sift/templates/cat_tagger.html:98 project/sift/views.py:678
+#: project/sift/views.py:683
 msgid "Tag historic photos"
 msgstr ""
 
-#: project/sift/views.py:475
+#: project/sift/views.py:487
 msgid "Interior"
 msgstr ""
 
-#: project/sift/views.py:476
+#: project/sift/views.py:488
 msgid "Exterior"
 msgstr ""
 
-#: project/sift/views.py:477
+#: project/sift/views.py:489
 msgid "View"
 msgstr ""
 
-#: project/sift/views.py:478
+#: project/sift/views.py:490
 msgid "Social"
 msgstr ""
 
-#: project/sift/views.py:479
+#: project/sift/views.py:491
 msgid "Ground"
 msgstr ""
 
-#: project/sift/views.py:480
+#: project/sift/views.py:492
 msgid "Raised"
 msgstr ""
 
-#: project/sift/views.py:481
+#: project/sift/views.py:493
 msgid "Rural"
 msgstr "Countryside"
 
-#: project/sift/views.py:482
+#: project/sift/views.py:494
 msgid "Urban"
 msgstr ""
 
-#: project/sift/views.py:483
+#: project/sift/views.py:495
 msgid "One"
 msgstr "One person"
 
-#: project/sift/views.py:484
+#: project/sift/views.py:496
 msgid "Many"
 msgstr "Many people"
 
-#: project/sift/views.py:485
+#: project/sift/views.py:497
 msgid "Public"
 msgstr ""
 
-#: project/sift/views.py:486
+#: project/sift/views.py:498
 msgid "Private"
 msgstr ""
 
-#: project/sift/views.py:487
+#: project/sift/views.py:499
 msgid "Whole"
 msgstr "General"
 
-#: project/sift/views.py:488
+#: project/sift/views.py:500
 msgid "Detail"
 msgstr "Close-up"
 
-#: project/sift/views.py:489
+#: project/sift/views.py:501
 msgid "Staged"
 msgstr ""
 
-#: project/sift/views.py:490
+#: project/sift/views.py:502
 msgid "Natural"
 msgstr ""
 
-#: project/sift/views.py:491
+#: project/sift/views.py:503
 msgid "Manmade"
 msgstr "Man-made"
 
-#: project/sift/views.py:492
+#: project/sift/views.py:504
 msgid "Nature"
 msgstr ""
 
-#: project/sift/views.py:494
+#: project/sift/views.py:506
 msgid "interior"
 msgstr ""
 
-#: project/sift/views.py:495
+#: project/sift/views.py:507
 msgid "exterior"
 msgstr ""
 
-#: project/sift/views.py:496
+#: project/sift/views.py:508
 msgid "view"
 msgstr ""
 
-#: project/sift/views.py:497
+#: project/sift/views.py:509
 msgid "social"
 msgstr ""
 
-#: project/sift/views.py:498
+#: project/sift/views.py:510
 msgid "ground"
 msgstr ""
 
-#: project/sift/views.py:499
+#: project/sift/views.py:511
 msgid "raised"
 msgstr ""
 
-#: project/sift/views.py:500
+#: project/sift/views.py:512
 #, fuzzy
 #| msgid "Rural"
 msgid "rural"
 msgstr "Countryside"
 
-#: project/sift/views.py:501
+#: project/sift/views.py:513
 msgid "urban"
 msgstr ""
 
-#: project/sift/views.py:502
+#: project/sift/views.py:514
 #, fuzzy
 #| msgid "One"
 msgid "one"
 msgstr "One person"
 
-#: project/sift/views.py:503
+#: project/sift/views.py:515
 msgid "many"
 msgstr ""
 
-#: project/sift/views.py:504
+#: project/sift/views.py:516
 msgid "public"
 msgstr ""
 
-#: project/sift/views.py:505
+#: project/sift/views.py:517
 msgid "private"
 msgstr ""
 
-#: project/sift/views.py:506
+#: project/sift/views.py:518
 #, fuzzy
 #| msgid "Whole"
 msgid "whole"
 msgstr "General"
 
-#: project/sift/views.py:507
+#: project/sift/views.py:519
 #, fuzzy
 #| msgid "Detail"
 msgid "detail"
 msgstr "Close-up"
 
-#: project/sift/views.py:508
+#: project/sift/views.py:520
 msgid "staged"
 msgstr ""
 
-#: project/sift/views.py:509
+#: project/sift/views.py:521
 #, fuzzy
 #| msgid "Rural"
 msgid "natural"
 msgstr "Countryside"
 
-#: project/sift/views.py:510
+#: project/sift/views.py:522
 #, fuzzy
 #| msgid "Manmade"
 msgid "manmade"
 msgstr "Man-made"
 
-#: project/sift/views.py:511
+#: project/sift/views.py:523
 msgid "nature"
 msgstr ""
 
-#: project/sift/views.py:513
+#: project/sift/views.py:525
 msgid "interior_or_exterior_NA"
 msgstr "neither interior nor exterior"
 
-#: project/sift/views.py:514
+#: project/sift/views.py:526
 msgid "view_or_social_NA"
 msgstr "neither view nor social"
 
-#: project/sift/views.py:515
+#: project/sift/views.py:527
 msgid "ground_or_raised_NA"
 msgstr "neither ground nor raised"
 
-#: project/sift/views.py:516
+#: project/sift/views.py:528
 msgid "urban_or_rural_NA"
 msgstr "neither urban nor rural"
 
-#: project/sift/views.py:517
+#: project/sift/views.py:529
 msgid "one_or_many_NA"
 msgstr "neither one nor many"
 
-#: project/sift/views.py:518
+#: project/sift/views.py:530
 msgid "public_or_private_NA"
 msgstr ""
 
-#: project/sift/views.py:519
+#: project/sift/views.py:531
 msgid "whole_or_detail_NA"
 msgstr "neither whole nor detail"
 
-#: project/sift/views.py:520
+#: project/sift/views.py:532
 msgid "staged_or_natural_NA"
 msgstr "neither staged nor natural"
 
-#: project/sift/views.py:521
+#: project/sift/views.py:533
 msgid "manmade_or_nature_NA"
 msgstr "neither man-made nor nature"
 
-#: project/sift/views.py:952
+#: project/sift/views.py:984
 msgid "OK"
 msgstr ""
 
-#: project/sift/views.py:962
+#: project/sift/views.py:994
 msgid "Error uploading file"
 msgstr ""
 
-#: project/sift/views.py:968
+#: project/sift/views.py:1000
 msgid "Photo already exists in Sift"
 msgstr ""
 
-#: project/sift/views.py:973
+#: project/sift/views.py:1005
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/sift/views.py:975
+#: project/sift/views.py:1007
 msgid "Not enough data submitted"
-msgstr ""
-
-#: templates/404.html:5 templates/404.html.py:11
-msgid "Page Not Found"
-msgstr ""
-
-#: templates/404.html:14
-msgid "Back"
 msgstr ""

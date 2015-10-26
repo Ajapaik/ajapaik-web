@@ -2500,6 +2500,14 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     color: #fff;
 }
 
+#ajapaik-footer-newsletter {
+    margin-top: 20px;
+}
+
+#ajapaik-footer-newsletter > .row > a {
+    color: #fff;
+}
+
 #ajapaik-footer-links {
     margin-top: 20px;
 }
@@ -2636,4 +2644,10 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #ajapaik-header-album-filter-button-off {
     font-size: 24px;
     cursor: pointer;
+}
+
+#ajapaik-photographic-heritage-link {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

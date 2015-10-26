@@ -6,7 +6,8 @@ from datetime import datetime
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
-from django.db.models import Count, Sum, OneToOneField, DateField
+from django.db.models import Count, Sum, OneToOneField, DateField, FileField
+from django.utils.dateformat import DateFormat
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField,\
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField,\
@@ -963,3 +964,21 @@ class GoogleMapsReverseGeocode(Model):
 
     def __unicode__(self):
         return '%d;%d' % (self.lat, self.lon)
+
+
+class Newsletter(Model):
+    slug = SlugField(unique=True, null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return '%s' % self.slug
+
+    def save(self, *args, **kwargs):
+        super(Newsletter, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = DateFormat(self.created).format('Y-m-d')
+            super(Newsletter, self).save(*args, **kwargs)
+
+    class Meta:
+        db_table = 'project_newsletter'

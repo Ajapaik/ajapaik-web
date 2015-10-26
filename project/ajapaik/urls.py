@@ -51,6 +51,8 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^foto_url/(?P<photo_id>\d+)/$', 'image_thumb'),
    url(r'^foto_large/(?P<photo_id>\d+)/$', 'image_full'),
    url(r'^foto_large/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'image_full'),
+   url(r'^photo-large/(?P<photo_id>\d+)/$', 'image_full'),
+   url(r'^photo-large/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'image_full'),
    url(r'^photo-url/(?P<photo_id>\d+)/$', 'image_thumb'),
    url(r'^photo-url/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'image_thumb'),
    # Preferred URLs
@@ -84,6 +86,8 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^public-area-create-handler/$', 'public_add_area'),
    # url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
    url(r'^csv-upload/$', 'csv_upload'),
+   url(r'^uudiskiri/$', 'newsletter'),
+   url(r'^uudiskiri/(?P<slug>.*)/$', 'newsletter'),
 )
 
 

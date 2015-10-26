@@ -33,7 +33,8 @@ from sorl.thumbnail import delete
 
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike
+    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
+    Newsletter
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
@@ -41,7 +42,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer
-from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL
+from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, STATIC_ROOT
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
@@ -2175,3 +2176,17 @@ def csv_upload(request):
     album.save()
 
     return HttpResponse('OK')
+
+
+def newsletter(request, slug=None):
+    ret = {
+        'is_newsletter': True,
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+    }
+    if slug:
+        ret['newsletter'] = Newsletter.objects.get(slug=slug)
+        ret['template'] = 'newsletters/' + ret['newsletter'].slug + '.html'
+    else:
+        ret['newsletters'] = Newsletter.objects.order_by('created')
+
+    return render_to_response('newsletter.html', RequestContext(request, ret))
