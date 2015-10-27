@@ -1438,6 +1438,7 @@ def geotag_confirm(request):
     ret = {
         'message': 'OK'
     }
+    a = 1
     if form.is_valid():
         p = form.cleaned_data['photo']
         # Check if user is eligible to confirm location (again)
