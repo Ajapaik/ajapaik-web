@@ -390,6 +390,7 @@
                 $.noop();
             };
             $('#ajapaik-photoview-start-geotagging-button').click(function () {
+                $('.footer').hide();
                 window.startGuessLocation($(this).data('id'));
             });
             window.startGuessLocation = function (photoId) {
@@ -440,6 +441,7 @@
                 $('#ajp-geotagging-container').hide();
                 window.locationToolsOpen = false;
                 window.showPhotoMapIfApplicable();
+                $('.footer').show();
             };
             window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         });

@@ -1,0 +1,142 @@
+server {
+        listen 80;
+        server_name sift.pics.by.ajapaik.ee;
+        return 301 $scheme://sift.pics$request_uri;
+}
+server {
+        listen 80;
+        server_name www.sift.pics.by.ajapaik.ee;
+        return 301 $scheme://sift.pics$request_uri;
+}
+server {
+        listen 80;
+        server_name www.ajapaik.ee;
+        return 301 $scheme://ajapaik.ee$request_uri;
+}
+server {
+        listen 80;
+        server_name a.ajapaik.ee;
+
+        if ($host !~* ^(ajapaik.ee|www.ajapaik.ee)$ ) {
+                return 444;
+        }
+
+        access_log off;
+        error_log /dev/null;
+
+        # Redirect requests coming from Sift.pics mobile app
+        location /cat/v1/albums/ {
+                proxy_pass http://sift.pics:9010/cat/v1/albums/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/login/ {
+                proxy_pass http://sift.pics:9010/cat/v1/login/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        }
+
+        location /cat/v1/logout/ {
+                proxy_pass http://sift.pics:9010/cat/v1/logout/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/album/state/ {
+                proxy_pass http://sift.pics:9010/cat/v1/album/state/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/album/tag/ {
+                proxy_pass http://sift.pics:9010/cat/v1/album/tag/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/user/me/ {
+                proxy_pass http://sift.pics:9010/cat/v1/user/me/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/user/favorite/add/ {
+                proxy_pass http://sift.pics:9010/cat/v1/user/favorite/add/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/user/favorite/remove/ {
+                proxy_pass http://sift.pics:9010/cat/v1/user/favorite/remove/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/user/device/register/ {
+                proxy_pass http://sift.pics:9010/cat/v1/user/device/register/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/user/device/unregister/ {
+                proxy_pass http://sift.pics:9010/cat/v1/user/device/unregister/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/photo/ {
+                proxy_pass http://sift.pics:9010/cat/v1/photo/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /cat/v1/album_thumb/ {
+                proxy_pass http://sift.pics:9010/cat/v1/album_thumb/;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /media  {
+                alias /var/garage/rephoto/media;
+        }
+
+        location /static {
+                alias /var/garage/rephoto/static-collected;
+                expires 30d;
+        }
+
+        location ~ ^/favicon.(\w*)$ {
+                alias /var/garage/rephoto/static-collected/favicon.$1;
+        }
+
+        location / {
+                include uwsgi_params;
+                uwsgi_pass unix:/var/garage/run/ajapaik_ee_A.sock;
+        }
+}

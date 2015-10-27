@@ -264,7 +264,7 @@
         <a id="ajapaik-feedback-link" href="https://goo.gl/1ZHEUy" target="_blank">{% trans "feedback" %}</a>
     </div>
 {% endif %}
-{% if is_frontpage or is_order or is_photoview or is_curator or is_newsletter and not newsletter %}
+{% if is_frontpage or is_order or is_photoview or is_newsletter and not newsletter %}
     <footer class="footer text-center">
         <div class="container-fluid">
             <div class="col-lg-1 col-md-2 col-sm-2 col-xs-4" id="ajapaik-footer-contact">
@@ -283,7 +283,7 @@
                 </div>
             </div>
             <nav class="col-lg-6 col-md-4 col-sm-4 hidden-xs">
-                {% if not is_newsletter and not is_photoview and not is_curator %}
+                {% if not is_newsletter and not is_photoview %}
                     <ul class="pager" id="ajapaik-pager">
                         <li>
                             <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">

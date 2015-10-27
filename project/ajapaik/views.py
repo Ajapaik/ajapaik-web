@@ -466,7 +466,11 @@ def rephoto_upload(request, photo_id):
                 re_photo.save()
                 photo.save()
                 for each in photo.albums.all():
-                    each.save()
+                    qs = each.get_historic_photos_queryset_with_subalbums()
+                    each.rephoto_count_with_subalbums = qs.aggregate(rephoto_count=Count('rephotos'))['rephoto_count']
+                    if not each.rephoto_count_with_subalbums:
+                        each.rephoto_count_with_subalbums = 0
+                    each.light_save()
                 re_photo.image.save('rephoto.jpg', file_obj)
                 new_id = re_photo.pk
                 img = Image.open(settings.MEDIA_ROOT + '/' + str(re_photo.image))
@@ -1411,6 +1415,11 @@ def geotag_add(request):
                 ret['feedback_message'] = _('The photo has been mapped to a new location thanks to you.')
             if len(geotags_for_this_photo) == 1:
                 ret['feedback_message'] = _('Your guess was first.')
+        for a in processed_photo.albums.all():
+            qs = a.get_historic_photos_queryset_with_subalbums()
+            a.geotagged_photo_count_with_subalbums = qs.filter(lat__isnull=False, lon__isnull=False).distinct('id')\
+                .count()
+            a.light_save()
     else:
         if 'lat' not in submit_geotag_form.cleaned_data and 'lon' not in submit_geotag_form.cleaned_data \
                 and 'photo_id' in submit_geotag_form.data:
@@ -2060,7 +2069,15 @@ def update_comment_count(request):
                 p.first_comment = None
             p.light_save()
             for each in p.albums.all():
-                each.save()
+                qs = each.get_historic_photos_queryset_with_subalbums()
+                each.comments_count_with_subalbums = qs.aggregate(comment_count=Sum('fb_comments_count'))['comment_count']
+                if not each.comments_count_with_subalbums:
+                    each.comments_count_with_subalbums = 0
+                rp_qs = qs.filter(rephotos__isnull=False).prefetch_related('rephotos').distinct('id')
+                for p in rp_qs:
+                    for rp in p.rephotos.all():
+                        each.comments_count_with_subalbums += rp.fb_comments_count
+                each.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 

@@ -140,6 +140,9 @@ class Album(Model):
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
+    original_lat = None
+    original_lon = None
+
     class Meta:
         db_table = "project_album"
 
@@ -154,36 +157,30 @@ class Album(Model):
 
         return qs
 
+    def __init__(self, *args, **kwargs):
+        super(Album, self).__init__(*args, **kwargs)
+        self.original_lat = self.lat
+        self.original_lon = self.lon
+
     def save(self, *args, **kwargs):
         if self.id:
-            album_photos_qs = self.photos.filter(rephoto_of__isnull=True)
-            for sa in self.subalbums.exclude(atype=Album.AUTO):
-                album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-            album_photos_with_rephotos_qs = album_photos_qs.filter(rephotos__isnull=False).prefetch_related('rephotos').distinct('id')
+            album_photos_qs = self.get_historic_photos_queryset_with_subalbums()
             self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
-            self.geotagged_photo_count_with_subalbums = album_photos_qs\
-                .filter(lat__isnull=False, lon__isnull=False).distinct('id').count()
-            self.rephoto_count_with_subalbums = album_photos_qs.aggregate(rephoto_count=Count('rephotos'))['rephoto_count']
-            if not self.rephoto_count_with_subalbums:
-                self.rephoto_count_with_subalbums = 0
-            self.comments_count_with_subalbums = album_photos_qs.aggregate(comment_count=Sum('fb_comments_count'))['comment_count']
-            if not self.comments_count_with_subalbums:
-                self.comments_count_with_subalbums = 0
-            for each in album_photos_with_rephotos_qs:
-                for rp in each.rephotos.all():
-                    self.comments_count_with_subalbums += rp.fb_comments_count
-            random_photo_with_location = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).first()
-            if random_photo_with_location:
-                self.lat = random_photo_with_location.lat
-                self.lon = random_photo_with_location.lon
-        if self.lat and self.lon:
+            if not self.lat and not self.lon:
+                random_photo_with_location = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).first()
+                if random_photo_with_location:
+                    self.lat = random_photo_with_location.lat
+                    self.lon = random_photo_with_location.lon
+        if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        if self.id and not self.cover_photo_id and self.photos.count() > 0:
+        if self.id and not self.cover_photo_id and self.photo_count_with_subalbums > 0:
             random_photo = self.photos.order_by('?').first()
             self.cover_photo_id = random_photo.id
             if random_photo.flip:
                 self.cover_photo_flipped = random_photo.flip
         super(Album, self).save(*args, **kwargs)
+        self.original_lat = self.lat
+        self.original_lon = self.lon
         connections['default'].get_unified_index().get_index(Album).update_object(self)
 
     def light_save(self, *args, **kwargs):

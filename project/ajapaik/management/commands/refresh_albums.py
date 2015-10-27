@@ -11,7 +11,8 @@ class Command(BaseCommand):
         albums = Album.objects.exclude(atype=Album.AUTO).annotate(photo_count=Count('photos'))
         for a in albums:
             if not a.lat and not a.lon:
-                random_photo_with_location = a.get_historic_photos_queryset_with_subalbums().order_by('?').first()
+                random_photo_with_location = a.get_historic_photos_queryset_with_subalbums()\
+                    .filter(lat__isnull=False, lon__isnull=False).order_by('?').first()
                 a.lat = random_photo_with_location.lat
                 a.lon = random_photo_with_location.lon
             if a.photo_count > 0:
