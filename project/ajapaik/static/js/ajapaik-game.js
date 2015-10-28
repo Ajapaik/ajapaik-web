@@ -95,6 +95,8 @@
     };
     // For displaying the small map correctly in the modal
     photoLoadModalResizeFunction = function () {
+        $('#ajapaik-photo-modal-map-container').css('max-height', window.outerHeight / 2 + 'px');
+        $('#ajapaik-game-modal-photo').css('max-height', window.outerHeight / 2 + 'px');
         window.showPhotoMapIfApplicable();
     };
     window.nextPhoto = function (previous) {
