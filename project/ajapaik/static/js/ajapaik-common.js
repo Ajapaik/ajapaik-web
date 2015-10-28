@@ -546,7 +546,7 @@ var map,
 
     window.showPhotoMapIfApplicable = function (isPhotoview) {
         var arrowIcon = {
-            path: 'M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z',
+            path: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
             strokeColor: 'white',
             strokeOpacity: 1,
             strokeWeight: 1,
@@ -557,14 +557,14 @@ var map,
             anchor: new google.maps.Point(12, 12)
         },
         locationIcon = {
-            path: 'M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+            path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
             strokeColor: 'white',
             strokeOpacity: 1,
             strokeWeight: 1,
             fillColor: 'black',
             fillOpacity: 1,
             scale: 1.5,
-            anchor: new google.maps.Point(12, 0)
+            anchor: new google.maps.Point(12, 18)
         },
         currentIcon;
         var container = $('#ajapaik-modal-photo-container'),
@@ -674,18 +674,22 @@ var map,
             }
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                 if (window.miniMapMarker) {
-                    window.miniMapMarker.setMap(null);
-                    window.miniMapMarker = null;
+                    window.miniMapMarker.setIcon(currentIcon);
+                    window.miniMapMarker.setPosition(new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng));
+                    window.miniMapMarker.setMap(window.miniMap);
+                } else {
+                    window.miniMapMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng),
+                        map: window.miniMap,
+                        title: gettext('Current location'),
+                        icon: currentIcon
+                    });
                 }
-                window.miniMapMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng),
-                    map: window.miniMap,
-                    title: gettext('Current location'),
-                    icon: currentIcon
-                });
-                window.miniMapMarker.setIcon(currentIcon);
             }
-            window.miniMapStreetView = window.miniMap.getStreetView();
+            if (!window.miniMapStreetView) {
+                window.miniMapStreetView = window.miniMap.getStreetView();
+            }
+            google.maps.event.clearListeners(window.miniMapStreetView, 'visible_changed');
             google.maps.event.addListener(window.miniMapStreetView, 'visible_changed', function() {
                 if (window.miniMapMarker) {
                     if (window.miniMapStreetView.getVisible()) {
