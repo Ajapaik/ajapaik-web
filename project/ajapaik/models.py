@@ -294,7 +294,7 @@ class Photo(Model):
             'lat': photo.lat,
             'lon': photo.lon,
             'azimuth': photo.azimuth,
-            'big': {'url': image.url, 'size': [image.width, image.height]},
+            'big': {'url': reverse('project.ajapaik.views.image_thumb', args=(photo.pk, 800)), 'size': [image.width, image.height]},
             'flip': photo.flip,
             'large': _make_fullscreen(photo),
             'totalGeotags': photo.geotags.distinct('user').count(),
