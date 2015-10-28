@@ -390,7 +390,6 @@
                 $.noop();
             };
             $('#ajapaik-photoview-start-geotagging-button').click(function () {
-                $('.footer').hide();
                 window.startGuessLocation($(this).data('id'));
             });
             window.startGuessLocation = function (photoId) {
@@ -407,6 +406,7 @@
                     startLon = 26;
                 }
                 $('#ajapaik-photoview-container').hide();
+                $('.footer').hide();
                 $('html').addClass('ajapaik-html-game-map');
                 $('body').addClass('ajapaik-body-game-map');
                 $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
