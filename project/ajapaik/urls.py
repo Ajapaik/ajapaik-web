@@ -86,7 +86,7 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^public-area-create-handler/$', 'public_add_area'),
    # url(r'^public_photo_delete_handler/(?P<photo_id>\d+)/$', 'delete_public_photo'),
    url(r'^csv-upload/$', 'csv_upload'),
-   url(r'^uudiskiri/$', 'newsletter'),
+   url(r'^uudiskiri/$', 'newsletter', name='uudiskiri'),
    url(r'^uudiskiri/(?P<slug>.*)/$', 'newsletter'),
 )
 
