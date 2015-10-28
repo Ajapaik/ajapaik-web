@@ -38,18 +38,15 @@ from haystack import connections
 
 
 def _calc_trustworthiness(user_id):
-    total_tries = 0
-    correct_tries = 0
-    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct("photo_id")\
-        .order_by("photo_id", "-created")
-    for gt in user_unique_latest_geotags:
-        if gt.is_correct:
-            correct_tries += 1
-        total_tries += 1
+    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct('photo_id')\
+        .order_by('photo_id', '-created')
+    total_tries = user_unique_latest_geotags.count()
+    correct_tries = user_unique_latest_geotags.filter(is_correct=True).count()
 
     if not correct_tries:
-        return 0
-    trust = (1 - 0.9 ** correct_tries) * correct_tries / float(total_tries)
+        return 0.00
+
+    trust = float(1 - 0.9 ** float(correct_tries)) * float(correct_tries) / float(total_tries)
     trust = max(trust, 0.01)
 
     return trust

@@ -1204,6 +1204,7 @@ a.fullscreen {
 #ajapaik-game-modal-photo {
     padding-right: 0 !important;
     padding-left: 0 !important;
+    max-height: 600px;
 }
 
 #ajapaik-game-modal-photo-container img {
@@ -1586,6 +1587,8 @@ ul.errorlist {
 #ajapaik-modal-photo {
     margin: 0 auto;
     padding: 0 !important;
+    max-height: 600px;
+    width: auto;
 }
 
 #ajapaik-photo-modal-map-container {
