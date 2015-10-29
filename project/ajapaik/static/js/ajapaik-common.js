@@ -589,7 +589,7 @@ var map,
                     lng: 24.7453
                 };
                 minimapLargeCTAButton = document.createElement('button');
-                $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button');
+                $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button').attr('title', gettext('Pick the shooting location!'));
             } else {
                 center = {
                     lat: window.photoModalPhotoLat,

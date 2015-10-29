@@ -13,8 +13,9 @@ class Command(BaseCommand):
             if not a.lat and not a.lon:
                 random_photo_with_location = a.get_historic_photos_queryset_with_subalbums()\
                     .filter(lat__isnull=False, lon__isnull=False).order_by('?').first()
-                a.lat = random_photo_with_location.lat
-                a.lon = random_photo_with_location.lon
+                if random_photo_with_location:
+                    a.lat = random_photo_with_location.lat
+                    a.lon = random_photo_with_location.lon
             if a.photo_count > 0:
                 random_index = randint(0, a.photo_count - 1)
             else:

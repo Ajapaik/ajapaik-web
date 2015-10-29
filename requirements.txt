@@ -3,6 +3,7 @@ cryptography==1.0.1
 Django==1.7.10
 django-admin-tools==0.6.0
 django-appconf==1.0.1
+django-autoslug==1.9.3
 django-bulk-update==1.1.4
 django-compressor==1.5
 django-conditional-aggregates==0.5.0
@@ -37,6 +38,7 @@ pyasn1==0.1.8
 pyasn1-modules==0.0.7
 pycparser==2.14
 pyOpenSSL==0.15.1
+pysolr==3.3.3
 pytest==2.7.2
 pytest-django==2.8.0
 python-dateutil==2.4.2
@@ -56,4 +58,3 @@ transifex-client==0.11b3
 ujson==1.33
 uWSGI==2.0.10
 uwsgitop==0.8
-Whoosh==2.7.0
