@@ -83,6 +83,7 @@
         // State
         this.firstMoveDone = false;
         this.saveAzimuth = false;
+        this.streetViewAzimuth = null;
         this.drawAzimuthLineOnMouseMove = !isMobile;
         this.hintUsed = false;
         this.feedbackMode = false;
@@ -108,6 +109,7 @@
                         that.simpleCalculateMapLineEndPoint(that.angleBetweenMouseAndMarker,
                             that.realMarker.position, 0.02)]);
                 }
+                that.streetViewAzimuth = null;
             }
         };
         this.mapClickListenerFunction = function (e) {
@@ -512,9 +514,34 @@
                 if (that.streetPanorama.getVisible() && typeof window.reportGeotaggerStreetPanoramaOpen === 'function') {
                     window.reportGeotaggerStreetPanoramaOpen(that.options.currentPhotoId);
                 }
+                if (!that.streetPanorama.getVisible() && that.streetViewAzimuth) {
+                    var fauxClickPoint = that.simpleCalculateMapLineEndPoint(that.streetViewAzimuth, that.map.getCenter(), 0.001);
+                    if (!that.feedbackMode) {
+                        if (that.options.mode === 'vantage') {
+                            that.panoramaMarker.setPosition(fauxClickPoint);
+                            that.panoramaMarker.setVisible(true);
+                            that.saveAzimuth = true;
+                            that.drawAzimuthLineOnMouseMove = false;
+                            that.angleBetweenMarkerAndPanoramaMarker = that.streetViewAzimuth;
+                            that.azimuthLineEndPoint = [fauxClickPoint.lat(), fauxClickPoint.lng()];
+                            that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
+                            that.azimuthLine.icons[0].repeat = '2px';
+                            that.azimuthLine.setVisible(true);
+                            that.setSaveButtonToLocationAndAzimuth();
+                        }
+                        that.setCorrectInstructionString();
+                    }
+                }
             });
             this.streetPanorama.addListener('position_changed', function() {
                 that.map.setCenter(that.streetPanorama.getPosition());
+            });
+            this.streetPanorama.addListener('pov_changed', function () {
+                var currentHeading = that.streetPanorama.getPov().heading;
+                if (currentHeading < 0) {
+                    currentHeading = currentHeading + 360;
+                }
+                that.streetViewAzimuth = currentHeading;
             });
             this.placesSearchBox = new google.maps.places.SearchBox((searchBox.get(0)));
             google.maps.event.addListener(this.placesSearchBox, 'places_changed', function () {
@@ -980,6 +1007,9 @@
                     hint_used: this.hintUsed,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 };
+            if (this.streetViewAzimuth) {
+                data.type = 4;
+            }
             if (mapTypeId === 'roadmap') {
                 data.map_type = 0;
             } else if (mapTypeId === 'hybrid') {

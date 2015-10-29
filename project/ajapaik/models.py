@@ -613,13 +613,14 @@ class Points(Model):
 
 
 class GeoTag(Model):
-    MAP, EXIF, GPS, CONFIRMATION = range(4)
+    MAP, EXIF, GPS, CONFIRMATION, STREETVIEW = range(5)
     # FIXME: EXIF and GPS have never been used
     TYPE_CHOICES = (
         (MAP, _('Map')),
         (EXIF, _('EXIF')),
         (GPS, _('GPS')),
         (CONFIRMATION, _('Confirmation')),
+        (STREETVIEW, _('StreetView')),
     )
     # TODO: Different ways of tagging
     # VANTAGE_POINT, OBJECT, APPROXIMATE = range(3)

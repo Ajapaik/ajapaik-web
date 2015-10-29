@@ -695,7 +695,7 @@ var map,
                     if (window.miniMapStreetView.getVisible()) {
                         window.miniMapMarker.setIcon(locationIcon);
                     } else {
-                        if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                        if (window.photoModalPhotoAzimuth) {
                             window.miniMapMarker.setIcon(arrowIcon);
                         }
                     }
