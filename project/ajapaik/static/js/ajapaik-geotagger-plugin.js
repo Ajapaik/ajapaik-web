@@ -513,6 +513,9 @@
                     window.reportGeotaggerStreetPanoramaOpen(that.options.currentPhotoId);
                 }
             });
+            this.streetPanorama.addListener('position_changed', function() {
+                that.map.setCenter(that.streetPanorama.getPosition());
+            });
             this.placesSearchBox = new google.maps.places.SearchBox((searchBox.get(0)));
             google.maps.event.addListener(this.placesSearchBox, 'places_changed', function () {
                 var places = that.placesSearchBox.getPlaces();
