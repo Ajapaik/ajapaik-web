@@ -641,11 +641,6 @@ var map,
                 $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number dropdown')
                     .prop('title', gettext('Geotagged by this many users'))
                     .text(window.photoModalGeotaggingUserCount);
-                var dropdown = $([
-                    '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">',
-                    '</ul>'
-                ].join('\n'));
-                $(minimapGeotaggingUserNumber).append(dropdown);
                 var minimapGeotaggingUserIcon = document.createElement('div');
                 $(minimapGeotaggingUserIcon).addClass('dropdown-toggle').attr('data-toggle', 'dropdown');
                 minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
@@ -656,9 +651,16 @@ var map,
                 }
                 if (window.photoModalUserHasGeotaggedThisPhoto) {
                     $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-active');
-                    $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item"><a href="#">' + gettext('You') + '</a></li>'));
                 }
                 if (window.photoModalFirstGeotaggers) {
+                    var dropdown = $([
+                        '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">',
+                        '</ul>'
+                    ].join('\n'));
+                    if (window.photoModalUserHasGeotaggedThisPhoto) {
+                        $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item"><a href="#">' + gettext('You') + '</a></li>'));
+                    }
+                    $(minimapGeotaggingUserNumber).append(dropdown);
                     $.each(window.photoModalFirstGeotaggers, function (k, v) {
                         $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + v[1] + '" data-lng="' + v[2] + '"><a href="#">' + v[0] + '</a></li>'));
                     });
