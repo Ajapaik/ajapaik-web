@@ -1091,7 +1091,7 @@ def photoslug(request, photo_id, pseudo_slug=None):
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         if geotag_count > 0:
-            geotags_from_authenticated_users = geotags.filter(Q(user__fb_name__isnull=False) |
+            geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(Q(user__fb_name__isnull=False) |
                                                               Q(user__google_plus_name__isnull=False))[:3]
             if len(geotags_from_authenticated_users) > 0:
                 for each in geotags_from_authenticated_users:
