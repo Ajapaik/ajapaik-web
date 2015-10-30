@@ -584,10 +584,6 @@ var map,
             var center,
                 minimapLargeCTAButton;
             if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
-                //center = {
-                //    lat: 59.4372,
-                //    lng: 24.7453
-                //};
                 minimapLargeCTAButton = document.createElement('button');
                 $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button').attr('title', gettext('Pick the shooting location!'));
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
@@ -610,6 +606,7 @@ var map,
                     $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-active');
                 }
                 mapContainer.append(minimapGeotaggingUserNumber);
+                window.miniMap = null;
             } else {
                 center = {
                     lat: window.photoModalPhotoLat,
@@ -637,6 +634,7 @@ var map,
                     .addClass('ajapaik-minimap-start-guess-button')
                     .prop('title', gettext('Submit your own location'));
                 window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
+                $('.ajapaik-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');
                 $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number dropdown')
                     .prop('title', gettext('Geotagged by this many users'))
