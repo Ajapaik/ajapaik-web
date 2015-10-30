@@ -594,6 +594,11 @@ def fetch_stream(request):
         # TODO: Correct implementation
         if form_photo:
             form_photo.user_already_confirmed = False
+            last_confirm_geotag_by_this_user_for_photo = form_photo.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION).order_by('-created').first()
+            if last_confirm_geotag_by_this_user_for_photo and (form_photo.lat == last_confirm_geotag_by_this_user_for_photo.lat
+                     and form_photo.lon == last_confirm_geotag_by_this_user_for_photo.lon):
+                form_photo.user_already_confirmed = True
+            form_photo.user_already_geotagged = form_photo.geotags.filter(user=profile.user).exists()
             form_photo.user_likes = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=1).exists()
             form_photo.user_loves = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=2).exists()
             form_photo.user_like_count = PhotoLike.objects.filter(photo=form_photo).distinct('profile').count()
@@ -1080,10 +1085,21 @@ def photoslug(request, photo_id, pseudo_slug=None):
     geotag_count = 0
     azimuth_count = 0
     original_thumb_size = None
+    first_geotaggers = []
     if photo_obj:
         original_thumb_size = get_thumbnail(photo_obj.image, '800x800').size
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
+        if geotag_count > 0:
+            geotags_from_authenticated_users = geotags.filter(Q(user__fb_name__isnull=False) |
+                                                              Q(user__google_plus_name__isnull=False))[:3]
+            if len(geotags_from_authenticated_users) > 0:
+                for each in geotags_from_authenticated_users:
+                    if each.user.fb_name:
+                        first_geotaggers.append([each.user.fb_name, each.lat, each.lon, each.azimuth])
+                    elif each.user.google_plus_name:
+                        first_geotaggers.append([each.user.google_plus_name, each.lat, each.lon, each.azimuth])
+            first_geotaggers = json.dumps(first_geotaggers)
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
         first_rephoto = photo_obj.rephotos.all().first()
         if 'user_view_array' not in request.session:
@@ -1149,7 +1165,12 @@ def photoslug(request, photo_id, pseudo_slug=None):
             photo_obj.in_selection = True
 
     user_confirmed_this_location = 'false'
-    last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=request.get_user().profile)\
+    user_has_geotagged = GeoTag.objects.filter(photo=photo_obj, user=profile).exists()
+    if user_has_geotagged:
+        user_has_geotagged = 'true'
+    else:
+        user_has_geotagged = 'false'
+    last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj, user=profile)\
         .order_by('-created').first()
     if last_user_confirm_geotag_for_this_photo:
         if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
@@ -1170,6 +1191,7 @@ def photoslug(request, photo_id, pseudo_slug=None):
         "photo": photo_obj,
         "original_thumb_size": original_thumb_size,
         "user_confirmed_this_location": user_confirmed_this_location,
+        "user_has_geotagged": user_has_geotagged,
         "fb_url": request.build_absolute_uri(reverse("project.ajapaik.views.photoslug", args=(photo_obj.id,))),
         "licence": Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
         "area": photo_obj.area,
@@ -1187,6 +1209,7 @@ def photoslug(request, photo_id, pseudo_slug=None):
         "description": ''.join(photo_obj.description.rstrip()).splitlines()[0],
         "rephoto": rephoto,
         "hostname": "http://%s" % (site.domain, ),
+        "first_geotaggers": first_geotaggers,
         "is_photoview": True,
         "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
         "user_has_likes": user_has_likes,

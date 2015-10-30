@@ -384,6 +384,14 @@ body {
     margin-top: 10px;
     font-size: 30px;
     background-color: white;
+    cursor: pointer;
+}
+
+.ajapaik-minimap-geotagging-user-number.no-location {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .ajapaik-minimap-geotagging-user-single-person {
@@ -404,6 +412,14 @@ body {
     margin-right: 3px;
 }
 
+.ajapaik-minimap-geotagging-user-multiple-people.ajapaik-minimap-geotagging-user-active {
+    background: transparent url(../images/material-design-icons/ic_person_blue_24px.svg) no-repeat center !important;
+}
+
+.ajapaik-minimap-geotagging-user-single-person.ajapaik-minimap-geotagging-user-active {
+    background: transparent url(../images/material-design-icons/ic_people_blue_24px.svg) no-repeat center !important;
+}
+
 #ajapaik-minimap-disabled-overlay {
     width: 100%;
     height: 100%;
@@ -413,6 +429,7 @@ body {
     background-color: rgba(255,255,255,.7);
     z-index: 1000;
     display: none;
+    border: 1px solid black;
 }
 
 .ajapaik-minimap-start-guess-CTA-button {
@@ -2582,11 +2599,13 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 .ajapaik-photo-modal-album-link {
     float: left;
+    font-size: 18px;
 }
 
 .ajapaik-photo-modal-album-icon {
     color: #888;
     float: left;
+    font-size: 36px;
 }
 
 .ajapaik-caption-album-selection p {

@@ -584,123 +584,150 @@ var map,
             var center,
                 minimapLargeCTAButton;
             if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
-                center = {
-                    lat: 59.4372,
-                    lng: 24.7453
-                };
+                //center = {
+                //    lat: 59.4372,
+                //    lng: 24.7453
+                //};
                 minimapLargeCTAButton = document.createElement('button');
                 $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button').attr('title', gettext('Pick the shooting location!'));
-            } else {
-                center = {
-                    lat: window.photoModalPhotoLat,
-                    lng: window.photoModalPhotoLng
-                };
-                minimapLargeCTAButton = null;
-                $('.ajapaik-minimap-start-guess-CTA-button').remove();
-            }
-            window.miniMap = new google.maps.Map(document.getElementById('ajapaik-photo-modal-map-canvas'), {
-                center: center,
-                zoom: 17,
-                mapTypeControl: false,
-                mapTypeId: 'OSM'
-            });
-            var minimapConfirmGeotagButton = document.createElement('button');
-            $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
-                .addClass('ajapaik-minimap-confirm-geotag-button')
-                .prop('title', gettext('Confirm correct location'))
-                .data('id', window.photoModalCurrentlyOpenPhotoId);
-            if (window.photoModalUserHasConfirmedThisLocation) {
-                $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
-            }
-            window.miniMap.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(minimapConfirmGeotagButton);
-            var minimapStartGuessButton = document.createElement('button');
-            $(minimapStartGuessButton).addClass('btn').addClass('btn-default')
-                .addClass('ajapaik-minimap-start-guess-button')
-                .prop('title', gettext('Submit your own location'));
-            window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
-            var minimapGeotaggingUserNumber = document.createElement('div');
-            $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number')
-                .prop('title', gettext('Geotagged by this many users')).text(window.photoModalGeotaggingUserCount);
-            var minimapGeotaggingUserIcon = document.createElement('div');
-            minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
-            if (window.photoModalGeotaggingUserCount < 2) {
-                $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-single-person');
-            } else {
-                $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-multiple-people');
-            }
-            window.miniMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(minimapGeotaggingUserNumber);
-            if (minimapLargeCTAButton) {
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
                 var mapCanvas = $('#ajapaik-photo-modal-map-canvas');
                 $(minimapLargeCTAButton).css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')
                     .css('margin-top', ((mapCanvas.height() / 2) - 35) + 'px').attr('data-id', window.photoModalCurrentlyOpenPhotoId);
                 mapContainer.append(minimapLargeCTAButton);
-            }
-            window.miniMap.mapTypes.set('OSM', new google.maps.ImageMapType({
-                getTileUrl: function (coord, zoom) {
-                    return 'http://tile.openstreetmap.org/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
-                },
-                tileSize: new google.maps.Size(256, 256),
-                name: 'OpenStreetMap',
-                maxZoom: 18
-            }));
-            if (window.photoModalPhotoAzimuth) {
-                var start = new google.maps.LatLng(center.lat, center.lng);
-                var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 2000);
-                var angle = Math.getAzimuthBetweenTwoPoints(start, geodesicEndPoint);
-                var angleFix = window.photoModalPhotoAzimuth - angle;
-                arrowIcon.rotation = window.photoModalPhotoAzimuth + angleFix;
-                currentIcon = arrowIcon;
-                window.minimapDottedAzimuthLine = new google.maps.Polyline({
-                    geodesic: false,
-                    strokeOpacity: 0,
-                    icons: [
-                        {
-                            icon: dottedAzimuthLineSymbol,
-                            offset: '0',
-                            repeat: '7px'
-                        }
-                    ],
-                    visible: true,
-                    clickable: false,
-                    map: window.miniMap
-                });
-                window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.02)]);
-            } else {
-                if (window.minimapDottedAzimuthLine) {
-                    window.minimapDottedAzimuthLine.setVisible(false);
-                }
-                currentIcon = locationIcon;
-            }
-            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
-                if (window.miniMapMarker) {
-                    window.miniMapMarker.setIcon(currentIcon);
-                    window.miniMapMarker.setPosition(new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng));
-                    window.miniMapMarker.setMap(window.miniMap);
+                $('.ajapaik-minimap-geotagging-user-number').remove();
+                var minimapGeotaggingUserNumber = document.createElement('div');
+                $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number').addClass('no-location')
+                    .prop('title', gettext('Geotagged by this many users')).text(window.photoModalGeotaggingUserCount);
+                var minimapGeotaggingUserIcon = document.createElement('div');
+                minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
+                if (window.photoModalGeotaggingUserCount < 2) {
+                    $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-single-person');
                 } else {
-                    window.miniMapMarker = new google.maps.Marker({
-                        position: new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng),
-                        map: window.miniMap,
-                        title: gettext('Current location'),
-                        icon: currentIcon
-                    });
+                    $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-multiple-people');
                 }
-            }
-            if (!window.miniMapStreetView) {
-                window.miniMapStreetView = window.miniMap.getStreetView();
-            }
-            google.maps.event.clearListeners(window.miniMapStreetView, 'visible_changed');
-            google.maps.event.addListener(window.miniMapStreetView, 'visible_changed', function() {
-                if (window.miniMapMarker) {
-                    if (window.miniMapStreetView.getVisible()) {
-                        window.miniMapMarker.setIcon(locationIcon);
+                if (window.photoModalUserHasGeotaggedThisPhoto) {
+                    $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-active');
+                }
+                mapContainer.append(minimapGeotaggingUserNumber);
+            } else {
+                center = {
+                    lat: window.photoModalPhotoLat,
+                    lng: window.photoModalPhotoLng
+                };
+                window.miniMap = new google.maps.Map(document.getElementById('ajapaik-photo-modal-map-canvas'), {
+                    center: center,
+                    zoom: 17,
+                    mapTypeControl: false,
+                    mapTypeId: 'OSM'
+                });
+                minimapLargeCTAButton = null;
+                $('.ajapaik-minimap-start-guess-CTA-button').remove();
+                var minimapConfirmGeotagButton = document.createElement('button');
+                $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
+                    .addClass('ajapaik-minimap-confirm-geotag-button')
+                    .prop('title', gettext('Confirm correct location'))
+                    .data('id', window.photoModalCurrentlyOpenPhotoId);
+                if (window.photoModalUserHasConfirmedThisLocation) {
+                    $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
+                }
+                window.miniMap.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(minimapConfirmGeotagButton);
+                var minimapStartGuessButton = document.createElement('button');
+                $(minimapStartGuessButton).addClass('btn').addClass('btn-default')
+                    .addClass('ajapaik-minimap-start-guess-button')
+                    .prop('title', gettext('Submit your own location'));
+                window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
+                var minimapGeotaggingUserNumber = document.createElement('div');
+                $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number dropdown')
+                    .prop('title', gettext('Geotagged by this many users'))
+                    .text(window.photoModalGeotaggingUserCount);
+                var dropdown = $([
+                    '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">',
+                    '</ul>'
+                ].join('\n'));
+                $(minimapGeotaggingUserNumber).append(dropdown);
+                var minimapGeotaggingUserIcon = document.createElement('div');
+                $(minimapGeotaggingUserIcon).addClass('dropdown-toggle').attr('data-toggle', 'dropdown');
+                minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
+                if (window.photoModalGeotaggingUserCount < 2) {
+                    $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-single-person');
+                } else {
+                    $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-multiple-people');
+                }
+                if (window.photoModalUserHasGeotaggedThisPhoto) {
+                    $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-active');
+                    $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item"><a href="#">' + gettext('You') + '</a></li>'));
+                }
+                $.each(window.photoModalFirstGeotaggers, function (k, v) {
+                    $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + v[1] + '" data-lng="' + v[2] + '"><a href="#">' + v[0] + '</a></li>'));
+                });
+                window.miniMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(minimapGeotaggingUserNumber);
+                window.miniMap.mapTypes.set('OSM', new google.maps.ImageMapType({
+                    getTileUrl: function (coord, zoom) {
+                        return 'http://tile.openstreetmap.org/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
+                    },
+                    tileSize: new google.maps.Size(256, 256),
+                    name: 'OpenStreetMap',
+                    maxZoom: 18
+                }));
+                if (window.photoModalPhotoAzimuth) {
+                    var start = new google.maps.LatLng(center.lat, center.lng);
+                    var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 2000);
+                    var angle = Math.getAzimuthBetweenTwoPoints(start, geodesicEndPoint);
+                    var angleFix = window.photoModalPhotoAzimuth - angle;
+                    arrowIcon.rotation = window.photoModalPhotoAzimuth + angleFix;
+                    currentIcon = arrowIcon;
+                    window.minimapDottedAzimuthLine = new google.maps.Polyline({
+                        geodesic: false,
+                        strokeOpacity: 0,
+                        icons: [
+                            {
+                                icon: dottedAzimuthLineSymbol,
+                                offset: '0',
+                                repeat: '7px'
+                            }
+                        ],
+                        visible: true,
+                        clickable: false,
+                        map: window.miniMap
+                    });
+                    window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.02)]);
+                } else {
+                    if (window.minimapDottedAzimuthLine) {
+                        window.minimapDottedAzimuthLine.setVisible(false);
+                    }
+                    currentIcon = locationIcon;
+                }
+                if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                    if (window.miniMapMarker) {
+                        window.miniMapMarker.setIcon(currentIcon);
+                        window.miniMapMarker.setPosition(new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng));
+                        window.miniMapMarker.setMap(window.miniMap);
                     } else {
-                        if (window.photoModalPhotoAzimuth) {
-                            window.miniMapMarker.setIcon(arrowIcon);
-                        }
+                        window.miniMapMarker = new google.maps.Marker({
+                            position: new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng),
+                            map: window.miniMap,
+                            title: gettext('Current location'),
+                            icon: currentIcon
+                        });
                     }
                 }
-            });
+                if (!window.miniMapStreetView) {
+                    window.miniMapStreetView = window.miniMap.getStreetView();
+                }
+                google.maps.event.clearListeners(window.miniMapStreetView, 'visible_changed');
+                google.maps.event.addListener(window.miniMapStreetView, 'visible_changed', function () {
+                    if (window.miniMapMarker) {
+                        if (window.miniMapStreetView.getVisible()) {
+                            window.miniMapMarker.setIcon(locationIcon);
+                        } else {
+                            if (window.photoModalPhotoAzimuth) {
+                                window.miniMapMarker.setIcon(arrowIcon);
+                            }
+                        }
+                    }
+                });
+            }
             $('#ajapaik-modal-photo-container-container').removeClass('col-xs-12').addClass('col-xs-9');
         }
     };
@@ -1293,6 +1320,11 @@ var map,
         }
     });
 
+    $(document).on('click', '.ajapaik-minimap-geotagging-user-number', function () {
+        var $this = $(this);
+
+    });
+
     $(document).on('click', '.ajapaik-album-selection-album-more-button, .ajapaik-photo-modal-album-more-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -1375,6 +1407,12 @@ var map,
     $(document).on('click', '#ajapaik-filtering-help', function (e) {
         e.stopPropagation();
         $('#ajapaik-filtering-tutorial-modal').modal();
+    });
+
+    $(document).on('click', '.ajapaik-minimap-geotagger-list-item', function (e) {
+        e.preventDefault();
+        //var $this = $(this);
+        //window.miniMap.setCenter(new google.maps.LatLng($this.data('lat'), $this.data('lng')));
     });
 
     $(document).on('click', '#ajapaik-close-filtering-tutorial-modal', function (e) {

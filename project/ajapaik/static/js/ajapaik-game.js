@@ -203,6 +203,7 @@
                 window.photoModalPhotoAzimuth = currentPhoto.azimuth;
                 window.photoModalCurrentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
+                window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
                 modalPhoto.on('load', photoLoadModalResizeFunction);
                 if (window.fullscreenEnabled) {
                     fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)

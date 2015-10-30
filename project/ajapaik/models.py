@@ -297,6 +297,7 @@ class Photo(Model):
             'totalGeotags': photo.geotags.distinct('user').count(),
             'geotagsWithAzimuth': photo.geotags.filter(azimuth__isnull=False).distinct('user').count(),
             'userAlreadyConfirmed': photo.user_already_confirmed,
+            'userAlreadyGeotagged': photo.user_already_geotagged,
             'userLikes': photo.user_likes,
             'userLoves': photo.user_loves,
             'userLikeCount': photo.user_like_count
@@ -360,6 +361,7 @@ class Photo(Model):
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                  and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
+        ret.user_already_geotagged = ret.geotags.filter(user=profile.user).exists()
         ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
         ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
         ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()

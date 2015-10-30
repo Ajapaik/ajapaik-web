@@ -155,18 +155,23 @@
                     </div>
                     {% if albums %}
                         <div class="row" style="margin-top: 10px;">
+                            <br>
                             {% for a in albums %}
                                 <div class="row ajapaik-no-left-margin-row">
                                     {% if forloop.first %}
-                                        <i class="material-icons ajapaik-photo-modal-album-icon"
-                                           title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">photo_album</i>
+                                        <div class="col-xs-1">
+                                            <i class="material-icons ajapaik-photo-modal-album-icon"
+                                               title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">photo_album</i>
+                                        </div>
                                     {% endif %}
-                                    <a class="ajapaik-photo-modal-album-link"
-                                       href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">
-                                        {{ a.name }}
-                                    </a>
-                                    <div class="ajapaik-photo-modal-album-more-button" role="button"
-                                         title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
+                                    {% if forloop.first %}<div class="col-xs-11">{% else %}<div class="col-xs-offset-1 col-xs-11">{% endif %}
+                                        <a class="ajapaik-photo-modal-album-link"
+                                           href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">
+                                            {{ a.name }} {% if a.profile.fb_name%}({{ a.profile.fb_name }}){% elif a.profile.google_plus_name %}({{ a.profile.google_plus_name }}){% endif %}
+                                        </a>
+                                        <div class="ajapaik-photo-modal-album-more-button" role="button"
+                                             title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -264,6 +269,7 @@
         window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
+        window.photoModalUserHasGeotaggedThisPhoto = {{ user_has_geotagged }};
         window.photoModalGeotaggingUserCount = {{ geotag_count }};
         window.isPhotoview = true;
         window.flipPhoto = function () {

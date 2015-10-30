@@ -147,7 +147,6 @@
                             that.azimuthLineEndPoint = [e.latLng.lat(), e.latLng.lng()];
                             that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
                             that.azimuthLine.icons[0].repeat = '2px';
-                            //that.setCursorToAuto();
                             that.setSaveButtonToLocationAndAzimuth();
                         } else {
                             that.panoramaMarker.setVisible(false);
@@ -511,25 +510,32 @@
             this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.mapShowSearchButton.get(0));
             this.streetPanorama.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.streetPanoramaExtraCloseButton.get(0));
             google.maps.event.addListener(this.streetPanorama, 'visible_changed', function () {
-                if (that.streetPanorama.getVisible() && typeof window.reportGeotaggerStreetPanoramaOpen === 'function') {
-                    window.reportGeotaggerStreetPanoramaOpen(that.options.currentPhotoId);
-                }
-                if (!that.streetPanorama.getVisible() && that.streetViewAzimuth) {
-                    var fauxClickPoint = that.simpleCalculateMapLineEndPoint(that.streetViewAzimuth, that.map.getCenter(), 0.001);
-                    if (!that.feedbackMode) {
-                        if (that.options.mode === 'vantage') {
-                            that.panoramaMarker.setPosition(fauxClickPoint);
-                            that.panoramaMarker.setVisible(true);
-                            that.saveAzimuth = true;
-                            that.drawAzimuthLineOnMouseMove = false;
-                            that.angleBetweenMarkerAndPanoramaMarker = that.streetViewAzimuth;
-                            that.azimuthLineEndPoint = [fauxClickPoint.lat(), fauxClickPoint.lng()];
-                            that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
-                            that.azimuthLine.icons[0].repeat = '2px';
-                            that.azimuthLine.setVisible(true);
-                            that.setSaveButtonToLocationAndAzimuth();
+                if (that.streetPanorama.getVisible()) {
+                    that.panoramaMarker.setVisible(false);
+                    that.drawAzimuthLineOnMouseMove = true;
+                    that.azimuthLine.setVisible(false);
+                    that.setSaveButtonToInitial();
+                    if (typeof window.reportGeotaggerStreetPanoramaOpen === 'function') {
+                        window.reportGeotaggerStreetPanoramaOpen(that.options.currentPhotoId);
+                    }
+                } else {
+                    if (that.streetViewAzimuth) {
+                        var fauxClickPoint = that.simpleCalculateMapLineEndPoint(that.streetViewAzimuth, that.map.getCenter(), 0.001);
+                        if (!that.feedbackMode) {
+                            if (that.options.mode === 'vantage') {
+                                that.panoramaMarker.setPosition(fauxClickPoint);
+                                that.panoramaMarker.setVisible(true);
+                                that.saveAzimuth = true;
+                                that.drawAzimuthLineOnMouseMove = false;
+                                that.angleBetweenMarkerAndPanoramaMarker = that.streetViewAzimuth;
+                                that.azimuthLineEndPoint = [fauxClickPoint.lat(), fauxClickPoint.lng()];
+                                that.azimuthLine.setPath([that.realMarker.position, that.panoramaMarker.position]);
+                                that.azimuthLine.icons[0].repeat = '2px';
+                                that.azimuthLine.setVisible(true);
+                                that.setSaveButtonToLocationAndAzimuth();
+                            }
+                            that.setCorrectInstructionString();
                         }
-                        that.setCorrectInstructionString();
                     }
                 }
             });
@@ -1068,6 +1074,7 @@
                     window.photoModalPhotoLat = response.estimated_location[0];
                     window.photoModalPhotoLng = response.estimated_location[1];
                     window.photoModalPhotoAzimuth = response.azimuth;
+                    window.photoModalUserHasGeotaggedThisPhoto = true;
                     $('#ajp-geotagger-game-buttons').show();
                     if (response.current_score > 0 && typeof window.reportGeotaggerCorrect === 'function') {
                         window.reportGeotaggerCorrect();
