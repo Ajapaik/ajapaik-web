@@ -195,7 +195,7 @@
                     textTarget.show();
                 }
                 lastStatusMessage = message;
-                modalPhoto.prop('src', currentPhoto.big.url).attr('alt', currentPhoto.description).attr('title', currentPhoto.description);
+                modalPhoto.prop('src', currentPhoto.big.url).attr('alt', currentPhoto.description);
                 // For mini-map
                 window.photoModalGeotaggingUserCount = currentPhoto.totalGeotags;
                 window.photoModalPhotoLat = currentPhoto.lat;
