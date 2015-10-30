@@ -658,9 +658,11 @@ var map,
                     $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-active');
                     $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item"><a href="#">' + gettext('You') + '</a></li>'));
                 }
-                $.each(window.photoModalFirstGeotaggers, function (k, v) {
-                    $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + v[1] + '" data-lng="' + v[2] + '"><a href="#">' + v[0] + '</a></li>'));
-                });
+                if (window.photoModalFirstGeotaggers) {
+                    $.each(window.photoModalFirstGeotaggers, function (k, v) {
+                        $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + v[1] + '" data-lng="' + v[2] + '"><a href="#">' + v[0] + '</a></li>'));
+                    });
+                }
                 window.miniMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(minimapGeotaggingUserNumber);
                 window.miniMap.mapTypes.set('OSM', new google.maps.ImageMapType({
                     getTileUrl: function (coord, zoom) {
