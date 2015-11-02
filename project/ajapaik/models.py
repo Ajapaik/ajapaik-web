@@ -6,7 +6,7 @@ from datetime import datetime
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
-from django.db.models import OneToOneField, DateField
+from django.db.models import OneToOneField, DateField, Sum
 from django.utils.dateformat import DateFormat
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField,\
@@ -111,24 +111,24 @@ class AlbumPhoto(Model):
 class Album(Model):
     CURATED, FAVORITES, AUTO = range(3)
     TYPE_CHOICES = (
-        (CURATED, "Curated"),
-        (FAVORITES, "Favorites"),
-        (AUTO, "Auto"),
+        (CURATED, 'Curated'),
+        (FAVORITES, 'Favorites'),
+        (AUTO, 'Auto'),
     )
     name = CharField(max_length=255)
     slug = SlugField(null=True, blank=True, max_length=255)
     description = TextField(null=True, blank=True, max_length=2047)
-    subalbum_of = ForeignKey("self", blank=True, null=True, related_name="subalbums")
+    subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums')
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
-    profile = ForeignKey("Profile", related_name="albums", blank=True, null=True)
+    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True)
     is_public = BooleanField(default=True)
     open = BooleanField(default=False)
     ordered = BooleanField(default=False)
-    photos = ManyToManyField("Photo", through="AlbumPhoto", related_name="albums")
+    photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
-    cover_photo = ForeignKey("Photo", null=True, blank=True)
+    cover_photo = ForeignKey('Photo', null=True, blank=True)
     cover_photo_flipped = BooleanField(default=False)
     photo_count_with_subalbums = IntegerField(default=0)
     rephoto_count_with_subalbums = IntegerField(default=0)
@@ -141,7 +141,7 @@ class Album(Model):
     original_lon = None
 
     class Meta:
-        db_table = "project_album"
+        db_table = 'project_album'
 
     def __unicode__(self):
         return u"%s" % self.name
@@ -158,11 +158,22 @@ class Album(Model):
         super(Album, self).__init__(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
+        
+    def set_calculated_fields(self):
+        album_photos_qs = self.get_historic_photos_queryset_with_subalbums().distinct('id')
+        self.photo_count_with_subalbums = album_photos_qs.count()
+        self.rephoto_count_with_subalbums = album_photos_qs.filter(rephoto_of__isnull=False).count()
+        self.geotagged_photo_count_with_subalbums = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).count()
+        self.comments_count_with_subalbums = album_photos_qs.aggregate(Sum('fb_comments_count'))
 
     def save(self, *args, **kwargs):
         if self.id:
+            if not self.cover_photo_id and self.photo_count_with_subalbums > 0:
+                random_photo = self.photos.order_by('?').first()
+                self.cover_photo_id = random_photo.id
+                if random_photo.flip:
+                    self.cover_photo_flipped = random_photo.flip
             album_photos_qs = self.get_historic_photos_queryset_with_subalbums()
-            self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
             if not self.lat and not self.lon:
                 random_photo_with_location = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).first()
                 if random_photo_with_location:
@@ -170,11 +181,7 @@ class Album(Model):
                     self.lon = random_photo_with_location.lon
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        if self.id and not self.cover_photo_id and self.photo_count_with_subalbums > 0:
-            random_photo = self.photos.order_by('?').first()
-            self.cover_photo_id = random_photo.id
-            if random_photo.flip:
-                self.cover_photo_flipped = random_photo.flip
+        self.set_calculated_fields()
         super(Album, self).save(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
@@ -402,6 +409,7 @@ class Photo(Model):
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
         super(Photo, self).save(*args, **kwargs)
+        connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
     def light_save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
