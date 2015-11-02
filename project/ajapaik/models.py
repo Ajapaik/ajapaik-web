@@ -6,7 +6,7 @@ from datetime import datetime
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
-from django.db.models import Count, Sum, OneToOneField, DateField, FileField
+from django.db.models import OneToOneField, DateField
 from django.utils.dateformat import DateFormat
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField,\
@@ -17,7 +17,7 @@ from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-from django.db.models.signals import pre_delete, post_save
+from django.db.models.signals import post_save
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ObjectDoesNotExist
@@ -182,16 +182,6 @@ class Album(Model):
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
-
-
-def delete_parent(sender, **kwargs):
-    try:
-        if len(kwargs["instance"].album.photos.all()) == 1:
-            kwargs["instance"].album.delete()
-    except:
-        pass
-
-pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 
 class PhotoManager(GeoManager):
