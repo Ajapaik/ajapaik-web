@@ -166,9 +166,9 @@ class Album(Model):
                 if random_photo_with_location:
                     self.lat = random_photo_with_location.lat
                     self.lon = random_photo_with_location.lon
+            self.set_calculated_fields()
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        self.set_calculated_fields()
         super(Album, self).save(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
