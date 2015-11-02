@@ -167,7 +167,7 @@
                                     {% if forloop.first %}<div class="col-xs-11">{% else %}<div class="col-xs-offset-1 col-xs-11">{% endif %}
                                         <a class="ajapaik-photo-modal-album-link"
                                            href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">
-                                            {{ a.name }} {% if a.profile.fb_name%}({{ a.profile.fb_name }}){% elif a.profile.google_plus_name %}({{ a.profile.google_plus_name }}){% endif %}
+                                            {{ a.name }} {% if photo.user.fb_name%}({{ photo.user.fb_name }}){% elif photo.user.google_plus_name %}({{ photo.user.google_plus_name }}){% endif %}
                                         </a>
                                         <div class="ajapaik-photo-modal-album-more-button" role="button"
                                              title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
