@@ -1,6 +1,7 @@
 Put this into crontab
 
 0 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py refresh_albums --settings=ajapaik.settings
+15 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py thumbnail clear_delete_referenced --settings=ajapaik.settings
 30 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py get_fb_comments_by_fql --settings=ajapaik.settings
 45 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py set_latest_and_earliest_comment_and_comment_count_for_all_photos --settings=ajapaik.settings
 0 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py clearsessions --settings=ajapaik.settings
