@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Create album for mistakenly unlinked photos'
 
     def handle(self, *args, **options):
-        album_id = 2531
+        album_id = 2513
         profile_id = 21914
         photo_ids = (
             29202, 29217, 29218, 29241, 29244, 29250, 29259, 29249, 29182, 29092, 29078, 29206, 29184, 29061, 29143, 29201,
