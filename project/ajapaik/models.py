@@ -149,28 +149,10 @@ class Album(Model):
     def __unicode__(self):
         return u"%s" % self.name
 
-    def get_historic_photos_queryset_with_subalbums(self):
-        qs = self.photos.filter(rephoto_of__isnull=True)
-        if self.subalbums:
-            for sa in self.subalbums.filter(atype=Album.CURATED):
-                qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-
-        return qs
-
     def __init__(self, *args, **kwargs):
         super(Album, self).__init__(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
-        
-    def set_calculated_fields(self):
-        album_photos_qs = self.get_historic_photos_queryset_with_subalbums().distinct('id')
-        self.photo_count_with_subalbums = album_photos_qs.count()
-        self.rephoto_count_with_subalbums = album_photos_qs.filter(rephoto_of__isnull=False).count()
-        self.geotagged_photo_count_with_subalbums = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).count()
-        comments_count = 0
-        for each in album_photos_qs.all():
-            comments_count += each.fb_comments_count
-        self.comments_count_with_subalbums = comments_count
 
     def save(self, *args, **kwargs):
         if self.id:
@@ -179,9 +161,8 @@ class Album(Model):
                 self.cover_photo_id = random_photo.id
                 if random_photo.flip:
                     self.cover_photo_flipped = random_photo.flip
-            album_photos_qs = self.get_historic_photos_queryset_with_subalbums()
             if not self.lat and not self.lon:
-                random_photo_with_location = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).first()
+                random_photo_with_location = self.get_geotagged_historic_photo_queryset_with_subalbums().first()
                 if random_photo_with_location:
                     self.lat = random_photo_with_location.lat
                     self.lon = random_photo_with_location.lon
@@ -193,6 +174,50 @@ class Album(Model):
         self.original_lon = self.lon
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Album).update_object(self)
+
+    def get_historic_photos_queryset_with_subalbums(self):
+        qs = self.photos.filter(rephoto_of__isnull=True)
+        for sa in self.subalbums.filter(atype=Album.CURATED):
+            qs = qs | sa.photos.filter(rephoto_of__isnull=True)
+
+        return qs.distinct('id')
+
+    def get_geotagged_historic_photo_queryset_with_subalbums(self):
+        qs = self.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
+        for sa in self.subalbums.filter(atype=Album.CURATED):
+            qs = qs | sa.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
+
+        return qs.distinct('id')
+
+    def get_rephotos_queryset_with_subalbums(self):
+        qs = self.get_all_photos_queryset_with_subalbums().filter(rephoto_of__isnull=False)
+
+        return qs.distinct('pk')
+
+    def get_all_photos_queryset_with_subalbums(self):
+        qs = self.photos.all()
+        for sa in self.subalbums.filter(atype=Album.CURATED):
+            qs = qs | sa.photos.all()
+
+        photo_ids = qs.values_list('pk', flat=True)
+
+        qs = qs | Photo.objects.filter(rephoto_of__isnull=False, rephoto_of_id__in=photo_ids)
+
+        return qs.distinct('pk')
+
+    def get_comment_count_with_subalbums(self):
+        qs = self.get_all_photos_queryset_with_subalbums().filter(fb_comments_count__gt=0)
+        count = 0
+        for each in qs:
+            count += each.fb_comments_count
+
+        return count
+
+    def set_calculated_fields(self):
+        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().count()
+        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().count()
+        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().count()
+        self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)

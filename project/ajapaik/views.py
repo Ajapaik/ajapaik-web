@@ -112,31 +112,24 @@ def get_album_info_modal_content(request):
     form = AlbumInfoModalForm(request.GET)
     if form.is_valid():
         album = form.cleaned_data['album']
-        ret = {
-            'album': album,
-            'link_to_map': form.cleaned_data['linkToMap'],
-            'link_to_game': form.cleaned_data['linkToGame'],
-            'link_to_gallery': form.cleaned_data['linkToGallery'],
-            'fb_share_game': form.cleaned_data['fbShareGame'],
-            'fb_share_map': form.cleaned_data['fbShareMap'],
-            'fb_share_gallery': form.cleaned_data['fbShareGallery'],
-        }
+        ret = {'album': album, 'link_to_map': form.cleaned_data['linkToMap'],
+               'link_to_game': form.cleaned_data['linkToGame'], 'link_to_gallery': form.cleaned_data['linkToGallery'],
+               'fb_share_game': form.cleaned_data['fbShareGame'], 'fb_share_map': form.cleaned_data['fbShareMap'],
+               'fb_share_gallery': form.cleaned_data['fbShareGallery'],
+               'total_photo_count': album.photo_count_with_subalbums,
+               'geotagged_photo_count': album.geotagged_photo_count_with_subalbums}
 
-        album_photos_qs = album.get_historic_photos_queryset_with_subalbums()
-        album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
-        ret['total_photo_count'] = len(album_photo_ids)
-        ret['geotagged_photo_count'] = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).distinct('id').count()
-
+        album_photo_ids = album.get_geotagged_historic_photo_queryset_with_subalbums().values_list('id', flat=True)
         geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         ret['user_geotagged_photo_count'] = geotags_for_album_photos.filter(user=profile).distinct('photo_id').count()
         ret['geotagging_user_count'] = geotags_for_album_photos.distinct('user').count()
 
-        album_rephotos = Photo.objects.filter(rephoto_of_id__in=album_photo_ids)
-        ret['rephoto_count'] = album_rephotos.count()
-        ret['rephoto_user_count'] = album_rephotos.distinct('user').count()
-        ret['rephotographed_photo_count'] = album_rephotos.distinct('rephoto_of').count()
+        ret['rephoto_count'] = album.rephoto_count_with_subalbums
+        rephotos_qs = album.get_rephotos_queryset_with_subalbums()
+        ret['rephoto_user_count'] = rephotos_qs.distinct('user').count()
+        ret['rephotographed_photo_count'] = rephotos_qs.distinct('rephoto_of').count()
 
-        album_user_rephotos = album_rephotos.filter(user=profile)
+        album_user_rephotos = rephotos_qs.filter(user=profile)
         ret['user_rephoto_count'] = album_user_rephotos.count()
         ret['user_rephotographed_photo_count'] = album_user_rephotos.distinct('rephoto_of').count()
         if ret['rephoto_user_count'] == 1 and ret['user_rephoto_count'] == ret['rephoto_count']:
@@ -147,9 +140,11 @@ def get_album_info_modal_content(request):
         # Get all users that have either curated into selected photo set or re-curated into selected album
         album_photo_ids = album_photo_ids
         users_curated_into_this_or_sub = AlbumPhoto.objects.filter(photo_id__in=album_photo_ids, profile__isnull=False,
-            type=AlbumPhoto.CURATED, album=album).values('profile').annotate(count=Count('profile'))
+                                                                   type=AlbumPhoto.CURATED, album=album).values(
+            'profile').annotate(count=Count('profile'))
         users_recurated_into_this = AlbumPhoto.objects.filter(album=album, type=AlbumPhoto.RECURATED,
-            profile__isnull=False).values('profile').annotate(count=Count('profile'))
+                                                              profile__isnull=False).values('profile').annotate(
+            count=Count('profile'))
         final_score_dict = {}
         for u in users_curated_into_this_or_sub:
             final_score_dict[u['profile']] = u['count']
@@ -170,8 +165,8 @@ def get_album_info_modal_content(request):
                 Point(album.lon, album.lat), D(m=50000)), is_public=True, atype=Album.CURATED).exclude(id=album.id).order_by('?')[:3]
         album_id_str = str(album.id)
         ret['share_game_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.game')) + '?album=' + album_id_str
-        ret['share_map_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.mapview'))+ '?album=' + album_id_str
-        ret['share_gallery_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.frontpage'))+ '?album=' + album_id_str
+        ret['share_map_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.mapview')) + '?album=' + album_id_str
+        ret['share_gallery_link'] = request.build_absolute_uri(reverse('project.ajapaik.views.frontpage')) + '?album=' + album_id_str
 
         return render_to_response('_info_modal_content.html', RequestContext(request, ret))
 
@@ -466,10 +461,7 @@ def rephoto_upload(request, photo_id):
                 re_photo.save()
                 photo.save()
                 for each in photo.albums.all():
-                    qs = each.get_historic_photos_queryset_with_subalbums()
-                    each.rephoto_count_with_subalbums = qs.aggregate(rephoto_count=Count('rephotos'))['rephoto_count']
-                    if not each.rephoto_count_with_subalbums:
-                        each.rephoto_count_with_subalbums = 0
+                    each.rephoto_count_with_subalbums = each.get_rephotos_queryset_with_subalbums().count()
                     each.light_save()
                 re_photo.image.save('rephoto.jpg', file_obj)
                 new_id = re_photo.pk
@@ -1441,9 +1433,8 @@ def geotag_add(request):
             if len(geotags_for_this_photo) == 1:
                 ret['feedback_message'] = _('Your guess was first.')
         for a in processed_photo.albums.all():
-            qs = a.get_historic_photos_queryset_with_subalbums()
-            a.geotagged_photo_count_with_subalbums = qs.filter(lat__isnull=False, lon__isnull=False).distinct('id')\
-                .count()
+            qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
+            a.geotagged_photo_count_with_subalbums = qs.count()
             a.light_save()
     else:
         if 'lat' not in submit_geotag_form.cleaned_data and 'lon' not in submit_geotag_form.cleaned_data \
@@ -2095,14 +2086,7 @@ def update_comment_count(request):
                 p.first_comment = None
             p.light_save()
             for each in p.albums.all():
-                qs = each.get_historic_photos_queryset_with_subalbums()
-                each.comments_count_with_subalbums = qs.aggregate(comment_count=Sum('fb_comments_count'))['comment_count']
-                if not each.comments_count_with_subalbums:
-                    each.comments_count_with_subalbums = 0
-                rp_qs = qs.filter(rephotos__isnull=False).prefetch_related('rephotos').distinct('id')
-                for p in rp_qs:
-                    for rp in p.rephotos.all():
-                        each.comments_count_with_subalbums += rp.fb_comments_count
+                each.comments_count_with_subalbums = each.get_comment_count_with_subalbums()
                 each.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
