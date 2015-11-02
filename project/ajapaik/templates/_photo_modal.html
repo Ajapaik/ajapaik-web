@@ -160,7 +160,7 @@
                                     <div class="ajapaik-photo-modal-album-more-button" role="button"
                                          title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
                                     <div class="ajapaik-photo-modal-photo-curator">
-                                        &nbsp;{% if photo.user.fb_name%}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ photo.user.fb_name }}</p>{% elif photo.user.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ photo.user.google_plus_name }}</p>{% endif %}
+                                        &nbsp;{% if a.this_photo_curator.fb_name%}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.fb_name }}</p>{% elif a.this_photo_curator.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.google_plus_name }}</p>{% endif %}
                                     </div>
                                 </div>
                             </div>

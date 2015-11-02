@@ -1129,6 +1129,8 @@ def photoslug(request, photo_id, pseudo_slug=None):
 
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
     albums = Album.objects.filter(pk__in=album_ids, is_public=True)
+    for a in albums:
+        a.this_photo_curator = AlbumPhoto.objects.filter(photo_id=photo_obj.id, album=a).first().profile
     album = albums.first()
     next_photo = None
     previous_photo = None
