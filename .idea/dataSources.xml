@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/rephoto</jdbc-url>
       <libraries />
     </data-source>
-    <data-source source="LOCAL" name="PostgreSQL - rephoto_dev@127.0.0.1" uuid="8029803c-d231-4290-b6fa-f23b8e8cde2b">
+    <data-source source="LOCAL" name="PostgreSQL - rephoto_dev@localhost" uuid="8029803c-d231-4290-b6fa-f23b8e8cde2b">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

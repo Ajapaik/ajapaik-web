@@ -864,6 +864,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('created')
                 else:
                     photos = photos.order_by('-created')
+                if order1 == 'time':
+                    default_ordering = True
         else:
             if order3 == 'reverse':
                 photos = photos.order_by('created')
