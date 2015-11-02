@@ -1,3 +1,4 @@
+from time import sleep
 from urllib2 import urlopen
 from contextlib import closing
 from ujson import loads
@@ -23,12 +24,14 @@ from django.template.defaultfilters import slugify
 from django.core.exceptions import ObjectDoesNotExist
 from oauth2client.client import OAuth2Credentials
 from oauth2client.django_orm import FlowField, CredentialsField
+from requests import get
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
+from project.ajapaik.settings import GOOGLE_API_KEY
 
 from project.common.models import BaseSource
 from project.utils import average_angle
@@ -271,6 +274,9 @@ class Photo(Model):
     cam_pitch = FloatField(null=True, blank=True)
     cam_roll = FloatField(null=True, blank=True)
 
+    original_lat = None
+    original_lon = None
+
     class Meta:
         ordering = ['-id']
         db_table = 'project_photo'
@@ -369,6 +375,11 @@ class Photo(Model):
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
 
+    def __init__(self, *args, **kwargs):
+        super(Photo, self).__init__(*args, **kwargs)
+        self.original_lat = self.lat
+        self.original_lon = self.lon
+
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
         return reverse('foto', args=(self.pk,))
@@ -397,10 +408,47 @@ class Photo(Model):
             data.append(serialized)
         return data
 
-    def save(self, *args, **kwargs):
-        # Update POSTGIS data on save
+    def reverse_geocode_location(self):
+        url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + GOOGLE_API_KEY
+        lat = None
+        lon = None
         if self.lat and self.lon:
+            lat = self.lat
+            lon = self.lon
+        else:
+            for a in self.albums.all():
+                if a.lat and a.lon:
+                    lat = a.lat
+                    lon = a.lon
+                    break
+        if lat and lon:
+            cached_response = GoogleMapsReverseGeocode.objects.filter(lat='{:.5f}'.format(lat),
+                                                                      lon='{:.5f}'.format(lon)).first()
+            if cached_response:
+                response = cached_response.response
+            else:
+                sleep(0.2)
+                response = get(url_template % (lat, lon))
+                decoded_response = loads(response.text)
+                if decoded_response['status'] == 'OK' or decoded_response['status'] == 'ZERO_RESULTS':
+                    GoogleMapsReverseGeocode(
+                        lat='{:.5f}'.format(lat),
+                        lon='{:.5f}'.format(lon),
+                        response=response.text
+                    ).save()
+                response = decoded_response
+            if response['status'] == 'OK':
+                most_accurate_result = response['results'][0]
+                self.address = most_accurate_result['formatted_address']
+            elif response['status'] == 'OVER_QUERY_LIMIT':
+                return
+
+    def save(self, *args, **kwargs):
+        if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+            self.reverse_geocode_location()
+        self.original_lat = self.lat
+        self.original_lon = self.lon
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
