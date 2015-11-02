@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 16:25+0200\n"
-"PO-Revision-Date: 2015-10-26 14:26+0000\n"
-"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
+"POT-Creation-Date: 2015-11-02 17:02+0200\n"
+"PO-Revision-Date: 2015-11-02 15:04+0000\n"
+"Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,47 +49,51 @@ msgstr "Kaardi piirid peavad koosnema 4 komaga eraldatud numbrist"
 msgid "Bounding box values must be numbers"
 msgstr "Kaardi piirid peavad olema väljendatud numbrites"
 
-#: project/ajapaik/models.py:623
+#: project/ajapaik/models.py:697
 msgid "Map"
 msgstr "Kaart"
 
-#: project/ajapaik/models.py:624
+#: project/ajapaik/models.py:698
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/ajapaik/models.py:625
+#: project/ajapaik/models.py:699
 msgid "GPS"
 msgstr "GPS"
 
-#: project/ajapaik/models.py:626
+#: project/ajapaik/models.py:700
 msgid "Confirmation"
 msgstr "Kinnitus"
 
-#: project/ajapaik/models.py:637
+#: project/ajapaik/models.py:701
+msgid "StreetView"
+msgstr "StreetView"
+
+#: project/ajapaik/models.py:712
 msgid "Game"
 msgstr "Mäng"
 
-#: project/ajapaik/models.py:638
+#: project/ajapaik/models.py:713
 msgid "Map view"
 msgstr "Kaardivaade"
 
-#: project/ajapaik/models.py:639
+#: project/ajapaik/models.py:714
 msgid "Gallery"
-msgstr ""
+msgstr "Galerii"
 
-#: project/ajapaik/models.py:640
+#: project/ajapaik/models.py:715
 msgid "Permalink"
-msgstr ""
+msgstr "Püsiviide"
 
-#: project/ajapaik/models.py:644
+#: project/ajapaik/models.py:719
 msgid "Google map"
 msgstr "Google kaart"
 
-#: project/ajapaik/models.py:645
+#: project/ajapaik/models.py:720
 msgid "Google satellite"
 msgstr "Google satelliit"
 
-#: project/ajapaik/models.py:646
+#: project/ajapaik/models.py:721
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
@@ -107,7 +111,7 @@ msgstr "soome"
 
 #: project/ajapaik/templates/404.html:5 project/ajapaik/templates/404.html:11
 msgid "Page Not Found"
-msgstr ""
+msgstr "Lehekülge ei leitud"
 
 #: project/ajapaik/templates/404.html:14
 msgid "Back"
@@ -470,13 +474,14 @@ msgstr "Tagasi avalehele"
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:204
-#: project/ajapaik/views.py:626
+#: project/ajapaik/views.py:632
+#: var/garage/repos/lauri/project/ajapaik/views.py:640
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
 #: project/ajapaik/templates/_header.html:21
-#: project/ajapaik/templates/_photo_modal.html:155
-#: project/ajapaik/templates/photoview.html:169
+#: project/ajapaik/templates/_photo_modal.html:161
+#: project/ajapaik/templates/photoview.html:173
 msgid "Album details"
 msgstr "Albumi info"
 
@@ -527,8 +532,11 @@ msgstr "Otsi albumit"
 msgid "Profile and leaderboard"
 msgstr "Profiil ja edetabel"
 
-#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1476
-#: project/ajapaik/views.py:1492 project/ajapaik/views.py:1524
+#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1510
+#: project/ajapaik/views.py:1526 project/ajapaik/views.py:1558
+#: var/garage/repos/lauri/project/ajapaik/views.py:1521
+#: var/garage/repos/lauri/project/ajapaik/views.py:1537
+#: var/garage/repos/lauri/project/ajapaik/views.py:1569
 msgid "Leaderboard"
 msgstr "Edetabel"
 
@@ -613,11 +621,11 @@ msgstr "Ära näita Ajapaigas olevaid pilte"
 
 #: project/ajapaik/templates/_header.html:255
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: project/ajapaik/templates/_header.html:259
 msgid "DIGAR"
-msgstr ""
+msgstr "DIGAR"
 
 #: project/ajapaik/templates/_header.html:269
 #: project/ajapaik/templates/photo_selection.html:19
@@ -778,7 +786,7 @@ msgid "Some nearby albums"
 msgstr "Mõned teised albumid samast kandist"
 
 #: project/ajapaik/templates/_info_modal_content.html:113
-#: project/ajapaik/templates/_photo_modal.html:218
+#: project/ajapaik/templates/_photo_modal.html:228
 #: project/ajapaik/templates/photoview.html:92
 msgid "Share"
 msgstr "Jaga"
@@ -803,31 +811,36 @@ msgstr "Näita minu refotosid"
 msgid "Flip photo"
 msgstr "Keera foto ümber"
 
-#: project/ajapaik/templates/_photo_modal.html:144
-#: project/ajapaik/templates/photoview.html:162
+#: project/ajapaik/templates/_photo_modal.html:146
+#: project/ajapaik/templates/photoview.html:164
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Pilt kuulub albumisse"
 msgstr[1] "Pilt kuulub albumitesse:"
 
-#: project/ajapaik/templates/_photo_modal.html:199
-#: project/ajapaik/templates/photoview.html:215
+#: project/ajapaik/templates/_photo_modal.html:163
+#: project/ajapaik/templates/photoview.html:175
+msgid "Curator"
+msgstr "Kuraator"
+
+#: project/ajapaik/templates/_photo_modal.html:209
+#: project/ajapaik/templates/photoview.html:223
 msgid "Unknown author"
 msgstr "Tuvastamata kasutaja"
 
-#: project/ajapaik/templates/_photo_modal.html:215
+#: project/ajapaik/templates/_photo_modal.html:225
 #: project/ajapaik/templates/game.html:61
 #: project/ajapaik/templates/photoview.html:115
-#: project/ajapaik/templates/photoview.html:181
+#: project/ajapaik/templates/photoview.html:189
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: project/ajapaik/templates/_photo_modal.html:216
+#: project/ajapaik/templates/_photo_modal.html:226
 #: project/ajapaik/templates/photoview.html:109
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
-#: project/ajapaik/templates/_photo_modal.html:228
+#: project/ajapaik/templates/_photo_modal.html:238
 msgid "Discuss"
 msgstr "Kommenteeri"
 
@@ -1269,8 +1282,8 @@ msgid "Photo uploading requires connecting your account with Facebook."
 msgstr "Vanade fotode laadimiseks ühenda konto kõigepealt Facebookiga."
 
 #: project/ajapaik/templates/photoview.html:21
-#: project/ajapaik/templates/photoview.html:188
-#: project/ajapaik/templates/photoview.html:232
+#: project/ajapaik/templates/photoview.html:196
+#: project/ajapaik/templates/photoview.html:240
 msgid "rephoto"
 msgstr "ülepildistus"
 
@@ -1298,78 +1311,96 @@ msgstr "kasutaja on teinud asukohapakkumise sellele pildile"
 msgid "users have submitted a location for this picture"
 msgstr "kasutajat on teinud asukohapakkumisi sellele pildile"
 
-#: project/ajapaik/templates/photoview.html:220
+#: project/ajapaik/templates/photoview.html:228
 msgid "Date taken"
 msgstr "Kuupäev:"
 
-#: project/ajapaik/views.py:564
+#: project/ajapaik/views.py:565
+#: var/garage/repos/lauri/project/ajapaik/views.py:573
 msgid "Geotagging game"
 msgstr "Asukohapakkumiste mäng"
 
-#: project/ajapaik/views.py:1042
+#: project/ajapaik/views.py:1050
+#: var/garage/repos/lauri/project/ajapaik/views.py:1060
 msgid "Album creation success"
 msgstr "Albumi loomine oli edukas"
 
-#: project/ajapaik/views.py:1044
+#: project/ajapaik/views.py:1052
+#: var/garage/repos/lauri/project/ajapaik/views.py:1062
 msgid "Problem with album selection"
 msgstr "Probleem albumivalikul"
 
-#: project/ajapaik/views.py:1046
+#: project/ajapaik/views.py:1054
+#: var/garage/repos/lauri/project/ajapaik/views.py:1064
 msgid "Faulty data submitted"
 msgstr "Vigased andmed"
 
-#: project/ajapaik/views.py:1287 project/ajapaik/views.py:1294
-#: project/ajapaik/views.py:1296
+#: project/ajapaik/views.py:1316 project/ajapaik/views.py:1323
+#: project/ajapaik/views.py:1325
+#: var/garage/repos/lauri/project/ajapaik/views.py:1326
+#: var/garage/repos/lauri/project/ajapaik/views.py:1333
+#: var/garage/repos/lauri/project/ajapaik/views.py:1335
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/ajapaik/views.py:1401
+#: project/ajapaik/views.py:1430
+#: var/garage/repos/lauri/project/ajapaik/views.py:1440
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr "Teie pakkumine ei muutnud hetkel foto asukohta, kuid võib seda teha tulevikus."
 
-#: project/ajapaik/views.py:1403
+#: project/ajapaik/views.py:1432
+#: var/garage/repos/lauri/project/ajapaik/views.py:1442
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Fotol on tänu Teile uus asukoht."
 
-#: project/ajapaik/views.py:1405
+#: project/ajapaik/views.py:1434
+#: var/garage/repos/lauri/project/ajapaik/views.py:1444
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/ajapaik/views.py:1618
+#: project/ajapaik/views.py:1652
+#: var/garage/repos/lauri/project/ajapaik/views.py:1663
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit teistega!"
 
-#: project/ajapaik/views.py:1620
+#: project/ajapaik/views.py:1654
+#: var/garage/repos/lauri/project/ajapaik/views.py:1665
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Ajapaiga kuraator"
 
-#: project/ajapaik/views.py:1965
+#: project/ajapaik/views.py:1999
+#: var/garage/repos/lauri/project/ajapaik/views.py:2010
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr "Pilt on natuke liiga väike, ehk tasuks see praegu lisamata jätta ja oodata, kuni kättesaadavaks muutub parem kujutis. Aga kui siiski soovite, siis võib see valikusse jääda."
 
-#: project/ajapaik/views.py:1967
+#: project/ajapaik/views.py:2001
+#: var/garage/repos/lauri/project/ajapaik/views.py:2012
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:1990
+#: project/ajapaik/views.py:2024
+#: var/garage/repos/lauri/project/ajapaik/views.py:2035
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/ajapaik/views.py:2001
+#: project/ajapaik/views.py:2037
+#: var/garage/repos/lauri/project/ajapaik/views.py:2046
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: project/ajapaik/views.py:2012
+#: project/ajapaik/views.py:2048
+#: var/garage/repos/lauri/project/ajapaik/views.py:2057
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: project/ajapaik/views.py:2014
+#: project/ajapaik/views.py:2050
+#: var/garage/repos/lauri/project/ajapaik/views.py:2059
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"

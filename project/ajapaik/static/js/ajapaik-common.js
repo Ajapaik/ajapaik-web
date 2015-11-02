@@ -652,11 +652,19 @@ var map,
                 }
                 if (window.photoModalFirstGeotaggers) {
                     var dropdown = $([
-                        '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">',
+                        '<ul class="dropdown-menu dropdown-menu-right" id="ajapaik-mini-map-geotaggers-dropdown" aria-labelledby="dropdownMenu1">',
                         '</ul>'
                     ].join('\n'));
                     if (window.photoModalUserHasGeotaggedThisPhoto) {
                         $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item"><a href="#">' + gettext('You') + '</a></li>'));
+                    } else {
+                        if (window.photoModalFirstGeotaggers.length === 0) {
+                            if (window.photoModalGeotaggingUserCount === 1) {
+                                $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + window.photoModalPhotoLat + '" data-lng="' + window.photoModalPhotoLng + '"><a href="#">' + gettext('Anonymous user') + '</a></li>'));
+                            } else {
+                                $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + window.photoModalPhotoLat + '" data-lng="' + window.photoModalPhotoLng + '"><a href="#">' + gettext('Anonymous users') + '</a></li>'));
+                            }
+                        }
                     }
                     $(minimapGeotaggingUserNumber).append(dropdown);
                     $.each(window.photoModalFirstGeotaggers, function (k, v) {
@@ -1420,6 +1428,10 @@ var map,
     $(document).on('click', '#ajapaik-close-filtering-tutorial-modal', function (e) {
         e.stopPropagation();
         $('#ajapaik-filtering-tutorial-modal').modal('toggle');
+    });
+
+    $(document).on('click', '.ajapaik-photo-modal-photo-curator', function () {
+        $(this).find('p').toggleClass('hidden');
     });
 
     $(window).on('resize', function () {

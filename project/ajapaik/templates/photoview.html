@@ -167,11 +167,14 @@
                                     {% if forloop.first %}<div class="col-xs-11">{% else %}<div class="col-xs-offset-1 col-xs-11">{% endif %}
                                         <a class="ajapaik-photo-modal-album-link"
                                            href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">
-                                            {{ a.name }} {% if photo.user.fb_name%}({{ photo.user.fb_name }}){% elif photo.user.google_plus_name %}({{ photo.user.google_plus_name }}){% endif %}
+                                            {{ a.name }}
                                         </a>
                                         <div class="ajapaik-photo-modal-album-more-button" role="button"
                                              title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
-                                    </div>
+                                        <div class="ajapaik-photo-modal-photo-curator">
+                                            &nbsp;{% if photo.user.fb_name%}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ photo.user.fb_name }}</p>{% elif photo.user.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ photo.user.google_plus_name }}</p>{% endif %}
+                                        </div>
+                                        </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -419,7 +422,7 @@
                 $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
                     thumbSrc: '/photo-thumb/' + photoId + '/400',
                     photoFlipped: window.photoModalCurrentPhotoFlipped,
-                    fullScreenSrc: window.photoModalFullscreenImageUrl,
+                    fullScreenSrc: '{{ fullscreen.url }}',
                     description: window.currentPhotoDescription,
                     sourceKey: window.currentPhotoSourceKey,
                     sourceName: window.currentPhotoSourceName,

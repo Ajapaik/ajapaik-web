@@ -155,10 +155,13 @@
                                         {% elif is_frontpage or is_selection %}
                                             {% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}
                                         {% endif %}">
-                                        {{ a.name }} {% if photo.user.fb_name%}({{ photo.user.fb_name }}){% elif photo.user.google_plus_name %}({{ photo.user.google_plus_name }}){% endif %}
+                                        {{ a.name }}
                                     </a>
                                     <div class="ajapaik-photo-modal-album-more-button" role="button"
                                          title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
+                                    <div class="ajapaik-photo-modal-photo-curator">
+                                        &nbsp;{% if photo.user.fb_name%}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ photo.user.fb_name }}</p>{% elif photo.user.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ photo.user.google_plus_name }}</p>{% endif %}
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}

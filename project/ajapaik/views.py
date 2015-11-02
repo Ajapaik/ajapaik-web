@@ -1085,10 +1085,10 @@ def photoslug(request, photo_id, pseudo_slug=None):
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         if geotag_count > 0:
-            geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(Q(user__fb_name__isnull=False) |
-                                                              Q(user__google_plus_name__isnull=False))[:3]
-            if len(geotags_from_authenticated_users) > 0:
-                for each in geotags_from_authenticated_users:
+            correct_geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(Q(user__fb_name__isnull=False, is_correct=True) |
+                                                              Q(user__google_plus_name__isnull=False, is_correct=True))[:3]
+            if len(correct_geotags_from_authenticated_users) > 0:
+                for each in correct_geotags_from_authenticated_users:
                     if each.user.fb_name:
                         first_geotaggers.append([each.user.fb_name, each.lat, each.lon, each.azimuth])
                     elif each.user.google_plus_name:
@@ -2028,8 +2028,10 @@ def curator_photo_upload_handler(request):
                             ap.save()
                         dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile, type=AlbumPhoto.RECURATED)
                         dap.save()
-                        Points(user=profile, action=Points.PHOTO_RECURATION, photo=existing_photo, points=30,
-                               album=album, created=datetime.datetime.now()).save()
+                        points_for_recurating = Points(user=profile, action=Points.PHOTO_RECURATION, photo=existing_photo, points=30,
+                               album=album, created=datetime.datetime.now())
+                        points_for_recurating.save()
+                        all_curating_points.append(points_for_recurating)
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
