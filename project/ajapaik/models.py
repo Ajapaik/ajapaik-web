@@ -31,7 +31,7 @@ from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
-from project.ajapaik.settings import GOOGLE_API_KEY
+from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG
 
 from project.common.models import BaseSource
 from project.utils import average_angle
@@ -167,7 +167,10 @@ class Album(Model):
         self.photo_count_with_subalbums = album_photos_qs.count()
         self.rephoto_count_with_subalbums = album_photos_qs.filter(rephoto_of__isnull=False).count()
         self.geotagged_photo_count_with_subalbums = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).count()
-        self.comments_count_with_subalbums = album_photos_qs.aggregate(Sum('fb_comments_count'))
+        comments_count = 0
+        for each in album_photos_qs.all():
+            comments_count += each.fb_comments_count
+        self.comments_count_with_subalbums = comments_count
 
     def save(self, *args, **kwargs):
         if self.id:
@@ -188,7 +191,8 @@ class Album(Model):
         super(Album, self).save(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
-        connections['default'].get_unified_index().get_index(Album).update_object(self)
+        if not DEBUG:
+            connections['default'].get_unified_index().get_index(Album).update_object(self)
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
@@ -457,7 +461,8 @@ class Photo(Model):
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
         super(Photo, self).save(*args, **kwargs)
-        connections['default'].get_unified_index().get_index(Photo).update_object(self)
+        if not DEBUG:
+            connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
     def light_save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
