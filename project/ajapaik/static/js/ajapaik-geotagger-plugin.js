@@ -617,7 +617,7 @@
                         that.guessingStarted = true;
                     }
                 });
-                if (typeof window.reportGeotaggerSendFeedback === 'function') {
+                if (typeof window.reportGeotaggerSendFeedback === 'function' && feedbackVal) {
                     window.reportGeotaggerSendFeedback(feedbackVal);
                 }
             });
@@ -917,6 +917,7 @@
             $('#ajp-geotagger-full-screen-image').toggleClass('ajp-photo-flipped');
         },
         fitGuessPhotosToContainers: function () {
+            console.log('fit');
             var newMargin,
                 targetParent = this.geotaggerImageThumb.parent().parent(),
                 confirmControls = $('#ajp-geotagger-confirm-controls'),

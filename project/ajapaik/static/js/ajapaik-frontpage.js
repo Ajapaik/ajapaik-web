@@ -406,8 +406,14 @@
             $('body').addClass('ajapaik-body-frontpage').removeClass('ajapaik-body-game-map');
             $('.modal-backdrop').show();
             $('.footer').show();
+            var currentUrl = window.URI(window.location.href),
+                selectedPhoto = window.currentlySelectedPhotoId;
+            currentUrl.removeSearch('photo');
+            window.currentlySelectedPhotoId = null;
+            window.history.replaceState(null, window.title, currentUrl);
             updateFrontpagePhotosAsync();
             window.locationToolsOpen = false;
+            window.currentlySelectedPhotoId = selectedPhoto;
             syncStateToUrl();
             showPhotoMapIfApplicable();
             if (window.startGuessScrollTop) {
