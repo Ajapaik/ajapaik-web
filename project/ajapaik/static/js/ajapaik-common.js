@@ -79,6 +79,28 @@ var map,
         waitThumbnailsLoad: false
     });
 
+    function getDatingRangeVals() {
+        var parent = this.parentNode;
+        var slides = parent.getElementsByTagName("input");
+        var slide1 = parseFloat(slides[0].value);
+        var slide2 = parseFloat(slides[1].value);
+        if (slide1 > slide2) {
+            var tmp = slide2;
+            slide2 = slide1;
+            slide1 = tmp;
+        }
+        var displayElement = parent.getElementsByClassName("rangeValues")[0];
+        displayElement.innerHTML = slide1 + " - " + slide2;
+        window.datingStart = slide1;
+        window.datingEnd = slide2;
+        if (typeof window.syncMapStateToURL === 'function') {
+            window.syncMapStateToURL();
+        }
+        if (typeof window.doDelayedTemporalFiltering === 'function') {
+            window.doDelayedTemporalFiltering();
+        }
+    }
+
     getMap = function (startPoint, startingZoom, isGameMap, mapType) {
         var latLng,
             zoomLevel,
@@ -179,6 +201,30 @@ var map,
                 window.hotkeysActive = true;
             });
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+            var datingSlider = $([
+                "<section class='ajapaik-map-dating-range-slider'>",
+                    "<span class='rangeValues'></span>",
+                    "<input value='1600' min='1000' max='3000' step='1' type='range'>",
+                    "<input value='2000' min='1000' max='3000' step='1' type='range'>",
+                "</section>"
+            ].join('\n'));
+            if (window.getQueryParameterByName('starting')) {
+                datingSlider.find('input:first').val(window.getQueryParameterByName('starting'));
+            }
+            if (window.getQueryParameterByName('ending')) {
+                datingSlider.find('input:last').val(window.getQueryParameterByName('ending'));
+            }
+            datingSlider.find('input').attr('max', new Date().getFullYear());
+            for (var x = 0; x < datingSlider.length; x += 1) {
+                var sliders = datingSlider[x].getElementsByTagName('input');
+                for (var y = 0; y < sliders.length; y += 1) {
+                    if (sliders[y].type === 'range') {
+                        sliders[y].oninput = getDatingRangeVals;
+                        sliders[y].oninput();
+                    }
+                }
+            }
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(datingSlider.get(0));
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button')
                 .html(gettext('Close'));

@@ -245,7 +245,7 @@
             }
         };
         this.wheelFunctionFF = function (e) {
-            if (that.customFFWheelFunctionActive) {
+            if (that.customFFWheelFunctionActive && !that.streetPanorama.getVisible()) {
                 var now = new Date().getTime();
                 if (!that.lastTriggeredWheelingFF) {
                     that.lastTriggeredWheelingFF = now - 250;
@@ -261,7 +261,7 @@
             }
         };
         this.wheelFunctionNonFF = function (e) {
-            if (that.customNonFFWheelFunctionActive) {
+            if (that.customNonFFWheelFunctionActive && !that.streetPanorama.getVisible()) {
                 var now = new Date().getTime();
                 if (!that.lastTriggeredWheelingNonFF) {
                     that.lastTriggeredWheelingNonFF = now - 100;
@@ -917,7 +917,6 @@
             $('#ajp-geotagger-full-screen-image').toggleClass('ajp-photo-flipped');
         },
         fitGuessPhotosToContainers: function () {
-            console.log('fit');
             var newMargin,
                 targetParent = this.geotaggerImageThumb.parent().parent(),
                 confirmControls = $('#ajp-geotagger-confirm-controls'),

@@ -221,6 +221,7 @@
         <link rel="stylesheet" href="{% static "libs/jsPanel-2.5.2/jspanel/jquery.jspanel.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
     <script>
@@ -367,6 +368,7 @@
             isMapview = false,
             isGame = false,
             isFrontpage = false,
+            currentLocale = '{{ LANGUAGE_CODE }}',
             saveLocationURL = '{% url 'project.ajapaik.views.geotag_add' %}',
             difficultyFeedbackURL = '{% url 'project.ajapaik.views.difficulty_feedback' %}',
             confirmLocationURL = '{% url 'project.ajapaik.views.geotag_confirm' %}',
@@ -380,6 +382,7 @@
             photoUploadModalURL = '{% url 'project.ajapaik.views.mapview_photo_upload_modal' %}',
             curatorSelectableAlbumsURL = '{% url 'project.ajapaik.views.curator_selectable_albums' %}',
             curatorSelectableParentAlbumsURL = '{% url 'project.ajapaik.views.curator_selectable_parent_albums' %}',
+            submitDatingURL = '{% url 'project.ajapaik.views.submit_dating' %}',
             mapviewURL = '{% url 'project.ajapaik.views.mapview' %}',
             gameURL = '{% url 'project.ajapaik.views.game' %}',
             lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
@@ -390,15 +393,15 @@
             userIsSocialConnected = false;
         {% endif %}
     </script>
-    {# TODO: We don't need tons of file upload stuff for the small rephoto upload windows, we certainly don't need moment.js, #}
-    {# we probably don't need jquery-ui, if we rework these, we will no longer need datetimepicker, we don't need jsPanel #}
+    {# TODO: We don't need tons of file upload stuff for the small rephoto upload windows #}
+    {# we probably don't need jquery-ui, if we rework that, we will no longer need datetimepicker, we don't need jsPanel #}
     {# just for showing the sidepanels in game and map mode, we don't need mobile detect if we give up jsPanel #}
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3&amp;libraries=places,visualization"></script>
     <script src="http://s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
@@ -427,6 +430,7 @@
         <script src="{% static "js/ajapaik-common.js" %}"></script>
         <script src="{% static "js/ajapaik-ga.js" %}"></script>
         <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
+        <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
         <script type="text/javascript">
             window.cookieconsent_options = {
                 message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',

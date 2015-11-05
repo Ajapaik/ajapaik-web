@@ -2,6 +2,8 @@
     'use strict';
     /*jslint nomen: true*/
     /*global docCookies*/
+    /*global moment*/
+    /*global _gaq*/
     var photoId,
         currentMapBounds,
         limitByAlbum,
@@ -73,6 +75,7 @@
         markerIdToHighlightAfterPageLoad,
         targetTopToScrollToAfterPaneLoad,
         updateBoundingEdge,
+        temporalMapFilterTimeout,
         maxGalleryWidth = $(window).width() * 0.2,
         maxGalleryHeight = $('#ajapaik-map-canvas').height(),
         galleryPanelSettings = {
@@ -223,6 +226,12 @@
         if (window.guessLocationStarted) {
             historyReplacementString += '&straightToSpecify=1';
         }
+        if (window.datingStart) {
+            historyReplacementString += '&starting=' + window.datingStart;
+        }
+        if (window.datingEnd) {
+            historyReplacementString += '&ending=' + window.datingEnd;
+        }
         if (historyReplacementString.startsWith('/map/&')) {
             historyReplacementString = historyReplacementString.replace('&', '?');
         }
@@ -295,6 +304,15 @@
             window.location.reload();
         }
     };
+    window.doDelayedTemporalFiltering = function () {
+        if (temporalMapFilterTimeout) {
+            clearTimeout(temporalMapFilterTimeout);
+        }
+        temporalMapFilterTimeout = setTimeout(function () {
+            window.toggleVisiblePaneElements();
+            _gaq.push(['_trackEvent', 'Mapview', 'Filter by date']);
+        }, 500);
+    };
     window.toggleVisiblePaneElements = function () {
         if (window.map && !window.guessLocationStarted) {
             window.dottedAzimuthLine.setVisible(false);
@@ -315,16 +333,29 @@
                 currentMapDataRequest.abort();
             }
             sw = updateBoundingEdge(sw);
-            currentMapDataRequest = $.post(window.mapDataURL, {
+            var payload = {
                 album: window.albumId,
-                //area: window.areaId,
                 limit_by_album: limitByAlbum,
                 sw_lat: sw.lat(),
                 sw_lon: sw.lng(),
                 ne_lat: ne.lat(),
                 ne_lon: ne.lng(),
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-            }, function (response) {
+            };
+            var momentObj;
+            if (window.datingStart) {
+                momentObj = moment(window.datingStart + '');
+                if (momentObj.isValid()) {
+                    payload.starting = momentObj.format('YYYY-MM-DD');
+                }
+            }
+            if (window.datingEnd) {
+                momentObj = moment(window.datingEnd  + '');
+                if (momentObj.isValid()) {
+                    payload.ending = momentObj.format('YYYY-MM-DD');
+                }
+            }
+            currentMapDataRequest = $.post(window.mapDataURL, payload, function (response) {
                 if (mc) {
                     mc.clearMarkers();
                 }
@@ -597,6 +628,7 @@
     };
     window.initializeMapStateFromOptionalURLParameters = function () {
         var urlMapType = window.getQueryParameterByName('mapType');
+        // FIXME: What is fromSelect?
         if (window.getQueryParameterByName('fromSelect')) {
             if (window.albumLatLng) {
                 window.getMap(window.albumLatLng, 16, false, urlMapType);
@@ -628,6 +660,12 @@
                     // No idea
                     window.getMap(null, 16, false, urlMapType);
                 }
+            }
+            if (window.getQueryParameterByName('starting')) {
+                window.datingStart = window.getQueryParameterByName('starting');
+            }
+            if (window.getQueryParameterByName('ending')) {
+                window.datingEnd = window.getQueryParameterByName('ending');
             }
             if (window.preselectPhotoId && window.getQueryParameterByName('straightToSpecify')) {
                 window.userClosedRephotoTools = true;

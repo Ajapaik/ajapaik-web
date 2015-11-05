@@ -664,30 +664,32 @@ class FlipFeedback(Model):
 
 
 class Points(Model):
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION = range(5)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING = range(6)
     ACTION_CHOICES = (
-        (GEOTAG, "Geotag"),
-        (REPHOTO, "Rephoto"),
-        (PHOTO_UPLOAD, "Photo upload"),
-        (PHOTO_CURATION, "Photo curation"),
-        (PHOTO_RECURATION, "Photo re-curation")
+        (GEOTAG, _('Geotag')),
+        (REPHOTO, _('Rephoto')),
+        (PHOTO_UPLOAD, _('Photo upload')),
+        (PHOTO_CURATION, _('Photo curation')),
+        (PHOTO_RECURATION, _('Photo re-curation')),
+        (DATING, _('Dating'))
     )
 
-    user = ForeignKey("Profile", related_name="points")
+    user = ForeignKey('Profile', related_name='points')
     action = PositiveSmallIntegerField(choices=ACTION_CHOICES)
-    photo = ForeignKey("Photo", null=True, blank=True)
-    album = ForeignKey("Album", null=True, blank=True)
-    geotag = ForeignKey("GeoTag", null=True, blank=True)
+    photo = ForeignKey('Photo', null=True, blank=True)
+    album = ForeignKey('Album', null=True, blank=True)
+    geotag = ForeignKey('GeoTag', null=True, blank=True)
+    dating = ForeignKey('Dating', null=True, blank=True)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
 
     class Meta:
-        db_table = "project_points"
-        verbose_name_plural = "Points"
-        unique_together = (("user", "geotag"),)
+        db_table = 'project_points'
+        verbose_name_plural = 'Points'
+        unique_together = (('user', 'geotag'), ('user', 'dating'))
 
     def __unicode__(self):
-        return u"%d - %s - %d" % (self.user.id, self.action, self.points)
+        return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
 
 
 class GeoTag(Model):
@@ -1057,3 +1059,30 @@ class Newsletter(Model):
 
     class Meta:
         db_table = 'project_newsletter'
+
+
+class Dating(Model):
+    DAY, MONTH, YEAR = range(3)
+    ACCURACY_CHOICES = (
+        (DAY, _('Day')),
+        (MONTH, _('Month')),
+        (YEAR, _('Year')),
+    )
+
+    photo = ForeignKey('Photo', related_name='datings')
+    profile = ForeignKey('Profile', related_name='datings')
+    raw = CharField(max_length=25)
+    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
+    start_approximate = BooleanField(default=False)
+    start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
+    end_approximate = BooleanField(default=False)
+    end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_dating'
+
+    def __unicode__(self):
+        return '%s - %s' % (self.profile.pk, self.photo.pk)

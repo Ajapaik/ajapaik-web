@@ -15,7 +15,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q, Count
+from django.db.models import Sum, Q, Count, Min, Max
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.sites.models import Site
@@ -39,10 +39,10 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
-    AlbumSelectionFilteringForm, HaystackAlbumSearchForm
+    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer
-from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, STATIC_ROOT
+from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
@@ -1340,6 +1340,8 @@ def map_objects_by_bounding_box(request):
         sw_lon = form.cleaned_data['sw_lon']
         ne_lat = form.cleaned_data['ne_lat']
         ne_lon = form.cleaned_data['ne_lon']
+        dating_start = form.cleaned_data['starting']
+        dating_end = form.cleaned_data['ending']
 
         qs = Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)\
             .annotate(rephoto_count=Count('rephotos'))
@@ -1353,6 +1355,12 @@ def map_objects_by_bounding_box(request):
  
         if sw_lat and sw_lon and ne_lat and ne_lon:
             qs = qs.filter(lat__gte=sw_lat, lon__gte=sw_lon, lat__lte=ne_lat, lon__lte=ne_lon)
+
+        if dating_start:
+            qs = qs.annotate(min_start=Max('datings__start')).filter(min_start__gte=dating_start)
+
+        if dating_end:
+            qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
             
         qs = qs.values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
         
@@ -1770,7 +1778,7 @@ def curator_my_album_list(request):
 def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
-        Album.objects.filter((Q(profile=user_profile) & Q(is_public=True) & ~Q(atype=Album.AUTO)) | (Q(open=True) & ~Q(atype=Album.AUTO))).order_by('-created').all(), many=True
+        Album.objects.filter((Q(profile=user_profile) & Q(is_public=True) & ~Q(atype=Album.AUTO)) | (Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
     )
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
@@ -2229,3 +2237,22 @@ def newsletter(request, slug=None):
         ret['newsletters'] = Newsletter.objects.order_by('created')
 
     return render_to_response('newsletter.html', RequestContext(request, ret))
+
+
+def submit_dating(request):
+    profile = request.get_user().profile
+    form = DatingSubmitForm(request.POST.copy())
+    form.data['profile'] = profile
+    if form.is_valid():
+        dating = form.save()
+        Points(
+            user=profile,
+            action=Points.DATING,
+            photo=form.cleaned_data['photo'],
+            dating=dating,
+            points=DATING_POINTS,
+            created=dating.created
+        ).save()
+        return HttpResponse('OK')
+    else:
+        return HttpResponse('Invalid data', status=400)

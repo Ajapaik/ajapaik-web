@@ -10,15 +10,15 @@
     {% include "_rephoto_upload_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
-            <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;" data-src="{{ fullscreen.url }}" alt="{{ photo.description }}"
-                 title="{{ photo.description }}"/>
+            <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;" data-src="{{ fullscreen.url }}"
+                 alt="{{ photo.description }}" title="{{ photo.description }}"/>
         </div>
     </div>
     {% if rephoto %}
         <div class="full-box rephoto-full-box">
             <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-                <img id="ajapaik-rephoto-full-screen-image" class="lazyload" style="display: none;" data-src="{% url "project.ajapaik.views.image_full" rephoto.pk %}"
-                     alt="{{ photo.description }} {% trans "rephoto" %}" title="{{ photo.description }} {% trans "rephoto" %}"/>
+                <img id="ajapaik-rephoto-full-screen-image" class="lazyload" style="display: none;" alt="{{ photo.description }} {% trans "rephoto" %}"
+                     data-src="{% url "project.ajapaik.views.image_full" rephoto.pk %}" title="{{ photo.description }} {% trans "rephoto" %}"/>
             </div>
         </div>
     {% endif %}
@@ -64,16 +64,6 @@
                     {% if photo.description %}
                         <div class="row-fluid">
                             {{ photo.description }}
-                            <div id="ajapaik-photo-modal-like">
-                                <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
-                                     data-layout="standard" data-action="like" data-show-faces="true"
-                                     data-share="true"></div>
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% if photo.address %}
-                        <div class="row-fluid">
-                            <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
                         </div>
                     {% endif %}
                     {% if photo.source_url %}
@@ -87,15 +77,32 @@
                             {{ photo.source.description }}{% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}&nbsp;{% include "_licence.html" with licence=photo.licence %}{% endif %}
                         </div>
                     {% endif %}
-                    <div class="row" style="margin-top: 10px;">
+                    {% if photo.date %}
+                        <div class="row-fluid">
+                            {{ photo.date }}
+                        </div>
+                    {% elif photo.date_text %}
+                        <div class="row-fluid">
+                            {{ photo.date_text }}
+                        </div>
+                    {% endif %}
+                    <div class="row-fluid ajapaik-height-48 ajapaik-margin-top-10">
+                        <a id="ajapaik-photoview-start-dating-button" data-id="{{ photo.id }}" class="pull-left"
+                           title="{% trans "Date this image" %}" href="#">
+                            <i class="material-icons ajapaik-text-gray ajapaik-icon-48">event</i>
+                        </a>
+                        <a id="ajapaik-photoview-start-geotagging-button" data-id="{{ photo.id }}" class="pull-left"
+                           title="{% trans "Pick the shooting location!" %}" href="#">
+                            <i class="material-icons ajapaik-text-gray ajapaik-icon-48">pin_drop</i>
+                        </a>
+                        <a title="{% trans "Add rephoto" %}" id="ajapaik-photoview-add-rephoto-button" href="#"
+                           class="pull-left">
+                            <i class="material-icons ajapaik-text-gray ajapaik-icon-48">library_add</i>
+                        </a>
                         <div class="dropdown pull-left">
-                            <span id="ajapaik-sharing-dropdown-button" role="button" title="{% trans "Share" %}"
-                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24h-24z" fill="none"></path>
-                                    <path fill="#888" d="M18 16.08c-.76 0-1.44.3-1.96.77l-7.13-4.15c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7l-7.05 4.11c-.54-.5-1.25-.81-2.04-.81-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"></path>
-                                </svg>
-                            </span>
+                            <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons ajapaik-text-gray ajapaik-icon-48">share</i>
+                            </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
@@ -106,53 +113,13 @@
                                 </li>
                             </ul>
                         </div>
-                        <span title="{% trans "Add rephoto" %}" id="ajapaik-photoview-add-rephoto-button" class="pull-left">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                                <path d="M0 0h24v24h-24z" fill="none"></path>
-                                <path fill="#888" d="M4 6h-2v14c0 1.1.9 2 2 2h14v-2h-14v-14zm16-4h-12c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"></path>
-                            </svg>
-                        </span>
-                        <a id="ajapaik-photoview-start-geotagging-button" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                                <path fill="#888" d="M18 8c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2-.89 2-2 2c-1.1 0-2-.9-2-2zm-5 12v2h14v-2h-14z"></path>
-                                <path d="M0 0h24v24h-24z" fill="none"></path>
-                            </svg>
-                        </a>
-                        {% if photo.lat and photo.lon and photo.azimuth %}
-                            <a target="_blank" title="{% trans "Image has location and view direction info" %}"
-                               href="{% url "project.ajapaik.views.mapview" photo_id=photo.id %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24h-24z" fill="none"></path>
-                                    <path class="ajapaik-fixed-gray" fill="#888" d="M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z"></path>
-                                </svg>
-                            </a>
-                        {% elif photo.lat and photo.lon %}
-                            <a target="_blank" title="{% trans "Image has only location, no view direction" %}"
-                               href="{% url "project.ajapaik.views.mapview" photo_id=photo.id %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                                    <path class="ajapaik-fixed-gray" fill="#888" d="M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-                                    <path d="M0 0h24v24h-24z" fill="none"></path>
-                                </svg>
-                            </a>
-                        {% else %}
-                            <span title="{% trans "Image has no location info" %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24h-24zm11.75 11.47l-.11-.11z" fill="none"></path>
-                                    <path class="ajapaik-fixed-gray" fill="#888" d="M12 6.5c1.38 0 2.5 1.12 2.5 2.5 0 .74-.33 1.39-.83 1.85l3.63 3.63c.98-1.86 1.7-3.8 1.7-5.48 0-3.87-3.13-7-7-7-1.98 0-3.76.83-5.04 2.15l3.19 3.19c.46-.52 1.11-.84 1.85-.84zm4.37 9.6l-4.63-4.63-.11-.11-8.36-8.36-1.27 1.27 3.18 3.18c-.11.5-.18 1.02-.18 1.55 0 5.25 7 13 7 13s1.67-1.85 3.38-4.35l3.35 3.35 1.27-1.27-3.63-3.63z"></path>
-                                </svg>
-                            </span>
-                        {% endif %}
-                        {% if geotag_count > 0 %}
-                            <span id="ajapaik-photoview-geotag-count" title="
-                                {% if geotag_count == 1 %}
-                                    {{ geotag_count }} {% trans "user has submitted a location for this picture" %}
-                                {% else %}
-                                    {{ geotag_count }} {% trans "users have submitted a location for this picture" %}
-                                {% endif %}
-                                ">{{ geotag_count }}
-                            </span>
-                        {% endif %}
+                        <div id="ajapaik-photo-modal-like">
+                            <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+                                 data-layout="standard" data-action="like" data-show-faces="true"
+                                 data-share="true"></div>
+                        </div>
                     </div>
+                    <div class="row-fluid" id="ajp-dater-container"></div>
                     {% if albums %}
                         <div class="row" style="margin-top: 10px;">
                             <br>
@@ -184,6 +151,11 @@
                     <div id="ajapaik-photo-modal-map-container" class="col-xs-3">
                         <div id="ajapaik-minimap-disabled-overlay"></div>
                         <div id="ajapaik-photo-modal-map-canvas"></div>
+                        {% if photo.address %}
+                            <div class="row-fluid">
+                                <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
+                            </div>
+                        {% endif %}
                     </div>
                     <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}"
                           title="{% trans "Pick the shooting location!" %}" style="display: none;"></span>
@@ -285,6 +257,7 @@
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-full-screen-image');
             $('#ajp-geotagging-container').AjapaikGeotagger();
+            $('#ajp-dater-container').AjapaikDater();
             window.showPhotoMapIfApplicable(true);
             mainPhoto.on('load', function () {
                 window.showPhotoMapIfApplicable(true);
@@ -452,6 +425,24 @@
                 window.locationToolsOpen = false;
                 window.showPhotoMapIfApplicable();
                 $('.footer').show();
+            };
+            $('#ajapaik-photoview-start-dating-button').click(function (e) {
+                e.preventDefault();
+                if ($('#ajp-dater-container').is(':visible')) {
+                    window.stopDater();
+                } else {
+                    window.startDater($(this).data('id'));
+                }
+            });
+            window.startDater = function (photoId) {
+                $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
+                    photoId: photoId
+                });
+            };
+            window.stopDater = function () {
+                $('#ajp-dater-input').empty();
+                $('#ajp-dater-feedback').empty();
+                $('#ajp-dater-container').hide();
             };
             window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         });
