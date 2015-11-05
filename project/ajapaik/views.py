@@ -2244,7 +2244,12 @@ def submit_dating(request):
     form = DatingSubmitForm(request.POST.copy())
     form.data['profile'] = profile
     if form.is_valid():
-        dating = form.save()
+        dating = form.save(commit=False)
+        if not dating.start:
+            dating.start = datetime.datetime.strptime('01011000', '%d%m%Y').date()
+        if not dating.end:
+            dating.end = datetime.datetime.strptime('01013000', '%d%m%Y').date()
+        dating.save()
         Points(
             user=profile,
             action=Points.DATING,
