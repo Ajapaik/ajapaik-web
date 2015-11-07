@@ -1,0 +1,36 @@
+{% extends "cat_base.html" %}
+
+{% load i18n compress static thumbnail %}
+
+{% block header %}
+    {% include "_cat_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container cat-margin-top-50">
+        <div class="row">
+            <div class="col-xs-12">
+                <img id="cat-connection-permalink-photo" src="{% url 'project.sift.views.cat_side_by_side_image' pair.pk 0 %}" class="img-responsive">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 cat-text-center">
+                <h1>{{ pair.comment }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 cat-text-center">
+                <div class="fb-share-button" data-href="{{ pair.url }}" data-layout="button"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    {% compress js %}
+        <script>
+            var taggerURL = '{% url 'project.sift.views.cat_tagger' %}',
+                filterURL = '{% url 'project.sift.views.cat_results' %}';
+        </script>
+    {% endcompress %}
+{% endblock %}
