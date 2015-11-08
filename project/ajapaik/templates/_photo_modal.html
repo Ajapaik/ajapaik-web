@@ -155,10 +155,13 @@
                                         {% elif is_frontpage or is_selection %}
                                             {% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}
                                         {% endif %}">
-                                        {{ a.name }} {% if a.profile.fb_name%}({{ a.profile.fb_name }}){% elif a.profile.google_plus_name %}({{ a.profile.google_plus_name }}){% endif %}
+                                        {{ a.name }}
                                     </a>
                                     <div class="ajapaik-photo-modal-album-more-button" role="button"
                                          title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
+                                    <div class="ajapaik-photo-modal-photo-curator">
+                                        &nbsp;{% if a.this_photo_curator.fb_name%}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.fb_name }}</p>{% elif a.this_photo_curator.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.google_plus_name }}</p>{% endif %}
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -192,11 +195,13 @@
                         {% if photo.rephotos.all.0.user %}
                             <div class="row-fluid">
                                 <a target="_blank" href="
-                                        {% if photo.rephotos.all.0.user.fb_link %}{{ photo.rephotos.all.0.user.fb_link }}{% elif photo.rephotos.all.0.user.google_plus_link %}{{ photo.rephotos.all.0.user.google_plus_link }}{% endif %}">
+                                        {% if photo.rephotos.all.0.user.fb_link %}{{ photo.rephotos.all.0.user.fb_link }}{% elif photo.rephotos.all.0.user.google_plus_link %}{{ photo.rephotos.all.0.user.google_plus_link }}{% else %}#{% endif %} %}">
                                     {% if photo.rephotos.all.0.user.fb_name %}
                                         {{ photo.rephotos.all.0.user.fb_name }}
                                     {% elif photo.rephotos.all.0.user.google_plus_name %}
                                         {{ photo.rephotos.all.0.user.google_plus_name }}
+                                    {% else %}
+                                        {% trans "Unknown photo" %}
                                     {% endif %}
                                 </a>
                                 {% if photo.rephotos.all.0.licence %}
@@ -302,10 +307,10 @@
                         date: '{{ rephoto.date|date:"d.m.Y" }}',
                     {% endif %}
                     {% if rephoto.user %}
-                        FBUserName: '{{ rephoto.user.fb_name }}',
-                        FBUserLink: '{{ rephoto.user.fb_link }}',
-                        GooglePlusName: '{{ rephoto.user.google_plus_name }}',
-                        GooglePlusLink: '{{ rephoto.user.google_plus_link }}',
+                        FBUserName: '{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}',
+                        FBUserLink: '{% if rephoto.user.fb_link %}{{ rephoto.user.fb_link }}{% endif %}',
+                        GooglePlusName: '{% if rephoto.user.google_plus_name %}{{ rephoto.user.google_plus_name }}{% endif %}',
+                        GooglePlusLink: '{% if rephoto.user.google_plus_link %}{{ rephoto.user.google_plus_link }}{% endif %}',
                     {% endif %}
                     {% if rephoto.author %}
                         author: '{{ rephoto.author }}',

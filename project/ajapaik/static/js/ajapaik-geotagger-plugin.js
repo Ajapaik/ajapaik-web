@@ -245,7 +245,7 @@
             }
         };
         this.wheelFunctionFF = function (e) {
-            if (that.customFFWheelFunctionActive) {
+            if (that.customFFWheelFunctionActive && !that.streetPanorama.getVisible()) {
                 var now = new Date().getTime();
                 if (!that.lastTriggeredWheelingFF) {
                     that.lastTriggeredWheelingFF = now - 250;
@@ -261,7 +261,7 @@
             }
         };
         this.wheelFunctionNonFF = function (e) {
-            if (that.customNonFFWheelFunctionActive) {
+            if (that.customNonFFWheelFunctionActive && !that.streetPanorama.getVisible()) {
                 var now = new Date().getTime();
                 if (!that.lastTriggeredWheelingNonFF) {
                     that.lastTriggeredWheelingNonFF = now - 100;
@@ -617,7 +617,7 @@
                         that.guessingStarted = true;
                     }
                 });
-                if (typeof window.reportGeotaggerSendFeedback === 'function') {
+                if (typeof window.reportGeotaggerSendFeedback === 'function' && feedbackVal) {
                     window.reportGeotaggerSendFeedback(feedbackVal);
                 }
             });

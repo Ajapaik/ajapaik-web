@@ -22,7 +22,16 @@
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } else { %}
-                    <div class="row-fluid"><b>{%=gettext('Unknown author')%}</b></div>
+                    {% if (o.GooglePlusName) { %}
+                        <div class="row-fluid">
+                            <a target="_blank" href="{%=o.GooglePlusLink%}">
+                                {%=o.GooglePlusName%}
+                            </a>
+                            {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                        </div>
+                    {% } else { %}
+                        <div class="row-fluid"><b>{%=gettext('Unknown author')%}</b></div>
+                    {% } %}
                 {% } %}
             {% } %}
         {% } %}

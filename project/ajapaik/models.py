@@ -1,3 +1,4 @@
+from time import sleep
 from urllib2 import urlopen
 from contextlib import closing
 from ujson import loads
@@ -6,7 +7,7 @@ from datetime import datetime
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
-from django.db.models import Count, Sum, OneToOneField, DateField, FileField
+from django.db.models import OneToOneField, DateField, Sum
 from django.utils.dateformat import DateFormat
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField,\
@@ -17,18 +18,20 @@ from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-from django.db.models.signals import pre_delete, post_save
+from django.db.models.signals import post_save
 from django_extensions.db.fields import json
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ObjectDoesNotExist
 from oauth2client.client import OAuth2Credentials
 from oauth2client.django_orm import FlowField, CredentialsField
+from requests import get
 from sorl.thumbnail import get_thumbnail
 from django.contrib.gis.geos import Point
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
+from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG
 
 from project.common.models import BaseSource
 from project.utils import average_angle
@@ -111,24 +114,24 @@ class AlbumPhoto(Model):
 class Album(Model):
     CURATED, FAVORITES, AUTO = range(3)
     TYPE_CHOICES = (
-        (CURATED, "Curated"),
-        (FAVORITES, "Favorites"),
-        (AUTO, "Auto"),
+        (CURATED, 'Curated'),
+        (FAVORITES, 'Favorites'),
+        (AUTO, 'Auto'),
     )
     name = CharField(max_length=255)
     slug = SlugField(null=True, blank=True, max_length=255)
     description = TextField(null=True, blank=True, max_length=2047)
-    subalbum_of = ForeignKey("self", blank=True, null=True, related_name="subalbums")
+    subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums')
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
-    profile = ForeignKey("Profile", related_name="albums", blank=True, null=True)
+    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True)
     is_public = BooleanField(default=True)
     open = BooleanField(default=False)
     ordered = BooleanField(default=False)
-    photos = ManyToManyField("Photo", through="AlbumPhoto", related_name="albums")
+    photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
-    cover_photo = ForeignKey("Photo", null=True, blank=True)
+    cover_photo = ForeignKey('Photo', null=True, blank=True)
     cover_photo_flipped = BooleanField(default=False)
     photo_count_with_subalbums = IntegerField(default=0)
     rephoto_count_with_subalbums = IntegerField(default=0)
@@ -141,18 +144,10 @@ class Album(Model):
     original_lon = None
 
     class Meta:
-        db_table = "project_album"
+        db_table = 'project_album'
 
     def __unicode__(self):
         return u"%s" % self.name
-
-    def get_historic_photos_queryset_with_subalbums(self):
-        qs = self.photos.filter(rephoto_of__isnull=True)
-        if self.subalbums:
-            for sa in self.subalbums.filter(atype=Album.CURATED):
-                qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-
-        return qs
 
     def __init__(self, *args, **kwargs):
         super(Album, self).__init__(*args, **kwargs)
@@ -161,37 +156,71 @@ class Album(Model):
 
     def save(self, *args, **kwargs):
         if self.id:
-            album_photos_qs = self.get_historic_photos_queryset_with_subalbums()
-            self.photo_count_with_subalbums = album_photos_qs.distinct('id').count()
+            if not self.cover_photo_id and self.photo_count_with_subalbums > 0:
+                random_photo = self.photos.order_by('?').first()
+                self.cover_photo_id = random_photo.id
+                if random_photo.flip:
+                    self.cover_photo_flipped = random_photo.flip
             if not self.lat and not self.lon:
-                random_photo_with_location = album_photos_qs.filter(lat__isnull=False, lon__isnull=False).first()
+                random_photo_with_location = self.get_geotagged_historic_photo_queryset_with_subalbums().first()
                 if random_photo_with_location:
                     self.lat = random_photo_with_location.lat
                     self.lon = random_photo_with_location.lon
+            self.set_calculated_fields()
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        if self.id and not self.cover_photo_id and self.photo_count_with_subalbums > 0:
-            random_photo = self.photos.order_by('?').first()
-            self.cover_photo_id = random_photo.id
-            if random_photo.flip:
-                self.cover_photo_flipped = random_photo.flip
         super(Album, self).save(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
-        connections['default'].get_unified_index().get_index(Album).update_object(self)
+        if not DEBUG:
+            connections['default'].get_unified_index().get_index(Album).update_object(self)
+
+    def get_historic_photos_queryset_with_subalbums(self):
+        qs = self.photos.filter(rephoto_of__isnull=True)
+        for sa in self.subalbums.filter(atype=Album.CURATED):
+            qs = qs | sa.photos.filter(rephoto_of__isnull=True)
+
+        return qs.distinct('id')
+
+    def get_geotagged_historic_photo_queryset_with_subalbums(self):
+        qs = self.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
+        for sa in self.subalbums.filter(atype=Album.CURATED):
+            qs = qs | sa.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
+
+        return qs.distinct('id')
+
+    def get_rephotos_queryset_with_subalbums(self):
+        qs = self.get_all_photos_queryset_with_subalbums().filter(rephoto_of__isnull=False)
+
+        return qs.distinct('pk')
+
+    def get_all_photos_queryset_with_subalbums(self):
+        qs = self.photos.all()
+        for sa in self.subalbums.filter(atype=Album.CURATED):
+            qs = qs | sa.photos.all()
+
+        photo_ids = qs.values_list('pk', flat=True)
+
+        qs = qs | Photo.objects.filter(rephoto_of__isnull=False, rephoto_of_id__in=photo_ids)
+
+        return qs.distinct('pk')
+
+    def get_comment_count_with_subalbums(self):
+        qs = self.get_all_photos_queryset_with_subalbums().filter(fb_comments_count__gt=0)
+        count = 0
+        for each in qs:
+            count += each.fb_comments_count
+
+        return count
+
+    def set_calculated_fields(self):
+        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().count()
+        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().count()
+        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().count()
+        self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
-
-
-def delete_parent(sender, **kwargs):
-    try:
-        if len(kwargs["instance"].album.photos.all()) == 1:
-            kwargs["instance"].album.delete()
-    except:
-        pass
-
-pre_delete.connect(delete_parent, sender=AlbumPhoto)
 
 
 class PhotoManager(GeoManager):
@@ -273,6 +302,9 @@ class Photo(Model):
     cam_yaw = FloatField(null=True, blank=True)
     cam_pitch = FloatField(null=True, blank=True)
     cam_roll = FloatField(null=True, blank=True)
+
+    original_lat = None
+    original_lon = None
 
     class Meta:
         ordering = ['-id']
@@ -372,6 +404,11 @@ class Photo(Model):
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
 
+    def __init__(self, *args, **kwargs):
+        super(Photo, self).__init__(*args, **kwargs)
+        self.original_lat = self.lat
+        self.original_lon = self.lon
+
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
         return reverse('foto', args=(self.pk,))
@@ -400,10 +437,47 @@ class Photo(Model):
             data.append(serialized)
         return data
 
-    def save(self, *args, **kwargs):
-        # Update POSTGIS data on save
+    def reverse_geocode_location(self):
+        url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + GOOGLE_API_KEY
+        lat = None
+        lon = None
         if self.lat and self.lon:
+            lat = self.lat
+            lon = self.lon
+        else:
+            for a in self.albums.all():
+                if a.lat and a.lon:
+                    lat = a.lat
+                    lon = a.lon
+                    break
+        if lat and lon:
+            cached_response = GoogleMapsReverseGeocode.objects.filter(lat='{:.5f}'.format(lat),
+                                                                      lon='{:.5f}'.format(lon)).first()
+            if cached_response:
+                response = cached_response.response
+            else:
+                sleep(0.2)
+                response = get(url_template % (lat, lon))
+                decoded_response = loads(response.text)
+                if decoded_response['status'] == 'OK' or decoded_response['status'] == 'ZERO_RESULTS':
+                    GoogleMapsReverseGeocode(
+                        lat='{:.5f}'.format(lat),
+                        lon='{:.5f}'.format(lon),
+                        response=response.text
+                    ).save()
+                response = decoded_response
+            if response['status'] == 'OK':
+                most_accurate_result = response['results'][0]
+                self.address = most_accurate_result['formatted_address']
+            elif response['status'] == 'OVER_QUERY_LIMIT':
+                return
+
+    def save(self, *args, **kwargs):
+        if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+            self.reverse_geocode_location()
+        self.original_lat = self.lat
+        self.original_lon = self.lon
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
@@ -412,6 +486,8 @@ class Photo(Model):
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
         super(Photo, self).save(*args, **kwargs)
+        if not DEBUG:
+            connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
     def light_save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
@@ -588,30 +664,32 @@ class FlipFeedback(Model):
 
 
 class Points(Model):
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION = range(5)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING = range(6)
     ACTION_CHOICES = (
-        (GEOTAG, "Geotag"),
-        (REPHOTO, "Rephoto"),
-        (PHOTO_UPLOAD, "Photo upload"),
-        (PHOTO_CURATION, "Photo curation"),
-        (PHOTO_RECURATION, "Photo re-curation")
+        (GEOTAG, _('Geotag')),
+        (REPHOTO, _('Rephoto')),
+        (PHOTO_UPLOAD, _('Photo upload')),
+        (PHOTO_CURATION, _('Photo curation')),
+        (PHOTO_RECURATION, _('Photo re-curation')),
+        (DATING, _('Dating'))
     )
 
-    user = ForeignKey("Profile", related_name="points")
+    user = ForeignKey('Profile', related_name='points')
     action = PositiveSmallIntegerField(choices=ACTION_CHOICES)
-    photo = ForeignKey("Photo", null=True, blank=True)
-    album = ForeignKey("Album", null=True, blank=True)
-    geotag = ForeignKey("GeoTag", null=True, blank=True)
+    photo = ForeignKey('Photo', null=True, blank=True)
+    album = ForeignKey('Album', null=True, blank=True)
+    geotag = ForeignKey('GeoTag', null=True, blank=True)
+    dating = ForeignKey('Dating', null=True, blank=True)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
 
     class Meta:
-        db_table = "project_points"
-        verbose_name_plural = "Points"
-        unique_together = (("user", "geotag"),)
+        db_table = 'project_points'
+        verbose_name_plural = 'Points'
+        unique_together = (('user', 'geotag'), ('user', 'dating'))
 
     def __unicode__(self):
-        return u"%d - %s - %d" % (self.user.id, self.action, self.points)
+        return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
 
 
 class GeoTag(Model):
@@ -981,3 +1059,30 @@ class Newsletter(Model):
 
     class Meta:
         db_table = 'project_newsletter'
+
+
+class Dating(Model):
+    DAY, MONTH, YEAR = range(3)
+    ACCURACY_CHOICES = (
+        (DAY, _('Day')),
+        (MONTH, _('Month')),
+        (YEAR, _('Year')),
+    )
+
+    photo = ForeignKey('Photo', related_name='datings')
+    profile = ForeignKey('Profile', related_name='datings')
+    raw = CharField(max_length=25)
+    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
+    start_approximate = BooleanField(default=False)
+    start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
+    end_approximate = BooleanField(default=False)
+    end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_dating'
+
+    def __unicode__(self):
+        return '%s - %s' % (self.profile.pk, self.photo.pk)

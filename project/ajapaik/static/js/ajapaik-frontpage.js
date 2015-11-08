@@ -44,7 +44,6 @@
                     }
                     showPhotoMapIfApplicable();
                     $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
-                    $('#ajapaik-modal-photo').css('max-height', window.outerHeight / 2 + 'px');
                     FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
                 });
             },
@@ -407,8 +406,14 @@
             $('body').addClass('ajapaik-body-frontpage').removeClass('ajapaik-body-game-map');
             $('.modal-backdrop').show();
             $('.footer').show();
+            var currentUrl = window.URI(window.location.href),
+                selectedPhoto = window.currentlySelectedPhotoId;
+            currentUrl.removeSearch('photo');
+            window.currentlySelectedPhotoId = null;
+            window.history.replaceState(null, window.title, currentUrl);
             updateFrontpagePhotosAsync();
             window.locationToolsOpen = false;
+            window.currentlySelectedPhotoId = selectedPhoto;
             syncStateToUrl();
             showPhotoMapIfApplicable();
             if (window.startGuessScrollTop) {

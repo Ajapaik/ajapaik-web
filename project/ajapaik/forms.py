@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
-from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile
+from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from django.contrib.gis.geos import Point
@@ -89,6 +89,8 @@ class MapDataRequestForm(forms.Form):
     sw_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     ne_lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     ne_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
+    starting = forms.DateField(required=False)
+    ending = forms.DateField(required=False)
 
 
 class GameAlbumSelectionForm(forms.Form):
@@ -302,3 +304,14 @@ class DelfiBboxRequestForm(forms.Form):
 
 class DelfiPhotoInfoRequestForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+
+
+class DatingSubmitForm(forms.ModelForm):
+    class Meta:
+        model = Dating
+        exclude = ('created', 'modified')
+
+    def __init__(self, *args, **kwargs):
+        super(DatingSubmitForm, self).__init__(*args, **kwargs)
+        self.fields['start'].required = False
+        self.fields['end'].required = False

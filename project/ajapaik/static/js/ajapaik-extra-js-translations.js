@@ -36,4 +36,5 @@
     gettext('Album details');
     gettext('Show pictures on map');
     gettext('Geotag pictures in album');
+    gettext('Unknown author');
 }());

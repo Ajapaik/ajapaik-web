@@ -38,6 +38,10 @@
     font-size: 20px;
 }
 
+.cat-header-link {
+    color: #888;
+}
+
 .cat-header-link > i:hover {
     color: white;
 }
@@ -462,4 +466,28 @@ html {
 
 #cat-permalink-like-row {
     margin-bottom: 10px;
+}
+
+.cat-connect-photo-container {
+    position: relative;
+}
+
+.cat-connect-navigate-next-link {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+}
+
+.cat-connect-navigate-previous-link {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+}
+
+#cat-connection-permalink-photo {
+    margin: 0 auto;
+}
+
+.cat-text-center {
+    text-align: center;
 }

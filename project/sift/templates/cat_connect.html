@@ -1,0 +1,63 @@
+{% extends "cat_base.html" %}
+
+{% load i18n compress static thumbnail %}
+
+{% block header %}
+    {% include "_cat_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container cat-margin-top-50">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="cat-connect-photo-container">
+                    <a class="cat-connect-navigate-previous-link" href="{% url 'project.sift.views.cat_connect' 0 p2.pk 1 0 %}"><i class="material-icons">navigate_before</i></a>
+                    <a target="_blank" href="{% url 'project.sift.views.photo_permalink' p1.pk p1.slug %}"><img src="{% url 'project.sift.views.cat_photo' p1.pk 600 p1.slug %}" class="img-responsive"></a>
+                    <a class="cat-connect-navigate-next-link" href="{% url 'project.sift.views.cat_connect' 0 p2.pk 0 0 %}"><i class="material-icons">navigate_next</i></a>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="cat-connect-photo-container">
+                    <a class="cat-connect-navigate-previous-link" href="{% url 'project.sift.views.cat_connect' p1.pk 0 0 1 %}"><i class="material-icons">navigate_before</i></a>
+                    <a target="_blank" href="{% url 'project.sift.views.photo_permalink' p2.pk p2.slug %}"><img src="{% url 'project.sift.views.cat_photo' p2.pk 600 p2.slug %}" class="img-responsive"></a>
+                    <a class="cat-connect-navigate-next-link" href="{% url 'project.sift.views.cat_connect' p1.pk 0 0 0 %}"><i class="material-icons">navigate_next</i></a>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                {% if new_pair %}
+                    <div class="fb-share-button" data-href="{{ new_pair.url }}" data-layout="button"></div>
+                {% else %}
+                    <form method='post' action='{% url 'project.sift.views.cat_connect' p1.pk p2.pk 0 0 %}' class='form-horizontal cat-margin-top-50'>
+                        {% csrf_token %}
+                        <div class='form-group'>
+                            <input type="hidden" name="photo1" value="{{ p1.pk }}">
+                            <input type="hidden" name="photo2" value="{{ p2.pk }}">
+                            <input type='text' name='comment' class='form-control' placeholder='{% trans "What is the connection? Anything goes." %}'>
+                            <div class="col-xs-12 col-sm-offset-4 col-sm-4 cat-margin-top-50">
+                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <a id="cat-connect-button" class="btn btn-success" title="{% trans 'Connect' %}">{% trans 'Connect' %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+                <h3>{% trans "Existing connections" %}</h3>
+                {% for each in connections %}
+                    <div class="row">
+                        <a href="{% url 'project.sift.views.cat_connection_permalink' each.pk %}">{{ each.comment }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    {% compress js %}
+        <script>
+            var taggerURL = '{% url 'project.sift.views.cat_tagger' %}',
+                filterURL = '{% url 'project.sift.views.cat_results' %}';
+        </script>
+        <script src="{% static "js/cat-connect.js" %}"></script>
+    {% endcompress %}
+{% endblock %}

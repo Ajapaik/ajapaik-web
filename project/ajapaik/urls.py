@@ -88,6 +88,7 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^csv-upload/$', 'csv_upload'),
    url(r'^uudiskiri/$', 'newsletter', name='uudiskiri'),
    url(r'^uudiskiri/(?P<slug>.*)/$', 'newsletter'),
+   url(r'^submit-dating/$', 'submit_dating'),
 )
 
 

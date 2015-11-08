@@ -5,4 +5,3 @@
 project/sift/settings/local.py
 project/ajapaik/settings/local.py
 static-collected
-project/ajapaik/client_secrets.json

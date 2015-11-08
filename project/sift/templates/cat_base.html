@@ -62,6 +62,14 @@
             b.parentNode.insertBefore(a, b)
         })();
     </script>
+    {% if fb_extra %}
+        {% if fb_extra.photo %}
+            <meta property="og:image" content="{{ fb_extra.photo.url }}"/>
+            <meta property="og:image:type" content="image/jpeg"/>
+            <meta property="og:image:width" content="800" />
+            <meta property="og:image:height" content="400" />
+        {% endif %}
+    {% endif %}
 </head>
 <body id="cat-body" class="{% if is_filter %}cat-body-always-scroll{% endif %}">
 <div id="cat-loading-overlay">
@@ -145,3 +153,7 @@
 {% block specific_js %}{% endblock %}
 </body>
 </html>
+
+{% for karhu in karhus %}
+
+{% endfor %}

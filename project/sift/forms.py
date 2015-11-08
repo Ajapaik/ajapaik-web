@@ -1,6 +1,6 @@
 from django import forms
 from haystack.forms import SearchForm
-from project.sift.models import CatPushDevice, CatPhoto, CatTag, CatAlbum
+from project.sift.models import CatPushDevice, CatPhoto, CatTag, CatAlbum, CatPhotoPair
 
 
 class CatLoginForm(forms.Form):
@@ -106,3 +106,14 @@ class CatCuratorPhotoUploadForm(forms.Form):
     invert = forms.BooleanField(required=False)
     stereo = forms.BooleanField(required=False)
     rotated = forms.FloatField(min_value=0, max_value=270, required=False)
+
+
+class CatPhotoPairingForm(forms.ModelForm):
+    class Meta:
+        model = CatPhotoPair
+        exclude = ('modified', 'created')
+        widgets = {'photo1': forms.HiddenInput, 'photo2': forms.HiddenInput}
+
+
+class CatPhotoPairSelectionForm(forms.Form):
+    pair = forms.ModelChoiceField(queryset=CatPhotoPair.objects.all())

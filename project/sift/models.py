@@ -1,5 +1,6 @@
 from autoslug import AutoSlugField
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db.models import Model, CharField, SmallIntegerField, BooleanField, ForeignKey, IntegerField, \
     DateTimeField, TextField, ImageField, URLField, ManyToManyField, OneToOneField, NullBooleanField
 from django.db.models.signals import post_save
@@ -110,6 +111,7 @@ class CatPhoto(Model):
     invert = NullBooleanField()
     stereo = NullBooleanField()
     rotated = IntegerField(null=True, blank=True)
+    date_text = CharField(max_length=255, null=True, blank=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -154,3 +156,21 @@ class CatPushDevice(Model):
 
     class Meta:
         db_table = 'project_catpushdevice'
+
+
+class CatPhotoPair(Model):
+    profile = ForeignKey('CatProfile')
+    photo1 = ForeignKey('CatPhoto', related_name='pair_first')
+    photo2 = ForeignKey('CatPhoto', related_name='pair_second')
+    comment = TextField(blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_catphotopair'
+
+    def get_sbs_url(self, is_fb_share=0):
+        return reverse('project.sift.views.cat_side_by_side_image', args=(self.pk, is_fb_share))
+
+    def get_absolute_url(self):
+        return reverse('project.sift.views.cat_connection_permalink', args=(self.pk,))

@@ -21,7 +21,7 @@ from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
@@ -41,8 +41,9 @@ from django.utils.translation import ugettext as _
 
 from project.sift.forms import CatLoginForm, CatAuthForm, CatAlbumStateForm, CatTagForm, CatFavoriteForm, CatResultsFilteringForm, \
     CatPushRegisterForm, HaystackCatPhotoSearchForm, CatCuratorAlbumEditForm, CatCuratorAlbumAddForm, \
-    CatCuratorPhotoUploadForm
-from project.sift.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, CatProfile, Source
+    CatCuratorPhotoUploadForm, CatPhotoPairingForm, CatPhotoPairSelectionForm
+from project.sift.models import CatAlbum, CatTagPhoto, CatPhoto, CatTag, CatUserFavorite, CatPushDevice, CatProfile, Source, \
+    CatPhotoPair
 from project.sift.serializers import CatResultsPhotoSerializer, CatCuratorAlbumSelectionAlbumSerializer
 from project.sift.forms import CatTaggerAlbumSelectionForm
 from project.sift.settings import SITE_ID, CAT_RESULTS_PAGE_SIZE, AJAPAIK_VALIMIMOODUL_URL, MEDIA_ROOT
@@ -152,6 +153,7 @@ def cat_album_thumb(request, album_id, thumb_size=250):
         im = get_thumbnail(random_image.image, thumb_str, upscale=False)
         content = im.read()
     response = HttpResponse(content, content_type='image/jpg')
+    response['Content-Length'] = len(content)
 
     return response
 
@@ -337,10 +339,6 @@ def cat_album_state(request):
 
 
 def cat_photo(request, photo_id=None, thumb_size=600, slug=None):
-    cache_key = "ajapaik_cat_photo_response_%s_%s_%s" % (SITE_ID, photo_id, thumb_size)
-    cached_response = cache.get(cache_key)
-    if cached_response:
-        return cached_response
     p = get_object_or_404(CatPhoto, id=photo_id)
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     im = get_thumbnail(p.image, thumb_str, upscale=False)
@@ -350,12 +348,9 @@ def cat_photo(request, photo_id=None, thumb_size=600, slug=None):
         delete(im)
         im = get_thumbnail(p.image, thumb_str, upscale=False)
         content = im.read()
-    next_week = datetime.datetime.now() + datetime.timedelta(seconds=604800)
+
     response = HttpResponse(content, content_type='image/jpg')
     response['Content-Length'] = len(content)
-    response['Cache-Control'] = "max-age=604800, public"
-    response['Expires'] = next_week.strftime("%a, %d %b %y %T GMT")
-    cache.set(cache_key, response)
 
     return response
 
@@ -1052,3 +1047,88 @@ def photo_permalink(request, photo_id=None, photo_slug=None):
         raise Http404('No such photo')
 
     return render_to_response('cat_photo_permalink.html', RequestContext(request, context))
+
+
+def cat_connect(request, first=0, second=0, back_p1=0, back_p2=0):
+    context = {}
+    first = int(first)
+    second = int(second)
+    back_p1 = int(back_p1)
+    back_p2 = int(back_p2)
+    if 'connect_history_p1' not in request.session:
+        request.session['connect_history_p1'] = []
+    if 'connect_history_p2' not in request.session:
+        request.session['connect_history_p2'] = []
+    if back_p1 and len(request.session['connect_history_p1']) > 0:
+        tmp = request.session['connect_history_p1']
+        p1 = CatPhoto.objects.filter(pk=tmp.pop()).first()
+        request.session['connect_history_p1'] = tmp
+        request.session.modified = True
+    elif first == 0:
+        p1 = CatPhoto.objects.order_by('?').first()
+    else:
+        p1 = CatPhoto.objects.filter(pk=first).first()
+    if back_p2 and len(request.session['connect_history_p2']) > 0:
+        tmp = request.session['connect_history_p2']
+        p2 = CatPhoto.objects.filter(pk=tmp.pop()).first()
+        request.session['connect_history_p2'] = tmp
+        request.session.modified = True
+    elif second == 0:
+        p2 = CatPhoto.objects.order_by('?').first()
+    else:
+        p2 = CatPhoto.objects.filter(pk=second).first()
+    if request.method == 'POST':
+        form = CatPhotoPairingForm(request.POST.copy())
+        form.data['profile'] = request.get_user().catprofile
+        if form.is_valid():
+            new_pair = form.save()
+            new_pair.url = request.build_absolute_uri(new_pair.get_absolute_url())
+            context['new_pair'] = new_pair
+    if back_p1 == 0:
+        tmp = request.session['connect_history_p1']
+        tmp.append(p1.pk)
+        request.session['connect_history_p1'] = tmp
+        request.session.modified = True
+    if back_p2 == 0:
+        tmp = request.session['connect_history_p2']
+        tmp.append(p2.pk)
+        request.session['connect_history_p2'] = tmp
+        request.session.modified = True
+    context['p1'] = p1
+    context['p2'] = p2
+    context['connections'] = CatPhotoPair.objects.filter(Q(photo1=p1, photo2=p2) | Q(photo2=p1, photo1=p2))
+
+    return render_to_response('cat_connect.html', RequestContext(request, context))
+
+
+def cat_connection_permalink(request, pair_id):
+    pair = get_object_or_404(CatPhotoPair, id=pair_id)
+    pair.url = request.build_absolute_uri(pair.get_absolute_url())
+    fb_extra = {
+        'photo': {
+            'url': request.build_absolute_uri(pair.get_sbs_url(1))
+        }
+    }
+
+    return render_to_response('cat_connection.html', RequestContext(request, {'pair': pair, 'fb_extra': fb_extra}))
+
+
+def cat_side_by_side_image(request, pair_id, is_fb_share=0):
+    is_fb_share = int(is_fb_share)
+    pair = get_object_or_404(CatPhotoPair, id=pair_id)
+    im1 = Image.open(pair.photo1.image)
+    im2 = Image.open(pair.photo2.image)
+    im1.thumbnail((600, 628))
+    im2.thumbnail((600, 628))
+    if is_fb_share == 1:
+        combined = Image.new('RGB', (1200, 628), (255, 255, 255, 0))
+    else:
+        combined = Image.new('RGB', (1200, 628))
+    max_thumb_height = max(im1.size[1], im2.size[1])
+    y_coord = (628 - max_thumb_height) / 2
+    combined.paste(im1, (0, y_coord))
+    combined.paste(im2, (600, y_coord))
+    response = HttpResponse(content_type="image/jpeg")
+    combined.save(response, 'JPEG')
+
+    return response

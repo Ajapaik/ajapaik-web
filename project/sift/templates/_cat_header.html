@@ -56,6 +56,11 @@
                         </i>
                     </a>
                 </li>
+                <li class="pull-left cat-header-connect hidden-xs">
+                    <a href="{% url 'project.sift.views.cat_connect' 0 0 0 0 %}" title="{% trans "Make connections" %}" class="cat-header-link cat-no-background cat-header-connect-link{% if is_connect %} active{% endif %}">
+                        <i class="material-icons">link</i>
+                    </a>
+                </li>
                 {% if user_can_curate %}
                     <li class="pull-left cat-header-curator hidden-xs">
                         <a href="#" title="{% trans "Curate photos" %}" class="cat-header-link cat-no-background cat-header-curator-link{% if is_curator %} cat-text-white{% else %} cat-text-gray{% endif %}">

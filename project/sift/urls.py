@@ -17,6 +17,9 @@ urlpatterns = patterns('project.sift.views',
     url(r'^about/$', 'cat_about', name='cat_about'),
     url(r'^tag/$', 'cat_tagger', name='cat_tagger'),
     url(r'^filter/$', 'cat_results', name='cat_results'),
+    url(r'^connect/(?P<first>\d+)/(?P<second>\d+)/(?P<back_p1>\d+)/(?P<back_p2>\d+)/$', 'cat_connect'),
+    url(r'^view-connection/(?P<pair_id>\d+)/$', 'cat_connection_permalink'),
+    url(r'^connection-sbs/(?P<pair_id>\d+)/(?P<is_fb_share>\d+)/$', 'cat_side_by_side_image'),
     url(r'^curator/$', 'cat_curator', name='cat_curator'),
     url(r'^photo/$', 'photo_permalink'),
     url(r'^photo/(?P<photo_id>\d+)/$', 'photo_permalink'),
@@ -57,8 +60,8 @@ urlpatterns += patterns('',
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'album_filter_urls': AlbumResultSitemap, 'album_tag_urls': AlbumTagSitemap, 'static_pages': StaticViewSitemap, 'photo_urls': PhotoSitemap}}, name='django.contrib.sitemaps.views.sitemap'),
 )
 
-handler500 = 'project.ajapaik.views.custom_500'
-handler404 = 'project.ajapaik.views.custom_404'
+handler500 = 'project.sift.views.custom_500'
+handler404 = 'project.sift.views.custom_404'
 
 urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots-sift.txt', content_type='text/plain')), )
 
