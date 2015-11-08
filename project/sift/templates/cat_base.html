@@ -43,7 +43,7 @@
     {% endcompress %}
     {% if fb_share_photos %}
         {% for p in fb_share_photos %}
-            <meta property="og:image" content="http://{{ request.get_host }}/{% url "project.sift.views.cat_photo" p.0 p.1 %}"/>
+            <meta property="og:image" content="http://{{ request.get_host }}/{% url "project.sift.views.cat_photo" p.0 800 p.1 %}"/>
             <meta property="og:image:width" content="{{ p.2 }}" />
             <meta property="og:image:height" content="{{ p.3 }}" />
         {% endfor %}
@@ -68,6 +68,12 @@
             <meta property="og:image:type" content="image/jpeg"/>
             <meta property="og:image:width" content="800" />
             <meta property="og:image:height" content="400" />
+        {% endif %}
+        {% if fb_extra.title %}
+            <meta property="og:title" content="{{ fb_extra.title }}"/>
+        {% endif %}
+        {% if fb_extra.description %}
+            <meta property="og:description" content="{{ fb_extra.description }}"/>
         {% endif %}
     {% endif %}
 </head>
