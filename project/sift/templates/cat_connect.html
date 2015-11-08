@@ -12,14 +12,14 @@
             <div class="col-xs-6">
                 <div class="cat-connect-photo-container">
                     <a class="cat-connect-navigate-previous-link" href="{% url 'project.sift.views.cat_connect' 0 p2.pk 1 0 %}"><i class="material-icons">navigate_before</i></a>
-                    <a target="_blank" href="{% url 'project.sift.views.photo_permalink' p1.pk 800 p1.slug %}"><img src="{% url 'project.sift.views.cat_photo' p1.pk 600 p1.slug %}" class="img-responsive"></a>
+                    <a target="_blank" href="{% url 'project.sift.views.photo_permalink' p1.pk p1.slug %}"><img src="{% url 'project.sift.views.cat_photo' p1.pk 600 p1.slug %}" class="img-responsive"></a>
                     <a class="cat-connect-navigate-next-link" href="{% url 'project.sift.views.cat_connect' 0 p2.pk 0 0 %}"><i class="material-icons">navigate_next</i></a>
                 </div>
             </div>
             <div class="col-xs-6">
                 <div class="cat-connect-photo-container">
                     <a class="cat-connect-navigate-previous-link" href="{% url 'project.sift.views.cat_connect' p1.pk 0 0 1 %}"><i class="material-icons">navigate_before</i></a>
-                    <a target="_blank" href="{% url 'project.sift.views.photo_permalink' p2.pk 800 p2.slug %}"><img src="{% url 'project.sift.views.cat_photo' p2.pk 600 p2.slug %}" class="img-responsive"></a>
+                    <a target="_blank" href="{% url 'project.sift.views.photo_permalink' p2.pk p2.slug %}"><img src="{% url 'project.sift.views.cat_photo' p2.pk 600 p2.slug %}" class="img-responsive"></a>
                     <a class="cat-connect-navigate-next-link" href="{% url 'project.sift.views.cat_connect' p1.pk 0 0 0 %}"><i class="material-icons">navigate_next</i></a>
                 </div>
             </div>
