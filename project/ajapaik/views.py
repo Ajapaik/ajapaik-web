@@ -1340,8 +1340,8 @@ def map_objects_by_bounding_box(request):
         sw_lon = form.cleaned_data['sw_lon']
         ne_lat = form.cleaned_data['ne_lat']
         ne_lon = form.cleaned_data['ne_lon']
-        dating_start = form.cleaned_data['starting']
-        dating_end = form.cleaned_data['ending']
+        #dating_start = form.cleaned_data['starting']
+        #dating_end = form.cleaned_data['ending']
 
         qs = Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True)\
             .annotate(rephoto_count=Count('rephotos'))
@@ -1356,11 +1356,11 @@ def map_objects_by_bounding_box(request):
         if sw_lat and sw_lon and ne_lat and ne_lon:
             qs = qs.filter(lat__gte=sw_lat, lon__gte=sw_lon, lat__lte=ne_lat, lon__lte=ne_lon)
 
-        if dating_start:
-            qs = qs.annotate(min_start=Max('datings__start')).filter(min_start__gte=dating_start)
+        #if dating_start:
+            #qs = qs.annotate(min_start=Max('datings__start')).filter(min_start__gte=dating_start)
 
-        if dating_end:
-            qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
+        #if dating_end:
+            #qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
             
         qs = qs.values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
         
