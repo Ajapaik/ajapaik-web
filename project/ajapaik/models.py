@@ -155,21 +155,20 @@ class Album(Model):
         self.original_lon = self.lon
 
     def save(self, *args, **kwargs):
-        if self.id:
-            if not self.cover_photo_id and self.photo_count_with_subalbums > 0:
-                random_photo = self.photos.order_by('?').first()
-                self.cover_photo_id = random_photo.id
-                if random_photo.flip:
-                    self.cover_photo_flipped = random_photo.flip
-            if not self.lat and not self.lon:
-                random_photo_with_location = self.get_geotagged_historic_photo_queryset_with_subalbums().first()
-                if random_photo_with_location:
-                    self.lat = random_photo_with_location.lat
-                    self.lon = random_photo_with_location.lon
-            self.set_calculated_fields()
+        super(Album, self).save(*args, **kwargs)
+        self.set_calculated_fields()
+        if not self.cover_photo_id and self.photo_count_with_subalbums > 0:
+            random_photo = self.photos.order_by('?').first()
+            self.cover_photo_id = random_photo.id
+            if random_photo.flip:
+                self.cover_photo_flipped = random_photo.flip
+        if not self.lat and not self.lon:
+            random_photo_with_location = self.get_geotagged_historic_photo_queryset_with_subalbums().first()
+            if random_photo_with_location:
+                self.lat = random_photo_with_location.lat
+                self.lon = random_photo_with_location.lon
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
-        super(Album, self).save(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
         if not DEBUG:
@@ -473,6 +472,7 @@ class Photo(Model):
                 return
 
     def save(self, *args, **kwargs):
+        super(Photo, self).save(*args, **kwargs)
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
             self.reverse_geocode_location()
@@ -485,7 +485,6 @@ class Photo(Model):
         last_rephoto = self.rephotos.order_by('-created').first()
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
-        super(Photo, self).save(*args, **kwargs)
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
 

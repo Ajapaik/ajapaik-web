@@ -427,7 +427,6 @@ body {
     top: 0;
     left: 0;
     background-color: rgb(255,255,255);
-    z-index: 1000;
     display: none;
     border: 1px solid black;
 }
@@ -1329,8 +1328,6 @@ a.fullscreen {
 .ajapaik-frontpage-azimuth {
     width: 30px;
     height: 30px;
-    display: inline-block;
-    background: url(../images/material-design-icons/ic_navigation_24px.svg) no-repeat center;
     float: right;
 }
 

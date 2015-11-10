@@ -1062,7 +1062,11 @@ def _make_fullscreen(p):
         return {"url": p.image.url, "size": [p.image.width, p.image.height]}
 
 
-def photoslug(request, photo_id, pseudo_slug=None):
+def photoslug(request, photo_id=None, pseudo_slug=None):
+    # Because of some bad design decisions, we have a URL /photo, let's just give a random photo
+    if photo_id is None:
+        photo_id = Photo.objects.order_by('?').first().pk
+    # TODO: Should replace slug with correct one, many thing to keep in mind though: Google indexing, Facebook shares, comments, likes etc.
     profile = request.get_user().profile
     photo_obj = get_object_or_404(Photo, id=photo_id)
 

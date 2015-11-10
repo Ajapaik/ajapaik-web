@@ -200,31 +200,31 @@ var map,
             }).on('blur', function () {
                 window.hotkeysActive = true;
             });
-            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
-            var datingSlider = $([
-                "<section class='ajapaik-map-dating-range-slider'>",
-                    "<span class='rangeValues'></span>",
-                    "<input value='1600' min='1000' max='3000' step='1' type='range'>",
-                    "<input value='2000' min='1000' max='3000' step='1' type='range'>",
-                "</section>"
-            ].join('\n'));
-            if (window.getQueryParameterByName('starting')) {
-                datingSlider.find('input:first').val(window.getQueryParameterByName('starting'));
-            }
-            if (window.getQueryParameterByName('ending')) {
-                datingSlider.find('input:last').val(window.getQueryParameterByName('ending'));
-            }
-            datingSlider.find('input').attr('max', new Date().getFullYear());
-            for (var x = 0; x < datingSlider.length; x += 1) {
-                var sliders = datingSlider[x].getElementsByTagName('input');
-                for (var y = 0; y < sliders.length; y += 1) {
-                    if (sliders[y].type === 'range') {
-                        sliders[y].oninput = getDatingRangeVals;
-                        sliders[y].oninput();
-                    }
-                }
-            }
-            map.controls[google.maps.ControlPosition.TOP_CENTER].push(datingSlider.get(0));
+            //map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+            //var datingSlider = $([
+            //    "<section class='ajapaik-map-dating-range-slider'>",
+            //        "<span class='rangeValues'></span>",
+            //        "<input value='1600' min='1000' max='3000' step='1' type='range'>",
+            //        "<input value='2000' min='1000' max='3000' step='1' type='range'>",
+            //    "</section>"
+            //].join('\n'));
+            //if (window.getQueryParameterByName('starting')) {
+            //    datingSlider.find('input:first').val(window.getQueryParameterByName('starting'));
+            //}
+            //if (window.getQueryParameterByName('ending')) {
+            //    datingSlider.find('input:last').val(window.getQueryParameterByName('ending'));
+            //}
+            //datingSlider.find('input').attr('max', new Date().getFullYear());
+            //for (var x = 0; x < datingSlider.length; x += 1) {
+            //    var sliders = datingSlider[x].getElementsByTagName('input');
+            //    for (var y = 0; y < sliders.length; y += 1) {
+            //        if (sliders[y].type === 'range') {
+            //            sliders[y].oninput = getDatingRangeVals;
+            //            sliders[y].oninput();
+            //        }
+            //    }
+            //}
+            //map.controls[google.maps.ControlPosition.TOP_CENTER].push(datingSlider.get(0));
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button')
                 .html(gettext('Close'));
