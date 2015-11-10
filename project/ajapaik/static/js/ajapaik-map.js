@@ -226,12 +226,12 @@
         if (window.guessLocationStarted) {
             historyReplacementString += '&straightToSpecify=1';
         }
-        if (window.datingStart) {
-            historyReplacementString += '&starting=' + window.datingStart;
-        }
-        if (window.datingEnd) {
-            historyReplacementString += '&ending=' + window.datingEnd;
-        }
+        //if (window.datingStart) {
+        //    historyReplacementString += '&starting=' + window.datingStart;
+        //}
+        //if (window.datingEnd) {
+        //    historyReplacementString += '&ending=' + window.datingEnd;
+        //}
         if (historyReplacementString.startsWith('/map/&')) {
             historyReplacementString = historyReplacementString.replace('&', '?');
         }
@@ -342,19 +342,19 @@
                 ne_lon: ne.lng(),
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             };
-            var momentObj;
-            if (window.datingStart) {
-                momentObj = moment(window.datingStart + '');
-                if (momentObj.isValid()) {
-                    payload.starting = momentObj.format('YYYY-MM-DD');
-                }
-            }
-            if (window.datingEnd) {
-                momentObj = moment(window.datingEnd  + '');
-                if (momentObj.isValid()) {
-                    payload.ending = momentObj.format('YYYY-MM-DD');
-                }
-            }
+            //var momentObj;
+            //if (window.datingStart) {
+            //    momentObj = moment(window.datingStart + '');
+            //    if (momentObj.isValid()) {
+            //        payload.starting = momentObj.format('YYYY-MM-DD');
+            //    }
+            //}
+            //if (window.datingEnd) {
+            //    momentObj = moment(window.datingEnd  + '');
+            //    if (momentObj.isValid()) {
+            //        payload.ending = momentObj.format('YYYY-MM-DD');
+            //    }
+            //}
             currentMapDataRequest = $.post(window.mapDataURL, payload, function (response) {
                 if (mc) {
                     mc.clearMarkers();
@@ -661,12 +661,12 @@
                     window.getMap(null, 16, false, urlMapType);
                 }
             }
-            if (window.getQueryParameterByName('starting')) {
-                window.datingStart = window.getQueryParameterByName('starting');
-            }
-            if (window.getQueryParameterByName('ending')) {
-                window.datingEnd = window.getQueryParameterByName('ending');
-            }
+            //if (window.getQueryParameterByName('starting')) {
+            //    window.datingStart = window.getQueryParameterByName('starting');
+            //}
+            //if (window.getQueryParameterByName('ending')) {
+            //    window.datingEnd = window.getQueryParameterByName('ending');
+            //}
             if (window.preselectPhotoId && window.getQueryParameterByName('straightToSpecify')) {
                 window.userClosedRephotoTools = true;
                 window.loadPhoto(window.preselectPhotoId);

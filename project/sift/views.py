@@ -1106,11 +1106,16 @@ def cat_connection_permalink(request, pair_id):
     pair.url = request.build_absolute_uri(pair.get_absolute_url())
     fb_extra = {
         'photo': {
-            'url': request.build_absolute_uri(pair.get_sbs_url(1))
-        }
+            'url': request.build_absolute_uri(pair.get_sbs_url(1)),
+        },
+        'title': pair.comment,
+        'description': _('Sift.pics: discover & create connections between old photos')
     }
 
-    return render_to_response('cat_connection.html', RequestContext(request, {'pair': pair, 'fb_extra': fb_extra}))
+    return render_to_response('cat_connection.html', RequestContext(request, {
+        'pair': pair,
+        'fb_extra': fb_extra
+    }))
 
 
 def cat_side_by_side_image(request, pair_id, is_fb_share=0):
@@ -1131,4 +1136,16 @@ def cat_side_by_side_image(request, pair_id, is_fb_share=0):
     response = HttpResponse(content_type="image/jpeg")
     combined.save(response, 'JPEG')
 
+    return response
+
+
+def custom_404(request):
+    response = render_to_response('404.html', {}, context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def custom_500(request):
+    response = render_to_response('500.html', {}, context_instance=RequestContext(request))
+    response.status_code = 500
     return response

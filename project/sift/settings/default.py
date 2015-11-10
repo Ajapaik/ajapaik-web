@@ -55,7 +55,7 @@ DATABASES = {
 
 TIME_ZONE = 'Europe/Helsinki'
 
-LANGUAGE_CODE = 'et'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('et', gettext('Estonian')),
