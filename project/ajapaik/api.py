@@ -11,16 +11,18 @@ from django.core.urlresolvers import reverse
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 import requests
+from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, authentication_classes, parser_classes
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
 import time
-from project.sift.forms import CatLoginForm
-from project.sift.views import CustomAuthentication
+from project.ajapaik.forms import APILoginForm, APIAuthForm
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiRegisterForm, ApiPhotoUploadForm, \
     ApiUserMeForm, ApiPhotoStateForm
@@ -29,11 +31,42 @@ from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAUL
     GOOGLE_CLIENT_ID
 
 
+def custom_exception_handler(exc, context):
+    response = exception_handler(exc, context)
+
+    # TODO: Error handling
+    if response is not None:
+        response.data['error'] = 7
+
+    return response
+
+
+class CustomAuthentication(authentication.BaseAuthentication):
+    @parser_classes((FormParser,))
+    def authenticate(self, request):
+        cat_auth_form = APIAuthForm(request.data)
+        user = None
+        if cat_auth_form.is_valid():
+            lang = cat_auth_form.cleaned_data['_l']
+            if lang:
+                activate(lang)
+            user_id = cat_auth_form.cleaned_data['_u']
+            session_id = cat_auth_form.cleaned_data['_s']
+            if not session_id or not user_id:
+                return None
+            try:
+                Session.objects.get(session_key=session_id)
+                user = User.objects.get(pk=user_id)
+            except (User.DoesNotExist, Session.DoesNotExist):
+                raise exceptions.AuthenticationFailed('No user/session')
+
+        return user, None
+
 @api_view(['POST'])
 @parser_classes((FormParser,))
 @permission_classes((AllowAny,))
 def api_login(request):
-    login_form = CatLoginForm(request.data)
+    login_form = APILoginForm(request.data)
     content = {
         'error': 0,
         'session': None,

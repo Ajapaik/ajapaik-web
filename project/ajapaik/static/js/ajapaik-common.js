@@ -200,7 +200,7 @@ var map,
             }).on('blur', function () {
                 window.hotkeysActive = true;
             });
-            //map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
             //var datingSlider = $([
             //    "<section class='ajapaik-map-dating-range-slider'>",
             //        "<span class='rangeValues'></span>",

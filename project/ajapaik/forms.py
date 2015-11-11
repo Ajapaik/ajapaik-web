@@ -6,6 +6,22 @@ from haystack.forms import SearchForm
 from django.contrib.gis.geos import Point
 
 
+class APILoginForm(forms.Form):
+    type = forms.CharField(max_length=255)
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=255)
+    version = forms.FloatField(required=False)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.CharField(max_length=255, required=False, initial='android')
+
+
+class APIAuthForm(forms.Form):
+    _s = forms.CharField(max_length=255)
+    _u = forms.IntegerField()
+    _l = forms.CharField(max_length=2, required=False)
+    _v = forms.FloatField(required=False)
+
+
 # TODO: Make forms for everything, there's too much individual POST variable checking
 class AreaSelectionForm(forms.Form):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),)

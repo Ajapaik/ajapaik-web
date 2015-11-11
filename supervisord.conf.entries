@@ -67,30 +67,6 @@ command=/opt/python27/bin/uwsgi
 user=www-data
 stopsignal=QUIT
 
-[program:sift_pics]
-command=/opt/python27/bin/uwsgi
-  --wsgi-file /var/garage/rephoto/project/sift/wsgihandler.py
-  --socket /var/garage/run/sift_pics.sock
-  --processes 2
-  --master
-  --max-requests 125
-  --logto /dev/null
-  --chdir /var/garage/rephoto
-user=www-data
-stopsignal=QUIT
-
-[program:staging_sift_pics]
-command=/opt/python27/bin/uwsgi
-  --wsgi-file /var/garage/rephoto_staging/project/sift/wsgihandler.py
-  --socket /var/garage/run/staging_sift_pics.sock
-  --processes 1
-  --master
-  --max-requests 25
-  --logto /dev/null
-  --chdir /var/garage/rephoto_staging
-user=www-data
-stopsignal=QUIT
-
 [program:valimimoodul]
 command=sh /home/valimimoodul/ajapaik/ajapaik-parent/run.sh
 user=valimimoodul

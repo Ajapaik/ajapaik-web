@@ -7,7 +7,7 @@ from datetime import datetime
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
-from django.db.models import OneToOneField, DateField, Sum
+from django.db.models import OneToOneField, DateField
 from django.utils.dateformat import DateFormat
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField,\
@@ -33,7 +33,6 @@ from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
 from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG
 
-from project.common.models import BaseSource
 from project.utils import average_angle
 from project.utils import angle_diff
 
@@ -954,8 +953,17 @@ class CredentialsModel(Model):
         db_table = 'project_credentialsmodel'
 
 
-class Source(BaseSource):
-    pass
+class Source(Model):
+    name = CharField(max_length=255)
+    description = TextField(null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'project_source'
 
 
 class Device(Model):

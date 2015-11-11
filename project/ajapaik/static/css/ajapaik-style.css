@@ -2573,6 +2573,10 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     background-color: rgba(0, 0, 0, .7);
 }
 
+.ajapaik-thumbnail-info-container > div > i {
+    color: #fff;
+}
+
 .navbar-hidden .navbar-brand {
     display: none !important;
 }

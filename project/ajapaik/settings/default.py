@@ -33,7 +33,6 @@ MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 STATICFILES_DIRS = (
-    '%s/project/static' % ABSOLUTE_PROJECT_ROOT,
     '%s/project/ajapaik/static' % ABSOLUTE_PROJECT_ROOT,
 )
 
@@ -162,7 +161,6 @@ EXTERNAL_APPS = (
 )
 
 LOCAL_APPS = (
-    'project.common',
     'project.ajapaik',
 )
 
@@ -188,7 +186,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'project.sift.views.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler'
 }
 
 CACHES = {
