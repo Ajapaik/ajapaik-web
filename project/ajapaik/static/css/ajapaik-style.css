@@ -428,6 +428,7 @@ body {
     left: 0;
     background-color: rgb(255,255,255);
     display: none;
+    z-index: 1000;
     border: 1px solid black;
 }
 

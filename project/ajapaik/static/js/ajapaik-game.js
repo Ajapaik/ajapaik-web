@@ -278,7 +278,7 @@
         window.updateLeaderboard();
         $('#ajapaik-game-photo-modal').modal({
             backdrop: 'static',
-            keyboard: 'false'
+            keyboard: false
         }).on('shown.bs.modal', function () {
             if (window.straightToSpecify) {
                 $('#ajapaik-photo-modal-specify-location').click();

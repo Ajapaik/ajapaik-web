@@ -19,7 +19,7 @@
         {% if activity_leaderboard %}
             <div class="col-xs-6">
                 <h3>{% trans "Recent activity leaderboard" %}</h3>
-                {% include "_leaderboard_positions.html" with leaderboard=activity_leaderboard anon_string=_("Your points") %}
+                {% include "_leaderboard_positions.html" with leaderboard=activity_leaderboard anon_string=_("Anonymous user") %}
             </div>
         {% endif %}
         {% if not album_leaderboard %}
