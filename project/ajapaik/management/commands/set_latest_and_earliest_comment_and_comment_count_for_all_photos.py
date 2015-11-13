@@ -20,4 +20,4 @@ class Command(BaseCommand):
                 p.latest_comment = latest_comment.created
             else:
                 p.latest_comment = None
-        Photo.bulk.bulk_update(photos, update_fields=['fb_comments_count', 'first_comment', 'latest_comment'])
+            p.light_save()

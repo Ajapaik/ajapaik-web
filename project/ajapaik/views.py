@@ -1878,6 +1878,7 @@ def curator_photo_upload_handler(request):
             parsed_kv[each["id"]] = each
         for k, v in parsed_selection.iteritems():
             for sk, sv in parsed_kv[k].iteritems():
+                # Some fields we don't want overwritten
                 if parsed_selection[k]["collections"] == 'DIGAR' and (sk == 'imageUrl' or sk == 'identifyingNumber'
                                                                       or sk == 'urlToRecord' or sk == 'institution'
                                                                       or sk == 'description'):

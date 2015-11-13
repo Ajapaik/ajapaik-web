@@ -156,9 +156,9 @@ class Album(Model):
     def save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
         self.set_calculated_fields()
-        if not self.cover_photo_id and self.photo_count_with_subalbums > 0:
+        if not self.cover_photo and self.photo_count_with_subalbums > 0:
             random_photo = self.photos.order_by('?').first()
-            self.cover_photo_id = random_photo.id
+            self.cover_photo = random_photo
             if random_photo.flip:
                 self.cover_photo_flipped = random_photo.flip
         if not self.lat and not self.lon:
@@ -170,6 +170,7 @@ class Album(Model):
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
         self.original_lat = self.lat
         self.original_lon = self.lon
+        super(Album, self).save(*args, **kwargs)
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Album).update_object(self)
 
@@ -484,6 +485,7 @@ class Photo(Model):
         last_rephoto = self.rephotos.order_by('-created').first()
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
+        super(Photo, self).save(*args, **kwargs)
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
