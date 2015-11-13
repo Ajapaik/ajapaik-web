@@ -52,7 +52,7 @@
                             if (geotagger.feedbackMode) {
                                 $('#ajp-geotagger-feedback-next-button').click();
                             } else {
-                                if (!geotagger.streetPanorama.getVisible()) {
+                                if (!geotagger.streetPanorama.getVisible() && geotagger.firstMoveDone) {
                                     // No saving in Street View
                                     $('#ajp-geotagger-save-button').click();
                                 }

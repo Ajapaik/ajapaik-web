@@ -25,6 +25,9 @@
                     return !$(el).hasClass('hidden');
                 }
             },
+            photoModal = $('#ajapaik-photo-modal'),
+            fullScreenImage = $('#ajapaik-full-screen-image'),
+            rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image'),
             openPhotoDrawer = function (content) {
                 photoModal.html(content);
                 photoModal.modal().find('#ajapaik-modal-photo').on('load', function () {
@@ -47,9 +50,6 @@
                     FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
                 });
             },
-            fullScreenImage = $('#ajapaik-full-screen-image'),
-            rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image'),
-            photoModal = $('#ajapaik-photo-modal'),
             syncStateToUrl = function () {
                 var currentUrl = window.URI(window.location.href);
                 currentUrl.removeSearch('photo').removeSearch('page').removeSearch('order1').removeSearch('order2')

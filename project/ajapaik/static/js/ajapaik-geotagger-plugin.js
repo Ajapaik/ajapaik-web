@@ -585,7 +585,10 @@
                 }
             });
             $('#ajp-geotagger-save-button').click(function () {
-                that.saveGeotag();
+                var $this = $(this);
+                if ($this.hasClass('btn-warning') || $this.hasClass('btn-success')) {
+                    that.saveGeotag();
+                }
             });
             this.mapInstructions.find('button').click(function () {
                 that.hideInstructions();
