@@ -1,14 +1,31 @@
+import json
+import math
+
+import operator
+from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import D
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django import forms
 
-from project.ajapaik.models import TourRephoto
+from project.ajapaik.models import TourRephoto, Photo, Tour, TourPhoto
+from project.ajapaik.settings import THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST, THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
+from project.ajapaik.settings import THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
 
 
 class camera_upload_form(forms.Form):
     fileToUpload = forms.ImageField()
+
+
+class random_tour_form(forms.Form):
+    lat = forms.FloatField(min_value=-85.05115, max_value=85)
+    lng = forms.FloatField(min_value=-180, max_value=180)
+    min_distance = forms.FloatField(required=False)
+    max_distance = forms.FloatField(required=False)
+    how_many = forms.IntegerField(required=False)
 
 
 def frontpage(request):
@@ -20,8 +37,72 @@ def frontpage(request):
 
 def map_view(request, tour_id=None):
     ret = {
-
+        'photos': []
     }
+    if not tour_id:
+        form = random_tour_form(request.GET)
+        if form.is_valid():
+            user_lat = form.cleaned_data['lat']
+            user_lng = form.cleaned_data['lng']
+            max_dist = form.cleaned_data['max_distance']
+            min_dist = form.cleaned_data['min_distance']
+            how_many = form.cleaned_data['how_many']
+            if not max_dist:
+                max_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
+            if not min_dist:
+                min_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
+            if not how_many:
+                how_many = THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
+            offset = float(min_dist + max_dist) / 2.00 / 111138.56
+            offset_location = Point(user_lng, user_lat + offset)
+            photo_set = Photo.objects.filter(rephoto_of__isnull=True,
+                                             geography__distance_lte=(offset_location, D(m=max_dist)),
+                                             geography__distance_gte=(offset_location, D(m=min_dist)),
+                                             )
+            total = photo_set.count()
+            for each in photo_set:
+                dx = each.lat - offset_location[1]
+                dy = each.lon - offset_location[0]
+                each.user_angle = math.atan2(dy, dx)
+            ordered = sorted(photo_set, key=operator.attrgetter('user_angle'))
+            sample = []
+            divisor = math.ceil(total / how_many)
+            for k, v in enumerate(ordered):
+                if k % divisor == 0:
+                    sample.append(v)
+            tour = None
+            if len(sample) > 0:
+                tour = Tour(
+                    name='Random tour'
+                )
+                tour.save()
+            i = 0
+            for each in sample:
+                if tour:
+                    TourPhoto(
+                        tour=tour,
+                        photo=each,
+                        order=i
+                    ).save()
+                i += 1
+            return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
+        else:
+            ret['errors'] = form.errors
+    else:
+        tour = Tour.objects.filter(pk=tour_id).first()
+        for each in tour.photos.all():
+            ret['photos'].append({
+                'name': each.description,
+                'lat': each.lat,
+                'lng': each.lon,
+                'azimuth': each.azimuth,
+                'image': request.build_absolute_uri(reverse('project.ajapaik.views.image_thumb',
+                                                            args=(each.pk, 800, each.get_pseudo_slug()))),
+                'url': request.build_absolute_uri(reverse('project.ajapaik.then_and_now_tours.detail',
+                                                            args=(each.pk,)))
+            })
+        ret['photos'] = json.dumps(ret['photos'])
+
     return render_to_response('then_and_now/map.html', RequestContext(request, ret))
 
 
@@ -33,8 +114,9 @@ def gallery(request, tour_id):
 
 
 def detail(request, photo_id):
+    photo = Photo.objects.filter(pk=photo_id).first()
     ret = {
-
+        'photo': photo
     }
 
     return render_to_response('then_and_now/detail.html', RequestContext(request, ret))

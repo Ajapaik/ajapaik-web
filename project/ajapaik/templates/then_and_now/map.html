@@ -12,7 +12,7 @@
 
 {% block specific_js %}
     <script>
-        var getRandomTourURL = '{% url 'project.ajapaik.then_and_now_tours_api.random_tour' %}';
+        var tour = {{ photos|safe }};
     </script>
     <script src="{% static 'js/then-and-now-map.js' %}"></script>
 {% endblock %}
