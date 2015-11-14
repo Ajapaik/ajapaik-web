@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area,\
-    AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating
+    AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourPhoto
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -15,6 +15,15 @@ class CSVUploadAdmin(admin.ModelAdmin):
 # class AlbumPhotoInline(admin.TabularInline):
 #     model = AlbumPhoto
 #     extra = 1
+
+class TourPhotoInline(admin.TabularInline):
+    model = TourPhoto
+    extra = 1
+
+
+class TourAdmin(admin.ModelAdmin):
+    pass
+    #inlines = (TourPhotoInline,)
 
 
 class PhotoAdmin(ForeignKeyAutocompleteAdmin):
@@ -112,3 +121,4 @@ admin.site.register(Device)
 admin.site.register(CredentialsModel, CredentialsAdmin)
 admin.site.register(Newsletter)
 admin.site.register(Dating)
+admin.site.register(Tour, TourAdmin)

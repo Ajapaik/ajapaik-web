@@ -109,6 +109,10 @@ urlpatterns += patterns('project.ajapaik.delfi',
     url(r'^delfi_api/v1/photos_bbox/$', 'photos_bbox'),
 )
 
+urlpatterns += patterns('project.ajapaik.then_and_now_tours_api',
+    url(r'^then-and-now-api/v1/tour/(?P<id>\d+)$', 'get_tour'),
+)
+
 urlpatterns += patterns('',
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
     url(r'^admin/', include(admin.site.urls)),

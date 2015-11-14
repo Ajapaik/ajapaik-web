@@ -1095,3 +1095,24 @@ class Dating(Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.profile.pk, self.photo.pk)
+
+
+class Tour(Model):
+    photos = ManyToManyField('Photo', through='TourPhoto', related_name='tours')
+    name = CharField(max_length=255)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'thenandnow_tour'
+
+
+class TourPhoto(Model):
+    photo = ForeignKey('Photo')
+    tour = ForeignKey('Tour')
+    order = IntegerField(default=0)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'thenandnow_tourphoto'
