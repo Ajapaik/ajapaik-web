@@ -1,3 +1,18 @@
+{% extends "then_and_now/base.html" %}
+
+{% load thumbnail %}
+
 {% block layout %}
-    ASdasdasds
+    <div class="container-fluid">
+        <div class="col-xs-12">
+            <div class="row">
+                <a href="{% url 'project.ajapaik.then_and_now_tours.map_view' %}">Make me a tour!</a>
+            </div>
+            {% for p in recent_photos %}
+                <div class="row">
+                    <img class="img-responsive" src="{% thumbnail p.image '600x600' %}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

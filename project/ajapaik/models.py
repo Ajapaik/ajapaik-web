@@ -1116,3 +1116,12 @@ class TourPhoto(Model):
 
     class Meta:
         db_table = 'thenandnow_tourphoto'
+
+
+class TourRephoto(Model):
+    image = ImageField(upload_to='then-and-now', height_field='height', width_field='width')
+    width = IntegerField(blank=True, null=True)
+    height = IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'thenandnow_tourrephoto'

@@ -110,11 +110,21 @@ urlpatterns += patterns('project.ajapaik.delfi',
 )
 
 urlpatterns += patterns('project.ajapaik.then_and_now_tours_api',
+    url(r'^then-and-now-api/v1/tour/$', 'random_tour'),
     url(r'^then-and-now-api/v1/tour/(?P<id>\d+)$', 'get_tour'),
 )
 
 urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/$', 'frontpage'),
+    url(r'^then-and-now-tours/map/$', 'map_view'),
+    url(r'^then-and-now-tours/map/(?P<tour_id>\d+)$', 'map_view'),
+    url(r'^then-and-now-tours/detail/(?P<photo_id>\d+)/$', 'detail'),
+    url(r'^then-and-now-tours/pair/(?P<original_photo_id>\d+)/(?P<rephoto_id>\d+)/$', 'pair'),
+    url(r'^then-and-now-tours/gallery/(?P<tour_id>\d+)/$', 'gallery'),
+    url(r'^then-and-now-tours/camera/(?P<photo_id>\d+)/$', 'camera'),
+    url(r'^then-and-now-tours/camera/upload/$', 'camera_upload'),
+    url(r'^then-and-now-tours/tour-complete/$', 'tour_complete'),
+    url(r'^then-and-now-tours/juhan/$', 'juhan'),
 )
 
 urlpatterns += patterns('',

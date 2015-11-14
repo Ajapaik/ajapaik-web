@@ -1,0 +1,18 @@
+{% extends "then_and_now/base.html" %}
+
+{% load static %}
+
+{% block layout %}
+    <div class="container-fluid">
+        <div class="col-xs-12">
+            <div id="map-container"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        var getRandomTourURL = '{% url 'project.ajapaik.then_and_now_tours_api.random_tour' %}';
+    </script>
+    <script src="{% static 'js/then-and-now-map.js' %}"></script>
+{% endblock %}
