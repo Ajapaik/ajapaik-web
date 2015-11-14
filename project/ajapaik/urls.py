@@ -113,6 +113,10 @@ urlpatterns += patterns('project.ajapaik.then_and_now_tours_api',
     url(r'^then-and-now-api/v1/tour/(?P<id>\d+)$', 'get_tour'),
 )
 
+urlpatterns += patterns('project.ajapaik.then_and_now_tours',
+    url(r'^then-and-now-tours/$', 'frontpage'),
+)
+
 urlpatterns += patterns('',
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
     url(r'^admin/', include(admin.site.urls)),
