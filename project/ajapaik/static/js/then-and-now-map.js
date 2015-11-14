@@ -1,7 +1,9 @@
 (function () {
     'use strict';
     /* global google */
-    /* global tour */
+    /* global tourPhotos */
+    /* global startLat */
+    /* global startLng */
     var map = new google.maps.Map(document.getElementById('map-container'), {
         center: {
             lat: 58.3833,
@@ -10,7 +12,8 @@
         zoom: 15
     });
     $(document).ready(function () {
-        $.each(tour, function (k, v) {
+        map.setCenter(new google.maps.LatLng(startLat, startLng));
+        $.each(tourPhotos, function (k, v) {
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(v.lat, v.lng),
                 map: map,

@@ -73,7 +73,9 @@ def map_view(request, tour_id=None):
             tour = None
             if len(sample) > 0:
                 tour = Tour(
-                    name='Random tour'
+                    name='Random tour',
+                    user_lat=user_lat,
+                    user_lng=user_lng,
                 )
                 tour.save()
             i = 0
@@ -102,6 +104,7 @@ def map_view(request, tour_id=None):
                                                             args=(each.pk,)))
             })
         ret['photos'] = json.dumps(ret['photos'])
+        ret['tour'] = tour
 
     return render_to_response('then_and_now/map.html', RequestContext(request, ret))
 

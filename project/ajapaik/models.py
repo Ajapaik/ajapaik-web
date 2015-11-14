@@ -1100,6 +1100,8 @@ class Dating(Model):
 class Tour(Model):
     photos = ManyToManyField('Photo', through='TourPhoto', related_name='tours')
     name = CharField(max_length=255)
+    user_lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
+    user_lng = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 

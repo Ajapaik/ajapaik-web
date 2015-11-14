@@ -12,7 +12,9 @@
 
 {% block specific_js %}
     <script>
-        var tour = {{ photos|safe }};
+        var tourPhotos = {{ photos|safe }},
+            startLat = '{{ tour.user_lat }}',
+            startLng = '{{ tour.user_lng }}';
     </script>
     <script src="{% static 'js/then-and-now-map.js' %}"></script>
 {% endblock %}
