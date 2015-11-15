@@ -12,7 +12,11 @@
                 {{ photo.description }}
             </div>
             <div class="row">
-                <input class="camera-file-capture" type="file" accept="image/*" capture="camera" />
+                <form action="/then-and-now-tours/camera/upload/" method="post" enctype="multipart/form-data">
+                    <input name="image" id="camera-file-capture" type="file" accept="image/*" onchange="PreviewImage();" capture="camera" />
+                    <img id="uploadPreview" style="width: 100px; height: 100px;" />
+                    <input type="submit" value="submit">
+                </form>
                 <span class="glyphicon glyphicon-camera font-size-48px" aria-hidden="true"></span>
             </div>
         </div>

@@ -5,12 +5,8 @@
       <paths name="Ajapaik">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/garage/repos/lauri" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/var/garage/repos/marju" local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath path="/var/garage/repos/lauri/media" />
-            <excludedPath path="/var/garage/repos/lauri/static-collected" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

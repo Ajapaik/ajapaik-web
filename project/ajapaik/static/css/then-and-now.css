@@ -16,6 +16,6 @@ body {
     font-size: 48px;
 }
 
-.camera-file-capture {
+#camera-file-capture {
     display: none !important;
 }
