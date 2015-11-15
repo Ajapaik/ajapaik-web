@@ -12,12 +12,15 @@
                 {{ photo.description }}
             </div>
             <div class="row">
-                <form action="/then-and-now-tours/camera/upload/" method="post" enctype="multipart/form-data">
+                <form id="form" action="/then-and-now-tours/camera/upload/" method="post" enctype="multipart/form-data">
                     <input name="image" id="camera-file-capture" type="file" accept="image/*" onchange="PreviewImage();" capture="camera" />
-                    <img id="uploadPreview" style="width: 100px; height: 100px;" />
-                    <input type="submit" value="submit">
+                    <img style="display:none" id="uploadPreview" class="img-responsive" />
+                    <input type="hidden" name="original" value="{{ photo.id }}"/>
+                    <input type="hidden" name="tour" value="{{ tour.id }}"/>
                 </form>
                 <span class="glyphicon glyphicon-camera font-size-48px" aria-hidden="true"></span>
+                <span style="display:none" class="glyphicon glyphicon-ok font-size-48px" aria-hidden="true"></span>
+
             </div>
         </div>
     </div>
