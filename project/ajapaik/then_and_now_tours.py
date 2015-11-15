@@ -24,6 +24,8 @@ from project.ajapaik.settings import THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
 
 class camera_upload_form(forms.Form):
     image = forms.ImageField()
+    tour = forms.ModelChoiceField(Tour.objects.all())
+    original = forms.ModelChoiceField(Photo.objects.all())
 
 
 class random_tour_form(forms.Form):
