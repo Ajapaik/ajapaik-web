@@ -22,10 +22,10 @@
     <![endif]-->
 </head>
 
-<body class="full-size">
+<body class="full-size {% if not is_frontpage %}padding-top-50{% endif %}">
 <div id="fb-root"></div>
 {% if not is_frontpage %}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -40,8 +40,8 @@
             <div id="navbar" class="collapse navbar-collapse">
                 {% if is_map or is_gallery %}
                     <ul class="nav navbar-nav">
-                        <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}">Map</a></li>
-                        <li><a href="{% url 'project.ajapaik.then_and_now_tours.gallery' tour.pk %}">Gallery</a></li>
+                        <li {% if is_map %}class="navbar-active"{% endif %}><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}">Map</a></li>
+                        <li {% if is_gallery %}class="navbar-active"{% endif %}><a href="{% url 'project.ajapaik.then_and_now_tours.gallery' tour.pk %}">Gallery</a></li>
                     </ul>
                 {% endif %}
             </div>

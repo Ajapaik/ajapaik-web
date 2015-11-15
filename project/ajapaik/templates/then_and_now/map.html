@@ -10,7 +10,10 @@
     <script>
         var tourPhotos = {{ photos|safe }},
             startLat = '{{ tour.user_lat }}',
-            startLng = '{{ tour.user_lng }}';
+            startLng = '{{ tour.user_lng }}',
+            marker1 = '{% static 'images/then-and-now-marker-1.png' %}',
+            marker2 = '{% static 'images/then-and-now-marker-2.png' %}',
+            marker3 = '{% static 'images/then-and-now-marker-3.png' %}';
     </script>
     <script src="{% static 'js/then-and-now-map.js' %}"></script>
 {% endblock %}

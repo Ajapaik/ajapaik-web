@@ -9,6 +9,10 @@ html, body, #map-container {
     height: 100%;
 }
 
+.padding-top-50 {
+    padding-top: 50px;
+}
+
 .navbar-fixed-top {
     border: 0;
     margin-bottom: 0;
@@ -22,7 +26,29 @@ html, body, #map-container {
     display: none !important;
 }
 
-#frontpage-container {
-    background: url(../images/then-and-now-frontpage.png) no-repeat;
+.double-border {
+    background-color: #edc549;
+    border: solid #fff;
+    position: relative;
+    margin: 0 auto;
+    border-radius: 33px;
+    padding: 6px 48px;
 }
 
+.double-border:before {
+    background: none;
+    border: 2px solid #fff;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    pointer-events: none;
+    border-radius: 30px;
+}
+
+.navbar-active {
+    background-color: #edc549;
+}

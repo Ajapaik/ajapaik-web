@@ -237,13 +237,15 @@ def camera_upload(request):
         ).save()
         each_photo_done = True
         for each in tour.photos.all():
-            if not TourRephoto.objects.filter(tour=tour, photo=each, user=profile).exists():
+            if not TourRephoto.objects.filter(tour=tour, original=each, user=profile).exists():
                 each_photo_done = False
                 break
         if each_photo_done:
             return redirect(reverse('project.ajapaik.then_and_now_tours.tour_complete', args=(tour.pk,)))
+        else:
+            return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
     else:
-        ret['errors'] = form.errors
+        print form.errors
 
     return HttpResponse(ret)
 

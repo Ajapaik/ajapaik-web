@@ -4,6 +4,9 @@
     /* global tourPhotos */
     /* global startLat */
     /* global startLng */
+    /* global marker1 */
+    /* global marker2 */
+    /* global marker3 */
     var map = new google.maps.Map(document.getElementById('map-container'), {
             center: {
                 lat: 58.3833,
@@ -17,9 +20,9 @@
         $.each(tourPhotos, function (k, v) {
             var icon;
             if (v.isDone) {
-                icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                icon = marker2;
             } else {
-                icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+                icon = marker1;
             }
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(v.lat, v.lng),
@@ -38,10 +41,7 @@
         });
         var userLocation = new google.maps.Marker({
             clickable: false,
-            icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-                new google.maps.Size(22, 22),
-                new google.maps.Point(0, 18),
-                new google.maps.Point(11, 11)),
+            icon: marker3,
             shadow: null,
             zIndex: 999,
             map: map
