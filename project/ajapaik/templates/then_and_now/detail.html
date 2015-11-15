@@ -12,17 +12,13 @@
                 {{ photo.description }}
             </div>
             <div class="row">
-                <a href="{% url 'project.ajapaik.then_and_now_tours.camera' photo.pk %}">
-                    <span class="glyphicon glyphicon-camera font-size-48px" aria-hidden="true"></span>
-                </a>
+                <input class="camera-file-capture" type="file" accept="image/*" capture="camera" />
+                <span class="glyphicon glyphicon-camera font-size-48px" aria-hidden="true"></span>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block specific_js %}
-    <script>
-        var tour = {{ photos|safe }};
-    </script>
-    <script src="{% static 'js/then-and-now-map.js' %}"></script>
+    <script src="{% static 'js/then-and-now-detail.js' %}"></script>
 {% endblock %}

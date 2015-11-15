@@ -1,0 +1,11 @@
+{% extends "then_and_now/base.html" %}
+
+{% load static thumbnail %}
+
+{% block layout %}
+    <input type="file" accept="image/*" capture="camera" />
+{% endblock %}
+
+{% block specific_js %}
+    <script src="{% static 'js/then-and-now-camera.js' %}"></script>
+{% endblock %}

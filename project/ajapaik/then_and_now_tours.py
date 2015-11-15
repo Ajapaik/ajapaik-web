@@ -2,6 +2,8 @@ import json
 import math
 
 import operator
+import random
+
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
@@ -34,7 +36,7 @@ def frontpage(request):
     }
     return render_to_response('then_and_now/frontpage.html', RequestContext(request, ret))
 
-
+'''
 def map_view(request, tour_id=None):
     ret = {
         'photos': []
@@ -105,14 +107,83 @@ def map_view(request, tour_id=None):
             })
         ret['photos'] = json.dumps(ret['photos'])
         ret['tour'] = tour
+        ret['is_map'] = True
+
+    return render_to_response('then_and_now/map.html', RequestContext(request, ret))
+'''
+
+
+def map_view(request, tour_id=None):
+    ret = {
+        'photos': []
+    }
+    if not tour_id:
+        form = random_tour_form(request.GET)
+        if form.is_valid():
+            user_lat = form.cleaned_data['lat']
+            user_lng = form.cleaned_data['lng']
+            max_dist = form.cleaned_data['max_distance']
+            min_dist = form.cleaned_data['min_distance']
+            how_many = form.cleaned_data['how_many']
+            if not max_dist:
+                max_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
+            if not min_dist:
+                min_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
+            if not how_many:
+                how_many = THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
+            user_location = Point(user_lng, user_lat)
+            photo_set = Photo.objects.filter(rephoto_of__isnull=True,
+                                             geography__distance_lte=(user_location, D(m=max_dist)),
+                                             geography__distance_gte=(user_location, D(m=min_dist)),
+                                             )
+            sample = random.sample(photo_set, how_many)
+            tour = None
+            if len(sample) > 0:
+                tour = Tour(
+                    name='Random tour',
+                    user_lat=user_lat,
+                    user_lng=user_lng,
+                )
+                tour.save()
+            i = 0
+            for each in sample:
+                if tour:
+                    TourPhoto(
+                        tour=tour,
+                        photo=each,
+                        order=i
+                    ).save()
+                i += 1
+            return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
+        else:
+            ret['errors'] = form.errors
+    else:
+        tour = Tour.objects.filter(pk=tour_id).first()
+        for each in tour.photos.all():
+            ret['photos'].append({
+                'name': each.description,
+                'lat': each.lat,
+                'lng': each.lon,
+                'azimuth': each.azimuth,
+                'image': request.build_absolute_uri(reverse('project.ajapaik.views.image_thumb',
+                                                            args=(each.pk, 800, each.get_pseudo_slug()))),
+                'url': request.build_absolute_uri(reverse('project.ajapaik.then_and_now_tours.detail',
+                                                            args=(each.pk,)))
+            })
+        ret['photos'] = json.dumps(ret['photos'])
+        ret['tour'] = tour
+        ret['is_map'] = True
 
     return render_to_response('then_and_now/map.html', RequestContext(request, ret))
 
-
 def gallery(request, tour_id):
     ret = {
-
+        'is_gallery': True
     }
+    tour = Tour.objects.filter(pk=tour_id).first()
+    if tour:
+        ret['tour'] = tour
+
     return render_to_response('then_and_now/gallery.html', RequestContext(request, ret))
 
 
