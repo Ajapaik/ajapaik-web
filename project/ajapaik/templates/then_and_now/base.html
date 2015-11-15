@@ -23,28 +23,31 @@
 </head>
 
 <body class="full-size">
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'project.ajapaik.then_and_now_tours.frontpage' %}">Then & Now Tours</a>
+<div id="fb-root"></div>
+{% if not is_frontpage %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'project.ajapaik.then_and_now_tours.frontpage' %}">Then & Now Tours</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                {% if is_map or is_gallery %}
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}">Map</a></li>
+                        <li><a href="{% url 'project.ajapaik.then_and_now_tours.gallery' tour.pk %}">Gallery</a></li>
+                    </ul>
+                {% endif %}
+            </div>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            {% if is_map or is_gallery %}
-                <ul class="nav navbar-nav">
-                    <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}">Map</a></li>
-                    <li><a href="{% url 'project.ajapaik.then_and_now_tours.gallery' tour.pk %}">Gallery</a></li>
-                </ul>
-            {% endif %}
-        </div>
-    </div>
-</nav>
+    </nav>
+{% endif %}
 
 {% block layout %}{% endblock %}
 
@@ -54,6 +57,14 @@
         crossorigin="anonymous"></script>
 <script src="http://maps.google.com/maps/api/js?sensor=false&v=3"></script>
 <script src="{% static 'js/jquery.justifiedGallery-3.6.1.js' %}"></script>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=201052296573134";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 {% block specific_js %}{% endblock %}
 </body>
 </html>

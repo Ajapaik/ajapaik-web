@@ -4,12 +4,16 @@ import math
 import operator
 import random
 
+import datetime
+from time import timezone
+
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
+from django.utils.timezone import utc
 from django.views.decorators.csrf import csrf_exempt
 from django import forms
 
@@ -32,7 +36,8 @@ class random_tour_form(forms.Form):
 
 def frontpage(request):
     ret = {
-        'is_frontpage': True
+        'is_frontpage': True,
+        'recent_photos': TourRephoto.objects.order_by('-created')[:5]
     }
     return render_to_response('then_and_now/frontpage.html', RequestContext(request, ret))
 
@@ -117,6 +122,7 @@ def map_view(request, tour_id=None):
     ret = {
         'photos': []
     }
+    profile = request.get_user().profile
     if not tour_id:
         form = random_tour_form(request.GET)
         if form.is_valid():
@@ -143,6 +149,7 @@ def map_view(request, tour_id=None):
                     name='Random tour',
                     user_lat=user_lat,
                     user_lng=user_lng,
+                    user=profile
                 )
                 tour.save()
             i = 0
@@ -162,19 +169,22 @@ def map_view(request, tour_id=None):
         for each in tour.photos.all():
             ret['photos'].append({
                 'name': each.description,
+                'name': each.description,
                 'lat': each.lat,
                 'lng': each.lon,
                 'azimuth': each.azimuth,
                 'image': request.build_absolute_uri(reverse('project.ajapaik.views.image_thumb',
-                                                            args=(each.pk, 800, each.get_pseudo_slug()))),
+                                                            args=(each.pk, 50, each.get_pseudo_slug()))),
                 'url': request.build_absolute_uri(reverse('project.ajapaik.then_and_now_tours.detail',
-                                                            args=(each.pk,)))
+                                                            args=(each.pk, tour.pk))),
+                'isDone': TourRephoto.objects.filter(original=each, tour=tour, user=profile).exists()
             })
         ret['photos'] = json.dumps(ret['photos'])
         ret['tour'] = tour
         ret['is_map'] = True
 
     return render_to_response('then_and_now/map.html', RequestContext(request, ret))
+
 
 def gallery(request, tour_id):
     ret = {
@@ -187,10 +197,14 @@ def gallery(request, tour_id):
     return render_to_response('then_and_now/gallery.html', RequestContext(request, ret))
 
 
-def detail(request, photo_id):
-    photo = Photo.objects.filter(pk=photo_id).first()
+def detail(request, photo_id, tour_id):
+    photo = Photo.objects.filter(pk=photo_id).order_by('-created').first()
+    tour = Tour.objects.filter(pk=tour_id).first()
+    profile = request.get_user().profile
     ret = {
-        'photo': photo
+        'photo': photo,
+        'tour': tour,
+        'rephoto': TourRephoto.objects.filter(original=photo, user=profile, tour=tour)
     }
 
     return render_to_response('then_and_now/detail.html', RequestContext(request, ret))
@@ -204,34 +218,39 @@ def pair(request, original_photo_id, rephoto_id):
     return render_to_response('then_and_now/pair.html', RequestContext(request, ret))
 
 
-def camera(request, photo_id):
-    ret = {
-
-    }
-
-    return render_to_response('then_and_now/camera.html', RequestContext(request, ret))
-
-
 @csrf_exempt
 def camera_upload(request):
     ret = {
 
     }
+    profile = request.get_user().profile
     form = camera_upload_form(request.POST, request.FILES)
     if form.is_valid():
+        tour = form.cleaned_data['tour']
         TourRephoto(
-            image=form.cleaned_data['image']
+            image=form.cleaned_data['image'],
+            original=form.cleaned_data['original'],
+            tour=form.cleaned_data['tour'],
+            user=profile
         ).save()
+        each_photo_done = True
+        for each in tour.photos.prefetch_related('tour_rephotos'):
+            if not each.tour_rephotos.filter().exists():
+                each_photo_done = False
+                break
+        if each_photo_done:
+            return redirect(reverse('project.ajapaik.then_and_now_tours.tour_complete', args=(tour.pk,)))
     else:
         ret['errors'] = form.errors
-        print form.errors
 
     return HttpResponse(ret)
 
 
-def tour_complete(request, photo_id):
+def tour_complete(request, tour_id):
+    tour = Tour.objects.filter(pk=tour_id).first()
     ret = {
-
+        'tour': tour,
+        'minutes': (datetime.datetime.utcnow().replace(tzinfo=utc) - tour.created.replace(tzinfo=utc)).seconds / 60
     }
 
     return render_to_response('then_and_now/tour_complete.html', RequestContext(request, ret))

@@ -1102,15 +1102,19 @@ class Tour(Model):
     name = CharField(max_length=255)
     user_lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
     user_lng = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    user = ForeignKey('Profile')
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'thenandnow_tour'
 
+    def __unicode__(self):
+        return '%s - %s' % (self.pk, self.user.pk)
+
 
 class TourPhoto(Model):
-    photo = ForeignKey('Photo')
+    photo = ForeignKey('Photo', related_name='tour_photos')
     tour = ForeignKey('Tour')
     order = IntegerField(default=0)
     created = DateTimeField(auto_now_add=True)
@@ -1122,8 +1126,13 @@ class TourPhoto(Model):
 
 class TourRephoto(Model):
     image = ImageField(upload_to='then-and-now', height_field='height', width_field='width')
+    tour = ForeignKey('Tour', related_name='tour_rephotos')
+    original = ForeignKey('Photo')
+    user = ForeignKey('Profile')
     width = IntegerField(blank=True, null=True)
     height = IntegerField(blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'thenandnow_tourrephoto'

@@ -1,10 +1,12 @@
-html, body, #map-container {
-    width: 100%;
-    height: 100%;
+@font-face {
+    font-family: MuseoSans300;
+    src: url('../fonts/MuseoSans_300.otf');
 }
 
-body {
-    padding-top: 50px;
+html, body, #map-container {
+    font-family: MuseoSans300 sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
 .navbar-fixed-top {
@@ -18,4 +20,8 @@ body {
 
 #camera-file-capture {
     display: none !important;
+}
+
+#frontpage-container {
+    background: url(../images/then-and-now-frontpage.png) no-repeat;
 }

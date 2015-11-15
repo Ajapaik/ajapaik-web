@@ -5,7 +5,7 @@
 {% block layout %}
     <div id="gallery-container">
         {% for p in tour.photos.all %}
-            <a href="{% url 'project.ajapaik.then_and_now_tours.detail' p.pk%}">
+            <a href="{% url 'project.ajapaik.then_and_now_tours.detail' p.pk tour.pk %}">
                 <img src="{% thumbnail p.image '300x300' %}">
             </a>
         {% endfor %}

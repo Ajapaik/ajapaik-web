@@ -1,0 +1,15 @@
+{% extends "then_and_now/base.html" %}
+
+{% block layout %}
+    <div class="container">
+        <div class="row">
+            Tour complete!
+        </div>
+        <div class="row">
+            {{ minutes }} min
+        </div>
+        <div class="row">
+            <div class="fb-share-button" data-href="{% url 'project.ajapaik.then_and_now_tours.tour_complete' tour.pk %}" data-layout="button"></div>
+        </div>
+    </div>
+{% endblock %}
