@@ -1114,7 +1114,7 @@ class Tour(Model):
 
 
 class TourPhoto(Model):
-    photo = ForeignKey('Photo', related_name='tour_photos')
+    photo = ForeignKey('Photo')
     tour = ForeignKey('Tour')
     order = IntegerField(default=0)
     created = DateTimeField(auto_now_add=True)

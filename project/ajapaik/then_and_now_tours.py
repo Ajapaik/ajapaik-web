@@ -236,8 +236,8 @@ def camera_upload(request):
             user=profile
         ).save()
         each_photo_done = True
-        for each in tour.photos.prefetch_related('tour_rephotos'):
-            if not each.tour_rephotos.filter().exists():
+        for each in tour.photos.all():
+            if not TourRephoto.objects.filter(tour=tour, photo=each, user=profile).exists():
                 each_photo_done = False
                 break
         if each_photo_done:
