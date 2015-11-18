@@ -90,6 +90,7 @@
                         <a id="ajapaik-photoview-start-dating-button" data-id="{{ photo.id }}" class="pull-left"
                            title="{% trans "Date this image" %}" href="#">
                             <i class="material-icons ajapaik-text-gray ajapaik-icon-48">event</i>
+                            <span class="badge">{{ datings_count }}</span>
                         </a>
                         <a id="ajapaik-photoview-start-geotagging-button" data-id="{{ photo.id }}" class="pull-left"
                            title="{% trans "Pick the shooting location!" %}" href="#">
@@ -225,6 +226,7 @@
     <script>
         window.albumId = '{{ album.id }}';
         window.photoId = '{{ photo.id }}';
+        window.previousDatings = {{ previous_datings|safe }};
         window.hostname = '{{ hostname }}';
         // Some fake variables to reuse photo modal mini-map component
         {% if photo.lat and photo.lon %}
@@ -430,17 +432,21 @@
                 e.preventDefault();
                 if ($('#ajp-dater-container').is(':visible')) {
                     window.stopDater();
+                    window.reportCloseDater();
                 } else {
                     window.startDater($(this).data('id'));
+                    window.reportDaterOpen();
                 }
             });
             window.startDater = function (photoId) {
                 $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
-                    photoId: photoId
+                    photoId: photoId,
+                    previousDatings: window.previousDatings
                 });
             };
             window.stopDater = function () {
                 $('#ajp-dater-input').empty();
+                $('#ajp-dater-comment').empty();
                 $('#ajp-dater-feedback').empty();
                 $('#ajp-dater-container').hide();
             };

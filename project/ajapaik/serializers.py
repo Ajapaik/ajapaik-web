@@ -1,4 +1,4 @@
-from models import Album, Photo
+from models import Album, Photo, Dating
 from rest_framework import serializers
 
 
@@ -31,3 +31,12 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'cover_photo_height', 'cover_photo_width', 'cover_photo_flipped',
                   'photo_count_with_subalbums', 'cover_photo', 'geotagged_photo_count_with_subalbums',
                   'comments_count_with_subalbums', 'rephoto_count_with_subalbums')
+
+
+class DatingSerializer(serializers.ModelSerializer):
+    fb_name = serializers.CharField(source='profile.fb_name')
+    google_plus_name = serializers.CharField(source='profile.google_plus_name')
+
+    class Meta:
+        model = Dating
+        fields = ('comment', 'fb_name', 'google_plus_name', 'raw')

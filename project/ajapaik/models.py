@@ -1081,6 +1081,7 @@ class Dating(Model):
     photo = ForeignKey('Photo', related_name='datings')
     profile = ForeignKey('Profile', related_name='datings')
     raw = CharField(max_length=25)
+    comment = TextField(blank=True, null=True)
     start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
     start_approximate = BooleanField(default=False)
     start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)

@@ -26,132 +26,141 @@
         this.invalid = false;
         this.UI = $([
             "<div class='panel panel-default' id='ajp-dater-panel'>",
-                "<div class='panel-body'>",
-                    "<div class='well'>",
-                        "<span></span>",
-                        "<button id='ajp-dater-close-tutorial-button'><i class='material-icons'>close</i></button>",
-                    "</div>",
-                    "<button id='ajp-dater-open-tutorial-button'><i class='material-icons'>info</i></button>",
-                    "<form class='form' id='ajp-dater-form'>",
-                    "    <div class='form-group'>",
-                    "        <input id='ajp-dater-input' type='text' class='form-control' placeholder=''>",
-                    "    </div>",
-                    "   <div id='ajp-dater-feedback'></div>",
-                    "<div class='btn-group' role='group'>",
-                        "<button type='button' id='ajp-dater-cancel-button' class='btn btn-default'><i class='material-icons'>close</i></button>",
-                        "<button type='submit' id='ajp-dater-submit-button' class='btn btn-default'><i class='material-icons'>check</i></button>",
-                    "</div>",
-                "</div>",
+            "   <div class='panel-body'>",
+            "       <div class='well' id='ajp-dater-previous-datings-well'>",
+            "       </div>",
+            "       <div class='well' id='ajp-dater-tutorial-well'>",
+            "           <span></span>",
+            "           <button id='ajp-dater-close-tutorial-button'><i class='material-icons'>close</i></button>",
+            "       </div>",
+            "       <button id='ajp-dater-open-tutorial-button'><i class='material-icons'>info</i></button>",
+            "       <form class='form' id='ajp-dater-form'>",
+            "           <div class='form-inline'>",
+            "               <div class='form-group'>",
+            "                   <input id='ajp-dater-input' type='text' class='form-control' placeholder=''>",
+            "                   <div class='btn btn-default' id='ajp-dater-toggle-comment-button'><i class='material-icons'>comment</i></div>",
+            "               </div>",
+            "           </div>",
+            "           <div id='ajp-dater-feedback'></div>",
+            "           <input class='form-control hidden' placeholder='' type='text' id='ajp-dater-comment'>",
+            "           <div class='btn-group' role='group'>",
+            "               <button type='button' id='ajp-dater-cancel-button' class='btn btn-default'><i class='material-icons'>close</i></button>",
+            "               <button type='submit' id='ajp-dater-submit-button' class='btn btn-default'><i class='material-icons'>check</i></button>",
+            "           </div>",
+            "       </form>",
+            "   </div>",
             "</div>"
         ].join('\n'));
-        this.extractUserInput = function () {
-            that.userInput = that.$UI.find('input').val().replace(/ /g,'');
+        this.extractUserInput = function (input) {
             var idx,
                 separator,
-                parts;
-            if (that.userInput.indexOf('-') > -1) {
-                idx = that.userInput.indexOf('-');
+                parts,
+                output = {
+                    raw: input
+                };
+            that.userInput = input;
+            if (input.indexOf('-') > -1) {
+                idx = input.indexOf('-');
                 separator = '-';
-            } else if (that.userInput.indexOf('..') > -1) {
-                idx = that.userInput.indexOf('..');
+            } else if (input.indexOf('..') > -1) {
+                idx = input.indexOf('..');
                 separator = '..';
             }
             if (idx > -1) {
-                parts = that.userInput.split(separator);
-                that.from = parts[0];
-                that.to = parts[1];
-                that.isRange = true;
+                parts = input.split(separator);
+                output.from = parts[0];
+                output.to = parts[1];
+                output.isRange = true;
             } else {
-                that.from = that.userInput;
-                that.to = null;
-                that.isRange = false;
+                output.from = input;
+                output.to = null;
+                output.isRange = false;
             }
+            return output;
         };
-        this.hasGoodDashesOrDots = function () {
-            var dashCount = (that.userInput.match(/-/g) || []).length,
-                dotDotCount = (that.userInput.match(/\.\./g) || []).length;
+        this.hasGoodDashesOrDots = function (input) {
+            var dashCount = (input.raw.match(/-/g) || []).length,
+                dotDotCount = (input.raw.match(/\.\./g) || []).length;
             if (dashCount > 1 || dotDotCount > 1) {
                 return false;
-            } else if (dashCount > 0 && dotDotCount > 0) {
-                return false;
             }
-            return true;
+            return !(dashCount > 0 && dotDotCount > 0);
         };
-        this.extractApproximates = function () {
-            if (that.from && that.from.indexOf('(') > -1 && that.from.indexOf(')') > -1) {
-                that.fromApproximate = true;
-                that.from = that.from.replace('(', '');
-                that.from = that.from.replace(')', '');
+        this.extractApproximates = function (input) {
+            if (input.from && input.from.indexOf('(') > -1 && input.from.indexOf(')') > -1) {
+                input.fromApproximate = true;
+                input.from = input.from.replace('(', '');
+                input.from = input.from.replace(')', '');
             } else {
-                that.fromApproximate = false;
+                input.fromApproximate = false;
             }
-            if (that.to && that.to.indexOf('(') > -1 && that.to.indexOf(')') > -1) {
-                that.toApproximate = true;
-                that.to = that.to.replace('(', '');
-                that.to = that.to.replace(')', '');
+            if (input.to && input.to.indexOf('(') > -1 && input.to.indexOf(')') > -1) {
+                input.toApproximate = true;
+                input.to = input.to.replace('(', '');
+                input.to = input.to.replace(')', '');
             } else {
-                that.toApproximate = false;
+                input.toApproximate = false;
             }
+            return input;
         };
-        this.checkAndGetStringLengths = function () {
-            if (that.from) {
-                if (that.from.length === 4) {
-                    that.fromLocalizationFormat = 'L';
-                } else if (that.from.length === 7) {
-                    that.fromLocalizationFormat = 'LL';
-                } else if (that.from.length === 10) {
-                    that.fromLocalizationFormat = 'LLL';
-                } else {
-                    return false;
+        this.calculateDateFormats = function (input) {
+            if (input.from) {
+                if (input.from.length === 4) {
+                    input.fromLocalizationFormat = 'L';
+                } else if (input.from.length === 7) {
+                    input.fromLocalizationFormat = 'LL';
+                } else if (input.from.length === 10) {
+                    input.fromLocalizationFormat = 'LLL';
                 }
             }
-            if (that.to) {
-                if (that.to.length === 4) {
-                    that.toLocalizationFormat = 'L';
-                } else if (that.to.length === 7) {
-                    that.toLocalizationFormat = 'LL';
-                } else if (that.to.length === 10) {
-                    that.toLocalizationFormat = 'LLL';
-                } else {
-                    return false;
+            if (input.to) {
+                if (input.to.length === 4) {
+                    input.toLocalizationFormat = 'L';
+                } else if (input.to.length === 7) {
+                    input.toLocalizationFormat = 'LL';
+                } else if (input.to.length === 10) {
+                    input.toLocalizationFormat = 'LLL';
                 }
             }
-            return true;
+            return input;
         };
-        this.hasAtLeastOneDate = function () {
-            return that.from || that.to;
+        this.hasAtLeastOneDate = function (input) {
+            return input.from || input.to;
         };
-        this.endIsGreaterThanStart = function () {
-            if (that.to && that.from) {
-                return that.to > that.from;
+        this.endIsGreaterThanStart = function (input) {
+            if (input.to && input.from) {
+                return input.to > input.from;
             }
             return true;
         };
-        this.checkAndGetValidDates = function () {
+        this.getValidDates = function (input) {
             var ok = false;
-            if (that.from && that.from.length > 0) {
-                that.from = moment(that.from);
-                ok = that.from.isValid();
+            if (input.from && input.from.length > 0) {
+                input.from = moment(input.from);
+                ok = input.from.isValid();
             }
-            if (that.to && that.to.length > 0) {
-                that.to = moment(that.to);
-                ok = that.to.isValid();
+            if (input.to && input.to.length > 0) {
+                input.to = moment(input.to);
+                ok = input.to.isValid();
             }
-            return ok;
+            input.ok = ok;
+            return input;
         };
         this.cleanAndValidate = function () {
+            var userInput = that.extractUserInput(that.$UI.find('input').val().replace(/ /g, ''));
             that.invalid = false;
-            that.extractUserInput();
-            if (that.hasGoodDashesOrDots()) {
-                that.extractApproximates();
-                if (that.checkAndGetStringLengths()) {
-                    if (!that.checkAndGetValidDates()) {
+            if (that.hasGoodDashesOrDots(userInput)) {
+                userInput = that.extractApproximates(userInput);
+                userInput = that.calculateDateFormats(userInput);
+                if (userInput.toLocalizationFormat || userInput.fromLocalizationFormat) {
+                    userInput = that.getValidDates(userInput);
+                    if (!userInput.ok) {
                         that.invalid = true;
                     }
-                    if (!that.hasAtLeastOneDate()) {
+                    if (!that.hasAtLeastOneDate(userInput)) {
                         that.invalid = true;
                     }
-                    if (!that.endIsGreaterThanStart()) {
+                    if (!that.endIsGreaterThanStart(userInput)) {
                         that.invalid = true;
                     }
                 } else {
@@ -160,14 +169,89 @@
             } else {
                 that.invalid = true;
             }
+            if (!that.invalid) {
+                that.to = userInput.to;
+                that.from = userInput.from;
+                that.toApproximate = userInput.toApproximate;
+                that.fromApproximate = userInput.fromApproximate;
+                that.isRange = userInput.isRange;
+                that.fromLocalizationFormat = userInput.fromLocalizationFormat;
+                that.toLocalizationFormat = userInput.toLocalizationFormat;
+            }
+        };
+        this.generateDateString = function (data) {
+            var fmt,
+                feedbackStr;
+            if (data.isRange) {
+                if (data.from && data.to) {
+                    if (data.fromApproximate && data.toApproximate) {
+                        fmt = gettext('Between approximately %(from)s and approximately %(to)s');
+                        feedbackStr = interpolate(fmt, {
+                            from: data.from.locale(currentLocale).format(data.fromLocalizationFormat),
+                            to: data.to.locale(currentLocale).format(data.toLocalizationFormat)
+                        }, true);
+                    } else if (data.fromApproximate) {
+                        fmt = gettext('Between approximately %(from)s and %(to)s');
+                        feedbackStr = interpolate(fmt, {
+                            from: data.from.locale(currentLocale).format(data.fromLocalizationFormat),
+                            to: data.to.locale(currentLocale).format(data.toLocalizationFormat)
+                        }, true);
+                    } else if (data.toApproximate) {
+                        fmt = gettext('Between %(from)s and approximately %(to)s');
+                        feedbackStr = interpolate(fmt, {
+                            from: data.from.locale(currentLocale).format(data.fromLocalizationFormat),
+                            to: data.to.locale(currentLocale).format(data.toLocalizationFormat)
+                        }, true);
+                    } else {
+                        fmt = gettext('Between %(from)s and %(to)s');
+                        feedbackStr = interpolate(fmt, {
+                            from: data.from.locale(currentLocale).format(data.fromLocalizationFormat),
+                            to: data.to.locale(currentLocale).format(data.toLocalizationFormat)
+                        }, true);
+                    }
+                } else if (data.from) {
+                    if (data.fromApproximate) {
+                        fmt = gettext('After approximately %(from)s');
+                        feedbackStr = interpolate(fmt, {
+                            from: data.from.locale(currentLocale).format(data.fromLocalizationFormat)
+                        }, true);
+                    } else {
+                        fmt = gettext('After %(from)s');
+                        feedbackStr = interpolate(fmt, {
+                            from: data.from.locale(currentLocale).format(data.fromLocalizationFormat)
+                        }, true);
+                    }
+                } else if (data.to) {
+                    if (data.toApproximate) {
+                        fmt = gettext('Before approximately %(to)s');
+                        feedbackStr = interpolate(fmt, {
+                            to: data.to.locale(currentLocale).format(data.toLocalizationFormat)
+                        }, true);
+                    } else {
+                        fmt = gettext('Before %(to)s');
+                        feedbackStr = interpolate(fmt, {
+                            to: data.to.locale(currentLocale).format(data.toLocalizationFormat)
+                        }, true);
+                    }
+                }
+            } else {
+                if (data.from) {
+                    if (data.fromApproximate) {
+                        fmt = gettext('Approximately %(date)s');
+                        feedbackStr = interpolate(fmt, {date: data.from.locale(currentLocale).format(data.fromLocalizationFormat)}, true);
+                    } else {
+                        feedbackStr = data.from.locale(currentLocale).format(data.fromLocalizationFormat).toString();
+                    }
+                }
+            }
+            return feedbackStr;
         };
         this.giveFeedback = function () {
             that.cleanAndValidate();
             var formGroup = that.$UI.find('.form-group'),
                 feedbackDiv = that.$UI.find('#ajp-dater-feedback'),
                 submitButton = that.$UI.find('#ajp-dater-submit-button'),
-                feedbackStr,
-                fmt;
+                feedbackStr;
             if (that.invalid) {
                 formGroup.addClass('has-error');
                 submitButton.removeClass('btn-success');
@@ -178,68 +262,7 @@
             if (that.invalid) {
                 feedbackDiv.html(gettext('Invalid input, see help text.'));
             } else {
-                if (that.isRange) {
-                    if (that.from && that.to) {
-                        if (that.fromApproximate && that.toApproximate) {
-                            fmt = gettext('Between approximately %(from)s and approximately %(to)s');
-                            feedbackStr = interpolate(fmt, {
-                                from: that.from.locale(currentLocale).format(that.fromLocalizationFormat),
-                                to: that.to.locale(currentLocale).format(that.toLocalizationFormat)
-                            }, true);
-                        } else if (that.fromApproximate) {
-                            fmt = gettext('Between approximately %(from)s and %(to)s');
-                            feedbackStr = interpolate(fmt, {
-                                from: that.from.locale(currentLocale).format(that.fromLocalizationFormat),
-                                to: that.to.locale(currentLocale).format(that.toLocalizationFormat)
-                            }, true);
-                        } else if (that.toApproximate) {
-                            fmt = gettext('Between %(from)s and approximately %(to)s');
-                            feedbackStr = interpolate(fmt, {
-                                from: that.from.locale(currentLocale).format(that.fromLocalizationFormat),
-                                to: that.to.locale(currentLocale).format(that.toLocalizationFormat)
-                            }, true);
-                        } else {
-                            fmt = gettext('Between %(from)s and %(to)s');
-                            feedbackStr = interpolate(fmt, {
-                                from: that.from.locale(currentLocale).format(that.fromLocalizationFormat),
-                                to: that.to.locale(currentLocale).format(that.toLocalizationFormat)
-                            }, true);
-                        }
-                    } else if (that.from) {
-                        if (that.fromApproximate) {
-                            fmt = gettext('After approximately %(from)s');
-                            feedbackStr = interpolate(fmt, {
-                                from: that.from.locale(currentLocale).format(that.fromLocalizationFormat)
-                            }, true);
-                        } else {
-                            fmt = gettext('After %(from)s');
-                            feedbackStr = interpolate(fmt, {
-                                from: that.from.locale(currentLocale).format(that.fromLocalizationFormat)
-                            }, true);
-                        }
-                    } else if (that.to) {
-                        if (that.toApproximate) {
-                            fmt = gettext('Before approximately %(to)s');
-                            feedbackStr = interpolate(fmt, {
-                                to: that.to.locale(currentLocale).format(that.toLocalizationFormat)
-                            }, true);
-                        } else {
-                            fmt = gettext('Before %(to)s');
-                            feedbackStr = interpolate(fmt, {
-                                to: that.to.locale(currentLocale).format(that.toLocalizationFormat)
-                            }, true);
-                        }
-                    }
-                } else {
-                    if (that.from) {
-                        if (that.fromApproximate) {
-                            fmt = gettext('Approximately %(date)s');
-                            feedbackStr = interpolate(fmt, {date: that.from.locale(currentLocale).format(that.fromLocalizationFormat)}, true);
-                        } else {
-                            feedbackStr = that.from.locale(currentLocale).format(that.fromLocalizationFormat) + '';
-                        }
-                    }
-                }
+                feedbackStr = that.generateDateString(that);
             }
             feedbackDiv.html(feedbackStr);
         };
@@ -247,12 +270,16 @@
             that.giveFeedback();
             if (!that.invalid) {
                 var payload = {
-                    photo: that.photo,
-                    raw: that.userInput,
-                    start_approximate: that.fromApproximate,
-                    end_approximate: that.toApproximate,
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-                };
+                        photo: that.photo,
+                        raw: that.userInput,
+                        start_approximate: that.fromApproximate,
+                        end_approximate: that.toApproximate,
+                        csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                    },
+                    comment = that.$UI.find('#ajp-dater-comment').val();
+                if (comment) {
+                    payload.comment = comment;
+                }
                 if (that.fromLocalizationFormat === 'LLL') {
                     payload.start_accuracy = 0;
                 } else if (that.fromLocalizationFormat === 'LL') {
@@ -273,15 +300,18 @@
                 if (that.to) {
                     payload.end = that.to.format('YYYY-MM-DD');
                 }
+                if (payload.comment && typeof window.reportDaterSubmitWithComment === 'function') {
+                    window.reportDaterSubmitWithComment();
+                } else if (typeof window.reportDaterSubmit === 'function') {
+                    window.reportDaterSubmit();
+                }
                 if (payload.start || payload.end) {
                     $.ajax({
                         type: 'POST',
                         url: submitDatingURL,
                         data: payload,
                         success: function () {
-                            if (typeof window.stopDater === 'function') {
-                                window.stopDater();
-                            }
+                            window.location.reload();
                         },
                         error: function () {
                             $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
@@ -300,33 +330,54 @@
             var that = this;
             that.$UI.find('input').attr('placeholder', gettext('YYYY.MM.DD')).on('change textInput input', function () {
                 clearTimeout(that.typingTimer);
-                if ($(this).val()) {
-                    that.typingTimer = setTimeout(that.giveFeedback, 500);
-                }
+                that.typingTimer = setTimeout(that.giveFeedback, 500);
+            }).on('focus', function () {
+                window.datingFocused = true;
+            }).on('blur', function () {
+                window.datingFocused = false;
             });
             that.$UI.find('#ajp-dater-cancel-button').attr('title', gettext('Cancel')).click(function (e) {
                 e.preventDefault();
                 if (typeof window.stopDater === 'function') {
                     window.stopDater();
+                    if (typeof window.reportCloseDater === 'function') {
+                        window.reportCloseDater();
+                    }
                 }
             });
             that.$UI.find('#ajp-dater-submit-button').attr('title', gettext('Submit')).click(function (e) {
                 e.preventDefault();
                 that.submit();
             });
-            that.$UI.find('.well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory): <br/>1878 | 1902.02') + '</li><li>' + gettext('Mark date ranges or before/after with either "-" or "..": <br/>1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</li><li>' + gettext('Approximate date in brackets: <br/>(1944) | (1940.05)..1941.08.21') + '</li></ul>');
+            that.$UI.find('#ajp-dater-comment').on('focus', function () {
+                window.datingFocused = true;
+            }).on('blur', function () {
+                window.datingFocused = false;
+            }).attr('placeholder', gettext('Comment your dating'));
+            that.$UI.find('#ajp-dater-toggle-comment-button').click(function (e) {
+                e.preventDefault();
+                var target = that.$UI.find('#ajp-dater-comment');
+                target.toggleClass('hidden');
+                if (!target.hasClass('hidden') && typeof window.reportDaterOpenComment === 'function') {
+                    window.reportDaterOpenComment();
+                }
+            });
+            that.$UI.find('#ajp-dater-tutorial-well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory): <br/>1878 | 1902.02') + '</li><li>' + gettext('Mark date ranges or before/after with either "-" or "..": <br/>1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</li><li>' + gettext('Approximate date in brackets: <br/>(1944) | (1940.05)..1941.08.21') + '</li></ul>');
             if (docCookies.getItem('ajapaik_closed_dater_instructions') === 'true') {
-                that.$UI.find('.well').hide();
+                that.$UI.find('#ajp-dater-tutorial-well').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
             }
             that.$UI.find('#ajp-dater-close-tutorial-button').click(function () {
-                that.$UI.find('.well').hide();
+                that.$UI.find('#ajp-dater-tutorial-well').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
                 docCookies.setItem('ajapaik_closed_dater_instructions', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
             that.$UI.find('#ajp-dater-open-tutorial-button').click(function () {
-                that.$UI.find('.well').show();
+                that.$UI.find('#ajp-dater-tutorial-well').show();
                 that.$UI.find('#ajp-dater-open-tutorial-button').hide();
+                if (typeof window.reportDaterOpenTutorial === 'function') {
+                    window.reportDaterOpenTutorial();
+                }
                 docCookies.setItem('ajapaik_closed_dater_instructions', false, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
             // TODO: More generic implementation
@@ -353,7 +404,36 @@
             });
         },
         initializeDaterState: function (state) {
+            var that = this,
+                previousDatings = that.$UI.find('#ajp-dater-previous-datings-well'),
+                userStr,
+                commentStr;
             this.photo = state.photoId;
+            previousDatings.empty();
+            if (state.previousDatings) {
+                $.each(state.previousDatings, function (k, v) {
+                    userStr = '';
+                    commentStr = '';
+                    if (v.comment) {
+                        commentStr = ' - \"' + v.comment + '\"';
+                    }
+                    if (v.fb_name) {
+                        userStr = ' - ' + v.fb_name;
+                    } else if (v.google_plus_name) {
+                        userStr = ' - ' + v.google_plus_name;
+                    }
+                    previousDatings.append('<div>' + that.generateDateString(
+                            that.getValidDates(
+                                that.calculateDateFormats(
+                                    that.extractApproximates(
+                                        that.extractUserInput(v.raw)
+                                    )
+                                )
+                            )
+                        ) + commentStr + userStr + '</div>');
+                });
+                previousDatings.show();
+            }
         }
     };
     $.fn.AjapaikDater = function (options) {

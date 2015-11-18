@@ -41,7 +41,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
-    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer
+    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
@@ -1187,8 +1187,14 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         elif like.level == 2:
             photo_obj.user_loves = True
 
+    previous_datings = photo_obj.datings.order_by('created')
+    serialized_datings = DatingSerializer(previous_datings, many=True).data
+    serialized_datings = JSONRenderer().render(serialized_datings)
+
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
+        "previous_datings": serialized_datings,
+        "datings_count": previous_datings.count(),
         "original_thumb_size": original_thumb_size,
         "user_confirmed_this_location": user_confirmed_this_location,
         "user_has_geotagged": user_has_geotagged,

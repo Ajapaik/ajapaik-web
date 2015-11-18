@@ -1260,6 +1260,15 @@ a.fullscreen {
     position: relative;
 }
 
+#ajapaik-photoview-start-dating-button {
+    text-decoration: none;
+}
+
+#ajapaik-photoview-start-dating-button > .badge {
+    margin-left: -25px;
+    margin-bottom: 4px;
+}
+
 #ajapaik-photoview-main-photo {
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -2691,6 +2700,11 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     color: #888;
     float: left;
     font-size: 36px;
+}
+
+#ajapaik-photo-modal-like {
+    line-height: 40px;
+    margin-left: 220px;
 }
 
 .ajapaik-caption-album-selection p {

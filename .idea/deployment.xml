@@ -5,7 +5,7 @@
       <paths name="Ajapaik">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/garage/repos/marju" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/var/garage/repos/lauri" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

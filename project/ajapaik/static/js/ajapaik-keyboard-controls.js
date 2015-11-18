@@ -88,7 +88,7 @@
                         }
                     }
                 }
-                if (window.isPhotoview && !window.locationToolsOpen) {
+                if (window.isPhotoview && !window.locationToolsOpen && !window.datingFocused) {
                     var targets;
                     if (e.keyCode === 37) {
                         // left

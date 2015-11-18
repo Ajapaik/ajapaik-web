@@ -57,3 +57,17 @@
     background-color: rgba(0, 0, 0, .8);
     display: none;
 }
+
+#ajp-dater-feedback {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#ajp-dater-comment {
+    margin-bottom: 10px;
+}
+
+#ajp-dater-previous-datings-well {
+    display: none;
+}

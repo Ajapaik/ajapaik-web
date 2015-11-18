@@ -67,4 +67,22 @@
     window.reportGeotaggerNewlyMappedPhoto = function () {
         _gaq.push(['_trackEvent', 'geotagger', 'tag-feedback', 'first', 200, false]);
     };
+    window.reportDaterOpen = function () {
+        _gaq.push(['_trackEvent', 'dater', 'menus', 'open', 0, false]);
+    };
+    window.reportCloseDater = function () {
+        _gaq.push(['_trackEvent', 'dater', 'menus', 'close', 0, false]);
+    };
+    window.reportDaterOpenTutorial = function () {
+        _gaq.push(['_trackEvent', 'dater', 'menus', 'open-tutorial', 0, false]);
+    };
+    window.reportDaterOpenComment = function () {
+        _gaq.push(['_trackEvent', 'dater', 'menus', 'open-comment', 0, false]);
+    };
+    window.reportDaterSubmit = function () {
+        _gaq.push(['_trackEvent', 'dater', 'action', 'submit', 100, false]);
+    };
+    window.reportDaterSubmitWithComment = function () {
+        _gaq.push(['_trackEvent', 'dater', 'action', 'submit-with-comment', 200, false]);
+    };
 }());
