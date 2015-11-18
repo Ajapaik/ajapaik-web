@@ -71,3 +71,22 @@
 #ajp-dater-previous-datings-well {
     display: none;
 }
+
+#ajp-dater-anonymous-user-well > i {
+    cursor: pointer;
+}
+
+#ajp-dater-anonymous-user-well > span {
+    position: relative;
+    bottom: 6px;
+    left: 10px;
+}
+
+#ajp-dater-tutorial-well > span > ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.ajp-italic {
+    font-style: italic;
+}

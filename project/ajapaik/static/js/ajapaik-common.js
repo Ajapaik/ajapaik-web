@@ -628,10 +628,14 @@ var map,
                 $('#ajapaik-minimap-disabled-overlay').hide();
             }
             var center,
-                minimapLargeCTAButton;
+                minimapLargeCTAButton,
+                minimapLargeCTAButtonIcon;
             if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
                 minimapLargeCTAButton = document.createElement('button');
-                $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button').attr('title', gettext('Pick the shooting location!'));
+                minimapLargeCTAButtonIcon = document.createElement('i');
+                $(minimapLargeCTAButtonIcon).addClass('material-icons').html('add_location');
+                $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button')
+                    .attr('title', gettext('Pick the shooting location!')).append(minimapLargeCTAButtonIcon);
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
                 var mapCanvas = $('#ajapaik-photo-modal-map-canvas');
                 $(minimapLargeCTAButton).css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')

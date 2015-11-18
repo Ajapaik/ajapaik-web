@@ -1077,10 +1077,16 @@ class Dating(Model):
         (MONTH, _('Month')),
         (YEAR, _('Year')),
     )
+    REGULAR, CONFIRMATION = range(2)
+    TYPE_CHOICES = (
+        (REGULAR, _('Regular')),
+        (CONFIRMATION, _('Confirmation')),
+    )
 
     photo = ForeignKey('Photo', related_name='datings')
     profile = ForeignKey('Profile', related_name='datings')
-    raw = CharField(max_length=25)
+    raw = CharField(max_length=25, null=True, blank=True)
+    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
     comment = TextField(blank=True, null=True)
     start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
     start_approximate = BooleanField(default=False)

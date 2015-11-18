@@ -33,6 +33,13 @@ class TourRephotoAdmin(ForeignKeyAutocompleteAdmin):
     }
 
 
+class DatingAdmin(ForeignKeyAutocompleteAdmin):
+    related_search_fields = {
+        'profile': ('user__first_name', 'user__last_name', 'email', 'fb_name', 'google_plus_name'),
+        'photo': ('pk', 'description',),
+    }
+
+
 class PhotoAdmin(ForeignKeyAutocompleteAdmin):
     @staticmethod
     def _distance_between_two_points_on_sphere(lon_1, lat_1, lon_2, lat_2):
@@ -127,6 +134,6 @@ admin.site.register(CSVPhoto, CSVUploadAdmin)
 admin.site.register(Device)
 admin.site.register(CredentialsModel, CredentialsAdmin)
 admin.site.register(Newsletter)
-admin.site.register(Dating)
+admin.site.register(Dating, DatingAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)

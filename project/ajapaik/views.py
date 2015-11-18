@@ -34,12 +34,12 @@ from sorl.thumbnail import delete
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter
+    Newsletter, Dating
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
-    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm
+    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS
@@ -2253,6 +2253,7 @@ def newsletter(request, slug=None):
 def submit_dating(request):
     profile = request.get_user().profile
     form = DatingSubmitForm(request.POST.copy())
+    confirm_form = DatingConfirmForm(request.POST)
     form.data['profile'] = profile
     if form.is_valid():
         dating = form.save(commit=False)
@@ -2268,6 +2269,30 @@ def submit_dating(request):
             dating=dating,
             points=DATING_POINTS,
             created=dating.created
+        ).save()
+        return HttpResponse('OK')
+    elif confirm_form.is_valid():
+        original_dating = confirm_form.cleaned_data['id']
+        new_dating = Dating(
+            start=original_dating.start,
+            start_approximate=original_dating.start_approximate,
+            end=original_dating.end,
+            end_approximate=original_dating.end_approximate,
+            start_accuracy=original_dating.start_accuracy,
+            end_accuracy=original_dating.end_accuracy,
+            type=Dating.CONFIRMATION,
+            photo=original_dating.photo,
+            raw=original_dating.raw,
+            profile=profile
+        )
+        new_dating.save()
+        Points(
+            user=profile,
+            action=Points.DATING,
+            photo=new_dating.photo,
+            dating=new_dating,
+            points=DATING_POINTS,
+            created=new_dating.created
         ).save()
         return HttpResponse('OK')
     else:

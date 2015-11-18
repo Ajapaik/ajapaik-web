@@ -85,4 +85,7 @@
     window.reportDaterSubmitWithComment = function () {
         _gaq.push(['_trackEvent', 'dater', 'action', 'submit-with-comment', 200, false]);
     };
+    window.reportDaterConfirmSubmit = function () {
+        _gaq.push(['_trackEvent', 'dater', 'action', 'submit-confirmation', 50, false]);
+    };
 }());

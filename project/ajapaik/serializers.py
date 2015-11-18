@@ -39,4 +39,4 @@ class DatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dating
-        fields = ('comment', 'fb_name', 'google_plus_name', 'raw')
+        fields = ('id', 'comment', 'fb_name', 'google_plus_name', 'raw')

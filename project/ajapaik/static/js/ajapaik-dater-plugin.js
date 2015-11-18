@@ -8,6 +8,7 @@
     /*global interpolate*/
     /*global currentLocale*/
     /*global docCookies*/
+    /*global userIsSocialConnected*/
     var AjapaikDater = function (node, options) {
         var that = this;
         this.node = node;
@@ -32,6 +33,9 @@
             "       <div class='well' id='ajp-dater-tutorial-well'>",
             "           <span></span>",
             "           <button id='ajp-dater-close-tutorial-button'><i class='material-icons'>close</i></button>",
+            "       </div>",
+            "       <div class='well hidden' id='ajp-dater-anonymous-user-well'>",
+            "           <i class='material-icons'>account_circle</i><span></span>",
             "       </div>",
             "       <button id='ajp-dater-open-tutorial-button'><i class='material-icons'>info</i></button>",
             "       <form class='form' id='ajp-dater-form'>",
@@ -266,6 +270,42 @@
             }
             feedbackDiv.html(feedbackStr);
         };
+        this.getAccuracyID = function (payload) {
+            if (that.fromLocalizationFormat === 'LLL') {
+                payload.start_accuracy = 0;
+            } else if (that.fromLocalizationFormat === 'LL') {
+                payload.start_accuracy = 1;
+            } else if (that.fromLocalizationFormat === 'L') {
+                payload.start_accuracy = 2;
+            }
+            if (that.toLocalizationFormat === 'LLL') {
+                payload.end_accuracy = 0;
+            } else if (that.toLocalizationFormat === 'LL') {
+                payload.end_accuracy = 1;
+            } else if (that.toLocalizationFormat === 'L') {
+                payload.end_accuracy = 2;
+            }
+            return payload;
+        };
+        this.submitConfirmation = function (id) {
+            if (typeof window.reportDaterConfirmSubmit === 'function') {
+                window.reportDaterConfirmSubmit();
+            }
+            $.ajax({
+                type: 'POST',
+                url: submitDatingURL,
+                data: {
+                    id: id,
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                success: function () {
+                    window.location.reload();
+                },
+                error: function () {
+                    $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
+                }
+            });
+        };
         this.submit = function () {
             that.giveFeedback();
             if (!that.invalid) {
@@ -280,20 +320,7 @@
                 if (comment) {
                     payload.comment = comment;
                 }
-                if (that.fromLocalizationFormat === 'LLL') {
-                    payload.start_accuracy = 0;
-                } else if (that.fromLocalizationFormat === 'LL') {
-                    payload.start_accuracy = 1;
-                } else if (that.fromLocalizationFormat === 'L') {
-                    payload.start_accuracy = 2;
-                }
-                if (that.toLocalizationFormat === 'LLL') {
-                    payload.end_accuracy = 0;
-                } else if (that.toLocalizationFormat === 'LL') {
-                    payload.end_accuracy = 1;
-                } else if (that.toLocalizationFormat === 'L') {
-                    payload.end_accuracy = 2;
-                }
+                payload = that.getAccuracyID(payload);
                 if (that.from) {
                     payload.start = that.from.format('YYYY-MM-DD');
                 }
@@ -362,7 +389,7 @@
                     window.reportDaterOpenComment();
                 }
             });
-            that.$UI.find('#ajp-dater-tutorial-well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory): <br/>1878 | 1902.02') + '</li><li>' + gettext('Mark date ranges or before/after with either "-" or "..": <br/>1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</li><li>' + gettext('Approximate date in brackets: <br/>(1944) | (1940.05)..1941.08.21') + '</li></ul>');
+            that.$UI.find('#ajp-dater-tutorial-well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory): <br/><span class="ajp-italic">1878 | 1902.02</span>') + '</li><li>' + gettext('Mark date ranges or before/after with either "-" or "..": <br/><span class="ajp-italic">1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets: <br/><span class="ajp-italic">(1944) | (1940.05)..1941.08.21') + '</span></li></ul>');
             if (docCookies.getItem('ajapaik_closed_dater_instructions') === 'true') {
                 that.$UI.find('#ajp-dater-tutorial-well').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
@@ -372,6 +399,10 @@
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
                 docCookies.setItem('ajapaik_closed_dater_instructions', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
+            that.$UI.find('#ajp-dater-anonymous-user-well').find('span').html(gettext('You\'re anonymous'));
+            that.$UI.find('#ajp-dater-anonymous-user-well').find('i').click(function () {
+                $('#ajapaik-header-profile-button').click();
+            });
             that.$UI.find('#ajp-dater-open-tutorial-button').click(function () {
                 that.$UI.find('#ajp-dater-tutorial-well').show();
                 that.$UI.find('#ajp-dater-open-tutorial-button').hide();
@@ -379,6 +410,12 @@
                     window.reportDaterOpenTutorial();
                 }
                 docCookies.setItem('ajapaik_closed_dater_instructions', false, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
+            });
+            $(document).on('click', '.ajp-dater-confirm-button', function () {
+                if (typeof window.reportDaterConfirmSubmit === 'function') {
+                    window.reportDaterConfirmSubmit();
+                }
+                that.submitConfirmation($(this).data('id'));
             });
             // TODO: More generic implementation
             moment.locale('et', {
@@ -406,33 +443,37 @@
         initializeDaterState: function (state) {
             var that = this,
                 previousDatings = that.$UI.find('#ajp-dater-previous-datings-well'),
+                loginDiv = that.$UI.find('#ajp-dater-anonymous-user-well'),
                 userStr,
-                commentStr;
+                commentStr,
+                reparsedInput;
             this.photo = state.photoId;
+            if (userIsSocialConnected) {
+                loginDiv.addClass('hidden');
+            } else {
+                loginDiv.removeClass('hidden');
+            }
             previousDatings.empty();
-            if (state.previousDatings) {
+            if (state.previousDatings.length > 0) {
                 $.each(state.previousDatings, function (k, v) {
                     userStr = '';
                     commentStr = '';
                     if (v.comment) {
-                        commentStr = ' - \"' + v.comment + '\"';
+                        commentStr = '<i>\"' + v.comment + '\"</i>';
                     }
                     if (v.fb_name) {
-                        userStr = ' - ' + v.fb_name;
+                        userStr = v.fb_name;
                     } else if (v.google_plus_name) {
-                        userStr = ' - ' + v.google_plus_name;
+                        userStr = v.google_plus_name;
+                    } else {
+                        userStr = gettext('Anonymous user');
                     }
-                    previousDatings.append('<div>' + that.generateDateString(
-                            that.getValidDates(
-                                that.calculateDateFormats(
-                                    that.extractApproximates(
-                                        that.extractUserInput(v.raw)
-                                    )
-                                )
-                            )
-                        ) + commentStr + userStr + '</div>');
+                    reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
+                    previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<i class="material-icons ajp-dater-confirm-button" data-id="' + v.id + '">thumb_up</i></div>');
                 });
                 previousDatings.show();
+            } else {
+                previousDatings.hide();
             }
         }
     };

@@ -331,3 +331,7 @@ class DatingSubmitForm(forms.ModelForm):
         super(DatingSubmitForm, self).__init__(*args, **kwargs)
         self.fields['start'].required = False
         self.fields['end'].required = False
+
+
+class DatingConfirmForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Dating.objects.all())

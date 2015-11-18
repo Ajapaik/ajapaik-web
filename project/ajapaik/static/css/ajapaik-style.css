@@ -433,7 +433,7 @@ body {
 }
 
 .ajapaik-minimap-start-guess-CTA-button {
-    background: transparent url(../images/material-design-icons/ic_pin_drop_50px.svg) no-repeat center !important;
+    background: transparent no-repeat center !important;
     width: 70px;
     height: 70px;
     position: absolute;
@@ -441,6 +441,10 @@ body {
     left: 0;
     border: none;
     z-index: 2000;
+}
+
+.ajapaik-minimap-start-guess-CTA-button > i {
+    font-size: 70px;
 }
 
 #ajapaik-feedback-div {
