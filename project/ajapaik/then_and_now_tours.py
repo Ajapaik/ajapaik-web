@@ -144,7 +144,11 @@ def map_view(request, tour_id=None):
                                              geography__distance_lte=(user_location, D(m=max_dist)),
                                              geography__distance_gte=(user_location, D(m=min_dist)),
                                              )
-            sample = random.sample(photo_set, how_many)
+            total = photo_set.count()
+            if how_many <= total:
+                sample = random.sample(photo_set, how_many)
+            else:
+                sample = random.sample(photo_set, total)
             tour = None
             if len(sample) > 0:
                 tour = Tour(
