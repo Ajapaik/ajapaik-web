@@ -149,15 +149,13 @@ def map_view(request, tour_id=None):
                 sample = random.sample(photo_set, how_many)
             else:
                 sample = random.sample(photo_set, total)
-            tour = None
-            if len(sample) > 0:
-                tour = Tour(
-                    name='Random tour',
-                    user_lat=user_lat,
-                    user_lng=user_lng,
-                    user=profile
-                )
-                tour.save()
+            tour = Tour(
+                name='Random tour',
+                user_lat=user_lat,
+                user_lng=user_lng,
+                user=profile
+            )
+            tour.save()
             i = 0
             for each in sample:
                 if tour:
