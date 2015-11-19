@@ -5,7 +5,7 @@
     {% if album_leaderboard %}
         {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") anon=True %}
     {% else %}
-        {% include "_leaderboard_positions.html" with leaderboard=leaderboard anon_string=_("Your points") %}
+        {% include "_leaderboard_positions.html" with leaderboard=leaderboard anon_string=_("Anonymous user") %}
     {% endif %}
 {% else %}
         {% if album_leaderboard %}
@@ -25,7 +25,7 @@
         {% if not album_leaderboard %}
             <div class="col-xs-6">
                 <h3>{% trans "All time leaderboard" %}</h3>
-                {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard anon_string=_("Your points") %}
+                {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard anon_string=_("Anonymous user") %}
             </div>
         {% endif %}
 {% endif %}

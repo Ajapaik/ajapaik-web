@@ -30,7 +30,9 @@
                     {% if (o.geotagged_photo_count_with_subalbums > 0) { %}
                         <div class="ajapaik-album-selection-map-button" role="button" title="{%=gettext('Show pictures on map')%}" data-href="{%=mapviewURL%}?album={%=o.id%}"></div>
                     {% } %}
-                    <div class="ajapaik-album-selection-game-button" role="button" title="{%=gettext('Geotag pictures in album')%}" data-href="{%=gameURL%}?album={%=o.id%}"></div>
+                    <div class="ajapaik-album-selection-game-button" role="button" title="{%=gettext('Geotag pictures in album')%}" data-href="{%=gameURL%}?album={%=o.id%}">
+                        <i class="material-icons">add_location</i>
+                    </div>
                 </div>
             </div>
         </a>

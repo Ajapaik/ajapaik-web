@@ -34,7 +34,7 @@ from sorl.thumbnail import delete
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating
+    Newsletter, Dating, DatingConfirmation
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
@@ -42,7 +42,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer
-from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS
+from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS, DATING_CONFIRMATION_POINTS
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
@@ -1187,7 +1187,9 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         elif like.level == 2:
             photo_obj.user_loves = True
 
-    previous_datings = photo_obj.datings.order_by('created')
+    previous_datings = photo_obj.datings.order_by('created').prefetch_related('confirmations')
+    for each in previous_datings:
+        each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
     serialized_datings = DatingSerializer(previous_datings, many=True).data
     serialized_datings = JSONRenderer().render(serialized_datings)
 
@@ -2261,39 +2263,50 @@ def submit_dating(request):
             dating.start = datetime.datetime.strptime('01011000', '%d%m%Y').date()
         if not dating.end:
             dating.end = datetime.datetime.strptime('01013000', '%d%m%Y').date()
-        dating.save()
-        Points(
-            user=profile,
-            action=Points.DATING,
-            photo=form.cleaned_data['photo'],
-            dating=dating,
-            points=DATING_POINTS,
-            created=dating.created
-        ).save()
-        return HttpResponse('OK')
+        dating_exists = Dating.objects.filter(profile=profile, raw=dating.raw).exists()
+        if not dating_exists:
+            dating.save()
+            Points(
+                user=profile,
+                action=Points.DATING,
+                photo=form.cleaned_data['photo'],
+                dating=dating,
+                points=DATING_POINTS,
+                created=dating.created
+            ).save()
+            return HttpResponse('OK')
     elif confirm_form.is_valid():
         original_dating = confirm_form.cleaned_data['id']
-        new_dating = Dating(
-            start=original_dating.start,
-            start_approximate=original_dating.start_approximate,
-            end=original_dating.end,
-            end_approximate=original_dating.end_approximate,
-            start_accuracy=original_dating.start_accuracy,
-            end_accuracy=original_dating.end_accuracy,
-            type=Dating.CONFIRMATION,
-            photo=original_dating.photo,
-            raw=original_dating.raw,
-            profile=profile
-        )
-        new_dating.save()
-        Points(
-            user=profile,
-            action=Points.DATING,
-            photo=new_dating.photo,
-            dating=new_dating,
-            points=DATING_POINTS,
-            created=new_dating.created
-        ).save()
-        return HttpResponse('OK')
+        confirmation_exists = DatingConfirmation.objects.filter(confirmation_of=original_dating, profile=profile).exists()
+        if not confirmation_exists or original_dating.profile == profile:
+            new_confirmation = DatingConfirmation(
+                confirmation_of=original_dating,
+                profile=profile
+            )
+            new_confirmation.save()
+            Points(
+                user=profile,
+                action=Points.DATING_CONFIRMATION,
+                dating_confirmation=new_confirmation,
+                points=DATING_CONFIRMATION_POINTS,
+                created=new_confirmation.created
+            ).save()
+            return HttpResponse('OK')
+        else:
+            return HttpResponse('Already confirmed or confirming your own dating', status=400)
     else:
         return HttpResponse('Invalid data', status=400)
+
+
+def get_datings(request, photo_id):
+    photo = Photo.objects.filter(pk=photo_id).first()
+    profile = request.get_user().profile
+    ret = {}
+    if photo:
+        datings = photo.datings.order_by('created').prefetch_related('confirmations')
+        for each in datings:
+            each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
+        datings_serialized = DatingSerializer(datings, many=True).data
+        ret['datings'] = datings_serialized
+        
+    return HttpResponse(json.dumps(ret), content_type='application/json')

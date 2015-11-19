@@ -664,14 +664,15 @@ class FlipFeedback(Model):
 
 
 class Points(Model):
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING = range(6)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION = range(7)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
         (PHOTO_UPLOAD, _('Photo upload')),
         (PHOTO_CURATION, _('Photo curation')),
         (PHOTO_RECURATION, _('Photo re-curation')),
-        (DATING, _('Dating'))
+        (DATING, _('Dating')),
+        (DATING_CONFIRMATION, _('Dating confirmation'))
     )
 
     user = ForeignKey('Profile', related_name='points')
@@ -680,13 +681,14 @@ class Points(Model):
     album = ForeignKey('Album', null=True, blank=True)
     geotag = ForeignKey('GeoTag', null=True, blank=True)
     dating = ForeignKey('Dating', null=True, blank=True)
+    dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
 
     class Meta:
         db_table = 'project_points'
         verbose_name_plural = 'Points'
-        unique_together = (('user', 'geotag'), ('user', 'dating'))
+        unique_together = (('user', 'geotag'), ('user', 'dating'), ('user', 'dating_confirmation'))
 
     def __unicode__(self):
         return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
@@ -873,6 +875,8 @@ class Profile(Model):
         other.geotags.update(user=self)
         other.points.update(user=self)
         other.likes.update(profile=self)
+        other.datings.update(profile=self)
+        other.dating_confirmations.update(profile=self)
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
@@ -1077,16 +1081,10 @@ class Dating(Model):
         (MONTH, _('Month')),
         (YEAR, _('Year')),
     )
-    REGULAR, CONFIRMATION = range(2)
-    TYPE_CHOICES = (
-        (REGULAR, _('Regular')),
-        (CONFIRMATION, _('Confirmation')),
-    )
 
     photo = ForeignKey('Photo', related_name='datings')
     profile = ForeignKey('Profile', related_name='datings')
     raw = CharField(max_length=25, null=True, blank=True)
-    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
     comment = TextField(blank=True, null=True)
     start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
     start_approximate = BooleanField(default=False)
@@ -1102,6 +1100,19 @@ class Dating(Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.profile.pk, self.photo.pk)
+
+
+class DatingConfirmation(Model):
+    confirmation_of = ForeignKey('Dating', related_name='confirmations')
+    profile = ForeignKey('Profile', related_name='dating_confirmations')
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_datingconfirmation'
+
+    def __unicode__(self):
+        return '%s - %s' % (self.profile.pk, self.confirmation_of.pk)
 
 
 class Tour(Model):

@@ -1,5 +1,7 @@
 from django.template import Library, Node, resolve_variable
 
+from project.ajapaik import settings
+
 register = Library()
 
 
@@ -23,3 +25,8 @@ def add_get(parser, token):
         s = pair.split('=', 1)
         values[s[0]] = parser.compile_filter(s[1])
     return AddGetParameter(values)
+
+
+@register.simple_tag
+def settings_value(name):
+    return getattr(settings, name, '')

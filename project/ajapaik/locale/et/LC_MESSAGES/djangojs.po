@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 16:48+0200\n"
-"PO-Revision-Date: 2015-11-02 15:04+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2015-11-19 18:15+0200\n"
+"PO-Revision-Date: 2015-11-19 13:50+0000\n"
+"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -48,120 +48,162 @@ msgstr "Asukohainfot päriti liiga kaua."
 msgid "An unknown error occurred."
 msgstr "Muu viga asukohapäringuga."
 
-#: project/ajapaik/static/js/ajapaik-common.js:634
+#: project/ajapaik/static/js/ajapaik-common.js:638
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: project/ajapaik/static/js/ajapaik-common.js:643
-#: project/ajapaik/static/js/ajapaik-common.js:686
+#: project/ajapaik/static/js/ajapaik-common.js:647
+#: project/ajapaik/static/js/ajapaik-common.js:690
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: project/ajapaik/static/js/ajapaik-common.js:672
+#: project/ajapaik/static/js/ajapaik-common.js:676
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:681
+#: project/ajapaik/static/js/ajapaik-common.js:685
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: project/ajapaik/static/js/ajapaik-common.js:705
+#: project/ajapaik/static/js/ajapaik-common.js:709
 msgid "You"
 msgstr "Sina"
 
-#: project/ajapaik/static/js/ajapaik-common.js:709
+#: project/ajapaik/static/js/ajapaik-common.js:713
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:380
 msgid "Anonymous user"
 msgstr "Anonüümne kasutaja"
 
-#: project/ajapaik/static/js/ajapaik-common.js:711
+#: project/ajapaik/static/js/ajapaik-common.js:715
 msgid "Anonymous users"
 msgstr "Anonüümsed kasutajad"
 
-#: project/ajapaik/static/js/ajapaik-common.js:766
+#: project/ajapaik/static/js/ajapaik-common.js:770
 msgid "Current location"
 msgstr "Pakutud asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1023
-#: project/ajapaik/static/js/ajapaik-common.js:1068
+#: project/ajapaik/static/js/ajapaik-common.js:1029
+#: project/ajapaik/static/js/ajapaik-common.js:1074
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "..."
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:188
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "Ligikaudu %(from)s ja ligikaudu %(to)s vahel"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:194
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:199
 msgid "Between approximately %(from)s and %(to)s"
-msgstr ""
+msgstr "Ligikaudu %(from)s ja %(to)s vahel"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:200
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:205
 msgid "Between %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "%(from)s ja ligikaudu %(to)s vahel"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:206
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:211
 msgid "Between %(from)s and %(to)s"
-msgstr ""
-
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:214
-msgid "After approximately %(from)s"
-msgstr ""
+msgstr "%(from)s ja %(to)s vahel"
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:219
-msgid "After %(from)s"
-msgstr ""
+msgid "After approximately %(from)s"
+msgstr "Hiljem kui ligikaudu %(from)s"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:226
-msgid "Before approximately %(to)s"
-msgstr ""
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:224
+msgid "After %(from)s"
+msgstr "Hiljem kui %(from)s"
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:231
+msgid "Before approximately %(to)s"
+msgstr "Varem kui ligikaudu %(to)s"
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:236
 msgid "Before %(to)s"
-msgstr ""
+msgstr "Varem kui %(to)s"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:240
-#, fuzzy
-#| msgid "Approximate"
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:245
 msgid "Approximately %(date)s"
-msgstr "Umbkaudne"
+msgstr "Ligikaudu %(date)s"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:263
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:268
 msgid "Invalid input, see help text."
-msgstr ""
+msgstr "Vigane vorming, vt juhendit."
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:317
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:309
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:351
 msgid "Server received invalid data."
+msgstr "Viga dateeringu salvestamisel."
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:386
+#, fuzzy
+#| msgid "Comment your dating"
+msgid "Confirm dating"
+msgstr "Kommenteeri oma dateeringut"
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:393
+msgid "Confirming a dating earned you %(points)s points."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:331
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:398
+msgid "Submitting a dating earned you %(points)s points."
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:404
+#, fuzzy
+#| msgid "Thank you!"
+msgid "Thanks!"
+msgstr "Aitäh!"
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:414
 msgid "YYYY.MM.DD"
-msgstr ""
+msgstr "AAAA.KK.PP"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:339
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:422
 msgid "Cancel"
-msgstr ""
+msgstr "Loobu"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:348
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:431
 msgid "Submit"
-msgstr ""
+msgstr "Saada"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:356
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:439
 msgid "Comment your dating"
-msgstr ""
+msgstr "Kommenteeri oma dateeringut"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:365
-msgid "Use YYYY.MM.DD format (MM.DD not obligatory): <br/>1878 | 1902.02"
-msgstr ""
-
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:365
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:448
+#, fuzzy
+#| msgid "Use YYYY.MM.DD format (MM.DD not obligatory): <br/>1878 | 1902.02"
 msgid ""
-"Mark date ranges or before/after with either \"-\" or \"..\": <br/>1910-1920 "
-"| 1978.05.20..1978.06.27 | -1920 | 1935.."
+"Use YYYY.MM.DD format (MM.DD not obligatory): <br/><span class=\"ajp-italic"
+"\">1878 | 1902.02</span>"
 msgstr ""
+"Kasuta AAAA.KK.PP vormingut (KK.PP ei ole kohustuslikud): <br/>1878 | 1902.02"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:365
-msgid "Approximate date in brackets: <br/>(1944) | (1940.05)..1941.08.21"
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:448
+#, fuzzy
+#| msgid ""
+#| "Mark date ranges or before/after with either \"-\" or \"..\": <br/"
+#| ">1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+msgid ""
+"Mark date ranges or before/after with either \"-\" or \"..\": <br/><span "
+"class=\"ajp-italic\">1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr ""
+"Kuupäevavahemikke või enne/pärast märgi kas \"-\" (sidekriipsu) või \".."
+"\" (kahe punkti) abil: <br/>1910-1920 | 1978.05.20..1978.06.27 | -1920 | "
+"1935.."
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:448
+#, fuzzy
+#| msgid "Approximate date in brackets: <br/>(1944) | (1940.05)..1941.08.21"
+msgid ""
+"Approximate date in brackets: <br/><span class=\"ajp-italic\">(1944) | "
+"(1940.05)..1941.08.21"
+msgstr ""
+"Ligikaudne kuupäev märgi sulgudesse: <br/>(1944) | (1940.05)..1941.08.21"
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:458
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:375
+msgid "You're anonymous"
+msgstr "Oled anonüümne kasutaja"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Invert colors"
@@ -307,7 +349,7 @@ msgstr "Märgi albumi pilte kaardile"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:39
 msgid "Unknown author"
-msgstr ""
+msgstr "Teadmata autor"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:107
 msgid "Earliest"
@@ -404,10 +446,6 @@ msgstr ""
 #: project/ajapaik/static/js/ajapaik-game.js:191
 msgid "You have seen all the pictures from this album."
 msgstr "Oled näinud kõiki pilte sellest albumist."
-
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:375
-msgid "You're anonymous"
-msgstr "Oled anonüümne kasutaja"
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:449
 msgid "Toggle map center lock"

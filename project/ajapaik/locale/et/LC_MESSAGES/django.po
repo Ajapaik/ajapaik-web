@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 16:48+0200\n"
-"PO-Revision-Date: 2015-11-02 15:04+0000\n"
+"POT-Creation-Date: 2015-11-19 18:15+0200\n"
+"PO-Revision-Date: 2015-11-18 14:50+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
@@ -51,7 +51,7 @@ msgstr "Kaardi piirid peavad olema väljendatud numbrites"
 
 #: project/ajapaik/models.py:669
 msgid "Geotag"
-msgstr ""
+msgstr "Geotääg"
 
 #: project/ajapaik/models.py:670 project/ajapaik/templates/_comments.html:11
 #: project/ajapaik/templates/_photo_modal_comments.html:11
@@ -59,98 +59,96 @@ msgid "Rephoto"
 msgstr "Ülepildistus"
 
 #: project/ajapaik/models.py:671
-#, fuzzy
-#| msgid "Start upload"
 msgid "Photo upload"
-msgstr "Lae üles"
+msgstr "Foto üleslaadimine"
 
 #: project/ajapaik/models.py:672
-#, fuzzy
-#| msgid "Show description"
 msgid "Photo curation"
-msgstr "Vaata kirjeldust"
+msgstr "Foto kureerimine"
 
 #: project/ajapaik/models.py:673
-#, fuzzy
-#| msgid "Show description"
 msgid "Photo re-curation"
-msgstr "Vaata kirjeldust"
+msgstr "Foto rekureerimine"
 
 #: project/ajapaik/models.py:674
-#, fuzzy
-#| msgid "Sorting"
 msgid "Dating"
-msgstr "Sorteerimine"
+msgstr "Dateering"
 
-#: project/ajapaik/models.py:699
+#: project/ajapaik/models.py:675
+#, fuzzy
+#| msgid "Confirmation"
+msgid "Dating confirmation"
+msgstr "Kinnitus"
+
+#: project/ajapaik/models.py:701
 msgid "Map"
 msgstr "Kaart"
 
-#: project/ajapaik/models.py:700
+#: project/ajapaik/models.py:702
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/ajapaik/models.py:701
+#: project/ajapaik/models.py:703
 msgid "GPS"
 msgstr "GPS"
 
-#: project/ajapaik/models.py:702
+#: project/ajapaik/models.py:704
 msgid "Confirmation"
 msgstr "Kinnitus"
 
-#: project/ajapaik/models.py:703
+#: project/ajapaik/models.py:705
 msgid "StreetView"
 msgstr "StreetView"
 
-#: project/ajapaik/models.py:714
+#: project/ajapaik/models.py:716
 msgid "Game"
 msgstr "Mäng"
 
-#: project/ajapaik/models.py:715
+#: project/ajapaik/models.py:717
 msgid "Map view"
 msgstr "Kaardivaade"
 
-#: project/ajapaik/models.py:716
+#: project/ajapaik/models.py:718
 msgid "Gallery"
 msgstr "Galerii"
 
-#: project/ajapaik/models.py:717
+#: project/ajapaik/models.py:719
 msgid "Permalink"
 msgstr "Püsiviide"
 
-#: project/ajapaik/models.py:721
+#: project/ajapaik/models.py:723
 msgid "Google map"
 msgstr "Google kaart"
 
-#: project/ajapaik/models.py:722
+#: project/ajapaik/models.py:724
 msgid "Google satellite"
 msgstr "Google satelliit"
 
-#: project/ajapaik/models.py:723
+#: project/ajapaik/models.py:725
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/ajapaik/models.py:1076
+#: project/ajapaik/models.py:1080
 msgid "Day"
-msgstr ""
+msgstr "Päev"
 
-#: project/ajapaik/models.py:1077
+#: project/ajapaik/models.py:1081
 msgid "Month"
-msgstr ""
+msgstr "Kuu"
 
-#: project/ajapaik/models.py:1078
+#: project/ajapaik/models.py:1082
 msgid "Year"
-msgstr ""
+msgstr "Aasta"
 
-#: project/ajapaik/settings/default.py:69
+#: project/ajapaik/settings/default.py:70
 msgid "Estonian"
 msgstr "eesti"
 
-#: project/ajapaik/settings/default.py:70
+#: project/ajapaik/settings/default.py:71
 msgid "English"
 msgstr "inglise"
 
-#: project/ajapaik/settings/default.py:71
+#: project/ajapaik/settings/default.py:72
 msgid "Finnish"
 msgstr "soome"
 
@@ -227,15 +225,12 @@ msgid "Submit"
 msgstr "Saada"
 
 #: project/ajapaik/templates/_block_leaderboard.html:6
+#: project/ajapaik/templates/_block_leaderboard.html:8
 #: project/ajapaik/templates/_block_leaderboard.html:16
 #: project/ajapaik/templates/_block_leaderboard.html:22
+#: project/ajapaik/templates/_block_leaderboard.html:28
 msgid "Anonymous user"
 msgstr "Anonüümne kasutaja"
-
-#: project/ajapaik/templates/_block_leaderboard.html:8
-#: project/ajapaik/templates/_block_leaderboard.html:28
-msgid "Your points"
-msgstr "Sinu punktid"
 
 #: project/ajapaik/templates/_block_leaderboard.html:13
 #, python-format
@@ -550,7 +545,7 @@ msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
 #: project/ajapaik/templates/_header.html:21
-#: project/ajapaik/templates/_photo_modal.html:161
+#: project/ajapaik/templates/_photo_modal.html:162
 #: project/ajapaik/templates/photoview.html:141
 msgid "Album details"
 msgstr "Albumi info"
@@ -602,8 +597,8 @@ msgstr "Otsi albumit"
 msgid "Profile and leaderboard"
 msgstr "Profiil ja edetabel"
 
-#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1530
-#: project/ajapaik/views.py:1546 project/ajapaik/views.py:1578
+#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1532
+#: project/ajapaik/views.py:1548 project/ajapaik/views.py:1580
 msgid "Leaderboard"
 msgstr "Edetabel"
 
@@ -905,8 +900,8 @@ msgid "Some nearby albums"
 msgstr "Mõned teised albumid samast kandist"
 
 #: project/ajapaik/templates/_info_modal_content.html:113
-#: project/ajapaik/templates/_photo_modal.html:230
-#: project/ajapaik/templates/photoview.html:104
+#: project/ajapaik/templates/_photo_modal.html:245
+#: project/ajapaik/templates/photoview.html:109
 msgid "Share"
 msgstr "Jaga"
 
@@ -930,38 +925,41 @@ msgstr "Näita minu refotosid"
 msgid "Flip photo"
 msgstr "Keera foto ümber"
 
-#: project/ajapaik/templates/_photo_modal.html:146
+#: project/ajapaik/templates/_photo_modal.html:147
 #: project/ajapaik/templates/photoview.html:132
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Pilt kuulub albumisse"
 msgstr[1] "Pilt kuulub albumitesse:"
 
-#: project/ajapaik/templates/_photo_modal.html:163
+#: project/ajapaik/templates/_photo_modal.html:164
 #: project/ajapaik/templates/photoview.html:143
 msgid "Curator"
 msgstr "Kuraator"
 
-#: project/ajapaik/templates/_photo_modal.html:204
-#, fuzzy
-#| msgid "Unknown author"
+#: project/ajapaik/templates/_photo_modal.html:205
 msgid "Unknown photo"
-msgstr "Tuvastamata kasutaja"
+msgstr "Teadmata foto"
 
-#: project/ajapaik/templates/_photo_modal.html:211
+#: project/ajapaik/templates/_photo_modal.html:212
 #: project/ajapaik/templates/photoview.html:196
 msgid "Unknown author"
 msgstr "Tuvastamata kasutaja"
 
-#: project/ajapaik/templates/_photo_modal.html:227
+#: project/ajapaik/templates/_photo_modal.html:228
 #: project/ajapaik/templates/game.html:61
 #: project/ajapaik/templates/photoview.html:96
 #: project/ajapaik/templates/photoview.html:162
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: project/ajapaik/templates/_photo_modal.html:228
-#: project/ajapaik/templates/photoview.html:99
+#: project/ajapaik/templates/_photo_modal.html:232
+#: project/ajapaik/templates/photoview.html:100
+msgid "Date this image"
+msgstr "Dateeri see pilt"
+
+#: project/ajapaik/templates/_photo_modal.html:237
+#: project/ajapaik/templates/photoview.html:104
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
@@ -1297,15 +1295,15 @@ msgstr "Mängumoodali foto"
 msgid "Show description"
 msgstr "Vaata kirjeldust"
 
-#: project/ajapaik/templates/game.html:69
+#: project/ajapaik/templates/game.html:71
 msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr "Keegi ei ole sellele pildile veel asukohta pakkunud. Ole esimene!"
 
-#: project/ajapaik/templates/game.html:72
+#: project/ajapaik/templates/game.html:74
 msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr "1 asukohapakkumine on sellele pildile juba tehtud, lisa enda oma ka!"
 
-#: project/ajapaik/templates/game.html:76
+#: project/ajapaik/templates/game.html:78
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr "asukohapakkumist on sellele pildile tehtud. Lisa enda arvamus!"
 
@@ -1356,12 +1354,6 @@ msgstr ""
 msgid "rephoto"
 msgstr "ülepildistus"
 
-#: project/ajapaik/templates/photoview.html:91
-#, fuzzy
-#| msgid "Date taken"
-msgid "Date this image"
-msgstr "Kuupäev:"
-
 #: project/ajapaik/templates/photoview.html:157
 msgid "Approximate address"
 msgstr "Ligikaudne aadress"
@@ -1386,12 +1378,12 @@ msgstr "Probleem albumivalikul"
 msgid "Faulty data submitted"
 msgstr "Vigased andmed"
 
-#: project/ajapaik/views.py:1328 project/ajapaik/views.py:1335
-#: project/ajapaik/views.py:1337
+#: project/ajapaik/views.py:1330 project/ajapaik/views.py:1337
+#: project/ajapaik/views.py:1339
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/ajapaik/views.py:1450
+#: project/ajapaik/views.py:1452
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
@@ -1399,15 +1391,15 @@ msgstr ""
 "Teie pakkumine ei muutnud hetkel foto asukohta, kuid võib seda teha "
 "tulevikus."
 
-#: project/ajapaik/views.py:1452
+#: project/ajapaik/views.py:1454
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Fotol on tänu Teile uus asukoht."
 
-#: project/ajapaik/views.py:1454
+#: project/ajapaik/views.py:1456
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/ajapaik/views.py:1672
+#: project/ajapaik/views.py:1674
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -1415,11 +1407,11 @@ msgstr ""
 "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit "
 "teistega!"
 
-#: project/ajapaik/views.py:1674
+#: project/ajapaik/views.py:1676
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Ajapaiga kuraator"
 
-#: project/ajapaik/views.py:2020
+#: project/ajapaik/views.py:2022
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
@@ -1429,83 +1421,25 @@ msgstr ""
 "kuni kättesaadavaks muutub parem kujutis. Aga kui siiski soovite, siis võib "
 "see valikusse jääda."
 
-#: project/ajapaik/views.py:2022
+#: project/ajapaik/views.py:2024
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:2045
+#: project/ajapaik/views.py:2047
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/ajapaik/views.py:2058
+#: project/ajapaik/views.py:2060
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: project/ajapaik/views.py:2069
+#: project/ajapaik/views.py:2071
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: project/ajapaik/views.py:2071
+#: project/ajapaik/views.py:2073
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#~ msgid "Choose albums"
-#~ msgstr "Vali album"
-
-#~ msgid "Add"
-#~ msgstr "Lisa"
-
-#~ msgid "Create a new album"
-#~ msgstr "Tee uus album"
-
-#~ msgid "Create a new area"
-#~ msgstr "Loo uus koht"
-
-#~ msgid "New area name"
-#~ msgstr "Uue koha nimi"
-
-#~ msgid "New area latitude"
-#~ msgstr "Uus koha laiuskraad"
-
-#~ msgid "New area longitude"
-#~ msgstr "Uus koha pikkuskraad"
-
-#~ msgid "Add files..."
-#~ msgstr "Vali fail..."
-
-#~ msgid "Read CSV..."
-#~ msgstr "Lae CSV..."
-
-#~ msgid "Cancel upload"
-#~ msgstr "Tühista"
-
-#~ msgid ""
-#~ "CSV: institution;number;image;title;description;date;url;licence in any "
-#~ "order"
-#~ msgstr ""
-#~ "CSV: institution;number;image;title;description;date;url;licence ükskõik "
-#~ "millises järjekorras"
-
-#~ msgid "Selected albums:"
-#~ msgstr "Valitud album(id):"
-
-#~ msgid "Selected area:"
-#~ msgstr "Valitud koht:"
-
-#~ msgid "Photo uploading requires connecting your account with Facebook."
-#~ msgstr "Vanade fotode laadimiseks ühenda konto kõigepealt Facebookiga."
-
-#~ msgid "Image has location and view direction info"
-#~ msgstr "On teada nii asukoht kui vaate suund"
-
-#~ msgid "Image has only location, no view direction"
-#~ msgstr "On teada asukoht, kuid mitte vaate suund"
-
-#~ msgid "Image has no location info"
-#~ msgstr "Pildil pole asukohainfot"
-
-#~ msgid "user has submitted a location for this picture"
-#~ msgstr "kasutaja on teinud asukohapakkumise sellele pildile"
-
-#~ msgid "users have submitted a location for this picture"
-#~ msgstr "kasutajat on teinud asukohapakkumisi sellele pildile"
+#~ msgid "Your points"
+#~ msgstr "Sinu punktid"

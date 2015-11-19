@@ -402,7 +402,7 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3&amp;libraries=places,visualization"></script>
+    <script src="http://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization"></script>
     <script src="http://s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
     {% compress js %}
@@ -449,6 +449,8 @@
                     window.currentProfileName = '{{ request.user.profile.google_plus_name }}';
                 {% endif %}
             {% endif %}
+            window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
+            window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
         </script>
     {% endcompress %}
 {% endblock %}

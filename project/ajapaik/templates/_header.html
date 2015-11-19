@@ -129,7 +129,7 @@
                 {% if album %}
                     <li class="pull-left">
                         <a role="button" title="{% trans 'Geotag pictures' %}" {% if album %}href="/geotag/?album={{ album.0 }}{% if photo %}&photo={{ photo.id }}{% endif %}"{% endif %} class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
-                            <i class="material-icons ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">pin_drop</i>
+                            <i class="material-icons ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">add_location</i>
                         </a>
                     </li>
                 {% endif %}

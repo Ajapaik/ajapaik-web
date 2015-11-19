@@ -38,6 +38,7 @@
             "           <i class='material-icons'>account_circle</i><span></span>",
             "       </div>",
             "       <button id='ajp-dater-open-tutorial-button'><i class='material-icons'>info</i></button>",
+            "       <div class='well' id='ajp-dater-feedback-well'></div>",
             "       <form class='form' id='ajp-dater-form'>",
             "           <div class='form-inline'>",
             "               <div class='form-group'>",
@@ -299,7 +300,10 @@
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
                 success: function () {
-                    window.location.reload();
+                    if (typeof window.updateDatings === 'function') {
+                        window.updateDatings();
+                    }
+                    that.giveDatingSubmittedFeedback(true);
                 },
                 error: function () {
                     $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
@@ -338,7 +342,10 @@
                         url: submitDatingURL,
                         data: payload,
                         success: function () {
-                            window.location.reload();
+                            if (typeof window.updateDatings === 'function') {
+                                window.updateDatings();
+                            }
+                            that.giveDatingSubmittedFeedback();
                         },
                         error: function () {
                             $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
@@ -346,6 +353,55 @@
                     });
                 }
             }
+        };
+        this.buildPreviousDatingsDiv = function (datings) {
+            var userStr,
+                commentStr,
+                reparsedInput,
+                previousDatings = that.$UI.find('#ajp-dater-previous-datings-well'),
+                addClass;
+            previousDatings.empty();
+            $.each(datings, function (k, v) {
+                userStr = '';
+                commentStr = '';
+                if (v.this_user_has_confirmed) {
+                    addClass = ' done';
+                } else {
+                    addClass = '';
+                }
+                if (v.comment) {
+                    commentStr = '<i>\"' + v.comment + '\"</i>';
+                }
+                if (v.fb_name) {
+                    userStr = v.fb_name;
+                } else if (v.google_plus_name) {
+                    userStr = v.google_plus_name;
+                } else {
+                    userStr = gettext('Anonymous user');
+                }
+                reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
+                if (v.confirmation_count < 1) {
+                    v.confirmation_count = 1;
+                }
+                previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge">' + v.confirmation_count + '</span><i class="material-icons ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
+            });
+        };
+        this.giveDatingSubmittedFeedback = function (confirmation) {
+            var fmt,
+                feedbackStr;
+            if (confirmation) {
+                fmt = gettext('Confirming a dating earned you %(points)s points.');
+                feedbackStr = interpolate(fmt, {
+                    points: window.datingConfirmationPointsSetting
+                }, true);
+            } else {
+                fmt = gettext('Submitting a dating earned you %(points)s points.');
+                feedbackStr = interpolate(fmt, {
+                    points: window.datingPointsSetting
+                }, true);
+            }
+            that.$UI.find('#ajp-dater-feedback-well')
+                .html('<h1>' + gettext('Thanks!') + '</h1><p>' + feedbackStr + '</p>').show();
         };
         this.$UI = $(this.node);
         this.$UI.html(this.UI);
@@ -357,7 +413,7 @@
             var that = this;
             that.$UI.find('input').attr('placeholder', gettext('YYYY.MM.DD')).on('change textInput input', function () {
                 clearTimeout(that.typingTimer);
-                that.typingTimer = setTimeout(that.giveFeedback, 500);
+                that.typingTimer = setTimeout(that.giveFeedback, 1000);
             }).on('focus', function () {
                 window.datingFocused = true;
             }).on('blur', function () {
@@ -442,35 +498,16 @@
         },
         initializeDaterState: function (state) {
             var that = this,
-                previousDatings = that.$UI.find('#ajp-dater-previous-datings-well'),
                 loginDiv = that.$UI.find('#ajp-dater-anonymous-user-well'),
-                userStr,
-                commentStr,
-                reparsedInput;
+                previousDatings = that.$UI.find('#ajp-dater-previous-datings-well');
             this.photo = state.photoId;
             if (userIsSocialConnected) {
                 loginDiv.addClass('hidden');
             } else {
                 loginDiv.removeClass('hidden');
             }
-            previousDatings.empty();
             if (state.previousDatings.length > 0) {
-                $.each(state.previousDatings, function (k, v) {
-                    userStr = '';
-                    commentStr = '';
-                    if (v.comment) {
-                        commentStr = '<i>\"' + v.comment + '\"</i>';
-                    }
-                    if (v.fb_name) {
-                        userStr = v.fb_name;
-                    } else if (v.google_plus_name) {
-                        userStr = v.google_plus_name;
-                    } else {
-                        userStr = gettext('Anonymous user');
-                    }
-                    reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
-                    previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<i class="material-icons ajp-dater-confirm-button" data-id="' + v.id + '">thumb_up</i></div>');
-                });
+                that.buildPreviousDatingsDiv(state.previousDatings);
                 previousDatings.show();
             } else {
                 previousDatings.hide();

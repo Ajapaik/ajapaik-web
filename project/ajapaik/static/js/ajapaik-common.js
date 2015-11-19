@@ -674,7 +674,7 @@ var map,
                 $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
                     .addClass('ajapaik-minimap-confirm-geotag-button')
                     .prop('title', gettext('Confirm correct location'))
-                    .data('id', window.photoModalCurrentlyOpenPhotoId);
+                    .data('id', window.photoModalCurrentlyOpenPhotoId).html('<i class="material-icons">thumb_up</i>');
                 if (window.photoModalUserHasConfirmedThisLocation) {
                     $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
                 }
@@ -682,7 +682,7 @@ var map,
                 var minimapStartGuessButton = document.createElement('button');
                 $(minimapStartGuessButton).addClass('btn').addClass('btn-default')
                     .addClass('ajapaik-minimap-start-guess-button')
-                    .prop('title', gettext('Submit your own location'));
+                    .prop('title', gettext('Submit your own location')).html('<i class="material-icons">edit_location</i>');
                 window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
                 $('.ajapaik-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');
@@ -803,7 +803,8 @@ var map,
         handleAlbumChange();
     });
     
-    $(document).on('click', '#ajapaik-photo-modal-discuss', function () {
+    $(document).on('click', '#ajapaik-photo-modal-discuss', function (e) {
+        e.preventDefault();
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
         } else if (window.isMapview) {
@@ -994,7 +995,8 @@ var map,
             $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
         }
     });
-    $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function () {
+    $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function (e) {
+        e.preventDefault();
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal add rephoto click']);
         } else if (window.isMapview) {
@@ -1289,7 +1291,8 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-photo-modal-specify-location', function () {
+    $(document).on('click', '#ajapaik-photo-modal-specify-location', function (e) {
+        e.preventDefault();
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
         } else if (window.isMapview) {
@@ -1298,6 +1301,18 @@ var map,
             _gaq.push(['_trackEvent', 'Game', 'Photo modal specify location click']);
         }
         window.startGuessLocation($(this).data('id'));
+    });
+
+    $(document).on('click', '#ajapaik-photo-modal-start-dating-button', function (e) {
+        e.preventDefault();
+        if (window.isFrontpage) {
+            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
+        } else if (window.isMapview) {
+            _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
+        } else if (window.isGame) {
+            _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
+        }
+        window.startDater($(this).data('id'));
     });
 
     $(document).on('click', '#ajapaik-photo-modal-close-button', function (e) {
