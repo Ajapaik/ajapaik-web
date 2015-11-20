@@ -127,6 +127,11 @@ urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/juhan/$', 'juhan'),
 )
 
+urlpatterns += patterns('project.ajapaik.juks',
+    url(r'^juks/empty-json/$', 'empty_json'),
+    url(r'^juks/layers/$', 'layers'),
+)
+
 urlpatterns += patterns('',
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
     url(r'^admin/', include(admin.site.urls)),

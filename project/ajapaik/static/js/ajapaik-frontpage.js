@@ -138,6 +138,9 @@
                 } else if (window.order2 === 'likes') {
                     $('#ajapaik-likes-filter-icon').attr('class', 'ajapaik-filter-white');
                     orderingString += ' ' + gettext('liked');
+                } else if (window.order2 === 'datings') {
+                    $('#ajapaik-datings-filter-icon').attr('class', 'ajapaik-filter-white');
+                    orderingString += ' ' + gettext('dated');
                 } else if (window.order2 === 'views') {
                     $('#ajapaik-views-filter-icon').attr('class', 'ajapaik-filter-white');
                     orderingString += ' ' + gettext('viewed');

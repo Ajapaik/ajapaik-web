@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-19 18:15+0200\n"
+"POT-Creation-Date: 2015-11-20 12:21+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,7 +65,7 @@ msgid "You"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-common.js:713
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:380
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:382
 msgid "Anonymous user"
 msgstr ""
 
@@ -123,62 +123,68 @@ msgstr ""
 msgid "Invalid input, see help text."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:309
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:351
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:310
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:353
 msgid "Server received invalid data."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:386
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:388
 msgid "Confirm dating"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:393
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:395
 msgid "Confirming a dating earned you %(points)s points."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:398
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:400
 msgid "Submitting a dating earned you %(points)s points."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:404
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Thanks!"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:414
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:416
 msgid "YYYY.MM.DD"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:422
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:424
 msgid "Cancel"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:431
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:433
 msgid "Submit"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:439
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:441
 msgid "Comment your dating"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:448
-msgid ""
-"Use YYYY.MM.DD format (MM.DD not obligatory): <br/><span class=\"ajp-italic"
-"\">1878 | 1902.02</span>"
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:450
+msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:448
-msgid ""
-"Mark date ranges or before/after with either \"-\" or \"..\": <br/><span "
-"class=\"ajp-italic\">1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:450
+msgid "1878 | 1902.02"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:448
-msgid ""
-"Approximate date in brackets: <br/><span class=\"ajp-italic\">(1944) | "
-"(1940.05)..1941.08.21"
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:450
+msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:458
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:450
+msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:450
+msgid "Approximate date in brackets"
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:450
+msgid "(1944) | (1940.05)..1941.08.21)"
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:460
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:375
 msgid "You're anonymous"
 msgstr ""

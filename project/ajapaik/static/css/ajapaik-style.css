@@ -431,7 +431,7 @@ body {
     left: 0;
     background-color: rgb(255,255,255);
     display: none;
-    z-index: 1000;
+    z-index: 1;
     border: 1px solid black;
 }
 
@@ -500,17 +500,6 @@ body {
     background-repeat: no-repeat !important;
     background-position: center !important;
 }
-
-/*#ajapaik-header-map-button {*/
-    /*background-image: url(../images/material-design-icons/ic_map_24px.svg);*/
-    /*float: left;*/
-/*}*/
-
-/*.ajapaik-header-map-button-white {*/
-    /*background-image: url(../images/material-design-icons/ic_map_24px_white.svg) !important;*/
-/*}*/
-
-
 
 path:hover {
     fill: white;
@@ -2567,15 +2556,19 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 }
 
 .ajapaik-album-selection-map-button {
-    background-image: url(../images/material-design-icons/ic_map_24px.svg);
     width: 36px;
     height: 36px;
     background-size: 36px;
     float: right;
+    color: #888;
 }
 
-.ajapaik-album-selection-map-button:hover {
-    background-image: url(../images/material-design-icons/ic_map_24px_white.svg);
+.ajapaik-album-selection-map-button > i {
+    font-size: 36px;
+}
+
+.ajapaik-album-selection-map-button:hover > i {
+    color: white;
 }
 
 .ajapaik-album-selection-game-button {
@@ -2686,4 +2679,8 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+#ajapaik-photoview-add-rephoto-button {
+    margin-left: 10px;
 }

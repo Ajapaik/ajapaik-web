@@ -10,7 +10,7 @@
                     if (e.keyCode === 37) {
                         // left
                         buttons = $('.ajapaik-photo-modal-previous-button');
-                        if (!window.nextPhotoLoading && buttons.length > 0) {
+                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
@@ -18,7 +18,7 @@
                     } else if (e.keyCode === 39) {
                         // right
                         buttons = $('.ajapaik-photo-modal-next-button');
-                        if (!window.nextPhotoLoading && buttons.length > 0) {
+                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
@@ -30,7 +30,7 @@
                             window.BigScreen.exit();
                             window.fullscreenEnabled = false;
                         }
-                        if (!window.locationToolsOpen) {
+                        if (!window.locationToolsOpen && !window.datingFocused) {
                             $('#ajapaik-photo-modal-specify-location').click();
                         }
                     }

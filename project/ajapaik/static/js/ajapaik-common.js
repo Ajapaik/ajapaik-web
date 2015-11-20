@@ -6,6 +6,7 @@
 /*global BigScreen*/
 /*global photoLikeURL*/
 /*global docCookies*/
+/*global VanalinnadGooglemApi*/
 var map,
     streetPanorama,
     input,
@@ -108,7 +109,8 @@ var map,
             allowedMapTypes = {
                 roadmap: google.maps.MapTypeId.ROADMAP,
                 satellite: google.maps.MapTypeId.ROADMAP,
-                OSM: 'OSM'
+                OSM: 'OSM',
+                'juks': 'juks'
             };
 
         if (!startPoint) {
@@ -136,6 +138,7 @@ var map,
 
         }
         mapTypeIds.push('OSM');
+        mapTypeIds.push('juks');
 
         if (isGameMap) {
             // Geotagger module manages all activity now
@@ -185,6 +188,43 @@ var map,
             },
             tileSize: new google.maps.Size(256, 256),
             name: 'OSM',
+            maxZoom: 19
+        }));
+
+        var vanalinnadObject = new VanalinnadGooglemApi({
+            'site': 'Tallinn'
+        });
+        vanalinnadObject.map = map;
+        map.mapTypes.set('juks', new google.maps.ImageMapType({
+            getTileUrl: function (coord, zoom) {
+                var tilesPerGlobe = 1 << zoom,
+                    x = coord.x % tilesPerGlobe;
+                if (x < 0) {
+                    x = tilesPerGlobe + x;
+                }
+                var tmsY = ((1 << zoom) - 1 - coord.y);
+                if (vanalinnadObject.vars.layerIndex < 0 ||
+                    zoom < 12 ||
+                    zoom > 16 ||
+                    x < vanalinnadObject.tileX(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[0], zoom) ||
+                    x > vanalinnadObject.tileX(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[2], zoom)
+                    || coord.y > vanalinnadObject.tileY(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[1], zoom)
+                    || coord.y < vanalinnadObject.tileY(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[3], zoom)
+                    || vanalinnadObject.existsInStruct([
+                        vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].year, '' + zoom, '' + x, tmsY
+                    ], vanalinnadObject.empty)
+                ) {
+                    console.log('here');
+                    return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                } else {
+                    console.log('hereeee');
+                    return vanalinnadObject.vars.vanalinnadTiles + 'raster/places/' + vanalinnadObject.vars.site + '/' +
+                        vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].year + '/' + zoom + "/" + x +
+                        "/" + tmsY + ".jpg";
+                }
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: 'vanalinnad.mooo.com',
             maxZoom: 19
         }));
 
@@ -326,8 +366,8 @@ var map,
             endLatRadians = Math.asin(Math.sin(startLatRadians) * Math.cos(angularDistance) +
                 Math.cos(startLatRadians) * Math.sin(angularDistance) * Math.cos(bearingRadians)),
             endLonRadians = startLonRadians + Math.atan2(Math.sin(bearingRadians) * Math.sin(angularDistance) *
-                Math.cos(startLatRadians), Math.cos(angularDistance) - Math.sin(startLatRadians) *
-                Math.sin(endLatRadians));
+                    Math.cos(startLatRadians), Math.cos(angularDistance) - Math.sin(startLatRadians) *
+                    Math.sin(endLatRadians));
 
         return new google.maps.LatLng(Math.degrees(endLatRadians), Math.degrees(endLonRadians));
     };
@@ -482,12 +522,12 @@ var map,
             }
         }
     });
-    
+
     handleGeolocation = function (position) {
         $('#ajapaik-geolocation-error').hide();
         window.location.href = '/map?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude + '&limitToAlbum=0&zoom=15';
     };
-    
+
     geolocationError = function (error) {
         var targetElement = $('#ajapaik-geolocation-error-message');
         switch (error.code) {
@@ -590,29 +630,46 @@ var map,
         }
     });
 
+    window.resizeMinimap = function () {
+        var mapContainer = $('#ajapaik-photo-modal-map-container'),
+            modalPhoto = $('#ajapaik-modal-photo'),
+            photoviewPhoto = $('#ajapaik-photoview-main-photo');
+        if (modalPhoto.length > 0) {
+            mapContainer.css('height', modalPhoto.height() + 'px');
+        } else if (photoviewPhoto.length > 0) {
+            mapContainer.css('height', photoviewPhoto.height() + 'px');
+        }
+    };
+
+    window.positionMinimapCTAButton = function () {
+        var mapCanvas = $('#ajapaik-photo-modal-map-canvas');
+        $('.ajapaik-minimap-start-guess-CTA-button').css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')
+            .css('margin-top', ((mapCanvas.height() / 2) - 35) + 'px');
+    };
+
     window.showPhotoMapIfApplicable = function (isPhotoview) {
         var arrowIcon = {
-            path: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
-            strokeColor: 'white',
-            strokeOpacity: 1,
-            strokeWeight: 1,
-            fillColor: 'black',
-            fillOpacity: 1,
-            rotation: 0,
-            scale: 1.5,
-            anchor: new google.maps.Point(12, 12)
-        },
-        locationIcon = {
-            path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-            strokeColor: 'white',
-            strokeOpacity: 1,
-            strokeWeight: 1,
-            fillColor: 'black',
-            fillOpacity: 1,
-            scale: 1.5,
-            anchor: new google.maps.Point(12, 18)
-        },
-        currentIcon;
+                path: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
+                strokeColor: 'white',
+                strokeOpacity: 1,
+                strokeWeight: 1,
+                fillColor: 'black',
+                fillOpacity: 1,
+                rotation: 0,
+                scale: 1.5,
+                anchor: new google.maps.Point(12, 12)
+            },
+            locationIcon = {
+                path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+                strokeColor: 'white',
+                strokeOpacity: 1,
+                strokeWeight: 1,
+                fillColor: 'black',
+                fillOpacity: 1,
+                scale: 1.5,
+                anchor: new google.maps.Point(12, 18)
+            },
+            currentIcon;
         var container = $('#ajapaik-modal-photo-container'),
             mapContainer = $('#ajapaik-photo-modal-map-container');
         if (!window.isMobile && mapContainer.length > 0 && (!photoModalRephotoArray ||
@@ -638,9 +695,9 @@ var map,
                     .attr('title', gettext('Pick the shooting location!')).append(minimapLargeCTAButtonIcon);
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
                 var mapCanvas = $('#ajapaik-photo-modal-map-canvas');
-                $(minimapLargeCTAButton).css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')
-                    .css('margin-top', ((mapCanvas.height() / 2) - 35) + 'px').attr('data-id', window.photoModalCurrentlyOpenPhotoId);
+                $(minimapLargeCTAButton).attr('data-id', window.photoModalCurrentlyOpenPhotoId);
                 mapContainer.append(minimapLargeCTAButton);
+                window.positionMinimapCTAButton();
                 $('.ajapaik-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');
                 $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number').addClass('no-location')
@@ -791,18 +848,23 @@ var map,
             $('#ajapaik-modal-photo-container-container').removeClass('col-xs-12').addClass('col-xs-9');
         }
     };
-    
+
     $(document).on('click', '.ajapaik-minimap-start-guess-button', function () {
         $('#ajapaik-photo-modal-specify-location').click();
     });
-    
+
+    $(window).resize(function () {
+        window.resizeMinimap();
+        window.positionMinimapCTAButton();
+    });
+
     $(document).on('click', '.ajapaik-album-selection-item', function (e) {
         e.preventDefault();
         var $this = $(this);
         window.albumId = $this.data('id');
         handleAlbumChange();
     });
-    
+
     $(document).on('click', '#ajapaik-photo-modal-discuss', function (e) {
         e.preventDefault();
         if (window.isFrontpage) {
@@ -836,8 +898,8 @@ var map,
             if (window.photoModalRephotoArray[i].id == targetId) {
                 fullscreenDiv.attr('data-src', window.photoModalRephotoArray[i].fullscreen_url);
                 window.prepareFullscreen(window.photoModalRephotoArray[i].fullscreen_width,
-                        window.photoModalRephotoArray[i].fullscreen_height,
-                        '#ajapaik-rephoto-full-screen-image');
+                    window.photoModalRephotoArray[i].fullscreen_height,
+                    '#ajapaik-rephoto-full-screen-image');
                 photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[i]));
                 infoDiv.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[i]));
                 currentlySelectedRephotoId = targetId;
@@ -879,20 +941,20 @@ var map,
         $('#ajapaik-photo-modal-map-container').hide();
         $('#ajapaik-modal-photo-container-container').removeClass('col-xs-9').addClass('col-xs-12');
         if (!window.isFrontpage) {
-           window.syncMapStateToURL();
+            window.syncMapStateToURL();
         }
     });
     $(document).on('click', '#ajapaik-photo-modal-source', function () {
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Source link click']);
-        }  else if (window.isMapview) {
+        } else if (window.isMapview) {
             _gaq.push(['_trackEvent', 'Map', 'Source link click']);
         }
     });
     $(document).on('click', '#ajapaik-photo-modal-rephoto-source', function () {
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Rephoto source link click']);
-        }  else if (window.isMapview) {
+        } else if (window.isMapview) {
             _gaq.push(['_trackEvent', 'Map', 'Rephoto source link click']);
         }
     });
@@ -930,7 +992,7 @@ var map,
     $(document).on('click', '.ajapaik-thumbnail-selection-icon', function (e) {
         e.stopPropagation();
         var $this = $(this),
-            other = $(".ajapaik-frontpage-image-container[data-id='" + $this.data('id') +"']").find('.ajapaik-thumbnail-selection-icon');
+            other = $(".ajapaik-frontpage-image-container[data-id='" + $this.data('id') + "']").find('.ajapaik-thumbnail-selection-icon');
         if ($this.hasClass('ajapaik-thumbnail-selection-icon-white')) {
             $this.removeClass('ajapaik-thumbnail-selection-icon-white');
         } else {
@@ -987,7 +1049,7 @@ var map,
     $(document).on('mouseenter', '.ajapaik-thumbnail-selection-icon', function (e) {
         $(this).show();
     });
-    $(document.body).delegate('.ajapaik-frontpage-image', 'hover', function(){
+    $(document.body).delegate('.ajapaik-frontpage-image', 'hover', function () {
         $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
     }, function () {
         var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
@@ -1338,7 +1400,7 @@ var map,
         if (filter === "") {
             $('option').show();
         } else {
-            $('#ajapaik-curator-album-select').find('option').each(function() {
+            $('#ajapaik-curator-album-select').find('option').each(function () {
                 if ($(this).text().toLowerCase().indexOf(filter) > -1) {
                     $(this).show();
                 } else {
@@ -1353,7 +1415,7 @@ var map,
     });
 
     // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
-    BigScreen.onexit = function() {
+    BigScreen.onexit = function () {
         if (window.lastScrollPosition) {
             setTimeout(function () {
                 $(window).scrollTop(window.lastScrollPosition);
@@ -1447,7 +1509,7 @@ var map,
             });
         }
         if (window.isGallery) {
-           _gaq.push(['_trackEvent', 'Gallery', 'Album caption info click']);
+            _gaq.push(['_trackEvent', 'Gallery', 'Album caption info click']);
         } else if (window.isMapview) {
             _gaq.push(['_trackEvent', 'Mapview', 'Album caption info click']);
         }

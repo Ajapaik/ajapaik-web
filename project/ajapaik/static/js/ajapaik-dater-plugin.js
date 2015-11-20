@@ -257,19 +257,21 @@
                 feedbackDiv = that.$UI.find('#ajp-dater-feedback'),
                 submitButton = that.$UI.find('#ajp-dater-submit-button'),
                 feedbackStr;
-            if (that.invalid) {
-                formGroup.addClass('has-error');
-                submitButton.removeClass('btn-success');
-            } else {
-                formGroup.removeClass('has-error');
-                submitButton.addClass('btn-success');
+            if (!that.disableFeedback) {
+                if (that.invalid) {
+                    formGroup.addClass('has-error');
+                    submitButton.removeClass('btn-success');
+                } else {
+                    formGroup.removeClass('has-error');
+                    submitButton.addClass('btn-success');
+                }
+                if (that.invalid) {
+                    feedbackDiv.html(gettext('Invalid input, see help text.'));
+                } else {
+                    feedbackStr = that.generateDateString(that);
+                }
+                feedbackDiv.html(feedbackStr);
             }
-            if (that.invalid) {
-                feedbackDiv.html(gettext('Invalid input, see help text.'));
-            } else {
-                feedbackStr = that.generateDateString(that);
-            }
-            feedbackDiv.html(feedbackStr);
         };
         this.getAccuracyID = function (payload) {
             if (that.fromLocalizationFormat === 'LLL') {
@@ -304,8 +306,11 @@
                         window.updateDatings();
                     }
                     that.giveDatingSubmittedFeedback(true);
+                    that.$UI.find('#ajp-dater-feedback').hide();
+                    that.disableFeedback = true;
                 },
                 error: function () {
+                    that.$UI.find('#ajp-dater-feedback-well').hide();
                     $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
                 }
             });
@@ -346,8 +351,15 @@
                                 window.updateDatings();
                             }
                             that.giveDatingSubmittedFeedback();
+                            that.$UI.find('#ajp-dater-feedback').hide();
+                            that.$UI.find('#ajp-dater-submit-button').hide();
+                            that.$UI.find('#ajp-dater-comment').hide();
+                            that.$UI.find('#ajp-dater-input').hide();
+                            that.$UI.find('#ajp-dater-toggle-comment-button').hide();
+                            that.disableFeedback = true;
                         },
                         error: function () {
+                            that.$UI.find('#ajp-dater-feedback-well').hide();
                             $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
                         }
                     });
@@ -412,6 +424,8 @@
         initializeDater: function () {
             var that = this;
             that.$UI.find('input').attr('placeholder', gettext('YYYY.MM.DD')).on('change textInput input', function () {
+                that.disableFeedback = false;
+                that.$UI.find('#ajp-dater-feedback').show();
                 clearTimeout(that.typingTimer);
                 that.typingTimer = setTimeout(that.giveFeedback, 1000);
             }).on('focus', function () {
@@ -445,7 +459,7 @@
                     window.reportDaterOpenComment();
                 }
             });
-            that.$UI.find('#ajp-dater-tutorial-well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory): <br/><span class="ajp-italic">1878 | 1902.02</span>') + '</li><li>' + gettext('Mark date ranges or before/after with either "-" or "..": <br/><span class="ajp-italic">1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets: <br/><span class="ajp-italic">(1944) | (1940.05)..1941.08.21') + '</span></li></ul>');
+            that.$UI.find('#ajp-dater-tutorial-well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':<br/><span class="ajp-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':<br/><span class="ajp-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':<br/><span class="ajp-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
             if (docCookies.getItem('ajapaik_closed_dater_instructions') === 'true') {
                 that.$UI.find('#ajp-dater-tutorial-well').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
@@ -501,6 +515,10 @@
                 loginDiv = that.$UI.find('#ajp-dater-anonymous-user-well'),
                 previousDatings = that.$UI.find('#ajp-dater-previous-datings-well');
             this.photo = state.photoId;
+            that.$UI.find('#ajp-dater-submit-button').show();
+            that.$UI.find('#ajp-dater-input').show();
+            that.$UI.find('#ajp-dater-toggle-comment-button').show();
+            that.$UI.find('#ajp-dater-feedback-well').hide();
             if (userIsSocialConnected) {
                 loginDiv.addClass('hidden');
             } else {

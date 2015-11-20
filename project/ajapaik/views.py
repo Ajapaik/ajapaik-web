@@ -813,6 +813,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('view_count')
                 else:
                     photos = photos.order_by('-view_count')
+            elif order2 == 'datings':
+                if order3 == 'reverse':
+                    photos = photos.order_by('dating_count')
+                else:
+                    photos = photos.order_by('-dating_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
@@ -851,6 +856,13 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 else:
                     photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL', },
                         order_by=['latest_view_is_null', '-project_photo.latest_view'], )
+            elif order2 == 'datings':
+                if order3 == 'reverse':
+                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL', },
+                        order_by=['first_dating_is_null', 'project_photo.first_dating'], )
+                else:
+                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
+                        order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
             elif order2 == 'added':
                 if order3 == 'reverse':
                     photos = photos.order_by('created')
@@ -2266,6 +2278,15 @@ def submit_dating(request):
         dating_exists = Dating.objects.filter(profile=profile, raw=dating.raw).exists()
         if not dating_exists:
             dating.save()
+            p = form.cleaned_data['photo']
+            p.latest_dating = dating.created
+            if not p.first_dating:
+                p.first_dating = dating.created
+            confirmation_count = 0
+            for each in p.datings.all():
+                confirmation_count += each.confirmations.count()
+            p.dating_count = p.datings.count() + confirmation_count
+            p.light_save()
             Points(
                 user=profile,
                 action=Points.DATING,
@@ -2275,15 +2296,23 @@ def submit_dating(request):
                 created=dating.created
             ).save()
             return HttpResponse('OK')
+        return HttpResponse('Dating exists', status=400)
     elif confirm_form.is_valid():
         original_dating = confirm_form.cleaned_data['id']
         confirmation_exists = DatingConfirmation.objects.filter(confirmation_of=original_dating, profile=profile).exists()
-        if not confirmation_exists or original_dating.profile == profile:
+        if not confirmation_exists and original_dating.profile != profile:
             new_confirmation = DatingConfirmation(
                 confirmation_of=original_dating,
                 profile=profile
             )
             new_confirmation.save()
+            p = original_dating.photo
+            p.latest_dating = new_confirmation.created
+            confirmation_count = 0
+            for each in p.datings.all():
+                confirmation_count += each.confirmations.count()
+            p.dating_count = p.datings.count() + confirmation_count
+            p.light_save()
             Points(
                 user=profile,
                 action=Points.DATING_CONFIRMATION,

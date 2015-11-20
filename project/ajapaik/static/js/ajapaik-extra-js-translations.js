@@ -27,7 +27,7 @@
     gettext('Image has only location, no view direction');
     gettext('Image has location and view direction info');
     gettext('Image has rephotos');
-    gettext('Add picture to album');
+    gettext('Add this picture to album (not the whole set)');
     gettext('Rotate');
     gettext('Pictures in album');
     gettext('Pictures geotagged');

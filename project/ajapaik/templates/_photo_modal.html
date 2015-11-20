@@ -355,10 +355,23 @@
                 };
                 window.stopDater = function () {
                     $('.ajp-dater-hide-when-dater-visible').show();
-                    $('#ajp-dater-input').empty();
-                    $('#ajp-dater-comment').empty();
+                    $('#ajp-dater-input').val(null);
+                    $('#ajp-dater-comment').val(null);
                     $('#ajp-dater-feedback').empty();
                     $('#ajp-dater-container').hide();
+                };
+                window.updateDatings = function () {
+                    $.ajax({
+                        url: '{% url 'project.ajapaik.views.get_datings' photo.id %}',
+                        success: function (result) {
+                            $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
+                            $('#ajapaik-photo-modal-start-dating-button').find('.badge').html(result.datings.length);
+                            $('#ajapaik-photoview-start-dating-button').find('.badge').html(result.datings.length);
+                            window.updateLeaderboard();
+                            $('#ajp-dater-input').val(null);
+                            $('#ajp-dater-comment').val(null);
+                        }
+                    });
                 };
             });
         </script>
