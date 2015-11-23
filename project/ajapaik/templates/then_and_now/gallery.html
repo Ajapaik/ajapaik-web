@@ -1,6 +1,6 @@
 {% extends "then_and_now/base.html" %}
 
-{% load static thumbnail %}
+{% load static thumbnail compress %}
 
 {% block layout %}
     <div id="gallery-container">
@@ -13,5 +13,7 @@
 {% endblock %}
 
 {% block specific_js %}
-    <script src="{% static 'js/then-and-now-gallery.js' %}"></script>
+    {% compress js %}
+        <script src="{% static 'js/then-and-now-gallery.js' %}"></script>
+    {% endcompress %}
 {% endblock %}

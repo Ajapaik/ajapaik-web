@@ -1,6 +1,6 @@
 {% extends "then_and_now/base.html" %}
 
-{% load static %}
+{% load static compress %}
 
 {% block layout %}
     <div id="map-container"></div>
@@ -15,5 +15,7 @@
             marker2 = '{% static 'images/then-and-now-marker-2.png' %}',
             marker3 = '{% static 'images/then-and-now-marker-3.png' %}';
     </script>
-    <script src="{% static 'js/then-and-now-map.js' %}"></script>
+    {% compress js %}
+        <script src="{% static 'js/then-and-now-map.js' %}"></script>
+    {% endcompress %}
 {% endblock %}

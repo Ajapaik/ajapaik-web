@@ -1,6 +1,6 @@
 {% extends "then_and_now/base.html" %}
 
-{% load static thumbnail %}
+{% load static thumbnail compress %}
 
 {% block layout %}
     <div class="container-fluid">
@@ -26,5 +26,7 @@
 {% endblock %}
 
 {% block specific_js %}
-    <script src="{% static 'js/then-and-now-detail.js' %}"></script>
+    {% compress js %}
+        <script src="{% static 'js/then-and-now-detail.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
