@@ -392,9 +392,6 @@
                     userStr = gettext('Anonymous user');
                 }
                 reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
-                if (v.confirmation_count < 1) {
-                    v.confirmation_count = 1;
-                }
                 previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge">' + v.confirmation_count + '</span><i class="material-icons ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
             });
         };
