@@ -144,6 +144,9 @@
         -webkit-line-clamp: 1;
         max-height: 20px;
     }
+    #ajp-geotagger-image-thumb {
+        max-height: 150px;
+    }
 }
 
 #ajp-geotagger-stats-container {
