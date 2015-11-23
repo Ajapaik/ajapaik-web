@@ -356,6 +356,7 @@
                             that.$UI.find('#ajp-dater-comment').hide();
                             that.$UI.find('#ajp-dater-input').hide();
                             that.$UI.find('#ajp-dater-toggle-comment-button').hide();
+                            that.$UI.find('#ajp-dater-previous-datings-well').show();
                             that.disableFeedback = true;
                         },
                         error: function () {
