@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area,\
-    AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourPhoto, TourRephoto
+    AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourPhoto, TourRephoto, \
+    DatingConfirmation
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -37,6 +38,13 @@ class DatingAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
         'profile': ('user__first_name', 'user__last_name', 'email', 'fb_name', 'google_plus_name'),
         'photo': ('pk', 'description',),
+    }
+
+
+class DatingConfirmationAdmin(ForeignKeyAutocompleteAdmin):
+    related_search_fields = {
+        'profile': ('user__first_name', 'user__last_name', 'email', 'fb_name', 'google_plus_name'),
+        'confirmation_of': ('pk',),
     }
 
 
@@ -135,5 +143,6 @@ admin.site.register(Device)
 admin.site.register(CredentialsModel, CredentialsAdmin)
 admin.site.register(Newsletter)
 admin.site.register(Dating, DatingAdmin)
+admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)
