@@ -530,6 +530,9 @@
             } else {
                 previousDatings.hide();
             }
+            setTimeout(function () {
+                that.$UI.find('#ajp-dater-input').focus();
+            }, 0);
         }
     };
     $.fn.AjapaikDater = function (options) {

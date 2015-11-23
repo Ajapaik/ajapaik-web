@@ -23,6 +23,9 @@
                                 buttons[0].click();
                             }
                         }
+                    } else if (e.keyCode === 68) {
+                        // d
+                        $('#ajapaik-photo-modal-start-dating-button').click();
                     }
                     if (e.keyCode === 32 && window.currentlySelectedPhotoId) {
                         // space
@@ -102,6 +105,9 @@
                         if (targets.length > 0) {
                             targets[0].click();
                         }
+                    } else if (e.keyCode === 68) {
+                        // d
+                        $('#ajapaik-photoview-start-dating-button').click();
                     }
                 }
             }

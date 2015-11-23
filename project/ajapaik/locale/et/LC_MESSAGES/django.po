@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-20 12:21+0200\n"
-"PO-Revision-Date: 2015-11-20 10:22+0000\n"
+"POT-Creation-Date: 2015-11-23 12:13+0200\n"
+"PO-Revision-Date: 2015-11-23 10:15+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -48,92 +48,92 @@ msgstr "Kaardi piirid peavad koosnema 4 komaga eraldatud numbrist"
 msgid "Bounding box values must be numbers"
 msgstr "Kaardi piirid peavad olema väljendatud numbrites"
 
-#: project/ajapaik/models.py:669
+#: project/ajapaik/models.py:672
 msgid "Geotag"
 msgstr "Geotääg"
 
-#: project/ajapaik/models.py:670 project/ajapaik/templates/_comments.html:11
+#: project/ajapaik/models.py:673 project/ajapaik/templates/_comments.html:11
 #: project/ajapaik/templates/_photo_modal_comments.html:11
 msgid "Rephoto"
 msgstr "Ülepildistus"
 
-#: project/ajapaik/models.py:671
+#: project/ajapaik/models.py:674
 msgid "Photo upload"
 msgstr "Foto üleslaadimine"
 
-#: project/ajapaik/models.py:672
+#: project/ajapaik/models.py:675
 msgid "Photo curation"
 msgstr "Foto kureerimine"
 
-#: project/ajapaik/models.py:673
+#: project/ajapaik/models.py:676
 msgid "Photo re-curation"
 msgstr "Foto rekureerimine"
 
-#: project/ajapaik/models.py:674
+#: project/ajapaik/models.py:677
 msgid "Dating"
 msgstr "Dateering"
 
-#: project/ajapaik/models.py:675
+#: project/ajapaik/models.py:678
 msgid "Dating confirmation"
 msgstr "Dateeringu kinnitus"
 
-#: project/ajapaik/models.py:701
+#: project/ajapaik/models.py:704
 msgid "Map"
 msgstr "Kaart"
 
-#: project/ajapaik/models.py:702
+#: project/ajapaik/models.py:705
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/ajapaik/models.py:703
+#: project/ajapaik/models.py:706
 msgid "GPS"
 msgstr "GPS"
 
-#: project/ajapaik/models.py:704
+#: project/ajapaik/models.py:707
 msgid "Confirmation"
 msgstr "Kinnitus"
 
-#: project/ajapaik/models.py:705
+#: project/ajapaik/models.py:708
 msgid "StreetView"
 msgstr "StreetView"
 
-#: project/ajapaik/models.py:716
+#: project/ajapaik/models.py:719
 msgid "Game"
 msgstr "Mäng"
 
-#: project/ajapaik/models.py:717
+#: project/ajapaik/models.py:720
 msgid "Map view"
 msgstr "Kaardivaade"
 
-#: project/ajapaik/models.py:718
+#: project/ajapaik/models.py:721
 msgid "Gallery"
 msgstr "Galerii"
 
-#: project/ajapaik/models.py:719
+#: project/ajapaik/models.py:722
 msgid "Permalink"
 msgstr "Püsiviide"
 
-#: project/ajapaik/models.py:723
+#: project/ajapaik/models.py:726
 msgid "Google map"
 msgstr "Google kaart"
 
-#: project/ajapaik/models.py:724
+#: project/ajapaik/models.py:727
 msgid "Google satellite"
 msgstr "Google satelliit"
 
-#: project/ajapaik/models.py:725
+#: project/ajapaik/models.py:728
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/ajapaik/models.py:1080
+#: project/ajapaik/models.py:1083
 msgid "Day"
 msgstr "Päev"
 
-#: project/ajapaik/models.py:1081
+#: project/ajapaik/models.py:1084
 msgid "Month"
 msgstr "Kuu"
 
-#: project/ajapaik/models.py:1082
+#: project/ajapaik/models.py:1085
 msgid "Year"
 msgstr "Aasta"
 
@@ -248,47 +248,51 @@ msgstr "Üldedetabel"
 msgid "Original photo"
 msgstr "Ajalooline foto"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:4
+#: project/ajapaik/templates/_filtering_dropdown.html:5
 msgid "Filtering"
 msgstr "Filter"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:13
+#: project/ajapaik/templates/_filtering_dropdown.html:16
 msgid "Sort by distance from you"
 msgstr "Sorteeri kauguse järgi sinust"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:23
+#: project/ajapaik/templates/_filtering_dropdown.html:26
 msgid "Sort by time and ..."
 msgstr "Sorteeri aja ja ... järgi"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:32
+#: project/ajapaik/templates/_filtering_dropdown.html:36
 msgid "Sort by photos' time added"
 msgstr "Sorteeri pilte lisamise aja järgi"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:41
-msgid "Sort by likes' time added or amount"
-msgstr "Sorteeri lemmikuks märkimiste aja või koguse järgi"
-
-#: project/ajapaik/templates/_filtering_dropdown.html:59
+#: project/ajapaik/templates/_filtering_dropdown.html:55
 msgid "Sort by geotags' time added or amount"
 msgstr "Sorteeri asukohamärgenduste lisamise aja või koguse järgi"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:68
+#: project/ajapaik/templates/_filtering_dropdown.html:65
+msgid "Sort by datings' time added or amount"
+msgstr "Sorteeri dateeringute lisamise aja või koguse järgi"
+
+#: project/ajapaik/templates/_filtering_dropdown.html:74
 msgid "Sort by rephotos' time added or amount"
 msgstr "Sorteeri ülepildistuste lisamise aja või koguse järgi"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:77
+#: project/ajapaik/templates/_filtering_dropdown.html:84
 msgid "Sort by comments' time added or amount"
 msgstr "Sorteeri kommentaaride lisamise aja või koguse järgi"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:86
+#: project/ajapaik/templates/_filtering_dropdown.html:94
+msgid "Sort by likes' time added or amount"
+msgstr "Sorteeri lemmikuks märkimiste aja või koguse järgi"
+
+#: project/ajapaik/templates/_filtering_dropdown.html:104
 msgid "Sort by amount and ..."
 msgstr "Sorteeri koguse ja ... järgi"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:95
+#: project/ajapaik/templates/_filtering_dropdown.html:114
 msgid "Change sorting order"
 msgstr "Muuda sorteerimise järjestus vastupidiseks"
 
-#: project/ajapaik/templates/_filtering_dropdown.html:103
+#: project/ajapaik/templates/_filtering_dropdown.html:123
 msgid "Help"
 msgstr "Abi"
 
@@ -558,8 +562,8 @@ msgstr "Otsi albumit"
 msgid "Profile and leaderboard"
 msgstr "Profiil ja edetabel"
 
-#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1532
-#: project/ajapaik/views.py:1548 project/ajapaik/views.py:1580
+#: project/ajapaik/templates/_header.html:76 project/ajapaik/views.py:1544
+#: project/ajapaik/views.py:1560 project/ajapaik/views.py:1592
 msgid "Leaderboard"
 msgstr "Edetabel"
 
@@ -1057,17 +1061,17 @@ msgstr "Uudiskiri"
 msgid "See also – Sift.pics"
 msgstr "Vaata ka – Sift.pics"
 
-#: project/ajapaik/templates/base_bootstrap.html:436
+#: project/ajapaik/templates/base_bootstrap.html:438
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
 msgstr "Teie parema kogemuse huvides kasutab see lehekülg küpsiseid"
 
-#: project/ajapaik/templates/base_bootstrap.html:437
+#: project/ajapaik/templates/base_bootstrap.html:439
 msgid "Got it!"
 msgstr "Mis siis ikka!"
 
-#: project/ajapaik/templates/base_bootstrap.html:438
+#: project/ajapaik/templates/base_bootstrap.html:440
 msgid "More info"
 msgstr "Rohkem infot"
 
@@ -1258,70 +1262,70 @@ msgstr "Kuupäev:"
 msgid "Geotagging game"
 msgstr "Asukohapakkumiste mäng"
 
-#: project/ajapaik/views.py:1050
+#: project/ajapaik/views.py:1062
 msgid "Album creation success"
 msgstr "Albumi loomine oli edukas"
 
-#: project/ajapaik/views.py:1052
+#: project/ajapaik/views.py:1064
 msgid "Problem with album selection"
 msgstr "Probleem albumivalikul"
 
-#: project/ajapaik/views.py:1054
+#: project/ajapaik/views.py:1066
 msgid "Faulty data submitted"
 msgstr "Vigased andmed"
 
-#: project/ajapaik/views.py:1330 project/ajapaik/views.py:1337
-#: project/ajapaik/views.py:1339
+#: project/ajapaik/views.py:1342 project/ajapaik/views.py:1349
+#: project/ajapaik/views.py:1351
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: project/ajapaik/views.py:1452
+#: project/ajapaik/views.py:1464
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr "Teie pakkumine ei muutnud hetkel foto asukohta, kuid võib seda teha tulevikus."
 
-#: project/ajapaik/views.py:1454
+#: project/ajapaik/views.py:1466
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Fotol on tänu Teile uus asukoht."
 
-#: project/ajapaik/views.py:1456
+#: project/ajapaik/views.py:1468
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: project/ajapaik/views.py:1674
+#: project/ajapaik/views.py:1686
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit teistega!"
 
-#: project/ajapaik/views.py:1676
+#: project/ajapaik/views.py:1688
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Ajapaiga kuraator"
 
-#: project/ajapaik/views.py:2022
+#: project/ajapaik/views.py:2034
 msgid ""
 "This picture is small, we've allowed you to add it to specified album and "
 "you can mark it's location on the map, but it will be hidden from other "
 "users until we get a higher quality image from the institution."
 msgstr "Pilt on natuke liiga väike, ehk tasuks see praegu lisamata jätta ja oodata, kuni kättesaadavaks muutub parem kujutis. Aga kui siiski soovite, siis võib see valikusse jääda."
 
-#: project/ajapaik/views.py:2024
+#: project/ajapaik/views.py:2036
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:2047
+#: project/ajapaik/views.py:2059
 msgid "Error uploading file"
 msgstr "Faili üleslaadimine ebaõnnestus"
 
-#: project/ajapaik/views.py:2060
+#: project/ajapaik/views.py:2072
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: project/ajapaik/views.py:2071
+#: project/ajapaik/views.py:2083
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: project/ajapaik/views.py:2073
+#: project/ajapaik/views.py:2085
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
