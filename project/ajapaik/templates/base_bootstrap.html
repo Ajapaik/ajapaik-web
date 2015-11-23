@@ -432,28 +432,28 @@
         <script src="{% static "js/ajapaik-ga.js" %}"></script>
         <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
         <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
-        <script type="text/javascript">
-            window.cookieconsent_options = {
-                message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
-                dismiss: '{% trans "Got it!" %}',
-                learnMore: '{% trans "More info" %}',
-                link: null,
-                theme: 'dark-bottom'
-            };
-        </script>
-        <script type="text/javascript">
-            {% if request.user.profile %}
-                window.currentProfileId = {{ request.user.profile.pk }};
-                {% if request.user.profile.fb_name %}
-                    window.currentProfileName = '{{ request.user.profile.fb_name }}';
-                {% elif request.user.profile.google_plus_name %}
-                    window.currentProfileName = '{{ request.user.profile.google_plus_name }}';
-                {% endif %}
-            {% endif %}
-            window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
-            window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
-        </script>
     {% endcompress %}
+    <script type="text/javascript">
+        window.cookieconsent_options = {
+            message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
+            dismiss: '{% trans "Got it!" %}',
+            learnMore: '{% trans "More info" %}',
+            link: null,
+            theme: 'dark-bottom'
+        };
+    </script>
+    <script type="text/javascript">
+        {% if request.user.profile %}
+            window.currentProfileId = {{ request.user.profile.pk }};
+            {% if request.user.profile.fb_name %}
+                window.currentProfileName = '{{ request.user.profile.fb_name }}';
+            {% elif request.user.profile.google_plus_name %}
+                window.currentProfileName = '{{ request.user.profile.google_plus_name }}';
+            {% endif %}
+        {% endif %}
+        window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
+        window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
+    </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
 </body>

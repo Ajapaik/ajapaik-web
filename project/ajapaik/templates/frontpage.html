@@ -81,8 +81,8 @@
     {% include "js_templates/frontpage_photo_template.html" %}
     {% compress js %}
         <script src="{% static "js/ajapaik-frontpage.js" %}"></script>
-        <script>
-            $('#ajp-geotagging-container').AjapaikGeotagger();
-        </script>
     {% endcompress %}
+    <script>
+        $('#ajp-geotagging-container').AjapaikGeotagger();
+    </script>
 {% endblock %}
