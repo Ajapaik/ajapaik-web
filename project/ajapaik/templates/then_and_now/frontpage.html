@@ -1,6 +1,6 @@
 {% extends "then_and_now/base.html" %}
 
-{% load thumbnail static compress %}
+{% load static compress %}
 
 {% block layout %}
     <div class="col-xs-offset-1 col-xs-10">
@@ -35,7 +35,7 @@
             {% endif %}
             {% for p in recent_photos %}
                 <div class="row">
-                    <img class="img-responsive" src="{% thumbnail p.image '600x600' %}">
+                    <img class="img-responsive" src="{% url 'project.ajapaik.views.image_thumb' p.pk 600 %}">
                 </div>
             {% endfor %}
         </div>-->

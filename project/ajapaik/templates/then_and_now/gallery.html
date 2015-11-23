@@ -1,12 +1,12 @@
 {% extends "then_and_now/base.html" %}
 
-{% load static thumbnail compress %}
+{% load static compress %}
 
 {% block layout %}
     <div id="gallery-container">
         {% for p in tour.photos.all %}
             <a href="{% url 'project.ajapaik.then_and_now_tours.detail' p.pk tour.pk %}">
-                <img src="{% thumbnail p.image '300x300' %}">
+                <img src="{% url 'project.ajapaik.views.image_thumb' p.pk 300 %}">
             </a>
         {% endfor %}
     </div>

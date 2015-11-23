@@ -1,12 +1,12 @@
 {% extends "then_and_now/base.html" %}
 
-{% load static thumbnail compress %}
+{% load static compress %}
 
 {% block layout %}
     <div class="container-fluid">
         <div class="col-xs-12">
             <div class="row">
-                <img class="img-responsive" src="{% thumbnail photo.image '800x600' %}">
+                <img class="img-responsive" src="{% url 'project.ajapaik.views.image_thumb' photo.pk 800 %}">
             </div>
             <div class="row">
                 {{ photo.description }}
