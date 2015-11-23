@@ -145,7 +145,7 @@
         max-height: 20px;
     }
     #ajp-geotagger-image-thumb {
-        max-height: 150px;
+        max-height: 150px !important;
     }
 }
 
