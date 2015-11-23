@@ -23,7 +23,7 @@
                                 buttons[0].click();
                             }
                         }
-                    } else if (e.keyCode === 68) {
+                    } else if (e.keyCode === 68 && !window.datingFocused) {
                         // d
                         $('#ajapaik-photo-modal-start-dating-button').click();
                     }
