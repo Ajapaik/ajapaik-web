@@ -116,6 +116,15 @@
                         <div title="{{ photo.description }}">{{ photo.description }}</div>
                     </div>
                 {% endif %}
+                {% if photo.date %}
+                    <div class="row-fluid">
+                        {{ photo.date }}
+                    </div>
+                {% elif photo.date_text %}
+                    <div class="row-fluid">
+                        {{ photo.date_text }}
+                    </div>
+                {% endif %}
                 <div class="row-fluid">
                     <div class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
                          data-layout="standard" data-action="like" data-show-faces="true"

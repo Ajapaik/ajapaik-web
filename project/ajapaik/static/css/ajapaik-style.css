@@ -1666,6 +1666,10 @@ ul.errorlist {
 
 }
 
+.ajapaik-game-specify-location-button > i {
+    font-size: 36px;
+}
+
 #ajapaik-zone-ee-logo {
     display: inline-block;
     width: 100px;

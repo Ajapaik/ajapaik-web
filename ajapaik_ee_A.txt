@@ -131,6 +131,10 @@ server {
                 expires 30d;
         }
 
+        location /vanalinnad.mooo.com {
+                alias /var/garage/vanalinnad.moo.com;
+        }
+
         location ~ ^/favicon.(\w*)$ {
                 alias /var/garage/rephoto/static-collected/favicon.$1;
         }

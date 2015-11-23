@@ -393,7 +393,7 @@
                     userStr = gettext('Anonymous user');
                 }
                 reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
-                previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge">' + v.confirmation_count + '</span><i class="material-icons ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
+                previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge">' + v.confirmation_count + '</span><i onclick="window.confirmDating(' + v.id + ')" class="material-icons ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
             });
         };
         this.giveDatingSubmittedFeedback = function (confirmation) {
@@ -479,12 +479,12 @@
                 }
                 docCookies.setItem('ajapaik_closed_dater_instructions', false, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
-            $(document).on('click', '.ajp-dater-confirm-button', function () {
+            window.confirmDating = function (id) {
                 if (typeof window.reportDaterConfirmSubmit === 'function') {
                     window.reportDaterConfirmSubmit();
                 }
-                that.submitConfirmation($(this).data('id'));
-            });
+                that.submitConfirmation(id);
+            };
             // TODO: More generic implementation
             moment.locale('et', {
                 longDateFormat: {

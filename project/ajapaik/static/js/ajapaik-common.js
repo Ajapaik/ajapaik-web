@@ -16,6 +16,7 @@ var map,
     marker,
     bypass = false,
     mapOpts,
+    vgmapi,
     streetViewOptions = {
         panControl: true,
         panControlOptions: {
@@ -191,36 +192,37 @@ var map,
             maxZoom: 19
         }));
 
-        var vanalinnadObject = new VanalinnadGooglemApi({
-            'site': 'Tallinn'
+        vgmapi = new VanalinnadGooglemApi({
+            'site': 'Tartu'
         });
-        vanalinnadObject.map = map;
+        vgmapi.map = map;
         map.mapTypes.set('juks', new google.maps.ImageMapType({
             getTileUrl: function (coord, zoom) {
-                var tilesPerGlobe = 1 << zoom,
-                    x = coord.x % tilesPerGlobe;
+
+                // "Wrap" x (logitude) at 180th meridian properly
+                // NB: Don't touch coord.x because coord param is by reference, and changing its x property breakes something in Google's lib
+                var tilesPerGlobe = 1 << zoom;
+                var x = coord.x % tilesPerGlobe;
                 if (x < 0) {
                     x = tilesPerGlobe + x;
                 }
+                // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
                 var tmsY = ((1 << zoom) - 1 - coord.y);
-                if (vanalinnadObject.vars.layerIndex < 0 ||
-                    zoom < 12 ||
-                    zoom > 16 ||
-                    x < vanalinnadObject.tileX(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[0], zoom) ||
-                    x > vanalinnadObject.tileX(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[2], zoom)
-                    || coord.y > vanalinnadObject.tileY(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[1], zoom)
-                    || coord.y < vanalinnadObject.tileY(vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].bounds[3], zoom)
-                    || vanalinnadObject.existsInStruct([
-                        vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].year, '' + zoom, '' + x, tmsY
-                    ], vanalinnadObject.empty)
+                if (vgmapi.vars.layerIndex < 0
+                    || zoom < 12
+                    || zoom > 16
+                    || x < vgmapi.tileX(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[0], zoom)
+                    || x > vgmapi.tileX(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[2], zoom)
+                    || coord.y > vgmapi.tileY(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[1], zoom)
+                    || coord.y < vgmapi.tileY(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[3], zoom)
+                    || vgmapi.existsInStruct([
+                        vgmapi.vars.layers[vgmapi.vars.layerIndex].year, '' + zoom, '' + x, tmsY
+                    ], vgmapi.empty)
                 ) {
-                    console.log('here');
                     return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
                 } else {
-                    console.log('hereeee');
-                    return vanalinnadObject.vars.vanalinnadTiles + 'raster/places/' + vanalinnadObject.vars.site + '/' +
-                        vanalinnadObject.vars.layers[vanalinnadObject.vars.layerIndex].year + '/' + zoom + "/" + x +
-                        "/" + tmsY + ".jpg";
+                    return vgmapi.vars.vanalinnadTiles + 'raster/places/' + vgmapi.vars.site + '/'
+                        + vgmapi.vars.layers[vgmapi.vars.layerIndex].year + '/' + zoom + "/" + x + "/" + tmsY + ".jpg";
                 }
             },
             tileSize: new google.maps.Size(256, 256),
@@ -321,6 +323,10 @@ var map,
         mapTypeChangedListener = google.maps.event.addListener(map, 'maptypeid_changed', function () {
             // Works only in map view
             _gaq.push(['_trackEvent', 'Map', 'Map type changed']);
+            var mapType = window.map.getMapTypeId();
+            if (mapType === 'juks') {
+                window.useNearestVanalinnadCity();
+            }
             window.syncMapStateToURL();
         });
     };
@@ -370,6 +376,19 @@ var map,
                     Math.sin(endLatRadians));
 
         return new google.maps.LatLng(Math.degrees(endLatRadians), Math.degrees(endLonRadians));
+    };
+
+    Math.haversineDistance = function (start, end) {
+        var R = 6371,
+            dLat = Math.radians(end.latitude - start.latitude),
+            dLon = Math.radians(end.longitude - start.longitude),
+            lat1 = Math.radians(start.latitude),
+            lat2 = Math.radians(end.latitude),
+            a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) *
+                Math.cos(lat2),
+            c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c;
     };
 
     // Used in map view and mini-map

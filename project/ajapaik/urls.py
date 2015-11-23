@@ -156,3 +156,4 @@ else:
 
 if settings.DEBUG:
     urlpatterns += patterns('', (r'^media/(.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}), )
+    urlpatterns += patterns('', (r'^vanalinnad.mooo.com/(.*)', 'django.views.static.serve', {'document_root': settings.VANALINNAD_ROOT, 'show_indexes': True}), )

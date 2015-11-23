@@ -28,6 +28,7 @@ if not ABSOLUTE_PROJECT_ROOT in sys.path:
 
 STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
 MEDIA_ROOT = '%s/media' % ABSOLUTE_PROJECT_ROOT
+VANALINNAD_ROOT = '/var/garage/vanalinnad.mooo.com'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
