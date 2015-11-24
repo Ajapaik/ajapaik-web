@@ -2277,10 +2277,10 @@ def submit_dating(request):
             dating.start = datetime.datetime.strptime('01011000', '%d%m%Y').date()
         if not dating.end:
             dating.end = datetime.datetime.strptime('01013000', '%d%m%Y').date()
-        dating_exists = Dating.objects.filter(profile=profile, raw=dating.raw).exists()
+        p = form.cleaned_data['photo']
+        dating_exists = Dating.objects.filter(profile=profile, raw=dating.raw, photo=p).exists()
         if not dating_exists:
             dating.save()
-            p = form.cleaned_data['photo']
             p.latest_dating = dating.created
             if not p.first_dating:
                 p.first_dating = dating.created
