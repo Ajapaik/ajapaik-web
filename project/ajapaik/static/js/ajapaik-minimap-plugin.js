@@ -1,5 +1,6 @@
-(function ($) {
+(function () {
     'use strict';
+    /*global $*/
     /*global google*/
     // TODO: Pack mini-map shit into this, just like geotagger
     var AjapaikMinimap = function (node, options) {
@@ -49,4 +50,4 @@
             $(this).data('AjapaikMinimap', new AjapaikMinimap(this, options));
         });
     };
-}(jQuery));
+}());

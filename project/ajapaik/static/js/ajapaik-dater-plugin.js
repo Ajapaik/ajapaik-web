@@ -139,16 +139,17 @@
             return true;
         };
         this.getValidDates = function (input) {
-            var ok = false;
+            var from_ok = true,
+                to_ok = true;
             if (input.from && input.from.length > 0) {
-                input.from = moment(input.from);
-                ok = input.from.isValid();
+                input.from = moment(input.from, 'YYYY.MM.DD');
+                from_ok = input.from.isValid();
             }
             if (input.to && input.to.length > 0) {
-                input.to = moment(input.to);
-                ok = input.to.isValid();
+                input.to = moment(input.to, 'YYYY.MM.DD');
+                to_ok = input.to.isValid();
             }
-            input.ok = ok;
+            input.ok = from_ok && to_ok;
             return input;
         };
         this.cleanAndValidate = function () {

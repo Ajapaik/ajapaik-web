@@ -142,5 +142,7 @@ server {
         location / {
                 include uwsgi_params;
                 uwsgi_pass unix:/var/garage/run/ajapaik_ee_A.sock;
+                uwsgi_read_timeout 180s;
+                uwsgi_send_timeout 180s;
         }
 }

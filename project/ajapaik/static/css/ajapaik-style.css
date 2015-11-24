@@ -336,6 +336,22 @@ body {
     border: none;
 }
 
+.ajapaik-minimap-confirm-geotag-button:hover {
+    color: #333;
+}
+
+.ajapaik-minimap-confirm-geotag-button-done:hover {
+    color: #007fff;
+}
+
+.ajapaik-minimap-confirm-geotag-button:focus {
+    color: #333;
+}
+
+.ajapaik-minimap-confirm-geotag-button-done:focus {
+    color: #007fff;
+}
+
 .ajapaik-minimap-confirm-geotag-button > i {
     font-size: 36px;
 }

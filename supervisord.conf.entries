@@ -25,6 +25,7 @@ command=/opt/python27/bin/uwsgi
   --socket /var/garage/run/ajapaik_ee.sock
   --processes 4
   --master
+  --harakiri 180
   --max-requests 250
   --logto /dev/null
   --chdir /var/garage/rephoto

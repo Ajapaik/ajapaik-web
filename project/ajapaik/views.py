@@ -119,7 +119,7 @@ def get_album_info_modal_content(request):
                'total_photo_count': album.photo_count_with_subalbums,
                'geotagged_photo_count': album.geotagged_photo_count_with_subalbums}
 
-        album_photo_ids = album.get_geotagged_historic_photo_queryset_with_subalbums().values_list('id', flat=True)
+        album_photo_ids = album.get_all_photos_queryset_with_subalbums().values_list('id', flat=True)
         geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         ret['user_geotagged_photo_count'] = geotags_for_album_photos.filter(user=profile).distinct('photo_id').count()
         ret['geotagging_user_count'] = geotags_for_album_photos.distinct('user').count()
@@ -1488,7 +1488,6 @@ def geotag_confirm(request):
     ret = {
         'message': 'OK'
     }
-    a = 1
     if form.is_valid():
         p = form.cleaned_data['photo']
         # Check if user is eligible to confirm location (again)
@@ -2042,6 +2041,9 @@ def curator_photo_upload_handler(request):
                                 ap = AlbumPhoto(photo=new_photo, album=album, profile=profile, type=AlbumPhoto.CURATED)
                                 ap.save()
                                 created_album_photo_links.append(ap)
+                                if not album.cover_photo:
+                                    album.cover_photo = new_photo
+                                    album.light_save()
                             ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile, type=AlbumPhoto.CURATED)
                             ap.save()
                             created_album_photo_links.append(ap)

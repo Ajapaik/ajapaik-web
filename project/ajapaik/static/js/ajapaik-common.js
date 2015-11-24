@@ -602,8 +602,10 @@ var map,
 
     updateStatDiv = function (count) {
         var statDiv = $('.ajapaik-minimap-geotagging-user-number');
-        statDiv.empty().text(count);
-        if (count) {
+        statDiv.find('span').empty().text(count);
+        statDiv.find('.ajapaik-minimap-geotagging-user-multiple-people').remove();
+        statDiv.find('.ajapaik-minimap-geotagging-user-single-person').remove();
+        if (count > 1) {
             statDiv.append('<div class="ajapaik-minimap-geotagging-user-multiple-people"></div>');
         } else {
             statDiv.append('<div class="ajapaik-minimap-geotagging-user-single-person"></div>');
@@ -719,8 +721,11 @@ var map,
                 window.positionMinimapCTAButton();
                 $('.ajapaik-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');
+                var minimapGeotaggingUserNumberSpan = document.createElement('span');
+                $(minimapGeotaggingUserNumberSpan).text(window.photoModalGeotaggingUserCount);
                 $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number').addClass('no-location')
-                    .prop('title', gettext('Geotagged by this many users')).text(window.photoModalGeotaggingUserCount);
+                    .prop('title', gettext('Geotagged by this many users'));
+                minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserNumberSpan);
                 var minimapGeotaggingUserIcon = document.createElement('div');
                 minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
                 if (window.photoModalGeotaggingUserCount < 2) {
@@ -762,9 +767,11 @@ var map,
                 window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
                 $('.ajapaik-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');
+                var minimapGeotaggingUserNumberSpan = document.createElement('span');
+                $(minimapGeotaggingUserNumberSpan).text(window.photoModalGeotaggingUserCount);
                 $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number dropdown')
-                    .prop('title', gettext('Geotagged by this many users'))
-                    .text(window.photoModalGeotaggingUserCount);
+                    .prop('title', gettext('Geotagged by this many users'));
+                minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserNumberSpan);
                 var minimapGeotaggingUserIcon = document.createElement('div');
                 $(minimapGeotaggingUserIcon).addClass('dropdown-toggle').attr('data-toggle', 'dropdown');
                 minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);

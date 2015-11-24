@@ -13,9 +13,15 @@ class CSVUploadAdmin(admin.ModelAdmin):
         return request.user.groups.filter(name='csv_uploaders').exists()
 
 
-# class AlbumPhotoInline(admin.TabularInline):
-#     model = AlbumPhoto
-#     extra = 1
+class AlbumPhotoInline(admin.TabularInline):
+    model=AlbumPhoto
+    fields = 'album',
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        formfield = super(AlbumPhotoInline, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name == 'album':
+            formfield.choices = formfield.choices
+        return formfield
+
 
 class TourPhotoInline(admin.TabularInline):
     model = TourPhoto
@@ -81,7 +87,7 @@ class PhotoAdmin(ForeignKeyAutocompleteAdmin):
                 geo_tag.save()
         obj.save()
 
-    # inlines = (AlbumPhotoInline,)
+    inlines = (AlbumPhotoInline,)
 
     related_search_fields = {
         'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
@@ -120,6 +126,7 @@ class PointsAdmin(ForeignKeyAutocompleteAdmin):
 class AlbumAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
         'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
+        'cover_photo': ('pk', 'description',),
     }
 
 
