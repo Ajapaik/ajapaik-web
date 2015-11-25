@@ -392,7 +392,6 @@
     AjapaikGeotagger.prototype = {
         constructor: AjapaikGeotagger,
         initializeMap: function () {
-            console.log('initializeMap');
             var modeSelectionButtonGroup = $([
                     "<div class='btn-group' id='ajp-geotagger-mode-selection' role='group' aria-label='...'>",
                         "<button type='button' id='ajp-geotagger-approximate-mode-button' class='btn btn-default'></button>",
@@ -527,7 +526,6 @@
             this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.mapShowSearchButton.get(0));
             this.streetPanorama.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.streetPanoramaExtraCloseButton.get(0));
             this.mapTypeChangedListener = google.maps.event.addListener(this.map, 'maptypeid_changed', function () {
-                console.log(that.map.getMapTypeId());
                 if (that.map.getMapTypeId() === 'juks') {
                     that.vgmapi.showControls();
                 } else {

@@ -5,7 +5,6 @@
             $('#camera-file-capture').click();
         });
         $('.glyphicon-ok').click(function () {
-            console.log ($('#camera-file-capture').val());
             $('form').submit();
         });
     });

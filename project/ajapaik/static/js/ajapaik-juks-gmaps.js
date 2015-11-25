@@ -105,7 +105,6 @@ function VanalinnadGooglemApi() {
         });
     };
     this.buildVanalinnadMapYearControl = function () {
-        console.log('build year control');
         var vanalinnadYearSelection = $('<select class="ajapaik-map-vanalinnad-year-select"></select>');
         $.each(that.vars.layers, function (k, v) {
             var vanalinnadYearSelectionOption = $('<option value="' + k + '">' + v.year + '</option>');
@@ -116,7 +115,6 @@ function VanalinnadGooglemApi() {
         });
 
         vanalinnadYearSelection.change(function () {
-            console.log('year changed');
             that.changeIndex($(this).val());
         });
 
@@ -125,7 +123,6 @@ function VanalinnadGooglemApi() {
         that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
     };
     this.buildVanalinnadMapCityControl = function () {
-        console.log('build city control');
         $('#ajapaik-map-vanalinnad-city-select').remove();
         var vanalinnadCitySelection = $('<select class="ajapaik-map-vanalinnad-city-select"></select>');
         $.each(that.vanalinnadCitiesMap, function (k, v) {
@@ -137,7 +134,6 @@ function VanalinnadGooglemApi() {
         });
 
         vanalinnadCitySelection.change(function () {
-            console.log('city changed');
             that.vars.site = $(this).val();
             that.getCityData(function () {
                 that.changeIndex(0);

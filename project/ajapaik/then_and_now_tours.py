@@ -246,8 +246,6 @@ def camera_upload(request):
             return redirect(reverse('project.ajapaik.then_and_now_tours.tour_complete', args=(tour.pk,)))
         else:
             return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
-    else:
-        print form.errors
 
     return HttpResponse(ret)
 
