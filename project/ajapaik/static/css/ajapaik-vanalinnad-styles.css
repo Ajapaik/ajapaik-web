@@ -1,7 +1,9 @@
-#ajapaik-map-vanalinnad-city-select {
+.ajapaik-map-vanalinnad-city-select {
     margin-bottom: 15px;
+    display: none;
 }
 
-#ajapaik-map-vanalinnad-year-select {
+.ajapaik-map-vanalinnad-year-select {
     margin-bottom: 15px;
+    display: none;
 }

@@ -721,11 +721,12 @@ class GeoTag(Model):
         (GALLERY, _('Gallery')),
         (PERMALINK, _('Permalink')),
     )
-    GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP = range(3)
+    GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP, JUKS = range(4)
     MAP_TYPE_CHOICES = (
         (GOOGLE_MAP, _('Google map')),
         (GOOGLE_SATELLITE, _('Google satellite')),
-        (OPEN_STREETMAP, _('OpenStreetMap'))
+        (OPEN_STREETMAP, _('OpenStreetMap')),
+        (JUKS, _('Juks'))
     )
     lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
     lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])

@@ -12,7 +12,7 @@
     /*global updateLeaderboard*/
     /*global stopGuessLocation*/
     /*global userIsSocialConnected*/
-    /*global juksMapType */
+    /*global VanalinnadGooglemApi*/
     var AjapaikGeotagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -52,7 +52,7 @@
             mapTypeControl: true,
             mapTypeId: this.OSM_MAPTYPE_ID,
             mapTypeControlOptions: {
-                mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, this.OSM_MAPTYPE_ID],
+                mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, this.OSM_MAPTYPE_ID, 'juks'],
                 position: google.maps.ControlPosition.TOP_RIGHT,
                 style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
             },
@@ -392,6 +392,7 @@
     AjapaikGeotagger.prototype = {
         constructor: AjapaikGeotagger,
         initializeMap: function () {
+            console.log('initializeMap');
             var modeSelectionButtonGroup = $([
                     "<div class='btn-group' id='ajp-geotagger-mode-selection' role='group' aria-label='...'>",
                         "<button type='button' id='ajp-geotagger-approximate-mode-button' class='btn btn-default'></button>",
@@ -445,7 +446,20 @@
                 name: 'OSM',
                 maxZoom: 18
             }));
-            this.map.mapTypes.set('juks', juksMapType);
+            this.vgmapi = new VanalinnadGooglemApi({});
+            this.map.mapTypes.set('juks', this.vgmapi.juksMapType);
+            this.vgmapi.map = this.map;
+            var cityDataDoneCallback = function () {
+                that.vgmapi.buildVanalinnadMapCityControl();
+                that.vgmapi.buildVanalinnadMapYearControl();
+                if (that.map.getMapTypeId() === 'juks') {
+                    that.vgmapi.showControls();
+                } else {
+                    that.vgmapi.hideControls();
+                }
+                that.vgmapi.changeIndex(0);
+            };
+            this.vgmapi.getCityData(cityDataDoneCallback);
             if (isMobile) {
                 this.lockButton.addClass('hidden');
             }
@@ -512,6 +526,14 @@
             this.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.mapOpenInstructionsButton.get(0));
             this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.mapShowSearchButton.get(0));
             this.streetPanorama.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.streetPanoramaExtraCloseButton.get(0));
+            this.mapTypeChangedListener = google.maps.event.addListener(this.map, 'maptypeid_changed', function () {
+                console.log(that.map.getMapTypeId());
+                if (that.map.getMapTypeId() === 'juks') {
+                    that.vgmapi.showControls();
+                } else {
+                    that.vgmapi.hideControls();
+                }
+            });
             google.maps.event.addListener(this.streetPanorama, 'visible_changed', function () {
                 if (that.streetPanorama.getVisible()) {
                     that.panoramaMarker.setVisible(false);
@@ -1026,6 +1048,8 @@
                 data.map_type = 0;
             } else if (mapTypeId === 'hybrid') {
                 data.map_type = 1;
+            } else if (mapTypeId === 'juks') {
+                data.map_type = 3;
             } else {
                 data.map_type = 2;
             }

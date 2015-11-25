@@ -1,4 +1,4 @@
-(function ($) {
+(function () {
     'use strict';
     /*jslint nomen: true*/
     /*jslint browser: true*/
@@ -373,4 +373,4 @@
             window.straightToSpecify = true;
         }
     });
-}(jQuery));
+}());

@@ -6,12 +6,12 @@
 /*global BigScreen*/
 /*global photoLikeURL*/
 /*global docCookies*/
-/*global vgmapi */
-/*global juksMapType */
+/*global VanalinnadGooglemApi */
 var map,
     streetPanorama,
     input,
     searchBox,
+    commonVgmapi,
     getMap,
     firstResizeDone = false,
     marker,
@@ -192,15 +192,20 @@ var map,
             maxZoom: 19
         }));
 
-        map.mapTypes.set('juks', juksMapType);
-
-        vgmapi.map = map;
-        vgmapi.init();
-        if (mapType === 'juks') {
-            vgmapi.buildVanalinnadMapCityControl();
-        } else {
-            vgmapi.hideControls();
-        }
+        commonVgmapi = new VanalinnadGooglemApi();
+        commonVgmapi.map = map;
+        var cityDataDoneCallback = function () {
+            commonVgmapi.buildVanalinnadMapCityControl();
+            commonVgmapi.buildVanalinnadMapYearControl();
+            if (mapType === 'juks') {
+                commonVgmapi.showControls();
+            } else {
+                commonVgmapi.hideControls();
+            }
+            commonVgmapi.changeIndex(0);
+        };
+        commonVgmapi.getCityData(cityDataDoneCallback);
+        map.mapTypes.set('juks', commonVgmapi.juksMapType);
 
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
@@ -297,9 +302,9 @@ var map,
             _gaq.push(['_trackEvent', 'Map', 'Map type changed']);
             var mapType = window.map.getMapTypeId();
             if (mapType === 'juks') {
-                vgmapi.showControls();
+                commonVgmapi.showControls();
             } else {
-                vgmapi.hideControls();
+                commonVgmapi.hideControls();
             }
             window.syncMapStateToURL();
         });
