@@ -132,7 +132,7 @@ server {
         }
 
         location /vanalinnad.mooo.com {
-                alias /var/garage/vanalinnad.moo.com;
+                root /var/garage;
         }
 
         location ~ ^/favicon.(\w*)$ {
