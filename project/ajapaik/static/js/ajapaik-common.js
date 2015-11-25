@@ -6,7 +6,8 @@
 /*global BigScreen*/
 /*global photoLikeURL*/
 /*global docCookies*/
-/*global VanalinnadGooglemApi*/
+/*global vgmapi */
+/*global juksMapType */
 var map,
     streetPanorama,
     input,
@@ -16,7 +17,6 @@ var map,
     marker,
     bypass = false,
     mapOpts,
-    vgmapi,
     streetViewOptions = {
         panControl: true,
         panControlOptions: {
@@ -192,43 +192,15 @@ var map,
             maxZoom: 19
         }));
 
-        vgmapi = new VanalinnadGooglemApi({
-            'site': 'Tartu'
-        });
-        vgmapi.map = map;
-        map.mapTypes.set('juks', new google.maps.ImageMapType({
-            getTileUrl: function (coord, zoom) {
+        map.mapTypes.set('juks', juksMapType);
 
-                // "Wrap" x (logitude) at 180th meridian properly
-                // NB: Don't touch coord.x because coord param is by reference, and changing its x property breakes something in Google's lib
-                var tilesPerGlobe = 1 << zoom;
-                var x = coord.x % tilesPerGlobe;
-                if (x < 0) {
-                    x = tilesPerGlobe + x;
-                }
-                // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
-                var tmsY = ((1 << zoom) - 1 - coord.y);
-                if (vgmapi.vars.layerIndex < 0
-                    || zoom < 12
-                    || zoom > 16
-                    || x < vgmapi.tileX(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[0], zoom)
-                    || x > vgmapi.tileX(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[2], zoom)
-                    || coord.y > vgmapi.tileY(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[1], zoom)
-                    || coord.y < vgmapi.tileY(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[3], zoom)
-                    || vgmapi.existsInStruct([
-                        vgmapi.vars.layers[vgmapi.vars.layerIndex].year, '' + zoom, '' + x, tmsY
-                    ], vgmapi.empty)
-                ) {
-                    return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
-                } else {
-                    return vgmapi.vars.vanalinnadTiles + 'raster/places/' + vgmapi.vars.site + '/'
-                        + vgmapi.vars.layers[vgmapi.vars.layerIndex].year + '/' + zoom + "/" + x + "/" + tmsY + ".jpg";
-                }
-            },
-            tileSize: new google.maps.Size(256, 256),
-            name: 'vanalinnad.mooo.com',
-            maxZoom: 19
-        }));
+        vgmapi.map = map;
+        vgmapi.init();
+        if (mapType === 'juks') {
+            vgmapi.buildVanalinnadMapCityControl();
+        } else {
+            vgmapi.hideControls();
+        }
 
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
@@ -325,7 +297,9 @@ var map,
             _gaq.push(['_trackEvent', 'Map', 'Map type changed']);
             var mapType = window.map.getMapTypeId();
             if (mapType === 'juks') {
-                window.useNearestVanalinnadCity();
+                vgmapi.showControls();
+            } else {
+                vgmapi.hideControls();
             }
             window.syncMapStateToURL();
         });

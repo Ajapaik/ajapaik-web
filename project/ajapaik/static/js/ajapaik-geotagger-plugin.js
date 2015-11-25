@@ -1,5 +1,6 @@
-(function ($) {
+(function () {
     'use strict';
+    /*global $*/
     /*global google*/
     /*global BigScreen*/
     /*global gettext*/
@@ -11,6 +12,7 @@
     /*global updateLeaderboard*/
     /*global stopGuessLocation*/
     /*global userIsSocialConnected*/
+    /*global juksMapType */
     var AjapaikGeotagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -443,6 +445,7 @@
                 name: 'OSM',
                 maxZoom: 18
             }));
+            this.map.mapTypes.set('juks', juksMapType);
             if (isMobile) {
                 this.lockButton.addClass('hidden');
             }
@@ -1142,4 +1145,4 @@
             $(this).data('AjapaikGeotagger', new AjapaikGeotagger(this, options));
         });
     };
-}(jQuery));
+}());

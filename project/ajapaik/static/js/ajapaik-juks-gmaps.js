@@ -1,58 +1,79 @@
-var vanalinnadCitiesMap = [
-        {name: 'Haapsalu', latitude: 58.9394, longitude: 23.5408},
-        {name: 'Kuressaare', latitude: 58.2500, longitude: 22.4833},
-        {name: 'Narva', latitude: 59.3758, longitude: 28.1961}
-        //{name: 'Paide', latitude: 58.9394, longitude: 23.5408},
-        //{name: 'Parnu', latitude: 58.9394, longitude: 23.5408},
-        //{name: 'Rakvere', latitude: 58.9394, longitude: 23.5408},
-        //{name: 'Tallinn', latitude: 58.9394, longitude: 23.5408},
-        //{name: 'Tartu', latitude: 58.9394, longitude: 23.5408},
-        //{name: 'Valga', latitude: 58.9394, longitude: 23.5408},
-        //{name: 'Viljandi', latitude: 58.9394, longitude: 23.5408},
-        //{name: 'Voru', latitude: 58.9394, longitude: 23.5408}
-    ],
-    vanalinnadCitiesCount = vanalinnadCitiesMap.length,
-    nearestCity;
+var vgmapi = new VanalinnadGooglemApi({});
+vgmapi.vars.site = 'Tallinn';
 
-function VanalinnadGooglemApi(inputParams) {
+var juksMapType = new google.maps.ImageMapType({
+    getTileUrl: function (coord, zoom) {
+        // "Wrap" x (longitude) at 180th meridian properly
+        // NB: Don't touch coord.x because coord param is by reference, and changing it's x property breaks something in Google's lib
+        var tilesPerGlobe = 1 << zoom;
+        var x = coord.x % tilesPerGlobe;
+        if (x < 0) {
+            x = tilesPerGlobe + x;
+        }
+        // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
+        var tmsY = ((1 << zoom) - 1 - coord.y);
+        if (vgmapi.vars.layerIndex < 0 || zoom < 12 || zoom > 16 ||
+            x < vgmapi.tileX(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[0], zoom) ||
+            x > vgmapi.tileX(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[2], zoom) ||
+            coord.y > vgmapi.tileY(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[1], zoom) ||
+            coord.y < vgmapi.tileY(vgmapi.vars.layers[vgmapi.vars.layerIndex].bounds[3], zoom) ||
+            vgmapi.existsInStruct([vgmapi.vars.layers[vgmapi.vars.layerIndex].year, '' + zoom, '' + x, tmsY], vgmapi.empty)
+        ) {
+            return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+        } else {
+            return vgmapi.vars.vanalinnadTiles + 'raster/places/' + vgmapi.vars.site + '/' +
+                vgmapi.vars.layers[vgmapi.vars.layerIndex].year + '/' + zoom + "/" + x + "/" + tmsY + ".jpg";
+        }
+    },
+    tileSize: new google.maps.Size(256, 256),
+    name: 'vanalinnad.mooo.com',
+    maxZoom: 16
+});
+
+function VanalinnadGooglemApi() {
     this.empty = {};
     this.vars = {
         layers: [],
         layerIndex: -1,
         site: '',
-        vanalinnadPrefix: '/vanalinnad.mooo.com/',
-        override: ['layerIndex', 'site', 'vanalinnadPrefix', 'coords', 'vanalinnadTiles']
+        vanalinnadPrefix: '/vanalinnad.mooo.com/'
     };
 
-    this.changeDiff = function (diff) {
-        this.vars.layerIndex += diff;
-        if (this.vars.layerIndex > this.vars.layers.length - 1) {
-            this.vars.layerIndex = -1;
-        }
-        if (this.vars.layerIndex < -1) {
-            this.vars.layerIndex = this.vars.layers.length - 1;
-        }
-        this.refreshMap();
-    };
-
-    this.calculateNearestVanalinnadCity = function () {
-        var i,
-            minDistance = 9999999,
-            currentDistance,
-            currentMapCenter = this.map.getCenter();
-        for (i = 0; i < vanalinnadCitiesCount; i += 1) {
-            currentDistance = Math.haversineDistance(currentMapCenter, vanalinnadCitiesMap[i]);
-            console.log(currentDistance);
-            if (currentDistance < minDistance) {
-                minDistance = currentDistance;
-                nearestCity = vanalinnadCitiesMap[i].name;
-            }
-        }
+    var vanalinnadCitiesMap = {
+        'Haapsalu': 'Haapsalu',
+        'Kuressaare': 'Kuressaare',
+        'Narva': 'Narva',
+        'Paide': 'Paide',
+        'Pärnu': 'Parnu',
+        'Rakvere': 'Rakevere',
+        'Tallinn': 'Tallinn',
+        'Tartu': 'Tartu',
+        'Valga': 'Valga',
+        'Viljandi': 'Viljandi',
+        'Võru': 'Voru'
     };
 
     this.changeIndex = function (index) {
         this.vars.layerIndex = index;
         this.refreshMap();
+    };
+
+    this.showControls = function () {
+        if (this.yearSelection) {
+            this.yearSelection.show();
+        }
+        if (this.citySelection) {
+            this.citySelection.show();
+        }
+    };
+
+    this.hideControls = function () {
+        if (this.yearSelection) {
+           this.yearSelection.hide();
+        }
+        if (this.citySelection) {
+            this.citySelection.hide();
+        }
     };
 
     this.getYear = function () {
@@ -63,12 +84,98 @@ function VanalinnadGooglemApi(inputParams) {
         return this.vars.layers[this.vars.layerIndex].year;
     };
 
+    this.getCityData = function () {
+        $.ajax({
+            url: vgmapi.vars.vanalinnadPrefix + 'vector/places/' + vgmapi.vars.site + '/empty.json',
+            dataType: 'json'
+        }).done(function (data) {
+            vgmapi.empty = data;
+            $.ajax({
+                url: vgmapi.vars.vanalinnadPrefix + 'vector/places/' + vgmapi.vars.site + '/layers.xml',
+                dataType: 'xml'
+            }).done(function (data) {
+                if (!('coords' in vgmapi.vars)) {
+                    var bounds = vgmapi.getXmlValue(data, 'bounds').split(',');
+                    vgmapi.vars.coords = [
+                        (parseFloat(bounds[0]) + parseFloat(bounds[2])) / 2,
+                        (parseFloat(bounds[1]) + parseFloat(bounds[3])) / 2,
+                        parseInt(vgmapi.getXmlValue(data, 'minzoom'), 10)
+                    ];
+                }
+                var l = data.getElementsByTagName('layer'),
+                    ll,
+                    i;
+                vgmapi.vars.layers = [];
+                for (i = 0; i < l.length; i += 1) {
+                    if (l[i].getAttribute('type') === 'tms') {
+                        vgmapi.vars.layers.push({
+                            year: l[i].getAttribute('year'),
+                            bounds: l[i].getAttribute('bounds').split(',')
+                        });
+                        ll = vgmapi.vars.layers.length - 1;
+                        vgmapi.vars.layers[ll].bounds = [
+                            parseFloat(vgmapi.vars.layers[ll].bounds[0]),
+                            parseFloat(vgmapi.vars.layers[ll].bounds[1]),
+                            parseFloat(vgmapi.vars.layers[ll].bounds[2]),
+                            parseFloat(vgmapi.vars.layers[ll].bounds[3])
+                        ];
+                    }
+                }
+                vgmapi.changeIndex(0);
+                vgmapi.buildVanalinnadMapYearControl();
+            });
+        });
+    };
+
+    this.buildVanalinnadMapYearControl = function () {
+        $('#ajapaik-map-vanalinnad-year-select').remove();
+        var vanalinnadYearSelection = $('<select id="ajapaik-map-vanalinnad-year-select"></select>');
+        $.each(vgmapi.vars.layers, function (k, v) {
+            var vanalinnadYearSelectionOption = $('<option value="' + k + '">' + v.year + '</option>');
+            if (vgmapi.vars.layerIndex === k) {
+                vanalinnadYearSelectionOption.prop('selected', true);
+            }
+            vanalinnadYearSelection.append(vanalinnadYearSelectionOption);
+        });
+
+        vanalinnadYearSelection.change(function () {
+            console.log('year changed');
+            vgmapi.changeIndex($(this).val());
+        });
+
+        this.yearSelection = vanalinnadYearSelection;
+
+        vgmapi.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(vanalinnadYearSelection.get(0));
+    };
+
+    this.buildVanalinnadMapCityControl = function () {
+        var vanalinnadCitySelection = $('<select id="ajapaik-map-vanalinnad-city-select"></select>');
+        $.each(vanalinnadCitiesMap, function (k, v) {
+            var vanalinnadCitySelectionOption = $('<option value="' + v + '">' + k + '</option>');
+            if (vgmapi.vars.site === v) {
+                vanalinnadCitySelectionOption.prop('selected', true);
+            }
+            vanalinnadCitySelection.append(vanalinnadCitySelectionOption);
+        });
+
+        vanalinnadCitySelection.change(function () {
+            console.log('city changed');
+            vgmapi.vars.site = $(this).val();
+            vgmapi.getCityData();
+        });
+
+        this.citySelection = vanalinnadCitySelection;
+
+        vgmapi.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(vanalinnadCitySelection.get(0));
+    };
+
     this.refreshMap = function () {
         // Hack to make Google Maps refresh tiles
-        var that = this;
-        this.map.setZoom(this.map.zoom + 1);
+        var that = this,
+            currentZoom = this.map.zoom;
+        this.map.setZoom(currentZoom - 1);
         setTimeout(function () {
-            that.map.setZoom(that.map.zoom - 1);
+            that.map.setZoom(currentZoom);
         }, 0);
     };
 
@@ -125,60 +232,13 @@ function VanalinnadGooglemApi(inputParams) {
     };
 
     this.init = function () {
-
-        var i;
-        for (i in inputParams) {
-            if (jQuery.inArray(i, this.vars.override)) {
-                this.vars[i] = inputParams[i];
-            }
-        }
         if (!('vanalinnadTiles' in this.vars)) {
             this.vars.vanalinnadTiles = this.vars.vanalinnadPrefix;
         }
 
-        if ('site' in inputParams) {
-
+        if (this.vars.site) {
             var vgmapi = this;
-
-            $.ajax({
-                url: vgmapi.vars.vanalinnadPrefix + 'vector/places/' + vgmapi.vars.site + '/empty.json',
-                dataType: 'json'
-            }).done(function (data) {
-                vgmapi.empty = data;
-                $.ajax({
-                    url: vgmapi.vars.vanalinnadPrefix + 'vector/places/' + vgmapi.vars.site + '/layers.xml',
-                    dataType: 'xml'
-                }).done(function (data) {
-                    if (!('coords' in vgmapi.vars)) {
-                        var bounds = vgmapi.getXmlValue(data, 'bounds').split(',');
-                        vgmapi.vars.coords = [
-                            (parseFloat(bounds[0]) + parseFloat(bounds[2])) / 2,
-                            (parseFloat(bounds[1]) + parseFloat(bounds[3])) / 2,
-                            parseInt(vgmapi.getXmlValue(data, 'minzoom'))
-                        ];
-                    }
-                    var l = data.getElementsByTagName('layer'),
-                        ll;
-                    for (i = 0; i < l.length; i++) {
-                        if (l[i].getAttribute('type') == 'tms') {
-                            vgmapi.vars.layers.push({
-                                year: l[i].getAttribute('year'),
-                                bounds: l[i].getAttribute('bounds').split(',')
-                            });
-                            ll = vgmapi.vars.layers.length - 1;
-                            vgmapi.vars.layers[ll].bounds = [
-                                parseFloat(vgmapi.vars.layers[ll].bounds[0]),
-                                parseFloat(vgmapi.vars.layers[ll].bounds[1]),
-                                parseFloat(vgmapi.vars.layers[ll].bounds[2]),
-                                parseFloat(vgmapi.vars.layers[ll].bounds[3])
-                            ];
-                        }
-                    }
-                });
-            });
-
+            vgmapi.getCityData();
         }
     };
-
-    this.init();
 }

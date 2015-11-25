@@ -1,9 +1,11 @@
-(function ($) {
+(function () {
     'use strict';
     /*jslint nomen: true*/
     /*global docCookies*/
     /*global moment*/
     /*global _gaq*/
+    /*global $*/
+    /*global google*/
     var photoId,
         currentMapBounds,
         limitByAlbum,
@@ -59,7 +61,7 @@
             fillOpacity: 1,
             rotation: 0,
             scale: 1.0,
-            anchor: new window.google.maps.Point(12, 12)
+            anchor: new google.maps.Point(12, 12)
         },
         locationIcon = {
             path: 'M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
@@ -69,7 +71,7 @@
             fillColor: 'black',
             fillOpacity: 1,
             scale: 1.0,
-            anchor: new window.google.maps.Point(12, 0)
+            anchor: new google.maps.Point(12, 0)
         },
         markers = [],
         markerIdToHighlightAfterPageLoad,
@@ -372,7 +374,7 @@
                         p = response.photos[j];
                         arrowIcon.rotation = 0;
                         currentAzimuth = p[3];
-                        currentPosition = new window.google.maps.LatLng(p[1], p[2]);
+                        currentPosition = new google.maps.LatLng(p[1], p[2]);
                         if (currentAzimuth) {
                             geodesicEndPoint = Math.calculateMapLineEndPoint(currentAzimuth, currentPosition, 2000);
                             angle = Math.getAzimuthBetweenTwoPoints(currentPosition, geodesicEndPoint);
@@ -387,7 +389,7 @@
                         } else {
                             currentIcon.fillColor = 'black';
                         }
-                        var marker = new window.google.maps.Marker({
+                        var marker = new google.maps.Marker({
                             id: p[0],
                             icon: currentIcon,
                             rephotoCount: p[4],
@@ -396,12 +398,12 @@
                             azimuth: currentAzimuth,
                             angleFix: angleFix,
                             map: null,
-                            anchor: new window.google.maps.Point(0.0, 0.0)
+                            anchor: new google.maps.Point(0.0, 0.0)
                         });
                         if (angleFix)
                             window.lastMarkerSet.push(p[0]);
                         (function (id) {
-                            window.google.maps.event.addListener(marker, 'click', function () {
+                            google.maps.event.addListener(marker, 'click', function () {
                                 window.highlightSelected(id, true);
                             });
                         })(p[0]);
@@ -417,11 +419,11 @@
                     mc.clusters_.length = 0;
                 }
                 if (mc) {
-                    window.google.maps.event.clearListeners(mc, 'clusteringend');
+                    google.maps.event.clearListeners(mc, 'clusteringend');
                 }
                 mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
                 markerIdsWithinBounds = [];
-                clusteringEndedListener = window.google.maps.event.addListener(mc, 'clusteringend', function () {
+                clusteringEndedListener = google.maps.event.addListener(mc, 'clusteringend', function () {
                     var clusters = mc.clusters_,
                         currentMarkers;
                     for (var i = 0; i < clusters.length; i += 1) {
@@ -591,7 +593,7 @@
                     locationIcon.scale = 1.5;
                     locationIcon.strokeWeight = 2;
                     locationIcon.fillColor = 'white';
-                    locationIcon.anchor = new window.google.maps.Point(12, 6);
+                    locationIcon.anchor = new google.maps.Point(12, 6);
                     if (marker.rephotoCount) {
                         locationIcon.strokeColor = '#007fff';
                     } else {
@@ -615,7 +617,7 @@
                     locationIcon.scale = 1.0;
                     locationIcon.strokeWeight = 1;
                     locationIcon.strokeColor = 'white';
-                    locationIcon.anchor = new window.google.maps.Point(12, 0);
+                    locationIcon.anchor = new google.maps.Point(12, 0);
                     if (marker.rephotoCount) {
                         locationIcon.fillColor = '#007fff';
                     } else {
@@ -645,12 +647,12 @@
             }
             if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
                 // User has very specific parameters, allow to take precedence
-                window.getMap(new window.google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')),
+                window.getMap(new google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')),
                     parseInt(window.getQueryParameterByName('zoom'), 10), false, urlMapType);
             } else {
                 if (window.preselectPhotoLat && window.preselectPhotoLng) {
                     // We know the location of the photo, let's build the map accordingly
-                    window.getMap(new window.google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false, urlMapType);
+                    window.getMap(new google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false, urlMapType);
                 } else if (window.albumLatLng) {
                     // There's nothing preselected, but we do know the album the photo's in
                     window.getMap(window.albumLatLng, 16, false, urlMapType);
@@ -735,7 +737,7 @@
         window.handleGeolocation = function (location) {
             $('#ajapaik-geolocation-error').hide();
             if (centerOnMapAfterLocating) {
-                window.map.setCenter(new window.google.maps.LatLng(location.coords.latitude, location.coords.longitude));
+                window.map.setCenter(new google.maps.LatLng(location.coords.latitude, location.coords.longitude));
                 centerOnMapAfterLocating = false;
             }
         };
@@ -744,7 +746,7 @@
         });
         if (window.map !== undefined) {
             window.map.scrollwheel = true;
-            window.mapMapviewClickListener = window.google.maps.event.addListener(window.map, 'click', function () {
+            window.mapMapviewClickListener = google.maps.event.addListener(window.map, 'click', function () {
                 window.deselectMarker();
             });
         }
@@ -779,4 +781,4 @@
             return false;
         };
     });
-}(jQuery));
+}());
