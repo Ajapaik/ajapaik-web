@@ -139,7 +139,9 @@ function VanalinnadGooglemApi() {
         vanalinnadCitySelection.change(function () {
             console.log('city changed');
             that.vars.site = $(this).val();
-            that.getCityData();
+            that.getCityData(function () {
+                that.changeIndex(0);
+            });
         });
         
         that.citySelection = vanalinnadCitySelection.get(0);
