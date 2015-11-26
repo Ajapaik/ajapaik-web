@@ -194,7 +194,7 @@
             </ul>
         </div>
     </div>
-    {% if is_curator %}
+    {% if is_curator and request.user.profile.fb_id or request.user.profile.google_plus_id %}
         <div class="container" id="ajapaik-curator-header-tabs">
             <div role="tabpanel" id="ajapaik-curator-tabpanel">
                 <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">

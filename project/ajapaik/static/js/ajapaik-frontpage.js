@@ -365,6 +365,9 @@
             } else if (window.albumLat && window.albumLon) {
                 startLat = window.albumLat;
                 startLon = window.albumLon;
+            } else if (window.photoModalExtraLat && window.photoModalExtraLng) {
+                startLat = window.photoModalExtraLat;
+                startLon = window.photoModalExtraLng;
             } else {
                 startLat = 59;
                 startLon = 26;
