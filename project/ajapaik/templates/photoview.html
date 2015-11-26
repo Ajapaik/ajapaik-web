@@ -66,6 +66,15 @@
                             {{ photo.description }}
                         </div>
                     {% endif %}
+                    {% if photo.date %}
+                        <div class="row-fluid">
+                            {{ photo.date }}
+                        </div>
+                    {% elif photo.date_text %}
+                        <div class="row-fluid">
+                            {{ photo.date_text }}
+                        </div>
+                    {% endif %}
                     {% if photo.source_url %}
                         <div class="row-fluid">
                             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);" href='{{ photo.source_url }}' target="_blank">
@@ -82,15 +91,6 @@
                              data-layout="standard" data-action="like" data-show-faces="true"
                              data-share="true"></div>
                     </div>
-                    {% if photo.date %}
-                        <div class="row-fluid">
-                            {{ photo.date }}
-                        </div>
-                    {% elif photo.date_text %}
-                        <div class="row-fluid">
-                            {{ photo.date_text }}
-                        </div>
-                    {% endif %}
                     <div class="row-fluid ajapaik-height-48 ajapaik-margin-top-10">
                         <a id="ajapaik-photoview-start-geotagging-button" data-id="{{ photo.id }}" class="pull-left"
                            title="{% trans "Pick the shooting location!" %}" href="#">
