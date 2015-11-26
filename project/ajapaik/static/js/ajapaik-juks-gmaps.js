@@ -1,6 +1,7 @@
 function VanalinnadGooglemApi() {
     'use strict';
     /*global google*/
+    /*global gettext*/
     var that = this;
     this.empty = {};
     this.vars = {
@@ -16,7 +17,7 @@ function VanalinnadGooglemApi() {
         'Narva': 'Narva',
         'Paide': 'Paide',
         'Pärnu': 'Parnu',
-        'Rakvere': 'Rakevere',
+        'Rakvere': 'Rakvere',
         'Tallinn': 'Tallinn',
         'Tartu': 'Tartu',
         'Valga': 'Valga',
@@ -48,7 +49,7 @@ function VanalinnadGooglemApi() {
             }
         },
         tileSize: new google.maps.Size(256, 256),
-        name: 'vanalinnad.mooo.com',
+        name: gettext('Vanalinnad'),
         maxZoom: 16
     });
     this.changeIndex = function (index) {
@@ -105,6 +106,9 @@ function VanalinnadGooglemApi() {
         });
     };
     this.buildVanalinnadMapYearControl = function () {
+        if (that.yearSelection) {
+            that.yearSelection.parentElement.removeChild(that.yearSelection);
+        }
         var vanalinnadYearSelection = $('<select class="ajapaik-map-vanalinnad-year-select"></select>');
         $.each(that.vars.layers, function (k, v) {
             var vanalinnadYearSelectionOption = $('<option value="' + k + '">' + v.year + '</option>');
@@ -123,7 +127,6 @@ function VanalinnadGooglemApi() {
         that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
     };
     this.buildVanalinnadMapCityControl = function () {
-        $('#ajapaik-map-vanalinnad-city-select').remove();
         var vanalinnadCitySelection = $('<select class="ajapaik-map-vanalinnad-city-select"></select>');
         $.each(that.vanalinnadCitiesMap, function (k, v) {
             var vanalinnadCitySelectionOption = $('<option value="' + v + '">' + k + '</option>');
@@ -136,6 +139,8 @@ function VanalinnadGooglemApi() {
         vanalinnadCitySelection.change(function () {
             that.vars.site = $(this).val();
             that.getCityData(function () {
+                that.buildVanalinnadMapYearControl();
+                that.showControls();
                 that.changeIndex(0);
             });
         });
