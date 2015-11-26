@@ -1072,6 +1072,7 @@
                 if (typeof window.reportGeotaggerSaveLocationOnly === 'function') {
                     window.reportGeotaggerSaveLocationOnly(that.options.currentPhotoId);
                 }
+                that.azimuthLine.setVisible(false);
             }
             $.ajax({
                 type: 'POST',
