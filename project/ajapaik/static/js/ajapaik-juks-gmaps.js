@@ -118,7 +118,11 @@ function VanalinnadGooglemApi() {
         });
 
         vanalinnadYearSelection.change(function () {
-            that.changeIndex($(this).val());
+            var value = $(this).val();
+            that.changeIndex(value);
+            if (typeof window.reportVanalinnadYearChange === 'function') {
+                window.reportVanalinnadYearChange(value);
+            }
         });
 
         that.yearSelection = vanalinnadYearSelection.get(0);
@@ -142,6 +146,9 @@ function VanalinnadGooglemApi() {
                 that.showControls();
                 that.changeIndex(0);
             });
+            if (typeof window.reportVanalinnadCityChange === 'function') {
+                window.reportVanalinnadCityChange(that.vars.site);
+            }
         });
         
         that.citySelection = vanalinnadCitySelection.get(0);

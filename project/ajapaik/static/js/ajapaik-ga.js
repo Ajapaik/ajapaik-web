@@ -3,6 +3,7 @@
     /*jslint nomen: true*/
     /*jslint browser: true*/
     /*global _gaq*/
+    /*global isMapview*/
     // Geotagger events
     window.reportGeotaggerMapClick = function () {
         _gaq.push(['_trackEvent', 'geotagger', 'click', 'map', 0, false]);
@@ -87,5 +88,19 @@
     };
     window.reportDaterConfirmSubmit = function () {
         _gaq.push(['_trackEvent', 'dater', 'action', 'submit-confirmation', 50, false]);
+    };
+    window.reportVanalinnadYearChange = function (year) {
+        if (isMapview) {
+            _gaq.push(['_trackEvent', 'Map', 'juks-map-change-year', year, 0, false]);
+        } else {
+            _gaq.push(['_trackEvent', 'geotagger', 'juks-map-change-year', year, 0, false]);
+        }
+    };
+    window.reportVanalinnadCityChange = function (city) {
+        if (isMapview) {
+            _gaq.push(['_trackEvent', 'Map', 'juks-map-change-city', city, 0, false]);
+        } else {
+            _gaq.push(['_trackEvent', 'geotagger', 'juks-map-change-city', city, 0, false]);
+        }
     };
 }());
