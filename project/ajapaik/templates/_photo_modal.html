@@ -297,7 +297,7 @@
             {% if album and album.3 and album.4 %}
                 window.photoModalExtraLat = {{ album.3|safe }};
                 window.photoModalExtraLng = {{ album.4|safe }};
-            {% elif photo.area %}
+            {% elif photo.area and photo.area.lat and photo.area.lon %}
                 window.photoModalExtraLat = {{ photo.area.lat|safe }};
                 window.photoModalExtraLng = {{ photo.area.lon|safe }};
             {% else %}
