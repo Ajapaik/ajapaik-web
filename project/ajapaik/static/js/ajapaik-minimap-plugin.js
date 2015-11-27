@@ -29,7 +29,6 @@
             scale: 1.5,
             anchor: new google.maps.Point(12, 18)
         };
-        this.currentIcon = null;
         this.UI = $([
             '<div id="ajapaik-minimap-disabled-overlay"></div>',
             '<div id="ajapaik-photo-modal-map-canvas"></div>'

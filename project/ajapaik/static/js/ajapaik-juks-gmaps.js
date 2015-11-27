@@ -49,7 +49,8 @@ function VanalinnadGooglemApi() {
             }
         },
         tileSize: new google.maps.Size(256, 256),
-        name: gettext('Vanalinnad')
+        name: gettext('Vanalinnad'),
+        maxZoom: 18
     });
     this.changeIndex = function (index) {
         this.vars.layerIndex = index;
