@@ -261,16 +261,18 @@
                         syncStateToUrl();
                         syncPagingButtons();
                         targetDiv.empty();
-                        $.each(response.videos, function (k, v) {
-                            targetDiv.append(tmpl('ajapaik-frontpage-video-template', v));
-                        });
+                        if (response.videos) {
+                            $.each(response.videos, function (k, v) {
+                                targetDiv.append(tmpl('ajapaik-frontpage-video-template', v));
+                            });
+                        }
                         if (response.photos.length > 0) {
                             for (var i = 0, l = response.photos.length; i < l; i += 1) {
                                 targetDiv.append(tmpl('ajapaik-frontpage-photo-template', response.photos[i]));
                             }
                             historicPhotoGalleryDiv.justifiedGallery();
                         }
-                        if (response.videos.length > 0 && response.photos.length === 0) {
+                        if (response.videos && response.videos.length > 0 && response.photos.length === 0) {
                             historicPhotoGalleryDiv.justifiedGallery();
                         }
                         $('#ajapaik-loading-overlay').hide();
