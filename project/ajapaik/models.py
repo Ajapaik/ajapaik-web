@@ -7,7 +7,7 @@ from datetime import datetime
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
-from django.db.models import OneToOneField, DateField
+from django.db.models import OneToOneField, DateField, FileField
 from django.utils.dateformat import DateFormat
 import numpy
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField,\
@@ -127,6 +127,7 @@ class Album(Model):
     open = BooleanField(default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
+    videos = ManyToManyField('Video', related_name='albums', blank=True, null=True)
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
@@ -304,6 +305,8 @@ class Photo(Model):
     cam_yaw = FloatField(null=True, blank=True)
     cam_pitch = FloatField(null=True, blank=True)
     cam_roll = FloatField(null=True, blank=True)
+    video = ForeignKey('Video', null=True, blank=True, related_name='stills')
+    video_timestamp = IntegerField(null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -698,7 +701,7 @@ class Points(Model):
 
 
 class GeoTag(Model):
-    MAP, EXIF, GPS, CONFIRMATION, STREETVIEW = range(5)
+    MAP, EXIF, GPS, CONFIRMATION, STREETVIEW, SOURCE_GEOTAG = range(6)
     # FIXME: EXIF and GPS have never been used
     TYPE_CHOICES = (
         (MAP, _('Map')),
@@ -706,6 +709,7 @@ class GeoTag(Model):
         (GPS, _('GPS')),
         (CONFIRMATION, _('Confirmation')),
         (STREETVIEW, _('StreetView')),
+        (SOURCE_GEOTAG, _('Source geotag')),
     )
     # TODO: Different ways of tagging
     # VANTAGE_POINT, OBJECT, APPROXIMATE = range(3)
@@ -714,19 +718,21 @@ class GeoTag(Model):
     #     (OBJECT, _('Object')),
     #     (APPROXIMATE, _('Approximate')),
     # )
-    GAME, MAP_VIEW, GALLERY, PERMALINK = range(4)
+    GAME, MAP_VIEW, GALLERY, PERMALINK, SOURCE = range(5)
     ORIGIN_CHOICES = (
         (GAME, _('Game')),
         (MAP_VIEW, _('Map view')),
         (GALLERY, _('Gallery')),
         (PERMALINK, _('Permalink')),
+        (SOURCE, _('Source')),
     )
-    GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP, JUKS = range(4)
+    GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP, JUKS, NO_MAP = range(5)
     MAP_TYPE_CHOICES = (
         (GOOGLE_MAP, _('Google map')),
         (GOOGLE_SATELLITE, _('Google satellite')),
         (OPEN_STREETMAP, _('OpenStreetMap')),
-        (JUKS, _('Juks'))
+        (JUKS, _('Juks')),
+        (NO_MAP, _('No map')),
     )
     lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
     lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
@@ -740,7 +746,7 @@ class GeoTag(Model):
     # geotagger_type = PositiveSmallIntegerField(choices=GEOTAGGER_TYPE_CHOICES, default=0)
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
-    user = ForeignKey('Profile', related_name='geotags')
+    user = ForeignKey('Profile', related_name='geotags', null=True, blank=True)
     photo = ForeignKey('Photo', related_name='geotags')
     is_correct = BooleanField(default=False)
     azimuth_correct = BooleanField(default=False)
@@ -1158,3 +1164,28 @@ class TourRephoto(Model):
 
     class Meta:
         db_table = 'thenandnow_tourrephoto'
+
+
+class Video(Model):
+    name = CharField(max_length=255)
+    slug = SlugField(null=True, blank=True, max_length=255, unique=True)
+    file = FileField(upload_to='videos')
+    width = IntegerField()
+    height = IntegerField()
+    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height', width_field='cover_image_width', blank=True, null=True)
+    cover_image_height = IntegerField(blank=True, null=True)
+    cover_image_width = IntegerField(blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_video'
+
+    def save(self, *args, **kwargs):
+        super(Video, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(self.name)
+            super(Video, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return '%s' % (self.name,)

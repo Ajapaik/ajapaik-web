@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<div class="modal-dialog modal-lg modal-xxl" id="mapview-photo-modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header ajapaik-no-bottom-border-modal-header" id="ajapaik-video-modal-header">
+            <button id="ajapaik-video-modal-close-button" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" id="ajapaik-modal-body">
+            <video id="ajapaik-modal-video" controls src="{{ video.file.url }}"></video>
+        </div>
+    </div>
+</div>

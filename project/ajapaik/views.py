@@ -34,14 +34,14 @@ from sorl.thumbnail import delete
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation
+    Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
-    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer
+    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS, DATING_CONFIRMATION_POINTS
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
@@ -918,6 +918,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             p.append(_get_pseudo_slug_for_photo(p[3], None, None))
         if album:
             ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon)
+            ret['videos'] = VideoSerializer(album.videos.all(), many=True).data
         else:
             ret['album'] = None
         fb_share_photos = []
@@ -1073,6 +1074,17 @@ def _make_fullscreen(p):
     if p and p.image:
         return {"url": p.image.url, "size": [p.image.width, p.image.height]}
 
+
+def videoslug(request, video_id, pseudo_slug=None):
+    video = get_object_or_404(Video, pk=video_id)
+    if request.is_ajax():
+        template = '_video_modal.html'
+    else:
+        template = 'videoview.html'
+        
+    return render_to_response(template, RequestContext(request, {
+        'video': video,
+    }))
 
 def photoslug(request, photo_id=None, pseudo_slug=None):
     # Because of some bad design decisions, we have a URL /photo, let's just give a random photo

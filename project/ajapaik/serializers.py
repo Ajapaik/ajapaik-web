@@ -1,4 +1,4 @@
-from models import Album, Photo, Dating
+from models import Album, Photo, Dating, Video
 from rest_framework import serializers
 
 
@@ -42,3 +42,9 @@ class DatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dating
         fields = ('id', 'comment', 'fb_name', 'google_plus_name', 'confirmation_count', 'raw', 'this_user_has_confirmed')
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        exclude = ('created', 'modified')

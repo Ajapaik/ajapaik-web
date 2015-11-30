@@ -2,7 +2,7 @@ from django.contrib import admin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area,\
     AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourPhoto, TourRephoto, \
-    DatingConfirmation
+    DatingConfirmation, Video
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -153,3 +153,4 @@ admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)
+admin.site.register(Video)
