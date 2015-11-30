@@ -45,7 +45,7 @@ class Command(BaseCommand):
             if not self._resource_already_exists(photo['id']):
                 new_photo = Photo(
                     source=source,
-                    source_url=reference_url_template % (photo['ownername'], photo['id']),
+                    source_url=(reference_url_template % (photo['ownername'], photo['id'])).replace(' ', '_'),
                     source_key=photo['id'],
                     keywords=photo['tags'],
                     licence=licence,
