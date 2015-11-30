@@ -71,7 +71,7 @@ class Command(BaseCommand):
                             trustworthiness=0.2
                         )
                         source_geotag.save()
-                        new_photo.first_geotag = source_geotag.created
+                        new_photo.latest_geotag = source_geotag.created
                     new_photo.set_calculated_fields()
                     new_photo.save()
                     ap = AlbumPhoto(album=album, photo=new_photo)
