@@ -1,3 +1,5 @@
+import random
+
 from django.core.urlresolvers import reverse
 from django.utils.translation import activate
 from rest_framework import serializers
@@ -23,11 +25,12 @@ class MerekultuurPhotoSerializer(serializers.ModelSerializer):
 @permission_classes((AllowAny,))
 def get_photos(request):
     activate('et')
-    album = Album.objects.filter(pk=3089).first()
+    album = Album.objects.filter(pk=1084).first()
     ret = []
     if album:
-        pqs = album.get_historic_photos_queryset_with_subalbums().prefetch_related('source')[:RANDOM_SET_SIZE]
-        for p in pqs:
+        photos = list(album.get_historic_photos_queryset_with_subalbums().prefetch_related('source')[:RANDOM_SET_SIZE])
+        random.shuffle(photos)
+        for p in photos:
             p.source_string = p.source.description + ' ' + p.source_key
             p.thumb_url = request.build_absolute_uri(
                 reverse('project.ajapaik.views.image_thumb', args=(p.pk, 400, p.get_pseudo_slug()))
@@ -38,6 +41,6 @@ def get_photos(request):
             p.ajapaik_url = request.build_absolute_uri(
                 reverse('project.ajapaik.views.photoslug', args=(p.pk, p.get_pseudo_slug()))
             )
-        ret = MerekultuurPhotoSerializer(pqs, many=True).data
+        ret = MerekultuurPhotoSerializer(photos, many=True).data
 
     return Response(ret)
