@@ -83,7 +83,7 @@
                         </div>
                     {% elif photo.source.description %}
                         <div class="row-fluid">
-                            {{ photo.source.description }}{% if photo.source_key %}{{ photo.source_key }}{% endif %}{% if photo.licence %}&nbsp;{% include "_licence.html" with licence=photo.licence %}{% endif %}
+                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}{% if photo.licence %}&nbsp;{% include "_licence.html" with licence=photo.licence %}{% endif %}
                         </div>
                     {% endif %}
                     <div class="row-fluid" id="ajapaik-photo-modal-like">

@@ -52,7 +52,7 @@
             mapTypeControl: true,
             mapTypeId: this.OSM_MAPTYPE_ID,
             mapTypeControlOptions: {
-                mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, this.OSM_MAPTYPE_ID, 'juks'],
+                mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, this.OSM_MAPTYPE_ID, 'old-maps'],
                 position: google.maps.ControlPosition.TOP_RIGHT,
                 style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
             },
@@ -446,12 +446,12 @@
                 maxZoom: 18
             }));
             this.vgmapi = new VanalinnadGooglemApi({});
-            this.map.mapTypes.set('juks', this.vgmapi.juksMapType);
+            this.map.mapTypes.set('old-maps', this.vgmapi.juksMapType);
             this.vgmapi.map = this.map;
             var cityDataDoneCallback = function () {
                 that.vgmapi.buildVanalinnadMapCityControl();
                 that.vgmapi.buildVanalinnadMapYearControl();
-                if (that.map.getMapTypeId() === 'juks') {
+                if (that.map.getMapTypeId() === 'old-maps') {
                     that.vgmapi.showControls();
                 } else {
                     that.vgmapi.hideControls();
@@ -526,7 +526,7 @@
             this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.mapShowSearchButton.get(0));
             this.streetPanorama.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.streetPanoramaExtraCloseButton.get(0));
             this.mapTypeChangedListener = google.maps.event.addListener(this.map, 'maptypeid_changed', function () {
-                if (that.map.getMapTypeId() === 'juks') {
+                if (that.map.getMapTypeId() === 'old-maps') {
                     that.vgmapi.showControls();
                 } else {
                     that.vgmapi.hideControls();
@@ -1046,7 +1046,7 @@
                 data.map_type = 0;
             } else if (mapTypeId === 'hybrid') {
                 data.map_type = 1;
-            } else if (mapTypeId === 'juks') {
+            } else if (mapTypeId === 'old-maps') {
                 data.map_type = 3;
             } else {
                 data.map_type = 2;

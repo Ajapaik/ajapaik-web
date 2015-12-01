@@ -111,7 +111,7 @@ var map,
                 roadmap: google.maps.MapTypeId.ROADMAP,
                 satellite: google.maps.MapTypeId.ROADMAP,
                 OSM: 'OSM',
-                'juks': 'juks'
+                'old-maps': 'old-maps'
             };
 
         if (!startPoint) {
@@ -139,7 +139,7 @@ var map,
 
         }
         mapTypeIds.push('OSM');
-        mapTypeIds.push('juks');
+        mapTypeIds.push('old-maps');
 
         if (isGameMap) {
             // Geotagger module manages all activity now
@@ -197,7 +197,7 @@ var map,
         var cityDataDoneCallback = function () {
             commonVgmapi.buildVanalinnadMapCityControl();
             commonVgmapi.buildVanalinnadMapYearControl();
-            if (mapType === 'juks') {
+            if (mapType === 'old-maps') {
                 commonVgmapi.showControls();
             } else {
                 commonVgmapi.hideControls();
@@ -205,7 +205,7 @@ var map,
             commonVgmapi.changeIndex(0);
         };
         commonVgmapi.getCityData(cityDataDoneCallback);
-        map.mapTypes.set('juks', commonVgmapi.juksMapType);
+        map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
 
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
@@ -301,7 +301,7 @@ var map,
             // Works only in map view
             _gaq.push(['_trackEvent', 'Map', 'Map type changed']);
             var mapType = window.map.getMapTypeId();
-            if (mapType === 'juks') {
+            if (mapType === 'old-maps') {
                 commonVgmapi.showControls();
             } else {
                 commonVgmapi.hideControls();

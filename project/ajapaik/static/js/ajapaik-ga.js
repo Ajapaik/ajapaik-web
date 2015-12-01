@@ -91,16 +91,16 @@
     };
     window.reportVanalinnadYearChange = function (year) {
         if (isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'juks-map-change-year', year, 0, false]);
+            _gaq.push(['_trackEvent', 'Map', 'old-maps-change-year', year, 0, false]);
         } else {
-            _gaq.push(['_trackEvent', 'geotagger', 'juks-map-change-year', year, 0, false]);
+            _gaq.push(['_trackEvent', 'geotagger', 'old-maps-change-year', year, 0, false]);
         }
     };
     window.reportVanalinnadCityChange = function (city) {
         if (isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'juks-map-change-city', city, 0, false]);
+            _gaq.push(['_trackEvent', 'Map', 'old-maps-change-city', city, 0, false]);
         } else {
-            _gaq.push(['_trackEvent', 'geotagger', 'juks-map-change-city', city, 0, false]);
+            _gaq.push(['_trackEvent', 'geotagger', 'old-maps-change-city', city, 0, false]);
         }
     };
 }());

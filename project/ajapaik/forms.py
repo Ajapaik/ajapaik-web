@@ -338,4 +338,5 @@ class DatingConfirmForm(forms.Form):
 
 class VideoStillCaptureForm(forms.Form):
     video = forms.ModelChoiceField(queryset=Video.objects.all())
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED))
     timestamp = forms.IntegerField()

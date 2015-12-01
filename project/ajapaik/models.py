@@ -90,11 +90,12 @@ class Area(Model):
 
 
 class AlbumPhoto(Model):
-    CURATED, RECURATED, MANUAL = range(3)
+    CURATED, RECURATED, MANUAL, STILL = range(4)
     TYPE_CHOICES = (
         (CURATED, 'Curated'),
         (RECURATED, 'Re-curated'),
-        (MANUAL, 'Manual')
+        (MANUAL, 'Manual'),
+        (STILL, 'Still')
     )
 
     album = ForeignKey('Album')

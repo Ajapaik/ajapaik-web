@@ -3,13 +3,15 @@ import datetime
 import operator
 import ujson as json
 import urllib2
-#import cv2
+import cv2
+import cv2.cv as cv
 from StringIO import StringIO
 from copy import deepcopy
 from math import ceil
 from time import strftime, strptime
 
 import requests
+import unicodedata
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
@@ -19,6 +21,7 @@ from django.contrib.gis.measure import D
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
+from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
 from django.http import HttpResponse
@@ -31,7 +34,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
-
+from django.core.files.temp import NamedTemporaryFile
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
@@ -2359,16 +2362,37 @@ def get_datings(request, photo_id):
 def generate_still_from_video(request):
     profile = request.get_user().profile
     form = VideoStillCaptureForm(request.POST)
+    ret = {}
     if form.is_valid():
+        a = form.cleaned_data['album']
         vid = form.cleaned_data['video']
         time = form.cleaned_data['timestamp']
-        vidcap = cv2.VideoCapture(vid.file)
-        vidcap.set(cv2.CAP_PROP_POS_MSEC, time)
+        vidcap = cv2.VideoCapture(vid.file.path)
+        vidcap.set(cv.CV_CAP_PROP_POS_MSEC, time)
         success, image = vidcap.read()
+        source = Source.objects.filter(name='AJP').first()
         if success:
+            tmp = NamedTemporaryFile(suffix='.jpeg', delete=True)
+            cv2.imwrite(tmp.name, image)
+            hours, milliseconds = divmod(time, 3600000)
+            minutes, milliseconds = divmod(time, 60000)
+            seconds = float(milliseconds) / 1000
+            s = "%i:%02i:%06.3f" % (hours, minutes, seconds)
+            description = _('Still from "%s" at %s') % (vid.name, s)
             still = Photo(
-                description=_('Still from %s at %s') % (vid.name, datetime.datetime.fromtimestamp(time / 1000))
+                description=description,
+                user=profile,
+                types='film,still,frame,snapshot,filmi,kaader,pilt',
+                video=vid,
+                video_timestamp=time,
+                source=source
             )
-            cv2.imwrite('frame20sec.jpg', image)     # save frame as JPEG file
-            cv2.imshow('20sec',image)
-            cv2.waitKey()
+            still.save()
+            still.source_key = still.id
+            still.source_url = request.build_absolute_uri(reverse('project.ajapaik.views.photoslug', args=(still.id, still.get_pseudo_slug())))
+            still.image.save(unicodedata.normalize('NFKD', description).encode('ascii','ignore') + '.jpeg', File(tmp))
+            still.light_save()
+            AlbumPhoto(album=a, photo=still, profile=profile, type=AlbumPhoto.STILL).save()
+            ret['stillId'] = still.id
+
+    return HttpResponse(json.dumps(ret), content_type='application/json')

@@ -1,0 +1,21 @@
+#ajapaik-video-modal-still-button {
+    background: none;
+}
+
+#ajapaik-video-modal-still-button > i {
+    font-size: 48px;
+}
+
+#ajapaik-video-modal-still-button.enabled > i {
+    color: black;
+}
+
+#ajapaik-video-modal-still-button.disabled > i {
+    color: #888;
+}
+
+#ajapaik-video-modal-anonymous-icon {
+    position: relative;
+    top: 6px;
+    cursor: pointer;
+}

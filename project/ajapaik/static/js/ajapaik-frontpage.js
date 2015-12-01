@@ -26,7 +26,6 @@
                 }
             },
             photoModal = $('#ajapaik-photo-modal'),
-            videoModal = $('#ajapaik-video-modal'),
             fullScreenImage = $('#ajapaik-full-screen-image'),
             rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image'),
             openPhotoDrawer = function (content) {
@@ -381,6 +380,7 @@
                 startLat = 59;
                 startLon = 26;
             }
+            $('#ajapaik-video-modal').hide();
             $('#ajapaik-frontpage-container').hide();
             $('#ajapaik-photo-modal').hide();
             $('html').addClass('ajapaik-html-game-map');
@@ -415,6 +415,7 @@
         };
         window.stopGuessLocation = function () {
             $('#ajp-geotagging-container').hide();
+            $('#ajapaik-video-modal').show();
             $('#ajapaik-frontpage-container').show();
             $('#ajapaik-photo-modal').show();
             $('html').removeClass('ajapaik-html-game-map');
@@ -437,16 +438,6 @@
                     window.startGuessScrollTop = null;
                 }, 1000);
             }
-        };
-        window.loadVideo = function (id, slug) {
-            $.ajax({
-                cache: false,
-                url: '/video/' + id + '/' + slug + '/',
-                success: function (result) {
-                    videoModal.html(result);
-                    videoModal.modal();
-                }
-            });
         };
         window.loadPhoto = function (id) {
             window.nextPhotoLoading = true;
@@ -613,9 +604,6 @@
         $(document).on('click', '.ajapaik-frontpage-image-container', function (e) {
             e.preventDefault();
         });
-        $(document).on('click', '.ajapaik-frontpage-video-container', function (e) {
-            e.preventDefault();
-        });
         albumSelectionDiv.justifiedGallery(historicPhotoGallerySettings).on('jg.complete', function () {
             albumSelectionDiv.removeClass('ajapaik-invisible');
             $('.footer').removeClass('ajapaik-invisible');
@@ -627,9 +615,7 @@
         $(document).on('click', '.ajapaik-frontpage-image', function () {
             window.loadPhoto($(this).data('id'));
         });
-        $(document).on('click', '.ajapaik-frontpage-video', function () {
-            window.loadVideo($(this).data('id'), $(this).data('slug'));
-        });
+
         $('.ajapaik-navbar').autoHidingNavbar();
         $(document).on('click', '#ajapaik-paging-previous-button', function (e) {
             e.preventDefault();
