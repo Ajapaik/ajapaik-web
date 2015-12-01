@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
-from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating
+from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from django.contrib.gis.geos import Point
@@ -334,3 +334,8 @@ class DatingSubmitForm(forms.ModelForm):
 
 class DatingConfirmForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Dating.objects.all())
+
+
+class VideoStillCaptureForm(forms.Form):
+    video = forms.ModelChoiceField(queryset=Video.objects.all())
+    timestamp = forms.IntegerField()

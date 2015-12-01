@@ -1,45 +1,46 @@
 # encoding: utf-8
-from copy import deepcopy
-import urllib2
-import operator
-from math import ceil
 import datetime
+import operator
 import ujson as json
-from PIL import Image, ImageFile, ImageOps
-from time import strftime, strptime
+import urllib2
+#import cv2
 from StringIO import StringIO
-from django.views.decorators.cache import cache_control
+from copy import deepcopy
+from math import ceil
+from time import strftime, strptime
 
 import requests
+from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
+from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
+from django.contrib.sites.models import Site
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q, Count, Min, Max
+from django.db.models import Sum, Q, Count
+from django.http import HttpResponse
+from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.sites.models import Site
-from django.http import HttpResponse
 from django.utils.translation import ugettext as _
-from django.shortcuts import redirect, get_object_or_404
-from django.conf import settings
-from django.core.files.base import ContentFile
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.gis.geos import Point
+from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework.renderers import JSONRenderer
-from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail import delete
+from sorl.thumbnail import get_thumbnail
 
 from project.ajapaik.facebook import APP_ID
-from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
-    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm
+    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm
+from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
+    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
+    Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS, DATING_CONFIRMATION_POINTS
@@ -2353,3 +2354,21 @@ def get_datings(request, photo_id):
         ret['datings'] = datings_serialized
         
     return HttpResponse(json.dumps(ret), content_type='application/json')
+
+
+def generate_still_from_video(request):
+    profile = request.get_user().profile
+    form = VideoStillCaptureForm(request.POST)
+    if form.is_valid():
+        vid = form.cleaned_data['video']
+        time = form.cleaned_data['timestamp']
+        vidcap = cv2.VideoCapture(vid.file)
+        vidcap.set(cv2.CAP_PROP_POS_MSEC, time)
+        success, image = vidcap.read()
+        if success:
+            still = Photo(
+                description=_('Still from %s at %s') % (vid.name, datetime.datetime.fromtimestamp(time / 1000))
+            )
+            cv2.imwrite('frame20sec.jpg', image)     # save frame as JPEG file
+            cv2.imshow('20sec',image)
+            cv2.waitKey()

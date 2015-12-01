@@ -111,6 +111,10 @@ urlpatterns += patterns('project.ajapaik.delfi',
     url(r'^delfi_api/v1/photos_bbox/$', 'photos_bbox'),
 )
 
+urlpatterns += patterns('project.ajapaik.merekultuur',
+    url(r'^merekultuur/v1/fotod/$', 'get_photos')
+)
+
 urlpatterns += patterns('project.ajapaik.then_and_now_tours_api',
     url(r'^then-and-now-api/v1/tour/$', 'random_tour'),
     url(r'^then-and-now-api/v1/tour/(?P<id>\d+)$', 'get_tour'),
