@@ -25,7 +25,7 @@ class MerekultuurPhotoSerializer(serializers.ModelSerializer):
 @permission_classes((AllowAny,))
 def get_photos(request):
     activate('et')
-    album = Album.objects.filter(pk=1084).first()
+    album = Album.objects.filter(pk=3089).first()
     ret = []
     if album:
         photos = list(album.get_historic_photos_queryset_with_subalbums().prefetch_related('source')[:RANDOM_SET_SIZE])
