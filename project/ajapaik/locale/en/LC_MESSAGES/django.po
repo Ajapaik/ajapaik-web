@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 14:28+0200\n"
+"POT-Creation-Date: 2015-12-02 17:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -370,6 +370,7 @@ msgstr ""
 #: project/ajapaik/templates/_header.html:99
 #: project/ajapaik/templates/_photo_upload_modal.html:36
 #: project/ajapaik/templates/curator.html:148
+#: project/ajapaik/templates/frontpage.html:30
 #: project/ajapaik/templates/photo_selection.html:54
 msgid "Connect with Facebook"
 msgstr ""
@@ -383,6 +384,7 @@ msgstr ""
 #: project/ajapaik/templates/_header.html:103
 #: project/ajapaik/templates/_photo_upload_modal.html:39
 #: project/ajapaik/templates/curator.html:151
+#: project/ajapaik/templates/frontpage.html:34
 #: project/ajapaik/templates/photo_selection.html:57
 msgid "Connect with Google"
 msgstr ""
@@ -1212,6 +1214,10 @@ msgstr ""
 
 #: project/ajapaik/templates/extra_translations.html:17
 msgid "Private "
+msgstr ""
+
+#: project/ajapaik/templates/frontpage.html:26
+msgid "Authentication"
 msgstr ""
 
 #: project/ajapaik/templates/game.html:28

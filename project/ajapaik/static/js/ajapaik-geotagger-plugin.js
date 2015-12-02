@@ -290,20 +290,20 @@
             "               <img id='ajp-geotagger-image-thumb' class='ajp-image-responsive'>",
             "           </a>",
             "           <button type='button' id='ajp-geotagger-flip-button' class='btn btn-default ajp-no-border-radius'>",
-            "               <i class='material-icons'>flip</i>",
+            "               <i class='material-icons notranslate'>flip</i>",
             "            </button>",
             "        </div>",
             "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding' id='ajp-geotagger-button-controls'>",
             "            <button type='button' id='ajp-geotagger-description-button' class='btn btn-default ajp-no-border-radius'>",
-            "               <i class='material-icons'>subject</i>",
+            "               <i class='material-icons notranslate'>subject</i>",
             "            </button>",
             "            <p id='ajp-geotagger-description' class='hidden'></p>",
             "            <p id='ajp-geotagger-source' class='hidden'><a href='' target='_blank' title=''></a></p>",
             "            <div class='col-xs-6 col-sm-6 col-md-12' id='ajp-geotagger-stats-container'>",
-            "               <i class='material-icons'>people</i><span id='ajp-geotagger-current-stats'></span>",
+            "               <i class='material-icons notranslate'>people</i><span id='ajp-geotagger-current-stats'></span>",
             "            </div>",
             "            <div class='col-xs-6 col-sm-6 col-md-12 hidden-sm hidden-xs' id='ajp-geotagger-login-container'>",
-            "               <i class='material-icons'>account_circle</i><span id='ajp-geotagger-current-login'></span>",
+            "               <i class='material-icons notranslate'>account_circle</i><span id='ajp-geotagger-current-login'></span>",
             "            </div>",
             "        </div>",
             "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding' id='ajp-geotagger-feedback'>",
@@ -330,12 +330,12 @@
             "            <div class='btn-group btn-group-justified' role='group' id='ajp-geotagger-game-buttons' aria-label='ajp-geotagger-game-buttons'>",
             "                <div class='btn-group' role='group'>",
             "                    <button type='button' id='ajp-geotagger-skip-button' class='btn btn-default ajp-no-border-radius'>",
-            "                        <i class='material-icons'>close</i>",
+            "                        <i class='material-icons notranslate'>close</i>",
             "                    </button>",
             "                </div>",
             "                <div class='btn-group' role='group'>",
             "                    <button type='button' id='ajp-geotagger-save-button' class='btn btn-disabled ajp-no-border-radius'>",
-            "                        <i class='material-icons'>done</i>",
+            "                        <i class='material-icons notranslate'>done</i>",
             "                    </button>",
             "                </div>",
             "            </div>",
@@ -411,18 +411,18 @@
                 "<div id='ajp-geotagger-map-instruction-text'>",
                 "   <p></p>",
                 "   <button id='ajp-geotagger-close-instructions-button' class='btn btn-default'>",
-                "       <i class='material-icons'>close</i>",
+                "       <i class='material-icons notranslate'>close</i>",
                 "   </button>",
                 "</div>"
             ].join('\n'));
             this.mapOpenInstructionsButton = $([
                 "<button id='ajp-geotagger-open-instructions-button'>",
-                "   <i class='material-icons'>info</i>",
+                "   <i class='material-icons notranslate'>info</i>",
                 "</button>"
             ].join('\n'));
             this.mapShowSearchButton = $([
                 "<button id='ajp-geotagger-show-search-button'>",
-                "   <i class='material-icons'>search</i>",
+                "   <i class='material-icons notranslate'>search</i>",
                 "</button>"
             ].join('\n'));
             this.streetPanorama = new google.maps.StreetViewPanorama(

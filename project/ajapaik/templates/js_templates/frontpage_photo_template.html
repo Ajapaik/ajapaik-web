@@ -7,7 +7,7 @@
                 width="{%=o[1]%}" height="{%=o[2]%}"/>
             {% if (userIsSocialConnected) { %}
                 <button class="ajapaik-thumbnail-selection-icon{% if (o[11] == 1) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o[0]%}">
-                    <i class="material-icons">check_circle</i>
+                    <i class="material-icons notranslate">check_circle</i>
                 </button>
             {% } %}
             <div class="ajapaik-thumbnail-info-container">
@@ -15,7 +15,7 @@
                     {% if (o[4] && o[5]) { %}
                         <div style="transform: rotate({%=o[6]%}deg);" class="ajapaik-frontpage-azimuth"
                             title="{%=gettext('Image has location and view direction info')%}">
-                            <i class="material-icons">navigation</i>
+                            <i class="material-icons notranslate">navigation</i>
                         </div>
                     {% } %}
                 {% } else { %}

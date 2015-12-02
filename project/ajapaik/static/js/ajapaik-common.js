@@ -690,7 +690,7 @@ var map,
             if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
                 minimapLargeCTAButton = document.createElement('button');
                 minimapLargeCTAButtonIcon = document.createElement('i');
-                $(minimapLargeCTAButtonIcon).addClass('material-icons').html('add_location');
+                $(minimapLargeCTAButtonIcon).addClass('material-icons notranslate').html('add_location');
                 $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button')
                     .attr('title', gettext('Pick the shooting location!')).append(minimapLargeCTAButtonIcon);
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
@@ -734,7 +734,7 @@ var map,
                 $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
                     .addClass('ajapaik-minimap-confirm-geotag-button')
                     .prop('title', gettext('Confirm correct location'))
-                    .data('id', window.photoModalCurrentlyOpenPhotoId).html('<i class="material-icons">thumb_up</i>');
+                    .data('id', window.photoModalCurrentlyOpenPhotoId).html('<i class="material-icons notranslate">thumb_up</i>');
                 if (window.photoModalUserHasConfirmedThisLocation) {
                     $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
                 }
@@ -742,7 +742,7 @@ var map,
                 var minimapStartGuessButton = document.createElement('button');
                 $(minimapStartGuessButton).addClass('btn').addClass('btn-default')
                     .addClass('ajapaik-minimap-start-guess-button')
-                    .prop('title', gettext('Submit your own location')).html('<i class="material-icons">edit_location</i>');
+                    .prop('title', gettext('Submit your own location')).html('<i class="material-icons notranslate">edit_location</i>');
                 window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
                 $('.ajapaik-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');

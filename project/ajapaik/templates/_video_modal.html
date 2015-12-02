@@ -14,12 +14,12 @@
             {% if not request.user.profile.fb_id and not request.user.profile.google_plus_id %}
                 <div class="row">
                     <div id="ajapaik-video-modal-anaonymous-warning" class="pull-left">
-                        {% trans "You're anonymous" %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons">account_circle</i>
+                        {% trans "You're anonymous" %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</i>
                     </div>
                 </div>
             {% endif %}
             <div class="row">
-                <button id="ajapaik-video-modal-still-button" class="btn disabled pull-left"><i class="material-icons">camera</i></button>
+                <button id="ajapaik-video-modal-still-button" class="btn disabled pull-left"><i class="material-icons notranslate">camera</i></button>
             </div>
         </div>
     </div>

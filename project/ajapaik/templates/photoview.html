@@ -34,25 +34,25 @@
                         </a>
                         {% if previous_photo %}
                             <a class="ajapaik-photo-modal-previous-button" href="{% url 'project.ajapaik.views.photoslug' previous_photo.pk previous_photo.get_pseudo_slug %}">
-                                <i class="material-icons">navigate_before</i>
+                                <i class="material-icons notranslate">navigate_before</i>
                             </a>
                         {% endif %}
                         {% if next_photo %}
                             <a class="ajapaik-photo-modal-next-button" href="{% url 'project.ajapaik.views.photoslug' next_photo.pk next_photo.get_pseudo_slug %}">
-                                <i class="material-icons">navigate_next</i>
+                                <i class="material-icons notranslate">navigate_next</i>
                             </a>
                         {% endif %}
                         <button class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ photo.id }}">
-                            <i class="material-icons">check_circle</i>
+                            <i class="material-icons notranslate">check_circle</i>
                         </button>
                         <button class="ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;">
-                            <i class="material-icons">flip</i>
+                            <i class="material-icons notranslate">flip</i>
                         </button>
                         <button class="ajapaik-like-photo-overlay-button{% if photo.user_likes %} active{% endif %}{% if photo.user_loves %} active big{% endif %}">
                             {% if photo.user_likes or photo.user_loves %}
-                                <i class="material-icons">favorite</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
+                                <i class="material-icons notranslate">favorite</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
                             {% else %}
-                                <i class="material-icons">favorite_border</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
+                                <i class="material-icons notranslate">favorite_border</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
                             {% endif %}
                         </button>
                     </div>
@@ -94,20 +94,20 @@
                     <div class="row-fluid ajapaik-height-48 ajapaik-margin-top-10">
                         <a id="ajapaik-photoview-start-geotagging-button" data-id="{{ photo.id }}" class="pull-left"
                            title="{% trans "Pick the shooting location!" %}" href="#">
-                            <i class="material-icons ajapaik-text-gray ajapaik-icon-48">add_location</i>
+                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
                         </a>
                         <a id="ajapaik-photoview-start-dating-button" data-id="{{ photo.id }}" class="pull-left"
                            title="{% trans "Date this image" %}" href="#">
-                            <i class="material-icons ajapaik-text-gray ajapaik-icon-48">event</i>
+                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">event</i>
                             <span class="badge">{{ datings_count }}</span>
                         </a>
                         <a title="{% trans "Add rephoto" %}" id="ajapaik-photoview-add-rephoto-button" href="#"
                            class="pull-left">
-                            <i class="material-icons ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
+                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                         </a>
                         <div class="dropdown pull-left">
                             <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons ajapaik-text-gray ajapaik-icon-48">share</i>
+                                <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">share</i>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
@@ -128,7 +128,7 @@
                                 <div class="row ajapaik-no-left-margin-row" style="min-height: 36px;">
                                     {% if forloop.first %}
                                         <div class="col-xs-1">
-                                            <i class="material-icons ajapaik-photo-modal-album-icon"
+                                            <i class="material-icons notranslate ajapaik-photo-modal-album-icon"
                                                title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">{% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
                                         </div>
                                     {% endif %}
@@ -140,7 +140,7 @@
                                         <div class="ajapaik-photo-modal-album-more-button" role="button"
                                              title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
                                         <div class="ajapaik-photo-modal-photo-curator">
-                                            &nbsp;{% if a.this_photo_curator.fb_name%}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.fb_name }}</p>{% elif a.this_photo_curator.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.google_plus_name }}</p>{% endif %}
+                                            &nbsp;{% if a.this_photo_curator.fb_name%}<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.fb_name }}</p>{% elif a.this_photo_curator.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.google_plus_name }}</p>{% endif %}
                                         </div>
                                         </div>
                                 </div>
@@ -169,8 +169,8 @@
                                 {% if rephoto.flip %}ajapaik-photo-flipped{% endif %}" alt="{{ photo.description }} {% trans "rephoto" %}"
                                      src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"/>
                             </a>
-                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons">close</i></button>
-                            <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons">invert_colors</i></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button" id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons notranslate">close</i></button>
+                            <button class="btn btn-default ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button" id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;"{% endif %}><i class="material-icons notranslate">invert_colors</i></button>
                         </div>
                         {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
                             {% if rephoto.author %}

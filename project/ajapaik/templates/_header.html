@@ -15,34 +15,34 @@
                         <li class="dropdown pull-left" id="ajapaik-header-album-name">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
                                 {% if album.5 %}
-                                    <i id="ajapaik-header-movie-indicator" class="material-icons pull-left">movie</i>
+                                    <i id="ajapaik-header-movie-indicator" class="material-icons notranslate pull-left">movie</i>
                                 {% else %}
-                                    <i class="material-icons pull-left">photo_album</i>
+                                    <i class="material-icons notranslate pull-left">photo_album</i>
                                 {% endif %}
                                 <span id="ajapaik-header-title" class="pull-left">
                                     {{ album.1 }}
                                 </span>
-                                <i id="ajapaik-header-album-more" class="material-icons" title="{% trans 'Album details' %}">more</i>
+                                <i id="ajapaik-header-album-more" class="material-icons notranslate" title="{% trans 'Album details' %}">more</i>
                             </a>
                             <ul class="dropdown-menu with-album" id="ajapaik-frontpage-mode-select">
                                 <li data-mode="albums">
                                     <a href="#" id="ajapaik-frontpage-show-albums-link" title="{% trans "Show albums" %}">
-                                        <i class="material-icons">collections_bookmark</i> {% trans "Albums" %}
+                                        <i class="material-icons notranslate">collections_bookmark</i> {% trans "Albums" %}
                                     </a>
                                 </li>
                                 <li data-mode="pictures">
                                     <a href="#" id="ajapaik-frontpage-show-pictures-link" title="{% trans "Show pictures" %}">
-                                        <i class="material-icons">collections</i> {% trans "All pictures" %}
+                                        <i class="material-icons notranslate">collections</i> {% trans "All pictures" %}
                                     </a>
                                 </li>
                                 <li data-mode="likes" {% if not user_has_likes %}class='disabled'{% endif %}>
                                     <a href="#" id="ajapaik-frontpage-show-liked-link" title="{% trans "Show my favorites" %}">
-                                        <i class="material-icons">favorite</i> {% trans "My favorites" %}
+                                        <i class="material-icons notranslate">favorite</i> {% trans "My favorites" %}
                                     </a>
                                 </li>
                                 <li data-mode="rephotos" {% if not user_has_rephotos %}class='disabled'{% endif %}>
                                     <a href="#" id="ajapaik-frontpage-show-rephotographed-link" title="Show rephotographed by me">
-                                        <i class="material-icons">library_add</i> {% trans "My rephotos" %}
+                                        <i class="material-icons notranslate">library_add</i> {% trans "My rephotos" %}
                                     </a>
                                 </li>
                             </ul>
@@ -51,8 +51,8 @@
                     {% if is_mapview and album %}
                         <li class="pull-left">
                             <a title="{% trans 'Remove album filter' %}" id="ajapaik-header-album-filter-button" class="ajapaik-no-background">
-                                <i id="ajapaik-header-album-filter-button-on" class="material-icons ajapaik-gray-button">check_box</i>
-                                <i id="ajapaik-header-album-filter-button-off" class="material-icons ajapaik-gray-button">check_box_outline_blank</i>
+                                <i id="ajapaik-header-album-filter-button-on" class="material-icons notranslate ajapaik-gray-button">check_box</i>
+                                <i id="ajapaik-header-album-filter-button-off" class="material-icons notranslate ajapaik-gray-button">check_box_outline_blank</i>
                             </a>
                         </li>
                     {% endif %}
@@ -72,7 +72,7 @@
                 <li class="pull-right">
                     <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
                        id="ajapaik-header-profile-button" class="ajapaik-no-background">
-                        <i class="material-icons ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id %} ajapaik-text-white{% endif %}">account_circle</i>
+                        <i class="material-icons notranslate ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id %} ajapaik-text-white{% endif %}">account_circle</i>
                     </a>
                     <div class="score_container">
                         <h4>
@@ -133,7 +133,7 @@
                 {% if album %}
                     <li class="pull-left">
                         <a role="button" title="{% trans 'Geotag pictures' %}" {% if album %}href="/geotag/?album={{ album.0 }}{% if photo %}&photo={{ photo.id }}{% endif %}"{% endif %} class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
-                            <i class="material-icons ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">add_location</i>
+                            <i class="material-icons notranslate ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">add_location</i>
                         </a>
                     </li>
                 {% endif %}
@@ -144,19 +144,19 @@
                 </li>
                 <li class="pull-left hidden-xs">
                     <a role="button" title="{% trans 'Curate' %}" href="{% url "project.ajapaik.views.curator" %}" class="ajapaik-padding-top-6px">
-                        <i class="material-icons ajapaik-gray-button{% if is_curator %} ajapaik-text-white{% endif %}">add_circle</i>
+                        <i class="material-icons notranslate ajapaik-gray-button{% if is_curator %} ajapaik-text-white{% endif %}">add_circle</i>
                     </a>
                 </li>
                 {% if is_newsletter %}
                     <li class="pull-left" id="ajapaik-header-nesletter">
                         <a role="button" title="{% trans 'Newsletters' %}" href="/uudiskiri/" class="ajapaik-padding-top-6px">
-                            <i class="material-icons ajapaik-gray-button ajapaik-text-white">email</i>
+                            <i class="material-icons notranslate ajapaik-gray-button ajapaik-text-white">email</i>
                         </a>
                     </li>
                 {% endif %}
                 <li class="pull-left{% if not request.session.photo_selection %} hidden{% endif %}" id="ajapaik-header-selection-indicator">
                     <a role="button" title="{% trans 'Current selection' %}" href="/view-selection" class="ajapaik-padding-top-6px">
-                        <i class="material-icons ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>
+                        <i class="material-icons notranslate ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>
                         <span class="badge">{{ request.session.photo_selection|length }}</span>
                     </a>
                 </li>
@@ -185,7 +185,7 @@
                 </li>
                 <li class="pull-right">
                     <a role="button" title="{% trans 'About Ajapaik' %}" id="ajapaik-header-about-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-10px">
-                        <i class="material-icons ajapaik-gray-button">info</i>
+                        <i class="material-icons notranslate ajapaik-gray-button">info</i>
                     </a>
                 </li>
                 <li class="pull-right">

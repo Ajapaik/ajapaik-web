@@ -9,7 +9,7 @@
                 <p class="ajapaik-caption-album-selection-album-title" title="{%=o.name%}">{%=o.name%}</p>
                 {% if (o.is_film_still_album) { %}
                     <div class="ajapaik-album-selection-film-icon" title="{%=gettext('This album contains a film')%}">
-                        <i class="material-icons">movie</i>
+                        <i class="material-icons notranslate">movie</i>
                     </div>
                 {% } %}
                 <div class="ajapaik-album-selection-photo-count" title="{%=gettext('Pictures in album')%}">
@@ -34,11 +34,11 @@
                     <div class="ajapaik-album-selection-album-more-button" role="button" title="{%=gettext('Album details')%}" data-id="{%=o.id%}"></div>
                     {% if (o.geotagged_photo_count_with_subalbums > 0) { %}
                         <div class="ajapaik-album-selection-map-button" role="button" title="{%=gettext('Show pictures on map')%}" data-href="{%=mapviewURL%}?album={%=o.id%}">
-                            <i class="material-icons">map</i>
+                            <i class="material-icons notranslate">map</i>
                         </div>
                     {% } %}
                     <div class="ajapaik-album-selection-game-button" role="button" title="{%=gettext('Geotag pictures in album')%}" data-href="{%=gameURL%}?album={%=o.id%}">
-                        <i class="material-icons">add_location</i>
+                        <i class="material-icons notranslate">add_location</i>
                     </div>
                 </div>
             </div>
