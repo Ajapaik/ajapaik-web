@@ -142,6 +142,7 @@ function VanalinnadGooglemApi() {
 
         vanalinnadCitySelection.change(function () {
             that.vars.site = $(this).val();
+            that.map.setZoom(12);
             that.getCityData(function () {
                 that.buildVanalinnadMapYearControl();
                 that.showControls();

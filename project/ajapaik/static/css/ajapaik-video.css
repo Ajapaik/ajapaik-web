@@ -17,5 +17,37 @@
 #ajapaik-video-modal-anonymous-icon {
     position: relative;
     top: 6px;
+    left: 6px;
     cursor: pointer;
+}
+
+#ajapaik-video-modal-anaonymous-warning {
+    margin-left: 20px;
+}
+
+#ajapaik-video-modal-body {
+    padding-left: 40px;
+}
+
+.ajapaik-album-selection-film-icon {
+    display: inline-block;
+    width: 30px;
+}
+
+.ajapaik-album-selection-film-icon > i {
+    position: relative;
+    top: 9px;
+}
+
+.ajapaik-frontpage-video-container > i {
+    color: white;
+    font-size: 48px;
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+}
+
+#ajapaik-header-movie-indicator {
+    position: relative;
+    top: 2px;
 }

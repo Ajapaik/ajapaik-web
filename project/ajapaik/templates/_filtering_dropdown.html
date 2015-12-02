@@ -41,6 +41,17 @@
                 </svg>
             </a>
         </li>
+        {% if album.5 %}
+            <li data-order1="time" data-order2="stills">
+                <a href="#" class="ajapaik-filtering-choice"
+                   data-order1="time" data-order2="stills" title="{% trans "Sort by stills' timestamp" %}">
+                    <svg height="48" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#888" id="ajapaik-stills-filter-icon" d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path>
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg>
+                </a>
+            </li>
+        {% endif %}
         {#<li data-order2="views">#}
         {#    <a href="#" class="ajapaik-filtering-choice"#}
         {#       data-order2="views" title="{% trans "Sort by views' time added or amount" %}">#}
@@ -64,8 +75,9 @@
             <a href="#" class="ajapaik-filtering-choice"
                data-order2="datings" title="{% trans "Sort by datings' time added or amount" %}">
                 <svg fill="#888" height="48" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#888" id="ajapaik-datings-filter-icon" d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
-                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path fill="#888" id="ajapaik-datings-filter-icon"
+                          d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path>
+                    <path d="M0 0h24v24H0z" fill="none"></path>
                 </svg>
             </a>
         </li>

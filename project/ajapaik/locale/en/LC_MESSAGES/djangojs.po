@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 15:39+0200\n"
+"POT-Creation-Date: 2015-12-02 14:28+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -331,91 +331,103 @@ msgstr ""
 msgid "Unknown author"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:107
+#: project/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+msgid "This album contains a film"
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Earliest"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:109
+#: project/ajapaik/static/js/ajapaik-frontpage.js:110
 msgid "Latest"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:114
+#: project/ajapaik/static/js/ajapaik-frontpage.js:115
 msgid "Least"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:116
+#: project/ajapaik/static/js/ajapaik-frontpage.js:117
 msgid "Most"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:121
+#: project/ajapaik/static/js/ajapaik-frontpage.js:122
 msgid "Pictures furthest from you"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:123
+#: project/ajapaik/static/js/ajapaik-frontpage.js:124
 msgid "Pictures closest to you"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:128
+#: project/ajapaik/static/js/ajapaik-frontpage.js:129
 msgid "commented"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:131
+#: project/ajapaik/static/js/ajapaik-frontpage.js:132
 msgid "rephotographed"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:134
+#: project/ajapaik/static/js/ajapaik-frontpage.js:135
 msgid "added"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:137
+#: project/ajapaik/static/js/ajapaik-frontpage.js:138
 msgid "geotagged"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:140
+#: project/ajapaik/static/js/ajapaik-frontpage.js:141
 msgid "liked"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:143
+#: project/ajapaik/static/js/ajapaik-frontpage.js:144
 msgid "dated"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:146
+#: project/ajapaik/static/js/ajapaik-frontpage.js:147
 msgid "viewed"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:149
+#: project/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "pictures"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:152
+#: project/ajapaik/static/js/ajapaik-frontpage.js:156
+msgid "By reverse timestamp"
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:158
+msgid "By timestamp"
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:162
 msgid "Pictures from the map"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:247
+#: project/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "Picture set has no rephotos"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:254
+#: project/ajapaik/static/js/ajapaik-frontpage.js:264
 msgid "Picture set has no comments"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:284
+#: project/ajapaik/static/js/ajapaik-frontpage.js:302
 msgid "Albums"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:290
+#: project/ajapaik/static/js/ajapaik-frontpage.js:308
 msgid "My favorites"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:295
+#: project/ajapaik/static/js/ajapaik-frontpage.js:313
 msgid "My rephotos"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:297
+#: project/ajapaik/static/js/ajapaik-frontpage.js:315
 msgid "Rephotos by %(user)s"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:303
+#: project/ajapaik/static/js/ajapaik-frontpage.js:321
 msgid "All photos"
 msgstr ""
 
@@ -524,7 +536,7 @@ msgid ""
 "picture, click save when ready."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1087
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1088
 msgid "Points awarded"
 msgstr ""
 

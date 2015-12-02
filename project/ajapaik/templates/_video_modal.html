@@ -7,13 +7,15 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body" id="ajapaik-modal-body">
+        <div class="modal-body" id="ajapaik-video-modal-body">
             <video id="ajapaik-modal-video" controls autoplay src="{{ video.file.url }}"></video>
         </div>
         <div class="modal-footer">
             {% if not request.user.profile.fb_id and not request.user.profile.google_plus_id %}
                 <div class="row">
-                    <div class="pull-left">{% trans "You're anonymous" %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons">account_circle</i></div>
+                    <div id="ajapaik-video-modal-anaonymous-warning" class="pull-left">
+                        {% trans "You're anonymous" %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons">account_circle</i>
+                    </div>
                 </div>
             {% endif %}
             <div class="row">

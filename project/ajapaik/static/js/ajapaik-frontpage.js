@@ -48,6 +48,7 @@
                     showPhotoMapIfApplicable();
                     $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
                     FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
+                    $('#ajapaik-video-modal').hide();
                 });
             },
             syncStateToUrl = function () {
@@ -144,9 +145,18 @@
                 } else if (window.order2 === 'views') {
                     $('#ajapaik-views-filter-icon').attr('class', 'ajapaik-filter-white');
                     orderingString += ' ' + gettext('viewed');
+                } else if (window.order2 === 'stills') {
+                    $('#ajapaik-stills-filter-icon').attr('class', 'ajapaik-filter-white');
                 }
                 if (window.order1 !== 'closest') {
                     orderingString += ' ' + gettext('pictures');
+                }
+                if (window.order2 === 'stills') {
+                    if (window.order3 === 'reverse') {
+                        orderingString = gettext('By reverse timestamp');
+                    } else {
+                        orderingString = gettext('By timestamp');
+                    }
                 }
                 if (getQueryParameterByName('photos')) {
                     orderingString = gettext('Pictures from the map');
@@ -380,7 +390,6 @@
                 startLat = 59;
                 startLon = 26;
             }
-            $('#ajapaik-video-modal').hide();
             $('#ajapaik-frontpage-container').hide();
             $('#ajapaik-photo-modal').hide();
             $('html').addClass('ajapaik-html-game-map');
@@ -415,7 +424,6 @@
         };
         window.stopGuessLocation = function () {
             $('#ajp-geotagging-container').hide();
-            $('#ajapaik-video-modal').show();
             $('#ajapaik-frontpage-container').show();
             $('#ajapaik-photo-modal').show();
             $('html').removeClass('ajapaik-html-game-map');
@@ -572,6 +580,12 @@
         if (parseInt(getQueryParameterByName('locationToolsOpen'), 10) === 1) {
             window.straightToSpecify = true;
         }
+        if (getQueryParameterByName('video')) {
+            window.loadVideo(getQueryParameterByName('video'));
+        }
+        if (getQueryParameterByName('t')) {
+            window.currentVideoTimeTarget = getQueryParameterByName('t');
+        }
         // Page element functionality
         photoModal.on('shown.bs.modal', function () {
             showPhotoMapIfApplicable();
@@ -598,6 +612,9 @@
                         $('#ajapaik-paging-previous-button').click();
                     }, 1500);
                 }
+            }
+            if (window.currentVideoId) {
+                $('#ajapaik-video-modal').show();
             }
             $('#ajapaik-full-screen-image').removeClass('ajapaik-photo-flipped');
         });

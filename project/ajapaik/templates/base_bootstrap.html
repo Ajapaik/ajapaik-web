@@ -1,6 +1,6 @@
 {% load i18n cache compress ajapaik_templatetags static %}
 <!DOCTYPE html>
-<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
+<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map notranslate"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
     <title>

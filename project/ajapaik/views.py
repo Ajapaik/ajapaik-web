@@ -867,6 +867,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 else:
                     photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
                         order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
+            elif order2 == 'stills':
+                if order3 == 'reverse':
+                    photos = photos.order_by('video_timestamp')
+                else:
+                    photos = photos.order_by('-video_timestamp')
             elif order2 == 'added':
                 if order3 == 'reverse':
                     photos = photos.order_by('created')
@@ -921,7 +926,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 p[11] = 0
             p.append(_get_pseudo_slug_for_photo(p[3], None, None))
         if album:
-            ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon)
+            ret['album'] = (album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon, album.is_film_still_album)
             ret['videos'] = VideoSerializer(album.videos.all(), many=True).data
         else:
             ret['album'] = None
@@ -2367,32 +2372,42 @@ def generate_still_from_video(request):
         a = form.cleaned_data['album']
         vid = form.cleaned_data['video']
         time = form.cleaned_data['timestamp']
-        vidcap = cv2.VideoCapture(vid.file.path)
-        vidcap.set(cv.CV_CAP_PROP_POS_MSEC, time)
-        success, image = vidcap.read()
-        source = Source.objects.filter(name='AJP').first()
-        if success:
-            tmp = NamedTemporaryFile(suffix='.jpeg', delete=True)
-            cv2.imwrite(tmp.name, image)
-            hours, milliseconds = divmod(time, 3600000)
-            minutes, milliseconds = divmod(time, 60000)
-            seconds = float(milliseconds) / 1000
-            s = "%i:%02i:%06.3f" % (hours, minutes, seconds)
-            description = _('Still from "%s" at %s') % (vid.name, s)
-            still = Photo(
-                description=description,
-                user=profile,
-                types='film,still,frame,snapshot,filmi,kaader,pilt',
-                video=vid,
-                video_timestamp=time,
-                source=source
-            )
-            still.save()
-            still.source_key = still.id
-            still.source_url = request.build_absolute_uri(reverse('project.ajapaik.views.photoslug', args=(still.id, still.get_pseudo_slug())))
-            still.image.save(unicodedata.normalize('NFKD', description).encode('ascii','ignore') + '.jpeg', File(tmp))
-            still.light_save()
-            AlbumPhoto(album=a, photo=still, profile=profile, type=AlbumPhoto.STILL).save()
-            ret['stillId'] = still.id
+        still = Photo.objects.filter(video=vid, video_timestamp=time).first()
+        if not still:
+            vidcap = cv2.VideoCapture(vid.file.path)
+            vidcap.set(cv.CV_CAP_PROP_POS_MSEC, time)
+            success, image = vidcap.read()
+            source = Source.objects.filter(name='AJP').first()
+            if success:
+                tmp = NamedTemporaryFile(suffix='.jpeg', delete=True)
+                cv2.imwrite(tmp.name, image)
+                hours, milliseconds = divmod(time, 3600000)
+                minutes, milliseconds = divmod(time, 60000)
+                seconds = float(milliseconds) / 1000
+                s = "%i:%02i:%06.3f" % (hours, minutes, seconds)
+                description = _('Still from "%(film)s" at %(time)s') % {'film': vid.name, 'time': s}
+                still = Photo(
+                    description=description,
+                    user=profile,
+                    types='film,still,frame,snapshot,filmi,kaader,pilt',
+                    video=vid,
+                    video_timestamp=time,
+                    source=source
+                )
+                still.save()
+                still.source_key = still.id
+                still.source_url = request.build_absolute_uri(reverse('project.ajapaik.views.photoslug', args=(still.id, still.get_pseudo_slug())))
+                still.image.save(unicodedata.normalize('NFKD', description).encode('ascii','ignore') + '.jpeg', File(tmp))
+                still.light_save()
+                AlbumPhoto(album=a, photo=still, profile=profile, type=AlbumPhoto.STILL).save()
+                Points(
+                    user=profile,
+                    action=Points.FILM_STILL,
+                    photo=still,
+                    album=a,
+                    points=50,
+                    created=still.created
+                ).save()
+        ret['stillId'] = still.id
 
     return HttpResponse(json.dumps(ret), content_type='application/json')

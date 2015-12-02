@@ -7,7 +7,18 @@
         doc = $(document),
         stillButton,
         modalVideo,
-        currentVideoId,
+        currentVideoTime,
+        syncStateToUrl = function () {
+            var currentUrl = window.URI(window.location.href);
+            currentUrl.removeSearch('video').removeSearch('t');
+            if (window.currentVideoId) {
+                currentUrl.addSearch('video', window.currentVideoId);
+                if (currentVideoTime) {
+                    currentUrl.addSearch('t', currentVideoTime);
+                }
+            }
+            window.history.replaceState(null, window.title, currentUrl);
+        },
         onPause = function () {
             stillButton.addClass('enabled').removeClass('disabled');
         },
@@ -20,7 +31,7 @@
                     url: '/video-still/',
                     method: 'POST',
                     data: {
-                        video: currentVideoId,
+                        video: window.currentVideoId,
                         timestamp: parseInt(modalVideo.get(0).currentTime * 1000, 10),
                         album: albumId,
                         csrfmiddlewaretoken: docCookies.getItem('csrftoken')
@@ -30,6 +41,10 @@
                     }
                 });
             }
+        },
+        onTimeupdate = function () {
+            currentVideoTime = parseInt(modalVideo.get(0).currentTime, 10);
+            syncStateToUrl();
         };
     doc.on('click', '#ajapaik-video-modal-close-button', function (e) {
         e.preventDefault();
@@ -42,10 +57,14 @@
         window.loadVideo($(this).data('id'), $(this).data('slug'));
     });
     doc.on('click', '#ajapaik-video-modal-anonymous-icon', function () {
-        $('#ajapaik-header-profile-button').click();
+        $('#ajapaik-anonymous-login-modal').modal();
+    });
+    videoModal.on('hidden.bs.modal', function () {
+        window.currentVideoId = null;
+        window.currentVideoTime = null;
     });
     window.loadVideo = function (id, slug) {
-        currentVideoId = id;
+        window.currentVideoId = id;
         $.ajax({
             cache: false,
             url: '/video/' + id + '/' + slug + '/',
@@ -55,8 +74,16 @@
                 modalVideo = videoModal.find('#ajapaik-modal-video');
                 modalVideo.on('pause', onPause);
                 modalVideo.on('play', onPlay);
+                modalVideo.on('timeupdate', onTimeupdate);
                 stillButton = videoModal.find('#ajapaik-video-modal-still-button');
                 stillButton.on('click', onStill);
+                modalVideo.on('loadedmetadata', function () {
+                    if (window.currentVideoTimeTarget) {
+                        modalVideo.get(0).currentTime = window.currentVideoTimeTarget;
+                        window.currentVideoTimeTarget = null;
+                    }
+                });
+                syncStateToUrl();
             }
         });
     };

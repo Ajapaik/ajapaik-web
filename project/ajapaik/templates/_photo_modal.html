@@ -154,7 +154,7 @@
                                     <div class="col-xs-1">
                                         <i class="material-icons ajapaik-photo-modal-album-icon"
                                            title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
-                                                photo_album
+                                                {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}
                                         </i>
                                     </div>
                                 {% endif %}

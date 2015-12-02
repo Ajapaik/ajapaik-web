@@ -37,4 +37,5 @@
     gettext('Show pictures on map');
     gettext('Geotag pictures in album');
     gettext('Unknown author');
+    gettext('This album contains a film');
 }());

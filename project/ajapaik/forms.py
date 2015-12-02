@@ -44,7 +44,7 @@ class GalleryFilteringForm(forms.Form):
     photos = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time', required=False)
-    order2 = forms.ChoiceField(choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'), ('likes', 'likes'), ('added', 'added'), ('datings', 'datings')], initial='added', required=False)
+    order2 = forms.ChoiceField(choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'), ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')], initial='added', required=False)
     order3 = forms.ChoiceField(choices=[('reverse', 'reverse'),], initial=None, required=False)
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
@@ -288,37 +288,6 @@ class AlbumInfoModalForm(forms.Form):
     fbShareGame = forms.BooleanField(required=False)
     fbShareMap = forms.BooleanField(required=False)
     fbShareGallery = forms.BooleanField(required=False)
-
-
-class DelfiBboxRequestForm(forms.Form):
-    bbox = forms.CharField()
-
-    def clean(self):
-        cleaned_data = super(DelfiBboxRequestForm, self).clean()
-        bbox_str = cleaned_data.get('bbox')
-        bbox_parts = bbox_str.split(',')
-        if len(bbox_parts) != 4:
-            raise forms.ValidationError(_('Bounding box must have 4 comma-separated members'))
-        else:
-            try:
-                bbox_parts = [float(x) for x in bbox_parts]
-            except:
-                raise forms.ValidationError(_('Bounding box values must be numbers'))
-            our_ref = SpatialReference(4326)
-            delfi_ref = SpatialReference(3301)
-            trans = CoordTransform(delfi_ref, our_ref)
-            top_left = Point(y=bbox_parts[1], x=bbox_parts[0], srid=3301)
-            bottom_right = Point(y=bbox_parts[3], x=bbox_parts[2], srid=3301)
-            top_left.transform(trans)
-            bottom_right.transform(trans)
-            cleaned_data['top_left'] = top_left
-            cleaned_data['bottom_right'] = bottom_right
-
-        return cleaned_data
-
-
-class DelfiPhotoInfoRequestForm(forms.Form):
-    id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
 
 
 class DatingSubmitForm(forms.ModelForm):

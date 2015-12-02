@@ -138,6 +138,7 @@ class Album(Model):
     rephoto_count_with_subalbums = IntegerField(default=0)
     geotagged_photo_count_with_subalbums = IntegerField(default=0)
     comments_count_with_subalbums = IntegerField(default=0)
+    is_film_still_album = BooleanField(default=False)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -671,7 +672,7 @@ class FlipFeedback(Model):
 
 
 class Points(Model):
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION = range(7)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL = range(8)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -679,7 +680,8 @@ class Points(Model):
         (PHOTO_CURATION, _('Photo curation')),
         (PHOTO_RECURATION, _('Photo re-curation')),
         (DATING, _('Dating')),
-        (DATING_CONFIRMATION, _('Dating confirmation'))
+        (DATING_CONFIRMATION, _('Dating confirmation')),
+        (FILM_STILL, _('Film still'))
     )
 
     user = ForeignKey('Profile', related_name='points')

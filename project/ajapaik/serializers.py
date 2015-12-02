@@ -30,7 +30,7 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
         model = Album
         fields = ('id', 'name', 'cover_photo_height', 'cover_photo_width', 'cover_photo_flipped',
                   'photo_count_with_subalbums', 'cover_photo', 'geotagged_photo_count_with_subalbums',
-                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums')
+                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums', 'is_film_still_album')
 
 
 class DatingSerializer(serializers.ModelSerializer):

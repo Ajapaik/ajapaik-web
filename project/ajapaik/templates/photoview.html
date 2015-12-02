@@ -129,7 +129,7 @@
                                     {% if forloop.first %}
                                         <div class="col-xs-1">
                                             <i class="material-icons ajapaik-photo-modal-album-icon"
-                                               title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">photo_album</i>
+                                               title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">{% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
                                         </div>
                                     {% endif %}
                                     {% if forloop.first %}<div class="col-xs-11">{% else %}<div class="col-xs-offset-1 col-xs-11">{% endif %}

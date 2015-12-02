@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 15:39+0200\n"
-"PO-Revision-Date: 2015-11-26 13:40+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2015-12-02 14:28+0200\n"
+"PO-Revision-Date: 2015-12-02 12:46+0000\n"
+"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -335,91 +335,103 @@ msgstr "Märgi albumi pilte kaardile"
 msgid "Unknown author"
 msgstr "Teadmata autor"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:107
+#: project/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+msgid "This album contains a film"
+msgstr "See filmi album"
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Earliest"
 msgstr "Esimesena"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:109
+#: project/ajapaik/static/js/ajapaik-frontpage.js:110
 msgid "Latest"
 msgstr "Viimasena"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:114
+#: project/ajapaik/static/js/ajapaik-frontpage.js:115
 msgid "Least"
 msgstr "Vähim"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:116
+#: project/ajapaik/static/js/ajapaik-frontpage.js:117
 msgid "Most"
 msgstr "Enim"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:121
+#: project/ajapaik/static/js/ajapaik-frontpage.js:122
 msgid "Pictures furthest from you"
 msgstr "Sinust kaugemaid pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:123
+#: project/ajapaik/static/js/ajapaik-frontpage.js:124
 msgid "Pictures closest to you"
 msgstr "Sulle lähimad pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:128
+#: project/ajapaik/static/js/ajapaik-frontpage.js:129
 msgid "commented"
 msgstr "kommenteeritud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:131
+#: project/ajapaik/static/js/ajapaik-frontpage.js:132
 msgid "rephotographed"
 msgstr "üle pildistatud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:134
+#: project/ajapaik/static/js/ajapaik-frontpage.js:135
 msgid "added"
 msgstr "lisatud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:137
+#: project/ajapaik/static/js/ajapaik-frontpage.js:138
 msgid "geotagged"
 msgstr "kaardile märgitud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:140
+#: project/ajapaik/static/js/ajapaik-frontpage.js:141
 msgid "liked"
 msgstr "lemmikuks märgitud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:143
+#: project/ajapaik/static/js/ajapaik-frontpage.js:144
 msgid "dated"
 msgstr "dateeritud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:146
+#: project/ajapaik/static/js/ajapaik-frontpage.js:147
 msgid "viewed"
 msgstr "vaadatud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:149
+#: project/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "pictures"
 msgstr "pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:152
+#: project/ajapaik/static/js/ajapaik-frontpage.js:156
+msgid "By reverse timestamp"
+msgstr "Tagurpidi ajakoodi järgi"
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:158
+msgid "By timestamp"
+msgstr "Ajakoodi järgi"
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:162
 msgid "Pictures from the map"
 msgstr "Kaardiakna pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:247
+#: project/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "Picture set has no rephotos"
 msgstr "Pildivalimis ei ole refotosi"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:254
+#: project/ajapaik/static/js/ajapaik-frontpage.js:264
 msgid "Picture set has no comments"
 msgstr "Pildivalimis ei ole kommentaare"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:284
+#: project/ajapaik/static/js/ajapaik-frontpage.js:302
 msgid "Albums"
 msgstr "Albumid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:290
+#: project/ajapaik/static/js/ajapaik-frontpage.js:308
 msgid "My favorites"
 msgstr "Minu lemmikud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:295
+#: project/ajapaik/static/js/ajapaik-frontpage.js:313
 msgid "My rephotos"
 msgstr "Minu refotod"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:297
+#: project/ajapaik/static/js/ajapaik-frontpage.js:315
 msgid "Rephotos by %(user)s"
 msgstr "%(user)s refotod"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:303
+#: project/ajapaik/static/js/ajapaik-frontpage.js:321
 msgid "All photos"
 msgstr "Kõik fotod"
 
@@ -528,7 +540,7 @@ msgid ""
 "picture, click save when ready."
 msgstr "Nihuta kaarti nii, et marker jääks pildil kujutatud objekti peale, seejärel salvesta."
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1087
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1088
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
