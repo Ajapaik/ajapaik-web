@@ -23,22 +23,23 @@
     <div id="ajp-geotagging-container"></div>
     <div class="modal fade" id="ajapaik-video-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
-    <div class="modal fade" id="ajapaik-anonymous-login-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
-    <div class="modal-dialog">
-        <div class="modal-content ajapaik-zero-border-radius">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4>{% trans "Authentication" %}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="facebook-connect">
-                    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+    <div class="modal fade" id="ajapaik-anonymous-login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content ajapaik-zero-border-radius">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>{% trans "Authentication" %}</h4>
                 </div>
-                <div>&nbsp;</div>
-                <div class="google-plus-connect">
-                    <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
+                <div class="modal-body">
+                    <div class="facebook-connect">
+                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                    </div>
+                    <div>&nbsp;</div>
+                    <div class="google-plus-connect">
+                        <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
+                    </div>
                 </div>
             </div>
         </div>
