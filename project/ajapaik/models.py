@@ -1172,7 +1172,7 @@ class TourRephoto(Model):
 class Video(Model):
     name = CharField(max_length=255)
     slug = SlugField(null=True, blank=True, max_length=255, unique=True)
-    file = FileField(upload_to='videos')
+    file = FileField(upload_to='videos', blank=True, null=True)
     width = IntegerField()
     height = IntegerField()
     author = CharField(max_length=255, blank=True, null=True)
