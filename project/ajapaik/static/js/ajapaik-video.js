@@ -97,7 +97,7 @@
         });
         videoviewVideo.on('loadedmetadata', function () {
             if (window.getQueryParameterByName('t')) {
-                videoviewVideo.get(0).currentTime = window.getQueryParameterByName('t');
+                videoviewVideo.get(0).currentTime = parseInt(window.getQueryParameterByName('t'), 10);
             }
         });
     }
