@@ -95,9 +95,11 @@
                 });
             }
         });
-        if (window.getQueryParameterByName('t')) {
-            videoviewVideo.get(0).currentTime = window.getQueryParameterByName('t');
-        }
+        videoviewVideo.on('loadedmetadata', function () {
+            if (window.getQueryParameterByName('t')) {
+                videoviewVideo.get(0).currentTime = window.getQueryParameterByName('t');
+            }
+        });
     }
     window.loadVideo = function (id, slug) {
         window.currentVideoId = id;
