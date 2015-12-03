@@ -869,9 +869,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                         order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
             elif order2 == 'stills':
                 if order3 == 'reverse':
-                    photos = photos.order_by('video_timestamp')
-                else:
                     photos = photos.order_by('-video_timestamp')
+                else:
+                    photos = photos.order_by('video_timestamp')
             elif order2 == 'added':
                 if order3 == 'reverse':
                     photos = photos.order_by('created')
@@ -2408,6 +2408,8 @@ def generate_still_from_video(request):
                     points=50,
                     created=still.created
                 ).save()
+                a.set_calculated_fields()
+                a.save()
         ret['stillId'] = still.id
 
     return HttpResponse(json.dumps(ret), content_type='application/json')

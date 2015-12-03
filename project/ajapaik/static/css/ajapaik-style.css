@@ -2704,8 +2704,3 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #ajapaik-photoview-add-rephoto-button {
     margin-left: 10px;
 }
-
-#ajapaik-modal-video {
-    width: 100%;
-    height: 100%;
-}

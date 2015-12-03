@@ -4,8 +4,10 @@
     /*global albumId*/
     /*global loadPhoto*/
     var videoModal = $('#ajapaik-video-modal'),
+        videoviewVideo = $('#ajapaik-videoview-video'),
         doc = $(document),
         stillButton,
+        videoviewStillButton = $('#ajapaik-video-modal-still-button'),
         modalVideo,
         currentVideoTime,
         syncStateToUrl = function () {
@@ -38,6 +40,7 @@
                     },
                     success: function (response) {
                         loadPhoto(response.stillId);
+                        window.updateFrontpagePhotosAsync();
                     }
                 });
             }
@@ -57,12 +60,45 @@
         window.loadVideo($(this).data('id'), $(this).data('slug'));
     });
     doc.on('click', '#ajapaik-video-modal-anonymous-icon', function () {
+        modalVideo.get(0).pause();
         $('#ajapaik-anonymous-login-modal').modal();
     });
     videoModal.on('hidden.bs.modal', function () {
         window.currentVideoId = null;
         window.currentVideoTime = null;
     });
+    if (videoviewVideo.length > 0) {
+        videoviewVideo.on('pause', function () {
+             videoviewStillButton.addClass('enabled').removeClass('disabled');
+        });
+        videoviewVideo.on('play', function () {
+             videoviewStillButton.addClass('disabled').removeClass('enabled');
+        });
+        videoviewVideo.on('timeupdate', function () {
+            currentVideoTime = parseInt(videoviewVideo.get(0).currentTime, 10);
+            syncStateToUrl();
+        });
+        videoviewStillButton.click(function () {
+            if (!$(this).hasClass('disabled')) {
+                $.ajax({
+                    url: '/video-still/',
+                    method: 'POST',
+                    data: {
+                        video: window.currentVideoId,
+                        timestamp: parseInt(videoviewVideo.get(0).currentTime * 1000, 10),
+                        album: albumId,
+                        csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                    },
+                    success: function (response) {
+                        window.location.href = '/photo/' + response.stillId + '/';
+                    }
+                });
+            }
+        });
+        if (window.getQueryParameterByName('t')) {
+            videoviewVideo.get(0).currentTime = window.getQueryParameterByName('t');
+        }
+    }
     window.loadVideo = function (id, slug) {
         window.currentVideoId = id;
         $.ajax({

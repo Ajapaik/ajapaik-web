@@ -1176,6 +1176,7 @@ class Video(Model):
     width = IntegerField()
     height = IntegerField()
     author = CharField(max_length=255, blank=True, null=True)
+    date = DateField(blank=True, null=True)
     source = ForeignKey('Source', blank=True, null=True)
     source_key = CharField(max_length=255, blank=True, null=True)
     source_url = URLField(blank=True, null=True)

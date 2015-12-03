@@ -74,12 +74,14 @@ var map,
 (function ($) {
     'use strict';
     albumSelectionDiv = $('#ajapaik-album-selection-menu');
-    albumSelectionDiv.justifiedGallery({
-        rowHeight: 270,
-        margins: 5,
-        captions: false,
-        waitThumbnailsLoad: false
-    });
+    if (albumSelectionDiv.length > 0) {
+        albumSelectionDiv.justifiedGallery({
+            rowHeight: 270,
+            margins: 5,
+            captions: false,
+            waitThumbnailsLoad: false
+        });
+    }
 
     function getDatingRangeVals() {
         var parent = this.parentNode;

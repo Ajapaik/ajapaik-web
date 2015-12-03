@@ -19,7 +19,17 @@
                 </div>
             {% endif %}
             <div class="row">
-                <button id="ajapaik-video-modal-still-button" class="btn disabled pull-left"><i class="material-icons notranslate">camera</i></button>
+                <div class="col-xs-9" id="ajapaik-video-modal-info-column">
+                    {% if video.author %}<div class="row-fluid"><b>{{ video.author }}</b></div>{% endif %}
+                    <div class="row-fluid">{{ video.name }}</div>
+                    {% if video.date %}<div class="row-fluid">{{ video.date|date:"Y" }}</div>{% endif %}
+                    {% if video.source and video.source_key and video.source_url %}
+                        <a href="{{ video.source_url }}" title="{{ video.source.description }}" class="pull-left">{{ video.source.description }} {{ video.source_key }}</a>
+                    {% endif %}
+                </div>
+                <div class="col-xs-3">
+                    <button id="ajapaik-video-modal-still-button" class="btn disabled pull-right"><i class="material-icons notranslate">camera</i></button>
+                </div>
             </div>
         </div>
     </div>

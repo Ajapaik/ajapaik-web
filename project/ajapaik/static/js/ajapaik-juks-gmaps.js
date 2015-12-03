@@ -209,6 +209,10 @@ function VanalinnadGooglemApi() {
 
         return false;
     };
+    //this.updateURLParams = function () {
+    //    var currentUrl = window.URI(window.location.href);
+    //    currentUrl.removeSearch('old-maps-city').removeSearch('old-maps-year');
+    //};
     this.getXmlValue = function (xmlDocument, tagname) {
         var index = (arguments.length > 2 ) ? arguments[2] : 0,
             tags = xmlDocument.getElementsByTagName(tagname);
