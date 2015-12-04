@@ -239,6 +239,7 @@ class Photo(Model):
     image = ImageField(upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
                        width_field='width')
     image_unscaled = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
+    image_no_watermark = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)
     flip = NullBooleanField()
@@ -1197,3 +1198,7 @@ class Video(Model):
 
     def __unicode__(self):
         return '%s' % (self.name,)
+
+    @permalink
+    def get_absolute_url(self):
+        return 'project.ajapaik.views.videoslug', [self.id, self.slug]

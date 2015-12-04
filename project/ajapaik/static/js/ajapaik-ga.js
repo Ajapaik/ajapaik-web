@@ -103,4 +103,25 @@
             _gaq.push(['_trackEvent', 'geotagger', 'old-maps-change-city', city, 0, false]);
         }
     };
+    window.reportModalVideoStillClick = function () {
+        _gaq.push(['_trackEvent', 'video-modal', 'still', null, 100, false]);
+    };
+    window.reportVideoviewVideoStillClick = function () {
+        _gaq.push(['_trackEvent', 'video-permalink', 'still', null, 100, false]);
+    };
+    window.reportVideoModalAnonymousLoginStart = function () {
+        _gaq.push(['_trackEvent', 'video-modal', 'anonymous-login-start', null, 0, false]);
+    };
+    window.reportVideoModalOpen = function (id) {
+        _gaq.push(['_trackEvent', 'video-modal', 'modal-open', id.toString(), 0, false]);
+    };
+    window.reportVideoModalSourceLinkClick = function (id) {
+        _gaq.push(['_trackEvent', 'video-modal', 'source-click', id.toString(), 0, false]);
+    };
+    window.reportVideoviewSourceLinkClick = function (id) {
+        _gaq.push(['_trackEvent', 'video-permalink', 'source-click', id.toString(), 0, false]);
+    };
+    window.reportVideoviewAlbumLinkClick = function () {
+        _gaq.push(['_trackEvent', 'video-permalink', 'album-link', null, 0, false]);
+    };
 }());

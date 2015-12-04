@@ -1,13 +1,23 @@
 from django.contrib.sitemaps import Sitemap
-from project.ajapaik.models import Photo
+from project.ajapaik.models import Photo, Video
 from django.core.urlresolvers import reverse
 
 
 class PhotoSitemap(Sitemap):
-    priority = 0.75
+    priority = 1
 
     def items(self):
         return Photo.objects.all()
+
+    def lastmod(self, obj):
+        return obj.modified
+
+
+class VideoSitemap(Sitemap):
+    priority = 1
+
+    def items(self):
+        return Video.objects.all()
 
     def lastmod(self, obj):
         return obj.modified

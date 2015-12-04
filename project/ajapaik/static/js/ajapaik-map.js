@@ -6,6 +6,7 @@
     /*global _gaq*/
     /*global $*/
     /*global google*/
+    /*global commonVgmapi*/
     var photoId,
         currentMapBounds,
         limitByAlbum,
@@ -211,11 +212,17 @@
         if (window.albumId) {
             historyReplacementString += '?album=' + window.albumId;
         }
-        historyReplacementString += '&mapType=' + window.map.getMapTypeId();
+
         if (window.map) {
+            var typeId = window.map.getMapTypeId();
+            historyReplacementString += '&mapType=' + typeId;
             historyReplacementString += '&lat=' + window.map.getCenter().lat();
             historyReplacementString += '&lng=' + window.map.getCenter().lng();
             historyReplacementString += '&zoom=' + window.map.zoom;
+            if (typeId === 'old-maps') {
+                historyReplacementString += '&old-maps-city=' + commonVgmapi.vars.site;
+                historyReplacementString += '&old-maps-index=' + commonVgmapi.vars.layerIndex;
+            }
         }
         if (photoDrawerOpen || window.guessLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
@@ -357,7 +364,9 @@
             //        payload.ending = momentObj.format('YYYY-MM-DD');
             //    }
             //}
+            $('#ajapaik-loading-overlay').show();
             currentMapDataRequest = $.post(window.mapDataURL, payload, function (response) {
+                $('#ajapaik-loading-overlay').hide();
                 if (mc) {
                     mc.clearMarkers();
                 }

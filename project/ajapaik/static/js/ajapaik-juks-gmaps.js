@@ -1,4 +1,4 @@
-function VanalinnadGooglemApi() {
+function VanalinnadGooglemApi(city, isGeotagger) {
     'use strict';
     /*global google*/
     /*global gettext*/
@@ -11,6 +11,10 @@ function VanalinnadGooglemApi() {
         vanalinnadPrefix: '/vanalinnad.mooo.com/',
         vanalinnadTiles: '/vanalinnad.mooo.com/'
     };
+    if (city) {
+        this.vars.site = city;
+    }
+    this.isGeotagger = isGeotagger;
     this.vanalinnadCitiesMap = {
         'Haapsalu': 'Haapsalu',
         'Kuressaare': 'Kuressaare',
@@ -128,7 +132,12 @@ function VanalinnadGooglemApi() {
 
         that.yearSelection = vanalinnadYearSelection.get(0);
 
-        that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
+        if (that.isGeotagger) {
+            vanalinnadYearSelection.css('margin-right', '10px');
+            that.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(that.yearSelection);
+        } else {
+            that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
+        }
     };
     this.buildVanalinnadMapCityControl = function () {
         var vanalinnadCitySelection = $('<select class="ajapaik-map-vanalinnad-city-select"></select>');
@@ -155,7 +164,12 @@ function VanalinnadGooglemApi() {
         
         that.citySelection = vanalinnadCitySelection.get(0);
 
-        that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.citySelection);
+        if (that.isGeotagger) {
+            vanalinnadCitySelection.css('margin-right', '10px');
+            that.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(that.citySelection);
+        } else {
+            that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.citySelection);
+        }
     };
     this.refreshMap = function () {
         // Hack to make Google Maps refresh tiles
@@ -209,10 +223,6 @@ function VanalinnadGooglemApi() {
 
         return false;
     };
-    //this.updateURLParams = function () {
-    //    var currentUrl = window.URI(window.location.href);
-    //    currentUrl.removeSearch('old-maps-city').removeSearch('old-maps-year');
-    //};
     this.getXmlValue = function (xmlDocument, tagname) {
         var index = (arguments.length > 2 ) ? arguments[2] : 0,
             tags = xmlDocument.getElementsByTagName(tagname);

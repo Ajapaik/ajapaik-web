@@ -3,6 +3,7 @@ cryptography==1.0.1
 Django==1.7.10
 django-admin-tools==0.6.0
 django-appconf==1.0.1
+django-autocomplete-light==2.2.10
 django-autoslug==1.9.3
 django-bulk-update==1.1.4
 django-compressor==1.5

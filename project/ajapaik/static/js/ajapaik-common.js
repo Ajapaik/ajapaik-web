@@ -194,7 +194,13 @@ var map,
             maxZoom: 19
         }));
 
-        commonVgmapi = new VanalinnadGooglemApi();
+        var oldMapsCity = getQueryParameterByName('old-maps-city'),
+            oldMapsIdx = getQueryParameterByName('old-maps-index');
+        if (oldMapsCity) {
+            commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false);
+        } else {
+            commonVgmapi = new VanalinnadGooglemApi(null, false);
+        }
         commonVgmapi.map = map;
         var cityDataDoneCallback = function () {
             commonVgmapi.buildVanalinnadMapCityControl();
@@ -204,7 +210,11 @@ var map,
             } else {
                 commonVgmapi.hideControls();
             }
-            commonVgmapi.changeIndex(0);
+            if (!oldMapsIdx) {
+                commonVgmapi.changeIndex(0);
+            } else {
+                commonVgmapi.changeIndex(oldMapsIdx);
+            }
         };
         commonVgmapi.getCityData(cityDataDoneCallback);
         map.mapTypes.set('old-maps', commonVgmapi.juksMapType);

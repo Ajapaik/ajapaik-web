@@ -26,7 +26,7 @@
                     {% if video.date %}<div class="row">{{ video.date|date:"Y" }}</div>{% endif %}
                     {% if video.source and video.source_key and video.source_url %}
                         <div class="row">
-                            <a href="{{ video.source_url }}" title="{{ video.source.description }}" class="pull-left">{{ video.source.description }} {{ video.source_key }}</a>
+                            <a id="ajapaik-videoview-source-link" data-id="{{ video.id }}" target="_blank" href="{{ video.source_url }}" title="{{ video.source.description }}" class="pull-left">{{ video.source.description }} {{ video.source_key }}</a>
                         </div>
                     {% endif %}
                     {% for a in video.albums.all %}
@@ -36,11 +36,11 @@
                                     <i class="material-icons notranslate">movie</i>
                                 </div>
                                 <div class="col-xs-11">
-                                    <a href="{% url "project.ajapaik.views.frontpage" %}?album={{ a.id }}">{{ a.name }}</a>
+                                    <a class="ajapaik-videoview-album-link" href="{% url "project.ajapaik.views.frontpage" %}?album={{ a.id }}">{{ a.name }}</a>
                                 </div>
                             {% else %}
                                 <div class="col-xs-offset-1 col-xs-11">
-                                    <a href="{% url "project.ajapaik.views.frontpage" %}?album={{ a.id }}">{{ a.name }}</a>
+                                    <a class="ajapaik-videoview-album-link" href="{% url "project.ajapaik.views.frontpage" %}?album={{ a.id }}">{{ a.name }}</a>
                                 </div>
                             {% endif %}
                         </div>

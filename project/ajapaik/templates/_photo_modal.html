@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n ajapaik_templatetags %}
 
 <div class="modal-dialog modal-lg modal-xxl" id="mapview-photo-modal-dialog">
     <div class="modal-content">
@@ -113,7 +113,13 @@
                 {% endif %}
                 {% if photo.description %}
                     <div class="row-fluid" id="ajapaik-photo-modal-description">
-                        <div title="{{ photo.description }}">{{ photo.description }}</div>
+                        <div title="{{ photo.description }}">
+                            {% if photo.video %}
+                                <a href="{% url "project.ajapaik.views.frontpage" %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ photo.video_timestamp|div:1000 }}">{{ photo.description }}</a>
+                            {% else %}
+                                {{ photo.description }}
+                            {% endif %}
+                        </div>
                     </div>
                 {% endif %}
                 {% if photo.date %}

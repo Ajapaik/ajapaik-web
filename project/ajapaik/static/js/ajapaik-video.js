@@ -43,6 +43,9 @@
                         window.updateFrontpagePhotosAsync();
                     }
                 });
+                if (typeof window.reportModalVideoStillClick === 'function') {
+                    window.reportModalVideoStillClick();
+                }
             }
         },
         onTimeupdate = function () {
@@ -57,11 +60,23 @@
         e.preventDefault();
     });
     doc.on('click', '.ajapaik-frontpage-video', function () {
-        window.loadVideo($(this).data('id'), $(this).data('slug'));
+        var id = $(this).data('id');
+        window.loadVideo(id, $(this).data('slug'));
+        if (typeof window.reportVideoModalOpen === 'function') {
+            window.reportVideoModalOpen(id);
+        }
     });
     doc.on('click', '#ajapaik-video-modal-anonymous-icon', function () {
         modalVideo.get(0).pause();
         $('#ajapaik-anonymous-login-modal').modal();
+        if (typeof window.reportVideoModalAnonymousLoginStart === 'function') {
+            window.reportVideoModalAnonymousLoginStart();
+        }
+    });
+    doc.on('click', '#ajapaik-video-modal-source-link', function () {
+        if (typeof window.reportVideoModalSourceLinkClick === 'function') {
+            window.reportVideoModalSourceLinkClick($(this).data('id'));
+        }
     });
     videoModal.on('hidden.bs.modal', function () {
         window.currentVideoId = null;
@@ -94,10 +109,23 @@
                     }
                 });
             }
+            if (typeof window.reportVideoviewVideoStillClick === 'function') {
+                window.reportVideoviewVideoStillClick();
+            }
         });
         videoviewVideo.on('loadedmetadata', function () {
             if (window.getQueryParameterByName('t')) {
                 videoviewVideo.get(0).currentTime = parseInt(window.getQueryParameterByName('t'), 10);
+            }
+        });
+        $('#ajapaik-videoview-source-link').click(function () {
+            if (typeof window.reportVideoviewSourceLinkClick === 'function') {
+                window.reportVideoviewSourceLinkClick($(this).data('id'));
+            }
+        });
+        $('.ajapaik-videoview-album-link').click(function () {
+            if (typeof window.reportVideoviewAlbumLinkClick === 'function') {
+                window.reportVideoviewAlbumLinkClick();
             }
         });
     }

@@ -24,7 +24,7 @@
                     <div class="row-fluid">{{ video.name }}</div>
                     {% if video.date %}<div class="row-fluid">{{ video.date|date:"Y" }}</div>{% endif %}
                     {% if video.source and video.source_key and video.source_url %}
-                        <a href="{{ video.source_url }}" title="{{ video.source.description }}" class="pull-left">{{ video.source.description }} {{ video.source_key }}</a>
+                        <div class="row-fluid"><a id="ajapaik-video-modal-source-link" data-id="{{ video.id }}" target="_blank" href="{{ video.source_url }}" title="{{ video.source.description }}" class="pull-left">{{ video.source.description }} {{ video.source_key }}</a></div>
                     {% endif %}
                 </div>
                 <div class="col-xs-3">
@@ -34,3 +34,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        _gaq.push(['_trackPageview', '{{ video.get_absolute_url }}']);
+    });
+</script>

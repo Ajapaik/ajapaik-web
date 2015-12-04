@@ -1,5 +1,4 @@
 from django.template import Library, Node, resolve_variable
-
 from project.ajapaik import settings
 
 register = Library()
@@ -30,3 +29,14 @@ def add_get(parser, token):
 @register.simple_tag
 def settings_value(name):
     return getattr(settings, name, '')
+
+
+@register.filter
+def div(value, arg):
+    try:
+        value = int(value)
+        arg = int(arg)
+        if arg: return value / arg
+    except:
+        pass
+    return ''

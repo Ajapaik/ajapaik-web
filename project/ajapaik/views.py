@@ -1729,6 +1729,7 @@ def curator_search(request):
     filter_existing = request.POST.get("filterExisting") or None
     use_muis = request.POST.get("useMUIS") or None
     use_digar = request.POST.get("useDIGAR") or None
+    use_etera = request.POST.get("useETERA") or None
     # FIXME: Ugly
     filter_existing = filter_existing == 'true'
     use_muis = use_muis == 'true'
@@ -1736,15 +1737,22 @@ def curator_search(request):
     response = None
     if ids is not None:
         response = _curator_get_records_by_ids(ids)
-    if full_search is not None and (use_digar or use_muis):
+    if full_search is not None and (use_digar or use_muis or use_etera):
         full_search = full_search.encode('utf-8')
+        institution_string = ''
         if use_muis and use_digar:
             institution_string = '"MUSEUM","LIBRARY",null'
         elif use_muis:
             institution_string = '"MUSEUM",null,null'
         elif use_digar:
             institution_string = 'null,"LIBRARY",null'
-        request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":""},"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200,"digital":true}],"id":0}' % (full_search, institution_string)
+        if use_etera:
+            etera_string = 'ETERA'
+            #requests.get('http://www.etera.ee/api/item/386/pages', headers={'Authorization': 'Bearer vmt6o23sgq15mltlm462lhaoc1'})
+            institution_string = 'null,null,null'
+        else:
+            etera_string = ''
+        request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":"%s"},"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200,"digital":true}],"id":0}' % (full_search, etera_string, institution_string)
         response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
         response.encoding = 'utf-8'
 
@@ -1770,6 +1778,7 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
             else:
                 data = result
             check_dict = {}
+            etera_second_image_remove_dict = {}
             # FIXME: The function should actually not contain Digar specific code, out of scope
             for each in data:
                 if each['collections'] == 'DIGAR':
@@ -1790,12 +1799,22 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
                 else:
                     each['ajapaikId'] = False
                     check_dict[each['id']] = True
+                if each['institution'] == 'ETERA' and each['mediaOrder'] == 1:
+                    each['isETERASecondImage'] = True
+                    etera_second_image_remove_dict[each['id']] = True
+                else:
+                    each['isETERASecondImage'] = False
 
             if remove_existing:
                 data = [x for x in data if not x['ajapaikId']]
                 if 'firstRecordViews' in result:
                     full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
                                                            if x not in check_dict or check_dict[x]]
+
+            data = [x for x in data if not x['isETERASecondImage']]
+            if 'firstRecordViews' in result:
+                full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
+                                                       if x not in etera_second_image_remove_dict or not etera_second_image_remove_dict[x]]
 
             data = sorted(data, key=lambda k: k['id'])
 
