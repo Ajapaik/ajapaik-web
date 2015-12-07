@@ -78,6 +78,9 @@
             window.reportVideoModalSourceLinkClick($(this).data('id'));
         }
     });
+    doc.on('click', '#ajapaik-video-modal-speed-buttons button', function () {
+        modalVideo.playbackRate = $(this).data('speed');
+    });
     videoModal.on('hidden.bs.modal', function () {
         window.currentVideoId = null;
         window.currentVideoTime = null;

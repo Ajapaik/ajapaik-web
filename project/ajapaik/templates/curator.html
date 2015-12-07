@@ -367,6 +367,13 @@
                     }
                 });
             });
+            $('#ajapaik-curator-search-use-etera').change(function () {
+                var $this = $(this);
+                if ($this.is(':checked')) {
+                    $('#ajapaik-curator-search-use-digar').prop('checked', false);
+                    $('#ajapaik-curator-search-use-muis').prop('checked', false);
+                }
+            });
             $(document).on('click', '#ajapaik-curator-search-button', function () {
                 $('#ajapaik-loading-overlay').show();
                 $('.ajapaik-curator-feedback-alert').hide();
@@ -692,6 +699,7 @@
                             areaName: $('#ajapaik-curator-add-area-name-hidden').val(),
                             areaLat: areaLat,
                             areaLng: areaLng,
+                            eteraToken: ETERASession,
                             csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                         },
                         success: function (response) {

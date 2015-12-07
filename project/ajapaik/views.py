@@ -1734,6 +1734,7 @@ def curator_search(request):
     filter_existing = filter_existing == 'true'
     use_muis = use_muis == 'true'
     use_digar = use_digar == 'true'
+    use_etera = use_etera == 'true'
     response = None
     if ids is not None:
         response = _curator_get_records_by_ids(ids)
@@ -1748,7 +1749,6 @@ def curator_search(request):
             institution_string = 'null,"LIBRARY",null'
         if use_etera:
             etera_string = 'ETERA'
-            #requests.get('http://www.etera.ee/api/item/386/pages', headers={'Authorization': 'Bearer vmt6o23sgq15mltlm462lhaoc1'})
             institution_string = 'null,null,null'
         else:
             etera_string = ''
@@ -1792,6 +1792,8 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
                     existing_photo = Photo.objects.filter(source__description='Rahvusraamatukogu',
                                                           external_id=current_id).first()
                 else:
+                    if each['institution'] == 'ETERA':
+                        each['identifyingNumber'] = each['id']
                     existing_photo = Photo.objects.filter(external_id=each['id'].split('_')[0]).first()
                 if existing_photo:
                     each['ajapaikId'] = existing_photo.pk
@@ -1911,6 +1913,7 @@ def curator_photo_upload_handler(request):
     area_name = request.POST.get("areaName")
     area_lat = request.POST.get("areaLat")
     area_lon = request.POST.get("areaLng")
+    etera_token = request.POST.get("eteraToken")
     area = Area.objects.filter(name=area_name).first()
     if not area:
         if area_name and area_lat and area_lon:
@@ -1941,6 +1944,8 @@ def curator_photo_upload_handler(request):
                 if parsed_selection[k]["collections"] == 'DIGAR' and (sk == 'imageUrl' or sk == 'identifyingNumber'
                                                                       or sk == 'urlToRecord' or sk == 'institution'
                                                                       or sk == 'description'):
+                    continue
+                elif parsed_selection[k]['institution'] == 'ETERA' and sk == 'identifyingNumber':
                     continue
                 else:
                     parsed_selection[k][sk] = sv
@@ -2052,9 +2057,17 @@ def curator_photo_upload_handler(request):
                                 new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
                             else:
                                 opener = urllib2.build_opener()
-                                opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                                headers = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                                if etera_token:
+                                    headers.append(("Authorization", "Bearer " + etera_token))
+                                opener.addheaders = headers
                                 img_response = opener.open(upload_form.cleaned_data["imageUrl"])
-                                new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
+                                if new_photo.source.description == 'ETERA':
+                                    img = ContentFile(img_response.read())
+                                    new_photo.image_no_watermark.save("etera.jpg", img)
+                                    new_photo.watermark()
+                                else:
+                                    new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
                             if new_photo.invert:
                                 photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
                                 img = Image.open(photo_path)

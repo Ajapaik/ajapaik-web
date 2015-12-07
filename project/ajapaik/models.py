@@ -1,9 +1,14 @@
+import os
 from time import sleep
 from urllib2 import urlopen
 from contextlib import closing
 from ujson import loads
 from math import degrees
 from datetime import datetime
+
+import StringIO
+from PIL import Image, ImageEnhance
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
@@ -31,8 +36,7 @@ from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 from django.utils.translation import ugettext as _
 from bulk_update.manager import BulkUpdateManager
-from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG
-
+from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG, STATIC_ROOT
 from project.utils import average_angle
 from project.utils import angle_diff
 
@@ -174,6 +178,8 @@ class Album(Model):
         self.original_lat = self.lat
         self.original_lon = self.lon
         super(Album, self).save(*args, **kwargs)
+        if self.subalbum_of:
+            self.subalbum_of.save()
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Album).update_object(self)
 
@@ -420,6 +426,29 @@ class Photo(Model):
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
         return reverse('foto', args=(self.pk,))
+
+    def watermark(self):
+        padding = 20
+        img = Image.open(self.image_no_watermark)
+        img = img.convert('RGBA')
+        mark = Image.open(os.path.join(STATIC_ROOT, 'images/TLUAR_watermark.png'))
+        img_w_p = img.size[0] - padding
+        if img_w_p < mark.size[0]:
+            ratio = float(img_w_p) / mark.size[0]
+            w = int(mark.size[0] * ratio)
+            h = int(mark.size[1] * ratio)
+            mark = mark.resize((w, h))
+        alpha = mark.split()[3]
+        alpha = ImageEnhance.Brightness(alpha).enhance(0.3)
+        mark.putalpha(alpha)
+        layer = Image.new('RGBA', img.size, (0,0,0,0))
+        position = (padding, img.size[1] - mark.size[1] - padding,)
+        layer.paste(mark, position)
+        img = Image.composite(layer, img, layer)
+        tempfile_io = StringIO.StringIO()
+        img.save(tempfile_io, format='JPEG')
+        image_file = InMemoryUploadedFile(tempfile_io, None, 'watermarked.jpg', 'image/jpeg', tempfile_io.len, None)
+        self.image.save('watermarked.jpg', image_file)
 
     @permalink
     def get_absolute_url(self):
