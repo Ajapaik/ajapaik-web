@@ -5,6 +5,7 @@
     /*global loadPhoto*/
     var videoModal = $('#ajapaik-video-modal'),
         videoviewVideo = $('#ajapaik-videoview-video'),
+        videoviewSpeedButtons = $('#ajapaik-videoview-speed-buttons').find('button'),
         doc = $(document),
         stillButton,
         videoviewStillButton = $('#ajapaik-video-modal-still-button'),
@@ -81,8 +82,11 @@
     doc.on('click', '#ajapaik-video-modal-speed-buttons button', function () {
         modalVideo.get(0).playbackRate = $(this).data('speed');
     });
-    $('#ajapaik-videoview-speed-buttons button').click(function () {
-        videoviewVideo.get(0).playbackRate = $(this).data('speed');
+    videoviewSpeedButtons.click(function () {
+        var $this = $(this);
+        videoviewSpeedButtons.removeClass('active');
+        $this.addClass('active');
+        videoviewVideo.get(0).playbackRate = $this.data('speed');
     });
     videoModal.on('hidden.bs.modal', function () {
         window.currentVideoId = null;

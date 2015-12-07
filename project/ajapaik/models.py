@@ -428,21 +428,21 @@ class Photo(Model):
         return reverse('foto', args=(self.pk,))
 
     def watermark(self):
+        # For ETERA
         padding = 20
         img = Image.open(self.image_no_watermark)
         img = img.convert('RGBA')
         mark = Image.open(os.path.join(STATIC_ROOT, 'images/TLUAR_watermark.png'))
-        img_w_p = img.size[0] - padding
-        if img_w_p < mark.size[0]:
-            ratio = float(img_w_p) / mark.size[0]
-            w = int(mark.size[0] * ratio)
-            h = int(mark.size[1] * ratio)
-            mark = mark.resize((w, h))
+        longest_side = max(img.size[0], img.size[1])
+        coeff = float(longest_side) / 1250.00
+        w = int(mark.size[0] * coeff)
+        h = int(mark.size[1] * coeff)
+        mark = mark.resize((w, h))
         alpha = mark.split()[3]
-        alpha = ImageEnhance.Brightness(alpha).enhance(0.3)
+        alpha = ImageEnhance.Brightness(alpha).enhance(0.5)
         mark.putalpha(alpha)
         layer = Image.new('RGBA', img.size, (0,0,0,0))
-        position = (padding, img.size[1] - mark.size[1] - padding,)
+        position = (padding, img.size[1] - mark.size[1] - 2 * padding)
         layer.paste(mark, position)
         img = Image.composite(layer, img, layer)
         tempfile_io = StringIO.StringIO()
