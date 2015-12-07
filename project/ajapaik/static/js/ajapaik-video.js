@@ -79,7 +79,7 @@
         }
     });
     doc.on('click', '#ajapaik-video-modal-speed-buttons button', function () {
-        modalVideo.playbackRate = $(this).data('speed');
+        modalVideo.get(0).playbackRate = $(this).data('speed');
     });
     videoModal.on('hidden.bs.modal', function () {
         window.currentVideoId = null;
