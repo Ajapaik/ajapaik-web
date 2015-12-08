@@ -94,6 +94,7 @@
     videoModal.on('hidden.bs.modal', function () {
         window.currentVideoId = null;
         window.currentVideoTime = null;
+        modalVideo.prop('src', '');
     });
     if (videoviewVideo.length > 0) {
         videoviewVideo.on('pause', function () {
