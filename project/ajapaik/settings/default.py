@@ -18,6 +18,8 @@ FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE = 50
 DATING_POINTS = 150
 DATING_CONFIRMATION_POINTS = 50
 
+CURATOR_FLICKR_ENABLED = False
+
 AJAPAIK_FACEBOOK_LINK = 'http://www.facebook.com/ajapaik'
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))

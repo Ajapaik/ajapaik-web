@@ -46,7 +46,8 @@ from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
     Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
-from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS, DATING_CONFIRMATION_POINTS
+from project.ajapaik.settings import FACEBOOK_APP_SECRET, MEDIA_URL, DATING_POINTS, DATING_CONFIRMATION_POINTS, \
+    CURATOR_FLICKR_ENABLED
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
@@ -1709,6 +1710,7 @@ def curator(request):
         "hostname": "http://%s" % (site.domain, ),
         "leaderboard": curator_leaderboard,
         "is_curator": True,
+        "CURATOR_FLICKR_ENABLED": CURATOR_FLICKR_ENABLED,
         "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
     }))
 

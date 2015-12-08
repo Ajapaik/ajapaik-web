@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 17:49+0200\n"
+"POT-Creation-Date: 2015-12-08 15:53+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,67 +18,67 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/ajapaik/static/js/ajapaik-common.js:213
+#: project/ajapaik/static/js/ajapaik-common.js:225
 msgid "Go to my location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:249
+#: project/ajapaik/static/js/ajapaik-common.js:261
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:533
+#: project/ajapaik/static/js/ajapaik-common.js:545
 msgid "User denied the request for Geolocation."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:539
+#: project/ajapaik/static/js/ajapaik-common.js:551
 msgid "Location information is unavailable."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:542
+#: project/ajapaik/static/js/ajapaik-common.js:554
 msgid "The request to get user location timed out."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:545
+#: project/ajapaik/static/js/ajapaik-common.js:557
 msgid "An unknown error occurred."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:695
+#: project/ajapaik/static/js/ajapaik-common.js:707
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:706
-#: project/ajapaik/static/js/ajapaik-common.js:752
+#: project/ajapaik/static/js/ajapaik-common.js:718
+#: project/ajapaik/static/js/ajapaik-common.js:764
 msgid "Geotagged by this many users"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:736
+#: project/ajapaik/static/js/ajapaik-common.js:748
 msgid "Confirm correct location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:745
+#: project/ajapaik/static/js/ajapaik-common.js:757
 msgid "Submit your own location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:771
+#: project/ajapaik/static/js/ajapaik-common.js:783
 msgid "You"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:775
+#: project/ajapaik/static/js/ajapaik-common.js:787
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:394
 msgid "Anonymous user"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:777
+#: project/ajapaik/static/js/ajapaik-common.js:789
 msgid "Anonymous users"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:832
+#: project/ajapaik/static/js/ajapaik-common.js:844
 msgid "Current location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:1096
-#: project/ajapaik/static/js/ajapaik-common.js:1141
+#: project/ajapaik/static/js/ajapaik-common.js:1108
+#: project/ajapaik/static/js/ajapaik-common.js:1153
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr ""
@@ -403,32 +403,32 @@ msgstr ""
 msgid "Pictures from the map"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:257
-msgid "Picture set has no rephotos"
-msgstr ""
-
-#: project/ajapaik/static/js/ajapaik-frontpage.js:264
-msgid "Picture set has no comments"
-msgstr ""
-
-#: project/ajapaik/static/js/ajapaik-frontpage.js:302
+#: project/ajapaik/static/js/ajapaik-frontpage.js:245
 msgid "Albums"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:308
+#: project/ajapaik/static/js/ajapaik-frontpage.js:251
 msgid "My favorites"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:313
+#: project/ajapaik/static/js/ajapaik-frontpage.js:256
 msgid "My rephotos"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:315
+#: project/ajapaik/static/js/ajapaik-frontpage.js:258
 msgid "Rephotos by %(user)s"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:321
+#: project/ajapaik/static/js/ajapaik-frontpage.js:264
 msgid "All photos"
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:325
+msgid "Picture set has no rephotos"
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:332
+msgid "Picture set has no comments"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-game.js:189
@@ -540,15 +540,15 @@ msgstr ""
 msgid "Points awarded"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-juks-gmaps.js:52
+#: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
 msgid "Vanalinnad"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-map.js:701
+#: project/ajapaik/static/js/ajapaik-map.js:710
 msgid "Remove album filter"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-map.js:707
+#: project/ajapaik/static/js/ajapaik-map.js:716
 msgid "Apply album filter"
 msgstr ""
 

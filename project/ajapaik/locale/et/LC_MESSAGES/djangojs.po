@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 17:49+0200\n"
+"POT-Creation-Date: 2015-12-08 15:53+0200\n"
 "PO-Revision-Date: 2015-12-02 12:46+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
@@ -23,67 +23,67 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/ajapaik/static/js/ajapaik-common.js:213
+#: project/ajapaik/static/js/ajapaik-common.js:225
 msgid "Go to my location"
 msgstr "Mine minu asukohta"
 
-#: project/ajapaik/static/js/ajapaik-common.js:249
+#: project/ajapaik/static/js/ajapaik-common.js:261
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Sulge"
 
-#: project/ajapaik/static/js/ajapaik-common.js:533
+#: project/ajapaik/static/js/ajapaik-common.js:545
 msgid "User denied the request for Geolocation."
 msgstr "Kasutaja keeldus oma asukohta jagamast."
 
-#: project/ajapaik/static/js/ajapaik-common.js:539
+#: project/ajapaik/static/js/ajapaik-common.js:551
 msgid "Location information is unavailable."
 msgstr "Asukohainfo ei ole kättesaadav."
 
-#: project/ajapaik/static/js/ajapaik-common.js:542
+#: project/ajapaik/static/js/ajapaik-common.js:554
 msgid "The request to get user location timed out."
 msgstr "Asukohainfot päriti liiga kaua."
 
-#: project/ajapaik/static/js/ajapaik-common.js:545
+#: project/ajapaik/static/js/ajapaik-common.js:557
 msgid "An unknown error occurred."
 msgstr "Muu viga asukohapäringuga."
 
-#: project/ajapaik/static/js/ajapaik-common.js:695
+#: project/ajapaik/static/js/ajapaik-common.js:707
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: project/ajapaik/static/js/ajapaik-common.js:706
-#: project/ajapaik/static/js/ajapaik-common.js:752
+#: project/ajapaik/static/js/ajapaik-common.js:718
+#: project/ajapaik/static/js/ajapaik-common.js:764
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: project/ajapaik/static/js/ajapaik-common.js:736
+#: project/ajapaik/static/js/ajapaik-common.js:748
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:745
+#: project/ajapaik/static/js/ajapaik-common.js:757
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: project/ajapaik/static/js/ajapaik-common.js:771
+#: project/ajapaik/static/js/ajapaik-common.js:783
 msgid "You"
 msgstr "Sina"
 
-#: project/ajapaik/static/js/ajapaik-common.js:775
+#: project/ajapaik/static/js/ajapaik-common.js:787
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:394
 msgid "Anonymous user"
 msgstr "Anonüümne kasutaja"
 
-#: project/ajapaik/static/js/ajapaik-common.js:777
+#: project/ajapaik/static/js/ajapaik-common.js:789
 msgid "Anonymous users"
 msgstr "Anonüümsed kasutajad"
 
-#: project/ajapaik/static/js/ajapaik-common.js:832
+#: project/ajapaik/static/js/ajapaik-common.js:844
 msgid "Current location"
 msgstr "Pakutud asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1096
-#: project/ajapaik/static/js/ajapaik-common.js:1141
+#: project/ajapaik/static/js/ajapaik-common.js:1108
+#: project/ajapaik/static/js/ajapaik-common.js:1153
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "..."
@@ -414,33 +414,33 @@ msgstr "Ajakoodi järgi"
 msgid "Pictures from the map"
 msgstr "Kaardiakna pildid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:257
-msgid "Picture set has no rephotos"
-msgstr "Pildivalimis ei ole refotosi"
-
-#: project/ajapaik/static/js/ajapaik-frontpage.js:264
-msgid "Picture set has no comments"
-msgstr "Pildivalimis ei ole kommentaare"
-
-#: project/ajapaik/static/js/ajapaik-frontpage.js:302
+#: project/ajapaik/static/js/ajapaik-frontpage.js:245
 msgid "Albums"
 msgstr "Albumid"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:308
+#: project/ajapaik/static/js/ajapaik-frontpage.js:251
 msgid "My favorites"
 msgstr "Minu lemmikud"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:313
+#: project/ajapaik/static/js/ajapaik-frontpage.js:256
 msgid "My rephotos"
 msgstr "Minu refotod"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:315
+#: project/ajapaik/static/js/ajapaik-frontpage.js:258
 msgid "Rephotos by %(user)s"
 msgstr "%(user)s refotod"
 
-#: project/ajapaik/static/js/ajapaik-frontpage.js:321
+#: project/ajapaik/static/js/ajapaik-frontpage.js:264
 msgid "All photos"
 msgstr "Kõik fotod"
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:325
+msgid "Picture set has no rephotos"
+msgstr "Pildivalimis ei ole refotosi"
+
+#: project/ajapaik/static/js/ajapaik-frontpage.js:332
+msgid "Picture set has no comments"
+msgstr "Pildivalimis ei ole kommentaare"
 
 #: project/ajapaik/static/js/ajapaik-game.js:189
 msgid ""
@@ -566,15 +566,15 @@ msgstr ""
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
-#: project/ajapaik/static/js/ajapaik-juks-gmaps.js:52
+#: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
 msgid "Vanalinnad"
 msgstr "Vanalinnad"
 
-#: project/ajapaik/static/js/ajapaik-map.js:701
+#: project/ajapaik/static/js/ajapaik-map.js:710
 msgid "Remove album filter"
 msgstr "Eemalda albumi filter"
 
-#: project/ajapaik/static/js/ajapaik-map.js:707
+#: project/ajapaik/static/js/ajapaik-map.js:716
 msgid "Apply album filter"
 msgstr "Rakenda albumi filter"
 

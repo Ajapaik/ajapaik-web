@@ -306,6 +306,14 @@
                                     <label class="form-control" for="ajapaik-curator-search-use-etera">
                                         {% trans "ETERA" %}
                                     </label>
+                                    {% if CURATOR_FLICKR_ENABLED %}
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id="ajapaik-curator-search-use-flickr">
+                                        </span>
+                                        <label class="form-control" for="ajapaik-curator-search-use-flickr">
+                                            {% trans "Flickr Commons" %}
+                                        </label>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
