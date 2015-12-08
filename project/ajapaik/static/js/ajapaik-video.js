@@ -80,6 +80,9 @@
         }
     });
     doc.on('click', '#ajapaik-video-modal-speed-buttons button', function () {
+        var $this = $(this);
+        $this.parent().find('button').removeClass('active');
+        $this.addClass('active');
         modalVideo.get(0).playbackRate = $(this).data('speed');
     });
     videoviewSpeedButtons.click(function () {

@@ -74,3 +74,15 @@
     font-size: 36px;
     color: #888;
 }
+
+#ajapaik-video-modal-speed-buttons > button {
+    border: none;
+    border-radius: 0;
+    font-size: 12px;
+}
+
+#ajapaik-videoview-speed-buttons > button {
+    border: none;
+    border-radius: 0;
+    font-size: 12px;
+}
