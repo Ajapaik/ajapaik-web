@@ -2155,6 +2155,9 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
 
 a[href^="https://maps.google.com/maps"]{display:none !important}
 
+#ajapaik-curator-filter-options {
+    margin-top: 3px;
+}
 
 .ajapaik-curator-selected-image {
     opacity: 0.5;

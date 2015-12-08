@@ -4,7 +4,7 @@ from project.ajapaik.settings import ABSOLUTE_PROJECT_ROOT
 
 
 class Command(BaseCommand):
-    help = "Refresh albums"
+    help = "Get more stats for Vahur"
 
     def handle(self, *args, **options):
         f = codecs.open(ABSOLUTE_PROJECT_ROOT + '/project/ajapaik/management/commands/photo_geotagged_week.txt', 'r', 'utf-8')

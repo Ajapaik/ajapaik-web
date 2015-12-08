@@ -1792,9 +1792,10 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
                     existing_photo = Photo.objects.filter(source__description='Rahvusraamatukogu',
                                                           external_id=current_id).first()
                 else:
+                    parts = each['id'].split('_')
                     if each['institution'] == 'ETERA':
-                        each['identifyingNumber'] = each['id']
-                    existing_photo = Photo.objects.filter(external_id=each['id'].split('_')[0]).first()
+                        each['identifyingNumber'] = str(parts[0].split(':')[2])
+                    existing_photo = Photo.objects.filter(external_id=parts[0]).first()
                 if existing_photo:
                     each['ajapaikId'] = existing_photo.pk
                     check_dict[each['id']] = False
@@ -1941,11 +1942,13 @@ def curator_photo_upload_handler(request):
         for k, v in parsed_selection.iteritems():
             for sk, sv in parsed_kv[k].iteritems():
                 # Some fields we don't want overwritten
+                # FIXME: This now defeats the purpose of re-querying...
+                # FIXME: Ajapaik-specific fields can also be filled with crap
                 if parsed_selection[k]["collections"] == 'DIGAR' and (sk == 'imageUrl' or sk == 'identifyingNumber'
                                                                       or sk == 'urlToRecord' or sk == 'institution'
                                                                       or sk == 'description'):
                     continue
-                elif parsed_selection[k]['institution'] == 'ETERA' and sk == 'identifyingNumber':
+                elif parsed_selection[k]['institution'] == 'ETERA' and (sk == 'identifyingNumber'):
                     continue
                 else:
                     parsed_selection[k][sk] = sv
@@ -1994,6 +1997,8 @@ def curator_photo_upload_handler(request):
             if upload_form.is_valid():
                 if upload_form.cleaned_data["institution"]:
                     upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]
+                    if upload_form.cleaned_data["institution"] == "ETERA":
+                        upload_form.cleaned_data["institution"] = 'TLÜAR ETERA'
                     try:
                         source = Source.objects.get(description=upload_form.cleaned_data["institution"])
                     except ObjectDoesNotExist:
@@ -2010,6 +2015,8 @@ def curator_photo_upload_handler(request):
                         incoming_muis_id = upload_form.cleaned_data["identifyingNumber"]
                     else:
                         incoming_muis_id = upload_form.cleaned_data["id"]
+                    if 'ETERA' in upload_form.cleaned_data["institution"]:
+                        upload_form.cleaned_data["types"] = "Foto"
                     if '_' in incoming_muis_id:
                         muis_id = incoming_muis_id.split('_')[0]
                         muis_media_id = incoming_muis_id.split('_')[1]
@@ -2062,7 +2069,7 @@ def curator_photo_upload_handler(request):
                                     headers.append(("Authorization", "Bearer " + etera_token))
                                 opener.addheaders = headers
                                 img_response = opener.open(upload_form.cleaned_data["imageUrl"])
-                                if new_photo.source.description == 'ETERA':
+                                if 'ETERA' in new_photo.source.description:
                                     img = ContentFile(img_response.read())
                                     new_photo.image_no_watermark.save("etera.jpg", img)
                                     new_photo.watermark()
