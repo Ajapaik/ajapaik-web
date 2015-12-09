@@ -434,15 +434,12 @@ class Photo(Model):
         img = img.convert('RGBA')
         mark = Image.open(os.path.join(STATIC_ROOT, 'images/TLUAR_watermark.png'))
         longest_side = max(img.size[0], img.size[1])
-        coeff = float(longest_side) / 1250.00
+        coeff = float(longest_side) / 1600.00
         w = int(mark.size[0] * coeff)
         h = int(mark.size[1] * coeff)
         mark = mark.resize((w, h))
-        #alpha = mark.split()[3]
-        #alpha = ImageEnhance.Brightness(alpha).enhance(0.5)
-        #mark.putalpha(alpha)
         layer = Image.new('RGBA', img.size, (0,0,0,0))
-        position = (padding, padding)
+        position = (img.size[0] - mark.size[0] - padding, padding)
         layer.paste(mark, position)
         img = Image.composite(layer, img, layer)
         tempfile_io = StringIO.StringIO()
