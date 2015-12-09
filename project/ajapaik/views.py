@@ -35,6 +35,10 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 from django.core.files.temp import NamedTemporaryFile
+
+from project.ajapaik.curator_drivers.common import CuratorSearchForm
+from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
+from project.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
@@ -1091,7 +1095,7 @@ def videoslug(request, video_id, pseudo_slug=None):
         template = '_video_modal.html'
     else:
         template = 'videoview.html'
-        
+
     return render_to_response(template, RequestContext(request, {
         'video': video,
     }))
@@ -1398,7 +1402,7 @@ def map_objects_by_bounding_box(request):
 
         if area:
             qs = qs.filter(area=area)
- 
+
         if sw_lat and sw_lon and ne_lat and ne_lon:
             qs = qs.filter(lat__gte=sw_lat, lon__gte=sw_lon, lat__lte=ne_lat, lon__lte=ne_lon)
 
@@ -1407,9 +1411,9 @@ def map_objects_by_bounding_box(request):
 
         #if dating_end:
             #qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
-            
+
         qs = qs.values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
-        
+
         photos = []
         # TODO: Normal serialization
         for p in qs:
@@ -1724,115 +1728,55 @@ def _curator_get_records_by_ids(ids):
     return response
 
 
+def _join_2_json_objects(obj1, obj2):
+    dict_a = json.loads(obj1)
+    dict_b = json.loads(obj2)
+    result = {'firstRecordViews': []}
+    if 'result' in dict_a:
+        for each in dict_a['result']['firstRecordViews']:
+            result['firstRecordViews'].append(each)
+        if 'page' in dict_a['result']:
+            result['page'] = dict_a['result']['page']
+        if 'pages' in dict_a['result']:
+            result['pages'] = dict_a['result']['pages']
+        if 'ids' in dict_a['result']:
+            result['ids'] = dict_a['result']['ids']
+    if 'result' in dict_b:
+        for each in dict_b['result']['firstRecordViews']:
+            result['firstRecordViews'].append(each)
+        if 'page' in dict_b['result']:
+            result['page'] = dict_b['result']['page']
+        if 'pages' in dict_b['result']:
+            result['pages'] = dict_b['result']['pages']
+        if 'ids' in dict_b['result']:
+            result['ids'] = dict_b['result']['ids']
+
+    return json.dumps({'result': result})
+
+
 def curator_search(request):
-    # FIXME: Form (ids[] does not exist in Django... so it's not trivial)
-    full_search = request.POST.get("fullSearch") or None
-    ids = request.POST.getlist("ids[]") or None
-    filter_existing = request.POST.get("filterExisting") or None
-    use_muis = request.POST.get("useMUIS") or None
-    use_digar = request.POST.get("useDIGAR") or None
-    use_etera = request.POST.get("useETERA") or None
-    # FIXME: Ugly
-    filter_existing = filter_existing == 'true'
-    use_muis = use_muis == 'true'
-    use_digar = use_digar == 'true'
-    use_etera = use_etera == 'true'
-    response = None
-    if ids is not None:
-        response = _curator_get_records_by_ids(ids)
-    if full_search is not None and (use_digar or use_muis or use_etera):
-        full_search = full_search.encode('utf-8')
-        institution_string = ''
-        if use_muis and use_digar:
-            institution_string = '"MUSEUM","LIBRARY",null'
-        elif use_muis:
-            institution_string = '"MUSEUM",null,null'
-        elif use_digar:
-            institution_string = 'null,"LIBRARY",null'
-        if use_etera:
-            etera_string = 'ETERA'
-            institution_string = 'null,null,null'
-        else:
-            etera_string = ''
-        request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":"%s"},"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200,"digital":true}],"id":0}' % (full_search, etera_string, institution_string)
-        response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
-        response.encoding = 'utf-8'
+    form = CuratorSearchForm(request.POST)
+    response = json.dumps({})
+    flickr_driver = None
+    valimimoodul_driver = None
+    if form.is_valid():
+        if form.cleaned_data['useFlickr']:
+            flickr_driver = FlickrCommonsDriver()
+        if form.cleaned_data['useMUIS'] or form.cleaned_data['useDIGAR'] or form.cleaned_data['useETERA']:
+            valimimoodul_driver = ValimimoodulDriver()
+            if form.cleaned_data['ids']:
+                response = valimimoodul_driver.transform_response(valimimoodul_driver.get_by_ids(form.cleaned_data['ids']),
+                                                                  form.cleaned_data['filterExisting'])
+        if form.cleaned_data['fullSearch']:
+            if valimimoodul_driver and not form.cleaned_data['ids']:
+                response = _join_2_json_objects(response, valimimoodul_driver.transform_response(
+                    valimimoodul_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
+            if flickr_driver:
+                response = _join_2_json_objects(response, flickr_driver.transform_response(
+                    flickr_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
 
-    if filter_existing:
-        response = _curator_check_if_photos_in_ajapaik(response, True)
-    else:
-        response = _curator_check_if_photos_in_ajapaik(response)
-
-    if not response:
-        response = []
 
     return HttpResponse(response, content_type="application/json")
-
-
-def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
-    if response:
-        full_response_json = json.loads(response.text)
-        result = json.loads(response.text)
-        if 'result' in result:
-            result = result['result']
-            if 'firstRecordViews' in result:
-                data = result['firstRecordViews']
-            else:
-                data = result
-            check_dict = {}
-            etera_second_image_remove_dict = {}
-            # FIXME: The function should actually not contain Digar specific code, out of scope
-            for each in data:
-                if each['collections'] == 'DIGAR':
-                    current_id = each['imageUrl'].split('=')[-1]
-                    each['imageUrl'] = MEDIA_URL + 'uploads/DIGAR_' + current_id + '_1.jpg'
-                    each['identifyingNumber'] = current_id
-                    each['urlToRecord'] = 'http://www.digar.ee/id/nlib-digar:' + current_id
-                    each['institution'] = 'Rahvusraamatukogu'
-                    each['keywords'] = each['description']
-                    each['description'] = each['title']
-                    existing_photo = Photo.objects.filter(source__description='Rahvusraamatukogu',
-                                                          external_id=current_id).first()
-                else:
-                    parts = each['id'].split('_')
-                    if each['institution'] == 'ETERA':
-                        each['identifyingNumber'] = str(parts[0].split(':')[2])
-                    existing_photo = Photo.objects.filter(external_id=parts[0]).first()
-                if existing_photo:
-                    each['ajapaikId'] = existing_photo.pk
-                    check_dict[each['id']] = False
-                else:
-                    each['ajapaikId'] = False
-                    check_dict[each['id']] = True
-                if each['institution'] == 'ETERA' and each['mediaOrder'] == 1:
-                    each['isETERASecondImage'] = True
-                    etera_second_image_remove_dict[each['id']] = True
-                else:
-                    each['isETERASecondImage'] = False
-                    etera_second_image_remove_dict[each['id']] = False
-
-            if remove_existing:
-                data = [x for x in data if not x['ajapaikId']]
-                # if 'firstRecordViews' in result:
-                #     full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
-                #                                            if x not in check_dict or check_dict[x]]
-
-            data = [x for x in data if not x['isETERASecondImage']]
-            # if 'firstRecordViews' in result:
-            #     full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
-            #                                            if x not in etera_second_image_remove_dict or not etera_second_image_remove_dict[x]]
-
-            data = sorted(data, key=lambda k: k['id'])
-
-            if 'firstRecordViews' in result:
-                full_response_json['result']['firstRecordViews'] = data
-            else:
-                full_response_json['result'] = data
-
-            # FIXME: Risky, what if the people at requests change this?
-            response._content = json.dumps(full_response_json)
-
-    return response
 
 
 def curator_my_album_list(request):
@@ -2402,7 +2346,7 @@ def get_datings(request, photo_id):
             each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
         datings_serialized = DatingSerializer(datings, many=True).data
         ret['datings'] = datings_serialized
-        
+
     return HttpResponse(json.dumps(ret), content_type='application/json')
 
 

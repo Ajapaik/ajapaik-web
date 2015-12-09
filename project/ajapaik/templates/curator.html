@@ -334,26 +334,28 @@
                     filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked'),
                     useMUIS = $('#ajapaik-curator-search-use-muis').prop('checked'),
                     useETERA = $('#ajapaik-curator-search-use-etera').prop('checked'),
-                    //useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
+                    useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
                     useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked');
                 start += 200;
                 $.ajax({
                     type: 'POST',
                     url: url,
-                    //traditional: true,
+                    traditional: true,
                     data: {
                         //testing: true,
+                        fullSearch: $('#ajapaik-curator-full-search').val(),
                         ids: slice,
                         filterExisting: filterValue,
                         useMUIS: useMUIS,
                         useETERA: useETERA,
                         useDIGAR: useDIGAR,
-                        //useFlickr: useFlickr,
-                        //page: flickrPage,
+                        useFlickr: useFlickr,
+                        flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (msg) {
-                        if (resultCount > start) {
+                        console.log(msg);
+                        if (resultCount > start || (msg.result.page < msg.result.pages)) {
                             $('.ajapaik-curator-load-more').show();
                             $('#ajapaik-curator-load-more-row').show();
                         } else {
@@ -362,9 +364,9 @@
                         }
                         var counter = $('#ajapaik-curator-result-count'),
                             prev = parseInt(counter.html(), 10);
-                        counter.html(prev + msg.result.length);
-                        for (var i = 0, l = msg.result.length; i < l; i += 1) {
-                            var item = msg.result[i];
+                        counter.html(prev + msg.result.firstRecordViews.length);
+                        for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
+                            var item = msg.result.firstRecordViews[i];
                             createResultElement(item);
                         }
                         $('#ajapaik-loading-overlay').hide();
@@ -403,13 +405,14 @@
                 }
             });
             $(document).on('click', '#ajapaik-curator-search-button', function () {
+                flickrPage = 1;
                 $('#ajapaik-loading-overlay').show();
                 $('.ajapaik-curator-feedback-alert').hide();
                 $('#ajapaik-curator-search-results').empty();
                 var filterValue = $('#ajapaik-curator-search-filter-existing').prop('checked'),
                         useMUIS = $('#ajapaik-curator-search-use-muis').prop('checked'),
                         useETERA = $('#ajapaik-curator-search-use-etera').prop('checked'),
-                        //useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
+                        useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
                         useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked');
                 if (useETERA && !ETERASession) {
                     $.ajax({
@@ -430,15 +433,21 @@
                         useMUIS: useMUIS,
                         useETERA: useETERA,
                         useDIGAR: useDIGAR,
-                        //useFlickr: useFlickr,
+                        useFlickr: useFlickr,
+                        flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (msg) {
+                        console.log(msg);
                         $('#ajapaik-loading-overlay').hide();
-                        resultIds = msg.result.ids;
-                        resultCount = resultIds.length;
+                        if (msg.result.ids) {
+                            resultIds = msg.result.ids;
+                            resultCount = resultIds.length;
+                        } else {
+                            resultCount = 0;
+                        }
                         $('#ajapaik-curator-result-count').html(msg.result.firstRecordViews.length);
-                        if (resultCount > 200) {
+                        if (resultCount > 200 || (msg.result.page < msg.result.pages)) {
                             $('.ajapaik-curator-load-more').show();
                             $('#ajapaik-curator-load-more-row').show();
                         } else {
