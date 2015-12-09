@@ -1809,17 +1809,18 @@ def _curator_check_if_photos_in_ajapaik(response, remove_existing=False):
                     etera_second_image_remove_dict[each['id']] = True
                 else:
                     each['isETERASecondImage'] = False
+                    etera_second_image_remove_dict[each['id']] = False
 
             if remove_existing:
                 data = [x for x in data if not x['ajapaikId']]
-                if 'firstRecordViews' in result:
-                    full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
-                                                           if x not in check_dict or check_dict[x]]
+                # if 'firstRecordViews' in result:
+                #     full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
+                #                                            if x not in check_dict or check_dict[x]]
 
             data = [x for x in data if not x['isETERASecondImage']]
-            if 'firstRecordViews' in result:
-                full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
-                                                       if x not in etera_second_image_remove_dict or not etera_second_image_remove_dict[x]]
+            # if 'firstRecordViews' in result:
+            #     full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
+            #                                            if x not in etera_second_image_remove_dict or not etera_second_image_remove_dict[x]]
 
             data = sorted(data, key=lambda k: k['id'])
 
