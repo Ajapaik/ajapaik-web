@@ -44,6 +44,8 @@ var map,
     updateLeaderboard,
     now,
     paneNow,
+    firstPaneDone,
+    mapDataTimeout,
     lastTriggeredPane,
     isPhotoview,
     mapTypeChangedListener,
@@ -270,23 +272,23 @@ var map,
             });
 
             google.maps.event.addListener(map, 'bounds_changed', function () {
-                var bounds = map.getBounds();
-                searchBox.setBounds(bounds);
                 if (!firstResizeDone) {
                     google.maps.event.trigger(map, 'resize');
                     firstResizeDone = true;
                 }
-                if (window.toggleVisiblePaneElements) {
-                    paneNow = new Date().getTime();
-                    if (!lastTriggeredPane) {
-                        lastTriggeredPane = paneNow - 500;
-                        bypass = true;
+                if (!firstPaneDone) {
+                    var bounds = map.getBounds();
+                    searchBox.setBounds(bounds);
+                    window.toggleVisiblePaneElements();
+                    firstPaneDone = true;
+                }
+                if (typeof window.toggleVisiblePaneElements === 'function') {
+                    if (mapDataTimeout) {
+                        clearTimeout(mapDataTimeout);
                     }
-                    if (paneNow - 500 > lastTriggeredPane || bypass) {
-                        bypass = false;
-                        lastTriggeredPane = paneNow;
+                    mapDataTimeout = setTimeout(function () {
                         window.toggleVisiblePaneElements();
-                    }
+                    }, 1000);
                 }
             });
         }
