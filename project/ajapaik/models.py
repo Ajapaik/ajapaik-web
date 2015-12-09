@@ -442,7 +442,7 @@ class Photo(Model):
         alpha = ImageEnhance.Brightness(alpha).enhance(0.5)
         mark.putalpha(alpha)
         layer = Image.new('RGBA', img.size, (0,0,0,0))
-        position = (padding, img.size[1] - mark.size[1] - 2 * padding)
+        position = (padding, padding)
         layer.paste(mark, position)
         img = Image.composite(layer, img, layer)
         tempfile_io = StringIO.StringIO()
