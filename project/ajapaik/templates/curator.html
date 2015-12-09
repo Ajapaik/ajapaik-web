@@ -437,9 +437,7 @@
                         $('#ajapaik-loading-overlay').hide();
                         resultIds = msg.result.ids;
                         resultCount = resultIds.length;
-                        var counter = $('#ajapaik-curator-result-count'),
-                            prev = parseInt(counter.html(), 10);
-                        counter.html(prev + msg.result.firstRecordViews.length);
+                        $('#ajapaik-curator-result-count').html(msg.result.firstRecordViews.length);
                         if (resultCount > 200) {
                             $('.ajapaik-curator-load-more').show();
                             $('#ajapaik-curator-load-more-row').show();
