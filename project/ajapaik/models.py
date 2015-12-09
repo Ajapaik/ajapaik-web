@@ -438,9 +438,9 @@ class Photo(Model):
         w = int(mark.size[0] * coeff)
         h = int(mark.size[1] * coeff)
         mark = mark.resize((w, h))
-        alpha = mark.split()[3]
-        alpha = ImageEnhance.Brightness(alpha).enhance(0.5)
-        mark.putalpha(alpha)
+        #alpha = mark.split()[3]
+        #alpha = ImageEnhance.Brightness(alpha).enhance(0.5)
+        #mark.putalpha(alpha)
         layer = Image.new('RGBA', img.size, (0,0,0,0))
         position = (padding, padding)
         layer.paste(mark, position)
