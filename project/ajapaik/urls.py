@@ -116,11 +116,6 @@ urlpatterns += patterns('project.ajapaik.merekultuur',
     url(r'^merekultuur/v1/fotod/$', 'get_photos')
 )
 
-urlpatterns += patterns('project.ajapaik.then_and_now_tours_api',
-    url(r'^then-and-now-api/v1/tour/$', 'random_tour'),
-    url(r'^then-and-now-api/v1/tour/(?P<id>\d+)$', 'get_tour'),
-)
-
 urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/$', 'frontpage'),
     url(r'^then-and-now-tours/map/$', 'map_view'),
@@ -130,7 +125,7 @@ urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/gallery/(?P<tour_id>\d+)/$', 'gallery'),
     url(r'^then-and-now-tours/camera/upload/$', 'camera_upload'),
     url(r'^then-and-now-tours/tour-complete/(?P<tour_id>\d+)/$', 'tour_complete'),
-    url(r'^then-and-now-tours/juhan/$', 'juhan'),
+    url(r'^then-and-now-tours/create-assignment/$', 'create_assignment'),
 )
 
 urlpatterns += patterns('project.ajapaik.juks',
@@ -140,6 +135,7 @@ urlpatterns += patterns('project.ajapaik.juks',
 
 urlpatterns += patterns('',
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
+    url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),

@@ -1,0 +1,14 @@
+{% extends 'then_and_now/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                <h1>{% trans "Activation failed!" %}</h1>
+                <p>{% blocktrans %}The activation key {{ activation_key }} is invalid or expired.{% endblocktrans %}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

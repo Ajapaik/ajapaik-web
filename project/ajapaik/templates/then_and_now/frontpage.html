@@ -1,44 +1,45 @@
 {% extends "then_and_now/base.html" %}
 
-{% load static compress %}
+{% load static compress i18n %}
 
-{% block layout %}
+{% block content %}
     <div class="col-xs-offset-1 col-xs-10">
         <br>
         <br>
-        <div class="row" style="font-size: 48px; border-top: 3px solid #edc549; text-align: center;">
-            Then & Now
-        </div>
-        <div class="row" style="font-size: 48px; border-bottom: 3px solid #edc549; text-align: center;">
-            Tours
-        </div>
+        <div class="row tan-font-size-48px" id="tan-frontpage-title-top">{% trans "Then & Now" %}</div>
+        <div class="row tan-font-size-48px" id="tan-frontpage-title-bottom">{% trans "Tours" %}</div>
         <br>
         <br>
-        <div class="row" style="text-align: center;">
-            <img class="img-responsive" src="{% static 'images/then-and-now-frontpage-image.png' %}" style="max-height: 300px; margin: 0 auto;">
+        <div class="row tan-text-center">
+            <img class="img-responsive" src="{% static 'images/then-and-now-frontpage-image.png' %}"
+                 id="tan-frontpage-image">
         </div>
         <br>
-        <div class="row" style="text-align: center;">
-            <a href="#" id="frontpage-make-tour-link" class="btn double-border" style="font-size: 24px; background-color: #edc549; color: white !important;">Take me on a tour!</a>
-        </div>
-        <!--<div class="col-xs-12">
-            <div class="row">
-                <a id="frontpage-make-tour-link" href="#">
-
-                </a>
-            </div>
-            <div class="row">
-                <div class="fb-like" data-href="https://www.facebook.com/thenandnowtours" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-            </div>
-            {% if recent_photos %}
-                <h1>Recent photos</h1>
-            {% endif %}
-            {% for p in recent_photos %}
-                <div class="row">
-                    <img class="img-responsive" src="{% url 'project.ajapaik.views.image_thumb' p.pk 600 %}">
+        <div class="row tan-text-center">
+            <form>
+                <div class="form-group" id="tan-frontpage-album-from-group">
+                    <label class="sr-only"
+                           for="tan-frontpage-album-id-input">{% trans "Album ID given to you" %}</label>
+                    <input type="number" class="form-control" id="tan-frontpage-album-id-input"
+                           placeholder="{% trans "Album ID" %}">
                 </div>
-            {% endfor %}
-        </div>-->
+                <button type="submit" id="tan-frontpage-album-id-submit"
+                        class="btn tan-double-border tan-button-text">{% trans "Go" %}</button>
+            </form>
+            <button id="tan-frontpage-make-tour-button"
+                    class="btn tan-double-border tan-button-text">{% trans "Take me on a random tour!" %}</button>
+        </div>
+        <br>
+        <br>
+        <div class="row tan-text-center">
+            {% if user.is_authenticated %}
+                <p>{% trans "Signed in as" %} {{ user.get_username }}</p>
+                <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "Log out" %}</a>
+            {% else %}
+                <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
+                <a href="{% url 'django.contrib.auth.views.login' %}">{% trans "Log in" %}</a>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 

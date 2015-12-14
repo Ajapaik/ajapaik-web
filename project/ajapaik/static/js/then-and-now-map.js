@@ -7,6 +7,7 @@
     /* global marker1 */
     /* global marker2 */
     /* global marker3 */
+    /* global isOrderedTour */
     var map = new google.maps.Map(document.getElementById('map-container'), {
             center: {
                 lat: 58.3833,
@@ -16,7 +17,8 @@
         }),
         infoWindow = new google.maps.InfoWindow();
     $(document).ready(function () {
-        map.setCenter(new google.maps.LatLng(startLat, startLng));
+        var bounds = new google.maps.LatLngBounds(),
+            currentLatLng;
         $.each(tourPhotos, function (k, v) {
             var icon;
             if (v.isDone) {
@@ -24,14 +26,21 @@
             } else {
                 icon = marker1;
             }
+            currentLatLng = new google.maps.LatLng(v.lat, v.lng);
+            bounds.extend(currentLatLng);
             var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(v.lat, v.lng),
+                position: currentLatLng,
                 map: map,
                 title: v.name,
                 url: v.url,
                 image: v.image,
                 icon: icon
             });
+            if (isOrderedTour) {
+                marker.setLabel({
+                    text: 1 + v.order + ''
+                });
+            }
             google.maps.event.addListener(marker, 'click', (function (marker, content, infoWindow) {
                 return function () {
                     infoWindow.setContent(content);
@@ -39,6 +48,7 @@
                 };
             })(marker, v.name + '<a href="' + v.url + '"><img src="' + v.image + '"></a>', infoWindow));
         });
+        map.fitBounds(bounds);
         var userLocation = new google.maps.Marker({
             clickable: false,
             icon: marker3,
@@ -46,11 +56,13 @@
             zIndex: 999,
             map: map
         });
-        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function (pos) {
-            var me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-            userLocation.setPosition(me);
-        }, function (error) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (pos) {
+                var me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                userLocation.setPosition(me);
+            }, function (error) {
 
-        });
+            });
+        }
     });
 }());

@@ -9,7 +9,7 @@ html, body, #map-container {
     height: 100%;
 }
 
-.padding-top-50 {
+.tan-padding-top-50 {
     padding-top: 50px;
 }
 
@@ -18,15 +18,29 @@ html, body, #map-container {
     margin-bottom: 0;
 }
 
-.font-size-48px {
-    font-size: 48px;
-}
-
 #camera-file-capture {
     display: none !important;
 }
 
-.double-border {
+.navbar-active {
+    background-color: #edc549;
+}
+
+.tan-text-center {
+    text-align: center;
+}
+
+.tan-font-size-48px {
+    font-size: 48px;
+}
+
+.tan-button-text {
+    font-size: 24px;
+    background-color: #edc549;
+    color: white !important;
+}
+
+.tan-double-border {
     background-color: #edc549;
     border: solid #fff;
     position: relative;
@@ -35,7 +49,7 @@ html, body, #map-container {
     padding: 6px 48px;
 }
 
-.double-border:before {
+.tan-double-border:before {
     background: none;
     border: 2px solid #fff;
     content: "";
@@ -49,6 +63,25 @@ html, body, #map-container {
     border-radius: 30px;
 }
 
-.navbar-active {
-    background-color: #edc549;
+#tan-frontpage-album-id-input {
+    max-width: 300px;
+}
+
+#tan-frontpage-title-top {
+    border-top: 3px solid #edc549;
+    text-align: center;
+}
+
+#tan-frontpage-title-bottom {
+    border-bottom: 3px solid #edc549;
+    text-align: center;
+}
+
+#tan-frontpage-image {
+    max-height: 300px;
+    margin: 0 auto;
+}
+
+#tan-frontpage-album-from-group {
+    display: inline-block;
 }
