@@ -692,7 +692,7 @@
                     }
                     window.showPhotos = false;
                     var currentUrl2 = window.URI(window.location.href);
-                    currentUrl2.removeSearch('photos');
+                    currentUrl2.removeSearch('photos').removeSearch('q');
                     window.history.replaceState(null, window.title, currentUrl2);
                     window.order1 = null;
                     window.order2 = null;

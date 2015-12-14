@@ -1877,29 +1877,32 @@ def curator_photo_upload_handler(request):
 
     selection_json = request.POST.get("selection") or None
     selection = None
+    # TODO: We need to override some values coming from sources, but we cannot really allow random stuff, what to do?
+    # if selection_json is not None:
+    #     # Query again to block porn
+    #     parsed_selection = json.loads(selection_json)
+    #     ids = [k for k, v in parsed_selection.iteritems()]
+    #     response = _curator_get_records_by_ids(ids)
+    #     parsed_response = json.loads(response.text)["result"]
+    #     parsed_kv = {}
+    #     for each in parsed_response:
+    #         parsed_kv[each["id"]] = each
+    #     for k, v in parsed_selection.iteritems():
+    #         for sk, sv in parsed_kv[k].iteritems():
+    #             # Some fields we don't want overwritten
+    #             # FIXME: This now defeats the purpose of re-querying...
+    #             if parsed_selection[k]["collections"] == 'DIGAR' and (sk == 'imageUrl' or sk == 'identifyingNumber'
+    #                                                                   or sk == 'urlToRecord' or sk == 'institution'
+    #                                                                   or sk == 'description'):
+    #                 continue
+    #             elif parsed_selection[k]['institution'] == 'ETERA' and (sk == 'identifyingNumber'):
+    #                 continue
+    #             else:
+    #                 parsed_selection[k][sk] = sv
+    #     selection = parsed_selection
+
     if selection_json is not None:
-        # Query again to block porn
-        parsed_selection = json.loads(selection_json)
-        ids = [k for k, v in parsed_selection.iteritems()]
-        response = _curator_get_records_by_ids(ids)
-        parsed_response = json.loads(response.text)["result"]
-        parsed_kv = {}
-        for each in parsed_response:
-            parsed_kv[each["id"]] = each
-        for k, v in parsed_selection.iteritems():
-            for sk, sv in parsed_kv[k].iteritems():
-                # Some fields we don't want overwritten
-                # FIXME: This now defeats the purpose of re-querying...
-                # FIXME: Ajapaik-specific fields can also be filled with crap
-                if parsed_selection[k]["collections"] == 'DIGAR' and (sk == 'imageUrl' or sk == 'identifyingNumber'
-                                                                      or sk == 'urlToRecord' or sk == 'institution'
-                                                                      or sk == 'description'):
-                    continue
-                elif parsed_selection[k]['institution'] == 'ETERA' and (sk == 'identifyingNumber'):
-                    continue
-                else:
-                    parsed_selection[k][sk] = sv
-        selection = parsed_selection
+        selection = json.loads(selection_json)
 
     all_curating_points = []
     total_points_for_curating = 0
