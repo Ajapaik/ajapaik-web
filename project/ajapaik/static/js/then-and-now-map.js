@@ -13,6 +13,9 @@
                 lat: 58.3833,
                 lng: 24.5000
             },
+            mapTypeControlOptions: {
+                position: google.maps.ControlPosition.BOTTOM_RIGHT
+            },
             zoom: 15
         }),
         infoWindow = new google.maps.InfoWindow();

@@ -3,10 +3,13 @@
 {% load static compress %}
 
 {% block content %}
-    <div id="gallery-container">
-        {% for p in tour.photos.all %}
-            <a href="{% url 'project.ajapaik.then_and_now_tours.detail' p.pk tour.pk %}">
+    <div id="tan-gallery-container">
+        {% for p in photos %}
+            <a class="tan-gallery-photo-container" href="{% url 'project.ajapaik.then_and_now_tours.detail' tour.pk p.pk %}">
                 <img src="{% url 'project.ajapaik.views.image_thumb' p.pk 300 %}">
+                {% if p.rephoto_count > 0 %}
+                    <div class="tan-gallery-overlay-rephoto-count{% if p.user_has_rephotographed %} blue{% endif %}"><i class="material-icons">filter_{{ p.rephoto_count }}</i></div>
+                {% endif %}
             </a>
         {% endfor %}
     </div>

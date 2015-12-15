@@ -16,14 +16,14 @@
                 navigator.geolocation.getCurrentPosition(callback, geolocationError);
             }
         },
-        albumIdInput = $('#tan-frontpage-album-id-input'),
-        albumId;
+        tourIdInput = $('#tan-frontpage-tour-id-input'),
+        tourId;
     $('#tan-frontpage-make-tour-button').click(function () {
         getGeolocation(geolocationCallback);
     });
-    $('#tan-frontpage-album-id-submit').click(function (e) {
+    $('#tan-frontpage-tour-id-submit').click(function (e) {
         e.preventDefault();
-        albumId = albumIdInput.val();
-        window.location = mapRedirectURL + '?album=' + albumId;
+        tourId = tourIdInput.val();
+        window.location = mapRedirectURL + '?tour=' + tourId;
     });
 }());

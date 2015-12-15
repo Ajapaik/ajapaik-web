@@ -7,7 +7,7 @@ from math import degrees
 from datetime import datetime
 
 import StringIO
-from PIL import Image, ImageEnhance
+from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
@@ -863,6 +863,7 @@ class Profile(Model):
     def update_from_fb_data(self, token, data):
         self.user.first_name = data.get("first_name")
         self.user.last_name = data.get("last_name")
+        self.user.email = data.get("email")
         self.user.save()
 
         self.fb_token = token
@@ -892,6 +893,8 @@ class Profile(Model):
             self.user.first_name = data["given_name"]
         if 'family_name' in data:
             self.user.last_name = data["family_name"]
+        if 'email' in data:
+            self.user.email = data["email"]
         self.user.save()
 
         if isinstance(token, OAuth2Credentials):

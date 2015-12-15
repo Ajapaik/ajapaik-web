@@ -1,6 +1,6 @@
 (function () {
     'use strict';
     $(document).ready(function () {
-        $('#gallery-container').justifiedGallery();
+        $('#tan-gallery-container').justifiedGallery();
     });
 }());

@@ -14,7 +14,17 @@
                         {% trans "Log in" %}
                     </button>
                 </form>
+                <br/>
                 <a href="{% url "auth_password_reset" %}">{% trans "Forgot password" %}</a>
+                <br/>
+                <br/>
+                <div class="facebook-connect">
+                    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+                </div>
+                <br/>
+                <div class="google-plus-connect">
+                    <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
+                </div>
             </div>
         </div>
     </div>

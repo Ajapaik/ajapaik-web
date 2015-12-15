@@ -85,3 +85,105 @@ html, body, #map-container {
 #tan-frontpage-album-from-group {
     display: inline-block;
 }
+
+#tan-frontpage-make-tour-button {
+    white-space: normal;
+}
+
+.tan-gallery-photo-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.tan-gallery-overlay-rephoto-count {
+    position: absolute;
+    width: 24px;
+    bottom: 0;
+    height: 24px;
+    right: 0;
+    color: white;
+    background-color: rgba(255,255,255,.3);
+}
+
+#tan-detail-image-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+#tan-detail-rephoto-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+#tan-detail-image-container > img {
+    width: 100%;
+}
+
+#tan-rephoto-image-container > img {
+    width: 100%;
+}
+
+.tan-image-overlay-button {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+}
+
+.tan-image-overlay-button > i {
+    font-size: 48px;
+}
+
+.tan-image-overlay-button:hover {
+    color: #007fff;
+}
+
+#tan-detail-next-button {
+    right: 0;
+    top: 50%;
+}
+
+#tan-detail-prev-button {
+    left: 0;
+    top: 50%;
+}
+
+#tan-detail-rephoto-next-button {
+    right: 0;
+    top: 50%;
+}
+
+#tan-detail-rephoto-prev-button {
+    left: 0;
+    top: 50%;
+}
+
+.ir {
+    display: block;
+    text-indent: -999em;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    text-align: left;
+    direction: ltr;
+}
+
+.facebook-connect a {
+    width: 169px;
+    height: 21px;
+    background: url(../images/connect-with-facebook.png) no-repeat;
+    font-size: 12px;
+    margin: 6px 8px;
+}
+
+.facebook-connect p {
+    margin: 0 0 10px;
+}
+
+.google-plus-connect a {
+    width: 169px;
+    height: 57px;
+    background: url(../images/connect-with-google.png) no-repeat;
+    margin-top: -5px;
+}
