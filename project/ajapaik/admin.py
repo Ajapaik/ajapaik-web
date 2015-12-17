@@ -1,8 +1,10 @@
+import autocomplete_light
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area,\
     AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourPhoto, TourRephoto, \
-    DatingConfirmation, Video
+    DatingConfirmation, Video, TourGroup
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -28,10 +30,20 @@ class TourPhotoInline(admin.TabularInline):
     extra = 1
 
 
-class TourAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-    }
+class TourGroupInline(admin.TabularInline):
+    model = TourGroup
+    extra = 1
+
+
+class TourAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(Tour)
+
+    #inlines = (TourGroupInline,)
+
+
+class TourGroupAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(TourGroup)
+
 
 class TourRephotoAdmin(ForeignKeyAutocompleteAdmin):
     related_search_fields = {
@@ -54,7 +66,7 @@ class DatingConfirmationAdmin(ForeignKeyAutocompleteAdmin):
     }
 
 
-class PhotoAdmin(ForeignKeyAutocompleteAdmin):
+class PhotoAdmin(ModelAdmin):
     @staticmethod
     def _distance_between_two_points_on_sphere(lon_1, lat_1, lon_2, lat_2):
         import math
@@ -89,10 +101,12 @@ class PhotoAdmin(ForeignKeyAutocompleteAdmin):
 
     inlines = (AlbumPhotoInline,)
 
-    related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-        'rephoto_of': ('pk', 'description',)
-    }
+    form = autocomplete_light.modelform_factory(Photo)
+
+    # related_search_fields = {
+    #     'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
+    #     'rephoto_of': ('pk', 'description',)
+    # }
 
 
 class SkipAdmin(ForeignKeyAutocompleteAdmin):
@@ -152,5 +166,6 @@ admin.site.register(Newsletter)
 admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
 admin.site.register(Tour, TourAdmin)
+admin.site.register(TourGroup, TourGroupAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)
 admin.site.register(Video)

@@ -1159,10 +1159,18 @@ class DatingConfirmation(Model):
 
 
 class Tour(Model):
+    FIXED, ANY = range(2)
+    TYPE_CHOICES = (
+        (FIXED, _('Fixed photo set')),
+        (ANY, _('Any photos'))
+    )
     photos = ManyToManyField('Photo', through='TourPhoto', related_name='tours')
     name = CharField(max_length=255)
-    user = ForeignKey('Profile')
+    user = ForeignKey('Profile', related_name='owned_tours')
+    members = ManyToManyField('Profile', related_name='tours', blank=True, null=True)
     ordered = BooleanField(default=False)
+    grouped = BooleanField(default=False)
+    photo_set_type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=FIXED)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -1171,6 +1179,16 @@ class Tour(Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.pk, self.user.pk)
+
+
+class TourGroup(Model):
+    tour = ForeignKey('Tour', related_name='tour_groups')
+    name = CharField(choices=((x, x) for x in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')), max_length=1)
+    max_members = IntegerField()
+    members = ManyToManyField('Profile', related_name='tour_groups', null=True, blank=True)
+
+    def __unicode__(self):
+        return '%s - %s' % (self.tour.pk, self.name,)
 
 
 class TourPhoto(Model):
@@ -1187,8 +1205,8 @@ class TourPhoto(Model):
 class TourRephoto(Model):
     image = ImageField(upload_to='then-and-now', height_field='height', width_field='width')
     tour = ForeignKey('Tour', related_name='tour_rephotos')
-    original = ForeignKey('Photo')
-    user = ForeignKey('Profile')
+    original = ForeignKey('Photo', related_name='tour_rephotos')
+    user = ForeignKey('Profile', related_name='tour_rephotos')
     width = IntegerField(blank=True, null=True)
     height = IntegerField(blank=True, null=True)
     created = DateTimeField(auto_now_add=True)

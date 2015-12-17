@@ -24,6 +24,6 @@
     $('#tan-frontpage-tour-id-submit').click(function (e) {
         e.preventDefault();
         tourId = tourIdInput.val();
-        window.location = mapRedirectURL + '?tour=' + tourId;
+        window.location = mapRedirectURL + tourId + '/';
     });
 }());

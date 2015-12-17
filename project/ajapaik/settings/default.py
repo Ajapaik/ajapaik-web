@@ -97,9 +97,9 @@ SECRET_KEY = '!!! paste your own secret key here !!!'
 
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (
-        'admin_tools.template_loaders.Loader',
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
+        'admin_tools.template_loaders.Loader',
     )),
 )
 
@@ -132,12 +132,26 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
+    'django.core.context_processors.tz',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'project.ajapaik.context_processors.analytics',
 )
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': TEMPLATE_CONTEXT_PROCESSORS,
+            'loaders': TEMPLATE_LOADERS
+        },
+        'DIRS': TEMPLATE_DIRS
+    },
+]
+
 ADMIN_TOOL_APPS = (
+    'project.ajapaik',
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -151,10 +165,15 @@ CORE_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sitemaps',
+    'autocomplete_light',
     'django.contrib.admin',
+    'django.contrib.sitemaps',
     'django.contrib.admindocs',
     'django.contrib.gis',
+)
+
+LOCAL_APPS = (
+
 )
 
 EXTERNAL_APPS = (
@@ -173,10 +192,7 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
 REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
 
-LOCAL_APPS = (
-    'project.ajapaik',
-)
-
+# TODO: Just use one tuple
 INSTALLED_APPS = ADMIN_TOOL_APPS + CORE_APPS + LOCAL_APPS + EXTERNAL_APPS
 
 HAYSTACK_CONNECTIONS = {

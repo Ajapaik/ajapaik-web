@@ -106,6 +106,10 @@ html, body, #map-container {
     background-color: rgba(255,255,255,.3);
 }
 
+.tan-gallery-overlay-rephoto-count.blue {
+    color: #007fff;
+}
+
 #tan-detail-image-container {
     position: relative;
     display: inline-block;
@@ -130,6 +134,8 @@ html, body, #map-container {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.3);
     border: none;
+    width: 48px;
+    height: 48px;
 }
 
 .tan-image-overlay-button > i {
@@ -148,6 +154,11 @@ html, body, #map-container {
 #tan-detail-prev-button {
     left: 0;
     top: 50%;
+}
+
+#tan-detail-rephoto-close-button {
+    right: 0;
+    top: 0;
 }
 
 #tan-detail-rephoto-next-button {

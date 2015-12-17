@@ -47,7 +47,10 @@ def facebook_handler(request, stage):
     if stage == "login":
         request.log_action("facebook.login")
 
-        if "HTTP_REFERER" in request.META:
+        if 'next' in request.GET:
+            request.session["fb_next"] = request.GET['next']
+            request.session.modified = True
+        elif "HTTP_REFERER" in request.META:
             request.session["fb_next"] = request.META["HTTP_REFERER"]
             request.session.modified = True
             

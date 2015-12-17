@@ -1,4 +1,4 @@
-from models import Album, Photo, Dating, Video
+from models import Album, Dating, Video
 from rest_framework import serializers
 
 

@@ -74,7 +74,7 @@ class Command(BaseCommand):
                     ap.save()
 
     def handle(self, *args, **options):
-        translation.activate('sv')
+        translation.activate('fi')
         url = args[0]
         self.geoname = args[1]
         try:
