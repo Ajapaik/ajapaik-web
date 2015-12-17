@@ -7,14 +7,14 @@ from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from math import ceil
 from django.utils import translation
-from project.ajapaik.models import Source, Photo, Album, AlbumPhoto, Area
+from project.ajapaik.models import Source, Photo, Album, AlbumPhoto, Licence
 from project.ajapaik.settings import ABSOLUTE_PROJECT_ROOT
 
 
 # This script was made for a single use, review before running
 class Command(BaseCommand):
     help = "Will download data from Finna"
-    args = "url geoname target_album"
+    args = "url target_album"
 
     @staticmethod
     def _set_query_parameter(url, param_name, param_value):
@@ -47,23 +47,17 @@ class Command(BaseCommand):
     def _create_photos_from_xml_response(self, xml_response):
         for elem in xml_response:
             if elem.tag == "docs":
-                geo_facets = elem.findall("geographic_facet")
-                contains_correct_geoname = False
-                for f in geo_facets:
-                    if self.geoname in f.text:
-                        contains_correct_geoname = True
-                        break
-                if contains_correct_geoname and not self._resource_already_exists(elem):
+                if  not self._resource_already_exists(elem):
                     new_photo = Photo(
                         title=elem.find("title").text,
-                        area=self.area,
                         description=elem.find("title_sort").text,
                         source=Source.objects.get(description=elem.find('institution').text),
                         source_key=elem.find("identifier").text,
-                        date_text=elem.find("main_date_str").text,
+                        external_id=elem.find("identifier").text,
+                        date_text=getattr(elem.find("main_date_str"), 'text', None),
                         author=elem.find("author").text,
                         source_url=elem.find("record_link").text,
-                        licence="Public domain"
+                        licence=Licence.objects.filter(name='Public domain').first()
                     )
                     opener = urllib2.build_opener()
                     opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
@@ -76,18 +70,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         translation.activate('fi')
         url = args[0]
-        self.geoname = args[1]
-        try:
-            self.area = Area.objects.get(name=self.geoname)
-        except ObjectDoesNotExist:
-            new_area = Area(name=self.geoname)
-            new_area.save()
-            self.area = new_area
-        target_album = args[2]
+        target_album = args[1]
         try:
             self.album = Album.objects.get(name=target_album)
         except ObjectDoesNotExist:
-            new_album = Album(name=target_album, atype=Album.COLLECTION, is_public=True)
+            new_album = Album(name=target_album, atype=Album.CURATED, is_public=True)
             new_album.save()
             self.album = new_album
         items_per_page = 20

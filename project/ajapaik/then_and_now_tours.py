@@ -2,6 +2,7 @@ import datetime
 import json
 import random
 
+import autocomplete_light
 from django import forms
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
@@ -19,6 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 from registration.forms import RegistrationFormUniqueEmail
 from registration.signals import user_registered
 from rest_framework import serializers
+from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import get_thumbnail, delete
 
 from project.ajapaik.models import TourRephoto, Photo, Tour, TourPhoto, TourGroup
@@ -83,6 +85,11 @@ class UserRegistrationForm(RegistrationFormUniqueEmail):
         return email
 
 
+class TourEditForm(autocomplete_light.ModelForm):
+    class Meta:
+        model = Tour
+
+
 # Signals
 def user_created(sender, user, request, **kwargs):
     form = UserRegistrationForm(request.POST)
@@ -117,7 +124,6 @@ class MapPhotoSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         self.tour = kwargs.pop('tour', None)
-        self.current_user = kwargs.pop('profile', None)
         self.completion_data = kwargs.pop('completion_data', None)
         self.tour_photo_order = kwargs.pop('tour_photo_order', None)
         super(MapPhotoSerializer, self).__init__(**kwargs)
@@ -131,7 +137,9 @@ class MapPhotoSerializer(serializers.ModelSerializer):
                 reverse('project.ajapaik.views.image_thumb', args=(obj.pk, 50, obj.get_pseudo_slug())))
 
     def get_tour_photo_order(self, obj):
-        return self.tour_photo_order.index(obj.pk)
+        if obj.pk in self.tour_photo_order:
+            return self.tour_photo_order.index(obj.pk)
+        return None
 
     def get_completed_users(self, obj):
         if obj.pk in self.completion_data:
@@ -146,6 +154,41 @@ class MapPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = ('description', 'lat', 'lon', 'order', 'permaURL', 'imageURL', 'usersCompleted', 'groupsCompleted')
+
+
+class GalleryPhotoSerializer(serializers.ModelSerializer):
+    permaURL = serializers.SerializerMethodField('get_permalink')
+    imageURL = serializers.SerializerMethodField('get_image_url')
+    usersCompleted = serializers.SerializerMethodField('get_completed_users')
+    groupsCompleted = serializers.SerializerMethodField('get_completed_groups')
+
+    def __init__(self, *args, **kwargs):
+        self.tour = kwargs.pop('tour', None)
+        self.completion_data = kwargs.pop('completion_data', None)
+        self.tour_photo_order = kwargs.pop('tour_photo_order', None)
+        super(GalleryPhotoSerializer, self).__init__(**kwargs)
+
+    def get_permalink(self, obj):
+        return self.context['request'].build_absolute_uri(
+                reverse('project.ajapaik.then_and_now_tours.detail', args=(self.tour.pk, obj.pk)))
+
+    def get_image_url(self, obj):
+        return self.context['request'].build_absolute_uri(
+                reverse('project.ajapaik.views.image_thumb', args=(obj.pk, 50, obj.get_pseudo_slug())))
+
+    def get_completed_users(self, obj):
+        if obj.pk in self.completion_data:
+            return self.completion_data[obj.pk]['users']
+        return None
+
+    def get_completed_groups(self, obj):
+        if obj.pk in self.completion_data:
+            return self.completion_data[obj.pk]['groups']
+        return None
+
+    class Meta:
+        model = Photo
+        fields = ('description', 'permaURL', 'imageURL', 'usersCompleted', 'groupsCompleted')
 
 
 # Views
@@ -230,33 +273,62 @@ def map_view(request, tour_id=None):
 def get_map_markers(request, tour_id):
     tour = get_object_or_404(Tour, id=tour_id)
     form = MapMarkersForm(request.GET)
-    markers = json.dumps([])
-    if form.is_valid():
-        photos = tour.photos.all()
-        if tour.photo_set_type == tour.ANY:
+    photos = tour.photos.all()
+    if tour.photo_set_type == tour.ANY:
+        if form.is_valid():
             user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
             photos = Photo.objects.filter(
                     rephoto_of__isnull=True,
                     geography__distance_lte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
                     geography__distance_gte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
             )
-        tour_photo_order = list(
-                TourPhoto.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
-        completion_data = TourRephoto.objects.filter(tour=tour).values('original', 'user', 'user__tour_groups')
-        completion_dict = {}
-        for each in completion_data:
-            if each['original'] not in completion_dict:
-                completion_dict[each['original']] = {'users': [], 'groups': []}
-            if each['user'] and each['user'] not in completion_dict[each['original']]['users']:
-                completion_dict[each['original']]['users'].append(each['user'])
-            if each['user__tour_groups'] \
-                    and each['user__tour_groups'] not in completion_dict[each['original']]['groups']:
-                completion_dict[each['original']]['groups'].append(each['user__tour_groups'])
-        serializer = MapPhotoSerializer(photos, context={'request': request}, tour=tour, many=True,
-                                        tour_photo_order=tour_photo_order, completion_data=completion_dict)
-        markers = serializer.data
+    tour_photo_order = list(TourPhoto.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
+    completion_data = TourRephoto.objects.filter(tour=tour).values('original', 'user', 'user__tour_groups')
+    completion_dict = {}
+    for each in completion_data:
+        if each['original'] not in completion_dict:
+            completion_dict[each['original']] = {'users': [], 'groups': []}
+        if each['user'] and each['user'] not in completion_dict[each['original']]['users']:
+            completion_dict[each['original']]['users'].append(each['user'])
+        if each['user__tour_groups'] \
+                and each['user__tour_groups'] not in completion_dict[each['original']]['groups']:
+            completion_dict[each['original']]['groups'].append(each['user__tour_groups'])
+    serializer = MapPhotoSerializer(photos, context={'request': request}, tour=tour, many=True,
+                                    tour_photo_order=tour_photo_order, completion_data=completion_dict)
+    markers = serializer.data
 
-    return HttpResponse(markers, content_type='application/json')
+    return HttpResponse(JSONRenderer().render(markers), content_type='application/json')
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def get_gallery_photos(request, tour_id):
+    tour = get_object_or_404(Tour, id=tour_id)
+    form = MapMarkersForm(request.GET)
+    photos = tour.photos.all()
+    if tour.photo_set_type == tour.ANY:
+        if form.is_valid():
+            user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
+            photos = Photo.objects.filter(
+                    rephoto_of__isnull=True,
+                    geography__distance_lte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
+                    geography__distance_gte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
+            )
+    tour_photo_order = list(TourPhoto.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
+    completion_data = TourRephoto.objects.filter(tour=tour).values('original', 'user', 'user__tour_groups')
+    completion_dict = {}
+    for each in completion_data:
+        if each['original'] not in completion_dict:
+            completion_dict[each['original']] = {'users': [], 'groups': []}
+        if each['user'] and each['user'] not in completion_dict[each['original']]['users']:
+            completion_dict[each['original']]['users'].append(each['user'])
+        if each['user__tour_groups'] \
+                and each['user__tour_groups'] not in completion_dict[each['original']]['groups']:
+            completion_dict[each['original']]['groups'].append(each['user__tour_groups'])
+    serializer = GalleryPhotoSerializer(photos, context={'request': request}, tour=tour, many=True,
+                                    tour_photo_order=tour_photo_order, completion_data=completion_dict)
+    markers = serializer.data
+
+    return HttpResponse(JSONRenderer().render(markers), content_type='application/json')
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def choose_group(request, tour_id):
@@ -303,14 +375,18 @@ def gallery(request, tour_id):
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def detail(request, tour_id, photo_id, rephoto_id=None):
     photo = get_object_or_404(Photo, id=photo_id)
+    tour = get_object_or_404(Tour, id=tour_id)
     rp = None
     if rephoto_id:
         rp = get_object_or_404(TourRephoto, id=rephoto_id)
-    tour = get_object_or_404(Tour, id=tour_id)
+    profile = request.user.profile
+    current_photo_index = None
+    current_rephoto_index = None
     tour_photo_order = list(TourPhoto.objects.filter(tour=tour).order_by('order').values_list('photo_id', flat=True))
     rephoto_order = list(
             TourRephoto.objects.filter(tour=tour, original=photo).order_by('created').values_list('id', flat=True))
-    current_photo_index = tour_photo_order.index(photo.id)
+    if photo.id in tour_photo_order:
+        current_photo_index = tour_photo_order.index(photo.id)
     ret = {
         'photo': photo,
         'rephoto': rp,
@@ -318,13 +394,26 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
         'rephotos': TourRephoto.objects.filter(original=photo, tour=tour),
         'is_detail': True
     }
-    if (len(tour_photo_order) - 1) > current_photo_index:
+    if tour.grouped:
+        photo_captured_by_groups = TourRephoto.objects.filter(tour=tour, original=photo, user__tour_groups__isnull=False)\
+            .values_list('user__tour_groups', flat=True).distinct('user__tour_groups')
+        user_current_group = profile.tour_groups.filter(tour=tour).first()
+        if photo_captured_by_groups:
+            photo_captured_by_group = TourGroup.objects.get(pk=photo_captured_by_groups[0])
+            ret['photo_captured_by_group'] = photo_captured_by_group
+            if user_current_group == photo_captured_by_group:
+                ret['current_user_group_captured'] = True
+            else:
+                ret['current_user_group_captured'] = False
+    ret['current_user_captured'] = TourRephoto.objects.filter(tour=tour, original=photo, user=profile).exists()
+    if (current_photo_index and len(tour_photo_order) - 1) > current_photo_index:
         ret['next_photo'] = Photo.objects.filter(id=tour_photo_order[current_photo_index + 1]).first()
     if current_photo_index > 0:
         ret['previous_photo'] = Photo.objects.filter(id=tour_photo_order[current_photo_index - 1]).first()
     if rp:
-        current_rephoto_index = rephoto_order.index(rp.id)
-        if (len(rephoto_order) - 1) > current_rephoto_index:
+        if rp.id in rephoto_order:
+            current_rephoto_index = rephoto_order.index(rp.id)
+        if (current_rephoto_index and len(rephoto_order) - 1) > current_rephoto_index:
             ret['next_rephoto'] = TourRephoto.objects.filter(id=rephoto_order[current_rephoto_index + 1]).first()
         if current_rephoto_index > 0:
             ret['previous_rephoto'] = TourRephoto.objects.filter(id=rephoto_order[current_rephoto_index - 1]).first()
@@ -397,6 +486,7 @@ def tour_complete(request, tour_id):
     return render_to_response('then_and_now/tour_complete.html', RequestContext(request, ret))
 
 
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def participants(request, tour_id):
     tour = get_object_or_404(Tour, id=tour_id)
     rephoto_authors = tour.tour_rephotos.values('user').annotate(rephoto_count=Count('pk')).order_by('-rephoto_count')
@@ -410,3 +500,15 @@ def participants(request, tour_id):
         'tour': tour
     }
     return render_to_response('then_and_now/participants.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def manage(request, tour_id):
+    tour = get_object_or_404(Tour, id=tour_id)
+    form = TourEditForm(instance=tour)
+    ret = {
+        'form': form,
+        'tour': tour,
+        'is_tour_manager': True
+    }
+    return render_to_response('then_and_now/manage.html', RequestContext(request, ret))

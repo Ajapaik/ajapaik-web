@@ -27,17 +27,26 @@
                     <div class="row">
                         {{ photo.description }}
                     </div>
-                    <div class="row">
-                        <form id="form" action="/then-and-now-tours/camera/upload/" method="post" enctype="multipart/form-data">
-                            <input name="image" id="camera-file-capture" type="file" accept="image/*" onchange="PreviewImage();"
-                                   capture="camera"/>
-                            <img style="display:none" id="uploadPreview" class="img-responsive"/>
-                            <input type="hidden" name="original" value="{{ photo.id }}"/>
-                            <input type="hidden" name="tour" value="{{ tour.id }}"/>
-                        </form>
-                        <span class="glyphicon glyphicon-camera tan-font-size-48px" aria-hidden="true"></span>
-                        <span style="display:none" class="glyphicon glyphicon-ok tan-font-size-48px" aria-hidden="true"></span>
-                    </div>
+                    {% if current_user_captured %}
+                        <div class="row">{% trans "You have already captured this photo" %}</div>
+                    {% elif current_user_group_captured %}
+                        <div class="row">{% trans "Someone from your group has already captured this photo" %}</div>
+                    {% elif photo_captured_by_group %}
+                        <div class="row">{% blocktrans with photo_captured_by_group.name as group %}Someone from group {{ group }} has already captured this photo{% endblocktrans %}</div>
+                    {% else %}
+                        <div class="row">
+                            <form id="form" action="{% url "project.ajapaik.then_and_now_tours.camera_upload" %}"
+                                  method="post" enctype="multipart/form-data">
+                                <input name="image" id="camera-file-capture" type="file" accept="image/*" onchange="PreviewImage();"
+                                       capture="camera"/>
+                                <img style="display:none" id="uploadPreview" class="img-responsive"/>
+                                <input type="hidden" name="original" value="{{ photo.id }}"/>
+                                <input type="hidden" name="tour" value="{{ tour.id }}"/>
+                            </form>
+                            <span class="glyphicon glyphicon-camera tan-font-size-48px" aria-hidden="true"></span>
+                            <span style="display:none" class="glyphicon glyphicon-ok tan-font-size-48px" aria-hidden="true"></span>
+                        </div>
+                    {% endif %}
                 </div>
                 {% if rephoto %}
                     <div class="col-xs-12 col-sm-6">

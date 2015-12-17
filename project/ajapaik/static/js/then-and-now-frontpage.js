@@ -1,12 +1,22 @@
 (function () {
     'use strict';
     /* global mapRedirectURL */
+    /* global randomTourURL */
     /* global gettext */
     /* global alert */
     var geolocationCallback = function (location) {
             var lat = location.coords.latitude,
                 lng = location.coords.longitude;
-            window.location = mapRedirectURL + '?lat=' + lat + '&lng=' + lng;
+            $.ajax({
+                url: randomTourURL,
+                data: {
+                    lat: lat,
+                    lng: lng
+                },
+                success: function (response) {
+                    window.location = mapRedirectURL + response.tour + '/';
+                }
+            });
         },
         geolocationError = function () {
             alert(gettext('Unable to get location data'));

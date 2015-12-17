@@ -4,19 +4,26 @@
 
 {% block content %}
     <div id="tan-gallery-container">
-        {% for p in photos %}
-            <a class="tan-gallery-photo-container" href="{% url 'project.ajapaik.then_and_now_tours.detail' tour.pk p.pk %}">
-                <img src="{% url 'project.ajapaik.views.image_thumb' p.pk 300 %}">
-                {% if p.rephoto_count > 0 %}
-                    <div class="tan-gallery-overlay-rephoto-count{% if p.user_has_rephotographed %} blue{% endif %}"><i class="material-icons">filter_{{ p.rephoto_count }}</i></div>
-                {% endif %}
-            </a>
-        {% endfor %}
+{#        {% for p in photos %}#}
+{#            <a class="tan-gallery-photo-container" href="{% url 'project.ajapaik.then_and_now_tours.detail' tour.pk p.pk %}">#}
+{#                <img src="{% url 'project.ajapaik.views.image_thumb' p.pk 300 %}">#}
+{#                {% if p.rephoto_count > 0 %}#}
+{#                    <div class="tan-gallery-overlay-rephoto-count{% if p.user_has_rephotographed %} blue{% endif %}"><i class="material-icons">filter_{{ p.rephoto_count }}</i></div>#}
+{#                {% endif %}#}
+{#            </a>#}
+{#        {% endfor %}#}
     </div>
+    {% include 'then_and_now/js_templates/gallery_photo.html' %}
 {% endblock %}
 
 {% block specific_js %}
+    <script>
+        var getPhotosURL = '{% url 'project.ajapaik.then_and_now_tours.get_gallery_photos' tour.pk %}',
+            currentUserID = parseInt('{{ request.user.pk }}', 10),
+            isFixedTour = '{{ tour.photoset_type }}' === 'FIXED';
+    </script>
     {% compress js %}
+        <script src="{% static "js/tmpl.js" %}"></script>
         <script src="{% static 'js/then-and-now-gallery.js' %}"></script>
     {% endcompress %}
 {% endblock %}

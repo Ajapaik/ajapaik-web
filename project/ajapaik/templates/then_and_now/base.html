@@ -40,7 +40,7 @@
                 <a class="navbar-brand"
                    href="{% url 'project.ajapaik.then_and_now_tours.frontpage' %}">{% trans "Then & Now Tours" %}</a>
             </div>
-            {% if is_map or is_gallery or is_detail or is_rephoto or is_participants %}
+            {% if is_map or is_gallery or is_detail or is_rephoto or is_participants or is_tour_manager %}
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li {% if is_map %}class="navbar-active"{% endif %}><a
@@ -52,6 +52,11 @@
                         <li {% if is_participants %}class="navbar-active"{% endif %}><a
                                 href="{% url 'project.ajapaik.then_and_now_tours.participants' tour.pk %}">{% trans "Participants" %}</a>
                         </li>
+                        {% if tour.user == request.user.profile %}
+                            <li {% if is_tour_manager %}class="navbar-active"{% endif %}><a
+                                href="{% url 'project.ajapaik.then_and_now_tours.manage' tour.pk %}">{% trans "Manage" %}</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             {% endif %}
@@ -75,5 +80,6 @@
     $('#tan-navbar').autoHidingNavbar();
 </script>
 {% block specific_js %}{% endblock %}
+{% block autocomplete_stuff %}{% endblock %}
 </body>
 </html>

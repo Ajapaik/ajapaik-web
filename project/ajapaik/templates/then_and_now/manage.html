@@ -1,0 +1,19 @@
+{% extends "then_and_now/base.html" %}
+
+{% load i18n bootstrap3 %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" action="." class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary">
+                {% trans "Update" %}
+            </button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block autocomplete_stuff %}
+    {% include 'autocomplete_light/static.html' %}
+{% endblock %}

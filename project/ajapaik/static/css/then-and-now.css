@@ -96,7 +96,7 @@ html, body, #map-container {
     text-align: center;
 }
 
-.tan-gallery-overlay-rephoto-count {
+.tan-gallery-overlay-done {
     position: absolute;
     width: 24px;
     bottom: 0;
@@ -106,7 +106,7 @@ html, body, #map-container {
     background-color: rgba(255,255,255,.3);
 }
 
-.tan-gallery-overlay-rephoto-count.blue {
+.tan-gallery-overlay-done.blue {
     color: #007fff;
 }
 

@@ -22,6 +22,7 @@
         }),
         bounds,
         currentLatLng,
+        infoWindow = new google.maps.InfoWindow(),
         geolocationCallback = function (location) {
             var lat = location.coords.latitude,
                 lng = location.coords.longitude;
@@ -38,6 +39,7 @@
         getMapMarkers = function (lat, lng) {
             $.ajax({
                 url: getMarkersURL,
+                cache: false,
                 data: {
                     lat: lat,
                     lng: lng
@@ -46,17 +48,17 @@
                     bounds = new google.maps.LatLngBounds();
                     $.each(response, function (k, v) {
                         var icon;
-                        if (currentUserID in v.usersCompleted) {
+                        if ((v.usersCompleted && v.usersCompleted.indexOf(currentUserID)) || (v.groupsCompleted)) {
                             icon = marker2;
                         } else {
                             icon = marker1;
                         }
-                        currentLatLng = new google.maps.LatLng(v.lat, v.lng);
+                        currentLatLng = new google.maps.LatLng(v.lat, v.lon);
                         bounds.extend(currentLatLng);
                         var marker = new google.maps.Marker({
                             position: currentLatLng,
                             map: map,
-                            title: v.name,
+                            title: v.description,
                             url: v.permaURL,
                             image: v.imageURL,
                             icon: icon
@@ -71,13 +73,12 @@
                                 infoWindow.setContent(content);
                                 infoWindow.open(map, marker);
                             };
-                        })(marker, v.name + '<a href="' + v.permaURL + '"><img src="' + v.imageURL + '"></a>', infoWindow));
+                        })(marker, v.description + '<a href="' + v.permaURL + '"><img src="' + v.imageURL + '"></a>', infoWindow));
                     });
                     map.fitBounds(bounds);
                 }
             });
-        },
-        infoWindow = new google.maps.InfoWindow();
+        };
     $(document).ready(function () {
         if (isFixedTour) {
             getMapMarkers();
