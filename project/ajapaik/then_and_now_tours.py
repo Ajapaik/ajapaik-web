@@ -41,7 +41,27 @@ class RandomTourForm(forms.Form):
     lng = forms.FloatField(min_value=-180, max_value=180)
     min_distance = forms.FloatField(required=False)
     max_distance = forms.FloatField(required=False)
-    how_many = forms.IntegerField(required=False)
+    random_count = forms.IntegerField(required=False)
+
+
+class ChooseNewTourTypeForm(forms.Form):
+    OPEN, FIXED, NEARBY_RANDOM = range(3)
+    TYPE_CHOICES = (
+        (OPEN, _('Open tour')),
+        (FIXED, _('Fixed photo set')),
+        (NEARBY_RANDOM, _('Random with nearby pictures')),
+    )
+    tour_type = forms.ChoiceField(choices=TYPE_CHOICES, label=_('Tour type'))
+    random_count = forms.IntegerField(required=False, label=_('Number of random pictures'))
+    lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False, widget=forms.HiddenInput())
+    lng = forms.FloatField(min_value=-180, max_value=180, required=False, widget=forms.HiddenInput())
+
+    def clean(self):
+        self.cleaned_data['tour_type'] = int(self.cleaned_data['tour_type'])
+        if self.cleaned_data['tour_type'] == self.NEARBY_RANDOM and (
+                self.cleaned_data['lng'] is None or self.cleaned_data['lat'] is None):
+            raise forms.ValidationError(_('We need your location to generate a random tour, please try again.'))
+        return self.cleaned_data
 
 
 class NotValidatedMultipleChoiceField(TypedMultipleChoiceField):
@@ -79,7 +99,7 @@ class TourGroupSelectionForm(forms.Form):
         else:
             return self.cleaned_data
 
-    group = forms.ModelChoiceField(queryset=TourGroup.objects.all())
+    group = forms.ModelChoiceField(queryset=TourGroup.objects.all(), label=_('Group'))
 
 
 class MapMarkersForm(forms.Form):
@@ -110,12 +130,23 @@ class ProfileEditForm(forms.ModelForm):
 class TourEditForm(autocomplete_light.ModelForm):
     class Meta:
         model = Tour
-        exclude = ('user',)
+        fields = ('photo_set_type', 'photos', 'grouped')
+        labels = {
+            'photo_set_type': _('Photo set type'),
+            'photos': _('Photos'),
+            'grouped': _('With groups')
+        }
 
 
 class TourGroupInlineForm(autocomplete_light.ModelForm):
     class Meta:
         model = TourGroup
+        exclude = ('members',)
+        labels = {
+            'name': _('Group name'),
+            'max_members': _('Maximum number of members'),
+            'grouped': _('With groups')
+        }
 
 
 TourGroupFormset = inlineformset_factory(Tour, TourGroup, form=TourGroupInlineForm, extra=1)
@@ -239,64 +270,26 @@ def frontpage(request):
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
-def generate_random_tour(request):
-    profile = request.user.profile
-    generation_form = RandomTourForm(request.GET)
-    if generation_form.is_valid():
-        user_lat = generation_form.cleaned_data['lat']
-        user_lng = generation_form.cleaned_data['lng']
-        max_dist = generation_form.cleaned_data['max_distance']
-        min_dist = generation_form.cleaned_data['min_distance']
-        how_many = generation_form.cleaned_data['how_many']
-        user_location = Point(user_lng, user_lat)
-        if not min_dist:
-            min_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
-        if not max_dist:
-            max_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
-        if not how_many:
-            how_many = THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
-        photo_set = Photo.objects.filter(rephoto_of__isnull=True,
-                                         geography__distance_lte=(user_location, D(m=max_dist)),
-                                         geography__distance_gte=(user_location, D(m=min_dist)), )
-        total = photo_set.count()
-        if how_many <= total:
-            sample = random.sample(photo_set, how_many)
-        else:
-            sample = random.sample(photo_set, total)
-        tour = Tour(
-                name=_('Random Tour'),
-                user=profile
-        )
-        tour.save()
-        i = 0
-        for each in sample:
-            tour.photos.add(each)
-            TourPhotoOrder(
-                photo=each,
-                tour=tour,
-                order=i
-            ).save()
-            i += 1
-
-        return HttpResponse(json.dumps({'tour': tour.pk}), content_type='application/json')
-
-    return HttpResponse(json.dumps({}), content_type='application/json')
-
-
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def generate_ordered_tour(request):
     profile = request.user.profile
     form = OrderedTourForm(request.POST)
     if form.is_valid():
         tour = Tour(
-            name=_('Fixed tour'),
-            user=profile,
-            ordered=True,
-            photo_set_type=Tour.FIXED
+                name=_('Fixed tour'),
+                user=profile,
+                ordered=True,
+                photo_set_type=Tour.FIXED
         )
         tour.save()
+        i = 0
         for each in Photo.objects.filter(pk__in=form.cleaned_data['ids'], lat__isnull=False, lon__isnull=False).all():
             tour.photos.add(each)
+            TourPhotoOrder(
+                    photo=each,
+                    tour=tour,
+                    order=i
+            ).save()
+            i += 1
         return HttpResponse(json.dumps({'tour': tour.pk}), content_type='application/json')
 
     return HttpResponse(json.dumps({}), content_type='application/json')
@@ -332,7 +325,8 @@ def get_map_markers(request, tour_id):
                     geography__distance_lte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
                     geography__distance_gte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
             )
-    tour_photo_order = list(TourPhotoOrder.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
+    tour_photo_order = list(
+        TourPhotoOrder.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
     completion_data = TourRephoto.objects.filter(tour=tour).values('original', 'user', 'user__tour_groups')
     completion_dict = {}
     for each in completion_data:
@@ -363,7 +357,8 @@ def get_gallery_photos(request, tour_id):
                     geography__distance_lte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
                     geography__distance_gte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
             )
-    tour_photo_order = list(TourPhotoOrder.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
+    tour_photo_order = list(
+        TourPhotoOrder.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
     completion_data = TourRephoto.objects.filter(tour=tour).values('original', 'user', 'user__tour_groups')
     completion_dict = {}
     for each in completion_data:
@@ -375,10 +370,11 @@ def get_gallery_photos(request, tour_id):
                 and each['user__tour_groups'] not in completion_dict[each['original']]['groups']:
             completion_dict[each['original']]['groups'].append(each['user__tour_groups'])
     serializer = GalleryPhotoSerializer(photos, context={'request': request}, tour=tour, many=True,
-                                    tour_photo_order=tour_photo_order, completion_data=completion_dict)
+                                        tour_photo_order=tour_photo_order, completion_data=completion_dict)
     markers = serializer.data
 
     return HttpResponse(JSONRenderer().render(markers), content_type='application/json')
+
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def choose_group(request, tour_id):
@@ -432,7 +428,8 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
     profile = request.user.profile
     current_photo_index = None
     current_rephoto_index = None
-    tour_photo_order = list(TourPhotoOrder.objects.filter(tour=tour).order_by('order').values_list('photo_id', flat=True))
+    tour_photo_order = list(
+        TourPhotoOrder.objects.filter(tour=tour).order_by('order').values_list('photo_id', flat=True))
     rephoto_order = list(
             TourRephoto.objects.filter(tour=tour, original=photo).order_by('created').values_list('id', flat=True))
     if photo.id in tour_photo_order:
@@ -445,7 +442,8 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
         'is_detail': True
     }
     if tour.grouped:
-        photo_captured_by_groups = TourRephoto.objects.filter(tour=tour, original=photo, user__tour_groups__isnull=False)\
+        photo_captured_by_groups = TourRephoto.objects.filter(tour=tour, original=photo,
+                                                              user__tour_groups__isnull=False) \
             .values_list('user__tour_groups', flat=True).distinct('user__tour_groups')
         user_current_group = profile.tour_groups.filter(tour=tour).first()
         if photo_captured_by_groups:
@@ -507,21 +505,21 @@ def camera_upload(request):
     if form.is_valid():
         tour = form.cleaned_data['tour']
         TourRephoto(
-            image=form.cleaned_data['image'],
-            original=form.cleaned_data['original'],
-            tour=tour,
-            user=profile
+                image=form.cleaned_data['image'],
+                original=form.cleaned_data['original'],
+                tour=tour,
+                user=profile
         ).save()
         if profile.send_then_and_now_photos_to_ajapaik:
             now = datetime.datetime.now()
             Photo(
-                image=form.cleaned_data['image'],
-                is_then_and_now_rephoto=True,
-                user=profile,
-                description=form.cleaned_data['original'].description,
-                licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
-                rephoto_of=form.cleaned_data['original'],
-                date=now
+                    image=form.cleaned_data['image'],
+                    is_then_and_now_rephoto=True,
+                    user=profile,
+                    description=form.cleaned_data['original'].description,
+                    licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
+                    rephoto_of=form.cleaned_data['original'],
+                    date=now
             ).save()
             form.cleaned_data['original'].latest_rephoto = now
             form.cleaned_data['original'].light_save()
@@ -602,3 +600,71 @@ def settings(request, tour_id):
     }
 
     return render_to_response('then_and_now/settings.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def choose_new_tour_type(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ChooseNewTourTypeForm(request.POST)
+        if form.is_valid():
+            t = form.cleaned_data['tour_type']
+            if t == form.NEARBY_RANDOM:
+                generation_form = RandomTourForm(request.POST)
+                if generation_form.is_valid():
+                    user_lat = generation_form.cleaned_data['lat']
+                    user_lng = generation_form.cleaned_data['lng']
+                    max_dist = generation_form.cleaned_data['max_distance']
+                    min_dist = generation_form.cleaned_data['min_distance']
+                    how_many = generation_form.cleaned_data['random_count']
+                    user_location = Point(user_lng, user_lat)
+                    if not min_dist:
+                        min_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
+                    if not max_dist:
+                        max_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
+                    if not how_many:
+                        how_many = THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
+                    photo_set = Photo.objects.filter(rephoto_of__isnull=True,
+                                                     geography__distance_lte=(user_location, D(m=max_dist)),
+                                                     geography__distance_gte=(user_location, D(m=min_dist)), )
+                    total = photo_set.count()
+                    if how_many <= total:
+                        sample = random.sample(photo_set, how_many)
+                    else:
+                        sample = random.sample(photo_set, total)
+                    tour = Tour(
+                            name=_('Random Tour'),
+                            user=profile,
+                            photo_set_type=Tour.FIXED
+                    )
+                    tour.save()
+                    for each in sample:
+                        tour.photos.add(each)
+
+                    return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
+                else:
+                    return redirect(reverse('project.ajapaik.then_and_now_tours.frontpage'))
+            elif t == form.FIXED:
+                tour = Tour(
+                        name=_('Fixed tour'),
+                        user=profile,
+                        photo_set_type=Tour.FIXED
+                )
+                tour.save()
+                return redirect(reverse('project.ajapaik.then_and_now_tours.manage', args=(tour.pk,)))
+            elif t == form.OPEN:
+                tour = Tour(
+                        name=_('Open tour'),
+                        user=profile,
+                        photo_set_type=Tour.ANY
+                )
+                tour.save()
+                return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
+    else:
+        form = ChooseNewTourTypeForm(
+            initial={'lat': request.GET.get('lat') or None, 'lng': request.GET.get('lng') or None})
+    ret = {
+        'form': form
+    }
+
+    return render_to_response('then_and_now/choose_new_tour_type.html', RequestContext(request, ret))

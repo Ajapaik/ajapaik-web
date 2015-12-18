@@ -34,6 +34,10 @@ html, body, #map-container {
     font-size: 48px;
 }
 
+.tan-font-size-24px {
+    font-size: 24px;
+}
+
 .tan-button-text {
     font-size: 24px;
     background-color: #edc549;
@@ -67,13 +71,9 @@ html, body, #map-container {
     max-width: 300px;
 }
 
-#tan-frontpage-title-top {
-    border-top: 3px solid #edc549;
-    text-align: center;
-}
-
-#tan-frontpage-title-bottom {
+#tan-frontpage-title {
     border-bottom: 3px solid #edc549;
+    border-top: 3px solid #edc549;
     text-align: center;
 }
 

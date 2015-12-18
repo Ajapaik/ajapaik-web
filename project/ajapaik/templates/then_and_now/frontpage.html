@@ -6,34 +6,39 @@
     <div class="col-xs-offset-1 col-xs-10">
         <br>
         <br>
-        <div class="row tan-font-size-48px" id="tan-frontpage-title-top">{% trans "Then & Now" %}</div>
-        <div class="row tan-font-size-48px" id="tan-frontpage-title-bottom">{% trans "Tours" %}</div>
+        <div class="row tan-font-size-48px" id="tan-frontpage-title">{% trans "Then & Now Tours" %}</div>
         <br>
         <br>
-        <div class="row tan-text-center">
-            <img class="img-responsive" src="{% static 'images/then-and-now-frontpage-image.png' %}"
-                 id="tan-frontpage-image">
-        </div>
+        {% if not user.is_authenticated %}
+            <div class="row tan-text-center">
+                <img class="img-responsive" src="{% static 'images/then-and-now-frontpage-image.png' %}"
+                     id="tan-frontpage-image">
+            </div>
+        {% else %}
+            <div class="row tan-text-center">
+                <p class="tan-font-size-24px">{% trans "Signed in as" %} <b>{{ user.get_username }}</b></p>
+            </div>
+        {% endif %}
         <br>
         <div class="row tan-text-center">
             <form>
                 <div class="form-inline" id="tan-frontpage-album-from-group">
                     <label class="sr-only"
-                           for="tan-frontpage-tour-id-input">{% trans "Tour ID given to you" %}</label>
+                           for="tan-frontpage-tour-id-input">{% trans "Tour ID" %}</label>
                     <input type="number" class="form-control" id="tan-frontpage-tour-id-input"
                            placeholder="{% trans "Tour ID" %}">
                     <button type="submit" id="tan-frontpage-tour-id-submit"
                         class="btn tan-double-border tan-button-text">{% trans "Go" %}</button>
                 </div>
             </form>
-            <button id="tan-frontpage-make-tour-button"
-                    class="btn tan-double-border tan-button-text">{% trans "Take me on a random tour!" %}</button>
+            <button id="tan-frontpage-make-tour-button" class="btn tan-double-border tan-button-text">
+                {% trans "Create tour!" %}
+            </button>
         </div>
         <br>
         <br>
         <div class="row tan-text-center">
             {% if user.is_authenticated %}
-                <p>{% trans "Signed in as" %} {{ user.get_username }}</p>
                 <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "Log out" %}</a>
             {% else %}
                 <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
@@ -46,7 +51,7 @@
 {% block specific_js %}
     <script>
         var mapRedirectURL = '{% url 'project.ajapaik.then_and_now_tours.map_view' %}',
-            randomTourURL = '{% url 'project.ajapaik.then_and_now_tours.generate_random_tour' %}';
+            newTourURL = '{% url 'project.ajapaik.then_and_now_tours.choose_new_tour_type' %}';
     </script>
     {% compress js %}
         <script src="{% static 'js/then-and-now-frontpage.js' %}"></script>

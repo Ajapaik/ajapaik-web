@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-08 15:53+0200\n"
+"POT-Creation-Date: 2015-12-18 18:11+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,67 +18,67 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/ajapaik/static/js/ajapaik-common.js:225
+#: project/ajapaik/static/js/ajapaik-common.js:227
 msgid "Go to my location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:261
+#: project/ajapaik/static/js/ajapaik-common.js:263
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:545
+#: project/ajapaik/static/js/ajapaik-common.js:547
 msgid "User denied the request for Geolocation."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:551
+#: project/ajapaik/static/js/ajapaik-common.js:553
 msgid "Location information is unavailable."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:554
+#: project/ajapaik/static/js/ajapaik-common.js:556
 msgid "The request to get user location timed out."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:557
+#: project/ajapaik/static/js/ajapaik-common.js:559
 msgid "An unknown error occurred."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:707
+#: project/ajapaik/static/js/ajapaik-common.js:709
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:718
-#: project/ajapaik/static/js/ajapaik-common.js:764
+#: project/ajapaik/static/js/ajapaik-common.js:720
+#: project/ajapaik/static/js/ajapaik-common.js:766
 msgid "Geotagged by this many users"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:748
+#: project/ajapaik/static/js/ajapaik-common.js:750
 msgid "Confirm correct location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:757
+#: project/ajapaik/static/js/ajapaik-common.js:759
 msgid "Submit your own location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:783
+#: project/ajapaik/static/js/ajapaik-common.js:785
 msgid "You"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:787
+#: project/ajapaik/static/js/ajapaik-common.js:789
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:394
 msgid "Anonymous user"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:789
+#: project/ajapaik/static/js/ajapaik-common.js:791
 msgid "Anonymous users"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:844
+#: project/ajapaik/static/js/ajapaik-common.js:846
 msgid "Current location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:1108
-#: project/ajapaik/static/js/ajapaik-common.js:1153
+#: project/ajapaik/static/js/ajapaik-common.js:1110
+#: project/ajapaik/static/js/ajapaik-common.js:1155
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr ""
@@ -262,8 +262,8 @@ msgid "Points"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:22
-#: project/ajapaik/static/js/ajapaik-selection.js:136
-#: project/ajapaik/static/js/ajapaik-selection.js:152
+#: project/ajapaik/static/js/ajapaik-selection.js:138
+#: project/ajapaik/static/js/ajapaik-selection.js:154
 msgid "System error"
 msgstr ""
 
@@ -550,6 +550,13 @@ msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-map.js:716
 msgid "Apply album filter"
+msgstr ""
+
+#: project/ajapaik/static/js/then-and-now-frontpage.js:13
+#: project/ajapaik/static/js/then-and-now-gallery.js:16
+#: project/ajapaik/static/js/then-and-now-map.js:24
+#: project/ajapaik/static/js/then-and-now-map.js:72
+msgid "Unable to get location data"
 msgstr ""
 
 #~ msgid "We doubt about it."

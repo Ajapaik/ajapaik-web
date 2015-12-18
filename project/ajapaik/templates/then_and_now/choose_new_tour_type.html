@@ -1,0 +1,21 @@
+{% extends "then_and_now/base.html" %}
+
+{% load i18n bootstrap3 compress static %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" action="." class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary pull-right">
+                {% trans "Next" %}
+            </button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    {% compress js %}
+        <script src="{% static 'js/then-and-now-choose-new-tour-type.js' %}"></script>
+    {% endcompress %}
+{% endblock %}

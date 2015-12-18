@@ -1163,7 +1163,7 @@ class DatingConfirmation(Model):
 
 class Tour(Model):
     FIXED, ANY = range(2)
-    TYPE_CHOICES = (
+    PHOTOSET_TYPE_CHOICES = (
         (FIXED, _('Fixed photo set')),
         (ANY, _('Any photos'))
     )
@@ -1172,7 +1172,7 @@ class Tour(Model):
     user = ForeignKey('Profile', related_name='owned_tours')
     ordered = BooleanField(default=False)
     grouped = BooleanField(default=False)
-    photo_set_type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=FIXED)
+    photo_set_type = PositiveSmallIntegerField(choices=PHOTOSET_TYPE_CHOICES, default=FIXED)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 

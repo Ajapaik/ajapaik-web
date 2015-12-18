@@ -118,7 +118,7 @@ urlpatterns += patterns('project.ajapaik.merekultuur',
 
 urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/$', 'frontpage'),
-    url(r'^then-and-now-tours/generate-random-tour/$', 'generate_random_tour'),
+    url(r'^then-and-now-tours/choose-new-tour-type/$', 'choose_new_tour_type'),
     url(r'^then-and-now-tours/generate-ordered-tour/$', 'generate_ordered_tour'),
     url(r'^then-and-now-tours/map/(?P<tour_id>\d+)/$', 'map_view'),
     url(r'^then-and-now-tours/map/', 'map_view'),

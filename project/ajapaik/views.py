@@ -1020,15 +1020,22 @@ def photo_selection(request):
 
 def list_photo_selection(request):
     photos = None
+    at_least_one_photo_has_location = False
+    count_with_location = 0
     if 'photo_selection' in request.session:
-        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height', 'flip', 'description')
+        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height', 'flip', 'description', 'lat', 'lon')
         photos = map(list, photos)
         for p in photos:
+            if p[5] and p[6]:
+                at_least_one_photo_has_location = True
+                count_with_location += 1
             p[1], p[2] = calculate_thumbnail_size_max_height(p[1], p[2], 300)
 
     return render_to_response('photo_selection.html', RequestContext(request, {
         'is_selection': True,
-        'photos': photos
+        'photos': photos,
+        'at_least_one_photo_has_location': at_least_one_photo_has_location,
+        'count_with_location': count_with_location
     }))
 
 

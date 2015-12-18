@@ -13,8 +13,13 @@
                     <div class="alert alert-success hidden"></div>
                     <div class="alert alert-error hidden"></div>
                     <div class="btn-group pull-right" role="group" aria-label="...">
-                        <button id="ajapaik-photo-selection-create-tan-tour-button" type="button"
-                                class="btn btn-warning">{% trans "Create Then and Now Tour" %}</button>
+                        <button id="ajapaik-photo-selection-create-tan-tour-button" data-toggle="popover"
+                                data-trigger="hover" data-placement="bottom"
+                                data-content="{% blocktrans count counter=count_with_location %}Only pictures with locations can be selected for tours. Currently {{ count_with_location }} image.{% plural %}Only pictures with locations can be selected for tours. Currently {{ count_with_location }} images.{% endblocktrans %}"
+                                type="button"
+                                class="btn{% if at_least_one_photo_has_location %} btn-warning{% else %} btn-disabled{% endif %}">
+                            {% trans "Create Then and Now Tour" %}
+                        </button>
                         <button id="ajapaik-photo-selection-create-album-button" type="button"
                                 class="btn btn-success">{% trans "Add to album" %}</button>
                         <button id="ajapaik-photo-selection-clear-selection-button" type="button"
@@ -27,11 +32,14 @@
                 <div class="panel panel-default" id="ajapaik-selection-middle-panel">
                     <div class="panel-body">
                         {% for p in photos %}
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="ajapaik-frontpage-image-container-{{ p.0 }}" style="min-height: 330px;" data-id="{{ p.0 }}">
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+                                 id="ajapaik-frontpage-image-container-{{ p.0 }}" style="min-height: 330px;"
+                                 data-id="{{ p.0 }}">
                                 <a href="{% url "project.ajapaik.views.photoslug" p.0 %}"
                                    class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.0 }}">
                                     <img src="{% url "project.ajapaik.views.image_thumb" p.0 250 %}"
-                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="{{ p.4 }}" class="img-responsive ajapaik-photo-selection-thumbnail{% if p.3 %} ajapaik-photo-flipped{% endif %}">
+                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="{{ p.4 }}"
+                                         class="img-responsive ajapaik-photo-selection-thumbnail{% if p.3 %} ajapaik-photo-flipped{% endif %}">
                                     <div class="ajapaik-remove-from-selection-button" data-id="{{ p.0 }}"></div>
                                 </a>
                             </div>
@@ -60,7 +68,7 @@
                 <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
             </div>
         {% endif %}
-        </div>
+    </div>
 {% endblock %}
 {% block specific_js %}
     <script>
