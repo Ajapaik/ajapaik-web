@@ -316,6 +316,7 @@ class Photo(Model):
     cam_roll = FloatField(null=True, blank=True)
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
+    is_then_and_now_rephoto = BooleanField(default=False)
 
     original_lat = None
     original_lon = None
@@ -850,6 +851,8 @@ class Profile(Model):
     score_rephoto = PositiveIntegerField(default=0)
     score_recent_activity = PositiveIntegerField(default=0)
 
+    send_then_and_now_photos_to_ajapaik = BooleanField(default=False)
+
     class Meta:
         db_table = 'project_profile'
 
@@ -1164,10 +1167,9 @@ class Tour(Model):
         (FIXED, _('Fixed photo set')),
         (ANY, _('Any photos'))
     )
-    photos = ManyToManyField('Photo', through='TourPhoto', related_name='tours')
+    photos = ManyToManyField('Photo', related_name='tours', blank=True, null=True)
     name = CharField(max_length=255)
     user = ForeignKey('Profile', related_name='owned_tours')
-    members = ManyToManyField('Profile', related_name='tours', blank=True, null=True)
     ordered = BooleanField(default=False)
     grouped = BooleanField(default=False)
     photo_set_type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=FIXED)
@@ -1190,16 +1192,26 @@ class TourGroup(Model):
     def __unicode__(self):
         return '%s - %s' % (self.tour.pk, self.name,)
 
+    class Meta:
+        unique_together = ('name', 'tour',)
+
 
 class TourPhoto(Model):
     photo = ForeignKey('Photo')
     tour = ForeignKey('Tour')
     order = IntegerField(default=0)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'thenandnow_tourphoto'
+
+
+class TourPhotoOrder(Model):
+    photo = ForeignKey('Photo')
+    tour = ForeignKey('Tour')
+    order = IntegerField(default=0)
+
+    class Meta:
+        db_table = 'thenandnow_tourphotoorder'
 
 
 class TourRephoto(Model):

@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area,\
-    AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourPhoto, TourRephoto, \
+    AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourRephoto, \
     DatingConfirmation, Video, TourGroup
 
 
@@ -25,11 +25,6 @@ class AlbumPhotoInline(admin.TabularInline):
         return formfield
 
 
-class TourPhotoInline(admin.TabularInline):
-    model = TourPhoto
-    extra = 1
-
-
 class TourGroupInline(admin.TabularInline):
     model = TourGroup
     extra = 1
@@ -37,8 +32,6 @@ class TourGroupInline(admin.TabularInline):
 
 class TourAdmin(ModelAdmin):
     form = autocomplete_light.modelform_factory(Tour)
-
-    #inlines = (TourGroupInline,)
 
 
 class TourGroupAdmin(ModelAdmin):

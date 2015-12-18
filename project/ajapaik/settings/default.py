@@ -185,6 +185,7 @@ EXTERNAL_APPS = (
     'haystack',
     'registration',
     'bootstrap3',
+    'django_bootstrap_dynamic_formsets'
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7

@@ -2,6 +2,7 @@
     'use strict';
     /*jslint nomen: true*/
     /*jslint browser: true*/
+    /*global docCookies*/
     $(document).ready(function () {
         // TODO: Made in a rush, clean up when there's time
         var areaLat,
@@ -62,7 +63,7 @@
         $(document).on('click', '#ajapaik-photo-selection-clear-selection-button', function () {
             var data = {
                 clear: true,
-                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             };
             $.post(window.photoSelectionURL, data, function () {
                 window.location.reload();
@@ -120,7 +121,7 @@
                     parent_album: parentAlbum,
                     areaLat: areaLat,
                     areaLng: areaLng,
-                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
                 success: function (response) {
                     $('#ajapaik-loading-overlay').hide();
@@ -159,13 +160,33 @@
             window.loadSelectableAlbums();
             window.loadPossibleParentAlbums();
         });
+        $(document).on('click', '#ajapaik-photo-selection-create-tan-tour-button', function () {
+            var ids = [];
+            $('.ajapaik-photo-selection-thumbnail-link').map(function (i, e) {
+                ids.push($(e).data('id'));
+            });
+            $.ajax({
+                url: '/then-and-now-tours/generate-ordered-tour/',
+                traditional: true,
+                method: 'POST',
+                data: {
+                    ids: ids,
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
+                    if (response.tour) {
+                        location.href = '/then-and-now-tours/map/' + response.tour + '/';
+                    }
+                }
+            });
+        });
         $(document).on('click', '.ajapaik-remove-from-selection-button', function (e) {
             e.stopPropagation();
             e.preventDefault();
             var $this = $(this),
                 data = {
                     id: $this.data('id'),
-                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 };
             $.post(window.photoSelectionURL, data, function (response) {
                 var len = Object.keys(response).length,

@@ -1,15 +1,12 @@
 {% extends "then_and_now/base.html" %}
 
-{% load i18n bootstrap3 bootstrap_dynamic_formsets %}
+{% load i18n bootstrap3 %}
 
 {% block content %}
     <div class="container">
-        <h1>{% trans "Tour" %} #{{ tour.pk }}</h1>
         <form method="post" action="." class="form">
             {% csrf_token %}
             {% bootstrap_form form %}
-            <h4>{% trans "Groups" %}</h4>
-            {% bootstrap_dynamic_formset group_formset %}
             <button type="submit" class="btn btn-primary">
                 {% trans "Update" %}
             </button>

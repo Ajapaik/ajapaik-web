@@ -29,9 +29,9 @@
                     </div>
                     {% if current_user_captured %}
                         <div class="row">{% trans "You have already captured this photo" %}</div>
-                    {% elif current_user_group_captured %}
+                    {% elif tour.grouped and current_user_group_captured %}
                         <div class="row">{% trans "Someone from your group has already captured this photo" %}</div>
-                    {% elif photo_captured_by_group %}
+                    {% elif tour.grouped and photo_captured_by_group %}
                         <div class="row">{% blocktrans with photo_captured_by_group.name as group %}Someone from group {{ group }} has already captured this photo{% endblocktrans %}</div>
                     {% else %}
                         <div class="row">
