@@ -1,0 +1,11 @@
+{% load i18n %}
+
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4>{% trans "Donation details" %}</h4>
+</div>
+<div class="modal-body" id="ajapaik-donation-modal-body">
+    {% include "_donate_details.html" %}
+</div>

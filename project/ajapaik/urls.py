@@ -88,6 +88,7 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^uudiskiri/(?P<slug>.*)/$', 'newsletter'),
    url(r'^submit-dating/$', 'submit_dating'),
    url(r'^datings/(?P<photo_id>\d+)/$', 'get_datings'),
+   url(r'^donate/$', 'donate', name='donate'),
 )
 
 

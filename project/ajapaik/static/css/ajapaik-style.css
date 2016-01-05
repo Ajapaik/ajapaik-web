@@ -2707,3 +2707,29 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #ajapaik-photoview-add-rephoto-button {
     margin-left: 10px;
 }
+
+#ajapaik-donation-modal-body > a {
+    text-decoration: none;
+}
+
+#ajapaik-donation-header {
+    background-color: #222;
+    color: white;
+    border-top: 1px solid white;
+    font-size: 17px;
+    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: none;
+    height: 44px;
+    width: 100%;
+}
+
+#ajapaik-donation-modal-link {
+    color: #f1d600;
+}
+
+#ajapaik-close-donation-header-button {
+    color: #fff;
+    opacity: 1;
+}

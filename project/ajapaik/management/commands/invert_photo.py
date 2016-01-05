@@ -6,16 +6,16 @@ from project.ajapaik.models import Photo
 
 class Command(BaseCommand):
     help = "Will invert specified photo"
-    args = "photo_url"
+    args = "photo_id"
 
     def handle(self, *args, **options):
         try:
-            photo_url = args[0]
-            print photo_url
+            photo_id = args[0]
+            print photo_id
         except IndexError:
             return False
-        if photo_url:
-            photo = Photo.objects.get(source_url=photo_url)
+        if photo_id:
+            photo = Photo.objects.get(pk=photo_id)
             print "Found photo"
             print photo
             photo_path = settings.MEDIA_ROOT + "/" + str(photo.image)

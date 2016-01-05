@@ -133,8 +133,9 @@ function VanalinnadGooglemApi(city, isGeotagger) {
         that.yearSelection = vanalinnadYearSelection.get(0);
 
         if (that.isGeotagger) {
-            vanalinnadYearSelection.css('margin-right', '10px');
-            that.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(that.yearSelection);
+            vanalinnadYearSelection.css('margin-top', '10px');
+            that.yearSelection.index = 2;
+            that.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(that.yearSelection);
         } else {
             that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
         }
@@ -151,7 +152,11 @@ function VanalinnadGooglemApi(city, isGeotagger) {
 
         vanalinnadCitySelection.change(function () {
             that.vars.site = $(this).val();
-            that.map.setZoom(12);
+            if (that.map.zoom > 16) {
+                that.map.setZoom(16);
+            } else if (that.map.zoom < 12) {
+                that.map.setZoom(12);
+            }
             that.getCityData(function () {
                 that.buildVanalinnadMapYearControl();
                 that.showControls();
@@ -165,8 +170,8 @@ function VanalinnadGooglemApi(city, isGeotagger) {
         that.citySelection = vanalinnadCitySelection.get(0);
 
         if (that.isGeotagger) {
-            vanalinnadCitySelection.css('margin-right', '10px');
-            that.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(that.citySelection);
+            vanalinnadCitySelection.css('margin-top', '10px');
+            that.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(that.citySelection);
         } else {
             that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.citySelection);
         }

@@ -354,7 +354,6 @@
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (msg) {
-                        console.log(msg);
                         if (resultCount > start || (msg.result.page < msg.result.pages)) {
                             $('.ajapaik-curator-load-more').show();
                             $('#ajapaik-curator-load-more-row').show();
@@ -438,7 +437,6 @@
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (msg) {
-                        console.log(msg);
                         $('#ajapaik-loading-overlay').hide();
                         if (msg.result.ids) {
                             resultIds = msg.result.ids;

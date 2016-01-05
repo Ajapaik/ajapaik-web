@@ -45,7 +45,7 @@
                         <button class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}" data-id="{{ photo.id }}">
                             <i class="material-icons notranslate">check_circle</i>
                         </button>
-                        <button class="ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;">
+                        <button class="ajapaik-overlay-button ajapaik-flip-photo-overlay-button{% if photo.flip %} active{% endif %}" style="display: none;">
                             <i class="material-icons notranslate">flip</i>
                         </button>
                         <button class="ajapaik-like-photo-overlay-button{% if photo.user_likes %} active{% endif %}{% if photo.user_loves %} active big{% endif %}">

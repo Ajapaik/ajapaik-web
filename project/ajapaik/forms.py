@@ -1,9 +1,7 @@
 from django import forms
-from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
-from django.contrib.gis.geos import Point
 
 
 class APILoginForm(forms.Form):

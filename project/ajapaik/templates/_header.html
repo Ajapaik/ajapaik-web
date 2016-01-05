@@ -346,3 +346,11 @@
         {% endif %}
     {% endif %}
 </nav>
+{% if not is_curator and not is_mapview and not is_donate %}
+    <div id="ajapaik-donation-header">
+        <div class="container">
+            {% trans 'Ajapaik is not making money and is no longer supported by grants, if you appriciate the application and want to help keep it alive, please <a href="#" id="ajapaik-donation-modal-link">donate!</a>' %}
+            <button type="button" class="close" id="ajapaik-close-donation-header-button">&times;</button>
+        </div>
+    </div>
+{% endif %}
