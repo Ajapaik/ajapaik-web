@@ -2,6 +2,7 @@
     'use strict';
     /* global mapRedirectURL */
     /* global newTourURL */
+    /* global myToursURL */
     /* global gettext */
     /* global alert */
     var geolocationCallback = function (location) {
@@ -26,5 +27,8 @@
         e.preventDefault();
         tourId = tourIdInput.val();
         window.location = mapRedirectURL + tourId + '/';
+    });
+    $('#tan-frontpage-my-tours-button').click(function () {
+        window.location = myToursURL;
     });
 }());

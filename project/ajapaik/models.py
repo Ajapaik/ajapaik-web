@@ -322,7 +322,7 @@ class Photo(Model):
     cam_roll = FloatField(null=True, blank=True)
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
-    is_then_and_now_rephoto = BooleanField(default=False)
+    then_and_now_rephoto = ForeignKey('TourRephoto', null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -1175,6 +1175,7 @@ class Tour(Model):
     )
     photos = ManyToManyField('Photo', related_name='tours', blank=True, null=True)
     name = CharField(max_length=255)
+    description = TextField(blank=True, null=True)
     user = ForeignKey('Profile', related_name='owned_tours')
     ordered = BooleanField(default=False)
     grouped = BooleanField(default=False)
@@ -1218,6 +1219,16 @@ class TourPhotoOrder(Model):
 
     class Meta:
         db_table = 'thenandnow_tourphotoorder'
+
+
+class TourUniqueView(Model):
+    tour = ForeignKey('Tour', related_name='tour_views')
+    profile = ForeignKey('Profile', related_name='tour_views')
+    created = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'thenandnow_touruniqueview'
+        unique_together = ('tour', 'profile')
 
 
 class TourRephoto(Model):

@@ -24,7 +24,7 @@ from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import get_thumbnail, delete
 
-from project.ajapaik.models import TourRephoto, Photo, Tour, TourPhotoOrder, TourGroup, Profile, Licence
+from project.ajapaik.models import TourRephoto, Photo, Tour, TourPhotoOrder, TourGroup, Profile, Licence, TourUniqueView
 from project.ajapaik.settings import THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST, THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT, \
     THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
 
@@ -103,8 +103,8 @@ class TourGroupSelectionForm(forms.Form):
 
 
 class MapMarkersForm(forms.Form):
-    lat = forms.FloatField(min_value=-85.05115, max_value=85)
-    lng = forms.FloatField(min_value=-180, max_value=180)
+    lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    lng = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 
 class UserRegistrationForm(RegistrationFormUniqueEmail):
@@ -130,8 +130,10 @@ class ProfileEditForm(forms.ModelForm):
 class TourEditForm(autocomplete_light.ModelForm):
     class Meta:
         model = Tour
-        fields = ('photo_set_type', 'photos', 'grouped')
+        fields = ('name', 'description', 'photo_set_type', 'photos', 'grouped')
         labels = {
+            'name': _('Name'),
+            'description': _('Description'),
             'photo_set_type': _('Photo set type'),
             'photos': _('Photos'),
             'grouped': _('With groups')
@@ -302,6 +304,7 @@ def map_view(request, tour_id=None):
         return redirect(reverse('project.ajapaik.then_and_now_tours.frontpage'))
     tour = get_object_or_404(Tour, id=tour_id)
     profile = request.user.profile
+    TourUniqueView.objects.get_or_create(profile=profile, tour=tour)
     user_has_group = TourGroup.objects.filter(tour=tour, members__pk=profile.user_id).exists()
     if tour.grouped and not user_has_group:
         return redirect(reverse('project.ajapaik.then_and_now_tours.choose_group', args=(tour.pk,)))
@@ -318,8 +321,8 @@ def get_map_markers(request, tour_id):
     tour = get_object_or_404(Tour, id=tour_id)
     form = MapMarkersForm(request.GET)
     photos = tour.photos.all()
-    if tour.photo_set_type == tour.ANY:
-        if form.is_valid():
+    if form.is_valid():
+        if tour.photo_set_type == tour.ANY and form.cleaned_data['lat'] and form.cleaned_data['lng']:
             user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
             photos = Photo.objects.filter(
                     rephoto_of__isnull=True,
@@ -350,8 +353,8 @@ def get_gallery_photos(request, tour_id):
     tour = get_object_or_404(Tour, id=tour_id)
     form = MapMarkersForm(request.GET)
     photos = tour.photos.all()
-    if tour.photo_set_type == tour.ANY:
-        if form.is_valid():
+    if form.is_valid():
+        if tour.photo_set_type == tour.ANY and form.cleaned_data['lng'] and form.cleaned_data['lat']:
             user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
             photos = Photo.objects.filter(
                     rephoto_of__isnull=True,
@@ -398,6 +401,7 @@ def gallery(request, tour_id):
     }
     tour = Tour.objects.filter(pk=tour_id).first()
     profile = request.user.profile
+    TourUniqueView.objects.get_or_create(profile=profile, tour=tour)
     if tour:
         ret['tour'] = tour
         photos = tour.photos.order_by('tourphoto__order').annotate(rephoto_count=Count('tour_rephotos'))
@@ -424,8 +428,10 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
     photo = get_object_or_404(Photo, id=photo_id)
     tour = get_object_or_404(Tour, id=tour_id)
     rp = None
+    rp_in_ajapaik = False
     if rephoto_id:
         rp = get_object_or_404(TourRephoto, id=rephoto_id)
+        rp_in_ajapaik = Photo.objects.filter(then_and_now_rephoto=rp).exists()
     profile = request.user.profile
     current_photo_index = None
     current_rephoto_index = None
@@ -438,6 +444,7 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
     ret = {
         'photo': photo,
         'rephoto': rp,
+        'rp_in_ajapaik': rp_in_ajapaik,
         'tour': tour,
         'rephotos': TourRephoto.objects.filter(original=photo, tour=tour),
         'is_detail': True
@@ -505,17 +512,18 @@ def camera_upload(request):
     form = CameraUploadForm(request.POST, request.FILES)
     if form.is_valid():
         tour = form.cleaned_data['tour']
-        TourRephoto(
+        tour_rephoto = TourRephoto(
                 image=form.cleaned_data['image'],
                 original=form.cleaned_data['original'],
                 tour=tour,
                 user=profile
-        ).save()
+        )
+        tour_rephoto.save()
         if profile.send_then_and_now_photos_to_ajapaik:
             now = datetime.datetime.now()
             Photo(
                     image=form.cleaned_data['image'],
-                    is_then_and_now_rephoto=True,
+                    then_and_now_rephoto=tour_rephoto,
                     user=profile,
                     description=form.cleaned_data['original'].description,
                     licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
@@ -669,3 +677,50 @@ def choose_new_tour_type(request):
     }
 
     return render_to_response('then_and_now/choose_new_tour_type.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def my_tours(request, tour_id=None):
+    if not tour_id:
+        random_tour = Tour.objects.order_by('?').first()
+        if random_tour:
+            tour_id = random_tour.pk
+    tour = get_object_or_404(Tour, id=tour_id)
+    profile = request.user.profile
+    tour_views = TourUniqueView.objects.filter(profile=profile).values_list('tour_id', flat=True)
+    tour_rephotos = TourRephoto.objects.filter(user=profile).values('tour').values_list('tour_id', flat=True)
+    ret = {
+        'viewed_tours': Tour.objects.filter(pk__in=tour_views).order_by('id').distinct(),
+        'my_tours': Tour.objects.filter(user=profile).order_by('id'),
+        'tours_participated': Tour.objects.filter(pk__in=tour_rephotos).order_by('id').distinct(),
+        'tour': tour,
+        'is_my_tours': True
+    }
+
+    return render_to_response('then_and_now/my_tours.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def send_rephoto_to_ajapaik(request, tour_rephoto_id):
+    ret = {
+        'message': _('Failed to add rephoto to Ajapaik'),
+        'error': True
+    }
+    profile = request.user.profile
+    tour_rp = get_object_or_404(TourRephoto, id=tour_rephoto_id)
+    if tour_rp.user == profile and not Photo.objects.filter(then_and_now_rephoto=tour_rp).exists():
+        Photo(
+            image=tour_rp.image,
+            then_and_now_rephoto=tour_rp,
+            user=profile,
+            description=tour_rp.original.description,
+            licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
+            rephoto_of=tour_rp.original,
+            date=tour_rp.created
+        ).save()
+        tour_rp.original.latest_rephoto = tour_rp.created
+        tour_rp.original.light_save()
+        ret['message'] = _('Added rephoto to Ajapaik')
+        ret['error'] = False
+
+    return HttpResponse(json.dumps(ret), content_type='application/json')

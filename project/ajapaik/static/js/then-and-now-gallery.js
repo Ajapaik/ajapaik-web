@@ -13,7 +13,8 @@
             getPhotos(lat, lng);
         },
         geolocationError = function () {
-            alert(gettext('Unable to get location data'));
+            console.log(gettext('Unable to get location data'));
+            getPhotos(null, null);
         },
         getGeolocation = function getLocation(callback) {
             if (navigator.geolocation) {

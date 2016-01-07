@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+    /* global console */
     /* global google */
     /* global getMarkersURL */
     /* global currentUserID */
@@ -21,7 +22,8 @@
             getMapMarkers(lat, lng);
         },
         geolocationError = function () {
-            alert(gettext('Unable to get location data'));
+            console.log(gettext('Unable to get location data'));
+            getMapMarkers(null, null);
         },
         getGeolocation = function getLocation(callback) {
             if (navigator.geolocation) {
@@ -37,7 +39,7 @@
                     lng: lng
                 },
                 success: function (response) {
-                    if (isFixedTour) {
+                    if (isFixedTour || isOrderedTour) {
                         bounds = new google.maps.LatLngBounds();
                         $.each(response, function (k, v) {
                             bounds.extend(new google.maps.LatLng(v.lat, v.lon));

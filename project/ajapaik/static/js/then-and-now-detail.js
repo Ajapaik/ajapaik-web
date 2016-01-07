@@ -1,6 +1,7 @@
 (function () {
     'use strict';
     /* global Hammer */
+    /* global gettext */
     $(document).ready(function () {
         var originalHammertime = new Hammer(document.getElementById('tan-detail-image'), {}),
             rephotoHammertime,
@@ -39,6 +40,29 @@
         });
         $('.glyphicon-ok').click(function () {
             $('form').submit();
+        });
+        $('#tan-detail-add-rephoto-to-ajapaik-button').click(function () {
+            if (window.rephotoToAjapaikURL) {
+                var errorDiv = $('#tan-detail-add-rephoto-error-message'),
+                    successDiv = $('#tan-detail-add-rephoto-success-message');
+                $.ajax({
+                    url: window.rephotoToAjapaikURL,
+                    success: function (resp) {
+                        if (resp.error) {
+                            errorDiv.html(resp.message).show();
+                            successDiv.hide();
+                        } else {
+                            successDiv.html(resp.message).show();
+                            errorDiv.hide();
+                            $('#tan-detail-add-rephoto-to-ajapaik-button').hide();
+                        }
+                    },
+                    error: function () {
+                        errorDiv.html(gettext('Sending failed')).show();
+                        successDiv.hide();
+                    }
+                });
+            }
         });
     });
 }());

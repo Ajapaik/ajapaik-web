@@ -1,0 +1,32 @@
+{% extends "then_and_now/base.html" %}
+
+{% load i18n compress %}
+
+{% block content %}
+    <div class="container">
+        <h4>{% trans "My tours" %}</h4>
+        <ul>
+            {% for each in my_tours %}
+                <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }} - {{ each.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <h4>{% trans "Tours I've participated in" %}</h4>
+        <ul>
+            {% for each in tours_participated %}
+                <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }} - {{ each.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <h4>{% trans "Tours I've viewed" %}</h4>
+        <ul>
+            {% for each in viewed_tours %}
+                <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }} - {{ each.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    {% compress js %}
+
+    {% endcompress %}
+{% endblock %}

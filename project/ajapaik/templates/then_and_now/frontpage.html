@@ -16,7 +16,14 @@
             </div>
         {% else %}
             <div class="row tan-text-center">
-                <p class="tan-font-size-24px">{% trans "Signed in as" %} <b>{{ user.get_username }}</b></p>
+                <p class="tan-font-size-24px">{% trans "Signed in as" %} <b>{% if user.profile.fb_name %}
+                        {{ user.profile.fb_name }}
+                    {% elif user.profile.google_plus_name %}
+                        {{ user.profile.google_plus_name }}
+                    {% else %}
+                        {{ user.get_username }}
+                    {% endif %}
+                </b></p>
             </div>
         {% endif %}
         <br>
@@ -34,6 +41,9 @@
                 </form>
                 <button id="tan-frontpage-make-tour-button" class="btn tan-double-border tan-button-text">
                     {% trans "Create tour!" %}
+                </button>
+                <button id="tan-frontpage-my-tours-button" class="btn tan-double-border tan-button-text">
+                    {% trans "My tours" %}
                 </button>
             </div>
         {% endif %}
@@ -53,7 +63,8 @@
 {% block specific_js %}
     <script>
         var mapRedirectURL = '{% url 'project.ajapaik.then_and_now_tours.map_view' %}',
-            newTourURL = '{% url 'project.ajapaik.then_and_now_tours.choose_new_tour_type' %}';
+            newTourURL = '{% url 'project.ajapaik.then_and_now_tours.choose_new_tour_type' %}',
+            myToursURL = '{% url 'project.ajapaik.then_and_now_tours.my_tours' %}';
     </script>
     {% compress js %}
         <script src="{% static 'js/then-and-now-frontpage.js' %}"></script>

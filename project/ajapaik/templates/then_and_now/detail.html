@@ -78,6 +78,11 @@
                             {% else %}
                                 {% trans "Anonymous user" %}
                             {% endif %}
+                            {% if rephoto.user == user.profile and not rp_in_ajapaik %}
+                                <button class="btn btn-success" id="tan-detail-add-rephoto-to-ajapaik-button">{% trans "Send to Ajapaik" %}</button>
+                                <div class="alert alert-success" id="tan-detail-add-rephoto-success-message" style="display: none;" role="alert"></div>
+                                <div class="alert alert-danger" id="tan-detail-add-rephoto-error-message" style="display: none;" role="alert"></div>
+                            {% endif %}
                         </div>
                     </div>
                 {% endif %}
@@ -98,8 +103,12 @@
 {% endblock %}
 
 {% block specific_js %}
+    {% if rephoto %}
+        <script>
+            window.rephotoToAjapaikURL = '{% url 'project.ajapaik.then_and_now_tours.send_rephoto_to_ajapaik' rephoto.pk %}';
+        </script>
+    {% endif %}
     {% compress js %}
-        <script src="{% static 'js/hammer-2.0.4.js' %}"></script>
         <script src="{% static 'js/then-and-now-detail.js' %}"></script>
     {% endcompress %}
 {% endblock %}
