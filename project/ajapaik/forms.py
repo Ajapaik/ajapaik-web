@@ -195,10 +195,9 @@ class SelectionUploadForm(forms.Form):
     selection = forms.CharField(max_length=100000)
     album = forms.ModelChoiceField(queryset=Album.objects.filter(
         atype=Album.CURATED,
-        open=True,
     ), label=_('Choose album'), required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED, subalbum_of__isnull=True, open=True
+        atype=Album.CURATED, subalbum_of__isnull=True
     ), label=_('Choose parent album'), required=False)
     name = forms.CharField(max_length=255, required=False)
     description = forms.CharField(max_length=2047, required=False)

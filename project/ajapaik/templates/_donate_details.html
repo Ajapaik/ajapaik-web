@@ -1,8 +1,10 @@
 {% load i18n static ajapaik_templatetags %}
 
 <br/>
-<p>{% trans "Ajapaik is developed by the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."  %}</p>
+<p>{% trans "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."  %}</p>
 <h4>{% trans "Details for one-time donations" %}:</h4>
+<p>{% trans "Beneficiary's name" %}: {% settings_value 'AJAPAIK_BENEFICIARY_NAME' %}</p>
+<p>{% trans "Beneficiary's account no" %}: {% settings_value 'AJAPAIK_BENEFICIARY_ACCT' %}</p>
 <a target="_blank" title="{% trans "LHV single payment link" %}"
    href="https://www.lhv.ee/portfolio/payment_out.cfm?i_receiver_name=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&i_receiver_account_no=EE072200221048847282&i_amount=10">
     <img src="{% static "images/logo_lhv.png" %}" alt="{% trans "LHV bank" %}">
@@ -51,7 +53,3 @@
    href="https://www2.danskebank.ee/ibank/login/login?goto=payments/new_standing">
     <img src="{% static "images/logo_danske.png" %}" alt="{% trans "Danske bank" %}">
 </a>
-<br/>
-<br/>
-<p>{% trans "Beneficiary's name" %}: {% settings_value 'AJAPAIK_BENEFICIARY_NAME' %}</p>
-<p>{% trans "Beneficiary's account no" %}: {% settings_value 'AJAPAIK_BENEFICIARY_ACCT' %}</p>

@@ -1104,6 +1104,8 @@ def upload_photo_selection(request):
                     open=form.cleaned_data['open']
             )
             a.save()
+        else:
+            ret['error'] = _('Cannot select this album')
         if a:
             for pid in photo_ids:
                 existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
@@ -1120,7 +1122,7 @@ def upload_photo_selection(request):
             a.save()
             profile.set_calculated_fields()
             profile.save()
-            ret['message'] = _('Album creation success')
+            ret['message'] = _('Recuration successful')
         else:
             ret['error'] = _('Problem with album selection')
     else:
@@ -1313,7 +1315,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "fullscreen": _make_fullscreen(photo_obj),
         "rephoto_fullscreen": rephoto_fullscreen,
         "title": title,
-        "description": ''.join(photo_obj.description.rstrip()).splitlines()[0],
+        "description": photo_obj.source.name,
         "rephoto": rephoto,
         "hostname": "http://%s" % (site.domain,),
         "first_geotaggers": first_geotaggers,

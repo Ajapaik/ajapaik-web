@@ -114,6 +114,12 @@ class AlbumPhoto(Model):
     def __unicode__(self):
         return u'%d - %d' % (self.album.id, self.photo.id)
 
+    def delete(self, *args, **kwargs):
+        if self.album.atype == Album.CURATED:
+            self.photo.area = None
+            self.photo.light_save()
+        super(AlbumPhoto, self).delete()
+
 
 class Album(Model):
     CURATED, FAVORITES, AUTO = range(3)

@@ -1,8 +1,9 @@
 from ujson import loads, dumps
 
+from django.core.urlresolvers import reverse
 from requests import post
 
-from project.ajapaik.models import Photo
+from project.ajapaik.models import Photo, AlbumPhoto, Album
 from project.ajapaik.settings import AJAPAIK_VALIMIMOODUL_URL, MEDIA_URL
 
 
@@ -74,6 +75,12 @@ class ValimimoodulDriver(object):
                 if existing_photo:
                     each['ajapaikId'] = existing_photo.pk
                     check_dict[each['id']] = False
+                    if not remove_existing:
+                        album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
+                        each['albums'] = [[x[0], x[1]] for x in Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)\
+                            .values_list('id', 'name')]
+                        for e in each['albums']:
+                            e[0] = reverse('project.ajapaik.views.frontpage') + '?album=' + str(e[0])
                 else:
                     each['ajapaikId'] = False
                     check_dict[each['id']] = True

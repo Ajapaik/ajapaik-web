@@ -1,9 +1,8 @@
 import autocomplete_light
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area,\
-    AlbumPhoto, Licence, Device, PhotoComment, CredentialsModel, Newsletter, Dating, Tour, TourRephoto, \
+    AlbumPhoto, Licence, Device, PhotoComment, Newsletter, Dating, Tour, TourRephoto, \
     DatingConfirmation, Video, TourGroup
 
 
@@ -38,25 +37,16 @@ class TourGroupAdmin(ModelAdmin):
     form = autocomplete_light.modelform_factory(TourGroup)
 
 
-class TourRephotoAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-        'original': ('pk', 'description',)
-    }
+class TourRephotoAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(TourRephoto)
 
 
-class DatingAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'profile': ('user__first_name', 'user__last_name', 'email', 'fb_name', 'google_plus_name'),
-        'photo': ('pk', 'description',),
-    }
+class DatingAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(Dating)
 
 
-class DatingConfirmationAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'profile': ('user__first_name', 'user__last_name', 'email', 'fb_name', 'google_plus_name'),
-        'confirmation_of': ('pk',),
-    }
+class DatingConfirmationAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(DatingConfirmation)
 
 
 class PhotoAdmin(ModelAdmin):
@@ -96,69 +86,75 @@ class PhotoAdmin(ModelAdmin):
 
     form = autocomplete_light.modelform_factory(Photo)
 
-    # related_search_fields = {
-    #     'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-    #     'rephoto_of': ('pk', 'description',)
-    # }
+class SkipAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(Skip)
 
 
-class SkipAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-        'photo': ('pk', 'description',)
-    }
+class GeoTagAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(GeoTag)
 
 
-class GeoTagAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-        'photo': ('pk', 'description',)
-    }
+class ProfileAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(Profile)
 
 
-class ProfileAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-    }
+class PointsAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(Points)
 
 
-class PointsAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'user': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-        'photo': ('pk', 'description',),
-        'geotag': ('pk', 'photo__description')
-    }
+class AlbumAdmin(ModelAdmin):
+    form = autocomplete_light.modelform_factory(Album)
 
 
-class AlbumAdmin(ForeignKeyAutocompleteAdmin):
-    related_search_fields = {
-        'profile': ('user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'),
-        'cover_photo': ('pk', 'description',),
-    }
+class PhotoCommentAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(PhotoComment)
 
 
-class CredentialsAdmin(admin.ModelAdmin):
-    pass
+class SourceAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Source)
+
+
+class AlbumPhotoAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(AlbumPhoto)
+
+
+class AreaAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Area)
+
+
+class LicenceAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Licence)
+
+
+class DeviceAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Device)
+
+
+class NewsletterAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Newsletter)
+
+
+class VideoAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Video)
 
 admin.site.register(Photo, PhotoAdmin)
-admin.site.register(PhotoComment)
+admin.site.register(PhotoComment, PhotoCommentAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
 admin.site.register(Points, PointsAdmin)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Source)
+admin.site.register(Source, SourceAdmin)
 admin.site.register(Skip, SkipAdmin)
 admin.site.register(Action)
 admin.site.register(Album, AlbumAdmin)
-admin.site.register(AlbumPhoto)
-admin.site.register(Area)
-admin.site.register(Licence)
+admin.site.register(AlbumPhoto, AlbumPhotoAdmin)
+admin.site.register(Area, AreaAdmin)
+admin.site.register(Licence, LicenceAdmin)
 admin.site.register(CSVPhoto, CSVUploadAdmin)
-admin.site.register(Device)
-admin.site.register(CredentialsModel, CredentialsAdmin)
-admin.site.register(Newsletter)
+admin.site.register(Device, DeviceAdmin)
+admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(TourGroup, TourGroupAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)
-admin.site.register(Video)
+admin.site.register(Video, VideoAdmin)

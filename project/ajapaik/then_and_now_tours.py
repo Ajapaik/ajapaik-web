@@ -136,6 +136,7 @@ class TourEditForm(autocomplete_light.ModelForm):
             'photos': _('Photos'),
             'grouped': _('With groups')
         }
+        autocomplete_names = {'photos': 'LocatedPhotosAutocomplete'}
 
 
 class TourGroupInlineForm(autocomplete_light.ModelForm):

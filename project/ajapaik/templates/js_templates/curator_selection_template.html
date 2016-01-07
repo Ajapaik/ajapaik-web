@@ -38,6 +38,13 @@
                         <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>
                         <li class="list-group-item">{%=gettext('Source ID')%}: <a target="_blank" href="{%=o.urlToRecord%}">{%=o.identifyingNumber%}</a></li>
                         <li class="list-group-item">{%=gettext('Size')%}: <span class="ajapaik-curator-selection-image-size"></span></li>
+                        {% if (o.ajapaikId) { %}
+                            <li class="list-group-item">{%=gettext('Albums')%}:
+                                {% for (var i=0; i < o.albums.length; i++) { %}
+                                    <a target="_blank" title="{%=o.albums[i][1]%}" href="{%=o.albums[i][0]%}">{%=o.albums[i][1]%}</a>
+                                {% } %}
+                            </li>
+                        {% } %}
                     </ul>
                 </div>
                 <button class="btn btn-success" id="ajapaik-curator-submit-single" data-id="{%=o.id%}">{%=gettext('Add this picture to album (not the whole set)')%}</button>

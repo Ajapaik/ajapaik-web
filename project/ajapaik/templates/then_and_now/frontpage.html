@@ -20,21 +20,23 @@
             </div>
         {% endif %}
         <br>
-        <div class="row tan-text-center">
-            <form>
-                <div class="form-inline" id="tan-frontpage-album-from-group">
-                    <label class="sr-only"
-                           for="tan-frontpage-tour-id-input">{% trans "Tour ID" %}</label>
-                    <input type="number" class="form-control" id="tan-frontpage-tour-id-input"
-                           placeholder="{% trans "Tour ID" %}">
-                    <button type="submit" id="tan-frontpage-tour-id-submit"
-                        class="btn tan-double-border tan-button-text">{% trans "Go" %}</button>
-                </div>
-            </form>
-            <button id="tan-frontpage-make-tour-button" class="btn tan-double-border tan-button-text">
-                {% trans "Create tour!" %}
-            </button>
-        </div>
+        {% if user.is_authenticated %}
+            <div class="row tan-text-center">
+                <form>
+                    <div class="form-inline" id="tan-frontpage-album-from-group">
+                        <label class="sr-only"
+                               for="tan-frontpage-tour-id-input">{% trans "Tour ID" %}</label>
+                        <input type="number" class="form-control" id="tan-frontpage-tour-id-input"
+                               placeholder="{% trans "Tour ID" %}">
+                        <button type="submit" id="tan-frontpage-tour-id-submit"
+                            class="btn tan-double-border tan-button-text">{% trans "Go" %}</button>
+                    </div>
+                </form>
+                <button id="tan-frontpage-make-tour-button" class="btn tan-double-border tan-button-text">
+                    {% trans "Create tour!" %}
+                </button>
+            </div>
+        {% endif %}
         <br>
         <br>
         <div class="row tan-text-center">
