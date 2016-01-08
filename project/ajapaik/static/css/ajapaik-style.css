@@ -1841,6 +1841,14 @@ ul.errorlist {
     text-decoration: none;
 }
 
+.ajapaik-licence {
+    text-decoration: none;
+}
+
+.ajapaik-licence:hover {
+    text-decoration: none;
+}
+
 #ajapaik-photo-modal-rephoto-date-taken {
     display: inline;
 }
@@ -2732,4 +2740,30 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #ajapaik-close-donation-header-button {
     color: #fff;
     opacity: 1;
+}
+
+#ajapaik-header-google-connect {
+    margin-left: 0;
+}
+
+#ajapaik-header-facebook-connect {
+    margin-left: 5px;
+}
+
+#ajapaik-rephoto-upload-facebook-connect {
+    margin-top: 5px;
+}
+
+#ajapaik-rephoto-upload-google-connect {
+    margin-left: -5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#ajapaik-registration-facebook-connect {
+    margin-top: 10px;
+}
+
+#ajapaik-registration-google-connect {
+    margin-left: -5px;
 }

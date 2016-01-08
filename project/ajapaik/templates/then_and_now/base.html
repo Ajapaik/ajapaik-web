@@ -32,40 +32,45 @@
     <nav id="tan-navbar" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                        aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">{% trans "Toggle navigation" %}</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                {% if is_map or is_gallery or is_detail or is_rephoto or is_participants or is_tour_manager or is_settings or is_my_tours or is_my_rephotos %}
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">{% trans "Toggle navigation" %}</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                {% endif %}
                 <a class="navbar-brand"
                    href="{% url 'project.ajapaik.then_and_now_tours.frontpage' %}">{% trans "Then & Now Tours" %}</a>
             </div>
-            {% if is_map or is_gallery or is_detail or is_rephoto or is_participants or is_tour_manager or is_settings or is_my_tours %}
+            {% if is_map or is_gallery or is_detail or is_rephoto or is_participants or is_tour_manager or is_settings or is_my_tours or is_my_rephotos %}
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li {% if is_map %}class="navbar-active"{% endif %}><a
+                        <li{% if is_map %} class="navbar-active"{% endif %}><a
                                 href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}">{% trans "Map" %}</a>
                         </li>
-                        <li {% if is_gallery %}class="navbar-active"{% endif %}><a
+                        <li{% if is_gallery %} class="navbar-active"{% endif %}><a
                                 href="{% url 'project.ajapaik.then_and_now_tours.gallery' tour.pk %}">{% trans "Gallery" %}</a>
                         </li>
                         <li>
                             <a id="tan-header-about-tour-link" href="#">{% trans "About tour" %}</a>
                         </li>
-                        <li {% if is_participants %}class="navbar-active"{% endif %}><a
+                        <li{% if is_participants %} class="navbar-active"{% endif %}><a
                                 href="{% url 'project.ajapaik.then_and_now_tours.participants' tour.pk %}">{% trans "Participants" %}</a>
                         </li>
                         {% if tour.user == request.user.profile %}
-                            <li {% if is_tour_manager %}class="navbar-active"{% endif %}><a
-                                href="{% url 'project.ajapaik.then_and_now_tours.manage' tour.pk %}">{% trans "Manage" %}</a>
+                            <li{% if is_tour_manager %} class="navbar-active"{% endif %}><a
+                                    href="{% url 'project.ajapaik.then_and_now_tours.manage' tour.pk %}">{% trans "Manage" %}</a>
                             </li>
                         {% endif %}
-                        <li {% if is_my_tours %}class="navbar-active"{% endif %}><a
+                        <li{% if is_my_tours %} class="navbar-active"{% endif %}><a
                                 href="{% url 'project.ajapaik.then_and_now_tours.my_tours' tour.pk %}">{% trans "My Tours" %}</a>
                         </li>
-                        <li {% if is_settings %}class="navbar-active"{% endif %}><a
+                        <li{% if is_my_rephotos %} class="navbar-active"{% endif %}><a
+                                href="{% url 'project.ajapaik.then_and_now_tours.my_rephotos' tour.pk %}">{% trans "My Rephotos" %}</a>
+                        </li>
+                        <li{% if is_settings %} class="navbar-active"{% endif %}><a
                                 href="{% url 'project.ajapaik.then_and_now_tours.settings' tour.pk %}">{% trans "Settings" %}</a>
                         </li>
                     </ul>
@@ -75,7 +80,22 @@
     </nav>
 {% endif %}
 
-{% block content %}{% endblock %}
+{% block layout %}{% endblock %}
+
+<div id="tan-tour-info-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{ tour.name }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ tour.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
@@ -89,7 +109,7 @@
 <script>
     $('#tan-navbar').autoHidingNavbar();
     $('#tan-header-about-tour-link').click(function () {
-        console.log('asd');
+        $('#tan-tour-info-modal').modal();
     });
 </script>
 {% block specific_js %}{% endblock %}

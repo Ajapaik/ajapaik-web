@@ -47,7 +47,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video
+    Newsletter, Dating, DatingConfirmation, Video, Action
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET, DATING_POINTS, DATING_CONFIRMATION_POINTS, \
@@ -163,7 +163,8 @@ def get_album_info_modal_content(request):
             else:
                 final_score_dict[u['profile']] = u['count']
         album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys()) \
-            .filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False))
+            .filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False) | Q(user__first_name__isnull=False,
+                                                                                     user__last_name__isnull=False))
         final_score_dict = [x[0] for x in sorted(final_score_dict.items(), key=operator.itemgetter(1), reverse=True)]
         album_curators = list(album_curators)
         album_curators.sort(key=lambda z: final_score_dict.index(z.id))
@@ -302,12 +303,15 @@ def _calculate_recent_activity_scores():
 def _get_leaderboard(profile):
     profile_rank = Profile.objects \
                        .filter(score_recent_activity__gt=profile.score_recent_activity).filter(
-        Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False)).count() + 1
+        Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False) | Q(user__first_name__isnull=False,
+                                                                       user__last_name__isnull=False)).count() + 1
     lb_queryset = Profile.objects.filter(
-            Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False,
-                                                                      score_recent_activity__gt=0) |
-            Q(pk=profile.id)).values_list('score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id',
-                                          'google_plus_name', 'user_id', 'google_plus_picture') \
+            Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+            Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
+            Q(pk=profile.id) |
+            Q(user__first_name__isnull=False, user__last_name__isnull=False, score_recent_activity__gt=0))\
+        .values_list('score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id',
+                     'google_plus_picture') \
         .order_by('-score_recent_activity')
     start = profile_rank - 2
     if start < 0:
@@ -364,7 +368,7 @@ def _get_album_leaderboard(profile, album_id=None):
         top_users = Profile.objects.filter(Q(user_id__in=[x[0] for x in sorted_scores]) | Q(user_id=profile.id))
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
         board = [(idx + 1, user.user_id == profile.id, user_score_map[user.user_id], user.fb_id,
-                  user.fb_name, user.google_plus_name) for idx, user in top_users[:1]]
+                  user.fb_name, user.google_plus_name, user.get_full_name()) for idx, user in top_users[:1]]
         # TODO: Ugly shit
         self_user_idx = filter(lambda (inner_idx, inner_data): inner_data.user_id == profile.id, top_users)[0][0]
         if self_user_idx - 1 > 0:
@@ -372,20 +376,20 @@ def _get_album_leaderboard(profile, album_id=None):
             board.append((one_in_front[0] + 1, one_in_front[1].user_id == profile.id,
                           user_score_map[one_in_front[1].user_id], one_in_front[1].fb_id, one_in_front[1].fb_name,
                           one_in_front[1].google_plus_id, one_in_front[1].google_plus_name, one_in_front[1].user_id,
-                          one_in_front[1].google_plus_picture))
+                          one_in_front[1].google_plus_picture, one_in_front[1].user.get_full_name()))
         if self_user_idx > 0:
             # Current user isn't first
             current_user = top_users[self_user_idx]
             board.append((current_user[0] + 1, current_user[1].user_id == profile.id,
                           user_score_map[current_user[1].user_id], current_user[1].fb_id, current_user[1].fb_name,
                           current_user[1].google_plus_id, current_user[1].google_plus_name, current_user[1].user_id,
-                          current_user[1].google_plus_picture))
+                          current_user[1].google_plus_picture, current_user[1].user.get_full_name()))
         if self_user_idx + 1 < len(top_users):
             one_after = top_users[self_user_idx + 1]
             board.append((one_after[0] + 1, one_after[1].user_id == profile.id,
                           user_score_map[one_after[1].user_id], one_after[1].fb_id, one_after[1].fb_name,
                           one_after[1].google_plus_id, one_after[1].google_plus_name, one_after[1].user_id,
-                          one_after[1].google_plus_picture))
+                          one_after[1].google_plus_picture, one_after[1].user.get_full_name()))
 
     return board
 
@@ -428,7 +432,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         top_users = list(enumerate(sorted(top_users, key=lambda y: user_score_map[y.user_id], reverse=True)))
         board = [(idx + 1, profile.user_id == int(profile_id), user_score_map[profile.user_id], profile.fb_id,
                   profile.fb_name, profile.google_plus_id, profile.google_plus_name, profile.user_id,
-                  profile.google_plus_picture) for idx, profile in top_users]
+                  profile.google_plus_picture, profile.user.get_full_name()) for idx, profile in top_users]
         return board, album.name
 
     return board, None
@@ -436,7 +440,8 @@ def _get_album_leaderboard50(profile_id, album_id=None):
 
 def _get_all_time_leaderboard50(profile_id):
     lb = Profile.objects.filter(
-            Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False) | Q(pk=profile_id)).values_list('pk', 'score',
+            Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False) | Q(pk=profile_id) | Q(user__first_name__isnull=False,
+                                                                                     user__last_name__isnull=False)).values_list('pk', 'score',
                                                                                                          'fb_id',
                                                                                                          'fb_name',
                                                                                                          'google_plus_id',
@@ -770,6 +775,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 name = rephotos_by.fb_name
             elif rephotos_by.google_plus_name:
                 name = rephotos_by.google_plus_name
+            else:
+                name = rephotos_by.user.get_full_name()
             rephotos_by = rephotos_by.pk
             rephotos_by_name = name
         default_ordering = False
@@ -1178,6 +1185,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         if geotag_count > 0:
             correct_geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(
                 Q(user__fb_name__isnull=False, is_correct=True) |
+                Q(user__user__first_name__isnull=False, user__user__last_name__isnull=False, is_correct=True) |
                 Q(user__google_plus_name__isnull=False, is_correct=True))[:3]
             if len(correct_geotags_from_authenticated_users) > 0:
                 for each in correct_geotags_from_authenticated_users:
@@ -1185,6 +1193,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
                         first_geotaggers.append([each.user.fb_name, each.lat, each.lon, each.azimuth])
                     elif each.user.google_plus_name:
                         first_geotaggers.append([each.user.google_plus_name, each.lat, each.lon, each.azimuth])
+                    elif each.user.user.get_full_name():
+                        first_geotaggers.append([each.user.user.get_full_name(), each.lat, each.lon, each.azimuth])
             first_geotaggers = json.dumps(first_geotaggers)
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
         first_rephoto = photo_obj.rephotos.all().first()
@@ -1333,7 +1343,8 @@ def mapview_photo_upload_modal(request, photo_id):
     licence = Licence.objects.get(name="Attribution-ShareAlike 4.0 International")
     return render_to_response('_photo_upload_modal.html', RequestContext(request, {
         'photo': photo,
-        'licence': licence
+        'licence': licence,
+        'next': request.META["HTTP_REFERER"]
     }))
 
 
@@ -1664,8 +1675,9 @@ def top50(request, album_id=None):
     else:
         general_leaderboard = _get_all_time_leaderboard50(profile.pk)
     activity_leaderboard_qs = Profile.objects.filter(
-            Q(fb_name__isnull=False, score_recent_activity__gt=0) | Q(google_plus_name__isnull=False,
-                                                                      score_recent_activity__gt=0) |
+            Q(fb_name__isnull=False, score_recent_activity__gt=0) |
+            Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
+            Q(user__first_name__isnull=False, user__last_name__isnull=False, score_recent_activity__gt=0) |
             Q(pk=profile.id)).values_list('pk', 'score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id',
                                           'google_plus_name', 'user_id', 'google_plus_picture') \
                                   .order_by('-score_recent_activity')[:50]

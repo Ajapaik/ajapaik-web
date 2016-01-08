@@ -391,7 +391,7 @@
             gameURL = '{% url 'project.ajapaik.views.game' %}',
             lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
             hotkeysActive = true,
-        {% if request.user.profile.fb_id or request.user.profile.google_plus_id %}
+        {% if request.user.profile.is_legit %}
             userIsSocialConnected = true;
         {% else %}
             userIsSocialConnected = false;
@@ -452,6 +452,8 @@
                 window.currentProfileName = '{{ request.user.profile.fb_name }}';
             {% elif request.user.profile.google_plus_name %}
                 window.currentProfileName = '{{ request.user.profile.google_plus_name }}';
+            {% elif request.user.user.get_full_name %}
+                window.currentProfileName = '{{ request.user.user.get_full_name }}';
             {% endif %}
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};

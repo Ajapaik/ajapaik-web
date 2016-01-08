@@ -1,8 +1,8 @@
-{% extends 'then_and_now/base.html' %}
+{% extends is_then_and_now|yesno:"then_and_now/base.html,base_bootstrap.html" %}
 
 {% load i18n bootstrap3 %}
 
-{% block content %}
+{% block layout %}
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
@@ -14,6 +14,13 @@
                         {% trans "Submit" %}
                     </button>
                 </form>
+                <div class="facebook-connect" id="ajapaik-registration-facebook-connect">
+                    <a href="/facebook/login?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}" class="ir">{% trans "Connect with Facebook" %}</a>
+                </div>
+                <br/>
+                <div class="google-plus-connect" id="ajapaik-registration-google-connect">
+                    <a href="/google-login/?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}" class="ir">{% trans "Connect with Google" %}</a>
+                </div>
             </div>
         </div>
     </div>

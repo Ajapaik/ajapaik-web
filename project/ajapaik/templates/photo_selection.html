@@ -7,7 +7,7 @@
 
 {% block layout %}
     <div class="container-fluid">
-        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+        {% if request.user.profile.is_legit %}
             <div class="panel panel-default" id="ajapaik-selection-top-panel">
                 <div class="panel-body">
                     <div class="alert alert-success hidden"></div>
@@ -60,13 +60,7 @@
             {% include "js_templates/curator_album_selection_option.html" %}
             {% include "js_templates/curator_album_selection_separator.html" %}
         {% else %}
-            <div class="facebook-connect" style="margin-top: 75px; margin-bottom: 25px;">
-                <p>{% trans "Creating or editing albums requires connecting your account with Facebook or Google." %}</p>
-                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-            </div>
-            <div class="google-plus-connect">
-                <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
-            </div>
+            {% include "_log_in.html" with type="photo_selection" %}
         {% endif %}
     </div>
 {% endblock %}

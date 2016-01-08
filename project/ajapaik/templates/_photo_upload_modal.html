@@ -4,7 +4,7 @@
     <div class="modal-content">
         <div class="modal-body">
             <div>
-                {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                {% if request.user.profile.is_legit %}
                     {% with profile=request.user.profile user=request.user %}
                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
                         <div id="files" class="files">
@@ -30,19 +30,13 @@
                         </div>
                         <br>
                     {% endwith %}
+                        <p>
+                            {% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the" %}
+                            {% include '_licence.html' %}{% trans "licence" %}.
+                        </p>
                 {% else %}
-                    <div class="facebook-connect" style="margin-bottom: 25px;">
-                        <p>{% trans "Rephoto uploading requires connecting your account with Facebook or Google." %}</p>
-                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                    </div>
-                    <div class="google-plus-connect">
-                        <a href="/google-login" class="ir">{% trans "Connect with Google" %}</a>
-                    </div>
+                    {% include "_log_in.html" with type="rephoto_upload" %}
                 {% endif %}
-                <p>
-                    {% trans "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the" %}
-                    {% include '_licence.html' %}{% trans "licence" %}.
-                </p>
                 <a href="#" onclick="uploadCompleted();">{% trans "Close" %}</a>
             </div>
         </div>

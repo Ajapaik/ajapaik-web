@@ -137,6 +137,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'project.ajapaik.context_processors.analytics',
+    'project.ajapaik.context_processors.is_then_and_now',
 )
 
 TEMPLATES = [

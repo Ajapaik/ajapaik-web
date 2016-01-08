@@ -390,6 +390,8 @@
                     userStr = v.fb_name;
                 } else if (v.google_plus_name) {
                     userStr = v.google_plus_name;
+                } else if (v.full_name) {
+                    userStr = v.full_name;
                 } else {
                     userStr = gettext('Anonymous user');
                 }

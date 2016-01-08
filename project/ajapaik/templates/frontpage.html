@@ -33,13 +33,7 @@
                     <h4>{% trans "Authentication" %}</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="facebook-connect">
-                        <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                    </div>
-                    <div>&nbsp;</div>
-                    <div class="google-plus-connect">
-                        <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
-                    </div>
+                    {% include "_log_in.html" with type="video_anonymous" %}
                 </div>
             </div>
         </div>

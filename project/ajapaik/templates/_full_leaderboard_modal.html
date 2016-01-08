@@ -12,7 +12,7 @@
                     <div class="single">
                         <div class="score_container" style="padding-top: 0;">
                             <ul class="scoreboard"></ul>
-                            {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                            {% if request.user.profile.is_legit %}
                                 {% with profile=request.user.profile user=request.user %}
                                     <div class="facebook-connected">
                                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.
@@ -21,14 +21,7 @@
                                     </div>
                                 {% endwith %}
                             {% else %}
-                                <div class="facebook-connect">
-                                    <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                                    <a href="{% url "project.ajapaik.facebook.facebook_handler" "login" %}" class="ir">{% trans "Connect with Facebook" %}</a>
-                                </div>
-                                <div class="google-plus-connect">
-                                    <p>{% trans "Log in via Google to save your score and continue later." %}</p>
-                                    <a href="{% url "project.ajapaik.google_plus.google_login" %}" class="ir">{% trans "Connect with Google" %}</a>
-                                </div>
+                                    {% include "_log_in.html" with type="leaderboard" %}
                             {% endif %}
                         </div>
                     </div>

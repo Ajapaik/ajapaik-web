@@ -2,11 +2,35 @@
 
 {% load i18n bootstrap3 compress static %}
 
-{% block content %}
+{% block layout %}
     <div class="container">
         <form method="post" action="." class="form">
             {% csrf_token %}
             {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary pull-right">
+                {% trans "Continue" %}
+            </button>
+        </form>
+        <form method="post" action="." class="form">
+            {% csrf_token %}
+            <div class="input-group">
+              <span class="input-group-addon">
+                <input type="radio" aria-label="...">
+              </span>
+                <input type="text" class="form-control" aria-label="...">
+            </div>
+            {#            <div class="form-group"><label class="control-label" for="id_tour_type">Tuuri tüüp</label><select#}
+            {#                    class="form-control" id="id_tour_type" name="tour_type" required="required" title="">#}
+            {#                <option value="0">Avatud tuur</option>#}
+            {#                <option value="1">Valitud fotode tuur</option>#}
+            {#                <option value="2">Tuur juhuslikult valitud piltidega Sinu lähikonnast</option>#}
+            {#            </select></div>#}
+            {#            <div class="form-group" style="display: none;"><label class="control-label" for="id_random_count">Juhuslikult#}
+            {#                valitavate piltide arv</label><input class="form-control" id="id_random_count" name="random_count"#}
+            {#                                                     placeholder="Juhuslikult valitavate piltide arv" title=""#}
+            {#                                                     type="number"></div>#}
+            <input id="id_lat" name="lat" type="hidden" value="{{ user_lat }}">
+            <input id="id_lng" name="lng" type="hidden" value="{{ user_lng }}">
             <button type="submit" class="btn btn-primary pull-right">
                 {% trans "Continue" %}
             </button>

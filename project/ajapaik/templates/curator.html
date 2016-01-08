@@ -9,7 +9,7 @@
     {% include "_full_leaderboard_modal.html" %}
     <div class="container" id="ajapaik-curator-container">
         <div class="col-xs-12">
-            {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+            {% if request.user.profile.is_legit %}
                 {% include "_album_creation_modal.html" %}
                 <div class="modal fade" id="ajapaik-curator-feedback-modal">
                     <div class="modal-dialog">
@@ -159,13 +159,7 @@
                     </div>
                 </div>
             {% else %}
-                <div class="facebook-connect" style="margin-top: 75px; margin-bottom: 25px;">
-                    <p>{% trans "Curating requires connecting your account with Facebook or Google." %}</p>
-                    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                </div>
-                <div class="google-plus-connect">
-                    <a href="/google-login" class="ir">{% trans "Connect with Google" %}</a>
-                </div>
+                {% include "_log_in.html" with type="curator" %}
             {% endif %}
         </div>
     </div>

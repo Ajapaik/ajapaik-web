@@ -30,7 +30,16 @@
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                         </div>
                     {% } else { %}
-                        <div class="row-fluid"><b>{%=gettext('Unknown author')%}</b></div>
+                        {% if (o.FullName) { %}
+                            <div class="row-fluid">
+                                <a target="_blank" href="#">
+                                    {%=o.FullName%}
+                                </a>
+                                {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                            </div>
+                        {% } else { %}
+                            <div class="row-fluid"><b>{%=gettext('Unknown author')%}</b></div>
+                        {% } %}
                     {% } %}
                 {% } %}
             {% } %}

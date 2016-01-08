@@ -2,7 +2,7 @@
 
 {% load i18n bootstrap3 bootstrap_dynamic_formsets static compress %}
 
-{% block content %}
+{% block layout %}
     <div class="container">
         <form method="post" action="." class="form">
             {% csrf_token %}
@@ -21,6 +21,9 @@
 {% endblock %}
 
 {% block specific_js %}
+    <script>
+        var isGroupedTour = '{{ tour.grouped }}' === 'True';
+    </script>
     {% compress js %}
         <script src="{% static "js/then-and-now-manage.js" %}"></script>
     {% endcompress %}

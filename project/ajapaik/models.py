@@ -866,6 +866,11 @@ class Profile(Model):
     def id(self):
         return self.user_id
 
+    def is_legit(self):
+        if self.user.is_active and (self.fb_id or self.google_plus_id or self.user.email):
+            return True
+        return False
+
     def __unicode__(self):
         return u"%d - %s - %s" % (self.user.id, self.user.username, self.user.get_full_name())
 

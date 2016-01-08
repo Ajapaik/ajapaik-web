@@ -138,6 +138,7 @@ urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/settings/(?P<tour_id>\d+)/$', 'settings'),
     url(r'^then-and-now-tours/my-tours/(?P<tour_id>\d+)/$', 'my_tours'),
     url(r'^then-and-now-tours/my-tours/$', 'my_tours'),
+    url(r'^then-and-now-tours/my-rephotos/(?P<tour_id>\d+)/$', 'my_rephotos'),
     url(r'^then-and-now-tours/send-rephoto-to-ajapaik/(?P<tour_rephoto_id>\d+)/$', 'send_rephoto_to_ajapaik'),
 )
 

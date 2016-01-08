@@ -9,6 +9,18 @@ html, body, #map-container {
     height: 100%;
 }
 
+@media (max-width: 979px) {
+  body {
+    padding-top: 120px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  body {
+    padding-top: 0 !important;
+  }
+}
+
 .tan-padding-top-50 {
     padding-top: 50px;
 }
@@ -19,7 +31,7 @@ html, body, #map-container {
 }
 
 #camera-file-capture {
-    display: none !important;
+    /*display: none !important;*/
 }
 
 .navbar-active {

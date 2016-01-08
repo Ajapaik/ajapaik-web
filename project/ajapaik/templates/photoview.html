@@ -140,7 +140,7 @@
                                         <div class="ajapaik-photo-modal-album-more-button" role="button"
                                              title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
                                         <div class="ajapaik-photo-modal-photo-curator">
-                                            &nbsp;{% if a.this_photo_curator.fb_name%}<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.fb_name }}</p>{% elif a.this_photo_curator.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.google_plus_name }}</p>{% endif %}
+                                            &nbsp;{% if a.this_photo_curator.fb_name%}<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.fb_name }}</p>{% elif a.this_photo_curator.google_plus_name %}<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.google_plus_name }}</p>{% elif a.this_photo_curator.user.get_full_name %}<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i><p class="hidden"> {{ a.this_photo_curator.user.get_full_name  }}</p>{% endif %}
                                         </div>
                                         </div>
                                 </div>
@@ -190,6 +190,10 @@
                         {% elif rephoto.user.google_plus_name %}
                             <div class="row-fluid">
                                 <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="{{ rephoto.user.google_plus_link }}">{{ rephoto.user.google_plus_name }}</a>&nbsp;{% include '_licence.html' %}
+                            </div>
+                        {% elif rephoto.user.user.get_full_name %}
+                            <div class="row-fluid">
+                                <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank" href="#">{{ rephoto.user.user.get_full_name }}</a>&nbsp;{% include '_licence.html' %}
                             </div>
                         {% else %}
                             <div class="row-fluid">

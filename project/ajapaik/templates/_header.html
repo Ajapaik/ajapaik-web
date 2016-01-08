@@ -82,7 +82,7 @@
                 <li class="pull-right">
                     <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
                        id="ajapaik-header-profile-button" class="ajapaik-no-background">
-                        <i class="material-icons notranslate ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id %} ajapaik-text-white{% endif %}">account_circle</i>
+                        <i class="material-icons notranslate ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id or request.user.email %} ajapaik-text-white{% endif %}">account_circle</i>
                     </a>
 
                     <div class="score_container">
@@ -96,7 +96,7 @@
                                 {% include "_block_leaderboard.html" %}
                             {% endif %}
                         </ul>
-                        {% if request.user.is_authenticated and request.user.profile.fb_id or request.user.profile.google_plus_id %}
+                        {% if request.user.profile.is_legit %}
                             {% with profile=request.user.profile user=request.user %}
                                 <div class="facebook-connected">
                                     <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.
@@ -105,14 +105,7 @@
                                 </div>
                             {% endwith %}
                         {% else %}
-                            <div class="facebook-connect">
-                                <p>{% trans "Facebook Connect to save your score and continue later." %}</p>
-                                <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
-                            </div>
-                            <div class="google-plus-connect">
-                                <p>{% trans "Log in via Google to save your score and continue later." %}</p>
-                                <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
-                            </div>
+                            {% include "_log_in.html" with type="leaderboard" %}
                         {% endif %}
                     </div>
                 </li>
@@ -228,7 +221,7 @@
         </div>
     </div>
     {% if is_curator %}
-        {% if request.user.profile.fb_id or request.user.profile.google_plus_id %}
+        {% if request.user.profile.is_legit %}
             <div class="container" id="ajapaik-curator-header-tabs">
                 <div role="tabpanel" id="ajapaik-curator-tabpanel">
                     <ul class="nav nav-tabs" role="tablist" id="ajapaik-curator-tabs">

@@ -1,8 +1,8 @@
-{% extends 'then_and_now/base.html' %}
+{% extends is_then_and_now|yesno:"then_and_now/base.html,base_bootstrap.html" %}
 
 {% load i18n bootstrap3 %}
 
-{% block content %}
+{% block layout %}
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
@@ -20,12 +20,13 @@
                 <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
                 <br/>
                 <br/>
+                {# TODO: next handling #}
                 <div class="facebook-connect">
-                    <a href="/facebook/login?next=/then-and-now-tours/" class="ir">{% trans "Connect with Facebook" %}</a>
+                    <a href="/facebook/login?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}" class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <br/>
                 <div class="google-plus-connect">
-                    <a href="/google-login/?next=/then-and-now-tours/" class="ir">{% trans "Connect with Google" %}</a>
+                    <a href="/google-login/?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}" class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             </div>
         </div>

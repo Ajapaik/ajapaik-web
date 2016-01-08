@@ -72,6 +72,27 @@ class NotValidatedMultipleChoiceField(TypedMultipleChoiceField):
         pass
 
 
+class CreateTourForm1(forms.Form):
+    OPEN, FIXED, NEARBY_RANDOM = range(3)
+    TYPE_CHOICES = (
+        (OPEN, _('Open tour')),
+        (FIXED, _('Fixed photo set')),
+        (NEARBY_RANDOM, _('Random with nearby pictures')),
+    )
+    tour_type = forms.ChoiceField(choices=TYPE_CHOICES, label=_('Tour type'))
+
+
+class CreateTourForm2(forms.Form):
+    random_count = forms.IntegerField(label=_('Number of random pictures'), required=False)
+    lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    lng = forms.FloatField(min_value=-180, max_value=180, required=False)
+    selection = NotValidatedMultipleChoiceField(coerce=str, required=False)
+
+
+class CreateTourForm3(forms.Form):
+    pass
+
+
 class OrderedTourForm(forms.Form):
     ids = NotValidatedMultipleChoiceField(coerce=str, required=False)
 
@@ -612,8 +633,23 @@ def settings(request, tour_id):
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def create_tour_step_1(request):
+    profile = request.user.profile
+    ret = {}
+    if request.method == 'POST':
+        form = CreateTourForm1(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        ret['form'] = CreateTourForm1()
+
+    return render_to_response('then_and_now/create_tour_1.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def choose_new_tour_type(request):
     profile = request.user.profile
+    ret = {}
     if request.method == 'POST':
         form = ChooseNewTourTypeForm(request.POST)
         if form.is_valid():
@@ -670,11 +706,8 @@ def choose_new_tour_type(request):
                 tour.save()
                 return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
     else:
-        form = ChooseNewTourTypeForm(
-            initial={'lat': request.GET.get('lat') or None, 'lng': request.GET.get('lng') or None})
-    ret = {
-        'form': form
-    }
+        ret['user_lat'] = request.GET.get('lat') or None
+        ret['user_lng'] = request.GET.get('lng') or None
 
     return render_to_response('then_and_now/choose_new_tour_type.html', RequestContext(request, ret))
 
@@ -724,3 +757,21 @@ def send_rephoto_to_ajapaik(request, tour_rephoto_id):
         ret['error'] = False
 
     return HttpResponse(json.dumps(ret), content_type='application/json')
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def my_rephotos(request, tour_id=None):
+    if not tour_id:
+        random_tour = Tour.objects.order_by('?').first()
+        if random_tour:
+            tour_id = random_tour.pk
+    tour = get_object_or_404(Tour, id=tour_id)
+    profile = request.user.profile
+    my_rephotos = TourRephoto.objects.filter(user=profile, tour=tour).order_by('created').prefetch_related('original')
+    ret = {
+        'my_rephotos': my_rephotos,
+        'tour': tour,
+        'is_my_rephotos': True
+    }
+
+    return render_to_response('then_and_now/my_rephotos.html', RequestContext(request, ret))

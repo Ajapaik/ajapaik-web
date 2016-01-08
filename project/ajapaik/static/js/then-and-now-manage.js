@@ -16,12 +16,19 @@
             }
         });
         // TODO: shut down popover when deleting photo, otherwise the image lingers
-        $('#id_grouped').change(function () {
+        var groupedCheckbox = $('#id_grouped');
+        if (groupedCheckbox.is(':checked')) {
+            $('#sortable').show();
+        }
+        groupedCheckbox.change(function () {
             if ($(this).is(':checked')) {
                 $('#sortable').show();
             } else {
                 $('#sortable').hide();
             }
+        });
+        $(document).on('click', $('#id_photos-deck').find('span').find('remove'), function () {
+            $('.popover').remove();
         });
     });
 }());
