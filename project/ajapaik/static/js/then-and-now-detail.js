@@ -35,8 +35,8 @@
                 }
             }
         });
-        $('.glyphicon-camera').click(function (e) {
-            $('#camera-file-capture').click(e);
+        $('.glyphicon-camera').click(function () {
+            $('#camera-file-capture').click();
         });
         $('.glyphicon-ok').click(function () {
             $('form').submit();
