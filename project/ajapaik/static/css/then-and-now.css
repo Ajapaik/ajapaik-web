@@ -9,16 +9,8 @@ html, body, #map-container {
     height: 100%;
 }
 
-@media (max-width: 979px) {
-  body {
-    padding-top: 120px !important;
-  }
-}
-
-@media (max-width: 479px) {
-  body {
-    padding-top: 0 !important;
-  }
+body {
+    padding-top: 50px;
 }
 
 .tan-padding-top-50 {

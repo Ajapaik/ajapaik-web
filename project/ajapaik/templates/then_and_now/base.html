@@ -112,6 +112,7 @@
     $('#tan-header-about-tour-link').click(function () {
         $('#tan-tour-info-modal').modal();
     });
+    var isMobile = '{{ request.mobile }}' === 'True';
 </script>
 {% block specific_js %}{% endblock %}
 {% block autocomplete_stuff %}{% endblock %}
