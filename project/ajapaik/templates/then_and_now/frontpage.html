@@ -63,8 +63,8 @@
 {% block specific_js %}
     <script>
         var mapRedirectURL = '{% url 'project.ajapaik.then_and_now_tours.map_view' %}',
-            newTourURL = '{% url 'project.ajapaik.then_and_now_tours.choose_new_tour_type' %}',
-            myToursLink = '{% url 'project.ajapaik.then_and_now_tours.choose_new_tour_type' %}'
+            newTourURL = '{% url 'project.ajapaik.then_and_now_tours.create_tour_step_1' %}',
+            myToursLink = '{% url 'project.ajapaik.then_and_now_tours.my_tours' %}'
     </script>
     {% compress js %}
         <script src="{% static 'js/then-and-now-frontpage.js' %}"></script>

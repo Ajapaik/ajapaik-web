@@ -1,0 +1,29 @@
+{% extends "then_and_now/base.html" %}
+
+{% load i18n bootstrap3 bootstrap_dynamic_formsets static compress %}
+
+{% block layout %}
+    <div class="container">
+        <form method="post" action="." class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_dynamic_formset group_formset %}
+            <button type="submit" class="btn btn-success">
+                {% trans "Next" %}
+            </button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block autocomplete_stuff %}
+    {% include 'autocomplete_light/static.html' %}
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        var isGroupedTour = '{{ tour.grouped }}' === 'True';
+    </script>
+    {% compress js %}
+        <script src="{% static "js/then-and-now-manage.js" %}"></script>
+    {% endcompress %}
+{% endblock %}

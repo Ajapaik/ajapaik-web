@@ -36,12 +36,9 @@ class CameraUploadForm(forms.Form):
     original = forms.ModelChoiceField(Photo.objects.all())
 
 
-class RandomTourForm(forms.Form):
-    lat = forms.FloatField(min_value=-85.05115, max_value=85)
-    lng = forms.FloatField(min_value=-180, max_value=180)
-    min_distance = forms.FloatField(required=False)
-    max_distance = forms.FloatField(required=False)
-    random_count = forms.IntegerField(required=False)
+class PhotoSelectionForm(forms.Form):
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(lat__isnull=False, lon__isnull=False), required=False)
+    clear = forms.BooleanField(required=False, initial=False)
 
 
 class ChooseNewTourTypeForm(forms.Form):
@@ -72,14 +69,13 @@ class NotValidatedMultipleChoiceField(TypedMultipleChoiceField):
         pass
 
 
-class CreateTourForm1(forms.Form):
-    OPEN, FIXED, NEARBY_RANDOM = range(3)
-    TYPE_CHOICES = (
-        (OPEN, _('Open tour')),
-        (FIXED, _('Fixed photo set')),
-        (NEARBY_RANDOM, _('Random with nearby pictures')),
-    )
-    tour_type = forms.ChoiceField(choices=TYPE_CHOICES, label=_('Tour type'))
+class CreateTourForm1(forms.ModelForm):
+    class Meta:
+        model = Tour
+        fields = ('photo_set_type',)
+        labels = {
+            'photo_set_type': _('Tour type')
+        }
 
 
 class CreateTourForm2(forms.Form):
@@ -89,8 +85,19 @@ class CreateTourForm2(forms.Form):
     selection = NotValidatedMultipleChoiceField(coerce=str, required=False)
 
 
-class CreateTourForm3(forms.Form):
-    pass
+class CreateTourForm3(forms.ModelForm):
+    class Meta:
+        model = Tour
+        fields = ('name', 'description')
+
+
+class CreateTourForm4(autocomplete_light.ModelForm):
+    class Meta:
+        model = Tour
+        fields = ('grouped',)
+        labels = {
+            'grouped': _('With groups')
+        }
 
 
 class OrderedTourForm(forms.Form):
@@ -126,6 +133,13 @@ class TourGroupSelectionForm(forms.Form):
 class MapMarkersForm(forms.Form):
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lng = forms.FloatField(min_value=-180, max_value=180, required=False)
+
+
+class CreateTourMarkersForm(forms.Form):
+    swLat = forms.FloatField(min_value=-85.05115, max_value=85)
+    swLon = forms.FloatField(min_value=-180, max_value=180)
+    neLat = forms.FloatField(min_value=-85.05115, max_value=85)
+    neLon = forms.FloatField(min_value=-180, max_value=180)
 
 
 class UserRegistrationForm(RegistrationFormUniqueEmail):
@@ -242,6 +256,26 @@ class MapPhotoSerializer(serializers.ModelSerializer):
         fields = ('description', 'lat', 'lon', 'order', 'permaURL', 'imageURL', 'usersCompleted', 'groupsCompleted')
 
 
+class CreateTourStep2PhotoMarkerSerializer(serializers.ModelSerializer):
+    imageURL = serializers.SerializerMethodField('get_image_url')
+    inSelection = serializers.SerializerMethodField('photo_is_in_selection')
+
+    def __init__(self, *args, **kwargs):
+        self.selection = kwargs.pop('selection', None)
+        super(CreateTourStep2PhotoMarkerSerializer, self).__init__(**kwargs)
+
+    def get_image_url(self, obj):
+        return self.context['request'].build_absolute_uri(
+                reverse('project.ajapaik.views.image_thumb', args=(obj.pk, 250, obj.get_pseudo_slug())))
+
+    def photo_is_in_selection(self, obj):
+        return str(obj.pk) in self.selection
+
+    class Meta:
+        model = Photo
+        fields = ('id', 'lat', 'lon', 'description', 'imageURL', 'inSelection')
+
+
 class GalleryPhotoSerializer(serializers.ModelSerializer):
     permaURL = serializers.SerializerMethodField('get_permalink')
     imageURL = serializers.SerializerMethodField('get_image_url')
@@ -343,7 +377,7 @@ def get_map_markers(request, tour_id):
     form = MapMarkersForm(request.GET)
     photos = tour.photos.all()
     if form.is_valid():
-        if tour.photo_set_type == tour.ANY and form.cleaned_data['lat'] and form.cleaned_data['lng']:
+        if tour.photo_set_type == Tour.OPEN and form.cleaned_data['lat'] and form.cleaned_data['lng']:
             user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
             photos = Photo.objects.filter(
                     rephoto_of__isnull=True,
@@ -375,7 +409,7 @@ def get_gallery_photos(request, tour_id):
     form = MapMarkersForm(request.GET)
     photos = tour.photos.all()
     if form.is_valid():
-        if tour.photo_set_type == tour.ANY and form.cleaned_data['lng'] and form.cleaned_data['lat']:
+        if tour.photo_set_type == Tour.OPEN and form.cleaned_data['lng'] and form.cleaned_data['lat']:
             user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
             photos = Photo.objects.filter(
                     rephoto_of__isnull=True,
@@ -639,77 +673,143 @@ def create_tour_step_1(request):
     if request.method == 'POST':
         form = CreateTourForm1(request.POST)
         if form.is_valid():
-            pass
-    else:
-        ret['form'] = CreateTourForm1()
+            new_tour = form.save(commit=False)
+            new_tour.user = profile
+            new_tour.save()
+            request.session['then_and_now_selection'] = []
+            request.session.modified = True
+            if new_tour.photo_set_type == Tour.OPEN:
+                return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_3', args=(new_tour.pk,)))
+            else:
+                return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_2', args=(new_tour.pk,)))
 
     return render_to_response('then_and_now/create_tour_1.html', RequestContext(request, ret))
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
-def choose_new_tour_type(request):
-    profile = request.user.profile
+def toggle_photo_selection(request):
+    form = PhotoSelectionForm(request.POST)
     ret = {}
+    if form.is_valid():
+        if not request.session['then_and_now_selection']:
+            request.session['then_and_now_selection'] = {}
+        helper = request.session['then_and_now_selection']
+        if form.cleaned_data['clear']:
+            helper = []
+        else:
+            photo_id = str(form.cleaned_data['photo'].pk)
+            if photo_id not in request.session['then_and_now_selection']:
+                helper[photo_id] = True
+            else:
+                del helper[photo_id]
+        request.session['then_and_now_selection'] = helper
+        request.session.modified = True
+        ret = helper
+
+    return HttpResponse(json.dumps(ret), content_type='application/json')
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def get_markers_for_create_step_2(request):
+    form = CreateTourMarkersForm(request.GET)
+    count = 0
+    photos = []
+    ret = {
+        'count': count
+    }
+    if 'then_and_now_selection' not in request.session:
+        request.session['then_and_now_selection'] = {}
+    if form.is_valid():
+        photos = Photo.objects.filter(lat__isnull=False, lon__isnull=False, lat__gte=form.cleaned_data['swLat'],
+                                      lon__gte=form.cleaned_data['swLon'], lat__lte=form.cleaned_data['neLat'],
+                                      lon__lte=form.cleaned_data['neLon'])
+        count = photos.count()
+        ret['count'] = count
+    if 500 > count > 0:
+        serialized = CreateTourStep2PhotoMarkerSerializer(photos, context={'request': request}, many=True,
+                                                          selection=request.session['then_and_now_selection'])
+        ret['photos'] = serialized.data
+
+    return HttpResponse(json.dumps(ret), content_type='application/json')
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def create_tour_step_2(request, tour_id):
+    profile = request.user.profile
+    tour = get_object_or_404(Tour, pk=tour_id)
+    ret = {
+        'tour': tour
+    }
+    if not tour.user == profile:
+        return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_1'))
+    if tour.photo_set_type == Tour.OPEN:
+        return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_3'))
     if request.method == 'POST':
-        form = ChooseNewTourTypeForm(request.POST)
+        form = CreateTourForm2(request.POST)
         if form.is_valid():
-            t = form.cleaned_data['tour_type']
-            if t == form.NEARBY_RANDOM:
-                generation_form = RandomTourForm(request.POST)
-                if generation_form.is_valid():
-                    user_lat = generation_form.cleaned_data['lat']
-                    user_lng = generation_form.cleaned_data['lng']
-                    max_dist = generation_form.cleaned_data['max_distance']
-                    min_dist = generation_form.cleaned_data['min_distance']
-                    how_many = generation_form.cleaned_data['random_count']
-                    user_location = Point(user_lng, user_lat)
-                    if not min_dist:
-                        min_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
-                    if not max_dist:
-                        max_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
-                    if not how_many:
-                        how_many = THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
-                    photo_set = Photo.objects.filter(rephoto_of__isnull=True,
-                                                     geography__distance_lte=(user_location, D(m=max_dist)),
-                                                     geography__distance_gte=(user_location, D(m=min_dist)), )
-                    total = photo_set.count()
-                    if how_many <= total:
-                        sample = random.sample(photo_set, how_many)
-                    else:
-                        sample = random.sample(photo_set, total)
-                    tour = Tour(
-                            name=_('Random Tour'),
-                            user=profile,
-                            photo_set_type=Tour.FIXED
-                    )
-                    tour.save()
-                    for each in sample:
-                        tour.photos.add(each)
-
-                    return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
+            if tour.photo_set_type == Tour.FIXED:
+                photo_set = Photo.objects.filter(pk__in=request.session['then_and_now_selection'].keys())
+                tour.photos = photo_set
+                tour.save()
+            elif tour.photo_set_type == Tour.NEARBY_RANDOM:
+                lat = form.cleaned_data['lat']
+                lng = form.cleaned_data['lng']
+                center = Point(lng, lat)
+                how_many = form.cleaned_data['random_count']
+                min_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
+                max_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
+                if not how_many:
+                    how_many = THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
+                photo_set = Photo.objects.filter(rephoto_of__isnull=True,
+                                                 geography__distance_lte=(center, D(m=max_dist)),
+                                                 geography__distance_gte=(center, D(m=min_dist)),)
+                total = photo_set.count()
+                if how_many <= total:
+                    sample = random.sample(photo_set, how_many)
                 else:
-                    return redirect(reverse('project.ajapaik.then_and_now_tours.frontpage'))
-            elif t == form.FIXED:
-                tour = Tour(
-                        name=_('Fixed tour'),
-                        user=profile,
-                        photo_set_type=Tour.FIXED
-                )
+                    sample = random.sample(photo_set, total)
+                tour.photos = sample
                 tour.save()
-                return redirect(reverse('project.ajapaik.then_and_now_tours.manage', args=(tour.pk,)))
-            elif t == form.OPEN:
-                tour = Tour(
-                        name=_('Open tour'),
-                        user=profile,
-                        photo_set_type=Tour.ANY
-                )
-                tour.save()
-                return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
-    else:
-        ret['user_lat'] = request.GET.get('lat') or None
-        ret['user_lng'] = request.GET.get('lng') or None
+            return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_3', args=(tour.pk,)))
 
-    return render_to_response('then_and_now/choose_new_tour_type.html', RequestContext(request, ret))
+    return render_to_response('then_and_now/create_tour_2.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def create_tour_step_3(request, tour_id):
+    profile = request.user.profile
+    tour = get_object_or_404(Tour, pk=tour_id)
+    ret = {
+        'form': CreateTourForm3(instance=tour)
+    }
+    if not tour.user == profile:
+        return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_1'))
+    if request.method == 'POST':
+        form = CreateTourForm3(request.POST, instance=tour)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_4', args=(tour.pk,)))
+    return render_to_response('then_and_now/create_tour_3.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def create_tour_step_4(request, tour_id):
+    profile = request.user.profile
+    tour = get_object_or_404(Tour, pk=tour_id)
+    ret = {
+        'form': CreateTourForm4(instance=tour),
+        'group_formset': TourGroupFormset(instance=tour)
+    }
+    if not tour.user == profile:
+        return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_1'))
+    if request.method == 'POST':
+        form = CreateTourForm4(request.POST, instance=tour)
+        group_formset = TourGroupFormset(request.POST, instance=tour)
+        if form.is_valid() and group_formset.is_valid():
+            group_formset.save()
+            form.save()
+            return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
+    return render_to_response('then_and_now/create_tour_4.html', RequestContext(request, ret))
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')

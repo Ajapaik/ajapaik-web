@@ -1,0 +1,56 @@
+{% extends "then_and_now/base.html" %}
+
+{% load i18n bootstrap3 compress static %}
+
+{% block layout %}
+    <div class="container" id="tan-create-tour-2-container">
+        <div class="row-fluid">
+            <div class="col-xs-12 col-sm-6 col-md-9">
+                <div id="tan-create-tour-2-total-marker-count">
+                    {% trans "Total markers on current zoom level" %}: <span>?, {% trans "zoom in more to view markers" %}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                {% if tour.photo_set_type == 0 %}
+                    <div class="input-group">
+                        <label class="form-control">{% trans "Number of photos selected" %}: <span
+                                id="tan-create-tour-2-selection-size">{{ request.session.then_and_now_selection|length }}</span></label>
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" type="button" id="tan-create-tour-2-selection-clear">
+                            {% trans "Clear" %}
+                        </button>
+                    </span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div id="tan-create-tour-map"></div>
+        <form method="post" action="." class="form">
+            {% csrf_token %}
+            <input type="hidden" id="tan-create-tour-2-lat" name="lat">
+            <input type="hidden" id="tan-create-tour-2-lng" name="lng">
+            <div class="col-xs-12">
+                {% if tour.photo_set_type == 2 %}
+                    <input type="number" class="form-control"
+                           placeholder="{% trans "Number of images to rephotograph" %}">
+                {% endif %}
+                <button type="submit" class="btn btn-success pull-right">
+                    {% trans "Next" %}
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        var mapMarkersURL = '{% url 'project.ajapaik.then_and_now_tours.get_markers_for_create_step_2' %}',
+            selectionToggleURL = '{% url 'project.ajapaik.then_and_now_tours.toggle_photo_selection' %}',
+            icon2 = '{% static 'images/then-and-now-marker-1.png' %}',
+            icon1 = '{% static 'images/then-and-now-marker-2.png' %}';
+    </script>
+    {% compress js %}
+        <script src="{% static "js/markerclustererplus-2.1.1.js" %}"></script>
+        <script src="{% static 'js/then-and-now-create-tour-2.js' %}"></script>
+    {% endcompress %}
+{% endblock %}

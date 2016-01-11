@@ -1173,13 +1173,14 @@ class DatingConfirmation(Model):
 
 
 class Tour(Model):
-    FIXED, ANY = range(2)
+    FIXED, OPEN, NEARBY_RANDOM = range(3)
     PHOTOSET_TYPE_CHOICES = (
+        (OPEN, _('Open tour')),
         (FIXED, _('Fixed photo set')),
-        (ANY, _('Any photos'))
+        (NEARBY_RANDOM, _('Random with nearby pictures')),
     )
     photos = ManyToManyField('Photo', related_name='tours', blank=True, null=True)
-    name = CharField(max_length=255)
+    name = CharField(max_length=255, blank=True, null=True)
     description = TextField(blank=True, null=True)
     user = ForeignKey('Profile', related_name='owned_tours')
     ordered = BooleanField(default=False)

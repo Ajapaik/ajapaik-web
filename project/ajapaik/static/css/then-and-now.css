@@ -210,3 +210,17 @@ html, body, #map-container {
     background: url(../images/connect-with-google.png) no-repeat;
     margin-top: -5px;
 }
+
+#tan-create-tour-2-container {
+    width: 100%;
+    height: 100%;
+}
+
+#tan-create-tour-map {
+    width: 100%;
+    height: 80%;
+}
+
+.tan-create-tour-2-select-checkbox {
+    margin-left: 5px;
+}

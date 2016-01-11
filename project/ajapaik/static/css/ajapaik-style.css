@@ -1148,6 +1148,18 @@ a.fullscreen {
     margin-top: 0;
 }
 
+#ajapaik-donation-header {
+    background-color: #222;
+    color: white;
+    border-top: 1px solid white;
+    font-size: 17px;
+    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: none;
+    width: 100%;
+}
+
 @media (min-width: 320px) {
     #ajapaik-header-title {
         max-width: 80px;
@@ -1164,6 +1176,9 @@ a.fullscreen {
     #pac-input-mapview {
         width: 90px !important;
     }
+    #ajapaik-donation-header {
+        height: 80px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -1172,6 +1187,9 @@ a.fullscreen {
     }
     #pac-input-mapview {
         width: 90px !important;
+    }
+    #ajapaik-donation-header {
+        height: 55px;
     }
 }
 
@@ -1182,6 +1200,9 @@ a.fullscreen {
     #pac-input-mapview {
         width: 200px !important;
     }
+    #ajapaik-donation-header {
+        height: 55px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -1190,6 +1211,9 @@ a.fullscreen {
     }
     #pac-input-mapview {
         width: 200px !important;
+    }
+    #ajapaik-donation-header {
+        height: 44px;
     }
 }
 
@@ -2718,19 +2742,6 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 #ajapaik-donation-modal-body > a {
     text-decoration: none;
-}
-
-#ajapaik-donation-header {
-    background-color: #222;
-    color: white;
-    border-top: 1px solid white;
-    font-size: 17px;
-    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: none;
-    height: 44px;
-    width: 100%;
 }
 
 #ajapaik-donation-modal-link {

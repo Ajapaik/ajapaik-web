@@ -1,0 +1,62 @@
+{% extends "then_and_now/base.html" %}
+
+{% load i18n bootstrap3 %}
+
+{% block layout %}
+    <div class="container">
+        <br/>
+        <form method="post" action="." class="form">
+            {% csrf_token %}
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="input-group">
+                            <label class="form-control" for="tan-new-tour-random">{% trans "Tour with randomly selected pictures from a location" %}</label>
+                            <span class="input-group-addon">
+                                <input type="radio" value="2" id="tan-new-tour-random" name="photo_set_type" aria-label="">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>{% trans "You specify the number of pictures in the tour, pictures are selected randomly from a specific location" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="input-group">
+                            <label class="form-control" for="tan-new-tour-open">{% trans "Open tour" %}</label>
+                            <span class="input-group-addon">
+                                <input type="radio" value="1" name="photo_set_type" id="tan-new-tour-open" aria-label="">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>{% trans "You specify the location, all the pictures in the area can be rephotographed. Suitable for competition between groups (you can choose the number of groups and their maximum size)" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="input-group">
+                            <label class="form-control" for="tan-new-tour-handpicked">{% trans "Selected images tour" %}</label>
+                            <span class="input-group-addon">
+                                <input type="radio" value="0" name="photo_set_type" id="tan-new-tour-handpicked" aria-label="">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>{% trans "Tour with handpicked images." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <button type="submit" class="btn btn-success pull-right">
+                    {% trans "Next" %}
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
