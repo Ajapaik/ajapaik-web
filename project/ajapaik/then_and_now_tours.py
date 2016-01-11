@@ -808,8 +808,21 @@ def create_tour_step_4(request, tour_id):
         if form.is_valid() and group_formset.is_valid():
             group_formset.save()
             form.save()
-            return redirect(reverse('project.ajapaik.then_and_now_tours.map_view', args=(tour.pk,)))
+            return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_5', args=(tour.pk,)))
     return render_to_response('then_and_now/create_tour_4.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def create_tour_step_5(request, tour_id):
+    profile = request.user.profile
+    tour = get_object_or_404(Tour, pk=tour_id)
+    if not tour.user == profile:
+        return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_1'))
+    ret = {
+        'tour': tour
+    }
+
+    return render_to_response('then_and_now/create_tour_5.html', RequestContext(request, ret))
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')

@@ -2,7 +2,7 @@
     'use strict';
     /* global mapRedirectURL */
     /* global newTourURL */
-    /* global myToursURL */
+    /* global myToursLink */
     /* global gettext */
     /* global alert */
     var tourIdInput = $('#tan-frontpage-tour-id-input'),
@@ -16,6 +16,6 @@
         window.location = mapRedirectURL + tourId + '/';
     });
     $('#tan-frontpage-my-tours-button').click(function () {
-        window.location = myToursURL;
+        window.location = myToursLink;
     });
 }());

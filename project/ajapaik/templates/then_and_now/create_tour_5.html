@@ -1,0 +1,26 @@
+{% extends "then_and_now/base.html" %}
+
+{% load i18n %}
+
+{% block layout %}
+    <div class="container">
+        <h3>{% trans "Tour summary" %}</h3>
+        <p>{% trans "Name" %}: {{ tour.name }}</p>
+        <p>{% trans "Description" %}: {{ tour.description }}</p>
+        <p>{% trans "Type" %}: {{ tour.get_photo_set_type_display }}</p>
+        {% if tour.grouped %}
+            <h4>{% trans "Groups" %}</h4>
+            {% for each in tour.tour_groups.all %}
+                <p>{{ each.name }} - {% blocktrans count counter=each.max_members %}Up to {{ counter }} member
+                    {% plural %}Up to {{ counter }} members{% endblocktrans %}</p>
+            {% endfor %}
+        {% endif %}
+        <h2>{% trans "Tour ID (use it to share your tour)" %}: {{ tour.pk }}</h2>
+        <div class="row-fluid">
+            <a href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}" title="{% trans "View map" %}">{% trans "View map" %}</a>
+        </div>
+        <div class="row-fluid">
+            <a href="{% url 'project.ajapaik.then_and_now_tours.manage' tour.pk %}" title="{% trans "Manage" %}">{% trans "Manage" %}</a>
+        </div>
+    </div>
+{% endblock %}
