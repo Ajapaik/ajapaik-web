@@ -12,7 +12,7 @@ class FlickrCommonsDriver(object):
 
     def search(self, cleaned_data):
         return self.flickr.photos.search(text=cleaned_data['fullSearch'], media='photos', is_commons=True, per_page=200,
-                                         extras='description,tags', page=cleaned_data['flickrPage'])
+                                         extras='tags,geo', page=cleaned_data['flickrPage'])
 
     @staticmethod
     def transform_response(response, remove_existing=False):
@@ -31,12 +31,14 @@ class FlickrCommonsDriver(object):
                 'isFlickrResult': True,
                 'cachedThumbnailUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_t.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
                 'title': p['title'],
-                'description': p['description']['_content'],
+                'institution': 'Flickr Commons',
                 'imageUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
                 'id': p['id'],
                 'mediaId': p['id'],
                 'identifyingNumber': p['id'],
-                'urlToRecord': 'https://www.flickr.com/photos/%s/%s' % (p['owner'], p['id'])
+                'urlToRecord': 'https://www.flickr.com/photos/%s/%s' % (p['owner'], p['id']),
+                'latitude': p['latitude'],
+                'longitude': p['longitude']
             }
             if existing_photo:
                 transformed_item['ajapaikId'] = existing_photo.id

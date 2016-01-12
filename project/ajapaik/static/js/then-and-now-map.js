@@ -39,15 +39,11 @@
                     lng: lng
                 },
                 success: function (response) {
-                    if (isFixedTour || isOrderedTour) {
-                        bounds = new google.maps.LatLngBounds();
-                        $.each(response, function (k, v) {
-                            bounds.extend(new google.maps.LatLng(v.lat, v.lon));
-                        });
-                        mapCenter = bounds.getCenter();
-                    } else {
-                        mapCenter = new google.maps.LatLng(lat, lng);
-                    }
+                    bounds = new google.maps.LatLngBounds();
+                    $.each(response, function (k, v) {
+                        bounds.extend(new google.maps.LatLng(v.lat, v.lon));
+                    });
+                    mapCenter = bounds.getCenter();
                     if (!map) {
                         map = new google.maps.Map(document.getElementById('map-container'), {
                             center: mapCenter,

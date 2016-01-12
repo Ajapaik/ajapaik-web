@@ -84,6 +84,15 @@ class CreateTourForm2(forms.Form):
     lng = forms.FloatField(min_value=-180, max_value=180, required=False)
     selection = NotValidatedMultipleChoiceField(coerce=str, required=False)
 
+    def __init__(self, *args, **kwargs):
+        self.tour = kwargs.pop('tour', None)
+        super(CreateTourForm2, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        if self.tour.photo_set_type == Tour.NEARBY_RANDOM and not self.cleaned_data['random_count']:
+            raise forms.ValidationError(_('Number of photos must be specified for a random tour'))
+        return self.cleaned_data
+
 
 class CreateTourForm3(forms.ModelForm):
     class Meta:
@@ -725,7 +734,7 @@ def get_markers_for_create_step_2(request):
                                       lon__lte=form.cleaned_data['neLon'])
         count = photos.count()
         ret['count'] = count
-    if 500 > count > 0:
+    if 250 > count > 0:
         serialized = CreateTourStep2PhotoMarkerSerializer(photos, context={'request': request}, many=True,
                                                           selection=request.session['then_and_now_selection'])
         ret['photos'] = serialized.data
@@ -745,7 +754,7 @@ def create_tour_step_2(request, tour_id):
     if tour.photo_set_type == Tour.OPEN:
         return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_3'))
     if request.method == 'POST':
-        form = CreateTourForm2(request.POST)
+        form = CreateTourForm2(request.POST, tour=tour)
         if form.is_valid():
             if tour.photo_set_type == Tour.FIXED:
                 photo_set = Photo.objects.filter(pk__in=request.session['then_and_now_selection'].keys())
@@ -771,6 +780,8 @@ def create_tour_step_2(request, tour_id):
                 tour.photos = sample
                 tour.save()
             return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_3', args=(tour.pk,)))
+        else:
+            ret['form'] = form
 
     return render_to_response('then_and_now/create_tour_2.html', RequestContext(request, ret))
 

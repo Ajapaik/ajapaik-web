@@ -37,7 +37,7 @@
                         <div class="row">
                             <form id="form" action="{% url "project.ajapaik.then_and_now_tours.camera_upload" %}"
                                   method="post" enctype="multipart/form-data">
-                                <input name="image" id="camera-file-capture" type="file" accept="image/*" onchange="PreviewImage();"
+                                <input name="image" id="camera-file-capture" type="file" accept="image/*" onchange="previewImage();"
                                        capture="camera"/>
                                 <img style="display:none" id="uploadPreview" class="img-responsive"/>
                                 <input type="hidden" name="original" value="{{ photo.id }}"/>

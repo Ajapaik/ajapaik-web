@@ -189,6 +189,8 @@ class CuratorPhotoUploadForm(forms.Form):
     invert = forms.BooleanField(required=False)
     stereo = forms.BooleanField(required=False)
     rotated = forms.FloatField(min_value=0, max_value=270, required=False)
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 
 class SelectionUploadForm(forms.Form):

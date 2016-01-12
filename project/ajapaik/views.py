@@ -311,7 +311,7 @@ def _get_leaderboard(profile):
             Q(pk=profile.id) |
             Q(user__first_name__isnull=False, user__last_name__isnull=False, score_recent_activity__gt=0))\
         .values_list('score_recent_activity', 'fb_id', 'fb_name', 'google_plus_id', 'google_plus_name', 'user_id',
-                     'google_plus_picture') \
+                     'google_plus_picture', 'user__first_name', 'user__last_name') \
         .order_by('-score_recent_activity')
     start = profile_rank - 2
     if start < 0:
@@ -1233,14 +1233,14 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
     full_album_id_list = list(album_ids)
-    albums = Album.objects.filter(pk__in=album_ids, is_public=True).prefetch_related('subalbum_of')
+    albums = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).prefetch_related('subalbum_of')
     for each in albums:
         if each.subalbum_of:
             current_parent = each.subalbum_of
             while current_parent is not None:
                 full_album_id_list.append(current_parent.id)
                 current_parent = current_parent.subalbum_of
-    albums = Album.objects.filter(pk__in=full_album_id_list, is_public=True)
+    albums = Album.objects.filter(pk__in=full_album_id_list, atype=Album.CURATED)
     for a in albums:
         first_albumphoto = AlbumPhoto.objects.filter(photo_id=photo_obj.id, album=a).first()
         if first_albumphoto:
@@ -2075,26 +2075,26 @@ def curator_photo_upload_handler(request):
                             upload_form.cleaned_data["date"] = None
                         try:
                             new_photo = Photo(
-                                    user=profile,
-                                    area=area,
-                                    author=upload_form.cleaned_data["creators"].encode('utf-8'),
-                                    description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
-                                    source=source,
-                                    types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data[
-                                        "types"] else None,
-                                    keywords=upload_form.cleaned_data["keywords"].strip().encode('utf-8') if
-                                    upload_form.cleaned_data["keywords"] else None,
-                                    date_text=upload_form.cleaned_data["date"].encode('utf-8') if
-                                    upload_form.cleaned_data["date"] else None,
-                                    licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
-                                    external_id=muis_id,
-                                    external_sub_id=muis_media_id,
-                                    source_key=upload_form.cleaned_data["identifyingNumber"],
-                                    source_url=upload_form.cleaned_data["urlToRecord"],
-                                    flip=upload_form.cleaned_data["flip"],
-                                    invert=upload_form.cleaned_data["invert"],
-                                    stereo=upload_form.cleaned_data["stereo"],
-                                    rotated=upload_form.cleaned_data["rotated"]
+                                user=profile,
+                                area=area,
+                                author=upload_form.cleaned_data["creators"].encode('utf-8'),
+                                description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
+                                source=source,
+                                types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data[
+                                    "types"] else None,
+                                keywords=upload_form.cleaned_data["keywords"].strip().encode('utf-8') if
+                                upload_form.cleaned_data["keywords"] else None,
+                                date_text=upload_form.cleaned_data["date"].encode('utf-8') if
+                                upload_form.cleaned_data["date"] else None,
+                                licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
+                                external_id=muis_id,
+                                external_sub_id=muis_media_id,
+                                source_key=upload_form.cleaned_data["identifyingNumber"],
+                                source_url=upload_form.cleaned_data["urlToRecord"],
+                                flip=upload_form.cleaned_data["flip"],
+                                invert=upload_form.cleaned_data["invert"],
+                                stereo=upload_form.cleaned_data["stereo"],
+                                rotated=upload_form.cleaned_data["rotated"]
                             )
                             new_photo.save()
                             if upload_form.cleaned_data["collections"] == "DIGAR":
@@ -2123,15 +2123,24 @@ def curator_photo_upload_handler(request):
                                 img = Image.open(photo_path)
                                 rot = img.rotate(new_photo.rotated, expand=1)
                                 rot.save(photo_path)
-                            new_photo.width = new_photo.image.width
-                            new_photo.height = new_photo.image.height
-                            longest_side = max(new_photo.width, new_photo.height)
+                                new_photo.width, new_photo.height = rot.size
                             ret["photos"][k] = {}
-                            if longest_side < 600:
-                                ret["photos"][k]["message"] = _(
-                                    "This picture is small, we've allowed you to add it to specified album and you can mark it's location on the map, but it will be hidden from other users until we get a higher quality image from the institution.")
-                            else:
-                                ret["photos"][k]["message"] = _("OK")
+                            ret["photos"][k]["message"] = _("OK")
+                            lat = upload_form.cleaned_data["latitude"]
+                            lng = upload_form.cleaned_data["longitude"]
+                            if lat and lng and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG, photo__source_key=new_photo.source_key).exists():
+                                source_geotag = GeoTag(
+                                    lat=lat,
+                                    lon=lng,
+                                    origin=GeoTag.SOURCE,
+                                    type=GeoTag.SOURCE_GEOTAG,
+                                    map_type=GeoTag.NO_MAP,
+                                    photo=new_photo,
+                                    is_correct=True,
+                                    trustworthiness=0.2
+                                )
+                                source_geotag.save()
+                                new_photo.latest_geotag = source_geotag.created
                             new_photo.save()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
                                                          user=profile, created=new_photo.created)

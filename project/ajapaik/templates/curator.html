@@ -579,6 +579,7 @@
                             .removeClass('rotate270').removeClass('rotate90-flipped').removeClass('rotate180-flipped').removeClass('rotate270-flipped');
                     if (classToAdd) {
                         targetImage.addClass(classToAdd);
+                        arrayItem.classToAdd = classToAdd;
                     }
                 }
                 window._gaq.push(['_trackEvent', 'Curator', 'Rotate']);

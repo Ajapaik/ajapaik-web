@@ -1,7 +1,7 @@
 {% verbatim %}
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
         <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
-            <img class="col-xs-6 img-responsive ajapaik-curator-selection-image{% if (o.invert) { %} ajapaik-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajapaik-curator-ETERA-result{% } %}{% if (o.flip) { %} ajapaik-photo-flipped{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onload="imageLoaded('{%=o.id%}')">
+            <img class="col-xs-6 img-responsive ajapaik-curator-selection-image{% if (o.invert) { %} ajapaik-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajapaik-curator-ETERA-result{% } %}{% if (o.flip) { %} ajapaik-photo-flipped{% } %}{% if (o.classToAdd) { %} {%=o.classToAdd%}{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onload="imageLoaded('{%=o.id%}')">
             <div class="col-xs-6 ajapaik-curator-selection-controls">
                 <div class="ajapaik-curator-selection-button-row">
                     <div class="btn-group" role="group">

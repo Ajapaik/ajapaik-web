@@ -2347,7 +2347,6 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 .ajapaik-icon-rotate {
     background: url(../images/material-design-icons/ic_rotate_90_degrees_ccw_black_24px.svg) no-repeat center center;
-    transform: scaleX(-1);
 }
 
 .ajapaik-icon-delete {
