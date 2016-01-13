@@ -420,12 +420,7 @@ def api_user_me(request):
     }
     form = ApiUserMeForm(request.data)
     if form.is_valid():
-        if profile.fb_name:
-            content['name'] = profile.fb_name
-        elif profile.google_plus_name:
-            content['name'] = profile.google_plus_name
-        elif profile.user.first_name and profile.user.last_name:
-            content['name'] = profile.user.get_full_name
+        content['name'] = profile.get_display_name()
         content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
         general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
         general_user_rank = 0

@@ -448,13 +448,7 @@
     <script type="text/javascript">
         {% if request.user.profile %}
             window.currentProfileId = {{ request.user.profile.pk }};
-            {% if request.user.profile.fb_name %}
-                window.currentProfileName = '{{ request.user.profile.fb_name }}';
-            {% elif request.user.profile.google_plus_name %}
-                window.currentProfileName = '{{ request.user.profile.google_plus_name }}';
-            {% elif request.user.user.get_full_name %}
-                window.currentProfileName = '{{ request.user.user.get_full_name }}';
-            {% endif %}
+            window.currentProfileName = '{{ request.user.profile.get_display_name }}';
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
         window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};

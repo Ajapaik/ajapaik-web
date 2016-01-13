@@ -3,6 +3,18 @@
         <div class="row ajapaik-curator-selection-item" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
             <img class="col-xs-6 img-responsive ajapaik-curator-selection-image{% if (o.invert) { %} ajapaik-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajapaik-curator-ETERA-result{% } %}{% if (o.flip) { %} ajapaik-photo-flipped{% } %}{% if (o.classToAdd) { %} {%=o.classToAdd%}{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onload="imageLoaded('{%=o.id%}')">
             <div class="col-xs-6 ajapaik-curator-selection-controls">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{%=o.title%}</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">{%=gettext('Description')%}: {%=o.description%}</li>
+                        <li class="list-group-item">{%=gettext('Author')%}: {%=o.creators%}</li>
+                        <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>
+                        <li class="list-group-item">{%=gettext('Source ID')%}: <a target="_blank" href="{%=o.urlToRecord%}">{%=o.identifyingNumber%}</a></li>
+                        <li class="list-group-item">{%=gettext('Size')%}: <span class="ajapaik-curator-selection-image-size"></span></li>
+                    </ul>
+                </div>
                 <div class="ajapaik-curator-selection-button-row">
                     <div class="btn-group" role="group">
                       <button title="{%=gettext('Invert colors')%}" type="button" class="btn btn-default {% if (o.invert) { %}active{% } %} ajapaik-curator-invert-colors-button" data-id="{%=o.id%}">
@@ -18,36 +30,26 @@
                       <button title="{%=gettext('Rotate')%}" type="button" class="btn btn-default ajapaik-curator-rotate-button" data-id="{%=o.id%}">
                         <i class="glyphicon ajapaik-icon ajapaik-icon-rotate"></i>
                       </button>
-                      <button title="{%=gettext('Remove from selection')%}" type="button" class="btn btn-default ajapaik-curator-delete-button" data-id="{%=o.id%}">
-                        <i class="glyphicon ajapaik-icon ajapaik-icon-delete"></i>
-                      </button>
                     </div>
+                    {% if (o.ajapaikId) { %}
+                        <li class="list-group-item">{%=gettext('Picture already in album(s)')%}:
+                            {% for (var i=0; i < o.albums.length; i++) { %}
+                                <a target="_blank" title="{%=o.albums[i][1]%}" href="{%=o.albums[i][0]%}">{%=o.albums[i][1]%}</a>{% if (i !== (o.albums.length - 1)) { %},{% } %}
+                            {% } %}
+                        </li>
+                    {% } %}
                     {% if (o.ajapaikId) { %}
                         <a target="_blank" href="{%=photoPermalink + o.ajapaikId%}">
                             <img class="img-responsive ajapaik-already-have-indicator" src="{% endverbatim %}{{ STATIC_URL }}images/ajapaik_marker_35px.png{% verbatim %}" title="{%=gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded')%}">
                         </a>
                     {% } %}
                 </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{%=o.title%}</h3>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item">{%=gettext('Description')%}: {%=o.description%}</li>
-                        <li class="list-group-item">{%=gettext('Author')%}: {%=o.creators%}</li>
-                        <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>
-                        <li class="list-group-item">{%=gettext('Source ID')%}: <a target="_blank" href="{%=o.urlToRecord%}">{%=o.identifyingNumber%}</a></li>
-                        <li class="list-group-item">{%=gettext('Size')%}: <span class="ajapaik-curator-selection-image-size"></span></li>
-                        {% if (o.ajapaikId) { %}
-                            <li class="list-group-item">{%=gettext('Albums')%}:
-                                {% for (var i=0; i < o.albums.length; i++) { %}
-                                    <a target="_blank" title="{%=o.albums[i][1]%}" href="{%=o.albums[i][0]%}">{%=o.albums[i][1]%}</a>
-                                {% } %}
-                            </li>
-                        {% } %}
-                    </ul>
+                <div class="btn-group" role="group">
+                      <button title="{%=gettext('Remove from selection')%}" type="button" class="btn btn-default ajapaik-curator-delete-button" data-id="{%=o.id%}">
+                        <i class="glyphicon ajapaik-icon ajapaik-icon-delete"></i>
+                      </button>
+                      <button class="btn btn-success ajapaik-curator-submit-single" data-id="{%=o.id%}">{%=gettext('Add this picture to album (not the whole set)')%}</button>
                 </div>
-                <button class="btn btn-success" id="ajapaik-curator-submit-single" data-id="{%=o.id%}">{%=gettext('Add this picture to album (not the whole set)')%}</button>
                 <div class="ajapaik-curator-selection-feedback-row">
                     <div class="alert alert-success ajapaik-curator-feedback-alert" role="alert"></div>
                     <div class="alert alert-danger ajapaik-curator-feedback-alert" role="alert"></div>

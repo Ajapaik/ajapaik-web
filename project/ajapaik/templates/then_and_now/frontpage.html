@@ -16,14 +16,7 @@
             </div>
         {% else %}
             <div class="row tan-text-center">
-                <p class="tan-font-size-24px">{% trans "Signed in as" %} <b>{% if user.profile.fb_name %}
-                        {{ user.profile.fb_name }}
-                    {% elif user.profile.google_plus_name %}
-                        {{ user.profile.google_plus_name }}
-                    {% else %}
-                        {{ user.get_username }}
-                    {% endif %}
-                </b></p>
+                <p class="tan-font-size-24px">{% trans "Signed in as" %} <b>{{ user.profile.get_full_name }}</b></p>
             </div>
         {% endif %}
         <br>

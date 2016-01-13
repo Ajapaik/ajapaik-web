@@ -24,8 +24,7 @@
             {% if not request.user.profile.is_legit %}
                 <div class="row">
                     <div id="ajapaik-video-modal-anaonymous-warning" class="pull-left">
-                        {% trans "You're anonymous" %}<i id="ajapaik-video-modal-anonymous-icon"
-                                                         class="material-icons notranslate">account_circle</i>
+                        {% trans "You're anonymous. You can now log in with your e-mail." %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</i>
                     </div>
                 </div>
             {% endif %}

@@ -1,31 +1,17 @@
 {% load i18n %}
 
-{% for pos in leaderboard %}
-    <li class="clearfix{% if pos.1 %} you{% endif %}">
-        <span class="position">{{ pos.0 }}.</span>
+{% for p in leaderboard %}
+    <li class="clearfix{% if p.is_current_user %} you{% endif %}">
+        <span class="position">{{ p.position }}.</span>
         <span class="photo">
-            {% if pos.3 %}
-                <img src="http://graph.facebook.com/v2.3/{{ pos.3 }}/picture?type=square" alt="{% trans "User Facebook photo" %}"/>
-            {% elif pos.8 %}
-                <img src="{{ pos.8 }}" alt="{% trans "User Google photo" %}"/>
+            {% if p.fb_id %}
+                <img src="http://graph.facebook.com/v2.3/{{ p.fb_id }}/picture?type=square"
+                     alt="{% trans "User Facebook photo" %}"/>
+                {% elif p.google_plus_picture %}
+                <img src="{{ p.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
             {% endif %}
         </span>
-        <span class="name">
-            {% if pos.4 %}
-                {{ pos.4 }}
-            {% elif pos.6 %}
-                {{ pos.6 }}
-            {% elif pos.7 and pos.8 %}
-                {{ pos.7 }} {{ pos.8 }}
-            {% else %}
-                {% if anon %}
-                    <i>
-                {% endif %}{{ anon_string }}
-            {% endif %}
-            {% if anon %}
-                </i>
-            {% endif %}
-        </span>
-        <span class="score">{{ pos.2 }}</span>
+        <span class="name">{{ p.get_display_name }}</span>
+        <span class="score">{% if p.custom_score != None %}{{ p.custom_score }}{% elif is_recent %}{{ p.score_recent_activity }}{% else %}{{ p.score }}{% endif %}</span>
     </li>
 {% endfor %}

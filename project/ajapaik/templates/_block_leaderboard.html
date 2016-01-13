@@ -1,31 +1,28 @@
 {% load i18n %}
 
-
 {% if not is_top_50 %}
     {% if album_leaderboard %}
-        {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") anon=True %}
+        {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard %}
     {% else %}
-        {% include "_leaderboard_positions.html" with leaderboard=leaderboard anon_string=_("Anonymous user") %}
+        {% include "_leaderboard_positions.html" with leaderboard=leaderboard is_recent=True %}
     {% endif %}
 {% else %}
-        {% if album_leaderboard %}
-            <div class="col-xs-6">
-                <h3>{% blocktrans with album_name as album_name %}
-                    Album {{ album_name }} leaderboard
-                {% endblocktrans %}</h3>
-                {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard anon_string=_("Anonymous user") anon=True %}
-            </div>
-        {% endif %}
-        {% if activity_leaderboard %}
-            <div class="col-xs-6">
-                <h3>{% trans "Recent activity leaderboard" %}</h3>
-                {% include "_leaderboard_positions.html" with leaderboard=activity_leaderboard anon_string=_("Anonymous user") %}
-            </div>
-        {% endif %}
-        {% if not album_leaderboard %}
-            <div class="col-xs-6">
-                <h3>{% trans "All time leaderboard" %}</h3>
-                {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard anon_string=_("Anonymous user") %}
-            </div>
-        {% endif %}
+    {% if album_leaderboard %}
+        <div class="col-xs-6">
+            <h3>{% blocktrans with album_name as album_name %}Album {{ album_name }} leaderboard{% endblocktrans %}</h3>
+            {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard %}
+        </div>
+    {% endif %}
+    {% if activity_leaderboard %}
+        <div class="col-xs-6">
+            <h3>{% trans "Recent activity leaderboard" %}</h3>
+            {% include "_leaderboard_positions.html" with leaderboard=activity_leaderboard is_recent=True %}
+        </div>
+    {% endif %}
+    {% if not album_leaderboard %}
+        <div class="col-xs-6">
+            <h3>{% trans "All time leaderboard" %}</h3>
+            {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard %}
+        </div>
+    {% endif %}
 {% endif %}

@@ -49,7 +49,7 @@
 }
 
 #ajp-geotagger-login-container {
-    height: 50px;
+    height: 80px;
     color: white;
     width: 100%;
     cursor: pointer;
@@ -67,6 +67,14 @@
     font-size: 18px;
     padding-left: 10px;
     bottom: 15px;
+}
+
+#ajp-geotagger-email-login-notice {
+    position: relative;
+    font-size: 12px;
+    padding-left: 73px;
+    bottom: 10px;
+    white-space: normal;
 }
 
 #ajp-geotagger-game-buttons {

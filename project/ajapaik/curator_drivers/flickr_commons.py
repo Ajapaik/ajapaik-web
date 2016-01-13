@@ -27,26 +27,28 @@ class FlickrCommonsDriver(object):
         existing_photos = Photo.objects.filter(source__description='Flickr Commons', external_id__in=ids).all()
         for p in response['photos']['photo']:
             existing_photo = existing_photos.filter(external_id=p['id']).first()
-            transformed_item = {
-                'isFlickrResult': True,
-                'cachedThumbnailUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_t.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
-                'title': p['title'],
-                'institution': 'Flickr Commons',
-                'imageUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
-                'id': p['id'],
-                'mediaId': p['id'],
-                'identifyingNumber': p['id'],
-                'urlToRecord': 'https://www.flickr.com/photos/%s/%s' % (p['owner'], p['id']),
-                'latitude': p['latitude'],
-                'longitude': p['longitude']
-            }
-            if existing_photo:
-                transformed_item['ajapaikId'] = existing_photo.id
-                if not remove_existing:
+            if remove_existing and existing_photo:
+                continue
+            else:
+                transformed_item = {
+                    'isFlickrResult': True,
+                    'cachedThumbnailUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_t.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
+                    'title': p['title'],
+                    'institution': 'Flickr Commons',
+                    'imageUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
+                    'id': p['id'],
+                    'mediaId': p['id'],
+                    'identifyingNumber': p['id'],
+                    'urlToRecord': 'https://www.flickr.com/photos/%s/%s' % (p['owner'], p['id']),
+                    'latitude': p['latitude'],
+                    'longitude': p['longitude']
+                }
+                if existing_photo:
+                    transformed_item['ajapaikId'] = existing_photo.id
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
                     transformed_item['albums'] = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)\
                         .values_list('id', 'name')
-            transformed['result']['firstRecordViews'].append(transformed_item)
+                transformed['result']['firstRecordViews'].append(transformed_item)
 
         transformed = dumps(transformed)
 

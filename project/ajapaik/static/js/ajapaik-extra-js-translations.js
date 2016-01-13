@@ -38,4 +38,5 @@
     gettext('Geotag pictures in album');
     gettext('Unknown author');
     gettext('This album contains a film');
+    gettext('Picture already in album(s)');
 }());

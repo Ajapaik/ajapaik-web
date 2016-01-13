@@ -42,6 +42,21 @@ from project.utils import angle_diff
 
 from haystack import connections
 
+from django.db.models import Lookup
+from django.db.models.fields import Field
+
+
+# For filtering empty user first and last name
+class NotEqual(Lookup):
+    lookup_name = 'ne'
+
+    def as_sql(self, qn, connection):
+        lhs, lhs_params = self.process_lhs(qn, connection)
+        rhs, rhs_params = self.process_rhs(qn, connection)
+        params = lhs_params + rhs_params
+        return '%s <> %s' % (lhs, rhs), params
+
+Field.register_lookup(NotEqual)
 
 def _calc_trustworthiness(user_id):
     user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct('photo_id')\
@@ -73,7 +88,7 @@ def _get_pseudo_slug_for_photo(description, source_key, created):
     return slug
 
 
-# TODO: Somehow this fires from Sift too...
+# TODO: Somehow this fires from Sift too...also, it fires at least 3 times on user registration, wasteful
 def _user_post_save(sender, instance, **kwargs):
     Profile.objects.get_or_create(user=instance)
 
@@ -808,7 +823,10 @@ class GeoTag(Model):
             title = self.photo.title[:50]
         elif self.photo.description:
             desc = self.photo.description[:50]
-        return u'%s - %s - %d' % (title, desc, self.user.id)
+        if self.user:
+            return u'%s - %s - %d' % (title, desc, self.user.id)
+        else:
+            return u'%s - %s' % (title, desc)
 
 
 class FacebookManager(Manager):
@@ -870,6 +888,16 @@ class Profile(Model):
         if self.user.is_active and (self.fb_id or self.google_plus_id or self.user.email):
             return True
         return False
+
+    def get_display_name(self):
+        if self.fb_name:
+            return self.fb_name
+        elif self.google_plus_name:
+            return self.google_plus_name
+        elif self.user.get_full_name().strip() != '':
+            return self.user.get_full_name()
+        else:
+            return _('Anonymous user')
 
     def __unicode__(self):
         return u"%d - %s - %s" % (self.user.id, self.user.username, self.user.get_full_name())
@@ -997,6 +1025,7 @@ class Profile(Model):
             if p.points:
                 all_time_score += p.points
         self.score = all_time_score
+
 
 # For Google login
 class FlowModel(Model):

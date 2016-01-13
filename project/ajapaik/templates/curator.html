@@ -586,8 +586,8 @@
             });
             $(document).on('click', '.ajapaik-curator-delete-button', function () {
                 var targetId = $(this)[0].dataset.id,
-                        targetResultItem = $('#ajapaik-result-item-' + window.formatId(targetId)),
-                        targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
+                    targetResultItem = $('#ajapaik-result-item-' + window.formatId(targetId)),
+                    targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
                 if (window.selectedResults[targetId]) {
                     delete window.selectedResults[targetId];
                     targetSelectionItem.remove();
@@ -625,7 +625,7 @@
                 window.loadSelectableAlbums();
                 window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
             });
-            $(document).on('click', '#ajapaik-curator-submit-single', function () {
+            $(document).on('click', '.ajapaik-curator-submit-single', function () {
                 window._gaq.push(['_trackEvent', 'Curator', 'Submit single']);
                 var id = $(this).data('id');
                 window.singleSelection = {};

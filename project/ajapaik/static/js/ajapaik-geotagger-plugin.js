@@ -304,6 +304,7 @@
             "            </div>",
             "            <div class='col-xs-6 col-sm-6 col-md-12 hidden-sm hidden-xs' id='ajp-geotagger-login-container'>",
             "               <i class='material-icons notranslate'>account_circle</i><span id='ajp-geotagger-current-login'></span>",
+            "               <div class='row' id='ajp-geotagger-email-login-notice'></div>",
             "            </div>",
             "        </div>",
             "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding' id='ajp-geotagger-feedback'>",
@@ -351,7 +352,8 @@
         // Build UI, initialize map
         $(this.node).html(this.UI);
         var fullScreenElement = $('#ajp-geotagger-full-screen-image'),
-            loginDiv = $('#ajp-geotagger-current-login');
+            loginDiv = $('#ajp-geotagger-current-login'),
+            emailNotice = $('#ajp-geotagger-email-login-notice');
         $('#ajp-geotagger-full-screen-link').click(function () {
             if (BigScreen.enabled) {
                 fullScreenElement.attr('src', that.options.fullScreenSrc).load(function () {
@@ -373,8 +375,10 @@
         if (userIsSocialConnected) {
             loginDiv.hide();
             loginDiv.parent().find('i').hide();
+            emailNotice.hide();
         } else {
-            loginDiv.text(gettext('You\'re anonymous'));
+            loginDiv.text(gettext('You\'re anonymous.'));
+            emailNotice.text(gettext(' You can now log in with your e-mail.'));
         }
         $('#ajp-geotagger-login-container').click(function () {
             $('#ajapaik-header-profile-button').click();

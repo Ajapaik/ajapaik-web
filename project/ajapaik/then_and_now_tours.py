@@ -545,14 +545,10 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
 def rephoto_thumb(request, rephoto_id=None, thumb_size=250, pseudo_slug=None):
     p = get_object_or_404(TourRephoto, id=rephoto_id)
     thumb_size = int(thumb_size)
-    if 0 < thumb_size <= 150:
-        thumb_size = 150
-    elif 300 < thumb_size <= 500:
+    if 0 < thumb_size <= 400:
         thumb_size = 400
-    elif 500 < thumb_size <= 800:
-        thumb_size = 800
     else:
-        thumb_size = 250
+        thumb_size = 1024
 
     thumb_str = str(thumb_size) + 'x' + str(thumb_size)
     original_thumb = get_thumbnail(p.original.image, thumb_str, upscale=False)

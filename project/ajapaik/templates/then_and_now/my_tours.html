@@ -4,24 +4,71 @@
 
 {% block layout %}
     <div class="container">
-        <h4>{% trans "My tours" %}</h4>
-        <ul>
-            {% for each in my_tours %}
-                <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }} - {{ each.name }}</a></li>
-            {% endfor %}
-        </ul>
-        <h4>{% trans "Tours I've participated in" %}</h4>
-        <ul>
-            {% for each in tours_participated %}
-                <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }} - {{ each.name }}</a></li>
-            {% endfor %}
-        </ul>
-        <h4>{% trans "Tours I've viewed" %}</h4>
-        <ul>
-            {% for each in viewed_tours %}
-                <li><a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }} - {{ each.name }}</a></li>
-            {% endfor %}
-        </ul>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            <h4>{% trans "My tours" %} ({{ my_tours|length }})</h4>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <ul>
+                            {% for each in my_tours %}
+                                <li>
+                                    <a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }}
+                                        - {{ each.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            {% trans "Tours I've participated in" %} ({{ tours_participated|length }})
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <ul>
+                            {% for each in tours_participated %}
+                                <li>
+                                    <a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }}
+                                        - {{ each.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <h4>{% trans "Tours I've viewed" %} ({{ viewed_tours|length }})</h4>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <ul>
+                            {% for each in viewed_tours %}
+                                <li>
+                                    <a href="{% url 'project.ajapaik.then_and_now_tours.map_view' each.pk %}">{{ each.pk }}
+                                        - {{ each.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

@@ -20,6 +20,8 @@
                 <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
                 <br/>
                 <br/>
+                <b>{% trans "OR" %}</b>
+                <br/>
                 {# TODO: next handling #}
                 <div class="facebook-connect">
                     <a href="/facebook/login?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}" class="ir">{% trans "Connect with Facebook" %}</a>
