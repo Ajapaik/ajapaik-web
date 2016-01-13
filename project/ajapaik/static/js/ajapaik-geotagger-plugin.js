@@ -956,7 +956,7 @@
             if (window.matchMedia("(min-width: 992px)").matches) {
                 confirmControls.removeClass('col-xs-offset-6 col-sm-offset-6');
                 targetParent.css('width', geotaggerPanel.width()).css('height', 'auto');
-                newMargin = geotaggerPanel.height() - buttonControls.height() - thumbHeight - 41;
+                newMargin = geotaggerPanel.height() - buttonControls.height() - thumbHeight - 90;
                 if (newMargin > 0) {
                     confirmControls.css('margin-top', newMargin + 'px');
                 }
@@ -964,7 +964,7 @@
             } else {
                 geotaggerPanel.css('max-height', '30%').css('height', '100%');
                 targetParent.css('height', geotaggerPanel.height() + 'px').css('width', '50%');
-                newMargin = thumbHeight - buttonControls.height() - 80;
+                newMargin = thumbHeight - buttonControls.height() - 41;
                 if (newMargin > 0) {
                     confirmControls.css('margin-top', newMargin + 'px');
                 }
