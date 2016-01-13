@@ -1022,7 +1022,7 @@ def upload_photo_selection(request):
         'error': False
     }
     profile = request.get_user().profile
-    if form.is_valid() and (profile.fb_id or profile.google_plus_id):
+    if form.is_valid() and profile.is_legit():
         a = form.cleaned_data['album']
         photo_ids = json.loads(form.cleaned_data['selection'])
         new_name = form.cleaned_data['name']

@@ -7,7 +7,7 @@
             {% if p.fb_id %}
                 <img src="http://graph.facebook.com/v2.3/{{ p.fb_id }}/picture?type=square"
                      alt="{% trans "User Facebook photo" %}"/>
-                {% elif p.google_plus_picture %}
+            {% elif p.google_plus_picture %}
                 <img src="{{ p.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
             {% endif %}
         </span>
