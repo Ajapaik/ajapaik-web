@@ -1121,7 +1121,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
                 Q(user__google_plus_name__isnull=False, is_correct=True))[:3]
             if len(correct_geotags_from_authenticated_users) > 0:
                 for each in correct_geotags_from_authenticated_users:
-                    first_geotaggers.append([each.get_display_name(), each.lat, each.lon, each.azimuth])
+                    first_geotaggers.append([each.user.get_display_name(), each.lat, each.lon, each.azimuth])
             first_geotaggers = json.dumps(first_geotaggers)
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
         first_rephoto = photo_obj.rephotos.all().first()
