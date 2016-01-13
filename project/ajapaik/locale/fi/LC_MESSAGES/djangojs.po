@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-06 16:18+0200\n"
+"POT-Creation-Date: 2016-01-13 12:49+0200\n"
 "PO-Revision-Date: 2015-12-18 14:36+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
@@ -28,7 +28,7 @@ msgid "Go to my location"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-common.js:263
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
 msgid "Close"
 msgstr "Sulje"
 
@@ -70,7 +70,7 @@ msgid "You"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-common.js:789
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:394
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr ""
 
@@ -133,64 +133,63 @@ msgstr ""
 msgid "Server received invalid data."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:397
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:399
 msgid "Confirm dating"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:404
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:409
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:415
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Thanks!"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:425
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:427
 msgid "YYYY.MM.DD"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:435
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:437
 msgid "Cancel"
 msgstr "Peruuta"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:444
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:446
 msgid "Submit"
 msgstr "Lähetä"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:452
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:454
 msgid "Comment your dating"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:461
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:461
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1878 | 1902.02"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:461
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:461
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:461
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Approximate date in brackets"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:461
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:471
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:377
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "You're anonymous"
 msgstr ""
 
@@ -344,6 +343,10 @@ msgstr ""
 msgid "This album contains a film"
 msgstr ""
 
+#: project/ajapaik/static/js/ajapaik-extra-js-translations.js:41
+msgid "Picture already in album(s)"
+msgstr ""
+
 #: project/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Earliest"
 msgstr ""
@@ -450,102 +453,110 @@ msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:465
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
+msgid "You're anonymous."
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
+msgid " You can now log in with your e-mail."
+msgstr ""
+
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:469
 msgid "Toggle map center lock"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:493
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:497
 msgid "Approximate"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:500
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:504
 msgid "Vantage point"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:511
 msgid "Object"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:775
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:921
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:518
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:779
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:925
 msgid ""
 "Grab and drag the MAP so that the marker is where the photographer was "
 "standing."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
 msgid "Search box"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:526
 msgid "Thank you!"
 msgstr "Kiitos!"
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:675
 msgid "Median guess"
 msgstr "Mediaaniarvaus"
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:683
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:687
 msgid "Your guess"
 msgstr "Arvauksesi"
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:698
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "Depicted location has changed"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:699
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:703
 msgid "Continue"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:701
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:705
 msgid "a little"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:706
 msgid "a lot"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:916
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag map to correct the "
 "location."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:919
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:928
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
 msgid ""
 "Click on the map to lock the direction of the view or click yellow button to "
 "save only the location."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:926
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag MARKER to correct the "
 "location."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
 msgid ""
 "Now you can drag the MARKER where the photographer was standing and the MAP "
 "separately."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
 msgid ""
 "Drag the map so that the circle covers the approximate location, click save "
 "when ready."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:936
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:940
 msgid ""
 "Drag the map so that the marker is on top of the object you see on the "
 "picture, click save when ready."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1088
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1092
 msgid "Points awarded"
 msgstr "Pistesaldo"
 
@@ -561,11 +572,19 @@ msgstr ""
 msgid "Apply album filter"
 msgstr ""
 
-#: project/ajapaik/static/js/then-and-now-frontpage.js:13
+#: project/ajapaik/static/js/then-and-now-create-tour-2.js:76
+msgid "zoom in more to view markers."
+msgstr ""
+
+#: project/ajapaik/static/js/then-and-now-create-tour-2.js:180
 #: project/ajapaik/static/js/then-and-now-gallery.js:16
-#: project/ajapaik/static/js/then-and-now-map.js:24
-#: project/ajapaik/static/js/then-and-now-map.js:72
+#: project/ajapaik/static/js/then-and-now-map.js:25
+#: project/ajapaik/static/js/then-and-now-map.js:70
 msgid "Unable to get location data"
+msgstr ""
+
+#: project/ajapaik/static/js/then-and-now-detail.js:61
+msgid "Sending failed"
 msgstr ""
 
 #~ msgid "We doubt about it."
