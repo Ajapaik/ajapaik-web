@@ -349,7 +349,7 @@ class Photo(Model):
     @staticmethod
     def get_game_json_format_photo(photo):
         # TODO: proper JSON serialization
-        image = get_thumbnail(photo.image, '800x600', upscale=False)
+        image = get_thumbnail(photo.image, '1024x1024', upscale=False)
         ret = {
             'id': photo.id,
             'description': photo.description,

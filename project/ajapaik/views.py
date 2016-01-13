@@ -1111,13 +1111,13 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     original_thumb_size = None
     first_geotaggers = []
     if photo_obj:
-        original_thumb_size = get_thumbnail(photo_obj.image, '800x800').size
+        original_thumb_size = get_thumbnail(photo_obj.image, '1024x1024').size
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         if geotag_count > 0:
             correct_geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(
                 Q(user__fb_name__isnull=False, is_correct=True) |
-                Q(user__user__first_name__isnull=False, user__user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne='', is_correct=True) |
+                Q(user__user__first_name__isnull=False, user__user__last_name__isnull=False, user__user__first_name__ne='', user__user__last_name__ne='', is_correct=True) |
                 Q(user__google_plus_name__isnull=False, is_correct=True))[:3]
             if len(correct_geotags_from_authenticated_users) > 0:
                 for each in correct_geotags_from_authenticated_users:
