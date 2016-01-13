@@ -160,7 +160,7 @@ def get_album_info_modal_content(request):
                 final_score_dict[u['profile']] = u['count']
         album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys()) \
             .filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False) | Q(user__first_name__isnull=False,
-                                                                                     user__last_name__isnull=False, user__first_name__ne='', user__last_name_ne=''))
+                                                                                     user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne=''))
         final_score_dict = [x[0] for x in sorted(final_score_dict.items(), key=operator.itemgetter(1), reverse=True)]
         album_curators = list(album_curators)
         album_curators.sort(key=lambda z: final_score_dict.index(z.id))
