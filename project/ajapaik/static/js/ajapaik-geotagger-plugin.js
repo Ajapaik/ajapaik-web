@@ -964,7 +964,7 @@
             } else {
                 geotaggerPanel.css('max-height', '30%').css('height', '100%');
                 targetParent.css('height', geotaggerPanel.height() + 'px').css('width', '50%');
-                newMargin = thumbHeight - buttonControls.height() - 41;
+                newMargin = thumbHeight - buttonControls.height() - 80;
                 if (newMargin > 0) {
                     confirmControls.css('margin-top', newMargin + 'px');
                 }
