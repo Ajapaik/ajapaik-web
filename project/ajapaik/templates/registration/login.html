@@ -10,6 +10,7 @@
                 <form method="post" action="." class="form">
                     {% csrf_token %}
                     {% bootstrap_form form %}
+                    <input name="next" type="hidden" value="{% if is_then_and_now %}{% url "project.ajapaik.then_and_now_tours.frontpage" %}{% else %}{% url "project.ajapaik.views.frontpage" %}{% endif %}">
                     <button type="submit" class="btn btn-primary">
                         {% trans "Log in" %}
                     </button>

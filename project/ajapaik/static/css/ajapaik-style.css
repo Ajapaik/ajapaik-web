@@ -1186,6 +1186,7 @@ a.fullscreen {
 
     #ajapaik-donation-header {
         height: 80px;
+        padding-bottom: 80px;
     }
 }
 
@@ -1214,6 +1215,8 @@ a.fullscreen {
 
     #ajapaik-donation-header {
         height: 55px;
+        padding-left: 175px;
+        padding-bottom: 60px;
     }
 }
 

@@ -192,6 +192,7 @@ EXTERNAL_APPS = (
 
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_EMAIL_HTML = False
 LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
 REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
 
