@@ -1579,6 +1579,7 @@ var map,
     });
 
     $(document).on('click', '#ajapaik-filtering-help', function (e) {
+        e.preventDefault();
         e.stopPropagation();
         $('#ajapaik-filtering-tutorial-modal').modal();
     });

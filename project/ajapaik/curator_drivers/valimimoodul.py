@@ -1,3 +1,4 @@
+# encoding: utf-8
 from ujson import loads, dumps
 
 from django.core.urlresolvers import reverse
@@ -26,7 +27,7 @@ class ValimimoodulDriver(object):
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},' \
                          '"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":"%s"},' \
                          '"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200,' \
-                         '"digital":true}],"id":0}' % (cleaned_data['fullSearch'], etera_string, institution_string)
+                         '"digital":true}],"id":0}' % (cleaned_data['fullSearch'].encode('utf-8'), etera_string, institution_string)
         response = post(self.url, data=request_params)
         response.encoding = 'utf-8'
 

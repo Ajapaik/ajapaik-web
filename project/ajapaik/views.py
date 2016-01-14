@@ -356,8 +356,9 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         user_score_map[profile_id] = 0
     sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
     pk_list = [x[0] for x in sorted_scores]
-    current_user_rank = pk_list.index(profile_id)
-    if current_user_rank == -1:
+    try:
+        current_user_rank = pk_list.index(profile_id)
+    except ValueError:
         current_user_rank = len(sorted_scores)
     current_user_rank += 1
     # Works on Postgres, we don't really need to worry about this I guess...maybe only if it gets slow
