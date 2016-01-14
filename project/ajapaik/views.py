@@ -432,6 +432,8 @@ def rephoto_upload(request, photo_id):
                         re_photo.date = strftime('%Y-%m-%d %H:%M', parsed_date_taken)
                     except:
                         pass
+                else:
+                    re_photo.date = datetime.datetime.now()
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
@@ -1874,7 +1876,7 @@ def curator_my_album_list(request):
 def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
-            Album.objects.filter((Q(profile=user_profile) & Q(is_public=True) & ~Q(atype=Album.AUTO)) | (
+            Album.objects.filter(((Q(profile=user_profile) | Q(is_public=True)) & ~Q(atype=Album.AUTO)) | (
             Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
     )
 

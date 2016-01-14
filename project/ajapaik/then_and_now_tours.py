@@ -497,6 +497,10 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
     if rephoto_id:
         rp = get_object_or_404(TourRephoto, id=rephoto_id)
         rp_in_ajapaik = Photo.objects.filter(then_and_now_rephoto=rp).exists()
+    else:
+        if 'then_and_now_rephoto_open' in request.session and request.session['then_and_now_rephoto_open']:
+            rp = photo.tour_rephotos.first()
+            return redirect(reverse('project.ajapaik.then_and_now_tours.detail', args=(tour.pk, photo.pk, rp.pk)))
     profile = request.user.profile
     current_photo_index = None
     current_rephoto_index = None
@@ -527,7 +531,7 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
             else:
                 ret['current_user_group_captured'] = False
     ret['current_user_captured'] = TourRephoto.objects.filter(tour=tour, original=photo, user=profile).exists()
-    if (current_photo_index and len(tour_photo_order) - 1) > current_photo_index:
+    if current_photo_index is not None and ((len(tour_photo_order) - 1) > current_photo_index):
         ret['next_photo'] = Photo.objects.filter(id=tour_photo_order[current_photo_index + 1]).first()
     if current_photo_index > 0:
         ret['previous_photo'] = Photo.objects.filter(id=tour_photo_order[current_photo_index - 1]).first()
@@ -930,3 +934,16 @@ def delete_rephoto(request):
         return redirect(reverse('project.ajapaik.then_and_now_tours.detail', args=(rephoto.tour.pk, rephoto.original.pk,)))
 
     return HttpResponse('Error', status=403)
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def toggle_rephoto_open(request):
+    # Don't code when not in the mood
+    open = request.POST.get('open')
+    if open == '1':
+        request.session['then_and_now_rephoto_open'] = True
+    else:
+        request.session['then_and_now_rephoto_open'] = False
+    request.session.modified = True
+
+    return HttpResponse(json.dumps({'open': request.session['then_and_now_rephoto_open']}), content_type='application/json')

@@ -558,7 +558,7 @@
             }
         };
         window.flipPhoto = function () {
-            $.noop();
+            window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
         };
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('toggle');

@@ -1,6 +1,6 @@
 {% extends is_then_and_now|yesno:"then_and_now/base.html,base_bootstrap.html" %}
 
-{% load i18n bootstrap3 %}
+{% load i18n %}
 
 {% block layout %}
     <div class="container">
@@ -9,7 +9,16 @@
                 <h1>{% trans "Log in" %}</h1>
                 <form method="post" action="." class="form">
                     {% csrf_token %}
-                    {% bootstrap_form form %}
+                    <div class="form-group">
+                        <label class="control-label" for="id_username">{% trans "E-mail" %}</label>
+                        <input class="form-control" id="id_username" maxlength="254" name="username"
+                            placeholder="{% trans "E-mail" %}" required="required" title="" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="id_password">{% trans "Password" %}</label>
+                        <input class="form-control" id="id_password" name="password" placeholder="{% trans "Password" %}"
+                            required="required" title="" type="password">
+                    </div>
                     <input name="next" type="hidden" value="{% if is_then_and_now %}{% url "project.ajapaik.then_and_now_tours.frontpage" %}{% else %}{% url "project.ajapaik.views.frontpage" %}{% endif %}">
                     <button type="submit" id="ajp-email-login-button" class="btn btn-primary">
                         {% trans "Log in" %}
@@ -25,11 +34,13 @@
                 <br/>
                 {# TODO: next handling #}
                 <div class="facebook-connect">
-                    <a href="/facebook/login?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}" class="ir">{% trans "Connect with Facebook" %}</a>
+                    <a href="/facebook/login?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}"
+                       class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <br/>
                 <div class="google-plus-connect">
-                    <a href="/google-login/?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}" class="ir">{% trans "Connect with Google" %}</a>
+                    <a href="/google-login/?next={% if is_then_and_now %}/then-and-now-tours/{% else %}/{% endif %}"
+                       class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             </div>
         </div>

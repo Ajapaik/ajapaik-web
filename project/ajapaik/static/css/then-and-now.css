@@ -284,3 +284,11 @@ body {
 .tan-my-tours-li {
     margin-bottom: 10px;
 }
+
+#tan-create-tour-2-total-marker-count {
+    font-weight: bold;
+}
+
+#tan-create-tour-2-marker-count-row {
+    font-size: 24px;
+}

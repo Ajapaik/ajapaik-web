@@ -99,7 +99,7 @@
                                 infoWindow.setContent(content);
                                 infoWindow.open(map, marker);
                             };
-                        })(marker, v.description + '<a href="' + v.permaURL + '"><img src="' + v.imageURL + '"></a>', infoWindow));
+                        })(marker, '<p>' + v.description + '</p><a href="' + v.permaURL + '"><img src="' + v.imageURL + '"></a>', infoWindow));
                     });
                 }
             });

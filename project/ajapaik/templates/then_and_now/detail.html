@@ -47,6 +47,10 @@
                             <span style="display:none" class="glyphicon glyphicon-ok tan-font-size-48px" aria-hidden="true"></span>
                         </div>
                     {% endif %}
+                    <div class="row">
+                        <label for="tan-detail-show-rephoto-checkbox">{% trans "Try to always show rephoto" %}</label>
+                        <input id="tan-detail-show-rephoto-checkbox" type="checkbox" name="open" {% if request.session.then_and_now_rephoto_open %}checked="checked"{% endif %}>
+                    </div>
                 </div>
                 {% if rephoto %}
                     <div class="col-xs-12 col-sm-6">
@@ -113,11 +117,12 @@
 {% endblock %}
 
 {% block specific_js %}
-    {% if rephoto %}
-        <script>
-            window.rephotoToAjapaikURL = '{% url 'project.ajapaik.then_and_now_tours.send_rephoto_to_ajapaik' rephoto.pk %}';
-        </script>
-    {% endif %}
+    <script>
+        var toggleRephotoOpenURL = '{% url 'project.ajapaik.then_and_now_tours.toggle_rephoto_open' %}';
+        {% if rephoto %}
+                window.rephotoToAjapaikURL = '{% url 'project.ajapaik.then_and_now_tours.send_rephoto_to_ajapaik' rephoto.pk %}';
+        {% endif %}
+    </script>
     {% compress js %}
         <script src="{% static 'js/then-and-now-detail.js' %}"></script>
     {% endcompress %}

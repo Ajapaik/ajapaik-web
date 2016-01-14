@@ -3,6 +3,8 @@
     /* global Hammer */
     /* global gettext */
     /* global confirm */
+    /* global toggleRephotoOpenURL */
+    /* global docCookies */
     $(document).ready(function () {
         var originalHammertime = new Hammer(document.getElementById('tan-detail-image'), {}),
             rephotoHammertime,
@@ -69,6 +71,30 @@
                     }
                 });
             }
+        });
+        $('#tan-detail-show-rephoto-checkbox').change(function () {
+            var $this = $(this),
+                open = $this.is(':checked');
+            if (open) {
+                open = 1;
+            } else {
+                open = 0;
+            }
+            $.ajax({
+                method: 'post',
+                url: toggleRephotoOpenURL,
+                data: {
+                    open: open,
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
+                    if (response.open) {
+                        $this.prop('checked', true);
+                    } else {
+                        $this.prop('checked', false);
+                    }
+                }
+            });
         });
     });
 }());

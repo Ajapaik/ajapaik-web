@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-13 12:49+0200\n"
+"POT-Creation-Date: 2016-01-14 17:01+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -570,12 +570,21 @@ msgstr ""
 #: project/ajapaik/static/js/then-and-now-create-tour-2.js:180
 #: project/ajapaik/static/js/then-and-now-gallery.js:16
 #: project/ajapaik/static/js/then-and-now-map.js:25
-#: project/ajapaik/static/js/then-and-now-map.js:70
+#: project/ajapaik/static/js/then-and-now-map.js:71
 msgid "Unable to get location data"
 msgstr ""
 
-#: project/ajapaik/static/js/then-and-now-detail.js:61
+#: project/ajapaik/static/js/then-and-now-detail.js:48
+#: project/ajapaik/static/js/then-and-now-my-tours.js:10
+msgid "Are you sure?"
+msgstr ""
+
+#: project/ajapaik/static/js/then-and-now-detail.js:69
 msgid "Sending failed"
+msgstr ""
+
+#: project/ajapaik/static/js/then-and-now-my-tours.js:25
+msgid "Cannot delete tour, has rephotos or does not belong to you."
 msgstr ""
 
 #~ msgid "We doubt about it."
