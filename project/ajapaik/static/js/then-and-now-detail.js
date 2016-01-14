@@ -2,6 +2,7 @@
     'use strict';
     /* global Hammer */
     /* global gettext */
+    /* global confirm */
     $(document).ready(function () {
         var originalHammertime = new Hammer(document.getElementById('tan-detail-image'), {}),
             rephotoHammertime,
@@ -40,6 +41,11 @@
         });
         $('.glyphicon-ok').click(function () {
             $('form').submit();
+        });
+        $('#tan-detail-rephoto-delete-button').click(function (e) {
+            if (!confirm(gettext('Are you sure?'))) {
+                e.preventDefault();
+            }
         });
         $('#tan-detail-add-rephoto-to-ajapaik-button').click(function () {
             if (window.rephotoToAjapaikURL) {

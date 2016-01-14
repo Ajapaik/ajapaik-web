@@ -43,6 +43,7 @@
                     $.each(response, function (k, v) {
                         bounds.extend(new google.maps.LatLng(v.lat, v.lon));
                     });
+                    bounds.extend(new google.maps.LatLng(lat, lng));
                     mapCenter = bounds.getCenter();
                     if (!map) {
                         map = new google.maps.Map(document.getElementById('map-container'), {
@@ -71,6 +72,7 @@
                             });
                         }
                     }
+                    map.fitBounds(bounds);
                     $.each(response, function (k, v) {
                         var icon;
                         if ((v.usersCompleted && v.usersCompleted.indexOf(currentUserID)) || (v.groupsCompleted)) {
@@ -103,10 +105,6 @@
             });
         };
     $(document).ready(function () {
-        if (isFixedTour) {
-            getMapMarkers();
-        } else {
-            getGeolocation(geolocationCallback);
-        }
+        getGeolocation(geolocationCallback);
     });
 }());

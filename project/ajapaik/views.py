@@ -51,7 +51,7 @@ from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET, DATING_POINTS, DATING_CONFIRMATION_POINTS, \
-    CURATOR_FLICKR_ENABLED
+    CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
@@ -1781,26 +1781,24 @@ def public_add_area(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    # TODO: Why is this call here?
-    # curator_leaderboard = _get_leaderboard(request.get_user().profile)
-    last_created_album = Album.objects.filter(is_public=True).order_by("-created")[0]
+    last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
     # FIXME: Ugly
     curator_random_image_ids = AlbumPhoto.objects.filter(
-            album_id=last_created_album.id).order_by("?").values_list("photo_id", flat=True)
+            album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
     if not curator_random_image_ids or len(curator_random_image_ids) < 5:
-        curator_random_image_ids = AlbumPhoto.objects.order_by("?").values_list("photo_id", flat=True)
+        curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
     curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
     site = Site.objects.get_current()
-    return render_to_response("curator.html", RequestContext(request, {
-        "description":
-            _("Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"),
-        "curator_random_images": curator_random_images,
-        "title": _("Timepatch (Ajapaik) - curate"),
-        "hostname": "http://%s" % (site.domain,),
-        # "leaderboard": curator_leaderboard,
-        "is_curator": True,
-        "CURATOR_FLICKR_ENABLED": CURATOR_FLICKR_ENABLED,
-        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK
+    return render_to_response('curator.html', RequestContext(request, {
+        'description':
+            _('Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!'),
+        'curator_random_images': curator_random_images,
+        'title': _('Timepatch (Ajapaik) - curate'),
+        'hostname': 'http://%s' % (site.domain,),
+        'then_and_now_disbled': CURATOR_THEN_AND_NOW_CREATION_DISABLED,
+        'is_curator': True,
+        'CURATOR_FLICKR_ENABLED': CURATOR_FLICKR_ENABLED,
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
     }))
 
 

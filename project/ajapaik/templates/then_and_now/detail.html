@@ -25,7 +25,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ photo.description }}
+                        {{ photo.description }} (<a target="_blank" title="{% trans "View in Ajapaik" %}" href="{% url "project.ajapaik.views.photoslug" photo.pk photo.get_pseudo_slug %}">{% trans "Photo in Ajapaik" %}</a>)
                     </div>
                     {% if current_user_captured %}
                         <div class="row">{% trans "You have already captured this photo" %}</div>
@@ -57,6 +57,16 @@
                                href="{% url "project.ajapaik.then_and_now_tours.detail" tour.id photo.id %}">
                                 <i class="material-icons">close</i>
                             </a>
+                            {% if rephoto.user == request.user.profile %}
+                                <form action="{% url "project.ajapaik.then_and_now_tours.delete_rephoto" %}" method="post">
+                                    <input type="hidden" name="rephotoId" value="{{ rephoto.pk }}">
+                                    {% csrf_token %}
+                                    <button class="tan-image-overlay-button" id="tan-detail-rephoto-delete-button"
+                                       title="{% trans "Delete rephoto" %}" type="submit">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </form>
+                            {% endif %}
                             {% if previous_rephoto %}
                                 <a class="tan-image-overlay-button" id="tan-detail-rephoto-prev-button"
                                    title="{% trans "Previous rephoto" %}"

@@ -165,6 +165,11 @@ body {
     top: 0;
 }
 
+#tan-detail-rephoto-delete-button {
+    right: 0;
+    bottom: 0;
+}
+
 #tan-detail-rephoto-next-button {
     right: 0;
     top: 50%;
@@ -274,4 +279,8 @@ body {
 
 #tan-create-tour-2-mobile-justified-buttons {
     margin-bottom: 30px;
+}
+
+.tan-my-tours-li {
+    margin-bottom: 10px;
 }

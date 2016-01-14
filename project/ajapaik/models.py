@@ -1224,6 +1224,12 @@ class Tour(Model):
     def __unicode__(self):
         return '%s - %s' % (self.pk, self.user.pk)
 
+    def delete(self, **kwargs):
+        for each in self.tour_rephotos.all():
+            each.image.delete()
+            each.delete()
+        super(Tour, self).delete()
+
 
 class TourGroup(Model):
     tour = ForeignKey('Tour', related_name='tour_groups')

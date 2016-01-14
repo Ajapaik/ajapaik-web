@@ -776,6 +776,15 @@ def create_tour_step_2(request, tour_id):
                     sample = random.sample(photo_set, total)
                 tour.photos = sample
                 tour.save()
+            if tour:
+                i = 0
+                for each in tour.photos.all():
+                    TourPhotoOrder(
+                        tour=tour,
+                        photo=each,
+                        order=i
+                    ).save()
+                    i += 1
             return redirect(reverse('project.ajapaik.then_and_now_tours.create_tour_step_3', args=(tour.pk,)))
         else:
             ret['form'] = form
@@ -845,7 +854,7 @@ def my_tours(request, tour_id=None):
     tour_rephotos = TourRephoto.objects.filter(user=profile).values('tour').values_list('tour_id', flat=True)
     ret = {
         'viewed_tours': Tour.objects.filter(pk__in=tour_views).order_by('id').distinct(),
-        'my_tours': Tour.objects.filter(user=profile).order_by('id'),
+        'my_tours': Tour.objects.filter(user=profile).annotate(rephoto_count=Count('tour_rephotos')).order_by('id'),
         'tours_participated': Tour.objects.filter(pk__in=tour_rephotos).order_by('id').distinct(),
         'tour': tour,
         'is_my_tours': True
@@ -896,3 +905,28 @@ def my_rephotos(request, tour_id=None):
     }
 
     return render_to_response('then_and_now/my_rephotos.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def delete_tour(request):
+    tour_id = request.POST.get('tourId') or None
+    tour = get_object_or_404(Tour, id=tour_id)
+    profile = request.user.profile
+    if tour.tour_rephotos.count() == 0 and tour.user == profile:
+        tour.delete()
+        return HttpResponse('Ok')
+
+    return HttpResponse('Error', status=400)
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def delete_rephoto(request):
+    rephoto_id = request.POST.get('rephotoId') or None
+    rephoto = get_object_or_404(TourRephoto, id=rephoto_id)
+    profile = request.user.profile
+    if rephoto.user == profile or rephoto.tour.user == profile:
+        rephoto.image.delete()
+        rephoto.delete()
+        return redirect(reverse('project.ajapaik.then_and_now_tours.detail', args=(rephoto.tour.pk, rephoto.original.pk,)))
+
+    return HttpResponse('Error', status=403)
