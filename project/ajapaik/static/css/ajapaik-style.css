@@ -2806,3 +2806,12 @@ a[href^="https://maps.google.com/maps"] {
 .ajapaik-curator-submit-single {
     height: 43px;
 }
+
+#ajp-geotagger-feedback-thanks {
+    font-size: 21px;
+}
+
+#ajp-geotagger-feedback-points {
+    font-size: 18px;
+    margin-bottom: 30px;
+}

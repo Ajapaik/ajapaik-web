@@ -699,7 +699,7 @@
                     $(window).trigger('resize');
                 }, 0);
             });
-            $('#ajp-geotagger-feedback-difficulty-prompt').html(gettext('Depicted location has changed'));
+            $('#ajp-geotagger-feedback-difficulty-prompt').html(gettext('How much has the depicted location changed?'));
             feedbackNextButton.html(gettext('Continue'));
             var feedbackForm = $('#ajp-geotagger-feedback-difficulty-form');
             feedbackForm.find('span:first-child').text(gettext('a little'));

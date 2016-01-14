@@ -322,7 +322,7 @@
                 window.photoModalRephotoFullscreenImageSize = null;
             {% endif %}
             {% if description %}
-                window.currentPhotoDescription = '{{ description }}';
+                window.currentPhotoDescription = '{{ photo.description }}';
             {% else %}
                 window.currentPhotoDescription = false;
             {% endif %}
