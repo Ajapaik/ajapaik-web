@@ -124,4 +124,25 @@
     window.reportVideoviewAlbumLinkClick = function () {
         _gaq.push(['_trackEvent', 'video-permalink', 'album-link', null, 0, false]);
     };
+    window.reportDonationLinkClick = function () {
+        _gaq.push(['_trackEvent', 'General', 'donation-modal-link-click', null, 10, false]);
+    };
+    window.reportDonationOneTimeBankLinkClick = function (bank) {
+        _gaq.push(['_trackEvent', 'General', 'donation-one-time-bank-link-click', bank, 25, false]);
+    };
+    window.reportDonationStandingBankLinkClick = function (bank) {
+        _gaq.push(['_trackEvent', 'General', 'donation-standing-bank-link-click', bank, 25, false]);
+    };
+    window.reportDonationHeaderCloseClick = function () {
+        _gaq.push(['_trackEvent', 'General', 'donation-header-close-click', null, 0, false]);
+    };
+    window.reportEmailLoginClick = function () {
+        _gaq.push(['_trackEvent', 'Login', 'email', null, 0, false]);
+    };
+    window.reportEmailRegisterClick = function () {
+        _gaq.push(['_trackEvent', 'Login', 'register-email', null, 25, false]);
+    };
+    window.reportGooglePlusLoginClick = function () {
+        _gaq.push(['_trackEvent', 'Google', 'login', null, 25, false]);
+    };
 }());

@@ -23,7 +23,7 @@ body {
 }
 
 #camera-file-capture {
-    /*display: none !important;*/
+    display: none !important;
 }
 
 .navbar-active {

@@ -5,51 +5,51 @@
 <h4>{% trans "Details for one-time donations" %}:</h4>
 <p>{% trans "Beneficiary's name" %}: {% settings_value 'AJAPAIK_BENEFICIARY_NAME' %}</p>
 <p>{% trans "Beneficiary's account no" %}: {% settings_value 'AJAPAIK_BENEFICIARY_ACCT' %}</p>
-<a target="_blank" title="{% trans "LHV single payment link" %}"
+<a target="_blank" title="{% trans "LHV single payment link" %}" class="ajp-bank-link-one-time" data-bank="lhv"
    href="https://www.lhv.ee/portfolio/payment_out.cfm?i_receiver_name=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&i_receiver_account_no=EE072200221048847282&i_amount=10">
     <img src="{% static "images/logo_lhv.png" %}" alt="{% trans "LHV bank" %}">
 </a>
-<a target="_blank" title="{% trans "Krediidipank single payment link" %}" href="https://i-pank.krediidipank.ee">
+<a target="_blank" title="{% trans "Krediidipank single payment link" %}" class="ajp-bank-link-one-time" data-bank="krediidipank" href="https://i-pank.krediidipank.ee">
     <img src="{% static "images/logo_krediidipank.jpg" %}" alt="{% trans "Krediidipank" %}">
 </a>
-<a target="_blank" title="{% trans "SEB single payment link" %}"
+<a target="_blank" title="{% trans "SEB single payment link" %}" class="ajp-bank-link-one-time" data-bank="seb"
    href="https://www.seb.ee/cgi-bin/ipank/ipank.p?act=SMARTPAYM">
     <img src="{% static "images/logo_seb.png" %}" alt="{% trans "SEB bank" %}">
 </a>
-<a target="_blank" title="{% trans "Swedbank single payment link" %}"
+<a target="_blank" title="{% trans "Swedbank single payment link" %}" class="ajp-bank-link-one-time" data-bank="swedbank"
    href="https://www.swedbank.ee/private/d2d/payments/domestic/new/">
     <img src="{% static "images/logo_swedbank.png" %}" alt="{% trans "Swedbank" %}">
 </a>
-<a target="_blank" title="{% trans "Nordea single payment link" %}"
+<a target="_blank" title="{% trans "Nordea single payment link" %}" class="ajp-bank-link-one-time" data-bank="nordea"
    href="https://netbank.nordea.com/pnb/login.do?ts=EE">
     <img src="{% static "images/logo_nordea.png" %}" alt="{% trans "Nordea bank" %}">
 </a>
-<a target="_blank" title="{% trans "Danske single payment link" %}"
+<a target="_blank" title="{% trans "Danske single payment link" %}" class="ajp-bank-link-one-time" data-bank="danske"
    href="https://www2.danskebank.ee/ibank/login/login?goto=payments/">
     <img src="{% static "images/logo_danske.png" %}" alt="{% trans "Danske bank" %}">
 </a>
 <br/>
 <h4>{% trans "Prefilled forms for standing payments" %}:</h4>
-<a target="_blank" title="{% trans "LHV payment order link" %}"
+<a target="_blank" title="{% trans "LHV payment order link" %}" class="ajp-bank-link-standing" data-bank="lhv"
    href="https://www.lhv.ee/portfolio/payment_standing_add.cfm?i_receiver_name=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&i_receiver_account_no=EE072200221048847282&i_amount=10">
     <img src="{% static "images/logo_lhv.png" %}" alt="{% trans "LHV bank" %}">
 </a>
-<a target="_blank" title="{% trans "Krediidipank payment order link" %}"
+<a target="_blank" title="{% trans "Krediidipank payment order link" %}" class="ajp-bank-link-standing" data-bank="krediidipank"
    href="https://i-pank.krediidipank.ee/permpmtnew?SaajaNimi=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&SaajaKonto=EE072200221048847282&MakseSumma=10&MakseSagedus=3">
     <img src="{% static "images/logo_krediidipank.jpg" %}" alt="{% trans "Krediidipank" %}">
 </a>
-<a target="_blank" title="{% trans "SEB payment order link" %}"
+<a target="_blank" title="{% trans "SEB payment order link" %}" class="ajp-bank-link-standing" data-bank="seb"
    href="https://www.seb.ee/cgi-bin/ipank/ipank.p?act=LISAPYSI&saajanimi=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&saajakonto=EE072200221048847282&summa=10">
     <img src="{% static "images/logo_seb.png" %}" alt="{% trans "SEB bank" %}">
 </a>
-<a target="_blank" title="{% trans "Swedbank payment order link" %}"
+<a target="_blank" title="{% trans "Swedbank payment order link" %}" class="ajp-bank-link-standing" data-bank="swedbank"
    href="https://www.swedbank.ee/private/d2d/payments/standingorder/new?standingOrder.beneficiaryName=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&standingOrder.beneficiaryAccountNumber=EE072200221048847282&standingOrder.currency=EUR&standingOrder.amount=10&frequency=K">
     <img src="{% static "images/logo_swedbank.png" %}" alt="{% trans "Swedbank" %}">
 </a>
-<a target="_blank" title="{% trans "Nordea payment order link" %}" href="https://netbank.nordea.com/pnb/login.do?ts=EE">
+<a target="_blank" title="{% trans "Nordea payment order link" %}" class="ajp-bank-link-standing" data-bank="nordea" href="https://netbank.nordea.com/pnb/login.do?ts=EE">
     <img src="{% static "images/logo_nordea.png" %}" alt="{% trans "Nordea bank" %}">
 </a>
-<a target="_blank" title="{% trans "Danske payment order link" %}"
+<a target="_blank" title="{% trans "Danske payment order link" %}" class="ajp-bank-link-standing" data-bank="danske"
    href="https://www2.danskebank.ee/ibank/login/login?goto=payments/new_standing">
     <img src="{% static "images/logo_danske.png" %}" alt="{% trans "Danske bank" %}">
 </a>

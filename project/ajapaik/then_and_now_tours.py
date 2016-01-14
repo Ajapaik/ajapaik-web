@@ -188,10 +188,11 @@ class TourEditForm(autocomplete_light.ModelForm):
 class TourGroupInlineForm(autocomplete_light.ModelForm):
     class Meta:
         model = TourGroup
-        exclude = ('members',)
+        fields = ('name', 'max_members', 'members')
         labels = {
             'name': _('Group name'),
             'max_members': _('Maximum number of members'),
+            'members': _('Members'),
             'grouped': _('With groups')
         }
 
@@ -370,7 +371,7 @@ def map_view(request, tour_id=None):
     profile = request.user.profile
     TourUniqueView.objects.get_or_create(profile=profile, tour=tour)
     user_has_group = TourGroup.objects.filter(tour=tour, members__pk=profile.user_id).exists()
-    if tour.grouped and not user_has_group:
+    if tour.grouped and not user_has_group and tour.user != profile:
         return redirect(reverse('project.ajapaik.then_and_now_tours.choose_group', args=(tour.pk,)))
     ret = {
         'tour': tour,
