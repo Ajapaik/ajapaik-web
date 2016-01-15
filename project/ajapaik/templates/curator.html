@@ -359,10 +359,10 @@
                             prev = parseInt(counter.html(), 10);
                         if (msg.result.firstRecordViews) {
                             counter.html(prev + msg.result.firstRecordViews.length);
-                        }
-                        for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
-                            var item = msg.result.firstRecordViews[i];
-                            createResultElement(item);
+                            for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
+                                var item = msg.result.firstRecordViews[i];
+                                createResultElement(item);
+                            }
                         }
                         $('#ajapaik-loading-overlay').hide();
                         window._gaq.push(['_trackEvent', 'Curator', 'More results success']);
