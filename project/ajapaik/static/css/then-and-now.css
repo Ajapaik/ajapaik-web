@@ -296,3 +296,8 @@ body {
 #tan-gallery-container {
     overflow: scroll;
 }
+
+#tan-frontpage-ajapaik-logo {
+    width: 150px;
+    margin-bottom: 40px;
+}

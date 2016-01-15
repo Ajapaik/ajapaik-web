@@ -11,6 +11,24 @@
                 {% trans "Update" %}
             </button>
         </form>
+        <br/>
+        {% get_language_info for LANGUAGE_CODE as lang %}
+        <form action="/i18n/setlang/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {#<input name="next" type="hidden" value="{{ redirect_to }}"/>#}
+                <label for="tan-language-selection" class="sr-only">{% trans "Select language" %}</label>
+                <select id="tan-language-selection" name="language" onchange="this.form.submit();">
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"
+                                title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"
+                                {% if language.code == lang.code %}
+                                selected="selected"{% endif %}>{{ language.name_local|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
     </div>
 {% endblock %}
 
