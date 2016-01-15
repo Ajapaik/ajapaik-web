@@ -25,7 +25,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ photo.description }} (<a target="_blank" title="{% trans "View in Ajapaik" %}" href="{% url "project.ajapaik.views.photoslug" photo.pk photo.get_pseudo_slug %}">{% trans "Photo in Ajapaik" %}</a>)
+                        {{ photo.description }} (<a target="_blank" title="{% trans "View in Ajapaik" %}" href="{% url "project.ajapaik.views.photoslug" photo.pk photo.get_pseudo_slug %}">{% trans "Picture in Ajapaik" %}</a>)
                     </div>
                     {% if current_user_captured %}
                         <div class="row">{% trans "You have already captured this photo" %}</div>

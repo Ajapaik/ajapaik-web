@@ -500,7 +500,8 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
     else:
         if 'then_and_now_rephoto_open' in request.session and request.session['then_and_now_rephoto_open']:
             rp = photo.tour_rephotos.first()
-            return redirect(reverse('project.ajapaik.then_and_now_tours.detail', args=(tour.pk, photo.pk, rp.pk)))
+            if rp:
+                return redirect(reverse('project.ajapaik.then_and_now_tours.detail', args=(tour.pk, photo.pk, rp.pk)))
     profile = request.user.profile
     current_photo_index = None
     current_rephoto_index = None

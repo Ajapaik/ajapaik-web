@@ -327,7 +327,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     album = Album.objects.get(pk=album_id)
     album_photos_qs = album.get_historic_photos_queryset_with_subalbums()
     album_photo_ids = frozenset(album_photos_qs.prefetch_related('rephotos').values_list('id', flat=True))
-    album_photos_with_rephotos = album_photos_qs.filter(rephotos__isnull=False)
+    album_photos_with_rephotos = album_photos_qs.filter(rephotos__isnull=False).prefetch_related('rephotos')
     album_rephoto_ids = []
     for each in album_photos_with_rephotos:
         for rp in each.rephotos.all():
@@ -336,7 +336,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         Q(photo_id__in=album_photo_ids, points__gt=0) | Q(photo_id__in=album_rephoto_ids, points__gt=0)).exclude(
         action=Points.PHOTO_RECURATION)
     photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album,
-                                                        action=Points.PHOTO_RECURATION)
+                                                        action=Points.PHOTO_RECURATION).prefetch_related('user')
     geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
     # TODO: This should not be done in Python memory, but with a query
     user_score_map = {}
@@ -365,12 +365,12 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     clauses = ' '.join(['WHEN user_id=%s THEN %s' % (pk, i) for i, pk in enumerate(pk_list)])
     ordering = 'CASE %s END' % clauses
     top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile_id))\
-        .extra(select={'ordering': ordering}, order_by=('ordering',))
+        .extra(select={'ordering': ordering}, order_by=('ordering',)).prefetch_related('user')
     n = 1
     for each in top_users:
-        if each.id == profile_id:
+        if each.user_id == profile_id:
             each.is_current_user = True
-        each.custom_score = user_score_map[each.id]
+        each.custom_score = user_score_map[each.user_id]
         each.position = n
         n += 1
 
@@ -382,10 +382,11 @@ def _get_all_time_leaderboard50(profile_id):
         Q(fb_name__isnull=False) |
         Q(google_plus_name__isnull=False) |
         Q(pk=profile_id) |
-        Q(user__first_name__isnull=False, user__last_name__isnull=False, user__last_name__ne='', user__first_name__ne='')).order_by('-score')[:50]
+        Q(user__first_name__isnull=False, user__last_name__isnull=False, user__last_name__ne='', user__first_name__ne=''))\
+    .order_by('-score')[:50]
     n = 1
     for each in lb:
-        if each.id == profile_id:
+        if each.user_id == profile_id:
             each.is_current_user = True
         each.position = n
         n += 1
@@ -1263,6 +1264,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
         "user_has_likes": user_has_likes,
         "user_has_rephotos": user_has_rephotos,
+        "user_has_rephotos": user_has_rephotos,
         "next_photo": next_photo,
         "previous_photo": previous_photo
     }))
@@ -1609,10 +1611,10 @@ def leaderboard(request, album_id=None):
         top_users = top_users[start:current_user_rank + 1]
         n = current_user_rank
         for each in top_users:
-            if each == profile:
+            if each.user_id == profile.id:
                 each.is_current_user = True
             each.position = n
-            each.custom_score = user_score_map[each.id]
+            each.custom_score = user_score_map[each.user_id]
             n += 1
         album_leaderboard = top_users
     else:
@@ -1627,7 +1629,7 @@ def leaderboard(request, album_id=None):
                 Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
                 Q(pk=profile.id) |
                 Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne='', score_recent_activity__gt=0))\
-            .order_by('-score_recent_activity')
+            .order_by('-score_recent_activity').prefetch_related('user')
         start = profile_rank - 2
         if start < 0:
             start = 0
@@ -1669,6 +1671,7 @@ def all_time_leaderboard(request):
 
 
 def top50(request, album_id=None):
+    _calculate_recent_activity_scores()
     profile = request.get_user().profile
     album_name = None
     album_leaderboard = None
@@ -1676,13 +1679,12 @@ def top50(request, album_id=None):
     if album_id:
         album_leaderboard, album_name = _get_album_leaderboard50(profile.pk, album_id)
     else:
-        _calculate_recent_activity_scores()
         general_leaderboard = _get_all_time_leaderboard50(profile.pk)
     activity_leaderboard_qs = Profile.objects.filter(
             Q(fb_name__isnull=False, score_recent_activity__gt=0) |
             Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
             Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne='', score_recent_activity__gt=0) |
-            Q(pk=profile.id)).order_by('-score_recent_activity')[:50]
+            Q(pk=profile.id)).order_by('-score_recent_activity').prefetch_related('user')[:50]
     n = 1
     for each in activity_leaderboard_qs:
         if each == profile:
