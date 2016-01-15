@@ -158,9 +158,7 @@ def get_album_info_modal_content(request):
                 final_score_dict[u['profile']] += u['count']
             else:
                 final_score_dict[u['profile']] = u['count']
-        album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys()) \
-            .filter(Q(fb_name__isnull=False) | Q(google_plus_name__isnull=False) | Q(user__first_name__isnull=False,
-                                                                                     user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne=''))
+        album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys(), first_name__isnull=False, last_name__isnull=False)
         final_score_dict = [x[0] for x in sorted(final_score_dict.items(), key=operator.itemgetter(1), reverse=True)]
         album_curators = list(album_curators)
         album_curators.sort(key=lambda z: final_score_dict.index(z.id))
@@ -286,7 +284,7 @@ def _calculate_recent_activity_scores():
         .annotate(total_points=Sum('points'))
     recent_action_dict = {}
     for each in recent_actions:
-        recent_action_dict[each["user_id"]] = each
+        recent_action_dict[each['user_id']] = each
     recent_actors = Profile.objects.filter(pk__in=recent_action_dict.keys())
     for each in recent_actors:
         each.score_recent_activity = recent_action_dict[each.pk]['total_points']
@@ -299,16 +297,11 @@ def _calculate_recent_activity_scores():
 def _get_leaderboard(profile):
     # General small leaderboard doesn't have anonymous users, displays recent activity score
     # TODO: Should also show first place, where did that code go?
-    profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity).filter(
-            Q(fb_name__isnull=False) |
-            Q(google_plus_name__isnull=False) |
-            Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne='')).count() + 1
+    profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity,
+                                          first_name__isnull=False, last_name__isnull=False).count() + 1
     leaderboard_queryset = Profile.objects.filter(
-            Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-            Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
-            Q(pk=profile.id) |
-            Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne='', score_recent_activity__gt=0)) \
-        .order_by('-score_recent_activity')
+            Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
+            Q(pk=profile.id)).order_by('-score_recent_activity')
     start = profile_rank - 2
     if start < 0:
         start = 0
@@ -326,18 +319,17 @@ def _get_leaderboard(profile):
 def _get_album_leaderboard50(profile_id, album_id=None):
     album = Album.objects.get(pk=album_id)
     album_photos_qs = album.get_historic_photos_queryset_with_subalbums()
-    album_photo_ids = frozenset(album_photos_qs.prefetch_related('rephotos').values_list('id', flat=True))
+    album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
     album_photos_with_rephotos = album_photos_qs.filter(rephotos__isnull=False).prefetch_related('rephotos')
     album_rephoto_ids = []
     for each in album_photos_with_rephotos:
         for rp in each.rephotos.all():
             album_rephoto_ids.append(rp.id)
-    photo_points = Points.objects.filter(
-        Q(photo_id__in=album_photo_ids, points__gt=0) | Q(photo_id__in=album_rephoto_ids, points__gt=0)).exclude(
-        action=Points.PHOTO_RECURATION)
+    photo_points = Points.objects.prefetch_related('user').filter(
+        Q(photo_id__in=album_photo_ids, points__gt=0) |
+        Q(photo_id__in=album_rephoto_ids, points__gt=0)).exclude(action=Points.PHOTO_RECURATION)
     photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album,
                                                         action=Points.PHOTO_RECURATION).prefetch_related('user')
-    geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
     # TODO: This should not be done in Python memory, but with a query
     user_score_map = {}
     for each in photo_points:
@@ -345,13 +337,6 @@ def _get_album_leaderboard50(profile_id, album_id=None):
             user_score_map[each.user_id] += each.points
         else:
             user_score_map[each.user_id] = each.points
-    for each in geotags:
-        # FIXME: Why is this check even needed?
-        if each.score > 0:
-            if each.user_id in user_score_map:
-                user_score_map[each.user_id] += each.score
-            else:
-                user_score_map[each.user_id] = each.score
     if profile_id not in user_score_map:
         user_score_map[profile_id] = 0
     sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
@@ -379,11 +364,8 @@ def _get_album_leaderboard50(profile_id, album_id=None):
 
 def _get_all_time_leaderboard50(profile_id):
     lb = Profile.objects.filter(
-        Q(fb_name__isnull=False) |
-        Q(google_plus_name__isnull=False) |
-        Q(pk=profile_id) |
-        Q(user__first_name__isnull=False, user__last_name__isnull=False, user__last_name__ne='', user__first_name__ne=''))\
-    .order_by('-score')[:50]
+        Q(first_name__isnull=False, last_name__isnull=False) |
+        Q(pk=profile_id)).order_by('-score').prefetch_related('user')[:50]
     n = 1
     for each in lb:
         if each.user_id == profile_id:
@@ -1120,9 +1102,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         geotag_count = geotags.count()
         if geotag_count > 0:
             correct_geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(
-                Q(user__fb_name__isnull=False, is_correct=True) |
-                Q(user__user__first_name__isnull=False, user__user__last_name__isnull=False, user__user__first_name__ne='', user__user__last_name__ne='', is_correct=True) |
-                Q(user__google_plus_name__isnull=False, is_correct=True))[:3]
+                Q(user__first_name__isnull=False, user__last_name__isnull=False, is_correct=True))[:3]
             if len(correct_geotags_from_authenticated_users) > 0:
                 for each in correct_geotags_from_authenticated_users:
                     first_geotaggers.append([each.user.get_display_name(), each.lat, each.lon, each.azimuth])
@@ -1549,7 +1529,7 @@ def geotag_confirm(request):
                 confirmed_geotag.azimuth_correct = True
             confirmed_geotag.save()
             Points(user=profile, action=Points.GEOTAG, geotag=confirmed_geotag, points=confirmed_geotag.score,
-                   created=datetime.datetime.now()).save()
+                   created=datetime.datetime.now(), photo=p).save()
             p.latest_geotag = datetime.datetime.now()
             p.save()
             profile.set_calculated_fields()
@@ -1578,20 +1558,12 @@ def leaderboard(request, album_id=None):
             Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids)).exclude(action=Points.PHOTO_RECURATION)
         photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album,
                                                             action=Points.PHOTO_RECURATION)
-        geotags = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         user_score_map = {}
         for each in photo_points:
             if each.user_id in user_score_map:
                 user_score_map[each.user_id] += each.points
             else:
                 user_score_map[each.user_id] = each.points
-        for each in geotags:
-            # FIXME: Why is this check necessary? How can there be NULL score geotags? Race conditions somehow?
-            if each.score is not None:
-                if each.user_id in user_score_map:
-                    user_score_map[each.user_id] += each.score
-                else:
-                    user_score_map[each.user_id] = each.score
         if profile.id not in user_score_map:
             user_score_map[profile.id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
@@ -1619,24 +1591,18 @@ def leaderboard(request, album_id=None):
         album_leaderboard = top_users
     else:
         _calculate_recent_activity_scores()
-        profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity).filter(
-                Q(fb_name__isnull=False) |
-                Q(google_plus_name__isnull=False) |
-                Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne=''))\
-           .count() + 1
+        profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity,
+                                              first_name__isnull=False, last_name__isnull=False).count() + 1
         leaderboard_queryset = Profile.objects.filter(
-                Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-                Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
-                Q(pk=profile.id) |
-                Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne='', score_recent_activity__gt=0))\
-            .order_by('-score_recent_activity').prefetch_related('user')
+                Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
+                Q(pk=profile.id)).order_by('-score_recent_activity')
         start = profile_rank - 2
         if start < 0:
             start = 0
         nearby_users = leaderboard_queryset[start:profile_rank + 1]
         n = start + 1
         for each in nearby_users:
-            if each == profile:
+            if each.user_id == profile.id:
                 each.is_current_user = True
             each.position = n
             n += 1
@@ -1660,13 +1626,13 @@ def leaderboard(request, album_id=None):
 def all_time_leaderboard(request):
     _calculate_recent_activity_scores()
     atl = _get_all_time_leaderboard50(request.get_user().profile.pk)
-    template = ["", "_block_leaderboard.html", "leaderboard.html"][request.is_ajax() and 1 or 2]
+    template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
-        "hostname": "http://%s" % (site.domain,),
-        "all_time_leaderboard": atl,
-        "title": _("Leaderboard"),
-        "is_top_50": True
+        'hostname': 'http://%s' % (site.domain,),
+        'all_time_leaderboard': atl,
+        'title': _('Leaderboard'),
+        'is_top_50': True
     }))
 
 
@@ -1680,14 +1646,12 @@ def top50(request, album_id=None):
         album_leaderboard, album_name = _get_album_leaderboard50(profile.pk, album_id)
     else:
         general_leaderboard = _get_all_time_leaderboard50(profile.pk)
-    activity_leaderboard_qs = Profile.objects.filter(
-            Q(fb_name__isnull=False, score_recent_activity__gt=0) |
-            Q(google_plus_name__isnull=False, score_recent_activity__gt=0) |
-            Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne='', score_recent_activity__gt=0) |
+    activity_leaderboard = Profile.objects.filter(
+            Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
             Q(pk=profile.id)).order_by('-score_recent_activity').prefetch_related('user')[:50]
     n = 1
-    for each in activity_leaderboard_qs:
-        if each == profile:
+    for each in activity_leaderboard:
+        if each.user_id == profile.id:
             each.is_current_user = True
         each.position = n
         n += 1
@@ -1697,7 +1661,7 @@ def top50(request, album_id=None):
         template = 'leaderboard.html'
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
-        'activity_leaderboard': activity_leaderboard_qs,
+        'activity_leaderboard': activity_leaderboard,
         'album_name': album_name,
         'album_leaderboard': album_leaderboard,
         'all_time_leaderboard': general_leaderboard,
@@ -2443,6 +2407,7 @@ def submit_dating(request):
                     action=Points.DATING_CONFIRMATION,
                     dating_confirmation=new_confirmation,
                     points=DATING_CONFIRMATION_POINTS,
+                    photo=p,
                     created=new_confirmation.created
             ).save()
             return HttpResponse('OK')

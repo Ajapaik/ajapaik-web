@@ -5,7 +5,7 @@ from project.ajapaik.models import Profile, Photo, Tour, Points, GeoTag, Album, 
     Video, PhotoComment, Source, Skip, Area, Licence, Device, Newsletter, TourGroup, TourRephoto
 
 al.register(Profile,
-    search_fields=['user__pk', 'user__first_name', 'user__last_name', 'user__email', 'fb_name', 'google_plus_name'],
+    search_fields=['user__pk', 'first_name', 'last_name', 'user__email', 'fb_name', 'google_plus_name'],
     attrs={
         'data-autocomplete-minimum-characters': 2,
     },

@@ -46,7 +46,7 @@ from django.db.models import Lookup
 from django.db.models.fields import Field
 
 
-# For filtering empty user first and last name
+# For filtering empty user first and last name, actually, can be done with ~Q, but this is prettier?
 class NotEqual(Lookup):
     lookup_name = 'ne'
 
@@ -90,11 +90,13 @@ def _get_pseudo_slug_for_photo(description, source_key, created):
 
 # TODO: Somehow this fires from Sift too...also, it fires at least 3 times on user registration, wasteful
 def _user_post_save(sender, instance, **kwargs):
-    Profile.objects.get_or_create(user=instance)
-
+    profile = Profile.objects.get_or_create(user=instance)
+    if profile and profile[0].user.first_name and profile[0].user.last_name:
+        profile[0].first_name = profile[0].user.first_name
+        profile[0].last_name = profile[0].user.last_name
+        profile[0].save()
 
 post_save.connect(_user_post_save, sender=User)
-
 
 class Area(Model):
     name = CharField(max_length=255)
@@ -721,6 +723,9 @@ class FlipFeedback(Model):
 
 
 class Points(Model):
+    objects = Manager()
+    bulk = BulkUpdateManager()
+
     GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL = range(8)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
@@ -852,6 +857,9 @@ class Profile(Model):
 
     user = OneToOneField(User, primary_key=True)
 
+    first_name = CharField(max_length=255, null=True, blank=True)
+    last_name = CharField(max_length=255, null=True, blank=True)
+
     fb_name = CharField(max_length=255, null=True, blank=True)
     fb_link = CharField(max_length=255, null=True, blank=True)
     fb_id = CharField(max_length=100, null=True, blank=True)
@@ -890,12 +898,12 @@ class Profile(Model):
         return False
 
     def get_display_name(self):
-        if self.fb_name:
-            return self.fb_name
+        if self.first_name and self.last_name:
+            return '%s %s' % (self.first_name, self.last_name)
         elif self.google_plus_name:
             return self.google_plus_name
-        elif self.user.get_full_name().strip() != '':
-            return self.user.get_full_name()
+        elif self.fb_name:
+            return self.fb_name
         else:
             return _('Anonymous user')
 
@@ -911,6 +919,11 @@ class Profile(Model):
         self.fb_token = token
         self.fb_id = data.get("id")
         self.fb_name = data.get("name")
+        if self.fb_name:
+            parts = self.fb_name.split(' ')
+            self.first_name = parts[0]
+            if len(parts) > 1:
+                self.last_name = parts[1]
         self.fb_link = data.get("link")
         self.fb_email = data.get("email")
         try:
@@ -948,6 +961,11 @@ class Profile(Model):
             self.google_plus_link = data["link"]
         if 'name' in data:
             self.google_plus_name = data["name"]
+            if self.google_plus_name:
+                parts = self.google_plus_name.split(' ')
+                self.first_name = parts[0]
+                if len(parts) > 1:
+                    self.last_name = parts[1]
         if 'email' in data:
             self.google_plus_email = data["email"]
         if 'picture' in data:

@@ -585,7 +585,9 @@ var map,
 
     $(document).on('click', '#ajapaik-header-profile-button', function (e) {
         e.preventDefault();
-        window.updateLeaderboard();
+        if (!window.isTop50 && !window.isLeaderboard) {
+            window.updateLeaderboard();
+        }
         if (scoreboardShown) {
             hideScoreboard();
         } else {

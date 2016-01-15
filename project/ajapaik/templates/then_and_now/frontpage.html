@@ -44,16 +44,16 @@
         <br>
         <div class="row tan-text-center">
             {% if user.is_authenticated %}
-                <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "Log out" %}</a>
+                <a href="{% url 'django.contrib.auth.views.logout' %}?next=/then-and-now-tours/">{% trans "Log out" %}</a>
             {% else %}
                 <div class="row">
-                    <a href="{% url 'django.contrib.auth.views.login' %}" class="btn tan-double-border tan-button-text">
+                    <a href="{% url 'django.contrib.auth.views.login' %}?next=/then-and-now-tours/" class="btn tan-double-border tan-button-text">
                         {% trans "Log in" %}
                     </a>
                 </div>
                 <br/>
                 <div class="row">
-                    <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
+                    <a href="{% url 'registration_register' %}?next=/then-and-now-tours/">{% trans "Register account" %}</a>
                 </div>
             {% endif %}
         </div>

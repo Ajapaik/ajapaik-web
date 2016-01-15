@@ -22,3 +22,10 @@
     </div>
     {% include "_full_leaderboard_modal.html" %}
 {% endblock %}
+
+{% block specific_js %}
+    <script>
+        window.isLeaderboard = true;
+        window.isTop50 = true;
+    </script>
+{% endblock %}

@@ -13,10 +13,7 @@ class Command(BaseCommand):
     help = 'Get some stats for Vahur'
 
     def handle(self, *args, **options):
-        profiles = Profile.objects.filter(Q(score__gt=0) | Q(fb_name__isnull=False) |
-                                          Q(google_plus_name__isnull=False) |
-                                          Q(user__first_name__isnull=False, user__last_name__isnull=False, user__first_name__ne='', user__last_name__ne=''))\
-            .distinct('user_id')
+        profiles = Profile.objects.filter(Q(score__gt=0) | Q(first_name__isnull=False, last_name__isnull=False)).distinct('user_id')
         results = codecs.open(ABSOLUTE_PROJECT_ROOT + '/project/ajapaik/management/commands/results/results.txt', 'w', 'utf-8')
         results.write('id\tname\tfb_name\tfb_email\tgoogle_name\tgoogle_email\tscore\ttrustworthiness\tfirst_geotag\tlatest_geotag\tgeotag_count\tfirst_rephoto\tlatest_rephoto\trephoto_count\tfirst_curation\tlatest_curation\tcuration_count\tfirst_recuration\tlatest_recuration\trecuration_count\tfb_comment_count\tfavorite_count\n')
         for p in profiles:

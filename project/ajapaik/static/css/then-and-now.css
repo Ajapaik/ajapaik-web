@@ -292,3 +292,7 @@ body {
 #tan-create-tour-2-marker-count-row {
     font-size: 24px;
 }
+
+#tan-gallery-container {
+    overflow: scroll;
+}
