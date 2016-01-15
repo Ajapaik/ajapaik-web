@@ -15,10 +15,17 @@
                     {% plural %}Up to {{ counter }} members{% endblocktrans %}</p>
             {% endfor %}
         {% endif %}
-        <h2>{% trans "Tour ID (use it to share your tour)" %}: {{ tour.pk }}</h2>
+        <h2>{% trans "Tour ID" %}: {{ tour.pk }}</h2>
+        <p>{% trans "(use it to share your tour)" %}</p>
         <div class="row-fluid">
-            <a href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}" title="{% trans "View map" %}">{% trans "View map" %}</a>
+            <a title="{% trans "View map" %}" href="{% url 'project.ajapaik.then_and_now_tours.map_view' tour.pk %}" class="btn tan-double-border tan-button-text">
+                {% trans "View map" %}
+            </a>
+            <a title="{% trans "View gallery" %}" href="{% url 'project.ajapaik.then_and_now_tours.gallery' tour.pk %}" class="btn tan-double-border tan-button-text">
+                {% trans "View gallery" %}
+            </a>
         </div>
+        <br/>
         <div class="row-fluid">
             <a href="{% url 'project.ajapaik.then_and_now_tours.manage' tour.pk %}" title="{% trans "Manage" %}">{% trans "Manage" %}</a>
         </div>
