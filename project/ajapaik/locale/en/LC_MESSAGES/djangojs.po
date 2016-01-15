@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-14 17:01+0200\n"
+"POT-Creation-Date: 2016-01-15 17:36+0200\n"
 "PO-Revision-Date: 2014-05-21 18:15+0000\n"
 "Last-Translator: Tarmo Annus <tarmo888@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,42 +43,42 @@ msgstr ""
 msgid "An unknown error occurred."
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:709
+#: project/ajapaik/static/js/ajapaik-common.js:711
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:720
-#: project/ajapaik/static/js/ajapaik-common.js:766
+#: project/ajapaik/static/js/ajapaik-common.js:722
+#: project/ajapaik/static/js/ajapaik-common.js:768
 msgid "Geotagged by this many users"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:750
+#: project/ajapaik/static/js/ajapaik-common.js:752
 msgid "Confirm correct location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:759
+#: project/ajapaik/static/js/ajapaik-common.js:761
 msgid "Submit your own location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:785
+#: project/ajapaik/static/js/ajapaik-common.js:787
 msgid "You"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:789
+#: project/ajapaik/static/js/ajapaik-common.js:791
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:791
+#: project/ajapaik/static/js/ajapaik-common.js:793
 msgid "Anonymous users"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:846
+#: project/ajapaik/static/js/ajapaik-common.js:851
 msgid "Current location"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-common.js:1110
-#: project/ajapaik/static/js/ajapaik-common.js:1155
+#: project/ajapaik/static/js/ajapaik-common.js:1115
+#: project/ajapaik/static/js/ajapaik-common.js:1160
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr ""
@@ -493,7 +493,7 @@ msgid "Your guess"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
-msgid "Depicted location has changed"
+msgid "How much has the depicted location changed?"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:703
@@ -583,7 +583,7 @@ msgstr ""
 msgid "Sending failed"
 msgstr ""
 
-#: project/ajapaik/static/js/then-and-now-my-tours.js:25
+#: project/ajapaik/static/js/then-and-now-my-tours.js:31
 msgid "Cannot delete tour, has rephotos or does not belong to you."
 msgstr ""
 

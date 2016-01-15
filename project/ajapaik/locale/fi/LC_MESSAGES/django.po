@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-14 17:01+0200\n"
-"PO-Revision-Date: 2016-01-05 14:59+0000\n"
+"POT-Creation-Date: 2016-01-15 17:36+0200\n"
+"PO-Revision-Date: 2016-01-14 15:02+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/fi/)\n"
@@ -50,133 +50,133 @@ msgstr "Valitse valokuva"
 msgid "Choose parent album"
 msgstr ""
 
-#: project/ajapaik/models.py:726
+#: project/ajapaik/models.py:731
 msgid "Geotag"
 msgstr ""
 
-#: project/ajapaik/models.py:727 project/ajapaik/templates/_comments.html:11
+#: project/ajapaik/models.py:732 project/ajapaik/templates/_comments.html:11
 #: project/ajapaik/templates/_photo_modal_comments.html:11
 #: project/ajapaik/templates/then_and_now/detail.html:90
 msgid "Rephoto"
 msgstr "Uuskuva"
 
-#: project/ajapaik/models.py:728
+#: project/ajapaik/models.py:733
 msgid "Photo upload"
 msgstr ""
 
-#: project/ajapaik/models.py:729
+#: project/ajapaik/models.py:734
 msgid "Photo curation"
 msgstr ""
 
-#: project/ajapaik/models.py:730
+#: project/ajapaik/models.py:735
 msgid "Photo re-curation"
 msgstr ""
 
-#: project/ajapaik/models.py:731
+#: project/ajapaik/models.py:736
 msgid "Dating"
 msgstr ""
 
-#: project/ajapaik/models.py:732
+#: project/ajapaik/models.py:737
 msgid "Dating confirmation"
 msgstr ""
 
-#: project/ajapaik/models.py:733
+#: project/ajapaik/models.py:738
 msgid "Film still"
 msgstr ""
 
-#: project/ajapaik/models.py:759
+#: project/ajapaik/models.py:764
 #: project/ajapaik/templates/then_and_now/base.html:51
 msgid "Map"
 msgstr "Kartta"
 
-#: project/ajapaik/models.py:760
+#: project/ajapaik/models.py:765
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/ajapaik/models.py:761
+#: project/ajapaik/models.py:766
 msgid "GPS"
 msgstr "GPS"
 
-#: project/ajapaik/models.py:762
+#: project/ajapaik/models.py:767
 msgid "Confirmation"
 msgstr ""
 
-#: project/ajapaik/models.py:763
+#: project/ajapaik/models.py:768
 msgid "StreetView"
 msgstr ""
 
-#: project/ajapaik/models.py:764
+#: project/ajapaik/models.py:769
 msgid "Source geotag"
 msgstr ""
 
-#: project/ajapaik/models.py:775
+#: project/ajapaik/models.py:780
 msgid "Game"
 msgstr "Peli"
 
-#: project/ajapaik/models.py:776
+#: project/ajapaik/models.py:781
 msgid "Map view"
 msgstr "Karttanäkymä"
 
-#: project/ajapaik/models.py:777
+#: project/ajapaik/models.py:782
 #: project/ajapaik/templates/then_and_now/base.html:54
 msgid "Gallery"
 msgstr ""
 
-#: project/ajapaik/models.py:778
+#: project/ajapaik/models.py:783
 msgid "Permalink"
 msgstr ""
 
-#: project/ajapaik/models.py:779
+#: project/ajapaik/models.py:784
 msgid "Source"
 msgstr ""
 
-#: project/ajapaik/models.py:783
+#: project/ajapaik/models.py:788
 msgid "Google map"
 msgstr "Google kartta"
 
-#: project/ajapaik/models.py:784
+#: project/ajapaik/models.py:789
 msgid "Google satellite"
 msgstr "Google satelliitti"
 
-#: project/ajapaik/models.py:785
+#: project/ajapaik/models.py:790
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/ajapaik/models.py:786
+#: project/ajapaik/models.py:791
 msgid "Juks"
 msgstr ""
 
-#: project/ajapaik/models.py:787
+#: project/ajapaik/models.py:792
 msgid "No map"
 msgstr "Ei karttaa"
 
-#: project/ajapaik/models.py:900
+#: project/ajapaik/models.py:908
 #: project/ajapaik/templates/then_and_now/detail.html:93
 #: project/ajapaik/templates/then_and_now/participants.html:12
 msgid "Anonymous user"
 msgstr ""
 
-#: project/ajapaik/models.py:1166
+#: project/ajapaik/models.py:1184
 msgid "Day"
 msgstr "Päivä"
 
-#: project/ajapaik/models.py:1167
+#: project/ajapaik/models.py:1185
 msgid "Month"
 msgstr "Kuukausi"
 
-#: project/ajapaik/models.py:1168
+#: project/ajapaik/models.py:1186
 msgid "Year"
 msgstr "Vuosi"
 
-#: project/ajapaik/models.py:1207 project/ajapaik/then_and_now_tours.py:47
+#: project/ajapaik/models.py:1225 project/ajapaik/then_and_now_tours.py:47
 msgid "Open tour"
 msgstr ""
 
-#: project/ajapaik/models.py:1208 project/ajapaik/then_and_now_tours.py:48
+#: project/ajapaik/models.py:1226 project/ajapaik/then_and_now_tours.py:48
 msgid "Fixed photo set"
 msgstr ""
 
-#: project/ajapaik/models.py:1209 project/ajapaik/then_and_now_tours.py:49
+#: project/ajapaik/models.py:1227 project/ajapaik/then_and_now_tours.py:49
 msgid "Random with nearby pictures"
 msgstr ""
 
@@ -264,10 +264,9 @@ msgid "Submit"
 msgstr "Lähetä"
 
 #: project/ajapaik/templates/_block_leaderboard.html:12
-#, fuzzy, python-format
-#| msgid "All time leaderboard"
+#, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Kaikkien aikojen pistetaulukko"
+msgstr ""
 
 #: project/ajapaik/templates/_block_leaderboard.html:18
 msgid "Recent activity leaderboard"
@@ -482,7 +481,7 @@ msgstr "Käyttäjä"
 #: project/ajapaik/templates/_full_leaderboard_modal.html:19
 #: project/ajapaik/templates/_header.html:103
 #: project/ajapaik/templates/_photo_upload_modal.html:9
-#: project/ajapaik/templates/then_and_now/frontpage.html:47
+#: project/ajapaik/templates/then_and_now/frontpage.html:46
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
@@ -629,7 +628,7 @@ msgstr "Takaisin kotiin"
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:205
-#: project/ajapaik/views.py:613
+#: project/ajapaik/views.py:596
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
@@ -687,8 +686,8 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1650
-#: project/ajapaik/views.py:1666 project/ajapaik/views.py:1703
+#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1618
+#: project/ajapaik/views.py:1634 project/ajapaik/views.py:1669
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
@@ -1040,10 +1039,8 @@ msgid "Log in to create still frames"
 msgstr ""
 
 #: project/ajapaik/templates/_log_in.html:14
-#, fuzzy
-#| msgid "Filter selection"
 msgid "Log in to save selection"
-msgstr "Suodata valinta"
+msgstr ""
 
 #: project/ajapaik/templates/_log_in.html:18
 #: project/ajapaik/templates/registration/login.html:38
@@ -1074,7 +1071,7 @@ msgstr ""
 #: project/ajapaik/templates/_log_in.html:38
 #: project/ajapaik/templates/registration/login.html:9
 #: project/ajapaik/templates/registration/login.html:24
-#: project/ajapaik/templates/then_and_now/frontpage.html:51
+#: project/ajapaik/templates/then_and_now/frontpage.html:50
 msgid "Log in"
 msgstr ""
 
@@ -1567,7 +1564,7 @@ msgid "Forgot password"
 msgstr ""
 
 #: project/ajapaik/templates/registration/login.html:30
-#: project/ajapaik/templates/then_and_now/frontpage.html:56
+#: project/ajapaik/templates/then_and_now/frontpage.html:55
 msgid "Register account"
 msgstr ""
 
@@ -1598,7 +1595,7 @@ msgstr ""
 
 #: project/ajapaik/templates/then_and_now/base.html:11
 #: project/ajapaik/templates/then_and_now/base.html:45
-#: project/ajapaik/templates/then_and_now/frontpage.html:9
+#: project/ajapaik/templates/then_and_now/frontpage.html:8
 msgid "Then & Now Tours"
 msgstr ""
 
@@ -1611,7 +1608,7 @@ msgid "Participants"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/base.html:64
-#: project/ajapaik/templates/then_and_now/create_tour_5.html:23
+#: project/ajapaik/templates/then_and_now/create_tour_5.html:30
 msgid "Manage"
 msgstr ""
 
@@ -1620,10 +1617,8 @@ msgid "My Tours"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/base.html:71
-#, fuzzy
-#| msgid "Rephoto"
 msgid "My Rephotos"
-msgstr "Uuskuva"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/base.html:74
 msgid "Settings"
@@ -1671,26 +1666,20 @@ msgid "Next"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/create_tour_2.html:10
-#, fuzzy
-#| msgid "Full search"
 msgid "Places search"
-msgstr "Laaja haku"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/create_tour_2.html:20
-#, fuzzy
-#| msgid "all the pictures on the map."
 msgid "pictures on current map view"
-msgstr "kaikki kuvat kartalle."
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/create_tour_2.html:20
 msgid "zoom in to view markers"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/create_tour_2.html:25
-#, fuzzy
-#| msgid "Select all"
 msgid "Selected markers"
-msgstr "Valitse kaikki"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/create_tour_2.html:34
 #: project/ajapaik/templates/then_and_now/create_tour_2.html:44
@@ -1719,34 +1708,32 @@ msgid "Groups"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/create_tour_5.html:14
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                    %(counter)s user has put\n"
-#| "                "
-#| msgid_plural ""
-#| "\n"
-#| "                    %(counter)s users have put\n"
-#| "                "
+#, python-format
 msgid ""
 "Up to %(counter)s member\n"
 "                    "
 msgid_plural "Up to %(counter)s members"
 msgstr[0] ""
-"\n"
-"                    %(counter)s käyttäjä on laittanut\n"
-"                "
 msgstr[1] ""
-"\n"
-"                    %(counter)s käyttäjää on laittanut\n"
-"                "
 
 #: project/ajapaik/templates/then_and_now/create_tour_5.html:18
-msgid "Tour ID (use it to share your tour)"
+#: project/ajapaik/templates/then_and_now/frontpage.html:27
+#: project/ajapaik/templates/then_and_now/frontpage.html:29
+msgid "Tour ID"
 msgstr ""
 
-#: project/ajapaik/templates/then_and_now/create_tour_5.html:20
+#: project/ajapaik/templates/then_and_now/create_tour_5.html:19
+msgid "(use it to share your tour)"
+msgstr ""
+
+#: project/ajapaik/templates/then_and_now/create_tour_5.html:21
+#: project/ajapaik/templates/then_and_now/create_tour_5.html:22
 msgid "View map"
+msgstr ""
+
+#: project/ajapaik/templates/then_and_now/create_tour_5.html:24
+#: project/ajapaik/templates/then_and_now/create_tour_5.html:25
+msgid "View gallery"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:14
@@ -1758,16 +1745,14 @@ msgid "Next photo"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:28
-#, fuzzy
-#| msgid "Submit selection to Ajapaik"
 msgid "View in Ajapaik"
-msgstr "Lähetä valitut Ajapaikiin"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:28
 #, fuzzy
-#| msgid "About Ajapaik"
-msgid "Photo in Ajapaik"
-msgstr "Tietoa Ajapaikista"
+#| msgid "Photo already exists in Ajapaik"
+msgid "Picture in Ajapaik"
+msgstr "Kuva on jo Ajapaikissa"
 
 #: project/ajapaik/templates/then_and_now/detail.html:31
 msgid "You have already captured this photo"
@@ -1791,10 +1776,8 @@ msgid "Close rephoto"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:69
-#, fuzzy
-#| msgid "Add rephoto"
 msgid "Delete rephoto"
-msgstr "Lisää uuskuva"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:76
 msgid "Previous rephoto"
@@ -1805,36 +1788,42 @@ msgid "Next rephoto"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:96
-#, fuzzy
-#| msgid "Submit selection to Ajapaik"
 msgid "Send to Ajapaik"
-msgstr "Lähetä valitut Ajapaikiin"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:111
 msgid "Rephoto of"
 msgstr ""
 
-#: project/ajapaik/templates/then_and_now/frontpage.html:19
+#: project/ajapaik/templates/then_and_now/frontpage.html:7
+#, fuzzy
+#| msgid "Ajapaik on Facebook"
+msgid "Ajapaik logo"
+msgstr "Ajapaik Facebookissa"
+
+#: project/ajapaik/templates/then_and_now/frontpage.html:18
 msgid "Signed in as"
 msgstr ""
 
-#: project/ajapaik/templates/then_and_now/frontpage.html:28
-#: project/ajapaik/templates/then_and_now/frontpage.html:30
-msgid "Tour ID"
-msgstr ""
-
-#: project/ajapaik/templates/then_and_now/frontpage.html:32
+#: project/ajapaik/templates/then_and_now/frontpage.html:31
 msgid "Go"
 msgstr ""
 
-#: project/ajapaik/templates/then_and_now/frontpage.html:36
+#: project/ajapaik/templates/then_and_now/frontpage.html:35
 msgid "Create tour!"
 msgstr ""
 
-#: project/ajapaik/templates/then_and_now/frontpage.html:39
+#: project/ajapaik/templates/then_and_now/frontpage.html:38
 #: project/ajapaik/templates/then_and_now/my_tours.html:13
 msgid "My tours"
 msgstr ""
+
+#: project/ajapaik/templates/then_and_now/frontpage.html:67
+#: project/ajapaik/templates/then_and_now/settings.html:20
+#, fuzzy
+#| msgid "Choose language"
+msgid "Select language"
+msgstr "Valitse kieli"
 
 #: project/ajapaik/templates/then_and_now/manage.html:9
 msgid "Tour"
@@ -1938,56 +1927,54 @@ msgstr ""
 msgid "Fixed tour"
 msgstr ""
 
-#: project/ajapaik/then_and_now_tours.py:873
+#: project/ajapaik/then_and_now_tours.py:874
 msgid "Failed to add rephoto to Ajapaik"
 msgstr ""
 
-#: project/ajapaik/then_and_now_tours.py:890
-#, fuzzy
-#| msgid "Add rephoto"
+#: project/ajapaik/then_and_now_tours.py:891
 msgid "Added rephoto to Ajapaik"
-msgstr "Lisää uuskuva"
+msgstr ""
 
-#: project/ajapaik/views.py:543
+#: project/ajapaik/views.py:526
 msgid "Geotagging game"
 msgstr "Geotägäyspeli"
 
-#: project/ajapaik/views.py:1050
+#: project/ajapaik/views.py:1033
 msgid "Cannot select this album"
 msgstr ""
 
-#: project/ajapaik/views.py:1067
+#: project/ajapaik/views.py:1050
 msgid "Recuration successful"
 msgstr ""
 
-#: project/ajapaik/views.py:1069
+#: project/ajapaik/views.py:1052
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/ajapaik/views.py:1071
+#: project/ajapaik/views.py:1054
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:1373 project/ajapaik/views.py:1380
-#: project/ajapaik/views.py:1382
+#: project/ajapaik/views.py:1355 project/ajapaik/views.py:1362
+#: project/ajapaik/views.py:1364
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: project/ajapaik/views.py:1496
+#: project/ajapaik/views.py:1478
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr ""
 
-#: project/ajapaik/views.py:1498
+#: project/ajapaik/views.py:1480
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: project/ajapaik/views.py:1500
+#: project/ajapaik/views.py:1482
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: project/ajapaik/views.py:1796
+#: project/ajapaik/views.py:1762
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -1995,55 +1982,31 @@ msgstr ""
 "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
 "jaa syntynyt albumi!"
 
-#: project/ajapaik/views.py:1798
+#: project/ajapaik/views.py:1764
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - kuratoi"
 
-#: project/ajapaik/views.py:2132
+#: project/ajapaik/views.py:2098
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:2176
+#: project/ajapaik/views.py:2142
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
-#: project/ajapaik/views.py:2192
+#: project/ajapaik/views.py:2158
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: project/ajapaik/views.py:2204
+#: project/ajapaik/views.py:2170
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: project/ajapaik/views.py:2206
+#: project/ajapaik/views.py:2172
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: project/ajapaik/views.py:2488
+#: project/ajapaik/views.py:2455
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                    Album %(album_name)s leaderboard\n"
-#~ "                "
-#~ msgstr ""
-#~ "\n"
-#~ "                    Albumin %(album_name)s pistetaulukko\n"
-#~ "                "
-
-#~ msgid "Facebook Connect to save your score and continue later."
-#~ msgstr "Tallenna pisteesi Facebook Connectilla ja jatka myöhemmin."
-
-#~ msgid "Unknown photo"
-#~ msgstr "Tuntematon valokuva"
-
-#~ msgid ""
-#~ "This picture is small, we've allowed you to add it to specified album and "
-#~ "you can mark it's location on the map, but it will be hidden from other "
-#~ "users until we get a higher quality image from the institution."
-#~ msgstr ""
-#~ "Tämä kuva on pieni. Sinun on mahdollista lisätä se albumiin ja voit "
-#~ "merkitä sen sijainnin kartalle, mutta sitä ei näytetä muille käyttäjille "
-#~ "ennen kuin saamme korkealaatuisemman kuvan instituutiosta."
