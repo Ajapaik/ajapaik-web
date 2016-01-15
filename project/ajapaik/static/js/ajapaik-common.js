@@ -811,7 +811,10 @@ var map,
                     var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 2000);
                     var angle = Math.getAzimuthBetweenTwoPoints(start, geodesicEndPoint);
                     var angleFix = window.photoModalPhotoAzimuth - angle;
-                    arrowIcon.rotation = window.photoModalPhotoAzimuth + angleFix;
+                    arrowIcon.rotation = window.photoModalPhotoAzimuth;
+                    if (angleFix < 0) {
+                        arrowIcon.rotation += angleFix;
+                    }
                     currentIcon = arrowIcon;
                     window.minimapDottedAzimuthLine = new google.maps.Polyline({
                         geodesic: false,

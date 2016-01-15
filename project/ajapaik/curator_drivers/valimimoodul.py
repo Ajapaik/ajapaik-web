@@ -97,10 +97,8 @@ class ValimimoodulDriver(object):
                 full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
                                                        if x not in etera_second_image_remove_dict or not
                                                        etera_second_image_remove_dict[x]]
-
-            data = sorted(data, key=lambda k: k['id'])
-
-            full_response_json['result']['firstRecordViews'] = data
+                data = sorted(data, key=lambda k: k['id'])
+                full_response_json['result']['firstRecordViews'] = data
 
             response = dumps(full_response_json)
 
