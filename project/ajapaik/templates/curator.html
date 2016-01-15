@@ -357,7 +357,9 @@
                         }
                         var counter = $('#ajapaik-curator-result-count'),
                             prev = parseInt(counter.html(), 10);
-                        counter.html(prev + msg.result.firstRecordViews.length);
+                        if (msg.result.firstRecordViews) {
+                            counter.html(prev + msg.result.firstRecordViews.length);
+                        }
                         for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
                             var item = msg.result.firstRecordViews[i];
                             createResultElement(item);
