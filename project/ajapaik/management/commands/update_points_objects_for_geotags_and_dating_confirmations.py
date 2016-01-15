@@ -22,7 +22,7 @@ class Command(BaseCommand):
             qs = Points.objects.filter(action=Points.GEOTAG).prefetch_related('geotag__photo')[i * 10000:(i + 1) * 10000]
             for each in qs:
                 each.photo = each.geotag.photo
-            Points.objects.bulk_update(qs, update_fields=['photo_id'])
+            Points.bulk.bulk_update(qs, update_fields=['photo_id'])
             print "Done"
             i += 1
             if i > 15:
@@ -30,4 +30,4 @@ class Command(BaseCommand):
         qs = Points.objects.filter(action=Points.GEOTAG, photo_id__isnull=True).prefetch_related('geotag__photo')
         for each in qs:
             each.photo = each.geotag.photo
-        Points.objects.bulk_update(qs, update_fields=['photo_id'])
+        Points.bulk.bulk_update(qs, update_fields=['photo_id'])
