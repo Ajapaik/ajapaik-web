@@ -1215,6 +1215,9 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     serialized_datings = DatingSerializer(previous_datings, many=True).data
     serialized_datings = JSONRenderer().render(serialized_datings)
 
+    strings = [photo_obj.source.description, photo_obj.source_key]
+    desc = ' '.join(filter(None, strings))
+
     return render_to_response(template, RequestContext(request, {
         "photo": photo_obj,
         "previous_datings": serialized_datings,
@@ -1236,7 +1239,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "fullscreen": _make_fullscreen(photo_obj),
         "rephoto_fullscreen": rephoto_fullscreen,
         "title": title,
-        "description": photo_obj.source.description + ' ' + photo_obj.source_key,
+        "description": desc,
         "rephoto": rephoto,
         "hostname": "http://%s" % (site.domain,),
         "first_geotaggers": first_geotaggers,
