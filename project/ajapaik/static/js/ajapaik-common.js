@@ -1225,7 +1225,6 @@ var map,
         e.preventDefault();
         window.albumId = $(this).data('id');
         $('#full_leaderboard').click();
-        window.albumId = null;
     });
 
     $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {

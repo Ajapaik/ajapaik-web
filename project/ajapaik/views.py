@@ -325,9 +325,10 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     for each in album_photos_with_rephotos:
         for rp in each.rephotos.all():
             album_rephoto_ids.append(rp.id)
-    photo_points = Points.objects.prefetch_related('user').filter(
-        Q(photo_id__in=album_photo_ids, points__gt=0) |
-        Q(photo_id__in=album_rephoto_ids, points__gt=0)).exclude(action=Points.PHOTO_RECURATION)
+    photo_points = Points.objects.prefetch_related('user')\
+        .filter(photo_id__in=album_photo_ids, points__gt=0)
+    photo_points = photo_points |  Points.objects.prefetch_related('user')\
+        .filter(photo_id__in=album_rephoto_ids, points__gt=0).exclude(action=Points.PHOTO_RECURATION)
     photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album,
                                                         action=Points.PHOTO_RECURATION).prefetch_related('user')
     # TODO: This should not be done in Python memory, but with a query
@@ -1465,7 +1466,7 @@ def geotag_add(request):
         # ret['is_correct'] = processed_geotag.is_correct
         ret['current_score'] = processed_geotag.score
         Points(user=profile, action=Points.GEOTAG, geotag=processed_geotag, points=processed_geotag.score,
-               created=datetime.datetime.now()).save()
+               created=datetime.datetime.now(), photo=processed_geotag.photo).save()
         geotags_for_this_photo = GeoTag.objects.filter(photo=tagged_photo)
         ret['new_geotag_count'] = geotags_for_this_photo.distinct('user').count()
         ret['heatmap_points'] = [[x.lat, x.lon] for x in geotags_for_this_photo]
