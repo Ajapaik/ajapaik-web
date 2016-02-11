@@ -322,7 +322,7 @@
                 window.photoModalRephotoFullscreenImageSize = null;
             {% endif %}
             {% if description %}
-                window.currentPhotoDescription = '{{ photo.description }}';
+                window.currentPhotoDescription = '{{ photo.description }}'.replace(/(?:\r\n|\r|\n)/g, '<br />');
             {% else %}
                 window.currentPhotoDescription = false;
             {% endif %}
