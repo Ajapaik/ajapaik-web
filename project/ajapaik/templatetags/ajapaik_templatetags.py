@@ -1,4 +1,8 @@
 from django.template import Library, Node, resolve_variable
+from django.template.defaultfilters import stringfilter
+from django.utils.safestring import mark_safe
+from django.utils.text import normalize_newlines
+
 from project.ajapaik import settings
 
 register = Library()
@@ -40,3 +44,12 @@ def div(value, arg):
     except:
         pass
     return ''
+
+
+def remove_newlines(text):
+    normalized_text = normalize_newlines(text)
+    return mark_safe(normalized_text.replace('\n', ' '))
+
+remove_newlines.is_safe = True
+remove_newlines = stringfilter(remove_newlines)
+register.filter(remove_newlines)
