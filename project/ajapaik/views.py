@@ -1163,13 +1163,13 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if album:
         album_selection_form = AlbumSelectionForm({"album": album.id})
         if not request.is_ajax():
-            next_photo = album.photos.filter(pk=photo_obj.pk + 1).first()
-            previous_photo = album.photos.filter(pk=photo_obj.pk - 1).first()
+            next_photo = album.photos.filter(pk__gt=photo_obj.pk).order_by('pk').first()
+            previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').first()
     else:
         album_selection_form = AlbumSelectionForm()
         if not request.is_ajax():
-            next_photo = Photo.objects.filter(pk=photo_obj.pk + 1).first()
-            previous_photo = Photo.objects.filter(pk=photo_obj.pk - 1).first()
+            next_photo = Photo.objects.filter(pk__gt=photo_obj.pk).order_by('pk').first()
+            previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').first()
 
     if album:
         album = (album.id, album.lat, album.lon)
