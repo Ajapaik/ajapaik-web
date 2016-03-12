@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.views import serve
-from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
 
@@ -156,6 +155,8 @@ urlpatterns += patterns('project.ajapaik.juks',
     url(r'^juks/layers/$', 'layers'),
 )
 
+sitemaps = {'photo_permalinks': PhotoSitemap, 'static_pages': StaticViewSitemap}
+
 urlpatterns += patterns('',
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
@@ -169,7 +170,8 @@ urlpatterns += patterns('',
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
     url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom'), name='feed'),
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'photo_permalinks': PhotoSitemap, 'static_pages': StaticViewSitemap}}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+).xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 )
 
 handler500 = 'project.ajapaik.views.custom_500'

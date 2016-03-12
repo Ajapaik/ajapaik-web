@@ -1784,27 +1784,34 @@ def _curator_get_records_by_ids(ids):
 
 
 def _join_2_json_objects(obj1, obj2):
-    dict_a = json.loads(obj1)
-    dict_b = json.loads(obj2)
     result = {'firstRecordViews': []}
-    if 'result' in dict_a:
-        for each in dict_a['result']['firstRecordViews']:
-            result['firstRecordViews'].append(each)
-        if 'page' in dict_a['result']:
-            result['page'] = dict_a['result']['page']
-        if 'pages' in dict_a['result']:
-            result['pages'] = dict_a['result']['pages']
-        if 'ids' in dict_a['result']:
-            result['ids'] = dict_a['result']['ids']
-    if 'result' in dict_b:
-        for each in dict_b['result']['firstRecordViews']:
-            result['firstRecordViews'].append(each)
-        if 'page' in dict_b['result']:
-            result['page'] = dict_b['result']['page']
-        if 'pages' in dict_b['result']:
-            result['pages'] = dict_b['result']['pages']
-        if 'ids' in dict_b['result']:
-            result['ids'] = dict_b['result']['ids']
+    # TODO: Why do errors sometimes happen here?
+    try:
+        dict_a = json.loads(obj1)
+        dict_b = json.loads(obj2)
+        try:
+            if 'result' in dict_a:
+                for each in dict_a['result']['firstRecordViews']:
+                    result['firstRecordViews'].append(each)
+                if 'page' in dict_a['result']:
+                    result['page'] = dict_a['result']['page']
+                if 'pages' in dict_a['result']:
+                    result['pages'] = dict_a['result']['pages']
+                if 'ids' in dict_a['result']:
+                    result['ids'] = dict_a['result']['ids']
+            if 'result' in dict_b:
+                for each in dict_b['result']['firstRecordViews']:
+                    result['firstRecordViews'].append(each)
+                if 'page' in dict_b['result']:
+                    result['page'] = dict_b['result']['page']
+                if 'pages' in dict_b['result']:
+                    result['pages'] = dict_b['result']['pages']
+                if 'ids' in dict_b['result']:
+                    result['ids'] = dict_b['result']['ids']
+        except TypeError:
+            pass
+    except TypeError:
+        pass
 
     return json.dumps({'result': result})
 
@@ -1973,7 +1980,7 @@ def curator_photo_upload_handler(request):
         if curator_album_select_form.is_valid():
             if curator_album_select_form.cleaned_data["album"].profile == profile \
                     or curator_album_select_form.cleaned_data["album"].open:
-                album = Album.objects.get(pk=curator_album_select_form.cleaned_data["album"].id)
+                album = curator_album_select_form.cleaned_data["album"]
         else:
             album = Album(
                     name=curator_album_create_form.cleaned_data["name"],
@@ -1988,6 +1995,10 @@ def curator_photo_upload_handler(request):
                 album.lat = area.lat
                 album.lon = area.lon
             album.save()
+        if album:
+            ret["album_id"] = album.id
+        else:
+            ret["album_id"] = None
         default_album = Album(
                 name=str(profile.id) + "-" + str(datetime.datetime.now()),
                 atype=Album.AUTO,
@@ -1996,7 +2007,6 @@ def curator_photo_upload_handler(request):
                 subalbum_of=album
         )
         default_album.save()
-        ret["album_id"] = album.id
         for k, v in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []

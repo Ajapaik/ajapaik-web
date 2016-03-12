@@ -9,6 +9,8 @@ from datetime import datetime
 import StringIO
 from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db import IntegrityError
+from django.shortcuts import redirect
 from pandas import DataFrame, Series
 from django.core.urlresolvers import reverse
 
@@ -914,7 +916,10 @@ class Profile(Model):
         self.user.first_name = data.get("first_name")
         self.user.last_name = data.get("last_name")
         self.user.email = data.get("email")
-        self.user.save()
+        try:
+            self.user.save()
+        except IntegrityError:
+            return redirect(reverse('frontpage',))
 
         self.fb_token = token
         self.fb_id = data.get("id")
