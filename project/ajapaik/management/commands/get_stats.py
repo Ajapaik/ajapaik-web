@@ -15,7 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         profiles = Profile.objects.filter(Q(score__gt=0) | Q(first_name__isnull=False, last_name__isnull=False)).distinct('user_id')
         results = codecs.open(ABSOLUTE_PROJECT_ROOT + '/project/ajapaik/management/commands/results/results.txt', 'w', 'utf-8')
-        results.write('id\temail\tname\tfb_name\tfb_email\tgoogle_name\tgoogle_email\tscore\ttrustworthiness\tfirst_geotag\tlatest_geotag\tgeotag_count\tfirst_rephoto\tlatest_rephoto\trephoto_count\tfirst_curation\tlatest_curation\tcuration_count\tfirst_recuration\tlatest_recuration\trecuration_count\tfb_comment_count\tfavorite_count\n')
+        results.write('id\tname\tfb_name\tfb_email\tgoogle_name\tgoogle_email\tscore\ttrustworthiness\tfirst_geotag\tlatest_geotag\tgeotag_count\tfirst_rephoto\tlatest_rephoto\trephoto_count\tfirst_curation\tlatest_curation\tcuration_count\tfirst_recuration\tlatest_recuration\trecuration_count\tfb_comment_count\tfavorite_count\n')
         for p in profiles:
             first_geotag = p.geotags.order_by('created').first()
             if first_geotag:
@@ -56,9 +56,7 @@ class Command(BaseCommand):
                 p.fb_email = 'None'
             if not p.google_plus_email:
                 p.google_plus_email = 'None'
-            if not p.user.email:
-                p.user.email = 'None'
-            results.write('\t'.join([str(p.id), p.user.email, p.get_display_name(), p.fb_email, p.google_plus_name, p.google_plus_email, str(p.score), str(trustworthiness),
+            results.write('\t'.join([str(p.id), p.get_display_name(), p.fb_email, p.google_plus_name, p.google_plus_email, str(p.score), str(trustworthiness),
                                      str(first_geotag), str(latest_geotag), str(geotag_count), str(first_rephoto),
                                      str(latest_rephoto), str(rephoto_count), str(first_curation), str(latest_curation),
                                      str(curation_count), str(first_recuration), str(latest_recuration),
