@@ -56,6 +56,8 @@ class Command(BaseCommand):
                 p.fb_email = 'None'
             if not p.google_plus_email:
                 p.google_plus_email = 'None'
+            if not p.user.email:
+                p.user.email = 'None'
             results.write('\t'.join([str(p.id), p.user.email, p.get_display_name(), p.fb_email, p.google_plus_name, p.google_plus_email, str(p.score), str(trustworthiness),
                                      str(first_geotag), str(latest_geotag), str(geotag_count), str(first_rephoto),
                                      str(latest_rephoto), str(rephoto_count), str(first_curation), str(latest_curation),
