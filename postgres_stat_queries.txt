@@ -14,6 +14,6 @@ SELECT DISTINCT ON (photo_id)
 FROM project_geotag
 ORDER BY photo_id, created ASC;
 
-SELECT COUNT(id), date_trunc('week', created) as week
-FROM project_photo WHERE created < '2016-01-01' AND rephoto_of_id IS NULL
+SELECT date_trunc('week', created) as week, COUNT(id)
+FROM project_photo WHERE created < '2016-04-10' AND rephoto_of_id IS NULL
 GROUP by week ORDER BY week;
