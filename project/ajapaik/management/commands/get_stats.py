@@ -48,17 +48,17 @@ class Command(BaseCommand):
             recuration_count = Points.objects.filter(action=Points.PHOTO_RECURATION, user_id=p.user_id).count()
             fb_comment_count = PhotoComment.objects.filter(fb_user_id=p.fb_id).count()
             favorite_count = PhotoLike.objects.filter(profile=p).count()
-            if not p.fb_name:
+            if not p.fb_name or p.fb_name == '' or p.fb_name == ' ':
                 p.fb_name = 'None'
-            if not p.google_plus_name:
+            if not p.google_plus_name or p.google_plus_name == '' or p.google_plus_name == ' ':
                 p.google_plus_name = 'None'
-            if not p.fb_email:
+            if not p.fb_email or p.fb_email == '' or p.fb_email == ' ':
                 p.fb_email = 'None'
-            if not p.google_plus_email:
+            if not p.google_plus_email or p.google_plus_email == '' or p.google_plus_email == ' ':
                 p.google_plus_email = 'None'
             if not p.user.email or p.user.email == '' or p.user.email == ' ':
                 p.user.email = 'None'
-            results.write('\t'.join([str(p.id), p.user.email, p.get_display_name(), p.fb_email, p.google_plus_name, p.google_plus_email, str(p.score), str(trustworthiness),
+            results.write('\t'.join([str(p.id), p.user.email, p.fb_name, p.fb_email, p.google_plus_name, p.google_plus_email, str(p.score), str(trustworthiness),
                                      str(first_geotag), str(latest_geotag), str(geotag_count), str(first_rephoto),
                                      str(latest_rephoto), str(rephoto_count), str(first_curation), str(latest_curation),
                                      str(curation_count), str(first_recuration), str(latest_recuration),
