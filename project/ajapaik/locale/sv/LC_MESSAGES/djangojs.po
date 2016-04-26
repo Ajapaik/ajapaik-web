@@ -3,9 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Lauri Elias, 2015
-# Lauri Elias, 2015
-# Susanna Ånäs <susanna.anas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
@@ -13,9 +10,9 @@ msgstr ""
 "POT-Creation-Date: 2016-04-26 12:46+0300\n"
 "PO-Revision-Date: 2016-01-15 15:36+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/fi/)\n"
-"Language: fi\n"
+"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,7 +27,7 @@ msgstr ""
 #: project/ajapaik/static/js/ajapaik-common.js:263
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
 msgid "Close"
-msgstr "Sulje"
+msgstr "Stäng"
 
 #: project/ajapaik/static/js/ajapaik-common.js:547
 msgid "User denied the request for Geolocation."
@@ -86,7 +83,7 @@ msgstr ""
 #: project/ajapaik/static/js/ajapaik-common.js:1160
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
-msgstr "Ei valittu"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:194
 msgid "Between approximately %(from)s and approximately %(to)s"
@@ -155,11 +152,11 @@ msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:437
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:446
 msgid "Submit"
-msgstr "Lähetä"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:454
 msgid "Comment your dating"
@@ -195,93 +192,89 @@ msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Invert colors"
-msgstr "Käännä värit"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:6
 msgid "Flip"
-msgstr "Käännä"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 msgid "Mark stereophoto"
-msgstr "Merkitse stereokuva"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Remove from selection"
-msgstr "Poista valinta"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
 msgstr ""
-"Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä "
-"kuratointipisteitä"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid ""
 "Are you sure you want to create an album with less than 5 photos? We "
 "recommend to create albums with at least 10 or more pictures."
 msgstr ""
-"Oletko varma, että haluat luoda albumin, jossa on vähemmän kuin 5 kuvaa? "
-"Suosittelemme luomaan yli 10 kuvan albumeita."
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
-msgstr "Kuvailu"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Author"
-msgstr "Tekijä"
+msgstr "Författare"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Source"
-msgstr "Lähde"
+msgstr "Källa"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Size"
-msgstr "Koko"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Institution"
-msgstr "Instituutio"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Number"
-msgstr "Numero"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:17
 msgid "Date"
-msgstr "Päivämäärä"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:18
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Title"
-msgstr "Otsikko"
+msgstr "Titel"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Licence"
-msgstr "Lisenssi"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:21
 msgid "Points"
-msgstr "Pisteitä"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 #: project/ajapaik/static/js/ajapaik-selection.js:138
 #: project/ajapaik/static/js/ajapaik-selection.js:154
 msgid "System error"
-msgstr "Järjestelmävirhe"
+msgstr "System fel"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "photos"
-msgstr "valokuvaa"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:25
 msgid "Source ID"
-msgstr "Lähteen tunnus"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Image has no location info"
@@ -417,7 +410,7 @@ msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:245
 msgid "Albums"
-msgstr "Albumit"
+msgstr "Album"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:251
 msgid "My favorites"
@@ -447,7 +440,7 @@ msgstr ""
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
-msgstr "Nyt näytämme sattumanvaraisesti valittuja kuvia."
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-game.js:191
 msgid "You have seen all the pictures from this album."
@@ -491,15 +484,15 @@ msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:526
 msgid "Thank you!"
-msgstr "Kiitos!"
+msgstr "Tack ska du ha!"
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:675
 msgid "Median guess"
-msgstr "Mediaaniarvaus"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:687
 msgid "Your guess"
-msgstr "Arvauksesi"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "How much has the depicted location changed?"
@@ -558,7 +551,7 @@ msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1092
 msgid "Points awarded"
-msgstr "Pistesaldo"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
 msgid "Vanalinnad"

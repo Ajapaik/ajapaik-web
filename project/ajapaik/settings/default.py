@@ -74,12 +74,15 @@ LANGUAGE_CODE = 'et'
 LANGUAGES = (
     ('et', gettext('Estonian')),
     ('en', gettext('English')),
+    ('ru', gettext('Russian')),
     ('fi', gettext('Finnish')),
+    ('sv', gettext('Swedish')),
+    ('no', gettext('Norwegian')),
 )
 
-MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl', 'de')
+MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'nl', 'de', 'ru', 'en', 'et')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
 
 SITE_ID = 2
 

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-15 17:36+0200\n"
-"PO-Revision-Date: 2016-01-14 15:02+0000\n"
+"POT-Creation-Date: 2016-04-26 12:46+0300\n"
+"PO-Revision-Date: 2016-01-15 15:36+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/fi/)\n"
@@ -30,153 +30,153 @@ msgstr ""
 msgid "Bounding box values must be numbers"
 msgstr ""
 
-#: project/ajapaik/forms.py:25 project/ajapaik/forms.py:100
-#: project/ajapaik/forms.py:120
+#: project/ajapaik/forms.py:25 project/ajapaik/forms.py:102
+#: project/ajapaik/forms.py:122
 msgid "Choose area"
 msgstr "Valitse alue"
 
-#: project/ajapaik/forms.py:30 project/ajapaik/forms.py:99
-#: project/ajapaik/forms.py:111 project/ajapaik/forms.py:119
-#: project/ajapaik/forms.py:128 project/ajapaik/forms.py:200
+#: project/ajapaik/forms.py:32 project/ajapaik/forms.py:101
+#: project/ajapaik/forms.py:113 project/ajapaik/forms.py:121
+#: project/ajapaik/forms.py:130 project/ajapaik/forms.py:202
 msgid "Choose album"
 msgstr "Valitse albumi"
 
-#: project/ajapaik/forms.py:115 project/ajapaik/forms.py:122
+#: project/ajapaik/forms.py:117 project/ajapaik/forms.py:124
 msgid "Choose photo"
 msgstr "Valitse valokuva"
 
-#: project/ajapaik/forms.py:144 project/ajapaik/forms.py:163
-#: project/ajapaik/forms.py:203
+#: project/ajapaik/forms.py:146 project/ajapaik/forms.py:165
+#: project/ajapaik/forms.py:205
 msgid "Choose parent album"
 msgstr ""
 
-#: project/ajapaik/models.py:731
+#: project/ajapaik/models.py:733
 msgid "Geotag"
 msgstr ""
 
-#: project/ajapaik/models.py:732 project/ajapaik/templates/_comments.html:11
+#: project/ajapaik/models.py:734 project/ajapaik/templates/_comments.html:11
 #: project/ajapaik/templates/_photo_modal_comments.html:11
 #: project/ajapaik/templates/then_and_now/detail.html:90
 msgid "Rephoto"
 msgstr "Uuskuva"
 
-#: project/ajapaik/models.py:733
+#: project/ajapaik/models.py:735
 msgid "Photo upload"
 msgstr ""
 
-#: project/ajapaik/models.py:734
+#: project/ajapaik/models.py:736
 msgid "Photo curation"
 msgstr ""
 
-#: project/ajapaik/models.py:735
+#: project/ajapaik/models.py:737
 msgid "Photo re-curation"
 msgstr ""
 
-#: project/ajapaik/models.py:736
+#: project/ajapaik/models.py:738
 msgid "Dating"
 msgstr ""
 
-#: project/ajapaik/models.py:737
+#: project/ajapaik/models.py:739
 msgid "Dating confirmation"
 msgstr ""
 
-#: project/ajapaik/models.py:738
+#: project/ajapaik/models.py:740
 msgid "Film still"
 msgstr ""
 
-#: project/ajapaik/models.py:764
+#: project/ajapaik/models.py:766
 #: project/ajapaik/templates/then_and_now/base.html:51
 msgid "Map"
 msgstr "Kartta"
 
-#: project/ajapaik/models.py:765
+#: project/ajapaik/models.py:767
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/ajapaik/models.py:766
+#: project/ajapaik/models.py:768
 msgid "GPS"
 msgstr "GPS"
 
-#: project/ajapaik/models.py:767
+#: project/ajapaik/models.py:769
 msgid "Confirmation"
 msgstr ""
 
-#: project/ajapaik/models.py:768
+#: project/ajapaik/models.py:770
 msgid "StreetView"
 msgstr ""
 
-#: project/ajapaik/models.py:769
+#: project/ajapaik/models.py:771
 msgid "Source geotag"
 msgstr ""
 
-#: project/ajapaik/models.py:780
+#: project/ajapaik/models.py:782
 msgid "Game"
 msgstr "Peli"
 
-#: project/ajapaik/models.py:781
+#: project/ajapaik/models.py:783
 msgid "Map view"
 msgstr "Karttanäkymä"
 
-#: project/ajapaik/models.py:782
+#: project/ajapaik/models.py:784
 #: project/ajapaik/templates/then_and_now/base.html:54
 msgid "Gallery"
 msgstr ""
 
-#: project/ajapaik/models.py:783
+#: project/ajapaik/models.py:785
 msgid "Permalink"
 msgstr ""
 
-#: project/ajapaik/models.py:784
+#: project/ajapaik/models.py:786
 msgid "Source"
 msgstr ""
 
-#: project/ajapaik/models.py:788
+#: project/ajapaik/models.py:790
 msgid "Google map"
 msgstr "Google kartta"
 
-#: project/ajapaik/models.py:789
+#: project/ajapaik/models.py:791
 msgid "Google satellite"
 msgstr "Google satelliitti"
 
-#: project/ajapaik/models.py:790
+#: project/ajapaik/models.py:792
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/ajapaik/models.py:791
+#: project/ajapaik/models.py:793
 msgid "Juks"
 msgstr ""
 
-#: project/ajapaik/models.py:792
+#: project/ajapaik/models.py:794
 msgid "No map"
 msgstr "Ei karttaa"
 
-#: project/ajapaik/models.py:908
+#: project/ajapaik/models.py:910
 #: project/ajapaik/templates/then_and_now/detail.html:93
 #: project/ajapaik/templates/then_and_now/participants.html:12
 msgid "Anonymous user"
 msgstr ""
 
-#: project/ajapaik/models.py:1184
+#: project/ajapaik/models.py:1189
 msgid "Day"
 msgstr "Päivä"
 
-#: project/ajapaik/models.py:1185
+#: project/ajapaik/models.py:1190
 msgid "Month"
 msgstr "Kuukausi"
 
-#: project/ajapaik/models.py:1186
+#: project/ajapaik/models.py:1191
 msgid "Year"
 msgstr "Vuosi"
 
-#: project/ajapaik/models.py:1225 project/ajapaik/then_and_now_tours.py:47
+#: project/ajapaik/models.py:1230 project/ajapaik/then_and_now_tours.py:47
 msgid "Open tour"
 msgstr ""
 
-#: project/ajapaik/models.py:1226 project/ajapaik/then_and_now_tours.py:48
+#: project/ajapaik/models.py:1231 project/ajapaik/then_and_now_tours.py:48
 msgid "Fixed photo set"
 msgstr ""
 
-#: project/ajapaik/models.py:1227 project/ajapaik/then_and_now_tours.py:49
+#: project/ajapaik/models.py:1232 project/ajapaik/then_and_now_tours.py:49
 msgid "Random with nearby pictures"
 msgstr ""
 
@@ -189,8 +189,20 @@ msgid "English"
 msgstr "englanti"
 
 #: project/ajapaik/settings/default.py:77
+msgid "Russian"
+msgstr ""
+
+#: project/ajapaik/settings/default.py:78
 msgid "Finnish"
 msgstr "suomi"
+
+#: project/ajapaik/settings/default.py:79
+msgid "Swedish"
+msgstr ""
+
+#: project/ajapaik/settings/default.py:80
+msgid "Norwegian"
+msgstr ""
 
 #: project/ajapaik/templates/404.html:5 project/ajapaik/templates/404.html:11
 msgid "Page Not Found"
@@ -628,7 +640,7 @@ msgstr "Takaisin kotiin"
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:205
-#: project/ajapaik/views.py:596
+#: project/ajapaik/views.py:597
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
@@ -686,8 +698,8 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1618
-#: project/ajapaik/views.py:1634 project/ajapaik/views.py:1669
+#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1622
+#: project/ajapaik/views.py:1638 project/ajapaik/views.py:1673
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
@@ -1749,10 +1761,8 @@ msgid "View in Ajapaik"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:28
-#, fuzzy
-#| msgid "Photo already exists in Ajapaik"
 msgid "Picture in Ajapaik"
-msgstr "Kuva on jo Ajapaikissa"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/detail.html:31
 msgid "You have already captured this photo"
@@ -1796,10 +1806,8 @@ msgid "Rephoto of"
 msgstr ""
 
 #: project/ajapaik/templates/then_and_now/frontpage.html:7
-#, fuzzy
-#| msgid "Ajapaik on Facebook"
 msgid "Ajapaik logo"
-msgstr "Ajapaik Facebookissa"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/frontpage.html:18
 msgid "Signed in as"
@@ -1820,10 +1828,8 @@ msgstr ""
 
 #: project/ajapaik/templates/then_and_now/frontpage.html:67
 #: project/ajapaik/templates/then_and_now/settings.html:20
-#, fuzzy
-#| msgid "Choose language"
 msgid "Select language"
-msgstr "Valitse kieli"
+msgstr ""
 
 #: project/ajapaik/templates/then_and_now/manage.html:9
 msgid "Tour"
@@ -1935,46 +1941,46 @@ msgstr ""
 msgid "Added rephoto to Ajapaik"
 msgstr ""
 
-#: project/ajapaik/views.py:526
+#: project/ajapaik/views.py:527
 msgid "Geotagging game"
 msgstr "Geotägäyspeli"
 
-#: project/ajapaik/views.py:1033
+#: project/ajapaik/views.py:1034
 msgid "Cannot select this album"
 msgstr ""
 
-#: project/ajapaik/views.py:1050
+#: project/ajapaik/views.py:1051
 msgid "Recuration successful"
 msgstr ""
 
-#: project/ajapaik/views.py:1052
+#: project/ajapaik/views.py:1053
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/ajapaik/views.py:1054
+#: project/ajapaik/views.py:1055
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:1355 project/ajapaik/views.py:1362
-#: project/ajapaik/views.py:1364
+#: project/ajapaik/views.py:1359 project/ajapaik/views.py:1366
+#: project/ajapaik/views.py:1368
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: project/ajapaik/views.py:1478
+#: project/ajapaik/views.py:1482
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr ""
 
-#: project/ajapaik/views.py:1480
+#: project/ajapaik/views.py:1484
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: project/ajapaik/views.py:1482
+#: project/ajapaik/views.py:1486
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: project/ajapaik/views.py:1762
+#: project/ajapaik/views.py:1766
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -1982,31 +1988,31 @@ msgstr ""
 "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
 "jaa syntynyt albumi!"
 
-#: project/ajapaik/views.py:1764
+#: project/ajapaik/views.py:1768
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - kuratoi"
 
-#: project/ajapaik/views.py:2098
+#: project/ajapaik/views.py:2112
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:2142
+#: project/ajapaik/views.py:2156
 msgid "Error uploading file"
 msgstr "Ongelma tiedostoa ladattaessa"
 
-#: project/ajapaik/views.py:2158
+#: project/ajapaik/views.py:2172
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: project/ajapaik/views.py:2170
+#: project/ajapaik/views.py:2184
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: project/ajapaik/views.py:2172
+#: project/ajapaik/views.py:2186
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: project/ajapaik/views.py:2455
+#: project/ajapaik/views.py:2469
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
