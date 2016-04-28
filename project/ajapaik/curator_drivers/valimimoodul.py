@@ -15,12 +15,18 @@ class ValimimoodulDriver(object):
     def search(self, cleaned_data):
         institution_string = ''
         etera_string = ''
-        if cleaned_data['useMUIS'] and cleaned_data['useDIGAR']:
-            institution_string = '"MUSEUM","LIBRARY",null'
-        elif cleaned_data['useMUIS']:
-            institution_string = '"MUSEUM",null,null'
-        elif cleaned_data['useDIGAR']:
-            institution_string = 'null,"LIBRARY",null'
+        if cleaned_data['useMUIS']:
+            institution_string += '"MUSEUM"'
+        else:
+            institution_string += 'null'
+        if cleaned_data['useDIGAR']:
+            institution_string += ',"LIBRARY"'
+        else:
+            institution_string += ',null'
+        if cleaned_data['useMKA']:
+            institution_string += ',"ARCHIVE"'
+        else:
+            institution_string += ',null'
         if cleaned_data['useETERA']:
             etera_string = 'ETERA'
             institution_string = 'null,null,null'
