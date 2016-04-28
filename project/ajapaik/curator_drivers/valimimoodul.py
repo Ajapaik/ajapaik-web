@@ -78,6 +78,8 @@ class ValimimoodulDriver(object):
                         if each['mediaOrder'] == 1:
                             each['isETERASecondImage'] = True
                             etera_second_image_remove_dict[each['id']] = True
+                    if each['institutionType'] == 'ARCHIVE':
+                        each['identifyingNumber'] = each['id']
                     existing_photo = Photo.objects.filter(external_id=parts[0]).first()
                 if existing_photo:
                     each['ajapaikId'] = existing_photo.pk
