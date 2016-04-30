@@ -1,9 +1,9 @@
 import autocomplete_light
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area,\
+from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
     AlbumPhoto, Licence, Device, PhotoComment, Newsletter, Dating, Tour, TourRephoto, \
-    DatingConfirmation, Video, TourGroup
+    DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -14,9 +14,18 @@ class CSVUploadAdmin(admin.ModelAdmin):
         return request.user.groups.filter(name='csv_uploaders').exists()
 
 
+class NorwegianCSVUploadAdmin(admin.ModelAdmin):
+    def has_change_permission(self, request, obj=None):
+        return request.user.groups.filter(name='csv_uploaders').exists()
+
+    def has_add_permission(self, request, obj=None):
+        return request.user.groups.filter(name='csv_uploaders').exists()
+
+
 class AlbumPhotoInline(admin.TabularInline):
-    model=AlbumPhoto
+    model = AlbumPhoto
     fields = 'album',
+
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(AlbumPhotoInline, self).formfield_for_dbfield(db_field, **kwargs)
         if db_field.name == 'album':
@@ -86,6 +95,7 @@ class PhotoAdmin(ModelAdmin):
 
     form = autocomplete_light.modelform_factory(Photo)
 
+
 class SkipAdmin(ModelAdmin):
     form = autocomplete_light.modelform_factory(Skip)
 
@@ -137,6 +147,7 @@ class NewsletterAdmin(admin.ModelAdmin):
 class VideoAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(Video)
 
+
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(PhotoComment, PhotoCommentAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
@@ -150,6 +161,7 @@ admin.site.register(AlbumPhoto, AlbumPhotoAdmin)
 admin.site.register(Area, AreaAdmin)
 admin.site.register(Licence, LicenceAdmin)
 admin.site.register(CSVPhoto, CSVUploadAdmin)
+admin.site.register(NorwegianCSVPhoto, NorwegianCSVUploadAdmin)
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Dating, DatingAdmin)

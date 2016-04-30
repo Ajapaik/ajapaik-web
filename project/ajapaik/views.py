@@ -12,6 +12,8 @@ from time import strftime, strptime
 
 import requests
 import unicodedata
+
+import shutil
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
@@ -2347,6 +2349,86 @@ def csv_upload(request):
         p.height = p.image.height
         p.save()
         AlbumPhoto(album=album, photo=p, profile=profile).save()
+    album.save()
+
+    return HttpResponse('OK')
+
+
+@user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
+def norwegian_csv_upload(request):
+    import csv
+    import hashlib
+    profile = request.get_user().profile
+    csv_file = request.FILES['csv_file']
+    header_row = None
+    photos_metadata = {}
+    for row in csv.reader(csv_file, delimiter=','):
+        if not header_row:
+            header_row = row
+            continue
+        row = dict(zip(header_row, row))
+        photos_metadata[row.get('source_number')] = row
+    album_id = request.POST.get('album_id')
+    album = Album.objects.get(pk=album_id)
+    licence = Licence.objects.get(name='Navngivelse 3.0 Norge')
+    for key, value in photos_metadata.items():
+        meta_for_this_image = photos_metadata[key]
+        response = requests.get(meta_for_this_image.get('image_url'), stream=True)
+        source_name = meta_for_this_image.get('institution') or 'Ajapaik'
+        try:
+            source = Source.objects.get(description=source_name)
+        except ObjectDoesNotExist:
+            source = Source(name=source_name, description=source_name)
+            source.save()
+        # FIXME: Maybe we want to re-upload? Can't just skip
+        try:
+            Photo.objects.get(source=source, source_key=key)
+            continue
+        except ObjectDoesNotExist:
+            pass
+        extension = 'jpg'
+        upload_file_name = 'uploads/%s.%s' % (hashlib.md5(key).hexdigest(), extension)
+        fout = open('/var/garage/' + upload_file_name, 'w')
+        shutil.copyfileobj(response.raw, fout)
+        fout.close()
+        place_name = meta_for_this_image.get('place') or 'Ajapaik'
+        try:
+            area = Area.objects.get(name=place_name)
+        except ObjectDoesNotExist:
+            area = Area(name=place_name)
+            area.save()
+        description = meta_for_this_image.get('title')
+        description = description.strip(' \t\n\r')
+        source_url = meta_for_this_image.get('source_url')
+        p = Photo(
+                area=area,
+                licence=licence,
+                description_no=description,
+                source=source,
+                source_url=source_url,
+                source_key=key.split('.')[0]
+        )
+        p.image.name = upload_file_name
+        # FIXME: Next 2 lines should happen automatically
+        p.width = p.image.width
+        p.height = p.image.height
+        p.save()
+        AlbumPhoto(album=album, photo=p, profile=profile).save()
+        if meta_for_this_image.get('lat') and meta_for_this_image.get('long'):
+            source_geotag = GeoTag(
+                lat=meta_for_this_image.get('lat'),
+                lon=meta_for_this_image.get('long'),
+                origin=GeoTag.SOURCE,
+                type=GeoTag.SOURCE_GEOTAG,
+                map_type=GeoTag.NO_MAP,
+                photo=p,
+                is_correct=True,
+                trustworthiness=0.2
+            )
+            source_geotag.save()
+            p.latest_geotag = source_geotag.created
+        p.set_calculated_fields()
+        p.save()
     album.save()
 
     return HttpResponse('OK')

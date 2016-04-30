@@ -17,8 +17,8 @@ from django.core.urlresolvers import reverse
 from django.db.models import OneToOneField, DateField, FileField
 from django.utils.dateformat import DateFormat
 import numpy
-from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField,\
-    ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField,\
+from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, \
+    ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
     PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, permalink, PositiveIntegerField
 from django.core.validators import MinValueValidator
 from django.core.validators import MaxValueValidator
@@ -58,10 +58,12 @@ class NotEqual(Lookup):
         params = lhs_params + rhs_params
         return '%s <> %s' % (lhs, rhs), params
 
+
 Field.register_lookup(NotEqual)
 
+
 def _calc_trustworthiness(user_id):
-    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct('photo_id')\
+    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct('photo_id') \
         .order_by('photo_id', '-created')
     total_tries = user_unique_latest_geotags.count()
     correct_tries = user_unique_latest_geotags.filter(is_correct=True).count()
@@ -98,7 +100,9 @@ def _user_post_save(sender, instance, **kwargs):
         profile[0].last_name = profile[0].user.last_name
         profile[0].save()
 
+
 post_save.connect(_user_post_save, sender=User)
+
 
 class Area(Model):
     name = CharField(max_length=255)
@@ -363,7 +367,8 @@ class Photo(Model):
             'lat': photo.lat,
             'lon': photo.lon,
             'azimuth': photo.azimuth,
-            'big': {'url': reverse('project.ajapaik.views.image_thumb', args=(photo.pk, 800)), 'size': [image.width, image.height]},
+            'big': {'url': reverse('project.ajapaik.views.image_thumb', args=(photo.pk, 800)),
+                    'size': [image.width, image.height]},
             'flip': photo.flip,
             'large': _make_fullscreen(photo),
             'totalGeotags': photo.geotags.distinct('user').count(),
@@ -396,7 +401,7 @@ class Photo(Model):
         nothing_more_to_show = False
 
         if 'user_skip_array' not in request.session:
-             request.session['user_skip_array'] = []
+            request.session['user_skip_array'] = []
 
         if trustworthiness < 0.25:
             # Novice users should only receive the easiest images to prove themselves
@@ -412,26 +417,29 @@ class Photo(Model):
                 # If the user has seen them all, let's try showing her photos she
                 # has skipped (but not in this session) or not marked an azimuth on
                 user_seen_all = True
-                ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids)\
+                ret_qs = all_photos_set.filter(id__in=user_skipped_less_geotagged_photo_ids) \
                     .exclude(id__in=request.session['user_skip_array']).order_by('?')
                 if ret_qs.count() == 0:
                     # This user has skipped them in this session, show her photos that
                     # don't have a correct geotag from her
                     user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
                     user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
-                    user_incorrectly_geotagged_photo_ids = set(user_incorrect_geotags.distinct('photo_id').values_list('photo_id', flat=True))
-                    user_correctly_geotagged_photo_ids = set(user_correct_geotags.distinct('photo_id').values_list('photo_id', flat=True))
-                    user_no_correct_geotags_photo_ids = list(user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+                    user_incorrectly_geotagged_photo_ids = set(
+                        user_incorrect_geotags.distinct('photo_id').values_list('photo_id', flat=True))
+                    user_correctly_geotagged_photo_ids = set(
+                        user_correct_geotags.distinct('photo_id').values_list('photo_id', flat=True))
+                    user_no_correct_geotags_photo_ids = list(
+                        user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
                     ret_qs = all_photos_set.filter(id__in=user_no_correct_geotags_photo_ids).order_by('?')
                     if ret_qs.count() == 0:
                         ret_qs = all_photos_set.order_by('?')
                         nothing_more_to_show = True
         ret = ret_qs.first()
-        last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION)\
+        last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION) \
             .order_by('-created').first()
         ret.user_already_confirmed = False
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
-                 and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
+                                                         and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
         ret.user_already_geotagged = ret.geotags.filter(user=profile.user).exists()
         ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
@@ -464,7 +472,7 @@ class Photo(Model):
         w = int(mark.size[0] * coeff)
         h = int(mark.size[1] * coeff)
         mark = mark.resize((w, h))
-        layer = Image.new('RGBA', img.size, (0,0,0,0))
+        layer = Image.new('RGBA', img.size, (0, 0, 0, 0))
         position = (img.size[0] - mark.size[0] - padding, padding)
         layer.paste(mark, position)
         img = Image.composite(layer, img, layer)
@@ -585,7 +593,7 @@ class Photo(Model):
 
         if not self.bounding_circle_radius:
             geotags = GeoTag.objects.filter(photo_id=self.id)
-            unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created')\
+            unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created') \
                 .values_list('id', flat=True)
             self.geotag_count = len(unique_user_geotag_ids)
             unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
@@ -662,7 +670,6 @@ class Photo(Model):
                     else:
                         self.azimuth = None
                         self.azimuth_confidence = None
-
 
 
 class PhotoMetadataUpdate(Model):
@@ -919,7 +926,7 @@ class Profile(Model):
         try:
             self.user.save()
         except IntegrityError:
-            return redirect(reverse('frontpage',))
+            return redirect(reverse('frontpage', ))
 
         self.fb_token = token
         self.fb_id = data.get("id")
@@ -1141,6 +1148,11 @@ class CSVPhoto(Photo):
         # 		pass
 
 
+class NorwegianCSVPhoto(Photo):
+    class Meta:
+        proxy = True
+
+
 class Licence(Model):
     name = CharField(max_length=255)
     url = URLField(blank=True, null=True)
@@ -1320,7 +1332,8 @@ class Video(Model):
     source = ForeignKey('Source', blank=True, null=True)
     source_key = CharField(max_length=255, blank=True, null=True)
     source_url = URLField(blank=True, null=True)
-    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height', width_field='cover_image_width', blank=True, null=True)
+    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height',
+                             width_field='cover_image_width', blank=True, null=True)
     cover_image_height = IntegerField(blank=True, null=True)
     cover_image_width = IntegerField(blank=True, null=True)
     created = DateTimeField(auto_now_add=True)

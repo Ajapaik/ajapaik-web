@@ -1,0 +1,21 @@
+{% extends 'admin/base.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/admin/">{% trans "Home" %}</a>
+        › {% trans "Upload The Digital Archives of Norway photos via CSV file" %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% block content_title %}{% endblock %}
+    <form enctype="multipart/form-data" method="post" action="/norwegian-csv-upload/">
+        {% csrf_token %}
+        <label for="ajapaik-csv-upload-album-id">{% trans "Album ID" %}</label>
+        <input name="album_id" type="number" id="ajapaik-csv-upload-album-id"/>
+        <label for="ajapaik-csv-upload-csv-file">{% trans "CSV" %}</label>
+        <input name="csv_file" type="file" id="ajapaik-csv-upload-csv-file"/>
+        <input type="submit" value="{% trans "Submit" %}"/>
+    </form>
+{% endblock %}
