@@ -2371,6 +2371,7 @@ def norwegian_csv_upload(request):
     album_id = request.POST.get('album_id')
     album = Album.objects.get(pk=album_id)
     licence = Licence.objects.get(name='Navngivelse 3.0 Norge')
+    failed = []
     for key, value in photos_metadata.items():
         meta_for_this_image = photos_metadata[key]
         response = requests.get(meta_for_this_image.get('image_url'), stream=True)
@@ -2382,12 +2383,12 @@ def norwegian_csv_upload(request):
             source.save()
         # FIXME: Maybe we want to re-upload? Can't just skip
         try:
-            Photo.objects.get(source=source, source_key=key)
+            Photo.objects.get(source=source, source_key=key.split('.')[0])
             continue
         except ObjectDoesNotExist:
             pass
         extension = 'jpg'
-        upload_file_name = 'uploads/%s.%s' % (hashlib.md5(key).hexdigest(), extension)
+        upload_file_name = 'uploads/%s.%s' % (unicode(datetime.datetime.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
         fout = open('/var/garage/' + upload_file_name, 'w')
         shutil.copyfileobj(response.raw, fout)
         fout.close()
@@ -2410,8 +2411,12 @@ def norwegian_csv_upload(request):
         )
         p.image.name = upload_file_name
         # FIXME: Next 2 lines should happen automatically
-        p.width = p.image.width
-        p.height = p.image.height
+        try:
+            p.width = p.image.width
+            p.height = p.image.height
+        except:
+            failed.append(key)
+            continue
         p.save()
         AlbumPhoto(album=album, photo=p, profile=profile).save()
         if meta_for_this_image.get('lat') and meta_for_this_image.get('long'):
@@ -2431,7 +2436,7 @@ def norwegian_csv_upload(request):
         p.save()
     album.save()
 
-    return HttpResponse('OK')
+    return HttpResponse(failed)
 
 
 def newsletter(request, slug=None):
