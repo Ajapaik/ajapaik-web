@@ -2123,7 +2123,7 @@ def curator_photo_upload_handler(request):
                                     map_type=GeoTag.NO_MAP,
                                     photo=new_photo,
                                     is_correct=True,
-                                    trustworthiness=0.2
+                                    trustworthiness=0.07
                                 )
                                 source_geotag.save()
                                 new_photo.latest_geotag = source_geotag.created
@@ -2428,7 +2428,7 @@ def norwegian_csv_upload(request):
                 map_type=GeoTag.NO_MAP,
                 photo=p,
                 is_correct=True,
-                trustworthiness=0.2
+                trustworthiness=0.07
             )
             source_geotag.save()
             p.latest_geotag = source_geotag.created

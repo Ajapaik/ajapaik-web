@@ -68,7 +68,7 @@ class Command(BaseCommand):
                             map_type=GeoTag.NO_MAP,
                             photo=new_photo,
                             is_correct=True,
-                            trustworthiness=0.2
+                            trustworthiness=0.07
                         )
                         source_geotag.save()
                         new_photo.latest_geotag = source_geotag.created
