@@ -74,9 +74,6 @@ LANGUAGE_CODE = 'et'
 LANGUAGES = (
     ('et', gettext('Estonian')),
     ('en', gettext('English')),
-    # ('ru', gettext('Russian')),
-    # ('fi', gettext('Finnish')),
-    # ('sv', gettext('Swedish')),
     ('no', gettext('Norwegian')),
 )
 

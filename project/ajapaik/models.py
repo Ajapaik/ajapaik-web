@@ -152,14 +152,14 @@ class Album(Model):
         (FAVORITES, 'Favorites'),
         (AUTO, 'Auto'),
     )
-    name = CharField(max_length=255)
+    name = CharField(_('Name'), max_length=255)
     slug = SlugField(null=True, blank=True, max_length=255)
-    description = TextField(null=True, blank=True, max_length=2047)
+    description = TextField(_('Description'), null=True, blank=True, max_length=2047)
     subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums')
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
     profile = ForeignKey('Profile', related_name='albums', blank=True, null=True)
-    is_public = BooleanField(default=True)
-    open = BooleanField(default=False)
+    is_public = BooleanField(_('Is public'), default=True)
+    open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
     videos = ManyToManyField('Video', related_name='albums', blank=True, null=True)
@@ -272,7 +272,7 @@ class Photo(Model):
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
-    image = ImageField(upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
+    image = ImageField(_('Image'), upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
                        width_field='width')
     image_unscaled = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
     image_no_watermark = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
@@ -286,8 +286,8 @@ class Photo(Model):
     date = DateTimeField(null=True, blank=True)
     date_text = CharField(max_length=255, blank=True, null=True)
     title = CharField(max_length=255, blank=True, null=True)
-    description = TextField(null=True, blank=True)
-    author = CharField(null=True, blank=True, max_length=255)
+    description = TextField(_('Description'), null=True, blank=True)
+    author = CharField(_('Author'), null=True, blank=True, max_length=255)
     uploader_is_author = BooleanField(default=False)
     licence = ForeignKey('Licence', null=True, blank=True)
     # Basically keywords describing medium

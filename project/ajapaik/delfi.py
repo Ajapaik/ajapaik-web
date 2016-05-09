@@ -14,6 +14,8 @@ class DelfiBboxRequestForm(forms.Form):
     def clean(self):
         cleaned_data = super(DelfiBboxRequestForm, self).clean()
         bbox_str = cleaned_data.get('bbox')
+        if not bbox_str:
+            raise forms.ValidationError(_('Bounding box must be set'))
         bbox_parts = bbox_str.split(',')
         if len(bbox_parts) != 4:
             raise forms.ValidationError(_('Bounding box must have 4 comma-separated members'))

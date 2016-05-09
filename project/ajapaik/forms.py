@@ -325,8 +325,8 @@ class PhotoUploadChoiceForm(forms.Form):
 
 
 class UserPhotoUploadForm(autocomplete_light.ModelForm):
-    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', required=False)
-    licence = forms.ModelChoiceField(queryset=Licence.objects.filter(is_public=True), required=False)
+    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=False)
+    licence = forms.ModelChoiceField(label=_('Licence'), queryset=Licence.objects.filter(is_public=True), required=False)
     uploader_is_author = forms.BooleanField(label=_('I am the author'), required=False)
 
     class Meta:
