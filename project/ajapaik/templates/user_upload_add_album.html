@@ -26,3 +26,9 @@
         </form>
     </div>
 {% endblock %}
+
+{% block specific_js %}
+    {% if message %}
+        <script>window.close();</script>
+    {% endif %}
+{% endblock %}
