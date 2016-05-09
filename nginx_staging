@@ -1,9 +1,8 @@
 server {
         listen 80;
-        server name www.staging.ajapaik.ee staging.ajapaik.ee;
+        server_name staging.ajapaik.ee;
         return 301 https://staging.ajapaik.ee$request_uri;
 }
-
 
 server {
         listen 443;
@@ -23,7 +22,6 @@ server {
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
-
 
         location /media  {
                 alias /var/garage/rephoto_staging/media;

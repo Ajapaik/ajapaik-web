@@ -288,6 +288,7 @@ class Photo(Model):
     title = CharField(max_length=255, blank=True, null=True)
     description = TextField(null=True, blank=True)
     author = CharField(null=True, blank=True, max_length=255)
+    uploader_is_author = BooleanField(default=False)
     licence = ForeignKey('Licence', null=True, blank=True)
     # Basically keywords describing medium
     types = CharField(max_length=255, blank=True, null=True)
@@ -919,7 +920,7 @@ class Profile(Model):
             return _('Anonymous user')
 
     def __unicode__(self):
-        return u"%d - %s - %s" % (self.user.id, self.user.username, self.user.get_full_name())
+        return u"%s" % (self.get_display_name(),)
 
     def update_from_fb_data(self, token, data):
         self.user.first_name = data.get("first_name")

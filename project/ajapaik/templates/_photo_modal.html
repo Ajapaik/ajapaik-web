@@ -110,6 +110,9 @@
                 {% endif %}
                 {% if photo.author %}
                     <div class="row-fluid" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
+                    {% if not photo.source and photo.licence %}
+                        {% include "_licence.html" with licence=photo.licence %}
+                    {% endif %}
                 {% endif %}
                 {% if photo.description %}
                     <div class="row-fluid" id="ajapaik-photo-modal-description">

@@ -2640,6 +2640,9 @@ def user_upload(request):
         if form.is_valid():
             photo = form.save(commit=False)
             photo.user = request.user.profile
+            if photo.uploader_is_author:
+                photo.author = request.user.profile.get_display_name()
+                photo.licence = Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first()
             photo.save()
             for each in form.cleaned_data['albums']:
                 AlbumPhoto(
@@ -2648,6 +2651,7 @@ def user_upload(request):
                     type=AlbumPhoto.UPLOADED,
                     profile=request.user.profile
                 ).save()
+            form = UserPhotoUploadForm()
             if request.POST.get('geotag') == 'true':
                 return redirect(reverse('frontpage_photos') + '?photo=' + str(photo.id) + '&locationToolsOpen=1')
             else:

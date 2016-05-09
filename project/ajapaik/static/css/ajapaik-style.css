@@ -2535,6 +2535,10 @@ a[href^="https://maps.google.com/maps"] {
     margin-top: 10px;
 }
 
+.ajapaik-margin-top-30 {
+    margin-top: 30px;
+}
+
 .ajapaik-height-48 {
     height: 48px;
 }

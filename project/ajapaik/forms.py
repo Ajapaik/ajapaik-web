@@ -1,5 +1,6 @@
 import autocomplete_light
 from django import forms
+
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
@@ -45,9 +46,10 @@ class GalleryFilteringForm(forms.Form):
     order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time',
                                required=False)
     order2 = forms.ChoiceField(
-        choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
-                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')], initial='added',
-        required=False)
+            choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
+                     ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')],
+            initial='added',
+            required=False)
     order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
@@ -323,16 +325,25 @@ class PhotoUploadChoiceForm(forms.Form):
 
 
 class UserPhotoUploadForm(autocomplete_light.ModelForm):
-    # TODO: Add source
     albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', required=False)
-    licence = forms.ModelChoiceField(queryset=Licence.objects.filter(is_public=True))
+    licence = forms.ModelChoiceField(queryset=Licence.objects.filter(is_public=True), required=False)
+    uploader_is_author = forms.BooleanField(label=_('I am the author'), required=False)
 
     class Meta:
         model = Photo
-        fields = ('image', 'description', 'author', 'licence', 'albums')
+        fields = ('image', 'description', 'author', 'uploader_is_author', 'licence', 'albums')
         widgets = {
             'description': forms.Textarea(attrs={'rows': 1, 'cols': 40}),
         }
+
+    def clean(self):
+        super(UserPhotoUploadForm, self).clean()
+        if not self.cleaned_data['image']:
+            self.errors['image'] = [_('Missing image')]
+        if not self.cleaned_data['description']:
+            self.errors['description'] = [_('Missing description')]
+        if ('uploader_is_author' not in self.cleaned_data or not self.cleaned_data['uploader_is_author']) and not self.cleaned_data['licence']:
+            self.errors['licence'] = [_('Missing licence')]
 
 
 class UserPhotoUploadAddAlbumForm(forms.ModelForm):
