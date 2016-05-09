@@ -117,12 +117,13 @@ class Area(Model):
 
 
 class AlbumPhoto(Model):
-    CURATED, RECURATED, MANUAL, STILL = range(4)
+    CURATED, RECURATED, MANUAL, STILL, UPLOADED = range(5)
     TYPE_CHOICES = (
         (CURATED, 'Curated'),
         (RECURATED, 'Re-curated'),
         (MANUAL, 'Manual'),
-        (STILL, 'Still')
+        (STILL, 'Still'),
+        (UPLOADED, 'Uploaded')
     )
 
     album = ForeignKey('Album')
@@ -291,6 +292,7 @@ class Photo(Model):
     # Basically keywords describing medium
     types = CharField(max_length=255, blank=True, null=True)
     keywords = TextField(null=True, blank=True)
+    # Legacy field name, actually profile
     user = ForeignKey('Profile', related_name='photos', blank=True, null=True)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
@@ -1157,6 +1159,7 @@ class Licence(Model):
     name = CharField(max_length=255)
     url = URLField(blank=True, null=True)
     image_url = URLField(blank=True, null=True)
+    is_public = BooleanField(default=False)
 
     class Meta:
         db_table = 'project_licence'

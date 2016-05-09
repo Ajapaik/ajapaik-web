@@ -74,9 +74,9 @@ LANGUAGE_CODE = 'et'
 LANGUAGES = (
     ('et', gettext('Estonian')),
     ('en', gettext('English')),
-    ('ru', gettext('Russian')),
-    ('fi', gettext('Finnish')),
-    ('sv', gettext('Swedish')),
+    # ('ru', gettext('Russian')),
+    # ('fi', gettext('Finnish')),
+    # ('sv', gettext('Swedish')),
     ('no', gettext('Norwegian')),
 )
 
@@ -142,6 +142,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'project.ajapaik.context_processors.analytics',
     'project.ajapaik.context_processors.is_then_and_now',
+    'project.ajapaik.context_processors.is_user_upload',
 )
 
 TEMPLATES = [

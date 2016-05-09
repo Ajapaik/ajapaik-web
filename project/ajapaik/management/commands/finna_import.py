@@ -57,7 +57,7 @@ class Command(BaseCommand):
                         date_text=getattr(elem.find("main_date_str"), 'text', None),
                         author=elem.find("author").text,
                         source_url=elem.find("record_link").text,
-                        licence=Licence.objects.filter(name='Public domain').first()
+                        licence=Licence.objects.filter(url='https://creativecommons.org/about/pdm').first()
                     )
                     opener = urllib2.build_opener()
                     opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]

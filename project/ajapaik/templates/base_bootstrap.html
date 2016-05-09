@@ -210,11 +210,11 @@
     <link rel="shortcut icon" type="image/ico" href="{% static "images/favicon.ico" %}"/>
     <link rel="apple-touch-icon" href="{% static "images/ajapaik_marker_57px.png" %}"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
-    <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="http://ajapaik.ee/feed/photos/"/>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
+    <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="https://ajapaik.ee/feed/photos/"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
     {% compress css %}
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
@@ -262,9 +262,11 @@
 {% block layout %}{% endblock layout %}
 {% get_current_language as LANGUAGE_CODE %}
 {% if LANGUAGE_CODE == 'et' and not request.mobile %}
-    <div id="ajapaik-feedback-div" class="hidden-xs">
-        <a id="ajapaik-feedback-link" href="https://goo.gl/1ZHEUy" target="_blank">{% trans "feedback" %}</a>
-    </div>
+    {% block feedback %}
+        <div id="ajapaik-feedback-div" class="hidden-xs">
+            <a id="ajapaik-feedback-link" href="https://goo.gl/1ZHEUy" target="_blank">{% trans "feedback" %}</a>
+        </div>
+    {% endblock %}
 {% endif %}
 {% if is_frontpage or is_order or is_photoview or is_newsletter and not newsletter %}
     <footer class="footer text-center">
@@ -402,12 +404,12 @@
     {# just for showing the sidepanels in game and map mode, we don't need mobile detect if we give up jsPanel #}
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
+    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
     {% compress js %}
         <script src="{% static "libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.js" %}"></script>
@@ -455,5 +457,6 @@
     </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
+{% block autocomplete_stuff %}{% endblock %}
 </body>
 </html>

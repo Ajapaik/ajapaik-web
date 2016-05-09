@@ -592,7 +592,7 @@ def camera_upload(request):
                     then_and_now_rephoto=tour_rephoto,
                     user=profile,
                     description=form.cleaned_data['original'].description,
-                    licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
+                    licence=Licence.objects.filter(url='http://creativecommons.org/licenses/by-nc-sa/4.0/').first(),
                     rephoto_of=form.cleaned_data['original'],
                     date=now
             ).save()
@@ -882,7 +882,7 @@ def send_rephoto_to_ajapaik(request, tour_rephoto_id):
             then_and_now_rephoto=tour_rp,
             user=profile,
             description=tour_rp.original.description,
-            licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
+            licence=Licence.objects.filter(url='http://creativecommons.org/licenses/by-nc-sa/4.0/').first(),
             rephoto_of=tour_rp.original,
             date=tour_rp.created
         ).save()

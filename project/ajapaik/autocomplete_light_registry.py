@@ -1,4 +1,5 @@
 import autocomplete_light.shortcuts as al
+from autocomplete_light import AutocompleteModelBase
 from django.contrib.auth.models import User
 
 from project.ajapaik.models import Profile, Photo, Tour, Points, GeoTag, Album, Dating, DatingConfirmation, AlbumPhoto, \
@@ -113,8 +114,29 @@ al.register(Album,
     widget_attrs={
         'data-widget-maximum-values': 4,
         'class': 'modern-style',
-    },
+    }
 )
+
+class PublicAlbumAutocomplete(AutocompleteModelBase):
+    model = Album
+    name = 'PublicAlbumAutocomplete'
+    search_fields=['pk', 'name']
+    limit_choices=100
+    attrs={
+        'data-autocomplete-minimum-characters': 2,
+    }
+    widget_attrs={
+        'data-widget-maximum-values': 4,
+        'class': 'modern-style',
+    }
+    add_another_url_name='user_upload_add_album'
+
+    def choices_for_request(self):
+        self.choices = self.choices.filter(atype=Album.CURATED)
+
+        return super(PublicAlbumAutocomplete, self).choices_for_request()
+
+al.register(PublicAlbumAutocomplete)
 
 al.register(AlbumPhoto,
     search_fields=['pk',],

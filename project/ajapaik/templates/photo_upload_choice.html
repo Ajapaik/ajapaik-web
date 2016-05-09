@@ -1,0 +1,20 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container ajapaik-margin-top-100">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary">{% trans "Select" %}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+
+{% endblock %}

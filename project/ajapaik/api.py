@@ -392,7 +392,7 @@ def api_photo_upload(request):
             cam_pitch=upload_form.cleaned_data['pitch'],
             cam_roll=upload_form.cleaned_data['roll'],
             flip=upload_form.cleaned_data['flip'],
-            licence=Licence.objects.filter(name='Attribution-ShareAlike 4.0 International').first(),
+            licence=Licence.objects.filter(url='http://creativecommons.org/licenses/by-nc-sa/4.0/').first(),
             user=profile,
         )
         new_rephoto.light_save()

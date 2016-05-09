@@ -1,5 +1,6 @@
+import autocomplete_light
 from django import forms
-from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video
+from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 
@@ -22,14 +23,13 @@ class APIAuthForm(forms.Form):
 
 # TODO: Make forms for everything, there's too much individual POST variable checking
 class AreaSelectionForm(forms.Form):
-    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'),)
+    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), )
 
 
 class AlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED, is_public=True)
-                                        .order_by('-created').all(), label=_('Choose album'),
-                                        initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
-
+                                   .order_by('-created').all(), label=_('Choose album'),
+                                   initial={'album': Album.objects.filter(is_public=True).order_by('-created')[0]})
 
 
 class AlbumSelectionFilteringForm(forms.Form):
@@ -42,9 +42,13 @@ class GalleryFilteringForm(forms.Form):
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
     photos = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
-    order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time', required=False)
-    order2 = forms.ChoiceField(choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'), ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')], initial='added', required=False)
-    order3 = forms.ChoiceField(choices=[('reverse', 'reverse'),], initial=None, required=False)
+    order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time',
+                               required=False)
+    order2 = forms.ChoiceField(
+        choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
+                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')], initial='added',
+        required=False)
+    order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     q = forms.CharField(required=False)
@@ -120,12 +124,12 @@ class GameNextPhotoForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True),
-                                   label=_('Choose photo'),required=False)
+                                   label=_('Choose photo'), required=False)
 
 
 class CuratorAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED
+            atype=Album.CURATED
     ), label=_('Choose album'))
 
     # Should do ownership checking here, but it seems to be left to hacks
@@ -140,8 +144,8 @@ class CuratorAlbumEditForm(forms.Form):
     open = forms.BooleanField(initial=False, required=False)
     is_public = forms.BooleanField(initial=False, required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED, subalbum_of__isnull=True,
-        is_public=True, open=True
+            atype=Album.CURATED, subalbum_of__isnull=True,
+            is_public=True, open=True
     ), label=_('Choose parent album'), required=False)
     areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
@@ -159,8 +163,8 @@ class AddAlbumForm(forms.Form):
     open = forms.BooleanField(required=False, initial=False)
     is_public = forms.BooleanField(initial=False, required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED, subalbum_of__isnull=True,
-        is_public=True, open=True
+            atype=Album.CURATED, subalbum_of__isnull=True,
+            is_public=True, open=True
     ), label=_('Choose parent album'), required=False)
 
 
@@ -197,10 +201,10 @@ class CuratorPhotoUploadForm(forms.Form):
 class SelectionUploadForm(forms.Form):
     selection = forms.CharField(max_length=100000)
     album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED,
+            atype=Album.CURATED,
     ), label=_('Choose album'), required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED, subalbum_of__isnull=True
+            atype=Album.CURATED, subalbum_of__isnull=True
     ), label=_('Choose parent album'), required=False)
     name = forms.CharField(max_length=255, required=False)
     description = forms.CharField(max_length=2047, required=False)
@@ -309,3 +313,29 @@ class VideoStillCaptureForm(forms.Form):
     video = forms.ModelChoiceField(queryset=Video.objects.all())
     album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED))
     timestamp = forms.IntegerField()
+
+
+class PhotoUploadChoiceForm(forms.Form):
+    action = forms.ChoiceField(choices=[
+        ('import', _('Import from museum')),
+        ('upload', _('Upload yourself'))
+    ])
+
+
+class UserPhotoUploadForm(autocomplete_light.ModelForm):
+    # TODO: Add source
+    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', required=False)
+    licence = forms.ModelChoiceField(queryset=Licence.objects.filter(is_public=True))
+
+    class Meta:
+        model = Photo
+        fields = ('image', 'description', 'author', 'licence', 'albums')
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40}),
+        }
+
+
+class UserPhotoUploadAddAlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = ('name', 'description', 'is_public', 'open')

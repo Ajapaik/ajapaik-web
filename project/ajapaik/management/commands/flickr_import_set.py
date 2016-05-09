@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 description='Flickr'
             )
             source.save()
-        licence = Licence.objects.get(name='Attribution License')
+        licence = Licence.objects.get(url='https://creativecommons.org/licenses/by/2.0/')
         album = Album.objects.get(pk=1089)
         for photo in data['photoset']['photo']:
             if not self._resource_already_exists(photo['id']):

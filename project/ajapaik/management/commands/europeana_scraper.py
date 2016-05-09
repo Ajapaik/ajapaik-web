@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 source_url = source_url,
                 area=area,
                 author=author,
-                licence=Licence.objects.get(name="Attribution-NonCommercial-ShareAlike 4.0 International"),
+                licence=Licence.objects.get(url="http://creativecommons.org/licenses/by-nc-sa/4.0/"),
             )
             new_photo.save()
             opener = urllib2.build_opener()

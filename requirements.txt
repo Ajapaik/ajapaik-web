@@ -3,7 +3,7 @@ cryptography==1.0.1
 Django==1.7.11
 django-admin-tools==0.7.1
 django-appconf==1.0.1
-django-autocomplete-light==2.2.10
+django-autocomplete-light==2.3.3
 django-autoslug==1.9.3
 django-bootstrap-dynamic-formsets==0.4.5
 django-bootstrap3==6.2.2

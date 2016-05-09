@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-26 12:46+0300\n"
-"PO-Revision-Date: 2016-04-26 08:57+0000\n"
+"POT-Creation-Date: 2016-05-09 16:06+0300\n"
+"PO-Revision-Date: 2016-04-26 11:35+0000\n"
 "Last-Translator: Håvard Johansen <havardgj@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/no/)\n"
@@ -57,11 +57,11 @@ msgstr "Geotagget av så mange brukere"
 
 #: project/ajapaik/static/js/ajapaik-common.js:752
 msgid "Confirm correct location"
-msgstr "Bekreft korrekt lokasjon"
+msgstr "Bekreft stedsinformasjon"
 
 #: project/ajapaik/static/js/ajapaik-common.js:761
 msgid "Submit your own location"
-msgstr "Regsitrer din egen lokasjon"
+msgstr "Registrer stedsinformasjon"
 
 #: project/ajapaik/static/js/ajapaik-common.js:787
 msgid "You"

@@ -158,9 +158,9 @@
                     </a>
                 </li>
                 <li class="pull-left hidden-xs">
-                    <a role="button" title="{% trans 'Curate' %}" href="{% url "project.ajapaik.views.curator" %}"
+                    <a role="button" title="{% trans 'Add photos' %}" href="{% url "project.ajapaik.views.photo_upload_choice" %}"
                        class="ajapaik-padding-top-6px">
-                        <i class="material-icons notranslate ajapaik-gray-button{% if is_curator %} ajapaik-text-white{% endif %}">add_circle</i>
+                        <i class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
                     </a>
                 </li>
                 {% if is_newsletter %}

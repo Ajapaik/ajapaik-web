@@ -1,0 +1,51 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n bootstrap3 %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container ajapaik-margin-top-100">
+        <img class="img-responsive" id="upload-preview" src="">
+        {% if message %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+        <form action="" method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <div class="btn-group pull-right" role="group" aria-label="ajapaik-add-album-button-group">
+                    <button type="submit" name="geotag" value="false" class="btn btn-primary">
+                        {% trans "Upload" %}
+                    </button>
+                    <button type="submit" name="geotag" value="true" class="btn btn-success">
+                        {% trans "Upload and mark on map" %}
+                    </button>
+                </div>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        function previewImage() {
+            var fr = new FileReader();
+            fr.readAsDataURL(document.getElementById('id_image').files[0]);
+            $('#upload-preview').show();
+            fr.onload = function (oFREvent) {
+                document.getElementById('upload-preview').src = oFREvent.target.result;
+            };
+        }
+        $(document).ready(function () {
+            $('#id_image').on('change', (function () {
+                previewImage();
+            }));
+        });
+    </script>
+{% endblock %}
+
+{% block autocomplete_stuff %}
+    {% include 'autocomplete_light/static.html' %}
+{% endblock %}

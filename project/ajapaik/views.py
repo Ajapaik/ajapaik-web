@@ -46,7 +46,8 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
-    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm
+    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
+    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
     Newsletter, Dating, DatingConfirmation, Video
@@ -54,6 +55,7 @@ from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, Cu
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
 from project.ajapaik.settings import FACEBOOK_APP_SECRET, DATING_POINTS, DATING_CONFIRMATION_POINTS, \
     CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
+from project.ajapaik.then_and_now_tours import user_has_confirmed_email
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
@@ -401,7 +403,7 @@ def rephoto_upload(request, photo_id):
                 re_photo = Photo(
                         rephoto_of=photo,
                         area=photo.area,
-                        licence=Licence.objects.get(name='Attribution-ShareAlike 4.0 International'),
+                        licence=Licence.objects.get(url='http://creativecommons.org/licenses/by-nc-sa/4.0/'),
                         description=data.get('description', photo.description),
                         lat=data.get('lat', None),
                         lon=data.get('lon', None),
@@ -1218,7 +1220,9 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     serialized_datings = DatingSerializer(previous_datings, many=True).data
     serialized_datings = JSONRenderer().render(serialized_datings)
 
-    strings = [photo_obj.source.description, photo_obj.source_key]
+    strings = []
+    if photo_obj.source:
+        strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
     return render_to_response(template, RequestContext(request, {
@@ -1229,7 +1233,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_confirmed_this_location": user_confirmed_this_location,
         "user_has_geotagged": user_has_geotagged,
         "fb_url": request.build_absolute_uri(reverse("project.ajapaik.views.photoslug", args=(photo_obj.id,))),
-        "licence": Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
+        "licence": Licence.objects.get(url="http://creativecommons.org/licenses/by-nc-sa/4.0/"),
         "area": photo_obj.area,
         "album": album,
         "albums": albums,
@@ -1258,7 +1262,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 
 def mapview_photo_upload_modal(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
-    licence = Licence.objects.get(name="Attribution-ShareAlike 4.0 International")
+    licence = Licence.objects.get(url="http://creativecommons.org/licenses/by-nc-sa/4.0/")
     return render_to_response('_photo_upload_modal.html', RequestContext(request, {
         'photo': photo,
         'licence': licence,
@@ -2072,7 +2076,7 @@ def curator_photo_upload_handler(request):
                                 upload_form.cleaned_data["keywords"] else None,
                                 date_text=upload_form.cleaned_data["date"].encode('utf-8') if
                                 upload_form.cleaned_data["date"] else None,
-                                licence=Licence.objects.get(name="Attribution-ShareAlike 4.0 International"),
+                                licence=Licence.objects.get(url="http://creativecommons.org/licenses/by-nc-sa/4.0/"),
                                 external_id=muis_id,
                                 external_sub_id=muis_media_id,
                                 source_key=upload_form.cleaned_data["identifyingNumber"],
@@ -2608,3 +2612,65 @@ def donate(request):
         'is_donate': True
     }
     return render_to_response('donate.html', RequestContext(request, ret))
+
+
+def photo_upload_choice(request):
+    if request.method == 'POST':
+        form = PhotoUploadChoiceForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['action'] == 'import':
+                return redirect('curator')
+            else:
+                return redirect('user_upload')
+    else:
+        form = PhotoUploadChoiceForm()
+    ret = {
+        'form': form,
+        'is_upload_choice': True
+    }
+
+    return render_to_response('photo_upload_choice.html', RequestContext(request, ret))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
+def user_upload(request):
+    ret = {}
+    if request.method == 'POST':
+        form = UserPhotoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.user = request.user.profile
+            photo.save()
+            for each in form.cleaned_data['albums']:
+                AlbumPhoto(
+                    photo=photo,
+                    album=each,
+                    type=AlbumPhoto.UPLOADED,
+                    profile=request.user.profile
+                ).save()
+            if request.POST.get('geotag') == 'true':
+                return redirect(reverse('frontpage_photos') + '?photo=' + str(photo.id) + '&locationToolsOpen=1')
+            else:
+                ret['message'] = _('Photo uploaded')
+    else:
+        form = UserPhotoUploadForm()
+    ret['form'] = form
+
+    return render_to_response('user_upload.html', RequestContext(request, ret))
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
+def user_upload_add_album(request):
+    ret = {}
+    if request.method == 'POST':
+        form = UserPhotoUploadAddAlbumForm(request.POST)
+        if form.is_valid():
+            album = form.save(commit=False)
+            album.atype = Album.CURATED
+            album.profile = request.user.profile
+            album.save()
+            ret['message'] = _('Album created')
+    else:
+        form = UserPhotoUploadAddAlbumForm()
+    ret['form'] = form
+
+    return render_to_response('user_upload_add_album.html', RequestContext(request, ret))
