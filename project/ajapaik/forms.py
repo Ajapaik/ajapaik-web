@@ -319,7 +319,7 @@ class VideoStillCaptureForm(forms.Form):
 
 class PhotoUploadChoiceForm(forms.Form):
     action = forms.ChoiceField(choices=[
-        ('import', _('Import from museum')),
+        ('import', _('Import from public collections')),
         ('upload', _('Upload yourself'))
     ])
 
