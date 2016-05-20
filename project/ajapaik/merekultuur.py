@@ -31,7 +31,10 @@ def get_photos(request):
         photos = list(album.get_historic_photos_queryset_with_subalbums().prefetch_related('source')[:RANDOM_SET_SIZE])
         random.shuffle(photos)
         for p in photos:
-            p.source_string = p.source.description + ' ' + p.source_key
+            if p.source and p.source_key:
+                p.source_string = p.source.description + ' ' + p.source_key
+            else:
+                p.source_string = ''
             p.thumb_url = request.build_absolute_uri(
                 reverse('project.ajapaik.views.image_thumb', args=(p.pk, 400, p.get_pseudo_slug()))
             )

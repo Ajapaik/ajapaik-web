@@ -81,13 +81,17 @@ def photo_info(request):
         location = Point(x=photo.lon, y=photo.lat, srid=4326)
         location.transform(trans)
 
+        source_str = ''
+        if photo.source and photo.source_key:
+            source_str = photo.source.description + ' ' + photo.source_key
+
         return Response({
             'id': photo.id,
             'author': photo.author,
             'description': photo.description,
             'latitude': location.y,
             'longitude': location.x,
-            'source': photo.source.description + ' ' + photo.source_key,
+            'source': source_str,
             'url': request.build_absolute_uri(reverse('project.ajapaik.views.photoslug',
                                                       args=(photo.id, photo.get_pseudo_slug()))),
             'thumbUrl': request.build_absolute_uri(reverse('project.ajapaik.views.image_thumb',

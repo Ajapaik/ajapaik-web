@@ -361,12 +361,15 @@ class Photo(Model):
     def get_game_json_format_photo(photo):
         # TODO: proper JSON serialization
         image = get_thumbnail(photo.image, '1024x1024', upscale=False)
+        source_str = ''
+        if photo.source:
+            source_str = photo.source.description
         ret = {
             'id': photo.id,
             'description': photo.description,
             'sourceKey': photo.source_key,
             'sourceURL': photo.source_url,
-            'sourceName': photo.source.description,
+            'sourceName': source_str,
             'lat': photo.lat,
             'lon': photo.lon,
             'azimuth': photo.azimuth,
