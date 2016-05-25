@@ -647,7 +647,7 @@ def frontpage_async_albums(request):
             page = 1
         page_size = settings.FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE
         start = (page - 1) * page_size
-        albums = Album.objects.filter(is_public=True)
+        albums = Album.objects.filter(is_public=True, cover_photo__isnull=False)
         q = form.cleaned_data['q']
         if q:
             album_search_form = HaystackAlbumSearchForm({'q': q})
