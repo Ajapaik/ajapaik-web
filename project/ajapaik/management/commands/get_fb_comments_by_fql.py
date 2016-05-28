@@ -22,10 +22,10 @@ class Command(BaseCommand):
             first = True
             for p in photo_batch:
                 if first:
-                    or_clause += "'http://ajapaik.ee/foto/" + str(p.id) + "/'"
+                    or_clause += "'https://ajapaik.ee/foto/" + str(p.id) + "/'"
                     first = False
                 else:
-                    or_clause += " OR url = 'http://ajapaik.ee/foto/" + str(p.id) + "/'"
+                    or_clause += " OR url = 'https://ajapaik.ee/foto/" + str(p.id) + "/'"
             if len(or_clause) > 0:
                 fql_string = "SELECT comments_fbid, url FROM link_stat WHERE url = %s limit 250" % or_clause
                 response = json.loads(requests.get('https://graph.facebook.com/fql?access_token=%s&q=%s' % (APP_ID + '|' + FACEBOOK_APP_SECRET, fql_string)).text)

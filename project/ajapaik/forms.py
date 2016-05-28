@@ -338,11 +338,11 @@ class UserPhotoUploadForm(autocomplete_light.ModelForm):
 
     def clean(self):
         super(UserPhotoUploadForm, self).clean()
-        if not self.cleaned_data['image']:
+        if not self.cleaned_data.get('image'):
             self.errors['image'] = [_('Missing image')]
-        if not self.cleaned_data['description']:
+        if not self.cleaned_data.get('description'):
             self.errors['description'] = [_('Missing description')]
-        if ('uploader_is_author' not in self.cleaned_data or not self.cleaned_data['uploader_is_author']) and not self.cleaned_data['licence']:
+        if not self.cleaned_data.get('uploader_is_author') and not self.cleaned_data.get('licence'):
             self.errors['licence'] = [_('Missing licence')]
 
 

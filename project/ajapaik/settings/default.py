@@ -22,7 +22,7 @@ DATING_CONFIRMATION_POINTS = 50
 CURATOR_FLICKR_ENABLED = False
 CURATOR_THEN_AND_NOW_CREATION_DISABLED = True
 
-AJAPAIK_FACEBOOK_LINK = 'http://www.facebook.com/ajapaik'
+AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
 ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
@@ -200,6 +200,8 @@ REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
 
 # TODO: Just use one tuple
 INSTALLED_APPS = ADMIN_TOOL_APPS + CORE_APPS + LOCAL_APPS + EXTERNAL_APPS
+
+ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
 
 HAYSTACK_CONNECTIONS = {
     'default': {

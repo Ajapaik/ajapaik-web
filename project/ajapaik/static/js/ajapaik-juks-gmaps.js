@@ -46,7 +46,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
                 coord.y < that.tileY(that.vars.layers[that.vars.layerIndex].bounds[3], zoom) ||
                 that.existsInStruct([that.vars.layers[that.vars.layerIndex].year, '' + zoom, '' + x, tmsY], that.empty)
             ) {
-                return 'http://tile.openstreetmap.org/' + zoom + '/' + x + '/' + coord.y + '.png';
+                return 'https://a.tile.openstreetmap.org/' + zoom + '/' + x + '/' + coord.y + '.png';
             } else {
                 return that.vars.vanalinnadTiles + 'raster/places/' + that.vars.site + '/' +
                     that.vars.layers[that.vars.layerIndex].year + '/' + zoom + '/' + x + '/' + tmsY + '.jpg';

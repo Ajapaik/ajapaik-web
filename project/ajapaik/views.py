@@ -403,7 +403,7 @@ def rephoto_upload(request, photo_id):
                 re_photo = Photo(
                         rephoto_of=photo,
                         area=photo.area,
-                        licence=Licence.objects.get(url='http://creativecommons.org/licenses/by-nc-sa/4.0/'),
+                        licence=Licence.objects.get(url='https://creativecommons.org/licenses/by-nc-sa/4.0/'),
                         description=data.get('description', photo.description),
                         lat=data.get('lat', None),
                         lon=data.get('lon', None),
@@ -522,7 +522,7 @@ def game(request):
             ret["facebook_share_photos"].append([each.pk, each.get_pseudo_slug(), each.width, each.height])
 
     site = Site.objects.get_current()
-    ret["hostname"] = "http://%s" % (site.domain,)
+    ret["hostname"] = "https://%s" % (site.domain,)
     if album:
         ret["title"] = album.name
     elif area:
@@ -603,7 +603,7 @@ def frontpage(request, album_id=None, page=None):
     return render_to_response('frontpage.html', RequestContext(request, {
         'is_frontpage': True,
         'title': title,
-        'hostname': 'http://%s' % (site.domain,),
+        'hostname': 'https://%s' % (site.domain,),
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'facebook_share_photos': data['fb_share_photos'],
         'album': data['album'],
@@ -1233,7 +1233,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_confirmed_this_location": user_confirmed_this_location,
         "user_has_geotagged": user_has_geotagged,
         "fb_url": request.build_absolute_uri(reverse("project.ajapaik.views.photoslug", args=(photo_obj.id,))),
-        "licence": Licence.objects.get(url="http://creativecommons.org/licenses/by-nc-sa/4.0/"),
+        "licence": Licence.objects.get(url="https://creativecommons.org/licenses/by-nc-sa/4.0/"),
         "area": photo_obj.area,
         "album": album,
         "albums": albums,
@@ -1248,7 +1248,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "title": title,
         "description": desc,
         "rephoto": rephoto,
-        "hostname": "http://%s" % (site.domain,),
+        "hostname": "https://%s" % (site.domain,),
         "first_geotaggers": first_geotaggers,
         "is_photoview": True,
         "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
@@ -1262,7 +1262,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 
 def mapview_photo_upload_modal(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
-    licence = Licence.objects.get(url="http://creativecommons.org/licenses/by-nc-sa/4.0/")
+    licence = Licence.objects.get(url="https://creativecommons.org/licenses/by-nc-sa/4.0/")
     return render_to_response('_photo_upload_modal.html', RequestContext(request, {
         'photo': photo,
         'licence': licence,
@@ -1355,7 +1355,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     site = Site.objects.get_current()
     ret = {"area": area, "last_geotagged_photo_id": Photo.objects.order_by('-latest_geotag').first().id,
            "total_photo_count": photos_qs.distinct('id').count(), "geotagging_user_count": geotagging_user_count,
-           "geotagged_photo_count": geotagged_photo_count, "albums": albums, "hostname": "http://%s" % (site.domain,),
+           "geotagged_photo_count": geotagged_photo_count, "albums": albums, "hostname": "https://%s" % (site.domain,),
            "selected_photo": selected_photo, "selected_rephoto": selected_rephoto, "is_mapview": True,
            "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK, "album": None, "user_has_likes": user_has_likes,
            "user_has_rephotos": user_has_rephotos}
@@ -1556,7 +1556,7 @@ def leaderboard(request, album_id=None):
     profile = request.get_user().profile
     if album_id:
         # Album leader-board takes into account any users that have any contributions to the album
-        album = Album.objects.get(pk=album_id)
+        album = get_object_or_404(Album, pk=album_id)
         # TODO: Almost identical code is used in many places, put under album model
         album_photos_qs = album.photos.all()
         for sa in album.subalbums.exclude(atype=Album.AUTO):
@@ -1626,7 +1626,7 @@ def leaderboard(request, album_id=None):
     return render_to_response(template, RequestContext(request, {
         'is_top_50': False,
         'title': _('Leaderboard'),
-        'hostname': 'http://%s' % (site.domain,),
+        'hostname': 'https://%s' % (site.domain,),
         'leaderboard': general_leaderboard,
         'album_leaderboard': album_leaderboard,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
@@ -1639,7 +1639,7 @@ def all_time_leaderboard(request):
     template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
-        'hostname': 'http://%s' % (site.domain,),
+        'hostname': 'https://%s' % (site.domain,),
         'all_time_leaderboard': atl,
         'title': _('Leaderboard'),
         'is_top_50': True
@@ -1675,7 +1675,7 @@ def top50(request, album_id=None):
         'album_name': album_name,
         'album_leaderboard': album_leaderboard,
         'all_time_leaderboard': general_leaderboard,
-        'hostname': 'http://%s' % (site.domain,),
+        'hostname': 'https://%s' % (site.domain,),
         'title': _('Leaderboard'),
         'is_top_50': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
@@ -1772,7 +1772,7 @@ def curator(request):
             _('Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!'),
         'curator_random_images': curator_random_images,
         'title': _('Timepatch (Ajapaik) - curate'),
-        'hostname': 'http://%s' % (site.domain,),
+        'hostname': 'https://%s' % (site.domain,),
         'then_and_now_disbled': CURATOR_THEN_AND_NOW_CREATION_DISABLED,
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': CURATOR_FLICKR_ENABLED,
@@ -2076,7 +2076,7 @@ def curator_photo_upload_handler(request):
                                 upload_form.cleaned_data["keywords"] else None,
                                 date_text=upload_form.cleaned_data["date"].encode('utf-8') if
                                 upload_form.cleaned_data["date"] else None,
-                                licence=Licence.objects.get(url="http://creativecommons.org/licenses/by-nc-sa/4.0/"),
+                                licence=Licence.objects.get(url="https://creativecommons.org/licenses/by-nc-sa/4.0/"),
                                 external_id=muis_id,
                                 external_sub_id=muis_media_id,
                                 source_key=upload_form.cleaned_data["identifyingNumber"],
@@ -2176,8 +2176,9 @@ def curator_photo_upload_handler(request):
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
-        requests.post("https://graph.facebook.com/v2.3/?id=" + (
-        request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(album.id)) + "&scrape=true")
+        if album:
+            requests.post("https://graph.facebook.com/v2.3/?id=" + (
+                request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(album.id)) + "&scrape=true")
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating

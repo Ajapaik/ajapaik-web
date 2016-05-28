@@ -22,7 +22,7 @@ class Command(BaseCommand):
             try:
                 random_photo = a.get_historic_photos_queryset_with_subalbums()[random_index]
                 a.cover_photo = random_photo
-                if random_photo.flip:
+                if random_photo and random_photo.flip:
                     a.cover_photo_flipped = random_photo.flip
             except IndexError:
                 continue

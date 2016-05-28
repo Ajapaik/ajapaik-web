@@ -196,7 +196,7 @@ class Album(Model):
         if not self.cover_photo and self.photo_count_with_subalbums > 0:
             random_photo = self.photos.order_by('?').first()
             self.cover_photo = random_photo
-            if random_photo.flip:
+            if random_photo and random_photo.flip:
                 self.cover_photo_flipped = random_photo.flip
         if not self.lat and not self.lon:
             random_photo_with_location = self.get_geotagged_historic_photo_queryset_with_subalbums().first()
@@ -441,18 +441,22 @@ class Photo(Model):
                         ret_qs = all_photos_set.order_by('?')
                         nothing_more_to_show = True
         ret = ret_qs.first()
-        last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION) \
-            .order_by('-created').first()
-        ret.user_already_confirmed = False
+        last_confirm_geotag_by_this_user_for_ret = None
+        if ret:
+            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION) \
+                .order_by('-created').first()
+            ret.user_already_confirmed = False
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                                                          and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
-        ret.user_already_geotagged = ret.geotags.filter(user=profile.user).exists()
-        ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
-        ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
-        ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
-        ret.view_count += 1
-        ret.light_save()
+        if ret:
+            ret.user_already_geotagged = ret.geotags.filter(user=profile.user).exists()
+            ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
+            ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
+            ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
+            ret.view_count += 1
+            ret.light_save()
+
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
     def __unicode__(self):

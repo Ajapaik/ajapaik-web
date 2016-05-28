@@ -253,6 +253,9 @@ ClusterIcon.prototype.show = function () {
       img += "clip: rect(" + (-1 * spriteV) + "px, " + ((-1 * spriteH) + this.width_) + "px, " +
           ((-1 * spriteV) + this.height_) + "px, " + (-1 * spriteH) + "px);";
     }
+    else {
+        img += "width: " + this.width_ + "px;" + "height: " + this.height_ + "px;";
+    }
     img += "'>";
     this.div_.innerHTML = img + "<div style='" +
         "position: absolute;" +
@@ -267,7 +270,7 @@ ClusterIcon.prototype.show = function () {
         "text-align: center;" +
         "width: " + this.width_ + "px;" +
         "line-height:" + this.height_ + "px;" +
-        "'>" + this.sums_.text + "</div>";
+        "'>" + (this.cluster_.hideLabel_ ? ' ' : this.sums_.text) + "</div>";
     if (typeof this.sums_.title === "undefined" || this.sums_.title === "") {
       this.div_.title = this.cluster_.getMarkerClusterer().getTitle();
     } else {
@@ -358,6 +361,7 @@ function Cluster(mc) {
   this.gridSize_ = mc.getGridSize();
   this.minClusterSize_ = mc.getMinimumClusterSize();
   this.averageCenter_ = mc.getAverageCenter();
+  this.hideLabel_ = mc.getHideLabel();
   this.markers_ = [];
   this.center_ = null;
   this.bounds_ = null;
@@ -505,7 +509,6 @@ Cluster.prototype.addMarker = function (marker) {
     marker.setMap(null);
   }
 
-  this.updateIcon_();
   return true;
 };
 
@@ -564,14 +567,9 @@ Cluster.prototype.updateIcon_ = function () {
  * @return {boolean} True if the marker has already been added.
  */
 Cluster.prototype.isMarkerAlreadyAdded_ = function (marker) {
-  var i;
-  if (this.markers_.indexOf) {
-    return this.markers_.indexOf(marker) !== -1;
-  } else {
-    for (i = 0; i < this.markers_.length; i++) {
-      if (marker === this.markers_[i]) {
-        return true;
-      }
+  for (var i = 0, n = this.markers_.length; i < n; i++) {
+    if (marker === this.markers_[i]) {
+      return true;
     }
   }
   return false;
@@ -697,6 +695,10 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   this.enableRetinaIcons_ = false;
   if (opt_options.enableRetinaIcons !== undefined) {
     this.enableRetinaIcons_ = opt_options.enableRetinaIcons;
+  }
+  this.hideLabel_ = false;
+  if (opt_options.hideLabel !== undefined) {
+    this.hideLabel_ = opt_options.hideLabel;
   }
   this.imagePath_ = opt_options.imagePath || MarkerClusterer.IMAGE_PATH;
   this.imageExtension_ = opt_options.imageExtension || MarkerClusterer.IMAGE_EXTENSION;
@@ -1084,6 +1086,23 @@ MarkerClusterer.prototype.setCalculator = function (calculator) {
   this.calculator_ = calculator;
 };
 
+/**
+ * Sets the value of the <code>hideLabel</code> property.
+ *
+ *  @param {boolean} printable The value of the hideLabel property.
+ */
+MarkerClusterer.prototype.setHideLabel = function (hideLabel) {
+  this.hideLabel_ = hideLabel;
+};
+
+/**
+ * Returns the value of the <code>hideLabel</code> property.
+ *
+ * @return {boolean} the value of the hideLabel property.
+ */
+MarkerClusterer.prototype.getHideLabel = function () {
+  return this.hideLabel_;
+};
 
 /**
  * Returns the value of the <code>batchSizeIE</code> property.
@@ -1193,7 +1212,7 @@ MarkerClusterer.prototype.addMarkers = function (markers, opt_nodraw) {
     if (markers.hasOwnProperty(key)) {
       this.pushMarkerTo_(markers[key]);
     }
-  }  
+  }
   if (!opt_nodraw) {
     this.redraw_();
   }
@@ -1222,16 +1241,18 @@ MarkerClusterer.prototype.pushMarkerTo_ = function (marker) {
 
 
 /**
- * Removes a marker from the cluster.  The clusters are redrawn unless
+ * Removes a marker from the cluster and map.  The clusters are redrawn unless
  *  <code>opt_nodraw</code> is set to <code>true</code>. Returns <code>true</code> if the
  *  marker was removed from the clusterer.
  *
  * @param {google.maps.Marker} marker The marker to remove.
  * @param {boolean} [opt_nodraw] Set to <code>true</code> to prevent redrawing.
+ * @param {boolean} [opt_noMapRemove] Set to <code>true</code> to prevent removal from map but still removing from cluster management
  * @return {boolean} True if the marker was removed from the clusterer.
  */
-MarkerClusterer.prototype.removeMarker = function (marker, opt_nodraw) {
-  var removed = this.removeMarker_(marker);
+MarkerClusterer.prototype.removeMarker = function (marker, opt_nodraw, opt_noMapRemove) {
+  var removeFromMap = true && !opt_noMapRemove;
+  var removed = this.removeMarker_(marker,removeFromMap);
 
   if (!opt_nodraw && removed) {
     this.repaint();
@@ -1242,20 +1263,22 @@ MarkerClusterer.prototype.removeMarker = function (marker, opt_nodraw) {
 
 
 /**
- * Removes an array of markers from the cluster. The clusters are redrawn unless
+ * Removes an array of markers from the cluster and map. The clusters are redrawn unless
  *  <code>opt_nodraw</code> is set to <code>true</code>. Returns <code>true</code> if markers
  *  were removed from the clusterer.
  *
  * @param {Array.<google.maps.Marker>} markers The markers to remove.
  * @param {boolean} [opt_nodraw] Set to <code>true</code> to prevent redrawing.
+ * @param {boolean} [opt_noMapRemove] Set to <code>true</code> to prevent removal from map but still removing from cluster management
  * @return {boolean} True if markers were removed from the clusterer.
  */
-MarkerClusterer.prototype.removeMarkers = function (markers, opt_nodraw) {
+MarkerClusterer.prototype.removeMarkers = function (markers, opt_nodraw, opt_noMapRemove) {
   var i, r;
   var removed = false;
+  var removeFromMap = true && !opt_noMapRemove;
 
   for (i = 0; i < markers.length; i++) {
-    r = this.removeMarker_(markers[i]);
+    r = this.removeMarker_(markers[i],removeFromMap);
     removed = removed || r;
   }
 
@@ -1271,9 +1294,10 @@ MarkerClusterer.prototype.removeMarkers = function (markers, opt_nodraw) {
  * Removes a marker and returns true if removed, false if not.
  *
  * @param {google.maps.Marker} marker The marker to remove
+ * @param {boolean} removeFromMap set to <code>true</code> to explicitly remove from map as well as cluster manangement
  * @return {boolean} Whether the marker was removed or not
  */
-MarkerClusterer.prototype.removeMarker_ = function (marker) {
+MarkerClusterer.prototype.removeMarker_ = function (marker,removeFromMap) {
   var i;
   var index = -1;
   if (this.markers_.indexOf) {
@@ -1292,7 +1316,10 @@ MarkerClusterer.prototype.removeMarker_ = function (marker) {
     return false;
   }
 
-  marker.setMap(null);
+  if (removeFromMap){
+    marker.setMap(null);
+  }
+
   this.markers_.splice(index, 1); // Remove the marker from the list of managed markers
   return true;
 };
@@ -1534,6 +1561,10 @@ MarkerClusterer.prototype.createClusters_ = function (iFirst) {
      * @event
      */
     google.maps.event.trigger(this, "clusteringend", this);
+
+    for (i = 0; i < this.clusters_.length; i++) {
+      this.clusters_[i].updateIcon_();
+    }
   }
 };
 
@@ -1611,7 +1642,7 @@ MarkerClusterer.BATCH_SIZE_IE = 500;
  * @type {string}
  * @constant
  */
-MarkerClusterer.IMAGE_PATH = "http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/images/m";
+MarkerClusterer.IMAGE_PATH = "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/images/m";
 
 
 /**
@@ -1637,6 +1668,6 @@ if (typeof String.prototype.trim !== 'function') {
    * @return {string} The string with removed whitespace
    */
   String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$/g, ''); 
-  }
+    return this.replace(/^\s+|\s+$/g, '');
+  };
 }
