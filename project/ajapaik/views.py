@@ -2375,7 +2375,7 @@ def norwegian_csv_upload(request):
         photos_metadata[row.get('source_number')] = row
     album_id = request.POST.get('album_id')
     album = Album.objects.get(pk=album_id)
-    licence = Licence.objects.get(name='Navngivelse 3.0 Norge')
+    licence = Licence.objects.get(name='Attribution 4.0 International')
     failed = []
     for key, value in photos_metadata.items():
         meta_for_this_image = photos_metadata[key]
@@ -2424,10 +2424,10 @@ def norwegian_csv_upload(request):
             continue
         p.save()
         AlbumPhoto(album=album, photo=p, profile=profile).save()
-        if meta_for_this_image.get('lat') and meta_for_this_image.get('long'):
+        if meta_for_this_image.get('lat') and meta_for_this_image.get('lon'):
             source_geotag = GeoTag(
                 lat=meta_for_this_image.get('lat'),
-                lon=meta_for_this_image.get('long'),
+                lon=meta_for_this_image.get('lon'),
                 origin=GeoTag.SOURCE,
                 type=GeoTag.SOURCE_GEOTAG,
                 map_type=GeoTag.NO_MAP,
