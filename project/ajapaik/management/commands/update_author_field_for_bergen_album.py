@@ -14,7 +14,7 @@ class Command(BaseCommand):
         activate('no')
         album_photo_ids = AlbumPhoto.objects.filter(album_id=8334).values_list('photo_id', flat=True)
         photos = Photo.objects.filter(pk__in=album_photo_ids)
-        f = open(ABSOLUTE_PROJECT_ROOT + '/project/home/management/commands/riksantikvaren_bergen.csv', 'r')
+        f = open(ABSOLUTE_PROJECT_ROOT + '/project/ajapaik/management/commands/riksantikvaren_bergen.csv', 'r')
         header_row = None
         photos_metadata = {}
         for row in reader(f, delimiter=';'):
