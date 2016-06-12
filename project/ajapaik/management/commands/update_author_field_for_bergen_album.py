@@ -22,6 +22,7 @@ class Command(BaseCommand):
                 header_row = row
                 continue
             row = dict(zip(header_row, row))
+            print row.get('source_number')
             photos_metadata[row.get('source_number').split('.')[0]] = row
         for p in photos:
             p.author = photos_metadata[p.source_key].get('author')
