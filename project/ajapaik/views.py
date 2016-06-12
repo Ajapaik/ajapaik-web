@@ -2413,7 +2413,8 @@ def norwegian_csv_upload(request):
                 source=source,
                 source_url=source_url,
                 source_key=key.split('.')[0],
-                date_text=meta_for_this_image.get('date')
+                date_text=meta_for_this_image.get('date'),
+                author=meta_for_this_image.get('author')
         )
         p.image.name = upload_file_name
         # FIXME: Next 2 lines should happen automatically
