@@ -1,51 +1,49 @@
-import os
-from time import sleep
-from urllib2 import urlopen
-from contextlib import closing
-from ujson import loads
-from math import degrees
-from datetime import datetime
-
 import StringIO
-from PIL import Image
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.db import IntegrityError
-from django.shortcuts import redirect
-from pandas import DataFrame, Series
-from django.core.urlresolvers import reverse
+import os
+from contextlib import closing
+from datetime import datetime
+from math import degrees
+from time import sleep
+from ujson import loads
+from urllib2 import urlopen
 
-from django.db.models import OneToOneField, DateField, FileField
-from django.utils.dateformat import DateFormat
 import numpy
+from PIL import Image
+from bulk_update.manager import BulkUpdateManager
+from django.contrib.auth.models import User
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, \
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
     PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, permalink, PositiveIntegerField
-from django.core.validators import MinValueValidator
-from django.core.validators import MaxValueValidator
-from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
-from django.db.models.signals import post_save
-from django_extensions.db.fields import json
-from django.template.defaultfilters import slugify
+from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator
+from django.db import IntegrityError
+from django.db.models import Lookup
+from django.db.models import OneToOneField, DateField, FileField
+from django.db.models.fields import Field
+from django.db.models.signals import post_save
+from django.shortcuts import redirect
+from django.template.defaultfilters import slugify
+from django.utils.dateformat import DateFormat
+from django.utils.translation import ugettext as _
+from django_extensions.db.fields import json
+from geopy.distance import great_circle
+from haystack import connections
 from oauth2client.client import OAuth2Credentials
 from oauth2client.django_orm import FlowField, CredentialsField
+from pandas import DataFrame, Series
 from requests import get
-from sorl.thumbnail import get_thumbnail
-from django.contrib.gis.geos import Point
 from sklearn.cluster import DBSCAN
-from geopy.distance import great_circle
-from django.utils.translation import ugettext as _
-from bulk_update.manager import BulkUpdateManager
+from sorl.thumbnail import get_thumbnail
+
 from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG, STATIC_ROOT
-from project.utils import average_angle
 from project.utils import angle_diff
-
-from haystack import connections
-
-from django.db.models import Lookup
-from django.db.models.fields import Field
+from project.utils import average_angle
 
 
 # For filtering empty user first and last name, actually, can be done with ~Q, but this is prettier?

@@ -1,19 +1,18 @@
 # encoding: utf-8
 import datetime
 import operator
+import shutil
 import ujson as json
+import unicodedata
 import urllib2
-import cv2
-import cv2.cv as cv
 from StringIO import StringIO
 from copy import deepcopy
 from math import ceil
 from time import strftime, strptime
 
+import cv2
+import cv2.cv as cv
 import requests
-import unicodedata
-
-import shutil
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
@@ -22,8 +21,9 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files.base import ContentFile
 from django.core.files import File
+from django.core.files.base import ContentFile
+from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
 from django.http import HttpResponse
@@ -36,7 +36,6 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
-from django.core.files.temp import NamedTemporaryFile
 
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
@@ -150,10 +149,10 @@ def get_album_info_modal_content(request):
         album_photo_ids = album_photo_ids
         users_curated_into_this_or_sub = AlbumPhoto.objects.filter(photo_id__in=album_photo_ids, profile__isnull=False,
                                                                    type=AlbumPhoto.CURATED, album=album).values(
-                'profile').annotate(count=Count('profile'))
+            'profile').annotate(count=Count('profile'))
         users_recurated_into_this = AlbumPhoto.objects.filter(album=album, type=AlbumPhoto.RECURATED,
                                                               profile__isnull=False).values('profile').annotate(
-                count=Count('profile'))
+            count=Count('profile'))
         final_score_dict = {}
         for u in users_curated_into_this_or_sub:
             final_score_dict[u['profile']] = u['count']
@@ -162,7 +161,8 @@ def get_album_info_modal_content(request):
                 final_score_dict[u['profile']] += u['count']
             else:
                 final_score_dict[u['profile']] = u['count']
-        album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys(), first_name__isnull=False, last_name__isnull=False)
+        album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys(), first_name__isnull=False,
+                                                last_name__isnull=False)
         final_score_dict = [x[0] for x in sorted(final_score_dict.items(), key=operator.itemgetter(1), reverse=True)]
         album_curators = list(album_curators)
         album_curators.sort(key=lambda z: final_score_dict.index(z.id))
@@ -304,8 +304,8 @@ def _get_leaderboard(profile):
     profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity,
                                           first_name__isnull=False, last_name__isnull=False).count() + 1
     leaderboard_queryset = Profile.objects.filter(
-            Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
-            Q(pk=profile.id)).order_by('-score_recent_activity')
+        Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
+        Q(pk=profile.id)).order_by('-score_recent_activity')
     start = profile_rank - 2
     if start < 0:
         start = 0
@@ -329,9 +329,9 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     for each in album_photos_with_rephotos:
         for rp in each.rephotos.all():
             album_rephoto_ids.append(rp.id)
-    photo_points = Points.objects.prefetch_related('user')\
+    photo_points = Points.objects.prefetch_related('user') \
         .filter(photo_id__in=album_photo_ids, points__gt=0)
-    photo_points = photo_points |  Points.objects.prefetch_related('user')\
+    photo_points = photo_points | Points.objects.prefetch_related('user') \
         .filter(photo_id__in=album_rephoto_ids, points__gt=0).exclude(action=Points.PHOTO_RECURATION)
     photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album,
                                                         action=Points.PHOTO_RECURATION).prefetch_related('user')
@@ -354,7 +354,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     # Works on Postgres, we don't really need to worry about this I guess...maybe only if it gets slow
     clauses = ' '.join(['WHEN user_id=%s THEN %s' % (pk, i) for i, pk in enumerate(pk_list)])
     ordering = 'CASE %s END' % clauses
-    top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile_id))\
+    top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile_id)) \
         .extra(select={'ordering': ordering}, order_by=('ordering',)).prefetch_related('user')
     n = 1
     for each in top_users:
@@ -401,18 +401,18 @@ def rephoto_upload(request, photo_id):
                 data = request.POST
                 date_taken = data.get('dateTaken', None)
                 re_photo = Photo(
-                        rephoto_of=photo,
-                        area=photo.area,
-                        licence=Licence.objects.get(url='https://creativecommons.org/licenses/by-nc-sa/4.0/'),
-                        description=data.get('description', photo.description),
-                        lat=data.get('lat', None),
-                        lon=data.get('lon', None),
-                        date_text=data.get('date_text', None),
-                        user=profile,
-                        cam_scale_factor=data.get('scale_factor', None),
-                        cam_yaw=data.get('yaw'),
-                        cam_pitch=data.get('pitch'),
-                        cam_roll=data.get('roll'),
+                    rephoto_of=photo,
+                    area=photo.area,
+                    licence=Licence.objects.get(url='https://creativecommons.org/licenses/by-nc-sa/4.0/'),
+                    description=data.get('description', photo.description),
+                    lat=data.get('lat', None),
+                    lon=data.get('lon', None),
+                    date_text=data.get('date_text', None),
+                    user=profile,
+                    cam_scale_factor=data.get('scale_factor', None),
+                    cam_yaw=data.get('yaw'),
+                    cam_pitch=data.get('pitch'),
+                    cam_roll=data.get('roll'),
                 )
                 if date_taken is not None:
                     try:
@@ -556,8 +556,8 @@ def fetch_stream(request):
                                                                                    type=GeoTag.CONFIRMATION).order_by(
                 '-created').first()
             if last_confirm_geotag_by_this_user_for_photo and (
-                    form_photo.lat == last_confirm_geotag_by_this_user_for_photo.lat
-            and form_photo.lon == last_confirm_geotag_by_this_user_for_photo.lon):
+                            form_photo.lat == last_confirm_geotag_by_this_user_for_photo.lat
+                    and form_photo.lon == last_confirm_geotag_by_this_user_for_photo.lon):
                 form_photo.user_already_confirmed = True
             form_photo.user_already_geotagged = form_photo.geotags.filter(user=profile.user).exists()
             form_photo.user_likes = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=1).exists()
@@ -895,7 +895,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             p.append(_get_pseudo_slug_for_photo(p[3], None, None))
         if album:
             ret['album'] = (
-            album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon, album.is_film_still_album)
+                album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon, album.is_film_still_album)
             ret['videos'] = VideoSerializer(album.videos.all(), many=True).data
         else:
             ret['album'] = None
@@ -1022,16 +1022,16 @@ def upload_photo_selection(request):
             pass
         elif new_name:
             a = Album(
-                    name=new_name,
-                    description=new_desc,
-                    atype=Album.CURATED,
-                    profile=profile,
-                    lat=form.cleaned_data['areaLat'],
-                    lon=form.cleaned_data['areaLng'],
-                    ordered=True,
-                    subalbum_of=form.cleaned_data['parent_album'],
-                    is_public=form.cleaned_data['public'],
-                    open=form.cleaned_data['open']
+                name=new_name,
+                description=new_desc,
+                atype=Album.CURATED,
+                profile=profile,
+                lat=form.cleaned_data['areaLat'],
+                lon=form.cleaned_data['areaLng'],
+                ordered=True,
+                subalbum_of=form.cleaned_data['parent_album'],
+                is_public=form.cleaned_data['public'],
+                open=form.cleaned_data['open']
             )
             a.save()
         else:
@@ -1041,10 +1041,10 @@ def upload_photo_selection(request):
                 existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
                 if not existing_link:
                     new_album_photo_link = AlbumPhoto(
-                            photo=Photo.objects.get(pk=pid),
-                            album=a,
-                            profile=profile,
-                            type=AlbumPhoto.RECURATED
+                        photo=Photo.objects.get(pk=pid),
+                        album=a,
+                        profile=profile,
+                        type=AlbumPhoto.RECURATED
                     )
                     Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
                            created=datetime.datetime.now()).save()
@@ -1521,18 +1521,18 @@ def geotag_confirm(request):
                         last_confirm_geotag_by_this_user_for_p.lat != p.lat and last_confirm_geotag_by_this_user_for_p.lon != p.lon)):
             trust = _calc_trustworthiness(request.get_user().id)
             confirmed_geotag = GeoTag(
-                    lat=p.lat,
-                    lon=p.lon,
-                    origin=GeoTag.MAP_VIEW,
-                    type=GeoTag.CONFIRMATION,
-                    map_type=GeoTag.OPEN_STREETMAP,
-                    hint_used=True,
-                    user=profile,
-                    photo=p,
-                    is_correct=True,
-                    score=max(1, int(trust * 50)),
-                    azimuth_score=0,
-                    trustworthiness=trust
+                lat=p.lat,
+                lon=p.lon,
+                origin=GeoTag.MAP_VIEW,
+                type=GeoTag.CONFIRMATION,
+                map_type=GeoTag.OPEN_STREETMAP,
+                hint_used=True,
+                user=profile,
+                photo=p,
+                is_correct=True,
+                score=max(1, int(trust * 50)),
+                azimuth_score=0,
+                trustworthiness=trust
             )
             if p.azimuth:
                 confirmed_geotag.azimuth = p.azimuth
@@ -1585,7 +1585,7 @@ def leaderboard(request, album_id=None):
         # Works on Postgres, we don't really need to worry about this I guess...maybe only if it gets slow
         clauses = ' '.join(['WHEN user_id=%s THEN %s' % (pk, i) for i, pk in enumerate(pk_list)])
         ordering = 'CASE %s END' % clauses
-        top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile.id))\
+        top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile.id)) \
             .extra(select={'ordering': ordering}, order_by=('ordering',))
         start = current_user_rank - 2
         if start < 0:
@@ -1604,8 +1604,8 @@ def leaderboard(request, album_id=None):
         profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity,
                                               first_name__isnull=False, last_name__isnull=False).count() + 1
         leaderboard_queryset = Profile.objects.filter(
-                Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
-                Q(pk=profile.id)).order_by('-score_recent_activity')
+            Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
+            Q(pk=profile.id)).order_by('-score_recent_activity')
         start = profile_rank - 2
         if start < 0:
             start = 0
@@ -1657,8 +1657,8 @@ def top50(request, album_id=None):
     else:
         general_leaderboard = _get_all_time_leaderboard50(profile.pk)
     activity_leaderboard = Profile.objects.filter(
-            Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
-            Q(pk=profile.id)).order_by('-score_recent_activity').prefetch_related('user')[:50]
+        Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
+        Q(pk=profile.id)).order_by('-score_recent_activity').prefetch_related('user')[:50]
     n = 1
     for each in activity_leaderboard:
         if each.user_id == profile.id:
@@ -1729,7 +1729,7 @@ def public_add_album(request):
         description = add_album_form.cleaned_data["description"]
         if user_profile:
             new_album = Album(
-                    name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=False)
+                name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=False)
             new_album.save()
             selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
             selectable_albums = [{"id": x.id, "name": x.name} for x in selectable_albums]
@@ -1762,7 +1762,7 @@ def curator(request):
     last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
     # FIXME: Ugly
     curator_random_image_ids = AlbumPhoto.objects.filter(
-            album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
+        album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
     if not curator_random_image_ids or len(curator_random_image_ids) < 5:
         curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
     curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
@@ -1830,7 +1830,8 @@ def curator_search(request):
     if form.is_valid():
         if form.cleaned_data['useFlickr']:
             flickr_driver = FlickrCommonsDriver()
-        if form.cleaned_data['useMUIS'] or form.cleaned_data['useMKA'] or form.cleaned_data['useDIGAR'] or form.cleaned_data['useETERA']:
+        if form.cleaned_data['useMUIS'] or form.cleaned_data['useMKA'] or form.cleaned_data['useDIGAR'] or \
+                form.cleaned_data['useETERA']:
             valimimoodul_driver = ValimimoodulDriver()
             if form.cleaned_data['ids']:
                 response = valimimoodul_driver.transform_response(
@@ -1839,10 +1840,10 @@ def curator_search(request):
         if form.cleaned_data['fullSearch']:
             if valimimoodul_driver and not form.cleaned_data['ids']:
                 response = _join_2_json_objects(response, valimimoodul_driver.transform_response(
-                        valimimoodul_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
+                    valimimoodul_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
             if flickr_driver:
                 response = _join_2_json_objects(response, flickr_driver.transform_response(
-                        flickr_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
+                    flickr_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
 
     return HttpResponse(response, content_type="application/json")
 
@@ -1850,7 +1851,7 @@ def curator_search(request):
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
     serializer = CuratorMyAlbumListAlbumSerializer(
-            Album.objects.filter(Q(profile=user_profile, atype=Album.CURATED)).order_by("-created"), many=True
+        Album.objects.filter(Q(profile=user_profile, atype=Album.CURATED)).order_by("-created"), many=True
     )
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
@@ -1859,7 +1860,7 @@ def curator_my_album_list(request):
 def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
-            Album.objects.filter(((Q(profile=user_profile) | Q(is_public=True)) & ~Q(atype=Album.AUTO)) | (
+        Album.objects.filter(((Q(profile=user_profile) | Q(is_public=True)) & ~Q(atype=Album.AUTO)) | (
             Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
     )
 
@@ -1869,8 +1870,8 @@ def curator_selectable_albums(request):
 def curator_selectable_parent_albums(request, album_id=None):
     user_profile = request.get_user().profile
     qs = Album.objects.filter(
-            (Q(profile=user_profile, subalbum_of__isnull=True, is_public=True)) |
-            (Q(open=True, subalbum_of__isnull=True))
+        (Q(profile=user_profile, subalbum_of__isnull=True, is_public=True)) |
+        (Q(open=True, subalbum_of__isnull=True))
     ).order_by('-created').all()
     if album_id:
         qs = qs.exclude(pk=album_id)
@@ -1936,9 +1937,9 @@ def curator_photo_upload_handler(request):
     if not area:
         if area_name and area_lat and area_lon:
             area = Area(
-                    name=area_name,
-                    lat=area_lat,
-                    lon=area_lon
+                name=area_name,
+                lat=area_lat,
+                lon=area_lon
             )
             area.save()
 
@@ -1989,13 +1990,13 @@ def curator_photo_upload_handler(request):
                 album = curator_album_select_form.cleaned_data["album"]
         else:
             album = Album(
-                    name=curator_album_create_form.cleaned_data["name"],
-                    description=curator_album_create_form.cleaned_data["description"],
-                    atype=Album.CURATED,
-                    profile=profile,
-                    subalbum_of=curator_album_create_form.cleaned_data['parent_album'],
-                    is_public=curator_album_create_form.cleaned_data["is_public"],
-                    open=curator_album_create_form.cleaned_data["open"]
+                name=curator_album_create_form.cleaned_data["name"],
+                description=curator_album_create_form.cleaned_data["description"],
+                atype=Album.CURATED,
+                profile=profile,
+                subalbum_of=curator_album_create_form.cleaned_data['parent_album'],
+                is_public=curator_album_create_form.cleaned_data["is_public"],
+                open=curator_album_create_form.cleaned_data["open"]
             )
             if area and area.lat and area.lon:
                 album.lat = area.lat
@@ -2006,11 +2007,11 @@ def curator_photo_upload_handler(request):
         else:
             ret["album_id"] = None
         default_album = Album(
-                name=str(profile.id) + "-" + str(datetime.datetime.now()),
-                atype=Album.AUTO,
-                profile=profile,
-                is_public=False,
-                subalbum_of=album
+            name=str(profile.id) + "-" + str(datetime.datetime.now()),
+            atype=Album.AUTO,
+            profile=profile,
+            is_public=False,
+            subalbum_of=album
         )
         default_album.save()
         for k, v in selection.iteritems():
@@ -2026,8 +2027,8 @@ def curator_photo_upload_handler(request):
                         source = Source.objects.get(description=upload_form.cleaned_data["institution"])
                     except ObjectDoesNotExist:
                         source = Source(
-                                name=upload_form.cleaned_data["institution"],
-                                description=upload_form.cleaned_data["institution"]
+                            name=upload_form.cleaned_data["institution"],
+                            description=upload_form.cleaned_data["institution"]
                         )
                         source.save()
                 else:
@@ -2053,10 +2054,10 @@ def curator_photo_upload_handler(request):
                     try:
                         if muis_media_id:
                             existing_photo = Photo.objects.filter(
-                                    source=source, external_id=muis_id, external_sub_id=muis_media_id).get()
+                                source=source, external_id=muis_id, external_sub_id=muis_media_id).get()
                         else:
                             existing_photo = Photo.objects.filter(
-                                    source=source, external_id=muis_id).get()
+                                source=source, external_id=muis_id).get()
                     except ObjectDoesNotExist:
                         pass
                     if not existing_photo:
@@ -2118,7 +2119,8 @@ def curator_photo_upload_handler(request):
                             ret["photos"][k]["message"] = _("OK")
                             lat = upload_form.cleaned_data["latitude"]
                             lng = upload_form.cleaned_data["longitude"]
-                            if lat and lng and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG, photo__source_key=new_photo.source_key).exists():
+                            if lat and lng and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
+                                                                         photo__source_key=new_photo.source_key).exists():
                                 source_geotag = GeoTag(
                                     lat=lat,
                                     lon=lng,
@@ -2178,7 +2180,8 @@ def curator_photo_upload_handler(request):
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
         if album:
             requests.post("https://graph.facebook.com/v2.3/?id=" + (
-                request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(album.id)) + "&scrape=true")
+                request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(
+                    album.id)) + "&scrape=true")
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
@@ -2208,7 +2211,7 @@ def update_comment_count(request):
                 p.fb_object_id = comment_id.split('_')[0]
             fql_string = "SELECT text, id, parent_id, object_id, fromid, time FROM comment WHERE object_id IN (" + p.fb_object_id + ")"
             response = json.loads(requests.get('https://graph.facebook.com/fql?access_token=%s&q=%s' % (
-            APP_ID + '|' + FACEBOOK_APP_SECRET, fql_string)).text)
+                APP_ID + '|' + FACEBOOK_APP_SECRET, fql_string)).text)
             for each in response['data']:
                 existing_comment = PhotoComment.objects.filter(fb_comment_id=each['id']).first()
                 if existing_comment:
@@ -2216,13 +2219,13 @@ def update_comment_count(request):
                     existing_comment.save()
                 else:
                     new_photo_comment = PhotoComment(
-                            fb_comment_id=each['id'],
-                            fb_comment_parent_id=each['parent_id'],
-                            fb_user_id=each['fromid'],
-                            fb_object_id=each['object_id'],
-                            text=each['text'],
-                            created=datetime.datetime.fromtimestamp(each['time']),
-                            photo=p
+                        fb_comment_id=each['id'],
+                        fb_comment_parent_id=each['parent_id'],
+                        fb_user_id=each['fromid'],
+                        fb_object_id=each['object_id'],
+                        text=each['text'],
+                        created=datetime.datetime.fromtimestamp(each['time']),
+                        photo=p
                     )
                     p.latest_comment = datetime.datetime.now()
                     new_photo_comment.save()
@@ -2257,9 +2260,9 @@ def update_like_state(request):
                 p.latest_list = None
         else:
             like = PhotoLike(
-                    profile=profile,
-                    photo=p,
-                    level=1
+                profile=profile,
+                photo=p,
+                level=1
             )
             like.save()
             ret['level'] = 1
@@ -2339,14 +2342,14 @@ def csv_upload(request):
         description = description.strip(' \t\n\r')
         source_url = meta_for_this_image.get('url')
         p = Photo(
-                area=area,
-                licence=licence,
-                date_text=meta_for_this_image.get('date'),
-                description=description,
-                source=source,
-                source_url=source_url,
-                source_key=key,
-                author=meta_for_this_image.get('author')
+            area=area,
+            licence=licence,
+            date_text=meta_for_this_image.get('date'),
+            description=description,
+            source=source,
+            source_url=source_url,
+            source_key=key,
+            author=meta_for_this_image.get('author')
         )
         p.image.name = upload_file_name
         # FIXME: Next 2 lines should happen automatically
@@ -2393,7 +2396,8 @@ def norwegian_csv_upload(request):
         except ObjectDoesNotExist:
             pass
         extension = 'jpg'
-        upload_file_name = 'uploads/%s.%s' % (unicode(datetime.datetime.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
+        upload_file_name = 'uploads/%s.%s' % (
+        unicode(datetime.datetime.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
         fout = open('/var/garage/' + upload_file_name, 'w')
         shutil.copyfileobj(response.raw, fout)
         fout.close()
@@ -2407,14 +2411,14 @@ def norwegian_csv_upload(request):
         description = description.strip(' \t\n\r')
         source_url = meta_for_this_image.get('source_url')
         p = Photo(
-                area=area,
-                licence=licence,
-                description_no=description,
-                source=source,
-                source_url=source_url,
-                source_key=key.split('.')[0],
-                date_text=meta_for_this_image.get('date'),
-                author=meta_for_this_image.get('author')
+            area=area,
+            licence=licence,
+            description_no=description,
+            source=source,
+            source_url=source_url,
+            source_key=key.split('.')[0],
+            date_text=meta_for_this_image.get('date'),
+            author=meta_for_this_image.get('author')
         )
         p.image.name = upload_file_name
         # FIXME: Next 2 lines should happen automatically
@@ -2484,12 +2488,12 @@ def submit_dating(request):
             p.dating_count = p.datings.count() + confirmation_count
             p.light_save()
             Points(
-                    user=profile,
-                    action=Points.DATING,
-                    photo=form.cleaned_data['photo'],
-                    dating=dating,
-                    points=DATING_POINTS,
-                    created=dating.created
+                user=profile,
+                action=Points.DATING,
+                photo=form.cleaned_data['photo'],
+                dating=dating,
+                points=DATING_POINTS,
+                created=dating.created
             ).save()
             return HttpResponse('OK')
         return HttpResponse('Dating exists', status=400)
@@ -2499,8 +2503,8 @@ def submit_dating(request):
                                                                 profile=profile).exists()
         if not confirmation_exists and original_dating.profile != profile:
             new_confirmation = DatingConfirmation(
-                    confirmation_of=original_dating,
-                    profile=profile
+                confirmation_of=original_dating,
+                profile=profile
             )
             new_confirmation.save()
             p = original_dating.photo
@@ -2511,12 +2515,12 @@ def submit_dating(request):
             p.dating_count = p.datings.count() + confirmation_count
             p.light_save()
             Points(
-                    user=profile,
-                    action=Points.DATING_CONFIRMATION,
-                    dating_confirmation=new_confirmation,
-                    points=DATING_CONFIRMATION_POINTS,
-                    photo=p,
-                    created=new_confirmation.created
+                user=profile,
+                action=Points.DATING_CONFIRMATION,
+                dating_confirmation=new_confirmation,
+                points=DATING_CONFIRMATION_POINTS,
+                photo=p,
+                created=new_confirmation.created
             ).save()
             return HttpResponse('OK')
         else:
@@ -2562,12 +2566,12 @@ def generate_still_from_video(request):
                 s = "%i:%02i:%06.3f" % (hours, minutes, seconds)
                 description = _('Still from "%(film)s" at %(time)s') % {'film': vid.name, 'time': s}
                 still = Photo(
-                        description=description,
-                        user=profile,
-                        types='film,still,frame,snapshot,filmi,kaader,pilt',
-                        video=vid,
-                        video_timestamp=time,
-                        source=source
+                    description=description,
+                    user=profile,
+                    types='film,still,frame,snapshot,filmi,kaader,pilt',
+                    video=vid,
+                    video_timestamp=time,
+                    source=source
                 )
                 still.save()
                 still.source_key = still.id
@@ -2578,12 +2582,12 @@ def generate_still_from_video(request):
                 still.light_save()
                 AlbumPhoto(album=a, photo=still, profile=profile, type=AlbumPhoto.STILL).save()
                 Points(
-                        user=profile,
-                        action=Points.FILM_STILL,
-                        photo=still,
-                        album=a,
-                        points=50,
-                        created=still.created
+                    user=profile,
+                    action=Points.FILM_STILL,
+                    photo=still,
+                    album=a,
+                    points=50,
+                    created=still.created
                 ).save()
                 a.set_calculated_fields()
                 a.save()
@@ -2664,6 +2668,7 @@ def user_upload(request):
     ret['form'] = form
 
     return render_to_response('user_upload.html', RequestContext(request, ret))
+
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
 def user_upload_add_album(request):
