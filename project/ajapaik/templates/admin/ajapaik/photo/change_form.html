@@ -1,0 +1,8 @@
+{% extends "admin/change_form.html" %}
+
+{% block submit_buttons_bottom %}
+    {% for button in extra_buttons %}
+        <a href="./{{ button.url }}/">{{ button.textname }}</a>
+    {% endfor %}
+    {{ block.super }}
+{% endblock %}

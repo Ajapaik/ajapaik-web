@@ -403,7 +403,7 @@ def rephoto_upload(request, photo_id):
                 re_photo = Photo(
                     rephoto_of=photo,
                     area=photo.area,
-                    licence=Licence.objects.get(url='https://creativecommons.org/licenses/by-nc-sa/4.0/'),
+                    licence=Licence.objects.get(url='https://creativecommons.org/licenses/by-sa/4.0/'),
                     description=data.get('description', photo.description),
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
@@ -1233,7 +1233,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_confirmed_this_location": user_confirmed_this_location,
         "user_has_geotagged": user_has_geotagged,
         "fb_url": request.build_absolute_uri(reverse("project.ajapaik.views.photoslug", args=(photo_obj.id,))),
-        "licence": Licence.objects.get(url="https://creativecommons.org/licenses/by-nc-sa/4.0/"),
+        "licence": Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/"),
         "area": photo_obj.area,
         "album": album,
         "albums": albums,
@@ -1262,7 +1262,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 
 def mapview_photo_upload_modal(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
-    licence = Licence.objects.get(url="https://creativecommons.org/licenses/by-nc-sa/4.0/")
+    licence = Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/")
     return render_to_response('_photo_upload_modal.html', RequestContext(request, {
         'photo': photo,
         'licence': licence,
@@ -2077,7 +2077,7 @@ def curator_photo_upload_handler(request):
                                 upload_form.cleaned_data["keywords"] else None,
                                 date_text=upload_form.cleaned_data["date"].encode('utf-8') if
                                 upload_form.cleaned_data["date"] else None,
-                                licence=Licence.objects.get(url="https://creativecommons.org/licenses/by-nc-sa/4.0/"),
+                                licence=Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/"),
                                 external_id=muis_id,
                                 external_sub_id=muis_media_id,
                                 source_key=upload_form.cleaned_data["identifyingNumber"],

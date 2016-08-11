@@ -9,25 +9,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-09 19:20+0300\n"
-"PO-Revision-Date: 2016-05-09 16:21+0000\n"
+"POT-Creation-Date: 2016-08-11 12:52+0300\n"
+"PO-Revision-Date: 2016-08-11 09:53+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Norwegian (https://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
+"Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: project/ajapaik/delfi.py:18
+#: project/ajapaik/admin.py:117
+msgid "Invert colors"
+msgstr ""
+
+#: project/ajapaik/delfi.py:19
 msgid "Bounding box must be set"
 msgstr ""
 
-#: project/ajapaik/delfi.py:21
+#: project/ajapaik/delfi.py:22
 msgid "Bounding box must have 4 comma-separated members"
 msgstr "Rammen må ha 4 kommaseparerte verdier"
 
-#: project/ajapaik/delfi.py:26
+#: project/ajapaik/delfi.py:27
 msgid "Bounding box values must be numbers"
 msgstr "Rammekoordinatene må være nummer"
 
@@ -84,162 +88,162 @@ msgstr ""
 msgid "Missing licence"
 msgstr ""
 
-#: project/ajapaik/models.py:155 project/ajapaik/templates/curator.html:77
+#: project/ajapaik/models.py:153 project/ajapaik/templates/curator.html:77
 #: project/ajapaik/templates/then_and_now/create_tour_5.html:8
 #: project/ajapaik/then_and_now_tours.py:179
 msgid "Name"
 msgstr "Navn"
 
-#: project/ajapaik/models.py:157 project/ajapaik/models.py:289
+#: project/ajapaik/models.py:155 project/ajapaik/models.py:287
 #: project/ajapaik/templates/curator.html:88
 #: project/ajapaik/templates/then_and_now/create_tour_5.html:9
 #: project/ajapaik/then_and_now_tours.py:180
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: project/ajapaik/models.py:161
+#: project/ajapaik/models.py:159
 msgid "Is public"
 msgstr ""
 
-#: project/ajapaik/models.py:162
+#: project/ajapaik/models.py:160
 msgid "Is open"
 msgstr ""
 
-#: project/ajapaik/models.py:275
+#: project/ajapaik/models.py:273
 msgid "Image"
 msgstr ""
 
-#: project/ajapaik/models.py:290
+#: project/ajapaik/models.py:288
 msgid "Author"
 msgstr ""
 
-#: project/ajapaik/models.py:743
+#: project/ajapaik/models.py:748
 msgid "Geotag"
 msgstr "Geotag"
 
-#: project/ajapaik/models.py:744 project/ajapaik/templates/_comments.html:11
+#: project/ajapaik/models.py:749 project/ajapaik/templates/_comments.html:11
 #: project/ajapaik/templates/_photo_modal_comments.html:11
 #: project/ajapaik/templates/then_and_now/detail.html:90
 msgid "Rephoto"
 msgstr "Refoto"
 
-#: project/ajapaik/models.py:745
+#: project/ajapaik/models.py:750
 msgid "Photo upload"
 msgstr "Opplasting av foto"
 
-#: project/ajapaik/models.py:746
+#: project/ajapaik/models.py:751
 msgid "Photo curation"
 msgstr "Utvalg av foto"
 
-#: project/ajapaik/models.py:747
+#: project/ajapaik/models.py:752
 msgid "Photo re-curation"
 msgstr "Foto re-kuratering"
 
-#: project/ajapaik/models.py:748
+#: project/ajapaik/models.py:753
 msgid "Dating"
 msgstr "Datering"
 
-#: project/ajapaik/models.py:749
+#: project/ajapaik/models.py:754
 msgid "Dating confirmation"
 msgstr "Bekreftelse av datering"
 
-#: project/ajapaik/models.py:750
+#: project/ajapaik/models.py:755
 msgid "Film still"
 msgstr "Stillbilde"
 
-#: project/ajapaik/models.py:776
+#: project/ajapaik/models.py:781
 #: project/ajapaik/templates/then_and_now/base.html:51
 msgid "Map"
 msgstr "Kart"
 
-#: project/ajapaik/models.py:777
+#: project/ajapaik/models.py:782
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/ajapaik/models.py:778
+#: project/ajapaik/models.py:783
 msgid "GPS"
 msgstr "GPS"
 
-#: project/ajapaik/models.py:779
+#: project/ajapaik/models.py:784
 msgid "Confirmation"
 msgstr "Bekreftelse"
 
-#: project/ajapaik/models.py:780
+#: project/ajapaik/models.py:785
 msgid "StreetView"
 msgstr "Gatebilde"
 
-#: project/ajapaik/models.py:781
+#: project/ajapaik/models.py:786
 msgid "Source geotag"
 msgstr "Geotagg bilde"
 
-#: project/ajapaik/models.py:792
+#: project/ajapaik/models.py:797
 msgid "Game"
 msgstr "Spill"
 
-#: project/ajapaik/models.py:793
+#: project/ajapaik/models.py:798
 msgid "Map view"
 msgstr "Kartvisning"
 
-#: project/ajapaik/models.py:794
+#: project/ajapaik/models.py:799
 #: project/ajapaik/templates/then_and_now/base.html:54
 msgid "Gallery"
 msgstr "Galleri"
 
-#: project/ajapaik/models.py:795
+#: project/ajapaik/models.py:800
 msgid "Permalink"
 msgstr "Permalenke"
 
-#: project/ajapaik/models.py:796
+#: project/ajapaik/models.py:801
 msgid "Source"
 msgstr "Kilde"
 
-#: project/ajapaik/models.py:800
+#: project/ajapaik/models.py:805
 msgid "Google map"
 msgstr "Google kart"
 
-#: project/ajapaik/models.py:801
+#: project/ajapaik/models.py:806
 msgid "Google satellite"
 msgstr "Google satellitt"
 
-#: project/ajapaik/models.py:802
+#: project/ajapaik/models.py:807
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/ajapaik/models.py:803
+#: project/ajapaik/models.py:808
 msgid "Juks"
 msgstr "Juks"
 
-#: project/ajapaik/models.py:804
+#: project/ajapaik/models.py:809
 msgid "No map"
 msgstr "Uten kart"
 
-#: project/ajapaik/models.py:920
+#: project/ajapaik/models.py:925
 #: project/ajapaik/templates/then_and_now/detail.html:93
 #: project/ajapaik/templates/then_and_now/participants.html:12
 msgid "Anonymous user"
 msgstr "Anonym bruker"
 
-#: project/ajapaik/models.py:1205
+#: project/ajapaik/models.py:1210
 msgid "Day"
 msgstr "Dag"
 
-#: project/ajapaik/models.py:1206
+#: project/ajapaik/models.py:1211
 msgid "Month"
 msgstr "Måned"
 
-#: project/ajapaik/models.py:1207
+#: project/ajapaik/models.py:1212
 msgid "Year"
 msgstr "År"
 
-#: project/ajapaik/models.py:1246 project/ajapaik/then_and_now_tours.py:47
+#: project/ajapaik/models.py:1251 project/ajapaik/then_and_now_tours.py:47
 msgid "Open tour"
 msgstr "Åpen tur"
 
-#: project/ajapaik/models.py:1247 project/ajapaik/then_and_now_tours.py:48
+#: project/ajapaik/models.py:1252 project/ajapaik/then_and_now_tours.py:48
 msgid "Fixed photo set"
 msgstr "Låst album"
 
-#: project/ajapaik/models.py:1248 project/ajapaik/then_and_now_tours.py:49
+#: project/ajapaik/models.py:1253 project/ajapaik/then_and_now_tours.py:49
 msgid "Random with nearby pictures"
 msgstr "Tilfeldig med nærliggende foto"
 
@@ -835,6 +839,10 @@ msgstr "MUIS"
 msgid "DIGAR"
 msgstr "DIGAR"
 
+#: project/ajapaik/templates/_header.html:300
+msgid "MKA"
+msgstr ""
+
 #: project/ajapaik/templates/_header.html:306
 msgid "ETERA"
 msgstr "ETERA"
@@ -852,12 +860,9 @@ msgstr "Fjern valg"
 msgid "Submit selection to Ajapaik"
 msgstr "Send utvalg til Ajapaik"
 
-#: project/ajapaik/templates/_header.html:351
-msgid ""
-"Ajapaik is not making money and is no longer supported by grants, if you "
-"appriciate the application and want to help keep it alive, please <a "
-"href=\"#\" id=\"ajapaik-donation-modal-link\">donate!</a>"
-msgstr "Ajapaik er ikke lenger finansiert av stipend og tilskudd. Hvis du setter pris på tjenesten og ønsker å hjelpe å holde den i live, så kan du <a href=\"#\" id=\"ajapaik-donation-modal-link\">donere her!</a>"
+#: project/ajapaik/templates/_header.html:352
+msgid "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support Ajapaik"
+msgstr ""
 
 #: project/ajapaik/templates/_info_modal_content.html:14
 #: project/ajapaik/templates/_info_modal_content.html:21
@@ -1992,35 +1997,35 @@ msgstr "Søk etter gamle bilder, legg dem til Ajapaik, bestem lokasjon og  og de
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - lag utvalg"
 
-#: project/ajapaik/views.py:2118
+#: project/ajapaik/views.py:2119
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:2162
+#: project/ajapaik/views.py:2164
 msgid "Error uploading file"
 msgstr "Feil ved opplasting av fil"
 
-#: project/ajapaik/views.py:2178
+#: project/ajapaik/views.py:2180
 msgid "Photo already exists in Ajapaik"
 msgstr "Foto eksisterer allerede i Ajapaik"
 
-#: project/ajapaik/views.py:2190
+#: project/ajapaik/views.py:2194
 msgid "Please add photos to your album"
 msgstr "Vennligst legg til foto i ditt album"
 
-#: project/ajapaik/views.py:2192
+#: project/ajapaik/views.py:2196
 msgid "Not enough data submitted"
 msgstr "Ikke tilstrekkelig med data sendt inn"
 
-#: project/ajapaik/views.py:2560
+#: project/ajapaik/views.py:2567
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Stillbilde fra \"%(film)s\" på %(time)s"
 
-#: project/ajapaik/views.py:2658
+#: project/ajapaik/views.py:2665
 msgid "Photo uploaded"
 msgstr ""
 
-#: project/ajapaik/views.py:2675
+#: project/ajapaik/views.py:2683
 msgid "Album created"
 msgstr ""

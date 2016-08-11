@@ -1,6 +1,11 @@
 import autocomplete_light
+from sorl.thumbnail import delete as sorl_delete
+from PIL import Image, ImageOps
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
+from django.utils.translation import ugettext as _
+
+from project.ajapaik import settings
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
     AlbumPhoto, Licence, Device, PhotoComment, Newsletter, Dating, Tour, TourRephoto, \
     DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto
@@ -90,6 +95,39 @@ class PhotoAdmin(ModelAdmin):
                     geo_tag.is_correct = True
                 geo_tag.save()
         obj.save()
+
+    def _invertcolors(self, id):
+        from django.http.response import HttpResponse
+        photo = Photo.objects.filter(pk=id).first()
+        if photo:
+            photo_path = settings.MEDIA_ROOT + "/" + str(photo.image)
+            img = Image.open(photo_path)
+            inverted_grayscale_image = ImageOps.invert(img).convert('L')
+            inverted_grayscale_image.save(photo_path)
+            photo.invert = not photo.invert
+            sorl_delete(photo.image, delete_file=False)
+            photo.light_save()
+            return HttpResponse(u'Photo inverted!')
+
+        return HttpResponse(u'Failed to invert photo!')
+
+    extra_buttons = [
+        {
+            'url': '_invertcolors',
+            'textname': _('Invert colors'),
+            'func': _invertcolors
+        },
+    ]
+
+    def change_view(self, request, object_id, form_url='', extra_context={}):
+        extra_context['extra_buttons'] = self.extra_buttons
+        return super(PhotoAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
+
+    def get_urls(self):
+        from django.conf.urls import url
+        urls = super(PhotoAdmin, self).get_urls()
+        my_urls = list((url(r'^(.+)/%(url)s/$' % b, self.admin_site.admin_view(b['func'])) for b in self.extra_buttons))
+        return my_urls + urls
 
     inlines = (AlbumPhotoInline,)
 

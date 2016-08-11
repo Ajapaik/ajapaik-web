@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from project.ajapaik.models import Photo
 from django.contrib.gis.geos import Point
 from django import forms
+from django.utils.translation import ugettext as _
 
 
 class DelfiBboxRequestForm(forms.Form):

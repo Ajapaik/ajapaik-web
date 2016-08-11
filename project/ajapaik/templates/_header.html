@@ -345,10 +345,11 @@
         {% endif %}
     {% endif %}
 </nav>
-{% if not is_curator and not is_mapview and not is_donate %}
+{% get_current_language as LANGUAGE_CODE %}
+{% if not is_curator and not is_mapview and not is_donate and LANGUAGE_CODE == 'et' %}
     <div id="ajapaik-donation-header">
         <div class="container">
-            {% trans 'Ajapaik is not making money and is no longer supported by grants, if you appriciate the application and want to help keep it alive, please <a href="#" id="ajapaik-donation-modal-link">donate!</a>' %}
+            {% trans '<a href="#" id="ajapaik-donation-modal-link">Donate</a> to support Ajapaik' %}
             <button type="button" class="close" id="ajapaik-close-donation-header-button">&times;</button>
         </div>
     </div>

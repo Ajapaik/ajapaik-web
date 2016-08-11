@@ -6,6 +6,9 @@
 {{ object.description_nl }}
 {{ object.description_en }}
 {{ object.author }}
+{% if object.rephoto_of_id %}
+    {{ object.user.profile.get_display_name() }}
+{% endif %}
 {{ object.types }}
 {{ object.source }}
 {{ object.source_key }}
