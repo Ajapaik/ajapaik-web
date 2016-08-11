@@ -106,16 +106,22 @@ al.register(GeoTag,
     },
 )
 
-al.register(Album,
-    search_fields=['pk', 'name'],
+
+class AlbumAutocomplete(AutocompleteModelBase):
+    model = Album
+    name = 'AlbumAutocomplete'
+    search_fields = ['pk', 'name']
+    limit_choices = 100
     attrs={
         'data-autocomplete-minimum-characters': 2,
-    },
+    }
     widget_attrs={
         'data-widget-maximum-values': 4,
         'class': 'modern-style',
     }
-)
+
+al.register(AlbumAutocomplete)
+
 
 class PublicAlbumAutocomplete(AutocompleteModelBase):
     model = Album
