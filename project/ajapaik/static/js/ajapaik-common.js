@@ -269,6 +269,7 @@ var map,
                     return;
                 }
                 map.setCenter(places[0].geometry.location);
+                map.setZoom(16);
             });
 
             google.maps.event.addListener(map, 'bounds_changed', function () {
