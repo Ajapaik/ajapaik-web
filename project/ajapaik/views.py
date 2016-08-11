@@ -2028,6 +2028,7 @@ def curator_photo_upload_handler(request):
             subalbum_of=album
         )
         default_album.save()
+        licence = Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/")
         for k, v in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
@@ -2062,8 +2063,7 @@ def curator_photo_upload_handler(request):
                         muis_id = incoming_muis_id
                         muis_media_id = None
                     if upload_form.cleaned_data["collections"] == "DIGAR":
-                        upload_form.cleaned_data["identifyingNumber"] = 'nlib-digar:' + upload_form.cleaned_data[
-                            "identifyingNumber"]
+                        upload_form.cleaned_data["identifyingNumber"] = 'nlib-digar:' + upload_form.cleaned_data["identifyingNumber"]
                         muis_media_id = 1
                     try:
                         if muis_media_id:
@@ -2088,7 +2088,7 @@ def curator_photo_upload_handler(request):
                                 types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data["types"] else None,
                                 keywords=upload_form.cleaned_data["keywords"].strip().encode('utf-8') if upload_form.cleaned_data["keywords"] else None,
                                 date_text=upload_form.cleaned_data["date"].encode('utf-8') if upload_form.cleaned_data["date"] else None,
-                                licence=Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/"),
+                                licence=licence,
                                 external_id=muis_id,
                                 external_sub_id=muis_media_id,
                                 source_key=upload_form.cleaned_data["identifyingNumber"],
