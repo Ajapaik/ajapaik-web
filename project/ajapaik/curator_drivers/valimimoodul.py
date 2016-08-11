@@ -49,7 +49,13 @@ class ValimimoodulDriver(object):
 
     @staticmethod
     def transform_response(response, remove_existing=False):
-        full_response_json = loads(response.text)
+        try:
+            full_response_json = loads(response.text)
+        except ValueError:
+            return dumps({
+                'result': {
+                    'firstRecordViews': []
+                }})
         result = loads(response.text)
         if 'result' in result:
             result = result['result']

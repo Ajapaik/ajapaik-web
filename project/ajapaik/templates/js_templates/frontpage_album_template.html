@@ -1,7 +1,7 @@
 {% verbatim %}
     <script id="ajapaik-frontpage-album-template" type="text/x-tmpl">
         <a href="/?album={%=o.id%}" class="ajapaik-frontpage-album" data-id="{%=o.id%}">
-            <img alt="{%=o.name%}" class="img-responsive lazyload{% if (o.cover_photo_flipped) { %} ajapaik-photo-flipped{% } %}"
+            <img alt="{%=o.name%}" class="img-responsive lazyload"
                  data-id="{%=o.id%}" data-name="{%=o.name%}" height="{%=o.cover_photo_height%}"
                  data-photos="{%=o.photo_count_with_subalbums%}" width="{%=o.cover_photo_width%}"
                  src="{%=photoThumbURL%}{%=o.cover_photo%}/400/">

@@ -945,6 +945,7 @@
             $('#ajp-geotagger-flip-button').toggleClass('active');
             this.geotaggerImageThumb.toggleClass('ajp-photo-flipped');
             $('#ajp-geotagger-full-screen-image').toggleClass('ajp-photo-flipped');
+            this.photoFlipped = !this.photoFlipped;
         },
         fitGuessPhotosToContainers: function () {
             var newMargin,
@@ -1041,6 +1042,7 @@
                     zoom_level: this.map.getZoom(),
                     photo: this.options.currentPhotoId,
                     hint_used: this.hintUsed,
+                    photo_flipped: this.photoFlipped,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 };
             if (this.streetViewAzimuth) {

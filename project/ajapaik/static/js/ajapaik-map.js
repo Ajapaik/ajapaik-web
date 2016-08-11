@@ -266,6 +266,7 @@
             $('.modal-backdrop').hide();
             $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
                 thumbSrc: '/photo-thumb/' + photoId + '/400/',
+                photoFlipped: window.photoModalCurrentPhotoFlipped,
                 fullScreenSrc: window.photoModalFullscreenImageUrl,
                 description: window.currentPhotoDescription,
                 sourceKey: window.currentPhotoSourceKey,
@@ -583,6 +584,7 @@
         } else {
             fullScreenPhoto.addClass('ajapaik-photo-flipped');
         }
+        window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
     };
     setCorrectMarkerIcon = function (marker) {
         if (marker) {

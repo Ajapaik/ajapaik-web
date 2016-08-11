@@ -225,6 +225,8 @@ class ApiRegisterForm(forms.Form):
 
 
 class SubmitGeotagForm(forms.ModelForm):
+    photo_flipped = forms.BooleanField(initial=False, required=False)
+
     class Meta:
         model = GeoTag
         exclude = ('user', 'trustworthiness')
