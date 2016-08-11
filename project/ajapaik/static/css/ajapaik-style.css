@@ -2453,6 +2453,7 @@ a[href^="https://maps.google.com/maps"] {
 
 .ajapaik-result-has-location-indicator {
     margin-top: 5px;
+    margin-left: 5px;
     float: right;
     background-color: black;
 }
