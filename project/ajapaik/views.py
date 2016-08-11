@@ -2078,101 +2078,101 @@ def curator_photo_upload_handler(request):
                         new_photo = None
                         if upload_form.cleaned_data["date"] == "[]":
                             upload_form.cleaned_data["date"] = None
-                        try:
-                            new_photo = Photo(
-                                user=profile,
-                                area=area,
-                                author=upload_form.cleaned_data["creators"].encode('utf-8'),
-                                description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
-                                source=source,
-                                types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data["types"] else None,
-                                keywords=upload_form.cleaned_data["keywords"].strip().encode('utf-8') if upload_form.cleaned_data["keywords"] else None,
-                                date_text=upload_form.cleaned_data["date"].encode('utf-8') if upload_form.cleaned_data["date"] else None,
-                                licence=licence,
-                                external_id=muis_id,
-                                external_sub_id=muis_media_id,
-                                source_key=upload_form.cleaned_data["identifyingNumber"],
-                                source_url=upload_form.cleaned_data["urlToRecord"],
-                                flip=upload_form.cleaned_data["flip"],
-                                invert=upload_form.cleaned_data["invert"],
-                                stereo=upload_form.cleaned_data["stereo"],
-                                rotated=upload_form.cleaned_data["rotated"]
-                            )
-                            new_photo.save()
-                            if upload_form.cleaned_data["collections"] == "DIGAR":
-                                new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
+                        #try:
+                        new_photo = Photo(
+                            user=profile,
+                            area=area,
+                            author=upload_form.cleaned_data["creators"].encode('utf-8'),
+                            description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
+                            source=source,
+                            types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data["types"] else None,
+                            keywords=upload_form.cleaned_data["keywords"].strip().encode('utf-8') if upload_form.cleaned_data["keywords"] else None,
+                            date_text=upload_form.cleaned_data["date"].encode('utf-8') if upload_form.cleaned_data["date"] else None,
+                            licence=licence,
+                            external_id=muis_id,
+                            external_sub_id=muis_media_id,
+                            source_key=upload_form.cleaned_data["identifyingNumber"],
+                            source_url=upload_form.cleaned_data["urlToRecord"],
+                            flip=upload_form.cleaned_data["flip"],
+                            invert=upload_form.cleaned_data["invert"],
+                            stereo=upload_form.cleaned_data["stereo"],
+                            rotated=upload_form.cleaned_data["rotated"]
+                        )
+                        new_photo.save()
+                        if upload_form.cleaned_data["collections"] == "DIGAR":
+                            new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
+                        else:
+                            opener = urllib2.build_opener()
+                            headers = [("User-Agent",
+                                        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                            if etera_token:
+                                headers.append(("Authorization", "Bearer " + etera_token))
+                            opener.addheaders = headers
+                            img_response = opener.open(upload_form.cleaned_data["imageUrl"])
+                            if 'ETERA' in new_photo.source.description:
+                                img = ContentFile(img_response.read())
+                                new_photo.image_no_watermark.save("etera.jpg", img)
+                                new_photo.watermark()
                             else:
-                                opener = urllib2.build_opener()
-                                headers = [("User-Agent",
-                                            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-                                if etera_token:
-                                    headers.append(("Authorization", "Bearer " + etera_token))
-                                opener.addheaders = headers
-                                img_response = opener.open(upload_form.cleaned_data["imageUrl"])
-                                if 'ETERA' in new_photo.source.description:
-                                    img = ContentFile(img_response.read())
-                                    new_photo.image_no_watermark.save("etera.jpg", img)
-                                    new_photo.watermark()
-                                else:
-                                    new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
-                            if new_photo.invert:
-                                photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
-                                img = Image.open(photo_path)
-                                inverted_grayscale_image = ImageOps.invert(img).convert('L')
-                                inverted_grayscale_image.save(photo_path)
-                            if new_photo.rotated > 0:
-                                photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
-                                img = Image.open(photo_path)
-                                rot = img.rotate(new_photo.rotated, expand=1)
-                                rot.save(photo_path)
-                                new_photo.width, new_photo.height = rot.size
-                            ret["photos"][k] = {}
-                            ret["photos"][k]["message"] = _("OK")
-                            lat = upload_form.cleaned_data["latitude"]
-                            lng = upload_form.cleaned_data["longitude"]
-                            if lat and lng and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
-                                                                         photo__source_key=new_photo.source_key).exists():
-                                source_geotag = GeoTag(
-                                    lat=lat,
-                                    lon=lng,
-                                    origin=GeoTag.SOURCE,
-                                    type=GeoTag.SOURCE_GEOTAG,
-                                    map_type=GeoTag.NO_MAP,
-                                    photo=new_photo,
-                                    is_correct=True,
-                                    trustworthiness=0.07
-                                )
-                                source_geotag.save()
-                                new_photo.latest_geotag = source_geotag.created
-                                new_photo.set_calculated_fields()
-                            new_photo.save()
-                            points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
-                                                         user=profile, created=new_photo.created)
-                            points_for_curating.save()
-                            awarded_curator_points.append(points_for_curating)
-                            if album:
-                                ap = AlbumPhoto(photo=new_photo, album=album, profile=profile, type=AlbumPhoto.CURATED)
-                                ap.save()
-                                created_album_photo_links.append(ap)
-                                if not album.cover_photo:
-                                    album.cover_photo = new_photo
-                                    album.light_save()
-                            ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
-                                            type=AlbumPhoto.CURATED)
+                                new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
+                        if new_photo.invert:
+                            photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+                            img = Image.open(photo_path)
+                            inverted_grayscale_image = ImageOps.invert(img).convert('L')
+                            inverted_grayscale_image.save(photo_path)
+                        if new_photo.rotated > 0:
+                            photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+                            img = Image.open(photo_path)
+                            rot = img.rotate(new_photo.rotated, expand=1)
+                            rot.save(photo_path)
+                            new_photo.width, new_photo.height = rot.size
+                        ret["photos"][k] = {}
+                        ret["photos"][k]["message"] = _("OK")
+                        lat = upload_form.cleaned_data["latitude"]
+                        lng = upload_form.cleaned_data["longitude"]
+                        if lat and lng and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
+                                                                     photo__source_key=new_photo.source_key).exists():
+                            source_geotag = GeoTag(
+                                lat=lat,
+                                lon=lng,
+                                origin=GeoTag.SOURCE,
+                                type=GeoTag.SOURCE_GEOTAG,
+                                map_type=GeoTag.NO_MAP,
+                                photo=new_photo,
+                                is_correct=True,
+                                trustworthiness=0.07
+                            )
+                            source_geotag.save()
+                            new_photo.latest_geotag = source_geotag.created
+                            new_photo.set_calculated_fields()
+                        new_photo.save()
+                        points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
+                                                     user=profile, created=new_photo.created)
+                        points_for_curating.save()
+                        awarded_curator_points.append(points_for_curating)
+                        if album:
+                            ap = AlbumPhoto(photo=new_photo, album=album, profile=profile, type=AlbumPhoto.CURATED)
                             ap.save()
                             created_album_photo_links.append(ap)
-                            ret["photos"][k]["success"] = True
-                            all_curating_points.append(points_for_curating)
-                        except:
-                            if new_photo:
-                                new_photo.image.delete()
-                                new_photo.delete()
-                            for ap in created_album_photo_links:
-                                ap.delete()
-                            for cp in awarded_curator_points:
-                                cp.delete()
-                            ret["photos"][k] = {}
-                            ret["photos"][k]["error"] = _("Error uploading file")
+                            if not album.cover_photo:
+                                album.cover_photo = new_photo
+                                album.light_save()
+                        ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
+                                        type=AlbumPhoto.CURATED)
+                        ap.save()
+                        created_album_photo_links.append(ap)
+                        ret["photos"][k]["success"] = True
+                        all_curating_points.append(points_for_curating)
+                        # except:
+                        #     if new_photo:
+                        #         new_photo.image.delete()
+                        #         new_photo.delete()
+                        #     for ap in created_album_photo_links:
+                        #         ap.delete()
+                        #     for cp in awarded_curator_points:
+                        #         cp.delete()
+                        #     ret["photos"][k] = {}
+                        #     ret["photos"][k]["error"] = _("Error uploading file")
                     else:
                         if album:
                             ap = AlbumPhoto(photo=existing_photo, album=album, profile=profile,
