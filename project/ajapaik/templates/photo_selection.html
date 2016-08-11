@@ -17,7 +17,7 @@
                                 data-trigger="hover" data-placement="bottom"
                                 data-content="{% blocktrans count counter=count_with_location %}Only pictures with locations can be selected for tours. Currently {{ count_with_location }} image.{% plural %}Only pictures with locations can be selected for tours. Currently {{ count_with_location }} images.{% endblocktrans %}"
                                 type="button"
-                                class="btn{% if at_least_one_photo_has_location %} btn-warning{% else %} btn-disabled{% endif %}{% if then_and_now_disbled %} hidden{% endif %}">
+                                class="btn{% if at_least_one_photo_has_location %} btn-warning{% else %} btn-disabled{% endif %}{% if then_and_now_disabled %} hidden{% endif %}">
                             {% trans "Create Then and Now Tour" %}
                         </button>
                         <button id="ajapaik-photo-selection-create-album-button" type="button"

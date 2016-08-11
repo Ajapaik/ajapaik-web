@@ -574,7 +574,10 @@ def rephoto_thumb(request, rephoto_id=None, thumb_size=250, pseudo_slug=None):
 @csrf_exempt
 def camera_upload(request):
     ret = {}
-    profile = request.user.profile
+    user = request.user
+    profile = user.profile
+    if not profile.fb_id and not profile.google_plus_id and not user.email:
+        return HttpResponse(json.dumps({'error': _('Non-authenticated user')}), content_type='application/json')
     form = CameraUploadForm(request.POST, request.FILES)
     if form.is_valid():
         tour = form.cleaned_data['tour']

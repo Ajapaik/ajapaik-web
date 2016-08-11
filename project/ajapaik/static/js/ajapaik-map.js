@@ -744,6 +744,7 @@
         $(document).on('click', '#ajapaik-mapview-my-location-button', function () {
             window.getGeolocation(window.handleGeolocation);
             centerOnMapAfterLocating = true;
+            window.map.setZoom(16);
         });
         window.handleGeolocation = function (location) {
             $('#ajapaik-geolocation-error').hide();

@@ -2451,6 +2451,12 @@ a[href^="https://maps.google.com/maps"] {
     float: right;
 }
 
+.ajapaik-result-has-location-indicator {
+    margin-top: 5px;
+    float: right;
+    background-color: black;
+}
+
 #ajapaik-photo-pane-content-container {
     margin-bottom: 50px;
     min-width: 20%;

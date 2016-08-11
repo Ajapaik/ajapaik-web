@@ -387,6 +387,7 @@ def rephoto_upload(request, photo_id):
     new_id = 0
     if request.method == 'POST':
         profile = request.get_user().profile
+        user = request.get_user()
         # FIXME: Our interfaces block non-authenticated uploading, but clearly it's possible
         if 'fb_access_token' in request.POST:
             token = request.POST.get('fb_access_token')
@@ -395,6 +396,8 @@ def rephoto_upload(request, photo_id):
                 user = request.get_user()
                 profile = user.profile
                 profile.update_from_fb_data(token, fb_data)
+        if not profile.fb_id and not profile.google_plus_id and not user.email:
+            return HttpResponse(json.dumps({'error': _('Non-authenticated user')}), content_type='application/json')
         if 'user_file[]' in request.FILES.keys():
             for f in request.FILES.getlist('user_file[]'):
                 file_obj = ContentFile(f.read())
@@ -1787,7 +1790,7 @@ def curator(request):
         'curator_random_images': curator_random_images,
         'title': _('Timepatch (Ajapaik) - curate'),
         'hostname': 'https://%s' % (site.domain,),
-        'then_and_now_disbled': CURATOR_THEN_AND_NOW_CREATION_DISABLED,
+        'then_and_now_disabled': CURATOR_THEN_AND_NOW_CREATION_DISABLED,
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': CURATOR_FLICKR_ENABLED,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
