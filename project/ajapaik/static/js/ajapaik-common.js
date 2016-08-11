@@ -813,10 +813,13 @@ var map,
                     var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 2000);
                     var angle = Math.getAzimuthBetweenTwoPoints(start, geodesicEndPoint);
                     var angleFix = window.photoModalPhotoAzimuth - angle;
-                    arrowIcon.rotation = window.photoModalPhotoAzimuth;
-                    if (angleFix < 0) {
-                        arrowIcon.rotation += angleFix;
+                    var arrowIconRotation;
+                    arrowIconRotation = window.photoModalPhotoAzimuth;
+                    // TODO: Why do we even need such magic? Should get to the bottom of our azimuth calculation problems
+                    if (angleFix < 0 && arrowIconRotation > 0) {
+                        arrowIconRotation += angleFix;
                     }
+                    arrowIcon.rotation = arrowIconRotation;
                     currentIcon = arrowIcon;
                     window.minimapDottedAzimuthLine = new google.maps.Polyline({
                         geodesic: false,
