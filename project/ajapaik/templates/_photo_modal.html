@@ -20,7 +20,7 @@
                             <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="{% url 'project.ajapaik.views.photoslug' photo.id photo.get_pseudo_slug %}">
                                 <img src="{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"
                                      alt="{{ photo.description }}" title="{{ photo.description }}"
-                                     class="img-responsive col-xs-12 {% if photo.flip %}ajapaik-photo-flipped{% endif %}"
+                                     class="img-responsive col-xs-12"
                                      id="ajapaik-modal-photo"/>
                             </a>
                             <div class="ajapaik-photo-modal-next-button"
@@ -33,7 +33,7 @@
                                     <i class="material-icons notranslate">check_circle</i>
                                 </button>
                             {% endif %}
-                            <button class="ajapaik-flip-photo-overlay-button {% if photo.flip %}active{% endif %}"
+                            <button class="ajapaik-flip-photo-overlay-button"
                                     {% if not request.mobile %}style="display: none;"{% endif %} title="{% trans "Flip photo" %}">
                                 <i class="material-icons notranslate">flip</i>
                             </button>
@@ -286,7 +286,7 @@
             // TODO: Clean
             window.photoModalCurrentImageUrl = '{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}';
             window.currentPhotoURL = '{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}';
-            window.photoModalCurrentPhotoFlipped = '{{ photo.flip|safe }}' === 'True';
+            window.photoModalCurrentPhotoFlipped = false;
             window.photoModalRephotoArray = [];
             window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
             window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';

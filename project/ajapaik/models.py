@@ -729,6 +729,7 @@ class DifficultyFeedback(Model):
         db_table = "project_difficultyfeedback"
 
 
+# FIXME: Unused model?
 class FlipFeedback(Model):
     photo = ForeignKey("Photo")
     user_profile = ForeignKey("Profile")
