@@ -334,23 +334,23 @@
                 }),
                 FB.Event.subscribe("comment.create", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment added", a.href]);
-                    var parts = a.href.split('/');
+                    /* var parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
                         photo_id: parts[parts.length - 2],
                         comment_id: a.commentID,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     }, function () {
-                    });
+                    }); */
                 }),
                 FB.Event.subscribe("comment.remove", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment removed", a.href]);
-                    var parts = a.href.split('/');
+                    /* var parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
                         photo_id: parts[parts.length - 2],
                         comment_id: a.commentID,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     }, function () {
-                    });
+                    }); */
                 }), FB.Event.subscribe("auth.prompt", function () {
                     _gaq.push(["_trackEvent", "Facebook", "Login prompt"])
                 }), FB.Event.subscribe("auth.login", function () {
