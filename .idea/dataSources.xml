@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="4101820747">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="PostgreSQL - rephoto@127.0.0.1" uuid="952c118f-8b92-4f81-b0d6-7056fecb9b55">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -12,6 +12,12 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/rephoto_dev</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="PostgreSQL - fotodugnad@localhost" uuid="6421ce83-6466-451d-8334-49ab53bfca15">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/fotodugnad</jdbc-url>
     </data-source>
   </component>
 </project>

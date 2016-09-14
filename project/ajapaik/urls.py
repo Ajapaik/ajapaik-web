@@ -6,7 +6,6 @@ from django.views.generic import RedirectView, TemplateView
 
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
-# TODO: Locale specific URLs?
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
    url(r'^stream/', 'fetch_stream'),

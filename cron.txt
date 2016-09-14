@@ -11,4 +11,3 @@ Put this into crontab
 0 6 2 * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py update_metadata_from_muis
 0 6 16 * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py update_metadata_from_muis
 */10 * * * * cd /var/garage/sift && /opt/python27/bin/python2.7 project/manage.py set_applied_tags_for_cat_photos
-20 6 * * * sudo sh /var/garage/rephoto/inode-alert

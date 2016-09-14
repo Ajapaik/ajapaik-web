@@ -50,6 +50,7 @@ def remove_newlines(text):
     normalized_text = normalize_newlines(text)
     return mark_safe(normalized_text.replace('\n', ' '))
 
+
 remove_newlines.is_safe = True
 remove_newlines = stringfilter(remove_newlines)
 register.filter(remove_newlines)
