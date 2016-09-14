@@ -95,16 +95,8 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'admin_tools.template_loaders.Loader',
-    )),
-)
-
 MIDDLEWARE_CLASSES = (
-    #'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -122,33 +114,33 @@ ROOT_URLCONF = 'project.ajapaik.urls'
 
 WSGI_APPLICATION = 'project.ajapaik.wsgihandler.application'
 
-TEMPLATE_DIRS = (
-    ABSOLUTE_TEMPLATES_PATH,
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'project.ajapaik.context_processors.analytics',
-    'project.ajapaik.context_processors.is_then_and_now',
-    'project.ajapaik.context_processors.is_user_upload',
-)
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': TEMPLATE_CONTEXT_PROCESSORS,
-            'loaders': TEMPLATE_LOADERS
+            'context_processors': (
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'django.core.context_processors.tz',
+                'django.core.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'project.ajapaik.context_processors.analytics',
+                'project.ajapaik.context_processors.is_user_upload',
+            ),
+            'loaders': (
+                ('django.template.loaders.cached.Loader', (
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'admin_tools.template_loaders.Loader',
+                )),
+            )
         },
-        'DIRS': TEMPLATE_DIRS
+        'DIRS': (
+            ABSOLUTE_TEMPLATES_PATH,
+        )
     },
 ]
 
@@ -192,6 +184,7 @@ EXTERNAL_APPS = (
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_EMAIL_HTML = False
+# FIXME
 LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
 REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
 
@@ -215,14 +208,6 @@ AUTH_PROFILE_MODULE = 'project.ajapaik.Profile'
 
 LOGIN_URL = '/admin/'
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-    'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler'
-}
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
@@ -233,5 +218,5 @@ CACHES = {
 DEFAULT_FROM_EMAIL = 'SOME NORWEGIAN EMAIL'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-API_DEFAULT_NEARBY_PHOTOS_RANGE = 50000
-API_DEFAULT_NEARBY_MAX_PHOTOS = 50
+COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
+COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']

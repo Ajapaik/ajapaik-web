@@ -1,5 +1,6 @@
-from models import Album, Dating, Video
 from rest_framework import serializers
+
+from models import Album, Dating
 
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
@@ -41,9 +42,3 @@ class DatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dating
         fields = ('id', 'comment', 'full_name', 'confirmation_count', 'raw', 'this_user_has_confirmed')
-
-
-class VideoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Video
-        exclude = ('created', 'modified')

@@ -10,6 +10,7 @@ import numpy
 import os
 from PIL import Image
 from bulk_update.manager import BulkUpdateManager
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
@@ -41,7 +42,6 @@ from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG, STATIC_ROOT
 from project.utils import angle_diff
 from project.utils import average_angle
 
@@ -76,21 +76,22 @@ def _calc_trustworthiness(user_id):
 
 
 def _make_fullscreen(photo):
-    return {"url": reverse('project.ajapaik.views.image_full', args=(photo.pk, photo.get_pseudo_slug())),
-            "size": [photo.width, photo.height]}
+    return {
+        'url': reverse('project.ajapaik.views.image_full', args=(photo.pk, photo.get_pseudo_slug())),
+        'size': [photo.width, photo.height]
+    }
 
 
 def _get_pseudo_slug_for_photo(description, source_key, created):
-    if description is not None and description != "":
-        slug = "-".join(slugify(description).split("-")[:6])[:60]
-    elif source_key is not None and source_key != "":
+    if description is not None and description != '':
+        slug = '-'.join(slugify(description).split('-')[:6])[:60]
+    elif source_key is not None and source_key != '':
         slug = slugify(source_key)
     else:
-        slug = slugify(created.__format__("%Y-%m-%d"))
+        slug = slugify(created.__format__('%Y-%m-%d'))
     return slug
 
 
-# TODO: Somehow this fires from Sift too...also, it fires at least 3 times on user registration, wasteful
 def _user_post_save(sender, instance, **kwargs):
     profile = Profile.objects.get_or_create(user=instance)
     if profile and profile[0].user.first_name and profile[0].user.last_name:
@@ -102,16 +103,17 @@ def _user_post_save(sender, instance, **kwargs):
 post_save.connect(_user_post_save, sender=User)
 
 
+# FIXME: Unused
 class Area(Model):
     name = CharField(max_length=255)
     lat = FloatField(null=True)
     lon = FloatField(null=True)
 
     class Meta:
-        db_table = "project_area"
+        db_table = 'project_area'
 
     def __unicode__(self):
-        return u"%s" % self.name
+        return u'%s' % self.name
 
 
 class AlbumPhoto(Model):
@@ -120,7 +122,6 @@ class AlbumPhoto(Model):
         (CURATED, 'Curated'),
         (RECURATED, 'Re-curated'),
         (MANUAL, 'Manual'),
-        (STILL, 'Still'),
         (UPLOADED, 'Uploaded')
     )
 
@@ -160,7 +161,6 @@ class Album(Model):
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
-    videos = ManyToManyField('Video', related_name='albums', blank=True, null=True)
     lat = FloatField(null=True, blank=True)
     lon = FloatField(null=True, blank=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
@@ -170,7 +170,6 @@ class Album(Model):
     rephoto_count_with_subalbums = IntegerField(default=0)
     geotagged_photo_count_with_subalbums = IntegerField(default=0)
     comments_count_with_subalbums = IntegerField(default=0)
-    is_film_still_album = BooleanField(default=False)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -181,7 +180,7 @@ class Album(Model):
         db_table = 'project_album'
 
     def __unicode__(self):
-        return u"%s" % self.name
+        return u'%s' % self.name
 
     def __init__(self, *args, **kwargs):
         super(Album, self).__init__(*args, **kwargs)
@@ -208,7 +207,7 @@ class Album(Model):
         super(Album, self).save(*args, **kwargs)
         if self.subalbum_of:
             self.subalbum_of.save()
-        if not DEBUG:
+        if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Album).update_object(self)
 
     def get_historic_photos_queryset_with_subalbums(self):
@@ -474,7 +473,7 @@ class Photo(Model):
         padding = 20
         img = Image.open(self.image_no_watermark)
         img = img.convert('RGBA')
-        mark = Image.open(os.path.join(STATIC_ROOT, 'images/TLUAR_watermark.png'))
+        mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/TLUAR_watermark.png'))
         longest_side = max(img.size[0], img.size[1])
         coeff = float(longest_side) / 1600.00
         w = int(mark.size[0] * coeff)
@@ -514,7 +513,7 @@ class Photo(Model):
         return data
 
     def reverse_geocode_location(self):
-        url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + GOOGLE_API_KEY
+        url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + settings.GOOGLE_API_KEY
         lat = None
         lon = None
         if self.lat and self.lon:
@@ -563,7 +562,7 @@ class Photo(Model):
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
         super(Photo, self).save(*args, **kwargs)
-        if not DEBUG:
+        if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
     def light_save(self, *args, **kwargs):
@@ -681,7 +680,7 @@ class Photo(Model):
 
 
 class PhotoMetadataUpdate(Model):
-    photo = ForeignKey("Photo", related_name='metadata_updates')
+    photo = ForeignKey('Photo', related_name='metadata_updates')
     old_title = CharField(max_length=255, blank=True, null=True)
     new_title = CharField(max_length=255, blank=True, null=True)
     old_description = TextField(null=True, blank=True)
@@ -691,11 +690,11 @@ class PhotoMetadataUpdate(Model):
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "project_photometadataupdate"
+        db_table = 'project_photometadataupdate'
 
 
 class PhotoComment(Model):
-    photo = ForeignKey("Photo", related_name='comments')
+    photo = ForeignKey('Photo', related_name='comments')
     fb_comment_id = CharField(max_length=255, unique=True)
     fb_object_id = CharField(max_length=255)
     fb_comment_parent_id = CharField(max_length=255, blank=True, null=True)
@@ -704,10 +703,10 @@ class PhotoComment(Model):
     created = DateTimeField()
 
     class Meta:
-        db_table = "project_photocomment"
+        db_table = 'project_photocomment'
 
     def __unicode__(self):
-        return u"%s" % self.text[:50]
+        return u'%s' % self.text[:50]
 
 
 class PhotoLike(Model):
@@ -718,26 +717,26 @@ class PhotoLike(Model):
 
 
 class DifficultyFeedback(Model):
-    photo = ForeignKey("Photo")
-    user_profile = ForeignKey("Profile")
+    photo = ForeignKey('Photo')
+    user_profile = ForeignKey('Profile')
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
-    geotag = ForeignKey("GeoTag")
+    geotag = ForeignKey('GeoTag')
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "project_difficultyfeedback"
+        db_table = 'project_difficultyfeedback'
 
 
 # FIXME: Unused model?
 class FlipFeedback(Model):
-    photo = ForeignKey("Photo")
-    user_profile = ForeignKey("Profile")
+    photo = ForeignKey('Photo')
+    user_profile = ForeignKey('Profile')
     flip = NullBooleanField()
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "project_flipfeedback"
+        db_table = 'project_flipfeedback'
 
 
 class Points(Model):
@@ -859,12 +858,12 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read("https://graph.facebook.com/v2.3/me?access_token=%s" % access_token))
+        data = loads(self.url_read('https://graph.facebook.com/v2.3/me?access_token=%s' % access_token))
         if not data:
-            raise Exception("Facebook did not return anything useful for this access token")
+            raise Exception('Facebook did not return anything useful for this access token')
 
         try:
-            return self.get(fb_id=data.get("id")), data
+            return self.get(fb_id=data.get('id')), data
         except ObjectDoesNotExist:
             return None, data,
 
@@ -926,38 +925,38 @@ class Profile(Model):
             return _('Anonymous user')
 
     def __unicode__(self):
-        return u"%s" % (self.get_display_name(),)
+        return u'%s' % (self.get_display_name(),)
 
     def update_from_fb_data(self, token, data):
-        self.user.first_name = data.get("first_name")
-        self.user.last_name = data.get("last_name")
-        self.user.email = data.get("email")
+        self.user.first_name = data.get('first_name')
+        self.user.last_name = data.get('last_name')
+        self.user.email = data.get('email')
         try:
             self.user.save()
         except IntegrityError:
             return redirect(reverse('frontpage', ))
 
         self.fb_token = token
-        self.fb_id = data.get("id")
-        self.fb_name = data.get("name")
+        self.fb_id = data.get('id')
+        self.fb_name = data.get('name')
         if self.fb_name:
             parts = self.fb_name.split(' ')
             self.first_name = parts[0]
             if len(parts) > 1:
                 self.last_name = parts[1]
-        self.fb_link = data.get("link")
-        self.fb_email = data.get("email")
+        self.fb_link = data.get('link')
+        self.fb_email = data.get('email')
         try:
-            self.fb_birthday = datetime.strptime(data.get("birthday"), "%m/%d/%Y")
+            self.fb_birthday = datetime.strptime(data.get('birthday'), '%m/%d/%Y')
         except TypeError:
             pass
-        location = data.get("location")
-        if location is not None and "name" in location:
-            self.fb_current_location = location["name"]
-        hometown = data.get("hometown")
-        if hometown is not None and "name" in hometown:
-            self.fb_hometown = data.get("hometown")["name"]
-        user_friends = data.get("user_friends")
+        location = data.get('location')
+        if location is not None and 'name' in location:
+            self.fb_current_location = location['name']
+        hometown = data.get('hometown')
+        if hometown is not None and 'name' in hometown:
+            self.fb_hometown = data.get('hometown')['name']
+        user_friends = data.get('user_friends')
         if user_friends is not None:
             self.fb_user_friends = user_friends
 
@@ -966,31 +965,31 @@ class Profile(Model):
     def update_from_google_plus_data(self, token, data):
         # TODO: Make form
         if 'given_name' in data:
-            self.user.first_name = data["given_name"]
+            self.user.first_name = data['given_name']
         if 'family_name' in data:
-            self.user.last_name = data["family_name"]
+            self.user.last_name = data['family_name']
         if 'email' in data:
-            self.user.email = data["email"]
+            self.user.email = data['email']
         self.user.save()
 
         if isinstance(token, OAuth2Credentials):
             self.google_plus_token = loads(token.to_json())['access_token']
         else:
             self.google_plus_token = token
-        self.google_plus_id = data["id"]
+        self.google_plus_id = data['id']
         if 'link' in data:
-            self.google_plus_link = data["link"]
+            self.google_plus_link = data['link']
         if 'name' in data:
-            self.google_plus_name = data["name"]
+            self.google_plus_name = data['name']
             if self.google_plus_name:
                 parts = self.google_plus_name.split(' ')
                 self.first_name = parts[0]
                 if len(parts) > 1:
                     self.last_name = parts[1]
         if 'email' in data:
-            self.google_plus_email = data["email"]
+            self.google_plus_email = data['email']
         if 'picture' in data:
-            self.google_plus_picture = data["picture"]
+            self.google_plus_picture = data['picture']
         self.save()
 
     def merge_from_other(self, other):
@@ -1004,7 +1003,7 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+            rephoto_of__isnull=False, user=self.user).values_list('rephoto_of', flat=True)
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0

@@ -1,6 +1,6 @@
 import os
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.ajapaik.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.ajapaik.settings.local')
 
 from django.core.wsgi import get_wsgi_application
 

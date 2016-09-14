@@ -11,14 +11,6 @@ from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action,
     DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto
 
 
-class CSVUploadAdmin(admin.ModelAdmin):
-    def has_change_permission(self, request, obj=None):
-        return request.user.groups.filter(name='csv_uploaders').exists()
-
-    def has_add_permission(self, request, obj=None):
-        return request.user.groups.filter(name='csv_uploaders').exists()
-
-
 class NorwegianCSVUploadAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return request.user.groups.filter(name='csv_uploaders').exists()
@@ -38,29 +30,12 @@ class AlbumPhotoInline(admin.TabularInline):
         return formfield
 
 
-class TourGroupInline(admin.TabularInline):
-    model = TourGroup
-    extra = 1
-
-
-class TourAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Tour)
-
-
-class TourGroupAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(TourGroup)
-
-
-class TourRephotoAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(TourRephoto)
-
-
 class DatingAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Dating)
+    form = autocomplete_light.modelform_factory(Dating, fields='__all__')
 
 
 class DatingConfirmationAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(DatingConfirmation)
+    form = autocomplete_light.modelform_factory(DatingConfirmation, fields='__all__')
 
 
 class PhotoAdmin(ModelAdmin):
@@ -131,59 +106,51 @@ class PhotoAdmin(ModelAdmin):
 
     inlines = (AlbumPhotoInline,)
 
-    form = autocomplete_light.modelform_factory(Photo)
+    form = autocomplete_light.modelform_factory(Photo, fields='__all__')
 
 
 class SkipAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Skip)
+    form = autocomplete_light.modelform_factory(Skip, fields='__all__')
 
 
 class GeoTagAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(GeoTag)
+    form = autocomplete_light.modelform_factory(GeoTag, fields='__all__')
 
 
 class ProfileAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Profile)
+    form = autocomplete_light.modelform_factory(Profile, fields='__all__')
 
 
 class PointsAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Points)
+    form = autocomplete_light.modelform_factory(Points, fields='__all__')
 
 
 class AlbumAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Album)
+    form = autocomplete_light.modelform_factory(Album, fields='__all__')
 
 
 class PhotoCommentAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(PhotoComment)
+    form = autocomplete_light.modelform_factory(PhotoComment, fields='__all__')
 
 
 class SourceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Source)
+    form = autocomplete_light.modelform_factory(Source, fields='__all__')
 
 
 class AlbumPhotoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(AlbumPhoto)
+    form = autocomplete_light.modelform_factory(AlbumPhoto, fields='__all__')
 
 
 class AreaAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Area)
+    form = autocomplete_light.modelform_factory(Area, fields='__all__')
 
 
 class LicenceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Licence)
+    form = autocomplete_light.modelform_factory(Licence, fields='__all__')
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Device)
-
-
-class NewsletterAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Newsletter)
-
-
-class VideoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Video)
+    form = autocomplete_light.modelform_factory(Device, fields='__all__')
 
 
 admin.site.register(Photo, PhotoAdmin)
@@ -198,13 +165,7 @@ admin.site.register(Album, AlbumAdmin)
 admin.site.register(AlbumPhoto, AlbumPhotoAdmin)
 admin.site.register(Area, AreaAdmin)
 admin.site.register(Licence, LicenceAdmin)
-admin.site.register(CSVPhoto, CSVUploadAdmin)
 admin.site.register(NorwegianCSVPhoto, NorwegianCSVUploadAdmin)
 admin.site.register(Device, DeviceAdmin)
-admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
-admin.site.register(Tour, TourAdmin)
-admin.site.register(TourGroup, TourGroupAdmin)
-admin.site.register(TourRephoto, TourRephotoAdmin)
-admin.site.register(Video, VideoAdmin)

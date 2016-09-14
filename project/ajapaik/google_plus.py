@@ -1,16 +1,15 @@
-import os
 from ujson import loads
 
 import httplib2
+import os
+from django.conf import settings
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from oauth2client import xsrfutil
 from oauth2client.client import flow_from_clientsecrets
-
 from oauth2client.django_orm import Storage
 
 from project.ajapaik.models import CredentialsModel, Profile
-from project.ajapaik import settings
 
 CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 

@@ -1,10 +1,5 @@
-{{ object.description_et }}
-{{ object.description_sv }}
-{{ object.description_de }}
-{{ object.description_fi }}
-{{ object.description_ru }}
-{{ object.description_nl }}
 {{ object.description_en }}
+{{ object.description_no }}
 {{ object.author }}
 {% if object.rephoto_of_id %}
     {{ object.user.profile.get_display_name }}

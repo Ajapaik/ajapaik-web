@@ -1,4 +1,5 @@
 {% extends "base_bootstrap.html" %}
+
 {% load i18n %}
 
 {% block title %}
@@ -6,10 +7,10 @@
 {% endblock title %}
 
 {% block layout %}
-     <div>
+    <div>
         <h1>404</h1>
         <h2>{% trans "Page Not Found" %}</h2>
-     </div>
-     <br/>
-     <button onclick="window.history.back();">{% trans "Back" %}</button>
+    </div>
+    <br/>
+    <button onclick="window.history.back();">{% trans "Back" %}</button>
 {% endblock layout %}

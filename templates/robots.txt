@@ -3,4 +3,5 @@ Disallow: /facebook/
 Disallow: /photo-upload-modal/
 Disallow: /submit-dating/
 
+# FIXME
 Sitemap: http://ajapaik.ee/sitemap.xml

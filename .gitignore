@@ -5,4 +5,4 @@ workspace.xml
 tasks.xml
 static-collected
 local.py
-.idea
+client_secrets.json
