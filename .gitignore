@@ -6,3 +6,4 @@ tasks.xml
 static-collected
 local.py
 client_secrets.json
+.idea
