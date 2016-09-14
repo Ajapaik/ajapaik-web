@@ -1,5 +1,4 @@
 import StringIO
-import os
 from contextlib import closing
 from datetime import datetime
 from math import degrees
@@ -8,6 +7,7 @@ from ujson import loads
 from urllib2 import urlopen
 
 import numpy
+import os
 from PIL import Image
 from bulk_update.manager import BulkUpdateManager
 from django.contrib.auth.models import User

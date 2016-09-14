@@ -181,7 +181,6 @@ LOCAL_APPS = (
 EXTERNAL_APPS = (
     'django_extensions',
     'sorl.thumbnail',
-    'rest_framework',
     'compressor',
     'modeltranslation',
     'haystack',
