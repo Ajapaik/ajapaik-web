@@ -1443,12 +1443,14 @@ def geotag_add(request):
                 tagged_photo.flip = False
             if not (photo_flipped == tagged_photo.flip):
                 most_trustworthy_geotag = tagged_photo.geotags.order_by('-trustworthiness').first()
-                if most_trustworthy_geotag and most_trustworthy_geotag.trustworthiness < new_geotag.trustworthiness:
+                if not most_trustworthy_geotag or (
+                    most_trustworthy_geotag and most_trustworthy_geotag.trustworthiness < new_geotag.trustworthiness):
                     photo_path = settings.MEDIA_ROOT + "/" + str(tagged_photo.image)
                     img = Image.open(photo_path)
                     flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
                     flipped_image.save(photo_path)
                     tagged_photo.flip = not tagged_photo.flip
+                    # This delete applies to sorl thumbnail
                     delete(tagged_photo.image, delete_file=False)
                     tagged_photo.light_save()
         new_geotag.save()
@@ -2083,23 +2085,26 @@ def curator_photo_upload_handler(request):
                             upload_form.cleaned_data["date"] = None
                         try:
                             new_photo = Photo(
-                                user=profile,
-                                area=area,
-                                author=upload_form.cleaned_data["creators"].encode('utf-8'),
-                                description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
-                                source=source,
-                                types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data["types"] else None,
-                                keywords=upload_form.cleaned_data["keywords"].strip().encode('utf-8') if upload_form.cleaned_data["keywords"] else None,
-                                date_text=upload_form.cleaned_data["date"].encode('utf-8') if upload_form.cleaned_data["date"] else None,
-                                licence=licence,
-                                external_id=muis_id,
-                                external_sub_id=muis_media_id,
-                                source_key=upload_form.cleaned_data["identifyingNumber"],
-                                source_url=upload_form.cleaned_data["urlToRecord"],
-                                flip=upload_form.cleaned_data["flip"],
-                                invert=upload_form.cleaned_data["invert"],
-                                stereo=upload_form.cleaned_data["stereo"],
-                                rotated=upload_form.cleaned_data["rotated"]
+                                    user=profile,
+                                    area=area,
+                                    author=upload_form.cleaned_data["creators"].encode('utf-8'),
+                                    description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
+                                    source=source,
+                                    types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data[
+                                        "types"] else None,
+                                    keywords=upload_form.cleaned_data["keywords"].strip().encode('utf-8') if
+                                    upload_form.cleaned_data["keywords"] else None,
+                                    date_text=upload_form.cleaned_data["date"].encode('utf-8') if
+                                    upload_form.cleaned_data["date"] else None,
+                                    licence=licence,
+                                    external_id=muis_id,
+                                    external_sub_id=muis_media_id,
+                                    source_key=upload_form.cleaned_data["identifyingNumber"],
+                                    source_url=upload_form.cleaned_data["urlToRecord"],
+                                    flip=upload_form.cleaned_data["flip"],
+                                    invert=upload_form.cleaned_data["invert"],
+                                    stereo=upload_form.cleaned_data["stereo"],
+                                    rotated=upload_form.cleaned_data["rotated"]
                             )
                             new_photo.save()
                             if upload_form.cleaned_data["collections"] == "DIGAR":
@@ -2123,6 +2128,11 @@ def curator_photo_upload_handler(request):
                                 img = Image.open(photo_path)
                                 inverted_grayscale_image = ImageOps.invert(img).convert('L')
                                 inverted_grayscale_image.save(photo_path)
+                            if new_photo.flip:
+                                photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+                                img = Image.open(photo_path)
+                                flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
+                                flipped_image.save(photo_path)
                             if new_photo.rotated > 0:
                                 photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
                                 img = Image.open(photo_path)
