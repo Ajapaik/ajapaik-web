@@ -3,12 +3,13 @@ from ujson import dumps
 import flickrapi
 
 from project.ajapaik.models import Photo, AlbumPhoto, Album
-from project.ajapaik.settings import FLICKR_API_KEY, FLICKR_API_SECRET
+from django.conf import settings
 
 
 class FlickrCommonsDriver(object):
     def __init__(self):
-        self.flickr = flickrapi.FlickrAPI(FLICKR_API_KEY, FLICKR_API_SECRET, format='parsed-json', store_token=False)
+        self.flickr = flickrapi.FlickrAPI(settings.FLICKR_API_KEY, settings.FLICKR_API_SECRET, format='parsed-json',
+                                          store_token=False)
 
     def search(self, cleaned_data):
         return self.flickr.photos.search(text=cleaned_data['fullSearch'], media='photos', is_commons=True, per_page=200,

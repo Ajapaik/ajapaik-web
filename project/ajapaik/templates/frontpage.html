@@ -103,11 +103,9 @@
     </script>
     {% include "js_templates/frontpage_album_template.html" %}
     {% include "js_templates/frontpage_photo_template.html" %}
-    {% include "js_templates/frontpage_video_template.html" %}
     {% compress js %}
         <script src="{% static "js/jquery.justifiedGallery-3.6.1.js" %}"></script>
         <script src="{% static "js/ajapaik-frontpage.js" %}"></script>
-        <script src="{% static "js/ajapaik-video.js" %}"></script>
     {% endcompress %}
     <script>
         $('#ajp-geotagging-container').AjapaikGeotagger();

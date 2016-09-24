@@ -6,9 +6,9 @@ from django.contrib.admin import ModelAdmin
 from django.utils.translation import ugettext as _
 
 from project.ajapaik import settings
-from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
-    AlbumPhoto, Licence, Device, PhotoComment, Newsletter, Dating, Tour, TourRephoto, \
-    DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto
+from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
+    AlbumPhoto, Licence, Device, PhotoComment, Dating, \
+    DatingConfirmation, NorwegianCSVPhoto
 
 
 class NorwegianCSVUploadAdmin(admin.ModelAdmin):

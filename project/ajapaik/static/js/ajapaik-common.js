@@ -986,9 +986,6 @@ var map,
             _gaq.push(['_trackEvent', 'Map', 'Rephoto source link click']);
         }
     });
-    $(document).on('click', '#ajapaik-footer-newsletter-link', function () {
-        _gaq.push(['_trackEvent', 'Footer', 'Newsletter link click']);
-    });
     $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -1261,11 +1258,6 @@ var map,
         }
     });
 
-    $(document).ready(function () {
-        if (!docCookies.getItem('ajapaik_closed_donation_header')) {
-            $('#ajapaik-donation-header').show();
-        }
-    });
 
     //$(document).on('click', '#ajapaik-mobile-about-button', function (e) {
     //    var targetDiv = $('#ajapaik-general-info-modal');
@@ -1548,13 +1540,6 @@ var map,
         }
     });
 
-    $('#ajapaik-donation-modal-link').click(function (e) {
-        e.preventDefault();
-        $('#ajapaik-donation-modal').modal();
-        if (window.reportDonationLinkClick) {
-            window.reportDonationLinkClick();
-        }
-    });
 
     $('.ajp-bank-link-standing').click(function () {
         if (window.reportDonationStandingBankLinkClick) {
@@ -1583,16 +1568,6 @@ var map,
     $('.google-plus-connect').click(function () {
         if (window.reportGooglePlusLoginClick) {
             window.reportGooglePlusLoginClick();
-        }
-    });
-
-    $('#ajapaik-close-donation-header-button').click(function () {
-        $('#ajapaik-donation-header').hide();
-        var expires = new Date();
-        expires.setDate(expires.getDate() + 14);
-        docCookies.setItem('ajapaik_closed_donation_header', true, expires, '/', document.domain, false);
-        if (window.reportDonationHeaderCloseClick) {
-            window.reportDonationHeaderCloseClick();
         }
     });
 

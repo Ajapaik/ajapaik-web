@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="navbar-header pull-left">
             <a class="navbar-brand ajapaik-brand hidden-xs hidden-sm" href="/" title="{% trans "Back to homepage" %}">
-                {% trans "Timepatch (Ajapaik)" %}
+                {% trans "Fotodugnad" %}
             </a>
             <a id="ajapaik-brand-dummy" class="hidden-xs hidden-sm"></a>
         </div>
@@ -163,14 +163,6 @@
                         <i class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
                     </a>
                 </li>
-                {% if is_newsletter %}
-                    <li class="pull-left" id="ajapaik-header-nesletter">
-                        <a role="button" title="{% trans 'Newsletters' %}" href="/uudiskiri/"
-                           class="ajapaik-padding-top-6px">
-                            <i class="material-icons notranslate ajapaik-gray-button ajapaik-text-white">email</i>
-                        </a>
-                    </li>
-                {% endif %}
                 <li class="pull-left{% if not request.session.photo_selection %} hidden{% endif %}"
                     id="ajapaik-header-selection-indicator">
                     <a role="button" title="{% trans 'Current selection' %}" href="/view-selection"
@@ -346,11 +338,3 @@
     {% endif %}
 </nav>
 {% get_current_language as LANGUAGE_CODE %}
-{% if not is_curator and not is_mapview and not is_donate and LANGUAGE_CODE == 'et' %}
-    <div id="ajapaik-donation-header">
-        <div class="container">
-            {% trans '<a href="#" id="ajapaik-donation-modal-link">Donate</a> to support Ajapaik' %}
-            <button type="button" class="close" id="ajapaik-close-donation-header-button">&times;</button>
-        </div>
-    </div>
-{% endif %}

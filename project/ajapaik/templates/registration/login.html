@@ -19,7 +19,7 @@
                         <input class="form-control" id="id_password" name="password" placeholder="{% trans "Password" %}"
                             required="required" title="" type="password">
                     </div>
-                    <input name="next" type="hidden" value="{% if is_then_and_now %}{% url "project.ajapaik.then_and_now_tours.frontpage" %}{% elif is_user_upload %}{% url "project.ajapaik.views.user_upload" %}{% else %}{% url "project.ajapaik.views.frontpage" %}{% endif %}">
+                    <input name="next" type="hidden" value="{% if is_user_upload %}{% url "project.ajapaik.views.user_upload" %}{% else %}{% url "project.ajapaik.views.frontpage" %}{% endif %}">
                     <button type="submit" id="ajp-email-login-button" class="btn btn-primary">
                         {% trans "Log in" %}
                     </button>

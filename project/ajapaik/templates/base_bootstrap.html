@@ -74,15 +74,9 @@
         ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
-    <meta name="msvalidate.01" content="0AFAD3D32395E8F3F75621502B39878C" />
-    <meta property="fb:app_id" content="201052296573134"/>
-    <meta name="msApplication-ID" content="Ajapaik.Ajapaik"/>
-    <meta name="msApplication-PackageFamilyName" content="Ajapaik.Ajapaik_a85z4fx5ppqzw"/>
-    <meta name="msApplication-MinVersion" content="1.0.0.8"/>
-    <meta name="application-name" content="Ajapaik"/>
-    <meta name="msapplication-TileColor" content="#FFFFFF"/>
-    <meta name="msapplication-notification" content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=5; cycle=1"/>
+    <meta name="google-site-verification" content=""/>
+    <meta property="fb:app_id" content="159858504465899"/>
+    <meta name="application-name" content="Fotodugnad"/>
     <meta charset="UTF-8"/>
     {% if title %}
         <meta property="og:title" content="{{ title }}"/>
@@ -221,7 +215,6 @@
         <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
     <script>
@@ -255,7 +248,6 @@
   <strong>{% trans "Sorting" %}:</strong> <span id="ajapaik-sorting-error-message"></span>
 </div>
 {% include "_general_info_modal.html" %}
-{% include "_donation_modal.html" %}
 {% block header %}
     {% include "_header.html" %}
 {% endblock header %}
@@ -268,29 +260,16 @@
         </div>
     {% endblock %}
 {% endif %}
-{% if is_frontpage or is_order or is_photoview or is_newsletter and not newsletter %}
+{% if is_frontpage or is_order or is_photoview %}
     <footer class="footer text-center">
         <div class="container-fluid">
-            <div class="col-lg-1 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-contact">
+            <div class="col-lg-3 col-md-4 col-sm-4 hidden-xs" id="ajapaik-footer-contact">
                 <div class="row">
-                    <a class="pull-left" href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
-                </div>
-                <div class="row">
-                    <a class="pull-left" id="ajapaik-photographic-heritage-link" target="_blank" href="http://fotopärand.org.ee/">{% trans "Estonian Photographic Heritage Society" %}</a>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-newsletter">
-                <div class="row">
-                    {% if LANGUAGE_CODE == 'et' %}
-                        <a id="ajapaik-footer-newsletter-link" href="{% url "project.ajapaik.views.newsletter" %}">{% trans "Newsletter" %}</a>
-                    {% endif %}
-                </div>
-                <div class="row">
-                    <a href="{% url 'project.ajapaik.views.donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
+                    <a class="pull-left" href="mailto:info@fotodugnad.ra.no">info@fotodugnad.ra.no</a>
                 </div>
             </div>
             <nav class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                {% if not is_newsletter and not is_photoview %}
+                {% if not is_photoview %}
                     <ul class="pager" id="ajapaik-pager">
                         <li>
                             <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'project.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">
@@ -312,7 +291,7 @@
             </nav>
             <div class="col-lg-2 col-md-4 col-sm-4 hidden-xs" id="ajapaik-footer-links">
                 <div class="row">
-                    <a class="pull-right" id="ajapaik-sift-pics-link" target="_blank" href="http://sift.pics/">{% trans "See also – Sift.pics" %}</a>
+
                 </div>
             </div>
         </div>
@@ -321,7 +300,7 @@
 {% block global_js %}
     <script>
         window.fbAsyncInit = function () {
-            FB.init({appId: "201052296573134", status: !0, cookie: !0, xfbml: !0, version: 'v2.3'});
+            FB.init({appId: "159858504465899", status: !0, cookie: !0, xfbml: !0, version: 'v2.3'});
             try {
                 FB.Event.subscribe("edge.create", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Like added", a])
@@ -432,7 +411,6 @@
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js" %}"></script>
         <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
-        <script src="{% static "js/ajapaik-juks-gmaps.js" %}"></script>
         <script src="{% static "js/ajapaik-common.js" %}"></script>
         <script src="{% static "js/ajapaik-ga.js" %}"></script>
         <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>

@@ -89,53 +89,6 @@
     window.reportDaterConfirmSubmit = function () {
         _gaq.push(['_trackEvent', 'dater', 'action', 'submit-confirmation', 50, false]);
     };
-    window.reportVanalinnadYearChange = function (year) {
-        if (isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'old-maps-change-year', year, 0, false]);
-        } else {
-            _gaq.push(['_trackEvent', 'geotagger', 'old-maps-change-year', year, 0, false]);
-        }
-    };
-    window.reportVanalinnadCityChange = function (city) {
-        if (isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'old-maps-change-city', city, 0, false]);
-        } else {
-            _gaq.push(['_trackEvent', 'geotagger', 'old-maps-change-city', city, 0, false]);
-        }
-    };
-    window.reportModalVideoStillClick = function () {
-        _gaq.push(['_trackEvent', 'video-modal', 'still', null, 100, false]);
-    };
-    window.reportVideoviewVideoStillClick = function () {
-        _gaq.push(['_trackEvent', 'video-permalink', 'still', null, 100, false]);
-    };
-    window.reportVideoModalAnonymousLoginStart = function () {
-        _gaq.push(['_trackEvent', 'video-modal', 'anonymous-login-start', null, 0, false]);
-    };
-    window.reportVideoModalOpen = function (id) {
-        _gaq.push(['_trackEvent', 'video-modal', 'modal-open', id.toString(), 0, false]);
-    };
-    window.reportVideoModalSourceLinkClick = function (id) {
-        _gaq.push(['_trackEvent', 'video-modal', 'source-click', id.toString(), 0, false]);
-    };
-    window.reportVideoviewSourceLinkClick = function (id) {
-        _gaq.push(['_trackEvent', 'video-permalink', 'source-click', id.toString(), 0, false]);
-    };
-    window.reportVideoviewAlbumLinkClick = function () {
-        _gaq.push(['_trackEvent', 'video-permalink', 'album-link', null, 0, false]);
-    };
-    window.reportDonationLinkClick = function () {
-        _gaq.push(['_trackEvent', 'General', 'donation-modal-link-click', null, 10, false]);
-    };
-    window.reportDonationOneTimeBankLinkClick = function (bank) {
-        _gaq.push(['_trackEvent', 'General', 'donation-one-time-bank-link-click', bank, 25, false]);
-    };
-    window.reportDonationStandingBankLinkClick = function (bank) {
-        _gaq.push(['_trackEvent', 'General', 'donation-standing-bank-link-click', bank, 25, false]);
-    };
-    window.reportDonationHeaderCloseClick = function () {
-        _gaq.push(['_trackEvent', 'General', 'donation-header-close-click', null, 0, false]);
-    };
     window.reportEmailLoginClick = function () {
         _gaq.push(['_trackEvent', 'Login', 'email', null, 0, false]);
     };

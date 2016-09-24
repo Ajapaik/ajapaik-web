@@ -868,6 +868,16 @@ class FacebookManager(Manager):
             return None, data,
 
 
+def user_has_confirmed_email(user):
+    ok = True
+    if not hasattr(user, 'email'):
+        ok = False
+    else:
+        if not user.email:
+            ok = False
+
+    return ok and user.is_active
+
 class Profile(Model):
     objects = BulkUpdateManager()
     facebook = FacebookManager()
@@ -1184,25 +1194,6 @@ class GoogleMapsReverseGeocode(Model):
 
     def __unicode__(self):
         return '%d;%d' % (self.lat, self.lon)
-
-
-class Newsletter(Model):
-    slug = SlugField(unique=True, null=True, blank=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return '%s' % self.slug
-
-    def save(self, *args, **kwargs):
-        super(Newsletter, self).save(*args, **kwargs)
-        if not self.slug:
-            self.slug = DateFormat(self.created).format('Y-m-d')
-            super(Newsletter, self).save(*args, **kwargs)
-
-    class Meta:
-        db_table = 'project_newsletter'
-
 
 class Dating(Model):
     DAY, MONTH, YEAR = range(3)

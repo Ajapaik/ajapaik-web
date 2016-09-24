@@ -62,8 +62,8 @@ DATABASES = {
     }
 }
 
-FACEBOOK_APP_KEY = ''
-FACEBOOK_APP_SECRET = ''
+FACEBOOK_APP_KEY = None
+FACEBOOK_APP_SECRET = None
 
 TIME_ZONE = 'Europe/Helsinki'
 
@@ -185,8 +185,8 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_EMAIL_HTML = False
 # FIXME
-LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
-REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
+# LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
+REGISTRATION_FORM = 'project.ajapaik.forms.UserRegistrationForm'
 
 # TODO: Just use one tuple
 INSTALLED_APPS = ADMIN_TOOL_APPS + CORE_APPS + LOCAL_APPS + EXTERNAL_APPS
@@ -215,8 +215,13 @@ CACHES = {
     }
 }
 
-DEFAULT_FROM_EMAIL = 'SOME NORWEGIAN EMAIL'
+DEFAULT_FROM_EMAIL = 'info@fotodugnad.ra.no'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
 COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
+
+FLICKR_API_KEY = None
+FLICKR_API_SECRET = None
+
+GOOGLE_PLUS_OAUTH2_CALLBACK_URL = None

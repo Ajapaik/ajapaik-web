@@ -1,0 +1,47 @@
+# For Django development
+# location / {
+#         proxy_pass http://127.0.0.1:8000;
+# }
+
+upstream fotodugnad_app_server {
+    server unix:///home/fotodugnad/ajapaik-web/fotodugnad.sock;
+}
+
+server {
+    listen 80;
+
+    server_name www.fotodugad.ra.no;
+
+    return 301 http://fotodugad.ra.no$request_uri;
+}
+
+server {
+    listen 80;
+
+    server_name fotodugad.ra.no;
+
+    access_log /var/log/nginx/fotodugnad.access.log;
+    error_log /var/log/nginx/fotodugnad.error.log;
+
+    if ($host !~* ^(fotodugad.ra.no|www.fotodugad.ra.no)$ ) {
+        return 444;
+    }
+
+    location /media  {
+        alias /home/fotodugnad/ajapaik-web/media;
+    }
+
+    location /static {
+        alias /home/fotodugnad/ajapaik-web/static-collected;
+        expires 30d;
+    }
+
+    location ~ ^/favicon.(\w*)$ {
+        alias /home/fotodugnad/ajapaik-web/static-collected/favicon.$1;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass fotodugnad_app_server;
+    }
+}

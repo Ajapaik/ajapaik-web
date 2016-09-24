@@ -10,8 +10,6 @@ from copy import deepcopy
 from math import ceil
 from time import strftime, strptime
 
-import cv2
-import cv2.cv as cv
 import requests
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -39,22 +37,18 @@ from sorl.thumbnail import get_thumbnail
 
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
-from project.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
 from project.ajapaik.facebook import APP_ID
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
-    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
+    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, \
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video
+    Dating, DatingConfirmation, Video, user_has_confirmed_email
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
-    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
-from project.ajapaik.settings import FACEBOOK_APP_SECRET, DATING_POINTS, DATING_CONFIRMATION_POINTS, \
-    CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
-from project.ajapaik.then_and_now_tours import user_has_confirmed_email
+    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
@@ -603,6 +597,11 @@ def frontpage(request, album_id=None, page=None):
     else:
         title = _('Timepatch (Ajapaik)')
 
+    last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
+    last_geotagged_photo_id = None
+    if last_geotagged_photo:
+        last_geotagged_photo_id = last_geotagged_photo.id
+
     return render_to_response('frontpage.html', RequestContext(request, {
         'is_frontpage': True,
         'title': title,
@@ -630,7 +629,7 @@ def frontpage(request, album_id=None, page=None):
         # 'total': data['total'],
         # 'photos': data['photos'],
         'is_photoset': data['is_photoset'],
-        'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id
+        'last_geotagged_photo_id': last_geotagged_photo_id
     }))
 
 
@@ -1790,9 +1789,9 @@ def curator(request):
         'curator_random_images': curator_random_images,
         'title': _('Timepatch (Ajapaik) - curate'),
         'hostname': 'https://%s' % (site.domain,),
-        'then_and_now_disabled': CURATOR_THEN_AND_NOW_CREATION_DISABLED,
+        'then_and_now_disabled': True,
         'is_curator': True,
-        'CURATOR_FLICKR_ENABLED': CURATOR_FLICKR_ENABLED,
+        'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
     }))
 
@@ -1843,21 +1842,10 @@ def curator_search(request):
     form = CuratorSearchForm(request.POST)
     response = json.dumps({})
     flickr_driver = None
-    valimimoodul_driver = None
     if form.is_valid():
         if form.cleaned_data['useFlickr']:
             flickr_driver = FlickrCommonsDriver()
-        if form.cleaned_data['useMUIS'] or form.cleaned_data['useMKA'] or form.cleaned_data['useDIGAR'] or \
-                form.cleaned_data['useETERA']:
-            valimimoodul_driver = ValimimoodulDriver()
-            if form.cleaned_data['ids']:
-                response = valimimoodul_driver.transform_response(
-                    valimimoodul_driver.get_by_ids(form.cleaned_data['ids']),
-                    form.cleaned_data['filterExisting'])
         if form.cleaned_data['fullSearch']:
-            if valimimoodul_driver and not form.cleaned_data['ids']:
-                response = _join_2_json_objects(response, valimimoodul_driver.transform_response(
-                    valimimoodul_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
             if flickr_driver:
                 response = _join_2_json_objects(response, flickr_driver.transform_response(
                     flickr_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
@@ -2225,7 +2213,7 @@ def update_comment_count(request):
                 p.fb_object_id = comment_id.split('_')[0]
             fql_string = "SELECT text, id, parent_id, object_id, fromid, time FROM comment WHERE object_id IN (" + p.fb_object_id + ")"
             response = json.loads(requests.get('https://graph.facebook.com/fql?access_token=%s&q=%s' % (
-                APP_ID + '|' + FACEBOOK_APP_SECRET, fql_string)).text)
+                APP_ID + '|' + settings.FACEBOOK_APP_SECRET, fql_string)).text)
             for each in response['data']:
                 existing_comment = PhotoComment.objects.filter(fb_comment_id=each['id']).first()
                 if existing_comment:
@@ -2464,20 +2452,6 @@ def norwegian_csv_upload(request):
     return HttpResponse(failed)
 
 
-def newsletter(request, slug=None):
-    ret = {
-        'is_newsletter': True,
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
-    }
-    if slug:
-        ret['newsletter'] = Newsletter.objects.get(slug=slug)
-        ret['template'] = 'newsletters/' + ret['newsletter'].slug + '.html'
-    else:
-        ret['newsletters'] = Newsletter.objects.order_by('created')
-
-    return render_to_response('newsletter.html', RequestContext(request, ret))
-
-
 def submit_dating(request):
     profile = request.get_user().profile
     form = DatingSubmitForm(request.POST.copy())
@@ -2506,7 +2480,7 @@ def submit_dating(request):
                 action=Points.DATING,
                 photo=form.cleaned_data['photo'],
                 dating=dating,
-                points=DATING_POINTS,
+                points=settings.DATING_POINTS,
                 created=dating.created
             ).save()
             return HttpResponse('OK')
@@ -2532,7 +2506,7 @@ def submit_dating(request):
                 user=profile,
                 action=Points.DATING_CONFIRMATION,
                 dating_confirmation=new_confirmation,
-                points=DATING_CONFIRMATION_POINTS,
+                points=settings.DATING_CONFIRMATION_POINTS,
                 photo=p,
                 created=new_confirmation.created
             ).save()
@@ -2553,59 +2527,6 @@ def get_datings(request, photo_id):
             each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
         datings_serialized = DatingSerializer(datings, many=True).data
         ret['datings'] = datings_serialized
-
-    return HttpResponse(json.dumps(ret), content_type='application/json')
-
-
-def generate_still_from_video(request):
-    profile = request.get_user().profile
-    form = VideoStillCaptureForm(request.POST)
-    ret = {}
-    if form.is_valid():
-        a = form.cleaned_data['album']
-        vid = form.cleaned_data['video']
-        time = form.cleaned_data['timestamp']
-        still = Photo.objects.filter(video=vid, video_timestamp=time).first()
-        if not still:
-            vidcap = cv2.VideoCapture(vid.file.path)
-            vidcap.set(cv.CV_CAP_PROP_POS_MSEC, time)
-            success, image = vidcap.read()
-            source = Source.objects.filter(name='AJP').first()
-            if success:
-                tmp = NamedTemporaryFile(suffix='.jpeg', delete=True)
-                cv2.imwrite(tmp.name, image)
-                hours, milliseconds = divmod(time, 3600000)
-                minutes, milliseconds = divmod(time, 60000)
-                seconds = float(milliseconds) / 1000
-                s = "%i:%02i:%06.3f" % (hours, minutes, seconds)
-                description = _('Still from "%(film)s" at %(time)s') % {'film': vid.name, 'time': s}
-                still = Photo(
-                    description=description,
-                    user=profile,
-                    types='film,still,frame,snapshot,filmi,kaader,pilt',
-                    video=vid,
-                    video_timestamp=time,
-                    source=source
-                )
-                still.save()
-                still.source_key = still.id
-                still.source_url = request.build_absolute_uri(
-                    reverse('project.ajapaik.views.photoslug', args=(still.id, still.get_pseudo_slug())))
-                still.image.save(unicodedata.normalize('NFKD', description).encode('ascii', 'ignore') + '.jpeg',
-                                 File(tmp))
-                still.light_save()
-                AlbumPhoto(album=a, photo=still, profile=profile, type=AlbumPhoto.STILL).save()
-                Points(
-                    user=profile,
-                    action=Points.FILM_STILL,
-                    photo=still,
-                    album=a,
-                    points=50,
-                    created=still.created
-                ).save()
-                a.set_calculated_fields()
-                a.save()
-        ret['stillId'] = still.id
 
     return HttpResponse(json.dumps(ret), content_type='application/json')
 
