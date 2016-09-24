@@ -10,20 +10,12 @@ upstream fotodugnad_app_server {
 server {
     listen 80;
 
-    server_name www.fotodugad.ra.no;
-
-    return 301 http://fotodugad.ra.no$request_uri;
-}
-
-server {
-    listen 80;
-
-    server_name fotodugad.ra.no;
+    server_name www.fotodugnad.ra.no fotodugnad.ra.no;
 
     access_log /var/log/nginx/fotodugnad.access.log;
     error_log /var/log/nginx/fotodugnad.error.log;
 
-    if ($host !~* ^(fotodugad.ra.no|www.fotodugad.ra.no)$ ) {
+    if ($host !~* ^(fotodugnad.ra.no|www.fotodugnad.ra.no)$ ) {
         return 444;
     }
 

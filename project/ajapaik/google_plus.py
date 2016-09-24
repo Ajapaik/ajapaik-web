@@ -1,7 +1,7 @@
+import os
 from ujson import loads
 
 import httplib2
-import os
 from django.conf import settings
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect

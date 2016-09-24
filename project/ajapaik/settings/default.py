@@ -30,7 +30,6 @@ if not ABSOLUTE_PROJECT_ROOT in sys.path:
 
 STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
 MEDIA_ROOT = '%s/media' % ABSOLUTE_PROJECT_ROOT
-VANALINNAD_ROOT = '/var/garage/vanalinnad.mooo.com'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
@@ -65,19 +64,18 @@ DATABASES = {
 FACEBOOK_APP_KEY = None
 FACEBOOK_APP_SECRET = None
 
-TIME_ZONE = 'Europe/Helsinki'
+TIME_ZONE = 'Europe/Oslo'
 
-LANGUAGE_CODE = 'et'
+LANGUAGE_CODE = 'no'
 
 LANGUAGES = (
-    ('et', gettext('Estonian')),
-    ('en', gettext('English')),
     ('no', gettext('Norwegian')),
+    ('en', gettext('English')),
 )
 
-MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
-MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
+MODELTRANSLATION_LANGUAGES = ('en', 'no')
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'no'
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('no', 'en')
 
 SITE_ID = 2
 
@@ -96,7 +94,6 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE_CLASSES = (
-    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -191,7 +188,7 @@ REGISTRATION_FORM = 'project.ajapaik.forms.UserRegistrationForm'
 # TODO: Just use one tuple
 INSTALLED_APPS = ADMIN_TOOL_APPS + CORE_APPS + LOCAL_APPS + EXTERNAL_APPS
 
-ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
+ALLOWED_HOSTS = ['*']
 
 HAYSTACK_CONNECTIONS = {
     'default': {

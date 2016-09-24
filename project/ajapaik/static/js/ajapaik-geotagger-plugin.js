@@ -12,7 +12,6 @@
     /*global updateLeaderboard*/
     /*global stopGuessLocation*/
     /*global userIsSocialConnected*/
-    /*global VanalinnadGooglemApi*/
     var AjapaikGeotagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -449,20 +448,6 @@
                 name: 'OSM',
                 maxZoom: 18
             }));
-            this.vgmapi = new VanalinnadGooglemApi(null, true);
-            this.map.mapTypes.set('old-maps', this.vgmapi.juksMapType);
-            this.vgmapi.map = this.map;
-            var cityDataDoneCallback = function () {
-                that.vgmapi.buildVanalinnadMapCityControl();
-                that.vgmapi.buildVanalinnadMapYearControl();
-                if (that.map.getMapTypeId() === 'old-maps') {
-                    that.vgmapi.showControls();
-                } else {
-                    that.vgmapi.hideControls();
-                }
-                that.vgmapi.changeIndex(0);
-            };
-            this.vgmapi.getCityData(cityDataDoneCallback);
             if (isMobile) {
                 this.lockButton.addClass('hidden');
             }

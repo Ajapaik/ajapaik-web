@@ -3,6 +3,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from registration.forms import RegistrationFormUniqueEmail
+
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Licence
 
 
@@ -15,6 +16,7 @@ class UserRegistrationForm(RegistrationFormUniqueEmail):
         email = self.cleaned_data['email']
         self.cleaned_data['username'] = email
         return email
+
 
 # TODO: Make forms for everything, there's too much individual POST variable checking
 class AreaSelectionForm(forms.Form):

@@ -6,7 +6,6 @@
 /*global BigScreen*/
 /*global photoLikeURL*/
 /*global docCookies*/
-/*global VanalinnadGooglemApi */
 var map,
     streetPanorama,
     input,
@@ -195,31 +194,6 @@ var map,
             name: 'OSM',
             maxZoom: 19
         }));
-
-        var oldMapsCity = getQueryParameterByName('old-maps-city'),
-            oldMapsIdx = getQueryParameterByName('old-maps-index');
-        if (oldMapsCity) {
-            commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false);
-        } else {
-            commonVgmapi = new VanalinnadGooglemApi(null, false);
-        }
-        commonVgmapi.map = map;
-        var cityDataDoneCallback = function () {
-            commonVgmapi.buildVanalinnadMapCityControl();
-            commonVgmapi.buildVanalinnadMapYearControl();
-            if (mapType === 'old-maps') {
-                commonVgmapi.showControls();
-            } else {
-                commonVgmapi.hideControls();
-            }
-            if (!oldMapsIdx) {
-                commonVgmapi.changeIndex(0);
-            } else {
-                commonVgmapi.changeIndex(oldMapsIdx);
-            }
-        };
-        commonVgmapi.getCityData(cityDataDoneCallback);
-        map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
 
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
