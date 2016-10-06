@@ -365,7 +365,7 @@
         (function () {
             var b = document.createElement("script");
             b.async = !0;
-            b.src = document.location.protocol + "//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}en_US{% endif %}{% endif %}/sdk.js";
+            b.src = document.location.protocol + "//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}{% if LANGUAGE_CODE == 'fi' %}fi_FI{% else %}{% if LANGUAGE_CODE == 'no' %}nb_NO{% else %}en_US{% endif %}{% endif %}{% endif %}{% endif %}/sdk.js";
             document.getElementById("fb-root").appendChild(b)
         })();
     </script>
