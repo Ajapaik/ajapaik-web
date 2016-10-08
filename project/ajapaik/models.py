@@ -25,12 +25,11 @@ from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db import IntegrityError
 from django.db.models import Lookup
-from django.db.models import OneToOneField, DateField, FileField
+from django.db.models import OneToOneField, DateField
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
-from django.utils.dateformat import DateFormat
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
@@ -103,19 +102,6 @@ def _user_post_save(sender, instance, **kwargs):
 post_save.connect(_user_post_save, sender=User)
 
 
-# FIXME: Unused
-class Area(Model):
-    name = CharField(max_length=255)
-    lat = FloatField(null=True)
-    lon = FloatField(null=True)
-
-    class Meta:
-        db_table = 'project_area'
-
-    def __unicode__(self):
-        return u'%s' % self.name
-
-
 class AlbumPhoto(Model):
     CURATED, RECURATED, MANUAL, STILL, UPLOADED = range(5)
     TYPE_CHOICES = (
@@ -138,9 +124,6 @@ class AlbumPhoto(Model):
         return u'%d - %d' % (self.album.id, self.photo.id)
 
     def delete(self, *args, **kwargs):
-        if self.album.atype == Album.CURATED:
-            self.photo.area = None
-            self.photo.light_save()
         super(AlbumPhoto, self).delete()
 
 
@@ -312,8 +295,6 @@ class Photo(Model):
     source_url = URLField(null=True, blank=True, max_length=1023)
     source = ForeignKey('Source', null=True, blank=True)
     device = ForeignKey('Device', null=True, blank=True)
-    # Useless
-    area = ForeignKey('Area', related_name='areas', null=True, blank=True)
     rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos')
     first_rephoto = DateTimeField(null=True, blank=True)
     latest_rephoto = DateTimeField(null=True, blank=True)
@@ -343,9 +324,6 @@ class Photo(Model):
     cam_yaw = FloatField(null=True, blank=True)
     cam_pitch = FloatField(null=True, blank=True)
     cam_roll = FloatField(null=True, blank=True)
-    video = ForeignKey('Video', null=True, blank=True, related_name='stills')
-    video_timestamp = IntegerField(null=True, blank=True)
-    then_and_now_rephoto = ForeignKey('TourRephoto', null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -878,6 +856,7 @@ def user_has_confirmed_email(user):
 
     return ok and user.is_active
 
+
 class Profile(Model):
     objects = BulkUpdateManager()
     facebook = FacebookManager()
@@ -1152,20 +1131,6 @@ class Action(Model):
         db_table = 'project_action'
 
 
-class CSVPhoto(Photo):
-    # This is a fake class for adding an admin page
-    class Meta:
-        proxy = True
-
-        # Possible fix for proxy models not getting their auto-generated permissions and stuff
-        # class Migration(SchemaMigration):
-        # 	def forwards(self, orm):
-        # 		orm.send_create_signal('project', ['CSVPhoto'])
-        #
-        # 	def backwards(self, orm):
-        # 		pass
-
-
 class NorwegianCSVPhoto(Photo):
     class Meta:
         proxy = True
@@ -1194,6 +1159,7 @@ class GoogleMapsReverseGeocode(Model):
 
     def __unicode__(self):
         return '%d;%d' % (self.lat, self.lon)
+
 
 class Dating(Model):
     DAY, MONTH, YEAR = range(3)
@@ -1234,123 +1200,3 @@ class DatingConfirmation(Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.profile.pk, self.confirmation_of.pk)
-
-
-class Tour(Model):
-    FIXED, OPEN, NEARBY_RANDOM = range(3)
-    PHOTOSET_TYPE_CHOICES = (
-        (OPEN, _('Open tour')),
-        (FIXED, _('Fixed photo set')),
-        (NEARBY_RANDOM, _('Random with nearby pictures')),
-    )
-    photos = ManyToManyField('Photo', related_name='tours', blank=True, null=True)
-    name = CharField(max_length=255, blank=True, null=True)
-    description = TextField(blank=True, null=True)
-    user = ForeignKey('Profile', related_name='owned_tours')
-    ordered = BooleanField(default=False)
-    grouped = BooleanField(default=False)
-    photo_set_type = PositiveSmallIntegerField(choices=PHOTOSET_TYPE_CHOICES, default=FIXED)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'thenandnow_tour'
-
-    def __unicode__(self):
-        return '%s - %s' % (self.pk, self.user.pk)
-
-    def delete(self, **kwargs):
-        for each in self.tour_rephotos.all():
-            each.image.delete()
-            each.delete()
-        super(Tour, self).delete()
-
-
-class TourGroup(Model):
-    tour = ForeignKey('Tour', related_name='tour_groups')
-    name = CharField(choices=((x, x) for x in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')), max_length=1)
-    max_members = IntegerField()
-    members = ManyToManyField('Profile', related_name='tour_groups', null=True, blank=True)
-
-    def __unicode__(self):
-        return '%s - %s' % (self.tour.pk, self.name,)
-
-    class Meta:
-        unique_together = ('name', 'tour',)
-
-
-class TourPhoto(Model):
-    photo = ForeignKey('Photo')
-    tour = ForeignKey('Tour')
-    order = IntegerField(default=0)
-
-    class Meta:
-        db_table = 'thenandnow_tourphoto'
-
-
-class TourPhotoOrder(Model):
-    photo = ForeignKey('Photo')
-    tour = ForeignKey('Tour')
-    order = IntegerField(default=0)
-
-    class Meta:
-        db_table = 'thenandnow_tourphotoorder'
-
-
-class TourUniqueView(Model):
-    tour = ForeignKey('Tour', related_name='tour_views')
-    profile = ForeignKey('Profile', related_name='tour_views')
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'thenandnow_touruniqueview'
-        unique_together = ('tour', 'profile')
-
-
-class TourRephoto(Model):
-    image = ImageField(upload_to='then-and-now', height_field='height', width_field='width')
-    tour = ForeignKey('Tour', related_name='tour_rephotos')
-    original = ForeignKey('Photo', related_name='tour_rephotos')
-    user = ForeignKey('Profile', related_name='tour_rephotos')
-    width = IntegerField(blank=True, null=True)
-    height = IntegerField(blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'thenandnow_tourrephoto'
-
-
-class Video(Model):
-    name = CharField(max_length=255)
-    slug = SlugField(null=True, blank=True, max_length=255, unique=True)
-    file = FileField(upload_to='videos', blank=True, null=True)
-    width = IntegerField()
-    height = IntegerField()
-    author = CharField(max_length=255, blank=True, null=True)
-    date = DateField(blank=True, null=True)
-    source = ForeignKey('Source', blank=True, null=True)
-    source_key = CharField(max_length=255, blank=True, null=True)
-    source_url = URLField(blank=True, null=True)
-    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height',
-                             width_field='cover_image_width', blank=True, null=True)
-    cover_image_height = IntegerField(blank=True, null=True)
-    cover_image_width = IntegerField(blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'project_video'
-
-    def save(self, *args, **kwargs):
-        super(Video, self).save(*args, **kwargs)
-        if not self.slug:
-            self.slug = slugify(self.name)
-            super(Video, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return '%s' % (self.name,)
-
-    @permalink
-    def get_absolute_url(self):
-        return 'project.ajapaik.views.videoslug', [self.id, self.slug]

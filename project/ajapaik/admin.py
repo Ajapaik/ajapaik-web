@@ -1,12 +1,12 @@
 import autocomplete_light
-from sorl.thumbnail import delete as sorl_delete
 from PIL import Image, ImageOps
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.utils.translation import ugettext as _
+from sorl.thumbnail import delete as sorl_delete
 
 from project.ajapaik import settings
-from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
+from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, \
     AlbumPhoto, Licence, Device, PhotoComment, Dating, \
     DatingConfirmation, NorwegianCSVPhoto
 
@@ -141,10 +141,6 @@ class AlbumPhotoAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(AlbumPhoto, fields='__all__')
 
 
-class AreaAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Area, fields='__all__')
-
-
 class LicenceAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(Licence, fields='__all__')
 
@@ -163,7 +159,6 @@ admin.site.register(Skip, SkipAdmin)
 admin.site.register(Action)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(AlbumPhoto, AlbumPhotoAdmin)
-admin.site.register(Area, AreaAdmin)
 admin.site.register(Licence, LicenceAdmin)
 admin.site.register(NorwegianCSVPhoto, NorwegianCSVUploadAdmin)
 admin.site.register(Device, DeviceAdmin)
