@@ -1,14 +1,14 @@
 import autocomplete_light
 from PIL import Image, ImageOps
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.utils.translation import ugettext as _
 from sorl.thumbnail import delete as sorl_delete
 
-from project.ajapaik import settings
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, \
     AlbumPhoto, Licence, Device, PhotoComment, Dating, \
-    DatingConfirmation, NorwegianCSVPhoto
+    DatingConfirmation, NorwegianCSVPhoto, Country, County, Municipality
 
 
 class NorwegianCSVUploadAdmin(admin.ModelAdmin):
@@ -164,3 +164,6 @@ admin.site.register(NorwegianCSVPhoto, NorwegianCSVUploadAdmin)
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
+admin.site.register(Country)
+admin.site.register(County)
+admin.site.register(Municipality)

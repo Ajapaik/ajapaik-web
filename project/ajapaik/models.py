@@ -286,6 +286,9 @@ class Photo(Model):
     # Should effectively lock the location
     bounding_circle_radius = FloatField(null=True, blank=True)
     address = CharField(max_length=255, blank=True, null=True)
+    country = ForeignKey('Country', related_name='photos')
+    county = ForeignKey('County', related_name='photos')
+    municipality = ForeignKey('Municipality', related_name='photos')
     azimuth = FloatField(null=True, blank=True)
     confidence = FloatField(default=0, null=True, blank=True)
     azimuth_confidence = FloatField(default=0, null=True, blank=True)
@@ -1132,7 +1135,7 @@ class Action(Model):
 
 
 class NorwegianCSVPhoto(Photo):
-    class Meta:
+    class Meta():
         proxy = True
 
 
@@ -1200,3 +1203,42 @@ class DatingConfirmation(Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.profile.pk, self.confirmation_of.pk)
+
+
+class Country(Model):
+    name = CharField(max_length=255)
+    iso_alpha_2_code = CharField(max_length=2)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_country'
+
+    def __unicode__(self):
+        return '%s' % self.name
+
+
+class County(Model):
+    name = CharField(max_length=255)
+    country = ForeignKey('Country', related_name='counties')
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_county'
+
+    def __unicode__(self):
+        return '%s' % self.name
+
+
+class Municipality(Model):
+    name = CharField(max_length=255)
+    county = ForeignKey('County', related_name='municipalities')
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_municipality'
+
+    def __unicode__(self):
+        return '%s' % self.name

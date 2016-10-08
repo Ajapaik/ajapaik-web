@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from registration.forms import RegistrationFormUniqueEmail
 
-from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Licence
+from .models import Album, Photo, GeoTag, PhotoLike, Profile, Dating, Licence
 
 
 class UserRegistrationForm(RegistrationFormUniqueEmail):
@@ -16,11 +16,6 @@ class UserRegistrationForm(RegistrationFormUniqueEmail):
         email = self.cleaned_data['email']
         self.cleaned_data['username'] = email
         return email
-
-
-# TODO: Make forms for everything, there's too much individual POST variable checking
-class AreaSelectionForm(forms.Form):
-    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), )
 
 
 class AlbumSelectionForm(forms.Form):
@@ -103,7 +98,6 @@ class HaystackAlbumSearchForm(SearchForm):
 
 class MapDataRequestForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
-    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)
     limit_by_album = forms.BooleanField(initial=False, required=False)
     sw_lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     sw_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
@@ -123,7 +117,6 @@ class GamePhotoSelectionForm(forms.Form):
 
 class GameNextPhotoForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
-    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True),
                                    label=_('Choose photo'), required=False)
 
@@ -150,12 +143,6 @@ class CuratorAlbumEditForm(forms.Form):
     ), label=_('Choose parent album'), required=False)
     areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
-
-
-class AddAreaForm(forms.Form):
-    name = forms.CharField(max_length=255, required=True)
-    lat = forms.FloatField(required=True)
-    lon = forms.FloatField(required=True)
 
 
 class AddAlbumForm(forms.Form):
