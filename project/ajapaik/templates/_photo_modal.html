@@ -19,7 +19,7 @@
                             </div>
                             <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="{% url 'project.ajapaik.views.photoslug' photo.id photo.get_pseudo_slug %}">
                                 <img src="{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"
-                                     alt="{{ photo.description }}" title="{{ photo.description }}"
+                                     alt="{{ photo.title }}" title="{{ photo.title }}"
                                      class="img-responsive col-xs-12"
                                      id="ajapaik-modal-photo"/>
                             </a>
@@ -69,7 +69,7 @@
                                 <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="{% url 'project.ajapaik.views.photoslug' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
                                     <img src="{% url 'project.ajapaik.views.image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
                                          class="col-xs-12 img-responsive" id="ajapaik-modal-rephoto"
-                                         alt="{{ photo.description }}" title="{{ photo.description }}"/>
+                                         alt="{{ photo.title }}" title="{{ photo.title }}"/>
                                     <button class="ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
                                             id="ajapaik-close-rephoto-overlay-button"
                                             {% if not request.mobile %}style="display: none;"{% endif %}>
@@ -114,14 +114,10 @@
                         {% include "_licence.html" with licence=photo.licence %}
                     {% endif %}
                 {% endif %}
-                {% if photo.description %}
+                {% if photo.title %}
                     <div class="row-fluid" id="ajapaik-photo-modal-description">
-                        <div title="{{ photo.description }}">
-                            {% if photo.video %}
-                                <a href="{% url "project.ajapaik.views.frontpage" %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ photo.video_timestamp|div:1000 }}">{{ photo.description }}</a>
-                            {% else %}
-                                {{ photo.description }}
-                            {% endif %}
+                        <div title="{{ photo.title }}">
+                            {{ photo.title }}
                         </div>
                     </div>
                 {% endif %}
@@ -163,7 +159,7 @@
                                     <div class="col-xs-1">
                                         <i class="material-icons notranslate ajapaik-photo-modal-album-icon"
                                            title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
-                                                {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}
+                                                photo_album
                                         </i>
                                     </div>
                                 {% endif %}
@@ -300,9 +296,6 @@
             {% if album and album.3 and album.4 %}
                 window.photoModalExtraLat = {{ album.3|safe }};
                 window.photoModalExtraLng = {{ album.4|safe }};
-            {% elif photo.area and photo.area.lat and photo.area.lon %}
-                window.photoModalExtraLat = {{ photo.area.lat|safe }};
-                window.photoModalExtraLng = {{ photo.area.lon|safe }};
             {% else %}
                 window.photoModalExtraLat = null;
                 window.photoModalExtraLng = null;
@@ -324,11 +317,7 @@
             {% else %}
                 window.photoModalRephotoFullscreenImageSize = null;
             {% endif %}
-            {% if description %}
-                window.currentPhotoDescription = '{{ photo.description|remove_newlines|escapejs }}';
-            {% else %}
-                window.currentPhotoDescription = false;
-            {% endif %}
+            window.currentPhotoDescription = '{{ photo.title|remove_newlines|escapejs }}';
             window.currentPhotoSourceName = '{{ photo.source.description }}';
             window.currentPhotoSourceKey = '{{ photo.source_key }}';
             window.currentPhotoSourceURL = '{{ photo.source_url }}';

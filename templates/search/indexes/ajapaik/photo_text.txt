@@ -1,3 +1,5 @@
+{{ object.title_en }}
+{{ object.title_no }}
 {{ object.description_en }}
 {{ object.description_no }}
 {{ object.author }}

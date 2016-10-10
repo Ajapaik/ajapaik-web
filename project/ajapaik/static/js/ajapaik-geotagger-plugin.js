@@ -514,13 +514,6 @@
             this.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.mapOpenInstructionsButton.get(0));
             this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.mapShowSearchButton.get(0));
             this.streetPanorama.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(this.streetPanoramaExtraCloseButton.get(0));
-            this.mapTypeChangedListener = google.maps.event.addListener(this.map, 'maptypeid_changed', function () {
-                if (that.map.getMapTypeId() === 'old-maps') {
-                    that.vgmapi.showControls();
-                } else {
-                    that.vgmapi.hideControls();
-                }
-            });
             google.maps.event.addListener(this.streetPanorama, 'visible_changed', function () {
                 if (that.streetPanorama.getVisible()) {
                     that.panoramaMarker.setVisible(false);

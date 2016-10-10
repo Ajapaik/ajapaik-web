@@ -117,9 +117,9 @@
                 <meta property="og:url" content="{{ hostname }}?photo={{ rephoto.rephoto_of.id }}"/>
             {% else %}
                 {% if is_photoview and not rephoto %}
-                    <meta property="og:url" content="{{ hostname }}/foto/{{ photo.id }}/"/>
+                    <meta property="og:url" content="{{ hostname }}/photo/{{ photo.id }}/"/>
                 {% elif is_photoview and rephoto %}
-                    <meta property="og:url" content="{{ hostname }}/foto/{{ rephoto.id }}/"/>
+                    <meta property="og:url" content="{{ hostname }}/photo/{{ rephoto.id }}/"/>
                 {% else %}
                     <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
                 {% endif %}
@@ -387,7 +387,7 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
-    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization"></script>
+    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key={% settings_value 'GOOGLE_API_KEY' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
     {% compress js %}

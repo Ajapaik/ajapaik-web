@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sites.models import Site
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
@@ -274,9 +274,14 @@ def _get_album_choices(qs=None, start=None, end=None):
 
 
 def _calculate_recent_activity_scores():
-    five_thousand_actions_ago = Points.objects.order_by('-created')[5000].created
-    recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id') \
-        .annotate(total_points=Sum('points'))
+    c = min(5000, Points.objects.all().count())
+    recent_actions = []
+    try:
+        five_thousand_actions_ago = Points.objects.order_by('-created')[c].created
+        recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id') \
+            .annotate(total_points=Sum('points'))
+    except IndexError:
+        pass
     recent_action_dict = {}
     for each in recent_actions:
         recent_action_dict[each['user_id']] = each
@@ -397,7 +402,6 @@ def rephoto_upload(request, photo_id):
                 date_taken = data.get('dateTaken', None)
                 re_photo = Photo(
                     rephoto_of=photo,
-                    area=photo.area,
                     licence=Licence.objects.get(url='https://creativecommons.org/licenses/by-sa/4.0/'),
                     description=data.get('description', photo.description),
                     lat=data.get('lat', None),
@@ -478,7 +482,6 @@ def game(request):
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     game_photo_selection_form = GamePhotoSelectionForm(request.GET)
     album = None
-    area = None
     ret = {
         "albums": _get_album_choices()
     }
@@ -499,8 +502,6 @@ def game(request):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
         ret["album_photo_count"] = qs.distinct('id').count()
         facebook_share_photos = album.photos.all()
-    elif area:
-        facebook_share_photos = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?")
 
     ret["facebook_share_photos"] = []
     if facebook_share_photos:
@@ -511,12 +512,9 @@ def game(request):
     ret["hostname"] = "https://%s" % (site.domain,)
     if album:
         ret["title"] = album.name
-    elif area:
-        ret["title"] = area.name
     else:
         ret["title"] = _("Geotagging game")
     ret["is_game"] = True
-    ret["area_selection_form"] = area_selection_form
     ret["album_selection_form"] = album_selection_form
     ret["last_geotagged_photo_id"] = Photo.objects.order_by('-latest_geotag').first().id
     ret["ajapaik_facebook_link"] = settings.AJAPAIK_FACEBOOK_LINK
@@ -532,7 +530,6 @@ def fetch_stream(request):
     data = {"photo": None, "userSeenAll": False, "nothingMoreToShow": False}
     if form.is_valid():
         qs = Photo.objects.filter(rephoto_of__isnull=True)
-        form_area = form.cleaned_data["area"]
         form_album = form.cleaned_data["album"]
         form_photo = form.cleaned_data["photo"]
         # TODO: Correct implementation
@@ -560,8 +557,6 @@ def fetch_stream(request):
                     photos_ids_in_subalbum = list(sa.photos.values_list("id", flat=True))
                     photos_ids_in_album += photos_ids_in_subalbum
                 qs = qs.filter(pk__in=photos_ids_in_album)
-            elif form_area:
-                qs = qs.filter(area=form_area)
             # FIXME: Ugly
             try:
                 response = Photo.get_next_photo_to_geotag(qs, request)
@@ -851,17 +846,17 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         qs_for_fb = photos[:5]
         # FIXME: Stupid
         if order1 == 'amount' and order2 == 'geotags':
-            photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
+            photos = photos.values_list('id', 'width', 'height', 'title', 'lat', 'lon', 'azimuth',
                                         'rephoto_count',
                                         'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[
                      start:end]
         elif order1 == 'closest' and lat and lon:
-            photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
+            photos = photos.values_list('id', 'width', 'height', 'title', 'lat', 'lon', 'azimuth',
                                         'rephoto_count',
                                         'fb_comments_count', 'geotag_count', 'distance', 'geotag_count', 'flip')[
                      start:end]
         else:
-            photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
+            photos = photos.values_list('id', 'width', 'height', 'title', 'lat', 'lon', 'azimuth',
                                         'rephoto_count',
                                         'fb_comments_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[
                      start:end]
@@ -881,7 +876,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             p.append(_get_pseudo_slug_for_photo(p[3], None, None))
         if album:
             ret['album'] = (
-                album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon, album.is_film_still_album)
+                album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon)
         else:
             ret['album'] = None
         fb_share_photos = []
@@ -1051,6 +1046,7 @@ def _make_fullscreen(p):
     if p and p.image:
         return {"url": p.image.url, "size": [p.image.width, p.image.height]}
 
+
 def photoslug(request, photo_id=None, pseudo_slug=None):
     # Because of some bad design decisions, we have a URL /photo, let's just give a random photo
     if photo_id is None:
@@ -1206,7 +1202,6 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_has_geotagged": user_has_geotagged,
         "fb_url": request.build_absolute_uri(reverse("project.ajapaik.views.photoslug", args=(photo_obj.id,))),
         "licence": Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/"),
-        "area": photo_obj.area,
         "album": album,
         "albums": albums,
         "is_frontpage": is_frontpage,
@@ -1285,7 +1280,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
     user_has_likes = profile.likes.count() > 0
     user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
 
-    area = None
     album = None
 
     if game_album_selection_form.is_valid():
@@ -1317,7 +1311,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     site = Site.objects.get_current()
-    ret = {"area": area, "last_geotagged_photo_id": Photo.objects.order_by('-latest_geotag').first().id,
+    ret = {"last_geotagged_photo_id": Photo.objects.order_by('-latest_geotag').first().id,
            "total_photo_count": photos_qs.distinct('id').count(), "geotagging_user_count": geotagging_user_count,
            "geotagged_photo_count": geotagged_photo_count, "albums": albums, "hostname": "https://%s" % (site.domain,),
            "selected_photo": selected_photo, "selected_rephoto": selected_rephoto, "is_mapview": True,
@@ -1332,8 +1326,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
         for each in facebook_share_photos:
             each = [each.pk, each.get_pseudo_slug(), each.width, each.height]
             ret["facebook_share_photos"].append(each)
-    elif area is not None:
-        ret["title"] = area.name + " - " + _("Browse photos on map")
     else:
         ret["title"] = _("Browse photos on map")
 
@@ -1345,7 +1337,6 @@ def map_objects_by_bounding_box(request):
 
     if form.is_valid():
         album = form.cleaned_data['album']
-        area = form.cleaned_data['area']
         limit_by_album = form.cleaned_data['limit_by_album']
         sw_lat = form.cleaned_data['sw_lat']
         sw_lon = form.cleaned_data['sw_lon']
@@ -1360,9 +1351,6 @@ def map_objects_by_bounding_box(request):
         if album and limit_by_album:
             album_photo_ids = album.get_historic_photos_queryset_with_subalbums().values_list('id', flat=True)
             qs = qs.filter(id__in=album_photo_ids)
-
-        if area:
-            qs = qs.filter(area=area)
 
         if sw_lat and sw_lon and ne_lat and ne_lon:
             qs = qs.filter(lat__gte=sw_lat, lon__gte=sw_lon, lat__lte=ne_lat, lon__lte=ne_lon)
@@ -1876,7 +1864,6 @@ def curator_update_my_album(request):
 def curator_photo_upload_handler(request):
     profile = request.get_user().profile
 
-    area_name = request.POST.get("areaName")
     area_lat = request.POST.get("areaLat")
     area_lon = request.POST.get("areaLng")
     etera_token = request.POST.get("eteraToken")
@@ -1936,9 +1923,9 @@ def curator_photo_upload_handler(request):
                 is_public=curator_album_create_form.cleaned_data["is_public"],
                 open=curator_album_create_form.cleaned_data["open"]
             )
-            if area and area.lat and area.lon:
-                album.lat = area.lat
-                album.lon = area.lon
+            if area_lat and area_lon:
+                album.lat = area_lat
+                album.lon = area_lon
             album.save()
         if album:
             ret["album_id"] = album.id
@@ -2006,7 +1993,6 @@ def curator_photo_upload_handler(request):
                         try:
                             new_photo = Photo(
                                 user=profile,
-                                area=area,
                                 author=upload_form.cleaned_data["creators"].encode('utf-8'),
                                 description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
                                 source=source,
@@ -2227,75 +2213,6 @@ def update_like_state(request):
 
 
 @user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
-def csv_upload(request):
-    import csv
-    import zipfile
-    import hashlib
-    profile = request.get_user().profile
-    csv_file = request.FILES['csv_file']
-    # Broke for some reason
-    # dialect = csv.Sniffer().sniff(csv_file.read(1024), delimiters=';,')
-    header_row = None
-    photos_metadata = {}
-    for row in csv.reader(csv_file, delimiter=';'):
-        if not header_row:
-            header_row = row
-            continue
-        row = dict(zip(header_row, row))
-        photos_metadata[row.get('number')] = row
-    zip_file = zipfile.ZipFile(request.FILES['zip_file'])
-    album_id = request.POST.get('album_id')
-    album = Album.objects.get(pk=album_id)
-    licence = Licence.objects.get(name='Public domain')
-    for key, value in photos_metadata.items():
-        try:
-            image_file = zip_file.read(value['filename'])
-        except KeyError:
-            continue
-        meta_for_this_image = photos_metadata[key]
-        source_name = meta_for_this_image.get('institution') or 'Ajapaik'
-        try:
-            source = Source.objects.get(description=source_name)
-        except ObjectDoesNotExist:
-            source = Source(name=source_name, description=source_name)
-            source.save()
-        # FIXME: Maybe we want to re-upload? Can't just skip
-        try:
-            Photo.objects.get(source=source, source_key=key)
-            continue
-        except ObjectDoesNotExist:
-            pass
-        extension = 'jpeg'
-        upload_file_name = 'uploads/%s.%s' % (hashlib.md5(key).hexdigest(), extension)
-        fout = open('/var/garage/' + upload_file_name, 'w')
-        fout.write(image_file)
-        fout.close()
-        place_name = meta_for_this_image.get('place') or 'Ajapaik'
-        description = '; '.join(filter(None, [meta_for_this_image[sub_key].strip() for sub_key
-                                              in ('description', 'title') if sub_key in meta_for_this_image]))
-        description = description.strip(' \t\n\r')
-        source_url = meta_for_this_image.get('url')
-        p = Photo(
-            licence=licence,
-            date_text=meta_for_this_image.get('date'),
-            description=description,
-            source=source,
-            source_url=source_url,
-            source_key=key,
-            author=meta_for_this_image.get('author')
-        )
-        p.image.name = upload_file_name
-        # FIXME: Next 2 lines should happen automatically
-        p.width = p.image.width
-        p.height = p.image.height
-        p.save()
-        AlbumPhoto(album=album, photo=p, profile=profile).save()
-    album.save()
-
-    return HttpResponse('OK')
-
-
-@user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
 def norwegian_csv_upload(request):
     import csv
     import hashlib
@@ -2308,26 +2225,28 @@ def norwegian_csv_upload(request):
             header_row = row
             continue
         row = dict(zip(header_row, row))
-        photos_metadata[row.get('source_id')] = row
+        photos_metadata[row.get('image_id')] = row
     album_id = request.POST.get('album_id')
     album = Album.objects.get(pk=album_id)
     failed = []
     activate('no')
-    for key, value in photos_metadata.items()[:3]:
+    for key, value in photos_metadata.items():
         meta_for_this_image = photos_metadata[key]
         response = requests.get(meta_for_this_image.get('image_url'), stream=True)
         source_name = meta_for_this_image.get('institution')
         source, source_created = Source.objects.get_or_create(name=source_name, description=source_name)
         # FIXME: Maybe we want to re-upload? Can't just skip
         try:
-            Photo.objects.get(source=source, source_key=key.split('.')[0])
+            Photo.objects.get(source=source, external_id=key.split('.')[0])
             continue
         except ObjectDoesNotExist:
             pass
+        except MultipleObjectsReturned:
+            continue
         extension = 'jpg'
         upload_file_name = 'uploads/%s.%s' % (
             unicode(datetime.datetime.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
-        fout = open('/var/fotodugnad/' + upload_file_name, 'w')
+        fout = open(settings.MEDIA_ROOT + '/' + upload_file_name, 'w')
         shutil.copyfileobj(response.raw, fout)
         fout.close()
         licence_url_in_csv = meta_for_this_image.get('license')
@@ -2337,7 +2256,8 @@ def norwegian_csv_upload(request):
         municipality_name = meta_for_this_image.get('municipality') or None
         country, country_created = Country.objects.get_or_create(name_en=country_name)
         county, country_created = County.objects.get_or_create(name_en=county_name, country=country)
-        municipality, municipality_created = Municipality.objects.get_or_create(name_en=municipality_name, county=county)
+        municipality, municipality_created = Municipality.objects.get_or_create(name_en=municipality_name,
+                                                                                county=county)
         title = meta_for_this_image.get('title')
         title = title.strip(' \t\n\r')
         description = meta_for_this_image.get('description')
@@ -2350,21 +2270,17 @@ def norwegian_csv_upload(request):
             country=country,
             county=county,
             municipality=municipality,
+            external_id=key.split('.')[0],
             source=source,
             source_url=source_url,
-            source_key=key.split('.')[0],
-            address=meta_for_this_image.get('address'),
-            date_text=meta_for_this_image.get('date'),
-            author=meta_for_this_image.get('author')
+            source_key=meta_for_this_image.get('source_id') or None,
+            address=meta_for_this_image.get('address') or None,
+            date_text=meta_for_this_image.get('date') or None,
+            author=meta_for_this_image.get('author') or None
         )
         p.image.name = upload_file_name
-        # FIXME: Next 2 lines should happen automatically
-        try:
-            p.width = p.image.width
-            p.height = p.image.height
-        except:
-            failed.append(key)
-            continue
+        p.width = p.image.width
+        p.height = p.image.height
         p.save()
         AlbumPhoto(album=album, photo=p, profile=profile).save()
         if meta_for_this_image.get('lat') and meta_for_this_image.get('lon'):

@@ -1,7 +1,7 @@
 server {
     listen 80;
 
-    server_name solr.ajapaik.ee;
+    server_name solr.fotodugnad.ra.no;
 
     # Some Default NGINX installs have "Welcome to NGINX" at the / location
     # This disables that
@@ -33,6 +33,7 @@ server {
         if ($args ~ [\&\?]stream.*?=(.*)) {
             return 403;
         }
+
         proxy_pass http://127.0.0.1:8983;
 
         # Some shared proxy settings

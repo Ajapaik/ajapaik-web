@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = Photo.objects.filter(latest_comment__isnull=False)
         query_string = 'https://graph.facebook.com/?id=%s&scrape=true'
-        url_template = 'https://ajapaik.ee/foto/%d/'
+        url_template = 'http://fotodugnad.ra.no/photo/%d/'
         for p in photos:
             print p.id
             url = url_template % p.id

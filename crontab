@@ -2,4 +2,4 @@
 45 4 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py set_latest_and_earliest_comment_and_comment_count_for_all_photos
 0 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py clearsessions
 15 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py reverse_geocode_photos
-30 5 * * * cd /var/garage/rephoto && /opt/python27/bin/python2.7 project/manage.py update_index
+30 5 * * * cd /home/fotodugnad && source venv/bin/activate && cd ajapaik-web && python project/manage.py update_index

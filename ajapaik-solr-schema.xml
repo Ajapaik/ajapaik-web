@@ -150,46 +150,25 @@
     <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
     <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
 
-
-    <field name="name_et" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="name_ru" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="name_sv" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="name_nl" type="text_en" indexed="true" stored="true" multiValued="false" />
-
     <field name="text" type="edge_ngram" indexed="true" stored="true" multiValued="false" />
 
-    <field name="name_de" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="name_fi" type="text_en" indexed="true" stored="true" multiValued="false" />
+    <field name="name_no" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="name_en" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="author" type="text_en" indexed="true" stored="true" multiValued="false" />
 
-    <field name="description_fi" type="text_en" indexed="true" stored="true" multiValued="false" />
-
     <field name="source_key" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="description_en" type="text_en" indexed="true" stored="true" multiValued="false" />
 
-    <field name="description_nl" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="description_ru" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="description_et" type="text_en" indexed="true" stored="true" multiValued="false" />
+    <field name="description_no" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="source" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="address" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="keywords" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="description_de" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="description_sv" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="types" type="text_en" indexed="true" stored="true" multiValued="false" />
 

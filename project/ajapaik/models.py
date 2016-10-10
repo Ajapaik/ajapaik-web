@@ -123,9 +123,6 @@ class AlbumPhoto(Model):
     def __unicode__(self):
         return u'%d - %d' % (self.album.id, self.photo.id)
 
-    def delete(self, *args, **kwargs):
-        super(AlbumPhoto, self).delete()
-
 
 class Album(Model):
     CURATED, FAVORITES, AUTO = range(3)
@@ -255,7 +252,6 @@ class Photo(Model):
     image = ImageField(_('Image'), upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
                        width_field='width')
     image_unscaled = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
-    image_no_watermark = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)
     flip = NullBooleanField()
@@ -334,6 +330,7 @@ class Photo(Model):
     class Meta:
         ordering = ['-id']
         db_table = 'project_photo'
+        unique_together = (('source', 'external_id'),)
 
     @staticmethod
     def get_game_json_format_photo(photo):
@@ -363,6 +360,7 @@ class Photo(Model):
             'userLoves': photo.user_loves,
             'userLikeCount': photo.user_like_count
         }
+
         return ret
 
     @staticmethod
@@ -446,8 +444,7 @@ class Photo(Model):
         self.original_lon = self.lon
 
     def get_detail_url(self):
-        # Legacy URL needs to stay this way for now for Facebook
-        return reverse('foto', args=(self.pk,))
+        return reverse('photoslug', args=(self.pk,))
 
     def watermark(self):
         # For ETERA
@@ -527,6 +524,11 @@ class Photo(Model):
                 self.address = most_accurate_result['formatted_address']
             elif response['status'] == 'OVER_QUERY_LIMIT':
                 return
+
+    def delete(self, **kwargs):
+        self.image.delete()
+        self.image_unscaled.delete()
+        super(Photo, self).delete(kwargs)
 
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
@@ -660,20 +662,6 @@ class Photo(Model):
                         self.azimuth_confidence = None
 
 
-class PhotoMetadataUpdate(Model):
-    photo = ForeignKey('Photo', related_name='metadata_updates')
-    old_title = CharField(max_length=255, blank=True, null=True)
-    new_title = CharField(max_length=255, blank=True, null=True)
-    old_description = TextField(null=True, blank=True)
-    new_description = TextField(null=True, blank=True)
-    old_author = CharField(null=True, blank=True, max_length=255)
-    new_author = CharField(null=True, blank=True, max_length=255)
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'project_photometadataupdate'
-
-
 class PhotoComment(Model):
     photo = ForeignKey('Photo', related_name='comments')
     fb_comment_id = CharField(max_length=255, unique=True)
@@ -707,17 +695,6 @@ class DifficultyFeedback(Model):
 
     class Meta:
         db_table = 'project_difficultyfeedback'
-
-
-# FIXME: Unused model?
-class FlipFeedback(Model):
-    photo = ForeignKey('Photo')
-    user_profile = ForeignKey('Profile')
-    flip = NullBooleanField()
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'project_flipfeedback'
 
 
 class Points(Model):

@@ -105,7 +105,6 @@
             difficultyFeedbackURL = '{% url 'project.ajapaik.views.difficulty_feedback' %}',
             gameURL = '{% url 'project.ajapaik.views.game' %}',
             mapURL = '{% url 'project.ajapaik.views.mapview' %}',
-            areaId = '{{ area.id|safe }}',
             albumId = '{{ album.0|safe }}';
         {% if photo %}
             window.preselectedPhotoId = {{ photo.id|safe }};
@@ -117,8 +116,6 @@
         window.isGame = true;
         {% if album.2 and album.3 %}
             window.startLocation = [{{ album.3|safe }}, {{ album.2|safe }}];
-        {% elif area.lat and area.lon %}
-            window.startLocation = [{{ area.lon|safe }}, {{ area.lat|safe }}];
         {% else %}
             window.startLocation = [26, 59];
         {% endif %}
