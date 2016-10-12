@@ -282,9 +282,9 @@ class Photo(Model):
     # Should effectively lock the location
     bounding_circle_radius = FloatField(null=True, blank=True)
     address = CharField(max_length=255, blank=True, null=True)
-    country = ForeignKey('Country', related_name='photos')
-    county = ForeignKey('County', related_name='photos')
-    municipality = ForeignKey('Municipality', related_name='photos')
+    country = ForeignKey('Country', related_name='photos', blank=True, null=True)
+    county = ForeignKey('County', related_name='photos', blank=True, null=True)
+    municipality = ForeignKey('Municipality', related_name='photos', blank=True, null=True)
     azimuth = FloatField(null=True, blank=True)
     confidence = FloatField(default=0, null=True, blank=True)
     azimuth_confidence = FloatField(default=0, null=True, blank=True)
@@ -341,7 +341,7 @@ class Photo(Model):
             source_str = photo.source.description
         ret = {
             'id': photo.id,
-            'description': photo.description,
+            'title': photo.title,
             'sourceKey': photo.source_key,
             'sourceURL': photo.source_url,
             'sourceName': source_str,
@@ -419,14 +419,14 @@ class Photo(Model):
         ret = ret_qs.first()
         last_confirm_geotag_by_this_user_for_ret = None
         if ret:
-            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION) \
+            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
                 .order_by('-created').first()
             ret.user_already_confirmed = False
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                                                          and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
         if ret:
-            ret.user_already_geotagged = ret.geotags.filter(user=profile.user).exists()
+            ret.user_already_geotagged = ret.geotags.filter(user_id=profile.id).exists()
             ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
             ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
             ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
@@ -868,8 +868,6 @@ class Profile(Model):
     score = PositiveIntegerField(default=0)
     score_rephoto = PositiveIntegerField(default=0)
     score_recent_activity = PositiveIntegerField(default=0)
-
-    send_then_and_now_photos_to_ajapaik = BooleanField(default=False)
 
     class Meta:
         db_table = 'project_profile'

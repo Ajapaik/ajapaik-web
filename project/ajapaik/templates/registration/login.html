@@ -34,12 +34,12 @@
                 <br/>
                 {# TODO: next handling #}
                 <div class="facebook-connect">
-                    <a href="/facebook/login?next={% if is_then_and_now %}/then-and-now-tours/{% elif is_user_upload %}{% url "project.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                    <a href="/facebook/login?next={% if is_user_upload %}{% url "project.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <br/>
                 <div class="google-plus-connect">
-                    <a href="/google-login/?next={% if is_then_and_now %}/then-and-now-tours/{% elif is_user_upload %}{% url "project.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                    <a href="/google-login/?next={% if is_user_upload %}{% url "project.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             </div>

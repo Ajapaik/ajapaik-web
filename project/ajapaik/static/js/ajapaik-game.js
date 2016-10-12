@@ -43,7 +43,7 @@
             thumbSrc: '/photo-thumb/' + currentPhoto.id + '/400/',
             photoFlipped: currentPhoto.flip,
             fullScreenSrc: currentPhoto.large.url,
-            description: currentPhoto.description,
+            description: currentPhoto.title,
             sourceKey: currentPhoto.sourceKey,
             sourceName: currentPhoto.sourceName,
             sourceURL: currentPhoto.sourceURL,
@@ -164,13 +164,13 @@
                 likeButton.find('.ajapaik-like-count').html(currentPhoto.userLikeCount);
                 descStatus = window.descriptionViewHistory[currentPhoto.id];
                 // Remove JS-breaking formatting if some has snuck in
-                currentPhoto.description = currentPhoto.description.replace(/(\r\n|\n|\r)/gm, '');
-                if (currentPhoto.description) {
+                currentPhoto.title = currentPhoto.title.replace(/(\r\n|\n|\r)/gm, '');
+                if (currentPhoto.title) {
                     window.showDescriptionButtons();
                 } else {
                     window.hideDescriptionButtons();
                 }
-                $('#ajapaik-game-photo-description').text(currentPhoto.description);
+                $('#ajapaik-game-photo-description').text(currentPhoto.title);
                 $('#ajapaik-game-source-link').attr('href', currentPhoto.sourceURL)
                     .text(currentPhoto.sourceName + ' ' + currentPhoto.sourceKey);
                 if (descStatus) {
@@ -195,7 +195,7 @@
                     textTarget.show();
                 }
                 lastStatusMessage = message;
-                modalPhoto.prop('src', currentPhoto.big.url).attr('alt', currentPhoto.description);
+                modalPhoto.prop('src', currentPhoto.big.url).attr('alt', currentPhoto.title);
                 // For mini-map
                 window.photoModalGeotaggingUserCount = currentPhoto.totalGeotags;
                 window.photoModalPhotoLat = currentPhoto.lat;
@@ -206,13 +206,13 @@
                 window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
                 modalPhoto.on('load', photoLoadModalResizeFunction);
                 if (window.fullscreenEnabled) {
-                    fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
+                    fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.title)
                         .on('load', function () {
                         window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
                         fullScreenImage.unbind('load');
                     });
                 } else {
-                    fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
+                    fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.title)
                         .on('load', function () {
                         window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
                         fullScreenImage.unbind('load');

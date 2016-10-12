@@ -5,9 +5,9 @@
 <head>
     <title>
         {% if title %}
-            {{ title }} - {% trans "Timepatch (Ajapaik)" %}
+            {{ title }} - {% trans "Fotodugnad" %}
         {% else %}
-            {% trans "Timepatch (Ajapaik)" %}
+            {% trans "Fotodugnad" %}
         {% endif %}
     </title>
     <meta name="description" content="
@@ -36,9 +36,9 @@
                 {% trans 'Historic photo of' %} {{ photo.description }}
             {% endif %}
         {% elif is_curator%}
-            {% trans 'Curate historic photos from museums into Ajapaik for geotagging and rephotographing' %}
+            {% trans 'Curate historic photos from museums into Fotodugnad for geotagging and rephotographing' %}
         {% else %}
-            {% trans 'Ajapaik shows how places have changed over time' %}
+            {% trans 'Fotodugnad shows how places have changed over time' %}
         {% endif %}
         ">
     <meta name="keywords" content="
@@ -196,15 +196,13 @@
         <meta property="og:locale" content="et_EE"/>
         <meta property="og:locale:alternate" content="ru_RU"/>
         <meta property="og:locale:alternate" content="en_US"/>
-        <meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}"/>
+        <meta property="og:site_name" content="{% trans "Fotodugnad" %}"/>
     {% endif %}
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <link rel="shortcut icon" type="image/ico" href="{% static "images/favicon.ico" %}"/>
     <link rel="apple-touch-icon" href="{% static "images/ajapaik_marker_57px.png" %}"/>
-    <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
-    <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="https://ajapaik.ee/feed/photos/"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
