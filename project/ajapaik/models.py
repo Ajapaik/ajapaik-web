@@ -936,6 +936,11 @@ class Profile(Model):
             return self.google_plus_name
         elif self.fb_name:
             return self.fb_name
+        elif self.google_plus_email:
+            try:
+                return self.google_plus_email.split('@')[0]
+            except:
+                return _('Anonymous user')
         else:
             return _('Anonymous user')
 
