@@ -39,9 +39,9 @@ from oauth2client.django_orm import FlowField, CredentialsField
 from pandas import DataFrame, Series
 from requests import get
 from sklearn.cluster import DBSCAN
-from sorl.thumbnail import get_thumbnail
+from sorl.thumbnail import get_thumbnail, delete
 
-from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG, STATIC_ROOT
+from project.ajapaik.settings import GOOGLE_API_KEY, DEBUG, STATIC_ROOT, MEDIA_ROOT
 from project.utils import angle_diff
 from project.utils import average_angle
 
@@ -429,11 +429,11 @@ class Photo(Model):
                     user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
                     user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
                     user_incorrectly_geotagged_photo_ids = set(
-                        user_incorrect_geotags.distinct('photo_id').values_list('photo_id', flat=True))
+                            user_incorrect_geotags.distinct('photo_id').values_list('photo_id', flat=True))
                     user_correctly_geotagged_photo_ids = set(
-                        user_correct_geotags.distinct('photo_id').values_list('photo_id', flat=True))
+                            user_correct_geotags.distinct('photo_id').values_list('photo_id', flat=True))
                     user_no_correct_geotags_photo_ids = list(
-                        user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+                            user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
                     ret_qs = all_photos_set.filter(id__in=user_no_correct_geotags_photo_ids).order_by('?')
                     if ret_qs.count() == 0:
                         ret_qs = all_photos_set.order_by('?')
@@ -464,10 +464,21 @@ class Photo(Model):
         super(Photo, self).__init__(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
+        self.original_flip = self.flip
 
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
         return reverse('foto', args=(self.pk,))
+
+    def do_flip(self):
+        photo_path = MEDIA_ROOT + "/" + str(self.image)
+        img = Image.open(photo_path)
+        flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
+        flipped_image.save(photo_path)
+        self.flip = not self.flip
+        # This delete applies to sorl thumbnail
+        delete(self.image, delete_file=False)
+        self.light_save()
 
     def watermark(self):
         # For ETERA
@@ -537,9 +548,9 @@ class Photo(Model):
                 decoded_response = loads(response.text)
                 if decoded_response['status'] == 'OK' or decoded_response['status'] == 'ZERO_RESULTS':
                     GoogleMapsReverseGeocode(
-                        lat='{:.5f}'.format(lat),
-                        lon='{:.5f}'.format(lon),
-                        response=response.text
+                            lat='{:.5f}'.format(lat),
+                            lon='{:.5f}'.format(lon),
+                            response=response.text
                     ).save()
                 response = decoded_response
             if response['status'] == 'OK':
@@ -553,8 +564,11 @@ class Photo(Model):
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
             self.reverse_geocode_location()
+        if self.flip != self.original_flip:
+            self.do_flip()
         self.original_lat = self.lat
         self.original_lon = self.lon
+        self.original_flip = self.flip
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
@@ -1004,7 +1018,7 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+                rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0
@@ -1026,11 +1040,11 @@ class Profile(Model):
                     Points.objects.get(action=Points.REPHOTO, photo=oldest_rephoto)
                 except ObjectDoesNotExist:
                     new_record = Points(
-                        user=oldest_rephoto.user,
-                        action=Points.REPHOTO,
-                        photo=oldest_rephoto,
-                        points=1250,
-                        created=oldest_rephoto.created
+                            user=oldest_rephoto.user,
+                            action=Points.REPHOTO,
+                            photo=oldest_rephoto,
+                            points=1250,
+                            created=oldest_rephoto.created
                     )
                     new_record.save()
             for rp in rephotos_by_this_user:
@@ -1046,11 +1060,11 @@ class Profile(Model):
                         Points.objects.get(action=Points.REPHOTO, photo=rp)
                     except ObjectDoesNotExist:
                         new_record = Points(
-                            user=rp.user,
-                            action=Points.REPHOTO,
-                            photo=rp,
-                            points=current_score,
-                            created=rp.created
+                                user=rp.user,
+                                action=Points.REPHOTO,
+                                photo=rp,
+                                points=current_score,
+                                created=rp.created
                         )
                         new_record.save()
                     user_rephoto_score += current_score
