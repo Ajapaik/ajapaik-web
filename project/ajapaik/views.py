@@ -1441,7 +1441,11 @@ def geotag_add(request):
             photo_flipped = submit_geotag_form.cleaned_data['photo_flipped']
             if tagged_photo.flip is None:
                 tagged_photo.flip = False
-            if not (photo_flipped == tagged_photo.flip):
+            # user flips, photo is flipped -> flip back
+            # user flips, photo isn't flipped -> flip
+            # user doesn't flip, photo is flipped -> leave flipped
+            # user doesn't flip, photo isn't flipped -> leave as is
+            if photo_flipped:
                 most_trustworthy_geotag = tagged_photo.geotags.order_by('-trustworthiness').first()
                 if not most_trustworthy_geotag or (
                     most_trustworthy_geotag and most_trustworthy_geotag.trustworthiness < new_geotag.trustworthiness):
