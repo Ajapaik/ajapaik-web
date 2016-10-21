@@ -71,4 +71,7 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}js/ajapaik-selection.js"></script>
     {% endcompress %}
+    {% block autocomplete_stuff %}
+        {% include 'autocomplete_light/static.html' %}
+    {% endblock %}
 {% endblock %}

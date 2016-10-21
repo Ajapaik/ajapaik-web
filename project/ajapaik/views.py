@@ -46,7 +46,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
-    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm
+    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
     Newsletter, Dating, DatingConfirmation, Video
@@ -992,6 +992,7 @@ def list_photo_selection(request):
     photos = None
     at_least_one_photo_has_location = False
     count_with_location = 0
+    whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
     if 'photo_selection' in request.session:
         photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height',
                                                                                              'flip', 'description',
@@ -1007,53 +1008,40 @@ def list_photo_selection(request):
         'is_selection': True,
         'photos': photos,
         'at_least_one_photo_has_location': at_least_one_photo_has_location,
-        'count_with_location': count_with_location
+        'count_with_location': count_with_location,
+        'whole_set_albums_selection_form': whole_set_albums_selection_form
     }))
 
 
 def upload_photo_selection(request):
     form = SelectionUploadForm(request.POST)
+    album_selection_form = CuratorWholeSetAlbumsSelectionForm(request.POST)
     ret = {
         'error': False
     }
     profile = request.get_user().profile
-    if form.is_valid() and profile.is_legit():
-        a = form.cleaned_data['album']
+    if form.is_valid() and profile.is_legit() and album_selection_form.is_valid():
+        albums = album_selection_form.cleaned_data['albums']
         photo_ids = json.loads(form.cleaned_data['selection'])
-        new_name = form.cleaned_data['name']
-        new_desc = form.cleaned_data['description']
-        if a is not None and (a.open or (a.profile and a.profile == profile)):
+        if len(albums) > 0 :
             pass
-        elif new_name:
-            a = Album(
-                    name=new_name,
-                    description=new_desc,
-                    atype=Album.CURATED,
-                    profile=profile,
-                    lat=form.cleaned_data['areaLat'],
-                    lon=form.cleaned_data['areaLng'],
-                    ordered=True,
-                    subalbum_of=form.cleaned_data['parent_album'],
-                    is_public=form.cleaned_data['public'],
-                    open=form.cleaned_data['open']
-            )
-            a.save()
         else:
-            ret['error'] = _('Cannot select this album')
-        if a:
-            for pid in photo_ids:
-                existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
-                if not existing_link:
-                    new_album_photo_link = AlbumPhoto(
-                            photo=Photo.objects.get(pk=pid),
-                            album=a,
-                            profile=profile,
-                            type=AlbumPhoto.RECURATED
-                    )
-                    Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
-                           created=datetime.datetime.now()).save()
-                    new_album_photo_link.save()
-            a.save()
+            ret['error'] = _('Cannot upload to these albums')
+        if len(albums) > 0:
+            for a in albums:
+                for pid in photo_ids:
+                    existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
+                    if not existing_link:
+                        new_album_photo_link = AlbumPhoto(
+                                photo=Photo.objects.get(pk=pid),
+                                album=a,
+                                profile=profile,
+                                type=AlbumPhoto.RECURATED
+                        )
+                        Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
+                               created=datetime.datetime.now()).save()
+                        new_album_photo_link.save()
+                a.save()
             profile.set_calculated_fields()
             profile.save()
             ret['message'] = _('Recuration successful')
@@ -1794,7 +1782,8 @@ def curator(request):
         'then_and_now_disabled': CURATOR_THEN_AND_NOW_CREATION_DISABLED,
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': CURATOR_FLICKR_ENABLED,
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+        'whole_set_albums_selection_form': CuratorWholeSetAlbumsSelectionForm()
     }))
 
 
@@ -1947,22 +1936,9 @@ def curator_update_my_album(request):
 def curator_photo_upload_handler(request):
     profile = request.get_user().profile
 
-    area_name = request.POST.get("areaName")
-    area_lat = request.POST.get("areaLat")
-    area_lon = request.POST.get("areaLng")
     etera_token = request.POST.get("eteraToken")
-    area = Area.objects.filter(name=area_name).first()
-    if not area:
-        if area_name and area_lat and area_lon:
-            area = Area(
-                    name=area_name,
-                    lat=area_lat,
-                    lon=area_lon
-            )
-            area.save()
 
-    curator_album_select_form = CuratorAlbumSelectionForm(request.POST)
-    curator_album_create_form = AddAlbumForm(request.POST)
+    curator_album_selection_form = CuratorWholeSetAlbumsSelectionForm(request.POST)
 
     selection_json = request.POST.get("selection") or None
     selection = None
@@ -1999,37 +1975,17 @@ def curator_photo_upload_handler(request):
         "photos": {}
     }
 
-    if selection and len(selection) > 0 and profile is not None \
-            and (curator_album_select_form.is_valid() or curator_album_create_form.is_valid()):
-        album = None
-        if curator_album_select_form.is_valid():
-            if curator_album_select_form.cleaned_data["album"].profile == profile \
-                    or curator_album_select_form.cleaned_data["album"].open:
-                album = curator_album_select_form.cleaned_data["album"]
-        else:
-            album = Album(
-                    name=curator_album_create_form.cleaned_data["name"],
-                    description=curator_album_create_form.cleaned_data["description"],
-                    atype=Album.CURATED,
-                    profile=profile,
-                    subalbum_of=curator_album_create_form.cleaned_data['parent_album'],
-                    is_public=curator_album_create_form.cleaned_data["is_public"],
-                    open=curator_album_create_form.cleaned_data["open"]
-            )
-            if area and area.lat and area.lon:
-                album.lat = area.lat
-                album.lon = area.lon
-            album.save()
-        if album:
-            ret["album_id"] = album.id
+    if selection and len(selection) > 0 and profile is not None and curator_album_selection_form.is_valid():
+        general_albums = curator_album_selection_form.cleaned_data['albums']
+        if len(general_albums) > 0:
+            ret["album_id"] = general_albums[0].pk
         else:
             ret["album_id"] = None
         default_album = Album(
-                name=str(profile.id) + "-" + str(datetime.datetime.now()),
-                atype=Album.AUTO,
-                profile=profile,
-                is_public=False,
-                subalbum_of=album
+            name=str(profile.id) + "-" + str(datetime.datetime.now()),
+            atype=Album.AUTO,
+            profile=profile,
+            is_public=False,
         )
         default_album.save()
         licence = Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/")
@@ -2086,7 +2042,6 @@ def curator_photo_upload_handler(request):
                         try:
                             new_photo = Photo(
                                     user=profile,
-                                    area=area,
                                     author=upload_form.cleaned_data["creators"].encode('utf-8'),
                                     description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
                                     source=source,
@@ -2163,13 +2118,14 @@ def curator_photo_upload_handler(request):
                                                          user=profile, created=new_photo.created)
                             points_for_curating.save()
                             awarded_curator_points.append(points_for_curating)
-                            if album:
-                                ap = AlbumPhoto(photo=new_photo, album=album, profile=profile, type=AlbumPhoto.CURATED)
-                                ap.save()
-                                created_album_photo_links.append(ap)
-                                if not album.cover_photo:
-                                    album.cover_photo = new_photo
-                                    album.light_save()
+                            if len(general_albums) > 0:
+                                for a in general_albums:
+                                    ap = AlbumPhoto(photo=new_photo, album=a, profile=profile, type=AlbumPhoto.CURATED)
+                                    ap.save()
+                                    created_album_photo_links.append(ap)
+                                    if not a.cover_photo:
+                                        a.cover_photo = new_photo
+                                        a.light_save()
                             ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
                                             type=AlbumPhoto.CURATED)
                             ap.save()
@@ -2187,32 +2143,35 @@ def curator_photo_upload_handler(request):
                             ret["photos"][k] = {}
                             ret["photos"][k]["error"] = _("Error uploading file")
                     else:
-                        if album:
-                            ap = AlbumPhoto(photo=existing_photo, album=album, profile=profile,
-                                            type=AlbumPhoto.RECURATED)
-                            ap.save()
+                        if len(general_albums) > 0:
+                            for a in general_albums:
+                                ap = AlbumPhoto(photo=existing_photo, album=a, profile=profile,
+                                                type=AlbumPhoto.RECURATED)
+                                ap.save()
                         dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile,
                                          type=AlbumPhoto.RECURATED)
                         dap.save()
                         points_for_recurating = Points(user=profile, action=Points.PHOTO_RECURATION,
                                                        photo=existing_photo, points=30,
-                                                       album=album, created=datetime.datetime.now())
+                                                       album=general_albums[0], created=datetime.datetime.now())
                         points_for_recurating.save()
                         all_curating_points.append(points_for_recurating)
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
-        if album:
-            requests.post("https://graph.facebook.com/v2.3/?id=" + (
-                request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(
-                        album.id)) + "&scrape=true")
+        if general_albums:
+            for ga in general_albums:
+                requests.post("https://graph.facebook.com/v2.3/?id=" + (
+                    request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(
+                            ga.id)) + "&scrape=true")
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
-        if album:
-            album.save()
-            if album.subalbum_of:
-                album.subalbum_of.save()
+        if len(general_albums) > 0:
+            for album in general_albums:
+                album.save()
+                if album.subalbum_of:
+                    album.subalbum_of.save()
     else:
         if not selection or len(selection) == 0:
             error = _("Please add photos to your album")

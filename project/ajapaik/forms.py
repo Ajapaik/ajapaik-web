@@ -202,18 +202,6 @@ class CuratorPhotoUploadForm(forms.Form):
 
 class SelectionUploadForm(forms.Form):
     selection = forms.CharField(max_length=100000)
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(
-            atype=Album.CURATED,
-    ), label=_('Choose album'), required=False)
-    parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-            atype=Album.CURATED, subalbum_of__isnull=True
-    ), label=_('Choose parent album'), required=False)
-    name = forms.CharField(max_length=255, required=False)
-    description = forms.CharField(max_length=2047, required=False)
-    open = forms.BooleanField(initial=False, required=False)
-    public = forms.BooleanField(initial=False, required=False)
-    areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
-    areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 
 class ApiRegisterForm(forms.Form):
@@ -327,7 +315,7 @@ class PhotoUploadChoiceForm(forms.Form):
 
 
 class UserPhotoUploadForm(autocomplete_light.ModelForm):
-    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=False)
+    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
     licence = forms.ModelChoiceField(label=_('Licence'), queryset=Licence.objects.filter(is_public=True), required=False)
     uploader_is_author = forms.BooleanField(label=_('I am the author'), required=False)
 
@@ -349,6 +337,24 @@ class UserPhotoUploadForm(autocomplete_light.ModelForm):
 
 
 class UserPhotoUploadAddAlbumForm(forms.ModelForm):
+    location = forms.CharField(max_length=255, required=False)
+
     class Meta:
         model = Album
-        fields = ('name', 'description', 'is_public', 'open')
+        fields = ('name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
+
+    def __init__(self, *args, **kwargs):
+        super(UserPhotoUploadAddAlbumForm, self).__init__(*args, **kwargs)
+
+        self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
+        self.fields['lat'].widget = forms.HiddenInput()
+        self.fields['lon'].widget = forms.HiddenInput()
+
+
+class CuratorWholeSetAlbumsSelectionForm(forms.Form):
+    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(CuratorWholeSetAlbumsSelectionForm, self).__init__(*args, **kwargs)
+
+        self.fields['albums'].help_text = None
