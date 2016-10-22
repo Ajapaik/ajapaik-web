@@ -2162,7 +2162,6 @@ def curator_photo_upload_handler(request):
                                 all_curating_points.append(points_for_recurating)
                         dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile,
                                          type=AlbumPhoto.RECURATED)
-                        # Test
                         dap.save()
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
