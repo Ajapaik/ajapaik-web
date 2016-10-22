@@ -2115,7 +2115,7 @@ def curator_photo_upload_handler(request):
                                 new_photo.set_calculated_fields()
                             new_photo.save()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
-                                                         user=profile, created=new_photo.created)
+                                                         user=profile, created=new_photo.created, album=general_albums[0])
                             points_for_curating.save()
                             awarded_curator_points.append(points_for_curating)
                             if len(general_albums) > 0:
@@ -2126,6 +2126,13 @@ def curator_photo_upload_handler(request):
                                     if not a.cover_photo:
                                         a.cover_photo = new_photo
                                         a.light_save()
+                                for b in general_albums[1:]:
+                                    points_for_curating = Points(action=Points.PHOTO_RECURATION, photo=new_photo,
+                                                                 points=30,
+                                                                 user=profile, created=new_photo.created,
+                                                                 album=b)
+                                    points_for_curating.save()
+                                    awarded_curator_points.append(points_for_curating)
                             ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
                                             type=AlbumPhoto.CURATED)
                             ap.save()
@@ -2148,14 +2155,14 @@ def curator_photo_upload_handler(request):
                                 ap = AlbumPhoto(photo=existing_photo, album=a, profile=profile,
                                                 type=AlbumPhoto.RECURATED)
                                 ap.save()
+                                points_for_recurating = Points(user=profile, action=Points.PHOTO_RECURATION,
+                                                               photo=existing_photo, points=30,
+                                                               album=general_albums[0], created=datetime.datetime.now())
+                                points_for_recurating.save()
+                                all_curating_points.append(points_for_recurating)
                         dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile,
                                          type=AlbumPhoto.RECURATED)
                         dap.save()
-                        points_for_recurating = Points(user=profile, action=Points.PHOTO_RECURATION,
-                                                       photo=existing_photo, points=30,
-                                                       album=general_albums[0], created=datetime.datetime.now())
-                        points_for_recurating.save()
-                        all_curating_points.append(points_for_recurating)
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
@@ -2657,7 +2664,7 @@ def user_upload(request):
 def user_upload_add_album(request):
     ret = {}
     if request.method == 'POST':
-        form = UserPhotoUploadAddAlbumForm(request.POST)
+        form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
         if form.is_valid():
             album = form.save(commit=False)
             album.atype = Album.CURATED
@@ -2665,7 +2672,7 @@ def user_upload_add_album(request):
             album.save()
             ret['message'] = _('Album created')
     else:
-        form = UserPhotoUploadAddAlbumForm()
+        form = UserPhotoUploadAddAlbumForm(profile=request.user.profile)
     ret['form'] = form
 
     return render_to_response('user_upload_add_album.html', RequestContext(request, ret))
