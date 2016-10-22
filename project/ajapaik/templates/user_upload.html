@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block layout %}
-    <div class="container ajapaik-margin-top-30">
+    <div class="container ajapaik-margin-top-30" style="height: 5000px;">
         <img class="img-responsive" id="upload-preview" src="">
         {% if message %}
             <div class="alert alert-success">{{ message }}</div>
@@ -42,6 +42,7 @@
             };
         }
         $(document).ready(function () {
+            $('#id_albums-autocomplete').attr('required', false);
             $('#id_image').on('change', (function () {
                 previewImage();
             }));

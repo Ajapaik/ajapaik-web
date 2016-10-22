@@ -1,5 +1,6 @@
 import autocomplete_light
 from django import forms
+from django.db.models import Q
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence
 from django.utils.translation import ugettext_lazy as _
@@ -323,7 +324,7 @@ class UserPhotoUploadForm(autocomplete_light.ModelForm):
         model = Photo
         fields = ('image', 'description', 'author', 'uploader_is_author', 'licence', 'albums')
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40}),
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40})
         }
 
     def clean(self):
@@ -341,11 +342,14 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
 
     class Meta:
         model = Album
-        fields = ('name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
+        fields = ('subalbum_of', 'name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
 
     def __init__(self, *args, **kwargs):
+        self.profile = kwargs.pop('profile', None)
         super(UserPhotoUploadAddAlbumForm, self).__init__(*args, **kwargs)
-
+        self.fields['subalbum_of'].label = _('Parent album')
+        self.fields['subalbum_of'].queryset = Album.objects.filter(atype=Album.CURATED)\
+            .filter(Q(open=True) | Q(profile=self.profile))
         self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()
