@@ -113,7 +113,7 @@ class AlbumPhoto(Model):
 
     album = ForeignKey('Album')
     photo = ForeignKey('Photo')
-    profile = ForeignKey('Profile', blank=True, null=True)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links')
     type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL)
     created = DateTimeField(auto_now_add=True)
 
@@ -687,7 +687,7 @@ class PhotoLike(Model):
 
 class DifficultyFeedback(Model):
     photo = ForeignKey('Photo')
-    user_profile = ForeignKey('Profile')
+    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks')
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
     geotag = ForeignKey('GeoTag')
