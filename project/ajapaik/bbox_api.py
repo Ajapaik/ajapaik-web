@@ -35,10 +35,10 @@ class PhotosView(ListAPIView):
 
     def get_queryset(self):
         queryset = Photo.objects.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
-        sw_lat = self.request.query_params.get('sw_lat', None)
-        sw_lon = self.request.query_params.get('sw_lon', None)
-        ne_lat = self.request.query_params.get('ne_lat', None)
-        ne_lon = self.request.query_params.get('ne_lon', None)
+        sw_lat = self.request.query_params.get('sw-lat', None)
+        sw_lon = self.request.query_params.get('sw-lon', None)
+        ne_lat = self.request.query_params.get('ne-lat', None)
+        ne_lon = self.request.query_params.get('ne-lon', None)
         if sw_lat and sw_lon and ne_lat and ne_lon:
             queryset = queryset.filter(
                 lat__gte=sw_lat,
