@@ -60,7 +60,7 @@ Field.register_lookup(NotEqual)
 
 
 def _calc_trustworthiness(user_id):
-    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id, origin=GeoTag.GAME).distinct('photo_id') \
+    user_unique_latest_geotags = GeoTag.objects.filter(user=user_id).distinct('photo_id') \
         .order_by('photo_id', '-created')
     total_tries = user_unique_latest_geotags.count()
     correct_tries = user_unique_latest_geotags.filter(is_correct=True).count()
