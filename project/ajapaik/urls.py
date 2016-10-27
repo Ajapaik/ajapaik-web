@@ -4,6 +4,7 @@ from django.contrib.staticfiles.views import serve
 from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
 
+from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
 # TODO: Locale specific URLs?
@@ -118,6 +119,10 @@ urlpatterns += patterns('project.ajapaik.delfi',
 
 urlpatterns += patterns('project.ajapaik.merekultuur',
     url(r'^merekultuur/v1/fotod/$', 'get_photos')
+)
+
+urlpatterns += patterns('project.ajapaik.bbox_api',
+    url(r'^bbox/v1/$', PhotosView.as_view())
 )
 
 urlpatterns += patterns('project.ajapaik.then_and_now_tours',
