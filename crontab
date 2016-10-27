@@ -1,6 +1,5 @@
-MAILTO=lauri@ajapaik.ee
-0 4 * * * cd /home/fotodugnad && source venv/bin/activate && cd ajapaik-web && python manage.py refresh_albums
-0 5 * * * cd /home/fotodugnad && source venv/bin/activate && cd ajapaik-web && python manage.py clearsessions
-15 5 * * * cd /home/fotodugnad && source venv/bin/activate && cd ajapaik-web && python manage.py reverse_geocode_photos
-30 5 * * * cd /home/fotodugnad && source venv/bin/activate && cd ajapaik-web && python manage.py update_index
-45 5 * * * cd /home/fotodugnad && source venv/bin/activate && cd ajapaik-web && python manage.py delete_zero_data_users
+0 4 * * * cd /home/fotodugnad && . /home/fotodugnad/venv/bin/activate && cd /home/fotodugnad/ajapaik-web && python /home/fotodugnad/ajapaik-web/manage.py refresh_albums
+0 5 * * * cd /home/fotodugnad && . /home/fotodugnad/venv/bin/activate && cd /home/fotodugnad/ajapaik-web && python /home/fotodugnad/ajapaik-web/manage.py clearsessions
+15 5 * * * cd /home/fotodugnad && . /home/fotodugnad/venv/bin/activate && cd /home/fotodugnad/ajapaik-web && python /home/fotodugnad/ajapaik-web/manage.py reverse_geocode_photos
+30 5 * * * cd /home/fotodugnad && . /home/fotodugnad/venv/bin/activate && cd /home/fotodugnad/ajapaik-web && python /home/fotodugnad/ajapaik-web/manage.py update_index
+45 5 * * * cd /home/fotodugnad && . /home/fotodugnad/venv/bin/activate && cd /home/fotodugnad/ajapaik-web && python /home/fotodugnad/ajapaik-web/manage.py delete_zero_data_users

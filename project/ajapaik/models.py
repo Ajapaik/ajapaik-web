@@ -895,14 +895,17 @@ class Profile(Model):
         return u'%s' % (self.get_display_name(),)
 
     def update_from_fb_data(self, token, data):
-        self.user.first_name = data.get('first_name')
-        self.user.last_name = data.get('last_name')
-        self.user.email = data.get('email')
-        try:
+        name = data.get('name', None)
+        if name:
+            name_parts = name.split(' ')
+            if len(name_parts):
+                self.user.last_name = name_parts[-1]
+                self.user.first_name = ' '.join(name_parts[0:-1])
+                self.user.save()
+        email = data.get('email', None)
+        if email:
+            self.user.email = email
             self.user.save()
-        except IntegrityError:
-            return redirect(reverse('frontpage', ))
-
         self.fb_token = token
         self.fb_id = data.get('id')
         self.fb_name = data.get('name')

@@ -289,3 +289,7 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
     class Meta:
         model = Album
         fields = ('name', 'description', 'is_public', 'open')
+
+
+class ResendActivationEmailForm(forms.Form):
+    email = forms.EmailField(required=True)

@@ -14,20 +14,26 @@ from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
-from django.contrib.sites.models import Site
+from django.contrib.sites.models import Site, get_current_site
+from django.core import signing
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
 from django.http import HttpResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404, render
 from django.shortcuts import render_to_response
+from django.template import Context
 from django.template import RequestContext
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, activate
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from registration.models import RegistrationProfile
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
@@ -40,7 +46,7 @@ from project.ajapaik.forms import AddAlbumForm, AlbumSelectionForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, \
-    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm
+    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, ResendActivationEmailForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
     Dating, DatingConfirmation, user_has_confirmed_email, Country, County, Municipality
@@ -2401,3 +2407,43 @@ def user_upload_add_album(request):
     ret['form'] = form
 
     return render_to_response('user_upload_add_album.html', RequestContext(request, ret))
+
+
+def resend_activation_email(request):
+    email_body_template = 'registration/activation_email.txt'
+    email_subject_template = 'registration/activation_email_subject.txt'
+
+    context = Context()
+
+    form = None
+    if request.method == 'POST':
+        form = ResendActivationEmailForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            users = User.objects.filter(email=email, is_active=0)
+
+            if not users.count():
+                form._errors['email'] = ['Account for email address is not registered or already activated.']
+
+            for user in users:
+                activation_key = RegistrationProfile.objects.filter(user_id=user.id).first().activation_key
+                context = {}
+                context['activation_key'] = activation_key
+                context['expiration_days'] = settings.ACCOUNT_ACTIVATION_DAYS
+                context['site'] = get_current_site(request)
+
+                subject = render_to_string(email_subject_template, context)
+                # Force subject to a single line to avoid header-injection issues.
+                subject = ''.join(subject.splitlines())
+                message = render_to_string(email_body_template,
+                                           context)
+                user.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
+
+                return render(request, 'registration/resend_activation_email_done.html')
+
+    if not form:
+        form = ResendActivationEmailForm()
+
+    context.update({'form': form})
+
+    return render(request, 'registration/resend_activation_email_form.html', RequestContext(request, context))

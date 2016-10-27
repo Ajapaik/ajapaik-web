@@ -245,7 +245,7 @@
     background-color: #fff;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg);
+    background-image: url(../../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_mashup.svg);
     width: 60px;
     height: 36px;
     margin-left: 10px;
@@ -254,7 +254,7 @@
 }
 
 #ajp-geotagger-lock-button.active {
-    background-image: url(../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg);
+    background-image: url(../../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_lock_open_mashup.svg);
 }
 
 #ajp-geotagger-mode-selection {
@@ -291,7 +291,7 @@
 }
 
 #ajp-geotagger-guess-marker.vantage {
-    background: url('../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
+    background: url('../../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
     margin-left: -12px;
     margin-top: -33px;
     height: 33px;
@@ -299,7 +299,7 @@
 }
 
 #ajp-geotagger-guess-marker.object {
-    background: url('../images/material-design-icons/ic_place_24px_black.svg') no-repeat;
+    background: url('../../images/material-design-icons/ic_place_24px_black.svg') no-repeat;
     margin-left: -12px;
     margin-top: -24px;
     height: 33px;

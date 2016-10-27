@@ -242,7 +242,7 @@ body {
 
 .ajapaik-brand {
     float: left;
-    background: url(../images/ajapaik_266px.png) no-repeat;
+    background: url(../../images/ajapaik_266px.png) no-repeat;
     position: fixed;
     width: 133px;
     height: 73px;
@@ -252,7 +252,7 @@ body {
 }
 
 .ajapaik-brand-xs {
-    background: url(../images/ajapaik_marker_45px.png) no-repeat;
+    background: url(../../images/ajapaik_marker_45px.png) no-repeat;
     width: 45px;
     height: 61px;
     background-size: 45px 61px;
@@ -287,7 +287,7 @@ body {
 }
 
 #ajapaik-header-logo {
-    background: url(../images/ajapaik_266px.png) no-repeat;
+    background: url(../../images/ajapaik_266px.png) no-repeat;
     width: 133px;
     height: 73px;
     margin: 10px 0 0 20px;
@@ -429,7 +429,7 @@ body {
 }
 
 .ajapaik-minimap-geotagging-user-single-person {
-    background: transparent url(../images/material-design-icons/ic_person_black_24px.svg) no-repeat center !important;
+    background: transparent url(../../images/material-design-icons/ic_person_black_24px.svg) no-repeat center !important;
     width: 30px;
     height: 30px;
     float: left;
@@ -438,7 +438,7 @@ body {
 }
 
 .ajapaik-minimap-geotagging-user-multiple-people {
-    background: transparent url(../images/material-design-icons/ic_people_black_24px.svg) no-repeat center !important;
+    background: transparent url(../../images/material-design-icons/ic_people_black_24px.svg) no-repeat center !important;
     width: 30px;
     height: 30px;
     float: left;
@@ -447,11 +447,11 @@ body {
 }
 
 .ajapaik-minimap-geotagging-user-multiple-people.ajapaik-minimap-geotagging-user-active {
-    background: transparent url(../images/material-design-icons/ic_people_blue_24px.svg) no-repeat center !important;
+    background: transparent url(../../images/material-design-icons/ic_people_blue_24px.svg) no-repeat center !important;
 }
 
 .ajapaik-minimap-geotagging-user-single-person.ajapaik-minimap-geotagging-user-active {
-    background: transparent url(../images/material-design-icons/ic_person_blue_24px.svg) no-repeat center !important;
+    background: transparent url(../../images/material-design-icons/ic_person_blue_24px.svg) no-repeat center !important;
 }
 
 #ajapaik-minimap-disabled-overlay {
@@ -516,7 +516,7 @@ body {
 }
 
 .ajapaik-header-info-button {
-    background: #fff url(../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
+    background: #fff url(../../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
     width: 36px;
     height: 36px;
     margin-top: -5px;
@@ -541,7 +541,7 @@ path:hover {
 }
 
 /*.ajapaik-header-grid-button-white {*/
-/*background-image: url(../images/material-design-icons/ic_photoview_24px_white.svg) !important;*/
+/*background-image: url(../../images/material-design-icons/ic_photoview_24px_white.svg) !important;*/
 /*}*/
 
 .ajapaik-filtering-choice {
@@ -639,7 +639,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     line-height: 24px;
     width: 48px;
     height: 24px;
-    background: url(../images/material-design-icons/ic_image_gray_24px.svg) no-repeat;
+    background: url(../../images/material-design-icons/ic_image_gray_24px.svg) no-repeat;
 }
 
 .ajapaik-album-selection-photo-count > span {
@@ -653,7 +653,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     line-height: 24px;
     width: 48px;
     height: 24px;
-    background: url(../images/material-design-icons/ic_place_24px.svg) no-repeat;
+    background: url(../../images/material-design-icons/ic_place_24px.svg) no-repeat;
 }
 
 .ajapaik-album-selection-geotagged-count > span {
@@ -668,7 +668,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     margin-left: 5px;
     width: 48px;
     height: 24px;
-    background: url(../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat;
+    background: url(../../images/material-design-icons/ic_add_to_photos_24px.svg) no-repeat;
 }
 
 .ajapaik-album-selection-rephoto-count > span {
@@ -682,7 +682,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     line-height: 24px;
     width: 48px;
     height: 24px;
-    background: url(../images/material-design-icons/ic_comment_gray_24px.svg) no-repeat;
+    background: url(../../images/material-design-icons/ic_comment_gray_24px.svg) no-repeat;
 }
 
 .ajapaik-album-selection-comment-count > span {
@@ -691,16 +691,16 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 
 #ajapaik-header-menu-button {
-    background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_bookmark_24px.svg);
     margin-left: 10px;
 }
 
 .ajapaik-header-menu-button-white {
-    background-image: url(../images/material-design-icons/ic_bookmark_24px_white.svg) !important;
+    background-image: url(../../images/material-design-icons/ic_bookmark_24px_white.svg) !important;
 }
 
 #ajapaik-header-menu-button-hidden-xs {
-    background-image: url(../images/material-design-icons/ic_bookmark_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_bookmark_24px.svg);
     margin-left: 10px;
 }
 
@@ -749,7 +749,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 
 /*#ajapaik-header-album-filter-button {*/
-/*background-image: url(../images/material-design-icons/ic_check_box_24px.svg);*/
+/*background-image: url(../../images/material-design-icons/ic_check_box_24px.svg);*/
 /*background-size: 24px !important;*/
 /*margin-top: 8px;*/
 /*margin-left: -10px;*/
@@ -758,7 +758,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 /*}*/
 
 /*.ajapaik-header-album-filter-button-off {*/
-/*background-image: url(../images/material-design-icons/ic_check_box_outline_blank_24px.svg) !important;*/
+/*background-image: url(../../images/material-design-icons/ic_check_box_outline_blank_24px.svg) !important;*/
 /*}*/
 
 #ajapaik-map-canvas {
@@ -941,7 +941,7 @@ a.fullscreen {
 
 .center-marker {
     position: absolute;
-    background: url('../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
+    background: url('../../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
     top: 50%;
     left: 50%;
     z-index: 1;
@@ -1115,13 +1115,13 @@ a.fullscreen {
 .facebook-connect a {
     width: 169px;
     height: 21px;
-    background: url(../images/connect-with-facebook.png) no-repeat;
+    background: url(../../images/connect-with-facebook.png) no-repeat;
 }
 
 .google-plus-connect a {
     width: 169px;
     height: 57px;
-    background: url(../images/connect-with-google.png) no-repeat;
+    background: url(../../images/connect-with-google.png) no-repeat;
     margin-top: -5px;
 }
 
@@ -1276,7 +1276,7 @@ a.fullscreen {
     right: 0;
     width: 30px;
     height: 30px;
-    background: rgba(128, 128, 128, 0.5) url("../images/direction_20px_white.png") no-repeat center;
+    background: rgba(128, 128, 128, 0.5) url("../../images/direction_20px_white.png") no-repeat center;
 }
 
 .ajapaik-thumbnail-selection-icon {
@@ -1311,7 +1311,7 @@ a.fullscreen {
     width: 30px;
     height: 30px;
     display: inline-block;
-    background: url(../images/material-design-icons/ic_location_on_24px.svg) no-repeat center;
+    background: url(../../images/material-design-icons/ic_location_on_24px.svg) no-repeat center;
     float: right;
 }
 
@@ -1319,7 +1319,7 @@ a.fullscreen {
     width: 30px;
     height: 30px;
     display: inline-block;
-    background: url(../images/material-design-icons/ic_location_off_24px.svg) no-repeat center;
+    background: url(../../images/material-design-icons/ic_location_off_24px.svg) no-repeat center;
     float: right;
 }
 
@@ -1341,39 +1341,39 @@ a.fullscreen {
 }
 
 .ajapaik-rephoto-count-1 {
-    background-image: url(../images/material-design-icons/ic_filter_1_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_1_24px.svg);
 }
 
 .ajapaik-rephoto-count-2 {
-    background-image: url(../images/material-design-icons/ic_filter_2_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_2_24px.svg);
 }
 
 .ajapaik-rephoto-count-3 {
-    background-image: url(../images/material-design-icons/ic_filter_3_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_3_24px.svg);
 }
 
 .ajapaik-rephoto-count-4 {
-    background-image: url(../images/material-design-icons/ic_filter_4_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_4_24px.svg);
 }
 
 .ajapaik-rephoto-count-5 {
-    background-image: url(../images/material-design-icons/ic_filter_5_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_5_24px.svg);
 }
 
 .ajapaik-rephoto-count-6 {
-    background-image: url(../images/material-design-icons/ic_filter_6_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_6_24px.svg);
 }
 
 .ajapaik-rephoto-count-7 {
-    background-image: url(../images/material-design-icons/ic_filter_7_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_7_24px.svg);
 }
 
 .ajapaik-rephoto-count-8 {
-    background-image: url(../images/material-design-icons/ic_filter_8_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_8_24px.svg);
 }
 
 .ajapaik-rephoto-count-9 {
-    background-image: url(../images/material-design-icons/ic_filter_9_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_9_24px.svg);
 }
 
 .ajapaik-frontpage-comments-count {
@@ -1382,7 +1382,7 @@ a.fullscreen {
     color: white;
     line-height: 30px;
     text-align: center;
-    background-image: url(../images/material-design-icons/ic_messenger_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_messenger_24px.svg);
     background-repeat: no-repeat;
     background-size: 25px;
     background-position-y: 3px;
@@ -1408,48 +1408,48 @@ a.fullscreen {
 }
 
 .ajapaik-frontpage-rephoto-count-1 {
-    background-image: url(../images/material-design-icons/ic_filter_1_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_1_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-2 {
-    background-image: url(../images/material-design-icons/ic_filter_2_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_2_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-3 {
-    background-image: url(../images/material-design-icons/ic_filter_3_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_3_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-4 {
-    background-image: url(../images/material-design-icons/ic_filter_4_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_4_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-5 {
-    background-image: url(../images/material-design-icons/ic_filter_5_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_5_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-6 {
-    background-image: url(../images/material-design-icons/ic_filter_6_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_6_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-7 {
-    background-image: url(../images/material-design-icons/ic_filter_7_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_7_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-8 {
-    background-image: url(../images/material-design-icons/ic_filter_8_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_8_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-9 {
-    background-image: url(../images/material-design-icons/ic_filter_9_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_9_24px.svg);
 }
 
 .ajapaik-frontpage-rephoto-count-9-plus {
-    background-image: url(../images/material-design-icons/ic_filter_9_plus_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_filter_9_plus_24px.svg);
 }
 
 .ajapaik-comment-count {
     position: absolute;
-    background-image: url(../images/material-design-icons/ic_messenger_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_messenger_24px.svg);
     background-size: 30px;
     background-repeat: no-repeat;
     background-position-y: 1px;
@@ -1647,7 +1647,7 @@ ul.errorlist {
 }
 
 .ajapaik-fullscreen-overlay-button {
-    background: #fff url(../images/material-design-icons/ic_fullscreen_24px.svg) no-repeat center !important;
+    background: #fff url(../../images/material-design-icons/ic_fullscreen_24px.svg) no-repeat center !important;
     right: 0;
     bottom: 0;
 }
@@ -1670,7 +1670,7 @@ ul.errorlist {
 }
 
 #ajapaik-photo-modal-albums-icon {
-    background: transparent url(../images/material-design-icons/ic_bookmark_24px.svg) no-repeat center;
+    background: transparent url(../../images/material-design-icons/ic_bookmark_24px.svg) no-repeat center;
     height: 24px;
     width: 24px;
     display: inline-block;
@@ -1746,7 +1746,7 @@ ul.errorlist {
 }
 
 #ajapaik-photo-modal-location-with-azimuth {
-    background: transparent url(../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
+    background: transparent url(../../images/material-design-icons/ic_navigation_24px_gray.svg) no-repeat center;
     height: 36px;
     width: 36px;
     background-size: 36px;
@@ -1755,7 +1755,7 @@ ul.errorlist {
 }
 
 #ajapaik-photo-modal-location-without-azimuth {
-    background: transparent url(../images/material-design-icons/ic_location_on_24px_gray.svg) no-repeat center;
+    background: transparent url(../../images/material-design-icons/ic_location_on_24px_gray.svg) no-repeat center;
     height: 36px;
     width: 36px;
     background-size: 36px;
@@ -1764,7 +1764,7 @@ ul.errorlist {
 }
 
 #ajapaik-photo-modal-no-location {
-    background: transparent url(../images/material-design-icons/ic_location_off_24px_gray.svg) no-repeat center;
+    background: transparent url(../../images/material-design-icons/ic_location_off_24px_gray.svg) no-repeat center;
     height: 36px;
     width: 36px;
     background-size: 36px;
@@ -2261,7 +2261,7 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .ajapaik-remove-from-selection-button {
-    background: white url(../images/material-design-icons/ic_close_24px.svg) no-repeat center;
+    background: white url(../../images/material-design-icons/ic_close_24px.svg) no-repeat center;
     position: absolute;
     top: 0;
     right: 0;
@@ -2324,28 +2324,28 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .ajapaik-icon-invert-colors {
-    background: url(../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center center;
+    background: url(../../images/material-design-icons/ic_invert_colors_24px.svg) no-repeat center center;
 }
 
 .ajapaik-icon-my-location {
     margin-top: 2px;
-    background: url(../images/material-design-icons/ic_my_location_24px.svg) no-repeat center center;
+    background: url(../../images/material-design-icons/ic_my_location_24px.svg) no-repeat center center;
 }
 
 .ajapaik-icon-flip {
-    background: url(../images/material-design-icons/ic_flip_24px.svg) no-repeat center center;
+    background: url(../../images/material-design-icons/ic_flip_24px.svg) no-repeat center center;
 }
 
 .ajapaik-icon-stereo {
-    background: url(../images/material-design-icons/ic_panorama_24px.svg) no-repeat center center;
+    background: url(../../images/material-design-icons/ic_panorama_24px.svg) no-repeat center center;
 }
 
 .ajapaik-icon-rotate {
-    background: url(../images/material-design-icons/ic_rotate_90_degrees_ccw_black_24px.svg) no-repeat center center;
+    background: url(../../images/material-design-icons/ic_rotate_90_degrees_ccw_black_24px.svg) no-repeat center center;
 }
 
 .ajapaik-icon-delete {
-    background: url(../images/material-design-icons/ic_delete_24px.svg) no-repeat center center;
+    background: url(../../images/material-design-icons/ic_delete_24px.svg) no-repeat center center;
 }
 
 .ajapaik-curator-selection-button-row {
@@ -2650,7 +2650,7 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .ajapaik-album-selection-album-more-button {
-    background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_more_gray_24px.svg);
     width: 36px;
     height: 36px;
     background-size: 36px;
@@ -2658,11 +2658,11 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .ajapaik-album-selection-album-more-button:hover {
-    background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_more_white_24px.svg);
 }
 
 .ajapaik-photo-modal-album-more-button {
-    background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
+    background-image: url(../../images/material-design-icons/ic_more_gray_24px.svg);
     width: 24px;
     height: 24px;
     background-size: 24px;
