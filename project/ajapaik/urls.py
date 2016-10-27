@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.views import serve
 from django.views.generic import RedirectView, TemplateView
 
+from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
 urlpatterns = patterns('project.ajapaik.views',
@@ -69,6 +70,10 @@ urlpatterns = patterns('project.ajapaik.views',
                        url(r'^user-upload/$', 'user_upload', name='user_upload'),
                        url(r'^user-upload-add-album/$', 'user_upload_add_album', name='user_upload_add_album'),
                        )
+
+urlpatterns += patterns('project.ajapaik.bbox_api',
+    url(r'^bbox/v1/$', PhotosView.as_view())
+)
 
 sitemaps = {'photo_permalinks': PhotoSitemap, 'static_pages': StaticViewSitemap}
 
