@@ -23,7 +23,7 @@ class BboxResponseSerializer(ModelSerializer):
     class Meta:
         model = Photo
         fields = (
-            'id', 'ajapaik_url', 'description', 'author', 'date', 'source_description', 'source_key', 'source_url',
+            'id', 'ajapaik_url', 'title', 'author', 'date', 'source_description', 'source_key', 'source_url',
             'lat',
             'lon', 'azimuth', 'geotag_count')
 
