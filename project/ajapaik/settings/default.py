@@ -216,6 +216,13 @@ CACHES = {
 DEFAULT_FROM_EMAIL = 'info@fotodugnad.ra.no'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+
 COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
 COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
