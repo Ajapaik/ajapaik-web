@@ -18,6 +18,6 @@ class Command(BaseCommand):
                                           google_plus_email__isnull=True, google_plus_link__isnull=True,
                                           google_plus_name__isnull=True, google_plus_token__isnull=True,
                                           google_plus_picture__isnull=True, first_name__isnull=True,
-                                          last_name__isnull=True)
+                                          last_name__isnull=True, likes__isnull=True)
         for each in profiles:
             each.user.delete()
