@@ -10,8 +10,7 @@ from copy import deepcopy
 from math import ceil
 from time import strftime, strptime
 
-import cv2
-import cv2.cv as cv
+import cv2 as cv
 import requests
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
