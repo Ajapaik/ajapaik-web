@@ -18,6 +18,16 @@ class Command(BaseCommand):
                                           google_plus_email__isnull=True, google_plus_link__isnull=True,
                                           google_plus_name__isnull=True, google_plus_token__isnull=True,
                                           google_plus_picture__isnull=True, first_name__isnull=True,
-                                          last_name__isnull=True, likes__isnull=True)
-        for each in profiles:
-            each.user.delete()
+                                          last_name__isnull=True, likes__isnull=True, tour_groups__isnull=True,
+                                          owned_tours__isnull=True, tour_rephotos__isnull=True, tour_views__isnull=True)
+        start = 0
+        end = 10000
+        while end < 8000000:
+            profiles_slice = profiles[start:end]
+            for each in profiles_slice:
+                try:
+                    each.user.delete()
+                except:
+                    print 'failed to delete %s' % each.get_display_name()
+            start += 10000
+            end += 10000
