@@ -15,11 +15,11 @@ git reset --hard
 git pull origin master || exit 1
 
 echo "* Perform database migrations"
-/opt/python27/bin/python2.7 manage.py migrate --settings=ajapaik.settings || exit 1
+/opt/python2712/bin/python2.7 manage.py migrate --settings=ajapaik.settings || exit 1
 echo "* Deploy static files"
-/opt/python27/bin/python2.7 manage.py collectstatic --noinput --settings=ajapaik.settings || exit 1
+/opt/python2712/bin/python2.7 manage.py collectstatic --noinput --settings=ajapaik.settings || exit 1
 echo "* Compress static files"
-/opt/python27/bin/python2.7 manage.py compress --settings=ajapaik.settings || exit 1
+/opt/python2712/bin/python2.7 manage.py compress --settings=ajapaik.settings || exit 1
 
 echo "* Restart app"
 sudo supervisorctl restart ajapaik_ee.$STARTING

@@ -22,7 +22,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 serverurl=unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket
 
 [program:ajapaik_ee]
-command=/opt/python27/bin/uwsgi
+command=/opt/python2712/bin/uwsgi
   --wsgi-file /var/garage/rephoto/project/ajapaik/wsgihandler.py
   --socket /var/garage/run/ajapaik_ee.sock
   --processes 4
@@ -35,7 +35,7 @@ user=www-data
 stopsignal=QUIT
 
 [program:ajapaik_ee.A]
-command=/opt/python27/bin/uwsgi
+command=/opt/python2712/bin/uwsgi
   --wsgi-file /var/garage/rephoto.A/project/ajapaik/wsgihandler.py
   --socket /var/garage/run/ajapaik_ee_A.sock
   --processes 4
@@ -47,7 +47,7 @@ user=www-data
 stopsignal=QUIT
 
 [program:ajapaik_ee.B]
-command=/opt/python27/bin/uwsgi
+command=/opt/python2712/bin/uwsgi
   --wsgi-file /var/garage/rephoto.B/project/ajapaik/wsgihandler.py
   --socket /var/garage/run/ajapaik_ee_B.sock
   --processes 4
@@ -59,7 +59,7 @@ user=www-data
 stopsignal=QUIT
 
 [program:staging_ajapaik_ee]
-command=/opt/python27/bin/uwsgi
+command=/opt/python2712/bin/uwsgi
   --socket /var/garage/run/staging_ajapaik_ee.sock
   --wsgi-file /var/garage/rephoto_staging/project/ajapaik/wsgihandler.py
   --processes 1
