@@ -1037,7 +1037,7 @@ class Profile(Model):
 
 # For Google login
 class FlowModel(Model):
-    id = ForeignKey(User, primary_key=True)
+    id = OneToOneField(User, primary_key=True)
     flow = FlowField()
 
     class Meta:
@@ -1046,7 +1046,7 @@ class FlowModel(Model):
 
 # For Google login
 class CredentialsModel(Model):
-    id = ForeignKey(User, primary_key=True)
+    id = OneToOneField(User, primary_key=True)
     credential = CredentialsField()
 
     class Meta:

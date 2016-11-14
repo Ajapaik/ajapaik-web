@@ -213,14 +213,12 @@ CACHES = {
     }
 }
 
-DEFAULT_FROM_EMAIL = 'info@fotodugnad.ra.no'
+DEFAULT_FROM_EMAIL = 'fotodugnad@ra.no'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
@@ -230,3 +228,27 @@ FLICKR_API_KEY = None
 FLICKR_API_SECRET = None
 
 GOOGLE_PLUS_OAUTH2_CALLBACK_URL = None
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
