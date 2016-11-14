@@ -525,7 +525,7 @@
                     targetResultItem.removeClass('ajapaik-curator-selected-image');
                     $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length)
                 } else {
-                    window.selectedResults[$(this)[0].dataset.id] = target;
+                    window.selectedResults[$(this)[0].dataset.id] = fullResultSet[targetId];
                     targetResultItem.addClass('ajapaik-curator-selected-image');
                     $('#ajapaik-curator-selection-size').html(Object.keys(window.selectedResults).length)
                 }
