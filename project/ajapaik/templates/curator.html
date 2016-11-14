@@ -497,11 +497,14 @@
             window.formatId = function (id) {
                 id = replaceAll(id, ':', '');
                 id = replaceAll(id, '.', '');
+                return id;
+            };
+            window.escapeSlash = function (id) {
                 id = replaceAll(id, '/', '\\/');
                 return id;
             };
             window.imageLoaded = function (id) {
-                var targetContainer = $('#ajapaik-curator-selection-item-' + window.formatId(id)),
+                var targetContainer = $('#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId(id))),
                         targetImage = targetContainer.find('img')[0];
                 if (targetImage) {
                     targetContainer.find('.ajapaik-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
@@ -516,7 +519,7 @@
             };
             $(document).on('click', '.ajapaik-curator-invert-colors-button', function () {
                 var $this = $(this),
-                        targetSelector = '#ajapaik-curator-selection-item-' + window.formatId($this[0].dataset.id),
+                        targetSelector = '#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
                         target = $($(targetSelector).find('img')[0]);
                 toggleButtonActive($this);
                 if (target.hasClass('ajapaik-photo-inverted')) {
@@ -530,7 +533,7 @@
             });
             $(document).on('click', '.ajapaik-curator-flip-button', function () {
                 var $this = $(this),
-                        targetSelector = '#ajapaik-curator-selection-item-' + window.formatId($this[0].dataset.id),
+                        targetSelector = '#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
                         target = $($(targetSelector).find('img')[0]);
                 toggleButtonActive($this);
                 if (target.hasClass('ajapaik-photo-flipped')) {
@@ -564,7 +567,7 @@
             });
             $(document).on('click', '.ajapaik-curator-rotate-button', function () {
                 var $this = $(this),
-                        targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId($this[0].dataset.id)),
+                        targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id))),
                         targetImage = targetSelectionItem.find('img'),
                         arrayItem = window.selectedResults[$this[0].dataset.id];
                 if (!arrayItem.rotated) {
@@ -596,8 +599,8 @@
             });
             $(document).on('click', '.ajapaik-curator-delete-button', function () {
                 var targetId = $(this)[0].dataset.id,
-                    targetResultItem = $('#ajapaik-result-item-' + window.formatId(targetId)),
-                    targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.formatId(targetId));
+                    targetResultItem = $('#ajapaik-result-item-' + window.escapeSlash(window.formatId(targetId))),
+                    targetSelectionItem = $('#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId(targetId)));
                 if (window.selectedResults[targetId]) {
                     delete window.selectedResults[targetId];
                     targetSelectionItem.remove();
@@ -748,7 +751,7 @@
                             });
                             for (var key in response.photos) {
                                 if (response.photos.hasOwnProperty(key)) {
-                                    var targetDiv = $($('#ajapaik-curator-selection-item-' + window.formatId(key)).find('.ajapaik-curator-selection-feedback-row')[0]),
+                                    var targetDiv = $($('#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajapaik-curator-selection-feedback-row')[0]),
                                             item = response.photos[key];
                                     if (item.error) {
                                         $(targetDiv.find('.alert-danger')[0]).html(item.error).show();
