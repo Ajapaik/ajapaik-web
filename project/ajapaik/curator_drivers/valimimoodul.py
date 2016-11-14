@@ -27,6 +27,10 @@ class ValimimoodulDriver(object):
             institution_string += ',"ARCHIVE"'
         else:
             institution_string += ',null'
+        if cleaned_data['useUTLIB']:
+            institution_string += ',"DSPACE"'
+        else:
+            institution_string += ',null'
         if cleaned_data['useETERA']:
             etera_string = 'ETERA'
             institution_string = 'null,null,null'
