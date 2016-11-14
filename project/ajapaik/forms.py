@@ -9,8 +9,6 @@ from .models import Album, Photo, GeoTag, PhotoLike, Profile, Dating, Licence
 
 class UserRegistrationForm(RegistrationFormUniqueEmail):
     username = forms.CharField(max_length=254, required=False, widget=forms.HiddenInput())
-    first_name = forms.CharField(label=_('First name'), max_length=30)
-    last_name = forms.CharField(label=_('Last name'), max_length=30)
 
     def clean_email(self):
         email = self.cleaned_data['email']
