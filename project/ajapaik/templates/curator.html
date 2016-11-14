@@ -316,7 +316,8 @@
                     useMKA = $('#ajapaik-curator-search-use-mka').prop('checked'),
                     useETERA = $('#ajapaik-curator-search-use-etera').prop('checked'),
                     useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
-                    useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked');
+                    useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked'),
+                    useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked');
                 start += 200;
                 $.ajax({
                     type: 'POST',
@@ -331,6 +332,7 @@
                         useETERA: useETERA,
                         useDIGAR: useDIGAR,
                         useFlickr: useFlickr,
+                        useUTLIB: useUTLIB,
                         flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
@@ -367,6 +369,7 @@
                     $('#ajapaik-curator-search-use-muis').prop('checked', false);
                     $('#ajapaik-curator-search-use-mka').prop('checked', false);
                     $('#ajapaik-curator-search-use-flickr').prop('checked', false);
+                    $('#ajapaik-curator-search-use-utlib').prop('checked', false);
                 }
             });
             $('#ajapaik-curator-search-use-muis').change(function () {
@@ -376,6 +379,12 @@
                 }
             });
             $('#ajapaik-curator-search-use-digar').change(function () {
+                var $this = $(this);
+                if ($this.is(':checked')) {
+                    $('#ajapaik-curator-search-use-etera').prop('checked', false);
+                }
+            });
+            $('#ajapaik-curator-search-use-utlib').change(function () {
                 var $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajapaik-curator-search-use-etera').prop('checked', false);
@@ -403,7 +412,8 @@
                         useMKA = $('#ajapaik-curator-search-use-mka').prop('checked'),
                         useETERA = $('#ajapaik-curator-search-use-etera').prop('checked'),
                         useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
-                        useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked');
+                        useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked'),
+                        useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked');
                 if (useETERA && !ETERASession) {
                     $.ajax({
                         url: "http://www.etera.ee/api/app/config",
@@ -425,6 +435,7 @@
                         useETERA: useETERA,
                         useDIGAR: useDIGAR,
                         useFlickr: useFlickr,
+                        useUTLIB: useUTLIB,
                         flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },

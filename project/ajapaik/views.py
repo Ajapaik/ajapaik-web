@@ -1837,7 +1837,7 @@ def curator_search(request):
         if form.cleaned_data['useFlickr']:
             flickr_driver = FlickrCommonsDriver()
         if form.cleaned_data['useMUIS'] or form.cleaned_data['useMKA'] or form.cleaned_data['useDIGAR'] or \
-                form.cleaned_data['useETERA']:
+                form.cleaned_data['useETERA'] or form.cleaned_data['useUTLIB']:
             valimimoodul_driver = ValimimoodulDriver()
             if form.cleaned_data['ids']:
                 response = valimimoodul_driver.transform_response(
