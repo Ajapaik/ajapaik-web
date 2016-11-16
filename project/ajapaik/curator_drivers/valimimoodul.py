@@ -91,6 +91,13 @@ class ValimimoodulDriver(object):
                     if each['institutionType'] == 'ARCHIVE':
                         each['identifyingNumber'] = each['id']
                     existing_photo = Photo.objects.filter(external_id=parts[0]).first()
+                if each['latitude'] and each['longitude']:
+                    try:
+                        each['latitude'] = float(each['latitude'])
+                        each['longitude'] = float(each['longitude'])
+                    except:
+                        each['latitude'] = None
+                        each['longitude'] = None
                 if existing_photo:
                     each['ajapaikId'] = existing_photo.pk
                     check_dict[each['id']] = False
