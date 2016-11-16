@@ -2165,6 +2165,8 @@ def curator_photo_upload_handler(request):
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
+            # else:
+            #     print upload_form.errors
         if general_albums:
             for ga in general_albums:
                 requests.post("https://graph.facebook.com/v2.3/?id=" + (
