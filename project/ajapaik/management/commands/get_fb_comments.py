@@ -85,5 +85,8 @@ class Command(BaseCommand):
                         if latest_comment:
                             photo.latest_comment = latest_comment.created
                         photo.light_save()
+                        for each in photo.albums.all():
+                            each.comments_count_with_subalbums = each.get_comment_count_with_subalbums()
+                            each.light_save()
             start += 50
             end += 50
