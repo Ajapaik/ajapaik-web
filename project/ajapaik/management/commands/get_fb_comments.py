@@ -12,11 +12,11 @@ class Command(BaseCommand):
     help = 'Get all Facebook comments for our photos'
 
     def handle(self, *args, **options):
-        # First get the real FB ids for photos that don't have them in batches of 250
+        # First get the real FB ids for photos that don't have them in batches of 50
         photos = Photo.objects.filter(fb_object_id__isnull=True)
         photo_count = photos.count()
         start = 0
-        end = 250
+        end = 50
         while start <= photo_count:
             or_clause = 'ids='
             photo_batch = photos[start:end]
@@ -37,13 +37,13 @@ class Command(BaseCommand):
                         photo = photos.get(pk=photo_id)
                         photo.fb_object_id = v['og_object']['id']
                         photo.light_save()
-            start += 250
-            end += 250
+            start += 50
+            end += 50
         # Now use the ids to request all comments from Facebook
         photos = Photo.objects.filter(fb_object_id__isnull=False)
         photo_count = photos.count()
         start = 0
-        end = 250
+        end = 50
         while start <= photo_count:
             ids = 'ids='
             photo_batch = photos[start:end]
@@ -82,5 +82,5 @@ class Command(BaseCommand):
                         photo.first_comment = photo.comments.order_by('created').first().created
                         photo.latest_comment = photo.comments.order_by('created').last().created
                         photo.light_save()
-            start += 250
-            end += 250
+            start += 50
+            end += 50
