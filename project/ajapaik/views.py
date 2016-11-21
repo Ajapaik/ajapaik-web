@@ -2096,8 +2096,12 @@ def update_comment_count(request):
                 p.latest_comment = None
                 p.first_comment = None
             else:
-                p.first_comment = p.comments.order_by('created').first().created
-                p.latest_comment = p.comments.order_by('created').last().created
+                first_comment = p.comments.order_by('created').first()
+                latest_comment = p.comments.order_by('created').last()
+                if first_comment:
+                    p.first_comment = first_comment.created
+                if latest_comment:
+                    p.latest_comment = latest_comment.created
             p.light_save()
             for each in p.albums.all():
                 each.comments_count_with_subalbums = each.get_comment_count_with_subalbums()

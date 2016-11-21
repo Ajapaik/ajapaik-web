@@ -60,7 +60,6 @@ class Command(BaseCommand):
                     APP_ID + '|' + settings.FACEBOOK_APP_SECRET, ids)).text)
                 for k, v in response.items():
                     if 'data' in v:
-
                         for comment in v['data']:
                             existing_comment = PhotoComment.objects.filter(fb_comment_id=comment['id']).first()
                             if existing_comment:
@@ -79,8 +78,12 @@ class Command(BaseCommand):
                                 new_photo_comment.save()
                         photo = Photo.objects.filter(fb_object_id=k).first()
                         photo.fb_comments_count = len(v['data'])
-                        photo.first_comment = photo.comments.order_by('created').first().created
-                        photo.latest_comment = photo.comments.order_by('created').last().created
+                        first_comment = photo.comments.order_by('created').first()
+                        latest_comment = photo.comments.order_by('created').last()
+                        if first_comment:
+                            photo.first_comment = first_comment.created
+                        if latest_comment:
+                            photo.latest_comment = latest_comment.created
                         photo.light_save()
             start += 50
             end += 50
