@@ -872,6 +872,15 @@ class Profile(Model):
     class Meta:
         db_table = 'project_profile'
 
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+        if not self.user.first_name or self.user.first_name != self.first_name:
+            self.user.first_name = self.first_name
+            self.user.save()
+        if not self.user.last_name or self.user.last_name != self.last_name:
+            self.user.last_name = self.last_name
+            self.user.save()
+
     @property
     def id(self):
         return self.user_id

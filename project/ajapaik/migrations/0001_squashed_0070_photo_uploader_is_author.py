@@ -587,7 +587,7 @@ class Migration(migrations.Migration):
                 ('raw', models.CharField(max_length=25, null=True, blank=True)),
                 ('comment', models.TextField(null=True, blank=True)),
                 ('type', models.PositiveSmallIntegerField(default=0, choices=[(0, 'Regular'), (1, 'Kinnitus')])),
-                ('confirmation_of', models.ForeignKey(related_name='confirmations', blank=True, to='ajapaik.Dating', null=True)),
+                #('confirmation_of', models.ForeignKey(related_name='confirmations', blank=True, to='ajapaik.Dating', null=True)),
             ],
             options={
                 'db_table': 'project_dating',
@@ -690,10 +690,10 @@ class Migration(migrations.Migration):
                 'db_table': 'project_datingconfirmation',
             },
         ),
-        migrations.RemoveField(
-            model_name='dating',
-            name='confirmation_of',
-        ),
+        # migrations.RemoveField(
+        #     model_name='dating',
+        #     name='confirmation_of',
+        # ),
         migrations.RemoveField(
             model_name='dating',
             name='type',

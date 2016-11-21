@@ -291,3 +291,9 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
 
 class ResendActivationEmailForm(forms.Form):
     email = forms.EmailField(required=True)
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name')

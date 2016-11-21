@@ -102,6 +102,9 @@
                                     <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.
                                         <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.
                                     </p>
+                                    <p>
+                                        <a href='{% url 'edit_profile' %}' id='ajapaik-edit-profile-link'>{% trans "Edit profile" %}</a>.
+                                    </p>
                                 </div>
                             {% endwith %}
                         {% else %}

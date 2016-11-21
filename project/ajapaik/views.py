@@ -46,7 +46,7 @@ from project.ajapaik.forms import AddAlbumForm, AlbumSelectionForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, \
-    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, ResendActivationEmailForm
+    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, ResendActivationEmailForm, EditProfileForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
     Dating, DatingConfirmation, user_has_confirmed_email, Country, County, Municipality
@@ -1161,9 +1161,9 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if first_rephoto is not None:
         rephoto_fullscreen = _make_fullscreen(first_rephoto)
 
-    photo_obj.tags = ','.join(photo_obj.description.split(' '))
+    photo_obj.tags = ','.join(photo_obj.title.split(' '))
     if rephoto and rephoto.description:
-        rephoto.tags = ','.join(rephoto.description.split(' '))
+        rephoto.tags = ','.join(rephoto.title.split(' '))
 
     if 'photo_selection' in request.session:
         if str(photo_obj.id) in request.session['photo_selection']:
@@ -1719,13 +1719,15 @@ def public_add_album(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
+    last_created_album = Album.objects.filter(is_public=True).order_by('-created').first()
     # FIXME: Ugly
-    curator_random_image_ids = AlbumPhoto.objects.filter(
-        album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
-    if not curator_random_image_ids or len(curator_random_image_ids) < 5:
-        curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
-    curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
+    curator_random_images = None
+    if last_created_album:
+        curator_random_image_ids = AlbumPhoto.objects.filter(
+            album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
+        if not curator_random_image_ids or len(curator_random_image_ids) < 5:
+            curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
+        curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
     site = Site.objects.get_current()
     return render_to_response('curator.html', RequestContext(request, {
         'description':
@@ -2448,3 +2450,18 @@ def resend_activation_email(request):
     context.update({'form': form})
 
     return render(request, 'registration/resend_activation_email_form.html', RequestContext(request, context))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+    else:
+        form = EditProfileForm(instance=request.user.profile)
+    context = {
+        'form': form
+    }
+
+    return render(request, 'edit_profile.html', RequestContext(request, context))

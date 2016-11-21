@@ -9,6 +9,7 @@ from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
 urlpatterns = patterns('project.ajapaik.views',
                        url(r'^logout/', 'logout'),
+                       url(r'^edit-profile/', 'edit_profile', name='edit_profile'),
                        url(r'^resend-activation-email/', 'resend_activation_email'),
                        url(r'^stream/', 'fetch_stream'),
                        url(r'^difficulty-feedback/', 'difficulty_feedback'),

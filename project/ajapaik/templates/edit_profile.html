@@ -1,0 +1,16 @@
+{% extends 'base_bootstrap.html' %}
+{% load i18n bootstrap3 %}
+
+{% block layout %}
+    <div class="container" style="padding-top: 100px;">
+        <form action="" method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" name="save-profile" value="true" class="btn btn-success">
+                    {% trans "Save" %}
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}
