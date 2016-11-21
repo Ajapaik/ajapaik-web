@@ -2071,23 +2071,22 @@ def update_comment_count(request):
         p = Photo.objects.filter(pk=photo_id).first()
         if p:
             if not p.fb_object_id:
+                # FIXME: Possibility to insert false data
                 p.fb_object_id = comment_id.split('_')[0]
-            fql_string = "SELECT text, id, parent_id, object_id, fromid, time FROM comment WHERE object_id IN (" + p.fb_object_id + ")"
-            response = json.loads(requests.get('https://graph.facebook.com/fql?access_token=%s&q=%s' % (
-                APP_ID + '|' + settings.FACEBOOK_APP_SECRET, fql_string)).text)
-            for each in response['data']:
-                existing_comment = PhotoComment.objects.filter(fb_comment_id=each['id']).first()
+            response = json.loads(requests.get('https://graph.facebook.com/v2.3/comments/?access_token=%s&id=%s' % (
+                APP_ID + '|' + settings.FACEBOOK_APP_SECRET, p.fb_object_id)).text)
+            for comment in response['data']:
+                existing_comment = PhotoComment.objects.filter(fb_comment_id=comment['id']).first()
                 if existing_comment:
-                    existing_comment.text = each['text']
+                    existing_comment.text = comment['message']
                     existing_comment.save()
                 else:
                     new_photo_comment = PhotoComment(
-                        fb_comment_id=each['id'],
-                        fb_comment_parent_id=each['parent_id'],
-                        fb_user_id=each['fromid'],
-                        fb_object_id=each['object_id'],
-                        text=each['text'],
-                        created=datetime.datetime.fromtimestamp(each['time']),
+                        fb_comment_id=comment['id'],
+                        fb_user_id=comment['from']['id'],
+                        fb_object_id=comment['id'].split('_')[0],
+                        text=comment['message'],
+                        created=comment['created_time'],
                         photo=p
                     )
                     p.latest_comment = datetime.datetime.now()
@@ -2096,6 +2095,9 @@ def update_comment_count(request):
             if p.fb_comments_count == 0:
                 p.latest_comment = None
                 p.first_comment = None
+            else:
+                p.first_comment = p.comments.order_by('created').first().created
+                p.latest_comment = p.comments.order_by('created').last().created
             p.light_save()
             for each in p.albums.all():
                 each.comments_count_with_subalbums = each.get_comment_count_with_subalbums()
