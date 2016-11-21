@@ -2242,10 +2242,10 @@ def norwegian_csv_upload(request):
 
 
 def submit_dating(request):
-    profile = request.get_user().profile
+    profile = request.user.profile
     form = DatingSubmitForm(request.POST.copy())
     confirm_form = DatingConfirmForm(request.POST)
-    form.data['profile'] = profile
+    form.data['profile'] = profile.id
     if form.is_valid():
         dating = form.save(commit=False)
         if not dating.start:

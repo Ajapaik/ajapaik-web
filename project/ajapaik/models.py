@@ -874,10 +874,10 @@ class Profile(Model):
 
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
-        if not self.user.first_name or self.user.first_name != self.first_name:
+        if not self.user.first_name and self.first_name and self.user.first_name != self.first_name:
             self.user.first_name = self.first_name
             self.user.save()
-        if not self.user.last_name or self.user.last_name != self.last_name:
+        if not self.user.last_name and self.last_name and self.user.last_name != self.last_name:
             self.user.last_name = self.last_name
             self.user.save()
 
