@@ -1,3 +1,4 @@
+import dateutil.parser
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.serializers import ModelSerializer, IntegerField, CharField, SerializerMethodField
@@ -11,6 +12,7 @@ class ResultSetPagination(PageNumberPagination):
     max_page_size = 500
 
 
+# Serializers
 class BboxResponseSerializer(ModelSerializer):
     geotag_count = IntegerField(source='geotags.count')
     source_description = CharField(source='source.description')
@@ -24,11 +26,27 @@ class BboxResponseSerializer(ModelSerializer):
         model = Photo
         fields = (
             'id', 'ajapaik_url', 'title', 'author', 'date', 'source_description', 'source_key', 'source_url',
-            'lat',
-            'lon', 'azimuth', 'geotag_count')
+            'lat', 'lon', 'azimuth', 'geotag_count')
 
 
-class PhotosView(ListAPIView):
+class ChangedResponseSerializer(ModelSerializer):
+    geotag_count = IntegerField(source='geotags.count')
+    source_description = CharField(source='source.description')
+    fotodugnad_url = SerializerMethodField()
+
+    def get_fotodugnad_url(self, obj):
+        relative_url = obj.get_absolute_url()
+        return self.context['request'].build_absolute_uri(relative_url)
+
+    class Meta:
+        model = Photo
+        fields = (
+            'id', 'created', 'modified', 'source_description', 'external_id', 'source_url',
+            'lat', 'lon', 'azimuth', 'geotag_count', 'fotodugnad_url')
+
+
+# CBVs
+class PhotosBboxView(ListAPIView):
     queryset = Photo.objects.all()
     serializer_class = BboxResponseSerializer
     pagination_class = ResultSetPagination
@@ -48,3 +66,17 @@ class PhotosView(ListAPIView):
             )
 
         return queryset
+
+
+class PhotosChangedView(ListAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = ChangedResponseSerializer
+    pagination_class = ResultSetPagination
+
+    def get_queryset(self):
+        changed_since = self.request.query_params.get('modified', None)
+        queryset = Photo.objects.filter(rephoto_of__isnull=True)
+        if changed_since:
+            queryset = queryset.filter(modified__gte=dateutil.parser.parse(changed_since))
+
+        return queryset.order_by('-modified')
