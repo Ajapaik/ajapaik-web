@@ -2778,3 +2778,7 @@ a[href^="https://maps.google.com/maps"] {
     font-size: 18px;
     margin-bottom: 30px;
 }
+
+#ajapaik-header-arrow-drop-down {
+    font-size: 18px;
+}

@@ -162,7 +162,7 @@
                     orderingString = gettext('Pictures from the map');
                     var orderingStringTarget = $('#ajapaik-header-title');
                     if (orderingStringTarget) {
-                        orderingStringTarget.html(orderingString);
+                        orderingStringTarget.html(orderingString + ' <i id="ajapaik-header-arrow-drop-down" class="material-icons notranslate">arrow_drop_down</i>');
                     }
                 }
                 var dropdownOrderingString = $('#ajapaik-filter-dropdown-filter-name');
@@ -269,7 +269,7 @@
                 } else if (window.albumId) {
                     window.updateFrontpagePhotosAsync();
                 }
-                selectedModeDiv.find('span').text(title);
+                selectedModeDiv.find('span').html(title + ' <i id="ajapaik-header-arrow-drop-down" class="material-icons notranslate">arrow_drop_down</i>');
             },
             doDelayedPhotoFiltering = function (val) {
                 if (timeout) {

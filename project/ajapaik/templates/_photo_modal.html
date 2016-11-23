@@ -209,10 +209,9 @@
                     {% else %}
                         {% if photo.rephotos.all.0.user %}
                             <div class="row-fluid">
-                                <a target="_blank" href="
-                                        {% if photo.rephotos.all.0.user.fb_link %}{{ photo.rephotos.all.0.user.fb_link }}{% elif photo.rephotos.all.0.user.google_plus_link %}{{ photo.rephotos.all.0.user.google_plus_link }}{% else %}#{% endif %} %}">
-                                        {{ photo.rephotos.all.0.user.get_display_name }}
-                                </a>
+                                 <a target="_blank" href="{% url 'frontpage_photos' %}?rephotosBy={{ photo.rephotos.all.0.user.id }}&order1=time&order2=rephotos">
+                                          {{ photo.rephotos.all.0.user.get_display_name }}
+                                 </a>
                                 {% if photo.rephotos.all.0.licence %}
                                     {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}{% endif %}
                             </div>

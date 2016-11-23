@@ -1,11 +1,7 @@
 # For Django development
-#server {
-#    listen 80;
-#
-#	location / {
-#		proxy_pass http://127.0.0.1:8000;
-#	}
-#}
+upstream fotodugnad_dev_server {
+    server 127.0.0.1:8000;
+}
 
 upstream fotodugnad_app_server {
     server unix:///home/fotodugnad/ajapaik-web/fotodugnad.sock;

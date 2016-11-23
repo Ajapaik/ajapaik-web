@@ -724,8 +724,10 @@ var map,
                 var minimapConfirmGeotagButton = document.createElement('button');
                 $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
                     .addClass('ajapaik-minimap-confirm-geotag-button')
-                    .prop('title', gettext('Confirm correct location'))
-                    .data('id', window.photoModalCurrentlyOpenPhotoId).html('<i class="material-icons notranslate">thumb_up</i>');
+                    .data('id', window.photoModalCurrentlyOpenPhotoId).data('trigger', 'hover')
+                    .data('placement', 'top').data('toggle', 'popover')
+                    .data('content', gettext('Confirm correct location'))
+                    .html('<i class="material-icons notranslate">beenhere</i>').popover();
                 if (window.photoModalUserHasConfirmedThisLocation) {
                     $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
                 }
@@ -733,7 +735,10 @@ var map,
                 var minimapStartGuessButton = document.createElement('button');
                 $(minimapStartGuessButton).addClass('btn').addClass('btn-default')
                     .addClass('ajapaik-minimap-start-guess-button')
-                    .prop('title', gettext('Submit your own location')).html('<i class="material-icons notranslate">edit_location</i>');
+                    .data('trigger', 'hover')
+                    .data('placement', 'top').data('toggle', 'popover')
+                    .data('content', gettext('Submit your own location'))
+                    .html('<i class="material-icons notranslate">edit_location</i>').popover();
                 window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
                 $('.ajapaik-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');

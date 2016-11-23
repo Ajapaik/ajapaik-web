@@ -16,7 +16,7 @@
             {% } else { %}
                 {% if (o.FBUserName) { %}
                     <div class="row-fluid">
-                        <a target="_blank" href="{%=o.FBUserLink%}">
+                        <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
                             {%=o.FBUserName%}
                         </a>
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
@@ -24,7 +24,7 @@
                 {% } else { %}
                     {% if (o.GooglePlusName) { %}
                         <div class="row-fluid">
-                            <a target="_blank" href="{%=o.GooglePlusLink%}">
+                            <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
                                 {%=o.GooglePlusName%}
                             </a>
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
@@ -32,7 +32,7 @@
                     {% } else { %}
                         {% if (o.FullName) { %}
                             <div class="row-fluid">
-                                <a target="_blank" href="#">
+                                <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
                                     {%=o.FullName%}
                                 </a>
                                 {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
