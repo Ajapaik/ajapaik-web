@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <div class="modal-dialog">
     <div class="modal-content ajapaik-zero-border-radius">
@@ -66,6 +66,34 @@
                     {% endblocktrans %}
                 </div>
             {% endif %}
+            <br>
+            <div class="row-fluid">
+                <h4>{% trans "Partners of Fotodugnad" %}</h4>
+            </div>
+            <div class="row vertical-align">
+                <div class="col-xs-6">
+                    <a href="http://arkivverket.no/" target="_blank" title="{% trans "To Riksarkivet" %}">
+                        <img class="img-responsive" alt="{% trans "Riksarkivet logo" %}" src="{% static "images/riksarkivet_0.png" %}">
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="http://www.riksantikvaren.no/" target="_blank" title="{% trans "To Riksantikvaren" %}">
+                        <img class="img-responsive" alt="{% trans "Riksantikvaren logo" %}" src="{% static "images/riksantikvaren_71058-e1459787176523.jpg" %}">
+                    </a>
+                </div>
+            </div>
+            <div class="row vertical-align">
+                <div class="col-xs-6">
+                    <a href="http://www.kulturradet.no/" target="_blank" title="{% trans "To Kulturradet" %}">
+                        <img class="img-responsive" alt="{% trans "Kulturradet logo" %}" src="{% static "images/kulturraadet_sort_stor-copy.png" %}">
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="http://www.kartverket.no/" target="_blank" title="{% trans "To Kartverket" %}">
+                        <img class="img-responsive" alt="{% trans "Kartverket logo" %}" src="{% static "images/kartverket_liggende-e1459787127829.jpg" %}">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

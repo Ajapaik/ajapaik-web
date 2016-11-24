@@ -36,8 +36,8 @@
             startLat = window.startLocation[1];
             startLon = window.startLocation[0];
         } else {
-                startLat = 59;
-                startLon = 26;
+                startLat = 60.4720;
+                startLon = 8.4689;
         }
         $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
             thumbSrc: '/photo-thumb/' + currentPhoto.id + '/400/',

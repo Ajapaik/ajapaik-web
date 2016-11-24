@@ -43,8 +43,8 @@
         this.mapOpts = {
             zoom: 14,
             center: {
-                lat: 59,
-                lng: 26
+                lat: 60.4720,
+                lng: 8.4689
             },
             disableDoubleClickZoom: true,
             scrollwheel: false,

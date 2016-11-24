@@ -387,8 +387,8 @@
                 startLat = window.photoModalExtraLat;
                 startLon = window.photoModalExtraLng;
             } else {
-                startLat = 59;
-                startLon = 26;
+                startLat = 60.4720;
+                startLon = 8.4689;
             }
             $('#ajapaik-frontpage-container').hide();
             $('#ajapaik-photo-modal').hide();

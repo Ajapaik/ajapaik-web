@@ -258,8 +258,8 @@
                 startLat = window.photoModalPhotoLat;
                 startLon = window.photoModalPhotoLng;
             } else {
-                startLat = 59;
-                startLon = 26;
+                startLat = 60.4720;
+                startLon = 8.4689;
             }
             $('#ajapaik-map-container').hide();
             $('#ajapaik-photo-modal').hide();

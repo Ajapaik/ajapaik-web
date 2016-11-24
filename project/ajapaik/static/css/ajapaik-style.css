@@ -229,6 +229,12 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     margin-right: 90px !important;
+    font-weight: bold;
+}
+
+.ajapaik-caption-album-selection > i {
+    font-size: 20px;
+    margin-right: 5px;
 }
 
 .ajapaik-caption-album-selection {
@@ -238,6 +244,7 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    max-height: 100%;
 }
 
 .ajapaik-brand {
@@ -246,9 +253,10 @@ body {
     position: fixed;
     width: 133px;
     height: 73px;
-    margin: 10px 0 0 20px !important;
+    margin-left: 5px !important;
     background-size: 133px 73px;
-    text-indent: -999em;
+    color: white !important;
+    font-size: 24px;
 }
 
 .ajapaik-brand-xs {
@@ -1155,7 +1163,7 @@ a.fullscreen {
 
 @media (min-width: 320px) {
     #ajapaik-header-title {
-        max-width: 80px;
+        max-width: 85px;
     }
 
     #pac-input-mapview {
@@ -1165,7 +1173,7 @@ a.fullscreen {
 
 @media (min-width: 480px) {
     #ajapaik-header-title {
-        max-width: 80px;
+        max-width: 85px;
     }
 
     #pac-input-mapview {
@@ -2608,6 +2616,7 @@ a[href^="https://maps.google.com/maps"] {
 
 .ajapaik-album-selection-caption-bottom {
     width: 100%;
+    height: 100%;
 }
 
 .ajapaik-album-selection-map-button {
@@ -2647,6 +2656,7 @@ a[href^="https://maps.google.com/maps"] {
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: bold;
 }
 
 .ajapaik-album-selection-album-more-button {
@@ -2781,4 +2791,14 @@ a[href^="https://maps.google.com/maps"] {
 
 #ajapaik-header-arrow-drop-down {
     font-size: 18px;
+}
+
+#fotodugnad-footer-ajapaik-logo {
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+}
+
+#fotodugnad-footer-ajapaik-logo > img {
+    width: 133px;
 }

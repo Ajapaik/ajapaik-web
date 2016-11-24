@@ -118,7 +118,7 @@ var map,
             };
 
         if (!startPoint) {
-            latLng = new google.maps.LatLng(59, 26);
+            latLng = new google.maps.LatLng(60.4720, 8.4689);
             startingZoom = 8;
         } else {
             latLng = startPoint;
