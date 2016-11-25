@@ -25,5 +25,6 @@ scikit-learn==0.18.1
 scipy==0.18.1
 six==1.10.0
 sorl-thumbnail==12.3
+transifex-client==0.12.2
 ujson==1.35
 uWSGI==2.0.14
