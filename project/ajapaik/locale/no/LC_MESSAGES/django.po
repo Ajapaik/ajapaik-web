@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-25 10:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Lauri Elias <laurileet@gmail.com>, 2016\n"
+"Last-Translator: Vemund Olstad <vemund.olstad@gmail.com>, 2016\n"
 "Language-Team: Norwegian (https://www.transifex.com/riksantikvaren/teams/69465/no/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: project/ajapaik/admin.py:92
 msgid "Invert colors"
-msgstr ""
+msgstr "Inverter farger"
 
 #: project/ajapaik/forms.py:21 project/ajapaik/forms.py:98
 #: project/ajapaik/forms.py:109 project/ajapaik/forms.py:117
@@ -39,11 +39,11 @@ msgstr "Velg foreldremappe"
 
 #: project/ajapaik/forms.py:258
 msgid "Import from public collections"
-msgstr ""
+msgstr "Importer fra offentlige samlinger"
 
 #: project/ajapaik/forms.py:259
 msgid "Upload yourself"
-msgstr ""
+msgstr "Last opp selv"
 
 #: project/ajapaik/forms.py:264 project/ajapaik/templates/_header.html:33
 #: project/ajapaik/templates/_mode_select.html:15
@@ -52,23 +52,23 @@ msgstr "Album"
 
 #: project/ajapaik/forms.py:265
 msgid "Licence"
-msgstr ""
+msgstr "Lisens"
 
 #: project/ajapaik/forms.py:267
 msgid "I am the author"
-msgstr ""
+msgstr "Jeg er opphavsperson"
 
 #: project/ajapaik/forms.py:279
 msgid "Missing image"
-msgstr ""
+msgstr "Bilde mangler"
 
 #: project/ajapaik/forms.py:281
 msgid "Missing description"
-msgstr ""
+msgstr "Beskrivelse mangler"
 
 #: project/ajapaik/forms.py:283
 msgid "Missing licence"
-msgstr ""
+msgstr "Lisens mangler"
 
 #: project/ajapaik/models.py:134 project/ajapaik/templates/curator.html:77
 msgid "Name"
@@ -81,19 +81,19 @@ msgstr "Beskrivelse"
 
 #: project/ajapaik/models.py:140
 msgid "Is public"
-msgstr ""
+msgstr "Er offentlig"
 
 #: project/ajapaik/models.py:141
 msgid "Is open"
-msgstr ""
+msgstr "Er åpen"
 
 #: project/ajapaik/models.py:252
 msgid "Image"
-msgstr ""
+msgstr "Bilde"
 
 #: project/ajapaik/models.py:266
 msgid "Author"
-msgstr ""
+msgstr "Opphavsperson"
 
 #: project/ajapaik/models.py:706
 msgid "Geotag"
@@ -210,7 +210,7 @@ msgstr "År"
 
 #: project/ajapaik/settings/default.py:72
 msgid "Norwegian"
-msgstr ""
+msgstr "Norsk"
 
 #: project/ajapaik/settings/default.py:73
 msgid "English"
@@ -395,17 +395,19 @@ msgstr "Logg ut"
 #: project/ajapaik/templates/_general_info_modal_content.html:9
 #: project/ajapaik/templates/base_bootstrap.html:41
 msgid "Fotodugnad shows how places have changed over time"
-msgstr ""
+msgstr "Fotodugnad viser hvordan steder har endret seg over tid"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:13
 msgid "Discover how places looked like years ago by"
-msgstr "Oppdag hvordan steder så ut for mange år siden ved"
+msgstr "Oppdag hvordan steder så ut for mange år siden ved å"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:16
 msgid ""
 "* searching historic view pictures from museums' collections and curating "
 "selected images to Fotodugnad,"
 msgstr ""
+"søke etter bilder i offentlige samlinger og kuratere egne samlinger i "
+"Fotodugnad (ikke implementert ennå)"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:19
 msgid "* geotagging pictures from places you are familiar with and"
@@ -422,6 +424,10 @@ msgid ""
 "                    Fotodugnad has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
 "                "
 msgstr ""
+"\n"
+"\n"
+"Fotodugnad har <b>%(total_photo_count)s</b> historiske foto, hvorav\n"
+"      "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:29
 #, python-format
@@ -537,39 +543,39 @@ msgstr[1] ""
 
 #: project/ajapaik/templates/_general_info_modal_content.html:71
 msgid "Partners of Fotodugnad"
-msgstr ""
+msgstr "Disse etatene står bak Fotodugnad"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:75
 msgid "To Riksarkivet"
-msgstr ""
+msgstr "Til Riksarkivets hjemmeside"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:76
 msgid "Riksarkivet logo"
-msgstr ""
+msgstr "Riksarkivets logo"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:80
 msgid "To Riksantikvaren"
-msgstr ""
+msgstr "Til Riksantikvarens hjemmeside"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:81
 msgid "Riksantikvaren logo"
-msgstr ""
+msgstr "Riksantikvarens logo"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:87
 msgid "To Kulturradet"
-msgstr ""
+msgstr "Til Kulturrådets hjemmeside"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:88
 msgid "Kulturradet logo"
-msgstr ""
+msgstr "Kulturrådets logo"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:92
 msgid "To Kartverket"
-msgstr ""
+msgstr "Til Kartverkets hjemmeside"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:93
 msgid "Kartverket logo"
-msgstr ""
+msgstr "Kartverkets logo"
 
 #: project/ajapaik/templates/_header.html:6
 msgid "Back to homepage"
@@ -581,12 +587,12 @@ msgstr "Tilbake til hjemmeside"
 #: project/ajapaik/templates/base_bootstrap.html:199
 #: project/ajapaik/views.py:593
 msgid "Fotodugnad"
-msgstr ""
+msgstr "Fotodugnad"
 
 #: project/ajapaik/templates/_header.html:24
 #: project/ajapaik/templates/_mode_select.html:10
 msgid "Click to choose"
-msgstr ""
+msgstr "Klikk for å velge"
 
 #: project/ajapaik/templates/_header.html:27
 #: project/ajapaik/templates/_photo_modal.html:176
@@ -643,7 +649,7 @@ msgstr "Toppliste"
 
 #: project/ajapaik/templates/_header.html:107
 msgid "Edit profile"
-msgstr ""
+msgstr "Rediger profil"
 
 #: project/ajapaik/templates/_header.html:121
 msgid "Toggle navigation"
@@ -670,7 +676,7 @@ msgstr "Vis på kart"
 
 #: project/ajapaik/templates/_header.html:166
 msgid "Add photos"
-msgstr ""
+msgstr "Legg til foto"
 
 #: project/ajapaik/templates/_header.html:173
 msgid "Current selection"
@@ -682,11 +688,11 @@ msgstr "Velg språk"
 
 #: project/ajapaik/templates/_header.html:203
 msgid "About Fotodugnad"
-msgstr ""
+msgstr "Om Fotodugnad"
 
 #: project/ajapaik/templates/_header.html:209
 msgid "Fotodugnad on Facebook"
-msgstr ""
+msgstr "Fotodugnad på Facebook"
 
 #: project/ajapaik/templates/_header.html:228
 msgid "Search"
@@ -727,7 +733,7 @@ msgstr "Fjern valg"
 
 #: project/ajapaik/templates/_header.html:296
 msgid "Submit selection to Fotodugnad"
-msgstr ""
+msgstr "Last opp utvalg til Fotodugnad"
 
 #: project/ajapaik/templates/_info_modal_content.html:14
 #: project/ajapaik/templates/_info_modal_content.html:21
@@ -1099,7 +1105,7 @@ msgstr "Hjem"
 
 #: project/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:7
 msgid "Upload The Digital Archives of Norway photos via CSV file"
-msgstr ""
+msgstr "Opplasting av norske foto via CSV"
 
 #: project/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:15
 msgid "Album ID"
@@ -1146,6 +1152,8 @@ msgid ""
 "Curate historic photos from museums into Fotodugnad for geotagging and "
 "rephotographing"
 msgstr ""
+"Kuratering av historiske foto fra museumssamlinger, for opplasting til "
+"Fotodugnad"
 
 #: project/ajapaik/templates/base_bootstrap.html:47
 #: project/ajapaik/templates/base_bootstrap.html:49
@@ -1221,11 +1229,11 @@ msgstr "tilbakemelding"
 
 #: project/ajapaik/templates/base_bootstrap.html:292
 msgid "Fotodugnad uses the Ajapaik platform"
-msgstr ""
+msgstr "Fotodugnad bruke Ajapaik-platformen"
 
 #: project/ajapaik/templates/base_bootstrap.html:293
 msgid "Ajapaik logo"
-msgstr "Ajapaik logo"
+msgstr "Ajapaiks logo"
 
 #: project/ajapaik/templates/base_bootstrap.html:421
 msgid ""
@@ -1252,6 +1260,8 @@ msgid ""
 "Your photos have now been added to Fotodugnad and can be interacted with as "
 "usual."
 msgstr ""
+"Dine foto har nå blitt lagt til Fotodugnad og er tilgjengelig på vanlig "
+"måte."
 
 #: project/ajapaik/templates/curator.html:26
 msgid "Points awarded for curating"
@@ -1392,7 +1402,7 @@ msgstr "Du kan endre rekkefølge på bilder ved å dra og slippe"
 
 #: project/ajapaik/templates/photo_upload_choice.html:13
 msgid "Select"
-msgstr ""
+msgstr "Velg"
 
 #: project/ajapaik/templates/photoview.html:20
 #: project/ajapaik/templates/photoview.html:21
@@ -1433,7 +1443,7 @@ msgstr "Lenke"
 
 #: project/ajapaik/templates/registration/activation_email_subject.txt:3
 msgid "Activate your account at fotodugnad.ra.no"
-msgstr ""
+msgstr "Aktiver kontoen din på fotodugnad.ra.no"
 
 #: project/ajapaik/templates/registration/login.html:13
 #: project/ajapaik/templates/registration/login.html:15
@@ -1467,7 +1477,7 @@ msgstr "Registreringsskjema"
 
 #: project/ajapaik/templates/registration/resend_activation_email_form.html:9
 msgid "Resend activation e-mail"
-msgstr ""
+msgstr "Send aktiveringsepost på nytt"
 
 #: project/ajapaik/templates/user_upload.html:18
 #, python-format
@@ -1478,18 +1488,22 @@ msgid ""
 "target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-"
 "BY-SA)</a>."
 msgstr ""
+"Jeg, %(user)s, rettighetshaveren for dette verket, tillater bruk av dette "
+"verket under lisensen  <a href=\"https://creativecommons.org/licenses/by-"
+"sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 "
+"license (CC-BY-SA)</a>."
 
 #: project/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
-msgstr ""
+msgstr "Last opp og merk på kartet"
 
 #: project/ajapaik/templates/user_upload_add_album.html:22
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: project/ajapaik/views.py:408
 msgid "Non-authenticated user"
-msgstr ""
+msgstr "Ikke-autentisert bruker"
 
 #: project/ajapaik/views.py:527
 msgid "Geotagging game"
@@ -1536,10 +1550,12 @@ msgid ""
 "Search for old photos, add them to Fotodugnad, determine their locations and"
 " share the resulting album!"
 msgstr ""
+"Søk etter gamle bilder, legg dem til Fotodugnad, plasser dem på kart og del "
+"albumet!"
 
 #: project/ajapaik/views.py:1737
 msgid "Fotodugnad - curate"
-msgstr ""
+msgstr "Fotodugnad - kuratering"
 
 #: project/ajapaik/views.py:1981
 msgid "OK"
@@ -1551,7 +1567,7 @@ msgstr "Feil ved opplasting av fil"
 
 #: project/ajapaik/views.py:2043
 msgid "Photo already exists in Fotodugnad"
-msgstr ""
+msgstr "Fotoet finnes allerede i fotodugnad"
 
 #: project/ajapaik/views.py:2057
 msgid "Please add photos to your album"
@@ -1563,8 +1579,8 @@ msgstr "Ikke tilstrekkelig med data sendt inn"
 
 #: project/ajapaik/views.py:2395
 msgid "Photo uploaded"
-msgstr ""
+msgstr "Foto lastet opp"
 
 #: project/ajapaik/views.py:2413
 msgid "Album created"
-msgstr ""
+msgstr "Album opprettet"

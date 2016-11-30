@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
-# Håvard Johansen <havardgj@gmail.com>, 2016
+# Lauri Elias <laurileet@gmail.com>, 2016
+# Vemund Olstad <vemund.olstad@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Ajapaik\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-25 10:12+0100\n"
-"PO-Revision-Date: 2016-04-26 11:35+0000\n"
-"Last-Translator: Håvard Johansen <havardgj@gmail.com>\n"
-"Language-Team: Norwegian (https://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/no/)\n"
-"Language: no\n"
+"PO-Revision-Date: 2014-05-21 18:15+0000\n"
+"Last-Translator: Vemund Olstad <vemund.olstad@gmail.com>, 2016\n"
+"Language-Team: Norwegian (https://www.transifex.com/riksantikvaren/teams/69465/no/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
@@ -208,16 +209,12 @@ msgid "Remove from selection"
 msgstr "Fjern fra utvalg"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-#, fuzzy
-#| msgid ""
-#| "Picture is already in Ajapaik. You can still add it to your album, no "
-#| "curation points awarded"
 msgid ""
 "Picture is already in Fotodugnad. You can still add it to your album, no "
 "curation points awarded"
 msgstr ""
-"Bildet er allerede i Ajapaik. Du kan fremdeles legge det til ditt album, men "
-"får ingen poeng for utvalg"
+"Bildet finnes allerede i Fotodugnad. Du kan fortsatt legge det til i ditt "
+"album, men du vil ikke få poeng for kuratering av dette bildet"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid ""
@@ -528,17 +525,17 @@ msgid ""
 "view. Click on the map to unlock the direction, drag map to correct the "
 "location."
 msgstr ""
-"Klikk på den grønne knappen for å lagre lokasjon og retning. Klikk på kartet "
-"for å låse opp retning og dra kartet til den korrekte lokasjonen."
+"Klikk på den grønne knappen for å lagre lokasjon og retning. Klikk på kartet"
+" for å låse opp retning og dra kartet til den korrekte lokasjonen."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:901
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
 msgid ""
-"Click on the map to lock the direction of the view or click yellow button to "
-"save only the location."
+"Click on the map to lock the direction of the view or click yellow button to"
+" save only the location."
 msgstr ""
-"Klikk på kartet for å låse retning eller klikk på den gule knappen for å kun "
-"lagre lokasjon."
+"Klikk på kartet for å låse retning eller klikk på den gule knappen for å kun"
+" lagre lokasjon."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:908
 msgid ""
@@ -569,8 +566,8 @@ msgid ""
 "Drag the map so that the marker is on top of the object you see on the "
 "picture, click save when ready."
 msgstr ""
-"Dra kartet slik at markøren er over objektet du ser på bildet og klikk Lagre "
-"når du er ferdig."
+"Dra kartet slik at markøren er over objektet du ser på bildet og klikk Lagre"
+" når du er ferdig."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1072
 msgid "Points awarded"
@@ -586,22 +583,4 @@ msgstr "Aktiver albumfilter"
 
 #: project/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
-msgstr ""
-
-#~ msgid "Vanalinnad"
-#~ msgstr "Vanalinnad"
-
-#~ msgid "zoom in more to view markers."
-#~ msgstr "zoom inn for å vise markører."
-
-#~ msgid "Unable to get location data"
-#~ msgstr "Kan ikke hente lokasjonsdata"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Er du sikker?"
-
-#~ msgid "Sending failed"
-#~ msgstr "Feil ved sending"
-
-#~ msgid "Cannot delete tour, has rephotos or does not belong to you."
-#~ msgstr "Kan ikke slette tur, den har refoto eller tilhørere ikke deg."
+msgstr "'"
