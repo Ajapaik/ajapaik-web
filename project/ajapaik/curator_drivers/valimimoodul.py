@@ -33,7 +33,7 @@ class ValimimoodulDriver(object):
             institution_string += ',null'
         if cleaned_data['useETERA']:
             etera_string = 'ETERA'
-            institution_string = 'null,null,null'
+            institution_string = 'null,null,null,null'
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},' \
                          '"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":"%s"},' \
                          '"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200,' \
