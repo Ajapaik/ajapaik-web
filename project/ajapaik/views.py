@@ -2132,6 +2132,7 @@ def curator_photo_upload_handler(request):
                                                                  album=b)
                                     points_for_curating.save()
                                     awarded_curator_points.append(points_for_curating)
+                                    all_curating_points.append(points_for_curating)
                             ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
                                             type=AlbumPhoto.CURATED)
                             ap.save()
