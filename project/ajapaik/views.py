@@ -1426,7 +1426,7 @@ def geotag_add(request):
         new_geotag.trustworthiness = trust
         tagged_photo = submit_geotag_form.cleaned_data['photo']
         if 'photo_flipped' in submit_geotag_form.cleaned_data:
-            photo_flipped = submit_geotag_form.cleaned_data['photo_flipped']
+            photo_flipped = submit_geotag_form.cleaned_data['photo_flipped'] is True
             if tagged_photo.flip is None:
                 tagged_photo.flip = False
             # user flips, photo is flipped -> flip back
