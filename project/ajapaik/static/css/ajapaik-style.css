@@ -2795,7 +2795,7 @@ a[href^="https://maps.google.com/maps"] {
 #fotodugnad-footer-ajapaik-logo {
     position: static;
     display: block;
-    margin-left: 300px;
+    float: right;
     margin-top: -30px;
 }
 
