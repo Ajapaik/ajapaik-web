@@ -564,6 +564,10 @@ class Photo(Model):
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
             self.reverse_geocode_location()
+        if self.flip is None:
+            self.flip = False
+        if self.original_flip is None:
+            self.original_flip = False
         if self.flip != self.original_flip:
             self.do_flip()
         self.original_lat = self.lat
