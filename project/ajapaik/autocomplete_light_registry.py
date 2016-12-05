@@ -110,7 +110,7 @@ al.register(GeoTag,
 class AlbumAutocomplete(AutocompleteModelBase):
     model = Album
     name = 'AlbumAutocomplete'
-    search_fields = ['pk', 'name']
+    search_fields = ['pk', 'name_en', 'name_et', 'name_fi', 'name_nl', 'name_ru', 'name_sv', 'name_no', 'name_de']
     limit_choices = 100
     attrs={
         'data-autocomplete-minimum-characters': 2,
@@ -126,7 +126,7 @@ al.register(AlbumAutocomplete)
 class PublicAlbumAutocomplete(AutocompleteModelBase):
     model = Album
     name = 'PublicAlbumAutocomplete'
-    search_fields=['pk', 'name']
+    search_fields=['pk', 'name_en', 'name_et', 'name_fi', 'name_nl', 'name_ru', 'name_sv', 'name_no', 'name_de']
     limit_choices=100
     attrs={
         'data-autocomplete-minimum-characters': 2,
