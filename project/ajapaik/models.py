@@ -914,6 +914,7 @@ class Profile(Model):
     google_plus_picture = CharField(max_length=255, null=True, blank=True)
 
     modified = DateTimeField(auto_now=True)
+    deletion_attempted = DateTimeField(blank=True, null=True)
 
     score = PositiveIntegerField(default=0)
     score_rephoto = PositiveIntegerField(default=0)
