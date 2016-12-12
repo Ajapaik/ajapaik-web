@@ -121,6 +121,13 @@
                         </div>
                     </div>
                 {% endif %}
+                {% if photo.description %}
+                    <div class="row-fluid hidden-xs" id="ajapaik-photo-modal-description-2">
+                        <div title="{{ photo.description }}">
+                            {{ photo.description }}
+                        </div>
+                    </div>
+                {% endif %}
                 {% if photo.date %}
                     <div class="row-fluid">
                         {{ photo.date }}

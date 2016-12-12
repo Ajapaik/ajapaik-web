@@ -65,6 +65,11 @@
                             {{ photo.title }}
                         </div>
                     {% endif %}
+                    {% if photo.description %}
+                        <div class="row-fluid">
+                            {{ photo.description }}
+                        </div>
+                    {% endif %}
                     {% if photo.date %}
                         <div class="row-fluid">
                             {{ photo.date }}
