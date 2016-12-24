@@ -830,9 +830,9 @@
             google.maps.event.trigger(this.map, 'resize');
             this.map.setCenter(new google.maps.LatLng(options.startLat, options.startLng));
             this.map.setZoom(16);
-            if (options.photoFlipped) {
-                this.flipImages();
-            }
+            // if (options.photoFlipped) {
+            //     this.flipImages();
+            // }
         },
         radiansToDegrees: function (rad) {
             var ret = rad * (180 / Math.PI);

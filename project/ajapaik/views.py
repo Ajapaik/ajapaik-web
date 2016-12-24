@@ -1426,7 +1426,7 @@ def geotag_add(request):
         new_geotag.trustworthiness = trust
         tagged_photo = submit_geotag_form.cleaned_data['photo']
         if 'photo_flipped' in submit_geotag_form.cleaned_data:
-            photo_flipped = submit_geotag_form.cleaned_data['photo_flipped']
+            photo_flipped = submit_geotag_form.cleaned_data['photo_flipped'] is True
             if tagged_photo.flip is None:
                 tagged_photo.flip = False
             # user flips, photo is flipped -> flip back
@@ -2132,6 +2132,7 @@ def curator_photo_upload_handler(request):
                                                                  album=b)
                                     points_for_curating.save()
                                     awarded_curator_points.append(points_for_curating)
+                                    all_curating_points.append(points_for_curating)
                             ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
                                             type=AlbumPhoto.CURATED)
                             ap.save()

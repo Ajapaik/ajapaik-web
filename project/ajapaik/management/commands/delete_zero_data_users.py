@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.management import BaseCommand
 
 from project.ajapaik.models import Profile
@@ -19,15 +21,17 @@ class Command(BaseCommand):
                                           google_plus_name__isnull=True, google_plus_token__isnull=True,
                                           google_plus_picture__isnull=True, first_name__isnull=True,
                                           last_name__isnull=True, likes__isnull=True, tour_groups__isnull=True,
-                                          owned_tours__isnull=True, tour_rephotos__isnull=True, tour_views__isnull=True)
+                                          owned_tours__isnull=True, tour_rephotos__isnull=True, tour_views__isnull=True,
+                                          deletion_attempted__isnull=True)
         start = 0
         end = 10000
-        while end < 8000000:
+        while end < 2000000:
             profiles_slice = profiles[start:end]
             for each in profiles_slice:
                 try:
                     each.user.delete()
                 except:
-                    pass
+                    each.deletion_attempted = datetime.datetime.now()
+                    each.save()
             start += 10000
             end += 10000

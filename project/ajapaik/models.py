@@ -564,6 +564,10 @@ class Photo(Model):
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
             self.reverse_geocode_location()
+        if self.flip is None:
+            self.flip = False
+        if self.original_flip is None:
+            self.original_flip = False
         if self.flip != self.original_flip:
             self.do_flip()
         self.original_lat = self.lat
@@ -910,6 +914,7 @@ class Profile(Model):
     google_plus_picture = CharField(max_length=255, null=True, blank=True)
 
     modified = DateTimeField(auto_now=True)
+    deletion_attempted = DateTimeField(blank=True, null=True)
 
     score = PositiveIntegerField(default=0)
     score_rephoto = PositiveIntegerField(default=0)
