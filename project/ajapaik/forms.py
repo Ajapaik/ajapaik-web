@@ -268,7 +268,7 @@ class UserPhotoUploadForm(autocomplete_light.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ('image', 'description', 'author', 'uploader_is_author', 'licence', 'albums')
+        fields = ('image', 'title', 'description', 'author', 'uploader_is_author', 'licence', 'albums')
         widgets = {
             'description': forms.Textarea(attrs={'rows': 1, 'cols': 40}),
         }
@@ -277,6 +277,8 @@ class UserPhotoUploadForm(autocomplete_light.ModelForm):
         super(UserPhotoUploadForm, self).clean()
         if not self.cleaned_data.get('image'):
             self.errors['image'] = [_('Missing image')]
+        if not self.cleaned_data.get('title'):
+            self.errors['title'] = [_('Missing title')]
         if not self.cleaned_data.get('description'):
             self.errors['description'] = [_('Missing description')]
         if not self.cleaned_data.get('uploader_is_author') and not self.cleaned_data.get('licence'):
