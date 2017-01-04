@@ -483,7 +483,7 @@ var map,
     updateLeaderboard = function () {
         var target = $('.score_container');
         if (window.albumId) {
-            target.find('.scoreboard').load(leaderboardUpdateURL + 'album/' + window.albumId);
+            target.find('.scoreboard').load(leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
             target.find('.scoreboard').load(leaderboardUpdateURL);
         }
@@ -1187,7 +1187,7 @@ var map,
         e.preventDefault();
         var url = window.leaderboardFullURL;
         if (window.albumId) {
-            url += 'album/' + window.albumId;
+            url += 'album/' + window.albumId + '/';
         }
         $.ajax({
             url: url,
