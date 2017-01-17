@@ -1987,13 +1987,19 @@ def curator_photo_upload_handler(request):
             is_public=False,
         )
         default_album.save()
-        licence = Licence.objects.get(url="https://creativecommons.org/licenses/by-sa/4.0/")
+        # 15 => unknown copyright
+        unknown_licence = Licence.objects.get(pk=15)
+        flickr_licence = Licence.objects.get(url='https://www.flickr.com/commons/usage/')
         for k, v in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
             awarded_curator_points = []
             if upload_form.is_valid():
                 if upload_form.cleaned_data["institution"]:
+                    if upload_form.cleaned_data["institution"] == 'Flickr Commons':
+                        licence = flickr_licence
+                    else:
+                        licence = unknown_licence
                     upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]
                     if upload_form.cleaned_data["institution"] == "ETERA":
                         upload_form.cleaned_data["institution"] = 'TLÜAR ETERA'
@@ -2006,6 +2012,7 @@ def curator_photo_upload_handler(request):
                         )
                         source.save()
                 else:
+                    licence = unknown_licence
                     source = Source.objects.get(name="AJP")
                 existing_photo = None
                 if upload_form.cleaned_data["id"] and upload_form.cleaned_data["id"] != "":
