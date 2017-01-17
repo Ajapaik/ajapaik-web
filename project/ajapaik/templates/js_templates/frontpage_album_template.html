@@ -6,6 +6,7 @@
                  data-photos="{%=o.photo_count_with_subalbums%}" width="{%=o.cover_photo_width%}"
                  src="{%=photoThumbURL%}{%=o.cover_photo%}/400/">
             <div class="caption ajapaik-caption-album-selection">
+                <i class="material-icons notranslate pull-left">photo_album</i>
                 <p class="ajapaik-caption-album-selection-album-title" title="{%=o.name%}">{%=o.name%}</p>
                 {% if (o.is_film_still_album) { %}
                     <div class="ajapaik-album-selection-film-icon" title="{%=gettext('This album contains a film')%}">

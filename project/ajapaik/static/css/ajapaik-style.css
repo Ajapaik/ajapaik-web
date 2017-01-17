@@ -229,6 +229,7 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     margin-right: 90px !important;
+    font-weight: bold;
 }
 
 .ajapaik-caption-album-selection {
@@ -238,6 +239,12 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    max-height: 100%;
+}
+
+.ajapaik-caption-album-selection > i {
+    font-size: 20px;
+    margin-right: 5px;
 }
 
 .ajapaik-brand {
@@ -2643,6 +2650,7 @@ a[href^="https://maps.google.com/maps"] {
 
 .ajapaik-album-selection-caption-bottom {
     width: 100%;
+    height: 100%;
 }
 
 .ajapaik-album-selection-map-button {
@@ -2682,6 +2690,7 @@ a[href^="https://maps.google.com/maps"] {
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: bold;
 }
 
 .ajapaik-album-selection-album-more-button {
