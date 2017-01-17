@@ -2839,3 +2839,15 @@ a[href^="https://maps.google.com/maps"] {
 #ajapaik-header-arrow-drop-down {
     font-size: 18px;
 }
+
+#ajapaik-photo-modal-source {
+    display: inline-block;
+}
+
+#ajapaik-photo-modal-fb-like-container {
+    margin-top: 5px;
+}
+
+#ajapaik-photo-modal-like {
+    margin-top: 5px;
+}

@@ -111,9 +111,6 @@
                 {% if photo.author %}
                     <div class="row-fluid" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
                 {% endif %}
-                {% if not photo.source and photo.licence %}
-                    {% include "_licence.html" with licence=photo.licence %}
-                {% endif %}
                 {% if photo.description %}
                     <div class="row-fluid" id="ajapaik-photo-modal-description">
                         <div title="{{ photo.description }}">
@@ -134,21 +131,24 @@
                         {{ photo.date_text }}
                     </div>
                 {% endif %}
-                {% if photo.source_url %}
-                    <div class="row-fluid" id="ajapaik-photo-modal-source">
-                        <a href='{{ photo.source_url }}'
-                           target="_blank">
-                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                            {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-                        </a>
-                    </div>
-                {% elif photo.source.description %}
-                    <div class="row-fluid" id="ajapaik-photo-modal-source">
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                        {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-                    </div>
-                {% endif %}
                 <div class="row-fluid">
+                    {% if photo.licence %}
+                            {% include "_licence.html" with licence=photo.licence %}
+                    {% endif %}
+                    {% if photo.source_url %}
+                        <div id="ajapaik-photo-modal-source">
+                            <a href='{{ photo.source_url }}'
+                               target="_blank">
+                                {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                            </a>
+                        </div>
+                    {% elif photo.source.description %}
+                        <div id="ajapaik-photo-modal-source">
+                            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row-fluid" id="ajapaik-photo-modal-fb-like-container">
                     <div class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
                          data-layout="standard" data-action="like" data-show-faces="true"
                          data-share="true"></div>
