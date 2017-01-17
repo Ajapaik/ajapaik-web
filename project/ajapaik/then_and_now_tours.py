@@ -221,6 +221,7 @@ def user_has_confirmed_email(user):
     else:
         if not user.email:
             ok = False
+
     return ok and user.is_active
 
 
