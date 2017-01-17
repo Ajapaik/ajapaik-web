@@ -826,8 +826,9 @@ class FacebookManager(Manager):
             return None, data,
 
 
-def profile_is_legit(profile):
-    assert isinstance(profile, Profile)
+def profile_is_legit(user):
+    assert isinstance(user, User)
+    profile = user.profile
     ok = True
     if not hasattr(profile.user, 'email') and not hasattr(profile, 'fb_id') and not hasattr(profile, 'google_plus_id'):
         ok = False
