@@ -2082,17 +2082,17 @@ def curator_photo_upload_handler(request):
                                 img = Image.open(photo_path)
                                 inverted_grayscale_image = ImageOps.invert(img).convert('L')
                                 inverted_grayscale_image.save(photo_path)
-                            if new_photo.flip:
-                                photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
-                                img = Image.open(photo_path)
-                                flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
-                                flipped_image.save(photo_path)
                             if new_photo.rotated > 0:
                                 photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
                                 img = Image.open(photo_path)
                                 rot = img.rotate(new_photo.rotated, expand=1)
                                 rot.save(photo_path)
                                 new_photo.width, new_photo.height = rot.size
+                            if new_photo.flip:
+                                photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+                                img = Image.open(photo_path)
+                                flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
+                                flipped_image.save(photo_path)
                             ret["photos"][k] = {}
                             ret["photos"][k]["message"] = _("OK")
                             lat = upload_form.cleaned_data["latitude"]
