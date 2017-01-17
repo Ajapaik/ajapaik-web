@@ -826,15 +826,16 @@ class FacebookManager(Manager):
             return None, data,
 
 
-def user_has_confirmed_email(user):
+def profile_is_legit(profile):
+    assert isinstance(profile, Profile)
     ok = True
-    if not hasattr(user, 'email'):
+    if not hasattr(profile.user, 'email') and not hasattr(profile, 'fb_id') and not hasattr(profile, 'google_plus_id'):
         ok = False
     else:
-        if not user.email:
+        if not profile.user.email and not profile.fb_id and not profile.google_plus_id:
             ok = False
 
-    return ok and user.is_active
+    return ok and profile.user.is_active
 
 
 class Profile(Model):

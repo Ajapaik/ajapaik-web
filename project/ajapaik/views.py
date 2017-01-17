@@ -49,7 +49,7 @@ from project.ajapaik.forms import AddAlbumForm, AlbumSelectionForm, \
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, ResendActivationEmailForm, EditProfileForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
-    Dating, DatingConfirmation, user_has_confirmed_email, Country, County, Municipality
+    Dating, DatingConfirmation, profile_is_legit, Country, County, Municipality
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
@@ -2369,7 +2369,7 @@ def photo_upload_choice(request):
     return render_to_response('photo_upload_choice.html', RequestContext(request, ret))
 
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
+@user_passes_test(profile_is_legit, login_url='/accounts/login/?next=user-upload')
 def user_upload(request):
     ret = {}
     if request.method == 'POST':
@@ -2400,7 +2400,7 @@ def user_upload(request):
     return render_to_response('user_upload.html', RequestContext(request, ret))
 
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
+@user_passes_test(profile_is_legit, login_url='/accounts/login/?next=user-upload-add-album')
 def user_upload_add_album(request):
     ret = {}
     if request.method == 'POST':
@@ -2458,7 +2458,7 @@ def resend_activation_email(request):
     return render(request, 'registration/resend_activation_email_form.html', RequestContext(request, context))
 
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
+@user_passes_test(profile_is_legit, login_url='/accounts/login/?next=user-upload-add-album')
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user.profile)
