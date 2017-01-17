@@ -23,17 +23,17 @@ class Command(BaseCommand):
             first = True
             for p in photo_batch:
                 if first:
-                    or_clause += "https://ajapaik.ee/foto/" + str(p.id)
+                    or_clause += "https://ajapaik.ee/foto/" + str(p.id) + '/'
                     first = False
                 else:
-                    or_clause += ",https://ajapaik.ee/foto/" + str(p.id)
+                    or_clause += ",https://ajapaik.ee/foto/" + str(p.id) + '/'
             if len(or_clause) > 4:
                 response = json.loads(requests.get(
                     'https://graph.facebook.com/v2.3/?format=json&access_token=%s&%s' % (
                         APP_ID + '|' + settings.FACEBOOK_APP_SECRET, or_clause)).text)
                 for k, v in response.items():
                     if 'og_object' in v:
-                        photo_id = k.split('/')[-1]
+                        photo_id = k.split('/')[-2]
                         photo = photos.get(pk=photo_id)
                         photo.fb_object_id = v['og_object']['id']
                         photo.light_save()
@@ -78,8 +78,12 @@ class Command(BaseCommand):
                                 new_photo_comment.save()
                         photo = Photo.objects.filter(fb_object_id=k).first()
                         photo.fb_comments_count = len(v['data'])
-                        photo.first_comment = photo.comments.order_by('created').first().created
-                        photo.latest_comment = photo.comments.order_by('created').last().created
+                        first_comment = photo.comments.order_by('created').first()
+                        if first_comment:
+                            photo.first_comment = first_comment.created
+                        latest_comment = photo.comments.order_by('created').last()
+                        if latest_comment:
+                            photo.latest_comment = latest_comment.created
                         photo.light_save()
                         for each in photo.albums.all():
                             each.comments_count_with_subalbums = each.get_comment_count_with_subalbums()

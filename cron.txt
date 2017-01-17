@@ -1,7 +1,7 @@
 Put this into crontab
 
 0 4 * * * cd /var/garage/rephoto && /opt/python2712/bin/python2.7 project/manage.py refresh_albums
-30 4 * * * cd /var/garage/rephoto && /opt/python2712/bin/python2.7 project/manage.py get_fb_comments
+05 4 * * * cd /var/garage/rephoto && /opt/python2712/bin/python2.7 project/manage.py get_fb_comments
 45 4 * * * cd /var/garage/rephoto && /opt/python2712/bin/python2.7 project/manage.py set_latest_and_earliest_comment_and_comment_count_for_all_photos
 0 5 * * * cd /var/garage/rephoto && /opt/python2712/bin/python2.7 project/manage.py clearsessions
 05 5 * * * cd /var/garage/sift && /opt/python2712/bin/python2.7 project/manage.py clearsessions
