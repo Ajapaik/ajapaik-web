@@ -69,7 +69,7 @@
                 {% if is_frontpage and not album %}
                     {% include "_mode_select.html" %}
                     <li class="pull-left">
-                        <input type="text" class="form-control" id="ajapaik-album-filter-box"
+                        <input type="search" class="form-control" id="ajapaik-album-filter-box"
                                placeholder="{% trans "Search album" %}"/>
                     </li>
                 {% endif %}
@@ -124,7 +124,7 @@
             <!-- pull-right keeps the drop-down in line -->
             <ul class="nav navbar-nav pull-right">
                 <li class="pull-left">
-                    <input type="text" class="form-control" id="ajapaik-photo-filter-box"
+                    <input type="search" class="form-control" id="ajapaik-photo-filter-box"
                            {% if not show_photos %}style="display: none;"{% endif %}
                            placeholder="{% trans "Search photos" %}"/>
                 </li>

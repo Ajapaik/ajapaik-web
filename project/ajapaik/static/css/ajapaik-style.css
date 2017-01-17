@@ -2851,3 +2851,10 @@ a[href^="https://maps.google.com/maps"] {
 #ajapaik-photo-modal-like {
     margin-top: 5px;
 }
+
+input[type="search"] {
+  -webkit-appearance: searchfield;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+}
