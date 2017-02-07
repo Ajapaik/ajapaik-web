@@ -1400,7 +1400,7 @@ class MyXtdComment(XtdComment):
         if photo:
             if not photo.first_comment:
                 photo.first_comment = self.submit_date
-            if not photo.last_comment or photo.last_comment < self.submit_date:
+            if not photo.latest_comment or photo.latest_comment < self.submit_date:
                 photo.latest_comment = self.submit_date
             photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk).count()
             photo.light_save()
