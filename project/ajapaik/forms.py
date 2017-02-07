@@ -1,10 +1,11 @@
 import autocomplete_light
 from django import forms
 from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
+from django_comments_xtd.forms import XtdCommentForm
+from haystack.forms import SearchForm
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence
-from django.utils.translation import ugettext_lazy as _
-from haystack.forms import SearchForm
 
 
 class APILoginForm(forms.Form):
@@ -47,10 +48,10 @@ class GalleryFilteringForm(forms.Form):
     order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time',
                                required=False)
     order2 = forms.ChoiceField(
-            choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
-                     ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')],
-            initial='added',
-            required=False)
+        choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
+                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')],
+        initial='added',
+        required=False)
     order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
@@ -132,7 +133,7 @@ class GameNextPhotoForm(forms.Form):
 
 class CuratorAlbumSelectionForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.filter(
-            atype=Album.CURATED
+        atype=Album.CURATED
     ), label=_('Choose album'))
 
     # Should do ownership checking here, but it seems to be left to hacks
@@ -147,8 +148,8 @@ class CuratorAlbumEditForm(forms.Form):
     open = forms.BooleanField(initial=False, required=False)
     is_public = forms.BooleanField(initial=False, required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-            atype=Album.CURATED, subalbum_of__isnull=True,
-            is_public=True, open=True
+        atype=Album.CURATED, subalbum_of__isnull=True,
+        is_public=True, open=True
     ), label=_('Choose parent album'), required=False)
     areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
@@ -166,8 +167,8 @@ class AddAlbumForm(forms.Form):
     open = forms.BooleanField(required=False, initial=False)
     is_public = forms.BooleanField(initial=False, required=False)
     parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-            atype=Album.CURATED, subalbum_of__isnull=True,
-            is_public=True, open=True
+        atype=Album.CURATED, subalbum_of__isnull=True,
+        is_public=True, open=True
     ), label=_('Choose parent album'), required=False)
 
 
@@ -214,8 +215,6 @@ class ApiRegisterForm(forms.Form):
 
 
 class SubmitGeotagForm(forms.ModelForm):
-    photo_flipped = forms.BooleanField(initial=False, required=False)
-
     class Meta:
         model = GeoTag
         exclude = ('user', 'trustworthiness')
@@ -317,7 +316,8 @@ class PhotoUploadChoiceForm(forms.Form):
 
 class UserPhotoUploadForm(autocomplete_light.ModelForm):
     albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
-    licence = forms.ModelChoiceField(label=_('Licence'), queryset=Licence.objects.filter(is_public=True), required=False)
+    licence = forms.ModelChoiceField(label=_('Licence'), queryset=Licence.objects.filter(is_public=True),
+                                     required=False)
     uploader_is_author = forms.BooleanField(label=_('I am the author'), required=False)
 
     class Meta:
@@ -348,7 +348,7 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.profile = kwargs.pop('profile', None)
         super(UserPhotoUploadAddAlbumForm, self).__init__(*args, **kwargs)
         self.fields['subalbum_of'].label = _('Parent album')
-        self.fields['subalbum_of'].queryset = Album.objects.filter(atype=Album.CURATED)\
+        self.fields['subalbum_of'].queryset = Album.objects.filter(atype=Album.CURATED) \
             .filter(Q(open=True) | Q(profile=self.profile))
         self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
         self.fields['lat'].widget = forms.HiddenInput()

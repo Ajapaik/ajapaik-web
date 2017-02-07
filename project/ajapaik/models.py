@@ -31,6 +31,7 @@ from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
 from django.utils.dateformat import DateFormat
 from django.utils.translation import ugettext as _
+from django_comments_xtd.models import XtdComment
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
@@ -242,10 +243,10 @@ class Album(Model):
         return qs.distinct('pk')
 
     def get_comment_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().filter(fb_comments_count__gt=0)
+        qs = self.get_all_photos_queryset_with_subalbums().filter(comment_count__gt=0)
         count = 0
         for each in qs:
-            count += each.fb_comments_count
+            count += each.comment_count
 
         return count
 
@@ -319,7 +320,7 @@ class Photo(Model):
     first_rephoto = DateTimeField(null=True, blank=True)
     latest_rephoto = DateTimeField(null=True, blank=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
-    fb_comments_count = IntegerField(default=0)
+    comment_count = IntegerField(null=True, blank=True)
     first_comment = DateTimeField(null=True, blank=True)
     latest_comment = DateTimeField(null=True, blank=True)
     view_count = PositiveIntegerField(default=0, db_index=True)
@@ -429,11 +430,11 @@ class Photo(Model):
                     user_incorrect_geotags = user_geotags_for_set.filter(is_correct=False)
                     user_correct_geotags = user_geotags_for_set.filter(is_correct=True)
                     user_incorrectly_geotagged_photo_ids = set(
-                            user_incorrect_geotags.distinct('photo_id').values_list('photo_id', flat=True))
+                        user_incorrect_geotags.distinct('photo_id').values_list('photo_id', flat=True))
                     user_correctly_geotagged_photo_ids = set(
-                            user_correct_geotags.distinct('photo_id').values_list('photo_id', flat=True))
+                        user_correct_geotags.distinct('photo_id').values_list('photo_id', flat=True))
                     user_no_correct_geotags_photo_ids = list(
-                            user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
+                        user_incorrectly_geotagged_photo_ids - user_correctly_geotagged_photo_ids)
                     ret_qs = all_photos_set.filter(id__in=user_no_correct_geotags_photo_ids).order_by('?')
                     if ret_qs.count() == 0:
                         ret_qs = all_photos_set.order_by('?')
@@ -471,6 +472,7 @@ class Photo(Model):
         return reverse('foto', args=(self.pk,))
 
     def do_flip(self):
+        # FIXME: Somehow fails silently?
         photo_path = MEDIA_ROOT + "/" + str(self.image)
         img = Image.open(photo_path)
         flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
@@ -548,9 +550,9 @@ class Photo(Model):
                 decoded_response = loads(response.text)
                 if decoded_response['status'] == 'OK' or decoded_response['status'] == 'ZERO_RESULTS':
                     GoogleMapsReverseGeocode(
-                            lat='{:.5f}'.format(lat),
-                            lon='{:.5f}'.format(lon),
-                            response=response.text
+                        lat='{:.5f}'.format(lat),
+                        lon='{:.5f}'.format(lon),
+                        response=response.text
                     ).save()
                 response = decoded_response
             if response['status'] == 'OK':
@@ -839,6 +841,7 @@ class GeoTag(Model):
     # geotagger_type = PositiveSmallIntegerField(choices=GEOTAGGER_TYPE_CHOICES, default=0)
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
+    photo_flipped = BooleanField(default=False)
     user = ForeignKey('Profile', related_name='geotags', null=True, blank=True)
     photo = ForeignKey('Photo', related_name='geotags')
     is_correct = BooleanField(default=False)
@@ -1028,7 +1031,7 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-                rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+            rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0
@@ -1050,11 +1053,11 @@ class Profile(Model):
                     Points.objects.get(action=Points.REPHOTO, photo=oldest_rephoto)
                 except ObjectDoesNotExist:
                     new_record = Points(
-                            user=oldest_rephoto.user,
-                            action=Points.REPHOTO,
-                            photo=oldest_rephoto,
-                            points=1250,
-                            created=oldest_rephoto.created
+                        user=oldest_rephoto.user,
+                        action=Points.REPHOTO,
+                        photo=oldest_rephoto,
+                        points=1250,
+                        created=oldest_rephoto.created
                     )
                     new_record.save()
             for rp in rephotos_by_this_user:
@@ -1070,11 +1073,11 @@ class Profile(Model):
                         Points.objects.get(action=Points.REPHOTO, photo=rp)
                     except ObjectDoesNotExist:
                         new_record = Points(
-                                user=rp.user,
-                                action=Points.REPHOTO,
-                                photo=rp,
-                                points=current_score,
-                                created=rp.created
+                            user=rp.user,
+                            action=Points.REPHOTO,
+                            photo=rp,
+                            points=current_score,
+                            created=rp.created
                         )
                         new_record.save()
                     user_rephoto_score += current_score
@@ -1388,3 +1391,16 @@ class Video(Model):
     @permalink
     def get_absolute_url(self):
         return 'project.ajapaik.views.videoslug', [self.id, self.slug]
+
+
+class MyXtdComment(XtdComment):
+    def save(self, **kwargs):
+        super(MyXtdComment, self).save(**kwargs)
+        photo = Photo.objects.filter(pk=self.object_pk).first()
+        if photo:
+            if not photo.first_comment:
+                photo.first_comment = self.submit_date
+            if not photo.last_comment or photo.last_comment < self.submit_date:
+                photo.last_comment = self.submit_date
+            photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk).count()
+            photo.light_save()

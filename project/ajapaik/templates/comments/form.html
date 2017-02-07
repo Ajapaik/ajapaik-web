@@ -1,0 +1,58 @@
+{% load i18n comments %}
+<form method="POST" data-comment-element="form" data-comment-id="{{ cid|default:'main' }}"
+      action="{% comment_form_target %}" class="form-horizontal">
+    {% csrf_token %}
+    <div class="hidden" data-comment-element="preview"></div>
+    <fieldset>
+        <!-- <legend>{% trans "Your comment" %}</legend> -->
+        {% if photo %}<div><input type="hidden" name="next" value="{{ photo.get_detail_url }}"/></div>{% elif next %}<div><input type="hidden" name="next" value="{{ next }}"/></div>{% endif %}
+        <div class="alert alert-danger hidden" data-comment-element="errors"></div>
+
+        {% for field in form %}
+            {% if field.is_hidden %}
+                <div>{{ field }}</div>{% endif %}
+        {% endfor %}
+
+        <div style="display:none">{{ form.honeypot }}</div>
+
+        <div class="form-group {% if 'comment' in form.errors %}has-error{% endif %}">
+            <div class="col-lg-12 col-md-12">
+                {{ form.comment }}
+            </div>
+        </div>
+
+        {% if not user.profile.is_legit %}
+            <div class="form-group {% if 'name' in form.errors %}has-error{% endif %}">
+                <label for="id_name" class="control-label col-lg-3 col-md-3">{{ form.name.label }}</label>
+                <div class="col-lg-7 col-md-7">
+                    {{ form.name }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if not user.profile.is_legit %}
+            <div class="form-group {% if 'email' in form.errors %}has-error{% endif %}">
+                <label for="id_email" class="control-label col-lg-3 col-md-3">{{ form.email.label }}</label>
+                <div class="col-lg-7 col-md-7">
+                    {{ form.email }}
+                    <span class="help-block">{{ form.email.help_text }}</span>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            <div class="col-lg-7 col-md-7">
+                <div class="checkbox">
+                    <label for="id_followup{% if cid %}_{{ cid }}{% endif %}">{{ form.followup }}&nbsp;&nbsp;{{ form.followup.label }}</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group">
+        <div class="col-lg-7 col-md-7">
+            <input type="submit" name="post" value="send" class="btn btn-primary"/>
+            <input type="submit" name="preview" value="preview" class="btn btn-default"/>
+        </div>
+    </div>
+</form>

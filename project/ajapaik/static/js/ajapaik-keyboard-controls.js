@@ -106,8 +106,9 @@
                             targets[0].click();
                         }
                     } else if (e.keyCode === 68) {
+                        // FIXME: Re-enable?
                         // d
-                        $('#ajapaik-photoview-start-dating-button').click();
+                        // $('#ajapaik-photoview-start-dating-button').click();
                     }
                 }
             }

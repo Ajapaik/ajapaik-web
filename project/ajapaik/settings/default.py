@@ -107,7 +107,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    #'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -175,6 +175,7 @@ CORE_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admindocs',
     'django.contrib.gis',
+    'django_comments'
 )
 
 LOCAL_APPS = (
@@ -190,7 +191,8 @@ EXTERNAL_APPS = (
     'haystack',
     'registration',
     'bootstrap3',
-    'django_bootstrap_dynamic_formsets'
+    'django_bootstrap_dynamic_formsets',
+    'django_comments_xtd'
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -248,3 +250,9 @@ THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT = 10
 
 AJAPAIK_BENEFICIARY_NAME = 'MTÜ EESTI FOTOPÄRAND'
 AJAPAIK_BENEFICIARY_ACCT = 'EE072200221048847282'
+
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 1
+# COMMENTS_XTD_CONFIRM_EMAIL = True
+# COMMENTS_XTD_FORM_CLASS = 'project.ajapaik.forms.MyCommentForm'
+COMMENTS_XTD_MODEL = 'project.ajapaik.models.MyXtdComment'

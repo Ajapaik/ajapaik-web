@@ -1,0 +1,27 @@
+{% load i18n comments comments_xtd %}
+
+<ul class="media-list" id="comments">
+    {% for comment in comment_list %}
+        <li class="media" id="c{{ comment.id }}"
+            style="margin-left:{{ comment.level }}00px; border-left:5px solid #ddd">
+            <div class="media-left">
+                <a href="{{ comment.url }}">
+                    {% if comment.user.profile.fb_id or comment.user.profile.google_plus_picture %}
+                        <img width="48" height="48"
+                             src="{% if comment.user.profile.fb_id %}https://graph.facebook.com/v2.3/{{ comment.user.profile.fb_id }}/picture?type=square{% elif comment.user.profile.google_plus_picture %}{{ comment.user.profile.google_plus_picture }}{% endif %}"/>
+                    {% else %}
+                        {{ comment.user_email|xtd_comment_gravatar }}
+                    {% endif %}
+                </a>
+            </div>
+            <div class="media-body">
+                <h6 class="media-heading">
+                    {{ comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
+                        {% if comment.allow_thread %}&nbsp;-&nbsp;
+                            <a href="{{ comment.get_reply_url }}">{% trans "Reply" %}</a>{% endif %}
+                </h6>
+                <p>{{ comment.comment|render_markup_comment }}</p>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

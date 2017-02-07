@@ -2020,6 +2020,11 @@ ul.errorlist {
 #ajapaik-photoview-container {
     margin-top: 20px;
     margin-left: 10px;
+    min-height: 2000px;
+}
+
+#ajapaik-photoview-comments-section {
+    margin-top: 20px;
 }
 
 #ajapaik-photoview-container .col-xs-6 {
@@ -2518,14 +2523,6 @@ a[href^="https://maps.google.com/maps"] {
     padding-left: 0 !important;
 }
 
-.fb_comments_count_zero {
-    display: none;
-}
-
-.fb_comments_count {
-    font-weight: bold;
-}
-
 #ajapaik-choose-albums-modal {
     z-index: 1999;
 }
@@ -2857,4 +2854,8 @@ input[type="search"] {
 }
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: searchfield-cancel-button;
+}
+
+#ajapaik-ev-100-media > .media-left > a > img {
+    width: 150px;
 }

@@ -248,9 +248,9 @@
                                title="{% trans "Add rephoto" %}">
                                 <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                             </a>
-                            <a id="ajapaik-photo-modal-discuss" title="{% trans "Discuss" %}" href="#">
+                            <a id="ajapaik-photo-modal-discuss" title="{% trans "Discuss" %}" target="_blank" href="{{ photo.get_detail_url }}">
                                 <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">comment</i>
-                                <span class="badge">{{ photo.fb_comments_count }}</span>
+                                <span class="badge">{{ photo.comment_count }}</span>
                             </a>
                             <div class="dropup" id="ajapaik-photo-modal-dropdown">
                                 <a id="ajapaik-photo-modal-share" role="button" title="{% trans "Share" %}"
@@ -267,9 +267,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row ajp-dater-hide-when-dater-visible">
-                    {% include "_photo_modal_comments.html" %}
                 </div>
                 </div>
             </div>
