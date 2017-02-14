@@ -1,0 +1,23 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n comments %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div style="background: #eee; padding: 20px 10px 1px;">
+        <H2>{% trans "Reply to" %}:</H2>
+        <dl id="parent-comment" style="background: #fff; padding: 10px; border: 1px solid #ccc; border-radius: 4px">
+            <dt id="c{{ comment.id }}">
+                {{ comment.submit_date }}&nbsp;-&nbsp;{{ comment.name }}
+            </dt>
+            <dd>
+                <p>{{ comment.comment }}</p>
+            </dd>
+        </dl>
+        <div id="comment-form">
+            {% include "comments/form.html" %}
+        </div>
+    </div>
+{% endblock %}

@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from project.ajapaik import settings
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
     AlbumPhoto, Licence, Device, PhotoComment, Newsletter, Dating, Tour, TourRephoto, \
-    DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto
+    DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto, MyXtdComment
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -208,3 +208,4 @@ admin.site.register(Tour, TourAdmin)
 admin.site.register(TourGroup, TourGroupAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)
 admin.site.register(Video, VideoAdmin)
+admin.site.register(MyXtdComment)

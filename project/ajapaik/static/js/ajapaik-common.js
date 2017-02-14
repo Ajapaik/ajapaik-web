@@ -915,6 +915,10 @@ var map,
     //     }
     // });
 
+    $('#ajapaik-comment-form-register-link').click(function () {
+        $('#ajapaik-header-profile-button').click();
+    });
+
     $(document).on('click', '#ajapaik-feedback-link', function () {
         _gaq.push(['_trackEvent', 'General', 'Feedback link click']);
     });

@@ -1,31 +1,33 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Håvard Johansen <havardgj@gmail.com>, 2016
 # Vahur Puik <vahur@ajapaik.ee>, 2016
+# Vemund Olstad <vemund.olstad@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-11 12:52+0300\n"
-"PO-Revision-Date: 2016-08-11 09:53+0000\n"
+"POT-Creation-Date: 2017-02-14 17:44+0200\n"
+"PO-Revision-Date: 2017-02-14 15:23+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
+"Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/no/)\n"
+"Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/ajapaik/admin.py:117
 msgid "Invert colors"
-msgstr ""
+msgstr "Inverter farger"
 
 #: project/ajapaik/delfi.py:19
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "Avgrensingsboks må være satt"
 
 #: project/ajapaik/delfi.py:22
 msgid "Bounding box must have 4 comma-separated members"
@@ -35,215 +37,222 @@ msgstr "Rammen må ha 4 kommaseparerte verdier"
 msgid "Bounding box values must be numbers"
 msgstr "Rammekoordinatene må være nummer"
 
-#: project/ajapaik/forms.py:27 project/ajapaik/forms.py:107
-#: project/ajapaik/forms.py:127
+#: project/ajapaik/forms.py:28 project/ajapaik/forms.py:108
+#: project/ajapaik/forms.py:128
 msgid "Choose area"
 msgstr "Velg område"
 
-#: project/ajapaik/forms.py:32 project/ajapaik/forms.py:106
-#: project/ajapaik/forms.py:118 project/ajapaik/forms.py:126
-#: project/ajapaik/forms.py:135 project/ajapaik/forms.py:207
+#: project/ajapaik/forms.py:33 project/ajapaik/forms.py:107
+#: project/ajapaik/forms.py:119 project/ajapaik/forms.py:127
+#: project/ajapaik/forms.py:136
 msgid "Choose album"
 msgstr "Velg album"
 
-#: project/ajapaik/forms.py:122 project/ajapaik/forms.py:129
+#: project/ajapaik/forms.py:123 project/ajapaik/forms.py:130
 msgid "Choose photo"
 msgstr "Velg foto"
 
-#: project/ajapaik/forms.py:151 project/ajapaik/forms.py:170
-#: project/ajapaik/forms.py:210
+#: project/ajapaik/forms.py:152 project/ajapaik/forms.py:171
 msgid "Choose parent album"
 msgstr "Velg foreldremappe"
 
-#: project/ajapaik/forms.py:322
+#: project/ajapaik/forms.py:311
 msgid "Import from public collections"
 msgstr ""
 
-#: project/ajapaik/forms.py:323
+#: project/ajapaik/forms.py:312
 msgid "Upload yourself"
-msgstr ""
+msgstr "Last opp selv"
 
-#: project/ajapaik/forms.py:328 project/ajapaik/templates/_header.html:33
+#: project/ajapaik/forms.py:317 project/ajapaik/forms.py:358
+#: project/ajapaik/templates/_header.html:33
 #: project/ajapaik/templates/_mode_select.html:15
 msgid "Albums"
 msgstr "Album"
 
-#: project/ajapaik/forms.py:329
+#: project/ajapaik/forms.py:318
 msgid "Licence"
-msgstr ""
+msgstr "Lisens"
 
-#: project/ajapaik/forms.py:330
+#: project/ajapaik/forms.py:320
 msgid "I am the author"
-msgstr ""
+msgstr "Jeg er forfatter"
 
-#: project/ajapaik/forms.py:342
+#: project/ajapaik/forms.py:332
 msgid "Missing image"
-msgstr ""
+msgstr "Bilde mangler"
 
-#: project/ajapaik/forms.py:344
+#: project/ajapaik/forms.py:334
 msgid "Missing description"
-msgstr ""
+msgstr "Beskrivelse mangler"
 
-#: project/ajapaik/forms.py:346
+#: project/ajapaik/forms.py:336
 msgid "Missing licence"
+msgstr "Lisens mangler"
+
+#: project/ajapaik/forms.py:349 project/ajapaik/templates/curator.html:121
+msgid "Parent album"
+msgstr "Foreldrealbum"
+
+#: project/ajapaik/forms.py:352
+msgid "If this album is tied to a certain location, specify here"
 msgstr ""
 
-#: project/ajapaik/models.py:153 project/ajapaik/templates/curator.html:77
+#: project/ajapaik/models.py:154 project/ajapaik/templates/curator.html:77
 #: project/ajapaik/templates/then_and_now/create_tour_5.html:8
 #: project/ajapaik/then_and_now_tours.py:179
 msgid "Name"
 msgstr "Navn"
 
-#: project/ajapaik/models.py:155 project/ajapaik/models.py:287
+#: project/ajapaik/models.py:156 project/ajapaik/models.py:288
 #: project/ajapaik/templates/curator.html:88
 #: project/ajapaik/templates/then_and_now/create_tour_5.html:9
 #: project/ajapaik/then_and_now_tours.py:180
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: project/ajapaik/models.py:159
+#: project/ajapaik/models.py:160
 msgid "Is public"
 msgstr ""
 
-#: project/ajapaik/models.py:160
+#: project/ajapaik/models.py:161
 msgid "Is open"
 msgstr ""
 
-#: project/ajapaik/models.py:273
+#: project/ajapaik/models.py:274
 msgid "Image"
-msgstr ""
+msgstr "Bilde"
 
-#: project/ajapaik/models.py:288
+#: project/ajapaik/models.py:289
 msgid "Author"
-msgstr ""
+msgstr "Forfatter"
 
-#: project/ajapaik/models.py:748
+#: project/ajapaik/models.py:769
 msgid "Geotag"
 msgstr "Geotag"
 
-#: project/ajapaik/models.py:749 project/ajapaik/templates/_comments.html:11
-#: project/ajapaik/templates/_photo_modal_comments.html:11
+#: project/ajapaik/models.py:770 project/ajapaik/templates/_comments.html:11
 #: project/ajapaik/templates/then_and_now/detail.html:90
 msgid "Rephoto"
 msgstr "Refoto"
 
-#: project/ajapaik/models.py:750
+#: project/ajapaik/models.py:771
 msgid "Photo upload"
 msgstr "Opplasting av foto"
 
-#: project/ajapaik/models.py:751
+#: project/ajapaik/models.py:772
 msgid "Photo curation"
 msgstr "Utvalg av foto"
 
-#: project/ajapaik/models.py:752
+#: project/ajapaik/models.py:773
 msgid "Photo re-curation"
 msgstr "Foto re-kuratering"
 
-#: project/ajapaik/models.py:753
+#: project/ajapaik/models.py:774
 msgid "Dating"
 msgstr "Datering"
 
-#: project/ajapaik/models.py:754
+#: project/ajapaik/models.py:775
 msgid "Dating confirmation"
 msgstr "Bekreftelse av datering"
 
-#: project/ajapaik/models.py:755
+#: project/ajapaik/models.py:776
 msgid "Film still"
 msgstr "Stillbilde"
 
-#: project/ajapaik/models.py:781
+#: project/ajapaik/models.py:802
 #: project/ajapaik/templates/then_and_now/base.html:51
 msgid "Map"
 msgstr "Kart"
 
-#: project/ajapaik/models.py:782
+#: project/ajapaik/models.py:803
 msgid "EXIF"
 msgstr "EXIF"
 
-#: project/ajapaik/models.py:783
+#: project/ajapaik/models.py:804
 msgid "GPS"
 msgstr "GPS"
 
-#: project/ajapaik/models.py:784
+#: project/ajapaik/models.py:805
 msgid "Confirmation"
 msgstr "Bekreftelse"
 
-#: project/ajapaik/models.py:785
+#: project/ajapaik/models.py:806
 msgid "StreetView"
 msgstr "Gatebilde"
 
-#: project/ajapaik/models.py:786
+#: project/ajapaik/models.py:807
 msgid "Source geotag"
 msgstr "Geotagg bilde"
 
-#: project/ajapaik/models.py:797
+#: project/ajapaik/models.py:818
 msgid "Game"
 msgstr "Spill"
 
-#: project/ajapaik/models.py:798
+#: project/ajapaik/models.py:819
 msgid "Map view"
 msgstr "Kartvisning"
 
-#: project/ajapaik/models.py:799
+#: project/ajapaik/models.py:820
 #: project/ajapaik/templates/then_and_now/base.html:54
 msgid "Gallery"
 msgstr "Galleri"
 
-#: project/ajapaik/models.py:800
+#: project/ajapaik/models.py:821
 msgid "Permalink"
 msgstr "Permalenke"
 
-#: project/ajapaik/models.py:801
+#: project/ajapaik/models.py:822
 msgid "Source"
 msgstr "Kilde"
 
-#: project/ajapaik/models.py:805
+#: project/ajapaik/models.py:826
 msgid "Google map"
 msgstr "Google kart"
 
-#: project/ajapaik/models.py:806
+#: project/ajapaik/models.py:827
 msgid "Google satellite"
 msgstr "Google satellitt"
 
-#: project/ajapaik/models.py:807
+#: project/ajapaik/models.py:828
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: project/ajapaik/models.py:808
+#: project/ajapaik/models.py:829
 msgid "Juks"
 msgstr "Juks"
 
-#: project/ajapaik/models.py:809
+#: project/ajapaik/models.py:830
 msgid "No map"
 msgstr "Uten kart"
 
-#: project/ajapaik/models.py:925
+#: project/ajapaik/models.py:951 project/ajapaik/models.py:953
 #: project/ajapaik/templates/then_and_now/detail.html:93
 #: project/ajapaik/templates/then_and_now/participants.html:12
 msgid "Anonymous user"
 msgstr "Anonym bruker"
 
-#: project/ajapaik/models.py:1210
+#: project/ajapaik/models.py:1238
 msgid "Day"
 msgstr "Dag"
 
-#: project/ajapaik/models.py:1211
+#: project/ajapaik/models.py:1239
 msgid "Month"
 msgstr "Måned"
 
-#: project/ajapaik/models.py:1212
+#: project/ajapaik/models.py:1240
 msgid "Year"
 msgstr "År"
 
-#: project/ajapaik/models.py:1251 project/ajapaik/then_and_now_tours.py:47
+#: project/ajapaik/models.py:1279 project/ajapaik/then_and_now_tours.py:47
 msgid "Open tour"
 msgstr "Åpen tur"
 
-#: project/ajapaik/models.py:1252 project/ajapaik/then_and_now_tours.py:48
+#: project/ajapaik/models.py:1280 project/ajapaik/then_and_now_tours.py:48
 msgid "Fixed photo set"
 msgstr "Låst album"
 
-#: project/ajapaik/models.py:1253 project/ajapaik/then_and_now_tours.py:49
+#: project/ajapaik/models.py:1281 project/ajapaik/then_and_now_tours.py:49
 msgid "Random with nearby pictures"
 msgstr "Tilfeldig med nærliggende foto"
 
@@ -257,6 +266,10 @@ msgstr "Engelsk"
 
 #: project/ajapaik/settings/default.py:77
 msgid "Norwegian"
+msgstr "Norsk"
+
+#: project/ajapaik/settings/default.py:78
+msgid "Finnish"
 msgstr ""
 
 #: project/ajapaik/templates/404.html:5 project/ajapaik/templates/404.html:11
@@ -275,56 +288,11 @@ msgstr "Informasjon om samling"
 msgid "System error"
 msgstr "Systemfeil"
 
-#: project/ajapaik/templates/_album_creation_modal.html:23
-msgid "Filter selection"
-msgstr "Valg av filter"
-
-#: project/ajapaik/templates/_album_creation_modal.html:25
-msgid "Choose an existing album"
-msgstr "Velg et eksisterende album"
-
-#: project/ajapaik/templates/_album_creation_modal.html:32
-msgid "Or create a new one"
-msgstr "Eller lag en ny"
-
-#: project/ajapaik/templates/_album_creation_modal.html:40
-msgid "New album name"
-msgstr "Nytt akbumnavn"
-
-#: project/ajapaik/templates/_album_creation_modal.html:50
-msgid "New album description"
-msgstr "Ny albumbeskrivelse"
-
-#: project/ajapaik/templates/_album_creation_modal.html:63
-#: project/ajapaik/templates/curator.html:102
-msgid "Open album (anyone can add photos)"
-msgstr "Åpent album (alle kan legge til foto)"
-
-#: project/ajapaik/templates/_album_creation_modal.html:75
-#: project/ajapaik/templates/curator.html:113
-msgid "Visible (shown in selection)"
-msgstr "Synlig (vist i utvalg)"
-
-#: project/ajapaik/templates/_album_creation_modal.html:84
-#: project/ajapaik/templates/curator.html:121
-msgid "Parent album"
-msgstr "Foreldrealbum"
-
-#: project/ajapaik/templates/_album_creation_modal.html:93
-#: project/ajapaik/templates/curator.html:132
-msgid "If the photos are from the same place, specify a location here"
-msgstr "Hvis foto er fra samme sted, spesifiser her"
-
-#: project/ajapaik/templates/_album_creation_modal.html:100
-#: project/ajapaik/templates/curator.html:139
-msgid "Place"
-msgstr "Sted"
-
-#: project/ajapaik/templates/_album_creation_modal.html:110
+#: project/ajapaik/templates/_album_creation_modal.html:31
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: project/ajapaik/templates/_album_creation_modal.html:113
+#: project/ajapaik/templates/_album_creation_modal.html:34
 #: project/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: project/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
 #: project/ajapaik/templates/registration/registration_form.html:14
@@ -345,19 +313,23 @@ msgid "All time leaderboard"
 msgstr "Toppliste - totalt"
 
 #: project/ajapaik/templates/_comments.html:7
-#: project/ajapaik/templates/_photo_modal_comments.html:7
 msgid "Original photo"
 msgstr "Orginalfoto"
 
 #: project/ajapaik/templates/_donate_details.html:4
 msgid ""
-"Ajapaik is developed by the <a href='http://xn--fotoprand-"
-"z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society "
-"(MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, "
-"foundations and religious associations benefiting from income tax "
-"incentives. We declare your donations and You will get income tax refunds "
-"for that."
-msgstr "Ajapaik er utviklet av <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a>, registrert i registeret av  non-profit organisasjoner, stiftelser og religiøse organisasjoner som er godkjent for inntektsskatt fritak. Vi registrerer din donasjon og du vil få reduksjon i din inntektsskatt for denne."
+"Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/"
+"mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti "
+"Fotopärand)</a> listed in the list of non-profit associations, foundations "
+"and religious associations benefiting from income tax incentives. We declare "
+"your donations and You will get income tax refunds for that."
+msgstr ""
+"Ajapaik er utviklet av <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' "
+"target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)"
+"</a>, registrert i registeret av  non-profit organisasjoner, stiftelser og "
+"religiøse organisasjoner som er godkjent for inntektsskatt fritak. Vi "
+"registrerer din donasjon og du vil få reduksjon i din inntektsskatt for "
+"denne."
 
 #: project/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
@@ -567,7 +539,9 @@ msgstr "Oppdag hvordan steder så ut for mange år siden ved"
 msgid ""
 "* searching historic view pictures from Estonian museums' collections and "
 "curating selected images to Ajapaik,"
-msgstr "* søke opp historiske foto fra Estiske museer, samlinger og sette samme utvalgte foto i Ajapaik,"
+msgstr ""
+"* søke opp historiske foto fra Estiske museer, samlinger og sette samme "
+"utvalgte foto i Ajapaik,"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:19
 msgid "* geotagging pictures from places you are familiar with and"
@@ -581,17 +555,27 @@ msgstr "* refotografere historiske bilder fra steder du besøker."
 #, python-format
 msgid ""
 "\n"
-"                    Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
+"                    Ajapaik has <b>%(total_photo_count)s</b> historic "
+"pictures, out of which\n"
 "                "
-msgstr "\n                    Ajapaik har <b>%(total_photo_count)s</b> historiske foto, og av disse er\n                "
+msgstr ""
+"\n"
+"                    Ajapaik har <b>%(total_photo_count)s</b> historiske "
+"foto, og av disse er\n"
+"                "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:29
 #, python-format
 msgid ""
 "\n"
-"                    <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n"
+"                    <b>%(total_photos_tagged)s</b> pictures have been put on "
+"the map by\n"
 "                "
-msgstr "\n                    <b>%(total_photos_tagged)s</b> bilder har blitt plassert på kartet av\n                "
+msgstr ""
+"\n"
+"                    <b>%(total_photos_tagged)s</b> bilder har blitt plassert "
+"på kartet av\n"
+"                "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
@@ -599,7 +583,10 @@ msgid ""
 "\n"
 "                    <b>%(contributing_users)s</b> users and\n"
 "                "
-msgstr "\n                    <b>%(contributing_users)s</b> brukere og\n                "
+msgstr ""
+"\n"
+"                    <b>%(contributing_users)s</b> brukere og\n"
+"                "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:35
 #, python-format
@@ -607,7 +594,10 @@ msgid ""
 "\n"
 "                    <b>%(rephoto_count)s</b> rephotographs for\n"
 "                "
-msgstr "\n                    <b>%(rephoto_count)s</b> refoto for\n                "
+msgstr ""
+"\n"
+"                    <b>%(rephoto_count)s</b> refoto for\n"
+"                "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:38
 #, python-format
@@ -615,7 +605,11 @@ msgid ""
 "\n"
 "                    <b>%(rephotographed_photo_count)s</b> pictures made by\n"
 "                "
-msgstr "\n                    <b>%(rephotographed_photo_count)s</b> bilder fotografert av\n                "
+msgstr ""
+"\n"
+"                    <b>%(rephotographed_photo_count)s</b> bilder fotografert "
+"av\n"
+"                "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:41
 #, python-format
@@ -623,20 +617,33 @@ msgid ""
 "\n"
 "                    <b>%(rephotographing_users)s</b> users.\n"
 "                "
-msgstr "\n                    <b>%(rephotographing_users)s</b> brukere.\n                "
+msgstr ""
+"\n"
+"                    <b>%(rephotographing_users)s</b> brukere.\n"
+"                "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:48
 #, python-format
 msgid ""
 "\n"
-"                        You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n"
+"                        You have suggested location for <b>"
+"%(user_geotagged_photos)s</b> picture.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                        You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n"
+"                        You have suggested locations for <b>"
+"%(user_geotagged_photos)s</b> pictures.\n"
 "                    "
-msgstr[0] "\n                        Du har foreslått sted for <b>%(user_geotagged_photos)s</b> bilde.\n                    "
-msgstr[1] "\n                        Du har foreslått sted for <b>%(user_geotagged_photos)s</b> bilder.\n                    "
+msgstr[0] ""
+"\n"
+"                        Du har foreslått sted for <b>"
+"%(user_geotagged_photos)s</b> bilde.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                        Du har foreslått sted for <b>"
+"%(user_geotagged_photos)s</b> bilder.\n"
+"                    "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:57
 #, python-format
@@ -648,8 +655,14 @@ msgid_plural ""
 "\n"
 "                        You have made <b>%(user_rephotos)s</b> rephotos for\n"
 "                    "
-msgstr[0] "\n                        Du har tatt <b>%(user_rephotos)s</b> refoto for\n                    "
-msgstr[1] "\n                        Du har tatt <b>%(user_rephotos)s</b> refoto for\n                    "
+msgstr[0] ""
+"\n"
+"                        Du har tatt <b>%(user_rephotos)s</b> refoto for\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                        Du har tatt <b>%(user_rephotos)s</b> refoto for\n"
+"                    "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:62
 #, python-format
@@ -661,8 +674,14 @@ msgid_plural ""
 "\n"
 "                        <b>%(user_rephotographed_photos)s</b> pictures.\n"
 "                    "
-msgstr[0] "\n                        <b>%(user_rephotographed_photos)s</b> bilde.\n                    "
-msgstr[1] "\n                        <b>%(user_rephotographed_photos)s</b> bilder.\n                    "
+msgstr[0] ""
+"\n"
+"                        <b>%(user_rephotographed_photos)s</b> bilde.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                        <b>%(user_rephotographed_photos)s</b> bilder.\n"
+"                    "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:74
 #: project/ajapaik/templates/_general_info_modal_content.html:87
@@ -692,14 +711,19 @@ msgstr "Tilbake til hjemmeside"
 #: project/ajapaik/templates/_header.html:7
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
-#: project/ajapaik/templates/base_bootstrap.html:205
-#: project/ajapaik/views.py:601
+#: project/ajapaik/templates/base_bootstrap.html:209
+#: project/ajapaik/views.py:606
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
+#: project/ajapaik/templates/_header.html:24
+#: project/ajapaik/templates/_mode_select.html:10
+msgid "Click to choose"
+msgstr ""
+
 #: project/ajapaik/templates/_header.html:27
 #: project/ajapaik/templates/_photo_modal.html:180
-#: project/ajapaik/templates/photoview.html:141
+#: project/ajapaik/templates/photoview.html:155
 msgid "Album details"
 msgstr "Albumdetaljer"
 
@@ -746,8 +770,8 @@ msgstr "Søk i album"
 msgid "Profile and leaderboard"
 msgstr "Profil og toppliste"
 
-#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1628
-#: project/ajapaik/views.py:1644 project/ajapaik/views.py:1679
+#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1633
+#: project/ajapaik/views.py:1649 project/ajapaik/views.py:1684
 msgid "Leaderboard"
 msgstr "Toppliste"
 
@@ -777,7 +801,7 @@ msgstr "Vis på kart"
 
 #: project/ajapaik/templates/_header.html:161
 msgid "Add photos"
-msgstr ""
+msgstr "Legg til foto"
 
 #: project/ajapaik/templates/_header.html:168
 msgid "Newsletters"
@@ -847,22 +871,30 @@ msgstr ""
 msgid "ETERA"
 msgstr "ETERA"
 
-#: project/ajapaik/templates/_header.html:313
+#: project/ajapaik/templates/_header.html:312
+msgid "UTLIB"
+msgstr ""
+
+#: project/ajapaik/templates/_header.html:319
 msgid "Flickr Commons"
 msgstr "Flickr Commons"
 
-#: project/ajapaik/templates/_header.html:325
+#: project/ajapaik/templates/_header.html:331
 #: project/ajapaik/templates/photo_selection.html:26
 msgid "Clear selection"
 msgstr "Fjern valg"
 
-#: project/ajapaik/templates/_header.html:331
+#: project/ajapaik/templates/_header.html:337
 msgid "Submit selection to Ajapaik"
 msgstr "Send utvalg til Ajapaik"
 
-#: project/ajapaik/templates/_header.html:352
-msgid "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support Ajapaik"
+#: project/ajapaik/templates/_header.html:358
+msgid ""
+"<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support "
+"Ajapaik"
 msgstr ""
+"<a href=\"#\" id=\"ajapaik-donation-modal-link\">Doner</a> for å støtte "
+"Ajapaik"
 
 #: project/ajapaik/templates/_info_modal_content.html:14
 #: project/ajapaik/templates/_info_modal_content.html:21
@@ -883,11 +915,17 @@ msgid_plural ""
 "\n"
 "                    Album has %(counter)s historic pictures,\n"
 "                "
-msgstr[0] "\n                    Albumet har %(counter)s historisk bilde,\n                "
-msgstr[1] "\n                    Albumet har %(counter)s historiske bilder,\n                "
+msgstr[0] ""
+"\n"
+"                    Albumet har %(counter)s historisk bilde,\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Albumet har %(counter)s historiske bilder,\n"
+"                "
 
 #: project/ajapaik/templates/_info_modal_content.html:32
-#: project/ajapaik/templates/base_bootstrap.html:102
+#: project/ajapaik/templates/base_bootstrap.html:104
 #, python-format
 msgid ""
 "\n"
@@ -897,16 +935,22 @@ msgid_plural ""
 "\n"
 "                    %(counter)s users have put\n"
 "                "
-msgstr[0] "\n                    %(counter)s bruker har lagt\n                "
-msgstr[1] "\n                    %(counter)s brukere har lagt\n                "
+msgstr[0] ""
+"\n"
+"                    %(counter)s bruker har lagt\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    %(counter)s brukere har lagt\n"
+"                "
 
 #: project/ajapaik/templates/_info_modal_content.html:38
-#: project/ajapaik/templates/base_bootstrap.html:108
+#: project/ajapaik/templates/base_bootstrap.html:110
 msgid "all the pictures on the map."
 msgstr "alle bildene på et kart."
 
 #: project/ajapaik/templates/_info_modal_content.html:40
-#: project/ajapaik/templates/base_bootstrap.html:110
+#: project/ajapaik/templates/base_bootstrap.html:112
 #, python-format
 msgid ""
 "\n"
@@ -916,8 +960,14 @@ msgid_plural ""
 "\n"
 "                        %(counter)s pictures on the map.\n"
 "                    "
-msgstr[0] "\n                        %(counter)s bilde på kartet.\n                    "
-msgstr[1] "\n                        %(counter)s bilder på kartet.\n                    "
+msgstr[0] ""
+"\n"
+"                        %(counter)s bilde på kartet.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                        %(counter)s bilder på kartet.\n"
+"                    "
 
 #: project/ajapaik/templates/_info_modal_content.html:49
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -941,8 +991,14 @@ msgid_plural ""
 "\n"
 "                            %(counter)s pictures in this album.\n"
 "                        "
-msgstr[0] "\n                            %(counter)s bilde i dette albumet.\n                        "
-msgstr[1] "\n                            %(counter)s bilder i dette albumet.\n                        "
+msgstr[0] ""
+"\n"
+"                            %(counter)s bilde i dette albumet.\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            %(counter)s bilder i dette albumet.\n"
+"                        "
 
 #: project/ajapaik/templates/_info_modal_content.html:66
 #, python-format
@@ -954,8 +1010,14 @@ msgid_plural ""
 "\n"
 "                            %(counter)s users have made\n"
 "                        "
-msgstr[0] "\n                            %(counter)s har gjort\n                        "
-msgstr[1] "\n                            %(counter)s brukere har gjort\n                        "
+msgstr[0] ""
+"\n"
+"                            %(counter)s har gjort\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            %(counter)s brukere har gjort\n"
+"                        "
 
 #: project/ajapaik/templates/_info_modal_content.html:71
 #, python-format
@@ -967,8 +1029,14 @@ msgid_plural ""
 "\n"
 "                            %(counter)s rephotographs\n"
 "                        "
-msgstr[0] "\n                            %(counter)s refoto\n                        "
-msgstr[1] "\n                            %(counter)s refoto\n                        "
+msgstr[0] ""
+"\n"
+"                            %(counter)s refoto\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            %(counter)s refoto\n"
+"                        "
 
 #: project/ajapaik/templates/_info_modal_content.html:76
 #, python-format
@@ -980,8 +1048,14 @@ msgid_plural ""
 "\n"
 "                            for %(counter)s picture in the album.\n"
 "                        "
-msgstr[0] "\n                            for %(counter)s bilde i albumet.\n                        "
-msgstr[1] "\n                            for %(counter)s bilder i albumet.\n                        "
+msgstr[0] ""
+"\n"
+"                            for %(counter)s bilde i albumet.\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            for %(counter)s bilder i albumet.\n"
+"                        "
 
 #: project/ajapaik/templates/_info_modal_content.html:86
 #, python-format
@@ -993,8 +1067,14 @@ msgid_plural ""
 "\n"
 "                        You have made %(counter)s rephotos\n"
 "                    "
-msgstr[0] "\n                        Du har tatt %(counter)s refoto\n                    "
-msgstr[1] "\n                        You har tatt %(counter)s refoto\n                    "
+msgstr[0] ""
+"\n"
+"                        Du har tatt %(counter)s refoto\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                        You har tatt %(counter)s refoto\n"
+"                    "
 
 #: project/ajapaik/templates/_info_modal_content.html:91
 #, python-format
@@ -1006,16 +1086,22 @@ msgid_plural ""
 "\n"
 "                        for %(counter)s picures in the album.\n"
 "                    "
-msgstr[0] "\n                        for %(counter)s bilde i dette albumet.\n                    "
-msgstr[1] "\n                        for %(counter)s bilder i dette albumet.\n                    "
+msgstr[0] ""
+"\n"
+"                        for %(counter)s bilde i dette albumet.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                        for %(counter)s bilder i dette albumet.\n"
+"                    "
 
 #: project/ajapaik/templates/_info_modal_content.html:101
 msgid "Some nearby albums"
 msgstr "Noen nærliggende album"
 
 #: project/ajapaik/templates/_info_modal_content.html:113
-#: project/ajapaik/templates/_photo_modal.html:257
-#: project/ajapaik/templates/photoview.html:109
+#: project/ajapaik/templates/_photo_modal.html:256
+#: project/ajapaik/templates/photoview.html:117
 msgid "Share"
 msgstr "Del"
 
@@ -1093,39 +1179,39 @@ msgid "Flip photo"
 msgstr "Vend foto"
 
 #: project/ajapaik/templates/_photo_modal.html:165
-#: project/ajapaik/templates/photoview.html:132
+#: project/ajapaik/templates/photoview.html:143
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Bilde hører til album"
 msgstr[1] "Bilder hører til album"
 
 #: project/ajapaik/templates/_photo_modal.html:182
-#: project/ajapaik/templates/photoview.html:143
+#: project/ajapaik/templates/photoview.html:157
 msgid "Curator"
 msgstr "Kurator"
 
-#: project/ajapaik/templates/_photo_modal.html:224
+#: project/ajapaik/templates/_photo_modal.html:223
 msgid "Unknown author"
 msgstr "Ukjent opphavsperson"
 
-#: project/ajapaik/templates/_photo_modal.html:240
+#: project/ajapaik/templates/_photo_modal.html:239
 #: project/ajapaik/templates/game.html:61
-#: project/ajapaik/templates/photoview.html:96
-#: project/ajapaik/templates/photoview.html:162
+#: project/ajapaik/templates/photoview.html:104
+#: project/ajapaik/templates/photoview.html:196
 msgid "Pick the shooting location!"
 msgstr "Velg punkt for fotografering"
 
-#: project/ajapaik/templates/_photo_modal.html:244
-#: project/ajapaik/templates/photoview.html:100
+#: project/ajapaik/templates/_photo_modal.html:243
+#: project/ajapaik/templates/photoview.html:108
 msgid "Date this image"
 msgstr "Dater dette bildet"
 
-#: project/ajapaik/templates/_photo_modal.html:249
-#: project/ajapaik/templates/photoview.html:104
+#: project/ajapaik/templates/_photo_modal.html:248
+#: project/ajapaik/templates/photoview.html:112
 msgid "Add rephoto"
 msgstr "Legg til refoto"
 
-#: project/ajapaik/templates/_photo_modal.html:252
+#: project/ajapaik/templates/_photo_modal.html:251
 msgid "Discuss"
 msgstr "Diskuter"
 
@@ -1146,9 +1232,11 @@ msgstr "Velg en fil..."
 #: project/ajapaik/templates/_photo_upload_modal.html:34
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to"
-" you under the"
-msgstr "Ta ett samtidig foto fra samme sted som det historiskebildet ble tatt og last det opp. Det opplastede refotografiet vil bli kreditert deg under"
+"picture was taken and upload it. Uploaded rephotograph will be attributed to "
+"you under the"
+msgstr ""
+"Ta ett samtidig foto fra samme sted som det historiskebildet ble tatt og "
+"last det opp. Det opplastede refotografiet vil bli kreditert deg under"
 
 #: project/ajapaik/templates/_photo_upload_modal.html:35
 msgid "licence"
@@ -1240,7 +1328,9 @@ msgstr "Historisk foto av"
 msgid ""
 "Curate historic photos from museums into Ajapaik for geotagging and "
 "rephotographing"
-msgstr "Gjør utvalg av historiske foto fra museer til Ajapaik for geotagging og refotografering"
+msgstr ""
+"Gjør utvalg av historiske foto fra museer til Ajapaik for geotagging og "
+"refotografering"
 
 #: project/ajapaik/templates/base_bootstrap.html:47
 #: project/ajapaik/templates/base_bootstrap.html:49
@@ -1270,18 +1360,25 @@ msgstr "historisk,bilde,gammel,foto"
 msgid "search,museum,old,photos,pictures,historic"
 msgstr "søk,museum,gammel,foto,bilde,historisk"
 
-#: project/ajapaik/templates/base_bootstrap.html:92
+#: project/ajapaik/templates/base_bootstrap.html:90
 #, python-format
-msgid ""
-"Album has %(album_photo_count)s historic pictures. Let's put pictures on the"
-" map!"
-msgstr "Album har %(album_photo_count)s historiske bilder. La oss sette bildene på kartet!"
+msgid "Gallery of rephotographs by %(rephotos_by_name)s"
+msgstr ""
 
 #: project/ajapaik/templates/base_bootstrap.html:94
+#, python-format
+msgid ""
+"Album has %(album_photo_count)s historic pictures. Let's put pictures on the "
+"map!"
+msgstr ""
+"Album har %(album_photo_count)s historiske bilder. La oss sette bildene på "
+"kartet!"
+
+#: project/ajapaik/templates/base_bootstrap.html:96
 msgid "Let's put pictures on the map"
 msgstr "La oss sette bildene på kartet"
 
-#: project/ajapaik/templates/base_bootstrap.html:97
+#: project/ajapaik/templates/base_bootstrap.html:99
 #, python-format
 msgid ""
 "\n"
@@ -1291,54 +1388,75 @@ msgid_plural ""
 "\n"
 "                    Album has %(counter)s photos,\n"
 "                "
-msgstr[0] "\n                    Albumet har %(counter)s foto,\n                "
-msgstr[1] "\n                    Albumet har %(counter)s foto,\n                "
+msgstr[0] ""
+"\n"
+"                    Albumet har %(counter)s foto,\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Albumet har %(counter)s foto,\n"
+"                "
 
-#: project/ajapaik/templates/base_bootstrap.html:252
+#: project/ajapaik/templates/base_bootstrap.html:256
 msgid "Geolocation error"
 msgstr "Stedfestingsfeil"
 
-#: project/ajapaik/templates/base_bootstrap.html:255
+#: project/ajapaik/templates/base_bootstrap.html:259
 msgid "Sorting"
 msgstr "Sortering"
 
-#: project/ajapaik/templates/base_bootstrap.html:267
+#: project/ajapaik/templates/base_bootstrap.html:271
 msgid "feedback"
 msgstr "tilbakemelding"
 
-#: project/ajapaik/templates/base_bootstrap.html:279
+#: project/ajapaik/templates/base_bootstrap.html:283
 msgid "Estonian Photographic Heritage Society"
 msgstr "Estonian Photographic Heritage Society"
 
-#: project/ajapaik/templates/base_bootstrap.html:285
+#: project/ajapaik/templates/base_bootstrap.html:289
 msgid "Newsletter"
 msgstr "Nyhetsbrev"
 
-#: project/ajapaik/templates/base_bootstrap.html:289
+#: project/ajapaik/templates/base_bootstrap.html:293
 msgid "Support Ajapaik"
 msgstr "Støtt Ajapaik"
 
-#: project/ajapaik/templates/base_bootstrap.html:289
+#: project/ajapaik/templates/base_bootstrap.html:293
 msgid "Support us"
 msgstr "Støtt oss"
 
-#: project/ajapaik/templates/base_bootstrap.html:315
+#: project/ajapaik/templates/base_bootstrap.html:319
 msgid "See also – Sift.pics"
 msgstr "Se også - Sift.pics"
 
-#: project/ajapaik/templates/base_bootstrap.html:443
+#: project/ajapaik/templates/base_bootstrap.html:446
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
-msgstr "Denne nettsiden bruker informasjonskapsler for å sikre at du får en best muligbrukeropplevelse på vårt nettsted"
+msgstr ""
+"Denne nettsiden bruker informasjonskapsler for å sikre at du får en best "
+"muligbrukeropplevelse på vårt nettsted"
 
-#: project/ajapaik/templates/base_bootstrap.html:444
+#: project/ajapaik/templates/base_bootstrap.html:447
 msgid "Got it!"
 msgstr "Forstår!"
 
-#: project/ajapaik/templates/base_bootstrap.html:445
+#: project/ajapaik/templates/base_bootstrap.html:448
 msgid "More info"
 msgstr "Mer informasjon"
+
+#: project/ajapaik/templates/comments/form.html:4
+msgid "Identify yourself to comment"
+msgstr ""
+
+#: project/ajapaik/templates/comments/form.html:11
+#: project/ajapaik/templates/photoview.html:174
+msgid "Your comment"
+msgstr ""
+
+#: project/ajapaik/templates/comments/list.html:21
+msgid "Reply"
+msgstr ""
 
 #: project/ajapaik/templates/curator.html:21
 msgid "Thank you!"
@@ -1370,9 +1488,29 @@ msgstr "Rediger ditt album"
 msgid "Error"
 msgstr "Feil"
 
+#: project/ajapaik/templates/curator.html:102
+msgid "Open album (anyone can add photos)"
+msgstr "Åpent album (alle kan legge til foto)"
+
+#: project/ajapaik/templates/curator.html:113
+msgid "Visible (shown in selection)"
+msgstr "Synlig (vist i utvalg)"
+
+#: project/ajapaik/templates/curator.html:132
+msgid "If the photos are from the same place, specify a location here"
+msgstr "Hvis foto er fra samme sted, spesifiser her"
+
+#: project/ajapaik/templates/curator.html:139
+msgid "Place"
+msgstr "Sted"
+
 #: project/ajapaik/templates/curator.html:155
 msgid "Save"
 msgstr "Lagre"
+
+#: project/ajapaik/templates/django_comments_xtd/reply.html:10
+msgid "Reply to"
+msgstr ""
 
 #: project/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
@@ -1500,8 +1638,12 @@ msgid ""
 msgid_plural ""
 "Only pictures with locations can be selected for tours. Currently "
 "%(count_with_location)s images."
-msgstr[0] "Bare bilder som er geotagget kan velges for en tur. Så langt %(count_with_location)s bilde."
-msgstr[1] "Bare bilder som er geotagget kan velges for en tur. Så langt %(count_with_location)s bilder."
+msgstr[0] ""
+"Bare bilder som er geotagget kan velges for en tur. Så langt "
+"%(count_with_location)s bilde."
+msgstr[1] ""
+"Bare bilder som er geotagget kan velges for en tur. Så langt "
+"%(count_with_location)s bilder."
 
 #: project/ajapaik/templates/photo_selection.html:21
 msgid "Create Then and Now Tour"
@@ -1517,20 +1659,21 @@ msgstr "Du kan endre rekkefølge på bilder ved å dra og slippe"
 
 #: project/ajapaik/templates/photo_upload_choice.html:13
 msgid "Select"
-msgstr ""
+msgstr "Velg"
 
-#: project/ajapaik/templates/photoview.html:20
 #: project/ajapaik/templates/photoview.html:21
-#: project/ajapaik/templates/photoview.html:169
-#: project/ajapaik/templates/photoview.html:213
+#: project/ajapaik/templates/photoview.html:23
+#: project/ajapaik/templates/photoview.html:202
+#: project/ajapaik/templates/photoview.html:262
+#: project/ajapaik/templates/photoview.html:263
 msgid "rephoto"
 msgstr "refoto"
 
-#: project/ajapaik/templates/photoview.html:157
+#: project/ajapaik/templates/photoview.html:191
 msgid "Approximate address"
 msgstr "Omtrentlig adresse"
 
-#: project/ajapaik/templates/photoview.html:201
+#: project/ajapaik/templates/photoview.html:246
 msgid "Date taken"
 msgstr "Dato er tatt"
 
@@ -1637,7 +1780,9 @@ msgstr "Tilfeldig"
 msgid ""
 "You specify the number of pictures in the tour, pictures are selected "
 "randomly around a specific location"
-msgstr "Du spesifiserer antallet bilder i turen, bilder blir valgt uttilfeldig rundt et bestemt sted"
+msgstr ""
+"Du spesifiserer antallet bilder i turen, bilder blir valgt uttilfeldig rundt "
+"et bestemt sted"
 
 #: project/ajapaik/templates/then_and_now/create_tour_1.html:28
 msgid "Open"
@@ -1647,7 +1792,10 @@ msgstr "Åpen"
 msgid ""
 "Any picture near the user can be rephotographed. Suitable for competition "
 "between groups (you can choose the number of groups and their maximum size)"
-msgstr "Hvilket som helst bilde nær en bruker kan blir refotografert. Passende for konkurranse mellom grupper (du kan velge antallet grupper og maksimum størrelser på gruppe)"
+msgstr ""
+"Hvilket som helst bilde nær en bruker kan blir refotografert. Passende for "
+"konkurranse mellom grupper (du kan velge antallet grupper og maksimum "
+"størrelser på gruppe)"
 
 #: project/ajapaik/templates/then_and_now/create_tour_1.html:42
 msgid "Handpicked"
@@ -1714,7 +1862,9 @@ msgid ""
 "Up to %(counter)s member\n"
 "                    "
 msgid_plural "Up to %(counter)s members"
-msgstr[0] "Opp til %(counter)s medlem\n                    "
+msgstr[0] ""
+"Opp til %(counter)s medlem\n"
+"                    "
 msgstr[1] "Opp til %(counter)s medlemmer"
 
 #: project/ajapaik/templates/then_and_now/create_tour_5.html:18
@@ -1852,20 +2002,19 @@ msgstr "Turen er komplett!"
 #: project/ajapaik/templates/user_upload.html:18
 #, python-format
 msgid ""
-"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the"
-" right to use this work under the <a "
-"href=\"https://creativecommons.org/licenses/by-sa/4.0/\" "
-"target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-"
-"BY-SA)</a>."
+"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the "
+"right to use this work under the <a href=\"https://creativecommons.org/"
+"licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution "
+"ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr ""
 
 #: project/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
-msgstr ""
+msgstr "Last opp og merk på kart"
 
 #: project/ajapaik/templates/user_upload_add_album.html:22
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: project/ajapaik/then_and_now_tours.py:51
 #: project/ajapaik/then_and_now_tours.py:77
@@ -1879,7 +2028,9 @@ msgstr "Antallet tilfeldige bilder"
 
 #: project/ajapaik/then_and_now_tours.py:60
 msgid "We need your location to generate a random tour, please try again."
-msgstr "Vi trenger din lokasjon for å generere en tilfeldig tur - vennligst prøv igjen"
+msgstr ""
+"Vi trenger din lokasjon for å generere en tilfeldig tur - vennligst prøv "
+"igjen"
 
 #: project/ajapaik/then_and_now_tours.py:93
 msgid "Number of photos must be specified for a random tour"
@@ -1936,76 +2087,89 @@ msgstr "Maks antall medlemmer"
 msgid "Members"
 msgstr "Medlemmer"
 
-#: project/ajapaik/then_and_now_tours.py:346
+#: project/ajapaik/then_and_now_tours.py:347
 msgid "Fixed tour"
 msgstr "Låst tur"
 
-#: project/ajapaik/then_and_now_tours.py:874
+#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:400
+msgid "Non-authenticated user"
+msgstr ""
+
+#: project/ajapaik/then_and_now_tours.py:878
 msgid "Failed to add rephoto to Ajapaik"
 msgstr "Kunne ikke legge refoto til Ajapaik"
 
-#: project/ajapaik/then_and_now_tours.py:891
+#: project/ajapaik/then_and_now_tours.py:895
 msgid "Added rephoto to Ajapaik"
 msgstr "La til refoto til Ajapaik"
 
-#: project/ajapaik/views.py:531
+#: project/ajapaik/views.py:534
 msgid "Geotagging game"
 msgstr "Geotaggingsspill"
 
-#: project/ajapaik/views.py:1038
-msgid "Cannot select this album"
-msgstr "Kan ikke velge dette albumet"
+#: project/ajapaik/views.py:602
+#, python-format
+msgid "%(name)s - rephotos"
+msgstr ""
 
-#: project/ajapaik/views.py:1055
+#: project/ajapaik/views.py:1030
+msgid "Cannot upload to these albums"
+msgstr ""
+
+#: project/ajapaik/views.py:1048
 msgid "Recuration successful"
 msgstr "Nytt utvalg vellykket"
 
-#: project/ajapaik/views.py:1057
+#: project/ajapaik/views.py:1050
 msgid "Problem with album selection"
 msgstr "Problemer med albumvalg"
 
-#: project/ajapaik/views.py:1059
+#: project/ajapaik/views.py:1052
 msgid "Faulty data submitted"
 msgstr "Feilaktige data lagt til"
 
-#: project/ajapaik/views.py:1365 project/ajapaik/views.py:1372
-#: project/ajapaik/views.py:1374
+#: project/ajapaik/views.py:1357 project/ajapaik/views.py:1364
+#: project/ajapaik/views.py:1366
 msgid "Browse photos on map"
 msgstr "Bla i foto på kart"
 
-#: project/ajapaik/views.py:1488
+#: project/ajapaik/views.py:1492
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
-msgstr "Ditt bidrag forandret ikke den estimerte lokasjonen for bildet, ikke ennå i alle fall."
+msgstr ""
+"Ditt bidrag forandret ikke den estimerte lokasjonen for bildet, ikke ennå i "
+"alle fall."
 
-#: project/ajapaik/views.py:1490
+#: project/ajapaik/views.py:1494
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Bildet har blitt lokalisert på et nytt sted takket være deg."
 
-#: project/ajapaik/views.py:1492
+#: project/ajapaik/views.py:1496
 msgid "Your guess was first."
 msgstr "Din gjetning var først."
 
-#: project/ajapaik/views.py:1772
+#: project/ajapaik/views.py:1777
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
-msgstr "Søk etter gamle bilder, legg dem til Ajapaik, bestem lokasjon og  og del albumet!"
+msgstr ""
+"Søk etter gamle bilder, legg dem til Ajapaik, bestem lokasjon og  og del "
+"albumet!"
 
-#: project/ajapaik/views.py:1774
+#: project/ajapaik/views.py:1779
 msgid "Timepatch (Ajapaik) - curate"
 msgstr "Timepatch (Ajapaik) - lag utvalg"
 
-#: project/ajapaik/views.py:2119
+#: project/ajapaik/views.py:2104
 msgid "OK"
 msgstr "OK"
 
-#: project/ajapaik/views.py:2164
+#: project/ajapaik/views.py:2159
 msgid "Error uploading file"
 msgstr "Feil ved opplasting av fil"
 
-#: project/ajapaik/views.py:2180
+#: project/ajapaik/views.py:2176
 msgid "Photo already exists in Ajapaik"
 msgstr "Foto eksisterer allerede i Ajapaik"
 
@@ -2017,15 +2181,15 @@ msgstr "Vennligst legg til foto i ditt album"
 msgid "Not enough data submitted"
 msgstr "Ikke tilstrekkelig med data sendt inn"
 
-#: project/ajapaik/views.py:2567
+#: project/ajapaik/views.py:2526
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Stillbilde fra \"%(film)s\" på %(time)s"
 
-#: project/ajapaik/views.py:2665
+#: project/ajapaik/views.py:2624
 msgid "Photo uploaded"
-msgstr ""
+msgstr "Foto lastet opp"
 
-#: project/ajapaik/views.py:2683
+#: project/ajapaik/views.py:2642
 msgid "Album created"
-msgstr ""
+msgstr "Album er opprettet"

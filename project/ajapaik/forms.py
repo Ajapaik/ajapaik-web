@@ -2,7 +2,6 @@ import autocomplete_light
 from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
-from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence

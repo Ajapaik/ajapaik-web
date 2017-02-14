@@ -293,7 +293,7 @@ class Photo(Model):
     types = CharField(max_length=255, blank=True, null=True)
     keywords = TextField(null=True, blank=True)
     # Legacy field name, actually profile
-    user = ForeignKey('Profile', related_name='photos', blank=True, null=True)
+    user = ForeignKey('Profile', related_name='photos', blank=True, null=True, db_index=True)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
     guess_level = FloatField(default=3)
@@ -316,26 +316,26 @@ class Photo(Model):
     device = ForeignKey('Device', null=True, blank=True)
     # Useless
     area = ForeignKey('Area', related_name='areas', null=True, blank=True)
-    rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos')
-    first_rephoto = DateTimeField(null=True, blank=True)
-    latest_rephoto = DateTimeField(null=True, blank=True)
+    rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos', db_index=True)
+    first_rephoto = DateTimeField(null=True, blank=True, db_index=True)
+    latest_rephoto = DateTimeField(null=True, blank=True, db_index=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
-    comment_count = IntegerField(null=True, blank=True)
-    first_comment = DateTimeField(null=True, blank=True)
-    latest_comment = DateTimeField(null=True, blank=True)
-    view_count = PositiveIntegerField(default=0, db_index=True)
+    comment_count = IntegerField(default=0, null=True, blank=True, db_index=True)
+    first_comment = DateTimeField(null=True, blank=True, db_index=True)
+    latest_comment = DateTimeField(null=True, blank=True, db_index=True)
+    view_count = PositiveIntegerField(default=0)
     first_view = DateTimeField(null=True, blank=True)
     latest_view = DateTimeField(null=True, blank=True)
     like_count = IntegerField(default=0, db_index=True)
-    first_like = DateTimeField(null=True, blank=True)
-    latest_like = DateTimeField(null=True, blank=True)
+    first_like = DateTimeField(null=True, blank=True, db_index=True)
+    latest_like = DateTimeField(null=True, blank=True, db_index=True)
     geotag_count = IntegerField(default=0, db_index=True)
-    first_geotag = DateTimeField(null=True, blank=True)
-    latest_geotag = DateTimeField(null=True, blank=True)
+    first_geotag = DateTimeField(null=True, blank=True, db_index=True)
+    latest_geotag = DateTimeField(null=True, blank=True, db_index=True)
     dating_count = IntegerField(default=0, db_index=True)
-    first_dating = DateTimeField(null=True, blank=True)
-    latest_dating = DateTimeField(null=True, blank=True)
-    created = DateTimeField(auto_now_add=True)
+    first_dating = DateTimeField(null=True, blank=True, db_index=True)
+    latest_dating = DateTimeField(null=True, blank=True, db_index=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     gps_accuracy = FloatField(null=True, blank=True)
     gps_fix_age = FloatField(null=True, blank=True)
@@ -1394,6 +1394,8 @@ class Video(Model):
 
 
 class MyXtdComment(XtdComment):
+    facebook_comment_id = CharField(max_length=255, blank=True, null=True)
+
     def save(self, **kwargs):
         super(MyXtdComment, self).save(**kwargs)
         photo = Photo.objects.filter(pk=self.object_pk).first()
