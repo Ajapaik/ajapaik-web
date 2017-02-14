@@ -59,7 +59,7 @@ python-mimeparse==0.1.4
 pytz==2015.7
 requests==2.13.0
 requests-oauthlib==0.7.0
-requests-toolbelt==0.7.0
+requests-toolbelt==0.7.1
 rsa==3.4.2
 scikit-learn==0.16.1
 scipy==0.15.1

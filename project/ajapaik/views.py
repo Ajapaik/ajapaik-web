@@ -598,7 +598,9 @@ def frontpage(request, album_id=None, page=None):
     user_has_likes = profile.likes.count() > 0
     user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
 
-    if data['album']:
+    if data['rephotos_by_name']:
+        title = _('%(name)s - rephotos') % {'name': data['rephotos_by_name']}
+    elif data['album']:
         title = data['album'][1]
     else:
         title = _('Timepatch (Ajapaik)')
