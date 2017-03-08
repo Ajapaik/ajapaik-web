@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-08 17:13+0200\n"
+"POT-Creation-Date: 2017-03-08 17:32+0200\n"
 "PO-Revision-Date: 2017-03-08 15:09+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-"
@@ -675,7 +675,7 @@ msgstr "Обратно на первую страницу"
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:209
-#: project/ajapaik/views.py:610
+#: project/ajapaik/views.py:609
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
@@ -733,8 +733,8 @@ msgstr "Поиск альбома"
 msgid "Profile and leaderboard"
 msgstr "Профиль и лучшие игроки"
 
-#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1637
-#: project/ajapaik/views.py:1653 project/ajapaik/views.py:1688
+#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1636
+#: project/ajapaik/views.py:1652 project/ajapaik/views.py:1687
 msgid "Leaderboard"
 msgstr "Лучшие игроки"
 
@@ -1439,6 +1439,20 @@ msgstr "Сохранить"
 msgid "Reply to"
 msgstr ""
 
+#: project/ajapaik/templates/dummy_translations.html:3
+msgid "Notify me about follow-up comments"
+msgstr ""
+
+#: project/ajapaik/templates/dummy_translations.html:4
+msgid "send"
+msgstr ""
+
+#: project/ajapaik/templates/dummy_translations.html:5
+#, fuzzy
+#| msgid "Cancel"
+msgid "cancel"
+msgstr "Прервать"
+
 #: project/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
 msgstr "Интерьер"
@@ -2011,7 +2025,7 @@ msgstr ""
 msgid "Fixed tour"
 msgstr ""
 
-#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:404
+#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:403
 msgid "Non-authenticated user"
 msgstr ""
 
@@ -2023,89 +2037,89 @@ msgstr ""
 msgid "Added rephoto to Ajapaik"
 msgstr ""
 
-#: project/ajapaik/views.py:538
+#: project/ajapaik/views.py:537
 msgid "Geotagging game"
 msgstr ""
 
-#: project/ajapaik/views.py:606
+#: project/ajapaik/views.py:605
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr ""
 
-#: project/ajapaik/views.py:1034
+#: project/ajapaik/views.py:1033
 msgid "Cannot upload to these albums"
 msgstr ""
 
-#: project/ajapaik/views.py:1052
+#: project/ajapaik/views.py:1051
 msgid "Recuration successful"
 msgstr ""
 
-#: project/ajapaik/views.py:1054
+#: project/ajapaik/views.py:1053
 msgid "Problem with album selection"
 msgstr "Проблема с выделением альбома"
 
-#: project/ajapaik/views.py:1056
+#: project/ajapaik/views.py:1055
 msgid "Faulty data submitted"
 msgstr "Ошибочные данные отправлены"
 
-#: project/ajapaik/views.py:1361 project/ajapaik/views.py:1368
-#: project/ajapaik/views.py:1370
+#: project/ajapaik/views.py:1360 project/ajapaik/views.py:1367
+#: project/ajapaik/views.py:1369
 msgid "Browse photos on map"
 msgstr "Смотрите фотографии на карте"
 
-#: project/ajapaik/views.py:1496
+#: project/ajapaik/views.py:1495
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr ""
 
-#: project/ajapaik/views.py:1498
+#: project/ajapaik/views.py:1497
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: project/ajapaik/views.py:1500
+#: project/ajapaik/views.py:1499
 msgid "Your guess was first."
 msgstr "Ваша догадка была первой."
 
-#: project/ajapaik/views.py:1781
+#: project/ajapaik/views.py:1780
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/ajapaik/views.py:1783
+#: project/ajapaik/views.py:1782
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/ajapaik/views.py:2108
+#: project/ajapaik/views.py:2107
 msgid "OK"
 msgstr "ОК"
 
-#: project/ajapaik/views.py:2163
+#: project/ajapaik/views.py:2162
 msgid "Error uploading file"
 msgstr "Ошибка при закачке фотографии"
 
-#: project/ajapaik/views.py:2180
+#: project/ajapaik/views.py:2179
 msgid "Photo already exists in Ajapaik"
 msgstr "Эта фотография уже есть в Ajapaik"
 
-#: project/ajapaik/views.py:2198
+#: project/ajapaik/views.py:2197
 msgid "Please add photos to your album"
 msgstr "Добавьте фотографии в свой альбом"
 
-#: project/ajapaik/views.py:2200
+#: project/ajapaik/views.py:2199
 msgid "Not enough data submitted"
 msgstr "Не достаточно данных отправлено"
 
-#: project/ajapaik/views.py:2530
+#: project/ajapaik/views.py:2529
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
 
-#: project/ajapaik/views.py:2628
+#: project/ajapaik/views.py:2627
 msgid "Photo uploaded"
 msgstr ""
 
-#: project/ajapaik/views.py:2646
+#: project/ajapaik/views.py:2645
 msgid "Album created"
 msgstr ""
