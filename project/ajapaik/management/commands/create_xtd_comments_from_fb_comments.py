@@ -24,7 +24,7 @@ class Command(BaseCommand):
                     submit_date=each.created,
                     facebook_comment_id=each.fb_comment_id,
                     content_type_id=content_type_id,
-                    site_id=2
+                    site_id=1
                 ).save()
         fb_non_first_level_comments = PhotoComment.objects.exclude(fb_comment_parent_id=0).order_by('-created')
         for each in fb_non_first_level_comments:
