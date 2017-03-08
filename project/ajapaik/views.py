@@ -2194,7 +2194,7 @@ def norwegian_csv_upload(request):
         shutil.copyfileobj(response.raw, fout)
         fout.close()
         licence_url_in_csv = meta_for_this_image.get('license')
-        licence = Licence.objects.get_or_create(url=licence_url_in_csv)
+        licence = Licence.objects.get_or_create(url=licence_url_in_csv)[0]
         country_name = meta_for_this_image.get('country') or 'Norway'
         county_name = meta_for_this_image.get('county') or None
         municipality_name = meta_for_this_image.get('municipality') or None
