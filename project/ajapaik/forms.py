@@ -2,6 +2,8 @@ import autocomplete_light
 from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
+from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
+from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence
@@ -361,3 +363,11 @@ class CuratorWholeSetAlbumsSelectionForm(forms.Form):
         super(CuratorWholeSetAlbumsSelectionForm, self).__init__(*args, **kwargs)
 
         self.fields['albums'].help_text = None
+
+
+class MyCommentForm(XtdCommentForm):
+    def __init__(self, *args, **kwargs):
+        super(MyCommentForm, self).__init__(*args, **kwargs)
+        self.fields['comment'] = forms.CharField(
+            widget=forms.Textarea(attrs={'placeholder': _('supports Markdown')}),
+            max_length=COMMENT_MAX_LENGTH)

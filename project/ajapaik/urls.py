@@ -8,6 +8,8 @@ from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
 # TODO: Locale specific URLs?
+from project.ajapaik.views import delete_comment
+
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
    url(r'^stream/', 'fetch_stream'),
@@ -171,6 +173,7 @@ urlpatterns += patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
+    url(r'^comments/delete/(\d+)/$', delete_comment, name='comments-delete'),
     url(r'^comments/', include('django_comments_xtd.urls')),
     url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
     url(r'^google-login', 'project.ajapaik.google_plus.google_login'),

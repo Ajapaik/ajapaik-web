@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 17:44+0200\n"
-"PO-Revision-Date: 2017-02-14 15:23+0000\n"
+"POT-Creation-Date: 2017-03-08 17:13+0200\n"
+"PO-Revision-Date: 2017-03-08 15:09+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/sv/)\n"
@@ -34,65 +34,69 @@ msgstr ""
 msgid "Bounding box values must be numbers"
 msgstr ""
 
-#: project/ajapaik/forms.py:28 project/ajapaik/forms.py:108
-#: project/ajapaik/forms.py:128
+#: project/ajapaik/forms.py:30 project/ajapaik/forms.py:110
+#: project/ajapaik/forms.py:130
 msgid "Choose area"
 msgstr ""
 
-#: project/ajapaik/forms.py:33 project/ajapaik/forms.py:107
-#: project/ajapaik/forms.py:119 project/ajapaik/forms.py:127
-#: project/ajapaik/forms.py:136
+#: project/ajapaik/forms.py:35 project/ajapaik/forms.py:109
+#: project/ajapaik/forms.py:121 project/ajapaik/forms.py:129
+#: project/ajapaik/forms.py:138
 msgid "Choose album"
 msgstr ""
 
-#: project/ajapaik/forms.py:123 project/ajapaik/forms.py:130
+#: project/ajapaik/forms.py:125 project/ajapaik/forms.py:132
 msgid "Choose photo"
 msgstr ""
 
-#: project/ajapaik/forms.py:152 project/ajapaik/forms.py:171
+#: project/ajapaik/forms.py:154 project/ajapaik/forms.py:173
 msgid "Choose parent album"
 msgstr ""
 
-#: project/ajapaik/forms.py:311
+#: project/ajapaik/forms.py:313
 msgid "Import from public collections"
 msgstr ""
 
-#: project/ajapaik/forms.py:312
+#: project/ajapaik/forms.py:314
 msgid "Upload yourself"
 msgstr ""
 
-#: project/ajapaik/forms.py:317 project/ajapaik/forms.py:358
+#: project/ajapaik/forms.py:319 project/ajapaik/forms.py:360
 #: project/ajapaik/templates/_header.html:33
 #: project/ajapaik/templates/_mode_select.html:15
 msgid "Albums"
 msgstr "Album"
 
-#: project/ajapaik/forms.py:318
+#: project/ajapaik/forms.py:320
 msgid "Licence"
 msgstr ""
 
-#: project/ajapaik/forms.py:320
+#: project/ajapaik/forms.py:322
 msgid "I am the author"
 msgstr ""
 
-#: project/ajapaik/forms.py:332
+#: project/ajapaik/forms.py:334
 msgid "Missing image"
 msgstr ""
 
-#: project/ajapaik/forms.py:334
+#: project/ajapaik/forms.py:336
 msgid "Missing description"
 msgstr ""
 
-#: project/ajapaik/forms.py:336
+#: project/ajapaik/forms.py:338
 msgid "Missing licence"
 msgstr ""
 
-#: project/ajapaik/forms.py:349 project/ajapaik/templates/curator.html:121
+#: project/ajapaik/forms.py:351 project/ajapaik/templates/curator.html:121
 msgid "Parent album"
 msgstr ""
 
-#: project/ajapaik/forms.py:352
+#: project/ajapaik/forms.py:354
 msgid "If this album is tied to a certain location, specify here"
+msgstr ""
+
+#: project/ajapaik/forms.py:372
+msgid "supports Markdown"
 msgstr ""
 
 #: project/ajapaik/models.py:154 project/ajapaik/templates/curator.html:77
@@ -660,7 +664,7 @@ msgstr "Tillbaka till startsidan"
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:209
-#: project/ajapaik/views.py:606
+#: project/ajapaik/views.py:610
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
@@ -718,8 +722,8 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1633
-#: project/ajapaik/views.py:1649 project/ajapaik/views.py:1684
+#: project/ajapaik/templates/_header.html:91 project/ajapaik/views.py:1637
+#: project/ajapaik/views.py:1653 project/ajapaik/views.py:1688
 msgid "Leaderboard"
 msgstr ""
 
@@ -1324,6 +1328,14 @@ msgstr "Jag fattar!"
 msgid "More info"
 msgstr "Mer info"
 
+#: project/ajapaik/templates/comments/delete.html:10
+msgid "Really remove this comment?"
+msgstr ""
+
+#: project/ajapaik/templates/comments/delete.html:16
+msgid "Remove"
+msgstr ""
+
 #: project/ajapaik/templates/comments/form.html:4
 msgid "Identify yourself to comment"
 msgstr ""
@@ -1335,6 +1347,10 @@ msgstr ""
 
 #: project/ajapaik/templates/comments/list.html:21
 msgid "Reply"
+msgstr ""
+
+#: project/ajapaik/templates/comments/list.html:24
+msgid "Delete"
 msgstr ""
 
 #: project/ajapaik/templates/curator.html:21
@@ -1957,7 +1973,7 @@ msgstr ""
 msgid "Fixed tour"
 msgstr ""
 
-#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:400
+#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:404
 msgid "Non-authenticated user"
 msgstr ""
 
@@ -1969,89 +1985,89 @@ msgstr ""
 msgid "Added rephoto to Ajapaik"
 msgstr ""
 
-#: project/ajapaik/views.py:534
+#: project/ajapaik/views.py:538
 msgid "Geotagging game"
 msgstr ""
 
-#: project/ajapaik/views.py:602
+#: project/ajapaik/views.py:606
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr ""
 
-#: project/ajapaik/views.py:1030
+#: project/ajapaik/views.py:1034
 msgid "Cannot upload to these albums"
 msgstr ""
 
-#: project/ajapaik/views.py:1048
+#: project/ajapaik/views.py:1052
 msgid "Recuration successful"
 msgstr ""
 
-#: project/ajapaik/views.py:1050
+#: project/ajapaik/views.py:1054
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/ajapaik/views.py:1052
+#: project/ajapaik/views.py:1056
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:1357 project/ajapaik/views.py:1364
-#: project/ajapaik/views.py:1366
+#: project/ajapaik/views.py:1361 project/ajapaik/views.py:1368
+#: project/ajapaik/views.py:1370
 msgid "Browse photos on map"
 msgstr ""
 
-#: project/ajapaik/views.py:1492
+#: project/ajapaik/views.py:1496
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr ""
 
-#: project/ajapaik/views.py:1494
+#: project/ajapaik/views.py:1498
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: project/ajapaik/views.py:1496
+#: project/ajapaik/views.py:1500
 msgid "Your guess was first."
 msgstr ""
 
-#: project/ajapaik/views.py:1777
+#: project/ajapaik/views.py:1781
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
 msgstr ""
 
-#: project/ajapaik/views.py:1779
+#: project/ajapaik/views.py:1783
 msgid "Timepatch (Ajapaik) - curate"
 msgstr ""
 
-#: project/ajapaik/views.py:2104
+#: project/ajapaik/views.py:2108
 msgid "OK"
 msgstr ""
 
-#: project/ajapaik/views.py:2159
+#: project/ajapaik/views.py:2163
 msgid "Error uploading file"
 msgstr ""
 
-#: project/ajapaik/views.py:2176
+#: project/ajapaik/views.py:2180
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: project/ajapaik/views.py:2194
+#: project/ajapaik/views.py:2198
 msgid "Please add photos to your album"
 msgstr ""
 
-#: project/ajapaik/views.py:2196
+#: project/ajapaik/views.py:2200
 msgid "Not enough data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:2526
+#: project/ajapaik/views.py:2530
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
 
-#: project/ajapaik/views.py:2624
+#: project/ajapaik/views.py:2628
 msgid "Photo uploaded"
 msgstr ""
 
-#: project/ajapaik/views.py:2642
+#: project/ajapaik/views.py:2646
 msgid "Album created"
 msgstr ""

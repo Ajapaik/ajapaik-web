@@ -11,11 +11,14 @@ from math import ceil
 from time import strftime, strptime
 
 import cv2 as cv
+import django_comments
 import requests
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.comments.signals import comment_was_flagged
+from django.contrib.comments.views.utils import next_redirect
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sites.models import Site
@@ -31,7 +34,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
+from django_comments.models import CommentFlag
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
@@ -39,7 +43,6 @@ from sorl.thumbnail import get_thumbnail
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
 from project.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
-from project.ajapaik.facebook import APP_ID
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
@@ -47,7 +50,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, PhotoComment, _get_pseudo_slug_for_photo, PhotoLike, \
+    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
     Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
@@ -2645,3 +2648,32 @@ def user_upload_add_album(request):
     ret['form'] = form
 
     return render_to_response('user_upload_add_album.html', RequestContext(request, ret))
+
+
+def perform_delete(request, comment):
+    flag, created = CommentFlag.objects.get_or_create(
+        comment_id=comment.pk,
+        user=request.user,
+        flag=CommentFlag.MODERATOR_DELETION
+    )
+    comment.is_removed = True
+    comment.save()
+    comment_was_flagged.send(
+        sender=comment.__class__,
+        comment=comment,
+        flag=flag,
+        created=created,
+        request=request,
+    )
+
+
+@csrf_protect
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID,
+                                user=request.user)
+    if request.method == 'POST' and comment:
+        perform_delete(request, comment)
+
+        return next_redirect(request, fallback='comments-delete-done', c=comment.pk)
+    else:
+        return render(request, 'comments/delete.html', {'comment': comment, "next": request.GET["next"]})

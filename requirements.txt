@@ -73,3 +73,4 @@ ujson==1.35
 urllib3==1.20
 uWSGI==2.0.14
 uwsgitop==0.10
+Markdown==2.6.8

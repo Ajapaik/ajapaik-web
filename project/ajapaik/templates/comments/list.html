@@ -18,7 +18,11 @@
                 <h6 class="media-heading">
                     {{ comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
                         {% if comment.allow_thread %}&nbsp;-&nbsp;
-                            <a href="{{ comment.get_reply_url }}">{% trans "Reply" %}</a>{% endif %}
+                            <a href="{{ comment.get_reply_url }}">{% trans "Reply" %}</a>
+                        {% endif %}
+                        {% if comment.user == user %}
+                            <a href="{% if rephoto %}{% url "comments-delete" comment.pk %}?next={{ rephoto.get_absolute_url }}{% elif photo %}{% url "comments-delete" comment.pk %}?next={{ photo.get_absolute_url }}{% endif %}">{% trans "Delete" %}</a>
+                        {% endif %}
                 </h6>
                 <p>{{ comment.comment|render_markup_comment }}</p>
             </div>

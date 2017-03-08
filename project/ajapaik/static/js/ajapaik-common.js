@@ -1295,6 +1295,16 @@ var map,
     //    }
     //});
 
+    $(document).on('focus', '#id_comment', function () {
+        $('.ajapaik-photo-modal-previous-button').addClass('ajapaik-photo-modal-previous-button-disabled').addClass('disabled');
+        $('.ajapaik-photo-modal-next-button').addClass('ajapaik-photo-modal-next-button-disabled').addClass('disabled');
+    });
+
+    $(document).on('blur', '#id_comment', function () {
+        $('.ajapaik-photo-modal-previous-button').removeClass('ajapaik-photo-modal-previous-button-disabled').removeClass('disabled');
+        $('.ajapaik-photo-modal-next-button').removeClass('ajapaik-photo-modal-next-button-disabled').removeClass('disabled');
+    });
+
     $(document).on('click', '.ajapaik-photo-modal-previous-button', function (e) {
         var $this = $(this);
         if (!isPhotoview) {
@@ -1316,7 +1326,11 @@ var map,
                 }
             }
         } else {
-            _gaq.push(['_trackEvent', 'Photoview', 'Previous']);
+            if ($this.hasClass('ajapaik-photo-modal-previous-button-disabled')) {
+                e.preventDefault();
+            } else {
+                _gaq.push(['_trackEvent', 'Photoview', 'Previous']);
+            }
         }
     });
 
@@ -1364,8 +1378,9 @@ var map,
         });
     });
 
-    $(document).on('click', '.ajapaik-photo-modal-next-button', function () {
+    $(document).on('click', '.ajapaik-photo-modal-next-button', function (e) {
         if (!isPhotoview) {
+            e.preventDefault();
             if (!$(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
                 var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
                 if (nextId && !window.nextPhotoLoading) {
@@ -1383,7 +1398,12 @@ var map,
                 }
             }
         } else {
-            _gaq.push(['_trackEvent', 'Photoview', 'Next']);
+            if ($(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
+                e.preventDefault();
+            } else {
+                _gaq.push(['_trackEvent', 'Photoview', 'Next']);
+            }
+
         }
     });
 
