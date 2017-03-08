@@ -10,9 +10,9 @@ class Command(BaseCommand):
         photos_with_comments_count = Photo.objects.filter(comments__isnull=False).count()
         start = 0
         while start < photos_with_comments_count:
-            photos = Photo.objects.select_related('comments').annotate(comment_count=Count('comments'))[:start]
+            photos = Photo.objects.select_related('comments').annotate(my_comment_count=Count('comments'))[:start]
             for p in photos:
-                #p.fb_comments_count = p.comment_count
+                p.comment_count = p.my_comment_count
                 first_comment = p.comments.order_by('created').first()
                 if first_comment:
                     p.first_comment = first_comment.created
