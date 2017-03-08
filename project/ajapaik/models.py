@@ -1129,7 +1129,7 @@ class NorwegianCSVPhoto(Photo):
 
 
 class Licence(Model):
-    name = CharField(max_length=255)
+    name = CharField(max_length=255, blank=True, null=True)
     url = URLField(blank=True, null=True)
     image_url = URLField(blank=True, null=True)
     is_public = BooleanField(default=False)
@@ -1138,7 +1138,7 @@ class Licence(Model):
         db_table = 'project_licence'
 
     def __unicode__(self):
-        return '%s' % self.name
+        return '%s - %s' % (self.name, self.url)
 
 
 class GoogleMapsReverseGeocode(Model):
