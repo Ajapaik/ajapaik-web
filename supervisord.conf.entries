@@ -1,72 +1,28 @@
-[unix_http_server]
-file=/var/run/supervisor.sock   ; (the path to the socket file)
-chmod=0700                 ; socket file mode (default 0700)
-
-[supervisord]
-logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
-logfile_maxbytes=50MB        ; (max main logfile bytes b4 rotation;default 50MB)
-logfile_backups=10           ; (num of main logfile rotation backups;default 10)
-loglevel=info                ; (log level;default info; others: debug,warn,trace)
-pidfile=/var/run/supervisord.pid
-nodaemon=false               ; (start in foreground if true;default false)
-minfds=1024                  ; (min. avail startup file descriptors;default 1024)
-minprocs=200                 ; (min. avail process descriptors;default 200)
-umask=002                   ; (process file creation umask;default 022)
-env=LANG="en_US.utf8", LC_ALL="en_US.UTF-8", LC_LANG="en_US.UTF-8"
-
-
-[rpcinterface:supervisor]
-supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
-
-[supervisorctl]
-serverurl=unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket
-
 [program:ajapaik_ee]
-command=/opt/python2712/bin/uwsgi
+command=/opt/python2713/bin/uwsgi
   --wsgi-file /var/garage/rephoto/project/ajapaik/wsgihandler.py
   --socket /var/garage/run/ajapaik_ee.sock
-  --processes 4
+  --processes 5
   --master
-  --harakiri 180
-  --max-requests 250
-  --logto /dev/null
+  --max-requests 5000
+  --logto /var/log/ajapaik.ee.log
   --chdir /var/garage/rephoto
-user=www-data
-stopsignal=QUIT
-
-[program:ajapaik_ee.A]
-command=/opt/python2712/bin/uwsgi
-  --wsgi-file /var/garage/rephoto.A/project/ajapaik/wsgihandler.py
-  --socket /var/garage/run/ajapaik_ee_A.sock
-  --processes 4
-  --master
-  --max-requests 250
-  --logto /dev/null
-  --chdir /var/garage/rephoto.A
-user=www-data
-stopsignal=QUIT
-
-[program:ajapaik_ee.B]
-command=/opt/python2712/bin/uwsgi
-  --wsgi-file /var/garage/rephoto.B/project/ajapaik/wsgihandler.py
-  --socket /var/garage/run/ajapaik_ee_B.sock
-  --processes 4
-  --master
-  --max-requests 250
-  --logto /dev/null
-  --chdir /var/garage/rephoto.B
+stderr_logfile=/var/log/ajapaik.ee.log
+stdout_logfile=/var/log/ajapaik.ee.log
 user=www-data
 stopsignal=QUIT
 
 [program:staging_ajapaik_ee]
-command=/opt/python2712/bin/uwsgi
+command=/opt/python2713/bin/uwsgi
   --socket /var/garage/run/staging_ajapaik_ee.sock
   --wsgi-file /var/garage/rephoto_staging/project/ajapaik/wsgihandler.py
   --processes 1
   --master
-  --max-requests 62
+  --max-requests 1000
   --chdir /var/garage/rephoto_staging
-  --logto /dev/null
+  --logto /var/log/staging.ajapaik.ee.log
+stderr_logfile=/var/log/staging.ajapaik.ee.log
+stdout_logfile=/var/log/staging.ajapaik.ee.log
 user=www-data
 stopsignal=QUIT
 

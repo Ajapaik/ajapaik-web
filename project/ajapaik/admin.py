@@ -44,23 +44,23 @@ class TourGroupInline(admin.TabularInline):
 
 
 class TourAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Tour)
+    form = autocomplete_light.modelform_factory(Tour, fields='__all__')
 
 
 class TourGroupAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(TourGroup)
+    form = autocomplete_light.modelform_factory(TourGroup, fields='__all__')
 
 
 class TourRephotoAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(TourRephoto)
+    form = autocomplete_light.modelform_factory(TourRephoto, fields='__all__')
 
 
 class DatingAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Dating)
+    form = autocomplete_light.modelform_factory(Dating, fields='__all__')
 
 
 class DatingConfirmationAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(DatingConfirmation)
+    form = autocomplete_light.modelform_factory(DatingConfirmation, fields='__all__')
 
 
 class PhotoAdmin(ModelAdmin):
@@ -81,6 +81,7 @@ class PhotoAdmin(ModelAdmin):
             return 0
 
         angle = math.acos(cos_angle)
+
         return angle * equatorial_radius_meters
 
     def save_model(self, request, obj, form, change):
@@ -131,59 +132,59 @@ class PhotoAdmin(ModelAdmin):
 
     inlines = (AlbumPhotoInline,)
 
-    form = autocomplete_light.modelform_factory(Photo)
+    form = autocomplete_light.modelform_factory(Photo, fields='__all__')
 
 
 class SkipAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Skip)
+    form = autocomplete_light.modelform_factory(Skip, fields='__all__')
 
 
 class GeoTagAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(GeoTag)
+    form = autocomplete_light.modelform_factory(GeoTag, fields='__all__')
 
 
 class ProfileAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Profile)
+    form = autocomplete_light.modelform_factory(Profile, fields='__all__')
 
 
 class PointsAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Points)
+    form = autocomplete_light.modelform_factory(Points, fields='__all__')
 
 
 class AlbumAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Album)
+    form = autocomplete_light.modelform_factory(Album, fields='__all__')
 
 
 class PhotoCommentAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(PhotoComment)
+    form = autocomplete_light.modelform_factory(PhotoComment, fields='__all__')
 
 
 class SourceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Source)
+    form = autocomplete_light.modelform_factory(Source, fields='__all__')
 
 
 class AlbumPhotoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(AlbumPhoto)
+    form = autocomplete_light.modelform_factory(AlbumPhoto, fields='__all__')
 
 
 class AreaAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Area)
+    form = autocomplete_light.modelform_factory(Area, fields='__all__')
 
 
 class LicenceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Licence)
+    form = autocomplete_light.modelform_factory(Licence, fields='__all__')
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Device)
+    form = autocomplete_light.modelform_factory(Device, fields='__all__')
 
 
 class NewsletterAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Newsletter)
+    form = autocomplete_light.modelform_factory(Newsletter, fields='__all__')
 
 
 class VideoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Video)
+    form = autocomplete_light.modelform_factory(Video, fields='__all__')
 
 
 admin.site.register(Photo, PhotoAdmin)

@@ -1,5 +1,5 @@
 # coding=utf-8
-from ujson import loads
+from json import loads
 import urllib2
 from dateutil import parser
 from django.contrib.auth import authenticate, login
