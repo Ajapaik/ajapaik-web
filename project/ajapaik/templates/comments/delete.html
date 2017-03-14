@@ -14,7 +14,7 @@
                 <div><input type="hidden" name="next" value="{{ next }}" id="next"/></div>{% endif %}
             <p class="submit">
                 <input type="submit" name="submit" value="{% trans "Remove" %}"/> or <a
-                    href="{{ comment.get_absolute_url }}">cancel</a>
+                    href="{{ comment.get_absolute_url }}">{% trans "Cancel" %}</a>
             </p>
         </form>
     </div>
