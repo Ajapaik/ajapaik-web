@@ -1,0 +1,30 @@
+server {
+    listen 80;
+    server_name www.staging.ajapaik.ee staging.ajapaik.ee;
+    return 301 https://staging.ajapaik.ee$request_uri;
+}
+
+server {
+    listen 443;
+    ssl on;
+    server_name staging.ajapaik.ee;
+
+    ssl_certificate /var/garage/rephoto_staging/cert.pem;
+    ssl_certificate_key /var/garage/rephoto_staging/key.pem;
+
+    access_log /var/log/staging.ajapaik.ee.access.log;
+    error_log /var/log/staging.ajapaik.ee.error.log;
+
+    location /media  {
+        alias /var/garage/rephoto_staging/media;
+    }
+
+    location /static {
+        alias /var/garage/rephoto_staging/static-collected;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/var/garage/run/staging_ajapaik_ee.sock;
+    }
+}

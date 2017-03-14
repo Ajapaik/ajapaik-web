@@ -1708,4 +1708,42 @@ var map,
             }
         }
     });
+
+    $(document).on('click', '#ajapaik-comments-like-button', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $.post($this.prop('href'), {
+            csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+        }, function (response, status) {
+            if (status === 'success') {
+                $.get($this.data('like-count-url'), {}, function (getResponse1) {
+                    $('#ajapaik-comments-like-count-' + $this.data('id')).text('(' + getResponse1.count + ')');
+                });
+                $.get($this.data('dislike-count-url'), {}, function (getResponse2) {
+                    $('#ajapaik-comments-dislike-count-' + $this.data('id')).text('(' + getResponse2.count + ')');
+                });
+            }
+        });
+
+        return false;
+    });
+
+    $(document).on('click', '#ajapaik-comments-dislike-button', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $.post($this.prop('href'), {
+            csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+        }, function (response, status) {
+            if (status === 'success') {
+                $.get($this.data('like-count-url'), {}, function (getResponse1) {
+                    $('#ajapaik-comments-like-count-' + $this.data('id')).text('(' + getResponse1.count + ')');
+                });
+                $.get($this.data('dislike-count-url'), {}, function (getResponse2) {
+                    $('#ajapaik-comments-dislike-count-' + $this.data('id')).text('(' + getResponse2.count + ')');
+                });
+            }
+        });
+
+        return false;
+    });
 }(jQuery));

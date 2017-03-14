@@ -1,6 +1,7 @@
 import StringIO
 import os
 from contextlib import closing
+from copy import deepcopy
 from datetime import datetime
 from math import degrees
 from time import sleep
@@ -31,7 +32,7 @@ from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
 from django.utils.dateformat import DateFormat
 from django.utils.translation import ugettext as _
-from django_comments_xtd.models import XtdComment
+from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
@@ -1406,3 +1407,28 @@ class MyXtdComment(XtdComment):
                 photo.latest_comment = self.submit_date
             photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk).count()
             photo.light_save()
+
+    def delete(self, *args, **kwargs):
+        object_pk = deepcopy(self.object_pk)
+        super(MyXtdComment, self).delete(*args, **kwargs)
+        photo = Photo.objects.filter(pk=object_pk).first()
+        if photo:
+            photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk).count()
+            if photo.comment_count == 0:
+                photo.first_comment = None
+                photo.latest_comment = None
+            else:
+                first_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('-created').first()
+                if first_comment:
+                    photo.first_comment = first_comment.submit_date
+                latest_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('created').first()
+                if latest_comment:
+                    photo.latest_comment = latest_comment.submit_date
+
+            photo.light_save()
+
+    def like_count(self):
+        return self.flags.filter(flag=LIKEDIT_FLAG).count()
+
+    def dislike_count(self):
+        return self.flags.filter(flag=DISLIKEDIT_FLAG).count()

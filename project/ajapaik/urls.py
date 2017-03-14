@@ -1,14 +1,12 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
-from django.contrib.staticfiles.views import serve
 from django.contrib import admin
+from django.contrib.staticfiles.views import serve
 from django.views.generic import RedirectView, TemplateView
 
 from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
-
-# TODO: Locale specific URLs?
-from project.ajapaik.views import delete_comment
+from project.ajapaik.views import delete_comment, get_comment_like_count, get_comment_dislike_count
 
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
@@ -174,6 +172,8 @@ urlpatterns += patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^comments/delete/(\d+)/$', delete_comment, name='comments-delete'),
+    url(r'^comments/like-count/(\d+)/$', get_comment_like_count, name='comments-like-count'),
+    url(r'^comments/dislike-count/(\d+)/$', get_comment_dislike_count, name='comments-dislike-count'),
     url(r'^comments/', include('django_comments_xtd.urls')),
     url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
     url(r'^google-login', 'project.ajapaik.google_plus.google_login'),

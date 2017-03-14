@@ -17,12 +17,24 @@
             <div class="media-body">
                 <h6 class="media-heading">
                     {{ comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
-                        {% if comment.allow_thread %}&nbsp;-&nbsp;
-                            <a href="{{ comment.get_reply_url }}">{% trans "Reply" %}</a>
-                        {% endif %}
-                        {% if comment.user == user %}
-                            <a href="{% if rephoto %}{% url "comments-delete" comment.pk %}?next={{ rephoto.get_absolute_url }}{% elif photo %}{% url "comments-delete" comment.pk %}?next={{ photo.get_absolute_url }}{% endif %}">{% trans "Delete" %}</a>
-                        {% endif %}
+                    <a id="ajapaik-comments-like-button" data-id="{{ comment.pk }}"
+                       href="{% url "comments-xtd-like" comment.pk %}"
+                       data-like-count-url="{% url "comments-like-count" comment.pk %}"
+                       data-dislike-count-url="{% url "comments-dislike-count" comment.pk %}">{% trans "Like" %}<span
+                            id="ajapaik-comments-like-count-{{ comment.pk }}">{% if comment.like_count > 0 %}({{ comment.like_count }}){% endif %}</span></a>
+                    <a id="ajapaik-comments-dislike-button" data-id="{{ comment.pk }}"
+                       href="{% url "comments-xtd-dislike" comment.pk %}"
+                       data-like-count-url="{% url "comments-like-count" comment.pk %}"
+                       data-dislike-count-url="{% url "comments-dislike-count" comment.pk %}">{% trans "Dislike" %}<span
+                            id="ajapaik-comments-dislike-count-{{ comment.pk }}">{% if comment.dislike_count > 0 %}({{ comment.dislike_count }}){% endif %}</span></a>
+                    {% if comment.allow_thread %}
+                        <a href="{{ comment.get_reply_url }}">{% trans "Reply" %}</a>
+                    {% endif %}
+                    {% if comment.user == user %}
+                        <a href="{% if rephoto %}{% url "comments-delete" comment.pk %}?next=
+
+                            {{ rephoto.get_absolute_url }}{% elif photo %}{% url "comments-delete" comment.pk %}?next={{ photo.get_absolute_url }}{% endif %}">{% trans "Delete" %}</a>
+                    {% endif %}
                 </h6>
                 <p>{{ comment.comment|render_markup_comment }}</p>
             </div>

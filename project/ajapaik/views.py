@@ -29,6 +29,7 @@ from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -2677,3 +2678,16 @@ def delete_comment(request, comment_id):
         return next_redirect(request, fallback='comments-delete-done', c=comment.pk)
     else:
         return render(request, 'comments/delete.html', {'comment': comment, "next": request.GET["next"]})
+
+
+# TODO: Should just use 1 info URL to save requests
+def get_comment_like_count(request, comment_id):
+    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
+
+    return JsonResponse({'count': comment.like_count()})
+
+
+def get_comment_dislike_count(request, comment_id):
+    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
+
+    return JsonResponse({'count': comment.dislike_count()})

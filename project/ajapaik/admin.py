@@ -1,13 +1,14 @@
 import autocomplete_light
-from sorl.thumbnail import delete as sorl_delete
 from PIL import Image, ImageOps
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.utils.translation import ugettext as _
+from django_comments_xtd.admin import XtdCommentsAdmin
+from sorl.thumbnail import delete as sorl_delete
 
 from project.ajapaik import settings
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
-    AlbumPhoto, Licence, Device, PhotoComment, Newsletter, Dating, Tour, TourRephoto, \
+    AlbumPhoto, Licence, Device, Newsletter, Dating, Tour, TourRephoto, \
     DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto, MyXtdComment
 
 
@@ -154,10 +155,6 @@ class AlbumAdmin(ModelAdmin):
     form = autocomplete_light.modelform_factory(Album)
 
 
-class PhotoCommentAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(PhotoComment)
-
-
 class SourceAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(Source)
 
@@ -185,9 +182,7 @@ class NewsletterAdmin(admin.ModelAdmin):
 class VideoAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(Video)
 
-
 admin.site.register(Photo, PhotoAdmin)
-admin.site.register(PhotoComment, PhotoCommentAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
 admin.site.register(Points, PointsAdmin)
 admin.site.register(Profile, ProfileAdmin)
@@ -208,4 +203,4 @@ admin.site.register(Tour, TourAdmin)
 admin.site.register(TourGroup, TourGroupAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)
 admin.site.register(Video, VideoAdmin)
-admin.site.register(MyXtdComment)
+admin.site.register(MyXtdComment, XtdCommentsAdmin)

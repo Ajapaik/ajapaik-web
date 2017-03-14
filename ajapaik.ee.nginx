@@ -1,0 +1,81 @@
+server {
+    listen 80;
+    server_name sift.pics.by.ajapaik.ee;
+
+    return 301 $scheme://sift.pics$request_uri;
+}
+
+server {
+    listen 80;
+    server_name www.sift.pics.by.ajapaik.ee;
+
+    return 301 $scheme://sift.pics$request_uri;
+}
+
+server {
+    listen 80;
+    server_name ajapaik.ee;
+
+    location / {
+        return 301 https://ajapaik.ee$request_uri;
+    }
+}
+
+server {
+    listen 80;
+    server_name www.ajapaik.ee;
+
+    return 301 https://ajapaik.ee$request_uri;
+}
+
+server {
+    listen 443;
+    ssl on;
+    server_name www.ajapaik.ee;
+
+    ssl_certificate /var/garage/rephoto/cert.pem;
+    ssl_certificate_key /var/garage/rephoto/key.pem;
+
+    return 301 https://ajapaik.ee$request_uri;
+}
+
+server {
+    listen 443;
+    ssl on;
+    server_name ajapaik.ee;
+
+    ssl_certificate /var/garage/rephoto/cert.pem;
+    ssl_certificate_key /var/garage/rephoto/key.pem;
+
+    access_log /var/log/ajapaik.ee.access.log;
+    error_log /var/log/ajapaik.ee.error.log;
+
+    if ($host !~* ^(ajapaik.ee|www.ajapaik.ee)$ ) {
+        return 444;
+    }
+
+    location /media  {
+        alias /var/garage/rephoto/media;
+    }
+
+    location /static {
+        alias /var/garage/rephoto/static-collected;
+        expires 30d;
+    }
+
+    location ~ ^/favicon.(\w*)$ {
+        alias /var/garage/rephoto/static-collected/favicon.$1;
+    }
+
+    # Serve Juks's old maps directly
+    location /vanalinnad.mooo.com {
+        root /var/garage;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/var/garage/run/ajapaik_ee.sock;
+        uwsgi_read_timeout 180s;
+        uwsgi_send_timeout 180s;
+    }
+}
