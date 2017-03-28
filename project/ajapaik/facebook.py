@@ -36,7 +36,7 @@ def token_url(request, code):
 
 
 def profile_url(token):
-    return "https://graph.facebook.com/v2.3/me?" + token
+    return "https://graph.facebook.com/v2.3/me?access_token=" + token['access_token']
 
 
 def fbview_url(request, stage):
@@ -69,7 +69,7 @@ def facebook_handler(request, stage):
         code = request.GET.get("code")
         if code:
             try:
-                token = url_read(token_url(request, code))
+                token = loads(url_read(token_url(request, code)))
                 data = loads(url_read(profile_url(token)))
             except Exception, e:
                 request.log_action("facebook.url_read.exception", {"message": unicode(e)})
