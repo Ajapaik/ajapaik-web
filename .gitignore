@@ -1,7 +1,3 @@
-.DS_Store
-*.pyc
-*.pyo
-workspace.xml
-tasks.xml
-static-collected
-local.py
+project/ajapaik/settings/local.py
+uploads
+cache

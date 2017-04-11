@@ -1,4 +1,7 @@
-This is the open-sourced Django project code for http://ajapaik.ee/
+This is the open-sourced Django project code for https://ajapaik.ee/
+
+Verified working on Python 2.7.13, instructions for installing from source (consider compiling with --enable-optimizations):
+https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
 
 The code is known to work on Python 2.7.12, Postgres 8.4 and Django 1.7.11
 
