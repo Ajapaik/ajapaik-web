@@ -233,9 +233,20 @@
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{ analytics.google_analytics_key }}', 'auto');
         ga('require', 'GTM-MXWK6PP');
-        ga('send', 'pageview');
+    </script>
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(["_setAccount", "{{ analytics.google_analytics_key }}"]);
+        _gaq.push(["_trackPageview"]);
+        (function () {
+            var a = document.createElement("script");
+            a.type = "text/javascript";
+            a.async = !0;
+            a.src = ("https:" == document.location.protocol ? "https://" : "http://") + "stats.g.doubleclick.net/dc.js";
+            var b = document.getElementsByTagName("script")[0];
+            b.parentNode.insertBefore(a, b)
+        })();
     </script>
 </head>
 <body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}{% if is_photoview %} ajapaik-body-photoview{% endif %}">
