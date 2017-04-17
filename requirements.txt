@@ -1,6 +1,6 @@
-appdirs==1.4.0
+appdirs==1.4.3
 cffi==1.9.1
-cryptography==1.5.3
+cryptography==1.8.1
 Django==1.7.11
 django-admin-tools==0.7.1
 django-appconf==1.0.1
@@ -36,13 +36,13 @@ lxml==3.4.4
 meld3==1.0.2
 mock==1.0.1
 ndg-httpsclient==0.4.0
-numpy==1.9.2
+numpy==1.12.1
 oauth2client==1.4.11
 oauthlib==2.0.1
 packaging==16.8
-pandas==0.16.2
+pandas==0.19.2
 pbr==1.8.1
-Pillow==2.6.0
+Pillow==4.1.0
 psycopg2==2.6.1
 py==1.4.31
 pyasn1==0.2.2
@@ -61,8 +61,8 @@ requests==2.5.3
 requests-oauthlib==0.7.0
 requests-toolbelt==0.7.1
 rsa==3.4.2
-scikit-learn==0.16.1
-scipy==0.15.1
+scikit-learn==0.18.1
+scipy==0.19.0
 simplejson==3.10.0
 six==1.10.0
 sorl-thumbnail==12.2

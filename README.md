@@ -1,18 +1,23 @@
 This is the open-sourced Django project code for https://ajapaik.ee/
 
-Verified working on Python 2.7.13, instructions for installing from source (consider compiling with --enable-optimizations):
-https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
+Verified working on Python 2.7.13, instructions for installing from source (consider compiling with 
+--enable-optimizations): https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
 
-The code is known to work on Python 2.7.12, Postgres 8.4 and Django 1.7.11
+Requires libxslt-dev, libpq-dev, python-dev, libgeos-dev.
 
-Ajapaik depends on Postgres PostGIS functionality, on Postgres 8.4 the installation goes as follows:
-<ol>
-  <li>createlang plpgsql yourdatabase</li>
-  <li>cd /usr/share/postgresql/8.4/contrib/postgis-1.5 (on Debian Squeeze)</li>
-  <li>sudo su - postgres</li>
-  <li>psql -d yourdatabase -f postgis.sql</li>
-  <li>psql -d yourdatabase -f spatial_ref_sys.sql</li>
-</ol>
+Requires Solr for searching. Known to work with 4.10.4.
+
+Requires OpenCV for film-still generation. Easiest installation is probably:
+1) sudo apt install libopencv-dev python-opencv
+2) cp /usr/lib/pymodules/python2.7/cv* $VIRTUAL_ENV/lib/python2.7/site-packages/
+3) If 1) and 2) don't work, installing from source:
+https://medium.com/@manuganji/installation-of-opencv-numpy-scipy-inside-a-virtualenv-bf4d82220313
+
+scikit-learn, pandas and numpy may require more involved installation than pip -r. These are currently
+only required for DBSCAN geotag clustering, but may be used for various machine learning purposes in the future.
+
+Ajapaik depends on Postgres PostGIS functionality, with a fresh-enough Postgres installation should be easy:
+http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS23UbuntuPGSQL96Apt
 
 The necessary Python modules can be installed by running the following command in the project root. You may want to create a virtualenv first:
 <ul><li>pip install -r requirements.txt</li></ul>
