@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Ajapaik" promptOnLocalOverwrite="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="EENet" promptOnLocalOverwrite="false">
     <serverData>
-      <paths name="Ajapaik">
+      <paths name="EENet">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/garage/repos/lauri" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/ajapaik-web-staging" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
