@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavaScriptSettings">
-    <option name="languageLevel" value="ES5" />
-  </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 2.7.13 (ssh://ajapaik@193.40.55.69:22/home/ajapaik/ajapaik-web-staging/venv/bin/python)" project-jdk-type="Python SDK" />
-</project>
