@@ -35,7 +35,6 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
 from django_comments.models import CommentFlag
-from django_comments.signals import comment_was_flagged
 from django_comments.views.utils import next_redirect
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
@@ -108,11 +107,12 @@ def get_general_info_modal_content(request):
         "contributing_users": geotags_qs.distinct('user').count(),
         "total_photos_tagged": photo_qs.filter(lat__isnull=False, lon__isnull=False).count(),
         "rephoto_count": rephoto_qs.count(),
-        "rephotographing_users": rephoto_qs.distinct('user').count(),
-        "rephotographed_photo_count": rephoto_qs.distinct('rephoto_of').count(),
+        "rephotographing_users": rephoto_qs.order_by('user').distinct('user').count(),
+        "rephotographed_photo_count": rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
         "user_geotagged_photos": geotags_qs.filter(user=profile).distinct('photo').count(),
         "user_rephotos": user_rephoto_qs.count(),
-        "user_rephotographed_photos": user_rephoto_qs.distinct('rephoto_of').count()
+        "user_rephotographed_photos": user_rephoto_qs.order_by(
+            'rephoto_of_id').distinct('rephoto_of_id').count()
     }
 
     return render_to_response("_general_info_modal_content.html", RequestContext(request, ret))

@@ -195,5 +195,10 @@ else:
     urlpatterns += patterns('', (r'^robots\.txt$', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')), )
 
 if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns(
+        '',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
     urlpatterns += patterns('', (r'^media/(.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}), )
     urlpatterns += patterns('', (r'^vanalinnad.mooo.com/(.*)', 'django.views.static.serve', {'document_root': settings.VANALINNAD_ROOT, 'show_indexes': True}), )
