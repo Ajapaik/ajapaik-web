@@ -1,0 +1,14 @@
+[program:ajapaik_ee]
+command=/home/ajapaik/ajapaik-web/venv/bin/uwsgi
+  --wsgi-file /home/ajapaik/ajapaik-web/project/ajapaik/wsgihandler.py
+  --socket /home/ajapaik/ajapaik-web/run/ajapaik.ee.sock
+  --processes 5
+  --master
+  --max-requests 5000
+  --chdir /home/ajapaik/ajapaik-web/
+  --env=LANG="en_US.utf8"
+  --logto /var/log/ajapaik.ee.uwsgi.log
+stderr_logfile=/var/log/ajapaik.ee.stderr
+stdout_logfile=/var/log/ajapaik.ee.stdout
+user=ajapaik
+stopsignal=QUIT

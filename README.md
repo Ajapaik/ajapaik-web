@@ -3,9 +3,11 @@ This is the open-sourced Django project code for https://ajapaik.ee/
 Verified working on Python 2.7.13, instructions for installing from source (consider compiling with 
 --enable-optimizations): https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
 
-Requires libxslt-dev, libpq-dev, python-dev, libgeos-dev.
+Requires (at least) libxslt-dev, libpq-dev, python-dev, libgeos-dev, supervisor, certbot.
 
-Requires Solr for searching. Known to work with 4.10.4.
+Installing certbot (geolocation doesn't work without HTTPS): https://certbot.eff.org/
+
+Requires Solr for searching. Known to work with Solr 4.10.4.
 
 Requires OpenCV for film-still generation. Easiest installation is probably:
 1) sudo apt install libopencv-dev python-opencv

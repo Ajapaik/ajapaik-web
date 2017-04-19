@@ -1,3 +1,4 @@
 project/ajapaik/settings/local.py
 uploads
 cache
+.idea
