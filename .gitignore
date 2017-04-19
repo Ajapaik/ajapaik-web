@@ -1,4 +1,6 @@
 project/ajapaik/settings/local.py
-uploads
-cache
+media
 .idea
+*.pyc
+static-collected
+vend
