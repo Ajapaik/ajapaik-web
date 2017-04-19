@@ -5,7 +5,7 @@ from copy import deepcopy
 from datetime import datetime
 from math import degrees
 from time import sleep
-from ujson import loads
+from json import loads
 from urllib2 import urlopen
 
 import numpy
@@ -162,9 +162,9 @@ class Album(Model):
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
-    videos = ManyToManyField('Video', related_name='albums', blank=True, null=True)
-    lat = FloatField(null=True, blank=True)
-    lon = FloatField(null=True, blank=True)
+    videos = ManyToManyField('Video', related_name='albums')
+    lat = FloatField(null=True, blank=True, db_index=True)
+    lon = FloatField(null=True, blank=True, db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     cover_photo = ForeignKey('Photo', null=True, blank=True)
     cover_photo_flipped = BooleanField(default=False)
@@ -1096,19 +1096,19 @@ class Profile(Model):
 
 # For Google login
 class FlowModel(Model):
-    id = ForeignKey(User, primary_key=True)
+    id = OneToOneField(User, primary_key=True)
     flow = FlowField()
 
-    class Meta:
+    class Meta(object):
         db_table = 'project_flowmodel'
 
 
 # For Google login
 class CredentialsModel(Model):
-    id = ForeignKey(User, primary_key=True)
+    id = OneToOneField(User, primary_key=True)
     credential = CredentialsField()
 
-    class Meta:
+    class Meta(object):
         db_table = 'project_credentialsmodel'
 
 
@@ -1281,7 +1281,7 @@ class Tour(Model):
         (FIXED, _('Fixed photo set')),
         (NEARBY_RANDOM, _('Random with nearby pictures')),
     )
-    photos = ManyToManyField('Photo', related_name='tours', blank=True, null=True)
+    photos = ManyToManyField('Photo', related_name='tours')
     name = CharField(max_length=255, blank=True, null=True)
     description = TextField(blank=True, null=True)
     user = ForeignKey('Profile', related_name='owned_tours')
@@ -1291,7 +1291,7 @@ class Tour(Model):
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
-    class Meta:
+    class Meta(object):
         db_table = 'thenandnow_tour'
 
     def __unicode__(self):
@@ -1308,12 +1308,12 @@ class TourGroup(Model):
     tour = ForeignKey('Tour', related_name='tour_groups')
     name = CharField(choices=((x, x) for x in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')), max_length=1)
     max_members = IntegerField()
-    members = ManyToManyField('Profile', related_name='tour_groups', null=True, blank=True)
+    members = ManyToManyField('Profile', related_name='tour_groups')
 
     def __unicode__(self):
         return '%s - %s' % (self.tour.pk, self.name,)
 
-    class Meta:
+    class Meta(object):
         unique_together = ('name', 'tour',)
 
 

@@ -1,4 +1,4 @@
-from ujson import dumps
+from json import dumps
 
 import flickrapi
 

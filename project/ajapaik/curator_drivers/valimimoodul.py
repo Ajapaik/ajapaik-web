@@ -1,5 +1,5 @@
 # encoding: utf-8
-from ujson import loads, dumps
+from json import loads, dumps
 
 from django.core.urlresolvers import reverse
 from requests import post

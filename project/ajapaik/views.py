@@ -2,7 +2,7 @@
 import datetime
 import operator
 import shutil
-import ujson as json
+import json as json
 import unicodedata
 import urllib2
 from StringIO import StringIO
@@ -17,8 +17,6 @@ from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.comments.signals import comment_was_flagged
-from django.contrib.comments.views.utils import next_redirect
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sites.models import Site
@@ -37,6 +35,8 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
 from django_comments.models import CommentFlag
+from django_comments.signals import comment_was_flagged
+from django_comments.views.utils import next_redirect
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail

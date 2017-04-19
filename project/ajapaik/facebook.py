@@ -5,7 +5,7 @@ from project.ajapaik.models import Profile
 from contextlib import closing
 from django.conf import settings
 from django.shortcuts import redirect
-from ujson import loads
+from json import loads
 
 APP_ID = "201052296573134"
 APP_KEY = settings.FACEBOOK_APP_KEY

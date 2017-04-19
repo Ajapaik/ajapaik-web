@@ -1,5 +1,5 @@
 import os
-from ujson import loads
+from json import loads
 
 import httplib2
 from django.http import HttpResponseBadRequest

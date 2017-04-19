@@ -146,7 +146,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': TEMPLATE_CONTEXT_PROCESSORS,
             'loaders': TEMPLATE_LOADERS

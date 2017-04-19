@@ -1,5 +1,5 @@
 # encoding: utf-8
-from ujson import loads
+from json import loads
 from django.core.management.base import BaseCommand
 from django.utils.translation import activate
 import requests
