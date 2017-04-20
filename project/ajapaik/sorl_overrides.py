@@ -11,4 +11,5 @@ class SEOThumbnailBackend(ThumbnailBackend):
         filename, _ext = os.path.splitext(os.path.basename(source.name))
 
         path = '%s/%s' % (key, filename)
+
         return '%s%s.%s' % (THUMBNAIL_PREFIX, path, EXTENSIONS[options['format']])

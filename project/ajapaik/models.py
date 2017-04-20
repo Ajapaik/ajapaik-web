@@ -1,18 +1,18 @@
 import StringIO
-import os
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
+from json import loads
 from math import degrees
 from time import sleep
-from json import loads
 from urllib2 import urlopen
 
 import numpy
+import os
 from PIL import Image
 from bulk_update.manager import BulkUpdateManager
 from django.contrib.auth.models import User
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, \
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
@@ -52,6 +52,9 @@ from project.utils import average_angle
 class NotEqual(Lookup):
     lookup_name = 'ne'
 
+    def __init__(self, lhs, rhs):
+        super(NotEqual, self).__init__(lhs, rhs)
+
     def as_sql(self, qn, connection):
         lhs, lhs_params = self.process_lhs(qn, connection)
         rhs, rhs_params = self.process_rhs(qn, connection)
@@ -78,17 +81,20 @@ def _calc_trustworthiness(user_id):
 
 
 def _make_fullscreen(photo):
-    return {"url": reverse('project.ajapaik.views.image_full', args=(photo.pk, photo.get_pseudo_slug())),
-            "size": [photo.width, photo.height]}
+    return {
+        'url': reverse('project.ajapaik.views.image_full', args=(photo.pk, photo.get_pseudo_slug())),
+        'size': [photo.width, photo.height]
+    }
 
 
 def _get_pseudo_slug_for_photo(description, source_key, created):
-    if description is not None and description != "":
-        slug = "-".join(slugify(description).split("-")[:6])[:60]
-    elif source_key is not None and source_key != "":
+    if description is not None and description != '':
+        slug = '-'.join(slugify(description).split('-')[:6])[:60]
+    elif source_key is not None and source_key != '':
         slug = slugify(source_key)
     else:
-        slug = slugify(created.__format__("%Y-%m-%d"))
+        slug = slugify(created.__format__('%Y-%m-%d'))
+
     return slug
 
 
@@ -104,16 +110,17 @@ def _user_post_save(sender, instance, **kwargs):
 post_save.connect(_user_post_save, sender=User)
 
 
+# Pretty much unused
 class Area(Model):
     name = CharField(max_length=255)
     lat = FloatField(null=True)
     lon = FloatField(null=True)
 
     class Meta:
-        db_table = "project_area"
+        db_table = 'project_area'
 
     def __unicode__(self):
-        return u"%s" % self.name
+        return u'%s' % self.name
 
 
 class AlbumPhoto(Model):
@@ -128,9 +135,9 @@ class AlbumPhoto(Model):
 
     album = ForeignKey('Album')
     photo = ForeignKey('Photo')
-    profile = ForeignKey('Profile', blank=True, null=True, related_name="album_photo_links")
-    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL)
-    created = DateTimeField(auto_now_add=True)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links')
+    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL, db_index=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         db_table = 'project_albumphoto'
@@ -142,6 +149,7 @@ class AlbumPhoto(Model):
         if self.album.atype == Album.CURATED:
             self.photo.area = None
             self.photo.light_save()
+
         super(AlbumPhoto, self).delete()
 
 
@@ -152,6 +160,7 @@ class Album(Model):
         (FAVORITES, 'Favorites'),
         (AUTO, 'Auto'),
     )
+
     name = CharField(_('Name'), max_length=255)
     slug = SlugField(null=True, blank=True, max_length=255)
     description = TextField(_('Description'), null=True, blank=True, max_length=2047)
@@ -163,6 +172,7 @@ class Album(Model):
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
     videos = ManyToManyField('Video', related_name='albums')
+    # Why do albums have coordinates anyway?
     lat = FloatField(null=True, blank=True, db_index=True)
     lon = FloatField(null=True, blank=True, db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
@@ -294,7 +304,7 @@ class Photo(Model):
     types = CharField(max_length=255, blank=True, null=True)
     keywords = TextField(null=True, blank=True)
     # Legacy field name, actually profile
-    user = ForeignKey('Profile', related_name='photos', blank=True, null=True, db_index=True)
+    user = ForeignKey('Profile', related_name='photos', blank=True, null=True)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
     guess_level = FloatField(default=3)
@@ -317,7 +327,7 @@ class Photo(Model):
     device = ForeignKey('Device', null=True, blank=True)
     # Useless
     area = ForeignKey('Area', related_name='areas', null=True, blank=True)
-    rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos', db_index=True)
+    rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos')
     first_rephoto = DateTimeField(null=True, blank=True, db_index=True)
     latest_rephoto = DateTimeField(null=True, blank=True, db_index=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
@@ -385,6 +395,7 @@ class Photo(Model):
             'userLoves': photo.user_loves,
             'userLikeCount': photo.user_like_count
         }
+
         return ret
 
     @staticmethod
@@ -443,14 +454,14 @@ class Photo(Model):
         ret = ret_qs.first()
         last_confirm_geotag_by_this_user_for_ret = None
         if ret:
-            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION) \
+            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
                 .order_by('-created').first()
             ret.user_already_confirmed = False
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                                                          and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
         if ret:
-            ret.user_already_geotagged = ret.geotags.filter(user=profile.user).exists()
+            ret.user_already_geotagged = ret.geotags.filter(user_id=profile.id).exists()
             ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
             ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
             ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
@@ -481,6 +492,7 @@ class Photo(Model):
         self.flip = not self.flip
         # This delete applies to sorl thumbnail
         delete(self.image, delete_file=False)
+
         self.light_save()
 
     def watermark(self):
@@ -501,6 +513,7 @@ class Photo(Model):
         tempfile_io = StringIO.StringIO()
         img.save(tempfile_io, format='JPEG')
         image_file = InMemoryUploadedFile(tempfile_io, None, 'watermarked.jpg', 'image/jpeg', tempfile_io.len, None)
+
         self.image.save('watermarked.jpg', image_file)
 
     @permalink
@@ -525,6 +538,7 @@ class Photo(Model):
             if each.azimuth:
                 serialized.append(each.azimuth)
             data.append(serialized)
+
         return data
 
     def reverse_geocode_location(self):
@@ -596,6 +610,7 @@ class Photo(Model):
         n = points.shape[0]
         sum_lon = numpy.sum(points[:, 1])
         sum_lat = numpy.sum(points[:, 0])
+
         return sum_lon / n, sum_lat / n
 
     @staticmethod
@@ -608,6 +623,7 @@ class Photo(Model):
             if (closest_dist is None) or (dist < closest_dist):
                 closest_point = point
                 closest_dist = dist
+
         return closest_point
 
     # TODO: Cut down on the science library use
@@ -702,7 +718,7 @@ class Photo(Model):
 
 
 class PhotoMetadataUpdate(Model):
-    photo = ForeignKey("Photo", related_name='metadata_updates')
+    photo = ForeignKey('Photo', related_name='metadata_updates')
     old_title = CharField(max_length=255, blank=True, null=True)
     new_title = CharField(max_length=255, blank=True, null=True)
     old_description = TextField(null=True, blank=True)
@@ -712,11 +728,11 @@ class PhotoMetadataUpdate(Model):
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "project_photometadataupdate"
+        db_table = 'project_photometadataupdate'
 
 
 class PhotoComment(Model):
-    photo = ForeignKey("Photo", related_name='comments')
+    photo = ForeignKey('Photo', related_name='comments')
     fb_comment_id = CharField(max_length=255, unique=True)
     fb_object_id = CharField(max_length=255)
     fb_comment_parent_id = CharField(max_length=255, blank=True, null=True)
@@ -725,10 +741,10 @@ class PhotoComment(Model):
     created = DateTimeField()
 
     class Meta:
-        db_table = "project_photocomment"
+        db_table = 'project_photocomment'
 
     def __unicode__(self):
-        return u"%s" % self.text[:50]
+        return u'%s' % self.text[:50]
 
 
 class PhotoLike(Model):
@@ -739,26 +755,26 @@ class PhotoLike(Model):
 
 
 class DifficultyFeedback(Model):
-    photo = ForeignKey("Photo")
-    user_profile = ForeignKey("Profile", related_name='difficulty_feedbacks')
+    photo = ForeignKey('Photo')
+    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks')
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
-    geotag = ForeignKey("GeoTag")
+    geotag = ForeignKey('GeoTag')
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "project_difficultyfeedback"
+        db_table = 'project_difficultyfeedback'
 
 
 # FIXME: Unused model?
 class FlipFeedback(Model):
-    photo = ForeignKey("Photo")
-    user_profile = ForeignKey("Profile")
+    photo = ForeignKey('Photo')
+    user_profile = ForeignKey('Profile')
     flip = NullBooleanField()
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "project_flipfeedback"
+        db_table = 'project_flipfeedback'
 
 
 class Points(Model):
@@ -778,7 +794,7 @@ class Points(Model):
     )
 
     user = ForeignKey('Profile', related_name='points')
-    action = PositiveSmallIntegerField(choices=ACTION_CHOICES)
+    action = PositiveSmallIntegerField(choices=ACTION_CHOICES, db_index=True)
     photo = ForeignKey('Photo', null=True, blank=True)
     album = ForeignKey('Album', null=True, blank=True)
     geotag = ForeignKey('GeoTag', null=True, blank=True)
@@ -830,6 +846,7 @@ class GeoTag(Model):
         (JUKS, _('Juks')),
         (NO_MAP, _('No map')),
     )
+
     lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)])
     lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
@@ -850,7 +867,7 @@ class GeoTag(Model):
     score = IntegerField(null=True, blank=True)
     azimuth_score = IntegerField(null=True, blank=True)
     trustworthiness = FloatField()
-    created = DateTimeField(auto_now_add=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
 
     class Meta:
@@ -858,6 +875,7 @@ class GeoTag(Model):
 
     def save(self, *args, **kwargs):
         self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+
         super(GeoTag, self).save(*args, **kwargs)
 
     def __unicode__(self):
@@ -881,12 +899,12 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read("https://graph.facebook.com/v2.3/me?access_token=%s" % access_token))
+        data = loads(self.url_read('https://graph.facebook.com/v2.3/me?access_token=%s' % access_token))
         if not data:
-            raise Exception("Facebook did not return anything useful for this access token")
+            raise Exception('Facebook did not return anything useful for this access token')
 
         try:
-            return self.get(fb_id=data.get("id")), data
+            return self.get(fb_id=data.get('id')), data
         except ObjectDoesNotExist:
             return None, data,
 
@@ -902,27 +920,27 @@ class Profile(Model):
 
     fb_name = CharField(max_length=255, null=True, blank=True)
     fb_link = CharField(max_length=255, null=True, blank=True)
-    fb_id = CharField(max_length=100, null=True, blank=True)
+    fb_id = CharField(max_length=100, null=True, blank=True, db_index=True)
     fb_token = CharField(max_length=511, null=True, blank=True)
     fb_hometown = CharField(max_length=511, null=True, blank=True)
     fb_current_location = CharField(max_length=511, null=True, blank=True)
     fb_birthday = DateField(null=True, blank=True)
-    fb_email = CharField(max_length=255, null=True, blank=True)
+    fb_email = CharField(max_length=255, null=True, blank=True, db_index=True)
     fb_user_friends = TextField(null=True, blank=True)
 
-    google_plus_id = CharField(max_length=100, null=True, blank=True)
-    google_plus_email = CharField(max_length=255, null=True, blank=True)
+    google_plus_id = CharField(max_length=100, null=True, blank=True, db_index=True)
+    google_plus_email = CharField(max_length=255, null=True, blank=True, db_index=True)
     google_plus_link = CharField(max_length=255, null=True, blank=True)
     google_plus_name = CharField(max_length=255, null=True, blank=True)
     google_plus_token = TextField(null=True, blank=True)
     google_plus_picture = CharField(max_length=255, null=True, blank=True)
 
     modified = DateTimeField(auto_now=True)
-    deletion_attempted = DateTimeField(blank=True, null=True)
+    deletion_attempted = DateTimeField(blank=True, null=True, db_index=True)
 
-    score = PositiveIntegerField(default=0)
-    score_rephoto = PositiveIntegerField(default=0)
-    score_recent_activity = PositiveIntegerField(default=0)
+    score = PositiveIntegerField(default=0, db_index=True)
+    score_rephoto = PositiveIntegerField(default=0, db_index=True)
+    score_recent_activity = PositiveIntegerField(default=0, db_index=True)
 
     send_then_and_now_photos_to_ajapaik = BooleanField(default=False)
 
@@ -936,6 +954,7 @@ class Profile(Model):
     def is_legit(self):
         if self.user.is_active and (self.fb_id or self.google_plus_id or self.user.email):
             return True
+
         return False
 
     def get_display_name(self):
@@ -957,35 +976,35 @@ class Profile(Model):
         return u"%s" % (self.get_display_name(),)
 
     def update_from_fb_data(self, token, data):
-        self.user.first_name = data.get("first_name")
-        self.user.last_name = data.get("last_name")
-        self.user.email = data.get("email")
+        self.user.first_name = data.get('first_name')
+        self.user.last_name = data.get('last_name')
+        self.user.email = data.get('email')
         try:
             self.user.save()
         except IntegrityError:
             return redirect(reverse('frontpage', ))
 
         self.fb_token = token
-        self.fb_id = data.get("id")
-        self.fb_name = data.get("name")
+        self.fb_id = data.get('id')
+        self.fb_name = data.get('name')
         if self.fb_name:
             parts = self.fb_name.split(' ')
             self.first_name = parts[0]
             if len(parts) > 1:
                 self.last_name = parts[1]
-        self.fb_link = data.get("link")
-        self.fb_email = data.get("email")
+        self.fb_link = data.get('link')
+        self.fb_email = data.get('email')
         try:
-            self.fb_birthday = datetime.strptime(data.get("birthday"), "%m/%d/%Y")
+            self.fb_birthday = datetime.strptime(data.get('birthday'), '%m/%d/%Y')
         except TypeError:
             pass
-        location = data.get("location")
-        if location is not None and "name" in location:
-            self.fb_current_location = location["name"]
-        hometown = data.get("hometown")
-        if hometown is not None and "name" in hometown:
-            self.fb_hometown = data.get("hometown")["name"]
-        user_friends = data.get("user_friends")
+        location = data.get('location')
+        if location is not None and 'name' in location:
+            self.fb_current_location = location['name']
+        hometown = data.get('hometown')
+        if hometown is not None and 'name' in hometown:
+            self.fb_hometown = data.get('hometown')['name']
+        user_friends = data.get('user_friends')
         if user_friends is not None:
             self.fb_user_friends = user_friends
 
@@ -999,26 +1018,28 @@ class Profile(Model):
             self.user.last_name = data["family_name"]
         if 'email' in data:
             self.user.email = data["email"]
+
         self.user.save()
 
         if isinstance(token, OAuth2Credentials):
             self.google_plus_token = loads(token.to_json())['access_token']
         else:
             self.google_plus_token = token
-        self.google_plus_id = data["id"]
+        self.google_plus_id = data['id']
         if 'link' in data:
-            self.google_plus_link = data["link"]
+            self.google_plus_link = data['link']
         if 'name' in data:
-            self.google_plus_name = data["name"]
+            self.google_plus_name = data['name']
             if self.google_plus_name:
                 parts = self.google_plus_name.split(' ')
                 self.first_name = parts[0]
                 if len(parts) > 1:
                     self.last_name = parts[1]
         if 'email' in data:
-            self.google_plus_email = data["email"]
+            self.google_plus_email = data['email']
         if 'picture' in data:
-            self.google_plus_picture = data["picture"]
+            self.google_plus_picture = data['picture']
+
         self.save()
 
     def merge_from_other(self, other):
@@ -1032,7 +1053,7 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user=self.user).values_list("rephoto_of", flat=True)
+            rephoto_of__isnull=False, user=self.user).values_list('rephoto_of', flat=True)
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0
@@ -1156,7 +1177,7 @@ class Action(Model):
     type = CharField(max_length=255)
     related_type = ForeignKey(ContentType, null=True, blank=True)
     related_id = PositiveIntegerField(null=True, blank=True)
-    related_object = generic.GenericForeignKey('related_type', 'related_id')
+    related_object = GenericForeignKey('related_type', 'related_id')
     params = json.JSONField(null=True, blank=True)
 
     @classmethod
@@ -1165,6 +1186,7 @@ class Action(Model):
         if related_object:
             obj.related_object = related_object
         obj.save()
+
         return obj
 
     class Meta:
@@ -1281,6 +1303,7 @@ class Tour(Model):
         (FIXED, _('Fixed photo set')),
         (NEARBY_RANDOM, _('Random with nearby pictures')),
     )
+
     photos = ManyToManyField('Photo', related_name='tours')
     name = CharField(max_length=255, blank=True, null=True)
     description = TextField(blank=True, null=True)

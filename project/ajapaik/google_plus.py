@@ -1,16 +1,15 @@
-import os
 from json import loads
 
 import httplib2
+import os
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from oauth2client import xsrfutil
 from oauth2client.client import flow_from_clientsecrets
-
 from oauth2client.django_orm import Storage
 
-from project.ajapaik.models import CredentialsModel, Profile
 from project.ajapaik import settings
+from project.ajapaik.models import CredentialsModel, Profile
 
 CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 
@@ -32,6 +31,7 @@ def google_login(request):
         FLOW.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY, request.user)
         authorize_url = FLOW.step1_get_authorize_url()
         return HttpResponseRedirect(authorize_url)
+
     return HttpResponseRedirect(next_uri)
 
 
@@ -64,4 +64,5 @@ def auth_return(request):
         next_uri = request.session['google_plus_next']
         del request.session['google_plus_next']
         request.session.modified = True
+
     return HttpResponseRedirect(next_uri)

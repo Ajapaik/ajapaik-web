@@ -1,6 +1,7 @@
 # coding=utf-8
-import os
 import sys
+
+import os
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
@@ -9,7 +10,6 @@ gettext = lambda s: s
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 DEFER_JAVASCRIPT = False
 
@@ -32,7 +32,7 @@ if not ABSOLUTE_PROJECT_ROOT in sys.path:
 
 STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
 MEDIA_ROOT = '%s/media' % ABSOLUTE_PROJECT_ROOT
-VANALINNAD_ROOT = '/var/garage/vanalinnad.mooo.com'
+VANALINNAD_ROOT = '/home/ajapaik/vanalinnad.mooo.com'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
@@ -98,14 +98,6 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'admin_tools.template_loaders.Loader',
-    )),
-)
-
 MIDDLEWARE_CLASSES = (
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -125,32 +117,34 @@ ROOT_URLCONF = 'project.ajapaik.urls'
 
 WSGI_APPLICATION = 'project.ajapaik.wsgihandler.application'
 
-TEMPLATE_DIRS = (
-    ABSOLUTE_TEMPLATES_PATH,
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'project.ajapaik.context_processors.analytics',
-    'project.ajapaik.context_processors.is_then_and_now',
-    'project.ajapaik.context_processors.is_user_upload',
-)
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'OPTIONS': {
-            'context_processors': TEMPLATE_CONTEXT_PROCESSORS,
-            'loaders': TEMPLATE_LOADERS
+            'context_processors': (
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'django.core.context_processors.tz',
+                'django.core.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'project.ajapaik.context_processors.analytics',
+                'project.ajapaik.context_processors.is_then_and_now',
+                'project.ajapaik.context_processors.is_user_upload',
+            ),
+            'loaders': (
+                ('django.template.loaders.cached.Loader', (
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'admin_tools.template_loaders.Loader',
+                )),
+            )
         },
-        'DIRS': TEMPLATE_DIRS
+        'DIRS': (
+            ABSOLUTE_TEMPLATES_PATH,
+        )
     },
 ]
 

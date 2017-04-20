@@ -26,6 +26,11 @@ server {
         alias /home/ajapaik/ajapaik-web-staging/static-collected;
     }
 
+    # Serve Juks's old maps directly
+    location /vanalinnad.mooo.com {
+        root /home/ajapaik;
+    }
+
     location / {
         include uwsgi_params;
         uwsgi_pass unix:/home/ajapaik/ajapaik-web-staging/run/staging.ajapaik.ee.sock;

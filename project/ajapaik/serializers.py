@@ -1,5 +1,6 @@
-from models import Album, Dating, Video
 from rest_framework import serializers
+
+from models import Album, Dating, Video
 
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):

@@ -286,16 +286,22 @@ def _get_album_choices(qs=None, start=None, end=None):
 
 
 def _calculate_recent_activity_scores():
-    five_thousand_actions_ago = Points.objects.order_by('-created')[5000].created
-    recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id') \
-        .annotate(total_points=Sum('points'))
+    c = min(5000, Points.objects.all().count())
+    recent_actions = []
+    try:
+        five_thousand_actions_ago = Points.objects.order_by('-created')[c - 1].created
+        recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id') \
+            .annotate(total_points=Sum('points'))
+    except IndexError:
+        pass
     recent_action_dict = {}
     for each in recent_actions:
-        recent_action_dict[each['user_id']] = each
+        recent_action_dict[each['user_id']] = each['total_points']
     recent_actors = Profile.objects.filter(pk__in=recent_action_dict.keys())
     for each in recent_actors:
-        each.score_recent_activity = recent_action_dict[each.pk]['total_points']
-    Profile.objects.bulk_update(recent_actors, update_fields=['score_recent_activity'])
+        each.score_recent_activity = recent_action_dict[each.pk]
+        each.save()
+    # Profile.objects.bulk_update(recent_actors, update_fields=['score_recent_activity'])
     # Check for people who somehow no longer have actions among the last 5000
     orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(pk__in=[x.pk for x in recent_actors])
     orphan_profiles.update(score_recent_activity=0)
@@ -1345,7 +1351,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
         area = Area.objects.filter(pk=selected_photo.area_id).first()
         photos_qs = photos_qs.filter(area=area).filter(rephoto_of__isnull=True)
 
-    geotagging_user_count = photos_qs.prefetch_related('geotags').distinct('geotags__user').count()
+    geotagging_user_count = GeoTag.objects.filter(photo_id__in=photos_qs.values_list('id', flat=True)).distinct(
+        'user').count()
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     site = Site.objects.get_current()

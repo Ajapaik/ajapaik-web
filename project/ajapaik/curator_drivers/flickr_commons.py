@@ -32,10 +32,12 @@ class FlickrCommonsDriver(object):
             else:
                 transformed_item = {
                     'isFlickrResult': True,
-                    'cachedThumbnailUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_t.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
+                    'cachedThumbnailUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_t.jpg' % (
+                    p['farm'], p['server'], p['id'], p['secret']),
                     'title': p['title'],
                     'institution': 'Flickr Commons',
-                    'imageUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (p['farm'], p['server'], p['id'], p['secret']),
+                    'imageUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (
+                    p['farm'], p['server'], p['id'], p['secret']),
                     'id': p['id'],
                     'mediaId': p['id'],
                     'identifyingNumber': p['id'],
@@ -46,7 +48,7 @@ class FlickrCommonsDriver(object):
                 if existing_photo:
                     transformed_item['ajapaikId'] = existing_photo.id
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                    transformed_item['albums'] = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)\
+                    transformed_item['albums'] = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
                         .values_list('id', 'name')
                 transformed['result']['firstRecordViews'].append(transformed_item)
 

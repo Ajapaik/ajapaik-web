@@ -1,12 +1,13 @@
+from django import forms
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
+from django.contrib.gis.geos import Point
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+
 from project.ajapaik.models import Photo
-from django.contrib.gis.geos import Point
-from django import forms
-from django.utils.translation import ugettext as _
 
 
 class DelfiBboxRequestForm(forms.Form):
@@ -40,6 +41,7 @@ class DelfiBboxRequestForm(forms.Form):
 
 class DelfiPhotoInfoRequestForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+
 
 @api_view(['GET'])
 @permission_classes((AllowAny,))

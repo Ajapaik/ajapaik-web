@@ -11,6 +11,7 @@ from project.ajapaik.models import Album, Photo
 
 RANDOM_SET_SIZE = 200
 
+
 class MerekultuurPhotoSerializer(serializers.ModelSerializer):
     source = serializers.CharField(source='source_string')
     thumbUrl = serializers.URLField(source='thumb_url')
@@ -20,6 +21,7 @@ class MerekultuurPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = ('author', 'description', 'source', 'thumbUrl', 'fullSizeUrl', 'ajapaikUrl')
+
 
 @api_view(['GET'])
 @permission_classes((AllowAny,))

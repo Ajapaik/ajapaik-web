@@ -1,5 +1,6 @@
 from django.conf import settings
 
+
 def analytics(self):
     return {
         'analytics': {
@@ -11,19 +12,22 @@ def analytics(self):
 def is_then_and_now(request):
     ret = False
     if ('HTTP_REFERER' in request.META and 'then-and-now-tours' in request.META['HTTP_REFERER']) \
-            or ('next' in request.GET and 'then-and-now-tours' in request.GET['next'])\
+            or ('next' in request.GET and 'then-and-now-tours' in request.GET['next']) \
             or ('next' in request.POST and 'then-and-now-tours' in request.POST['next']):
         ret = True
+
     return {
         'is_then_and_now': ret
     }
 
+
 def is_user_upload(request):
     ret = False
     if ('HTTP_REFERER' in request.META and 'user-upload' in request.META['HTTP_REFERER']) \
-            or ('next' in request.GET and 'user-upload' in request.GET['next'])\
+            or ('next' in request.GET and 'user-upload' in request.GET['next']) \
             or ('next' in request.POST and 'user-upload' in request.POST['next']):
         ret = True
+
     return {
         'is_user_upload': ret
     }

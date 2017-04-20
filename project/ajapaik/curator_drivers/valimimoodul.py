@@ -37,7 +37,8 @@ class ValimimoodulDriver(object):
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},' \
                          '"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":"%s"},' \
                          '"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200,' \
-                         '"digital":true}],"id":0}' % (cleaned_data['fullSearch'].encode('utf-8'), etera_string, institution_string)
+                         '"digital":true}],"id":0}' % (
+                         cleaned_data['fullSearch'].encode('utf-8'), etera_string, institution_string)
         response = post(self.url, data=request_params)
         response.encoding = 'utf-8'
 
@@ -103,8 +104,9 @@ class ValimimoodulDriver(object):
                     check_dict[each['id']] = False
                     if not remove_existing:
                         album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                        each['albums'] = [[x[0], x[1]] for x in Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)\
-                            .values_list('id', 'name')]
+                        each['albums'] = [[x[0], x[1]] for x in
+                                          Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
+                                              .values_list('id', 'name')]
                         for e in each['albums']:
                             e[0] = reverse('project.ajapaik.views.frontpage') + '?album=' + str(e[0])
                 else:

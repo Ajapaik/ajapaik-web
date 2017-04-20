@@ -1,4 +1,5 @@
 from haystack import indexes
+
 from project.ajapaik.models import Photo, Album
 
 
