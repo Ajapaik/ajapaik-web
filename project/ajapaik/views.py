@@ -138,11 +138,12 @@ def get_album_info_modal_content(request):
         ret['rephoto_count'] = album.rephoto_count_with_subalbums
         rephotos_qs = album.get_rephotos_queryset_with_subalbums()
         ret['rephoto_user_count'] = rephotos_qs.order_by('user_id').distinct('user_id').count()
-        ret['rephotographed_photo_count'] = rephotos_qs.distinct('rephoto_of').count()
+        ret['rephotographed_photo_count'] = rephotos_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
 
         album_user_rephotos = rephotos_qs.filter(user=profile)
         ret['user_rephoto_count'] = album_user_rephotos.count()
-        ret['user_rephotographed_photo_count'] = album_user_rephotos.distinct('rephoto_of').count()
+        ret['user_rephotographed_photo_count'] = album_user_rephotos.order_by('rephoto_of_id').distinct(
+            'rephoto_of_id').count()
         if ret['rephoto_user_count'] == 1 and ret['user_rephoto_count'] == ret['rephoto_count']:
             ret['user_made_all_rephotos'] = True
         else:
