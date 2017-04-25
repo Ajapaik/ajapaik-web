@@ -137,7 +137,7 @@ def get_album_info_modal_content(request):
 
         ret['rephoto_count'] = album.rephoto_count_with_subalbums
         rephotos_qs = album.get_rephotos_queryset_with_subalbums()
-        ret['rephoto_user_count'] = rephotos_qs.distinct('user').count()
+        ret['rephoto_user_count'] = rephotos_qs.order_by('user_id').distinct('user_id').count()
         ret['rephotographed_photo_count'] = rephotos_qs.distinct('rephoto_of').count()
 
         album_user_rephotos = rephotos_qs.filter(user=profile)
