@@ -565,7 +565,7 @@ def fetch_stream(request):
         # TODO: Correct implementation
         if form_photo:
             form_photo.user_already_confirmed = False
-            last_confirm_geotag_by_this_user_for_photo = form_photo.geotags.filter(user=profile.user,
+            last_confirm_geotag_by_this_user_for_photo = form_photo.geotags.filter(user_id=profile.id,
                                                                                    type=GeoTag.CONFIRMATION).order_by(
                 '-created').first()
             if last_confirm_geotag_by_this_user_for_photo and (
