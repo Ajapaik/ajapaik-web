@@ -3,4 +3,5 @@ media
 .idea
 *.pyc
 static-collected
-vend
+venv
+project/ajapaik/client_secrets.json

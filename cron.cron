@@ -1,5 +1,4 @@
-0 4 * * * cd /var/garage/rephoto && /opt/python2713/bin/python2.7 project/manage.py refresh_albums
-0 5 * * * cd /var/garage/rephoto && /opt/python2713/bin/python2.7 project/manage.py clearsessions
-15 5 * * * cd /var/garage/rephoto && /opt/python2713/bin/python2.7 project/manage.py reverse_geocode_photos
-30 5 * * * cd /var/garage/rephoto && /opt/python2713/bin/python2.7 project/manage.py update_index
-20 6 * * * sudo sh /var/garage/rephoto/inode-alert
+0 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py refresh_albums
+15 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py clearsessions
+30 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py reverse_geocode_photos
+00 5 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py update_index

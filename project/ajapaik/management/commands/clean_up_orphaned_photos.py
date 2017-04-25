@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Deletes photo files no longer needed from disk'
 
     # TODO: Finish this, but very carefully as all photos are in the same folder
-    # (staging, live, original, rephoto, scaled, unscaled etc)
+    # (staging, live, original, rephoto, scaled, unscaled, sift.pics? etc)
     def handle(self, *args, **options):
         photos = Photo.objects.all()
         for p in photos:

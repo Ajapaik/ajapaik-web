@@ -4,7 +4,7 @@ Verified working on Python 2.7.13, instructions for installing from source (cons
 --enable-optimizations): https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
 
 Requires installation of (at least on Ubuntu) libxslt-dev, libpq-dev, python-dev, libgeos-dev, supervisor, certbot,
-default-jre.
+default-jre, sendmail.
 
 Installing certbot (geolocation doesn't work without HTTPS): https://certbot.eff.org/
 

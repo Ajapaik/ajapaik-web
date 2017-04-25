@@ -197,6 +197,7 @@
             'use strict';
             var ETERASession;
             $(document).ready(function () {
+                window.alert(window.gettext('Ajapaik is currently moving between hosting providers, only Flickr curation is usable for now.'));
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                     if ($(e.target).attr('href') === '#ajapaik-curator-selection-tab') {
                         buildSelectionDiv();
