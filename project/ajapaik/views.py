@@ -1530,7 +1530,7 @@ def geotag_confirm(request):
     if form.is_valid():
         p = form.cleaned_data['photo']
         # Check if user is eligible to confirm location (again)
-        last_confirm_geotag_by_this_user_for_p = p.geotags.filter(user=profile.user, type=GeoTag.CONFIRMATION) \
+        last_confirm_geotag_by_this_user_for_p = p.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
             .order_by('-created').first()
         if not last_confirm_geotag_by_this_user_for_p or (p.lat and p.lon and (
                         last_confirm_geotag_by_this_user_for_p.lat != p.lat and last_confirm_geotag_by_this_user_for_p.lon != p.lon)):
