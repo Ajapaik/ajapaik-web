@@ -573,7 +573,7 @@ def fetch_stream(request):
                             form_photo.lat == last_confirm_geotag_by_this_user_for_photo.lat
                     and form_photo.lon == last_confirm_geotag_by_this_user_for_photo.lon):
                 form_photo.user_already_confirmed = True
-            form_photo.user_already_geotagged = form_photo.geotags.filter(user=profile.user).exists()
+            form_photo.user_already_geotagged = form_photo.geotags.filter(user_id=profile.id).exists()
             form_photo.user_likes = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=1).exists()
             form_photo.user_loves = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=2).exists()
             form_photo.user_like_count = PhotoLike.objects.filter(photo=form_photo).distinct('profile').count()
