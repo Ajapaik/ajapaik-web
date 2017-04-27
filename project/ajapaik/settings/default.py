@@ -251,5 +251,6 @@ COMMENTS_XTD_FORM_CLASS = 'project.ajapaik.forms.MyCommentForm'
 COMMENTS_XTD_MODEL = 'project.ajapaik.models.MyXtdComment'
 COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 
-COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
-COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
+# These break static images
+# COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
+# COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
