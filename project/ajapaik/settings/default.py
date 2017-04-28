@@ -149,7 +149,6 @@ TEMPLATES = [
 ]
 
 ADMIN_TOOL_APPS = (
-    'project.ajapaik',
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -172,7 +171,7 @@ CORE_APPS = (
 )
 
 LOCAL_APPS = (
-
+    'project.ajapaik',
 )
 
 EXTERNAL_APPS = (

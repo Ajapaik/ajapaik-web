@@ -2,6 +2,7 @@ import autocomplete_light
 from PIL import Image, ImageOps
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
+from django.contrib.admin.sites import NotRegistered, AlreadyRegistered
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django_comments_xtd.admin import XtdCommentsAdmin
@@ -188,8 +189,14 @@ class MyUserAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(User, fields='__all__')
 
 
-admin.site.unregister(User)
-admin.site.register(User, MyUserAdmin)
+try:
+    admin.site.unregister(User)
+except NotRegistered:
+    pass
+try:
+    admin.site.register(User, MyUserAdmin)
+except AlreadyRegistered:
+    pass
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
 admin.site.register(Points, PointsAdmin)
