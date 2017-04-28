@@ -903,6 +903,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photos = sorted(photos, key=lambda x: x[0] == each)
         # FIXME: Replacing objects with arrays is not a good idea, the small speed boost isn't worth it
         for p in photos:
+            if hasattr(p[10], 'm'):
+                p[10] = p[10].m
             p[1], p[2] = calculate_thumbnail_size(p[1], p[2], 400)
             if 'photo_selection' in request.session:
                 p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
