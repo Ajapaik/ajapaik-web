@@ -201,6 +201,7 @@ class CuratorPhotoUploadForm(forms.Form):
     rotated = forms.FloatField(min_value=0, max_value=270, required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
+    licence = forms.CharField(max_length=255, required=False)
 
 
 class SelectionUploadForm(forms.Form):

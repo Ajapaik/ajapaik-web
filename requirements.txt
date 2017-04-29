@@ -46,7 +46,7 @@ olefile==0.44
 packaging==16.8
 pandas==0.19.2
 pbr==3.0.0
-Pillow==4.1.0
+Pillow==4.1.1
 pkg-resources==0.0.0
 psycopg2==2.7.1
 py==1.4.33
@@ -75,6 +75,6 @@ sqlparse==0.2.3
 supervisor==3.3.1
 transifex-client==0.12.4
 ujson==1.35
-urllib3==1.20
+urllib3==1.21
 uWSGI==2.0.15
 uwsgitop==0.10

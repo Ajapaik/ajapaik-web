@@ -197,7 +197,8 @@
             'use strict';
             var ETERASession;
             $(document).ready(function () {
-                window.alert(window.gettext('Ajapaik is currently moving between hosting providers, only Flickr curation is usable for now.'));
+                window.alert(window.gettext('Ajapaik is currently moving between hosting providers, only Flickr and ' +
+                        'Finna channels are available for the time being.'));
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                     if ($(e.target).attr('href') === '#ajapaik-curator-selection-tab') {
                         buildSelectionDiv();
@@ -317,6 +318,7 @@
                     useMKA = $('#ajapaik-curator-search-use-mka').prop('checked'),
                     useETERA = $('#ajapaik-curator-search-use-etera').prop('checked'),
                     useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
+                    useFinna = $('#ajapaik-curator-search-use-finna').prop('checked'),
                     useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked'),
                     useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked');
                 start += 200;
@@ -333,6 +335,7 @@
                         useETERA: useETERA,
                         useDIGAR: useDIGAR,
                         useFlickr: useFlickr,
+                        useFinna: useFinna,
                         useUTLIB: useUTLIB,
                         flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
@@ -370,6 +373,7 @@
                     $('#ajapaik-curator-search-use-muis').prop('checked', false);
                     $('#ajapaik-curator-search-use-mka').prop('checked', false);
                     $('#ajapaik-curator-search-use-flickr').prop('checked', false);
+                    $('#ajapaik-curator-search-use-finna').prop('checked', false);
                     $('#ajapaik-curator-search-use-utlib').prop('checked', false);
                 }
             });
@@ -403,6 +407,12 @@
                     $('#ajapaik-curator-search-use-etera').prop('checked', false);
                 }
             });
+            $('#ajapaik-curator-search-use-finna').change(function () {
+                var $this = $(this);
+                if ($this.is(':checked')) {
+                    $('#ajapaik-curator-search-use-etera').prop('checked', false);
+                }
+            });
             $(document).on('click', '#ajapaik-curator-search-button', function () {
                 flickrPage = 1;
                 $('#ajapaik-loading-overlay').show();
@@ -413,6 +423,7 @@
                         useMKA = $('#ajapaik-curator-search-use-mka').prop('checked'),
                         useETERA = $('#ajapaik-curator-search-use-etera').prop('checked'),
                         useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
+                        useFinna = $('#ajapaik-curator-search-use-finna').prop('checked'),
                         useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked'),
                         useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked');
                 if (useETERA && !ETERASession) {
@@ -436,6 +447,7 @@
                         useETERA: useETERA,
                         useDIGAR: useDIGAR,
                         useFlickr: useFlickr,
+                        useFinna: useFinna,
                         useUTLIB: useUTLIB,
                         flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')

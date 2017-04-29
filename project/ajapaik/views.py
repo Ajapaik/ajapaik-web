@@ -1,8 +1,8 @@
 # encoding: utf-8
 import datetime
+import json as json
 import operator
 import shutil
-import json as json
 import unicodedata
 import urllib2
 from StringIO import StringIO
@@ -41,6 +41,7 @@ from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
+from project.ajapaik.curator_drivers.finna import FinnaDriver
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
 from project.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
@@ -802,47 +803,47 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL', },
+                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL',},
                                           order_by=['first_rephoto_is_null', 'project_photo.first_rephoto'], )
                 else:
-                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
+                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL',},
                                           order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
                 photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
             elif order2 == 'comments':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
+                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL',},
                                           order_by=['first_comment_is_null', 'project_photo.first_comment'], )
                 else:
-                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
+                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL',},
                                           order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL', },
+                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL',},
                                           order_by=['first_geotag_is_null', 'project_photo.first_geotag'], )
                 else:
-                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
+                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL',},
                                           order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
             elif order2 == 'likes':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL', },
+                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL',},
                                           order_by=['first_like_is_null', 'project_photo.first_like'], )
                 else:
-                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL', },
+                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL',},
                                           order_by=['latest_like_is_null', '-project_photo.latest_like'], )
             elif order2 == 'views':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL', },
+                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL',},
                                           order_by=['first_view_is_null', 'project_photo.first_view'], )
                 else:
-                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL', },
+                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL',},
                                           order_by=['latest_view_is_null', '-project_photo.latest_view'], )
             elif order2 == 'datings':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL', },
+                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL',},
                                           order_by=['first_dating_is_null', 'project_photo.first_dating'], )
                 else:
-                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
+                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL',},
                                           order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
             elif order2 == 'stills':
                 if order3 == 'reverse':
@@ -1847,6 +1848,7 @@ def curator_search(request):
     response = json.dumps({})
     flickr_driver = None
     valimimoodul_driver = None
+    finna_driver = None
     if form.is_valid():
         if form.cleaned_data['useFlickr']:
             flickr_driver = FlickrCommonsDriver()
@@ -1857,6 +1859,8 @@ def curator_search(request):
                 response = valimimoodul_driver.transform_response(
                     valimimoodul_driver.get_by_ids(form.cleaned_data['ids']),
                     form.cleaned_data['filterExisting'])
+        if form.cleaned_data['useFinna']:
+            finna_driver = FinnaDriver()
         if form.cleaned_data['fullSearch']:
             if valimimoodul_driver and not form.cleaned_data['ids']:
                 response = _join_2_json_objects(response, valimimoodul_driver.transform_response(
@@ -1864,6 +1868,10 @@ def curator_search(request):
             if flickr_driver:
                 response = _join_2_json_objects(response, flickr_driver.transform_response(
                     flickr_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
+            if finna_driver:
+                response = _join_2_json_objects(response, finna_driver.transform_response(
+                    finna_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
+                    form.cleaned_data['flickrPage']))
 
     return HttpResponse(response, content_type="application/json")
 
@@ -2013,7 +2021,11 @@ def curator_photo_upload_handler(request):
                     if upload_form.cleaned_data["institution"] == 'Flickr Commons':
                         licence = flickr_licence
                     else:
-                        licence = unknown_licence
+                        # For Finna
+                        if upload_form.cleaned_data["licence"]:
+                            licence = Licence.objects.get_or_create(name=upload_form.cleaned_data["licence"])[0]
+                        else:
+                            licence = unknown_licence
                     upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]
                     if upload_form.cleaned_data["institution"] == "ETERA":
                         upload_form.cleaned_data["institution"] = 'TLÜAR ETERA'
