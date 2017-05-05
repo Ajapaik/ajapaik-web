@@ -510,18 +510,26 @@
             window.formatId = function (id) {
                 id = replaceAll(id, ':', '');
                 id = replaceAll(id, '.', '');
+                id = id.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "")
+
                 return id;
             };
             window.escapeSlash = function (id) {
                 id = replaceAll(id, '/', '\\/');
+
                 return id;
             };
             window.imageLoaded = function (id) {
                 var targetContainer = $('#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId(id))),
-                        targetImage = targetContainer.find('img')[0];
+                    targetImage = targetContainer.find('img')[0];
                 if (targetImage) {
                     targetContainer.find('.ajapaik-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
                 }
+            };
+            window.imageFailedToLoad = function (id) {
+                var targetContainer = $('#ajapaik-curator-selection-item-' + window.escapeSlash(window.formatId(id)));
+                delete window.selectedResults[id];
+                targetContainer.remove();
             };
             var toggleButtonActive = function ($this) {
                 if ($this.hasClass('active')) {

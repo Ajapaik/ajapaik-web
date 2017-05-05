@@ -144,18 +144,22 @@ TEMPLATES = [
         },
         'DIRS': (
             ABSOLUTE_TEMPLATES_PATH,
+            '%s/project/ajapaik/templates' % ABSOLUTE_PROJECT_ROOT
         )
     },
 ]
 
-ADMIN_TOOL_APPS = (
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_EMAIL_HTML = False
+LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
+REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
+
+INSTALLED_APPS = (
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
-)
-
-CORE_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -167,14 +171,9 @@ CORE_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admindocs',
     'django.contrib.gis',
-    'django_comments'
-)
-
-LOCAL_APPS = (
+    'django_comments_xtd',
+    'django_comments',
     'project.ajapaik',
-)
-
-EXTERNAL_APPS = (
     'django_extensions',
     'sorl.thumbnail',
     'rest_framework',
@@ -184,17 +183,7 @@ EXTERNAL_APPS = (
     'registration',
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
-    'django_comments_xtd'
 )
-
-ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-REGISTRATION_EMAIL_HTML = False
-LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
-REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
-
-# TODO: Just use one tuple
-INSTALLED_APPS = ADMIN_TOOL_APPS + CORE_APPS + LOCAL_APPS + EXTERNAL_APPS
 
 ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
 
