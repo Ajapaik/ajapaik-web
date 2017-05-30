@@ -161,12 +161,15 @@ def api_register(request):
         pw = register_form.cleaned_data['password']
         user = None
         if t == 'ajapaik':
+            User.objects.create_user(username=uname, password=pw)
+
             try:
                 user = authenticate(username=uname, password=pw)
                 profile = user.profile
-                profile.merge_from_other(request.user.profile)
+                # profile.merge_from_other(request.user.profile)
             except ObjectDoesNotExist:
                 pass
+
         elif t == 'google':
             response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
             parsed_reponse = loads(response.text)
