@@ -82,15 +82,27 @@ def login_auth(request, auth_type='login'):
         pw = form.cleaned_data['password']
 
         if t == 'ajapaik' or t == 'auto':
+            num_same_users = User.objects.filter(username=uname).count()
             if auth_type == 'register':
+                if num_same_users > 0:
+                    # user exists in the DB already
+                    content['error'] = 8
+                    return content
                 User.objects.create_user(username=uname, password=pw)
+            elif num_same_users == 0:
+                # user does not exists
+                content['error'] = 10
+                return content
 
-            try:
-                user = authenticate(username=uname, password=pw)
+            user = authenticate(username=uname, password=pw)
+            if user:
                 # For register
                 profile = user.profile
-            except ObjectDoesNotExist:
-                pass
+            elif auth_type == 'login':
+                # user exists but password is incorrect
+                content['error'] = 11
+                return content
+
         elif t == 'google':
             response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
             parsed_reponse = loads(response.text)
