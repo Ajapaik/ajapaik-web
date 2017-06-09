@@ -106,26 +106,55 @@ def login_auth(request, auth_type='login'):
         elif t == 'google':
             response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
             parsed_reponse = loads(response.text)
-            try:
-                if GOOGLE_CLIENT_ID == parsed_reponse['issued_to'] and parsed_reponse['email'] == uname and parsed_reponse['verified_email']:
-                    profile = Profile.objects.filter(google_plus_email=uname).first()
-                    if profile:
-                        user = profile.user
-                        user.backend = 'django.contrib.auth.backends.ModelBackend'
-            except KeyError:
-                pass
-        elif t == 'facebook':
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
+            if GOOGLE_CLIENT_ID == parsed_reponse.get('issued_to') and uname == parsed_reponse.get('email') and parsed_reponse.get('verified_email'):
+                profile = Profile.objects.filter(google_plus_email=uname).first()
+                if profile:
+                    request_profile = request.get_user().profile
+                    if request.user and request.user.is_authenticated():
+                        profile.merge_from_other(request_profile)
+
+                    user = profile.user
+                    request.set_user(user)
+                else:
+                    user = request.get_user()
+                    profile = user.profile
+
+                # user.backend = 'django.contrib.auth.backends.ModelBackend'
+                headers = {'Authorization': 'Bearer ' + pw}
+                user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
+
+                profile.update_from_google_plus_data(pw, user_info.json())
+
+            else:
+                content['error'] = 11
+                return content
+
+        elif t == 'fb':
+            # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
+            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (FACEBOOK_APP_SECRET, pw))
             parsed_reponse = loads(response.text)
-            try:
-                if APP_ID == parsed_reponse['data']['app_id'] and parsed_reponse['data']['is_valid']:
-                    fb_user_id = parsed_reponse['data']['user_id']
-                    profile = Profile.objects.filter(fb_id=fb_user_id).first()
-                    if profile:
-                        user = profile.user
-                        user.backend = 'django.contrib.auth.backends.ModelBackend'
-            except KeyError:
-                pass
+            print(parsed_reponse)
+            if APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get('is_valid'):
+                fb_user_id = parsed_reponse['data']['user_id']
+                profile = Profile.objects.filter(fb_id=fb_user_id).first()
+                if profile:
+                    request_profile = request.get_user().profile
+                    if request.user and request.user.is_authenticated():
+                        profile.merge_from_other(request_profile)
+
+                    user = profile.user
+                    request.set_user(user)
+                else:
+                    user = request.get_user()
+                    profile = user.profile
+
+                # user.backend = 'django.contrib.auth.backends.ModelBackend'
+                user_info = request.get("https://graph.facebook.com/v2.3/me?access_token=%s" % token['access_token'])
+                profile.update_from_fb_data(pw, user_info.json())
+
+            else:
+                content['error'] = 11
+                return content
 
         if not user and t == 'auto':
             User.objects.create_user(username=uname, password=pw)
