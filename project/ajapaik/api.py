@@ -28,7 +28,7 @@ from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiPho
     ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, APILoginAuthForm
 from project.ajapaik.models import Album, Photo, Profile, Licence
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
-    GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_ID, FACEBOOK_APP_KEY
 
 
 def custom_exception_handler(exc, context):
@@ -81,7 +81,7 @@ def login_auth(request, auth_type='login'):
             uname = uname[:30]
         pw = form.cleaned_data['password']
 
-        if t == 'ajapaik' or t == 'auto':
+        if t == 'ajapaik':
             num_same_users = User.objects.filter(username=uname).count()
             if auth_type == 'register':
                 if num_same_users > 0:
@@ -103,6 +103,16 @@ def login_auth(request, auth_type='login'):
                 content['error'] = 11
                 return content
 
+        elif t == 'auto':
+            num_same_users = User.objects.filter(username=uname).count()
+            if num_same_users == 0:
+                User.objects.create_user(username=uname, password=pw)
+
+            user = authenticate(username=uname, password=pw)
+            if user:
+                profile = user.profile
+                profile.merge_from_other(request.get_user().profile)
+
         elif t == 'google':
             response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
             parsed_reponse = loads(response.text)
@@ -119,10 +129,9 @@ def login_auth(request, auth_type='login'):
                     user = request.get_user()
                     profile = user.profile
 
-                # user.backend = 'django.contrib.auth.backends.ModelBackend'
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
                 headers = {'Authorization': 'Bearer ' + pw}
                 user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
-
                 profile.update_from_google_plus_data(pw, user_info.json())
 
             else:
@@ -131,10 +140,9 @@ def login_auth(request, auth_type='login'):
 
         elif t == 'fb':
             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (FACEBOOK_APP_SECRET, pw))
+            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, FACEBOOK_APP_KEY + '|' + FACEBOOK_APP_SECRET))
             parsed_reponse = loads(response.text)
-            print(parsed_reponse)
-            if APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get('is_valid'):
+            if FACEBOOK_APP_KEY == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get('is_valid'):
                 fb_user_id = parsed_reponse['data']['user_id']
                 profile = Profile.objects.filter(fb_id=fb_user_id).first()
                 if profile:
@@ -148,9 +156,11 @@ def login_auth(request, auth_type='login'):
                     user = request.get_user()
                     profile = user.profile
 
-                # user.backend = 'django.contrib.auth.backends.ModelBackend'
-                user_info = request.get("https://graph.facebook.com/v2.3/me?access_token=%s" % token['access_token'])
-                profile.update_from_fb_data(pw, user_info.json())
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
+                fb_get_info_url = "https://graph.facebook.com/v2.3/me?fields=%s&access_token=%s" % (','.join(fb_permissions), pw)
+                user_info = requests.get(fb_get_info_url)
+                profile.update_from_fb_data(pw, loads(user_info.text))
 
             else:
                 content['error'] = 11
@@ -173,6 +183,9 @@ def login_auth(request, auth_type='login'):
     if user:
         login(request, user)
         content['id'] = user.id
+
+        if not request.session.session_key:
+            request.session.save()
         content['session'] = request.session.session_key
     else:
         content['error'] = 4
