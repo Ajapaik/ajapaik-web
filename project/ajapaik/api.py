@@ -112,6 +112,10 @@ def login_auth(request, auth_type='login'):
             if user:
                 profile = user.profile
                 profile.merge_from_other(request.get_user().profile)
+            else:
+                # user exists but password is incorrect
+                content['error'] = 11
+                return content
 
         elif t == 'google':
             response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
