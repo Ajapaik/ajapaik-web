@@ -28,7 +28,9 @@ from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiPho
     ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, APILoginAuthForm
 from project.ajapaik.models import Album, Photo, Profile, Licence
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
-    GOOGLE_CLIENT_ID, FACEBOOK_APP_KEY
+    GOOGLE_CLIENT_ID, FACEBOOK_APP_ID
+
+from oauth2client import client, crypt
 
 
 def custom_exception_handler(exc, context):
@@ -118,35 +120,41 @@ def login_auth(request, auth_type='login'):
                 return content
 
         elif t == 'google':
-            response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
-            parsed_reponse = loads(response.text)
-            if GOOGLE_CLIENT_ID == parsed_reponse.get('issued_to') and uname == parsed_reponse.get('email') and parsed_reponse.get('verified_email'):
-                profile = Profile.objects.filter(google_plus_email=uname).first()
-                if profile:
-                    request_profile = request.get_user().profile
-                    if request.user and request.user.is_authenticated():
-                        profile.merge_from_other(request_profile)
+            # response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
 
-                    user = profile.user
-                    request.set_user(user)
-                else:
-                    user = request.get_user()
-                    profile = user.profile
+            try:
+                idinfo = client.verify_id_token(pw, GOOGLE_CLIENT_ID)
 
-                user.backend = 'django.contrib.auth.backends.ModelBackend'
-                headers = {'Authorization': 'Bearer ' + pw}
-                user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
-                profile.update_from_google_plus_data(pw, user_info.json())
+                if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+                    raise crypt.AppIdentityError("Wrong issuer.")
 
-            else:
+            except crypt.AppIdentityError:
                 content['error'] = 11
                 return content
 
+            profile = Profile.objects.filter(google_plus_email=uname).first()
+            if profile:
+                request_profile = request.get_user().profile
+                if request.user and request.user.is_authenticated():
+                    profile.merge_from_other(request_profile)
+
+                user = profile.user
+                request.set_user(user)
+            else:
+                user = request.get_user()
+                profile = user.profile
+
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            # headers = {'Authorization': 'Bearer ' + pw}
+            # user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
+            idinfo['id'] = idinfo['sub']
+            profile.update_from_google_plus_data(pw, idinfo)
+
         elif t == 'fb':
             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, FACEBOOK_APP_KEY + '|' + FACEBOOK_APP_SECRET))
+            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
             parsed_reponse = loads(response.text)
-            if FACEBOOK_APP_KEY == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get('is_valid'):
+            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get('is_valid'):
                 fb_user_id = parsed_reponse['data']['user_id']
                 profile = Profile.objects.filter(fb_id=fb_user_id).first()
                 if profile:
