@@ -197,8 +197,6 @@
             'use strict';
             var ETERASession;
             $(document).ready(function () {
-                window.alert(window.gettext('Ajapaik is currently moving between hosting providers, only Flickr and ' +
-                        'Finna channels are available for the time being.'));
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                     if ($(e.target).attr('href') === '#ajapaik-curator-selection-tab') {
                         buildSelectionDiv();
