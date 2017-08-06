@@ -262,6 +262,7 @@ def api_albums(request):
 @permission_classes((IsAuthenticated,))
 def api_album_nearest(request):
     form = ApiAlbumNearestForm(request.data)
+    profile = request.user.profile
     content = {
         'state': str(int(round(time.time() * 1000)))
     }
@@ -303,7 +304,8 @@ def api_album_nearest(request):
                 "source": { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url } if p.source else {'url': p.source_url},
                 "latitude": p.lat,
                 "longitude": p.lon,
-                "rephotos": p.rephoto_count
+                "rephotos": p.rephoto_count,
+                "uploads": p.rephotos.filter(user=profile).count(),
             })
         content["photos"] = photos
     else:
