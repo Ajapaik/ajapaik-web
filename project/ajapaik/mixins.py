@@ -39,16 +39,14 @@ class FacebookMixin(object):
                           "code": code})
 
     def profile_url(self, token):
-        profile = loads(self.url_read("https://graph.facebook.com/v2.3/me?access_token=" + token['access_token']))
-        name = profile.get('name')
-        first_name, last_name = name.split(' ')
+        profile = loads(self.url_read("https://graph.facebook.com/v2.6/me?fields=first_name,last_name,name,email&access_token=" + token['access_token']))
 
         return {
-            "first_name" : first_name,
-            "last_name"  : last_name,
+            "first_name" : profile.get('first_name'),
+            "last_name"  : profile.get('last_name'),
             "fb_id"      : profile.get('id'),
-            "fb_name"    : name,
-            "fb_email"   : profile.get('fb_email'),
+            "fb_name"    : profile.get('name'),
+            "fb_email"   : profile.get('email'),
             "fb_token"   : token.get('access_token')
         }
 
