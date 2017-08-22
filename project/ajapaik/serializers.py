@@ -47,4 +47,4 @@ class DatingSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        exclude = ('created', 'modified')
+        exclude = ('created', 'modified')    

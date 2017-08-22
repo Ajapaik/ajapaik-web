@@ -18,7 +18,7 @@ from django.views.decorators.cache import never_cache
 
 from json import loads
 from dateutil import parser
-from rest_framework import authentication, exceptions
+from rest_framework import authentication, exceptions, APIView
 from rest_framework.decorators import (
     api_view,
     permission_classes,
@@ -381,62 +381,66 @@ def api_album_state(request):
     return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser, MultiPartParser))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_photo_upload(request):
-    profile = request.user.profile
-    upload_form = ApiPhotoUploadForm(request.data, request.FILES)
-    content = {
-        'error': 0
-    }
-    if upload_form.is_valid():
-        original_photo = upload_form.cleaned_data['id']
-        lat = upload_form.cleaned_data['latitude']
-        lng = upload_form.cleaned_data['longitude']
-        original_img = upload_form.cleaned_data['original']
-        img_scale_factor = upload_form.cleaned_data['scale']
-        geography = None
+class PhotoUploadAPIView(APIView):
+    """ Endpoint for rephoto """
 
-        if lat and lng:
-            geography = Point(x=lng, y=lat, srid=4326)
+    parser_classes = (FormParser, MultiPartParser,)
+    authentication_classes = (CustomAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
-        #Scale/zoom image
-        photo_man = PhotoManipulation()
-        zoomed_img = photo_man.image_zoom(original_img, img_scale_factor)
-        img = Image.fromarray(zoomed_img[0])
-        img.save('media/uploads/rephoto_{}'.format(zoomed_img[1]))
+    def post(self, request):
+        profile = request.user.profile
+        upload_form = ApiPhotoUploadForm(request.data, request.FILES)
+        content = {
+            'error': 0
+        }
 
-        new_rephoto = Photo(
-            image_unscaled=original_img,
-            image=img,
-            rephoto_of=original_photo,
-            lat=lat,
-            lon=lng,
-            geography=geography,
-            gps_accuracy=upload_form.cleaned_data['accuracy'],
-            gps_fix_age=upload_form.cleaned_data['age'],
-            date=parser.parse(upload_form.cleaned_data['date']),
-            cam_scale_factor=img_scale_factor,
-            cam_yaw=upload_form.cleaned_data['yaw'],
-            cam_pitch=upload_form.cleaned_data['pitch'],
-            cam_roll=upload_form.cleaned_data['roll'],
-            flip=upload_form.cleaned_data['flip'],
-            licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
-            user=profile,
-        )
-        new_rephoto.light_save()
-        original_photo.latest_rephoto = new_rephoto.created
-        if not original_photo.first_rephoto:
-            original_photo.first_rephoto = new_rephoto.created
-        original_photo.light_save()
-        profile.update_rephoto_score()
-        profile.save()
-    else:
-        content['error'] = 2
+        if upload_form.is_valid():
+            original_photo = upload_form.cleaned_data['id']
+            lat = upload_form.cleaned_data['latitude']
+            lng = upload_form.cleaned_data['longitude']
+            original_img = upload_form.cleaned_data['original']
+            img_scale_factor = upload_form.cleaned_data['scale']
+            geography = None
 
-    return Response(content)
+            if lat and lng:
+                geography = Point(x=lng, y=lat, srid=4326)
+
+            #Scale/zoom image
+            photo_man = PhotoManipulation()
+            zoomed_img = photo_man.image_zoom(original_img, img_scale_factor)
+            img = Image.fromarray(zoomed_img[0])
+            img.save('media/uploads/rephoto_{}'.format(zoomed_img[1]))
+
+            new_rephoto = Photo(
+                image_unscaled=original_img,
+                image=img,
+                rephoto_of=original_photo,
+                lat=lat,
+                lon=lng,
+                geography=geography,
+                gps_accuracy=upload_form.cleaned_data['accuracy'],
+                gps_fix_age=upload_form.cleaned_data['age'],
+                date=parser.parse(upload_form.cleaned_data['date']),
+                cam_scale_factor=img_scale_factor,
+                cam_yaw=upload_form.cleaned_data['yaw'],
+                cam_pitch=upload_form.cleaned_data['pitch'],
+                cam_roll=upload_form.cleaned_data['roll'],
+                flip=upload_form.cleaned_data['flip'],
+                licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
+                user=profile,
+            )
+            new_rephoto.light_save()
+            original_photo.latest_rephoto = new_rephoto.created
+            if not original_photo.first_rephoto:
+                original_photo.first_rephoto = new_rephoto.created
+            original_photo.light_save()
+            profile.update_rephoto_score()
+            profile.save()
+        else:
+            content['error'] = 2
+
+        return Response(content)
 
 
 @api_view(['POST'])
