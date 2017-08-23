@@ -42,7 +42,8 @@ from project.ajapaik.forms import (
     ApiAlbumStateForm,
     ApiPhotoUploadForm,
     ApiUserMeForm,
-    ApiPhotoStateForm
+    ApiPhotoStateForm,
+    APIAuthForm
 )
 from project.ajapaik.models import Album, Photo, Profile, Licence, GeoTag
 from project.ajapaik.settings import (
@@ -51,6 +52,7 @@ from project.ajapaik.settings import (
     FACEBOOK_APP_SECRET,
     GOOGLE_CLIENT_ID
 )
+from photos import PhotoManipulation
 
 
 def custom_exception_handler(exc, context):
