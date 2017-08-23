@@ -18,7 +18,7 @@ from django.views.decorators.cache import never_cache
 
 from json import loads
 from dateutil import parser
-from rest_framework import authentication, exceptions, APIView
+from rest_framework import authentication, exceptions
 from rest_framework.decorators import (
     api_view,
     permission_classes,
@@ -28,19 +28,10 @@ from rest_framework.decorators import (
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import exception_handler
+from rest_framework.views import exception_handler, APIView
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik.forms import APILoginForm, APIAuthForm
 from project.ajapaik.facebook import APP_ID
-from project.ajapaik.forms import (
-    ApiAlbumNearestForm,
-    ApiAlbumStateForm,
-    ApiRegisterForm,
-    ApiPhotoUploadForm,
-    ApiUserMeForm,
-    ApiPhotoStateForm
-)
 from project.ajapaik.models import Album, Photo, Profile, Licence
 from project.ajapaik.settings import (
     API_DEFAULT_NEARBY_PHOTOS_RANGE,
@@ -52,8 +43,15 @@ from PIL import Image
 from photo_manipulation import PhotoManipulation
 import time
 from project.ajapaik.facebook import APP_ID
-from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiPhotoUploadForm, \
-    ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, APILoginAuthForm
+from project.ajapaik.forms import (
+    ApiAlbumNearestForm,
+    ApiAlbumStateForm,
+    ApiPhotoUploadForm,
+    ApiUserMeForm,
+    ApiPhotoStateForm,
+    APIAuthForm,
+    APILoginAuthForm
+)
 from project.ajapaik.models import Album, Photo, Profile, Licence
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
     GOOGLE_CLIENT_ID, FACEBOOK_APP_ID
