@@ -9,10 +9,11 @@ from haystack.forms import SearchForm
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence
 
 
-class APILoginForm(forms.Form):
+class APILoginAuthForm(forms.Form):
     type = forms.CharField(max_length=255)
     username = forms.CharField(max_length=255)
-    password = forms.CharField(max_length=255)
+    # For Google+ oAuth
+    password = forms.CharField(max_length=1105)
     version = forms.FloatField(required=False)
     length = forms.IntegerField(required=False, initial=0)
     os = forms.CharField(max_length=255, required=False, initial='android')
@@ -206,14 +207,6 @@ class CuratorPhotoUploadForm(forms.Form):
 
 class SelectionUploadForm(forms.Form):
     selection = forms.CharField(max_length=100000)
-
-
-class ApiRegisterForm(forms.Form):
-    type = forms.CharField(max_length=255)
-    username = forms.CharField(max_length=255)
-    password = forms.CharField(max_length=255)
-    length = forms.IntegerField(required=False, initial=0)
-    os = forms.CharField(max_length=255, required=False, initial='android')
 
 
 class SubmitGeotagForm(forms.ModelForm):
