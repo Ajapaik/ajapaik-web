@@ -7,6 +7,7 @@ from django.views.generic import RedirectView, TemplateView
 from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from project.ajapaik.views import delete_comment, get_comment_like_count, get_comment_dislike_count
+from project.ajapaik.facebook import FacebookHandler
 
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
@@ -175,7 +176,7 @@ urlpatterns += patterns('',
     url(r'^comments/like-count/(\d+)/$', get_comment_like_count, name='comments-like-count'),
     url(r'^comments/dislike-count/(\d+)/$', get_comment_dislike_count, name='comments-dislike-count'),
     url(r'^comments/', include('django_comments_xtd.urls')),
-    url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
+    url(r'^facebook/(?P<stage>[a-z_]+)/', FacebookHandler.as_view(), name='facebook-login'),
     url(r'^google-login', 'project.ajapaik.google_plus.google_login'),
     url(r'^oauth2callback', 'project.ajapaik.google_plus.auth_return'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
