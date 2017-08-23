@@ -495,7 +495,7 @@ class Photo(Model):
         super(Photo, self).__init__(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
-        self.original_flip = self.flip
+        self.original_flip = None
 
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
@@ -507,7 +507,8 @@ class Photo(Model):
         img = Image.open(photo_path)
         flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
         flipped_image.save(photo_path)
-        self.flip = not self.flip
+        self.flip = self.flip
+        self.original_flip = self.flip
         # This delete applies to sorl thumbnail
         delete(self.image, delete_file=False)
 
@@ -561,20 +562,19 @@ class Photo(Model):
 
     def reverse_geocode_location(self):
         url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + GOOGLE_API_KEY
-        lat = None
-        lon = None
+        lat, lon = (None, None)
+
         if self.lat and self.lon:
-            lat = self.lat
-            lon = self.lon
+            lat, lon = (self.lat, self.lon)
         else:
             for a in self.albums.all():
                 if a.lat and a.lon:
-                    lat = a.lat
-                    lon = a.lon
+                    lat, lon = (a.lat, a.lon)
                     break
+
         if lat and lon:
-            cached_response = GoogleMapsReverseGeocode.objects.filter(lat='{:.5f}'.format(lat),
-                                                                      lon='{:.5f}'.format(lon)).first()
+            cached_response = GoogleMapsReverseGeocode.objects.filter(
+                lat='{:.5f}'.format(lat), lon='{:.5f}'.format(lon)).first()
             if cached_response:
                 response = cached_response.response
             else:
@@ -596,26 +596,26 @@ class Photo(Model):
 
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
+
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
             self.reverse_geocode_location()
-        if self.flip is None:
-            self.flip = False
-        if self.original_flip is None:
-            self.original_flip = False
+
+        self.flip = False if self.flip is None else self.flip
+        self.original_flip = False if self.original_flip is None else self.original_flip
+
         if self.flip != self.original_flip:
             self.do_flip()
+
         self.original_lat = self.lat
         self.original_lon = self.lon
         self.original_flip = self.flip
+
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
-            if first_rephoto:
-                self.first_rephoto = first_rephoto.created
+            self.first_rephoto = first_rephoto.created if first_rephoto else None
         last_rephoto = self.rephotos.order_by('-created').first()
-        if last_rephoto:
-            self.latest_rephoto = last_rephoto.created
-        super(Photo, self).save(*args, **kwargs)
+        self.latest_rephoto = last_rephoto.created if last_rephoto else None
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
