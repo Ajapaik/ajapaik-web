@@ -1,22 +1,7 @@
-import StringIO
-from contextlib import closing
-from copy import deepcopy
-from datetime import datetime
-from json import loads
-from math import degrees
-from time import sleep
-from urllib2 import urlopen
-
-import numpy
 import os
-from PIL import Image
-from bulk_update.manager import BulkUpdateManager
-from django.contrib.auth.models import User
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, \
-    ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
-    PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, permalink, PositiveIntegerField
+import numpy
+import StringIO
+
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -34,6 +19,39 @@ from django.utils.dateformat import DateFormat
 from django.utils.translation import ugettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.gis.db.models import (
+    Model,
+    TextField,
+    FloatField,
+    CharField,
+    BooleanField,
+    ForeignKey,
+    IntegerField,
+    DateTimeField,
+    ImageField,
+    URLField,
+    ManyToManyField,
+    SlugField,
+    PositiveSmallIntegerField,
+    PointField,
+    GeoManager,
+    Manager,
+    NullBooleanField,
+    permalink,
+    PositiveIntegerField
+)
+from contextlib import closing
+from copy import deepcopy
+from datetime import datetime
+from json import loads
+from math import degrees
+from time import sleep
+from urllib2 import urlopen
+from PIL import Image
+from bulk_update.manager import BulkUpdateManager
 from geopy.distance import great_circle
 from haystack import connections
 from oauth2client.client import OAuth2Credentials

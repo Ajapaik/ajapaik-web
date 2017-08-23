@@ -1,7 +1,8 @@
 # coding=utf-8
-from json import loads
 import urllib2
-from dateutil import parser
+import requests
+import time
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point
@@ -14,22 +15,41 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
-import requests
-from rest_framework import authentication, exceptions
-from rest_framework.decorators import api_view, permission_classes, authentication_classes, parser_classes
+
+from json import loads
+from dateutil import parser
+from rest_framework import authentication, exceptions, APIView
+from rest_framework.decorators import (
+    api_view,
+    permission_classes,
+    authentication_classes,
+    parser_classes
+)
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
-import time
+
 from project.ajapaik.forms import APILoginForm, APIAuthForm
 from project.ajapaik.facebook import APP_ID
-from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiRegisterForm, ApiPhotoUploadForm, \
-    ApiUserMeForm, ApiPhotoStateForm
+from project.ajapaik.forms import (
+    ApiAlbumNearestForm,
+    ApiAlbumStateForm,
+    ApiRegisterForm,
+    ApiPhotoUploadForm,
+    ApiUserMeForm,
+    ApiPhotoStateForm
+)
 from project.ajapaik.models import Album, Photo, Profile, Licence
-from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
+from project.ajapaik.settings import (
+    API_DEFAULT_NEARBY_PHOTOS_RANGE,
+    API_DEFAULT_NEARBY_MAX_PHOTOS,
+    FACEBOOK_APP_SECRET,
     GOOGLE_CLIENT_ID
+)
+from PIL import Image
+from photo_manipulation import PhotoManipulation
 
 
 def custom_exception_handler(exc, context):
@@ -361,53 +381,66 @@ def api_album_state(request):
     return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser, MultiPartParser))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_photo_upload(request):
-    profile = request.user.profile
-    upload_form = ApiPhotoUploadForm(request.data, request.FILES)
-    content = {
-        'error': 0
-    }
-    if upload_form.is_valid():
-        original_photo = upload_form.cleaned_data['id']
-        lat = upload_form.cleaned_data['latitude']
-        lng = upload_form.cleaned_data['longitude']
-        geography = None
-        if lat and lng:
-            geography = Point(x=lng, y=lat, srid=4326)
-        # TODO: Image scaling etc
-        new_rephoto = Photo(
-            image_unscaled=upload_form.cleaned_data['original'],
-            image=upload_form.cleaned_data['original'],
-            rephoto_of=original_photo,
-            lat=lat,
-            lon=lng,
-            geography=geography,
-            gps_accuracy=upload_form.cleaned_data['accuracy'],
-            gps_fix_age=upload_form.cleaned_data['age'],
-            date=parser.parse(upload_form.cleaned_data['date']),
-            cam_scale_factor=upload_form.cleaned_data['scale'],
-            cam_yaw=upload_form.cleaned_data['yaw'],
-            cam_pitch=upload_form.cleaned_data['pitch'],
-            cam_roll=upload_form.cleaned_data['roll'],
-            flip=upload_form.cleaned_data['flip'],
-            licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
-            user=profile,
-        )
-        new_rephoto.light_save()
-        original_photo.latest_rephoto = new_rephoto.created
-        if not original_photo.first_rephoto:
-            original_photo.first_rephoto = new_rephoto.created
-        original_photo.light_save()
-        profile.update_rephoto_score()
-        profile.save()
-    else:
-        content['error'] = 2
+class PhotoUploadAPIView(APIView):
+    """ Endpoint for rephoto """
 
-    return Response(content)
+    parser_classes = (FormParser, MultiPartParser,)
+    authentication_classes = (CustomAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        profile = request.user.profile
+        upload_form = ApiPhotoUploadForm(request.data, request.FILES)
+        content = {
+            'error': 0
+        }
+
+        if upload_form.is_valid():
+            original_photo = upload_form.cleaned_data['id']
+            lat = upload_form.cleaned_data['latitude']
+            lng = upload_form.cleaned_data['longitude']
+            original_img = upload_form.cleaned_data['original']
+            img_scale_factor = upload_form.cleaned_data['scale']
+            geography = None
+
+            if lat and lng:
+                geography = Point(x=lng, y=lat, srid=4326)
+
+            #Scale/zoom image
+            photo_man = PhotoManipulation()
+            zoomed_img = photo_man.image_zoom(original_img, img_scale_factor)
+            img = Image.fromarray(zoomed_img[0])
+            img.save('media/uploads/rephoto_{}'.format(zoomed_img[1]))
+
+            new_rephoto = Photo(
+                image_unscaled=original_img,
+                image=img,
+                rephoto_of=original_photo,
+                lat=lat,
+                lon=lng,
+                geography=geography,
+                gps_accuracy=upload_form.cleaned_data['accuracy'],
+                gps_fix_age=upload_form.cleaned_data['age'],
+                date=parser.parse(upload_form.cleaned_data['date']),
+                cam_scale_factor=img_scale_factor,
+                cam_yaw=upload_form.cleaned_data['yaw'],
+                cam_pitch=upload_form.cleaned_data['pitch'],
+                cam_roll=upload_form.cleaned_data['roll'],
+                flip=upload_form.cleaned_data['flip'],
+                licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
+                user=profile,
+            )
+            new_rephoto.light_save()
+            original_photo.latest_rephoto = new_rephoto.created
+            if not original_photo.first_rephoto:
+                original_photo.first_rephoto = new_rephoto.created
+            original_photo.light_save()
+            profile.update_rephoto_score()
+            profile.save()
+        else:
+            content['error'] = 2
+
+        return Response(content)
 
 
 @api_view(['POST'])
