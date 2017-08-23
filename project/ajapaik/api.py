@@ -40,7 +40,6 @@ from project.ajapaik.facebook import APP_ID
 from project.ajapaik.forms import (
     ApiAlbumNearestForm,
     ApiAlbumStateForm,
-    ApiRegisterForm,
     ApiPhotoUploadForm,
     ApiUserMeForm,
     ApiPhotoStateForm
@@ -416,7 +415,7 @@ class PhotoUploadAPIView(APIView):
 
     parser_classes = (FormParser, MultiPartParser,)
     authentication_classes = (CustomAuthentication,)
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         profile = request.get_user().profile
