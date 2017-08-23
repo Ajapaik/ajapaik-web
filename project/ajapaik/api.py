@@ -15,9 +15,14 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
+from django.conf import settings
+from django.core.files.base import ContentFile
 
 from json import loads
 from dateutil import parser
+from PIL import Image
+from io import BytesIO
+from oauth2client import client, crypt
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import (
     api_view,
@@ -32,31 +37,21 @@ from rest_framework.views import exception_handler, APIView
 from sorl.thumbnail import get_thumbnail
 
 from project.ajapaik.facebook import APP_ID
-from project.ajapaik.models import Album, Photo, Profile, Licence
+from project.ajapaik.forms import (
+    ApiAlbumNearestForm,
+    ApiAlbumStateForm,
+    ApiRegisterForm,
+    ApiPhotoUploadForm,
+    ApiUserMeForm,
+    ApiPhotoStateForm
+)
+from project.ajapaik.models import Album, Photo, Profile, Licence, GeoTag
 from project.ajapaik.settings import (
     API_DEFAULT_NEARBY_PHOTOS_RANGE,
     API_DEFAULT_NEARBY_MAX_PHOTOS,
     FACEBOOK_APP_SECRET,
     GOOGLE_CLIENT_ID
 )
-from PIL import Image
-from photo_manipulation import PhotoManipulation
-import time
-from project.ajapaik.facebook import APP_ID
-from project.ajapaik.forms import (
-    ApiAlbumNearestForm,
-    ApiAlbumStateForm,
-    ApiPhotoUploadForm,
-    ApiUserMeForm,
-    ApiPhotoStateForm,
-    APIAuthForm,
-    APILoginAuthForm
-)
-from project.ajapaik.models import Album, Photo, Profile, Licence
-from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
-    GOOGLE_CLIENT_ID, FACEBOOK_APP_ID
-
-from oauth2client import client, crypt
 
 
 def custom_exception_handler(exc, context):
@@ -421,17 +416,17 @@ class PhotoUploadAPIView(APIView):
 
     parser_classes = (FormParser, MultiPartParser,)
     authentication_classes = (CustomAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def post(self, request):
-        profile = request.user.profile
+        profile = request.get_user().profile
         upload_form = ApiPhotoUploadForm(request.data, request.FILES)
         content = {
             'error': 0
         }
 
         if upload_form.is_valid():
-            original_photo = upload_form.cleaned_data['id']
+            rephoto_of = upload_form.cleaned_data['id']
             lat = upload_form.cleaned_data['latitude']
             lng = upload_form.cleaned_data['longitude']
             original_img = upload_form.cleaned_data['original']
@@ -441,16 +436,19 @@ class PhotoUploadAPIView(APIView):
             if lat and lng:
                 geography = Point(x=lng, y=lat, srid=4326)
 
-            #Scale/zoom image
+            # Scale/zoom image
             photo_man = PhotoManipulation()
             zoomed_img = photo_man.image_zoom(original_img, img_scale_factor)
-            img = Image.fromarray(zoomed_img[0])
-            img.save('media/uploads/rephoto_{}'.format(zoomed_img[1]))
+            img = zoomed_img.get('scaled_image')
+
+            image_io = BytesIO()
+            ext = str(original_img.name.split('.')[-1])
+            ext = 'jpeg' if ext == 'jpg' else ext
+            img.save(image_io, format=ext, quality=100)
 
             new_rephoto = Photo(
                 image_unscaled=original_img,
-                image=img,
-                rephoto_of=original_photo,
+                rephoto_of=rephoto_of,
                 lat=lat,
                 lon=lng,
                 geography=geography,
@@ -465,16 +463,32 @@ class PhotoUploadAPIView(APIView):
                 licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
                 user=profile,
             )
+
+            new_rephoto.image.save('media/uploads/rephoto_%s' % original_img.name,
+                ContentFile(image_io.getvalue()))
             new_rephoto.light_save()
-            original_photo.latest_rephoto = new_rephoto.created
-            if not original_photo.first_rephoto:
-                original_photo.first_rephoto = new_rephoto.created
-            original_photo.light_save()
+
+            rephoto_of.latest_rephoto = new_rephoto.created
+            if not rephoto_of.first_rephoto:
+                rephoto_of.first_rephoto = new_rephoto.created
+            rephoto_of.save()
+            
             profile.update_rephoto_score()
             profile.save()
-        else:
-            content['error'] = 2
 
+            # Save GeoTag
+            new_geotag = GeoTag(
+                lat=lat,
+                lon=lng,
+                geography=geography,
+                photo_flipped=upload_form.cleaned_data['flip'],
+                user=profile,
+                photo=new_rephoto,
+                trustworthiness=0.0
+            )
+            new_geotag.save()
+            return Response(content)
+        content['error'] = 2
         return Response(content)
 
 

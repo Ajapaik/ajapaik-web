@@ -1,10 +1,15 @@
 import numpy as np
+
+from django.shortcuts import get_object_or_404
+from django.conf import settings
 from scipy.ndimage import zoom
 from scipy import misc
 from PIL import Image
 
+from .models import Photo
+
 class PhotoManipulation(object):
-    """ Class that provides manipulation for images using numpy and scipy """
+    """ Class that provides manipulation for images """
 
     def image_zoom(self, img, zoom_factor):
         original_image = Image.open(img)
@@ -43,8 +48,8 @@ class PhotoManipulation(object):
 
         #If zoom_factor is 1
         else:
-            zoomed_image = original_image
-
-        data = (zoomed_image, original_image.filename.split('/')[-1])
-
-        return data
+            zoomed_image = image_array
+        # Return scaled image as PIL image
+        return {
+            'scaled_image': Image.fromarray(zoomed_image)
+        }
