@@ -43,7 +43,8 @@ from project.ajapaik.forms import (
     ApiPhotoUploadForm,
     ApiUserMeForm,
     ApiPhotoStateForm,
-    APIAuthForm
+    APIAuthForm,
+    APILoginAuthForm
 )
 from project.ajapaik.models import Album, Photo, Profile, Licence, GeoTag
 from project.ajapaik.settings import (
@@ -85,7 +86,7 @@ class CustomAuthentication(authentication.BaseAuthentication):
                 raise exceptions.AuthenticationFailed('No user/session')
 
         return user, None
-
+        
 
 @parser_classes((FormParser,))
 def login_auth(request, auth_type='login'):
@@ -96,10 +97,10 @@ def login_auth(request, auth_type='login'):
         'expires': 86400
     }
     user = None
-
     if form.is_valid():
         t = form.cleaned_data['type']
         uname = form.cleaned_data['username']
+
         if t == 'ajapaik' or t == 'auto':
             # Why do not using some validators?
             uname = uname[:30]
@@ -227,21 +228,27 @@ def login_auth(request, auth_type='login'):
     return content
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@permission_classes((AllowAny,))
-def api_login(request):
-    content = login_auth(request)
-    return Response(content)
+class LoginAPIView(APIView):
+    """ Endpoint for login """
+
+    parser_classes = (FormParser, )
+    permission_classes = (AllowAny, )
+
+    def post(self, request):
+        content = login_auth(request)
+        return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((AllowAny,))
-def api_register(request):
-    content = user = login_auth(request, 'register')
-    return Response(content)
+class RegisterAPIView(APIView):
+    """ Endpoint for registration """
+
+    parser_classes = (FormParser, )
+    authentication_classes = (CustomAuthentication, )
+    permission_classes = (AllowAny, )
+
+    def post(self, request):
+        content = user = login_auth(request, 'register')
+        return Response(content)
 
 
 @api_view(['POST'])
@@ -418,6 +425,9 @@ class PhotoUploadAPIView(APIView):
     parser_classes = (FormParser, MultiPartParser,)
     authentication_classes = (CustomAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    def initial(self, request):
+        request = self.request.get_user()
 
     def post(self, request):
         profile = request.get_user().profile
