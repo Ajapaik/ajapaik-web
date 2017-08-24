@@ -8,7 +8,7 @@ from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from project.ajapaik.views import delete_comment, get_comment_like_count, get_comment_dislike_count
 from project.ajapaik.facebook import FacebookHandler
-from .api import PhotoUploadAPIView
+from .api import PhotoUploadAPIView, RegisterAPIView, LoginAPIView
 
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
@@ -98,8 +98,8 @@ urlpatterns = patterns('project.ajapaik.views',
 
 
 urlpatterns += patterns('project.ajapaik.api',
-    url(r'^api/v1/login/$', 'api_login'),
-    url(r'^api/v1/register/$', 'api_register'),
+    url(r'^api/v1/login/$', LoginAPIView.as_view()),
+    url(r'^api/v1/register/$', RegisterAPIView.as_view()),
     url(r'^api/v1/logout/$', 'api_logout'),
     url(r'^api/v1/albums/$', 'api_albums'),
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/$', 'api_album_thumb'),
