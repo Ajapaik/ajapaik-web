@@ -156,6 +156,7 @@ LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
 REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
 
 INSTALLED_APPS = (
+    'test_without_migrations',
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',

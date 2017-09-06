@@ -1,6 +1,11 @@
 # coding=utf-8
-from json import loads
+import time
 import urllib2
+from StringIO import StringIO
+from json import loads
+
+import requests
+from PIL import Image
 from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -8,13 +13,14 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
-import requests
+from oauth2client import client, crypt
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, authentication_classes, parser_classes
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -22,15 +28,12 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
-import time
-from project.ajapaik.facebook import APP_ID
+
 from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiPhotoUploadForm, \
     ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, APILoginAuthForm
 from project.ajapaik.models import Album, Photo, Profile, Licence
-from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, \
-    GOOGLE_CLIENT_ID, FACEBOOK_APP_ID
-
-from oauth2client import client, crypt
+from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, \
+    FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_APP_ID, MEDIA_ROOT
 
 
 def custom_exception_handler(exc, context):
@@ -152,9 +155,11 @@ def login_auth(request, auth_type='login'):
 
         elif t == 'fb':
             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
+            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
+            pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
             parsed_reponse = loads(response.text)
-            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get('is_valid'):
+            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get(
+                    'is_valid'):
                 fb_user_id = parsed_reponse['data']['user_id']
                 profile = Profile.objects.filter(fb_id=fb_user_id).first()
                 if profile:
@@ -170,7 +175,8 @@ def login_auth(request, auth_type='login'):
 
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-                fb_get_info_url = "https://graph.facebook.com/v2.3/me?fields=%s&access_token=%s" % (','.join(fb_permissions), pw)
+                fb_get_info_url = "https://graph.facebook.com/v2.3/me?fields=%s&access_token=%s" % (
+                ','.join(fb_permissions), pw)
                 user_info = requests.get(fb_get_info_url)
                 profile.update_from_fb_data(pw, loads(user_info.text))
 
@@ -266,14 +272,16 @@ def api_album_thumb(request, album_id, thumb_size=250):
 @permission_classes((IsAuthenticated,))
 def api_albums(request):
     error = 0
-    albums = Album.objects.filter(Q(is_public=True) | Q(profile=request.get_user().profile, atype=Album.CURATED)).order_by('-created')
+    albums = Album.objects.filter(
+        Q(is_public=True) | Q(profile=request.get_user().profile, atype=Album.CURATED)).order_by('-created')
     ret = []
     content = {}
     for a in albums:
         ret.append({
             'id': a.id,
             'title': a.name,
-            'image': request.build_absolute_uri(reverse('project.ajapaik.api.api_album_thumb', args=(a.id,))) + '?' + str(time.time()),
+            'image': request.build_absolute_uri(
+                reverse('project.ajapaik.api.api_album_thumb', args=(a.id,))) + '?' + str(time.time()),
             'stats': {
                 'total': a.photo_count_with_subalbums,
                 'rephotos': a.rephoto_count_with_subalbums
@@ -312,8 +320,10 @@ def api_album_nearest(request):
             nearby_range = form.cleaned_data["range"]
         else:
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
-        album_nearby_photos = photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, geography__distance_lte=(ref_location,
-            D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+        album_nearby_photos = photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True,
+                                               geography__distance_lte=(ref_location,
+                                                                        D(m=nearby_range))).distance(
+            ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:
             date = None
             if p.date:
@@ -324,13 +334,15 @@ def api_album_nearest(request):
                 date = p.date_text
             photos.append({
                 "id": p.id,
-                "image": request.build_absolute_uri(reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
+                "image": request.build_absolute_uri(
+                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
                 "date": date,
                 "author": p.author,
-                "source": { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url } if p.source else {'url': p.source_url},
+                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
+                    'url': p.source_url},
                 "latitude": p.lat,
                 "longitude": p.lon,
                 "rephotos": p.rephoto_count,
@@ -371,13 +383,15 @@ def api_album_state(request):
                 date = p.date_text
             photos.append({
                 "id": p.id,
-                "image": request.build_absolute_uri(reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
+                "image": request.build_absolute_uri(
+                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
                 "date": date,
                 "author": p.author,
-                "source": { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url } if p.source else {'url': p.source_url},
+                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
+                    'url': p.source_url},
                 "latitude": p.lat,
                 "longitude": p.lon,
                 "rephotos": p.rephoto_count,
@@ -427,6 +441,27 @@ def api_photo_upload(request):
             user=profile,
         )
         new_rephoto.light_save()
+        if upload_form.cleaned_data['scale']:
+            rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
+            img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
+            new_size = tuple([int(x * rounded_scale) for x in img.size])
+            output_file = StringIO()
+            if rounded_scale < 1:
+                x0 = (img.size[0] - new_size[0]) / 2
+                y0 = (img.size[1] - new_size[1]) / 2
+                x1 = img.size[0] - x0
+                y1 = img.size[1] - y0
+                new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
+                new_img.save(output_file, 'JPEG', quality=95)
+                new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
+            elif rounded_scale > 1:
+                x0 = (new_size[0] - img.size[0]) / 2
+                y0 = (new_size[1] - img.size[1]) / 2
+                new_img = Image.new('RGB', new_size)
+                new_img.paste(img, (x0, y0))
+                new_img.save(output_file, 'JPEG', quality=95)
+                new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
+        content['id'] = new_rephoto.pk
         original_photo.latest_rephoto = new_rephoto.created
         if not original_photo.first_rephoto:
             original_photo.first_rephoto = new_rephoto.created
@@ -491,7 +526,7 @@ def api_photo_state(request):
             'title': p.description,
             'date': date,
             'author': p.author,
-            'source': { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url },
+            'source': {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url},
             'latitude': p.lat,
             'longitude': p.lon,
             'rephotos': p.rephotos.count(),

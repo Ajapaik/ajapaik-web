@@ -23,6 +23,7 @@ django-mobi==0.1.7
 django-modeltranslation==0.12.1
 django-registration-redux==1.6
 django-tastypie==0.13.3
+django-test-without-migrations==0.6
 djangorestframework==3.6.2
 docutils==0.13.1
 enum34==1.1.6

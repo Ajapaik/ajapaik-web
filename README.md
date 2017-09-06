@@ -38,3 +38,7 @@ You should at least override or specify the following keys:
   <li>GOOGLE_ANALYTICS_KEY</li>
   <li>ALLOWED_HOSTS</li>
 </ul>
+
+Running tests:
+source venv/bin/activate
+python project/manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
