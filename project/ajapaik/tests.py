@@ -3,13 +3,12 @@ from json import loads
 
 import os
 from PIL import Image
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
 
 from project.ajapaik.models import Photo
-
-from django.conf import settings
 
 
 class FunctionalTests(TestCase):

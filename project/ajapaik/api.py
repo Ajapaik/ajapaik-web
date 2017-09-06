@@ -156,7 +156,7 @@ def login_auth(request, auth_type='login'):
         elif t == 'fb':
             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
             response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
-            pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
+                pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
             parsed_reponse = loads(response.text)
             if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get(
                     'is_valid'):
@@ -176,7 +176,7 @@ def login_auth(request, auth_type='login'):
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
                 fb_get_info_url = "https://graph.facebook.com/v2.3/me?fields=%s&access_token=%s" % (
-                ','.join(fb_permissions), pw)
+                    ','.join(fb_permissions), pw)
                 user_info = requests.get(fb_get_info_url)
                 profile.update_from_fb_data(pw, loads(user_info.text))
 
@@ -421,7 +421,6 @@ def api_photo_upload(request):
         geography = None
         if lat and lng:
             geography = Point(x=lng, y=lat, srid=4326)
-        # TODO: Image scaling etc
         new_rephoto = Photo(
             image_unscaled=upload_form.cleaned_data['original'],
             image=upload_form.cleaned_data['original'],
