@@ -1,9 +1,11 @@
 # coding=utf-8
+import datetime
 import time
 import urllib2
 from StringIO import StringIO
 from json import loads
 
+import pytz
 import requests
 from PIL import Image
 from dateutil import parser
@@ -33,7 +35,7 @@ from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, ApiPho
     ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, APILoginAuthForm
 from project.ajapaik.models import Album, Photo, Profile, Licence
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, API_DEFAULT_NEARBY_MAX_PHOTOS, \
-    FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_APP_ID, MEDIA_ROOT
+    FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_APP_ID, MEDIA_ROOT, TIME_ZONE
 
 
 def custom_exception_handler(exc, context):
@@ -404,6 +406,27 @@ def api_album_state(request):
     return Response(content)
 
 
+def _crop_image(img, scale_factor):
+    new_size = tuple([int(x * scale_factor) for x in img.size])
+    left = (img.size[0] - new_size[0]) / 2
+    top = (img.size[1] - new_size[1]) / 2
+    right = (img.size[0] + new_size[0]) / 2
+    bottom = (img.size[1] + new_size[1]) / 2
+    img = img.crop((left, top, right, bottom))
+
+    return img
+
+
+def _fill_missing_pixels(img, scale_factor):
+    new_size = tuple([int(x * scale_factor) for x in img.size])
+    x0 = (new_size[0] - img.size[0]) / 2
+    y0 = (new_size[1] - img.size[1]) / 2
+    new_img = Image.new('RGB', new_size, color=(255,255,255))
+    new_img.paste(img, (x0, y0))
+
+    return new_img
+
+
 @api_view(['POST'])
 @parser_classes((FormParser, MultiPartParser))
 @authentication_classes((CustomAuthentication,))
@@ -421,45 +444,42 @@ def api_photo_upload(request):
         geography = None
         if lat and lng:
             geography = Point(x=lng, y=lat, srid=4326)
+        parsed_date = parser.parse(upload_form.cleaned_data['date'], dayfirst=True, ignoretz=True)
+        tz = pytz.timezone(TIME_ZONE)
+        dt = datetime.datetime.utcnow()
+        offset_seconds = tz.utcoffset(dt).seconds
+        offset_hours = offset_seconds / 3600.0
         new_rephoto = Photo(
             image_unscaled=upload_form.cleaned_data['original'],
             image=upload_form.cleaned_data['original'],
             rephoto_of=original_photo,
             lat=lat,
             lon=lng,
+            date=datetime.datetime(parsed_date.year, parsed_date.month, parsed_date.day, hour=int(offset_hours)),
             geography=geography,
             gps_accuracy=upload_form.cleaned_data['accuracy'],
             gps_fix_age=upload_form.cleaned_data['age'],
-            date=parser.parse(upload_form.cleaned_data['date']),
             cam_scale_factor=upload_form.cleaned_data['scale'],
             cam_yaw=upload_form.cleaned_data['yaw'],
             cam_pitch=upload_form.cleaned_data['pitch'],
             cam_roll=upload_form.cleaned_data['roll'],
             flip=upload_form.cleaned_data['flip'],
-            licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
+            licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by/2.0/').first(),
             user=profile,
         )
         new_rephoto.light_save()
         if upload_form.cleaned_data['scale']:
             rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
             img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
-            new_size = tuple([int(x * rounded_scale) for x in img.size])
             output_file = StringIO()
             if rounded_scale < 1:
-                x0 = (img.size[0] - new_size[0]) / 2
-                y0 = (img.size[1] - new_size[1]) / 2
-                x1 = img.size[0] - x0
-                y1 = img.size[1] - y0
-                new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
-                new_img.save(output_file, 'JPEG', quality=95)
-                new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
+                cropped_image = _crop_image(img, rounded_scale)
+                cropped_image.save(output_file, 'JPEG', quality=95)
             elif rounded_scale > 1:
-                x0 = (new_size[0] - img.size[0]) / 2
-                y0 = (new_size[1] - img.size[1]) / 2
-                new_img = Image.new('RGB', new_size)
-                new_img.paste(img, (x0, y0))
-                new_img.save(output_file, 'JPEG', quality=95)
-                new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
+                filled_image = _fill_missing_pixels(img, rounded_scale)
+                filled_image.save(output_file, 'JPEG', quality=95)
+            new_rephoto.image.delete()
+            new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
         content['id'] = new_rephoto.pk
         original_photo.latest_rephoto = new_rephoto.created
         if not original_photo.first_rephoto:

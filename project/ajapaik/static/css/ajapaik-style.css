@@ -656,7 +656,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 
 .ajapaik-album-selection-geotagged-count {
     background-size: 18px;
-    display: inline-block;
+    display: inline-block !important;
     line-height: 24px;
     width: 48px;
     height: 24px;

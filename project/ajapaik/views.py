@@ -35,6 +35,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
 from django_comments.models import CommentFlag
+from django_comments.signals import comment_was_flagged
 from django_comments.views.utils import next_redirect
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
@@ -452,7 +453,6 @@ def rephoto_upload(request, photo_id):
                 if re_photo.cam_scale_factor:
                     new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
                     output_file = StringIO()
-
                     if re_photo.cam_scale_factor < 1:
                         x0 = (img.size[0] - new_size[0]) / 2
                         y0 = (img.size[1] - new_size[1]) / 2
@@ -803,47 +803,47 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL',},
+                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL', },
                                           order_by=['first_rephoto_is_null', 'project_photo.first_rephoto'], )
                 else:
-                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL',},
+                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                                           order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
                 photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
             elif order2 == 'comments':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL',},
+                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
                                           order_by=['first_comment_is_null', 'project_photo.first_comment'], )
                 else:
-                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL',},
+                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
                                           order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL',},
+                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL', },
                                           order_by=['first_geotag_is_null', 'project_photo.first_geotag'], )
                 else:
-                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL',},
+                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
                                           order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
             elif order2 == 'likes':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL',},
+                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL', },
                                           order_by=['first_like_is_null', 'project_photo.first_like'], )
                 else:
-                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL',},
+                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL', },
                                           order_by=['latest_like_is_null', '-project_photo.latest_like'], )
             elif order2 == 'views':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL',},
+                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL', },
                                           order_by=['first_view_is_null', 'project_photo.first_view'], )
                 else:
-                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL',},
+                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL', },
                                           order_by=['latest_view_is_null', '-project_photo.latest_view'], )
             elif order2 == 'datings':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL',},
+                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL', },
                                           order_by=['first_dating_is_null', 'project_photo.first_dating'], )
                 else:
-                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL',},
+                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
                                           order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
             elif order2 == 'stills':
                 if order3 == 'reverse':
@@ -2713,3 +2713,11 @@ def get_comment_dislike_count(request, comment_id):
     comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
 
     return JsonResponse({'count': comment.dislike_count()})
+
+
+def privacy(request):
+    return render_to_response('privacy.html', RequestContext(request, {}))
+
+
+def terms(request):
+    return render_to_response('terms.html', RequestContext(request, {}))
