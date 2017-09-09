@@ -124,7 +124,7 @@ body {
 }
 
 .ajapaik-body-frontpage {
-    margin-bottom: 70px;
+    margin-bottom: 80px;
     overflow-y: scroll;
 }
 
@@ -643,6 +643,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-album-selection-photo-count {
     background-size: 18px;
     display: inline-block;
+    float: left;
     line-height: 24px;
     width: 48px;
     height: 24px;
@@ -656,7 +657,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 
 .ajapaik-album-selection-geotagged-count {
     background-size: 18px;
-    display: inline-block !important;
+    display: inline-block;
+    float: left;
     line-height: 24px;
     width: 48px;
     height: 24px;
@@ -671,6 +673,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-album-selection-rephoto-count {
     background-size: 18px;
     display: inline-block;
+    float: left;
     line-height: 24px;
     margin-left: 5px;
     width: 48px;
@@ -686,6 +689,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-album-selection-comment-count {
     background-size: 18px;
     display: inline-block;
+    float: left;
     line-height: 24px;
     width: 48px;
     height: 24px;
@@ -2607,7 +2611,7 @@ a[href^="https://maps.google.com/maps"] {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 70px;
+    height: 80px;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
