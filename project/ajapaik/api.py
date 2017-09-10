@@ -7,7 +7,7 @@ from json import loads
 
 import pytz
 import requests
-from PIL import Image
+from PIL import Image, ExifTags
 from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -421,7 +421,7 @@ def _fill_missing_pixels(img, scale_factor):
     new_size = tuple([int(x * scale_factor) for x in img.size])
     x0 = (new_size[0] - img.size[0]) / 2
     y0 = (new_size[1] - img.size[1]) / 2
-    new_img = Image.new('RGB', new_size, color=(255,255,255))
+    new_img = Image.new('RGB', new_size, color=(255, 255, 255))
     new_img.paste(img, (x0, y0))
 
     return new_img
@@ -468,9 +468,34 @@ def api_photo_upload(request):
             user=profile,
         )
         new_rephoto.light_save()
+        img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
+        img_unscaled = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled))
+        # https://stackoverflow.com/questions/4228530/pil-thumbnail-is-rotating-my-image
+        exif = None
+        orientation = None
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation': break
+        if img._getexif() is not None:
+            exif = dict(img._getexif().items())
+        if exif and orientation:
+            if exif[orientation] == 3:
+                img = img.rotate(180, expand=True)
+                img_unscaled = img.rotate(180, expand=True)
+                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+            elif exif[orientation] == 6:
+                img = img.rotate(270, expand=True)
+                img_unscaled = img_unscaled.rotate(270, expand=True)
+                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+            elif exif[orientation] == 8:
+                img = img.rotate(90, expand=True)
+                img_unscaled = img_unscaled.rotate(90, expand=True)
+                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
         if upload_form.cleaned_data['scale']:
-            rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
             img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
+            rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
             output_file = StringIO()
             if rounded_scale < 1:
                 cropped_image = _crop_image(img, rounded_scale)
