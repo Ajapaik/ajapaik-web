@@ -171,7 +171,7 @@ class Album(Model):
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
-    videos = ManyToManyField('Video', related_name='albums')
+    videos = ManyToManyField('Video', related_name='albums', blank=True, null=True)
     # Why do albums have coordinates anyway?
     lat = FloatField(null=True, blank=True, db_index=True)
     lon = FloatField(null=True, blank=True, db_index=True)
