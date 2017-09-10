@@ -18,7 +18,7 @@ class FunctionalTests(TestCase):
     created_rephotos = []
 
     def tearDown(self):
-        # FIXME: Ugly
+        # FIXME: Ugly, we need to remove MEDIA directory hard-coding
         for cr in self.created_rephotos:
             os.remove('/home/ajapaik/ajapaik-web/media/' + cr.image_unscaled.name)
             os.remove('/home/ajapaik/ajapaik-web/media/' + cr.image.name)
@@ -32,6 +32,9 @@ class FunctionalTests(TestCase):
         self.assertIsNotNone(parsed_register_response['session'], 'Failed to get session from /register before upload')
 
         test_photo = Photo.objects.filter(pk=1696).first()
+
+        # TODO: Write tests for EXIF tags that may rotate the image
+        # https://stackoverflow.com/questions/4228530/pil-thumbnail-is-rotating-my-image
 
         # Test landscape image scaled down
         with open(os.path.abspath(os.curdir) + '/project/ajapaik/test_data/doge_landscape.jpg') as fp:

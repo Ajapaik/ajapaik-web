@@ -445,6 +445,8 @@ def api_photo_upload(request):
         if lat and lng:
             geography = Point(x=lng, y=lat, srid=4326)
         parsed_date = parser.parse(upload_form.cleaned_data['date'], dayfirst=True, ignoretz=True)
+        # This workaround assumes we're based in a +something timezone, Europe/Tallinn for example,
+        # since the date is sent in as a dd-mm-yyyy string, we don't want any timezone-aware magic
         tz = pytz.timezone(TIME_ZONE)
         dt = datetime.datetime.utcnow()
         offset_seconds = tz.utcoffset(dt).seconds
@@ -455,7 +457,7 @@ def api_photo_upload(request):
             rephoto_of=original_photo,
             lat=lat,
             lon=lng,
-            date=datetime.datetime(parsed_date.year, parsed_date.month, parsed_date.day, hour=int(offset_hours)),
+            date=datetime.datetime(parsed_date.year, parsed_date.month, parsed_date.day, hour=0 + int(offset_hours)),
             geography=geography,
             gps_accuracy=upload_form.cleaned_data['accuracy'],
             gps_fix_age=upload_form.cleaned_data['age'],
@@ -470,13 +472,14 @@ def api_photo_upload(request):
         new_rephoto.light_save()
         img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
         img_unscaled = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled))
-        # https://stackoverflow.com/questions/4228530/pil-thumbnail-is-rotating-my-image
         exif = None
         orientation = None
+        raw_exif = img._getexif()
         for orientation in ExifTags.TAGS.keys():
-            if ExifTags.TAGS[orientation] == 'Orientation': break
-        if img._getexif() is not None:
-            exif = dict(img._getexif().items())
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        if raw_exif is not None:
+            exif = dict(raw_exif.items())
         if exif and orientation:
             if exif[orientation] == 3:
                 img = img.rotate(180, expand=True)
