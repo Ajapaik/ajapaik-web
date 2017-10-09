@@ -118,6 +118,7 @@ class Area(Model):
 
     class Meta:
         db_table = 'project_area'
+        app_label = 'ajapaik'
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -171,7 +172,7 @@ class Album(Model):
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
-    videos = ManyToManyField('Video', related_name='albums', blank=True, null=True)
+    videos = ManyToManyField('Video', related_name='albums', blank=True)
     # Why do albums have coordinates anyway?
     lat = FloatField(null=True, blank=True, db_index=True)
     lon = FloatField(null=True, blank=True, db_index=True)

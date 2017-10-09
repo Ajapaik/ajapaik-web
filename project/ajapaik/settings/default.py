@@ -103,6 +103,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -114,6 +115,11 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'project.ajapaik.urls'
+
+SUBDOMAIN_URLCONFS = {
+    None: 'project.ajapaik.urls',
+    'opendata': 'project.ajapaik.urls_opendata'
+}
 
 WSGI_APPLICATION = 'project.ajapaik.wsgihandler.application'
 
@@ -209,7 +215,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler',
+    'PAGE_SIZE': 10
 }
 
 CACHES = {

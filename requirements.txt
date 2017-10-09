@@ -24,7 +24,7 @@ django-modeltranslation
 django-registration-redux
 django-tastypie
 django-test-without-migrations
-djangorestframework
+djangorestframework==3.4.7
 docutils
 enum34
 feedparser
@@ -70,7 +70,7 @@ rsa
 scikit-learn
 scipy
 simplejson
-six
+six==1.10
 sorl-thumbnail
 sqlparse
 supervisor
@@ -79,3 +79,4 @@ ujson
 urllib3
 uWSGI
 uwsgitop
+django-subdomains
