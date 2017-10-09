@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from ajapaik.opendata import PhotoViewSet, PhotoGeoTagViewSet
+from project.ajapaik.opendata import PhotoViewSet, PhotoGeoTagViewSet
 
 router = DefaultRouter()
 router.register(r'photos', PhotoViewSet)

@@ -7,6 +7,14 @@ server {
 }
 
 server {
+    listen 80;
+
+    server_name opendata.staging.ajapaik.ee;
+
+    return 301 https://opendata.staging.ajapaik.ee$request_uri;
+}
+
+server {
     listen 443;
 
     server_name staging.ajapaik.ee;
@@ -51,6 +59,10 @@ server {
 
     location /media  {
         alias /home/ajapaik/ajapaik-web-staging/media;
+    }
+
+    location /static {
+        alias /home/ajapaik/ajapaik-web-staging/static-collected;
     }
 
     location / {
