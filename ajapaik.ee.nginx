@@ -23,6 +23,14 @@ server {
 
 server {
     listen 80;
+
+    server_name opendata.ajapaik.ee;
+
+    return 301 https://opendata.ajapaik.ee$request_uri;
+}
+
+server {
+    listen 80;
     server_name ajapaik.ee;
 
     location / {
@@ -43,8 +51,8 @@ server {
     server_name www.ajapaik.ee;
 
     ssl on;
-    ssl_certificate /etc/letsencrypt/live/ajapaik.ee/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/ajapaik.ee-0001/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee-0001/privkey.pem;
 
     return 301 https://ajapaik.ee$request_uri;
 }
@@ -55,8 +63,8 @@ server {
     server_name ajapaik.ee;
 
     ssl on;
-    ssl_certificate /etc/letsencrypt/live/ajapaik.ee/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/ajapaik.ee-0001/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee-0001/privkey.pem;
 
     access_log /var/log/ajapaik.ee.access.log;
     error_log /var/log/ajapaik.ee.error.log;
@@ -83,6 +91,32 @@ server {
     # Serve Juks's old maps directly
     location /vanalinnad.mooo.com {
         root /home/ajapaik;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/ajapaik/ajapaik-web/run/ajapaik.ee.sock;
+    }
+}
+
+server {
+    listen 443;
+
+    server_name opendata.ajapaik.ee;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/ajapaik.ee-0001/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee-0001/privkey.pem;
+
+    access_log /var/log/ajapaik.ee.access.log;
+    error_log /var/log/ajapaik.ee.error.log;
+
+    location /media  {
+        alias /home/ajapaik/ajapaik-web/media;
+    }
+
+    location /static {
+        alias /home/ajapaik/ajapaik-web/static-collected;
     }
 
     location / {
