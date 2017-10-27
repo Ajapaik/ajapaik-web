@@ -10,7 +10,7 @@ from copy import deepcopy
 from math import ceil
 from time import strftime, strptime
 
-import cv2 as cv
+import cv2
 import django_comments
 import requests
 from PIL import Image, ImageFile, ImageOps
@@ -2539,7 +2539,7 @@ def generate_still_from_video(request):
         still = Photo.objects.filter(video=vid, video_timestamp=time).first()
         if not still:
             vidcap = cv2.VideoCapture(vid.file.path)
-            vidcap.set(cv.CV_CAP_PROP_POS_MSEC, time)
+            vidcap.set(0, time)
             success, image = vidcap.read()
             source = Source.objects.filter(name='AJP').first()
             if success:
