@@ -75,7 +75,7 @@ server {
 
     server_name www.ajapaik.ee;
 
-    add_header Strict-Transport-Security max-age=15768000;
+    add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
     add_header X-Content-Type-Options nosniff;
     add_header X-Xss-Protection "1; mode=block" always;
     add_header Referrer-Policy "no-referrer";
@@ -96,6 +96,8 @@ server {
     ssl_stapling_verify on;
 
     ssl_trusted_certificate /etc/letsencrypt/live/ajapaik.ee-0001/chain.pem;
+
+    resolver 8.8.8.8 8.8.4.4 valid=86400;
 
     access_log /var/log/ajapaik.ee.access.log;
     error_log /var/log/ajapaik.ee.error.log;
@@ -109,7 +111,7 @@ server {
 
     server_name ajapaik.ee;
 
-    add_header Strict-Transport-Security max-age=15768000;
+    add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
     add_header X-Content-Type-Options nosniff;
     add_header X-Xss-Protection "1; mode=block" always;
     add_header Referrer-Policy "no-referrer";
@@ -130,6 +132,8 @@ server {
     ssl_stapling_verify on;
 
     ssl_trusted_certificate /etc/letsencrypt/live/ajapaik.ee-0001/chain.pem;
+
+    resolver 8.8.8.8 8.8.4.4 valid=86400;
 
     access_log /var/log/ajapaik.ee.access.log;
     error_log /var/log/ajapaik.ee.error.log;
@@ -170,7 +174,8 @@ server {
 
     server_name opendata.ajapaik.ee;
 
-    add_header Strict-Transport-Security max-age=15768000;
+    # TODO: CSP
+    add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
     add_header X-Content-Type-Options nosniff;
     add_header X-Xss-Protection "1; mode=block" always;
     add_header Referrer-Policy "no-referrer";
@@ -191,6 +196,8 @@ server {
     ssl_stapling_verify on;
 
     ssl_trusted_certificate /etc/letsencrypt/live/ajapaik.ee-0001/chain.pem;
+
+    resolver 8.8.8.8 8.8.4.4 valid=86400;
 
     access_log /var/log/ajapaik.ee.access.log;
     error_log /var/log/ajapaik.ee.error.log;
