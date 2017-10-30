@@ -75,9 +75,10 @@ server {
 
     server_name www.ajapaik.ee;
 
-    add_header Strict-Transport-Security max-age=3600;
+    add_header Strict-Transport-Security max-age=15768000;
     add_header X-Content-Type-Options nosniff;
     add_header X-Xss-Protection "1; mode=block" always;
+    add_header Referrer-Policy "no-referrer";
 
     ssl_certificate /etc/letsencrypt/live/ajapaik.ee-0001/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee-0001/privkey.pem;
@@ -111,6 +112,7 @@ server {
     add_header Strict-Transport-Security max-age=15768000;
     add_header X-Content-Type-Options nosniff;
     add_header X-Xss-Protection "1; mode=block" always;
+    add_header Referrer-Policy "no-referrer";
 
     ssl_certificate /etc/letsencrypt/live/ajapaik.ee-0001/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee-0001/privkey.pem;
@@ -171,6 +173,7 @@ server {
     add_header Strict-Transport-Security max-age=15768000;
     add_header X-Content-Type-Options nosniff;
     add_header X-Xss-Protection "1; mode=block" always;
+    add_header Referrer-Policy "no-referrer";
 
     ssl_certificate /etc/letsencrypt/live/ajapaik.ee-0001/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/ajapaik.ee-0001/privkey.pem;
