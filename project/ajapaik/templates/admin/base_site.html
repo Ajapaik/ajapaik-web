@@ -2,7 +2,7 @@
 {% load admin_tools_menu_tags %}
 {% block extrastyle %}
     {{ block.super }}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js" integrity="sha384-EJidd7za+NGEtGWBA5Pk52nD7/9DuzHPY2Sk/ug0f8uNSowv4W+IP9s+eq9Tykxn" crossorigin="anonymous"></script>
     {% include 'autocomplete_light/static.html' %}
     {% if user.is_active and user.is_staff and not is_popup %}{% admin_tools_render_menu_css %}{% endif %}
 {% endblock %}

@@ -100,6 +100,7 @@ SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE_CLASSES = (
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -248,6 +249,8 @@ COMMENTS_XTD_FORM_CLASS = 'project.ajapaik.forms.MyCommentForm'
 COMMENTS_XTD_MODEL = 'project.ajapaik.models.MyXtdComment'
 COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 
-# These break static images
+# FIXME: These break static images
 # COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
 # COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
+
+SESSION_COOKIE_SECURE = True
