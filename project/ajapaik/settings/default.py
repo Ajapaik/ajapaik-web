@@ -254,3 +254,4 @@ COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 # COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
 SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
