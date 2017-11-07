@@ -230,7 +230,7 @@ CACHES = {
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-AJAPAIK_VALIMIMOODUL_URL = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
+AJAPAIK_VALIMIMOODUL_URL = 'https://valimimoodul.ajapaik.ee/ajapaik-service/AjapaikService.json'
 
 API_DEFAULT_NEARBY_PHOTOS_RANGE = 50000
 API_DEFAULT_NEARBY_MAX_PHOTOS = 50
