@@ -3,6 +3,13 @@
 <html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TQJJQH');</script>
+    <!-- End Google Tag Manager -->
     <title>
         {% if title %}
             {{ title }} - {% trans "Timepatch (Ajapaik)" %}
@@ -228,23 +235,6 @@
         <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
-    <style>.async-hide { opacity: 0 !important} </style>
-    <script>
-        (function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-        })(window,document.documentElement,'async-hide','dataLayer',4000,
-        {'GTM-MXWK6PP':true});
-    </script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{ analytics.google_analytics_key }}', 'auto');
-        ga('require', 'GTM-MXWK6PP');
-        ga('send', 'pageview');
-    </script>
     <script type="text/javascript">
         // From https://www.themarketingtechnologist.co/migrating-to-google-tag-manager-without-changing-hard-coded-_gaq-push-events/
         if (typeof _gaq === 'undefined' || typeof _gaq !== 'object') {
@@ -269,6 +259,10 @@
     </script>
 </head>
 <body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}{% if is_photoview %} ajapaik-body-photoview{% endif %}">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQJJQH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div id="ajapaik-loading-overlay">
     <div id="ajapaik-spinner"></div>
 </div>
