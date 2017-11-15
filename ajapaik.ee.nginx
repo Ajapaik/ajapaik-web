@@ -76,7 +76,8 @@ server {
     server_name www.ajapaik.ee;
 
     add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
-    add_header X-Content-Type-Options nosniff;
+    # Breaks IE
+    # add_header X-Content-Type-Options nosniff;
     add_header X-Xss-Protection "1; mode=block" always;
     add_header Referrer-Policy "no-referrer";
 
