@@ -644,6 +644,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     background-size: 18px;
     display: inline-block;
     line-height: 24px;
+    float: left;
     width: 48px;
     height: 24px;
     background: url(../../images/material-design-icons/ic_image_gray_24px.svg) no-repeat;
@@ -657,6 +658,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-album-selection-geotagged-count {
     background-size: 18px;
     display: inline-block;
+    float: left;
     line-height: 24px;
     width: 48px;
     height: 24px;
@@ -671,6 +673,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-album-selection-rephoto-count {
     background-size: 18px;
     display: inline-block;
+    float: left;
     line-height: 24px;
     margin-left: 5px;
     width: 48px;
@@ -686,6 +689,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-album-selection-comment-count {
     background-size: 18px;
     display: inline-block;
+    float: left;
     line-height: 24px;
     width: 48px;
     height: 24px;
