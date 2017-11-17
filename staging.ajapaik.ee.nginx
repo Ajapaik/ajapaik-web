@@ -33,6 +33,10 @@ server {
     location /static {
         alias /home/ajapaik/ajapaik-web-staging/static-collected;
     }
+    
+    location /dump {
+        alias /home/ajapaik/ajapaik-web-staging/dump;
+    }
 
     # Serve Juks's old maps directly
     location /vanalinnad.mooo.com {
