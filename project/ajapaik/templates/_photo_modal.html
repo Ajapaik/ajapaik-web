@@ -1,4 +1,4 @@
-{% load i18n ajapaik_templatetags %}
+{% load i18n ajapaik_templatetags comments %}
 
 <div class="modal-dialog modal-lg modal-xxl" id="mapview-photo-modal-dialog">
     <div class="modal-content">
@@ -231,6 +231,25 @@
                 {% endif %}
                 </div>
                 {% endif %}
+                    <div class="row-fluid" id="ajapaik-photoview-comments-section">
+                        <div class="comments">
+                            {% if rephoto %}
+                                {% render_comment_list for rephoto %}
+                            {% else %}
+                                {% render_comment_list for photo %}
+                            {% endif %}
+                        </div>
+                        <div class="comment">
+                            <h4>{% trans "Your comment" %}</h4>
+                            <div class="well">
+                                {% if rephoto %}
+                                    {% render_comment_form for rephoto %}
+                                {% else %}
+                                    {% render_comment_form for photo %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row ajp-dater-hide-when-dater-visible">
                     <div class="col-xs-12">
@@ -393,6 +412,12 @@
                         }
                     });
                 };
+                $('#id_comment').focus(function() {
+                    window.hotkeysActive = false;
+                });
+                $('#id_comment').blur(function() {
+                    window.hotkeysActive = true;
+                });
             });
         </script>
         {% include "js_templates/photo_modal_rephoto_template.html" %}

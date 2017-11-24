@@ -898,22 +898,22 @@ var map,
         handleAlbumChange();
     });
 
-    // $(document).on('click', '#ajapaik-photo-modal-discuss', function (e) {
-    //     e.preventDefault();
-    //     if (window.isFrontpage) {
-    //         _gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
-    //     } else if (window.isMapview) {
-    //         _gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
-    //     }
-    //     var commentsSection = $('#ajapaik-comments-section');
-    //     if (commentsSection.hasClass('hidden')) {
-    //         commentsSection.removeClass('hidden');
-    //         window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
-    //         window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
-    //     } else {
-    //         commentsSection.addClass('hidden');
-    //     }
-    // });
+    $(document).on('click', '#ajapaik-photo-modal-discuss', function (e) {
+        e.preventDefault();
+        if (window.isFrontpage) {
+            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
+        } else if (window.isMapview) {
+            _gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
+        }
+        var commentsSection = $('#ajapaik-comments-section');
+        if (commentsSection.hasClass('hidden')) {
+            commentsSection.removeClass('hidden');
+            window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+            window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
+        } else {
+            commentsSection.addClass('hidden');
+        }
+    });
 
     $('#ajapaik-comment-form-register-link').click(function () {
         $('#ajapaik-header-profile-button').click();
