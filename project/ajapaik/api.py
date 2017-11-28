@@ -118,6 +118,10 @@ def login_auth(request, auth_type='login'):
             user = authenticate(username=uname, password=pw)
             if user:
                 profile = user.profile
+                if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
+                    user.first_name = form.cleaned_data['firstname']
+                    user.last_name = form.cleaned_data['lastname']
+                    user.save()
                 profile.merge_from_other(request.get_user().profile)
             else:
                 # user exists but password is incorrect
@@ -187,15 +191,10 @@ def login_auth(request, auth_type='login'):
                 return content
 
         if not user and t == 'auto':
-            User.objects.create_user(username=uname, password=pw, first_name=form.cleaned_data['firstname'],
-                                     last_name=form.cleaned_data['lastname'])
+            User.objects.create_user(username=uname, password=pw)
             user = authenticate(username=uname, password=pw)
 
         if auth_type == 'register' and request.user:
-            if not request.user.first_name and form.cleaned_data['firstname']:
-                request.user.first_name = form.cleaned_data['firstname']
-            if not request.user.last_name and form.cleaned_data['lastname']:
-                request.user.last_name = form.cleaned_data['lastname']
             profile.merge_from_other(request.user.profile)
             if t == 'google':
                 profile.update_from_google_plus_data(parsed_reponse)

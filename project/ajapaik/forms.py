@@ -17,8 +17,8 @@ class APILoginAuthForm(forms.Form):
     version = forms.FloatField(required=False)
     length = forms.IntegerField(required=False, initial=0)
     os = forms.CharField(max_length=255, required=False, initial='android')
-    firstname = forms.CharField(max_length=255)
-    lastname = forms.CharField(max_length=255)
+    firstname = forms.CharField(max_length=255, required=False)
+    lastname = forms.CharField(max_length=255, required=False)
 
 
 class APIAuthForm(forms.Form):

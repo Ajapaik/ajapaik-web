@@ -6,6 +6,7 @@ import os
 import pytz
 from PIL import Image
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
@@ -154,3 +155,16 @@ class FunctionalTests(TestCase):
         self.assertEqual(scaled_image.size, (900, 1125),
                          'Portrait image scaled up incorrectly to %s, %s' % scaled_image.size)
         self.assertEqual(unscaled_image.size, (600, 750), 'Unscaled image not left untouched')
+
+    def test_api_register_saves_first_and_last_name(self):
+        c = Client()
+        register_response = c.post(reverse('api_register'), {'username': 'test', 'password': 'mellon', 'type': 'auto',
+                                                             'firstname': 'Lauri', 'lastname': 'Elias'})
+        parsed_register_response = loads(register_response.content)
+
+        self.assertIsNotNone(parsed_register_response['session'], 'Failed to get session from /register')
+
+        user = User.objects.filter(pk=parsed_register_response['id']).first()
+
+        self.assertEquals(user.first_name, 'Lauri')
+        self.assertEquals(user.last_name, 'Elias')
