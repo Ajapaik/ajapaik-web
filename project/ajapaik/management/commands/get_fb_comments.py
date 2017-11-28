@@ -29,7 +29,7 @@ class Command(BaseCommand):
                     or_clause += ",https://ajapaik.ee/foto/" + str(p.id) + '/'
             if len(or_clause) > 4:
                 response = json.loads(requests.get(
-                    'https://graph.facebook.com/v2.3/?format=json&access_token=%s&%s' % (
+                    'https://graph.facebook.com/v2.5/?format=json&access_token=%s&%s' % (
                         APP_ID + '|' + settings.FACEBOOK_APP_SECRET, or_clause)).text)
                 for k, v in response.items():
                     if 'og_object' in v:

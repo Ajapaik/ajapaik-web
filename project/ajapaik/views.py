@@ -2204,7 +2204,7 @@ def curator_photo_upload_handler(request):
                         #     print upload_form.errors
         if general_albums:
             for ga in general_albums:
-                requests.post("https://graph.facebook.com/v2.3/?id=" + (
+                requests.post("https://graph.facebook.com/v2.5/?id=" + (
                     request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(
                         ga.id)) + "&scrape=true")
         for cp in all_curating_points:

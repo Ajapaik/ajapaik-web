@@ -900,7 +900,7 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read('https://graph.facebook.com/v2.3/me?access_token=%s' % access_token))
+        data = loads(self.url_read('https://graph.facebook.com/v2.5/me?access_token=%s' % access_token))
         if not data:
             raise Exception('Facebook did not return anything useful for this access token')
 

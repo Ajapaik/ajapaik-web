@@ -177,7 +177,7 @@ def login_auth(request, auth_type='login'):
 
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-                fb_get_info_url = "https://graph.facebook.com/v2.3/me?fields=%s&access_token=%s" % (
+                fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
                     ','.join(fb_permissions), pw)
                 user_info = requests.get(fb_get_info_url)
                 profile.update_from_fb_data(pw, loads(user_info.text))
@@ -187,10 +187,15 @@ def login_auth(request, auth_type='login'):
                 return content
 
         if not user and t == 'auto':
-            User.objects.create_user(username=uname, password=pw)
+            User.objects.create_user(username=uname, password=pw, first_name=form.cleaned_data['firstname'],
+                                     last_name=form.cleaned_data['lastname'])
             user = authenticate(username=uname, password=pw)
 
         if auth_type == 'register' and request.user:
+            if not request.user.first_name and form.cleaned_data['firstname']:
+                request.user.first_name = form.cleaned_data['firstname']
+            if not request.user.last_name and form.cleaned_data['lastname']:
+                request.user.last_name = form.cleaned_data['lastname']
             profile.merge_from_other(request.user.profile)
             if t == 'google':
                 profile.update_from_google_plus_data(parsed_reponse)
