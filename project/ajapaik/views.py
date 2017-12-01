@@ -2700,7 +2700,7 @@ class CommentList(TemplateView):
         context = super(CommentList, self).get_context_data(**kwargs)
         photo_id = int(self.kwargs['photo_id'])
         context['comment_list'] = self.comment_model.objects.filter(
-            object_pk=photo_id, is_removed=False).order_by('-submit_date')
+            object_pk=photo_id, is_removed=False).order_by('submit_date')
         return context
 
 
