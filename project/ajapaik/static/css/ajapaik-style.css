@@ -2861,3 +2861,10 @@ input[type="search"]::-webkit-search-cancel-button {
 #ajapaik-hotjar-footer-logo {
     height: 33px;
 }
+
+textarea#id_comment{
+    display: block;
+    width: 100%;
+    resize: vertical;
+    padding: 5px 10px;
+}
