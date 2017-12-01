@@ -8,7 +8,7 @@
                 <a href="{{ comment.url }}">
                     {% if comment.user.profile.fb_id or comment.user.profile.google_plus_picture %}
                         <img width="48" height="48"
-                             src="{% if comment.user.profile.fb_id %}https://graph.facebook.com/v2.3/{{ comment.user.profile.fb_id }}/picture?type=square{% elif comment.user.profile.google_plus_picture %}{{ comment.user.profile.google_plus_picture }}{% endif %}"/>
+                             src="{% if comment.user.profile.fb_id %}https://graph.facebook.com/v2.5/{{ comment.user.profile.fb_id }}/picture?type=square{% elif comment.user.profile.google_plus_picture %}{{ comment.user.profile.google_plus_picture }}{% endif %}"/>
                     {% else %}
                         {{ comment.user_email|xtd_comment_gravatar }}
                     {% endif %}

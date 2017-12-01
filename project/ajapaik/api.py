@@ -123,6 +123,10 @@ def login_auth(request, auth_type='login'):
             user = authenticate(username=uname, password=pw)
             if user:
                 profile = user.profile
+                if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
+                    user.first_name = form.cleaned_data['firstname']
+                    user.last_name = form.cleaned_data['lastname']
+                    user.save()
                 profile.merge_from_other(request.get_user().profile)
             else:
                 # user exists but password is incorrect
@@ -182,7 +186,7 @@ def login_auth(request, auth_type='login'):
 
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-                fb_get_info_url = "https://graph.facebook.com/v2.3/me?fields=%s&access_token=%s" % (
+                fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
                     ','.join(fb_permissions), pw)
                 user_info = requests.get(fb_get_info_url)
                 profile.update_from_fb_data(pw, loads(user_info.text))

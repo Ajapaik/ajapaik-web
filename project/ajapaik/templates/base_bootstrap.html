@@ -3,13 +3,6 @@
 <html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TQJJQH');</script>
-    <!-- End Google Tag Manager -->
     <title>
         {% if title %}
             {{ title }} - {% trans "Timepatch (Ajapaik)" %}
@@ -338,6 +331,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="row">
                     <a class="pull-right" id="ajapaik-sift-pics-link" target="_blank" href="http://sift.pics/">{% trans "See also – Sift.pics" %}</a>
                 </div>
+                <div class="row">
+                    <a class="pull-right" target="_blank" href="//www.hotjar.com/?utm_source=badge">
+                        <img id="ajapaik-hotjar-footer-logo" src="//static.hotjar.com/b/hotjar-badge.png"
+                             alt="Hotjar - Unlimited insights from your web and mobile sites" />
+                    </a>
+                </div>
                 {#<div class="row">#}
                 {#    <a class="pull-right" id="ajapaik-privacy-policy-link" href="{% url 'privacy' %}">{% trans "Privacy policy" %}</a>#}
                 {#</div>#}
@@ -480,6 +479,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {% if request.user.profile %}
             window.currentProfileId = {{ request.user.profile.pk }};
             window.currentProfileName = '{{ request.user.profile.get_display_name }}';
+            {% if request.user.profile.fb_email %}
+                window.currentProfileEmail = '{{ request.user.profile.fb_email }}';
+            {% elif request.user.profile.google_plus_email %}
+                window.currentProfileEmail = '{{ request.user.profile.google_plus_email }}';
+            {% elif request.user.email %}
+                window.currentProfileEmail = '{{ request.user.email }}';
+            {% endif %}
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
         window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
@@ -489,6 +495,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             app_id: "jwh97xha"
         };
     </script>
+    <script>
+        var dataLayer = window.dataLayer || [],
+            userLoggedIn = !!window.currentProfileId;
+        dataLayer.push({
+            'event': 'user',
+            'logged_in': userLoggedIn,
+            'email': window.currentProfileEmail,
+            'userId': window.currentProfileId,
+            'name': window.currentProfileName
+        });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TQJJQH');</script>
+    <!-- End Google Tag Manager -->
     <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/jwh97xha';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
     <script src="https://script.crazyegg.com/pages/scripts/0070/6290.js" async="async"></script>
 {% endblock %}

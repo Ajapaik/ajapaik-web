@@ -119,10 +119,6 @@ urlpatterns += patterns('project.ajapaik.delfi',
     url(r'^delfi_api/v1/photos_bbox/$', 'photos_bbox'),
 )
 
-urlpatterns += patterns('project.ajapaik.merekultuur',
-    url(r'^merekultuur/v1/fotod/$', 'get_photos')
-)
-
 urlpatterns += patterns('project.ajapaik.bbox_api',
     url(r'^bbox/v1/$', PhotosView.as_view())
 )

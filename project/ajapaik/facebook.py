@@ -41,7 +41,7 @@ def token_url(request, code):
 
 
 def profile_url(token):
-    return "https://graph.facebook.com/v2.3/me?access_token=" + token['access_token']
+    return "https://graph.facebook.com/v2.5/me?access_token=" + token['access_token']
 
 
 def fbview_url(request, stage):

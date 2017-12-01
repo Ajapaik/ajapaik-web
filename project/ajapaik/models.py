@@ -900,7 +900,7 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read('https://graph.facebook.com/v2.3/me?access_token=%s' % access_token))
+        data = loads(self.url_read('https://graph.facebook.com/v2.5/me?access_token=%s' % access_token))
         if not data:
             raise Exception('Facebook did not return anything useful for this access token')
 
@@ -977,22 +977,17 @@ class Profile(Model):
         return u"%s" % (self.get_display_name(),)
 
     def update_from_fb_data(self, token, data):
-        self.user.first_name = data.get('first_name')
-        self.user.last_name = data.get('last_name')
-        self.user.email = data.get('email')
-        try:
-            self.user.save()
-        except IntegrityError:
-            return redirect(reverse('frontpage', ))
+        if data.get('first_name'):
+            self.user.first_name = data.get('first_name')
+        if data.get('last_name'):
+            self.user.last_name = data.get('last_name')
+        if data.get('email'):
+            self.user.email = data.get('email')
+        self.user.save()
 
         self.fb_token = token
         self.fb_id = data.get('id')
         self.fb_name = data.get('name')
-        if self.fb_name:
-            parts = self.fb_name.split(' ')
-            self.first_name = parts[0]
-            if len(parts) > 1:
-                self.last_name = parts[1]
         self.fb_link = data.get('link')
         self.fb_email = data.get('email')
         try:

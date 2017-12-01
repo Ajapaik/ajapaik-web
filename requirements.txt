@@ -79,3 +79,4 @@ urllib3
 uWSGI
 uwsgitop
 django-subdomains
+Werkzeug
