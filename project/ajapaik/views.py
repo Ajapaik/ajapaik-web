@@ -33,9 +33,12 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, \
+    csrf_protect
+from django.views.generic.base import TemplateView, View
 from django_comments.models import CommentFlag
 from django_comments.signals import comment_was_flagged
+from django_comments.views.comments import post_comment
 from django_comments.views.utils import next_redirect
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
@@ -2673,35 +2676,9 @@ def user_upload_add_album(request):
     return render_to_response('user_upload_add_album.html', RequestContext(request, ret))
 
 
-def perform_delete(request, comment):
-    flag, created = CommentFlag.objects.get_or_create(
-        comment_id=comment.pk,
-        user=request.user,
-        flag=CommentFlag.MODERATOR_DELETION
-    )
-    comment.is_removed = True
-    comment.save()
-    comment_was_flagged.send(
-        sender=comment.__class__,
-        comment=comment,
-        flag=flag,
-        created=created,
-        request=request,
-    )
-
-
-@csrf_protect
-def delete_comment(request, comment_id):
-    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID,
-                                user=request.user)
-    if request.method == 'POST' and comment:
-        perform_delete(request, comment)
-
-        return next_redirect(request, fallback='comments-delete-done', c=comment.pk)
-    else:
-        return render(request, 'comments/delete.html', {'comment': comment, "next": request.GET["next"]})
-
-
+################################################################################
+###  Comments
+################################################################################
 # TODO: Should just use 1 info URL to save requests
 def get_comment_like_count(request, comment_id):
     comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
@@ -2713,6 +2690,66 @@ def get_comment_dislike_count(request, comment_id):
     comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
 
     return JsonResponse({'count': comment.dislike_count()})
+
+
+class CommentList(TemplateView):
+    template_name = 'comments/list.html'
+    comment_model = django_comments.get_model()
+
+    def get_context_data(self, **kwargs):
+        context = super(CommentList, self).get_context_data(**kwargs)
+        photo_id = int(self.kwargs['photo_id'])
+        context['comment_list'] = self.comment_model.objects.filter(
+            object_pk=photo_id, is_removed=False).order_by('-submit_date')
+        return context
+
+
+class PostComment(View):
+    form_class = django_comments.get_form()
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(
+            target_object=get_object_or_404(Photo, pk=kwargs['photo_id']),
+            data=request.POST
+        )
+        if form.is_valid():
+            response = post_comment(request)
+            if response.status_code != 302:
+                return JsonResponse({
+                    'comment': [_('Sorry but we fail to post your comment.')]
+                })
+        return JsonResponse(form.errors)
+
+
+class DeleteComment(View):
+    comment_model = django_comments.get_model()
+
+    def _perform_delete(self, request, comment):
+        flag, created = CommentFlag.objects.get_or_create(
+            comment_id=comment.pk,
+            user=request.user,
+            flag=CommentFlag.MODERATOR_DELETION
+        )
+        comment.is_removed = True
+        comment.save()
+        comment_was_flagged.send(
+            sender=comment.__class__,
+            comment=comment,
+            flag=flag,
+            created=created,
+            request=request,
+        )
+
+    def post(self, request):
+        comment_id = request.POST.get('comment_id')
+        if comment_id:
+            comment = get_object_or_404(self.comment_model, pk=comment_id)
+            self._perform_delete(request, comment)
+        return JsonResponse({
+            'status': 200
+        })
+
+################################################################################
 
 
 def privacy(request):

@@ -1442,10 +1442,10 @@ class MyXtdComment(XtdComment):
                 photo.first_comment = None
                 photo.latest_comment = None
             else:
-                first_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('-created').first()
+                first_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('-submit_date').first()
                 if first_comment:
                     photo.first_comment = first_comment.submit_date
-                latest_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('created').first()
+                latest_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('submit_date').first()
                 if latest_comment:
                     photo.latest_comment = latest_comment.submit_date
 

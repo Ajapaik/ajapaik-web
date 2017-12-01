@@ -359,9 +359,9 @@ class CuratorWholeSetAlbumsSelectionForm(forms.Form):
         self.fields['albums'].help_text = None
 
 
-class MyCommentForm(XtdCommentForm):
+class CommentForm(XtdCommentForm):
     def __init__(self, *args, **kwargs):
-        super(MyCommentForm, self).__init__(*args, **kwargs)
+        super(CommentForm, self).__init__(*args, **kwargs)
         self.fields['comment'] = forms.CharField(
             widget=forms.Textarea(attrs={'placeholder': _('supports Markdown')}),
             max_length=COMMENT_MAX_LENGTH)

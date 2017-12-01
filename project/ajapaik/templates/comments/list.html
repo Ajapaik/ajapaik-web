@@ -31,9 +31,7 @@
                         <a href="{{ comment.get_reply_url }}">{% trans "Reply" %}</a>
                     {% endif %}
                     {% if comment.user == user %}
-                        <a href="{% if rephoto %}{% url "comments-delete" comment.pk %}?next=
-
-                            {{ rephoto.get_absolute_url }}{% elif photo %}{% url "comments-delete" comment.pk %}?next={{ photo.get_absolute_url }}{% endif %}">{% trans "Delete" %}</a>
+                        <a href="#" data-action="delete" data-comment-id={{ comment.pk }}>{% trans "Delete" %}</a>
                     {% endif %}
                 </h6>
                 <p>{{ comment.comment|render_markup_comment }}</p>

@@ -278,13 +278,7 @@
                     </div>
                 {% endif %}
                 <div class="row-fluid" id="ajapaik-photoview-comments-section">
-                    <div class="comments">
-                        {% if rephoto %}
-                            {% render_comment_list for rephoto %}
-                        {% else %}
-                            {% render_comment_list for photo %}
-                        {% endif %}
-                    </div>
+                    <div id="ajapaik-comment-list"></div>
                     <div class="comment">
                         <h4>{% trans "Your comment" %}</h4>
                         <div class="well">
@@ -431,6 +425,53 @@
         });
         $('#id_comment').blur(function() {
             window.hotkeysActive = true;
+        });
+        window.fetchComments = function() {
+            $.ajax({
+                url: '{% url "comments-for-photo" photo_id=photo.id %}',
+                success: function (result) {
+                    $('#ajapaik-comment-list').html(result);
+                }
+            });
+        };
+        window.fetchComments();
+        $('#ajapaik-comment-form').submit(function(event) {
+            $.ajax({
+                type: 'POST',
+                url: '{% url "comments-post-one" photo_id=photo.id %}',
+                data: $('#ajapaik-comment-form').serialize(),
+                success: function(responce) {
+                    error_div = $("#ajapaik-comment-form [data-comment-element='errors']");
+                    if(responce && responce.comment && responce.comment.length){
+                        error_div.html(responce.comment[0]);
+                        error_div.removeClass('hidden');
+                    }
+                    else {
+                        error_div.addClass('hidden');
+                        $('#id_comment').val('');
+                    }
+                    window.fetchComments();
+                }
+            });
+            event.preventDefault();
+        });
+        $("#ajapaik-comment-list").on('click', 'h6[class="media-heading"]', function(event) {
+            var action = $(event.target).data('action');
+            var comment_id = $(event.target).data('comment-id');
+            if(action === 'delete' && comment_id) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/comments/delete-one/',
+                    data: {
+                        csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+                        comment_id: comment_id
+                    },
+                    success: function(responce) {
+                        window.fetchComments();
+                    }
+                });
+                event.preventDefault();
+            }
         });
     });
 </script>

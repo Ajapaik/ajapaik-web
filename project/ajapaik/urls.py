@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.views import serve
 from django.views.generic import RedirectView, TemplateView
 
 from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
-from project.ajapaik.views import delete_comment, get_comment_like_count, get_comment_dislike_count
+from project.ajapaik import views
 
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
@@ -173,9 +174,11 @@ urlpatterns += patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
-    url(r'^comments/delete/(\d+)/$', delete_comment, name='comments-delete'),
-    url(r'^comments/like-count/(\d+)/$', get_comment_like_count, name='comments-like-count'),
-    url(r'^comments/dislike-count/(\d+)/$', get_comment_dislike_count, name='comments-dislike-count'),
+    url(r'^comments/for/(?P<photo_id>\d+)/$', views.CommentList.as_view(), name='comments-for-photo'),
+    url(r'^comments/post-one/(?P<photo_id>\d+)/$', login_required(views.PostComment.as_view()), name='comments-post-one'),
+    url(r'^comments/delete-one/$', login_required(views.DeleteComment.as_view()), name='comments-delete-one'),
+    url(r'^comments/like-count/(\d+)/$', views.get_comment_like_count, name='comments-like-count'),
+    url(r'^comments/dislike-count/(\d+)/$', views.get_comment_dislike_count, name='comments-dislike-count'),
     url(r'^comments/', include('django_comments_xtd.urls')),
     url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
     url(r'^google-login', 'project.ajapaik.google_plus.google_login'),
