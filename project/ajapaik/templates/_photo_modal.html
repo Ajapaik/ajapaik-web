@@ -8,7 +8,7 @@
             </button>
         </div>
         <div class="modal-body" id="ajapaik-modal-body">
-            <div class="row-fluid" style="height: 100%; width: 100%;">
+            <div class="row" style="height: 100%; width: 100%;">
                 <div class="{% if photo.rephotos.all|length == 0 %}col-xs-12{% elif photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}"
                      id="ajapaik-photo-modal-original-photo-column">
                     <div id="ajapaik-modal-photo-container-container" {% if photo.lat and photo.lon and not request.mobile %}class="col-xs-9"{% endif %}>
@@ -100,7 +100,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <div class="text-left">
+            <div class="container-fluid text-left">
                 <div class="row">
                     <!-- start of old photo info -->
                     <div id="ajapaik-photo-modal-original-photo-info-column"
@@ -112,10 +112,10 @@
                                     col-xs-12
                                 {% endif %}">
                         {% if photo.author %}
-                            <div class="row-fluid" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
+                            <div class="row" id="ajapaik-photo-modal-author"><b>{{ photo.author }}</b></div>
                         {% endif %}
                         {% if photo.description %}
-                            <div class="row-fluid" id="ajapaik-photo-modal-description">
+                            <div class="row" id="ajapaik-photo-modal-description">
                                 <div title="{{ photo.description }}">
                                     {% if photo.video %}
                                         <a href="{% url "project.ajapaik.views.frontpage" %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ photo.video_timestamp|div:1000 }}">{{ photo.description }}</a>
@@ -126,15 +126,15 @@
                             </div>
                         {% endif %}
                         {% if photo.date %}
-                            <div class="row-fluid">
+                            <div class="row">
                                 {{ photo.date }}
                             </div>
                         {% elif photo.date_text %}
-                            <div class="row-fluid">
+                            <div class="row">
                                 {{ photo.date_text }}
                             </div>
                         {% endif %}
-                        <div class="row-fluid">
+                        <div class="row">
                             {% if photo.licence %}
                                     {% include "_licence.html" with licence=photo.licence %}
                             {% endif %}
@@ -159,21 +159,21 @@
                                 class="ajp-dater-hide-when-dater-visible {% if photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}">
                         {% if photo.rephotos.all.0.source and photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}
                             {% if photo.rephotos.all.0.author %}
-                                <div class="row-fluid">
+                                <div class="row">
                                     <b>{{ photo.rephotos.all.0.author }}</b>
                                     {% if photo.rephotos.all.0.licence %}
                                         {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
                                     {% endif %}
                                 </div>
                             {% endif %}
-                            <div class="row-fluid">
+                            <div class="row">
                                 <a id="ajapaik-photo-modal-source" href='{{ photo.rephotos.all.0.source_url }}' target="_blank">
                                     {{ photo.rephotos.all.0.source.desription }} {{ photo.rephotos.all.0.source_key }}
                                 </a>
                             </div>
                         {% else %}
                             {% if photo.rephotos.all.0.author %}
-                                <div class="row-fluid">
+                                <div class="row">
                                     <b>{{ photo.rephotos.all.0.author }}</b>
                                     {% if photo.rephotos.all.0.licence %}
                                         {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
@@ -181,7 +181,7 @@
                                 </div>
                             {% else %}
                                 {% if photo.rephotos.all.0.user %}
-                                    <div class="row-fluid">
+                                    <div class="row">
                                         <a target="_blank" href="{% url 'frontpage_photos' %}?rephotosBy={{ photo.rephotos.all.0.user.id }}&order1=time&order2=rephotos">
                                                 {{ photo.rephotos.all.0.user.get_display_name }}
                                         </a>
@@ -190,14 +190,14 @@
                                         {% endif %}
                                     </div>
                                 {% else %}
-                                    <div class="row-fluid">
+                                    <div class="row">
                                         <b>{% trans "Unknown author" %}</b>
                                     </div>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
                         {% if photo.rephotos.all.0.date %}
-                            <div class="row-fluid">
+                            <div class="row">
                                 {{ photo.rephotos.all.0.date|date:"d.m.Y" }}
                             </div>
                         {% endif %}
@@ -206,14 +206,14 @@
                     <!-- end of new photo info -->
                 </div>
                 <!-- start of FB like block -->
-                <div class="row-fluid" id="ajapaik-photo-modal-fb-like-container">
+                <div class="row" id="ajapaik-photo-modal-fb-like-container">
                     <div class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
                         data-layout="standard" data-action="like" data-show-faces="true"
                         data-share="true"></div>
                 </div>
                 <!-- end of FB like block -->
                 <!-- start of toolbox block -->
-                <div class="row-fluid ajp-dater-hide-when-dater-visible">
+                <div class="row ajp-dater-hide-when-dater-visible">
                     <div class="ajapaik-margin-top-5" id="ajapaik-photo-modal-bottom-buttons-row">
                         <a id="ajapaik-photo-modal-specify-location" class="pull-left" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
@@ -247,52 +247,44 @@
                 </div>
                 <!-- end of toolbox block -->
                 <!-- start of dater block -->
-                <div class="row-fluid" id="ajp-dater-container"></div>
+                <div class="row" id="ajp-dater-container"></div>
                 <!-- end of dater block -->
                 <!-- start of albums block -->
-                <div class="col-md-12">
-                    {% if albums|length > 0 %}
-                        <div class="ajp-dater-hide-when-dater-visible">
-                            <br>
+                {% if albums|length > 0 %}
+                    <div class="row ajp-dater-hide-when-dater-visible">
+                        <br>
+                        <div class="col-md-1">
+                            <i class="material-icons notranslate ajapaik-photo-modal-album-icon"
+                               title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
+                                {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}
+                            </i>
+                        </div>
+                        <div class="col-md-11">
                             {% for a in albums %}
-                                <div class="row-fluid ajapaik-no-left-margin-row" style="min-height: 36px;">
-                                    {% if forloop.first %}
-                                        <div class="col-xs-1">
-                                            <i class="material-icons notranslate ajapaik-photo-modal-album-icon"
-                                            title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
-                                                    {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}
-                                            </i>
-                                        </div>
-                                    {% endif %}
-                                    <div class="{% if forloop.first %}col-xs-11{% else %}col-xs-offset-1 col-xs-11{% endif %}">
-                                        <a class="ajapaik-photo-modal-album-link"
+                                <div class="row ajapaik-no-left-margin-row" style="min-height: 36px;">
+                                    <a class="ajapaik-photo-modal-album-link"
                                         href="{% if is_mapview %}
-                                                {% url 'project.ajapaik.views.mapview' %}?album={{ a.id }}
-                                            {% elif is_frontpage or is_selection %}
-                                                {% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}
-                                            {% endif %}">
-                                            {{ a.name }}
-                                        </a>
-                                        <div class="ajapaik-photo-modal-album-more-button" role="button"
-                                            title="{% trans 'Album details' %}" data-id="{{ a.id }}">
-                                        </div>
-                                        <div class="ajapaik-photo-modal-photo-curator">
-                                            &nbsp;<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">
-                                                account_circle
-                                            </i>
-                                            <p class="hidden">
-                                                {{ a.this_photo_curator.get_display_name }}
-                                            </p>
-                                        </div>
+                                                  {% url 'project.ajapaik.views.mapview' %}?album={{ a.id }}
+                                              {% elif is_frontpage or is_selection %}
+                                                  {% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}
+                                              {% endif %}">{{ a.name }}</a>
+                                    <div class="ajapaik-photo-modal-album-more-button"
+                                         role="button"
+                                         title="{% trans 'Album details' %}"
+                                         data-id="{{ a.id }}">
+                                    </div>
+                                    <div class="ajapaik-photo-modal-photo-curator">
+                                        &nbsp;<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i>
+                                        <p class="hidden">{{ a.this_photo_curator.get_display_name }}</p>
                                     </div>
                                 </div>
                             {% endfor %}
                         </div>
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
                 <!-- end of albums block -->
                 <!-- start of comment block -->
-                <div class="row-fluid" id="ajapaik-photoview-comments-section">
+                <div class="row" id="ajapaik-photoview-comments-section">
                     <div class="col-md-12" id="ajapaik-comment-list"></div>
                     <div class="comment col-md-12">
                         <h4>{% trans "Your comment" %}</h4>
