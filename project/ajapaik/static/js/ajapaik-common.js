@@ -1407,7 +1407,7 @@ var map,
         }
     });
 
-    $(document).on('click', '.ajapaik-photo-modal-album-link', function () {
+    $(document).on('click', '.ajapaik-photo-album-link', function () {
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Album link click']);
         } else if (window.isMapview) {

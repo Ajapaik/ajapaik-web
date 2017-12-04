@@ -214,18 +214,18 @@
                 <!-- end of FB like block -->
                 <!-- start of toolbox block -->
                 <div class="row ajp-dater-hide-when-dater-visible">
-                    <div class="ajapaik-margin-top-5" id="ajapaik-photo-modal-bottom-buttons-row">
-                        <a id="ajapaik-photo-modal-specify-location" class="pull-left" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}" href="#">
+                    <div class="ajapaik-margin-top-5">
+                        <a id="ajapaik-photo-modal-specify-location" class="no-text-decoration pull-left" data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
                         </a>
-                        <a id="ajapaik-photo-modal-start-dating-button" class="pull-left" data-id="{{ photo.id }}" title="{% trans "Date this image" %}" href="#">
+                        <a id="ajapaik-photo-modal-start-dating-button" class="no-text-decoration pull-left" data-id="{{ photo.id }}" title="{% trans "Date this image" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">event</i>
                             <span class="badge">{{ datings_count }}</span>
                         </a>
-                        <a id="ajapaik-photo-modal-add-rephoto" class="pull-left" href="#" title="{% trans "Add rephoto" %}">
+                        <a id="ajapaik-photo-modal-add-rephoto" class="no-text-decoration pull-left" href="#" title="{% trans "Add rephoto" %}">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                         </a>
-                        <a id="ajapaik-photo-modal-discuss" class="pull-left" title="{% trans "Discuss" %}" href="#">
+                        <a id="ajapaik-photo-modal-discuss" class="no-text-decoration pull-left" title="{% trans "Discuss" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">comment</i>
                             {% if photo.comment_count > 0 %}
                                 <span class="badge">{{ photo.comment_count }}</span>
@@ -238,7 +238,7 @@
                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                        <a href="{{ hostname }}{{ photo.get_detail_url }}">{{ hostname }}{{ photo.get_detail_url }}</a>
+                                        <a class="no-text-decoration" href="{{ hostname }}{{ photo.get_detail_url }}">{{ hostname }}{{ photo.get_detail_url }}</a>
                                     </div>
                                 </li>
                             </ul>
@@ -262,7 +262,7 @@
                         <div class="col-md-11">
                             {% for a in albums %}
                                 <div class="row ajapaik-no-left-margin-row" style="min-height: 36px;">
-                                    <a class="ajapaik-photo-modal-album-link"
+                                    <a class="ajapaik-photo-album-link"
                                         href="{% if is_mapview %}
                                                   {% url 'project.ajapaik.views.mapview' %}?album={{ a.id }}
                                               {% elif is_frontpage or is_selection %}
