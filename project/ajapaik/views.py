@@ -31,6 +31,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, \
@@ -2692,16 +2693,28 @@ def get_comment_dislike_count(request, comment_id):
     return JsonResponse({'count': comment.dislike_count()})
 
 
-class CommentList(TemplateView):
+class CommentList(View):
+    '''
+    Render comment list. Only comment that not marked as deleted should be
+    shown.
+    '''
     template_name = 'comments/list.html'
     comment_model = django_comments.get_model()
 
-    def get_context_data(self, **kwargs):
-        context = super(CommentList, self).get_context_data(**kwargs)
-        photo_id = int(self.kwargs['photo_id'])
-        context['comment_list'] = self.comment_model.objects.filter(
+    def get(self, request, photo_id):
+        comments = self.comment_model.objects.filter(
             object_pk=photo_id, is_removed=False).order_by('submit_date')
-        return context
+        content = render_to_string(
+            self.template_name,
+            context={
+                'comment_list': comments,
+            }
+        )
+        comment_count = comments.count()
+        return JsonResponse({
+            'content': content,
+            'comment_count': comment_count,
+        })
 
 
 class PostComment(View):

@@ -227,9 +227,7 @@
                         </a>
                         <a id="ajapaik-photo-modal-discuss" class="no-text-decoration pull-left" title="{% trans "Discuss" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">comment</i>
-                            {% if photo.comment_count > 0 %}
-                                <span class="badge">{{ photo.comment_count }}</span>
-                            {% endif %}
+                            <span class="badge hidden">0</span>
                         </a>
                         <div class="dropdown pull-left" id="ajapaik-photo-modal-dropdown">
                             <a id="ajapaik-photo-modal-share" role="button" title="{% trans "Share" %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
@@ -437,8 +435,20 @@
         window.fetchComments = function() {
             $.ajax({
                 url: '{% url "comments-for-photo" photo_id=photo.id %}',
-                success: function (result) {
-                    $('#ajapaik-comment-list').html(result);
+                success: function (response) {
+                    $('#ajapaik-comment-list').html(response.content);
+                    comments_count = $(
+                        '#ajapaik-photo-modal-discuss span[class~="badge"]'
+                    );
+                    if(comments_count) {
+                        comments_count.html(response.comment_count);
+                        if(response.comment_count === 0) {
+                            comments_count.addClass('hidden');
+                        }
+                        else {
+                            comments_count.removeClass('hidden');
+                        }
+                    }
                 }
             });
         };
