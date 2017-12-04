@@ -9,20 +9,20 @@
             <h4>{% trans "Ajapaik shows how places have changed over time" %}</h4>
         </div>
         <div class="modal-body">
-            <div class="row-fluid">
+            <div class="row">
                 {% trans "Discover how places looked like years ago by" %}
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-xs-12">{% trans "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik," %}</div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-xs-12">{% trans "* geotagging pictures from places you are familiar with and" %}</div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-xs-12">{% trans "* rephotographing the historic views from places you visit." %}</div>
             </div>
-            <div class="row-fluid">&nbsp;</div>
-            <div class="row-fluid">
+            <div class="row">&nbsp;</div>
+            <div class="row">
                 {% blocktrans %}
                     Ajapaik has <b>{{ total_photo_count }}</b> historic pictures, out of which
                 {% endblocktrans %}
@@ -44,7 +44,7 @@
             </div>
             <br/>
             {% if user_geotagged_photos > 0 %}
-                <div class="row-fluid">
+                <div class="row">
                     {% blocktrans count counter=user_geotagged_photos %}
                         You have suggested location for <b>{{ user_geotagged_photos }}</b> picture.
                     {% plural %}
@@ -53,7 +53,7 @@
                 </div>
             {% endif %}
             {% if user_rephotos > 0 %}
-                <div class="row-fluid">
+                <div class="row">
                     {% blocktrans count counter=user_rephotographed_photos %}
                         You have made <b>{{ user_rephotos }}</b> rephoto for
                     {% plural %}
@@ -66,8 +66,8 @@
                     {% endblocktrans %}
                 </div>
             {% endif %}
-            <div class="row-fluid">&nbsp;</div>
-            <div class="row-fluid">
+            <div class="row">&nbsp;</div>
+            <div class="row">
                 <div class="media" id="ajapaik-ev-100-media">
                     <div class="media-left">
                         {% get_current_language as LANGUAGE_CODE %}
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <br>
-            <div class="row-fluid">
+            <div class="row">
                 <h4>{% trans "Supporters of Ajapaik" %}</h4>
             </div>
             <div class="row vertical-align">
