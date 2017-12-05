@@ -1424,7 +1424,9 @@ class MyXtdComment(XtdComment):
                 photo.first_comment = self.submit_date
             if not photo.latest_comment or photo.latest_comment < self.submit_date:
                 photo.latest_comment = self.submit_date
-            photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk).count()
+            photo.comment_count = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            ).count()
             photo.light_save()
 
     def delete(self, *args, **kwargs):
