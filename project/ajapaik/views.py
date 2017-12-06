@@ -2700,14 +2700,18 @@ class CommentList(View):
     '''
     template_name = 'comments/list.html'
     comment_model = django_comments.get_model()
+    form_class = django_comments.get_form()
 
     def get(self, request, photo_id):
         comments = self.comment_model.objects.filter(
             object_pk=photo_id, is_removed=False).order_by('submit_date')
         content = render_to_string(
-            self.template_name,
+            template_name=self.template_name,
+            request=request,
             context={
                 'comment_list': comments,
+                'reply_form': self.form_class(get_object_or_404(
+                    Photo, pk=photo_id)),
             }
         )
         comment_count = comments.count()

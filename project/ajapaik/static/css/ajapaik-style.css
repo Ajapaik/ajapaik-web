@@ -2857,7 +2857,7 @@ input[type="search"]::-webkit-search-cancel-button {
     height: 33px;
 }
 
-textarea#id_comment{
+.comment-box textarea{
     display: block;
     width: 100%;
     resize: vertical;
