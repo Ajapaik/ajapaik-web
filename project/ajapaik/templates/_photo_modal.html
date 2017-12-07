@@ -443,6 +443,9 @@
                 url: '{% url "comments-for-photo" photo_id=photo.id %}',
                 success: function (response) {
                     $('#ajapaik-comment-list').html(response.content);
+                    $('[data-toggle=confirmation]').confirmation({
+                        rootSelector: '[data-toggle=confirmation]',
+                    });
                     comments_count = $(
                         '#ajapaik-photo-modal-discuss span[class~="badge"]'
                     );

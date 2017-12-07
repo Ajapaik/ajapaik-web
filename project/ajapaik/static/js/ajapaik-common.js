@@ -75,6 +75,7 @@ var map,
 
 (function ($) {
     'use strict';
+
     albumSelectionDiv = $('#ajapaik-album-selection-menu');
     if (albumSelectionDiv.length > 0) {
         albumSelectionDiv.justifiedGallery({

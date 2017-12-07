@@ -66,6 +66,9 @@ from project.ajapaik.then_and_now_tours import user_has_confirmed_email
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 
+from .utils import get_comment_replies
+
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
@@ -2706,9 +2709,9 @@ class CommentList(View):
         '''
         for comment in comments:
             flat_comment_list.append(comment)
-            subcomments = self.comment_model.objects.filter(
-                parent_id=comment.pk
-            ).exclude(parent_id=F('pk')).order_by('submit_date')
+            subcomments = get_comment_replies(comment).filter(
+                is_removed=False
+            ).order_by('submit_date')
             self._agregate_comment_and_replies(
                 comments=subcomments, flat_comment_list=flat_comment_list
             )
@@ -2779,7 +2782,11 @@ class DeleteComment(View):
         comment_id = request.POST.get('comment_id')
         if comment_id:
             comment = get_object_or_404(self.comment_model, pk=comment_id)
-            self._perform_delete(request, comment)
+            if comment.user == request.user:
+                replies = get_comment_replies(comment)
+                self._perform_delete(request, comment)
+                for reply in replies:
+                    self._perform_delete(request, reply)
         return JsonResponse({
             'status': 200
         })

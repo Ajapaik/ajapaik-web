@@ -17,7 +17,7 @@
             <div class="media-body">
                 <h6 class="media-heading">
                     {{ comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
-                    <a href="{% url 'comments-xtd-like' comment.pk %}" data-action="like" data-comment-id="{{ comment.pk }}">
+                    <a href="{% url 'comments-xtd-like' comment.pk %}" data-action="dislike" data-comment-id="{{ comment.pk }}">
                         {% trans "Like" %}
                         <span class="{% if comment.like_count <= 0 %}hidden{% endif %}" id="ajapaik-comments-like-count-{{ comment.pk }}">({{ comment.like_count }})</span>
                     </a>
@@ -29,7 +29,20 @@
                         <a href="{{ comment.get_reply_url }}" data-action="reply" data-comment-id="{{ comment.pk }}">{% trans "Reply" %}</a>
                     {% endif %}
                     {% if comment.user == user %}
-                        <a href="#" data-action="delete" data-comment-id="{{ comment.pk }}">{% trans "Delete" %}</a>
+                        <a href="#"
+                           data-action="delete"
+                           data-comment-id="{{ comment.pk }}"
+                           data-toggle="confirmation"
+                           data-singleton="true"
+                           data-popout="true"
+                           data-title="{% trans 'Delete' %}"
+                           data-content="{% trans 'Are you sure that you want to delete this comment and all replies?' %}"
+                           data-btn-ok-label="{% trans 'Delete' %}"
+                           data-btn-ok-class="btn-danger"
+                           data-btn-cancel-label="{% trans 'Cancel' %}"
+                           data-btn-cancel-class="btn-success">
+                            {% trans "Delete" %}
+                        </a>
                     {% endif %}
                 </h6>
                 <p>{{ comment.comment|render_markup_comment }}</p>
