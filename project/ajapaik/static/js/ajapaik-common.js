@@ -413,6 +413,26 @@ var map,
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
 
+    var update_comment_likes = function(link) {
+        var update_badge = function(badge, count) {
+            badge.text('(' + count + ')');
+            if (count <= 0) {
+                badge.addClass('hidden');
+            }
+            else {
+                badge.removeClass('hidden');
+            }
+        };
+        var comment_id = link.data('comment-id');
+
+        $.get('/comments/like-count/' + comment_id + '/', {}, function (response) {
+            var like_count_badge = $('#ajapaik-comments-like-count-' + comment_id);
+            var dislike_count_badge = $('#ajapaik-comments-dislike-count-' + comment_id);
+            update_badge(like_count_badge, response.like_count);
+            update_badge(dislike_count_badge, response.dislike_count);
+        });
+    };
+
     $('.full-box div').on('click', function (e) {
         e.preventDefault();
         if (window.BigScreen.enabled) {
@@ -1709,41 +1729,17 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-comments-like-button', function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        $.post($this.prop('href'), {
+    $(document).on('click', '#ajapaik-comment-list a[data-action="like"],a[data-action="dislike"]', function (event) {
+        event.preventDefault();
+        var link = $(this);
+        $.post(link.prop('href'), {
             csrfmiddlewaretoken: docCookies.getItem('csrftoken')
         }, function (response, status) {
             if (status === 'success') {
-                $.get($this.data('like-count-url'), {}, function (getResponse1) {
-                    $('#ajapaik-comments-like-count-' + $this.data('id')).text('(' + getResponse1.count + ')');
-                });
-                $.get($this.data('dislike-count-url'), {}, function (getResponse2) {
-                    $('#ajapaik-comments-dislike-count-' + $this.data('id')).text('(' + getResponse2.count + ')');
-                });
+                update_comment_likes(link);
             }
         });
-
         return false;
     });
 
-    $(document).on('click', '#ajapaik-comments-dislike-button', function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        $.post($this.prop('href'), {
-            csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-        }, function (response, status) {
-            if (status === 'success') {
-                $.get($this.data('like-count-url'), {}, function (getResponse1) {
-                    $('#ajapaik-comments-like-count-' + $this.data('id')).text('(' + getResponse1.count + ')');
-                });
-                $.get($this.data('dislike-count-url'), {}, function (getResponse2) {
-                    $('#ajapaik-comments-dislike-count-' + $this.data('id')).text('(' + getResponse2.count + ')');
-                });
-            }
-        });
-
-        return false;
-    });
 }(jQuery));

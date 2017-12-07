@@ -25,7 +25,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q, Count
+from django.db.models import Sum, Q, Count, F
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
@@ -2680,17 +2680,15 @@ def user_upload_add_album(request):
 ################################################################################
 ###  Comments
 ################################################################################
-# TODO: Should just use 1 info URL to save requests
 def get_comment_like_count(request, comment_id):
-    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
+    comment = get_object_or_404(
+        django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID
+    )
 
-    return JsonResponse({'count': comment.like_count()})
-
-
-def get_comment_dislike_count(request, comment_id):
-    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
-
-    return JsonResponse({'count': comment.dislike_count()})
+    return JsonResponse({
+        'like_count': comment.like_count(),
+        'dislike_count': comment.dislike_count()
+    })
 
 
 class CommentList(View):
@@ -2702,14 +2700,34 @@ class CommentList(View):
     comment_model = django_comments.get_model()
     form_class = django_comments.get_form()
 
+    def _agregate_comment_and_replies(self, comments, flat_comment_list):
+        '''
+        Recursively build comments and their replies list.
+        '''
+        for comment in comments:
+            flat_comment_list.append(comment)
+            subcomments = self.comment_model.objects.filter(
+                parent_id=comment.pk
+            ).exclude(parent_id=F('pk')).order_by('submit_date')
+            self._agregate_comment_and_replies(
+                comments=subcomments, flat_comment_list=flat_comment_list
+            )
+
     def get(self, request, photo_id):
+        flat_comment_list = []
+        # Selecting photo's top level commnets(pk == parent_id) and that has
+        # been not removed.
         comments = self.comment_model.objects.filter(
-            object_pk=photo_id, is_removed=False).order_by('submit_date')
+            object_pk=photo_id, parent_id=F('pk'), is_removed=False
+        ).order_by('submit_date')
+        self._agregate_comment_and_replies(
+            comments=comments, flat_comment_list=flat_comment_list
+        )
         content = render_to_string(
             template_name=self.template_name,
             request=request,
             context={
-                'comment_list': comments,
+                'comment_list': flat_comment_list,
                 'reply_form': self.form_class(get_object_or_404(
                     Photo, pk=photo_id)),
             }
