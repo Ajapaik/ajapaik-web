@@ -1,5 +1,5 @@
 {% extends "base_bootstrap.html" %}
-{% load i18n comments %}
+{% load i18n comments static %}
 
 {% block header %}
     {% include "_header.html" %}
@@ -162,23 +162,14 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                    <div class="row" id="ajapaik-photoview-comments-section">
-                        <div class="comments">
+                    <div class="row" id="ajapaik-comments-container">
+                        <div class="col-md-12" id="ajapaik-comment-list"></div>
+                        <div class="col-md-12" id="ajapaik-new-comment-form-container">
                             {% if rephoto %}
-                                {% render_comment_list for rephoto %}
+                                {% render_comment_form for rephoto %}
                             {% else %}
-                                {% render_comment_list for photo %}
+                                {% render_comment_form for photo %}
                             {% endif %}
-                        </div>
-                        <div class="comment">
-                            <h4>{% trans "Your comment" %}</h4>
-                            <div class="well">
-                                {% if rephoto %}
-                                    {% render_comment_form for rephoto %}
-                                {% else %}
-                                    {% render_comment_form for photo %}
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                     </div>
@@ -511,4 +502,5 @@
             window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         });
     </script>
+    <script src="{% static 'js/ajapaik-comments.js' %}"></script>
 {% endblock %}

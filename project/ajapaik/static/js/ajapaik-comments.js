@@ -9,10 +9,10 @@ $(document).ready(function () {
     });
 
     // Disable hotkeys when typing message.
-    $('#ajapaik-photoview-comments-section').on('focus', 'textarea', function() {
+    $('#ajapaik-comments-container').on('focus', 'textarea', function() {
         window.hotkeysActive = false;
     });
-    $('#ajapaik-photoview-comments-section').on('blur', 'textarea', function() {
+    $('#ajapaik-comments-container').on('blur', 'textarea', function() {
         window.hotkeysActive = true;
     });
 

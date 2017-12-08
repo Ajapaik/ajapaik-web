@@ -282,17 +282,14 @@
                 {% endif %}
                 <!-- end of albums block -->
                 <!-- start of comment block -->
-                <div class="row" id="ajapaik-photoview-comments-section">
+                <div class="row" id="ajapaik-comments-container">
                     <div class="col-md-12" id="ajapaik-comment-list"></div>
-                    <div class="comment col-md-12" id="ajapaik-new-comment">
-                        <h4>{% trans "Your comment" %}</h4>
-                        <div class="well">
-                            {% if rephoto %}
-                                {% render_comment_form for rephoto %}
-                            {% else %}
-                                {% render_comment_form for photo %}
-                            {% endif %}
-                        </div>
+                    <div class="col-md-12" id="ajapaik-new-comment-form-container">
+                        {% if rephoto %}
+                            {% render_comment_form for rephoto %}
+                        {% else %}
+                            {% render_comment_form for photo %}
+                        {% endif %}
                     </div>
                 </div>
                 <!-- end of comment block -->
