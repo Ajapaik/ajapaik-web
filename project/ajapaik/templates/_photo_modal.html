@@ -419,6 +419,13 @@
                 }
             });
         };
+        $('#ajapaik-comment-form-register-link').click(function (event) {
+            if(window.closePhotoDrawer) {
+                event.preventDefault();
+                window.closePhotoDrawer();
+            }
+            $('#ajapaik-header-profile-button').click();
+        });
     });
 </script>
 {% block specific_js %}
