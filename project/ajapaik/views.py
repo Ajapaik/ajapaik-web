@@ -54,7 +54,8 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
-    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm
+    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
+    EditCommentForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
     Newsletter, Dating, DatingConfirmation, Video
@@ -2745,9 +2746,9 @@ class CommentList(View):
 class PostComment(View):
     form_class = django_comments.get_form()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, photo_id):
         form = self.form_class(
-            target_object=get_object_or_404(Photo, pk=kwargs['photo_id']),
+            target_object=get_object_or_404(Photo, pk=photo_id),
             data=request.POST
         )
         if form.is_valid():
@@ -2756,6 +2757,16 @@ class PostComment(View):
                 return JsonResponse({
                     'comment': [_('Sorry but we fail to post your comment.')]
                 })
+        return JsonResponse(form.errors)
+
+class EditComment(View):
+    form_class = django_comments.get_form()
+
+    def post(self, request):
+        form = EditCommentForm(request.POST)
+        if form.is_valid() and form.comment.user == request.user:
+            form.comment.comment = form.cleaned_data['text']
+            form.comment.save()
         return JsonResponse(form.errors)
 
 

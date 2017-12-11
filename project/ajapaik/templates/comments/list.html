@@ -43,9 +43,33 @@
                            data-btn-cancel-class="btn-success">
                             {% trans "Delete" %}
                         </a>
+                        <a href="#" data-action="edit" data-comment-id="{{ comment.pk }}">{% trans "Edit" %}</a>
                     {% endif %}
                 </h6>
-                <p>{{ comment.comment|render_markup_comment }}</p>
+                <div class="comment-text" data-comment-text="{{ comment.comment }}">
+                    <p>
+                        {{ comment.comment|render_markup_comment }}
+                    </p>
+                </div>
+                <!-- Editing form block start -->
+                <div class='form-group comment-edit-form-{{ comment.pk }} hidden'>
+                    <form method="POST" action="#" class="form-horizontal">
+                        {% csrf_token %}
+                        <input type="hidden" name="comment_id" value="{{ comment.pk }}">
+                        <div class="alert alert-danger hidden" data-comment-element="errors"></div>
+                        <div class="col-md-12">
+                            <div class='form-group comment-box'>
+                                <textarea cols="40" maxlength="3000" name="text" placeholder="{% trans 'supports Markdown' %}" rows="10"></textarea>
+                            </div>
+                            <div class='form-group'>
+                                <button class="btn btn-primary" type="submit" data-action="edit" data-comment-id="{{comment.pk}}">{% trans 'Save' %}</button>
+                                <button class="btn btn-default" type="button" data-action="cancel" data-comment-id="{{comment.pk}}">{% trans 'Cancel' %}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Editing form block end -->
+                <!-- Reply form block start -->
                 <div class='form-group comment-reply-form-{{ comment.pk }} hidden'>
                     <form method="POST" action="#" class="form-horizontal">
                         {% csrf_token %}
@@ -70,6 +94,7 @@
                         </div>
                     </form>
                 </div>
+                <!-- Reply form block end -->
             </div>
         </li>
     {% endfor %}

@@ -2,11 +2,14 @@ import autocomplete_light
 from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import get_object_or_404
+from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
 
-from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, Video, Licence
+from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
+    Video, Licence
 
 
 class APILoginAuthForm(forms.Form):
@@ -367,3 +370,18 @@ class CommentForm(XtdCommentForm):
         self.fields['comment'] = forms.CharField(
             widget=forms.Textarea(attrs={'placeholder': _('supports Markdown')}),
             max_length=COMMENT_MAX_LENGTH)
+
+
+class EditCommentForm(forms.Form):
+    comment_id = forms.IntegerField()
+    text = forms.CharField()
+
+    def clean_comment_id(self):
+        self.comment = get_object_or_404(
+            get_model(), pk=self.cleaned_data['comment_id']
+        )
+
+    def clean(self):
+        text = self.cleaned_data['text']
+        if self.comment.comment == self.cleaned_data['text']:
+            forms.ValidationError(_('Nothing to change.'), code='same_text')

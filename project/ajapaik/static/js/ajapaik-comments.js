@@ -118,4 +118,49 @@ $(document).ready(function () {
         window.post_comment(form);
         event.preventDefault();
     });
+
+    // Show edit form (edit link pressed).
+    $('#ajapaik-comment-list').on('click', 'a[data-action="edit"]', function(event) {
+        var comment_id = $(event.target).data('comment-id');
+        var all_edit_form_divs = $('#ajapaik-comment-list div[class*="comment-edit-form-"]');
+        var edit_form_div = $('#ajapaik-comment-list div[class~="comment-edit-form-' + comment_id + '"]');
+        var comment_container = $('#c' + comment_id + ' .comment-text');
+        var comment_text = comment_container.data('comment-text');
+        var comment_textarea = edit_form_div.find('textarea');
+
+        comment_textarea.val(comment_text);
+
+        // Hide all forms and show only requested.
+        all_edit_form_divs.addClass('hidden');
+        comment_container.addClass('hidden');
+        edit_form_div.removeClass('hidden');
+
+        event.preventDefault();
+    });
+
+    // Exit edit form (cancel button pressed).
+    $('#ajapaik-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
+        var comment_id = $(event.target).data('comment-id');
+        var all_edit_form_divs = $('#ajapaik-comment-list div[class*="comment-edit-form-"]');
+        var comment_container = $('#c' + comment_id + ' .comment-text');
+
+        comment_container.removeClass('hidden');
+        all_edit_form_divs.addClass('hidden');
+    });
+
+    // Update comment (edit button pressed).
+    $('#ajapaik-comment-list').on('click', 'button[data-action="edit"]', function(event) {
+        var comment_id = $(event.target).data('comment-id');
+        var form = $('#ajapaik-comment-list div[class~="comment-edit-form-' + comment_id + '"]').find('form');
+        $.ajax({
+            type: 'POST',
+            url: '/comments/edit-one/',
+            data: form.serialize(),
+            success: function (response) {
+                console.log(response);
+                window.fetchComments();
+            }
+        });
+        event.preventDefault();
+    });
 });
