@@ -368,7 +368,28 @@ class CommentForm(XtdCommentForm):
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.fields['comment'] = forms.CharField(
-            widget=forms.Textarea(attrs={'placeholder': _('supports Markdown')}),
+            widget=forms.Textarea(
+                attrs={
+                    'placeholder': _(
+                        'Paragraphs\n'
+                        'Add two new lines to start a new paragraph.\n\n'
+
+                        'Bold\n'
+                        '**Geotagging** is the first task on Ajapaik.\n\n'
+
+                        'Italic\n'
+                        'Next come *rephotography* and *dating*.\n\n'
+
+                        'Links\n'
+                        'Join the discussion on [Ajapaiklejad FB group]'
+                        '(https://www.facebook.com/groups/ajapaiklejad).\n\n'
+
+                        'Images\n'
+                        '![Ajapaik is gift for EV100]'
+                        '(https://ajapaik.ee/static/images/ev100.png)'
+                    )
+                }
+            ),
             max_length=COMMENT_MAX_LENGTH)
 
 
