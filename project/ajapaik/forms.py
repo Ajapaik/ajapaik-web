@@ -371,6 +371,8 @@ class CommentForm(XtdCommentForm):
             widget=forms.Textarea(
                 attrs={
                     'placeholder': _(
+                        'Comment box supports Markdown\n\n'
+
                         'Paragraphs\n'
                         'Add two new lines to start a new paragraph.\n\n'
 
