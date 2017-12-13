@@ -8,95 +8,97 @@
             </button>
         </div>
         <div class="modal-body" id="ajapaik-modal-body">
-            <div class="row" style="height: 100%; width: 100%;">
-                <div class="{% if photo.rephotos.all|length == 0 %}col-xs-12{% elif photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}"
-                     id="ajapaik-photo-modal-original-photo-column">
-                    <div id="ajapaik-modal-photo-container-container" {% if photo.lat and photo.lon and not request.mobile %}class="col-xs-9"{% endif %}>
-                        <div id="ajapaik-modal-photo-container">
-                            <div class="ajapaik-photo-modal-previous-button"
-                                 {% if not request.mobile %}style="display: none;"{% endif %}>
-                                <i class="material-icons notranslate">navigate_before</i>
-                            </div>
-                            <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="{% url 'project.ajapaik.views.photoslug' photo.id photo.get_pseudo_slug %}">
-                                <img src="{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"
-                                     alt="{{ photo.description }}" title="{{ photo.description }}"
-                                     class="img-responsive col-xs-12"
-                                     id="ajapaik-modal-photo"/>
-                            </a>
-                            <div class="ajapaik-photo-modal-next-button"
-                                 {% if not request.mobile %}style="display: none;"{% endif %}>
-                                <i class="material-icons notranslate">navigate_next</i>
-                            </div>
-                            {% if request.user.profile.is_legit %}
-                                <button class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}"
-                                     data-id="{{ photo.id }}">
-                                    <i class="material-icons notranslate">check_circle</i>
-                                </button>
-                            {% endif %}
-                            <button class="ajapaik-flip-photo-overlay-button"
-                                    {% if not request.mobile %}style="display: none;"{% endif %} title="{% trans "Flip photo" %}">
-                                <i class="material-icons notranslate">flip</i>
-                            </button>
-                            <button class="ajapaik-like-photo-overlay-button{% if photo.user_likes %} active{% endif %}{% if photo.user_loves %} active big{% endif %}">
-                                {% if photo.user_likes or photo.user_loves %}
-                                    <i class="material-icons notranslate">favorite</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
-                                {% else %}
-                                    <i class="material-icons notranslate">favorite_border</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
+            <div class="container-fluid">
+                <div class="row" style="height: 100%; width: 100%;">
+                    <div class="{% if photo.rephotos.all|length == 0 %}col-xs-12{% elif photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}"
+                        id="ajapaik-photo-modal-original-photo-column">
+                        <div id="ajapaik-modal-photo-container-container" {% if photo.lat and photo.lon and not request.mobile %}class="col-xs-9"{% endif %}>
+                            <div id="ajapaik-modal-photo-container">
+                                <div class="ajapaik-photo-modal-previous-button"
+                                    {% if not request.mobile %}style="display: none;"{% endif %}>
+                                    <i class="material-icons notranslate">navigate_before</i>
+                                </div>
+                                <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="{% url 'project.ajapaik.views.photoslug' photo.id photo.get_pseudo_slug %}">
+                                    <img src="{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"
+                                        alt="{{ photo.description }}" title="{{ photo.description }}"
+                                        class="img-responsive col-xs-12"
+                                        id="ajapaik-modal-photo"/>
+                                </a>
+                                <div class="ajapaik-photo-modal-next-button"
+                                    {% if not request.mobile %}style="display: none;"{% endif %}>
+                                    <i class="material-icons notranslate">navigate_next</i>
+                                </div>
+                                {% if request.user.profile.is_legit %}
+                                    <button class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-white{% endif %}"
+                                        data-id="{{ photo.id }}">
+                                        <i class="material-icons notranslate">check_circle</i>
+                                    </button>
                                 {% endif %}
-                            </button>
-                            {% if photo.rephotos.all.0 %}
-                                <button class="ajapaik-overlay-button" id="ajapaik-show-rephoto-selection-overlay-button"
-                                        {% if not request.mobile %}style="display: none;"{% endif %}>
-                                    {% if photo.rephotos.all|length < 10 %}
-                                        <i class="material-icons notranslate">filter_{{ photo.rephotos.all|length }}</i>
+                                <button class="ajapaik-flip-photo-overlay-button"
+                                        {% if not request.mobile %}style="display: none;"{% endif %} title="{% trans "Flip photo" %}">
+                                    <i class="material-icons notranslate">flip</i>
+                                </button>
+                                <button class="ajapaik-like-photo-overlay-button{% if photo.user_likes %} active{% endif %}{% if photo.user_loves %} active big{% endif %}">
+                                    {% if photo.user_likes or photo.user_loves %}
+                                        <i class="material-icons notranslate">favorite</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
                                     {% else %}
-                                        <i class="material-icons notranslate">filter_9_plus</i>
+                                        <i class="material-icons notranslate">favorite_border</i><span class="ajapaik-like-count">{{ photo.like_count }}</span>
                                     {% endif %}
                                 </button>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div id="ajapaik-photo-modal-map-container" class="hidden-xs col-xs-3" style="display: none;">
-                        <div id="ajapaik-minimap-disabled-overlay"></div>
-                        <div id="ajapaik-photo-modal-map-canvas"></div>
-                    </div>
-                </div>
-                {% if photo.rephotos.all.0 %}
-                    <div class="{% if photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}"
-                         id="ajapaik-photo-modal-rephoto-column">
-                        <div id="ajapaik-modal-rephoto-container-container" class="col-xs-12">
-                            <div id="ajapaik-modal-rephoto-container">
-                                <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="{% url 'project.ajapaik.views.photoslug' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
-                                    <img src="{% url 'project.ajapaik.views.image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
-                                         class="col-xs-12 img-responsive" id="ajapaik-modal-rephoto"
-                                         alt="{{ photo.description }}" title="{{ photo.description }}"/>
-                                    <button class="ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
-                                            id="ajapaik-close-rephoto-overlay-button"
+                                {% if photo.rephotos.all.0 %}
+                                    <button class="ajapaik-overlay-button" id="ajapaik-show-rephoto-selection-overlay-button"
                                             {% if not request.mobile %}style="display: none;"{% endif %}>
-                                        <i class="material-icons notranslate">close</i>
+                                        {% if photo.rephotos.all|length < 10 %}
+                                            <i class="material-icons notranslate">filter_{{ photo.rephotos.all|length }}</i>
+                                        {% else %}
+                                            <i class="material-icons notranslate">filter_9_plus</i>
+                                        {% endif %}
                                     </button>
-                                    <button class="ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button ajapaik-zero-border-radius"
-                                            id="ajapaik-invert-rephoto-overlay-button"
-                                            {% if not request.mobile %}style="display: none;"{% endif %}>
-                                        <i class="material-icons notranslate">invert_colors</i>
-                                    </button>
-                                </a>
+                                {% endif %}
                             </div>
                         </div>
-                    </div>
-                    {% if photo.rephotos.all|length > 1 %}
-                        <div class="col-xs-2" id="ajapaik-rephoto-selection">
-                            {% for rephoto in photo.rephotos.all %}
-                                <div class="row ajapaik-photo-modal-rephoto-thumb"
-                                     id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
-                                    <img class="img-responsive col-xs-12"
-                                         src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
-                                         data-id="{{ rephoto.id }}"/>
-                                </div>
-                            {% endfor %}
+                        <div id="ajapaik-photo-modal-map-container" class="hidden-xs col-xs-3" style="display: none;">
+                            <div id="ajapaik-minimap-disabled-overlay"></div>
+                            <div id="ajapaik-photo-modal-map-canvas"></div>
                         </div>
+                    </div>
+                    {% if photo.rephotos.all.0 %}
+                        <div class="{% if photo.rephotos.all|length > 1 %}col-xs-5{% else %}col-xs-6{% endif %}"
+                            id="ajapaik-photo-modal-rephoto-column">
+                            <div id="ajapaik-modal-rephoto-container-container" class="col-xs-12">
+                                <div id="ajapaik-modal-rephoto-container">
+                                    <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="{% url 'project.ajapaik.views.photoslug' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
+                                        <img src="{% url 'project.ajapaik.views.image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
+                                            class="col-xs-12 img-responsive" id="ajapaik-modal-rephoto"
+                                            alt="{{ photo.description }}" title="{{ photo.description }}"/>
+                                        <button class="ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
+                                                id="ajapaik-close-rephoto-overlay-button"
+                                                {% if not request.mobile %}style="display: none;"{% endif %}>
+                                            <i class="material-icons notranslate">close</i>
+                                        </button>
+                                        <button class="ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button ajapaik-zero-border-radius"
+                                                id="ajapaik-invert-rephoto-overlay-button"
+                                                {% if not request.mobile %}style="display: none;"{% endif %}>
+                                            <i class="material-icons notranslate">invert_colors</i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% if photo.rephotos.all|length > 1 %}
+                            <div class="col-xs-2" id="ajapaik-rephoto-selection">
+                                {% for rephoto in photo.rephotos.all %}
+                                    <div class="row ajapaik-photo-modal-rephoto-thumb"
+                                        id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
+                                        <img class="img-responsive col-xs-12"
+                                            src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                                            data-id="{{ rephoto.id }}"/>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
             </div>
         </div>
         <div class="modal-footer">
