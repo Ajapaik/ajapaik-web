@@ -3,41 +3,41 @@
 {% if not user.profile.is_legit %}
     <a href="javaScript:void(0);" id="ajapaik-comment-form-register-link">{% trans "Identify yourself to comment" %}</a>
 {% else %}
-    <form method="POST" data-comment-element="form" data-comment-id="{{ cid|default:'main' }}"
-          action="{% comment_form_target %}" class="form-horizontal">
-        {% csrf_token %}
+    <h4>{% trans "Your comment" %}</h4>
+    <div class="well">
         <div class="hidden" data-comment-element="preview"></div>
-        <fieldset>
-            <!-- <legend>{% trans "Your comment" %}</legend> -->
-            {% if photo %}
-                <div><input type="hidden" name="next" value="{{ photo.get_detail_url }}"/></div>
-            {% elif next %}
-                <div><input type="hidden" name="next" value="{{ next }}"/></div>
-            {% endif %}
-            <div class="alert alert-danger hidden" data-comment-element="errors"></div>
-            {% for field in form %}
-                {% if field.is_hidden %}
-                    <div>{{ field }}</div>
-                {% endif %}
-            {% endfor %}
-            <div style="display:none">{{ form.honeypot }}</div>
-            <div class="form-group {% if 'comment' in form.errors %}has-error{% endif %}">
-                <div class="col-lg-12 col-md-12">
-                    {{ form.comment }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-lg-7 col-md-7">
-                    <div class="checkbox">
-                        <label for="id_followup{% if cid %}_{{ cid }}{% endif %}">{{ form.followup }}&nbsp;&nbsp;{{ form.followup.label }}</label>
+        <form method="POST" data-comment-element="form" data-comment-id="{{ cid|default:'main' }}"
+            action="{% comment_form_target %}" class="form-horizontal" id="ajapaik-comment-form">
+            <fieldset>
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ photo.get_detail_url }}"/>
+                <input type="hidden" name="name" value="{{ user.get_full_name|default:user.username }}"/>
+                <input type="hidden" name="email" value="{{ user.email }}"/>
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        {{ field }}
+                    {% endif %}
+                {% endfor %}
+                <div class="alert alert-danger hidden" data-comment-element="errors"></div>
+                <div style="display:none">{{ form.honeypot }}</div>
+                <div class="form-group {% if 'comment' in form.errors %}has-error{% endif %}">
+                    <div class="comment-box col-lg-12 col-md-12">
+                        {{ form.comment }}
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-lg-7 col-md-7">
+                        <div class="checkbox">
+                            <label for="id_followup{% if cid %}_{{ cid }}{% endif %}">{{ form.followup }}&nbsp;&nbsp;{{ form.followup.label }}</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-lg-7 col-md-7">
+                    <input type="submit" name="post" value="{% trans "Send" %}" class="btn btn-primary"/>
+                </div>
             </div>
-        </fieldset>
-        <div class="form-group">
-            <div class="col-lg-7 col-md-7">
-                <input type="submit" name="post" value="{% trans "Send" %}" class="btn btn-primary"/>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endif %}

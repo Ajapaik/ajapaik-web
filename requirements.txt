@@ -48,7 +48,6 @@ packaging
 pandas
 pbr
 Pillow
-pkg-resources
 psycopg2
 py
 pyasn1

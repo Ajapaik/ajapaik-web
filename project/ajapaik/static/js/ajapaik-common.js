@@ -75,6 +75,7 @@ var map,
 
 (function ($) {
     'use strict';
+
     albumSelectionDiv = $('#ajapaik-album-selection-menu');
     if (albumSelectionDiv.length > 0) {
         albumSelectionDiv.justifiedGallery({
@@ -411,6 +412,26 @@ var map,
     getQueryParameterByName = function (name) {
         var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    };
+
+    var update_comment_likes = function(link) {
+        var update_badge = function(badge, count) {
+            badge.text('(' + count + ')');
+            if (count <= 0) {
+                badge.addClass('hidden');
+            }
+            else {
+                badge.removeClass('hidden');
+            }
+        };
+        var comment_id = link.data('comment-id');
+
+        $.get('/comments/like-count/' + comment_id + '/', {}, function (response) {
+            var like_count_badge = $('#ajapaik-comments-like-count-' + comment_id);
+            var dislike_count_badge = $('#ajapaik-comments-dislike-count-' + comment_id);
+            update_badge(like_count_badge, response.like_count);
+            update_badge(dislike_count_badge, response.dislike_count);
+        });
     };
 
     $('.full-box div').on('click', function (e) {
@@ -898,22 +919,22 @@ var map,
         handleAlbumChange();
     });
 
-    // $(document).on('click', '#ajapaik-photo-modal-discuss', function (e) {
-    //     e.preventDefault();
-    //     if (window.isFrontpage) {
-    //         _gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
-    //     } else if (window.isMapview) {
-    //         _gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
-    //     }
-    //     var commentsSection = $('#ajapaik-comments-section');
-    //     if (commentsSection.hasClass('hidden')) {
-    //         commentsSection.removeClass('hidden');
-    //         window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
-    //         window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
-    //     } else {
-    //         commentsSection.addClass('hidden');
-    //     }
-    // });
+    $(document).on('click', '#ajapaik-photo-modal-discuss', function (e) {
+        e.preventDefault();
+        if (window.isFrontpage) {
+            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
+        } else if (window.isMapview) {
+            _gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
+        }
+        var commentsSection = $('#ajapaik-comments-section');
+        if (commentsSection.hasClass('hidden')) {
+            commentsSection.removeClass('hidden');
+            window.FB.XFBML.parse($('#ajapaik-rephoto-comments').get(0));
+            window.FB.XFBML.parse($('#ajapaik-original-photo-comments').get(0));
+        } else {
+            commentsSection.addClass('hidden');
+        }
+    });
 
     $('#ajapaik-comment-form-register-link').click(function () {
         $('#ajapaik-header-profile-button').click();
@@ -1407,7 +1428,7 @@ var map,
         }
     });
 
-    $(document).on('click', '.ajapaik-photo-modal-album-link', function () {
+    $(document).on('click', '.ajapaik-photo-album-link', function () {
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Album link click']);
         } else if (window.isMapview) {
@@ -1709,41 +1730,17 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-comments-like-button', function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        $.post($this.prop('href'), {
+    $(document).on('click', '#ajapaik-comment-list a[data-action="like"],a[data-action="dislike"]', function (event) {
+        event.preventDefault();
+        var link = $(this);
+        $.post(link.prop('href'), {
             csrfmiddlewaretoken: docCookies.getItem('csrftoken')
         }, function (response, status) {
             if (status === 'success') {
-                $.get($this.data('like-count-url'), {}, function (getResponse1) {
-                    $('#ajapaik-comments-like-count-' + $this.data('id')).text('(' + getResponse1.count + ')');
-                });
-                $.get($this.data('dislike-count-url'), {}, function (getResponse2) {
-                    $('#ajapaik-comments-dislike-count-' + $this.data('id')).text('(' + getResponse2.count + ')');
-                });
+                update_comment_likes(link);
             }
         });
-
         return false;
     });
 
-    $(document).on('click', '#ajapaik-comments-dislike-button', function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        $.post($this.prop('href'), {
-            csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-        }, function (response, status) {
-            if (status === 'success') {
-                $.get($this.data('like-count-url'), {}, function (getResponse1) {
-                    $('#ajapaik-comments-like-count-' + $this.data('id')).text('(' + getResponse1.count + ')');
-                });
-                $.get($this.data('dislike-count-url'), {}, function (getResponse2) {
-                    $('#ajapaik-comments-dislike-count-' + $this.data('id')).text('(' + getResponse2.count + ')');
-                });
-            }
-        });
-
-        return false;
-    });
 }(jQuery));
