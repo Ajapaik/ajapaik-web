@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-12 14:52+0200\n"
-"PO-Revision-Date: 2017-12-12 13:07+0000\n"
+"PO-Revision-Date: 2017-12-18 13:24+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -582,7 +582,7 @@ msgid ""
 "\n"
 "                        Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
 "                    "
-msgstr ""
+msgstr "\nAjapaigas on <b>%(total_photo_count)s</b> ajaloolist pilti, millest"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:30
 #, python-format
@@ -590,7 +590,7 @@ msgid ""
 "\n"
 "                        <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n"
 "                    "
-msgstr ""
+msgstr "\n<b>%(total_photos_tagged)s</b> pilti on ära kaardistatud"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:33
 #, python-format
@@ -598,7 +598,7 @@ msgid ""
 "\n"
 "                        <b>%(contributing_users)s</b> users and\n"
 "                    "
-msgstr ""
+msgstr "\n<b>%(contributing_users)s</b> kasutaja abiga, ning"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:36
 #, python-format
@@ -606,7 +606,7 @@ msgid ""
 "\n"
 "                        <b>%(rephoto_count)s</b> rephotographs for\n"
 "                    "
-msgstr ""
+msgstr "\n<b>%(rephoto_count)s</b> ülepildistust"
 
 #: project/ajapaik/templates/_general_info_modal_content.html:39
 #, python-format
@@ -614,7 +614,7 @@ msgid ""
 "\n"
 "                        <b>%(rephotographed_photo_count)s</b> pictures made by\n"
 "                    "
-msgstr ""
+msgstr "\n<b>%(rephotographed_photo_count)s</b> pildile, mille on teinud "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:42
 #, python-format
@@ -622,7 +622,7 @@ msgid ""
 "\n"
 "                        <b>%(rephotographing_users)s</b> users.\n"
 "                    "
-msgstr ""
+msgstr "\n<b>%(rephotographing_users)s</b> kasutajat."
 
 #: project/ajapaik/templates/_general_info_modal_content.html:49
 #, python-format
@@ -634,8 +634,8 @@ msgid_plural ""
 "\n"
 "                            You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n"
 "                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\nOled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
+msgstr[1] "\nOled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
 
 #: project/ajapaik/templates/_general_info_modal_content.html:58
 #, python-format
@@ -647,8 +647,8 @@ msgid_plural ""
 "\n"
 "                            You have made <b>%(user_rephotos)s</b> rephotos for\n"
 "                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\nOled teinud <b>%(user_rephotos)s</b> ülepildistust "
+msgstr[1] "\nOled teinud <b>%(user_rephotos)s</b> ülepildistust "
 
 #: project/ajapaik/templates/_general_info_modal_content.html:63
 #, python-format
@@ -660,8 +660,8 @@ msgid_plural ""
 "\n"
 "                            <b>%(user_rephotographed_photos)s</b> pictures.\n"
 "                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n<b>%(user_rephotographed_photos)s</b> pildile."
+msgstr[1] "\n<b>%(user_rephotographed_photos)s</b> pildile."
 
 #: project/ajapaik/templates/_general_info_modal_content.html:75
 #: project/ajapaik/templates/_general_info_modal_content.html:88
@@ -861,7 +861,7 @@ msgstr "Flickr Commons"
 
 #: project/ajapaik/templates/_header.html:326
 msgid "Finna"
-msgstr ""
+msgstr "Finna"
 
 #: project/ajapaik/templates/_header.html:337
 #: project/ajapaik/templates/photo_selection.html:26
