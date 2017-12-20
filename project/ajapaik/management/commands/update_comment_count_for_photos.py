@@ -10,7 +10,9 @@ class Command(BaseCommand):
         photos = Photo.objects.all()
         for p in photos:
             print p.pk
-            comments = MyXtdComment.objects.filter(object_pk=p.pk)
+            comments = MyXtdComment.objects.filter(
+                object_pk=p.pk, is_removed=False
+            )
             first_comment = comments.order_by('-submit_date').first()
             latest_comment = comments.order_by('submit_date').first()
             p.first_comment = None
