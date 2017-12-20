@@ -783,6 +783,10 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
     z-index: 98;
 }
 
+#ajapaik-map-container button.load-more {
+    margin: 10px 0 10px 0;
+}
+
 #ajapaik-guess-panel-container-xs {
     width: 100%;
     min-width: 100%;
@@ -2465,7 +2469,6 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 #ajapaik-photo-pane-content-container {
-    margin-bottom: 50px;
     min-width: 20%;
 }
 
