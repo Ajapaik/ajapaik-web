@@ -1434,15 +1434,21 @@ class MyXtdComment(XtdComment):
         super(MyXtdComment, self).delete(*args, **kwargs)
         photo = Photo.objects.filter(pk=object_pk).first()
         if photo:
-            photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk).count()
+            photo.comment_count = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            ).count()
             if photo.comment_count == 0:
                 photo.first_comment = None
                 photo.latest_comment = None
             else:
-                first_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('-submit_date').first()
+                first_comment = MyXtdComment.objects.filter(
+                    object_pk=self.object_pk, is_removed=False
+                ).order_by('-submit_date').first()
                 if first_comment:
                     photo.first_comment = first_comment.submit_date
-                latest_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('submit_date').first()
+                latest_comment = MyXtdComment.objects.filter(
+                    object_pk=self.object_pk, is_removed=False
+                ).order_by('submit_date').first()
                 if latest_comment:
                     photo.latest_comment = latest_comment.submit_date
 
