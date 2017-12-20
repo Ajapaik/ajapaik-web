@@ -61,7 +61,7 @@ class FinnaDriver(object):
                             p['longitude'] = lon
                             p['latitude'] = lat
                 licence = None
-                if 'imageRights' in p:
+                if 'imageRights' in p and 'copyright' in p['imageRights']:
                     licence = p['imageRights']['copyright']
                 transformed_item = {
                     'isFinnaResult': True,

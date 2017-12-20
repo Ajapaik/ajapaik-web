@@ -2,9 +2,9 @@
     <script id="ajapaik-photo-modal-rephoto-info-template" type="text/x-tmpl">
         {% if (o.source && o.sourceKey && o.sourceURL) { %}
             {% if (o.author) { %}
-                <div class="row-fluid"><b>{%=o.author%}</b>{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
+                <div class="row"><b>{%=o.author%}</b>{% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" %}{% verbatim %}{% } %}</div>
             {% } %}
-            <div class="row-fluid">
+            <div class="row">
                 <a id="ajapaik-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
                    target="_blank">
                     {%=o.source%} {%=o.sourceKey%}
@@ -12,10 +12,10 @@
             </div>
         {% } else { %}
             {% if (o.author) { %}
-                <div class="row-fluid"><b>{%=o.author%}</b>{% endverbatim %}{% include "_licence.html" %}{% verbatim %}</div>
+                <div class="row"><b>{%=o.author%}</b>{% endverbatim %}{% include "_licence.html" %}{% verbatim %}</div>
             {% } else { %}
                 {% if (o.FBUserName) { %}
-                    <div class="row-fluid">
+                    <div class="row">
                         <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
                             {%=o.FBUserName%}
                         </a>
@@ -23,7 +23,7 @@
                     </div>
                 {% } else { %}
                     {% if (o.GooglePlusName) { %}
-                        <div class="row-fluid">
+                        <div class="row">
                             <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
                                 {%=o.GooglePlusName%}
                             </a>
@@ -31,21 +31,21 @@
                         </div>
                     {% } else { %}
                         {% if (o.FullName) { %}
-                            <div class="row-fluid">
+                            <div class="row">
                                 <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
                                     {%=o.FullName%}
                                 </a>
                                 {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                             </div>
                         {% } else { %}
-                            <div class="row-fluid"><b>{%=gettext('Unknown author')%}</b></div>
+                            <div class="row"><b>{%=gettext('Unknown author')%}</b></div>
                         {% } %}
                     {% } %}
                 {% } %}
             {% } %}
         {% } %}
         {% if (o.date) { %}
-            <div class="row-fluid">{%=o.date%}</div>
+            <div class="row">{%=o.date%}</div>
         {% } %}
     </script>
 {% endverbatim %}

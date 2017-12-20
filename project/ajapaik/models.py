@@ -136,6 +136,7 @@ class Area(Model):
 
     class Meta:
         db_table = 'project_area'
+        app_label = 'ajapaik'
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -189,7 +190,7 @@ class Album(Model):
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
-    videos = ManyToManyField('Video', related_name='albums')
+    videos = ManyToManyField('Video', related_name='albums', blank=True)
     # Why do albums have coordinates anyway?
     lat = FloatField(null=True, blank=True, db_index=True)
     lon = FloatField(null=True, blank=True, db_index=True)
@@ -917,7 +918,7 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read('https://graph.facebook.com/v2.3/me?access_token=%s' % access_token))
+        data = loads(self.url_read('https://graph.facebook.com/v2.5/me?access_token=%s' % access_token))
         if not data:
             raise Exception('Facebook did not return anything useful for this access token')
 
@@ -994,22 +995,17 @@ class Profile(Model):
         return u"%s" % (self.get_display_name(),)
 
     def update_from_fb_data(self, token, data):
-        self.user.first_name = data.get('first_name')
-        self.user.last_name = data.get('last_name')
-        self.user.email = data.get('email')
-        try:
-            self.user.save()
-        except IntegrityError:
-            return redirect(reverse('frontpage', ))
+        if data.get('first_name'):
+            self.user.first_name = data.get('first_name')
+        if data.get('last_name'):
+            self.user.last_name = data.get('last_name')
+        if data.get('email'):
+            self.user.email = data.get('email')
+        self.user.save()
 
         self.fb_token = token
         self.fb_id = data.get('id')
         self.fb_name = data.get('name')
-        if self.fb_name:
-            parts = self.fb_name.split(' ')
-            self.first_name = parts[0]
-            if len(parts) > 1:
-                self.last_name = parts[1]
         self.fb_link = data.get('link')
         self.fb_email = data.get('email')
         try:
@@ -1446,7 +1442,9 @@ class MyXtdComment(XtdComment):
                 photo.first_comment = self.submit_date
             if not photo.latest_comment or photo.latest_comment < self.submit_date:
                 photo.latest_comment = self.submit_date
-            photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk).count()
+            photo.comment_count = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            ).count()
             photo.light_save()
 
     def delete(self, *args, **kwargs):
@@ -1459,10 +1457,10 @@ class MyXtdComment(XtdComment):
                 photo.first_comment = None
                 photo.latest_comment = None
             else:
-                first_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('-created').first()
+                first_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('-submit_date').first()
                 if first_comment:
                     photo.first_comment = first_comment.submit_date
-                latest_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('created').first()
+                latest_comment = MyXtdComment.objects.filter(object_pk=self.object_pk).order_by('submit_date').first()
                 if latest_comment:
                     photo.latest_comment = latest_comment.submit_date
 

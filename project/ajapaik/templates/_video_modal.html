@@ -31,15 +31,22 @@
             <div class="row">
                 <div class="col-xs-9" id="ajapaik-video-modal-info-column">
                     {% if video.author %}
-                        <div class="row-fluid"><b>{{ video.author }}</b></div>{% endif %}
-                    <div class="row-fluid">{{ video.name }}</div>
+                        <div class="row">
+                            <b>{{ video.author }}</b>
+                        </div>
+                    {% endif %}
+                    <div class="row">{{ video.name }}</div>
                     {% if video.date %}
-                        <div class="row-fluid">{{ video.date|date:"Y" }}</div>{% endif %}
+                        <div class="row">
+                            {{ video.date|date:"Y" }}
+                        </div>
+                    {% endif %}
                     {% if video.source and video.source_key and video.source_url %}
-                        <div class="row-fluid"><a id="ajapaik-video-modal-source-link" data-id="{{ video.id }}"
-                                                  target="_blank" href="{{ video.source_url }}"
-                                                  title="{{ video.source.description }}"
-                                                  class="pull-left">{{ video.source.description }} {{ video.source_key }}</a>
+                        <div class="row">
+                            <a id="ajapaik-video-modal-source-link" data-id="{{ video.id }}"
+                               target="_blank" href="{{ video.source_url }}"
+                               title="{{ video.source.description }}"
+                               class="pull-left">{{ video.source.description }} {{ video.source_key }}</a>
                         </div>
                     {% endif %}
                 </div>

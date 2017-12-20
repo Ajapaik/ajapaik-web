@@ -1,87 +1,86 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Håvard Johansen <havardgj@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 18:42+0200\n"
-"PO-Revision-Date: 2016-04-26 11:35+0000\n"
-"Last-Translator: Håvard Johansen <havardgj@gmail.com>\n"
-"Language-Team: Norwegian (https://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/no/)\n"
-"Language: no\n"
+"POT-Creation-Date: 2017-12-12 14:58+0200\n"
+"PO-Revision-Date: 2017-12-12 12:59+0000\n"
+"Last-Translator: Lauri Elias\n"
+"Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/ajapaik/static/js/ajapaik-common.js:227
+#: project/ajapaik/static/js/ajapaik-common.js:228
 msgid "Go to my location"
 msgstr "Gå til min lokasjon"
 
-#: project/ajapaik/static/js/ajapaik-common.js:263
+#: project/ajapaik/static/js/ajapaik-common.js:264
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
 msgid "Close"
 msgstr "Lukk"
 
-#: project/ajapaik/static/js/ajapaik-common.js:548
+#: project/ajapaik/static/js/ajapaik-common.js:569
 msgid "User denied the request for Geolocation."
 msgstr "Bruker avviste forespørsel om lokasjon"
 
-#: project/ajapaik/static/js/ajapaik-common.js:554
+#: project/ajapaik/static/js/ajapaik-common.js:575
 msgid "Location information is unavailable."
 msgstr "Lokasjonsinformasjon er ikke tilgjengelig."
 
-#: project/ajapaik/static/js/ajapaik-common.js:557
+#: project/ajapaik/static/js/ajapaik-common.js:578
 msgid "The request to get user location timed out."
 msgstr "Tidsavbrudd for forespørselen om lokasjon."
 
-#: project/ajapaik/static/js/ajapaik-common.js:560
+#: project/ajapaik/static/js/ajapaik-common.js:581
 msgid "An unknown error occurred."
 msgstr "En ukjent feil oppstod."
 
-#: project/ajapaik/static/js/ajapaik-common.js:712
+#: project/ajapaik/static/js/ajapaik-common.js:733
 msgid "Pick the shooting location!"
 msgstr "Velg sted for fotografering!"
 
-#: project/ajapaik/static/js/ajapaik-common.js:723
-#: project/ajapaik/static/js/ajapaik-common.js:774
+#: project/ajapaik/static/js/ajapaik-common.js:744
+#: project/ajapaik/static/js/ajapaik-common.js:795
 msgid "Geotagged by this many users"
 msgstr "Geotagget av så mange brukere"
 
-#: project/ajapaik/static/js/ajapaik-common.js:755
+#: project/ajapaik/static/js/ajapaik-common.js:776
 msgid "Confirm correct location"
 msgstr "Bekreft stedsinformasjon"
 
-#: project/ajapaik/static/js/ajapaik-common.js:766
+#: project/ajapaik/static/js/ajapaik-common.js:787
 msgid "Submit your own location"
 msgstr "Registrer stedsinformasjon"
 
-#: project/ajapaik/static/js/ajapaik-common.js:793
+#: project/ajapaik/static/js/ajapaik-common.js:814
 msgid "You"
 msgstr "Deg"
 
-#: project/ajapaik/static/js/ajapaik-common.js:797
+#: project/ajapaik/static/js/ajapaik-common.js:818
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Anonym bruker"
 
-#: project/ajapaik/static/js/ajapaik-common.js:799
+#: project/ajapaik/static/js/ajapaik-common.js:820
 msgid "Anonymous users"
 msgstr "Anonymer brukere"
 
-#: project/ajapaik/static/js/ajapaik-common.js:860
+#: project/ajapaik/static/js/ajapaik-common.js:881
 msgid "Current location"
 msgstr "Gjeldende lokasjon"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1128
-#: project/ajapaik/static/js/ajapaik-common.js:1173
+#: project/ajapaik/static/js/ajapaik-common.js:1149
+#: project/ajapaik/static/js/ajapaik-common.js:1194
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "Ikke valgt"
@@ -211,17 +210,13 @@ msgstr "Fjern fra utvalg"
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
-msgstr ""
-"Bildet er allerede i Ajapaik. Du kan fremdeles legge det til ditt album, men "
-"får ingen poeng for utvalg"
+msgstr "Bildet er allerede i Ajapaik. Du kan fremdeles legge det til ditt album, men får ingen poeng for utvalg"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid ""
 "Are you sure you want to create an album with less than 5 photos? We "
 "recommend to create albums with at least 10 or more pictures."
-msgstr ""
-"Er du sikker på at du vil opprette et album med mindre enn 5 bilder? Vi "
-"anbefaler at du opprettet album med minst 10 bilder."
+msgstr "Er du sikker på at du vil opprette et album med mindre enn 5 bilder? Vi anbefaler at du opprettet album med minst 10 bilder."
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -445,9 +440,7 @@ msgstr "Bildesettet har ingen kommentarer"
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
-msgstr ""
-"Du har sett alle bildene i dette albumet, og vi viser deg nå tilfeldige "
-"bilder."
+msgstr "Du har sett alle bildene i dette albumet, og vi viser deg nå tilfeldige bilder."
 
 #: project/ajapaik/static/js/ajapaik-game.js:191
 msgid "You have seen all the pictures from this album."
@@ -483,8 +476,7 @@ msgstr "Objekt"
 msgid ""
 "Grab and drag the MAP so that the marker is where the photographer was "
 "standing."
-msgstr ""
-"Klikk og dra i kart slik at markøren blir plassert der fotografen stod."
+msgstr "Klikk og dra i kart slik at markøren blir plassert der fotografen stod."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
 msgid "Search box"
@@ -523,50 +515,39 @@ msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag map to correct the "
 "location."
-msgstr ""
-"Klikk på den grønne knappen for å lagre lokasjon og retning. Klikk på kartet "
-"for å låse opp retning og dra kartet til den korrekte lokasjonen."
+msgstr "Klikk på den grønne knappen for å lagre lokasjon og retning. Klikk på kartet for å låse opp retning og dra kartet til den korrekte lokasjonen."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
 msgid ""
-"Click on the map to lock the direction of the view or click yellow button to "
-"save only the location."
-msgstr ""
-"Klikk på kartet for å låse retning eller klikk på den gule knappen for å kun "
-"lagre lokasjon."
+"Click on the map to lock the direction of the view or click yellow button to"
+" save only the location."
+msgstr "Klikk på kartet for å låse retning eller klikk på den gule knappen for å kun lagre lokasjon."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag MARKER to correct the "
 "location."
-msgstr ""
-"Klikk på den grønne knappen for å lagre både lokasjon og retning. Klikk på "
-"kartet for å låse opp retningen og dra MARKØREN til den riktige lokasjonen."
+msgstr "Klikk på den grønne knappen for å lagre både lokasjon og retning. Klikk på kartet for å låse opp retningen og dra MARKØREN til den riktige lokasjonen."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
 msgid ""
 "Now you can drag the MARKER where the photographer was standing and the MAP "
 "separately."
-msgstr ""
-"Nå kan du dra MARKØREN til der fotografen stod og du kan også flytte KARTET"
+msgstr "Nå kan du dra MARKØREN til der fotografen stod og du kan også flytte KARTET"
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
 msgid ""
 "Drag the map so that the circle covers the approximate location, click save "
 "when ready."
-msgstr ""
-"Dra kartet slik at sirkelen dekker den omtrentlige lokasjonen og klik på "
-"Lagre når du er ferdig."
+msgstr "Dra kartet slik at sirkelen dekker den omtrentlige lokasjonen og klik på Lagre når du er ferdig."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:940
 msgid ""
 "Drag the map so that the marker is on top of the object you see on the "
 "picture, click save when ready."
-msgstr ""
-"Dra kartet slik at markøren er over objektet du ser på bildet og klikk Lagre "
-"når du er ferdig."
+msgstr "Dra kartet slik at markøren er over objektet du ser på bildet og klikk Lagre når du er ferdig."
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1094
 msgid "Points awarded"
@@ -607,6 +588,10 @@ msgstr "Feil ved sending"
 #: project/ajapaik/static/js/then-and-now-my-tours.js:31
 msgid "Cannot delete tour, has rephotos or does not belong to you."
 msgstr "Kan ikke slette tur, den har refoto eller tilhørere ikke deg."
+
+#: project/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
+msgid "'"
+msgstr ""
 
 #~ msgid "We doubt about it."
 #~ msgstr "Others have different opinion."

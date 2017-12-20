@@ -1,0 +1,3 @@
+pg_dump rephoto_production -s -f rephoto_20170906.schema.dump
+
+pg_dump rephoto_production -Fc -f rephoto_20170906.sql

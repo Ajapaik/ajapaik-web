@@ -280,7 +280,7 @@
         };
         // UI
         this.UI = $([
-            "<div class='row-fluid ajp-full-height'>",
+            "<div class='row ajp-full-height'>",
             "    <div class='col-xs-12 col-sm-12 col-md-9 ajp-full-height ajp-no-padding' id='ajp-geotagger-map-container'>",
             "        <div id='ajp-geotagger-map-canvas'></div>",
             "    </div>",

@@ -1,4 +1,5 @@
 project/ajapaik/settings/local.py
+project/ajapaik/settings/test.py
 media
 .idea
 *.pyc

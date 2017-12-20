@@ -10,7 +10,7 @@ from copy import deepcopy
 from math import ceil
 from time import strftime, strptime
 
-import cv2 as cv
+import cv2
 import django_comments
 import requests
 from PIL import Image, ImageFile, ImageOps
@@ -25,16 +25,21 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse
-from django.db.models import Sum, Q, Count
+from django.db.models import Sum, Q, Count, F
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, \
+    csrf_protect
+from django.views.generic.base import TemplateView, View
 from django_comments.models import CommentFlag
+from django_comments.signals import comment_was_flagged
+from django_comments.views.comments import post_comment
 from django_comments.views.utils import next_redirect
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
@@ -49,7 +54,8 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
-    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm
+    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
+    EditCommentForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
     Newsletter, Dating, DatingConfirmation, Video
@@ -60,6 +66,9 @@ from project.ajapaik.settings import DATING_POINTS, DATING_CONFIRMATION_POINTS, 
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
+
+from .utils import get_comment_replies
+
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -452,7 +461,6 @@ def rephoto_upload(request, photo_id):
                 if re_photo.cam_scale_factor:
                     new_size = tuple([int(x * re_photo.cam_scale_factor) for x in img.size])
                     output_file = StringIO()
-
                     if re_photo.cam_scale_factor < 1:
                         x0 = (img.size[0] - new_size[0]) / 2
                         y0 = (img.size[1] - new_size[1]) / 2
@@ -803,47 +811,47 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         elif order1 == 'time':
             if order2 == 'rephotos':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL',},
+                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL', },
                                           order_by=['first_rephoto_is_null', 'project_photo.first_rephoto'], )
                 else:
-                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL',},
+                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
                                           order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
                 photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
             elif order2 == 'comments':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL',},
+                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
                                           order_by=['first_comment_is_null', 'project_photo.first_comment'], )
                 else:
-                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL',},
+                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
                                           order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL',},
+                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL', },
                                           order_by=['first_geotag_is_null', 'project_photo.first_geotag'], )
                 else:
-                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL',},
+                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
                                           order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
             elif order2 == 'likes':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL',},
+                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL', },
                                           order_by=['first_like_is_null', 'project_photo.first_like'], )
                 else:
-                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL',},
+                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL', },
                                           order_by=['latest_like_is_null', '-project_photo.latest_like'], )
             elif order2 == 'views':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL',},
+                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL', },
                                           order_by=['first_view_is_null', 'project_photo.first_view'], )
                 else:
-                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL',},
+                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL', },
                                           order_by=['latest_view_is_null', '-project_photo.latest_view'], )
             elif order2 == 'datings':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL',},
+                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL', },
                                           order_by=['first_dating_is_null', 'project_photo.first_dating'], )
                 else:
-                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL',},
+                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
                                           order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
             elif order2 == 'stills':
                 if order3 == 'reverse':
@@ -2204,7 +2212,7 @@ def curator_photo_upload_handler(request):
                         #     print upload_form.errors
         if general_albums:
             for ga in general_albums:
-                requests.post("https://graph.facebook.com/v2.3/?id=" + (
+                requests.post("https://graph.facebook.com/v2.5/?id=" + (
                     request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(
                         ga.id)) + "&scrape=true")
         for cp in all_curating_points:
@@ -2539,7 +2547,7 @@ def generate_still_from_video(request):
         still = Photo.objects.filter(video=vid, video_timestamp=time).first()
         if not still:
             vidcap = cv2.VideoCapture(vid.file.path)
-            vidcap.set(cv.CV_CAP_PROP_POS_MSEC, time)
+            vidcap.set(0, time)
             success, image = vidcap.read()
             source = Source.objects.filter(name='AJP').first()
             if success:
@@ -2673,43 +2681,133 @@ def user_upload_add_album(request):
     return render_to_response('user_upload_add_album.html', RequestContext(request, ret))
 
 
-def perform_delete(request, comment):
-    flag, created = CommentFlag.objects.get_or_create(
-        comment_id=comment.pk,
-        user=request.user,
-        flag=CommentFlag.MODERATOR_DELETION
-    )
-    comment.is_removed = True
-    comment.save()
-    comment_was_flagged.send(
-        sender=comment.__class__,
-        comment=comment,
-        flag=flag,
-        created=created,
-        request=request,
-    )
-
-
-@csrf_protect
-def delete_comment(request, comment_id):
-    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID,
-                                user=request.user)
-    if request.method == 'POST' and comment:
-        perform_delete(request, comment)
-
-        return next_redirect(request, fallback='comments-delete-done', c=comment.pk)
-    else:
-        return render(request, 'comments/delete.html', {'comment': comment, "next": request.GET["next"]})
-
-
-# TODO: Should just use 1 info URL to save requests
+################################################################################
+###  Comments
+################################################################################
 def get_comment_like_count(request, comment_id):
-    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
+    comment = get_object_or_404(
+        django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID
+    )
 
-    return JsonResponse({'count': comment.like_count()})
+    return JsonResponse({
+        'like_count': comment.like_count(),
+        'dislike_count': comment.dislike_count()
+    })
 
 
-def get_comment_dislike_count(request, comment_id):
-    comment = get_object_or_404(django_comments.get_model(), pk=comment_id, site__pk=settings.SITE_ID)
+class CommentList(View):
+    '''
+    Render comment list. Only comment that not marked as deleted should be
+    shown.
+    '''
+    template_name = 'comments/list.html'
+    comment_model = django_comments.get_model()
+    form_class = django_comments.get_form()
 
-    return JsonResponse({'count': comment.dislike_count()})
+    def _agregate_comment_and_replies(self, comments, flat_comment_list):
+        '''
+        Recursively build comments and their replies list.
+        '''
+        for comment in comments:
+            flat_comment_list.append(comment)
+            subcomments = get_comment_replies(comment).filter(
+                is_removed=False
+            ).order_by('submit_date')
+            self._agregate_comment_and_replies(
+                comments=subcomments, flat_comment_list=flat_comment_list
+            )
+
+    def get(self, request, photo_id):
+        flat_comment_list = []
+        # Selecting photo's top level commnets(pk == parent_id) and that has
+        # been not removed.
+        comments = self.comment_model.objects.filter(
+            object_pk=photo_id, parent_id=F('pk'), is_removed=False
+        ).order_by('submit_date')
+        self._agregate_comment_and_replies(
+            comments=comments, flat_comment_list=flat_comment_list
+        )
+        content = render_to_string(
+            template_name=self.template_name,
+            request=request,
+            context={
+                'comment_list': flat_comment_list,
+                'reply_form': self.form_class(get_object_or_404(
+                    Photo, pk=photo_id)),
+            }
+        )
+        comment_count = len(flat_comment_list)
+        return JsonResponse({
+            'content': content,
+            'comment_count': comment_count,
+        })
+
+
+class PostComment(View):
+    form_class = django_comments.get_form()
+
+    def post(self, request, photo_id):
+        form = self.form_class(
+            target_object=get_object_or_404(Photo, pk=photo_id),
+            data=request.POST
+        )
+        if form.is_valid():
+            response = post_comment(request)
+            if response.status_code != 302:
+                return JsonResponse({
+                    'comment': [_('Sorry but we fail to post your comment.')]
+                })
+        return JsonResponse(form.errors)
+
+class EditComment(View):
+    form_class = django_comments.get_form()
+
+    def post(self, request):
+        form = EditCommentForm(request.POST)
+        if form.is_valid() and form.comment.user == request.user:
+            form.comment.comment = form.cleaned_data['text']
+            form.comment.save()
+        return JsonResponse(form.errors)
+
+
+class DeleteComment(View):
+    comment_model = django_comments.get_model()
+
+    def _perform_delete(self, request, comment):
+        flag, created = CommentFlag.objects.get_or_create(
+            comment_id=comment.pk,
+            user=request.user,
+            flag=CommentFlag.MODERATOR_DELETION
+        )
+        comment.is_removed = True
+        comment.save()
+        comment_was_flagged.send(
+            sender=comment.__class__,
+            comment=comment,
+            flag=flag,
+            created=created,
+            request=request,
+        )
+
+    def post(self, request):
+        comment_id = request.POST.get('comment_id')
+        if comment_id:
+            comment = get_object_or_404(self.comment_model, pk=comment_id)
+            if comment.user == request.user:
+                replies = get_comment_replies(comment)
+                self._perform_delete(request, comment)
+                for reply in replies:
+                    self._perform_delete(request, reply)
+        return JsonResponse({
+            'status': 200
+        })
+
+################################################################################
+
+
+def privacy(request):
+    return render_to_response('privacy.html', RequestContext(request, {}))
+
+
+def terms(request):
+    return render_to_response('terms.html', RequestContext(request, {}))

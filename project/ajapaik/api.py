@@ -1,59 +1,46 @@
 # coding=utf-8
-import urllib2
-import requests
+import datetime
 import time
+import urllib2
+from StringIO import StringIO
+from json import loads
 
+import pytz
+import requests
+from PIL import Image, ExifTags
+from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
-from django.conf import settings
-from django.core.files.base import ContentFile
-
-from json import loads
-from dateutil import parser
-from PIL import Image
-from io import BytesIO
 from oauth2client import client, crypt
+from rest_framework import generics
 from rest_framework import authentication, exceptions
-from rest_framework.decorators import (
-    api_view,
-    permission_classes,
-    authentication_classes,
-    parser_classes
-)
+from rest_framework.decorators import api_view, permission_classes, \
+    authentication_classes, parser_classes
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import exception_handler, APIView
+from rest_framework.views import exception_handler
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik.facebook import APP_ID
-from project.ajapaik.forms import (
-    ApiAlbumNearestForm,
-    ApiAlbumStateForm,
-    ApiPhotoUploadForm,
-    ApiUserMeForm,
-    ApiPhotoStateForm,
-    APIAuthForm,
+from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, \
+    ApiPhotoUploadForm, ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, \
     APILoginAuthForm
-)
-from project.ajapaik.models import Album, Photo, Profile, Licence, GeoTag
-from project.ajapaik.settings import (
-    API_DEFAULT_NEARBY_PHOTOS_RANGE,
-    API_DEFAULT_NEARBY_MAX_PHOTOS,
-    FACEBOOK_APP_SECRET,
-    GOOGLE_CLIENT_ID
-)
-from photos import PhotoManipulation
+from project.ajapaik.models import Album, Photo, Profile, Licence
+from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
+    API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
+    FACEBOOK_APP_ID, MEDIA_ROOT, TIME_ZONE
+from project.ajapaik import serializers
 
 
 def custom_exception_handler(exc, context):
@@ -86,7 +73,7 @@ class CustomAuthentication(authentication.BaseAuthentication):
                 raise exceptions.AuthenticationFailed('No user/session')
 
         return user, None
-        
+
 
 @parser_classes((FormParser,))
 def login_auth(request, auth_type='login'):
@@ -97,10 +84,10 @@ def login_auth(request, auth_type='login'):
         'expires': 86400
     }
     user = None
+
     if form.is_valid():
         t = form.cleaned_data['type']
         uname = form.cleaned_data['username']
-
         if t == 'ajapaik' or t == 'auto':
             # Why do not using some validators?
             uname = uname[:30]
@@ -136,6 +123,10 @@ def login_auth(request, auth_type='login'):
             user = authenticate(username=uname, password=pw)
             if user:
                 profile = user.profile
+                if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
+                    user.first_name = form.cleaned_data['firstname']
+                    user.last_name = form.cleaned_data['lastname']
+                    user.save()
                 profile.merge_from_other(request.get_user().profile)
             else:
                 # user exists but password is incorrect
@@ -175,9 +166,11 @@ def login_auth(request, auth_type='login'):
 
         elif t == 'fb':
             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
+            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
+                pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
             parsed_reponse = loads(response.text)
-            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get('is_valid'):
+            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get(
+                    'is_valid'):
                 fb_user_id = parsed_reponse['data']['user_id']
                 profile = Profile.objects.filter(fb_id=fb_user_id).first()
                 if profile:
@@ -193,7 +186,8 @@ def login_auth(request, auth_type='login'):
 
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-                fb_get_info_url = "https://graph.facebook.com/v2.3/me?fields=%s&access_token=%s" % (','.join(fb_permissions), pw)
+                fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
+                    ','.join(fb_permissions), pw)
                 user_info = requests.get(fb_get_info_url)
                 profile.update_from_fb_data(pw, loads(user_info.text))
 
@@ -228,27 +222,21 @@ def login_auth(request, auth_type='login'):
     return content
 
 
-class LoginAPIView(APIView):
-    """ Endpoint for login """
-
-    parser_classes = (FormParser, )
-    permission_classes = (AllowAny, )
-
-    def post(self, request):
-        content = login_auth(request)
-        return Response(content)
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@permission_classes((AllowAny,))
+def api_login(request):
+    content = login_auth(request)
+    return Response(content)
 
 
-class RegisterAPIView(APIView):
-    """ Endpoint for registration """
-
-    parser_classes = (FormParser, )
-    authentication_classes = (CustomAuthentication, )
-    permission_classes = (AllowAny, )
-
-    def post(self, request):
-        content = user = login_auth(request, 'register')
-        return Response(content)
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((AllowAny,))
+def api_register(request):
+    content = user = login_auth(request, 'register')
+    return Response(content)
 
 
 @api_view(['POST'])
@@ -295,14 +283,16 @@ def api_album_thumb(request, album_id, thumb_size=250):
 @permission_classes((IsAuthenticated,))
 def api_albums(request):
     error = 0
-    albums = Album.objects.filter(Q(is_public=True) | Q(profile=request.get_user().profile, atype=Album.CURATED)).order_by('-created')
+    albums = Album.objects.filter(
+        Q(is_public=True) | Q(profile=request.get_user().profile, atype=Album.CURATED)).order_by('-created')
     ret = []
     content = {}
     for a in albums:
         ret.append({
             'id': a.id,
             'title': a.name,
-            'image': request.build_absolute_uri(reverse('project.ajapaik.api.api_album_thumb', args=(a.id,))) + '?' + str(time.time()),
+            'image': request.build_absolute_uri(
+                reverse('project.ajapaik.api.api_album_thumb', args=(a.id,))) + '?' + str(time.time()),
             'stats': {
                 'total': a.photo_count_with_subalbums,
                 'rephotos': a.rephoto_count_with_subalbums
@@ -341,8 +331,10 @@ def api_album_nearest(request):
             nearby_range = form.cleaned_data["range"]
         else:
             nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
-        album_nearby_photos = photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, geography__distance_lte=(ref_location,
-            D(m=nearby_range))).distance(ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+        album_nearby_photos = photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True,
+                                               geography__distance_lte=(ref_location,
+                                                                        D(m=nearby_range))).distance(
+            ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
         for p in album_nearby_photos:
             date = None
             if p.date:
@@ -353,13 +345,15 @@ def api_album_nearest(request):
                 date = p.date_text
             photos.append({
                 "id": p.id,
-                "image": request.build_absolute_uri(reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
+                "image": request.build_absolute_uri(
+                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
                 "date": date,
                 "author": p.author,
-                "source": { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url } if p.source else {'url': p.source_url},
+                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
+                    'url': p.source_url},
                 "latitude": p.lat,
                 "longitude": p.lon,
                 "rephotos": p.rephoto_count,
@@ -400,13 +394,15 @@ def api_album_state(request):
                 date = p.date_text
             photos.append({
                 "id": p.id,
-                "image": request.build_absolute_uri(reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
+                "image": request.build_absolute_uri(
+                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
                 "width": p.width,
                 "height": p.height,
                 "title": p.description,
                 "date": date,
                 "author": p.author,
-                "source": { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url } if p.source else {'url': p.source_url},
+                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
+                    'url': p.source_url},
                 "latitude": p.lat,
                 "longitude": p.lon,
                 "rephotos": p.rephoto_count,
@@ -419,88 +415,119 @@ def api_album_state(request):
     return Response(content)
 
 
-class PhotoUploadAPIView(APIView):
-    """ Endpoint for rephoto """
+def _crop_image(img, scale_factor):
+    new_size = tuple([int(x * scale_factor) for x in img.size])
+    left = (img.size[0] - new_size[0]) / 2
+    top = (img.size[1] - new_size[1]) / 2
+    right = (img.size[0] + new_size[0]) / 2
+    bottom = (img.size[1] + new_size[1]) / 2
+    img = img.crop((left, top, right, bottom))
 
-    parser_classes = (FormParser, MultiPartParser,)
-    authentication_classes = (CustomAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    return img
 
-    def initial(self, request):
-        request = self.request.get_user()
 
-    def post(self, request):
-        profile = request.get_user().profile
-        upload_form = ApiPhotoUploadForm(request.data, request.FILES)
-        content = {
-            'error': 0
-        }
+def _fill_missing_pixels(img, scale_factor):
+    new_size = tuple([int(x * scale_factor) for x in img.size])
+    x0 = (new_size[0] - img.size[0]) / 2
+    y0 = (new_size[1] - img.size[1]) / 2
+    new_img = Image.new('RGB', new_size, color=(255, 255, 255))
+    new_img.paste(img, (x0, y0))
 
-        if upload_form.is_valid():
-            rephoto_of = upload_form.cleaned_data['id']
-            lat = upload_form.cleaned_data['latitude']
-            lng = upload_form.cleaned_data['longitude']
-            original_img = upload_form.cleaned_data['original']
-            img_scale_factor = upload_form.cleaned_data['scale']
-            geography = None
+    return new_img
 
-            if lat and lng:
-                geography = Point(x=lng, y=lat, srid=4326)
 
-            # Scale/zoom image
-            photo_man = PhotoManipulation()
-            zoomed_img = photo_man.image_zoom(original_img, img_scale_factor)
-            img = zoomed_img.get('scaled_image')
-
-            image_io = BytesIO()
-            ext = str(original_img.name.split('.')[-1])
-            ext = 'jpeg' if ext == 'jpg' else ext
-            img.save(image_io, format=ext, quality=100)
-
-            new_rephoto = Photo(
-                image_unscaled=original_img,
-                rephoto_of=rephoto_of,
-                lat=lat,
-                lon=lng,
-                geography=geography,
-                gps_accuracy=upload_form.cleaned_data['accuracy'],
-                gps_fix_age=upload_form.cleaned_data['age'],
-                date=parser.parse(upload_form.cleaned_data['date']),
-                cam_scale_factor=img_scale_factor,
-                cam_yaw=upload_form.cleaned_data['yaw'],
-                cam_pitch=upload_form.cleaned_data['pitch'],
-                cam_roll=upload_form.cleaned_data['roll'],
-                flip=upload_form.cleaned_data['flip'],
-                licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
-                user=profile,
-            )
-
-            new_rephoto.image.save('media/uploads/rephoto_%s' % original_img.name,
-                ContentFile(image_io.getvalue()))
-            new_rephoto.light_save()
-
-            rephoto_of.latest_rephoto = new_rephoto.created
-            if not rephoto_of.first_rephoto:
-                rephoto_of.first_rephoto = new_rephoto.created
-            rephoto_of.save()
-            
-            profile.update_rephoto_score()
-            profile.save()
-
-            # Save GeoTag
-            new_geotag = GeoTag(
-                lat=lat,
-                lon=lng,
-                geography=geography,
-                photo_flipped=upload_form.cleaned_data['flip'],
-                user=profile,
-                photo=new_rephoto,
-                trustworthiness=0.0
-            )
-            new_geotag.save()
-            return Response(content)
+@api_view(['POST'])
+@parser_classes((FormParser, MultiPartParser))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def api_photo_upload(request):
+    profile = request.user.profile
+    upload_form = ApiPhotoUploadForm(request.data, request.FILES)
+    content = {
+        'error': 0
+    }
+    if upload_form.is_valid():
+        original_photo = upload_form.cleaned_data['id']
+        lat = upload_form.cleaned_data['latitude']
+        lng = upload_form.cleaned_data['longitude']
+        geography = None
+        if lat and lng:
+            geography = Point(x=lng, y=lat, srid=4326)
+        parsed_date = parser.parse(upload_form.cleaned_data['date'], dayfirst=True, ignoretz=True)
+        # This workaround assumes we're based in a +something timezone, Europe/Tallinn for example,
+        # since the date is sent in as a dd-mm-yyyy string, we don't want any timezone-aware magic
+        tz = pytz.timezone(TIME_ZONE)
+        dt = datetime.datetime.utcnow()
+        offset_seconds = tz.utcoffset(dt).seconds
+        offset_hours = offset_seconds / 3600.0
+        new_rephoto = Photo(
+            image_unscaled=upload_form.cleaned_data['original'],
+            image=upload_form.cleaned_data['original'],
+            rephoto_of=original_photo,
+            lat=lat,
+            lon=lng,
+            date=datetime.datetime(parsed_date.year, parsed_date.month, parsed_date.day, hour=0 + int(offset_hours)),
+            geography=geography,
+            gps_accuracy=upload_form.cleaned_data['accuracy'],
+            gps_fix_age=upload_form.cleaned_data['age'],
+            cam_scale_factor=upload_form.cleaned_data['scale'],
+            cam_yaw=upload_form.cleaned_data['yaw'],
+            cam_pitch=upload_form.cleaned_data['pitch'],
+            cam_roll=upload_form.cleaned_data['roll'],
+            flip=upload_form.cleaned_data['flip'],
+            licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by/2.0/').first(),
+            user=profile,
+        )
+        new_rephoto.light_save()
+        img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
+        img_unscaled = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled))
+        exif = None
+        orientation = None
+        raw_exif = img._getexif()
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        if raw_exif is not None:
+            exif = dict(raw_exif.items())
+        if exif and orientation:
+            if exif[orientation] == 3:
+                img = img.rotate(180, expand=True)
+                img_unscaled = img.rotate(180, expand=True)
+                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+            elif exif[orientation] == 6:
+                img = img.rotate(270, expand=True)
+                img_unscaled = img_unscaled.rotate(270, expand=True)
+                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+            elif exif[orientation] == 8:
+                img = img.rotate(90, expand=True)
+                img_unscaled = img_unscaled.rotate(90, expand=True)
+                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+        if upload_form.cleaned_data['scale']:
+            img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
+            rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
+            output_file = StringIO()
+            if rounded_scale < 1:
+                cropped_image = _crop_image(img, rounded_scale)
+                cropped_image.save(output_file, 'JPEG', quality=95)
+            elif rounded_scale > 1:
+                filled_image = _fill_missing_pixels(img, rounded_scale)
+                filled_image.save(output_file, 'JPEG', quality=95)
+            new_rephoto.image.delete()
+            new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
+        content['id'] = new_rephoto.pk
+        original_photo.latest_rephoto = new_rephoto.created
+        if not original_photo.first_rephoto:
+            original_photo.first_rephoto = new_rephoto.created
+        original_photo.light_save()
+        profile.update_rephoto_score()
+        profile.save()
+    else:
         content['error'] = 2
-        return Response(content)
+
+    return Response(content)
 
 
 @api_view(['POST'])
@@ -555,7 +582,7 @@ def api_photo_state(request):
             'title': p.description,
             'date': date,
             'author': p.author,
-            'source': { 'name': p.source.description + ' ' + p.source_key, 'url': p.source_url },
+            'source': {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url},
             'latitude': p.lat,
             'longitude': p.lon,
             'rephotos': p.rephotos.count(),

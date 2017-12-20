@@ -228,23 +228,6 @@
         <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
-    <style>.async-hide { opacity: 0 !important} </style>
-    <script>
-        (function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-        })(window,document.documentElement,'async-hide','dataLayer',4000,
-        {'GTM-MXWK6PP':true});
-    </script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{ analytics.google_analytics_key }}', 'auto');
-        ga('require', 'GTM-MXWK6PP');
-        ga('send', 'pageview');
-    </script>
     <script type="text/javascript">
         // From https://www.themarketingtechnologist.co/migrating-to-google-tag-manager-without-changing-hard-coded-_gaq-push-events/
         if (typeof _gaq === 'undefined' || typeof _gaq !== 'object') {
@@ -269,6 +252,10 @@
     </script>
 </head>
 <body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}{% if is_photoview %} ajapaik-body-photoview{% endif %}">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQJJQH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div id="ajapaik-loading-overlay">
     <div id="ajapaik-spinner"></div>
 </div>
@@ -344,6 +331,18 @@
                 <div class="row">
                     <a class="pull-right" id="ajapaik-sift-pics-link" target="_blank" href="http://sift.pics/">{% trans "See also – Sift.pics" %}</a>
                 </div>
+                <div class="row">
+                    <a class="pull-right" target="_blank" href="//www.hotjar.com/?utm_source=badge">
+                        <img id="ajapaik-hotjar-footer-logo" src="//static.hotjar.com/b/hotjar-badge.png"
+                             alt="Hotjar - Unlimited insights from your web and mobile sites" />
+                    </a>
+                </div>
+                {#<div class="row">#}
+                {#    <a class="pull-right" id="ajapaik-privacy-policy-link" href="{% url 'privacy' %}">{% trans "Privacy policy" %}</a>#}
+                {#</div>#}
+                {#<div class="row">#}
+                {#    <a class="pull-right" id="ajapaik-terms-of-service-link" href="{% url 'terms' %}">{% trans "Terms of service" %}</a>#}
+                {#</div>#}
             </div>
         </div>
     </footer>
@@ -460,6 +459,7 @@
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js" %}"></script>
+        <script src="{% static "js/bootstrap-confirmation.min.js" %}"></script>
         <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
         <script src="{% static "js/ajapaik-juks-gmaps.js" %}"></script>
         <script src="{% static "js/ajapaik-common.js" %}"></script>
@@ -480,10 +480,42 @@
         {% if request.user.profile %}
             window.currentProfileId = {{ request.user.profile.pk }};
             window.currentProfileName = '{{ request.user.profile.get_display_name }}';
+            {% if request.user.profile.fb_email %}
+                window.currentProfileEmail = '{{ request.user.profile.fb_email }}';
+            {% elif request.user.profile.google_plus_email %}
+                window.currentProfileEmail = '{{ request.user.profile.google_plus_email }}';
+            {% elif request.user.email %}
+                window.currentProfileEmail = '{{ request.user.email }}';
+            {% endif %}
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
         window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
     </script>
+    <script>
+        window.intercomSettings = {
+            app_id: "jwh97xha"
+        };
+    </script>
+    <script>
+        var dataLayer = window.dataLayer || [],
+            userLoggedIn = !!window.currentProfileId;
+        dataLayer.push({
+            'event': 'user',
+            'logged_in': userLoggedIn,
+            'email': window.currentProfileEmail,
+            'userId': window.currentProfileId,
+            'name': window.currentProfileName
+        });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TQJJQH');</script>
+    <!-- End Google Tag Manager -->
+    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/jwh97xha';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+    <script src="https://script.crazyegg.com/pages/scripts/0070/6290.js" async="async"></script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
 {% block autocomplete_stuff %}{% endblock %}

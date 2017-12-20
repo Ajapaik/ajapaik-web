@@ -101,9 +101,11 @@ SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE_CLASSES = (
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -115,6 +117,11 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'project.ajapaik.urls'
+
+SUBDOMAIN_URLCONFS = {
+    None: 'project.ajapaik.urls',
+    'opendata': 'project.ajapaik.urls_opendata'
+}
 
 WSGI_APPLICATION = 'project.ajapaik.wsgihandler.application'
 
@@ -157,6 +164,7 @@ LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
 REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
 
 INSTALLED_APPS = (
+    'test_without_migrations',
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -209,7 +217,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler',
+    'PAGE_SIZE': 10
 }
 
 CACHES = {
@@ -222,7 +231,7 @@ CACHES = {
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-AJAPAIK_VALIMIMOODUL_URL = 'http://ajapaik.ee:8080/ajapaik-service/AjapaikService.json'
+AJAPAIK_VALIMIMOODUL_URL = 'https://valimimoodul.ajapaik.ee/ajapaik-service/AjapaikService.json'
 
 API_DEFAULT_NEARBY_PHOTOS_RANGE = 50000
 API_DEFAULT_NEARBY_MAX_PHOTOS = 50
@@ -237,10 +246,13 @@ AJAPAIK_BENEFICIARY_ACCT = 'EE072200221048847282'
 COMMENTS_APP = 'django_comments_xtd'
 COMMENTS_XTD_MAX_THREAD_LEVEL = 1
 COMMENTS_XTD_CONFIRM_EMAIL = True
-COMMENTS_XTD_FORM_CLASS = 'project.ajapaik.forms.MyCommentForm'
+COMMENTS_XTD_FORM_CLASS = 'project.ajapaik.forms.CommentForm'
 COMMENTS_XTD_MODEL = 'project.ajapaik.models.MyXtdComment'
 COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 
-# These break static images
+# FIXME: These break static images
 # COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
 # COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True

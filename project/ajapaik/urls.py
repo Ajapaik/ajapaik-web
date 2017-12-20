@@ -1,14 +1,13 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.views import serve
 from django.views.generic import RedirectView, TemplateView
 
 from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
-from project.ajapaik.views import delete_comment, get_comment_like_count, get_comment_dislike_count
-from project.ajapaik.facebook import FacebookHandler
-from .api import PhotoUploadAPIView, RegisterAPIView, LoginAPIView
+from project.ajapaik import views
 
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
@@ -94,19 +93,21 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^choose-upload-action/$', 'photo_upload_choice', name='photo_upload_choice'),
    url(r'^user-upload/$', 'user_upload', name='user_upload'),
    url(r'^user-upload-add-album/$', 'user_upload_add_album', name='user_upload_add_album'),
+   url(r'^privacy/$', 'privacy', name='privacy'),
+   url(r'^terms/$', 'terms', name='terms'),
 )
 
 
 urlpatterns += patterns('project.ajapaik.api',
-    url(r'^api/v1/login/$', LoginAPIView.as_view()),
-    url(r'^api/v1/register/$', RegisterAPIView.as_view()),
+    url(r'^api/v1/login/$', 'api_login'),
+    url(r'^api/v1/register/$', 'api_register', name='api_register'),
     url(r'^api/v1/logout/$', 'api_logout'),
     url(r'^api/v1/albums/$', 'api_albums'),
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/$', 'api_album_thumb'),
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'api_album_thumb'),
     url(r'^api/v1/album/nearest/$', 'api_album_nearest'),
     url(r'^api/v1/album/state/$', 'api_album_state'),
-    url(r'^api/v1/photo/upload/$', PhotoUploadAPIView.as_view()),
+    url(r'^api/v1/photo/upload/$', 'api_photo_upload', name='api_photo_upload'),
     url(r'^api/v1/user/me/$', 'api_user_me'),
     url(r'^api/v1/photo/state/$', 'api_photo_state')
 )
@@ -116,10 +117,6 @@ urlpatterns += patterns('project.ajapaik.delfi',
     url(r'^delfi_api/v1/photo/$', 'photo_info'),
     url(r'^delfi-api/v1/photos-bbox/$', 'photos_bbox'),
     url(r'^delfi_api/v1/photos_bbox/$', 'photos_bbox'),
-)
-
-urlpatterns += patterns('project.ajapaik.merekultuur',
-    url(r'^merekultuur/v1/fotod/$', 'get_photos')
 )
 
 urlpatterns += patterns('project.ajapaik.bbox_api',
@@ -173,17 +170,19 @@ urlpatterns += patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
-    url(r'^comments/delete/(\d+)/$', delete_comment, name='comments-delete'),
-    url(r'^comments/like-count/(\d+)/$', get_comment_like_count, name='comments-like-count'),
-    url(r'^comments/dislike-count/(\d+)/$', get_comment_dislike_count, name='comments-dislike-count'),
+    url(r'^comments/for/(?P<photo_id>\d+)/$', views.CommentList.as_view(), name='comments-for-photo'),
+    url(r'^comments/post-one/(?P<photo_id>\d+)/$', login_required(views.PostComment.as_view()), name='comments-post-one'),
+    url(r'^comments/delete-one/$', login_required(views.DeleteComment.as_view()), name='comments-delete-one'),
+    url(r'^comments/edit-one/$', login_required(views.EditComment.as_view()), name='comments-edit-one'),
+    url(r'^comments/like-count/(?P<comment_id>\d+)/$', views.get_comment_like_count, name='comments-like-count'),
     url(r'^comments/', include('django_comments_xtd.urls')),
-    url(r'^facebook/(?P<stage>[a-z_]+)/', FacebookHandler.as_view(), name='facebook-login'),
+    url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
     url(r'^google-login', 'project.ajapaik.google_plus.google_login'),
     url(r'^oauth2callback', 'project.ajapaik.google_plus.auth_return'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'domain': 'djangojs', 'packages': ('project')}),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
-    url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom'), name='feed'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
+    url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom', permanent=True), name='feed'),
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+).xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 )

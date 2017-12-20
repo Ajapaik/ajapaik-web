@@ -34,8 +34,7 @@
                         title="{%=gettext('Image has rephotos')%}">
                     </div>
                 {% } %}
-                <span class="ajapaik-frontpage-comments-count {% if (o[8] == 0) { %}hidden{% } %}"
-                    title="{%=gettext('Comments')%}">
+                <span class="ajapaik-frontpage-comments-count {% if (!o[8] || o[8] == 0) { %}hidden{% } %}" title="{%=gettext('Comments')%}">
                 </span>
             </div>
             <div class="caption ajapaik-caption">{%=o[3]%}</div>
