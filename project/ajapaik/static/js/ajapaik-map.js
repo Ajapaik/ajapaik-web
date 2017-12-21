@@ -76,7 +76,6 @@
         },
         markers = [],
         markerIdToHighlightAfterPageLoad,
-        targetTopToScrollToAfterPaneLoad,
         updateBoundingEdge,
         temporalMapFilterTimeout,
         maxGalleryWidth = $(window).width() * 0.2,
@@ -569,15 +568,19 @@
             lastHighlightedMarker = markerTemp;
             markerTemp = undefined;
         }
-        var targetPos,
-            targetTop;
         if (fromMarker && targetPaneElement) {
-            targetPos = targetPaneElement.position();
-            if (targetPos) {
-                targetTop = targetPos.top;
-                targetTopToScrollToAfterPaneLoad = targetTop;
-                $('#ajapaik-mapview-photo-panel').find('.jsPanel-content').animate({scrollTop: targetTop}, 800);
-            }
+            var scrollElement = $('#ajapaik-mapview-photo-panel').find('.jsPanel-content');
+            var currentScrollValue = scrollElement.scrollTop();
+            var targetTop = targetPaneElement.position().top;
+            var targetHeight = targetPaneElement.height();
+
+            // Calculating scroll value to palce photo in middle of screen.
+            var scrollValue = currentScrollValue + (
+                targetPaneElement.position().top - (
+                    scrollElement.height() / 2 - targetPaneElement.height() / 2
+                )
+            );
+            scrollElement.animate({scrollTop: scrollValue}, 800);
             window._gaq.push(['_trackEvent', 'Map', 'Marker click']);
         }
         return false;
