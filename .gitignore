@@ -7,4 +7,3 @@ static-collected
 venv
 project/ajapaik/client_secrets.json
 .pycharm_helpers
-.env
