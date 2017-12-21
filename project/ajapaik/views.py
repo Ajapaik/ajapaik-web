@@ -2736,10 +2736,10 @@ class CommentList(View):
                     Photo, pk=photo_id)),
             }
         )
-        comment_count = len(flat_comment_list)
+        comments_count = len(flat_comment_list)
         return JsonResponse({
             'content': content,
-            'comment_count': comment_count,
+            'comments_count': comments_count,
         })
 
 

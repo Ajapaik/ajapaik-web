@@ -24,7 +24,7 @@ $(document).ready(function () {
             $('#ajapaik-comment-list .comment-text a').attr('target', '_blank');
         };
 
-        var _setup_commetn_count = function(count) {
+        var _setup_comment_count = function(count) {
             comments_count = $('#ajapaik-photo-modal-discuss span[class~="badge"]');
             if(comments_count) {
                 comments_count.html(count);
@@ -45,7 +45,7 @@ $(document).ready(function () {
                 $('[data-toggle=confirmation]').confirmation({
                     rootSelector: '[data-toggle=confirmation]',
                 });
-                _setup_commetn_count(response.comments_count);
+                _setup_comment_count(response.comments_count);
                 _setup_links_in_comments();
             }
         });
