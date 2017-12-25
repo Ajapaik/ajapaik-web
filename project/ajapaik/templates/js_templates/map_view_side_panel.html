@@ -1,0 +1,13 @@
+{% verbatim %}
+<script id="ajapaik-map-view-side-panel-template" type="text/x-tmpl">
+    <div id="ajapaik-photo-pane-content-container">
+        {% include('ajapaik-map-view-side-panel-element-template', o); %}
+    </div>
+    <div class="ajapaik-load-more">
+        <button data-action="load-more" data-bunch-loaded="1" class="btn btn-primary load-more" type="button">
+                {%=window.gettext('Load more')%}
+        </button>
+        <div class="ajapaik-spinner"></div>
+    </div>
+</script>
+{% endverbatim %}

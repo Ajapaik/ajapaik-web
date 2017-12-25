@@ -100,7 +100,10 @@
         centerOnMapAfterLocating = false,
         activateAlbumFilter,
         deactivateAlbumFilter,
-        select_random_values_from_list = function(list, count=1) {
+        random_list_values = function(list, count=1) {
+            if (!list) {
+                return list;
+            }
             if (count === 1) {
                 return list[Math.floor(Math.random() * list.length)];
             }
@@ -368,6 +371,8 @@
 
     window.toggleVisiblePaneElements = function () {
         if (window.map && !window.guessLocationStarted) {
+            $('#ajapaik-map-container .ajapaik-load-more button').hide();
+            $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
             window.dottedAzimuthLine.setVisible(false);
             if (!window.comingBackFromGuessLocation) {
                 window.deselectMarker();
@@ -420,7 +425,7 @@
                         var photos = response.photos;
                     }
                     else {
-                        var photos = select_random_values_from_list(response.photos, 1000);
+                        var photos = random_list_values(response.photos, 1000);
                     }
                     for (j = 0; j < photos.length; j++) {
                         var currentAzimuth,
@@ -507,6 +512,8 @@
 
     $('#ajapaik-map-container').on('click', 'button[data-action="load-more"]', function(event) {
         var current_bunch = $(event.target).data('bunch-loaded');
+        $('#ajapaik-map-container .ajapaik-load-more button').hide();
+        $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
         refreshPane(markerIdsWithinBounds.slice(current_bunch * 20, (current_bunch + 1) * 20))
         $(event.target).data('bunch-loaded', current_bunch + 1)
     });
@@ -518,6 +525,8 @@
         }
         var mapCenter = window.map.getCenter();
 
+        $('#ajapaik-map-container .ajapaik-load-more button').hide();
+        $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
         currentPaneDataRequest = $.post(
             window.paneContentsURL,
             {
@@ -530,20 +539,17 @@
                 if (!photoPanel) {
                     photoPanel = $.jsPanel(galleryPanelSettings);
                     photoPanel.content.append(
-                        '<div id="ajapaik-photo-pane-content-container"></div>'+
-                        '<button data-action="load-more" data-bunch-loaded="1" class="btn btn-primary load-more" style="width: 100%" type="button">'+
-                            window.gettext('Load more')+
-                        '</button>'
+                        tmpl('ajapaik-map-view-side-panel-template', response)
                     );
                 }
-                var targetDiv = $('#ajapaik-photo-pane-content-container');
-
-                var temp = [];
-                for (var i = 0; i < response.length; i++) {
-                    temp.push(tmpl('ajapaik-pane-element-template', response[i]));
+                else {
+                    var targetDiv = $('#ajapaik-photo-pane-content-container');
+                    targetDiv.append(
+                        tmpl('ajapaik-map-view-side-panel-element-template', response)
+                    );
                 }
-                targetDiv.append(temp.join('\n'));
-
+                $('#ajapaik-map-container .ajapaik-load-more button').show();
+                $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
                 // targetDiv.justifiedGallery(justifiedGallerySettings);
 
                 if (markerIdToHighlightAfterPageLoad) {
