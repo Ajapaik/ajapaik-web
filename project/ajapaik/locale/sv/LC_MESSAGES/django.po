@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Albin Larsson <albin.post@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-12 14:52+0200\n"
+"POT-Creation-Date: 2017-12-25 17:39+0200\n"
 "PO-Revision-Date: 2017-12-12 12:56+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
+"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: project/ajapaik/admin.py:120
@@ -109,7 +110,8 @@ msgid ""
 "Next come *rephotography* and *dating*.\n"
 "\n"
 "Links\n"
-"Join the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n"
+"Join the discussion on [Ajapaiklejad FB group](https://www.facebook.com/"
+"groups/ajapaiklejad).\n"
 "\n"
 "Images\n"
 "![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
@@ -343,12 +345,11 @@ msgstr ""
 
 #: project/ajapaik/templates/_donate_details.html:4
 msgid ""
-"Ajapaik is developed by the <a href='http://xn--fotoprand-"
-"z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society "
-"(MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, "
-"foundations and religious associations benefiting from income tax "
-"incentives. We declare your donations and You will get income tax refunds "
-"for that."
+"Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/"
+"mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti "
+"Fotopärand)</a> listed in the list of non-profit associations, foundations "
+"and religious associations benefiting from income tax incentives. We declare "
+"your donations and You will get income tax refunds for that."
 msgstr ""
 
 #: project/ajapaik/templates/_donate_details.html:5
@@ -577,7 +578,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                        Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
+"                        Ajapaik has <b>%(total_photo_count)s</b> historic "
+"pictures, out of which\n"
 "                    "
 msgstr ""
 
@@ -585,7 +587,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                        <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n"
+"                        <b>%(total_photos_tagged)s</b> pictures have been "
+"put on the map by\n"
 "                    "
 msgstr ""
 
@@ -609,7 +612,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                        <b>%(rephotographed_photo_count)s</b> pictures made by\n"
+"                        <b>%(rephotographed_photo_count)s</b> pictures made "
+"by\n"
 "                    "
 msgstr ""
 
@@ -625,11 +629,13 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                            You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n"
+"                            You have suggested location for <b>"
+"%(user_geotagged_photos)s</b> picture.\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n"
+"                            You have suggested locations for <b>"
+"%(user_geotagged_photos)s</b> pictures.\n"
 "                        "
 msgstr[0] ""
 msgstr[1] ""
@@ -638,11 +644,13 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "\n"
-"                            You have made <b>%(user_rephotos)s</b> rephoto for\n"
+"                            You have made <b>%(user_rephotos)s</b> rephoto "
+"for\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            You have made <b>%(user_rephotos)s</b> rephotos for\n"
+"                            You have made <b>%(user_rephotos)s</b> rephotos "
+"for\n"
 "                        "
 msgstr[0] ""
 msgstr[1] ""
@@ -689,7 +697,7 @@ msgstr "Tillbaka till startsidan"
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:209
-#: project/ajapaik/views.py:626
+#: project/ajapaik/views.py:627
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
@@ -699,7 +707,7 @@ msgid "Click to choose"
 msgstr ""
 
 #: project/ajapaik/templates/_header.html:27
-#: project/ajapaik/templates/_photo_modal.html:271
+#: project/ajapaik/templates/_photo_modal.html:273
 #: project/ajapaik/templates/photoview.html:155
 msgid "Album details"
 msgstr ""
@@ -821,6 +829,7 @@ msgid "Search!"
 msgstr "Sök!"
 
 #: project/ajapaik/templates/_header.html:268
+#: project/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
 msgstr "Hämta fler"
 
@@ -870,7 +879,9 @@ msgid "Submit selection to Ajapaik"
 msgstr ""
 
 #: project/ajapaik/templates/_header.html:364
-msgid "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support Ajapaik"
+msgid ""
+"<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support "
+"Ajapaik"
 msgstr ""
 
 #: project/ajapaik/templates/_info_modal_content.html:14
@@ -1023,7 +1034,7 @@ msgid "Some nearby albums"
 msgstr ""
 
 #: project/ajapaik/templates/_info_modal_content.html:113
-#: project/ajapaik/templates/_photo_modal.html:233
+#: project/ajapaik/templates/_photo_modal.html:235
 #: project/ajapaik/templates/photoview.html:117
 msgid "Share"
 msgstr ""
@@ -1097,43 +1108,43 @@ msgstr ""
 msgid "Show rephotographed by me"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:37
+#: project/ajapaik/templates/_photo_modal.html:38
 msgid "Flip photo"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:194
+#: project/ajapaik/templates/_photo_modal.html:196
 msgid "Unknown author"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:218
+#: project/ajapaik/templates/_photo_modal.html:220
 #: project/ajapaik/templates/game.html:61
 #: project/ajapaik/templates/photoview.html:104
 #: project/ajapaik/templates/photoview.html:187
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:221
+#: project/ajapaik/templates/_photo_modal.html:223
 #: project/ajapaik/templates/photoview.html:108
 msgid "Date this image"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:225
+#: project/ajapaik/templates/_photo_modal.html:227
 #: project/ajapaik/templates/photoview.html:112
 msgid "Add rephoto"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:228
+#: project/ajapaik/templates/_photo_modal.html:230
 msgid "Discuss"
 msgstr ""
 
-#: project/ajapaik/templates/_photo_modal.html:256
+#: project/ajapaik/templates/_photo_modal.html:258
 #: project/ajapaik/templates/photoview.html:143
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: project/ajapaik/templates/_photo_modal.html:275
+#: project/ajapaik/templates/_photo_modal.html:277
 #: project/ajapaik/templates/photoview.html:157
 msgid "Curator"
 msgstr ""
@@ -1155,8 +1166,8 @@ msgstr ""
 #: project/ajapaik/templates/_photo_upload_modal.html:34
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to"
-" you under the"
+"picture was taken and upload it. Uploaded rephotograph will be attributed to "
+"you under the"
 msgstr ""
 
 #: project/ajapaik/templates/_photo_upload_modal.html:35
@@ -1287,8 +1298,8 @@ msgstr ""
 #: project/ajapaik/templates/base_bootstrap.html:94
 #, python-format
 msgid ""
-"Album has %(album_photo_count)s historic pictures. Let's put pictures on the"
-" map!"
+"Album has %(album_photo_count)s historic pictures. Let's put pictures on the "
+"map!"
 msgstr ""
 
 #: project/ajapaik/templates/base_bootstrap.html:96
@@ -1344,7 +1355,8 @@ msgstr ""
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
-msgstr "Den här webbplatsen använder cookies för att ge dig den bästa upplevelsen"
+msgstr ""
+"Den här webbplatsen använder cookies för att ge dig den bästa upplevelsen"
 
 #: project/ajapaik/templates/base_bootstrap.html:473
 msgid "Got it!"
@@ -1944,11 +1956,10 @@ msgstr ""
 #: project/ajapaik/templates/user_upload.html:18
 #, python-format
 msgid ""
-"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the"
-" right to use this work under the <a "
-"href=\"https://creativecommons.org/licenses/by-sa/4.0/\" "
-"target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-"
-"BY-SA)</a>."
+"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the "
+"right to use this work under the <a href=\"https://creativecommons.org/"
+"licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution "
+"ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr ""
 
 #: project/ajapaik/templates/user_upload.html:26
@@ -2032,7 +2043,7 @@ msgstr ""
 msgid "Fixed tour"
 msgstr ""
 
-#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:421
+#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:422
 msgid "Non-authenticated user"
 msgstr ""
 
@@ -2044,33 +2055,33 @@ msgstr ""
 msgid "Added rephoto to Ajapaik"
 msgstr ""
 
-#: project/ajapaik/views.py:554
+#: project/ajapaik/views.py:555
 msgid "Geotagging game"
 msgstr ""
 
-#: project/ajapaik/views.py:622
+#: project/ajapaik/views.py:623
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr ""
 
-#: project/ajapaik/views.py:1052
+#: project/ajapaik/views.py:1053
 msgid "Cannot upload to these albums"
 msgstr ""
 
-#: project/ajapaik/views.py:1070
+#: project/ajapaik/views.py:1071
 msgid "Recuration successful"
 msgstr ""
 
-#: project/ajapaik/views.py:1072
+#: project/ajapaik/views.py:1073
 msgid "Problem with album selection"
 msgstr ""
 
-#: project/ajapaik/views.py:1074
+#: project/ajapaik/views.py:1075
 msgid "Faulty data submitted"
 msgstr ""
 
-#: project/ajapaik/views.py:1380 project/ajapaik/views.py:1387
-#: project/ajapaik/views.py:1389
+#: project/ajapaik/views.py:1381 project/ajapaik/views.py:1388
+#: project/ajapaik/views.py:1390
 msgid "Browse photos on map"
 msgstr ""
 

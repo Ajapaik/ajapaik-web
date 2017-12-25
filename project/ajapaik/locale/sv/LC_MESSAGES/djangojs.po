@@ -1,86 +1,87 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Albin Larsson <albin.post@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-12 14:58+0200\n"
+"POT-Creation-Date: 2017-12-25 17:40+0200\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
+"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: project/ajapaik/static/js/ajapaik-common.js:228
+#: project/ajapaik/static/js/ajapaik-common.js:230
 msgid "Go to my location"
 msgstr "Gå till min plats"
 
-#: project/ajapaik/static/js/ajapaik-common.js:264
+#: project/ajapaik/static/js/ajapaik-common.js:266
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
 msgid "Close"
 msgstr "Stäng"
 
-#: project/ajapaik/static/js/ajapaik-common.js:569
+#: project/ajapaik/static/js/ajapaik-common.js:557
 msgid "User denied the request for Geolocation."
 msgstr "Användaren avslog förfrågan om plats information."
 
-#: project/ajapaik/static/js/ajapaik-common.js:575
+#: project/ajapaik/static/js/ajapaik-common.js:563
 msgid "Location information is unavailable."
 msgstr "Plats information är inte tillgänglig."
 
-#: project/ajapaik/static/js/ajapaik-common.js:578
+#: project/ajapaik/static/js/ajapaik-common.js:566
 msgid "The request to get user location timed out."
 msgstr "Förfrågan om plats information tog för lång tid."
 
-#: project/ajapaik/static/js/ajapaik-common.js:581
+#: project/ajapaik/static/js/ajapaik-common.js:569
 msgid "An unknown error occurred."
 msgstr "Ett okänt fel inträffade"
 
-#: project/ajapaik/static/js/ajapaik-common.js:733
+#: project/ajapaik/static/js/ajapaik-common.js:721
 msgid "Pick the shooting location!"
 msgstr "Välj fotograferingsplatsen!"
 
-#: project/ajapaik/static/js/ajapaik-common.js:744
-#: project/ajapaik/static/js/ajapaik-common.js:795
+#: project/ajapaik/static/js/ajapaik-common.js:732
+#: project/ajapaik/static/js/ajapaik-common.js:783
 msgid "Geotagged by this many users"
 msgstr "Geotaggad av så här många användare"
 
-#: project/ajapaik/static/js/ajapaik-common.js:776
+#: project/ajapaik/static/js/ajapaik-common.js:764
 msgid "Confirm correct location"
 msgstr "Bekräfta nuvarande plats"
 
-#: project/ajapaik/static/js/ajapaik-common.js:787
+#: project/ajapaik/static/js/ajapaik-common.js:775
 msgid "Submit your own location"
 msgstr "Bidra med en egen plats"
 
-#: project/ajapaik/static/js/ajapaik-common.js:814
+#: project/ajapaik/static/js/ajapaik-common.js:802
 msgid "You"
 msgstr "Du"
 
-#: project/ajapaik/static/js/ajapaik-common.js:818
+#: project/ajapaik/static/js/ajapaik-common.js:806
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Anonym användare"
 
-#: project/ajapaik/static/js/ajapaik-common.js:820
+#: project/ajapaik/static/js/ajapaik-common.js:808
 msgid "Anonymous users"
 msgstr "Anonyma användare"
 
-#: project/ajapaik/static/js/ajapaik-common.js:881
+#: project/ajapaik/static/js/ajapaik-common.js:869
 msgid "Current location"
 msgstr "Nuvarande plats"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1149
-#: project/ajapaik/static/js/ajapaik-common.js:1194
+#: project/ajapaik/static/js/ajapaik-common.js:1137
+#: project/ajapaik/static/js/ajapaik-common.js:1182
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "Ej vald"
@@ -131,8 +132,10 @@ msgid "Server received invalid data."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:399
+#, fuzzy
+#| msgid "Confirm correct location"
 msgid "Confirm dating"
-msgstr ""
+msgstr "Bekräfta nuvarande plats"
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
@@ -317,8 +320,10 @@ msgid "Comments in album"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:36
+#, fuzzy
+#| msgid "Albums"
 msgid "Album details"
-msgstr ""
+msgstr "Album"
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:37
 msgid "Show pictures on map"
@@ -357,8 +362,10 @@ msgid "Most"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:122
+#, fuzzy
+#| msgid "Pictures closest to you"
 msgid "Pictures furthest from you"
-msgstr ""
+msgstr "Bilder närmast dig"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:124
 msgid "Pictures closest to you"
@@ -417,24 +424,32 @@ msgid "My favorites"
 msgstr "Mina favoriter"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:256
+#, fuzzy
+#| msgid "photos"
 msgid "My rephotos"
-msgstr ""
+msgstr "fotografier"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:258
 msgid "Rephotos by %(user)s"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:264
+#, fuzzy
+#| msgid "photos"
 msgid "All photos"
-msgstr ""
+msgstr "fotografier"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:325
+#, fuzzy
+#| msgid "Pictures closest to you"
 msgid "Picture set has no rephotos"
-msgstr ""
+msgstr "Bilder närmast dig"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:332
+#, fuzzy
+#| msgid "Pictures closest to you"
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "Bilder närmast dig"
 
 #: project/ajapaik/static/js/ajapaik-game.js:189
 msgid ""
@@ -447,8 +462,10 @@ msgid "You have seen all the pictures from this album."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
+#, fuzzy
+#| msgid "You're anonymous"
 msgid "You're anonymous."
-msgstr ""
+msgstr "Du är anonym"
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
 msgid " You can now log in with your e-mail."
@@ -520,8 +537,8 @@ msgstr ""
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
 msgid ""
-"Click on the map to lock the direction of the view or click yellow button to"
-" save only the location."
+"Click on the map to lock the direction of the view or click yellow button to "
+"save only the location."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
@@ -550,18 +567,20 @@ msgid ""
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1094
+#, fuzzy
+#| msgid "Points"
 msgid "Points awarded"
-msgstr ""
+msgstr "Poäng"
 
 #: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
 msgid "Vanalinnad"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-map.js:712
+#: project/ajapaik/static/js/ajapaik-map.js:794
 msgid "Remove album filter"
 msgstr ""
 
-#: project/ajapaik/static/js/ajapaik-map.js:718
+#: project/ajapaik/static/js/ajapaik-map.js:802
 msgid "Apply album filter"
 msgstr ""
 
