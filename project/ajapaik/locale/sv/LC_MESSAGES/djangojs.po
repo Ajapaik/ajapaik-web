@@ -1,7 +1,8 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
+# Translators:
 # Translators:
 # Albin Larsson <albin.post@gmail.com>, 2017
 msgid ""
@@ -11,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2017-12-25 17:40+0200\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
-"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
@@ -132,10 +132,8 @@ msgid "Server received invalid data."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:399
-#, fuzzy
-#| msgid "Confirm correct location"
 msgid "Confirm dating"
-msgstr "Bekräfta nuvarande plats"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
@@ -320,10 +318,8 @@ msgid "Comments in album"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:36
-#, fuzzy
-#| msgid "Albums"
 msgid "Album details"
-msgstr "Album"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:37
 msgid "Show pictures on map"
@@ -362,10 +358,8 @@ msgid "Most"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:122
-#, fuzzy
-#| msgid "Pictures closest to you"
 msgid "Pictures furthest from you"
-msgstr "Bilder närmast dig"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:124
 msgid "Pictures closest to you"
@@ -424,32 +418,24 @@ msgid "My favorites"
 msgstr "Mina favoriter"
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:256
-#, fuzzy
-#| msgid "photos"
 msgid "My rephotos"
-msgstr "fotografier"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:258
 msgid "Rephotos by %(user)s"
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:264
-#, fuzzy
-#| msgid "photos"
 msgid "All photos"
-msgstr "fotografier"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:325
-#, fuzzy
-#| msgid "Pictures closest to you"
 msgid "Picture set has no rephotos"
-msgstr "Bilder närmast dig"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-frontpage.js:332
-#, fuzzy
-#| msgid "Pictures closest to you"
 msgid "Picture set has no comments"
-msgstr "Bilder närmast dig"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-game.js:189
 msgid ""
@@ -462,10 +448,8 @@ msgid "You have seen all the pictures from this album."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
-#, fuzzy
-#| msgid "You're anonymous"
 msgid "You're anonymous."
-msgstr "Du är anonym"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
 msgid " You can now log in with your e-mail."
@@ -537,8 +521,8 @@ msgstr ""
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
 msgid ""
-"Click on the map to lock the direction of the view or click yellow button to "
-"save only the location."
+"Click on the map to lock the direction of the view or click yellow button to"
+" save only the location."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
@@ -567,10 +551,8 @@ msgid ""
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1094
-#, fuzzy
-#| msgid "Points"
 msgid "Points awarded"
-msgstr "Poäng"
+msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
 msgid "Vanalinnad"
