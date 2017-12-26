@@ -1,10 +1,11 @@
 # encoding: utf-8
 import datetime
-import json as json
+import json
 import operator
 import shutil
 import unicodedata
 import urllib2
+import logging
 from StringIO import StringIO
 from copy import deepcopy
 from math import ceil
@@ -70,6 +71,8 @@ from project.utils import calculate_thumbnail_size, convert_to_degrees, calculat
 
 from .utils import get_comment_replies
 
+
+log = logging.getLogger(__name__)
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
