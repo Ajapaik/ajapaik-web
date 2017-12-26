@@ -928,9 +928,6 @@ var map,
         $('#ajapaik-header-profile-button').click();
     });
 
-    $(document).on('click', '#ajapaik-feedback-link', function () {
-        _gaq.push(['_trackEvent', 'General', 'Feedback link click']);
-    });
     $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function () {
         var targetId = $(this).data('id'),
             infoDiv = $('#ajapaik-photo-modal-rephoto-info-column'),
