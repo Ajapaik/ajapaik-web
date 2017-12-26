@@ -270,7 +270,7 @@ LOGGING = {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'backupCount': 30,
             'when': 'midnight',
-            'filename': '/var/log/ajapaik.ee.log',
+            'filename': '/var/log/ajapaik/production/ajapaik.ee.log',
             'formatter': 'simple',
         },
     },
