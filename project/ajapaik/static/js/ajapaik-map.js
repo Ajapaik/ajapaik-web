@@ -515,11 +515,11 @@
         $('#ajapaik-map-container .ajapaik-load-more button').hide();
         $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
         refreshPane(markerIdsWithinBounds.slice(current_bunch * 20, (current_bunch + 1) * 20))
-        $(event.target).data('bunch-loaded', current_bunch + 1)
+        $(event.target).data('bunch-loaded', ++current_bunch)
     });
 
 
-    refreshPane = function (markerIdsWithinBounds) {
+    refreshPane = function (photo_ids) {
         if (currentPaneDataRequest) {
             currentPaneDataRequest.abort();
         }
@@ -530,7 +530,7 @@
         currentPaneDataRequest = $.post(
             window.paneContentsURL,
             {
-                marker_ids: markerIdsWithinBounds,
+                marker_ids: photo_ids,
                 center_lat: mapCenter.lat(),
                 center_lon: mapCenter.lng(),
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken')
@@ -548,8 +548,15 @@
                         tmpl('ajapaik-map-view-side-panel-element-template', response)
                     );
                 }
-                $('#ajapaik-map-container .ajapaik-load-more button').show();
-                $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
+                var loaded_photos_count = $('#ajapaik-photo-pane-content-container .ajapaik-mapview-pane-photo-container').length;
+                if(loaded_photos_count >= markerIdsWithinBounds.length) {
+                    $('#ajapaik-map-container .ajapaik-load-more button').hide();
+                    $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
+                }
+                else {
+                    $('#ajapaik-map-container .ajapaik-load-more button').show();
+                    $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
+                }
                 // targetDiv.justifiedGallery(justifiedGallerySettings);
 
                 if (markerIdToHighlightAfterPageLoad) {
