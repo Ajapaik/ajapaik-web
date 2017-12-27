@@ -224,7 +224,9 @@ var map,
 
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
-            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button')
+            $(myLocationButton)
+                .addClass('btn btn-default btn-xs')
+                .prop('id', 'ajapaik-mapview-my-location-button')
                 .prop('title', gettext('Go to my location'))
                 .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
@@ -273,25 +275,11 @@ var map,
                 map.setZoom(16);
             });
 
-            google.maps.event.addListener(map, 'bounds_changed', function () {
-                if (!firstResizeDone) {
-                    google.maps.event.trigger(map, 'resize');
-                    firstResizeDone = true;
-                }
-                if (!firstPaneDone) {
-                    var bounds = map.getBounds();
-                    searchBox.setBounds(bounds);
-                    window.toggleVisiblePaneElements();
-                    firstPaneDone = true;
-                }
-                if (typeof window.toggleVisiblePaneElements === 'function') {
-                    if (mapDataTimeout) {
-                        clearTimeout(mapDataTimeout);
-                    }
-                    mapDataTimeout = setTimeout(function () {
-                        window.toggleVisiblePaneElements();
-                    }, 1000);
-                }
+            google.maps.event.addListener(map, 'idle', function () {
+                google.maps.event.trigger(map, 'resize');
+                var bounds = map.getBounds();
+                searchBox.setBounds(bounds);
+                window.toggleVisiblePaneElements();
             });
         }
 
@@ -940,9 +928,6 @@ var map,
         $('#ajapaik-header-profile-button').click();
     });
 
-    $(document).on('click', '#ajapaik-feedback-link', function () {
-        _gaq.push(['_trackEvent', 'General', 'Feedback link click']);
-    });
     $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function () {
         var targetId = $(this).data('id'),
             infoDiv = $('#ajapaik-photo-modal-rephoto-info-column'),

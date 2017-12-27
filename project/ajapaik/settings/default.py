@@ -255,3 +255,35 @@ COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s[%(asctime)s - %(module)s]: %(message)s',
+        },
+    },
+    'handlers': {
+        'time_rotating_handler': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'backupCount': 30,
+            'when': 'midnight',
+            'filename': '/var/log/ajapaik/production/ajapaik.ee.log',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'project.ajapaik': {
+            'handlers': ['time_rotating_handler'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['time_rotating_handler'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    }
+}

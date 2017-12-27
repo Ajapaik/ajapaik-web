@@ -2314,7 +2314,7 @@ a[href^="https://maps.google.com/maps"] {
     z-index: 2000;
 }
 
-#ajapaik-spinner {
+.ajapaik-spinner {
     height: 28px;
     width: 28px;
     animation: rotate 0.8s infinite linear;
@@ -2465,7 +2465,6 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 #ajapaik-photo-pane-content-container {
-    margin-bottom: 50px;
     min-width: 20%;
 }
 
@@ -2857,7 +2856,7 @@ input[type="search"]::-webkit-search-cancel-button {
     height: 33px;
 }
 
-.comment-box textarea{
+.comment-box textarea {
     display: block;
     width: 100%;
     resize: vertical;
@@ -2866,4 +2865,17 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .badge {
     background-color: black;
+}
+
+.ajapaik-load-more {
+    margin: 10px 0 10px 0;
+}
+
+.ajapaik-load-more button {
+    width: 100%;
+}
+
+#ajapaik-frontpage-container {
+    /* 130 = height of top menu + height of footer (50 + 80) */
+    min-height: calc(100vh - 130px);
 }

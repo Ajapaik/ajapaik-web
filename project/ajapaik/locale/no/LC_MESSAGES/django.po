@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
 # Håvard Johansen <havardgj@gmail.com>, 2016
 # Vahur Puik <vahur@ajapaik.ee>, 2016
 # Vemund Olstad <vemund.olstad@gmail.com>, 2016
@@ -10,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-12 14:52+0200\n"
-"PO-Revision-Date: 2017-12-12 12:56+0000\n"
+"POT-Creation-Date: 2017-12-25 17:39+0200\n"
+"PO-Revision-Date: 2017-12-25 15:46+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "MIME-Version: 1.0\n"
@@ -691,7 +692,7 @@ msgstr "Tilbake til hjemmeside"
 #: project/ajapaik/templates/base_bootstrap.html:8
 #: project/ajapaik/templates/base_bootstrap.html:10
 #: project/ajapaik/templates/base_bootstrap.html:209
-#: project/ajapaik/views.py:626
+#: project/ajapaik/views.py:627
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
@@ -701,7 +702,7 @@ msgid "Click to choose"
 msgstr ""
 
 #: project/ajapaik/templates/_header.html:27
-#: project/ajapaik/templates/_photo_modal.html:271
+#: project/ajapaik/templates/_photo_modal.html:273
 #: project/ajapaik/templates/photoview.html:155
 msgid "Album details"
 msgstr "Albumdetaljer"
@@ -823,6 +824,7 @@ msgid "Search!"
 msgstr "Søk!"
 
 #: project/ajapaik/templates/_header.html:268
+#: project/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
 msgstr "Last flere"
 
@@ -1025,7 +1027,7 @@ msgid "Some nearby albums"
 msgstr "Noen nærliggende album"
 
 #: project/ajapaik/templates/_info_modal_content.html:113
-#: project/ajapaik/templates/_photo_modal.html:233
+#: project/ajapaik/templates/_photo_modal.html:235
 #: project/ajapaik/templates/photoview.html:117
 msgid "Share"
 msgstr "Del"
@@ -1099,43 +1101,43 @@ msgstr "Logg inn"
 msgid "Show rephotographed by me"
 msgstr "Vis bilder refotografert av meg"
 
-#: project/ajapaik/templates/_photo_modal.html:37
+#: project/ajapaik/templates/_photo_modal.html:38
 msgid "Flip photo"
 msgstr "Vend foto"
 
-#: project/ajapaik/templates/_photo_modal.html:194
+#: project/ajapaik/templates/_photo_modal.html:196
 msgid "Unknown author"
 msgstr "Ukjent opphavsperson"
 
-#: project/ajapaik/templates/_photo_modal.html:218
+#: project/ajapaik/templates/_photo_modal.html:220
 #: project/ajapaik/templates/game.html:61
 #: project/ajapaik/templates/photoview.html:104
 #: project/ajapaik/templates/photoview.html:187
 msgid "Pick the shooting location!"
 msgstr "Velg punkt for fotografering"
 
-#: project/ajapaik/templates/_photo_modal.html:221
+#: project/ajapaik/templates/_photo_modal.html:223
 #: project/ajapaik/templates/photoview.html:108
 msgid "Date this image"
 msgstr "Dater dette bildet"
 
-#: project/ajapaik/templates/_photo_modal.html:225
+#: project/ajapaik/templates/_photo_modal.html:227
 #: project/ajapaik/templates/photoview.html:112
 msgid "Add rephoto"
 msgstr "Legg til refoto"
 
-#: project/ajapaik/templates/_photo_modal.html:228
+#: project/ajapaik/templates/_photo_modal.html:230
 msgid "Discuss"
 msgstr "Diskuter"
 
-#: project/ajapaik/templates/_photo_modal.html:256
+#: project/ajapaik/templates/_photo_modal.html:258
 #: project/ajapaik/templates/photoview.html:143
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Bilde hører til album"
 msgstr[1] "Bilder hører til album"
 
-#: project/ajapaik/templates/_photo_modal.html:275
+#: project/ajapaik/templates/_photo_modal.html:277
 #: project/ajapaik/templates/photoview.html:157
 msgid "Curator"
 msgstr "Kurator"
@@ -2034,7 +2036,7 @@ msgstr "Medlemmer"
 msgid "Fixed tour"
 msgstr "Låst tur"
 
-#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:421
+#: project/ajapaik/then_and_now_tours.py:581 project/ajapaik/views.py:422
 msgid "Non-authenticated user"
 msgstr ""
 
@@ -2046,33 +2048,33 @@ msgstr "Kunne ikke legge refoto til Ajapaik"
 msgid "Added rephoto to Ajapaik"
 msgstr "La til refoto til Ajapaik"
 
-#: project/ajapaik/views.py:554
+#: project/ajapaik/views.py:555
 msgid "Geotagging game"
 msgstr "Geotaggingsspill"
 
-#: project/ajapaik/views.py:622
+#: project/ajapaik/views.py:623
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr ""
 
-#: project/ajapaik/views.py:1052
+#: project/ajapaik/views.py:1053
 msgid "Cannot upload to these albums"
 msgstr ""
 
-#: project/ajapaik/views.py:1070
+#: project/ajapaik/views.py:1071
 msgid "Recuration successful"
 msgstr "Nytt utvalg vellykket"
 
-#: project/ajapaik/views.py:1072
+#: project/ajapaik/views.py:1073
 msgid "Problem with album selection"
 msgstr "Problemer med albumvalg"
 
-#: project/ajapaik/views.py:1074
+#: project/ajapaik/views.py:1075
 msgid "Faulty data submitted"
 msgstr "Feilaktige data lagt til"
 
-#: project/ajapaik/views.py:1380 project/ajapaik/views.py:1387
-#: project/ajapaik/views.py:1389
+#: project/ajapaik/views.py:1381 project/ajapaik/views.py:1388
+#: project/ajapaik/views.py:1390
 msgid "Browse photos on map"
 msgstr "Bla i foto på kart"
 

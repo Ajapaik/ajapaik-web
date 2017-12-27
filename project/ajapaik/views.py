@@ -1,10 +1,11 @@
 # encoding: utf-8
 import datetime
-import json as json
+import json
 import operator
 import shutil
 import unicodedata
 import urllib2
+import logging
 from StringIO import StringIO
 from copy import deepcopy
 from math import ceil
@@ -60,7 +61,8 @@ from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
     Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
-    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, VideoSerializer
+    CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
+    VideoSerializer, PhotoMapMarkerSerializer
 from project.ajapaik.settings import DATING_POINTS, DATING_CONFIRMATION_POINTS, \
     CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
@@ -69,6 +71,8 @@ from project.utils import calculate_thumbnail_size, convert_to_degrees, calculat
 
 from .utils import get_comment_replies
 
+
+log = logging.getLogger(__name__)
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -1424,18 +1428,17 @@ def map_objects_by_bounding_box(request):
             # if dating_end:
             # qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
 
-        qs = qs.values_list('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
+        # qs = qs.order_by('?')[:1000]
 
-        photos = []
-        # TODO: Normal serialization
-        for p in qs:
-            photos.append([p[0], p[1], p[2], p[3], p[4]])
-
-        data = {'photos': photos}
+        data = {
+            'photos': PhotoMapMarkerSerializer(qs, many=True).data
+        }
     else:
-        data = {'photos': []}
+        data = {
+            'photos': []
+        }
 
-    return HttpResponse(json.dumps(data), content_type='application/json')
+    return JsonResponse(data)
 
 
 def geotag_add(request):
@@ -2736,10 +2739,10 @@ class CommentList(View):
                     Photo, pk=photo_id)),
             }
         )
-        comment_count = len(flat_comment_list)
+        comments_count = len(flat_comment_list)
         return JsonResponse({
             'content': content,
-            'comment_count': comment_count,
+            'comments_count': comments_count,
         })
 
 

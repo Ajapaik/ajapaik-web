@@ -257,7 +257,7 @@
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div id="ajapaik-loading-overlay">
-    <div id="ajapaik-spinner"></div>
+    <div class="ajapaik-spinner"></div>
 </div>
 <div id="fb-root"></div>
 <form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
@@ -278,13 +278,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% endblock header %}
 {% block layout %}{% endblock layout %}
 {% get_current_language as LANGUAGE_CODE %}
-{% if LANGUAGE_CODE == 'et' and not request.mobile %}
-    {% block feedback %}
-        <div id="ajapaik-feedback-div" class="hidden-xs">
-            <a id="ajapaik-feedback-link" href="https://goo.gl/1ZHEUy" target="_blank">{% trans "feedback" %}</a>
-        </div>
-    {% endblock %}
-{% endif %}
 {% if is_frontpage or is_order or is_photoview or is_newsletter and not newsletter %}
     <footer class="footer text-center">
         <div class="container-fluid">

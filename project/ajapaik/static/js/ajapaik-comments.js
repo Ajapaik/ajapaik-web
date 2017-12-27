@@ -8,6 +8,7 @@ $(document).ready(function () {
         $('#id_comment').focus();
     });
 
+
     // Disable hotkeys when typing message.
     $('#ajapaik-comments-container').on('focus', 'textarea', function() {
         window.hotkeysActive = false;
@@ -16,8 +17,26 @@ $(document).ready(function () {
         window.hotkeysActive = true;
     });
 
+
     // Ferching comment list when page is loaded and when new comment posted.
-    window.fetchComments = function() {
+    var fetchComments = function() {
+        var _setup_links_in_comments = function() {
+            $('#ajapaik-comment-list .comment-text a').attr('target', '_blank');
+        };
+
+        var _setup_comment_count = function(count) {
+            comments_count = $('#ajapaik-photo-modal-discuss span[class~="badge"]');
+            if(comments_count) {
+                comments_count.html(count);
+                if(count === 0) {
+                    comments_count.addClass('hidden');
+                }
+                else {
+                    comments_count.removeClass('hidden');
+                }
+            }
+        };
+
         $.ajax({
             type: 'GET',
             url: '/comments/for/' + photo_id + '/',
@@ -26,25 +45,15 @@ $(document).ready(function () {
                 $('[data-toggle=confirmation]').confirmation({
                     rootSelector: '[data-toggle=confirmation]',
                 });
-                comments_count = $(
-                    '#ajapaik-photo-modal-discuss span[class~="badge"]'
-                );
-                if(comments_count) {
-                    comments_count.html(response.comment_count);
-                    if(response.comment_count === 0) {
-                        comments_count.addClass('hidden');
-                    }
-                    else {
-                        comments_count.removeClass('hidden');
-                    }
-                }
+                _setup_comment_count(response.comments_count);
+                _setup_links_in_comments();
             }
         });
     };
-    window.fetchComments();
+    fetchComments();
 
 
-    window.post_comment = function(form) {
+    var post_comment = function(form) {
         $.ajax({
             type: 'POST',
             url: '/comments/post-one/' + photo_id + '/',
@@ -61,16 +70,19 @@ $(document).ready(function () {
                     error_div.addClass('hidden');
                     comment_textarea.val('');
                 }
-                window.fetchComments();
+                fetchComments();
             }
         });
     };
+
+
     // Post new commetn (send button pressed).
     $('#ajapaik-comment-form').submit(function(event) {
         var form = $('#ajapaik-comment-form');
-        window.post_comment(form);
+        post_comment(form);
         event.preventDefault();
     });
+
 
     // Delete comment (delete link perssed).
     $("#ajapaik-comment-list").on('click', 'h6[class="media-heading"]', function(event) {
@@ -85,12 +97,13 @@ $(document).ready(function () {
                     comment_id: comment_id
                 },
                 success: function(responce) {
-                    window.fetchComments();
+                    fetchComments();
                 }
             });
             event.preventDefault();
         }
     });
+
 
     // Show reply form (reply link pressed).
     $('#ajapaik-comment-list').on('click', 'a[data-action="reply"]', function(event) {
@@ -105,19 +118,22 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+
     // Exit reply form (cancel button pressed).
     $('#ajapaik-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
         var all_reply_form_divs = $('#ajapaik-comment-list div[class*="comment-reply-form-"]');
         all_reply_form_divs.addClass('hidden');
     });
 
+
     // Post reply for comment (reply button pressed).
     $('#ajapaik-comment-list').on('click', 'button[data-action="reply"]', function(event) {
         var comment_id = $(event.target).data('comment-id');
         var form = $('#ajapaik-comment-list div[class~="comment-reply-form-' + comment_id + '"]').find('form');
-        window.post_comment(form);
+        post_comment(form);
         event.preventDefault();
     });
+
 
     // Show edit form (edit link pressed).
     $('#ajapaik-comment-list').on('click', 'a[data-action="edit"]', function(event) {
@@ -138,6 +154,7 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+
     // Exit edit form (cancel button pressed).
     $('#ajapaik-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
         var comment_id = $(event.target).data('comment-id');
@@ -147,6 +164,7 @@ $(document).ready(function () {
         comment_container.removeClass('hidden');
         all_edit_form_divs.addClass('hidden');
     });
+
 
     // Update comment (edit button pressed).
     $('#ajapaik-comment-list').on('click', 'button[data-action="edit"]', function(event) {
@@ -158,7 +176,7 @@ $(document).ready(function () {
             data: form.serialize(),
             success: function (response) {
                 console.log(response);
-                window.fetchComments();
+                fetchComments();
             }
         });
         event.preventDefault();
